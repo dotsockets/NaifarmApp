@@ -18,6 +18,7 @@
     </option>
   </component>
   <component name="ProjectId" id="1jXHI3lYJ5I5cWi3Cr5v1xuGzD4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
@@ -41,12 +42,24 @@
     </configuration>
     <configuration name="naifarm-development" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="buildFlavor" value="development" />
-      <option name="filePath" value="$PROJECT_DIR$/lib/main-development.dart" />
+      <option name="filePath" value="$PROJECT_DIR$/lib/config/Main_development.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="naifarm-production" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="buildFlavor" value="production" />
+      <option name="filePath" value="$PROJECT_DIR$/lib/config/Main_production.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="naifarm-staging" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="buildFlavor" value="staging" />
+      <option name="filePath" value="$PROJECT_DIR$/lib/config/Main_staging.dart" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Flutter.main.dart" />
       <item itemvalue="Flutter.naifarm-development" />
+      <item itemvalue="Flutter.naifarm-staging" />
+      <item itemvalue="Flutter.naifarm-production" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -63,38 +76,42 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603944244964">
+    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603954843574">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603944244964" />
+    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603954843574" />
     <state x="537" y="334" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603943764087">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="537" y="334" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603943764087" />
-    <state x="577" y="322" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1603944158751">
+    <state x="577" y="322" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1603953540910">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="577" y="322" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603944158751" />
+    <state x="577" y="322" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603953540910" />
     <state x="100" y="83" width="1480" height="914" key="AVDManager" timestamp="1603946599906">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="100" y="83" width="1480" height="914" key="AVDManager/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603946599906" />
     <state x="100" y="100" width="1480" height="850" key="AVDManager/0.23.1680.977/1680.23.1920.1057@0.23.1680.977" timestamp="1603946281694" />
-    <state width="1638" height="295" key="GridCell.Tab.0.bottom" timestamp="1603946395592">
+    <state width="1638" height="295" key="GridCell.Tab.0.bottom" timestamp="1603955365785">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1638" height="295" key="GridCell.Tab.0.bottom/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603946395592" />
-    <state width="1638" height="295" key="GridCell.Tab.0.center" timestamp="1603946395590">
+    <state width="1638" height="295" key="GridCell.Tab.0.bottom/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603955365785" />
+    <state width="1638" height="295" key="GridCell.Tab.0.center" timestamp="1603955365783">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1638" height="295" key="GridCell.Tab.0.center/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603946395590" />
-    <state width="1638" height="295" key="GridCell.Tab.0.left" timestamp="1603946395586">
+    <state width="1638" height="295" key="GridCell.Tab.0.center/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603955365783" />
+    <state width="1638" height="295" key="GridCell.Tab.0.left" timestamp="1603955365781">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1638" height="295" key="GridCell.Tab.0.left/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603946395586" />
-    <state width="1638" height="295" key="GridCell.Tab.0.right" timestamp="1603946395591">
+    <state width="1638" height="295" key="GridCell.Tab.0.left/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603955365781" />
+    <state width="1638" height="295" key="GridCell.Tab.0.right" timestamp="1603955365784">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1638" height="295" key="GridCell.Tab.0.right/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603946395591" />
+    <state width="1638" height="295" key="GridCell.Tab.0.right/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603955365784" />
+    <state x="532" y="251" width="615" height="548" key="find.popup" timestamp="1603952069305">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="532" y="251" width="615" height="548" key="find.popup/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603952069305" />
   </component>
 </project>

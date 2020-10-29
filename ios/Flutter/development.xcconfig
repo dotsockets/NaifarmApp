@@ -1,0 +1,8 @@
+#include "Generated.xcconfig"
+
+
+FLUTTER_TARGET=lib/config/Main_development.dart
+ASSET_PREFIX=dev
+BUNDLE_NAME=Naifarm-dev
+APP_SUFFIX=com.dotsocket.naifarm.dev
+
