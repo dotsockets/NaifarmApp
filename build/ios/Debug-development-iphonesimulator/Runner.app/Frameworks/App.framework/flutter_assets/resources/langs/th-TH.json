@@ -1,0 +1,15 @@
+{
+	"startup": {
+		"When_are_you":"When are you",
+		"planning_visit":"planning to visit",
+		"check_in": "Check-in",
+		"check_out": "Check-out",
+		"guests": "Guests",
+		"room": "Room",
+		"adults": "Adults",
+		"children": "Children",
+		"search": "ค้นหา"
+	}
+
+
+}
