@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+class MenuModel {
+  final String icon;
+  final String iconSelected;
+  final String label;
+  final Widget widget;
+
+  MenuModel({
+    this.label,
+    this.icon,
+    this.iconSelected,
+    this.widget
+  });
+}

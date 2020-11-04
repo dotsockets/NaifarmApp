@@ -2,6 +2,7 @@
 import 'package:naifarm/app/model/core/AppBookingApplication.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/splash/SplashView.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/log/Log.dart';
@@ -63,7 +64,7 @@ class AppComponentState extends State<AppComponent> {
       darkTheme: ThemeData(
           primarySwatch: ThemeColor.primarySwatch(context),snackBarTheme: ThemeColor.SnackBarThemeColor(context), brightness: Brightness.dark
       ),
-      home: SplashView(),
+      home: HomeView(),
       navigatorObservers: [routeObserver],
     );
 

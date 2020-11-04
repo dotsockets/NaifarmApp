@@ -40,11 +40,11 @@ class FunctionHelper{
 
      scaffoldKey.currentState.showSnackBar(
         SnackBar(
-            content: Text(message,style: GoogleFonts.kanit(fontWeight: FontWeight.bold,color: ThemeColor.primaryColor(context))),
-            duration: Duration(seconds: 2),
+            content: Text(message,style: GoogleFonts.kanit(fontWeight: FontWeight.bold,color: Colors.amber)),
+            duration: Duration(seconds: 10),
             action: SnackBarAction(
-              textColor: ThemeColor.primaryColor(context),
-              label: LocaleKeys.payment_ok.tr(),
+              textColor: Colors.amber,
+              label: "Ok",
               onPressed: () {
                 onPressed();
                // scaffoldKey.currentState.hideCurrentSnackBar();

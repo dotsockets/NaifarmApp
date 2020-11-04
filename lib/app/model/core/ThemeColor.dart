@@ -6,18 +6,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ThemeColor{
 
-  static Color secondaryColor(BuildContext context){
-    return Color(ColorUtils.hexToInt('#D65653'));
+  static Color secondaryColor(){
+    return Color(ColorUtils.hexToInt("#214614"));
   }
 
 
-  static Color ButtonColor(BuildContext context){
-    return Color(ColorUtils.hexToInt('#FFFFFF'));
+  static Color ColorSale(){
+    return Color(ColorUtils.hexToInt('#e94b35'));
   }
 
-  static Color primaryColor(BuildContext context){
+  static Color primaryColor(){
 
-    return MediaQuery.of(context).platformBrightness==Brightness.dark?Colors.black.withOpacity(1):Colors.white;
+    return Color(ColorUtils.hexToInt("#79af66"));
   }
 
   static Color fontprimaryColor(BuildContext context){

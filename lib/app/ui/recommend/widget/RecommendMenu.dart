@@ -1,0 +1,59 @@
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/models/MenuModel.dart';
+import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
+
+class RecommendMenu extends StatelessWidget {
+
+  final List<MenuModel> _menuViewModel = MenuViewModel().getRecommendmenu();
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.only(top: 25),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: _menuViewModel.asMap().map((key, value){
+              return MapEntry(key, _menuBox(item: value,index: key));
+            }).values.toList(),
+          ),
+      ),
+    );
+  }
+
+  Widget _menuBox({MenuModel item,int index}){
+    return Column(
+      children: [
+        Stack(
+          children: [
+            Container(
+              padding: EdgeInsets.all(3),
+              child: SvgPicture.asset(item.icon,width: 60,height: 60,),
+            ),
+            index==3?Positioned(
+              right: 0,
+              top: 0,
+              child: Container(
+                padding: EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                  color: ThemeColor.ColorSale(),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                constraints: BoxConstraints(
+                  minWidth: 15,
+                  minHeight: 15,
+                ),
+              ),
+            ):SizedBox()
+          ],
+        ),
+        SizedBox(height: 10),
+        Text(item.label,style: GoogleFonts.sarabun(fontWeight: FontWeight.bold))
+      ],
+    );
+  }
+}

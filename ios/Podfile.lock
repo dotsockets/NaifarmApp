@@ -1,4 +1,6 @@
 PODS:
+  - countdown_flutter (0.0.1):
+    - Flutter
   - FBSDKCoreKit (5.15.1):
     - FBSDKCoreKit/Basics (= 5.15.1)
     - FBSDKCoreKit/Core (= 5.15.1)
@@ -26,6 +28,7 @@ PODS:
     - FMDB (>= 2.7.5)
 
 DEPENDENCIES:
+  - countdown_flutter (from `.symlinks/plugins/countdown_flutter/ios`)
   - Flutter (from `Flutter`)
   - flutter_facebook_login (from `.symlinks/plugins/flutter_facebook_login/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -39,6 +42,8 @@ SPEC REPOS:
     - FMDB
 
 EXTERNAL SOURCES:
+  countdown_flutter:
+    :path: ".symlinks/plugins/countdown_flutter/ios"
   Flutter:
     :path: Flutter
   flutter_facebook_login:
@@ -51,6 +56,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/ios"
 
 SPEC CHECKSUMS:
+  countdown_flutter: 423a4cc24614ccb078c2ce4ac6739b1d85cbe98b
   FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
   FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec

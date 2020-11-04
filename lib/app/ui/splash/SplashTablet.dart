@@ -40,7 +40,7 @@ class _SplashTabletState extends State<SplashTablet>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeColor.primaryColor(context),
+      backgroundColor: ThemeColor.primaryColor(),
       body:SafeArea(
         child: Container(
           child: Stack(
