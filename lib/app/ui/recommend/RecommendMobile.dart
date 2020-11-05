@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/recommend/widget/CategoryTab.dart';
@@ -48,6 +49,7 @@ class _RecommendMobileState extends State<RecommendMobile> {
     _dxMax = widget.size.width - 100;
     _dyMax = widget.size.height - (160 + widget.paddingBottom);
     super.initState();
+   // AppRoute.home(context);
   }
 
   @override
