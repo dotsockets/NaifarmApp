@@ -101,7 +101,7 @@ class _RecommendMobileState extends State<RecommendMobile> {
           child: StickyHeader(
             header:  Column(
               children: [
-                AppToobar(),
+                AppToobar(header_type:  Header_Type.barHasSearch,),
                 CategoryMenu(selectedIndex: _categoryselectedIndex,menuViewModel: _menuViewModel,onTap: (int val){
                   setState(() {
                     _categoryselectedIndex = val;

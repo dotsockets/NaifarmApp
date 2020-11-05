@@ -3,9 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 
+enum Header_Type {
+  barHasSearch,
+  barNoSearch
+}
+
 class AppToobar extends StatelessWidget {
+ final Header_Type header_type;
+ final  String Title;
+
+  const AppToobar({Key key, this.header_type, this.Title}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    if(header_type==Header_Type.barHasSearch){
+        return HasSearch();
+    }else if(header_type==Header_Type.barNoSearch){
+        return BarNoSearch();
+    }
+  }
+
+  Widget BarNoSearch(){
+    return AppBar(
+      title: Text(Title),
+    );
+  }
+
+
+  Widget HasSearch(){
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(

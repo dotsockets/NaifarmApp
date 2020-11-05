@@ -17,7 +17,7 @@ class CategoryMobile extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: StickyHeader(
-          header: AppToobar(),
+          header: AppToobar(header_type: Header_Type.barHasSearch),
           content: _content(context: context),
         ),
       ),
