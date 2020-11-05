@@ -9,7 +9,7 @@ class ProductViewModel{
         product_name: 'อโวกาโก้ ภาคเหนือ',
         product_price: '100',
         product_status: '4,901 ขายแล้ว',
-          product_image: 'https://befreshcorp.net/wp-content/uploads/2017/06/product-packshot-Avocado.jpg'
+          product_image: 'https://www.img.in.th/images/7fc6ff825238293be21ea341e2f54755.png'
 
       ),
       ProductModel(

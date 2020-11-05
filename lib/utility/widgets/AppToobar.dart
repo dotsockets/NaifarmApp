@@ -5,14 +5,16 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 
 enum Header_Type {
   barHasSearch,
-  barNoSearch
+  barNoSearch,
+  barNoSearchNoTitle
 }
 
-class AppToobar extends StatelessWidget {
+class AppToobar extends PreferredSize {
  final Header_Type header_type;
  final  String Title;
 
   const AppToobar({Key key, this.header_type, this.Title}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +22,36 @@ class AppToobar extends StatelessWidget {
         return HasSearch();
     }else if(header_type==Header_Type.barNoSearch){
         return BarNoSearch();
+    }else if(header_type==Header_Type.barNoSearchNoTitle){
+      return barNoSearchNoTitle(context);
     }
   }
 
   Widget BarNoSearch(){
     return AppBar(
       title: Text(Title),
+    );
+  }
+
+  Widget barNoSearchNoTitle(BuildContext context){
+    return Container(
+      padding: EdgeInsets.only(right: 25,left: 25,top: 10,bottom: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg'),onTap: (){
+            Navigator.pop(context);
+          },),
+          Container(
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: ThemeColor.primaryColor(),
+              borderRadius: BorderRadius.all(Radius.circular(20))
+            ),
+            child: Icon(Icons.shopping_cart_outlined,color: Colors.white,),
+          )
+        ],
+      ),
     );
   }
 

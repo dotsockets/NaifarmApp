@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -30,7 +31,7 @@ class FlashSale extends StatelessWidget {
            children: [
              SizedBox(height: 50),
              _textSale(context: context),
-             _flashProduct()
+             _flashProduct(context)
            ],
          ),
        ),
@@ -55,19 +56,24 @@ class FlashSale extends StatelessWidget {
     );
   }
 
-  Widget _flashProduct(){
+  Widget _flashProduct(BuildContext context){
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         children: List.generate(_producViewModel.length, (index){
-          return Container(
-            margin: EdgeInsets.all(10),
-            child: Column(
-                children: [
-                  _ProductImage(item: _producViewModel[index]),
-                  _intoProduct(item: _producViewModel[index])
-                ],
+          return InkWell(
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: Column(
+                  children: [
+                    _ProductImage(item: _producViewModel[index],index: index),
+                    _intoProduct(item: _producViewModel[index])
+                  ],
+              ),
             ),
+            onTap: (){
+              AppRoute.ProductDetail(context,productImage: "productImage_${index}");
+            },
           );
         }),
       ),
@@ -76,7 +82,7 @@ class FlashSale extends StatelessWidget {
 
 
 
-  Widget _ProductImage({ProductModel item}){
+  Widget _ProductImage({ProductModel item,int index}){
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
       child: Container(
@@ -85,16 +91,19 @@ class FlashSale extends StatelessWidget {
         ),
           child: Stack(
             children: [
-              CachedNetworkImage(
-                width: 130,
-                height: 130,
-                placeholder: (context, url) => Container(
-                  color: Colors.white,
-                  child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+              Hero(
+                tag: "productImage_${index}",
+                child: CachedNetworkImage(
+                  width: 130,
+                  height: 130,
+                  placeholder: (context, url) => Container(
+                    color: Colors.white,
+                    child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                  ),
+                  fit: BoxFit.cover,
+                  imageUrl: item.product_image,
+                  errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
                 ),
-                fit: BoxFit.cover,
-                imageUrl: item.product_image,
-                errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
               ),
               Container(
                 margin: EdgeInsets.all(5),
