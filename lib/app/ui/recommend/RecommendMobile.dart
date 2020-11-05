@@ -18,7 +18,7 @@ import 'package:naifarm/utility/widgets/CategoryMenu.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 import 'widget/Best_Selling_Products.dart';
-import 'widget/BannerSlide.dart';
+import '../../../utility/widgets/BannerSlide.dart';
 import 'widget/RecommendMenu.dart';
 import 'widget/SearchHot.dart';
 
