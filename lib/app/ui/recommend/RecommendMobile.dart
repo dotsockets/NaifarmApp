@@ -9,32 +9,32 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/recommend/widget/CategoryTab.dart';
-import 'package:naifarm/app/ui/recommend/widget/FarmMarket.dart';
 import 'package:naifarm/app/ui/recommend/widget/FlashSale.dart';
-import 'package:naifarm/app/ui/recommend/widget/ProductForMe.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
+import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:naifarm/utility/widgets/BannerSlide.dart';
 import 'package:naifarm/utility/widgets/CategoryMenu.dart';
+import 'package:naifarm/utility/widgets/ProductLandscape.dart';
+import 'package:naifarm/utility/widgets/ProductVertical.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
-import 'widget/Best_Selling_Products.dart';
-import '../../../utility/widgets/BannerSlide.dart';
 import 'widget/RecommendMenu.dart';
 import 'widget/SearchHot.dart';
 
 class RecommendMobile extends StatefulWidget {
-
   final Size size;
   final double paddingBottom;
 
-  const RecommendMobile({Key key, this.size, this.paddingBottom}) : super(key: key);
+  const RecommendMobile({Key key, this.size, this.paddingBottom})
+      : super(key: key);
+
   @override
   _RecommendMobileState createState() => _RecommendMobileState();
 }
 
 class _RecommendMobileState extends State<RecommendMobile> {
-
   final List<MenuModel> _menuViewModel = MenuViewModel().getMenustype();
   final _indicatorController = IndicatorController();
   final _scrollController = TrackingScrollController();
@@ -49,7 +49,7 @@ class _RecommendMobileState extends State<RecommendMobile> {
     _dxMax = widget.size.width - 100;
     _dyMax = widget.size.height - (160 + widget.paddingBottom);
     super.initState();
-   // AppRoute.home(context);
+    // AppRoute.home(context);
   }
 
   @override
@@ -70,10 +70,10 @@ class _RecommendMobileState extends State<RecommendMobile> {
       trailingGlowVisible: false,
       offsetToArmed: 100.0,
       builder: (
-          BuildContext context,
-          Widget child,
-          IndicatorController controller,
-          ) {
+        BuildContext context,
+        Widget child,
+        IndicatorController controller,
+      ) {
         return AnimatedBuilder(
           animation: controller,
           builder: (BuildContext context, _) {
@@ -82,7 +82,7 @@ class _RecommendMobileState extends State<RecommendMobile> {
               children: <Widget>[
                 if (!controller.isIdle)
                   Positioned(
-                    top:  60 * controller.value,
+                    top: 60 * controller.value,
                     child: SpinKitThreeBounce(
                       color: ThemeColor.primaryColor(),
                       size: 30,
@@ -101,33 +101,64 @@ class _RecommendMobileState extends State<RecommendMobile> {
         child: Container(
           color: Colors.grey.shade300,
           child: StickyHeader(
-            header:  Column(
+            header: Column(
               children: [
-                AppToobar(header_type:  Header_Type.barHasSearch,),
-                CategoryMenu(selectedIndex: _categoryselectedIndex,menuViewModel: _menuViewModel,onTap: (int val){
-                  setState(() {
-                    _categoryselectedIndex = val;
-                  });
-                },),
+                AppToobar(
+                  header_type: Header_Type.barHasSearch,
+                ),
+                CategoryMenu(
+                  selectedIndex: _categoryselectedIndex,
+                  menuViewModel: _menuViewModel,
+                  onTap: (int val) {
+                    setState(() {
+                      _categoryselectedIndex = val;
+                    });
+                  },
+                ),
               ],
             ),
             content: Column(
               children: [
-
                 BannerSlide(),
                 RecommendMenu(),
                 FlashSale(),
                 SizedBox(height: 15),
-                Best_Selling_Products(),
+                ProductLandscape(
+                  titleInto: "สินค้าขายดี",
+                  producViewModel: ProductViewModel().getBaseSaller(),
+                  IconInto: 'assets/images/svg/product_hot.svg',
+                  onSelectMore: () {
+
+                  },
+                  onTapItem: () {
+
+                  },
+                ),
                 SizedBox(height: 15),
                 _BannerAds(),
-                FarmMarket(),
+                ProductVertical(titleInto: "ฟาร์มมาร์เก็ต",
+                  producViewModel: ProductViewModel().getProductFarm(),
+                  IconInto: 'assets/images/svg/menu_market.svg',
+                  onSelectMore: () {
+
+                  },
+                  onTapItem: () {
+
+                  },),
                 SizedBox(height: 15),
                 CategoryTab(),
                 SizedBox(height: 15),
                 SearchHot(),
                 SizedBox(height: 15),
-                ProductForMe()
+                ProductVertical(titleInto: "สินค้าสำหรับคุณ",
+                  producViewModel: ProductViewModel().getProductForYou(),
+                  IconInto: 'assets/images/svg/foryou.svg',
+                  onSelectMore: () {
+
+                  },
+                  onTapItem: () {
+
+                  },)
               ],
             ),
           ),
@@ -136,16 +167,22 @@ class _RecommendMobileState extends State<RecommendMobile> {
     );
   }
 
-  _BannerAds(){
+  _BannerAds() {
     return Container(
       child: CachedNetworkImage(
         placeholder: (context, url) => Container(
           color: Colors.white,
-          child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+          child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
         ),
         fit: BoxFit.cover,
-        imageUrl: 'https://www.img.in.th/images/aa1d76fa9b9c502debba8123aeb20088.jpg',
-        errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
+        imageUrl:
+            'https://www.img.in.th/images/aa1d76fa9b9c502debba8123aeb20088.jpg',
+        errorWidget: (context, url, error) => Container(
+            height: 30,
+            child: Icon(
+              Icons.error,
+              size: 30,
+            )),
       ),
     );
   }

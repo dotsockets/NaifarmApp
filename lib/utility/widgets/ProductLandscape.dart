@@ -9,8 +9,16 @@ import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 
-class Best_Selling_Products extends StatelessWidget {
-  final List<ProductModel> _producViewModel = ProductViewModel().getBaseSaller();
+class ProductLandscape extends StatelessWidget {
+
+  final String titleInto;
+  final Function() onSelectMore;
+  final Function() onTapItem;
+  final String IconInto;
+  final List<ProductModel> producViewModel;
+
+  const ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,44 +37,47 @@ class Best_Selling_Products extends StatelessWidget {
   }
 
   Container _header_bar() => Container(
-    child: Container(
-      margin: EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Image.asset('assets/images/png/product_hot.png',width: 40,height: 40,),
-              SizedBox(width: 8),
-              Text("สินค้าขายดี",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
-            ],
-          ),
-          Row(
-            children: [
-              Text("ดูทั้งหมด",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18)),
-              SizedBox(width: 8),
-              SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
+      child: Container(
+        margin: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                SvgPicture.asset(IconInto,width: 30,height: 30,),
+                SizedBox(width: 8),
+                Text(titleInto,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
+              ],
+            ),
+            Row(
+              children: [
+                GestureDetector(child: Text("ดูทั้งหมด",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18)),onTap: ()=>onSelectMore()),
+                SizedBox(width: 8),
+                SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
 
-            ],
-          )
-        ],
-      ),
-    )
+              ],
+            )
+          ],
+        ),
+      )
   );
 
   Widget _flashProduct(){
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: List.generate(_producViewModel.length, (index){
-          return Container(
-            margin: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                _ProductImage(item: _producViewModel[index]),
-                _intoProduct(item: _producViewModel[index])
-              ],
+        children: List.generate(producViewModel.length, (index){
+          return GestureDetector(
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  _ProductImage(item: producViewModel[index]),
+                  _intoProduct(item: producViewModel[index])
+                ],
+              ),
             ),
+            onTap: ()=>onTapItem(),
           );
         }),
       ),
@@ -131,5 +142,4 @@ class Best_Selling_Products extends StatelessWidget {
       ),
     );
   }
-
 }

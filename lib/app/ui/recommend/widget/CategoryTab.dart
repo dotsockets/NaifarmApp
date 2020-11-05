@@ -33,7 +33,7 @@ class CategoryTab extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.asset('assets/images/png/boxes.png',width: 30,height: 30,),
+                SvgPicture.asset('assets/images/svg/boxes.svg',width: 30,height: 30,),
                 SizedBox(width: 8),
                 Text("ประเภทสินค้า",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
               ],

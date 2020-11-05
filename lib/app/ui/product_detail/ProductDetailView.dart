@@ -11,12 +11,16 @@ import 'ProductDetailtablet.dart';
 
 class ProductDetailView extends StatelessWidget {
   final String productImage;
-  ProductDetailView({Key key, this.productImage}) : super(key: key);
+  final String productName;
+  final String productStatus;
+  final String productPrice;
+
+  ProductDetailView({Key key, this.productImage, this.productName, this.productStatus, this.productPrice}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
-      mobile: ProductDetailMobile(productImage: productImage),
+      mobile: ProductDetailMobile(productImage: productImage,productName: productName,productPrice: productPrice,productStatus: productStatus),
       tablet: ProductDetailtablet(),
     );
   }

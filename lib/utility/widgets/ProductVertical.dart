@@ -1,8 +1,7 @@
-
+import 'package:flutter/material.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -10,8 +9,14 @@ import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 
-class ProductForMe extends StatelessWidget {
-  final List<ProductModel> _producViewModel = ProductViewModel().getProductForYou();
+class ProductVertical extends StatelessWidget {
+  final String titleInto;
+  final Function() onSelectMore;
+  final Function() onTapItem;
+  final String IconInto;
+  final List<ProductModel> producViewModel;
+
+  const ProductVertical({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.producViewModel}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +26,7 @@ class ProductForMe extends StatelessWidget {
         children: [
           _header_bar(),
           Column(
-            children: List.generate(_producViewModel.length, (index) => _buildCardProduct(item: _producViewModel[index],index: index)),
+            children: List.generate(producViewModel.length, (index) => _buildCardProduct(item: producViewModel[index],index: index)),
           )
         ],
       ),
@@ -37,9 +42,9 @@ class ProductForMe extends StatelessWidget {
           children: [
             Row(
               children: [
-                SvgPicture.asset('assets/images/svg/foryou.svg',width: 50,height: 50,),
+                SvgPicture.asset(IconInto,width: 50,height: 50,),
                 SizedBox(width: 8),
-                Text("สินค้าสำหรับคุณ",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
+                Text(titleInto,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
               ],
             ),
             Row(
@@ -84,7 +89,7 @@ class ProductForMe extends StatelessWidget {
               )
             ],
           ),
-          _producViewModel.length!=index+1?Divider(color: Colors.black.withOpacity(0.5)):SizedBox()
+          producViewModel.length!=index+1?Divider(color: Colors.black.withOpacity(0.5)):SizedBox()
         ],
       ),
     );
@@ -130,4 +135,5 @@ class ProductForMe extends StatelessWidget {
       ),
     );
   }
+
 }

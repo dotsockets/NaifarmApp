@@ -67,12 +67,12 @@ class FlashSale extends StatelessWidget {
               child: Column(
                   children: [
                     _ProductImage(item: _producViewModel[index],index: index),
-                    _intoProduct(item: _producViewModel[index])
+                    _intoProduct(item: _producViewModel[index],index: index)
                   ],
               ),
             ),
             onTap: (){
-              AppRoute.ProductDetail(context,productImage: "productImage_${index}");
+              AppRoute.ProductDetail(context,productImage: "productImage_${index}",productName: "productName_${index}",productStatus: "productStatus_${index}",productPrice: "productPrice_${index}");
             },
           );
         }),
@@ -122,14 +122,14 @@ class FlashSale extends StatelessWidget {
     );
   }
 
-  Widget _intoProduct({ProductModel item}){
+  Widget _intoProduct({ProductModel item,int index}){
     return Container(
       child: Column(
         children: [
           SizedBox(height: 8),
-          Text(item.product_name,style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.bold),),
+          Hero(tag:  "productName_${index}",child: Text(item.product_name,style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.bold),)),
           SizedBox(height: 5),
-          Text("฿${item.product_price}",style: GoogleFonts.sarabun(color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),),
+          Hero(tag: "productPrice_${index}",child: Text("฿${item.product_price}",style: GoogleFonts.sarabun(color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),)),
           SizedBox(height: 5),
           Stack(
             children: [
@@ -140,7 +140,7 @@ class FlashSale extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
                     color: ThemeColor.ColorSale(),
-                    child:  Text(item.product_status,style: GoogleFonts.sarabun(color: Colors.white,fontWeight: FontWeight.bold),),
+                    child:  Hero(tag: "productStatus_${index}",child: Text(item.product_status,style: GoogleFonts.sarabun(color: Colors.white,fontWeight: FontWeight.bold),)),
                   ),
                 ),
               ),
