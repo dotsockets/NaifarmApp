@@ -130,8 +130,8 @@ class _RecommendMobileState extends State<RecommendMobile> {
                   onSelectMore: () {
 
                   },
-                  onTapItem: () {
-
+                  onTapItem: (int index) {
+                    AppRoute.ProductDetail(context,productImage: "productImage_${index}",productName: "productName_${index}",productStatus: "productStatus_${index}",productPrice: "productPrice_${index}");
                   },
                 ),
                 SizedBox(height: 15),
@@ -142,8 +142,8 @@ class _RecommendMobileState extends State<RecommendMobile> {
                   onSelectMore: () {
 
                   },
-                  onTapItem: () {
-
+                  onTapItem: (int index) {
+                    AppRoute.ProductDetail(context,productImage: "productImage_${index}",productName: "productName_${index}",productStatus: "productStatus_${index}",productPrice: "productPrice_${index}");
                   },),
                 SizedBox(height: 15),
                 CategoryTab(),
@@ -156,7 +156,8 @@ class _RecommendMobileState extends State<RecommendMobile> {
                   onSelectMore: () {
 
                   },
-                  onTapItem: () {
+                  onTapItem: (int index) {
+                    AppRoute.ProductDetail(context,productImage: "productImage_${index}",productName: "productName_${index}",productStatus: "productStatus_${index}",productPrice: "productPrice_${index}");
 
                   },)
               ],

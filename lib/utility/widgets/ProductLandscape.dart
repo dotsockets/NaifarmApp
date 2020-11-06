@@ -13,7 +13,7 @@ class ProductLandscape extends StatelessWidget {
 
   final String titleInto;
   final Function() onSelectMore;
-  final Function() onTapItem;
+  final Function(int) onTapItem;
   final String IconInto;
   final List<ProductModel> producViewModel;
 
@@ -77,7 +77,7 @@ class ProductLandscape extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: ()=>onTapItem(),
+            onTap: ()=>onTapItem(index),
           );
         }),
       ),

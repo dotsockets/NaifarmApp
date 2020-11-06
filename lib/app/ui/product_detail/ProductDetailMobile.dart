@@ -15,6 +15,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'widget/ProductDetail.dart';
 import 'widget/ProductInto.dart';
 import 'widget/ProductSlide.dart';
+import 'widget/Reviewscore.dart';
 import 'widget/ShopOwn.dart';
 
 class ProductDetailMobile extends StatefulWidget {
@@ -55,14 +56,16 @@ class _ProductDetailMobileState extends State<ProductDetailMobile> {
                       ProductLandscape(
                         titleInto: "คุณอาจจะชอบสิ่งนี้",
                         producViewModel: ProductViewModel().getBaseSaller(),
-                        IconInto: 'assets/images/svg/product_hot.svg',
+                        IconInto: 'assets/images/svg/like.svg',
                         onSelectMore: () {
 
                         },
-                        onTapItem: () {
+                        onTapItem: (int index) {
 
                         },
-                      )
+                      ),
+                      _Divider(),
+                      Reviewscore()
                     ],
                   ),
                 ),

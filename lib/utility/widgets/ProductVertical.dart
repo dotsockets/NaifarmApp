@@ -12,7 +12,7 @@ import 'package:naifarm/config/Env.dart';
 class ProductVertical extends StatelessWidget {
   final String titleInto;
   final Function() onSelectMore;
-  final Function() onTapItem;
+  final Function(int) onTapItem;
   final String IconInto;
   final List<ProductModel> producViewModel;
 
@@ -61,37 +61,42 @@ class ProductVertical extends StatelessWidget {
   );
 
   _buildCardProduct({ProductModel item,int index}){
-    return Container(
-      padding: EdgeInsets.only(left: 10,right: 10),
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CachedNetworkImage(
-                    placeholder: (context, url) => Container(
-                      color: Colors.white,
-                      child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+    return GestureDetector(
+      child: Container(
+        padding: EdgeInsets.only(left: 10,right: 10),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CachedNetworkImage(
+                      placeholder: (context, url) => Container(
+                        color: Colors.white,
+                        child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                      ),
+                      fit: BoxFit.cover,
+                      imageUrl: item.product_image,
+                      errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
                     ),
-                    fit: BoxFit.cover,
-                    imageUrl: item.product_image,
-                    errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 3,
-                child: _buildInfoProduct(item: item),
-              )
-            ],
-          ),
-          producViewModel.length!=index+1?Divider(color: Colors.black.withOpacity(0.5)):SizedBox()
-        ],
+                Expanded(
+                  flex: 3,
+                  child: _buildInfoProduct(item: item),
+                )
+              ],
+            ),
+            producViewModel.length!=index+1?Divider(color: Colors.black.withOpacity(0.5)):SizedBox()
+          ],
+        ),
       ),
+      onTap: (){
+        onTapItem(index);
+      },
     );
   }
 
