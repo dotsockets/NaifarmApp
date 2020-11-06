@@ -194,4 +194,62 @@ class ProductViewModel{
       )
     ];
   }
+  List<ProductModel> getMarketRecommend(){
+    return [
+      ProductModel(
+          product_name: 'อโวกาโก้ ภาคเหนือ',
+          product_price: 100,
+          product_status: 'ขายได้ 4589 ชิ้น',
+          product_image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU'
+      ),
+      ProductModel(
+          product_name: 'อโวกาโก้ ภาคเหนือ',
+          product_price: 100,
+          product_status: 'ขายได้ 4589 ชิ้น',
+          product_image: 'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg'
+
+      ),
+      ProductModel(
+          product_name: 'อโวกาโก้ ภาคเหนือ',
+          product_price: 100,
+          product_status: 'ขายได้ 4589 ชิ้น',
+          product_image: 'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg'
+
+      ),
+      ProductModel(
+          product_name: 'อโวกาโก้ ภาคเหนือ',
+          product_price: 100,
+          product_status: 'ขายได้ 4589 ชิ้น',
+          product_image: 'https://glassgardenshop.com/wp-content/uploads/2019/11/%D8%A8%D8%B0%D8%B1-%DA%A9%D8%A7%D9%87%D9%88-%D9%81%D8%B1-%D8%B3%D8%A8%D8%B2-%D9%BE%D8%A7%DA%A9%D8%AA-%D8%A7%D9%88%D8%B1%D8%AC%DB%8C%D9%86%D8%A7%D9%84-%DA%A9%D8%A7%D9%87%D9%88-%D9%81%D8%B1%D8%A7%D9%86%D8%B3%D9%88%DB%8C-%DA%AF%D9%84%D8%B3-%DA%AF%D8%A7%D8%B1%D8%AF%D9%86-1.jpg'
+
+      ),ProductModel(
+          product_name: 'อโวกาโก้ ภาคเหนือ',
+          product_price: 100,
+          product_status: 'ขายได้ 4589 ชิ้น',
+          product_image: 'https://www.img.in.th/images/a632419b5cb8e9f384b2d6ce2559c70c.jpg'
+
+      ),
+      ProductModel(
+          product_name: 'อโวกาโก้ ภาคเหนือ',
+          product_price: 100,
+          product_status: 'ขายได้ 4589 ชิ้น',
+          product_image: 'https://img.freepik.com/free-photo/fresh-cauliflower-isolated-white-background_33736-2684.jpg?size=338&ext=jpg'
+
+      ),ProductModel(
+          product_name: 'อโวกาโก้ ภาคเหนือ',
+          product_price: 100,
+          product_status: 'ขายได้ 4589 ชิ้น',
+          product_image: 'https://alanmiveh.ir/wp-content/uploads/2020/06/avokado.jpg'
+
+      ),
+      ProductModel(
+          product_name: 'อโวกาโก้ ภาคเหนือ',
+          product_price: 100,
+          product_status: 'ขายได้ 4589 ชิ้น',
+          product_image: 'https://p.kindpng.com/picc/s/500-5009720_pea-png-free-download-green-peas-transparent-png.png'
+
+      )
+    ];
+  }
+
 }

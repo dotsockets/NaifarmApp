@@ -1,6 +1,7 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 
 enum Header_Type {
@@ -21,17 +22,45 @@ class AppToobar extends PreferredSize {
     if(header_type==Header_Type.barHasSearch){
         return HasSearch();
     }else if(header_type==Header_Type.barNoSearch){
-        return BarNoSearch();
+        return BarNoSearch(context);
     }else if(header_type==Header_Type.barNoSearchNoTitle){
       return barNoSearchNoTitle(context);
     }
   }
 
-  Widget BarNoSearch(){
-    return AppBar(
-      title: Text(Title),
-    );
-  }
+ Widget BarNoSearch(BuildContext context){
+   return Container(
+     color: ThemeColor.primaryColor(),
+     child: SafeArea(
+       bottom: false,
+       child: Padding(
+         padding: const EdgeInsets.only(top: 8,bottom: 8,right: 8,left: 12),
+         child: Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: [
+             GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg',color: Colors.white,),
+               onTap: (){
+                 Navigator.pop(context);
+               },),
+             Text("สินค้า Naifarm ฟาร์มมาร์เก็ต",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 16,
+               fontWeight: FontWeight.w500,decoration: TextDecoration.none,),),
+             Row(
+               mainAxisAlignment: MainAxisAlignment.end,
+               children: [
+                 GestureDetector(child: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.white),
+                   onTap: (){},
+                 ),_buildIconButton(
+                   onPressed: () => print("click"),
+                   icon: Icons.shopping_cart_outlined,
+                   notification: 20,
+                 ),],
+             ),
+           ],
+         ),
+       ),
+     ),
+   );
+ }
 
   Widget barNoSearchNoTitle(BuildContext context){
     return Container(

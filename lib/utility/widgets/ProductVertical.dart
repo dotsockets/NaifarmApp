@@ -42,7 +42,9 @@ class ProductVertical extends StatelessWidget {
           children: [
             Row(
               children: [
-                SvgPicture.asset(IconInto,width: 50,height: 50,),
+               // Image.asset(IconI=nto,width: 50,height: 50,),
+
+                SvgPicture.asset(IconInto,width: 30,height: 30,),
                 SizedBox(width: 8),
                 Text(titleInto,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
               ],
