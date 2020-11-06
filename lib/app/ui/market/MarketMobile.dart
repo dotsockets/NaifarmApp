@@ -74,43 +74,44 @@ class _MarketMobileState extends State<MarketMobile> {
         );
       },
 
-      child: Scaffold(
-        backgroundColor: Colors.grey.shade300,
-        body: SingleChildScrollView(
-          child: Container(
-            color: Colors.grey.shade300,
-            child: StickyHeader(
-              header:  Column(
-                children: [
-                  AppToobar(header_type:  Header_Type.barNoSearch,),
-                  CategoryMenu(selectedIndex: _categoryselectedIndex,menuViewModel: _menuViewModel,onTap: (int val){
-                    setState(() {
-                      _categoryselectedIndex = val;
-                    });
-                  },),
-                ],
-              ),
-              content: Column(
-                children: [
-                  BannerSlide(),
-
-                  SizedBox(height: 15),
-                  ProductVertical(titleInto: "ขายดี",
-                    producViewModel: ProductViewModel().getProductFarm(),
-                    IconInto: 'assets/images/svg/product_hot.svg',
-                    onSelectMore: () {},
-                    onTapItem: () {},),
-                  SizedBox(height: 15),
-                  ProductGrid(titleInto: "แนะนำ",
-                    producViewModel: ProductViewModel().getMarketRecommend(),
-                    IconInto: 'assets/images/svg/like.svg',
-                    onSelectMore: () {
-
-                    },
-                    onTapItem: () {
-
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: SingleChildScrollView(
+            child: Container(
+              child: StickyHeader(
+                header:  Column(
+                  children: [
+                    AppToobar(header_type:  Header_Type.barNoSearch,),
+                    CategoryMenu(selectedIndex: _categoryselectedIndex,menuViewModel: _menuViewModel,onTap: (int val){
+                      setState(() {
+                        _categoryselectedIndex = val;
+                      });
                     },),
-                ],
+                  ],
+                ),
+                content: Column(
+                  children: [
+                    BannerSlide(),
+
+                    SizedBox(height: 15),
+                    ProductVertical(titleInto: "ขายดี",
+                      producViewModel: ProductViewModel().getProductFarm(),
+                      IconInto: 'assets/images/svg/product_hot.svg',
+                      onSelectMore: () {},
+                      onTapItem: (int) {},),
+                    SizedBox(height: 15),
+                    ProductGrid(titleInto: "แนะนำ",
+                      producViewModel: ProductViewModel().getMarketRecommend(),
+                      IconInto: 'assets/images/svg/like.svg',
+                      onSelectMore: () {
+
+                      },
+                      onTapItem: () {
+
+                      },),
+                  ],
+                ),
               ),
             ),
           ),

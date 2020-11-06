@@ -31,32 +31,29 @@ class AppToobar extends PreferredSize {
  Widget BarNoSearch(BuildContext context){
    return Container(
      color: ThemeColor.primaryColor(),
-     child: SafeArea(
-       bottom: false,
-       child: Padding(
-         padding: const EdgeInsets.only(top: 8,bottom: 8,right: 8,left: 12),
-         child: Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: [
-             GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg',color: Colors.white,),
-               onTap: (){
-                 Navigator.pop(context);
-               },),
-             Text("สินค้า Naifarm ฟาร์มมาร์เก็ต",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 16,
-               fontWeight: FontWeight.w500,decoration: TextDecoration.none,),),
-             Row(
-               mainAxisAlignment: MainAxisAlignment.end,
-               children: [
-                 GestureDetector(child: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.white),
-                   onTap: (){},
-                 ),_buildIconButton(
-                   onPressed: () => print("click"),
-                   icon: Icons.shopping_cart_outlined,
-                   notification: 20,
-                 ),],
-             ),
-           ],
-         ),
+     child: Padding(
+       padding: const EdgeInsets.only(top: 8,bottom: 8,right: 8,left: 12),
+       child: Row(
+         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         children: [
+           GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg',color: Colors.white,),
+             onTap: (){
+               Navigator.pop(context);
+             },),
+           Text("สินค้า Naifarm ฟาร์มมาร์เก็ต",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 16,
+             fontWeight: FontWeight.bold,decoration: TextDecoration.none,),),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.end,
+             children: [
+               GestureDetector(child: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.white),
+                 onTap: (){},
+               ),_buildIconButton(
+                 onPressed: () => print("click"),
+                 icon: Icons.shopping_cart_outlined,
+                 notification: 20,
+               ),],
+           ),
+         ],
        ),
      ),
    );
@@ -64,6 +61,7 @@ class AppToobar extends PreferredSize {
 
   Widget barNoSearchNoTitle(BuildContext context){
     return Container(
+
       padding: EdgeInsets.only(right: 25,left: 25,top: 10,bottom: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
