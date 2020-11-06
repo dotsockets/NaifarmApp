@@ -5,12 +5,12 @@ class MenuModel {
   final String icon;
   final String iconSelected;
   final String label;
-  final Widget widget;
+  final String page;
 
   MenuModel({
     this.label,
     this.icon,
     this.iconSelected,
-    this.widget
+    this.page
   });
 }

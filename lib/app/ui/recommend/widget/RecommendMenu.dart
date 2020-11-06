@@ -1,8 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
@@ -18,42 +17,58 @@ class RecommendMenu extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: _menuViewModel.asMap().map((key, value){
-              return MapEntry(key, _menuBox(item: value,index: key));
+              return MapEntry(key, _menuBox(item: value,index: key,context: context));
             }).values.toList(),
           ),
       ),
     );
   }
 
-  Widget _menuBox({MenuModel item,int index}){
-    return Column(
-      children: [
-        Stack(
-          children: [
-            Container(
-              padding: EdgeInsets.all(3),
-              child: SvgPicture.asset(item.icon,width: 60,height: 60,),
-            ),
-            index==3?Positioned(
-              right: 0,
-              top: 0,
-              child: Container(
+  Widget _menuBox({MenuModel item,int index,BuildContext context}){
+    return InkWell(
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
                 padding: EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                  color: ThemeColor.ColorSale(),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                constraints: BoxConstraints(
-                  minWidth: 15,
-                  minHeight: 15,
-                ),
+                child: SvgPicture.asset(item.icon,width: 60,height: 60,),
               ),
-            ):SizedBox()
-          ],
-        ),
-        SizedBox(height: 10),
-        Text(item.label,style: GoogleFonts.sarabun(fontWeight: FontWeight.bold))
-      ],
+              index==3?Positioned(
+                right: 0,
+                top: 0,
+                child: Container(
+                  padding: EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                    color: ThemeColor.ColorSale(),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 15,
+                    minHeight: 15,
+                  ),
+                ),
+              ):SizedBox()
+            ],
+          ),
+          SizedBox(height: 10),
+          Text(item.label,style: GoogleFonts.sarabun(fontWeight: FontWeight.bold))
+        ],
+      ),
+    onTap: (){
+      switch(item.page){
+        case  "MarketView" : AppRoute.Market(context);
+        break;
+        case  "MarketView" : AppRoute.Market(context);
+        break;
+        case  "MarketView" : AppRoute.Market(context);
+        break;
+        case  "MarketView" : AppRoute.Market(context);
+        break;
+        case  "MarketView" : AppRoute.Market(context);
+        break;
+      }
+    },
     );
   }
 }

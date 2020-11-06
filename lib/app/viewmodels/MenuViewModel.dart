@@ -1,5 +1,3 @@
-
-
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +39,8 @@ class MenuViewModel {
         label: "แนะนำ",
       ),
       MenuModel(
-        icon: 'https://i.pinimg.com/474x/23/62/82/236282008edd75a537efb8e2466523fc.jpg',
+        icon:
+            'https://i.pinimg.com/474x/23/62/82/236282008edd75a537efb8e2466523fc.jpg',
         iconSelected: '',
         label: "พืช",
       ),
@@ -51,7 +50,8 @@ class MenuViewModel {
         label: "ไร่",
       ),
       MenuModel(
-        icon: 'https://lh3.googleusercontent.com/proxy/yTmlRBjkOvcTk_G8nIGL4K-cLje0zlZsAjGJtQKfgq0SB4llXJOgBxyNe759tQ511Z80UpHjFFWJDHv3jza088h_JHjbPqXhNqbzeODRfGwWrWxH3TAKprJk_MIuyA',
+        icon:
+            'https://lh3.googleusercontent.com/proxy/yTmlRBjkOvcTk_G8nIGL4K-cLje0zlZsAjGJtQKfgq0SB4llXJOgBxyNe759tQ511Z80UpHjFFWJDHv3jza088h_JHjbPqXhNqbzeODRfGwWrWxH3TAKprJk_MIuyA',
         iconSelected: '',
         label: "ปศุสัตว์",
       ),
@@ -60,24 +60,26 @@ class MenuViewModel {
         iconSelected: '',
         label: "ไม้เศรษฐกิจ",
       ),
-
       MenuModel(
         icon: 'https://www.chaipat.or.th/images/Media/rice-1594612_960_720.jpg',
         iconSelected: '',
         label: "ข้าว",
       ),
       MenuModel(
-        icon: 'https://ktw.co.th/content/images/thumbs/0364748_hsd1g-80c-รื่รนิน-สร์ทมื-new_300.jpeg',
+        icon:
+            'https://ktw.co.th/content/images/thumbs/0364748_hsd1g-80c-รื่รนิน-สร์ทมื-new_300.jpeg',
         iconSelected: '',
         label: "เครื่องมือเกษตร",
       ),
       MenuModel(
-        icon: 'https://www.kasetkaoklai.com/home/wp-content/uploads/2019/08/136251.jpg',
+        icon:
+            'https://www.kasetkaoklai.com/home/wp-content/uploads/2019/08/136251.jpg',
         iconSelected: '',
         label: "ประมง",
       ),
       MenuModel(
-        icon: 'https://obs.line-scdn.net/0hNNWq9Dm-EWFqCD74AgFuNlBeEg5ZZAJiDj5AYjZmT1VPbwIwUmoKD0kKH1VPb1Y_BGZXA0cIClBBOgY-BGsK/w644',
+        icon:
+            'https://obs.line-scdn.net/0hNNWq9Dm-EWFqCD74AgFuNlBeEg5ZZAJiDj5AYjZmT1VPbwIwUmoKD0kKH1VPb1Y_BGZXA0cIClBBOgY-BGsK/w644',
         iconSelected: '',
         label: "เนื้อสัตว์",
       ),
@@ -89,37 +91,33 @@ class MenuViewModel {
     ];
   }
 
-  List<MenuModel> getRecommendmenu(){
+  List<MenuModel> getRecommendmenu() {
     return [
       MenuModel(
-        icon: 'assets/images/svg/menu_near.svg',
-        iconSelected: 'assets/images/svg/menu_near.svg',
-        label: "ใกล้ฉัน",
-      ),
+          icon: 'assets/images/svg/menu_near.svg',
+          iconSelected: 'assets/images/svg/menu_near.svg',
+          label: "ใกล้ฉัน",
+          page: "MarketView"),
       MenuModel(
-        icon: 'assets/images/svg/menu_market.svg',
-        iconSelected: 'assets/images/svg/menu_market.svg',
-        label: "ฟาร์มมาร์เก็ต",
-      ),
+          icon: 'assets/images/svg/menu_market.svg',
+          iconSelected: 'assets/images/svg/menu_market.svg',
+          label: "ฟาร์มมาร์เก็ต",
+          page: "MarketView"),
       MenuModel(
-        icon: 'assets/images/svg/menu_spacial_price.svg',
-        iconSelected: 'assets/images/svg/menu_spacial_price.svg',
-        label: "ราคาพิเศษ",
-      ),
+          icon: 'assets/images/svg/menu_spacial_price.svg',
+          iconSelected: 'assets/images/svg/menu_spacial_price.svg',
+          label: "ราคาพิเศษ",
+          page: "MarketView"),
       MenuModel(
-        icon: 'assets/images/svg/menu_noti.svg',
-        iconSelected: 'assets/images/svg/menu_noti.svg',
-        label: "แจ้งเตือน",
-      ),
+          icon: 'assets/images/svg/menu_noti.svg',
+          iconSelected: 'assets/images/svg/menu_noti.svg',
+          label: "แจ้งเตือน",
+          page: "MarketView"),
       MenuModel(
-        icon: 'assets/images/svg/menu_like.svg',
-        iconSelected: 'assets/images/svg/menu_like.svg',
-        label: "ถูกใจ",
-      )
+          icon: 'assets/images/svg/menu_like.svg',
+          iconSelected: 'assets/images/svg/menu_like.svg',
+          label: "ถูกใจ",
+          page: "MarketView")
     ];
   }
-
-
-
-
 }
