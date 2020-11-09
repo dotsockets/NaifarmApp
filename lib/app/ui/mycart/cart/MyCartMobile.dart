@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/CartModel.dart';
+import 'package:naifarm/app/ui/me/widget/ListMenuItem.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 
@@ -33,7 +35,8 @@ class _MyCartState extends State<MyCartMobile> {
       top: false,
       child: Scaffold(
         key: _scaffoldKey,
-        backgroundColor: _data_aar.length!=0?Colors.grey.shade300:Colors.white,
+        backgroundColor:
+            _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
         appBar: AppBar(
           backgroundColor: ThemeColor.primaryColor(),
           title: Text(
@@ -41,70 +44,97 @@ class _MyCartState extends State<MyCartMobile> {
             style: GoogleFonts.sarabun(color: Colors.black),
           ),
         ),
-        body: _data_aar.length!=0?Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: List.generate(_data_aar.length, (index) {
-                    return Dismissible(
-                      background: Container(
-                        padding: EdgeInsets.only(right: 30),
-                        alignment: Alignment.centerRight,
-                        color: ThemeColor.ColorSale(),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Lottie.asset('assets/json/delete.json',height: 30,width: 30,repeat: true),
-                            Text(
-                              "ลบ",
-                              style: GoogleFonts.sarabun(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
+        body: _data_aar.length != 0
+            ? Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: List.generate(_data_aar.length, (index) {
+                          return Dismissible(
+                            background: Container(
+                              padding: EdgeInsets.only(right: 30),
+                              alignment: Alignment.centerRight,
+                              color: ThemeColor.ColorSale(),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Lottie.asset('assets/json/delete.json',
+                                      height: 30, width: 30, repeat: true),
+                                  Text(
+                                    "ลบ",
+                                    style: GoogleFonts.sarabun(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                            ),
+                            key: Key("${_data_aar[index].ProductName}"),
+                            child:
+                                _CardCart(item: _data_aar[index], index: index),
+                            onDismissed: (direction) {
+                              setState(() {
+                                _data_aar.removeAt(index);
+                              });
+                            },
+                          );
+                        }),
                       ),
-                      key: Key("${_data_aar[index].ProductName}"),
-                      child: _CardCart(item: _data_aar[index],index: index),
-                      onDismissed: (direction){
-                          setState(() {
-                            _data_aar.removeAt(index);
-                          });
-
-                      },
-                    );
-                  }),
+                    ),
+                  ),
+                  _BuildDiscountCode(),
+                  _BuildFooterTotal(),
+                ],
+              )
+            : Center(
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 100),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset('assets/json/boxorder.json',
+                          height: 300, width: 300, repeat: false),
+                      Text(
+                        "ไม่พบรายการในรถเข็น",
+                        style: GoogleFonts.sarabun(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            _BuildFooterTotal(),
-          ],
-        ):Center(
-          child: Container(
-            margin: EdgeInsets.only(bottom: 100),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Lottie.asset('assets/json/boxorder.json',height: 300,width: 300,repeat: false),
-                Text("ไม่พบรายการในรถเข็น",style: GoogleFonts.sarabun(fontSize: 18,fontWeight: FontWeight.bold),)
-              ],
-            ),
-          ),
-        ),
       ),
     );
   }
 
-  Widget _CardCart({CartModel item,int index}) {
+  Widget _BuildDiscountCode() {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.only(right: 5,left:0) ,
+        child: ListMenuItem(
+      icon: 'assets/images/svg/sale_cart.svg',
+      title: "โค๊ดส่วนลดจาก Naifarm",
+      Message: "เลือกโค๊ดส่วนลด",
+      iconSize: 35,
+      fontWeight: FontWeight.w500,
+      onClick: () {},
+    ));
+  }
+
+  Widget _CardCart({CartModel item, int index}) {
     return Column(
       children: [
-        _BuildCard(item: item,index: index),
+        _BuildCard(item: item, index: index),
         _IntroShipment(),
+        item.ProductDicount==0?_Buildcoupon():SizedBox(),
         SizedBox(height: 13),
       ],
     );
   }
 
-  Widget _BuildCard({CartModel item,int index}) {
+  Widget _BuildCard({CartModel item, int index}) {
     return Container(
       color: Colors.white,
       child: Column(
@@ -114,19 +144,21 @@ class _MyCartState extends State<MyCartMobile> {
               Expanded(
                 flex: 1,
                 child: InkWell(
-                  child: item.select?SvgPicture.asset(
-                    'assets/images/svg/checkmark.svg',
-                    width: 25,
-                    height: 25,
-                  ):SvgPicture.asset(
-                    'assets/images/svg/uncheckmark.svg',
-                    width: 25,
-                    height: 25,
-                    color: Colors.black.withOpacity(0.5),
-                  ),
-                  onTap: (){
+                  child: item.select
+                      ? SvgPicture.asset(
+                          'assets/images/svg/checkmark.svg',
+                          width: 25,
+                          height: 25,
+                        )
+                      : SvgPicture.asset(
+                          'assets/images/svg/uncheckmark.svg',
+                          width: 25,
+                          height: 25,
+                          color: Colors.black.withOpacity(0.5),
+                        ),
+                  onTap: () {
                     setState(() {
-                      _data_aar[index].select = item.select?false:true;
+                      _data_aar[index].select = item.select ? false : true;
                     });
                   },
                 ),
@@ -139,7 +171,7 @@ class _MyCartState extends State<MyCartMobile> {
                     children: [
                       _OwnShop(item: item),
                       SizedBox(height: 10),
-                      _ProductDetail(item: item),
+                      _ProductDetail(item: item, index: index),
                     ],
                   ),
                 ),
@@ -181,12 +213,12 @@ class _MyCartState extends State<MyCartMobile> {
         ),
         Text(item.NameShop,
             style:
-                GoogleFonts.sarabun(fontSize: 15, fontWeight: FontWeight.w500))
+            GoogleFonts.sarabun(fontSize: 16, fontWeight: FontWeight.bold))
       ],
     );
   }
 
-  Widget _ProductDetail({CartModel item}) {
+  Widget _ProductDetail({CartModel item, int index}) {
     return Column(
       children: [
         Row(
@@ -241,32 +273,47 @@ class _MyCartState extends State<MyCartMobile> {
         SizedBox(height: 10),
         Row(
           children: [
-            Container(
-              width: 30,
-              height: 25,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black.withOpacity(0.2)),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(3),
-                      bottomLeft: Radius.circular(3))),
-              child: Center(child: Text("-", style: TextStyle(fontSize: 18))),
+            InkWell(
+              child: Container(
+                width: 30,
+                height: 25,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black.withOpacity(0.2)),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(3),
+                        bottomLeft: Radius.circular(3))),
+                child: Center(child: Text("-", style: TextStyle(fontSize: 18))),
+              ),
+              onTap: () {
+                setState(() {
+                  _data_aar[index].amout != 0 ? _data_aar[index].amout -= 1 : 0;
+                });
+              },
             ),
             Container(
               width: 30,
               height: 25,
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.2))),
-              child: Center(child: Text("${item.amout}", style: TextStyle(fontSize: 16))),
+              child: Center(
+                  child: Text("${item.amout}", style: TextStyle(fontSize: 16))),
             ),
-            Container(
-              width: 30,
-              height: 25,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(3),
-                      bottomRight: Radius.circular(3)),
-                  border: Border.all(color: Colors.black.withOpacity(0.2))),
-              child: Center(child: Text("+", style: TextStyle(fontSize: 18))),
+            InkWell(
+              child: Container(
+                width: 30,
+                height: 25,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(3),
+                        bottomRight: Radius.circular(3)),
+                    border: Border.all(color: Colors.black.withOpacity(0.2))),
+                child: Center(child: Text("+", style: TextStyle(fontSize: 18))),
+              ),
+              onTap: () {
+                setState(() {
+                  _data_aar[index].amout += 1;
+                });
+              },
             )
           ],
         )
@@ -274,11 +321,25 @@ class _MyCartState extends State<MyCartMobile> {
     );
   }
 
+  Widget _Buildcoupon(){
+    return Container(
+        color: Colors.white,
+        padding: EdgeInsets.only(right: 5,left:0) ,
+        child: ListMenuItem(
+          icon: 'assets/images/svg/coupon.svg',
+          title: "โค๊ดส่วนลดจาก Naifarm",
+          Message: "เลือกโค๊ดส่วนลด",
+          iconSize: 35,
+          fontWeight: FontWeight.w500,
+          onClick: () {},
+        ));
+  }
+
   Widget _IntroShipment() {
     return Container(
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.only(left: 40, bottom: 10),
+        padding: const EdgeInsets.only(left: 20, bottom: 10),
         child: Row(
           children: [
             SvgPicture.asset(
@@ -310,20 +371,27 @@ class _MyCartState extends State<MyCartMobile> {
             child: InkWell(
               child: Row(
                 children: [
+
                   Expanded(
-                      flex: 1,
-                      child: SvgPicture.asset(
-                        'assets/images/svg/checkmark.svg',
-                        width: 25,
-                        height: 25,
+                      flex: 4,
+                      child:  Container(
+                        padding: EdgeInsets.only(left: 23),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/svg/checkmark.svg',
+                              width: 25,
+                              height: 25,
+                            ),
+                            SizedBox(width: 10),
+                            Text("เลือกทั้งหมด",
+                                style: GoogleFonts.sarabun(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black))
+                          ],
+                        ),
                       )),
-                  Expanded(
-                      flex: 3,
-                      child: Text("เลือกทั้งหมด",
-                          style: GoogleFonts.sarabun(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black))),
                   Expanded(
                     flex: 2,
                     child: Text("จำนวน ${SumTotalItem()} รายการ",
@@ -334,7 +402,7 @@ class _MyCartState extends State<MyCartMobile> {
                   )
                 ],
               ),
-              onTap: (){
+              onTap: () {
                 setState(() {
                   selectall();
                 });
@@ -367,16 +435,21 @@ class _MyCartState extends State<MyCartMobile> {
                 Expanded(
                     flex: 2,
                     child: Container(
-                        alignment: Alignment.center,
-                        width: 80,
-                        height: 60,
-                        padding: EdgeInsets.all(10),
-                        color: ThemeColor.ColorSale(),
-                        child: Text("ชำระเงิน",
-                            style: GoogleFonts.sarabun(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)))),
+                      height: 55,
+                      color: ThemeColor.ColorSale(),
+                      child: FlatButton(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          onPressed: () {
+                            AppRoute.CartSummary(context);
+                          },
+                          child: Text("ชำระเงิน",
+                              style: GoogleFonts.sarabun(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                          ),
+                    )
+                    ),
               ],
             ),
           )
@@ -385,28 +458,26 @@ class _MyCartState extends State<MyCartMobile> {
     );
   }
 
-  int SumTotalPrice(){
+
+  int SumTotalPrice() {
     int sum = 0;
-    for(int i=0;i<_data_aar.length;i++){
-      sum +=  _data_aar[i].select?_data_aar[i].ProductPrice:0;
+    for (int i = 0; i < _data_aar.length; i++) {
+      sum += _data_aar[i].select ? _data_aar[i].ProductPrice : 0;
     }
     return sum;
   }
 
-  int SumTotalItem(){
+  int SumTotalItem() {
     int sum = 0;
-    for(int i=0;i<_data_aar.length;i++){
-      sum +=  _data_aar[i].select?1:0;
+    for (int i = 0; i < _data_aar.length; i++) {
+      sum += _data_aar[i].select ? 1 : 0;
     }
     return sum;
   }
 
-  void selectall(){
-    for(int i=0;i<_data_aar.length;i++){
-        _data_aar[i].select = true;
+  void selectall() {
+    for (int i = 0; i < _data_aar.length; i++) {
+      _data_aar[i].select = true;
     }
   }
-
-
-
 }

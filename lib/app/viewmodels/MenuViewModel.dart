@@ -117,7 +117,7 @@ class MenuViewModel {
           icon: 'assets/images/svg/menu_like.svg',
           iconSelected: 'assets/images/svg/menu_like.svg',
           label: "ถูกใจ",
-          page: "MarketView")
+          page: "MyLikeView")
     ];
   }
 }

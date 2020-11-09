@@ -3,7 +3,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/category/CategoryMobile.dart';
 import 'package:naifarm/app/ui/me/MeMobile.dart';
-import 'package:naifarm/app/ui/mycart/MyCartView.dart';
+import 'package:naifarm/app/ui/mycart/cart/MyCartView.dart';
 import 'package:naifarm/app/ui/recommend/RecommendMobile.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';

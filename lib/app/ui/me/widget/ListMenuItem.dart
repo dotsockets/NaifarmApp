@@ -9,8 +9,10 @@ class ListMenuItem extends StatelessWidget {
   final  String title;
    final String Message;
   final Function() onClick;
+  final double iconSize;
+  final FontWeight fontWeight;
 
-  const ListMenuItem({Key key, this.icon, this.title, this.Message="", this.onClick}) : super(key: key);
+  const ListMenuItem({Key key, this.icon, this.title, this.Message="", this.onClick, this.iconSize=30, this.fontWeight=FontWeight.bold}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +23,23 @@ class ListMenuItem extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
+                flex: 3,
                 child: Row(
                   children: [
-                    SvgPicture.asset(icon),
+                    SvgPicture.asset(icon,width:iconSize,height: iconSize,),
                     SizedBox(width: 10,),
-                    Text(title,style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.black)),
+                    Text(title,style: GoogleFonts.sarabun(fontSize: 16,fontWeight: fontWeight,color: Colors.black)),
                   ],
                 ),
               ),
               Expanded(
+                flex: 2,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(Message,style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.black)),
                     SizedBox(width: 10,),
-                    Icon(Icons.arrow_forward_ios)
+                    Icon(Icons.arrow_forward_ios,color: Colors.grey.withOpacity(0.7),)
                   ],
                 ),
               )

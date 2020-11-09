@@ -1,4 +1,6 @@
 
+import 'package:naifarm/app/models/AddressModel.dart';
+import 'package:naifarm/app/models/BankModel.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 
 class CartViewModel{
@@ -23,6 +25,47 @@ class CartViewModel{
           ProductName: "พริกแดงจินดา",
           select: false,
         amout: 1
+      )
+    ];
+  }
+
+  List<AddressModel> getAddressCart(){
+    return [
+      AddressModel(
+        Name: "วีระชัย ใจกว้าง",
+        phone: "(+66) 978765432",
+        address: "612/399 A space condo ชั้น 4 เขตดินแดง",
+        provice: "จังหวัดกรุงเทพมหานคร ",
+        zipcode: "10400"
+      ),
+      AddressModel(
+          Name: "อภิสิทธิ์ แก้วสรแสน",
+          phone: "(+66) 932971160",
+          address: "9/7 หมู่ 4  อ.ขลุง",
+          provice: "จังหวัดเชียงใหม่ ",
+          zipcode: "10400"
+      )
+    ];
+  }
+
+  List<BankModel> getBankCartType1(){
+    return [
+      BankModel(
+        TypeBank: 1,
+        NameBank: "ธนาคารกสิกรไทย",
+        NumberCard: "* 8765",
+        BackIcon: 'https://img.utdstc.com/icons/scb-easy-android.png:225'
+      )
+    ];
+  }
+
+  List<BankModel> getBankCartType2(){
+    return [
+      BankModel(
+        TypeBank: 2,
+        NameBank: "ธนาคารไทยพาณิช",
+        NumberCard: "* 9803",
+        BackIcon: 'https://i.pinimg.com/originals/55/a3/c2/55a3c2e6e01843e209cf2c2b279363b9.png'
       )
     ];
   }

@@ -4,10 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/ui/myshop/MyshopView.dart';
-import 'package:naifarm/app/ui/purchase/PurchaseView.dart';
 import 'package:naifarm/config/Env.dart';
-import 'package:naifarm/utility/widgets/AppToobar.dart';
+
+import 'myshop/MyshopView.dart';
+import 'purchase/PurchaseView.dart';
 
 class MeMobile extends StatefulWidget {
   @override
@@ -137,7 +137,7 @@ class _MeMobileState extends State<MeMobile> with SingleTickerProviderStateMixin
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(title,style: GoogleFonts.kanit()),
+          Text(title,style: GoogleFonts.kanit(fontWeight: FontWeight.w500,fontSize: 16,color: Colors.black)),
           SizedBox(width: 10,),
           message?ClipRRect(
             borderRadius: BorderRadius.circular(9.0),
