@@ -9,14 +9,13 @@ import 'Ordertablet.dart';
 
 class OrderView extends StatelessWidget {
 
-  final String orderTitle;
-  final String  orderTitleDetail;
-  const OrderView({Key key, this.orderTitle,this.orderTitleDetail}) : super(key: key);
+  final int  Status_Sell;
+  const OrderView({Key key,this.Status_Sell}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
-      mobile: OrderMobile(orderTitle:orderTitle, orderTitleDetail: orderTitleDetail),
+      mobile: OrderMobile(Status_Sell: Status_Sell,),
       tablet: Ordertablet(),
     );
   }

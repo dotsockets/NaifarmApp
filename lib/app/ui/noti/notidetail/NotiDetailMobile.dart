@@ -139,25 +139,18 @@ class NotiDetailMobile extends StatelessWidget {
               color: ThemeColor.primaryColor(),
               thickness: 1
             ),
-            endChild: GestureDetector(
-              child: Container(
-                margin: EdgeInsets.only(left: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title,style: GoogleFonts.sarabun(fontWeight: FontWeight.bold,fontSize: 16),),
-                    SizedBox(height: 5),
-                    NotiViewModel().GetStatusStep(status: item),
-                    SizedBox(height: 20),
-                  ],
-                ),
+            endChild: Container(
+              margin: EdgeInsets.only(left: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,style: GoogleFonts.sarabun(fontWeight: FontWeight.bold,fontSize: 16),),
+                  SizedBox(height: 5),
+                  NotiViewModel().GetStatusStep(status: item),
+                  SizedBox(height: 20),
+                ],
               ),
-              onTap: () {
-                item.Status_step==1? AppRoute.OrderDetail(context,"รอให้คะแนน","คำสั่งซื้อเสร็จสมบูรณ์และขอบคุณสำหรับการให้คะแนน"):null;
-                item.Status_step==2? AppRoute.OrderDetail(context,"ให้คะแนนแล้ว","คำสั่งซื้อเสร็จสมบูรณ์และขอบคุณสำหรับการให้คะแนน"):null;
-                item.Status_step==3? AppRoute.OrderDetail(context,"ยกเลิกแล้ว","คำสั่งซื้อถูกยกเลิกเนื่องจากคุณทำการชำระเงินไม่ตรงเวลา"):null;
-              },
             ),
           ),
         ],

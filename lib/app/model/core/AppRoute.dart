@@ -47,8 +47,8 @@ class AppRoute{
   static  MyLike(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyLikeView()));
   }
-  static  OrderDetail(BuildContext context,String orderTitle,String orderTitleDetail){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView(orderTitle :orderTitle, orderTitleDetail: orderTitleDetail)));
+  static  OrderDetail(BuildContext context,int  Status_Sell){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView( Status_Sell: Status_Sell)));
   }
 
   static  CartSummary(BuildContext context){
