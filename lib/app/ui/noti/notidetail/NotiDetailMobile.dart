@@ -35,7 +35,7 @@ class NotiDetailMobile extends StatelessWidget {
               ),
               content: Column(
                 children: [
-                  _BuildCardNoti(item: NotiViewModel().getNoti()[0])
+                  _BuildCardNoti(item: NotiViewModel().getNoti()[0],context: context)
                 ],
               ),
             ),
@@ -45,7 +45,7 @@ class NotiDetailMobile extends StatelessWidget {
     );
   }
 
-  Container _BuildCardNoti({NotiModel item}) => Container(
+  Container _BuildCardNoti({NotiModel item,BuildContext context}) => Container(
       child: Column(
         children: [
           Container(
@@ -112,7 +112,7 @@ class NotiDetailMobile extends StatelessWidget {
                   .asMap()
                   .map((key, value) {
                     return MapEntry(key,
-                        _BuildCardTimeline(title: item.Title,item: item.step_order[key], index: key,isLast: item.step_order.length-1));
+                        _BuildCardTimeline(title: item.Title,item: item.step_order[key], index: key,isLast: item.step_order.length-1,context: context));
                   })
                   .values
                   .toList(),
@@ -121,7 +121,7 @@ class NotiDetailMobile extends StatelessWidget {
         ],
       ));
 
-  Column _BuildCardTimeline({String title,Status_order item, int index,int isLast}) => Column(
+  Column _BuildCardTimeline({String title,Status_order item, int index,int isLast,BuildContext context}) => Column(
         children: [
           TimelineTile(
             alignment: TimelineAlign.start,
@@ -153,7 +153,11 @@ class NotiDetailMobile extends StatelessWidget {
                   ],
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                item.Status_step==1? AppRoute.OrderDetail(context,"รอให้คะแนน","คำสั่งซื้อเสร็จสมบูรณ์และขอบคุณสำหรับการให้คะแนน"):null;
+                item.Status_step==2? AppRoute.OrderDetail(context,"ให้คะแนนแล้ว","คำสั่งซื้อเสร็จสมบูรณ์และขอบคุณสำหรับการให้คะแนน"):null;
+                item.Status_step==3? AppRoute.OrderDetail(context,"ยกเลิกแล้ว","คำสั่งซื้อถูกยกเลิกเนื่องจากคุณทำการชำระเงินไม่ตรงเวลา"):null;
+              },
             ),
           ),
         ],

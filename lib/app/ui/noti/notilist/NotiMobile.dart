@@ -50,7 +50,11 @@ class NotiMobile extends StatelessWidget {
 
   GestureDetector _BuildCardNoti({NotiModel item,BuildContext context,int index}) => GestureDetector(
     onTap: (){
-      item.Status_Sell!=2?AppRoute.NotiDetail(context,"notiitem_${index}","notititle_${index}"):null;
+     // item.Status_Sell!=2?AppRoute.NotiDetail(context,"notiitem_${index}","notititle_${index}"):null;
+      item.Status_Sell==1?AppRoute.NotiDetail(context,"notiitem_${index}","notititle_${index}"):null;
+      item.Status_Sell==3? AppRoute.OrderDetail(context,"รอให้คะแนน","คำสั่งซื้อเสร็จสมบูรณ์และขอบคุณสำหรับการให้คะแนน"):null;
+      item.Status_Sell==4? AppRoute.OrderDetail(context,"ให้คะแนนแล้ว","คำสั่งซื้อเสร็จสมบูรณ์และขอบคุณสำหรับการให้คะแนน"):null;
+      item.Status_Sell==5? AppRoute.OrderDetail(context,"ยกเลิกแล้ว","คำสั่งซื้อถูกยกเลิกเนื่องจากคุณทำการชำระเงินไม่ตรงเวลา"):null;
     },
          child: Container(
              padding: EdgeInsets.only(top: 10,right: 10,left: 10),

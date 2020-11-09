@@ -8,6 +8,7 @@ import 'package:naifarm/app/ui/mycart/cartsummary/CartSummaryView.dart';
 import 'package:naifarm/app/ui/mylike/MyLikeView.dart';
 import 'package:naifarm/app/ui/noti/notidetail/NotiDetailView.dart';
 import 'package:naifarm/app/ui/noti/notilist/NotiView.dart';
+import 'package:naifarm/app/ui/order/OrderView.dart';
 import 'package:naifarm/app/ui/product_detail/ProductDetailView.dart';
 import 'package:naifarm/app/ui/specialproducts/SpecialproductsView.dart';
 import 'package:page_transition/page_transition.dart';
@@ -45,6 +46,9 @@ class AppRoute{
 
   static  MyLike(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyLikeView()));
+  }
+  static  OrderDetail(BuildContext context,String orderTitle,String orderTitleDetail){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView(orderTitle :orderTitle, orderTitleDetail: orderTitleDetail)));
   }
 
   static  CartSummary(BuildContext context){
