@@ -20,11 +20,8 @@ import 'widget/ShopOwn.dart';
 
 class ProductDetailMobile extends StatefulWidget {
   final String productImage;
-  final String productName;
-  final String productStatus;
-  final String productPrice;
 
-  const ProductDetailMobile({Key key, this.productImage, this.productName, this.productStatus, this.productPrice}) : super(key: key);
+  const ProductDetailMobile({Key key, this.productImage}) : super(key: key);
 
   @override
   _ProductDetailMobileState createState() => _ProductDetailMobileState();
@@ -47,7 +44,7 @@ class _ProductDetailMobileState extends State<ProductDetailMobile> {
                     children: [
                       AppToobar(header_type: Header_Type.barNoSearchNoTitle),
                       Hero(tag: widget.productImage, child: ProductSlide()),
-                      ProductInto(productDetail: _productDetail,productName: widget.productName,productPrice: widget.productPrice,productStatus: widget.productStatus,),
+                      ProductInto(productDetail: _productDetail),
                       _Divider(),
                       ShopOwn(productDetail: _productDetail),
                       _Divider(),

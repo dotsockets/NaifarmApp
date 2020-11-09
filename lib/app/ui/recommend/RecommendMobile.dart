@@ -124,42 +124,45 @@ class _RecommendMobileState extends State<RecommendMobile> {
                 FlashSale(),
                 SizedBox(height: 15),
                 ProductLandscape(
-                  titleInto: "สินค้าขายดี",
-                  producViewModel: ProductViewModel().getBaseSaller(),
-                  IconInto: 'assets/images/svg/product_hot.svg',
-                  onSelectMore: () {
-
-                  },
-                  onTapItem: (int index) {
-                    AppRoute.ProductDetail(context,productImage: "productImage_${index}",productName: "productName_${index}",productStatus: "productStatus_${index}",productPrice: "productPrice_${index}");
-                  },
-                ),
+                    titleInto: "สินค้าขายดี",
+                    producViewModel: ProductViewModel().getBaseSaller(),
+                    IconInto: 'assets/images/svg/product_hot.svg',
+                    onSelectMore: () {},
+                    onTapItem: (int index) {
+                      AppRoute.ProductDetail(context,
+                          productImage: "product_hot_${index}");
+                    },
+                    tagHero: "product_hot"),
                 SizedBox(height: 15),
                 _BannerAds(),
-                ProductVertical(titleInto: "ฟาร์มมาร์เก็ต",
-                  producViewModel: ProductViewModel().getProductFarm(),
-                  IconInto: 'assets/images/svg/menu_market.svg',
-                  onSelectMore: () {
-
-                  },
-                  onTapItem: (int index) {
-                    AppRoute.ProductDetail(context,productImage: "productImage_${index}",productName: "productName_${index}",productStatus: "productStatus_${index}",productPrice: "productPrice_${index}");
-                  },),
+                ProductVertical(
+                    titleInto: "ฟาร์มมาร์เก็ต",
+                    producViewModel: ProductViewModel().getProductFarm(),
+                    IconInto: 'assets/images/svg/menu_market.svg',
+                    onSelectMore: () {},
+                    onTapItem: (int index) {
+                      AppRoute.ProductDetail(context,
+                          productImage: "market_${index}");
+                    },
+                    borderRadius: false,
+                    tagHero: "market"),
                 SizedBox(height: 15),
                 CategoryTab(),
                 SizedBox(height: 15),
-                SearchHot(),
+                SearchHot(onSelectChang: (){},onTapItem: (int index){ AppRoute.ProductDetail(context,
+                    productImage: "search_${index}");},tagHero: "search"),
                 SizedBox(height: 15),
-                ProductVertical(titleInto: "สินค้าสำหรับคุณ",
-                  producViewModel: ProductViewModel().getProductForYou(),
-                  IconInto: 'assets/images/svg/foryou.svg',
-                  onSelectMore: () {
-
-                  },
-                  onTapItem: (int index) {
-                    AppRoute.ProductDetail(context,productImage: "productImage_${index}",productName: "productName_${index}",productStatus: "productStatus_${index}",productPrice: "productPrice_${index}");
-
-                  },)
+                ProductVertical(
+                    titleInto: "สินค้าสำหรับคุณ",
+                    producViewModel: ProductViewModel().getProductForYou(),
+                    IconInto: 'assets/images/svg/foryou.svg',
+                    onSelectMore: () {},
+                    onTapItem: (int index) {
+                      AppRoute.ProductDetail(context,
+                          productImage: "foryou_${index}");
+                    },
+                    borderRadius: false,
+                    tagHero: "foryou")
               ],
             ),
           ),

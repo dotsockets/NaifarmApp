@@ -44,15 +44,20 @@ class FlashSale extends StatelessWidget {
   }
   
   Widget _textSale({BuildContext context}){
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text("เลือกซื้อสินค้าต่อ",style: GoogleFonts.sarabun(fontSize: 20),),
-          SvgPicture.asset('assets/images/svg/next.svg')
-        ],
+    return InkWell(
+      child: Container(
+        margin: EdgeInsets.only(bottom: 20),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("เลือกซื้อสินค้าต่อ",style: GoogleFonts.sarabun(fontSize: 20),),
+            SvgPicture.asset('assets/images/svg/next.svg')
+          ],
+        ),
       ),
+      onTap: (){
+        AppRoute.FlashSaleAll(context);
+      },
     );
   }
 
@@ -72,7 +77,7 @@ class FlashSale extends StatelessWidget {
               ),
             ),
             onTap: (){
-              AppRoute.ProductDetail(context,productImage: "productImage_${index}",productName: "productName_${index}",productStatus: "productStatus_${index}",productPrice: "productPrice_${index}");
+              AppRoute.ProductDetail(context,productImage: "productImage_${index}");
             },
           );
         }),

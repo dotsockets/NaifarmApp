@@ -246,7 +246,7 @@ class ProductViewModel{
           product_name: 'อโวกาโก้ ภาคเหนือ',
           product_price: 100,
           product_status: 'ขายได้ 4589 ชิ้น',
-          product_image: 'https://p.kindpng.com/picc/s/500-5009720_pea-png-free-download-green-peas-transparent-png.png'
+          product_image: 'https://co.lnwfile.com/_resize_images/600/600/v1/ip/s6.png'
 
       )
     ];

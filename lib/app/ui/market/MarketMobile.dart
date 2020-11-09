@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
@@ -75,14 +76,15 @@ class _MarketMobileState extends State<MarketMobile> {
       },
 
       child: SafeArea(
+        top: false,
         child: Scaffold(
-          backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Container(
+              color: Colors.grey.shade300,
               child: StickyHeader(
                 header:  Column(
                   children: [
-                    AppToobar(header_type:  Header_Type.barNoSearch,),
+                    AppToobar(Title: "สินค้า Naifarm ฟาร์มมาร์เก็ต",header_type:  Header_Type.barNoSearch,),
                     CategoryMenu(selectedIndex: _categoryselectedIndex,menuViewModel: _menuViewModel,onTap: (int val){
                       setState(() {
                         _categoryselectedIndex = val;
@@ -93,13 +95,15 @@ class _MarketMobileState extends State<MarketMobile> {
                 content: Column(
                   children: [
                     BannerSlide(),
-
                     SizedBox(height: 15),
                     ProductVertical(titleInto: "ขายดี",
-                      producViewModel: ProductViewModel().getProductFarm(),
-                      IconInto: 'assets/images/svg/product_hot.svg',
-                      onSelectMore: () {},
-                      onTapItem: (int) {},),
+                        producViewModel: ProductViewModel().getProductFarm(),
+                        IconInto: 'assets/images/svg/product_hot.svg',
+                        onSelectMore: () {},
+                        onTapItem: (int index) {
+                          AppRoute.ProductDetail(context,
+                              productImage: "sell_${index}");
+                        },borderRadius: true,IconSize: 30,tagHero: "sell",),
                     SizedBox(height: 15),
                     ProductGrid(titleInto: "แนะนำ",
                       producViewModel: ProductViewModel().getMarketRecommend(),
@@ -107,9 +111,11 @@ class _MarketMobileState extends State<MarketMobile> {
                       onSelectMore: () {
 
                       },
-                      onTapItem: () {
+                      onTapItem: (int index) {
 
-                      },),
+                        AppRoute.ProductDetail(context,
+                            productImage: "market_farm_${index}");
+                      },tagHero: 'market_farm' ),
                   ],
                 ),
               ),

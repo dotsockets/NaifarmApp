@@ -29,62 +29,65 @@ class _MyCartState extends State<MyCartMobile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: _data_aar.length!=0?Colors.grey.shade300:Colors.white,
-      appBar: AppBar(
-        backgroundColor: ThemeColor.primaryColor(),
-        title: Text(
-          "รถเข็น",
-          style: GoogleFonts.sarabun(color: Colors.black),
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        key: _scaffoldKey,
+        backgroundColor: _data_aar.length!=0?Colors.grey.shade300:Colors.white,
+        appBar: AppBar(
+          backgroundColor: ThemeColor.primaryColor(),
+          title: Text(
+            "รถเข็น",
+            style: GoogleFonts.sarabun(color: Colors.black),
+          ),
         ),
-      ),
-      body: _data_aar.length!=0?Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: List.generate(_data_aar.length, (index) {
-                  return Dismissible(
-                    background: Container(
-                      padding: EdgeInsets.only(right: 30),
-                      alignment: Alignment.centerRight,
-                      color: ThemeColor.ColorSale(),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Lottie.asset('assets/json/delete.json',height: 30,width: 30,repeat: true),
-                          Text(
-                            "ลบ",
-                            style: GoogleFonts.sarabun(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),
-                          )
-                        ],
+        body: _data_aar.length!=0?Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: List.generate(_data_aar.length, (index) {
+                    return Dismissible(
+                      background: Container(
+                        padding: EdgeInsets.only(right: 30),
+                        alignment: Alignment.centerRight,
+                        color: ThemeColor.ColorSale(),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Lottie.asset('assets/json/delete.json',height: 30,width: 30,repeat: true),
+                            Text(
+                              "ลบ",
+                              style: GoogleFonts.sarabun(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    key: Key("${_data_aar[index].ProductName}"),
-                    child: _CardCart(item: _data_aar[index],index: index),
-                    onDismissed: (direction){
-                        setState(() {
-                          _data_aar.removeAt(index);
-                        });
+                      key: Key("${_data_aar[index].ProductName}"),
+                      child: _CardCart(item: _data_aar[index],index: index),
+                      onDismissed: (direction){
+                          setState(() {
+                            _data_aar.removeAt(index);
+                          });
 
-                    },
-                  );
-                }),
+                      },
+                    );
+                  }),
+                ),
               ),
             ),
-          ),
-          _BuildFooterTotal(),
-        ],
-      ):Center(
-        child: Container(
-          margin: EdgeInsets.only(bottom: 100),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Lottie.asset('assets/json/boxorder.json',height: 300,width: 300,repeat: false),
-              Text("ไม่พบรายการในรถเข็น",style: GoogleFonts.sarabun(fontSize: 18,fontWeight: FontWeight.bold),)
-            ],
+            _BuildFooterTotal(),
+          ],
+        ):Center(
+          child: Container(
+            margin: EdgeInsets.only(bottom: 100),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset('assets/json/boxorder.json',height: 300,width: 300,repeat: false),
+                Text("ไม่พบรายการในรถเข็น",style: GoogleFonts.sarabun(fontSize: 18,fontWeight: FontWeight.bold),)
+              ],
+            ),
           ),
         ),
       ),

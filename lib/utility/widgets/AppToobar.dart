@@ -1,89 +1,141 @@
+
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 
 enum Header_Type {
   barHasSearch,
   barNoSearch,
-  barNoSearchNoTitle
+  barNoSearchNoTitle,
+  barMe,
+  barNormal
 }
 
 class AppToobar extends PreferredSize {
  final Header_Type header_type;
  final  String Title;
+ final Function onClick;
+ final String icon;
 
-  const AppToobar({Key key, this.header_type, this.Title}) : super(key: key);
+  const AppToobar({this.onClick, this.icon, Key key, this.header_type, this.Title}) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
     if(header_type==Header_Type.barHasSearch){
-        return HasSearch();
+        return HasSearch(context);
     }else if(header_type==Header_Type.barNoSearch){
         return BarNoSearch(context);
     }else if(header_type==Header_Type.barNoSearchNoTitle){
       return barNoSearchNoTitle(context);
+    }else if(header_type==Header_Type.barNormal){
+      return BarNormal(context);
     }
   }
 
  Widget BarNoSearch(BuildContext context){
    return Container(
      color: ThemeColor.primaryColor(),
-     child: Padding(
-       padding: const EdgeInsets.only(top: 8,bottom: 8,right: 8,left: 12),
-       child: Row(
-         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-         children: [
-           GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg',color: Colors.white,),
-             onTap: (){
-               Navigator.pop(context);
-             },),
-           Text("สินค้า Naifarm ฟาร์มมาร์เก็ต",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 16,
-             fontWeight: FontWeight.bold,decoration: TextDecoration.none,),),
-           Row(
-             mainAxisAlignment: MainAxisAlignment.end,
-             children: [
-               GestureDetector(child: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.white),
-                 onTap: (){},
-               ),_buildIconButton(
-                 onPressed: () => print("click"),
-                 icon: Icons.shopping_cart_outlined,
-                 notification: 20,
-               ),],
-           ),
-         ],
+     child: SafeArea(
+       bottom: false,
+       child: Padding(
+         padding: const EdgeInsets.only(top: 0,bottom: 3,right: 8,left: 12),
+         child: Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: [
+             GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg',color: Colors.white,),
+               onTap: (){
+                 Navigator.pop(context);
+               },),
+             Text(Title,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 20,
+               fontWeight: FontWeight.bold,decoration: TextDecoration.none,),),
+             Row(
+               mainAxisAlignment: MainAxisAlignment.end,
+               children: [
+                 GestureDetector(child: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.white),
+                   onTap: (){},
+                 ),_buildIconButton(
+                   onPressed: () {
+                     AppRoute.MyCart(context);
+                   },
+                   icon: Icons.shopping_cart_outlined,
+                   notification: 20,
+                 ),],
+             ),
+           ],
+         ),
+       ),
+     ),
+   );
+ }
+
+ Widget BarNormal(BuildContext context){
+   return Container(
+     height: 100,
+     color: ThemeColor.primaryColor(),
+     child: SafeArea(
+       bottom: false,
+       child: Padding(
+         padding: const EdgeInsets.only(top: 0,bottom: 5,right: 8,left: 12),
+         child: Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: [
+             GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg',color: Colors.white,),
+               onTap: (){
+                 Navigator.pop(context);
+               },),
+             Text(Title,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 20,
+               fontWeight: FontWeight.bold,decoration: TextDecoration.none,),),
+             Row(
+               mainAxisAlignment: MainAxisAlignment.end,
+               children: [
+                 Container(
+                   margin: EdgeInsets.only(right: 7),
+                   child: GestureDetector(child: SvgPicture.asset(icon,color: Colors.white,width: 35,height: 35,),
+                     onTap: ()=>onClick(),
+                   ),
+                 ),],
+             ),
+           ],
+         ),
        ),
      ),
    );
  }
 
   Widget barNoSearchNoTitle(BuildContext context){
-    return Container(
+    return GestureDetector(
+      child: Container(
 
-      padding: EdgeInsets.only(right: 25,left: 25,top: 10,bottom: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg'),onTap: (){
-            Navigator.pop(context);
-          },),
-          Container(
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                color: ThemeColor.primaryColor(),
-              borderRadius: BorderRadius.all(Radius.circular(20))
-            ),
-            child: Icon(Icons.shopping_cart_outlined,color: Colors.white,),
-          )
-        ],
+        padding: EdgeInsets.only(right: 25,left: 25,top: 10,bottom: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg'),onTap: (){
+              Navigator.pop(context);
+            },),
+            Container(
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  color: ThemeColor.primaryColor(),
+                borderRadius: BorderRadius.all(Radius.circular(20))
+              ),
+              child: Icon(Icons.shopping_cart_outlined,color: Colors.white,),
+            )
+          ],
+        ),
       ),
+      onTap: (){
+        AppRoute.MyCart(context);
+      },
     );
   }
 
 
-  Widget HasSearch(){
+  Widget HasSearch(BuildContext context){
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -96,7 +148,9 @@ class AppToobar extends PreferredSize {
               _buildSearch(),
               SizedBox(width: 8),
               _buildIconButton(
-                onPressed: () => print("click"),
+                onPressed: (){
+                  AppRoute.MyCart(context);
+                },
                 icon: Icons.shopping_cart_outlined,
                 notification: 20,
               )
@@ -181,6 +235,17 @@ class AppToobar extends PreferredSize {
             filled: true
           ),
         ),
+      ),
+    );
+  }
+
+  Widget MeToobar(){
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+            Icon(Icons.settings)
+        ],
       ),
     );
   }

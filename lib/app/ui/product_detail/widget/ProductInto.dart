@@ -8,11 +8,8 @@ import 'package:naifarm/app/models/ProductModel.dart';
 
 class ProductInto extends StatelessWidget {
   final ProductModel productDetail;
-  final String productName;
-  final String productStatus;
-  final String productPrice;
 
-  const ProductInto({Key key, this.productDetail, this.productName, this.productStatus, this.productPrice}) : super(key: key);
+  const ProductInto({Key key, this.productDetail}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,13 +26,10 @@ class ProductInto extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: Center(
-                    child: Hero(
-                      tag: productName,
-                      child: Text(
-                        productDetail.product_name,
-                        style: GoogleFonts.sarabun(
-                            fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
+                    child: Text(
+                      productDetail.product_name,
+                      style: GoogleFonts.sarabun(
+                          fontSize: 20, fontWeight: FontWeight.w500),
                     )),
               ),
               Expanded(flex: 1, child: SvgPicture.asset(
@@ -50,12 +44,9 @@ class ProductInto extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Hero(
-                tag: productPrice,
-                child: Text("${productDetail.product_price}",
-                    style: GoogleFonts.sarabun(
-                        fontSize: 16, decoration: TextDecoration.lineThrough)),
-              ),
+              Text("${productDetail.product_price}",
+                  style: GoogleFonts.sarabun(
+                      fontSize: 16, decoration: TextDecoration.lineThrough)),
               SizedBox(width: 8),
               Text("${productDetail.ProductDicount}",
                   style: GoogleFonts.sarabun(
@@ -63,12 +54,9 @@ class ProductInto extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10),
-          Hero(
-            tag: productStatus,
-            child: Text(
-              productDetail.product_status,
-              style: GoogleFonts.sarabun(fontSize: 18),
-            ),
+          Text(
+            productDetail.product_status,
+            style: GoogleFonts.sarabun(fontSize: 18),
           ),
           SizedBox(height: 15),
           _IntroShipment()

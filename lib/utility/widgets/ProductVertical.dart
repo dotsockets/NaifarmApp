@@ -15,20 +15,27 @@ class ProductVertical extends StatelessWidget {
   final Function(int) onTapItem;
   final String IconInto;
   final List<ProductModel> producViewModel;
+  final  bool borderRadius;
+  final String tagHero;
+  final double IconSize;
 
-  const ProductVertical({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.producViewModel}) : super(key: key);
+  const ProductVertical({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.producViewModel, this.borderRadius, this.tagHero, this.IconSize=35}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      color: Colors.white,
-      child: Column(
-        children: [
-          _header_bar(),
-          Column(
-            children: List.generate(producViewModel.length, (index) => _buildCardProduct(item: producViewModel[index],index: index)),
-          )
-        ],
+    return ClipRRect(
+      borderRadius: BorderRadius.only(topLeft: Radius.circular(borderRadius?40:0),topRight:  Radius.circular(borderRadius?40:0)),
+      child: Container(
+        padding: EdgeInsets.only(top: 10,left: 5,right: 5,bottom: 15),
+        width: MediaQuery.of(context).size.width,
+        color: Colors.white,
+        child: Column(
+          children: [
+            _header_bar(),
+            Column(
+              children: List.generate(producViewModel.length, (index) => _buildCardProduct(item: producViewModel[index],index: index)),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -36,7 +43,7 @@ class ProductVertical extends StatelessWidget {
 
   Container _header_bar() => Container(
       child: Container(
-        margin: EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 5),
+        margin: EdgeInsets.only(top: 5,left: 10,right: 10,bottom: 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -44,7 +51,7 @@ class ProductVertical extends StatelessWidget {
               children: [
                // Image.asset(IconI=nto,width: 50,height: 50,),
 
-                SvgPicture.asset(IconInto,width: 30,height: 30,),
+                SvgPicture.asset(IconInto,width: IconSize,height: IconSize,),
                 SizedBox(width: 8),
                 Text(titleInto,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
               ],
@@ -75,14 +82,17 @@ class ProductVertical extends StatelessWidget {
                   flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: CachedNetworkImage(
-                      placeholder: (context, url) => Container(
-                        color: Colors.white,
-                        child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                    child: Hero(
+                      tag: "${tagHero}_${index}",
+                      child: CachedNetworkImage(
+                        placeholder: (context, url) => Container(
+                          color: Colors.white,
+                          child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                        ),
+                        fit: BoxFit.cover,
+                        imageUrl: item.product_image,
+                        errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
                       ),
-                      fit: BoxFit.cover,
-                      imageUrl: item.product_image,
-                      errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
                     ),
                   ),
                 ),

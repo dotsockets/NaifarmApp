@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/category/CategoryMobile.dart';
+import 'package:naifarm/app/ui/me/MeMobile.dart';
 import 'package:naifarm/app/ui/mycart/MyCartView.dart';
 import 'package:naifarm/app/ui/recommend/RecommendMobile.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
@@ -26,7 +27,8 @@ class _HomeMobileState extends State<HomeMobile> {
             children: [
               RecommendMobile(size: MediaQuery.of(context).size,paddingBottom: MediaQuery.of(context).padding.bottom,),
               CategoryMobile(),
-              MyCartView()
+              MyCartView(),
+              MeMobile()
             ],
           ),
             bottomNavigationBar: Container(

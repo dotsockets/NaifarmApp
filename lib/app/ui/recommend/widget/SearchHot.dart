@@ -10,6 +10,12 @@ import 'package:naifarm/config/Env.dart';
 
 class SearchHot extends StatelessWidget {
   final List<ProductModel> _producViewModel = ProductViewModel().getProductSearchHot();
+  final Function() onSelectChang;
+  final Function(int) onTapItem;
+  final String tagHero;
+
+   SearchHot({Key key, this.onSelectChang, this.onTapItem, this.tagHero}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,13 +43,16 @@ class SearchHot extends StatelessWidget {
                 Text("ค้นหายอดฮิต",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
               ],
             ),
-            Row(
-              children: [
-                Text("เปลี่ยน",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18)),
-                SizedBox(width: 8),
-                SvgPicture.asset('assets/images/svg/change.svg',width: 30,height: 30,),
+            GestureDetector(
+              child: Row(
+                children: [
+                  Text("เปลี่ยน",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18)),
+                  SizedBox(width: 8),
+                  SvgPicture.asset('assets/images/svg/change.svg',width: 30,height: 30,),
 
-              ],
+                ],
+              ),
+              onTap: ()=>onSelectChang(),
             )
           ],
         ),
@@ -66,8 +75,11 @@ class SearchHot extends StatelessWidget {
         gridDelegate:
         SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: _crossAxisCount,childAspectRatio: _aspectRatio),
         itemBuilder: (context,index){
-          return Container(
-            child:_ProductImage(item: _producViewModel[index],index: index),
+          return InkWell(
+            child: Container(
+              child:_ProductImage(item: _producViewModel[index],index: index),
+            ),
+            onTap: ()=>onTapItem(index),
           );
         },
       ),
@@ -88,14 +100,17 @@ class SearchHot extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CachedNetworkImage(
-            placeholder: (context, url) => Container(
-              color: Colors.white,
-              child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+          Hero(
+            tag: "${tagHero}_${index}",
+            child: CachedNetworkImage(
+              placeholder: (context, url) => Container(
+                color: Colors.white,
+                child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+              ),
+              fit: BoxFit.cover,
+              imageUrl: item.product_image,
+              errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
             ),
-            fit: BoxFit.cover,
-            imageUrl: item.product_image,
-            errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
           ),
          SizedBox(width: 10),
          Column(

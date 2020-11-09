@@ -61,9 +61,9 @@ class RecommendMenu extends StatelessWidget {
         break;
         case  "MarketView" : AppRoute.Market(context);
         break;
-        case  "MarketView" : AppRoute.Market(context);
+        case  "SpecialproductsView" : AppRoute.Specialproducts(context);
         break;
-        case  "MarketView" : AppRoute.Market(context);
+        case  "NotiView" :  AppRoute.MyNoti(context);
         break;
         case  "MarketView" : AppRoute.Market(context);
         break;

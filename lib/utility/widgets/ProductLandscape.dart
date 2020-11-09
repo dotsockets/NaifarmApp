@@ -16,8 +16,10 @@ class ProductLandscape extends StatelessWidget {
   final Function(int) onTapItem;
   final String IconInto;
   final List<ProductModel> producViewModel;
+  final String tagHero;
 
-  const ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto}) : super(key: key);
+
+  const ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero}) : super(key: key);
 
 
   @override
@@ -72,7 +74,7 @@ class ProductLandscape extends StatelessWidget {
               margin: EdgeInsets.all(10),
               child: Column(
                 children: [
-                  _ProductImage(item: producViewModel[index]),
+                  _ProductImage(item: producViewModel[index],index: index),
                   _intoProduct(item: producViewModel[index])
                 ],
               ),
@@ -86,7 +88,7 @@ class ProductLandscape extends StatelessWidget {
 
 
 
-  Widget _ProductImage({ProductModel item}){
+  Widget _ProductImage({ProductModel item,int index}){
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
       child: Container(
@@ -95,16 +97,19 @@ class ProductLandscape extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            CachedNetworkImage(
-              width: 130,
-              height: 130,
-              placeholder: (context, url) => Container(
-                color: Colors.white,
-                child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+            Hero(
+              tag: "${tagHero}_${index}",
+              child: CachedNetworkImage(
+                width: 130,
+                height: 130,
+                placeholder: (context, url) => Container(
+                  color: Colors.white,
+                  child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                ),
+                fit: BoxFit.cover,
+                imageUrl: item.product_image,
+                errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
               ),
-              fit: BoxFit.cover,
-              imageUrl: item.product_image,
-              errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
             ),
             Container(
               margin: EdgeInsets.all(5),

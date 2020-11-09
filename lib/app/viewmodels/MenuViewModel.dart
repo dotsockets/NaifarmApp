@@ -107,12 +107,12 @@ class MenuViewModel {
           icon: 'assets/images/svg/menu_spacial_price.svg',
           iconSelected: 'assets/images/svg/menu_spacial_price.svg',
           label: "ราคาพิเศษ",
-          page: "MarketView"),
+          page: "SpecialproductsView"),
       MenuModel(
           icon: 'assets/images/svg/menu_noti.svg',
           iconSelected: 'assets/images/svg/menu_noti.svg',
           label: "แจ้งเตือน",
-          page: "MarketView"),
+          page: "NotiView"),
       MenuModel(
           icon: 'assets/images/svg/menu_like.svg',
           iconSelected: 'assets/images/svg/menu_like.svg',
