@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 class ProductLandscape extends StatelessWidget {
 
@@ -29,6 +30,7 @@ class ProductLandscape extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         color: Colors.white,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _header_bar(),
             _flashProduct()

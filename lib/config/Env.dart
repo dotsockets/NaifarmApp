@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 enum EnvType { DEVELOPMENT, STAGING, PRODUCTION }
+enum DeviceType { PHONE, TABLET }
 
 class Env {
   static Env value;
@@ -14,6 +15,7 @@ class Env {
 
   EnvType environmentType = EnvType.DEVELOPMENT;
   String loadingAnimaion = 'assets/json/loading.json';
+
 
   // Database Config
   int dbVersion = 1;

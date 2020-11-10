@@ -48,10 +48,7 @@ class AppComponentState extends State<AppComponent> {
   @override
   Widget build(BuildContext context) {
 
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
 //flutter pub run gen_lang:generate
     final app = new MaterialApp(
       localizationsDelegates: context.localizationDelegates,

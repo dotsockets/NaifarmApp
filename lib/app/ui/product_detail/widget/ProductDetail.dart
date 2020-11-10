@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/utility/widgets/ExpandableText.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProductDetail extends StatefulWidget {

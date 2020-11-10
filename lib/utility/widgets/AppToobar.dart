@@ -6,12 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 
+import 'BuildIconShop.dart';
+
 enum Header_Type {
-  barHasSearch,
-  barNoSearch,
-  barNoSearchNoTitle,
-  barMe,
-  barNormal
+  barHome,
+  barNoBackground,
+  barNormal,
+  barcartShop
 }
 
 class AppToobar extends PreferredSize {
@@ -19,88 +20,77 @@ class AppToobar extends PreferredSize {
  final  String Title;
  final Function onClick;
  final String icon;
+ final isEnable_Search;
 
-  const AppToobar({this.onClick, this.icon, Key key, this.header_type, this.Title}) : super(key: key);
+  const AppToobar({this.onClick, this.icon, Key key, this.header_type, this.Title,this.isEnable_Search=false}) : super(key: key);
 
 
-  @override
+ @override
+ Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
+
+ @override
   Widget build(BuildContext context) {
-    if(header_type==Header_Type.barHasSearch){
-        return HasSearch(context);
-    }else if(header_type==Header_Type.barNoSearch){
-        return BarNoSearch(context);
-    }else if(header_type==Header_Type.barNoSearchNoTitle){
+    if(header_type==Header_Type.barHome){
+        return BarHome(context);
+    }else if(header_type==Header_Type.barcartShop){
+        return BarCartShop(context);
+    }else if(header_type==Header_Type.barNoBackground){
       return barNoSearchNoTitle(context);
     }else if(header_type==Header_Type.barNormal){
       return BarNormal(context);
     }
   }
 
- Widget BarNoSearch(BuildContext context){
+
+ Widget BarNormal(BuildContext context){
    return Container(
-     color: ThemeColor.primaryColor(),
-     child: SafeArea(
-       bottom: false,
-       child: Padding(
-         padding: const EdgeInsets.only(top: 0,bottom: 3,right: 8,left: 12),
-         child: Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: [
-             GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg',color: Colors.white,),
-               onTap: (){
-                 Navigator.pop(context);
-               },),
-             Text(Title,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 20,
-               fontWeight: FontWeight.bold,decoration: TextDecoration.none,),),
-             Row(
-               mainAxisAlignment: MainAxisAlignment.end,
-               children: [
-                 GestureDetector(child: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.white),
-                   onTap: (){},
-                 ),_buildIconButton(
-                   onPressed: () {
-                     AppRoute.MyCart(context);
-                   },
-                   icon: Icons.shopping_cart_outlined,
-                   notification: 20,
-                 ),],
-             ),
-           ],
-         ),
+     height: 100,
+     child: AppBar(
+       leading: IconButton(
+         icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+         onPressed: () => Navigator.of(context).pop(),
+       ),
+       actions: [
+         Container(
+           margin: EdgeInsets.only(right: 10),
+           child: SvgPicture.asset(icon,color: Colors.white,width: 30,height: 30,),
+         )
+       ],
+       backgroundColor: ThemeColor.primaryColor(),
+       title: Text(
+         Title,
+         style: GoogleFonts.sarabun(color: Colors.black),
        ),
      ),
    );
  }
 
- Widget BarNormal(BuildContext context){
+ Widget BarCartShop(BuildContext context){
    return Container(
      height: 100,
-     color: ThemeColor.primaryColor(),
-     child: SafeArea(
-       bottom: false,
-       child: Padding(
-         padding: const EdgeInsets.only(top: 0,bottom: 5,right: 8,left: 12),
-         child: Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: [
-             GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg',color: Colors.white,),
-               onTap: (){
-                 Navigator.pop(context);
-               },),
-             Text(Title,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 20,
-               fontWeight: FontWeight.bold,decoration: TextDecoration.none,),),
-             Row(
-               mainAxisAlignment: MainAxisAlignment.end,
-               children: [
-                 Container(
-                   margin: EdgeInsets.only(right: 7),
-                   child: GestureDetector(child: SvgPicture.asset(icon,color: Colors.white,width: 35,height: 35,),
-                     onTap: ()=>onClick(),
-                   ),
-                 ),],
-             ),
-           ],
-         ),
+     child: AppBar(
+       leading: IconButton(
+         icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+         onPressed: () => Navigator.of(context).pop(),
+       ),
+       actions: [
+         isEnable_Search?Container(
+           margin: EdgeInsets.only(bottom: 5,right: 5),
+           child: GestureDetector(child: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.white),
+             onTap: (){
+               onClick();
+             },
+           ),
+         ):SizedBox(),
+         Container(
+           margin: EdgeInsets.only(right: 10),
+           child: BuildIconShop(size: 30,),
+         )
+       ],
+       backgroundColor: ThemeColor.primaryColor(),
+       title: Text(
+         Title,
+         style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18),
        ),
      ),
    );
@@ -110,7 +100,7 @@ class AppToobar extends PreferredSize {
     return GestureDetector(
       child: Container(
 
-        padding: EdgeInsets.only(right: 25,left: 25,top: 10,bottom: 20),
+        padding: EdgeInsets.only(right: 20,left: 20,top: 10,bottom: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -118,12 +108,11 @@ class AppToobar extends PreferredSize {
               Navigator.pop(context);
             },),
             Container(
-              padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
                   color: ThemeColor.primaryColor(),
-                borderRadius: BorderRadius.all(Radius.circular(20))
+                borderRadius: BorderRadius.all(Radius.circular(40))
               ),
-              child: Icon(Icons.shopping_cart_outlined,color: Colors.white,),
+              child: BuildIconShop(size: 30,notification: 0,),
             )
           ],
         ),
@@ -135,7 +124,7 @@ class AppToobar extends PreferredSize {
   }
 
 
-  Widget HasSearch(BuildContext context){
+  Widget BarHome(BuildContext context){
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -147,13 +136,7 @@ class AppToobar extends PreferredSize {
             children: [
               _buildSearch(),
               SizedBox(width: 8),
-              _buildIconButton(
-                onPressed: (){
-                  AppRoute.MyCart(context);
-                },
-                icon: Icons.shopping_cart_outlined,
-                notification: 20,
-              )
+              BuildIconShop(notification: 20,size: 30,)
             ],
           ),
         ),
@@ -161,38 +144,7 @@ class AppToobar extends PreferredSize {
     );
   }
 
-  Stack _buildIconButton({
-    VoidCallback onPressed,
-    IconData icon,
-    int notification = 0,
-  }) =>
-      Stack(
-        children: <Widget>[
-          IconButton(
-            iconSize: 35,
-            onPressed: onPressed,
-            icon: Icon(icon),
-            color: Colors.white,
-          ),
-          notification == 0
-              ? SizedBox()
-              : Positioned(
-            right: 5,
-            top: 5,
-            child: Container(
-              padding: EdgeInsets.all(3),
-              decoration: BoxDecoration(
-                color: ThemeColor.ColorSale(),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              constraints: BoxConstraints(
-                minWidth: 15,
-                minHeight: 15,
-              ),
-            ),
-          ),
-        ],
-      );
+
 
   Expanded _buildSearch() {
     final border = OutlineInputBorder(
@@ -239,15 +191,6 @@ class AppToobar extends PreferredSize {
     );
   }
 
-  Widget MeToobar(){
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-            Icon(Icons.settings)
-        ],
-      ),
-    );
-  }
+
 
 }

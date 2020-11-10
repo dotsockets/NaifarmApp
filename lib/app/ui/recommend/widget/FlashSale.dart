@@ -21,6 +21,7 @@ class FlashSale extends StatelessWidget {
     return Stack(
      children: [
        Container(
+         width: MediaQuery.of(context).size.width,
          margin: EdgeInsets.only(top: 50),
            decoration: BoxDecoration(
                color: Colors.white,
@@ -28,9 +29,10 @@ class FlashSale extends StatelessWidget {
                border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
            ),
          child: Column(
+           crossAxisAlignment: CrossAxisAlignment.start,
            children: [
              SizedBox(height: 50),
-             _textSale(context: context),
+             Center(child: _textSale(context: context)),
              _flashProduct(context)
            ],
          ),

@@ -35,6 +35,7 @@ class ProductGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
         width: MediaQuery.of(context).size.width,
         color: Colors.white,
@@ -99,7 +100,7 @@ class ProductGrid extends StatelessWidget {
             crossAxisCount: _crossAxisCount, childAspectRatio: _aspectRatio),
         itemBuilder: (context, index) {
           return Container(
-            child: _buildProduct(item: producViewModel[index], index: index),
+            child: _buildProduct(item: producViewModel[index], index: index,context: context),
           );
         },
       ),
@@ -194,14 +195,14 @@ class ProductGrid extends StatelessWidget {
                 style: GoogleFonts.sarabun(
                     fontSize: 14,
                     color: Colors.black,
-                    fontWeight: FontWeight.w600))
+                    fontWeight: FontWeight.w500))
           ],
         )
       ],
     );
   }
 
-  Widget _buildProduct({ProductModel item, int index}) {
+  Widget _buildProduct({ProductModel item, int index,BuildContext context}) {
     return GestureDetector(
       child: Container(
         padding: EdgeInsets.only(right: 10, left: 5),
@@ -211,6 +212,7 @@ class ProductGrid extends StatelessWidget {
             Stack(
               children: [
                 Container(
+                  width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(35),
                   decoration: BoxDecoration(
                       border: Border.all(
