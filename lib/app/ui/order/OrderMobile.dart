@@ -385,7 +385,7 @@ class OrderMobile extends StatelessWidget {
             Status_Sell!=5?Expanded(
               flex: 3,
               child: Container(
-                padding: EdgeInsets.only(left: 15,right: 15,bottom: 0),
+                padding: EdgeInsets.only(left: 11,bottom: 0),
                 child: Row(
                   children: [
                     SvgPicture.asset('assets/images/svg/status_star.svg',width: 60,height: 60,),

@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/market/MarketView.dart';
+import 'package:naifarm/app/ui/me/mynewproduct/MyNewProductView.dart';
+import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
 import 'package:naifarm/app/ui/mycart/cart/MyCartView.dart';
 import 'package:naifarm/app/ui/mycart/cartaddress/CartAaddressView.dart';
 import 'package:naifarm/app/ui/mycart/cartbank/CartBankView.dart';
+import 'package:naifarm/app/ui/me/delivery/DeliveryView.dart';
 import 'package:naifarm/app/ui/mycart/cartsummary/CartSummaryView.dart';
 import 'package:naifarm/app/ui/mylike/MyLikeView.dart';
 import 'package:naifarm/app/ui/noti/notidetail/NotiDetailView.dart';
@@ -63,4 +66,13 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CartBankView()));
   }
 
+  static DeliveryMe(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: DeliveryView()));
+  }
+  static MyProduct(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
+  }
+  static MyNewProduct(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyNewProductView()));
+  }
 }

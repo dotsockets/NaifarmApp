@@ -14,7 +14,9 @@ class MyshopMobile extends StatelessWidget {
       child: Column(
         children: [
           _buildTabMenu(),
-          ListMenuItem(icon: 'assets/images/svg/latest.svg',title: 'ประวัติการซื้อ'),
+          ListMenuItem(icon: 'assets/images/svg/latest.svg',title: 'ประวัติการซื้อ', onClick: (){
+            
+          },),
           _BuildDivider(),
           ListMenuItem(icon: 'assets/images/svg/like_2.svg',title: 'กระเป๋าเงิน',Message: "300 บาท"),
           _BuildDivider(),
