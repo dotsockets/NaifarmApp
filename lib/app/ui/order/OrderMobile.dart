@@ -116,12 +116,12 @@ class OrderMobile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("วีระชัย ใจกว้าง",style: GoogleFonts.sarabun(fontSize: 16,color: ThemeColor.primaryColor(),fontWeight: FontWeight.bold,height: 1.5),),
+            Text("วีระชัย ใจกว้าง",style: GoogleFonts.sarabun(fontSize: 18,color: ThemeColor.primaryColor(),fontWeight: FontWeight.bold,height: 1.5),),
             SizedBox(height: 8),
-            Text("(+66) 978765432",style: GoogleFonts.sarabun(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-            Text("612/399 A space condo ชั้น 4 เขตดินแดง",style: GoogleFonts.sarabun(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-            Text("จังหวัดกรุงเทพมหานคร ",style: GoogleFonts.sarabun(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-            Text("10400 ",style: GoogleFonts.sarabun(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+            Text("(+66) 978765432",style: GoogleFonts.sarabun(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+            Text("612/399 A space condo ชั้น 4 เขตดินแดง",style: GoogleFonts.sarabun(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+            Text("จังหวัดกรุงเทพมหานคร ",style: GoogleFonts.sarabun(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+            Text("10400 ",style: GoogleFonts.sarabun(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
           ],
         ),
     );
@@ -136,12 +136,12 @@ class OrderMobile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("วีระชัย ใจกว้าง",style: GoogleFonts.sarabun(fontSize: 16,color: ThemeColor.primaryColor(),fontWeight: FontWeight.bold,height: 1.5),),
+          Text("วีระชัย ใจกว้าง",style: GoogleFonts.sarabun(fontSize: 18,color: ThemeColor.primaryColor(),fontWeight: FontWeight.bold,height: 1.5),),
           SizedBox(height: 8),
-          Text("(+66) 978765432",style: GoogleFonts.sarabun(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-          Text("612/399 A space condo ชั้น 4 เขตดินแดง",style: GoogleFonts.sarabun(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-          Text("จังหวัดกรุงเทพมหานคร ",style: GoogleFonts.sarabun(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-          Text("10400 ",style: GoogleFonts.sarabun(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+          Text("(+66) 978765432",style: GoogleFonts.sarabun(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+          Text("612/399 A space condo ชั้น 4 เขตดินแดง",style: GoogleFonts.sarabun(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+          Text("จังหวัดกรุงเทพมหานคร ",style: GoogleFonts.sarabun(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+          Text("10400 ",style: GoogleFonts.sarabun(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
         ],
       ),
     );
@@ -385,7 +385,7 @@ class OrderMobile extends StatelessWidget {
             Status_Sell!=5?Expanded(
               flex: 3,
               child: Container(
-                padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
+                padding: EdgeInsets.only(left: 15,right: 15,bottom: 0),
                 child: Row(
                   children: [
                     SvgPicture.asset('assets/images/svg/status_star.svg',width: 60,height: 60,),
@@ -398,7 +398,7 @@ class OrderMobile extends StatelessWidget {
             Expanded(
               flex: 7,
               child: Container(
-                height: 75,
+                height: 60,
                 child: FlatButton(
                   color: ThemeColor.ColorSale(),
                   textColor: Colors.white,
