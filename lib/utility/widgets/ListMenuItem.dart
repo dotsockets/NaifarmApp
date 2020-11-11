@@ -23,52 +23,55 @@ class ListMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        padding: EdgeInsets.only(right: 10, left: 16, top: 13, bottom: 13),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 3,
-              child: Row(
-                children: [
-                  SvgPicture.asset(
-                    icon,
-                    width: iconSize,
-                    height: iconSize,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(title,
-                      style: GoogleFonts.sarabun(
-                          fontSize: 16,
-                          fontWeight: fontWeight,
-                          color: Colors.black)),
-                ],
+    return InkWell(
+      child: Container(
+          color: Colors.white,
+          padding: EdgeInsets.only(right: 10, left: 16, top: 13, bottom: 13),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      icon,
+                      width: iconSize,
+                      height: iconSize,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(title,
+                        style: GoogleFonts.sarabun(
+                            fontSize: 16,
+                            fontWeight: fontWeight,
+                            color: Colors.black)),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(Message,
-                      style: GoogleFonts.sarabun(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black)),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.grey.withOpacity(0.7),
-                  )
-                ],
-              ),
-            )
-          ],
-        ));
+              Expanded(
+                flex: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(Message,
+                        style: GoogleFonts.sarabun(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black)),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.grey.withOpacity(0.7),
+                    )
+                  ],
+                ),
+              )
+            ],
+          )),
+    onTap: ()=> onClick(),
+    );
   }
 }

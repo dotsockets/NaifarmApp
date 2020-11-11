@@ -18,11 +18,18 @@ class MyshopView extends StatelessWidget {
           _BuildDivider(),
           ListMenuItem(icon: 'assets/images/svg/like_2.svg',title: 'กระเป๋าเงิน',Message: "300 บาท"),
           _BuildDivider(),
-          ListMenuItem(icon: 'assets/images/svg/editprofile.svg',title: 'สินค้าของฉัน'),
+          ListMenuItem(icon: 'assets/images/svg/editprofile.svg',title: 'สินค้าของฉัน',onClick: (){
+            AppRoute.MyProduct(context);
+          },),
           _BuildDivider(),
-          ListMenuItem(icon: 'assets/images/svg/delivery.svg',title: 'การจัดส่ง'),
+          ListMenuItem(icon: 'assets/images/svg/delivery.svg',title: 'การจัดส่ง',onClick: (){
+            AppRoute.DeliveryMe(context);
+          },),
           _BuildDivider(),
-          ListMenuItem(icon: 'assets/images/svg/money.svg',title: 'วิธีการชำระเงิน'),
+          ListMenuItem(icon: 'assets/images/svg/money.svg',title: 'วิธีการชำระเงิน',onClick: (){
+            AppRoute.PaymentMe(context);
+          }
+          ),
           _BuildDivider(),
           ListMenuItem(icon: 'assets/images/svg/help.svg',title: 'ช่วยเหลือ'),
           SizedBox(height: 50),

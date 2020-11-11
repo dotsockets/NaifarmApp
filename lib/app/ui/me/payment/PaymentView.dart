@@ -5,12 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
-class DeliveryView extends StatefulWidget {
+class PaymentView extends StatefulWidget {
   @override
-  _DeliveryViewState createState() => _DeliveryViewState();
+  _PaymentViewState createState() => _PaymentViewState();
 }
 
-class _DeliveryViewState extends State<DeliveryView> {
+class _PaymentViewState extends State<PaymentView> {
   bool checkDeli = false;
   @override
   void initState() {
@@ -30,9 +30,9 @@ class _DeliveryViewState extends State<DeliveryView> {
                     child: AppToobar(Title: "การขนส่งสินค้า",icon: "",header_type:  Header_Type.barNormal,)),
                 Column(
                   children: [
-                    _BuildDelivery(nameDeli: "DHL Domestic"),
-                    _BuildDelivery(nameDeli: "Kerry"),
-                    _BuildDelivery(nameDeli: "J&T Express")
+                    _BuildDelivery(nameDeli: "โอนเงินผ่านบัญชี"),
+                    _BuildDelivery(nameDeli: "เก็บเงินปลายทาง"),
+                    _BuildDelivery(nameDeli: "บัตรเครดิต")
                   ],
                 ),
               ],
@@ -52,7 +52,7 @@ Widget _BuildDelivery({String nameDeli}){
         margin: EdgeInsets.only(left: 10,right: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(nameDeli,style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500)),
+          children: [Text(nameDeli,style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500),),
             InkWell(
               onTap: (){
                 setState(() {

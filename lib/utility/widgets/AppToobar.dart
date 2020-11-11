@@ -44,7 +44,6 @@ class AppToobar extends PreferredSize {
 
  Widget BarNormal(BuildContext context){
    return Container(
-     height: 100,
      child: AppBar(
        leading: IconButton(
          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
