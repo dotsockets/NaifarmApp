@@ -4,13 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/CartModel.dart';
+import 'package:naifarm/app/ui/mycart/cartbank/CartBankView.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+
+import '../widget/ModalFitBottom_Sheet.dart';
 
 class MyCartView extends StatefulWidget {
   @override
@@ -119,7 +123,12 @@ class _MyCartViewState extends State<MyCartView> {
       Message: "เลือกโค๊ดส่วนลด",
       iconSize: 35,
       fontWeight: FontWeight.w500,
-      onClick: () {},
+      onClick: () {
+        showMaterialModalBottomSheet(
+            context: context,
+            builder: (context)=>ModalFitBottom_Sheet(discountModel: CartViewModel().getDiscountFormShop())
+        );
+      },
     ));
   }
 
@@ -327,11 +336,16 @@ class _MyCartViewState extends State<MyCartView> {
         padding: EdgeInsets.only(right: 5,left:0) ,
         child: ListMenuItem(
           icon: 'assets/images/svg/coupon.svg',
-          title: "โค๊ดส่วนลดจาก Naifarm",
-          Message: "เลือกโค๊ดส่วนลด",
+          title: "ซื้อเพิ่มอีก ฿12 เพื่อรัรบส่วนลด ฿40 ",
+          Message: "",
           iconSize: 35,
           fontWeight: FontWeight.w500,
-          onClick: () {},
+          onClick: () {
+            showMaterialModalBottomSheet(
+              context: context,
+              builder: (context)=>ModalFitBottom_Sheet(discountModel: CartViewModel().getDiscount())
+            );
+          },
         ));
   }
 

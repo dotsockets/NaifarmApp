@@ -13,6 +13,8 @@ import 'package:naifarm/app/ui/noti/notidetail/NotiDetailView.dart';
 import 'package:naifarm/app/ui/noti/notilist/NotiView.dart';
 import 'package:naifarm/app/ui/order/OrderView.dart';
 import 'package:naifarm/app/ui/product_detail/ProductDetailView.dart';
+import 'package:naifarm/app/ui/shopmain/ShopMainView.dart';
+import 'package:naifarm/app/ui/shopmain/followers/FollowersView.dart';
 import 'package:naifarm/app/ui/specialproducts/SpecialproductsView.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -75,4 +77,15 @@ class AppRoute{
   static MyNewProduct(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyNewProductView()));
   }
+
+
+  static ShopMain(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ShopMainView()));
+  }
+
+
+  static Followers(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FollowersView()));
+  }
+
 }

@@ -9,7 +9,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/recommend/widget/CategoryTab.dart';
-import 'package:naifarm/app/ui/recommend/widget/FlashSale.dart';
+import 'package:naifarm/utility/widgets/FlashSale.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';

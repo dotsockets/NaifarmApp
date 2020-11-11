@@ -2,6 +2,7 @@
 import 'package:naifarm/app/models/AddressModel.dart';
 import 'package:naifarm/app/models/BankModel.dart';
 import 'package:naifarm/app/models/CartModel.dart';
+import 'package:naifarm/app/models/DiscountModel.dart';
 
 class CartViewModel{
   List<CartModel> getMyCart(){
@@ -68,5 +69,93 @@ class CartViewModel{
         BackIcon: 'https://i.pinimg.com/originals/55/a3/c2/55a3c2e6e01843e209cf2c2b279363b9.png'
       )
     ];
+  }
+
+  DiscountModel getDiscountFormShop(){
+    return
+      DiscountModel(
+        title: "โค้ดส่วนลดจาก Naifarm",
+        detail: [
+          DetailModel(
+              Title: "ส่วนลด ฿40 ชั้นต่ำ ฿399",
+              LabelText: "",
+              ShopImage: "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
+              price: 400,
+              isDelivery: false,
+              SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+              isUse: false,
+              minimum: 399
+          ),
+          DetailModel(
+              Title: "ส่วนลด ฿100 ชั้นต่ำ ฿699",
+              LabelText: "ซื้อเพิ่มอีก ฿329 เพื่อใช้ส่วนลด",
+              ShopImage: "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
+              price: 400,
+              isDelivery: false,
+              SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+              isUse: false,
+              minimum:699
+          ),
+          DetailModel(
+              Title: "ส่วนลด ฿100 ชั้นต่ำ ฿399",
+              LabelText: "",
+              ShopImage: "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
+              price: 400,
+              isDelivery: false,
+              SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+              isUse: true,
+              minimum: 399
+          ),
+          DetailModel(
+              Title: "ฟรี จัดส่ง ฿40 เมื่อขั้นต่ำถึง฿0",
+              LabelText: "",
+              ShopImage: "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
+              price: 400,
+              isDelivery: true,
+              SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+              isUse: false,
+              minimum: 40
+          )
+        ]
+      );
+  }
+
+  DiscountModel getDiscount(){
+    return
+      DiscountModel(
+          title: "โค้ดส่วนลดของ ไร่มอนหลวงสาย",
+          detail: [
+            DetailModel(
+                Title: "ส่วนลด ฿40 ชั้นต่ำ ฿399",
+                LabelText: "",
+                ShopImage: "https://womensagenda.com.au/wp-content/uploads/2020/05/Sarah-Hill-002-1024x683.jpeg",
+                price: 400,
+                isDelivery: false,
+                SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+                isUse: false,
+              minimum: 399
+            ),
+            DetailModel(
+                Title: "ส่วนลด ฿100 ชั้นต่ำ ฿699",
+                LabelText: "ซื้อเพิ่มอีก ฿329 เพื่อใช้ส่วนลด",
+                ShopImage: "https://womensagenda.com.au/wp-content/uploads/2020/05/Sarah-Hill-002-1024x683.jpeg",
+                price: 400,
+                isDelivery: false,
+                SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+                isUse: false,
+              minimum: 699
+            ),
+            DetailModel(
+                Title: "ส่วนลด ฿100 ชั้นต่ำ ฿399",
+                LabelText: "",
+                ShopImage: "https://womensagenda.com.au/wp-content/uploads/2020/05/Sarah-Hill-002-1024x683.jpeg",
+                price: 400,
+                isDelivery: false,
+                SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+                isUse: true,
+                minimum: 399
+            )
+          ]
+      );
   }
 }

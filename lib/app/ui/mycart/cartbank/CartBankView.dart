@@ -13,6 +13,7 @@ import 'package:naifarm/app/models/BankModel.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class CartBankView extends StatefulWidget {
   @override
@@ -41,13 +42,7 @@ class _CartBankViewState extends State<CartBankView> {
         key: _scaffoldKey,
         backgroundColor:
             _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-        appBar: AppBar(
-          backgroundColor: ThemeColor.primaryColor(),
-          title: Text(
-            "เลือกวิธีกาชำระ",
-            style: GoogleFonts.sarabun(color: Colors.black),
-          ),
-        ),
+        appBar: AppToobar(Title: "เลือกวิธีกาชำระ",header_type: Header_Type.barNormal),
         body: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.only(right: 20,left: 20,top: 20),

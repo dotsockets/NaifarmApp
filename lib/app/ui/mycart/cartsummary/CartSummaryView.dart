@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/CartModel.dart';
+import 'package:naifarm/app/ui/mycart/widget/ModalFitBottom_Sheet.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
@@ -303,7 +305,12 @@ class _CartSummaryViewState extends State<CartSummaryView> {
           Message: "",
           iconSize: 35,
           fontWeight: FontWeight.w500,
-          onClick: () {},
+          onClick: () {
+            showMaterialModalBottomSheet(
+                context: context,
+                builder: (context)=>ModalFitBottom_Sheet(discountModel: CartViewModel().getDiscountFormShop())
+            );
+          },
         ));
   }
 
@@ -396,10 +403,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           children: [
                             Text("จำนวน 2 รายการ",
                                 style: GoogleFonts.sarabun(
-                                    fontSize: 15,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black)),
-                            SizedBox(height: 3),
+                            SizedBox(height: 2),
                             Text("รวมทั้งหมด",
                                 style: GoogleFonts.sarabun(
                                     fontSize: 16,

@@ -18,7 +18,7 @@ import 'widget/ProductDetail.dart';
 import 'widget/ProductInto.dart';
 import 'widget/ProductSlide.dart';
 import 'widget/Reviewscore.dart';
-import 'widget/ShopOwn.dart';
+import '../../../utility/widgets/ShopOwn.dart';
 
 class ProductDetailView extends StatefulWidget {
   final String productImage;
@@ -52,7 +52,12 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       _Divider(),
                       BuildChoosesize(IndexType1: IndexTypes1,IndexType2: IndexTypes2,onclick1: (int index)=>setState(() =>IndexTypes1 = index),onclick2: (int index)=>setState(() =>IndexTypes2 = index)),
                       _Divider(),
-                      ShopOwn(productDetail: _productDetail),
+                      InkWell(
+                        child: ShopOwn(productDetail: _productDetail),
+                        onTap: (){
+                          AppRoute.ShopMain(context);
+                          },
+                      ),
                       _Divider(),
                       ProductDetail(productDetail: _productDetail),
                       _Divider(),

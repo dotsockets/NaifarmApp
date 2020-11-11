@@ -1,4 +1,5 @@
 
+import 'package:naifarm/app/models/FollowersModel.dart';
 import 'package:naifarm/app/models/ReviewModel.dart';
 
 class ReviewViewModel{
@@ -28,4 +29,51 @@ class ReviewViewModel{
       )
     ];
   }
+
+  List<FollowersModel> getFollower(){
+      return [
+        FollowersModel(
+          Name: "ไร่มอนหลวงสาย",
+          Image: "https://www.yourtango.com/sites/default/files/image_blog/types-guys-who-stay-single-men.jpg",
+          IsFollow: false
+        ),
+        FollowersModel(
+            Name: "ข้าวสารลุงชัย",
+            Image: "https://www.donegallive.ie/resizer/420/315/true/GN4_DAT_16732044.jpg--man_about_town__a_beginner_s_guide_to_manscaping.jpg",
+            IsFollow: true
+        ),
+        FollowersModel(
+            Name: "น้ำตาลสดแม่ม้อย",
+            Image: "https://haircutinspiration.com/wp-content/uploads/Chris-Evans-buzz-cut-e1538974047133.jpg",
+            IsFollow: false
+        ),
+        FollowersModel(
+            Name: "อรุ่นรุ่ง",
+            Image: "https://pyxis.nymag.com/v1/imgs/cb0/25e/b034bbead413429c1b8baec32768f07a85-man-in-mask.rsquare.w1200.jpg",
+            IsFollow: false
+        ),
+        FollowersModel(
+            Name: "ร้านผักสวย",
+            Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQh-4dAifqVHDD4pA2EzQiZn1AkCfa82Yw1NQ&usqp=CAU",
+            IsFollow: false
+        ),
+        FollowersModel(
+            Name: "ผลไม้สวนสวย",
+            Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQTQA96SxawYMeBsSgl3QG3wFhY2Sgp-mkLmw&usqp=CAU",
+            IsFollow: false
+        ),
+        FollowersModel(
+            Name: "อุปกรณ์ครัว",
+            Image: "https://i1.adis.ws/i/canon/canon-pro-woman-hub-hero-1040x680?w=1146&qlt=70&fmt=jpg&fmt.options=interlaced&bg=rgb(255,255,255)",
+            IsFollow: false
+        ),
+        FollowersModel(
+            Name: "ITnew",
+            Image: "https://www.online-station.net/pic/X2NvbnRlbnQvMjAxOC8wNzIyL3RodW1ibmFpbC8xMTQ4NDFfMDk0NDM2LmpwZyZ3PTExNDAmaD01OTc",
+            IsFollow: false
+        )
+      ];
+  }
+
+
 }

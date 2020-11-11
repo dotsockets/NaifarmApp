@@ -14,23 +14,21 @@ class SpecialproductsView extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Scaffold(
+        appBar: AppToobar(Title: "สินค้าราคาพิเศษ",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',onClick: (){
+
+        },),
         body: SingleChildScrollView(
             child: Container(
-              child: StickyHeader(
-                header:  AppToobar(Title: "สินค้าราคาพิเศษ",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',onClick: (){
+              child: ProductGrid(
+                producViewModel: ProductViewModel().getMarketRecommend(),
+                IconInto: 'assets/images/svg/like.svg',
+                onSelectMore: () {
 
-                },),
-                content: ProductGrid(
-                  producViewModel: ProductViewModel().getMarketRecommend(),
-                  IconInto: 'assets/images/svg/like.svg',
-                  onSelectMore: () {
-
-                  },
-                  onTapItem: (int index) {
-                    AppRoute.ProductDetail(context,
-                        productImage: "special_${index}");
-                  },EnableHeader: false,tagHero: "special",),
-              ),
+                },
+                onTapItem: (int index) {
+                  AppRoute.ProductDetail(context,
+                      productImage: "special_${index}");
+                },EnableHeader: false,tagHero: "special",),
             ),
         ),
       ),

@@ -60,6 +60,7 @@ dependencies:
   timeline_tile: ^1.0.0
   dotted_border: ^1.0.6
   flutter_device_type: ^0.3.0
+  modal_bottom_sheet: ^1.0.1-dev
 
 
 dev_dependencies:
