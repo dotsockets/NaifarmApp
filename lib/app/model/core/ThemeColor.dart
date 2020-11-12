@@ -44,17 +44,17 @@ class ThemeColor{
   }
 
   static Color primarySwatch(BuildContext context){
-    MaterialColor primarySwatch = MaterialColor(0xFFD65653, {
-      50: Color(0xFFD65653),
-      100: Color(0xFFD65653),
-      200: Color(0xFFD65653),
-      300: Color(0xFFD65653),
-      400: Color(0xFFD65653),
-      500: Color(0xFFD65653),
-      600: Color(0xFFD65653),
-      700: Color(0xFFD65653),
-      800: Color(0xFFD65653),
-      900: Color(0xFFD65653),
+    MaterialColor primarySwatch = MaterialColor(0xFF79af66, {
+      50: Color(0xFF79af66),
+      100: Color(0xFF79af66),
+      200: Color(0xFF79af66),
+      300: Color(0xFF79af66),
+      400: Color(0xFF79af66),
+      500: Color(0xFF79af66),
+      600: Color(0xFF79af66),
+      700: Color(0xFF79af66),
+      800: Color(0xFF79af66),
+      900: Color(0xFF79af66),
     });
     return primarySwatch;
   }
