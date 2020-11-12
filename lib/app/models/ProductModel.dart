@@ -15,6 +15,7 @@ class ProductModel{
   final String sipmentPlace;
   final String siomentFrom;
   final String ProductInto;
+  bool isSelect;
 
-  ProductModel ({this.shopName, this.acticeTime, this.provice, this.ownProduct, this.rateShow, this.amoutProduct, this.sipmentPlace, this.siomentFrom, this.ProductInto,this.product_name, this.product_image, this.product_price, this.product_status,this.ProfiletImage, this.ProductDicount});
+  ProductModel ( {this.shopName, this.acticeTime, this.provice, this.ownProduct, this.rateShow, this.amoutProduct, this.sipmentPlace, this.siomentFrom, this.ProductInto,this.product_name, this.product_image, this.product_price, this.product_status,this.ProfiletImage, this.ProductDicount,this.isSelect=false});
 }

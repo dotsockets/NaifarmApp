@@ -19,7 +19,7 @@ class PurchaseView extends StatelessWidget {
             _buildTabMenu(),
             ListMenuItem(icon: 'assets/images/svg/latest.svg',title: 'ประวัติการซื้อ'),
             _BuildDivider(),
-            ListMenuItem(icon: 'assets/images/svg/like_2.svg',title: 'สิ่งที่ฉันถูกใจ',Message: "8 รายการ"),
+            ListMenuItem(icon: 'assets/images/svg/like_2.svg',title: 'สิ่งที่ฉันถูกใจ',Message: "8 รายการ",onClick: ()=>AppRoute.MyLike(context),),
             _BuildDivider(),
             Container(
               child: BuyAgain(

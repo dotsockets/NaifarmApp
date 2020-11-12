@@ -5,15 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
-class DeliveryView extends StatefulWidget {
+class PaymentView extends StatefulWidget {
   @override
-  _DeliveryViewState createState() => _DeliveryViewState();
+  _PaymentViewState createState() => _PaymentViewState();
 }
 
-class _DeliveryViewState extends State<DeliveryView> {
+class _PaymentViewState extends State<PaymentView> {
   int checkDeli = 1;
-
-
   @override
   void initState() {
     super.initState();
@@ -32,11 +30,11 @@ class _DeliveryViewState extends State<DeliveryView> {
                     child: AppToobar(Title: "การขนส่งสินค้า",icon: "",header_type:  Header_Type.barNormal,)),
                 Column(
                   children: [
-                    _BuildDelivery(nameDeli: "DHL Domestic",index: 1),
+                    _BuildDelivery(nameDeli: "โอนเงินผ่านบัญชี",index: 1),
                     Container(height: 1,color: Colors.grey.shade300,),
-                    _BuildDelivery(nameDeli: "Kerry",index: 2),
+                    _BuildDelivery(nameDeli: "เก็บเงินปลายทาง",index: 2),
                     Container(height: 1,color: Colors.grey.shade300,),
-                    _BuildDelivery(nameDeli: "J&T Express",index: 3)
+                    _BuildDelivery(nameDeli: "บัตรเครดิต",index: 3)
                   ],
                 ),
               ],
@@ -54,7 +52,7 @@ Widget _BuildDelivery({String nameDeli,int index}){
         margin: EdgeInsets.only(left: 10,right: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(nameDeli,style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500)),
+          children: [Text(nameDeli,style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500),),
             InkWell(
               onTap: (){
                 setState(() {
@@ -73,7 +71,7 @@ Widget _BuildDelivery({String nameDeli,int index}){
                 'assets/images/svg/uncheckmark.svg',
                 width: 30,
                 height: 30,
-                color: Colors.black.withOpacity(0.3),
+                color: Colors.black.withOpacity(0.5),
               ),
             ),
           ],

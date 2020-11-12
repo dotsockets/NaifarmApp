@@ -138,7 +138,7 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(title,style: GoogleFonts.kanit(fontWeight: FontWeight.w500,fontSize: 16,color: Colors.black)),
+          Text(title,style: GoogleFonts.sarabun(fontWeight: FontWeight.w500,fontSize: 16,color: Colors.black)),
           SizedBox(width: 10,),
           message?ClipRRect(
             borderRadius: BorderRadius.circular(9.0),

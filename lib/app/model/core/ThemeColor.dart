@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 class ThemeColor{
 
   static Color secondaryColor(){
-    return Color(ColorUtils.hexToInt("#214614"));
+    return Color(ColorUtils.hexToInt("#006100"));
   }
 
 
