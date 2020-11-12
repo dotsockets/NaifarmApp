@@ -16,7 +16,7 @@ class MyshopView extends StatelessWidget {
           _buildTabMenu(),
           ListMenuItem(icon: 'assets/images/svg/latest.svg',title: 'ประวัติการซื้อ'),
           _BuildDivider(),
-          ListMenuItem(icon: 'assets/images/svg/like_2.svg',title: 'กระเป๋าเงิน',Message: "300 บาท"),
+          ListMenuItem(icon: 'assets/images/svg/like_2.svg',title: 'กระเป๋าเงิน',Message: "300 บาท",onClick: ()=>AppRoute.WithdrawMoney(context),),
           _BuildDivider(),
           ListMenuItem(icon: 'assets/images/svg/editprofile.svg',title: 'สินค้าของฉัน',onClick: (){
             AppRoute.MyProduct(context);

@@ -22,7 +22,7 @@ class AppToobar extends PreferredSize {
  final String icon;
  final isEnable_Search;
 
-  const AppToobar({this.onClick, this.icon="", Key key, this.header_type, this.Title,this.isEnable_Search=false}) : super(key: key);
+  const AppToobar({this.onClick, this.icon="", Key key, this.header_type, this.Title="",this.isEnable_Search=false}) : super(key: key);
 
 
  @override

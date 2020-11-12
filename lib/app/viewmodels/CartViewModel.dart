@@ -3,6 +3,7 @@ import 'package:naifarm/app/models/AddressModel.dart';
 import 'package:naifarm/app/models/BankModel.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/models/DiscountModel.dart';
+import 'package:naifarm/app/models/WithDrawModel.dart';
 
 class CartViewModel{
   List<CartModel> getMyCart(){
@@ -157,5 +158,28 @@ class CartViewModel{
             )
           ]
       );
+  }
+
+  List<WithDrawModel> getWidthDrawMoney(){
+    return [
+      WithDrawModel(
+        Title: "การถอนเงิน",
+        Subtitle: "ไปที่บัญชี *4321",
+        Text_date: "28-06-2563",
+        price: -100
+      ),
+      WithDrawModel(
+          Title: "ชำระโดย วีระชัย",
+          Subtitle: "เลขคำสั่งซื้อ : 3099830ASERF",
+          Text_date: "28-06-2563",
+          price: 100
+      ),
+      WithDrawModel(
+          Title: "ชำระโดย สุดารัด",
+          Subtitle: "เลขคำสั่งซื้อ : 3099830ASERF",
+          Text_date: "28-06-2563",
+          price: 300
+      )
+    ];
   }
 }
