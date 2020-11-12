@@ -99,6 +99,8 @@ class _MyProductViewState extends State<MyProductView> {
                       children: [
                         Text(
                           item.product_name,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                           style: GoogleFonts.sarabun(
                               fontSize: 18, fontWeight: FontWeight.w600),
                         ),
@@ -120,7 +122,7 @@ class _MyProductViewState extends State<MyProductView> {
                             children: [
                               Expanded(
                                 child: Text("จำนวนสินค้า ${item.amoutProduct}",
-                                    style: GoogleFonts.sarabun(fontSize: 15)),
+                                    style: GoogleFonts.sarabun(fontSize: 14)),
                               ),
                               SizedBox(width: 10,),
                               Expanded(
@@ -128,7 +130,7 @@ class _MyProductViewState extends State<MyProductView> {
                                   alignment: Alignment.topRight,
                                   child: Text(
                                     "${item.product_status}",
-                                    style: GoogleFonts.sarabun(fontSize: 15),
+                                    style: GoogleFonts.sarabun(fontSize: 14),
                                   ),
                                 ),
                               )
