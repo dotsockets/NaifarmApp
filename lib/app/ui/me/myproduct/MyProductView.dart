@@ -27,7 +27,6 @@ class _MyProductViewState extends State<MyProductView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ThemeColor.secondaryColor(),
       child: SafeArea(
         top: false,
         child: Scaffold(

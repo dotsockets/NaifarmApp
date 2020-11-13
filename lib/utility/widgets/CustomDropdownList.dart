@@ -61,23 +61,64 @@ class _CustomDropdownListState extends State<CustomDropdownList> {
   }
 
   showPicker(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoPicker(
-            backgroundColor: Colors.white,
-            onSelectedItemChanged: (value) {
-              setState(() {
-                selectedValue = value;
-              });
-            },
-            itemExtent: 32.0,
-            children: [
-              for (int i = 0; i < widget.dataList.length ; i++)
-              Text(""+ widget.dataList[i],),
-            ],
-          );
-        });
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: Color(0xffffffff),
+                border: Border(
+                  bottom: BorderSide(
+                    color: Color(0xff999999),
+                    width: 0.0,
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  CupertinoButton(
+                    child: Text('ยกเลิก',style: GoogleFonts.sarabun(color: Colors.black),),
+                    onPressed: () {},
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5.0,
+                    ),
+                  ),
+                  CupertinoButton(
+                    child: Text('ตกลง',style: GoogleFonts.sarabun(color: Colors.black),),
+                    onPressed: () {},
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5.0,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 250.0,
+              color: Color(0xfff7f7f7),
+              child: CupertinoPicker(
+                onSelectedItemChanged: (value) {
+                  setState(() {
+                    selectedValue = value;
+                  });
+                },
+                itemExtent: 32.0,
+                children: [
+                  for (int i = 0; i < widget.dataList.length ; i++)
+                    Text(""+ widget.dataList[i],style: GoogleFonts.sarabun(),),
+                ],
+              ),
+            )
+          ],
+        );
+      },
+    );
   }
 
 

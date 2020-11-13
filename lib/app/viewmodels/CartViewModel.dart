@@ -16,7 +16,7 @@ class CartViewModel{
         ProductPrice: 100,
         ProductName: "อโวกาโก้ ภาคเหนือ",
         select: false,
-        amout: 1
+        amout: 1,
       ),
       CartModel(
           NameShop: "ไร่มอนหลวงสาย",

@@ -50,7 +50,7 @@ class WithdrawMoneyView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text("ยอดเงินในกระเป๋า",style: GoogleFonts.sarabun(color: Colors.white,fontSize: 18),),
+          Text("ยอดเงินในกระเป๋า",style: GoogleFonts.sarabun(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
           SizedBox(height: 10),
           Text("฿300.00",style: GoogleFonts.sarabun(color: Colors.white,fontSize: 28),)
         ],
@@ -89,7 +89,7 @@ class WithdrawMoneyView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 50),
-                  Text("ประวัติการทำรายการ",style: GoogleFonts.sarabun(fontSize: 18,color: Colors.black.withOpacity(0.5))),
+                  Text("ประวัติการทำรายการ",style: GoogleFonts.sarabun(fontSize: 18,color: Colors.black.withOpacity(0.7))),
                   Column(
                     children: CartViewModel().getWidthDrawMoney().asMap().map((key, value) => MapEntry(key, _ItemCard(item: CartViewModel().getWidthDrawMoney()[key]))).values.toList(),
                   )

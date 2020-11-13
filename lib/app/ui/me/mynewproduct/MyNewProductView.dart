@@ -44,7 +44,6 @@ class _MyNewProductViewState extends State<MyNewProductView> {
           child: Column(
             children: [
               Container(
-                  height: 80,
                   child: AppToobar(
                     Title: "ข้อมูลสินค้า",
                     icon: "",
