@@ -1,8 +1,10 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -15,27 +17,31 @@ class SuccessView extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(top: 10),
         child: Column(
-          children: ProductViewModel().getHistorySale().asMap().map((key, value) => MapEntry(key, _BuildCard(item: ProductViewModel().getHistorySale()[key]))).values.toList(),
+          children: ProductViewModel().getHistorySuccess().asMap().map((key, value) => MapEntry(key, _BuildCard(item: ProductViewModel().getHistorySuccess()[key],context: context,index: key))).values.toList(),
         ),
       ),
     );
   }
 
-  Widget _BuildCard({ProductModel item}){
-    return Container(
-
-      child: Column(
-        children: [
-          _OwnShop(item: item),
-          _ProductDetail(item: item),
-          SizedBox(height: 10,)
-        ],
+  Widget _BuildCard({ProductModel item,BuildContext context,int index}){
+    return InkWell(
+      child: Container(
+        child: Column(
+          children: [
+            _OwnShop(item: item),
+            _ProductDetail(item: item,index: index,context: context),
+            SizedBox(height: 10,)
+          ],
+        ),
       ),
+      onTap: (){
+        AppRoute.ProductDetail(context,productImage: "history_${index}");
+      },
     );
   }
 
 
-  Widget _ProductDetail({ProductModel item, int index}) {
+  Widget _ProductDetail({ProductModel item, int index,BuildContext context}) {
     return Container(
       padding: EdgeInsets.all(15),
       color: Colors.white,
@@ -44,24 +50,27 @@ class SuccessView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black.withOpacity(0.1))),
-                child: CachedNetworkImage(
-                  width: 80,
-                  height: 80,
-                  placeholder: (context, url) => Container(
-                    color: Colors.white,
-                    child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+              Hero(
+                tag:"history_${index}",
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black.withOpacity(0.1))),
+                  child: CachedNetworkImage(
+                    width: 80,
+                    height: 80,
+                    placeholder: (context, url) => Container(
+                      color: Colors.white,
+                      child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                    ),
+                    fit: BoxFit.cover,
+                    imageUrl: item.product_image,
+                    errorWidget: (context, url, error) => Container(
+                        height: 30,
+                        child: Icon(
+                          Icons.error,
+                          size: 30,
+                        )),
                   ),
-                  fit: BoxFit.cover,
-                  imageUrl: item.product_image,
-                  errorWidget: (context, url, error) => Container(
-                      height: 30,
-                      child: Icon(
-                        Icons.error,
-                        size: 30,
-                      )),
                 ),
               ),
               SizedBox(width: 10),
@@ -75,6 +84,7 @@ class SuccessView extends StatelessWidget {
                             fontSize: 18, fontWeight: FontWeight.w500)),
                     SizedBox(height: 20),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("x ${item.amoutProduct}",
                             style: GoogleFonts.sarabun(
@@ -109,37 +119,36 @@ class SuccessView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              SizedBox(height: 5),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-
-                  Row(
-                    children: [
-                      Text("รวมการสั่งซื้อ : ",
-                          style: GoogleFonts.sarabun(
-                              fontSize: 18, color: Colors.black)),
-                      SizedBox(width: 8),
-                      Text("฿${item.product_price*int.parse(item.amoutProduct)}.00",
-                          style: GoogleFonts.sarabun(
-                              fontSize: 18, color: ThemeColor.ColorSale())),
-                      SizedBox(width: 8),
-                    ],
-                  ),
+                  Text("รวมการสั่งซื้อ : ",
+                      style: GoogleFonts.sarabun(
+                          fontSize: 18, color: Colors.black)),
+                  SizedBox(width: 8),
+                  Text("฿${item.product_price*int.parse(item.amoutProduct)}.00",
+                      style: GoogleFonts.sarabun(
+                          fontSize: 18, color: ThemeColor.ColorSale())),
+                  SizedBox(width: 8),
                 ],
               ),
+
+              Divider(color: Colors.grey.shade500,),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      Text("รวมการสั่งซื้อ : ",
-                          style: GoogleFonts.sarabun(
-                              fontSize: 18, color: Colors.black)),
+                      SvgPicture.asset(
+                        'assets/images/svg/delivery.svg',
+                        width: 30,
+                        height: 30,
+                      ),
                       SizedBox(width: 8),
-                      Text("฿${item.product_price*int.parse(item.amoutProduct)}.00",
+                      Text("[ฺBangkok] วีระชัย",
                           style: GoogleFonts.sarabun(
-                              fontSize: 18, color: ThemeColor.ColorSale())),
+                              fontSize: 18, color: ThemeColor.primaryColor())),
                       SizedBox(width: 8),
                     ],
                   ),
@@ -147,7 +156,49 @@ class SuccessView extends StatelessWidget {
                 ],
               ),
               Divider(color: Colors.grey.shade400,),
-              Text("วันที่ซื้อ 28-06-2563",style: GoogleFonts.sarabun(color: Colors.black.withOpacity(0.6)),)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("วันที่ซื้อ 28-06-2563",style: GoogleFonts.sarabun(color: Colors.black.withOpacity(0.6)),),
+                  Row(
+                    children: [
+                      index==1?FlatButton(
+                        color: ThemeColor.ColorSale(),
+                        textColor: Colors.white,
+                        splashColor: Colors.white.withOpacity(0.3),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        onPressed: () {
+                         AppRoute.Review(context);
+                        },
+                        child: Text(
+                          "รอให้คะแนน",
+                          style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500),
+                        ),
+                      ):SizedBox(),
+                      SizedBox(width: 10,),
+                      FlatButton(
+                        color: ThemeColor.ColorSale(),
+                        textColor: Colors.white,
+                        splashColor: Colors.white.withOpacity(0.3),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        onPressed: () {
+                          /*...*/
+                        },
+                        child: Text(
+                          "ซื้ออีกครั้ง",
+                          style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500),
+                        ),
+                      )
+                    ],
+                  )
+
+                ],
+              )
             ],
           ),
 

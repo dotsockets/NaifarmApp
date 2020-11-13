@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/WithDrawModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
@@ -106,30 +107,35 @@ class WithdrawMoneyView extends StatelessWidget {
     );
   }
   Widget _HeaderText(BuildContext context){
-    return Container(
-      width: MediaQuery.of(context).size.width/1.4,
-      height: 60,
-      margin: EdgeInsets.only(top: 20),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: Container(
-          padding: EdgeInsets.only(right: 13,left: 30,top: 5,bottom: 5),
-          color: ThemeColor.ColorSale(),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                flex: 6,
-                child: Align(alignment: Alignment.center,child: Text("ถอนเงิน",style: GoogleFonts.sarabun(fontSize: 20,color: Colors.white))),
-              ),
-              Expanded(
-                flex: 1,
-                child: Icon(Icons.arrow_forward,color: Colors.white,),
-              )
-            ],
+    return InkWell(
+      child: Container(
+        width: MediaQuery.of(context).size.width/1.4,
+        height: 60,
+        margin: EdgeInsets.only(top: 20),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Container(
+            padding: EdgeInsets.only(right: 13,left: 30,top: 5,bottom: 5),
+            color: ThemeColor.ColorSale(),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  flex: 6,
+                  child: Align(alignment: Alignment.center,child: Text("ถอนเงิน",style: GoogleFonts.sarabun(fontSize: 20,color: Colors.white))),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Icon(Icons.arrow_forward,color: Colors.white,),
+                )
+              ],
+            ),
           ),
         ),
       ),
+      onTap: (){
+        AppRoute.MoneyOut(context);
+      },
     );
   }
 

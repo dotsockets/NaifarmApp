@@ -5,7 +5,9 @@ import 'package:naifarm/app/ui/me/deliveryCost/DeliveryCostView.dart';
 import 'package:naifarm/app/ui/me/mynewproduct/MyNewProductView.dart';
 import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/MyShophiStoryView.dart';
+import 'package:naifarm/app/ui/me/myshop/myshophistory/review/ReviewView.dart';
 import 'package:naifarm/app/ui/me/myshop/withdrawmoney/WithdrawMoneyView.dart';
+import 'package:naifarm/app/ui/me/myshop/withdrawmoney/moneyout/MoneyOutView.dart';
 import 'package:naifarm/app/ui/me/payment/PaymentView.dart';
 import 'package:naifarm/app/ui/mycart/cart/MyCartView.dart';
 import 'package:naifarm/app/ui/mycart/cartaddress/CartAaddressView.dart';
@@ -105,6 +107,15 @@ class AppRoute{
 
   static MyShophistory(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyShophistoryView()));
+  }
+
+
+  static Review(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ReviewView()));
+  }
+
+  static MoneyOut(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MoneyOutView()));
   }
 }
 

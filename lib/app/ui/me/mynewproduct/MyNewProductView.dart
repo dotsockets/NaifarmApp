@@ -5,6 +5,7 @@ import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 
 class MyNewProductView extends StatefulWidget {
@@ -54,26 +55,34 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                   child: Column(
                     children: [
                       Container(
+                        padding: EdgeInsets.all(20),
                         color: Colors.white,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _BuildEditText(
+                            BuildEditText(
                                 head: "ชื่อสินค้า * ",
                                 hint: "กรอกชื่อสินค้า",maxLength: 10,controller: nameProductController,inputType: TextInputType.text),
+                            SizedBox(height: 15,),
                             _BuildDropdown(
                                 head: "หมวดหมู่สินค้า *",
                                 hint: "เลือกหมวดหมู่",dataList: listType),
-                            _BuildEditText(
+                            SizedBox(height: 15,),
+                            BuildEditText(
                                 head: "รายละเอียดสินค้า * ",maxLength: 5000,
                                 hint: "กรอกรายละเอียดสินค้า",maxLine: 5,controller: detailtController,inputType: TextInputType.text),
+                            SizedBox(height: 15,),
                             _BuildDropdown(
                                 head: "สถานที่จัดส่ง *", hint: "ทั่วประเทศ",dataList: listAddrDeli),
+                            SizedBox(height: 15,),
                             _BuildDropdown(
                                 head: "ส่งจาก", hint: "เลือกจังหวัด",dataList: listProvince),
-                            _BuildEditText(
+                            SizedBox(height: 15,),
+                            BuildEditText(
                                 head: "ราคาสินค้า * (บาท)", hint: "0",inputType: TextInputType.number,controller: priceController),
-                            _BuildEditText(head: "จำนวนสินค้า *", hint: "0",inputType: TextInputType.number,controller: amountController),
+                            SizedBox(height: 15,),
+                            BuildEditText(head: "จำนวนสินค้า *", hint: "0",inputType: TextInputType.number,controller: amountController),
+                            SizedBox(height: 15,),
                             _BuildDropdown(head: "หน่วยสินค้า *", hint: "ชิ้น",dataList: listUnit),
                             SizedBox(
                               height: 20,
@@ -97,61 +106,9 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     );
   }
 
-  Widget _BuildEditText({String head, String hint,int maxLength, TextEditingController controller = null,
-    int maxLine=1,TextInputType inputType}) {
-    return Container(
-      margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                head,
-                style: GoogleFonts.sarabun(fontSize: 16),
-              ),
-              inputType==TextInputType.text?Text("(${controller!=null?controller.text.length:0}/${maxLength})"):
-              Text("")
-            ],
-          ),
-
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: controller!=null && inputType == TextInputType.text ?controller.text.length<maxLength?Colors.black.withOpacity(0.5):Colors.redAccent:Colors.black.withOpacity(0.5))),
-            child: TextFormField(
-
-            keyboardType: inputType,
-              maxLines: maxLine,
-              controller: controller,
-              decoration: InputDecoration(
-                hintStyle: TextStyle(fontSize: 17, color: Colors.grey),
-                hintText: hint,
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.all(15),
-              ),
-              onChanged: (String char){
-               setState(() {
-
-               });
-              },
-              validator: (value) {
-                if (value.isEmpty) {
-                    print("-------");
-                }
-                return null;
-              },
-            ),
-          )
-        ],
-      ),
-    );
-  }
 
   Widget _BuildDropdown({String head, String hint, List<String> dataList}) {
     return Container(
-      margin: EdgeInsets.only(top: 20, left: 20, right: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -176,6 +133,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     return InkWell(
       child: Container(
           color: Colors.white,
+          padding: EdgeInsets.only(left: 10,right: 10),
           margin: EdgeInsets.only(top: 10),
           height: 50,
           child: Container(

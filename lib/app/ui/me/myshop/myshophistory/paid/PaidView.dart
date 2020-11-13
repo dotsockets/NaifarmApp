@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -16,22 +17,26 @@ class PaidView extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(top: 10),
         child: Column(
-          children: ProductViewModel().getHistorySale().asMap().map((key, value) => MapEntry(key, _BuildCard(item: ProductViewModel().getHistorySale()[key]))).values.toList(),
+          children: ProductViewModel().getHistorySuccess().asMap().map((key, value) => MapEntry(key, _BuildCard(item: ProductViewModel().getHistorySuccess()[key],context: context,index: key))).values.toList(),
         ),
       ),
     );
   }
 
-  Widget _BuildCard({ProductModel item}){
-    return Container(
-
-      child: Column(
-        children: [
-          _OwnShop(item: item),
-          _ProductDetail(item: item),
-          SizedBox(height: 10,)
-        ],
+  Widget _BuildCard({ProductModel item,BuildContext context,int index}){
+    return InkWell(
+      child: Container(
+        child: Column(
+          children: [
+            _OwnShop(item: item),
+            _ProductDetail(item: item,index: index),
+            SizedBox(height: 10,)
+          ],
+        ),
       ),
+      onTap: (){
+        AppRoute.ProductDetail(context,productImage: "history_${index}");
+      },
     );
   }
 
@@ -45,24 +50,27 @@ class PaidView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black.withOpacity(0.1))),
-                child: CachedNetworkImage(
-                  width: 80,
-                  height: 80,
-                  placeholder: (context, url) => Container(
-                    color: Colors.white,
-                    child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+              Hero(
+                tag:"history_${index}",
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black.withOpacity(0.1))),
+                  child: CachedNetworkImage(
+                    width: 80,
+                    height: 80,
+                    placeholder: (context, url) => Container(
+                      color: Colors.white,
+                      child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                    ),
+                    fit: BoxFit.cover,
+                    imageUrl: item.product_image,
+                    errorWidget: (context, url, error) => Container(
+                        height: 30,
+                        child: Icon(
+                          Icons.error,
+                          size: 30,
+                        )),
                   ),
-                  fit: BoxFit.cover,
-                  imageUrl: item.product_image,
-                  errorWidget: (context, url, error) => Container(
-                      height: 30,
-                      child: Icon(
-                        Icons.error,
-                        size: 30,
-                      )),
                 ),
               ),
               SizedBox(width: 10),

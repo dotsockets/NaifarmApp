@@ -289,5 +289,40 @@ class ProductViewModel {
           amoutProduct: "2"),
     ];
   }
+
+  List<ProductModel> getHistorySuccess() {
+    return [
+      ProductModel(
+          shopName: "ไร่มอนหลวงสาย",
+          product_name: 'ชุดอุปกรณ์ดูแลฟาร์ม ปลูกผัก',
+          product_price: 100,
+          product_status: 'จัดส่งสำเร็จ',
+          ProductDicount: 140,
+          ProfiletImage: "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
+          product_image:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU',
+          amoutProduct: "2"),
+      ProductModel(
+          shopName: "ไร่มอนหลวงสาย",
+          product_name: 'ผักสดๆจากไร่',
+          product_price: 100,
+          product_status: 'ให้คะแนนแล้ว',
+          ProductDicount: 140,
+          ProfiletImage: "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
+          product_image:
+          'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg',
+          amoutProduct: "3"),
+      ProductModel(
+          shopName: "ไร่มอนหลวงสาย",
+          product_name: 'ผักสดๆจากไร่',
+          product_price: 100,
+          product_status: 'ให้คะแนนแล้ว',
+          ProfiletImage: "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
+          ProductDicount: 140,
+          product_image:
+          'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg',
+          amoutProduct: "2"),
+    ];
+  }
   
 }
