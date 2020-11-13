@@ -58,19 +58,22 @@ class _MyProductViewState extends State<MyProductView> {
     );
   }
 
+
   Widget _BuildButton() {
-    return InkWell(
-      child: Container(
+    return Container(
         width: MediaQuery.of(context).size.width,
         height: 65,
-        color: ThemeColor.secondaryColor(),
-        child: Center(child: Text("เพิ่มสินค้า",style: GoogleFonts.sarabun(fontSize: 20,color: Colors.white),))
-      ),
-      onTap: (){
-        AppRoute.MyNewProduct(context);
-      },
-    );
-
+        child: FlatButton(
+          color: ThemeColor.secondaryColor(),
+          textColor: Colors.white,
+          splashColor: Colors.white.withOpacity(0.3),
+          onPressed: () {AppRoute.MyNewProduct(context);},
+          child: Text(
+            "เพิ่มสินค้า",
+            style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
+          ),
+        ),
+      );
   }
 
   Widget _BuildProduct(
