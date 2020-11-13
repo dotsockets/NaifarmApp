@@ -17,7 +17,6 @@ class MyProductView extends StatefulWidget {
 
 class _MyProductViewState extends State<MyProductView> {
   int status = 999;
-
   List<ProductModel> listProducts = ProductViewModel().getMyProducts();
   @override
   void initState() {
@@ -197,13 +196,18 @@ class _MyProductViewState extends State<MyProductView> {
                     SizedBox(width: 20,),
                     Container(width: 1,height: 50,color: Colors.grey.shade300,),
                     Expanded(
-                       child: Container(
-                         child: SvgPicture.asset(
-                           'assets/images/svg/Edit.svg',
-                           width: 25,
-                           height: 25,
-                           color: ThemeColor.ColorSale(),
+                       child: InkWell(
+                         child: Container(
+                           child: SvgPicture.asset(
+                             'assets/images/svg/Edit.svg',
+                             width: 25,
+                             height: 25,
+                             color: ThemeColor.ColorSale(),
+                           ),
                          ),
+                       onTap: (){
+                           AppRoute.EditProduct(context,index);
+                       },
                        ),
                     ),
                     Container(width: 1,height: 50,color: Colors.grey.shade300,),

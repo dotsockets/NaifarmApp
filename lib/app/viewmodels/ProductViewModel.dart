@@ -231,26 +231,33 @@ class ProductViewModel {
   List<ProductModel> getMyProducts() {
     return [
       ProductModel(
-          product_name: 'ชุดอุปกรณ์ดูแลฟาร์ม ปลูกผัก',
-          product_price: 400,
-          product_status: 'ขายได้ 40 ชิ้น',
-          product_image:
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU',
-          amoutProduct: "300"),
+        product_name: 'ชุดอุปกรณ์ดูแลฟาร์ม ปลูกผัก',
+        product_price: 400,
+        product_status: 'ขายได้ 40 ชิ้น',
+        product_image:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU',
+        amoutProduct: "300",
+        provice: "เชียงใหม่",
+      ),
       ProductModel(
-          product_name: 'ผักสดๆจากไร่',
-          product_price: 60,
-          product_status: 'ขายได้ 40 ชิ้น',
-          product_image:
-              'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg',
-          amoutProduct: "300"),
+        product_name: 'ผักสดๆจากไร่',
+        product_price: 60,
+        product_status: 'ขายได้ 40 ชิ้น',
+        product_image:
+            'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg',
+        amoutProduct: "300",
+        provice: "ลำพูน",
+
+      ),
       ProductModel(
-          product_name: 'ผักสดๆจากไร่',
-          product_price: 60,
-          product_status: 'ขายได้ 40 ชิ้น',
-          product_image:
-              'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg',
-          amoutProduct: "300"),
+        product_name: 'ผักสดๆจากไร่',
+        product_price: 60,
+        product_status: 'ขายได้ 40 ชิ้น',
+        product_image:
+            'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg',
+        amoutProduct: "300",
+        provice: "ลำพูน",
+      ),
     ];
   }
 }

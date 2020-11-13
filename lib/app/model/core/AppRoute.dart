@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/market/MarketView.dart';
 import 'package:naifarm/app/ui/me/deliveryCost/DeliveryCostView.dart';
+import 'package:naifarm/app/ui/me/editmyproduct/EditProductView.dart';
+import 'package:naifarm/app/ui/me/imageproduct/ImageProductView.dart';
 import 'package:naifarm/app/ui/me/mynewproduct/MyNewProductView.dart';
 import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
 import 'package:naifarm/app/ui/me/payment/PaymentView.dart';
@@ -95,5 +97,13 @@ class AppRoute{
 
   static DeliveryCost(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: DeliveryCostView()));
+  }
+
+  static EditProduct(BuildContext context,int index){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProductView(index: index,)));
+  }
+
+  static ImageProduct(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ImageProductView()));
   }
 }
