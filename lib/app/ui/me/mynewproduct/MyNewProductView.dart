@@ -182,7 +182,9 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(40.0),
         ),
-        onPressed: () {},
+        onPressed: () {
+          AppRoute.ImageProduct(context);
+        },
         child: Text(
           btnTxt,
           style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
