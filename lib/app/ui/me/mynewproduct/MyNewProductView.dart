@@ -172,22 +172,6 @@ class _MyNewProductViewState extends State<MyNewProductView> {
       ),
     );
   }
-
-  Widget _BuildButton() {
-    return Container(
-        color: Colors.grey.shade300,
-        height: 80,
-        child: Container(
-            margin: EdgeInsets.all(15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _BuildButtonItem(btnTxt: "บันทึก"),
-                _BuildButtonItem(btnTxt: "ลงขาย")
-              ],
-            )));
-  }
-
   Widget _BuildDeliveryTab() {
     return InkWell(
       child: Container(
@@ -206,24 +190,46 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                   )
                 ],
               ))),
-        onTap: (){
+      onTap: (){
         AppRoute.DeliveryCost(context);
-        },
+      },
     );
   }
 
-  Widget _BuildButtonItem({String btnTxt}) {
+  Widget _BuildButton() {
     return Container(
-      width: 170,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: nameProductController.text.length!=0&&detailtController.text.length!=0&&priceController.text.length!=0&&amountController.text.length!=0
-              ?ThemeColor.secondaryColor():Colors.grey.shade400),
-      child: Center(
-          child: Text(
-        btnTxt,
-        style: GoogleFonts.sarabun(fontSize: 20, color: Colors.white),
-      )),
-    );
+        color: Colors.grey.shade300,
+        height: 80,
+        child: Container(
+            padding: EdgeInsets.only(left: 20,right: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: _BuildButtonItem(btnTxt: "บันทึก"),
+                ),
+                SizedBox(width: 10,)
+                ,
+                Expanded(child: _BuildButtonItem(btnTxt: "ลงขาย"),)
+              ],
+            )));
+  }
+
+  Widget _BuildButtonItem({String btnTxt}) {
+    return FlatButton(
+        color: nameProductController.text.length!=0&&detailtController.text.length!=0&&priceController.text.length!=0&&amountController.text.length!=0
+            ?ThemeColor.secondaryColor():Colors.grey.shade400,
+        textColor: Colors.white,
+        splashColor: Colors.white.withOpacity(0.3),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(40.0),
+        ),
+        onPressed: () {},
+        child: Text(
+          btnTxt,
+          style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
+        ),
+      );
+
   }
 }
