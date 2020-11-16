@@ -7,6 +7,9 @@ import 'package:naifarm/app/ui/me/widget/TabMenu.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 
 class MyshopView extends StatelessWidget {
+  final bool IsLogin;
+
+  const MyshopView({Key key, this.IsLogin}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,16 +18,16 @@ class MyshopView extends StatelessWidget {
         children: [
           _buildTabMenu(),
           ListMenuItem(icon: 'assets/images/svg/latest.svg',title: 'ประวัติการซื้อ',onClick: ()=>AppRoute.MyShophistory(context),),
-          _BuildDivider(),
-          ListMenuItem(icon: 'assets/images/svg/like_2.svg',title: 'กระเป๋าเงิน',Message: "300 บาท",onClick: ()=>AppRoute.WithdrawMoney(context),),
-          _BuildDivider(),
-          ListMenuItem(icon: 'assets/images/svg/editprofile.svg',title: 'สินค้าของฉัน',onClick: (){
+          IsLogin?_BuildDivider():SizedBox(),
+          IsLogin?ListMenuItem(icon: 'assets/images/svg/like_2.svg',title: 'กระเป๋าเงิน',Message: "300 บาท",onClick: ()=>AppRoute.WithdrawMoney(context),):SizedBox(),
+          IsLogin?_BuildDivider():SizedBox(),
+          IsLogin? ListMenuItem(icon: 'assets/images/svg/editprofile.svg',title: 'สินค้าของฉัน',onClick: (){
             AppRoute.MyProduct(context);
-          },),
+          },):SizedBox(),
           _BuildDivider(),
-          ListMenuItem(icon: 'assets/images/svg/delivery.svg',title: 'การจัดส่ง',onClick: (){
+          IsLogin?ListMenuItem(icon: 'assets/images/svg/delivery.svg',title: 'การจัดส่ง',onClick: (){
             AppRoute.DeliveryMe(context);
-          },),
+          },):SizedBox(),
           _BuildDivider(),
           ListMenuItem(icon: 'assets/images/svg/money.svg',title: 'วิธีการชำระเงิน',onClick: (){
             AppRoute.PaymentMe(context);

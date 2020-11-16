@@ -4,11 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/BuildIconShop.dart';
 
 import 'myshop/MyshopView.dart';
 import 'purchase/PurchaseView.dart';
+
 
 class MeView extends StatefulWidget {
   @override
@@ -16,6 +18,25 @@ class MeView extends StatefulWidget {
 }
 
 class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
+
+  bool IsLogin = true;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+     setState(() {
+       ISLogin();
+     });
+
+  }
+
+  void ISLogin() async => IsLogin = await Usermanager().isLogin();
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +72,7 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   color: ThemeColor.primaryColor(),
-                  child: Column(
+                  child: IsLogin?Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ClipRRect(
@@ -82,7 +103,7 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
                               fontSize: 18,
                               fontWeight: FontWeight.bold))
                     ],
-                  ),
+                  ):_FormLogin(),
                 ),
               ),
             ),
@@ -114,8 +135,8 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
                           Expanded(
                             child: TabBarView(
                               children: [
-                                PurchaseView(),
-                                MyshopView()
+                                PurchaseView(IsLogin: IsLogin,),
+                                MyshopView(IsLogin: IsLogin,)
                               ],
                             ),
                           ),
@@ -128,6 +149,49 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
             )
           ],
         )),
+      ),
+    );
+  }
+
+  Widget _FormLogin(){
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FlatButton(
+            minWidth: 160,
+            height: 50,
+            color: ThemeColor.ColorSale(),
+            textColor: Colors.white,
+            splashColor: Colors.white.withOpacity(0.3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+            onPressed: () {
+            //  AppRoute.ImageProduct(context);
+            },
+            child: Text("เข้าสู่ระบบ",
+              style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
+            ),
+          ),
+          SizedBox(width: 20,),
+          FlatButton(
+            minWidth: 160,
+            height: 50,
+            color: ThemeColor.secondaryColor(),
+            textColor: Colors.white,
+            splashColor: Colors.white.withOpacity(0.3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+            onPressed: () {
+              AppRoute.Register(context);
+            },
+            child: Text("สมัครสมาชิก",
+              style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
+            ),
+          )
+        ],
       ),
     );
   }

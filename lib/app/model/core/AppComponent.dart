@@ -61,7 +61,7 @@ class AppComponentState extends State<AppComponent> {
       darkTheme: ThemeData(
           primarySwatch: ThemeColor.primarySwatch(context),snackBarTheme: ThemeColor.SnackBarThemeColor(context), brightness: Brightness.dark
       ),
-      home: HomeView(),
+      home: SplashView(),
       navigatorObservers: [routeObserver],
     );
 

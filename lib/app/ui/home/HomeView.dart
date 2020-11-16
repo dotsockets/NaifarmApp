@@ -48,7 +48,7 @@ class _HomeViewState extends State<HomeView> {
                   selectedIndex: _selectedIndex,
                   onTap: (index) {
                     setState(() {
-                      return _selectedIndex = index;
+                       _selectedIndex = index;
                     });
                   },
                 ),

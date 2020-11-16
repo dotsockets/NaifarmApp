@@ -141,7 +141,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("ค่าขนส่ง", style: GoogleFonts.sarabun(fontSize: 16)),
+                  Text("ค่าขนส่ง", style: GoogleFonts.sarabun(fontSize: 18)),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey.withOpacity(0.7),
@@ -175,6 +175,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
 
   Widget _BuildButtonItem({String btnTxt}) {
     return FlatButton(
+     height: 50,
         color: nameProductController.text.length!=0&&detailtController.text.length!=0&&priceController.text.length!=0&&amountController.text.length!=0
             ?ThemeColor.secondaryColor():Colors.grey.shade400,
         textColor: Colors.white,

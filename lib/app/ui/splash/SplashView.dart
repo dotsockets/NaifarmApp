@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/ui/home/HomeView.dart';
+import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -40,7 +43,7 @@ class _SplashViewState extends State<SplashView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeColor.primaryColor(),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           child: Stack(
@@ -54,7 +57,7 @@ class _SplashViewState extends State<SplashView>
                       padding: EdgeInsets.only(bottom: 20.0),
                       child: Column(
                         children: [
-                          Text("Dot Socket",style: GoogleFonts.kanit(fontSize: 16,fontWeight: FontWeight.w500),),
+                          Text("NaiFarm",style: GoogleFonts.kanit(fontSize: 16,fontWeight: FontWeight.w500),),
                           Text("Version 0.0.1",style: GoogleFonts.kanit(fontSize: 15,fontWeight: FontWeight.w500),)
                         ],
                       ))
@@ -63,11 +66,11 @@ class _SplashViewState extends State<SplashView>
               new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  SvgPicture.asset(
-                    "assets/images/logo.svg",
-                    width: animation.value * 180,
-                    height: animation.value * 180,
-                  ),
+                  // SvgPicture.asset(
+                  //   "assets/images/logo.svg",
+                  //   width: animation.value * 180,
+                  //   height: animation.value * 180,
+                  // ),
                 ],
               ),
             ],
@@ -82,7 +85,10 @@ class _SplashViewState extends State<SplashView>
     return new Timer(duration, navigatorPage);
   }
 
-  navigatorPage() {
-   // Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  StartUpView()), (Route<dynamic> route) => false);
+  navigatorPage() async {
+    if(await Usermanager().isLogin())
+      Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  HomeView()), (Route<dynamic> route) => false);
+    else
+      Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  LoginView()), (Route<dynamic> route) => false);
   }
 }

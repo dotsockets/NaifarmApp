@@ -11,6 +11,10 @@ import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/ProductVertical.dart';
 
 class PurchaseView extends StatelessWidget {
+
+  final bool IsLogin;
+
+  const PurchaseView({Key key, this.IsLogin}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +27,7 @@ class PurchaseView extends StatelessWidget {
               AppRoute.MyLike(context);
             }),
             _BuildDivider(),
-            Container(
+            IsLogin?Container(
               child: BuyAgain(
                   titleInto: "ซื้ออีกครั้ง",
                   producViewModel: ProductViewModel().getProductForYou(),
@@ -34,7 +38,7 @@ class PurchaseView extends StatelessWidget {
                         productImage: "payagin_${index}");
                   },
                   tagHero: "payagin"),
-            ),
+            ):SizedBox(),
             _BuildDivider(),
             ListMenuItem(icon: 'assets/images/svg/editprofile.svg',title: 'ตั้งค่าบัญชี'),
             _BuildDivider(),

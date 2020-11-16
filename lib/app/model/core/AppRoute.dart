@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
+import 'package:naifarm/app/ui/home/HomeView.dart';
+import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/app/ui/market/MarketView.dart';
 import 'package:naifarm/app/ui/me/deliveryCost/DeliveryCostView.dart';
 import 'package:naifarm/app/ui/me/editmyproduct/EditProductView.dart';
@@ -21,6 +23,7 @@ import 'package:naifarm/app/ui/noti/notidetail/NotiDetailView.dart';
 import 'package:naifarm/app/ui/noti/notilist/NotiView.dart';
 import 'package:naifarm/app/ui/order/OrderView.dart';
 import 'package:naifarm/app/ui/product_detail/ProductDetailView.dart';
+import 'package:naifarm/app/ui/register/RegisterView.dart';
 import 'package:naifarm/app/ui/shopmain/ShopMainView.dart';
 import 'package:naifarm/app/ui/shopmain/followers/FollowersView.dart';
 import 'package:naifarm/app/ui/specialproducts/SpecialproductsView.dart';
@@ -127,5 +130,20 @@ class AppRoute{
   static MoneyOut(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MoneyOutView()));
   }
+
+  static Register(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: RegisterView()));
+  }
+
+  static Login(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LoginView()));
+  }
+
+  static Home(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: HomeView()));
+  }
 }
+
+
+
 

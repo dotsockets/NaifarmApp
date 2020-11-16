@@ -9,8 +9,9 @@ class BuildEditText extends StatefulWidget {
   final TextEditingController controller;
   final int maxLine;
   final TextInputType inputType;
+  final double BorderOpacity;
 
-  const BuildEditText({Key key, this.head="", this.hint, this.maxLength, this.controller, this.inputType,this.maxLine=1}) : super(key: key);
+  const BuildEditText({Key key, this.head="", this.hint, this.maxLength, this.controller, this.inputType,this.maxLine=1, this.BorderOpacity=0.5}) : super(key: key);
   @override
   _BuildEditTextState createState() => _BuildEditTextState();
 }
@@ -28,7 +29,7 @@ class _BuildEditTextState extends State<BuildEditText> {
             children: [
               widget.head!=""?Text(
                 widget.head,
-                style: GoogleFonts.sarabun(fontSize: 16,color: Colors.black),
+                style: GoogleFonts.sarabun(fontSize: 18,color: Colors.black),
               ):SizedBox(),
               widget.inputType==TextInputType.text?Text("(${widget.controller!=null?widget.controller.text.length:0}/${widget.maxLength})",style: GoogleFonts.sarabun(fontSize: 16,color: Colors.black)):
               SizedBox()
@@ -39,7 +40,7 @@ class _BuildEditTextState extends State<BuildEditText> {
             margin: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: widget.controller!=null && widget.inputType == TextInputType.text ?widget.controller.text.length<widget.maxLength?Colors.black.withOpacity(0.5):Colors.redAccent:Colors.black.withOpacity(0.5))),
+                border: Border.all(color: widget.controller!=null && widget.inputType == TextInputType.text ?widget.controller.text.length<widget.maxLength?Colors.black.withOpacity(widget.BorderOpacity):Colors.redAccent:Colors.black.withOpacity(widget.BorderOpacity))),
             child: TextFormField(
 
               keyboardType: widget.inputType,
