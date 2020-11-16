@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 
@@ -18,7 +19,7 @@ class BuildChoosesize extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("เลือกขนาด", style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.bold)),
+          Text("เลือกขนาด", style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.bold)),
           Wrap(
             children: [
               _buildBtnAddProduct1(title: "ขนาดเล็ก",index: 1),
@@ -28,7 +29,7 @@ class BuildChoosesize extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10,),
-          Text("เลือกน้ำหนัก", style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.bold)),
+          Text("เลือกน้ำหนัก", style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.bold)),
           Wrap(
             children: [
               _buildBtnAddProduct2(title: "1 กิโลกรัม",index: 1),
@@ -43,7 +44,7 @@ class BuildChoosesize extends StatelessWidget {
 
   Widget _buildBtnAddProduct1({String title,bool isEnable=true,int index}){
     return Container(
-      width: 120,
+      width: ScreenUtil().setWidth(280),
       margin: EdgeInsets.only(right: 15,bottom: 10,top: 5),
       child: FlatButton(
         color: IndexType1==index?ThemeColor.primaryColor():isEnable?Colors.grey.shade300:Colors.grey.shade200,
@@ -58,7 +59,7 @@ class BuildChoosesize extends StatelessWidget {
         },
         child: Text(
           title,
-          style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500),
+          style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(37),fontWeight: FontWeight.w500),
         ),
       ),
     );
@@ -66,7 +67,7 @@ class BuildChoosesize extends StatelessWidget {
 
   Widget _buildBtnAddProduct2({String title,bool isEnable=true,int index}){
     return Container(
-      width: 120,
+      width: ScreenUtil().setWidth(280),
       margin: EdgeInsets.only(right: 15,bottom: 10,top: 5),
       child: FlatButton(
         color: IndexType2==index?ThemeColor.primaryColor():isEnable?Colors.grey.shade300:Colors.grey.shade200,
@@ -81,7 +82,7 @@ class BuildChoosesize extends StatelessWidget {
         },
         child: Text(
           title,
-          style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500),
+          style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(37),fontWeight: FontWeight.w500),
         ),
       ),
     );

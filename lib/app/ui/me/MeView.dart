@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -63,12 +64,12 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
                     BuildIconShop(size: 30,)
                   ),
                   onTap: (){
-                    AppRoute.MyCart(context);
+                    AppRoute.MyCart(context,true);
                   },
                 ),
 
               ],
-              expandedHeight: 200,
+              expandedHeight: ScreenUtil().setHeight(IsLogin?600:400),
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   color: ThemeColor.primaryColor(),
@@ -110,7 +111,7 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
             SliverList(
               delegate: SliverChildListDelegate(<Widget>[
                 Container(
-                  height: 700,
+                  height: IsLogin?700:500,
                   color: Colors.white,
                   child: DefaultTabController(
                     length: 2,
@@ -154,45 +155,51 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
   }
 
   Widget _FormLogin(){
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          FlatButton(
-            minWidth: 160,
-            height: 50,
-            color: ThemeColor.ColorSale(),
-            textColor: Colors.white,
-            splashColor: Colors.white.withOpacity(0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
-            ),
-            onPressed: () {
-            //  AppRoute.ImageProduct(context);
-            },
-            child: Text("เข้าสู่ระบบ",
-              style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(height: 30,),
+        Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FlatButton(
+                minWidth: 160,
+                height: 50,
+                color: ThemeColor.ColorSale(),
+                textColor: Colors.white,
+                splashColor: Colors.white.withOpacity(0.3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+                onPressed: () {
+                  //  AppRoute.ImageProduct(context);
+                },
+                child: Text("เข้าสู่ระบบ",
+                  style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
+                ),
+              ),
+              SizedBox(width: 20,),
+              FlatButton(
+                minWidth: 160,
+                height: 50,
+                color: ThemeColor.secondaryColor(),
+                textColor: Colors.white,
+                splashColor: Colors.white.withOpacity(0.3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+                onPressed: () {
+                  AppRoute.Register(context);
+                },
+                child: Text("สมัครสมาชิก",
+                  style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
+                ),
+              )
+            ],
           ),
-          SizedBox(width: 20,),
-          FlatButton(
-            minWidth: 160,
-            height: 50,
-            color: ThemeColor.secondaryColor(),
-            textColor: Colors.white,
-            splashColor: Colors.white.withOpacity(0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
-            ),
-            onPressed: () {
-              AppRoute.Register(context);
-            },
-            child: Text("สมัครสมาชิก",
-              style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 

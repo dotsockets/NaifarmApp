@@ -17,6 +17,11 @@ import 'package:naifarm/config/Env.dart';
 import '../widget/ModalFitBottom_Sheet.dart';
 
 class MyCartView extends StatefulWidget {
+
+  final bool BtnBack;
+
+  const MyCartView({Key key, this.BtnBack=false}) : super(key: key);
+
   @override
   _MyCartViewState createState() => _MyCartViewState();
 }
@@ -42,6 +47,11 @@ class _MyCartViewState extends State<MyCartView> {
         backgroundColor:
             _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading:  widget.BtnBack?IconButton(
+            icon:  Icon(Icons.arrow_back_ios, color: Colors.white),
+            onPressed: () => Navigator.of(context).pop(),
+          ):SizedBox(),
           backgroundColor: ThemeColor.primaryColor(),
           title: Text(
             "รถเข็น",

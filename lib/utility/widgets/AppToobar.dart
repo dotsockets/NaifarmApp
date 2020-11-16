@@ -1,6 +1,7 @@
 
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -66,7 +67,6 @@ class AppToobar extends PreferredSize {
 
  Widget BarCartShop(BuildContext context){
    return Container(
-     height: 100,
      child: AppBar(
        leading: IconButton(
          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
@@ -89,7 +89,7 @@ class AppToobar extends PreferredSize {
        backgroundColor: ThemeColor.primaryColor(),
        title: Text(
          Title,
-         style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18),
+         style: GoogleFonts.sarabun(color: Colors.black,fontSize: ScreenUtil().setSp(50)),
        ),
      ),
    );
@@ -117,7 +117,7 @@ class AppToobar extends PreferredSize {
         ),
       ),
       onTap: (){
-        AppRoute.MyCart(context);
+        AppRoute.MyCart(context,true);
       },
     );
   }
@@ -163,7 +163,6 @@ class AppToobar extends PreferredSize {
 
     return Expanded(
       child: Container(
-        padding: EdgeInsets.only(left: 10,top: 5,bottom: 5,right: 10),
         decoration: new BoxDecoration(
             color: Colors.white,
             borderRadius: new BorderRadius.all(Radius.circular(40.0))
@@ -179,9 +178,15 @@ class AppToobar extends PreferredSize {
               fontSize: 18,
               color: Colors.black,
             ),
-            prefixIcon: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.black),
+            prefixIcon: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.black),
+            ),
             prefixIconConstraints: sizeIcon,
-            suffixIcon:  SvgPicture.asset('assets/images/svg/search_photo.svg',color: Color(ColorUtils.hexToInt('#c7bfbf'))),
+            suffixIcon:  Padding(
+              padding: const EdgeInsets.only(top: 4,bottom: 4,right: 10),
+              child: SvgPicture.asset('assets/images/svg/search_photo.svg',color: Color(ColorUtils.hexToInt('#c7bfbf'))),
+            ),
             suffixIconConstraints: sizeIcon,
             filled: true
           ),

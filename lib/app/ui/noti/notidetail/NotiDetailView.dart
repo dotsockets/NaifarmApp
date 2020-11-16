@@ -30,7 +30,7 @@ class NotiDetailView extends StatelessWidget {
                 header_type: Header_Type.barNormal,
                 icon: 'assets/images/svg/cart_top.svg',
                 onClick: () {
-                  AppRoute.MyCart(context);
+                  AppRoute.MyCart(context,true);
                 },
               ),
               content: Column(

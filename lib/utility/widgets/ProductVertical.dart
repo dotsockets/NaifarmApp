@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -53,12 +54,12 @@ class ProductVertical extends StatelessWidget {
 
                 SvgPicture.asset(IconInto,width: IconSize,height: IconSize,),
                 SizedBox(width: 8),
-                Text(titleInto,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
+                Text(titleInto,style: GoogleFonts.sarabun(color: Colors.black,fontSize: ScreenUtil().setSp(50),fontWeight: FontWeight.bold)),
               ],
             ),
             Row(
               children: [
-                Text("ดูทั้งหมด",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18)),
+                Text("ดูทั้งหมด",style: GoogleFonts.sarabun(color: Colors.black,fontSize:  ScreenUtil().setSp(40),fontWeight: FontWeight.w500)),
                 SizedBox(width: 8),
                 SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
 
@@ -117,22 +118,22 @@ class ProductVertical extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(item.product_name,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
+          Text(item.product_name,style: GoogleFonts.sarabun(color: Colors.black,fontSize:  ScreenUtil().setSp(45),fontWeight: FontWeight.bold)),
           SizedBox(height: 10,),
-          Text("฿${item.product_price}",style: GoogleFonts.sarabun(color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold,fontSize: 22),),
+          Text("฿${item.product_price}",style: GoogleFonts.sarabun(color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold,fontSize:  ScreenUtil().setSp(50)),),
           SizedBox(height: 8,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
-                  Text(item.product_status,style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.bold),),
+                  Text(item.product_status,style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.bold,fontSize:  ScreenUtil().setSp(40)),),
                   SizedBox(height: 5),
                   Row(
                     children: [
                       Icon(Icons.location_pin,color: Color(ColorUtils.hexToInt("#666666")),),
                       SizedBox(width: 5,),
-                      Text('เชียงใหม่',style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.bold),)
+                      Text('เชียงใหม่',style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.bold,fontSize:  ScreenUtil().setSp(40)),)
                     ],
                   )
                 ],
@@ -144,7 +145,7 @@ class ProductVertical extends StatelessWidget {
                     color: Colors.red,
                     borderRadius: BorderRadius.all(Radius.circular(15))
                 ),
-                child: Text('ซื้อเลย',style: GoogleFonts.sarabun(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
+                child: Text('ซื้อเลย',style: GoogleFonts.sarabun(color: Colors.white,fontSize:  ScreenUtil().setSp(45),fontWeight: FontWeight.bold),),
               )
             ],
           )

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
+import 'package:naifarm/app/ui/login/SplashLoginView.dart';
 import 'package:naifarm/app/ui/market/MarketView.dart';
 import 'package:naifarm/app/ui/me/deliveryCost/DeliveryCostView.dart';
 import 'package:naifarm/app/ui/me/editmyproduct/EditProductView.dart';
@@ -47,8 +48,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FlashSaleView()));
   }
 
-  static  MyCart(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyCartView()));
+  static  MyCart(BuildContext context,bool BtnBack){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyCartView(BtnBack: BtnBack,)));
   }
 
 
@@ -135,12 +136,16 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: RegisterView()));
   }
 
-  static Login(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LoginView()));
+  static SplashLogin(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SplashLoginView()));
   }
 
   static Home(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: HomeView()));
+  }
+
+  static Login(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LoginView()));
   }
 }
 

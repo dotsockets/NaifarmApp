@@ -1,11 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
-import 'package:naifarm/app/ui/login/LoginView.dart';
+import 'package:naifarm/app/ui/login/SplashLoginView.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -42,6 +43,7 @@ class _SplashViewState extends State<SplashView>
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -57,8 +59,8 @@ class _SplashViewState extends State<SplashView>
                       padding: EdgeInsets.only(bottom: 20.0),
                       child: Column(
                         children: [
-                          Text("NaiFarm",style: GoogleFonts.kanit(fontSize: 16,fontWeight: FontWeight.w500),),
-                          Text("Version 0.0.1",style: GoogleFonts.kanit(fontSize: 15,fontWeight: FontWeight.w500),)
+                          Text("NaiFarm",style: GoogleFonts.kanit(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),),
+                          Text("Version 0.0.1",style: GoogleFonts.kanit(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),)
                         ],
                       ))
                 ],
@@ -66,11 +68,7 @@ class _SplashViewState extends State<SplashView>
               new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  // SvgPicture.asset(
-                  //   "assets/images/logo.svg",
-                  //   width: animation.value * 180,
-                  //   height: animation.value * 180,
-                  // ),
+                  Image.asset('assets/images/png/img_login.png',width: animation.value *ScreenUtil().setWidth(600),height: animation.value *ScreenUtil().setHeight(600),),
                 ],
               ),
             ],
@@ -89,6 +87,6 @@ class _SplashViewState extends State<SplashView>
     if(await Usermanager().isLogin())
       Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  HomeView()), (Route<dynamic> route) => false);
     else
-      Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  LoginView()), (Route<dynamic> route) => false);
+      Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  SplashLoginView()), (Route<dynamic> route) => false);
   }
 }

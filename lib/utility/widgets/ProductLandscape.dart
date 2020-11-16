@@ -1,6 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -55,7 +56,7 @@ class ProductLandscape extends StatelessWidget {
             ),
             Row(
               children: [
-                GestureDetector(child: Text("ดูทั้งหมด",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18)),onTap: ()=>onSelectMore()),
+                GestureDetector(child: Text("ดูทั้งหมด",style: GoogleFonts.sarabun(color: Colors.black,fontSize:  ScreenUtil().setSp(45),fontWeight: FontWeight.w500)),onTap: ()=>onSelectMore()),
                 SizedBox(width: 8),
                 SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
 

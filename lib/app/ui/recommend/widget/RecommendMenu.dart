@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -52,7 +53,7 @@ class RecommendMenu extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10),
-          Text(item.label,style: GoogleFonts.sarabun(fontWeight: FontWeight.bold))
+          Text(item.label,style: GoogleFonts.sarabun(fontWeight: FontWeight.bold,fontSize:  ScreenUtil().setSp(40)))
         ],
       ),
     onTap: (){

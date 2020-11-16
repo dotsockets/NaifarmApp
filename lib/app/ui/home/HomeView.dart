@@ -27,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
             children: [
               RecommendView(size: MediaQuery.of(context).size,paddingBottom: MediaQuery.of(context).padding.bottom,),
               CategoryView(),
-              MyCartView(),
+              MyCartView(BtnBack: false,),
               MeView()
             ],
           ),

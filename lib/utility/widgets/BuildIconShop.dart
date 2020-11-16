@@ -5,8 +5,9 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 class BuildIconShop extends StatelessWidget {
   final int notification;
   final double size;
+  final bool BtnBack;
 
-  const BuildIconShop({Key key, this.notification=1, this.size}) : super(key: key);
+  const BuildIconShop({Key key, this.notification=1, this.size, this.BtnBack=true}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +16,7 @@ class BuildIconShop extends StatelessWidget {
           IconButton(
             iconSize: size,
             onPressed: (){
-              AppRoute.MyCart(context);
+              AppRoute.MyCart(context,BtnBack);
             },
             icon: Icon(Icons.shopping_cart_outlined),
             color: Colors.white,

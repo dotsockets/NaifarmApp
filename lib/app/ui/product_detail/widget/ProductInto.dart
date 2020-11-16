@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -29,7 +30,7 @@ class ProductInto extends StatelessWidget {
                     child: Text(
                       productDetail.product_name,
                       style: GoogleFonts.sarabun(
-                          fontSize: 20, fontWeight: FontWeight.w500),
+                          fontSize: ScreenUtil().setSp(55), fontWeight: FontWeight.w500),
                     )),
               ),
               Expanded(flex: 1, child: SvgPicture.asset(
@@ -46,17 +47,17 @@ class ProductInto extends StatelessWidget {
             children: [
               Text("${productDetail.product_price}",
                   style: GoogleFonts.sarabun(
-                      fontSize: 16, decoration: TextDecoration.lineThrough)),
+                      fontSize: ScreenUtil().setSp(45), decoration: TextDecoration.lineThrough)),
               SizedBox(width: 8),
               Text("${productDetail.ProductDicount}",
                   style: GoogleFonts.sarabun(
-                      fontSize: 16, color: ThemeColor.ColorSale()))
+                      fontSize: ScreenUtil().setSp(45), color: ThemeColor.ColorSale()))
             ],
           ),
           SizedBox(height: 10),
           Text(
             productDetail.product_status,
-            style: GoogleFonts.sarabun(fontSize: 18),
+            style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(55)),
           ),
           SizedBox(height: 15),
           _IntroShipment()
@@ -80,10 +81,10 @@ class ProductInto extends StatelessWidget {
             SizedBox(width: 10),
             Text("ฟรี  ",
                 style: GoogleFonts.sarabun(
-                    fontSize: 16, color: ThemeColor.ColorSale())),
+                    fontSize: ScreenUtil().setSp(43), color: ThemeColor.ColorSale())),
             Text("ส่วนลดค่าจัดส่ง ฿40 เมื่อขั้นต่ำถึง ฿0",
                 style: GoogleFonts.sarabun(
-                    fontSize: 16, fontWeight: FontWeight.w500)),
+                    fontSize: ScreenUtil().setSp(43), fontWeight: FontWeight.w500)),
           ],
         ),
       ),

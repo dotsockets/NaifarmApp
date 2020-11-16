@@ -1,8 +1,18 @@
+
+import 'package:basic_utils/basic_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/User.dart';
+import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
+import 'package:regexed_validator/regexed_validator.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -11,143 +21,195 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
 
-  final GlobalKey _textKey = GlobalKey();
-  Size textSize;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  TextEditingController _username = new TextEditingController();
+  TextEditingController _password = new TextEditingController();
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition());
-  }
+    _username.text = Usermanager.USERNAME_DEMO;
+    _password.text = Usermanager.PASSWORD_DEMO;
 
-  getSizeAndPosition() {
-    RenderBox _cardBox = _textKey.currentContext.findRenderObject();
-    textSize = _cardBox.size;
-    print("ewfce ${textSize} | adcewfce ${MediaQuery.of(context).size.height}");
-    setState(() {});
   }
-
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         bottom: false,
         child: Scaffold(
+          key: _scaffoldKey,
           backgroundColor: Colors.white,
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                _BorderHeader(context)
-              ],
-            ),
+          body: ListView(
+            children: [
+              _BuildBar(context),
+              _BuildHeader(context),
+              _BuildContent(context)
+
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _BuildHeader(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height-ScreenUtil().setHeight(200),
-      key: _textKey,
-        padding: EdgeInsets.all(10),
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          color: ThemeColor.primaryColor(),
-          borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(40),
-              bottomLeft: Radius.circular(40)),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "NaiFarm",
-              style: GoogleFonts.sarabun(
-                  color: Colors.white,
-                  fontSize: 36,
-                  fontWeight: FontWeight.w500),
 
+  Widget _BuildContent(BuildContext context){
+    return Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            SizedBox(height: 30,),
+            Text("เข้าสู่ระบบ",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(60),fontWeight: FontWeight.w500),),
+            SizedBox(height: 30,),
+            BuildEditText(head: "เบอร์โทรศัพท์/อีเมลทรศัพท์", hint: "เบอร์โทรศัพท์/อีเมล",inputType: TextInputType.text,controller: _username,BorderOpacity: 0.3,borderRadius: 7,),
+            SizedBox(height: 20,),
+            BuildEditText(head: "รหัสผ่าน", hint: "รหัสผ่าน",inputType: TextInputType.text,controller: _password,BorderOpacity: 0.3,IsPassword: true,borderRadius: 7),
+            SizedBox(height: 30,),
+            Padding(
+              padding: const EdgeInsets.only(right: 15,left: 15),
+              child: FlatButton(
+                minWidth: MediaQuery.of(context).size.width,
+                height: 50,
+                color: ThemeColor.secondaryColor(),
+                textColor: Colors.white,
+                splashColor: Colors.white.withOpacity(0.3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+                onPressed: () => _validate(),
+                child: Text("เข้าสู่ระบบ",
+                  style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+                ),
+              ),
             ),
             SizedBox(height: 30,),
-            Image.asset('assets/images/png/img_login.png',height: ScreenUtil().setHeight(600),),
-            SizedBox(height: 20,),
-            Text("แอปเพื่อเกษตรกรไทย ซื่อง่าย ขายคล่อง",style: GoogleFonts.sarabun(color: Colors.white,fontSize: 20),),
-            SizedBox(height: 40,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FlatButton(
-                  minWidth: 160,
-                  height: 50,
-                  color: ThemeColor.ColorSale(),
-                  textColor: Colors.white,
-                  splashColor: Colors.white.withOpacity(0.3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  onPressed: () {
-                     // AppRoute.Register(context);
-                  },
-                  child: Text("เข้าสู่ระบบ",
-                    style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
-                  ),
-                ),
-                SizedBox(width: 20,),
-                FlatButton(
-                  minWidth: 160,
-                  height: 50,
-                  color: ThemeColor.secondaryColor(),
-                  textColor: Colors.white,
-                  splashColor: Colors.white.withOpacity(0.3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  onPressed: () {
-                    AppRoute.Register(context);
-                  },
-                  child: Text("สมัครสมาชิก",
-                    style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
-                  ),
-                )
+                Expanded(flex: 3,child: Container(margin: EdgeInsets.only(left: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
+                Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text("หรือ",style: GoogleFonts.sarabun(fontSize: 16),)),),
+                Expanded(flex: 3,child: Container(margin: EdgeInsets.only(right: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
               ],
+            ),
+            SizedBox(height: 30,),
+            Padding(
+              padding: const EdgeInsets.only(right: 15,left: 15),
+              child: FlatButton(
+                minWidth: MediaQuery.of(context).size.width,
+                height: 50,
+                color: Color(ColorUtils.hexToInt("#1f4dbf")),
+                textColor: Colors.white,
+                splashColor: Colors.white.withOpacity(0.3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+                onPressed: () {
+                  //  AppRoute.ImageProduct(context);
+                },
+                child: Text("สมัครด้วย Facebook",
+                  style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+                ),
+              ),
             ),
             SizedBox(height: 30,),
             Wrap(
               children: [
-                Text("กดข้ามเพื่อเข้าสู่หน้าหลัก ",style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18)),
+                Text("หากยังไม่ได้เป็นสมาชิก",style: GoogleFonts.sarabun(fontSize: 15,height: 1.7,fontWeight: FontWeight.w500),),
                 Column(
+
                   children: [
-                    InkWell(child: Text("ข้ามหน้านี้ ",style: GoogleFonts.sarabun(color: Colors.white,fontSize: 18)),onTap: (){
+                    SizedBox(height: 3,),
+                    InkWell(child: Text(" สมัครสมาชิก ",style: GoogleFonts.sarabun(color: ThemeColor.secondaryColor(),fontSize: 15)),onTap: (){
                       AppRoute.Home(context);
                     },),
                     Container(
-                      width: 70,
-                      color: Colors.white,
-                      height: 2,
+                      width: ScreenUtil().setWidth(180),
+                      color: ThemeColor.secondaryColor(),
+                      height: 1,
                     )
                   ],
                 )
               ],
             ),
-            SizedBox(height: 40,),
+            SizedBox(height: 20,),
+            Column(
+
+              children: [
+                SizedBox(height: 3,),
+                InkWell(child: Text(" ลืมรหัสผ่าน ",style: GoogleFonts.sarabun(color: ThemeColor.secondaryColor(),fontSize: 15)),onTap: (){
+                  AppRoute.Home(context);
+                },),
+                Container(
+                  width: ScreenUtil().setWidth(180),
+                  color: ThemeColor.secondaryColor(),
+                  height: 1,
+                )
+              ],
+            )
           ],
-        ));
+        )
+    );
   }
 
-  Widget _BorderHeader(BuildContext context) {
+  Widget _BuildHeader(BuildContext context){
     return Container(
-        padding: EdgeInsets.only(bottom: 15),
+        padding: EdgeInsets.only(bottom: 30),
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: ThemeColor.ColorSale(),
-          borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(40),
-              bottomLeft: Radius.circular(40)),
+          color: ThemeColor.primaryColor(),
+          borderRadius: BorderRadius.only(bottomRight:  Radius.circular(40),bottomLeft: Radius.circular(40)),
         ),
-        child: _BuildHeader(context));
+        child: Column(
+          children: [
+            Text("NaiFarm",style: GoogleFonts.sarabun(color: Colors.white,fontSize: ScreenUtil().setSp(70),fontWeight: FontWeight.w500),),
+          ],
+        )
+    );
   }
+
+  Widget _BuildBar(BuildContext context){
+    return Container(
+      padding: EdgeInsets.only(left: 20,top: 20),
+      color: ThemeColor.primaryColor(),
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: [
+          InkWell(child: Icon(Icons.arrow_back_ios,color: Colors.white,),onTap: ()=>Navigator.of(context).pop(),)
+        ],
+      ),
+    );
+  }
+
+
+  void _validate() {
+    RegExp nameRegExp = RegExp('[a-zA-Z]');
+    // var stats_form = _form.currentState.validate();
+    if(_username.text.isEmpty || _password.text.isEmpty){
+      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "ชื่อผู้ใช้งาน หรือ รหัสผ่าน ห้ามว่าง",context: context);
+    }else if(!validator.email(_username.text)){
+      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "อีเมล์ไม่ถูกต้อง");
+    }else if(!validator.password(_password.text)){
+      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "เบอร์โทรศัพท์ไม่ถูกต้อง");
+    }else{
+      FunctionHelper.showDialogProcess(context);
+      if(Usermanager.USERNAME_DEMO == _username.text && Usermanager.PASSWORD_DEMO == _password.text){
+        Usermanager().Savelogin(user: User(id: "1",fullname: "John Mayer",username: "ApisitKaewsasan@gmail.com",email: "ApisitKaewsasan@gmail.com",phone: "0932971160",
+            imageurl:  "https://freshairboutique.files.wordpress.com/2015/05/28438-long-red-head-girl.jpg")).then((value){
+             Navigator.of(context).pop();
+         // _navigateToProfilePage(context);
+            AppRoute.Home(context);
+        });
+
+      }else{
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "รหัสผ่านไม่ถูกต้อง");
+      }
+    }
+  }
+
+
+
 }

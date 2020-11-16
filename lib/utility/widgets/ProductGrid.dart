@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -88,7 +89,7 @@ class ProductGrid extends StatelessWidget {
     var _crossAxisCount = 2;
     var _width = (_screenWidth - ((_crossAxisCount - 1) * _crossAxisSpacing)) /
         _crossAxisCount;
-    var cellHeight = 240;
+    var cellHeight = ScreenUtil().setHeight(630);
     var _aspectRatio = _width / cellHeight;
     return Container(
       child: GridView.builder(
@@ -160,7 +161,7 @@ class ProductGrid extends StatelessWidget {
         Text(item.product_name,
             style: GoogleFonts.sarabun(
                 color: Colors.black,
-                fontSize: 17,
+                fontSize: ScreenUtil().setSp(45),
                 fontWeight: FontWeight.w500)),
         SizedBox(
           height: 10,
@@ -168,7 +169,7 @@ class ProductGrid extends StatelessWidget {
         Text(
           "฿${item.product_price}",
           style:
-              GoogleFonts.sarabun(color: ThemeColor.ColorSale(), fontSize: 20),
+              GoogleFonts.sarabun(color: ThemeColor.ColorSale(), fontSize: ScreenUtil().setSp(45)),
         ),
         SizedBox(
           height: 8,
@@ -183,7 +184,7 @@ class ProductGrid extends StatelessWidget {
                   onRated: (v) {},
                   starCount: 5,
                   rating: 2,
-                  size: 16.0,
+                  size: ScreenUtil().setHeight(40),
                   isReadOnly: true,
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half,
@@ -193,7 +194,7 @@ class ProductGrid extends StatelessWidget {
             ),
             Text((item.product_status),
                 style: GoogleFonts.sarabun(
-                    fontSize: 14,
+                    fontSize: ScreenUtil().setSp(30),
                     color: Colors.black,
                     fontWeight: FontWeight.w500))
           ],
@@ -252,7 +253,7 @@ class ProductGrid extends StatelessWidget {
                       child: Text(
                         "50%",
                         style: GoogleFonts.sarabun(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                            color: Colors.white, fontWeight: FontWeight.bold,fontSize: ScreenUtil().setSp(40)),
                       ),
                     ),
                     isLike?Container(

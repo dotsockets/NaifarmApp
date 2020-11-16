@@ -1,6 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -51,22 +52,22 @@ class ShopOwn extends StatelessWidget {
                 ),
                 SizedBox(width: 20),
                Expanded(
-                 flex: 3,
+                 flex: 4,
                  child:  Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
                      Text(productDetail.shopName,
                          style: GoogleFonts.sarabun(
-                             fontSize: 16, color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
+                             fontSize: ScreenUtil().setSp(45), color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
                      SizedBox(height: 5),
                      Text(productDetail.acticeTime,
                          style: GoogleFonts.sarabun(
-                             fontSize: 15,
+                             fontSize: ScreenUtil().setSp(40),
                              color: Colors.black.withOpacity(0.8))),
                      SizedBox(height: 2),
                      Text(productDetail.provice,
                          style: GoogleFonts.sarabun(
-                             fontSize: 15,
+                             fontSize: ScreenUtil().setSp(40),
                              color: Colors.black.withOpacity(0.8),height: 1.5)),
                    ],
                  ),
@@ -87,7 +88,7 @@ class ShopOwn extends StatelessWidget {
                     },
                     child: Text(
                       "ติดตาม",
-                      style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500),
+                      style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),
                     ),
                   ),
                 )
@@ -97,7 +98,7 @@ class ShopOwn extends StatelessWidget {
           ,
           Container(
             color: Colors.white,
-            padding: EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 10),
+            padding: EdgeInsets.only(left: 10, right: 20, bottom: 10, top: 10),
             width: MediaQuery.of(context).size.width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,11 +107,11 @@ class ShopOwn extends StatelessWidget {
                   children: [
                     Text("${productDetail.ownProduct}",
                         style: GoogleFonts.sarabun(
-                            fontSize: 22,
+                            fontSize: ScreenUtil().setSp(50),
                             color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
                     SizedBox(height: 5),
                     Text("รายการสินค้า",
-                        style: GoogleFonts.sarabun(fontSize: 16))
+                        style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40)))
                   ],
                 ),
                 SizedBox(width: 10),
@@ -126,7 +127,7 @@ class ShopOwn extends StatelessWidget {
                       children: [
                         Text("${productDetail.rateShow}",
                             style: GoogleFonts.sarabun(
-                                fontSize: 22,
+                                fontSize: ScreenUtil().setSp(50),
                                 color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
                         SizedBox(width: 10),
                         SmoothStarRating(
@@ -145,7 +146,7 @@ class ShopOwn extends StatelessWidget {
                     ),
                     SizedBox(height: 5),
                     Text("คะแนนที่ได้",
-                        style: GoogleFonts.sarabun(fontSize: 16)),
+                        style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40))),
                   ],
                 ),
                 Container(
@@ -161,7 +162,7 @@ class ShopOwn extends StatelessWidget {
                         style: GoogleFonts.sarabun(fontSize: 20,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
                     SizedBox(height: 5,),
                     Text("ผู้ติดตาม",
-                        style: GoogleFonts.sarabun(fontSize: 16)),
+                        style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40))),
                   ],
                 )
               ],

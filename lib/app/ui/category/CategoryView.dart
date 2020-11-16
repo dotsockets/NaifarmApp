@@ -1,6 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
@@ -26,7 +27,7 @@ class CategoryView extends StatelessWidget {
 
 
   Widget _content({BuildContext context}){
-    var _crossAxisSpacing = 90;
+    var _crossAxisSpacing = 80;
     var _screenWidth = MediaQuery.of(context).size.width;
     var _crossAxisCount = 4;
     var _width = ( _screenWidth - ((_crossAxisCount - 1) * _crossAxisSpacing)) / _crossAxisCount;
@@ -63,15 +64,15 @@ class CategoryView extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: CachedNetworkImage(
-                  width:80,
-                  height: 80,
+                  width:ScreenUtil().setWidth(200),
+                  height: ScreenUtil().setHeight(200),
                   placeholder: (context, url) => Container(
                     color: Colors.white,
                     child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                   ),
                   fit: BoxFit.cover,
                   imageUrl: item.icon,
-                  errorWidget: (context, url, error) => Container(height: 80,width: 80,child: Icon(Icons.error,size: 30,)),
+                  errorWidget: (context, url, error) => Container(height: ScreenUtil().setWidth(200),width: ScreenUtil().setHeight(200),child: Icon(Icons.error,size: 30,)),
                 ),
               ),
             ),
