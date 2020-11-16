@@ -7,7 +7,6 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/BuildIconShop.dart';
-
 import 'myshop/MyshopView.dart';
 import 'purchase/PurchaseView.dart';
 
@@ -168,7 +167,7 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
               borderRadius: BorderRadius.circular(40.0),
             ),
             onPressed: () {
-            //  AppRoute.ImageProduct(context);
+              AppRoute.ImageProduct(context);
             },
             child: Text("เข้าสู่ระบบ",
               style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),

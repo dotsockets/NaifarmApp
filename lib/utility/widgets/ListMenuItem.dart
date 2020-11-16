@@ -26,19 +26,25 @@ class ListMenuItem extends StatelessWidget {
     return InkWell(
       child: Container(
           color: Colors.white,
-          padding: EdgeInsets.only(right: 10, left: 16, top: 13, bottom: 13),
+          padding: EdgeInsets.only(right: 10, left: 15, top: 13, bottom: 13),
           child: Row(
             children: [
               Expanded(
                 child: Row(
                   children: [
-                    SvgPicture.asset(
-                      icon,
-                      width: iconSize,
-                      height: iconSize,
+                    Visibility(
+                      child: SvgPicture.asset(
+                        icon,
+                        width: iconSize,
+                        height: iconSize,
+                      ),
+                      visible: icon != "" ? true : false,
                     ),
-                    SizedBox(
-                      width: 10,
+                    Visibility(
+                      child: SizedBox(
+                        width: 10,
+                      ),
+                      visible: icon != "" ? true : false,
                     ),
                     Text(title,
                         style: GoogleFonts.sarabun(
@@ -67,7 +73,7 @@ class ListMenuItem extends StatelessWidget {
               )
             ],
           )),
-      onTap: ()=>onClick(),
+      onTap: () => onClick(),
     );
   }
 }

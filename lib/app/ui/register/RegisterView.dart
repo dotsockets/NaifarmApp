@@ -3,6 +3,7 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 
@@ -95,9 +96,14 @@ class RegisterView extends StatelessWidget {
           Wrap(
             children: [
               Text("ในการสมัครใช้งาน เราถือว่าคุณยอมรับ",style: GoogleFonts.sarabun(fontSize: 15,height: 1.7,fontWeight: FontWeight.w500),),
-              Text(" ข้อตกลงในการใช้งาน",style: GoogleFonts.sarabun(fontSize: 15,color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),),
+              InkWell(child: Text(" ข้อตกลงในการใช้งาน",style: GoogleFonts.sarabun(fontSize: 15,color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
+              ,onTap: (){AppRoute.SettingRules(context);},
+              ),
               Text(" และ ",style: GoogleFonts.sarabun(fontSize: 15,height: 1.7,fontWeight: FontWeight.w500),),
-              Text("นโยบายความเป็นส่วนตัว",style: GoogleFonts.sarabun(fontSize: 15,color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),),
+              InkWell(
+                  child: Text("นโยบายความเป็นส่วนตัว",style: GoogleFonts.sarabun(fontSize: 15,color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
+              ,onTap: (){AppRoute.SettingPolicy(context);}
+              ),
               Text(" กับทาง NaiFarm",style: GoogleFonts.sarabun(fontSize: 15,height: 1.7,fontWeight: FontWeight.w500),),
             ],
           )
