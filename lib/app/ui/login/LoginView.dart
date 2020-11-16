@@ -1,11 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
+  @override
+  _LoginViewState createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+
+  final GlobalKey _textKey = GlobalKey();
+  Size textSize;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition());
+  }
+
+  getSizeAndPosition() {
+    RenderBox _cardBox = _textKey.currentContext.findRenderObject();
+    textSize = _cardBox.size;
+    print("ewfce ${textSize} | adcewfce ${MediaQuery.of(context).size.height}");
+    setState(() {});
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -15,9 +40,7 @@ class LoginView extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                  child: _BorderHeader(context),
-                ),
+                _BorderHeader(context)
               ],
             ),
           ),
@@ -28,8 +51,9 @@ class LoginView extends StatelessWidget {
 
   Widget _BuildHeader(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height-100,
-        padding: EdgeInsets.all(30),
+      height: MediaQuery.of(context).size.height-ScreenUtil().setHeight(200),
+      key: _textKey,
+        padding: EdgeInsets.all(10),
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: ThemeColor.primaryColor(),
@@ -49,7 +73,7 @@ class LoginView extends StatelessWidget {
 
             ),
             SizedBox(height: 30,),
-            Image.asset('assets/images/png/img_login.png',height: 300,),
+            Image.asset('assets/images/png/img_login.png',height: ScreenUtil().setHeight(600),),
             SizedBox(height: 20,),
             Text("แอปเพื่อเกษตรกรไทย ซื่อง่าย ขายคล่อง",style: GoogleFonts.sarabun(color: Colors.white,fontSize: 20),),
             SizedBox(height: 40,),
@@ -91,13 +115,22 @@ class LoginView extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 50,),
+            SizedBox(height: 30,),
             Wrap(
               children: [
-                Text("กดข้ามเพื่อเข้าสู่หน้าหลัก ",style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 20)),
-                InkWell(child: Text("ข้ามหน้านี้ ",style: GoogleFonts.sarabun(color: Colors.white,fontSize: 20,decoration: TextDecoration.underline,)),onTap: (){
-                  AppRoute.Home(context);
-                },),
+                Text("กดข้ามเพื่อเข้าสู่หน้าหลัก ",style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18)),
+                Column(
+                  children: [
+                    InkWell(child: Text("ข้ามหน้านี้ ",style: GoogleFonts.sarabun(color: Colors.white,fontSize: 18)),onTap: (){
+                      AppRoute.Home(context);
+                    },),
+                    Container(
+                      width: 70,
+                      color: Colors.white,
+                      height: 2,
+                    )
+                  ],
+                )
               ],
             ),
             SizedBox(height: 40,),
