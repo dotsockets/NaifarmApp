@@ -25,6 +25,13 @@ import 'package:naifarm/app/ui/noti/notilist/NotiView.dart';
 import 'package:naifarm/app/ui/order/OrderView.dart';
 import 'package:naifarm/app/ui/product_detail/ProductDetailView.dart';
 import 'package:naifarm/app/ui/register/RegisterView.dart';
+import 'package:naifarm/app/ui/setting/about/AboutView.dart';
+import 'package:naifarm/app/ui/setting/address/AddressView.dart';
+import 'package:naifarm/app/ui/setting/addressAdd/AddressAddView.dart';
+import 'package:naifarm/app/ui/setting/help/HelpView.dart';
+import 'package:naifarm/app/ui/setting/policy/PolicyView.dart';
+import 'package:naifarm/app/ui/setting/profile/SettingProfileView.dart';
+import 'package:naifarm/app/ui/setting/rulesOfUse/RuleOfUseView.dart';
 import 'package:naifarm/app/ui/shopmain/ShopMainView.dart';
 import 'package:naifarm/app/ui/shopmain/followers/FollowersView.dart';
 import 'package:naifarm/app/ui/specialproducts/SpecialproductsView.dart';
@@ -146,6 +153,30 @@ class AppRoute{
 
   static Login(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LoginView()));
+  }
+
+  static SettingHelp(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: HelpView()));
+  }
+
+  static SettingRules(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: RulesOfUseView()));
+  }
+
+  static SettingPolicy(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: PolicyView()));
+  }
+  static SettingProfile(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SettingProfileView()));
+  }
+  static SettingAbout(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AboutView()));
+  }
+  static SettingAddress(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AddressView()));
+  }
+  static SettingAddAddress(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AddressAddView()));
   }
 }
 

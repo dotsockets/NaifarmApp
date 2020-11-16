@@ -1,15 +1,11 @@
 import 'dart:io';
 
-import 'package:custom_dropdown/custom_dropdown.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 
 class ImageProductView extends StatefulWidget {
   @override
@@ -18,12 +14,8 @@ class ImageProductView extends StatefulWidget {
 
 class _ImageProductViewState extends State<ImageProductView> {
 
-  final TextEditingController maxWidthController = TextEditingController();
-  final TextEditingController maxHeightController = TextEditingController();
-  final TextEditingController qualityController = TextEditingController();
-  String _retrieveDataError;
-  File _imageFile;
-  List<String> imageUrlList = [];
+  //File _imageFile;
+ // List<String> imageUrlList = [];
   var arr = List(10);
 
   @override
@@ -74,7 +66,7 @@ class _ImageProductViewState extends State<ImageProductView> {
       setState(() {
         arr[index] = imageFile;
         print(imageFile);
-        _imageFile = imageFile;
+        //_imageFile = imageFile;
       });
     } catch (e) {
       print(e);
@@ -130,7 +122,9 @@ class _ImageProductViewState extends State<ImageProductView> {
                   ),
                 )
               ],
-            ) : Center(child: Image.file(arr[index])),
+            ) : Center(child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                child: Image.file(arr[index]))),
           ),
           onTap: () {
             captureImage(ImageSource.gallery, index);
