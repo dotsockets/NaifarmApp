@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
@@ -17,7 +18,7 @@ class MeView extends StatefulWidget {
   _MeViewState createState() => _MeViewState();
 }
 
-class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
+class _MeViewState extends State<MeView> with RouteAware  {
 
   bool IsLogin = true;
 
@@ -32,6 +33,20 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
      });
 
   }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+
+
+  @override
+  void didPopNext() {
+    setState(()=>{ISLogin()});
+  }
+
 
   void ISLogin() async => IsLogin = await Usermanager().isLogin();
 
@@ -68,7 +83,7 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
                 ),
 
               ],
-              expandedHeight: ScreenUtil().setHeight(IsLogin?600:400),
+              expandedHeight: ScreenUtil().setHeight(IsLogin?500:400),
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   color: ThemeColor.primaryColor(),
@@ -172,7 +187,7 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 onPressed: () {
-                  //  AppRoute.ImageProduct(context);
+                  AppRoute.Login(context,IsCallBack: true);
                 },
                 child: Text("เข้าสู่ระบบ",
                   style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
@@ -223,4 +238,7 @@ class _MeViewState extends State<MeView> with SingleTickerProviderStateMixin{
       ),
     );
   }
+
+
+
 }

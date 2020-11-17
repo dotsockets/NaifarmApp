@@ -98,8 +98,7 @@ class AppToobar extends PreferredSize {
   Widget barNoSearchNoTitle(BuildContext context){
     return GestureDetector(
       child: Container(
-
-        padding: EdgeInsets.only(right: 20,left: 20,top: 10,bottom: 20),
+        padding: EdgeInsets.only(right: 15,left: 20,top: 10,bottom: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -107,11 +106,13 @@ class AppToobar extends PreferredSize {
               Navigator.pop(context);
             },),
             Container(
+              width: ScreenUtil().setWidth(120),
+              height: ScreenUtil().setWidth(120),
               decoration: BoxDecoration(
                   color: ThemeColor.primaryColor(),
                 borderRadius: BorderRadius.all(Radius.circular(40))
               ),
-              child: BuildIconShop(size: 30,notification: 0,),
+              child: BuildIconShop(size: ScreenUtil().setWidth(65),notification: 0,),
             )
           ],
         ),

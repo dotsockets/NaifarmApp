@@ -1,5 +1,5 @@
 import 'package:basic_utils/basic_utils.dart';
-import 'package:naifarm/app/model/core/AppBookingApplication.dart';
+import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class Env {
 
   void _init() async {
     WidgetsFlutterBinding.ensureInitialized();
-    var application = AppBookingApplication();
+    var application = AppNaiFarmApplication();
     await application.onCreate();
     runApp(EasyLocalization(
         supportedLocales: [Locale('en', 'US'), Locale('th', 'TH')],

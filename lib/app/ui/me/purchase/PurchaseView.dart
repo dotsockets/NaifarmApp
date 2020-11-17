@@ -48,7 +48,7 @@ class PurchaseView extends StatelessWidget {
                       tagHero: "payagin"),
                 )
               : SizedBox(),
-          _BuildDivider(),
+          IsLogin ? _BuildDivider() : SizedBox(),
           ListMenuItem(
               icon: 'assets/images/svg/editprofile.svg', title: 'ตั้งค่าบัญชี',onClick: (){AppRoute.SettingProfile(context);},),
           _BuildDivider(),

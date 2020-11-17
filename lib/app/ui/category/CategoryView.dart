@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 
@@ -14,7 +15,9 @@ class CategoryView extends StatelessWidget {
   final List<MenuModel> _menuViewModel = MenuViewModel().getMenustype();
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: Colors.white,
+    body: SingleChildScrollView(
       child: Container(
         color: Colors.white,
         child: StickyHeader(
@@ -22,16 +25,17 @@ class CategoryView extends StatelessWidget {
           content: _content(context: context),
         ),
       ),
+    ),
     );
   }
 
 
   Widget _content({BuildContext context}){
-    var _crossAxisSpacing = 80;
+    var _crossAxisSpacing = 75;
     var _screenWidth = MediaQuery.of(context).size.width;
     var _crossAxisCount = 4;
     var _width = ( _screenWidth - ((_crossAxisCount - 1) * _crossAxisSpacing)) / _crossAxisCount;
-    var cellHeight = 65;
+    var cellHeight = ScreenUtil().setHeight(150);
     var _aspectRatio = _width /cellHeight;
     return Container(
       padding: EdgeInsets.all(20),
@@ -41,7 +45,7 @@ class CategoryView extends StatelessWidget {
         padding: EdgeInsets.only(top: 10),
         shrinkWrap: true,
         gridDelegate:
-        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: _crossAxisCount,childAspectRatio: _aspectRatio,mainAxisSpacing: 20,crossAxisSpacing: 20),
+        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: _crossAxisCount,childAspectRatio: _aspectRatio,mainAxisSpacing: 20,crossAxisSpacing:10),
         itemBuilder: (context,index){
           return Container(
             child:_ProductImage(item: _menuViewModel[index+1],index: index),
@@ -55,6 +59,7 @@ class CategoryView extends StatelessWidget {
     return InkWell(
       child: Container(
         child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               decoration: BoxDecoration(
@@ -64,20 +69,20 @@ class CategoryView extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: CachedNetworkImage(
-                  width:ScreenUtil().setWidth(200),
-                  height: ScreenUtil().setHeight(200),
+                  width:SizeUtil.categoryBox(),
+                  height: SizeUtil.categoryBox(),
                   placeholder: (context, url) => Container(
                     color: Colors.white,
                     child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                   ),
                   fit: BoxFit.cover,
                   imageUrl: item.icon,
-                  errorWidget: (context, url, error) => Container(height: ScreenUtil().setWidth(200),width: ScreenUtil().setHeight(200),child: Icon(Icons.error,size: 30,)),
+                  errorWidget: (context, url, error) => Container(height: ScreenUtil().setWidth(200),width: ScreenUtil().setHeight(160),child: Icon(Icons.error,size: 30,)),
                 ),
               ),
             ),
             SizedBox(height: 10),
-            Text(item.label,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),)
+            Text(item.label,style: GoogleFonts.sarabun(color: Colors.black,fontSize: ScreenUtil().setSp(35),fontWeight: FontWeight.bold),)
           ],
         ),
       ),

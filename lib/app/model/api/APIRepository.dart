@@ -9,13 +9,13 @@ import 'package:naifarm/utility/http/HttpException.dart';
 import 'package:naifarm/utility/log/DioLogger.dart';
 import 'package:rxdart/rxdart.dart';
 
-class AppBookingAPIRepository{
-  static const String TAG = 'AppBookingAPIRepository';
+class APIRepository{
+  static const String TAG = 'AppAPIRepository';
 
   APIProvider _apiProvider;
   DBBookingRepository _dbAppStoreRepository;
 
-  AppBookingAPIRepository(this._apiProvider, this._dbAppStoreRepository);
+  APIRepository(this._apiProvider, this._dbAppStoreRepository);
 
   Future<List<Task>> getTag(){
    // final api = APIProvider(_dio, baseUrl: "http://mockserver");

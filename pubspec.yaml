@@ -67,6 +67,7 @@ dependencies:
   image_picker: ^0.6.0+9
   flutter_screenutil: ^3.1.0
   nuts_activity_indicator: ^0.1.1
+  flutter_countdown_timer: ^1.4.0
 
 
 dev_dependencies:

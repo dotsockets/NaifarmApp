@@ -51,7 +51,7 @@ class MenuViewModel {
       ),
       MenuModel(
         icon:
-            'https://lh3.googleusercontent.com/proxy/yTmlRBjkOvcTk_G8nIGL4K-cLje0zlZsAjGJtQKfgq0SB4llXJOgBxyNe759tQ511Z80UpHjFFWJDHv3jza088h_JHjbPqXhNqbzeODRfGwWrWxH3TAKprJk_MIuyA',
+            'https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg',
         iconSelected: '',
         label: "ปศุสัตว์",
       ),
@@ -64,12 +64,6 @@ class MenuViewModel {
         icon: 'https://www.chaipat.or.th/images/Media/rice-1594612_960_720.jpg',
         iconSelected: '',
         label: "ข้าว",
-      ),
-      MenuModel(
-        icon:
-            'https://ktw.co.th/content/images/thumbs/0364748_hsd1g-80c-รื่รนิน-สร์ทมื-new_300.jpeg',
-        iconSelected: '',
-        label: "เครื่องมือเกษตร",
       ),
       MenuModel(
         icon:
@@ -87,7 +81,13 @@ class MenuViewModel {
         icon: 'https://dd.lnwfile.com/_/dd/_raw/ie/pe/k7.jpg',
         iconSelected: '',
         label: "ปุ๋ยและยา",
-      )
+      ),
+      MenuModel(
+        icon:
+        'https://ktw.co.th/content/images/thumbs/0364748_hsd1g-80c-รื่รนิน-สร์ทมื-new_300.jpeg',
+        iconSelected: '',
+        label: "เครื่องมือ",
+      ),
     ];
   }
 

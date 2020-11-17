@@ -2,6 +2,7 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +16,10 @@ import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 
 class LoginView extends StatefulWidget {
+  final bool IsCallBack;
+
+  const LoginView({Key key, this.IsCallBack=false}) : super(key: key);
+
   @override
   _LoginViewState createState() => _LoginViewState();
 }
@@ -107,10 +112,8 @@ class _LoginViewState extends State<LoginView> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0),
                 ),
-                onPressed: () {
-                  //  AppRoute.ImageProduct(context);
-                },
-                child: Text("สมัครด้วย Facebook",
+                onPressed: ()=>_login(),
+                child: Text("เข้าสู่ระบบด้วย Facebook",
                   style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
                 ),
               ),
@@ -124,7 +127,7 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     SizedBox(height: 3,),
                     InkWell(child: Text(" สมัครสมาชิก ",style: GoogleFonts.sarabun(color: ThemeColor.secondaryColor(),fontSize: 15)),onTap: (){
-                      AppRoute.Home(context);
+                      AppRoute.Register(context);
                     },),
                     Container(
                       width: ScreenUtil().setWidth(180),
@@ -201,12 +204,44 @@ class _LoginViewState extends State<LoginView> {
             imageurl:  "https://freshairboutique.files.wordpress.com/2015/05/28438-long-red-head-girl.jpg")).then((value){
              Navigator.of(context).pop();
          // _navigateToProfilePage(context);
-            AppRoute.Home(context);
+             widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
+
         });
 
       }else{
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "รหัสผ่านไม่ถูกต้อง");
       }
+    }
+  }
+
+  Future<Null> _login() async {
+    final FacebookLogin facebookSignIn = new FacebookLogin();
+    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final FacebookAccessToken accessToken = result.accessToken;
+        print('''
+         Logged in!
+         
+         Token: ${accessToken.token}
+         User id: ${accessToken.userId}
+         Expires: ${accessToken.expires}
+         Permissions: ${accessToken.permissions}
+         Declined permissions: ${accessToken.declinedPermissions}
+         ''');
+        //get image  https://graph.facebook.com/2305752019445635/picture?type=large&width=720&height=720
+
+        // final graphResponse = await http.get(
+        //     'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
+        // final profile = JSON.decode(graphResponse.body);
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+        print('Login cancelled by the user.');
+        break;
+      case FacebookLoginStatus.error:
+        print('Something went wrong with the login process.\n'
+            'Here\'s the error Facebook gave us: ${result.errorMessage}');
+        break;
     }
   }
 

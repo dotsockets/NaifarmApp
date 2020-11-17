@@ -8,7 +8,7 @@ void main() => Production();
 
 class Production extends Env {
   EnvType environmentType = EnvType.PRODUCTION;
-  final String appName = "DS BooKing";
+  final String appName = "NaiFarm";
   final String baseUrl = 'https://api.website.org';
   final String dbName = 'DSBooKing.db';
 }

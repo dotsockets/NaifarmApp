@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 
@@ -23,6 +24,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
       child: SafeArea(
         top: false,
         child: Scaffold(
+          backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
             Title: "ตั้งค่าบัญชี",
             icon: "",
@@ -151,7 +153,9 @@ class _SettingProfileViewState extends State<SettingProfileView> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40.0),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Usermanager().logout().then((value) => Navigator.of(context).pop());
+      },
       child: Text(
         btnTxt,
         style: GoogleFonts.sarabun(fontSize: 20, fontWeight: FontWeight.w500),

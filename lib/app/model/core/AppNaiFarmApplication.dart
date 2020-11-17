@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/api/APIProvider.dart';
-import 'package:naifarm/app/model/api/AppBookingAPIRepository.dart';
+import 'package:naifarm/app/model/api/APIRepository.dart';
 import 'package:naifarm/app/model/db/AppDatabaseMigrationListener.dart';
 import 'package:naifarm/app/model/db/DBBookingRepository.dart';
 import 'package:naifarm/config/Env.dart';
@@ -11,12 +11,12 @@ import 'package:naifarm/utility/log/Log.dart';
 
 import 'package:logging/logging.dart';
 
-class AppBookingApplication implements Application {
+class AppNaiFarmApplication implements Application {
 
   Dio _dio;
   DatabaseHelper _db;
   DBBookingRepository dbAppStoreRepository;
-  AppBookingAPIRepository appStoreAPIRepository;
+  APIRepository appStoreAPIRepository;
 
   @override
   Future<void> onCreate() async {
@@ -49,7 +49,7 @@ class AppBookingApplication implements Application {
 
   void _initAPIRepository(){
     APIProvider apiProvider = APIProvider(_dio,baseUrl:Env.value.baseUrl);
-    appStoreAPIRepository = AppBookingAPIRepository(apiProvider, dbAppStoreRepository);
+    appStoreAPIRepository = APIRepository(apiProvider, dbAppStoreRepository);
   }
 
   void _initLog(){
@@ -72,15 +72,15 @@ class AppBookingApplication implements Application {
     if(EnvType.DEVELOPMENT == Env.value.environmentType || EnvType.STAGING == Env.value.environmentType){
       _dio.interceptors.add(InterceptorsWrapper(
           onRequest:(RequestOptions options) async{
-            DioLogger.onSend(AppBookingAPIRepository.TAG, options);
+            DioLogger.onSend(APIRepository.TAG, options);
             return options;
           },
           onResponse: (Response response){
-            DioLogger.onSuccess(AppBookingAPIRepository.TAG, response);
+            DioLogger.onSuccess(APIRepository.TAG, response);
             return response;
           },
           onError: (DioError error){
-            DioLogger.onError(AppBookingAPIRepository.TAG, error);
+            DioLogger.onError(APIRepository.TAG, error);
             return error;
           }
       ));

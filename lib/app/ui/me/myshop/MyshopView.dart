@@ -41,7 +41,7 @@ class MyshopView extends StatelessWidget {
                   },
                 )
               : SizedBox(),
-          _BuildDivider(),
+          IsLogin ? _BuildDivider() : SizedBox(),
           IsLogin
               ? ListMenuItem(
                   icon: 'assets/images/svg/delivery.svg',

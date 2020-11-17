@@ -39,7 +39,7 @@ class FunctionHelper{
     //await pr.show();
   }
 
-  static SnackBarShow({GlobalKey<ScaffoldState> scaffoldKey,String message,BuildContext context,Function() onPressed}){
+  static SnackBarShow({GlobalKey<ScaffoldState> scaffoldKey,String message,BuildContext context,Function() onPressed=null}){
 
      scaffoldKey.currentState.showSnackBar(
         SnackBar(
@@ -49,7 +49,7 @@ class FunctionHelper{
               textColor: Colors.white,
               label: "Ok",
               onPressed: () {
-                onPressed();
+                onPressed!=null?onPressed():scaffoldKey.currentState.hideCurrentSnackBar();
                // scaffoldKey.currentState.hideCurrentSnackBar();
               },
             )

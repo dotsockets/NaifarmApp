@@ -8,7 +8,7 @@ void main() => Staging();
 
 class Staging extends Env {
   EnvType environmentType = EnvType.STAGING;
-  final String appName = "DS BooKing Staging";
+  final String appName = "NaiFarmStaging";
   final String baseUrl = 'https://api.staging.website.org';
   final String dbName = 'DSBooKing-Stg.db';
 }

@@ -89,9 +89,10 @@ class ProductGrid extends StatelessWidget {
     var _crossAxisCount = 2;
     var _width = (_screenWidth - ((_crossAxisCount - 1) * _crossAxisSpacing)) /
         _crossAxisCount;
-    var cellHeight = ScreenUtil().setHeight(630);
+    var cellHeight = ScreenUtil().setHeight(500);
     var _aspectRatio = _width / cellHeight;
     return Container(
+      padding: EdgeInsets.all(10),
       child: GridView.builder(
         physics: NeverScrollableScrollPhysics(),
         itemCount: producViewModel.length,

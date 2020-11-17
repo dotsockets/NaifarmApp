@@ -1,5 +1,5 @@
 
-import 'package:naifarm/app/model/core/AppBookingApplication.dart';
+import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
@@ -17,7 +17,7 @@ class AppComponent extends StatefulWidget {
 
 
 
-  final AppBookingApplication _application;
+  final AppNaiFarmApplication _application;
 
 
 
@@ -31,7 +31,7 @@ class AppComponent extends StatefulWidget {
 
 class AppComponentState extends State<AppComponent> {
 
-  final AppBookingApplication _application;
+  final AppNaiFarmApplication _application;
 
 
   AppComponentState(this._application);

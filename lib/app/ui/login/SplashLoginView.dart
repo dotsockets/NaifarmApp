@@ -75,7 +75,7 @@ class SplashLoginView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                   onPressed: () {
-                     AppRoute.Login(context);
+                     AppRoute.Login(context,IsCallBack: false);
                   },
                   child: Text("เข้าสู่ระบบ",
                     style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),

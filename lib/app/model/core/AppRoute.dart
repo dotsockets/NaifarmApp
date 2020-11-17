@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
@@ -24,7 +25,11 @@ import 'package:naifarm/app/ui/noti/notidetail/NotiDetailView.dart';
 import 'package:naifarm/app/ui/noti/notilist/NotiView.dart';
 import 'package:naifarm/app/ui/order/OrderView.dart';
 import 'package:naifarm/app/ui/product_detail/ProductDetailView.dart';
+import 'package:naifarm/app/ui/register/RegisterOTPView.dart';
 import 'package:naifarm/app/ui/register/RegisterView.dart';
+import 'package:naifarm/app/ui/register/Register_FBView.dart';
+import 'package:naifarm/app/ui/register/Register_Name_OtpView.dart';
+import 'package:naifarm/app/ui/register/Register_set_PasswordView.dart';
 import 'package:naifarm/app/ui/setting/about/AboutView.dart';
 import 'package:naifarm/app/ui/setting/address/AddressView.dart';
 import 'package:naifarm/app/ui/setting/addressAdd/AddressAddView.dart';
@@ -144,15 +149,16 @@ class AppRoute{
   }
 
   static SplashLogin(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SplashLoginView()));
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => SplashLoginView()), (Route<dynamic> route) => false);
   }
 
   static Home(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: HomeView()));
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeView()), (Route<dynamic> route) => false);
   }
 
-  static Login(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LoginView()));
+  static Login(BuildContext context,{bool IsCallBack}){
+
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LoginView(IsCallBack: IsCallBack,)));
   }
 
   static SettingHelp(BuildContext context){
@@ -178,7 +184,24 @@ class AppRoute{
   static SettingAddAddress(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AddressAddView()));
   }
+
+  static RegisterOTP(BuildContext context,  {String phoneNumber}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: RegisterOTPView(phoneNumber: phoneNumber,)));
+  }
+  static Register_set_Password(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_set_PasswordView()));
+  }
+
+  static Register_Name_Otp(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_Name_OtpView()));
+  }
+
+  static Register_FB(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_FBView()));
+  }
 }
+
+
 
 
 

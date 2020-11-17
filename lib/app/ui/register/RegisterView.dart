@@ -1,16 +1,38 @@
 
+import 'dart:convert';
+
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:regexed_validator/regexed_validator.dart';
+import 'package:http/http.dart' as http;
 
-class RegisterView extends StatelessWidget {
+
+class RegisterView extends StatefulWidget {
+  @override
+  _RegisterViewState createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
+
 
   TextEditingController PhoneController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    PhoneController.text = "0932971160";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,6 +40,7 @@ class RegisterView extends StatelessWidget {
       child: SafeArea(
         bottom: false,
         child: Scaffold(
+          key: _scaffoldKey,
           backgroundColor: Colors.white,
           body: ListView(
             children: [
@@ -54,9 +77,7 @@ class RegisterView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40.0),
               ),
-              onPressed: () {
-                //  AppRoute.ImageProduct(context);
-              },
+              onPressed: ()=>_validate(),
               child: Text("ยืนยัน",
                 style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
               ),
@@ -83,9 +104,7 @@ class RegisterView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40.0),
               ),
-              onPressed: () {
-                //  AppRoute.ImageProduct(context);
-              },
+              onPressed: ()=>_login(),
               child: Text("สมัครด้วย Facebook",
                 style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
               ),
@@ -135,5 +154,53 @@ class RegisterView extends StatelessWidget {
       ),
     );
   }
+
+  void _validate() {
+    if(PhoneController.text.isEmpty){
+      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "เบอร์โทรต้องไม่ว่าง",context: context);
+    }else if(PhoneController.text.length!=10){
+      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "เบอร์โทรศัพท์ไม่ถูกต้อง");
+    }else{
+      FunctionHelper.showDialogProcess(context);
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        Navigator.of(context).pop();
+        AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text);
+
+      });
+
+    }
+  }
+
+
+  Future<Null> _login() async {
+    final FacebookLogin facebookSignIn = new FacebookLogin();
+    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final FacebookAccessToken accessToken = result.accessToken;
+        print('''
+         Logged in!
+         
+         Token: ${accessToken.token}
+         User id: ${accessToken.userId}
+         Expires: ${accessToken.expires}
+         Permissions: ${accessToken.permissions}
+         ''');
+        //get image  https://graph.facebook.com/2305752019445635/picture?type=large&width=720&height=720
+
+        // final graphResponse = await http.get(
+        //     'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
+        // final profile = JSON.decode(graphResponse.body);
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+        print('Login cancelled by the user.');
+        break;
+      case FacebookLoginStatus.error:
+        print('Something went wrong with the login process.\n'
+            'Here\'s the error Facebook gave us: ${result.errorMessage}');
+        break;
+    }
+  }
+
 
 }

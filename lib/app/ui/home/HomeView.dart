@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/category/CategoryView.dart';
@@ -18,10 +19,18 @@ class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   // print("ewwfcewf ${ScreenUtil().scaleWidth}");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
         length: _menuViewModel.length,
         child: Scaffold(
+
           body: IndexedStack(
             index: _selectedIndex,
             children: [
