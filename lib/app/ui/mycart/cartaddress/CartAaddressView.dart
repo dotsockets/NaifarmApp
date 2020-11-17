@@ -144,7 +144,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
             borderRadius: BorderRadius.circular(40.0),
         ),
         onPressed: () {
-          /*...*/
+          AppRoute.SettingAddAddress(context);
         },
         child: Text(
           "เพิ่มที่อยู่ใหม่",

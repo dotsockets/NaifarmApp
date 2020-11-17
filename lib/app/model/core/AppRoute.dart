@@ -33,7 +33,10 @@ import 'package:naifarm/app/ui/register/Register_set_PasswordView.dart';
 import 'package:naifarm/app/ui/setting/about/AboutView.dart';
 import 'package:naifarm/app/ui/setting/address/AddressView.dart';
 import 'package:naifarm/app/ui/setting/addressAdd/AddressAddView.dart';
+import 'package:naifarm/app/ui/setting/bank/BankSettingView.dart';
 import 'package:naifarm/app/ui/setting/help/HelpView.dart';
+import 'package:naifarm/app/ui/setting/language/LanguageSettingView.dart';
+import 'package:naifarm/app/ui/setting/noti/NotiSettingView.dart';
 import 'package:naifarm/app/ui/setting/policy/PolicyView.dart';
 import 'package:naifarm/app/ui/setting/profile/SettingProfileView.dart';
 import 'package:naifarm/app/ui/setting/rulesOfUse/RuleOfUseView.dart';
@@ -172,8 +175,8 @@ class AppRoute{
   static SettingPolicy(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: PolicyView()));
   }
-  static SettingProfile(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SettingProfileView()));
+  static SettingProfile(BuildContext context,String languageTxt){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SettingProfileView(languageTxt:languageTxt)));
   }
   static SettingAbout(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AboutView()));
@@ -198,6 +201,15 @@ class AppRoute{
 
   static Register_FB(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_FBView()));
+  }
+  static SettingLanguage(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LanguageSettingView()));
+  }
+  static SettingBank(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: BankSettingView()));
+  }
+  static SettingNoti(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiSettingView()));
   }
 }
 
