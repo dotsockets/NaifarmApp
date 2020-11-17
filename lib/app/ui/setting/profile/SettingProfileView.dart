@@ -5,16 +5,23 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingProfileView extends StatefulWidget {
+  final String languageTxt ;
+
+  const SettingProfileView({Key key, this.languageTxt}) : super(key: key);
   @override
   _SettingProfileViewState createState() => _SettingProfileViewState();
 }
 
 class _SettingProfileViewState extends State<SettingProfileView> {
+  String language="ภาษาไทย";
+
   @override
   void initState() {
     super.initState();
+    getLanguage();
   }
 
   @override
@@ -23,6 +30,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
       child: SafeArea(
         top: false,
         child: Scaffold(
+          backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
             Title: "ตั้งค่าบัญชี",
             icon: "",
@@ -33,8 +41,6 @@ class _SettingProfileViewState extends State<SettingProfileView> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Container(
-
-                    color: Colors.grey.shade300,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -47,21 +53,36 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         ListMenuItem(
                           icon: '',
                           title: 'ที่อยู่ของฉัน',
-                          onClick: (){AppRoute.SettingAddress(context);},
+                          onClick: () {
+                            AppRoute.SettingAddress(context);
+                          },
                         ),
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
                           title: 'ข้อมูลบัญชีธนาคาร/บัตร',
+                          onClick: (){
+                            AppRoute.SettingBank(context);
+                          },
                         ),
                         _buildLine(),
                         _buildTxt(txt: "ตั้งค่า"),
                         ListMenuItem(
                           icon: '',
                           title: 'ตั้งค่าการแจ้งเตือน',
+                          onClick: () {
+                            AppRoute.SettingNoti(context);
+                          },
                         ),
                         _buildLine(),
-                        ListMenuItem(icon: '', Message: 'ภาษาไทย', title: "ภาษา"),
+                        ListMenuItem(
+                          icon: '',
+                          Message: language,
+                          title: "ภาษา",
+                          onClick: () {
+                            AppRoute.SettingLanguage(context);
+                          },
+                        ),
                         _buildTxt(txt: "ช่วยเหลือ"),
                         ListMenuItem(
                           icon: '',
@@ -99,15 +120,12 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                           icon: '',
                           title: 'คำขอลบบัญชีผู้ใช้',
                         ),
-                        SizedBox(
-                          height: 10,
-                        )
+                        _BuildButton()
                       ],
                     ),
                   ),
                 ),
               ),
-              _BuildButton()
             ],
           ),
         ),
@@ -134,9 +152,8 @@ class _SettingProfileViewState extends State<SettingProfileView> {
 
   Widget _BuildButton() {
     return Container(
-        padding: EdgeInsets.only(left: 40, right: 40),
+        padding: EdgeInsets.only(left: 50, right: 50),
         color: Colors.grey.shade300,
-        height: 80,
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(15),
@@ -145,6 +162,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
 
   Widget _BuildButtonItem({String btnTxt}) {
     return FlatButton(
+      padding: EdgeInsets.only(top: 15, bottom: 15),
       color: ThemeColor.ColorSale(),
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),
@@ -158,4 +176,11 @@ class _SettingProfileViewState extends State<SettingProfileView> {
       ),
     );
   }
+
+  Future<String> getLanguage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String language = prefs.getString('languageTxt');
+    return language;
+  }
+
 }

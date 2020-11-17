@@ -56,7 +56,7 @@ class CartViewModel{
         TypeBank: 1,
         NameBank: "ธนาคารกสิกรไทย",
         NumberCard: "* 8765",
-        BackIcon: 'https://img.utdstc.com/icons/scb-easy-android.png:225'
+        BackIcon: 'https://i.pinimg.com/originals/55/a3/c2/55a3c2e6e01843e209cf2c2b279363b9.png'
       )
     ];
   }
@@ -67,7 +67,7 @@ class CartViewModel{
         TypeBank: 2,
         NameBank: "ธนาคารไทยพาณิช",
         NumberCard: "* 9803",
-        BackIcon: 'https://i.pinimg.com/originals/55/a3/c2/55a3c2e6e01843e209cf2c2b279363b9.png'
+        BackIcon: 'https://img.utdstc.com/icons/scb-easy-android.png:225'
       )
     ];
   }

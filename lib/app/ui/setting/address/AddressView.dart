@@ -31,9 +31,9 @@ class _AddressViewState extends State<AddressView> {
           body: Container(
             color: Colors.grey.shade300,
             child: Column(
-              children: [_buildCardAddr(nameTxt: "วีระชัย ใจกว้าง"),
+              children: [_buildCardAddr(nameTxt: "วีระชัย ใจกว้าง",typeAddr: "เป็นที่อยู่หลัก"),
                 SizedBox(height: 10,),
-                _buildCardAddr(nameTxt: "วีระชัย ใจกว้าง"),_BuildButton(),
+                _buildCardAddr(nameTxt: "วีระชัย ใจกว้าง",typeAddr: ""),_BuildButton(),
               ],
             ),
           ),
@@ -42,7 +42,7 @@ class _AddressViewState extends State<AddressView> {
     );
   }
 
-  Widget _buildCardAddr({String nameTxt}) {
+  Widget _buildCardAddr({String nameTxt,String typeAddr}) {
     return Container(
       color: Colors.white,
       
@@ -57,7 +57,7 @@ class _AddressViewState extends State<AddressView> {
             children: [Text(nameTxt,style: GoogleFonts.sarabun(fontSize: 18,color: ThemeColor.primaryColor())),
               Row(
                 children: [
-                  Text("เป็นที่อยู่หลัก",style: GoogleFonts.sarabun(fontSize: 18,color: ThemeColor.ColorSale())),
+                  Text(typeAddr,style: GoogleFonts.sarabun(fontSize: 18,color: ThemeColor.ColorSale())),
                   Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
                 ],
               ),

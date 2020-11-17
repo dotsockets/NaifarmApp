@@ -53,15 +53,15 @@ class _CartBankViewState extends State<CartBankView> {
                   SizedBox(height: 8),
                   Column(
                     children: CartViewModel().getBankCartType1().asMap().map((index, value){
-                          return MapEntry(index, _BuildCard(item: CartViewModel().getBankCartType2()[index],index: index));
+                          return MapEntry(index, _BuildCard(item: CartViewModel().getBankCartType1()[index],index: index));
                     }).values.toList(),
                   ),
                 SizedBox(height: 20,),
                 Text("บัญชีธนาคารเพื่อรับเงิน",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
                 SizedBox(height: 8),
                 Column(
-                  children: CartViewModel().getBankCartType1().asMap().map((index, value){
-                    return MapEntry(index, _BuildCard(item: CartViewModel().getBankCartType1()[index],index: index));
+                  children: CartViewModel().getBankCartType2().asMap().map((index, value){
+                    return MapEntry(index, _BuildCard(item: CartViewModel().getBankCartType2()[index],index: index));
                   }).values.toList(),
                 ),
                 SizedBox(height: 30,),
