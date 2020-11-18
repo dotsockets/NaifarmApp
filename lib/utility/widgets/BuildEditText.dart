@@ -76,7 +76,7 @@ class _BuildEditTextState extends State<BuildEditText> {
               },
             ),
           ),
-          SizedBox(height: 10,),
+          widget.onError!=""? SizedBox(height: 10,):SizedBox(),
           widget.onError!=""?Text(widget.onError,style: GoogleFonts.sarabun(color: Colors.grey.shade700),):SizedBox()
         ],
       ),

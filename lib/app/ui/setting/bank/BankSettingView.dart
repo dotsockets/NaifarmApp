@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/BankModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
@@ -50,7 +51,7 @@ class _BankSettingViewState extends State<BankSettingView> {
                   }).values.toList(),
                 ),
                 SizedBox(height: 10,),
-                _buildAddBtn(txtBtn: "เพิ่มบัตรเครดิต/บัตรเดบิต"),
+                _buildAddBtn(txtBtn: "เพิ่มบัตรเครดิต/บัตรเดบิต",indexBtn: 0),
                 SizedBox(height: 20,),
                 Text(
                   "บัญชีธนาคารเพื่อรับเงิน",
@@ -62,7 +63,7 @@ class _BankSettingViewState extends State<BankSettingView> {
                   }).values.toList(),
                 ),
                 SizedBox(height: 10,),
-                _buildAddBtn(txtBtn: "เพิ่มบัญชีธนาคาร"),
+                _buildAddBtn(txtBtn: "เพิ่มบัญชีธนาคาร",indexBtn: 1),
                 SizedBox(height: 10,),
               ],
             ),
@@ -107,26 +108,31 @@ class _BankSettingViewState extends State<BankSettingView> {
     );
   }
 
-  Widget _buildAddBtn({String txtBtn}){
+  Widget _buildAddBtn({String txtBtn,int indexBtn}){
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(10)),
       child: DottedBorder(
         dashPattern: [5, 5],
         color: Colors.grey.withOpacity(0.5),
         strokeWidth: 5,
-        child: Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10))
+        child: InkWell(
+          child: Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(10))
+            ),
+            child: Row(
+              children: [
+                Text("+",style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w200),),
+                SizedBox(width: 15,),
+                Text(txtBtn,style: GoogleFonts.sarabun(color: ThemeColor.primaryColor(),fontSize: 16),),
+              ],
+            ),
           ),
-          child: Row(
-            children: [
-              Text("+",style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w200),),
-              SizedBox(width: 15,),
-              Text(txtBtn,style: GoogleFonts.sarabun(color: ThemeColor.primaryColor(),fontSize: 16),),
-            ],
-          ),
+          onTap: (){
+            indexBtn ==0? AppRoute.SettingCreditAdd(context):AppRoute.SettingBankAdd(context);
+          },
         ),
       ),
     );

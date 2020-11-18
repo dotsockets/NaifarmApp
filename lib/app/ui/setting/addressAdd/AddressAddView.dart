@@ -22,17 +22,25 @@ class _AddressAddViewState extends State<AddressAddView> {
   TextEditingController districtController = TextEditingController();
   TextEditingController postController = TextEditingController();
   TextEditingController detailAddrController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  String errorNameTxt = "",
+      errorEmailTxt = "",
+      errorPhoneTxt = "",
+      errorProvinceTxt = "",
+      errorDistrictTxt = "",
+      errorPostTxt = "",
+      errorDetailAddrTxt = "";
   bool checkKeyBoard = false;
   bool isSelect = false;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+  //bool checkError = false;
   @override
   void initState() {
     super.initState();
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) {
         setState(() {
-          checkKeyBoard= visible;
+          checkKeyBoard = visible;
         });
       },
     );
@@ -61,13 +69,13 @@ class _AddressAddViewState extends State<AddressAddView> {
                       SizedBox(
                         height: 10,
                       ),
-                      _buildSwitch(head:"เป็นที่อยู่หลัก")
+                      _buildSwitch(head: "เป็นที่อยู่หลัก")
                     ]),
                   ),
                 ),
                 Visibility(
-                  visible: checkKeyBoard?false:true,
-                  child:  _buildButton(),
+                  visible: checkKeyBoard ? false : true,
+                  child: _buildButton(),
                 )
               ],
             ),
@@ -82,6 +90,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       padding: EdgeInsets.all(20),
       color: Colors.white,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BuildEditText(
               head: "ชื่อ-นามสกุล",
@@ -89,6 +98,7 @@ class _AddressAddViewState extends State<AddressAddView> {
               hint: "ระบุชื่อ-นามสกุล",
               controller: nameController,
               inputType: TextInputType.text),
+          _buildError(errorTxt: errorNameTxt),
           SizedBox(
             height: 15,
           ),
@@ -98,6 +108,7 @@ class _AddressAddViewState extends State<AddressAddView> {
               hint: "ระบุอีเมล",
               controller: emailController,
               inputType: TextInputType.text),
+          _buildError(errorTxt: errorEmailTxt),
           SizedBox(
             height: 15,
           ),
@@ -107,6 +118,7 @@ class _AddressAddViewState extends State<AddressAddView> {
               hint: "ระบุหมายเลขโทรศัพท์",
               controller: phoneController,
               inputType: TextInputType.number),
+          _buildError(errorTxt: errorPhoneTxt),
           SizedBox(
             height: 15,
           ),
@@ -116,6 +128,7 @@ class _AddressAddViewState extends State<AddressAddView> {
               hint: "เลือกจังหวัด",
               controller: provinceController,
               inputType: TextInputType.text),
+          _buildError(errorTxt: errorProvinceTxt),
           SizedBox(
             height: 15,
           ),
@@ -125,6 +138,7 @@ class _AddressAddViewState extends State<AddressAddView> {
               hint: "เลือกเขต/อำเภอ",
               controller: districtController,
               inputType: TextInputType.text),
+          _buildError(errorTxt: errorDistrictTxt),
           SizedBox(
             height: 15,
           ),
@@ -134,6 +148,7 @@ class _AddressAddViewState extends State<AddressAddView> {
               hint: "เลือกรหัสไปรษณีย์",
               controller: postController,
               inputType: TextInputType.number),
+          _buildError(errorTxt: errorPostTxt),
           SizedBox(
             height: 15,
           ),
@@ -143,14 +158,27 @@ class _AddressAddViewState extends State<AddressAddView> {
               hint: "ระบุรายละเอียด",
               controller: detailAddrController,
               inputType: TextInputType.text),
+          _buildError(errorTxt: errorDetailAddrTxt),
         ],
+      ),
+    );
+  }
+
+  Widget _buildError({String errorTxt}) {
+    return Container(
+      child:  Visibility(
+        child: Text(
+          errorTxt,
+          style: GoogleFonts.sarabun(fontSize: 14, color: Colors.grey),
+        ),
+        visible: errorTxt != "" ? true : false,
       ),
     );
   }
 
   Widget _buildSwitch({String head}) {
     return Container(
-      padding: EdgeInsets.only(left: 20,right: 20,top: 10,bottom: 10),
+      padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -192,15 +220,24 @@ class _AddressAddViewState extends State<AddressAddView> {
   Widget _buildButtonItem({String btnTxt}) {
     return FlatButton(
       padding: EdgeInsets.only(top: 15, bottom: 15),
-      color: nameController.text.isNotEmpty&&emailController.text.isNotEmpty&&phoneController.text.isNotEmpty
-          &&provinceController.text.isNotEmpty&&districtController.text.isNotEmpty&&postController.text.isNotEmpty
-          &&detailAddrController.text.isNotEmpty ?ThemeColor.secondaryColor():Colors.grey.shade400,
+      color: nameController.text.isNotEmpty &&
+              emailController.text.isNotEmpty &&
+              phoneController.text.isNotEmpty &&
+              provinceController.text.isNotEmpty &&
+              districtController.text.isNotEmpty &&
+              postController.text.isNotEmpty &&
+              detailAddrController.text.isNotEmpty
+          ? ThemeColor.secondaryColor()
+          : Colors.grey.shade400,
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40.0),
       ),
-      onPressed: () => _checkData(),
+      onPressed: () {
+        _checkError();
+        //  print(checkError);
+      },
       child: Text(
         btnTxt,
         style: GoogleFonts.sarabun(fontSize: 20, fontWeight: FontWeight.w500),
@@ -208,17 +245,76 @@ class _AddressAddViewState extends State<AddressAddView> {
     );
   }
 
-  void _checkData(){
-    if(nameController.text.isEmpty||emailController.text.isEmpty||phoneController.text.isEmpty
-        ||provinceController.text.isEmpty||districtController.text.isEmpty||postController.text.isEmpty
-        ||detailAddrController.text.isEmpty){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "กรุณากรอกข้อมูลให้ครบ",context: context);
-    }else if(!validator.email(emailController.text)){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "อีเมลไม่ถูกต้อง",context: context);
-    }else if(!validator.phone(phoneController.text)){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "หมายเลขโทนศัพท์ไม่ถูกต้อง",context: context);
+  void _checkError() {
+      //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "ไม่ถูกต้อง",context: context);
+    if (emailController.text.isEmpty) {
+      setState(() {errorEmailTxt = "กรอกอีเมล";});
+    } else {
+      if (!validator.email(emailController.text)) {
+        setState(() {errorEmailTxt = "อีเมลไม่ถูกต้อง";});
+      } else {
+        errorEmailTxt = "";
+      }
     }
 
 
+    if (nameController.text.isEmpty) {
+      setState(() {
+        errorNameTxt = "กรอกชื่อ-นามสกุล";
+      });
+    } else {
+      errorNameTxt = "";
+    }
+
+
+    if (phoneController.text.isEmpty) {
+      setState(() {
+        errorPhoneTxt = "กรอกหมายเลขโทรศัพท์";
+      });
+    } else {
+      if (!validator.phone(phoneController.text)) {
+        setState(() {
+          errorPhoneTxt = "หมายเลขโทรศัพท์ไม่ถูกต้อง";
+        });
+      } else {
+        errorPhoneTxt = "";
+      }
+    }
+
+
+    if (provinceController.text.isEmpty) {
+      setState(() {
+        errorProvinceTxt = "กรอกจังหวัด";
+      });
+    } else {
+      errorProvinceTxt = "";
+    }
+
+
+    if (districtController.text.isEmpty) {
+      setState(() {
+        errorDistrictTxt = "กรอกเขต/อำเภอ";
+      });
+    } else {
+      errorDistrictTxt = "";
+    }
+
+
+    if (postController.text.isEmpty) {
+      setState(() {
+        errorPostTxt = "กรอกรหัสไปรษณีย์";
+      });
+    } else {
+      errorPostTxt = "";
+    }
+
+
+    if (detailAddrController.text.isEmpty) {
+      setState(() {
+        errorDetailAddrTxt = "กรอกรายละเอียดที่อยู่";
+      });
+    } else {
+      errorDetailAddrTxt = "";
+    }
   }
 }

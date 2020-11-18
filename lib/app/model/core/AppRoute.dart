@@ -34,6 +34,8 @@ import 'package:naifarm/app/ui/setting/about/AboutView.dart';
 import 'package:naifarm/app/ui/setting/address/AddressView.dart';
 import 'package:naifarm/app/ui/setting/addressAdd/AddressAddView.dart';
 import 'package:naifarm/app/ui/setting/bank/BankSettingView.dart';
+import 'package:naifarm/app/ui/setting/bankadd/BankAddView.dart';
+import 'package:naifarm/app/ui/setting/creditcardadd/CreditAddView.dart';
 import 'package:naifarm/app/ui/setting/help/HelpView.dart';
 import 'package:naifarm/app/ui/setting/language/LanguageSettingView.dart';
 import 'package:naifarm/app/ui/setting/noti/NotiSettingView.dart';
@@ -210,6 +212,12 @@ class AppRoute{
   }
   static SettingNoti(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiSettingView()));
+  }
+  static SettingBankAdd(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: BankAddView()));
+  }
+  static SettingCreditAdd(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CreditAddView()));
   }
 }
 

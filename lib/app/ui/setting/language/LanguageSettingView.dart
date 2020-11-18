@@ -18,7 +18,6 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
   @override
   void initState() {
     super.initState();
-    getLanguage();
   }
 
   @override
@@ -61,7 +60,6 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
               onTap: (){
                 setState(() {
                   checkSelect = index;
-                  checkSelect==0?addLanguage(s: "ภาษาไทย"):addLanguage(s: "English");
                 });
               },
               child:
@@ -84,13 +82,5 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
       ),
     );
   }
-  addLanguage({String s}) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('languageTxt', s);
-  }
-  getLanguage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    language = prefs.getString('languageTxt');
-    return language;
-  }
+
 }

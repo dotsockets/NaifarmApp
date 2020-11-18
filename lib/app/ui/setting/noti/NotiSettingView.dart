@@ -34,11 +34,12 @@ class _NotiSettingViewState extends State<NotiSettingView> {
             header_type: Header_Type.barNormal,
           ),
           body: Container(
-            margin: EdgeInsets.only(top: 20),
+            margin: EdgeInsets.only(top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildTitleTxt(title: "การแจ้งเตือน"),
+                SizedBox(height: 10,),
                 _BuildSwitch(
                     title: "การแจ้งเตือน",
                     index: 0,
