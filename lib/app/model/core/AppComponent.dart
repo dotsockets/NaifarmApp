@@ -58,9 +58,6 @@ class AppComponentState extends State<AppComponent> {
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(primarySwatch: ThemeColor.primarySwatch(context),snackBarTheme: ThemeColor.SnackBarThemeColor(context),primaryColor: Colors.white,
       ),
-      darkTheme: ThemeData(
-          primarySwatch: ThemeColor.primarySwatch(context),snackBarTheme: ThemeColor.SnackBarThemeColor(context), brightness: Brightness.dark
-      ),
       home: SplashView(),
       navigatorObservers: [routeObserver],
     );

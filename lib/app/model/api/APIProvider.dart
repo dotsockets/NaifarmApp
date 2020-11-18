@@ -1,14 +1,10 @@
 
 
 import 'package:dio/dio.dart';
-import 'package:naifarm/app/model/pojo/response/Task.dart';
-import 'package:naifarm/config/Env.dart';
-import 'package:naifarm/utility/http/HttpException.dart';
-import 'package:naifarm/utility/log/DioLogger.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/Task.dart';
 import 'package:retrofit/retrofit.dart';
-
+import 'dart:convert';
 part '_APIProvider.dart';
 
 abstract class APIProvider{
@@ -16,6 +12,9 @@ abstract class APIProvider{
 
   @GET("/tasks")
   Future<List<Task>> getTasks();
+
+  @GET("/tasks/{id}")
+  Future<Fb_Profile> getProFileFacebook(@Query("access_token") String access_token);
 
 }
 

@@ -3,6 +3,7 @@
 part of 'APIProvider.dart';
 
 
+
 class _APIProvider implements APIProvider {
   _APIProvider(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
@@ -27,6 +28,27 @@ class _APIProvider implements APIProvider {
     var value = _result.data
         .map((dynamic i) => Task.fromJson(i as Map<String, dynamic>))
         .toList();
+    return value;
+  }
+
+  @override
+  Future<Fb_Profile> getProFileFacebook(String access_token) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      "fields":"name,first_name,last_name,email",
+      "access_token":access_token
+    };
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<dynamic>('/me',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: "https://graph.facebook.com/v2.12"),
+        data: _data);
+    var value = Fb_Profile.fromJson(jsonDecode(_result.data));
+
     return value;
   }
 

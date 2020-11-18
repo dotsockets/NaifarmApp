@@ -37,10 +37,10 @@ class _BuildEditTextState extends State<BuildEditText> {
             children: [
               widget.head!=""?Text(
                 widget.head,
-                style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),color: Colors.black),
+                style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),color: Colors.black),
               ):SizedBox(),
               SizedBox(width: 10,),
-              widget.EnableMaxLength?widget.inputType==TextInputType.text?Text("(${widget.controller!=null?widget.controller.text.length:0}/${widget.maxLength})",style: GoogleFonts.sarabun(fontSize: 16,color: Colors.black)):
+              widget.EnableMaxLength?widget.inputType==TextInputType.text?Text("(${widget.controller!=null?widget.controller.text.length:0}/${widget.maxLength})",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),color: Colors.black)):
               SizedBox():SizedBox()
             ],
           ),
@@ -56,11 +56,12 @@ class _BuildEditTextState extends State<BuildEditText> {
               maxLines: widget.maxLine,
               controller: widget.controller,
               decoration: InputDecoration(
-                hintStyle: TextStyle(fontSize: ScreenUtil().setSp(45), color: Colors.grey),
+                hintStyle: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40), color: Colors.grey),
                 hintText: widget.hint,
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.all(15),
               ),
+              style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40)),
               onChanged: (String char){
 
                 widget.onChanged(char);

@@ -65,9 +65,14 @@ class _MeViewState extends State<MeView> with RouteAware  {
             SliverAppBar(
               leading: Container(
                 margin: EdgeInsets.only(left: 15),
-                child: Icon(
-                  Icons.settings,
-                  color: Colors.white,size: 30
+                child: GestureDetector(
+                  child: Icon(
+                    Icons.settings,
+                    color: Colors.white,size: 30
+                  ),
+                  onTap: (){
+                    AppRoute.EditProfile(context);
+                  },
                 ),
               ),
               actions: [
@@ -90,6 +95,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                   child: IsLogin?Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+
                       ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(60)),
                         child: CachedNetworkImage(

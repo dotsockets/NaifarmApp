@@ -73,7 +73,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  retrofit_generator: ^1.4.0
   build_runner: 1.10.0
   gen_lang: ^0.1.3
 

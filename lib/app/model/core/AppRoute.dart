@@ -39,6 +39,10 @@ import 'package:naifarm/app/ui/setting/language/LanguageSettingView.dart';
 import 'package:naifarm/app/ui/setting/noti/NotiSettingView.dart';
 import 'package:naifarm/app/ui/setting/policy/PolicyView.dart';
 import 'package:naifarm/app/ui/setting/profile/SettingProfileView.dart';
+import 'package:naifarm/app/ui/setting/profile/editprofile/EditProfileVIew.dart';
+import 'package:naifarm/app/ui/setting/profile/editprofile/Setting_EditProdile_BioView.dart';
+import 'package:naifarm/app/ui/setting/profile/editprofile/Setting_EditProfile_NameView.dart';
+import 'package:naifarm/app/ui/setting/profile/editprofile/editphone/EditPhoneView.dart';
 import 'package:naifarm/app/ui/setting/rulesOfUse/RuleOfUseView.dart';
 import 'package:naifarm/app/ui/shopmain/ShopMainView.dart';
 import 'package:naifarm/app/ui/shopmain/followers/FollowersView.dart';
@@ -199,8 +203,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_Name_OtpView()));
   }
 
-  static Register_FB(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_FBView()));
+  static Register_FB(BuildContext context,String email){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_FBView(email: email,)));
   }
   static SettingLanguage(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LanguageSettingView()));
@@ -210,6 +214,20 @@ class AppRoute{
   }
   static SettingNoti(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiSettingView()));
+  }
+  static EditProfile(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProfileVIew()));
+  }
+
+  static Setting_EditProfile_Name(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Setting_EditProfile_NameView()));
+  }
+
+  static Setting_EditProdile_Bio(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Setting_EditProdile_BioView()));
+  }
+  static EditPhone(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditPhoneView()));
   }
 }
 

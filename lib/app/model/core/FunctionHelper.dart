@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
@@ -115,6 +116,170 @@ class FunctionHelper{
     }else{
       return time;
     }
+
+  }
+
+
+  static DropDownAndroid(BuildContext context,List<String> dataList,{Function(int) onTap}) {
+
+    showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          child: Dialog(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(dataList.length, (index){
+                  return GestureDetector(
+                    child: Container(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.only(right: 20,left: 20,bottom: 10,top: index==0?15:10),
+                        child: Text(dataList[index],style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w400),),
+                      ),
+                    ),
+                    onTap: ()=>onTap(index),
+                  );
+                }),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  static  DropDownIOS(BuildContext context,List<String> dataList,{Function(int) onTap}) {
+    int select = 0;
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                border: Border(
+                  bottom: BorderSide(
+                    color: Color(0xff999999),
+                    width: 0.0,
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  CupertinoButton(
+                    child: Text('ยกเลิก',style: GoogleFonts.sarabun(color: Colors.black),),
+                    onPressed: () {},
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5.0,
+                    ),
+                  ),
+                  CupertinoButton(
+                    child: Text('ตกลง',style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.w500),),
+                    onPressed: ()=>onTap(select),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5.0,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 200.0,
+              color: Color(0xfff7f7f7),
+              child: CupertinoPicker(
+                onSelectedItemChanged: (value) {
+                  select = value;
+                },
+                itemExtent: 32.0,
+                children: List.generate(dataList.length, (index){
+                  return Text(""+ dataList[index],style: GoogleFonts.sarabun(),);
+                }),
+              ),
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  static  showPickerDate(BuildContext context,List<String> dataList,{Function(DateTime) onTap}) {
+    DateTime select  = DateTime.now();
+    var now = DateTime.now();
+    var today= new DateTime(now.year, now.month, now.day);
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                border: Border(
+                  bottom: BorderSide(
+                    color: Color(0xff999999),
+                    width: 0.0,
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  CupertinoButton(
+                    child: Text('ยกเลิก',style: GoogleFonts.sarabun(color: Colors.black),),
+                    onPressed: () {},
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5.0,
+                    ),
+                  ),
+                  CupertinoButton(
+                    child: Text('ตกลง',style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.w500),),
+                    onPressed: ()=>onTap(select),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 5.0,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 200.0,
+              color: Color(0xfff7f7f7),
+              child: CupertinoDatePicker(
+                minimumDate: today,
+                minuteInterval: 1,
+                mode: CupertinoDatePickerMode.dateAndTime,
+                onDateTimeChanged: (DateTime dateTime) {
+                  select = dateTime;
+                  print("dateTime: ${dateTime}");
+                },
+              ),
+            )
+          ],
+        );
+      },
+    );
+
+  }
+
+  static Future<void> selectDate(BuildContext context,{Function(DateTime) OnDateTime}) async {
+
+    OnDateTime(await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(Duration(days: 25000)),
+      lastDate:DateTime.now().add(Duration(days: 0)),
+    ));
 
   }
 }

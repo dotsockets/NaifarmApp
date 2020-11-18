@@ -49,6 +49,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         ListMenuItem(
                           icon: '',
                           title: 'หน้าโปรไฟล์',
+                          onClick: ()=>AppRoute.EditProfile(context),
                         ),
                         _buildLine(),
                         ListMenuItem(

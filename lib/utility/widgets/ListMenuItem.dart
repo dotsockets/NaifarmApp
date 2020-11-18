@@ -10,6 +10,7 @@ class ListMenuItem extends StatelessWidget {
   final Function() onClick;
   final double iconSize;
   final FontWeight fontWeight;
+  final double opacityMessage;
 
   const ListMenuItem(
       {Key key,
@@ -18,7 +19,7 @@ class ListMenuItem extends StatelessWidget {
       this.Message = "",
       this.onClick,
       this.iconSize = 30,
-      this.fontWeight = FontWeight.bold})
+      this.fontWeight = FontWeight.bold, this.opacityMessage=1})
       : super(key: key);
 
   @override
@@ -61,7 +62,7 @@ class ListMenuItem extends StatelessWidget {
                       style: GoogleFonts.sarabun(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          color: Colors.black)),
+                          color: Colors.black.withOpacity(opacityMessage))),
                   SizedBox(
                     width: 10,
                   ),

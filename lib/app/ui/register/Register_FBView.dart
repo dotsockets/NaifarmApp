@@ -7,6 +7,9 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 
 class Register_FBView extends StatefulWidget {
+  final String email;
+
+  const Register_FBView({Key key, this.email}) : super(key: key);
   @override
   _Register_FBViewState createState() => _Register_FBViewState();
 }
@@ -18,6 +21,18 @@ class _Register_FBViewState extends State<Register_FBView> {
   bool SuccessForm = false;
   String onError1 = "";
   String onError2 = "";
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    _input2.text = widget.email;
+  }
+
+
+
 
   bool FormCheck(){
     if(_input1.text.isEmpty || _input2.text.isEmpty){
@@ -69,6 +84,7 @@ class _Register_FBViewState extends State<Register_FBView> {
     }
 
 
+
   }
 
   @override
@@ -109,11 +125,11 @@ class _Register_FBViewState extends State<Register_FBView> {
       padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),
       child: Column(
         children: [
-          BuildEditText(head: "รหัสผ่าน",hint: "ระบุรหัสผ่าน",inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input1,onError: onError1,onChanged: (String char){
+          BuildEditText(head: "ชื่อผู้เช้าใข้",hint: "ระบุรหัสผ่านใหม่",inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input1,onError: onError1,onChanged: (String char){
             setState(() {});
           },),
           SizedBox(height: 20,),
-          BuildEditText(head: "ยืนยันรหัสผ่าน",hint: "ระบุรหัสผ่าน",inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input2,onError: onError2,onChanged: (String char){
+          BuildEditText(head: "อีเมล",hint: "puwee@gmail.com",inputType: TextInputType.text,maxLength: 50,IsPassword: false,borderRadius: 5,controller: _input2,onError: onError2,onChanged: (String char){
             setState(() {});
           },)
         ],

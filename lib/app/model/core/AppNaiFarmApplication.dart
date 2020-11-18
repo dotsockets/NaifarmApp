@@ -56,6 +56,8 @@ class AppNaiFarmApplication implements Application {
     Log.init();
     switch(Env.value.environmentType){
       case EnvType.DEVELOPMENT:
+        Log.setLevel(Level.ALL);
+        break;
       case EnvType.STAGING:{
         Log.setLevel(Level.ALL);
         break;

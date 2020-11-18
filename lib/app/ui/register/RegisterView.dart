@@ -2,11 +2,14 @@
 import 'dart:convert';
 
 import 'package:basic_utils/basic_utils.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -177,15 +180,22 @@ class _RegisterViewState extends State<RegisterView> {
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
+        FunctionHelper.showDialogProcess(context);
         final FacebookAccessToken accessToken = result.accessToken;
-        print('''
-         Logged in!
-         
-         Token: ${accessToken.token}
-         User id: ${accessToken.userId}
-         Expires: ${accessToken.expires}
-         Permissions: ${accessToken.permissions}
-         ''');
+
+        AppProvider.getApplication(context).appStoreAPIRepository.getFBProfile(access_token: accessToken.token).then((value){
+          Navigator.of(context).pop();
+          AppRoute.Register_FB(context,value.email);
+        }).catchError((Object obj){
+          switch (obj.runtimeType) {
+            case DioError:
+            // Here's the sample to get the failed response error code and message
+              final res = (obj as DioError).response;
+              Logger().e("Got error : ${res.statusCode} -> ${res.statusMessage}");
+              break;
+            default:
+          }
+        });
         //get image  https://graph.facebook.com/2305752019445635/picture?type=large&width=720&height=720
 
         // final graphResponse = await http.get(
@@ -201,6 +211,5 @@ class _RegisterViewState extends State<RegisterView> {
         break;
     }
   }
-
 
 }

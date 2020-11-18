@@ -64,7 +64,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                 head: "ชื่อสินค้า * ",
                                 hint: "กรอกชื่อสินค้า",maxLength: 10,controller: nameProductController,inputType: TextInputType.text),
                             SizedBox(height: 15,),
-                            _BuildDropdown(
+                            _BuildDropdown (
                                 head: "หมวดหมู่สินค้า *",
                                 hint: "เลือกหมวดหมู่",dataList: listType),
                             SizedBox(height: 15,),
