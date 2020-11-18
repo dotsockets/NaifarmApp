@@ -9,20 +9,18 @@ import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingProfileView extends StatefulWidget {
-  final String languageTxt ;
+  final String languageTxt;
 
   const SettingProfileView({Key key, this.languageTxt}) : super(key: key);
+
   @override
   _SettingProfileViewState createState() => _SettingProfileViewState();
 }
 
 class _SettingProfileViewState extends State<SettingProfileView> {
-  String language="ภาษาไทย";
-
   @override
   void initState() {
     super.initState();
-    getLanguage();
   }
 
   @override
@@ -63,7 +61,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         ListMenuItem(
                           icon: '',
                           title: 'ข้อมูลบัญชีธนาคาร/บัตร',
-                          onClick: (){
+                          onClick: () {
                             AppRoute.SettingBank(context);
                           },
                         ),
@@ -79,7 +77,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          Message: language,
+                          Message: "ภาษาไทย",
                           title: "ภาษา",
                           onClick: () {
                             AppRoute.SettingLanguage(context);
@@ -121,6 +119,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         ListMenuItem(
                           icon: '',
                           title: 'คำขอลบบัญชีผู้ใช้',
+                          onClick: () {showMyDialog(context);},
                         ),
                         _BuildButton()
                       ],
@@ -181,10 +180,29 @@ class _SettingProfileViewState extends State<SettingProfileView> {
     );
   }
 
-  Future<String> getLanguage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String language = prefs.getString('languageTxt');
-    return language;
-  }
+  void showMyDialog(BuildContext context) {
+    showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Container(
 
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                  Container(
+                      padding: EdgeInsets.all(15),
+                      child: Center(child: Text("เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หาคุณต้องการลบจะไม่สามารถกู้คืนได้",style: GoogleFonts.sarabun(fontSize: 16),textAlign: TextAlign.center,)))
+                ,Row(
+                  children: [
+                  Expanded(child: Align(alignment: Alignment.center,child: Text("ยกเลิก",style: GoogleFonts.sarabun(fontSize: 16),))),
+                    Expanded(child: Align(alignment: Alignment.center,child: Text("ตกลง",style: GoogleFonts.sarabun(fontSize: 16))))],)
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
