@@ -51,7 +51,7 @@ class SplashLoginView extends StatelessWidget {
           children: [
             Text(
               "NaiFarm",
-              style: GoogleFonts.sarabun(
+              style: FunctionHelper.FontTheme(
                   color: Colors.white,
                   fontSize: ScreenUtil().setSp(90),
                   fontWeight: FontWeight.w500),
@@ -60,7 +60,7 @@ class SplashLoginView extends StatelessWidget {
             SizedBox(height: ScreenUtil().setHeight(70),),
             Image.asset('assets/images/png/img_login.png',height: ScreenUtil().setHeight(600),),
             SizedBox(height: 20,),
-            Text("แอปเพื่อเกษตรกรไทย ซื่อง่าย ขายคล่อง",style: GoogleFonts.sarabun(color: Colors.white,fontSize: ScreenUtil().setSp(48)),),
+            Text("แอปเพื่อเกษตรกรไทย ซื่อง่าย ขายคล่อง",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: ScreenUtil().setSp(48)),),
             SizedBox(height: ScreenUtil().setHeight(80),),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +78,7 @@ class SplashLoginView extends StatelessWidget {
                      AppRoute.Login(context,IsCallBack: false);
                   },
                   child: Text("เข้าสู่ระบบ",
-                    style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),
+                    style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),
                   ),
                 ),
                 SizedBox(width: 20,),
@@ -95,7 +95,7 @@ class SplashLoginView extends StatelessWidget {
                     AppRoute.Register(context);
                   },
                   child: Text("สมัครสมาชิก",
-                    style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),
+                    style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),
                   ),
                 )
               ],
@@ -103,10 +103,10 @@ class SplashLoginView extends StatelessWidget {
             SizedBox(height: ScreenUtil().setHeight(60),),
             Wrap(
               children: [
-                Text("กดข้ามเพื่อเข้าสู่หน้าหลัก ",style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.w500,fontSize: ScreenUtil().setSp(40))),
+                Text("กดข้ามเพื่อเข้าสู่หน้าหลัก ",style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize: ScreenUtil().setSp(40))),
                 Column(
                   children: [
-                    InkWell(child: Text(" ข้ามหน้านี้ ",style: GoogleFonts.sarabun(color: Colors.white,fontSize: ScreenUtil().setSp(40))),onTap: (){
+                    InkWell(child: Text(" ข้ามหน้านี้ ",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: ScreenUtil().setSp(40))),onTap: (){
                       FunctionHelper.showDialogProcess(context);
                       AppRoute.Home(context);
                     },),

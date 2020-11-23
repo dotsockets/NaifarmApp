@@ -61,7 +61,7 @@ class _Setting_EditProfile_NameViewState extends State<Setting_EditProfile_NameV
                 ),
                 onPressed: ()=>FormCheck()?verify():SizedBox(),
                 child: Text("บันทึก",
-                  style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
                 ),
               )
             ],

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/ui/me/myshop/MyshopView.dart';
 import 'package:naifarm/app/ui/me/purchase/PurchaseView.dart';
@@ -123,7 +124,7 @@ class _ShopMainViewState extends State<ShopMainView>
     return Tab(
       child: Container(
         child: Text(title,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
                 color: tabController.index == index

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -82,7 +83,7 @@ class CategoryView extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            Text(item.label,style: GoogleFonts.sarabun(color: Colors.black,fontSize: ScreenUtil().setSp(35),fontWeight: FontWeight.bold),)
+            Text(item.label,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: ScreenUtil().setSp(35),fontWeight: FontWeight.bold),)
           ],
         ),
       ),

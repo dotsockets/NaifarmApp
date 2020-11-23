@@ -48,7 +48,7 @@ class FunctionHelper {
       Function() onPressed = null}) {
     scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text(message,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontWeight: FontWeight.w500, color: Colors.white)),
         duration: Duration(seconds: 10),
         action: SnackBarAction(
@@ -82,7 +82,7 @@ class FunctionHelper {
                     ),
                     Text(
                       "กำลังโหลด...",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           color: Colors.black,
                           fontSize: 16,
                           decoration: TextDecoration.none),
@@ -119,7 +119,7 @@ class FunctionHelper {
                     ),
                     Text(
                       "กำลังโหลด...",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           color: Colors.white,
                           fontSize: 12,
                           decoration: TextDecoration.none),
@@ -162,7 +162,7 @@ class FunctionHelper {
                             top: index == 0 ? 15 : 10),
                         child: Text(
                           dataList[index],
-                          style: GoogleFonts.sarabun(
+                          style: FunctionHelper.FontTheme(
                               fontSize: 16, fontWeight: FontWeight.w400),
                         ),
                       ),
@@ -203,7 +203,7 @@ class FunctionHelper {
                   CupertinoButton(
                     child: Text(
                       'ยกเลิก',
-                      style: GoogleFonts.sarabun(color: Colors.black),
+                      style: FunctionHelper.FontTheme(color: Colors.black),
                     ),
                     onPressed: () {},
                     padding: const EdgeInsets.symmetric(
@@ -214,7 +214,7 @@ class FunctionHelper {
                   CupertinoButton(
                     child: Text(
                       'ตกลง',
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           color: Colors.black, fontWeight: FontWeight.w500),
                     ),
                     onPressed: () => onTap(select),
@@ -237,7 +237,7 @@ class FunctionHelper {
                 children: List.generate(dataList.length, (index) {
                   return Text(
                     "" + dataList[index],
-                    style: GoogleFonts.sarabun(),
+                    style: FunctionHelper.FontTheme(),
                   );
                 }),
               ),
@@ -275,7 +275,7 @@ class FunctionHelper {
                   CupertinoButton(
                     child: Text(
                       'ยกเลิก',
-                      style: GoogleFonts.sarabun(color: Colors.black),
+                      style: FunctionHelper.FontTheme(color: Colors.black),
                     ),
                     onPressed: () {},
                     padding: const EdgeInsets.symmetric(
@@ -286,7 +286,7 @@ class FunctionHelper {
                   CupertinoButton(
                     child: Text(
                       'ตกลง',
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           color: Colors.black, fontWeight: FontWeight.w500),
                     ),
                     onPressed: () => onTap(select),
@@ -342,7 +342,7 @@ class FunctionHelper {
                     padding: EdgeInsets.all(20),
                     child: Center(
                         child: Text(message,
-                      style: GoogleFonts.sarabun(fontSize: 16),
+                      style: FunctionHelper.FontTheme(fontSize: 16),
                       textAlign: TextAlign.center,
                     ))),
                 Container(
@@ -359,7 +359,7 @@ class FunctionHelper {
                                 alignment: Alignment.center,
                                 child: Text(
                                   "ยกเลิก",
-                                  style: GoogleFonts.sarabun(fontSize: 16,color: ThemeColor.ColorSale()),
+                                  style: FunctionHelper.FontTheme(fontSize: 16,color: ThemeColor.ColorSale()),
                                 )),
                           ),
                             onTap: () => onCancel())),
@@ -373,7 +373,7 @@ class FunctionHelper {
                           child: Align(
                               alignment: Alignment.center,
                               child: Text("ตกลง",
-                                  style: GoogleFonts.sarabun(fontSize: 16,color: ThemeColor.primaryColor()))),
+                                  style: FunctionHelper.FontTheme(fontSize: 16,color: ThemeColor.primaryColor()))),
                             onTap: () => onClick()))
                   ],
                 )
@@ -402,7 +402,7 @@ class FunctionHelper {
                   SvgPicture.asset('assets/images/svg/checkmark.svg',color: ThemeColor.primaryColor(),width: 50,height: 50,),
                   SizedBox(height: 15,),
                   Text(message,
-                    style: GoogleFonts.sarabun(fontSize: 18,fontWeight: FontWeight.bold),
+                    style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -413,5 +413,11 @@ class FunctionHelper {
         );
       },
     );
+  }
+
+  static TextStyle FontTheme({FontWeight fontWeight,double fontSize,Color color,double height,double letterSpacing,Color  backgroundColor,List<Shadow> shadows,
+  double wordSpacing,TextBaseline textBaseline,Paint foreground,Paint background,TextDecoration decoration}){
+    return GoogleFonts.kanit(fontWeight: fontWeight,fontSize: fontSize,color: color,height: height,letterSpacing: letterSpacing,backgroundColor: backgroundColor,
+    shadows: shadows,wordSpacing: wordSpacing,textBaseline: textBaseline,foreground: foreground,background: background,decoration: decoration);
   }
 }

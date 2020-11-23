@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,7 +56,7 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
         margin: EdgeInsets.only(left: 10,right: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(languageTxt,style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500)),
+          children: [Text(languageTxt,style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500)),
             InkWell(
               onTap: (){
                 setState(() {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -66,7 +67,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("การถอนเงิน Wallet ไปที่",style: GoogleFonts.sarabun(fontSize: 18),),
+          Text("การถอนเงิน Wallet ไปที่",style: FunctionHelper.FontTheme(fontSize: 18),),
           SizedBox(
             height: 15,
           ),
@@ -95,12 +96,12 @@ class _MoneyOutViewState extends State<MoneyOutView> {
                   SizedBox(
                     width: 10,
                   ),
-                  Text("ธนาคารไทยพาณิช",style: GoogleFonts.sarabun(fontSize: 16)),
+                  Text("ธนาคารไทยพาณิช",style: FunctionHelper.FontTheme(fontSize: 16)),
                 ],
               ),
               Row(
                 children: [
-                  Text("* 9803",style: GoogleFonts.sarabun(fontSize: 16)),
+                  Text("* 9803",style: FunctionHelper.FontTheme(fontSize: 16)),
                   SizedBox(
                     width: 5,
                   ),
@@ -132,11 +133,11 @@ class _MoneyOutViewState extends State<MoneyOutView> {
                 });
               },),
               SizedBox(width: 10,),
-              Text("ถอนเงินทั้งหมดใน Wallet (฿300.00)",style: GoogleFonts.sarabun(fontSize: 16))
+              Text("ถอนเงินทั้งหมดใน Wallet (฿300.00)",style: FunctionHelper.FontTheme(fontSize: 16))
             ],
           ),
           SizedBox(height: 10,),
-          Text("ยอดที่ต้องการถอน (บาท)",style: GoogleFonts.sarabun(fontSize: 16)),
+          Text("ยอดที่ต้องการถอน (บาท)",style: FunctionHelper.FontTheme(fontSize: 16)),
           BuildEditText(
               head: "",maxLength: 16,
               hint: "0.00",maxLine: 1,controller: inputController,inputType: TextInputType.number),
@@ -144,8 +145,8 @@ class _MoneyOutViewState extends State<MoneyOutView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("ค่าธรรมเนียนการถอนเงิน",style: GoogleFonts.sarabun(fontSize: 16)),
-              Text("ฟรี",style: GoogleFonts.sarabun(fontSize: 16))
+              Text("ค่าธรรมเนียนการถอนเงิน",style: FunctionHelper.FontTheme(fontSize: 16)),
+              Text("ฟรี",style: FunctionHelper.FontTheme(fontSize: 16))
             ],
           )
         ],
@@ -166,7 +167,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
         },
         child: Text(
           "ยืนยัน",
-          style: GoogleFonts.sarabun(fontSize: 16, fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ),
     );

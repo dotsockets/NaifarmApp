@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class RulesOfUseView extends StatefulWidget {
@@ -51,7 +52,7 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
   Widget _buildTxt({String txt}) {
     return Text(
       txt,
-      style: GoogleFonts.sarabun(fontSize: 16),
+      style: FunctionHelper.FontTheme(fontSize: 16),
     );
 
   }

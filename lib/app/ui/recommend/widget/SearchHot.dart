@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -41,13 +42,13 @@ class SearchHot extends StatelessWidget {
               children: [
                 SvgPicture.asset('assets/images/svg/search.svg',width: 35,height: 35,),
                 SizedBox(width: 8),
-                Text("ค้นหายอดฮิต",style: GoogleFonts.sarabun(color: Colors.black,fontSize:  ScreenUtil().setSp(50),fontWeight: FontWeight.bold)),
+                Text("ค้นหายอดฮิต",style: FunctionHelper.FontTheme(color: Colors.black,fontSize:  ScreenUtil().setSp(50),fontWeight: FontWeight.bold)),
               ],
             ),
             GestureDetector(
               child: Row(
                 children: [
-                  Text("เปลี่ยน",style: GoogleFonts.sarabun(color: Colors.black,fontSize:  ScreenUtil().setSp(45))),
+                  Text("เปลี่ยน",style: FunctionHelper.FontTheme(color: Colors.black,fontSize:  ScreenUtil().setSp(45))),
                   SizedBox(width: 8),
                   SvgPicture.asset('assets/images/svg/change.svg',width: 30,height: 30,),
 
@@ -118,9 +119,9 @@ class SearchHot extends StatelessWidget {
            crossAxisAlignment: CrossAxisAlignment.start,
            mainAxisAlignment: MainAxisAlignment.center,
            children: [
-             Text(item.product_name,overflow: TextOverflow.ellipsis,style: GoogleFonts.sarabun(color: Colors.black,fontSize:  ScreenUtil().setSp(40),fontWeight: FontWeight.bold),),
+             Text(item.product_name,overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:  ScreenUtil().setSp(40),fontWeight: FontWeight.bold),),
              SizedBox(height: 2),
-             Text(item.product_status,overflow: TextOverflow.ellipsis,style: GoogleFonts.sarabun(color: Colors.black,fontSize:  ScreenUtil().setSp(36),fontWeight: FontWeight.normal),),
+             Text(item.product_status,overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:  ScreenUtil().setSp(36),fontWeight: FontWeight.normal),),
            ],
          )
         ],

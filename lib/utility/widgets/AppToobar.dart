@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 
 import 'BuildIconShop.dart';
@@ -59,7 +60,7 @@ class AppToobar extends PreferredSize {
        backgroundColor: ThemeColor.primaryColor(),
        title: Text(
          Title,
-         style: GoogleFonts.sarabun(color: Colors.black),
+         style: FunctionHelper.FontTheme(color: Colors.black),
        ),
      ),
    );
@@ -89,7 +90,7 @@ class AppToobar extends PreferredSize {
        backgroundColor: ThemeColor.primaryColor(),
        title: Text(
          Title,
-         style: GoogleFonts.sarabun(color: Colors.black,fontSize: ScreenUtil().setSp(50)),
+         style: FunctionHelper.FontTheme(color: Colors.black,fontSize: ScreenUtil().setSp(50)),
        ),
      ),
    );

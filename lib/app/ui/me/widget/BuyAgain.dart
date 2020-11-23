@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -48,12 +49,12 @@ class BuyAgain extends StatelessWidget {
               children: [
                 SvgPicture.asset(IconInto,width: 30,height: 30,),
                 SizedBox(width: 8),
-                Text(titleInto,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold)),
+                Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold)),
               ],
             ),
             Row(
               children: [
-                GestureDetector(child: Text("ดูสินค้าอื่น",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18)),onTap: ()=>onSelectMore()),
+                GestureDetector(child: Text("ดูสินค้าอื่น",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18)),onTap: ()=>onSelectMore()),
                 SizedBox(width: 8),
                 SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
 
@@ -123,9 +124,9 @@ class BuyAgain extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 8),
-          Text(item.product_name,style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.bold),),
+          Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold),),
           SizedBox(height: 5),
-          Text("฿${item.product_price}",style: GoogleFonts.sarabun(color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),),
+          Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),),
 
         ],
       ),

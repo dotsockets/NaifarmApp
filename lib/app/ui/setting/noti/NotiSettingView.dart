@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
@@ -79,7 +80,7 @@ class _NotiSettingViewState extends State<NotiSettingView> {
           children: [
             Text(
               title,
-              style: GoogleFonts.sarabun(fontSize: 16),
+              style: FunctionHelper.FontTheme(fontSize: 16),
             ),
             FlutterSwitch(
               width: 50.0,
@@ -105,7 +106,7 @@ class _NotiSettingViewState extends State<NotiSettingView> {
         margin: EdgeInsets.only(left: 15),
         child: Text(
           title,
-          style: GoogleFonts.sarabun(fontSize: 16),
+          style: FunctionHelper.FontTheme(fontSize: 16),
         ));
   }
 }

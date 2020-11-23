@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
@@ -88,7 +89,7 @@ class NotiView extends StatelessWidget {
                            child: Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
-                               Hero( tag: "notititle_${index}",child: Text(item.Title,style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.bold,color: item.Status_Sell!=2?Colors.black:Colors.red))),
+                               Hero( tag: "notititle_${index}",child: Text(item.Title,style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.bold,color: item.Status_Sell!=2?Colors.black:Colors.red))),
                                SizedBox(height: 5),
                                NotiViewModel().GetStatusMessage(status: item)
                              ],

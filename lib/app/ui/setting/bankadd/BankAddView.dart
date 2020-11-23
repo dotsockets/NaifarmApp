@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -80,7 +81,7 @@ class _BankAddViewState extends State<BankAddView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: GoogleFonts.sarabun(fontSize: 14, color: Colors.grey),
+          style: FunctionHelper.FontTheme(fontSize: 14, color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
       ),
@@ -112,7 +113,7 @@ class _BankAddViewState extends State<BankAddView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title,
-              style: GoogleFonts.sarabun(
+              style: FunctionHelper.FontTheme(
                   fontSize: ScreenUtil().setSp(45), color: Colors.black)),
           SizedBox(
             height: 10,
@@ -158,7 +159,7 @@ class _BankAddViewState extends State<BankAddView> {
       },
       child: Text(
         btnTxt,
-        style: GoogleFonts.sarabun(fontSize: 20, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
       ),
     );
   }

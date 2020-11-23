@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
@@ -88,7 +89,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
       margin: EdgeInsets.only(top: 10, left: 20, bottom: 10),
       child: Text(
         head,
-        style: GoogleFonts.sarabun(fontSize: 16),
+        style: FunctionHelper.FontTheme(fontSize: 16),
       ),
     );
   }
@@ -99,11 +100,11 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
         margin: EdgeInsets.only(top: 10, left: 20, bottom: 10,right: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(head, style: GoogleFonts.sarabun(fontSize: 18),
+          children: [Text(head, style: FunctionHelper.FontTheme(fontSize: 18),
           ),Row(
             children: [
               Container(
-                  child: Text("ระบุน้ำหนักสินค้า  ", style: GoogleFonts.sarabun(fontSize: 16,color: ThemeColor.ColorSale()))),
+                  child: Text("ระบุน้ำหนักสินค้า  ", style: FunctionHelper.FontTheme(fontSize: 16,color: ThemeColor.ColorSale()))),
               FlutterSwitch(
                 width: 50.0,
                 height: 30.0,
@@ -133,7 +134,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
           children: [
             Text(
               head,
-              style: GoogleFonts.sarabun(fontSize: 16),
+              style: FunctionHelper.FontTheme(fontSize: 16),
             ),
             Container(
               margin: EdgeInsets.only(top: 10),
@@ -179,7 +180,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
       onPressed: () {},
       child: Text(
         btnTxt,
-        style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.w500),
       ),
     );
   }

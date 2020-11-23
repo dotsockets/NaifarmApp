@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:rxdart/rxdart.dart';
@@ -46,7 +47,7 @@ class _ProductDetailState extends State<ProductDetail> {
             padding: EdgeInsets.only(left: 15, top: 10, bottom: 10),
             child: Text(
               "รายละเอียดสินค้า",
-              style: GoogleFonts.sarabun(
+              style: FunctionHelper.FontTheme(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 18),
@@ -64,19 +65,19 @@ class _ProductDetailState extends State<ProductDetail> {
                   children: [
                     Text(
                       "จำนวนสินค้า",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           color: Colors.black, fontSize: 15),
                     ),
                     SizedBox(height: 2),
                     Text(
                       "สถานที่จัดส่ง",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           color: Colors.black, fontSize: 15),
                     ),
                     SizedBox(height: 2),
                     Text(
                       "ส่งจาก",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           color: Colors.black, fontSize: 15),
                     ),
                   ],
@@ -87,19 +88,19 @@ class _ProductDetailState extends State<ProductDetail> {
                   children: [
                     Text(
                       "409 กิโลกรัม",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           color: Colors.black, fontSize: 15),
                     ),
                     SizedBox(height: 2),
                     Text(
                       "ทั่วประเทศ",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           color: Colors.black, fontSize: 15),
                     ),
                     SizedBox(height: 2),
                     Text(
                       "อำเภอฝาง, จังหวัดเชียงราย",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           color: Colors.black, fontSize: 15),
                     ),
                   ],
@@ -116,7 +117,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 padding: EdgeInsets.only(left: 15, right: 15, top: 8),
                 child: Text(
                   widget.productDetail.ProductInto,
-                  style: GoogleFonts.sarabun(height: 1.6),
+                  style: FunctionHelper.FontTheme(height: 1.6),
                   maxLines: lineInto,
                   key: _keyRed,
                 ),
@@ -147,7 +148,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             child: Center(
                                 child: Text(
                               "อ่านเพิ่มเติม",
-                              style: GoogleFonts.sarabun(
+                              style: FunctionHelper.FontTheme(
                                   color: ThemeColor.primaryColor(),
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16),

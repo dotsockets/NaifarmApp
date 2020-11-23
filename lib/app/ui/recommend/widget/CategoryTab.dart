@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -35,12 +36,12 @@ class CategoryTab extends StatelessWidget {
               children: [
                 SvgPicture.asset('assets/images/svg/boxes.svg',width: 30,height: 30,),
                 SizedBox(width: 8),
-                Text("ประเภทสินค้า",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
+                Text("ประเภทสินค้า",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
               ],
             ),
             Row(
               children: [
-                Text("เปลี่ยน",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18)),
+                Text("เปลี่ยน",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18)),
                 SizedBox(width: 8),
                 SvgPicture.asset('assets/images/svg/change.svg',width: 30,height: 30,),
 
@@ -96,7 +97,7 @@ class CategoryTab extends StatelessWidget {
             errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
           ),
           SizedBox(height: 10),
-          Text(item.product_name,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold),),
+          Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold),),
           SizedBox(height: 10),
         ],
       ),

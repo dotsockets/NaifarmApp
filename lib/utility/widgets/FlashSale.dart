@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -52,7 +53,7 @@ class FlashSale extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("เลือกซื้อสินค้าต่อ",style: GoogleFonts.sarabun(fontSize: 20),),
+            Text("เลือกซื้อสินค้าต่อ",style: FunctionHelper.FontTheme(fontSize: 20),),
             SvgPicture.asset('assets/images/svg/next.svg')
           ],
         ),
@@ -119,7 +120,7 @@ class FlashSale extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.only(right: 8,left: 8,top: 3,bottom: 3),
                     color: ThemeColor.ColorSale(),
-                    child: Text("40%",style: GoogleFonts.sarabun(color: Colors.white),),
+                    child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white),),
                   ),
                 ),
               )
@@ -134,9 +135,9 @@ class FlashSale extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 8),
-          Hero(tag:  "productName_${index}",child: Text(item.product_name,style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.bold),)),
+          Hero(tag:  "productName_${index}",child: Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold),)),
           SizedBox(height: 5),
-          Hero(tag: "productPrice_${index}",child: Text("฿${item.product_price}",style: GoogleFonts.sarabun(color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),)),
+          Hero(tag: "productPrice_${index}",child: Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),)),
           SizedBox(height: 5),
           Stack(
             children: [
@@ -147,7 +148,7 @@ class FlashSale extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
                     color: ThemeColor.ColorSale(),
-                    child:  Hero(tag: "productStatus_${index}",child: Text(item.product_status,style: GoogleFonts.sarabun(color: Colors.white,fontWeight: FontWeight.bold),)),
+                    child:  Hero(tag: "productStatus_${index}",child: Text(item.product_status,style: FunctionHelper.FontTheme(color: Colors.white,fontWeight: FontWeight.bold),)),
                   ),
                 ),
               ),
@@ -199,7 +200,7 @@ class FlashSale extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 3),
           child: Text(
             text,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Colors.white,

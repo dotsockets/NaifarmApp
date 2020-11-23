@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/config/Env.dart';
@@ -119,7 +120,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                       ),
                       SizedBox(height: 15),
                       Text("วีระชัย ใจกว้าง",
-                          style: GoogleFonts.sarabun(
+                          style: FunctionHelper.FontTheme(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold))
@@ -196,7 +197,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                   AppRoute.Login(context,IsCallBack: true);
                 },
                 child: Text("เข้าสู่ระบบ",
-                  style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.w500),
                 ),
               ),
               SizedBox(width: 20,),
@@ -213,7 +214,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                   AppRoute.Register(context);
                 },
                 child: Text("สมัครสมาชิก",
-                  style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.w500),
                 ),
               )
             ],
@@ -229,7 +230,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(title,style: GoogleFonts.sarabun(fontWeight: FontWeight.w500,fontSize: 16,color: Colors.black)),
+          Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: 16,color: Colors.black)),
           SizedBox(width: 10,),
           message?ClipRRect(
             borderRadius: BorderRadius.circular(9.0),

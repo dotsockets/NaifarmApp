@@ -65,7 +65,7 @@ class _RegisterViewState extends State<RegisterView> {
       child: Column(
         children: [
           SizedBox(height: 20,),
-          Text("ลงทะเบียน",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(60),fontWeight: FontWeight.w500),),
+          Text("ลงทะเบียน",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(60),fontWeight: FontWeight.w500),),
          SizedBox(height: 30,),
           BuildEditText(head: "เบอร์โทรศัพท์ *", hint: "เบอร์โทรศัพท์",inputType: TextInputType.number,controller: PhoneController,BorderOpacity: 0.3,),
           SizedBox(height: 30,),
@@ -82,7 +82,7 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               onPressed: ()=>_validate(),
               child: Text("ยืนยัน",
-                style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+                style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
               ),
             ),
           ),
@@ -91,7 +91,7 @@ class _RegisterViewState extends State<RegisterView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(flex: 3,child: Container(margin: EdgeInsets.only(left: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
-              Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text("หรือ",style: GoogleFonts.sarabun(fontSize: 16),)),),
+              Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text("หรือ",style: FunctionHelper.FontTheme(fontSize: 16),)),),
               Expanded(flex: 3,child: Container(margin: EdgeInsets.only(right: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
             ],
           ),
@@ -109,18 +109,18 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               onPressed: ()=>_login(),
               child: Text("สมัครด้วย Facebook",
-                style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+                style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
               ),
             ),
           ),
           SizedBox(height: 30,),
           Wrap(
             children: [
-              Text("ในการสมัครใช้งาน เราถือว่าคุณยอมรับ",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),height: 1.7,fontWeight: FontWeight.w500),),
-              Text(" ข้อตกลงในการใช้งาน",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),),
-              Text(" และ ",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),height: 1.7,fontWeight: FontWeight.w500),),
-              Text("นโยบายความเป็นส่วนตัว",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),),
-              Text(" กับทาง NaiFarm",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),height: 1.7,fontWeight: FontWeight.w500),),
+              Text("ในการสมัครใช้งาน เราถือว่าคุณยอมรับ",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),height: 1.7,fontWeight: FontWeight.w500),),
+              Text(" ข้อตกลงในการใช้งาน",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),),
+              Text(" และ ",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),height: 1.7,fontWeight: FontWeight.w500),),
+              Text("นโยบายความเป็นส่วนตัว",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),),
+              Text(" กับทาง NaiFarm",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),height: 1.7,fontWeight: FontWeight.w500),),
             ],
           )
         ],
@@ -138,7 +138,7 @@ class _RegisterViewState extends State<RegisterView> {
         ),
         child: Column(
           children: [
-            Text("NaiFarm",style: GoogleFonts.sarabun(color: Colors.white,fontSize: ScreenUtil().setSp(70),fontWeight: FontWeight.w500),),
+            Text("NaiFarm",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: ScreenUtil().setSp(70),fontWeight: FontWeight.w500),),
 
           ],
         )

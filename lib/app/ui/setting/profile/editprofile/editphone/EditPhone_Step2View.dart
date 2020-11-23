@@ -60,7 +60,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
             padding: EdgeInsets.all(15),
             child: Text(
               "หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่  หมายเลขบัญชีทั้งหมดที่ผู้กับบัญชีนี้จะถูกแก้ไขด้วย",
-              style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40)),
+              style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40)),
             ),
           ),
           Container(
@@ -72,7 +72,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("หมายเลขโทรศัพท์เดิม xxxxxx0987 ",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           fontSize: ScreenUtil().setSp(50))),
                   SizedBox(
                     height: 20,
@@ -115,7 +115,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
                           ),
                           Text(
                             "ขอรหัสยืนยันใหม่อีกครั้ง",
-                            style: GoogleFonts.sarabun(
+                            style: FunctionHelper.FontTheme(
                                 fontSize: ScreenUtil().setSp(38)),
                           )
                         ],
@@ -144,7 +144,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
             onPressed: () => FormCheck() ? verify() : SizedBox(),
             child: Text(
               FormCheck() ? "ยืนยัน" : "ดำเนินการต่อ",
-              style: GoogleFonts.sarabun(
+              style: FunctionHelper.FontTheme(
                   fontSize: ScreenUtil().setSp(45),
                   fontWeight: FontWeight.w500),
             ),

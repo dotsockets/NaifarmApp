@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/WithDrawModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
@@ -51,9 +52,9 @@ class WithdrawMoneyView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text("ยอดเงินในกระเป๋า",style: GoogleFonts.sarabun(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
+          Text("ยอดเงินในกระเป๋า",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
           SizedBox(height: 10),
-          Text("฿300.00",style: GoogleFonts.sarabun(color: Colors.white,fontSize: 28),)
+          Text("฿300.00",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: 28),)
         ],
       )
     );
@@ -90,7 +91,7 @@ class WithdrawMoneyView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 50),
-                  Text("ประวัติการทำรายการ",style: GoogleFonts.sarabun(fontSize: 18,color: Colors.black.withOpacity(0.7))),
+                  Text("ประวัติการทำรายการ",style: FunctionHelper.FontTheme(fontSize: 18,color: Colors.black.withOpacity(0.7))),
                   Column(
                     children: CartViewModel().getWidthDrawMoney().asMap().map((key, value) => MapEntry(key, _ItemCard(item: CartViewModel().getWidthDrawMoney()[key]))).values.toList(),
                   )
@@ -122,7 +123,7 @@ class WithdrawMoneyView extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 6,
-                  child: Align(alignment: Alignment.center,child: Text("ถอนเงิน",style: GoogleFonts.sarabun(fontSize: 20,color: Colors.white))),
+                  child: Align(alignment: Alignment.center,child: Text("ถอนเงิน",style: FunctionHelper.FontTheme(fontSize: 20,color: Colors.white))),
                 ),
                 Expanded(
                   flex: 1,
@@ -166,14 +167,14 @@ class WithdrawMoneyView extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(item.Title,style: GoogleFonts.sarabun(fontSize: 18,height: 1.8,fontWeight: FontWeight.bold),),
-                      Text(item.Subtitle,style: GoogleFonts.sarabun(fontSize: 14,height: 1.8),),
-                      Text(item.Text_date,style: GoogleFonts.sarabun(fontSize: 14,height: 1.8),),
+                      Text(item.Title,style: FunctionHelper.FontTheme(fontSize: 18,height: 1.8,fontWeight: FontWeight.bold),),
+                      Text(item.Subtitle,style: FunctionHelper.FontTheme(fontSize: 14,height: 1.8),),
+                      Text(item.Text_date,style: FunctionHelper.FontTheme(fontSize: 14,height: 1.8),),
                     ],
                   )
                 ],
               ),
-              Text("${item.price>0?"+":"-"}฿${item.price>0?item.price:item.price.abs()}.00",style: GoogleFonts.sarabun(fontSize: 18,height: 1.8,fontWeight: FontWeight.bold)),
+              Text("${item.price>0?"+":"-"}฿${item.price>0?item.price:item.price.abs()}.00",style: FunctionHelper.FontTheme(fontSize: 18,height: 1.8,fontWeight: FontWeight.bold)),
             ],
           )
         ],

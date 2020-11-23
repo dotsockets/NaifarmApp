@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 
 class BuildEditText extends StatefulWidget {
   final String head;
@@ -38,10 +39,10 @@ class _BuildEditTextState extends State<BuildEditText> {
             children: [
               widget.head!=""?Text(
                 widget.head,
-                style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),color: Colors.black),
+                style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),color: Colors.black),
               ):SizedBox(),
               SizedBox(width: 10,),
-              widget.EnableMaxLength?widget.inputType==TextInputType.text?Text("(${widget.controller!=null?widget.controller.text.length:0}/${widget.maxLength})",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),color: Colors.black)):
+              widget.EnableMaxLength?widget.inputType==TextInputType.text?Text("(${widget.controller!=null?widget.controller.text.length:0}/${widget.maxLength})",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),color: Colors.black)):
               SizedBox():SizedBox()
             ],
           ),
@@ -58,12 +59,12 @@ class _BuildEditTextState extends State<BuildEditText> {
               controller: widget.controller,
               readOnly: widget.readOnly,
               decoration: InputDecoration(
-                hintStyle: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40), color: Colors.grey),
+                hintStyle: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40), color: Colors.grey),
                 hintText: widget.hint,
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.all(15),
               ),
-              style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40)),
+              style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40)),
               onChanged: (String char){
 
                 widget.onChanged(char);
@@ -80,7 +81,7 @@ class _BuildEditTextState extends State<BuildEditText> {
             ),
           ),
           widget.onError!=""? SizedBox(height: 10,):SizedBox(),
-          widget.onError!=""?Text(widget.onError,style: GoogleFonts.sarabun(color: Colors.grey.shade700),):SizedBox()
+          widget.onError!=""?Text(widget.onError,style: FunctionHelper.FontTheme(color: Colors.grey.shade700),):SizedBox()
         ],
       ),
     );

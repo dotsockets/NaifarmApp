@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
@@ -87,7 +88,7 @@ class NotiDetailView extends StatelessWidget {
                     children: [
                       Hero( tag: notiTitle,
                         child: Text(item.Title,
-                            style: GoogleFonts.sarabun(
+                            style: FunctionHelper.FontTheme(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: item.Status_Sell != 2
@@ -145,7 +146,7 @@ class NotiDetailView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,style: GoogleFonts.sarabun(fontWeight: FontWeight.bold,fontSize: 16),),
+                  Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: 16),),
                   SizedBox(height: 5),
                   NotiViewModel().GetStatusStep(status: item),
                   SizedBox(height: 20),

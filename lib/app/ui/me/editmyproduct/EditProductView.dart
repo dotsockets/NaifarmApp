@@ -4,6 +4,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -144,7 +145,7 @@ class _EditProductViewState extends State<EditProductView> {
             children: [
               Text(
                 head,
-                style: GoogleFonts.sarabun(fontSize: 16),
+                style: FunctionHelper.FontTheme(fontSize: 16),
               ),
               inputType == TextInputType.text ? Text("(${controller != null
                   ? controller.text.length
@@ -192,7 +193,7 @@ class _EditProductViewState extends State<EditProductView> {
         children: [
           Text(
             head,
-            style: GoogleFonts.sarabun(fontSize: 16),
+            style: FunctionHelper.FontTheme(fontSize: 16),
           ),
           Container(
             padding: EdgeInsets.all(10),
@@ -220,7 +221,7 @@ class _EditProductViewState extends State<EditProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("ค่าขนส่ง", style: GoogleFonts.sarabun(fontSize: 16)),
+                  Text("ค่าขนส่ง", style: FunctionHelper.FontTheme(fontSize: 16)),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey.withOpacity(0.7),
@@ -264,7 +265,7 @@ class _EditProductViewState extends State<EditProductView> {
       onPressed: () {},
       child: Text(
         btnTxt,
-        style: GoogleFonts.sarabun(fontSize: 20, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -281,7 +282,7 @@ class _EditProductViewState extends State<EditProductView> {
       onPressed: () {},
       child: Text(
         btnTxt,
-        style: GoogleFonts.sarabun(fontSize: 20, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -293,7 +294,7 @@ class _EditProductViewState extends State<EditProductView> {
           margin: EdgeInsets.all(15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text(head, style: GoogleFonts.sarabun(fontSize: 16),
+              children: [Text(head, style: FunctionHelper.FontTheme(fontSize: 16),
             ),
                 FlutterSwitch(
                   height: 30,

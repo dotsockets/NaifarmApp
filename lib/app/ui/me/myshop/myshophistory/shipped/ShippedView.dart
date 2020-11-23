@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -82,7 +83,7 @@ class ShippedView extends StatelessWidget {
                   children: [
                     SizedBox(height: 15),
                     Text(item.product_name,
-                        style: GoogleFonts.sarabun(
+                        style: FunctionHelper.FontTheme(
                             fontSize: 18, fontWeight: FontWeight.w500)),
                     SizedBox(height: 20),
                     Row(
@@ -90,14 +91,14 @@ class ShippedView extends StatelessWidget {
                       children: [
                         item.ProductDicount != 0
                             ? Text("฿${item.ProductDicount}",
-                            style: GoogleFonts.sarabun(
+                            style: FunctionHelper.FontTheme(
                                 color: Colors.black.withOpacity(0.5),
                                 fontSize: 18,
                                 decoration: TextDecoration.lineThrough))
                             : SizedBox(),
                         SizedBox(width: 10),
                         Text("฿${item.product_price}",
-                            style: GoogleFonts.sarabun(
+                            style: FunctionHelper.FontTheme(
                                 fontSize: 18, color: ThemeColor.ColorSale()))
                       ],
                     ),
@@ -117,16 +118,16 @@ class ShippedView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("x ${item.amoutProduct}",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           fontSize: 18, color: Colors.black)),
                   Row(
                     children: [
                       Text("รวมการสั่งซื้อ : ",
-                          style: GoogleFonts.sarabun(
+                          style: FunctionHelper.FontTheme(
                               fontSize: 18, color: Colors.black)),
                       SizedBox(width: 8),
                       Text("฿${item.product_price*int.parse(item.amoutProduct)}.00",
-                          style: GoogleFonts.sarabun(
+                          style: FunctionHelper.FontTheme(
                               fontSize: 18, color: ThemeColor.ColorSale())),
                       SizedBox(width: 8),
                     ],
@@ -134,7 +135,7 @@ class ShippedView extends StatelessWidget {
                 ],
               ),
               Divider(color: Colors.grey.shade400,),
-              Text("วันที่ซื้อ 28-06-2563",style: GoogleFonts.sarabun(color: Colors.black.withOpacity(0.6)),)
+              Text("วันที่ซื้อ 28-06-2563",style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.6)),)
             ],
           ),
 
@@ -176,10 +177,10 @@ class ShippedView extends StatelessWidget {
               ),
               Text(item.shopName,
                   style:
-                  GoogleFonts.sarabun(fontSize: 16, fontWeight: FontWeight.bold))
+                  FunctionHelper.FontTheme(fontSize: 16, fontWeight: FontWeight.bold))
             ],
           ),
-          Text(item.product_status,style: GoogleFonts.sarabun(color: ThemeColor.primaryColor(),fontSize: 16,fontWeight: FontWeight.w500),)
+          Text(item.product_status,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: 16,fontWeight: FontWeight.w500),)
         ],
       ),
     );

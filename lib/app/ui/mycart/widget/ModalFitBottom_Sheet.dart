@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/DiscountModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -26,7 +27,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
           children: <Widget>[
             Text(
               "โค้ดส่วนลดของ ไร่มอนหลวงสาย",
-              style: GoogleFonts.sarabun(
+              style: FunctionHelper.FontTheme(
                   fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
@@ -75,10 +76,10 @@ class ModalFitBottom_Sheet extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(item.Title,style: GoogleFonts.sarabun(
+                      Text(item.Title,style: FunctionHelper.FontTheme(
                           fontSize: 16, fontWeight: FontWeight.bold),),
                       SizedBox(height: 5,),
-                      Text(item.SubTitle,style: GoogleFonts.sarabun(
+                      Text(item.SubTitle,style: FunctionHelper.FontTheme(
                           fontSize: 16, fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
                     ],
                   ),
@@ -98,11 +99,11 @@ class ModalFitBottom_Sheet extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(item.LabelText,style: GoogleFonts.sarabun(
+                Text(item.LabelText,style: FunctionHelper.FontTheme(
                     fontSize: 16, fontWeight: FontWeight.bold),),
                 Row(
                   children: [
-                    Text("ช้อปต่อ",style: GoogleFonts.sarabun(
+                    Text("ช้อปต่อ",style: FunctionHelper.FontTheme(
                         fontSize: 16, fontWeight: FontWeight.w500,color: ThemeColor.ColorSale()),),
                     SizedBox(width: 5,),
                     Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
@@ -136,7 +137,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
         },
         child: Text(
           isUse?"ใช้แล้ว":"ใช้ส่วนลด",
-          style: GoogleFonts.sarabun(fontSize: 16, fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ),
     );

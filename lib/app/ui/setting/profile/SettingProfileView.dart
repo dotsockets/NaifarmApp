@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -146,7 +147,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
       padding: EdgeInsets.only(left: 15, top: 8, bottom: 8),
       child: Text(
         txt,
-        style: GoogleFonts.sarabun(fontSize: 16),
+        style: FunctionHelper.FontTheme(fontSize: 16),
       ),
     );
   }
@@ -175,7 +176,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
       },
       child: Text(
         btnTxt,
-        style: GoogleFonts.sarabun(fontSize: 20, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -193,11 +194,11 @@ class _SettingProfileViewState extends State<SettingProfileView> {
               children: [
                   Container(
                       padding: EdgeInsets.all(15),
-                      child: Center(child: Text("เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หาคุณต้องการลบจะไม่สามารถกู้คืนได้",style: GoogleFonts.sarabun(fontSize: 16),textAlign: TextAlign.center,)))
+                      child: Center(child: Text("เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หาคุณต้องการลบจะไม่สามารถกู้คืนได้",style: FunctionHelper.FontTheme(fontSize: 16),textAlign: TextAlign.center,)))
                 ,Row(
                   children: [
-                  Expanded(child: Align(alignment: Alignment.center,child: Text("ยกเลิก",style: GoogleFonts.sarabun(fontSize: 16),))),
-                    Expanded(child: Align(alignment: Alignment.center,child: Text("ตกลง",style: GoogleFonts.sarabun(fontSize: 16))))],)
+                  Expanded(child: Align(alignment: Alignment.center,child: Text("ยกเลิก",style: FunctionHelper.FontTheme(fontSize: 16),))),
+                    Expanded(child: Align(alignment: Alignment.center,child: Text("ตกลง",style: FunctionHelper.FontTheme(fontSize: 16))))],)
               ],
             ),
           ),

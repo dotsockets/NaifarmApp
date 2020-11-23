@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 
@@ -35,7 +36,7 @@ class CategoryMenu extends StatelessWidget {
                     ),
                   ):SizedBox(),
                   SizedBox(width: 8),
-                  Text(menuViewModel[index].label,style: GoogleFonts.sarabun(color: selectedIndex==index?Colors.black:Colors.white,fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.bold)),
+                  Text(menuViewModel[index].label,style: FunctionHelper.FontTheme(color: selectedIndex==index?Colors.black:Colors.white,fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.bold)),
 
                 ],
               ),

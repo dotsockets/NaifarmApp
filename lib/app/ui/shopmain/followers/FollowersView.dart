@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/FollowersModel.dart';
 import 'package:naifarm/app/viewmodels/ReviewViewModel.dart';
@@ -63,7 +64,7 @@ class FollowersView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 15),
-                  Text(item.Name,style: GoogleFonts.sarabun(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),)
+                  Text(item.Name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),)
                 ],
               ),
               Container(
@@ -81,7 +82,7 @@ class FollowersView extends StatelessWidget {
                   },
                   child: Text(
                     item.IsFollow?"กำลังติดตาม":"ติดตาม",
-                    style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500),
+                    style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500),
                   ),
                 ),
               )

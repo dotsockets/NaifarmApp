@@ -43,7 +43,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
           backgroundColor: ThemeColor.primaryColor(),
           title: Text(
             "ทำการสั่งซื้อ",
-            style: GoogleFonts.sarabun(color: Colors.black),
+            style: FunctionHelper.FontTheme(color: Colors.black),
           ),
         ),
         body: Column(
@@ -68,7 +68,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                     height: 30, width: 30, repeat: true),
                                 Text(
                                   "ลบ",
-                                  style: GoogleFonts.sarabun(
+                                  style: FunctionHelper.FontTheme(
                                       color: Colors.white,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -168,7 +168,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         ),
         Text(item.NameShop,
             style:
-                GoogleFonts.sarabun(fontSize: 16, fontWeight: FontWeight.bold))
+                FunctionHelper.FontTheme(fontSize: 16, fontWeight: FontWeight.bold))
       ],
     );
   }
@@ -205,26 +205,26 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(item.ProductName,
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           fontSize: 16, fontWeight: FontWeight.w500)),
                   SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("x 2",
-                          style: GoogleFonts.sarabun(
+                          style: FunctionHelper.FontTheme(
                               fontSize: 16, color: Colors.black)),
                       Row(
                         children: [
                           item.ProductDicount != 0
                               ? Text("฿${item.ProductDicount}",
-                              style: GoogleFonts.sarabun(
+                              style: FunctionHelper.FontTheme(
                                   fontSize: 16,
                                   decoration: TextDecoration.lineThrough))
                               : SizedBox(),
                           SizedBox(width: 8),
                           Text("฿${item.ProductPrice}",
-                              style: GoogleFonts.sarabun(
+                              style: FunctionHelper.FontTheme(
                                   fontSize: 16, color: ThemeColor.ColorSale()))
                         ],
                       )
@@ -249,7 +249,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 ),
                 SizedBox(width: 5,),
                 Text("จัดส่งโดย ",
-                    style: GoogleFonts.sarabun(
+                    style: FunctionHelper.FontTheme(
                         fontSize: 16, fontWeight: FontWeight.w500,color: ThemeColor.primaryColor())),
               ],
             ),
@@ -258,13 +258,13 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Kerry Express",
-                    style: GoogleFonts.sarabun(
+                    style: FunctionHelper.FontTheme(
                         fontSize: 16, color: Colors.black)),
                 Row(
                   children: [
                     SizedBox(width: 8),
                     Text("฿36.00",
-                        style: GoogleFonts.sarabun(
+                        style: FunctionHelper.FontTheme(
                             fontSize: 16, color: Colors.black)),
                     SizedBox(width: 8),
                     Icon(Icons.arrow_forward_ios,color: Colors.grey.shade500,)
@@ -280,10 +280,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("คำสั่งซื้อทั้งหมด 2 ชิ้น  ",
-                        style: GoogleFonts.sarabun(
+                        style: FunctionHelper.FontTheme(
                             fontSize: 16, color: Colors.black)),
                     Text("฿136.00",
-                        style: GoogleFonts.sarabun(
+                        style: FunctionHelper.FontTheme(
                             fontSize: 16, fontWeight: FontWeight.w500,color: ThemeColor.ColorSale())),
                   ],
                 ),
@@ -342,10 +342,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("รวมการสั่งซื้อ  ",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           fontSize: 16,color: Colors.black.withOpacity(0.6))),
                   Text("฿136.00",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           fontSize: 16, fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
                 ],
               ),
@@ -356,10 +356,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("การจัดส่ง  ",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           fontSize: 16,color: Colors.black.withOpacity(0.6))),
                   Text("฿72.00",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           fontSize: 16, fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
                 ],
               ),
@@ -370,10 +370,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("ยอดชำระเงินทั้งหมด  ",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold)),
                   Text("฿212.00",
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           fontSize: 16, fontWeight: FontWeight.bold,color: ThemeColor.ColorSale())),
                 ],
               ),
@@ -402,13 +402,13 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("จำนวน 2 รายการ",
-                                style: GoogleFonts.sarabun(
+                                style: FunctionHelper.FontTheme(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black)),
                             SizedBox(height: 2),
                             Text("รวมทั้งหมด",
-                                style: GoogleFonts.sarabun(
+                                style: FunctionHelper.FontTheme(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black))
@@ -420,7 +420,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         alignment: Alignment.topRight,
                         margin: EdgeInsets.only(right: 10),
                         child: Text("฿212",
-                            style: GoogleFonts.sarabun(
+                            style: FunctionHelper.FontTheme(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: ThemeColor.ColorSale())))),
@@ -435,7 +435,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           AppRoute.CartSummary(context);
                         },
                         child: Text("ชำระเงิน",
-                            style: GoogleFonts.sarabun(
+                            style: FunctionHelper.FontTheme(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white)),
@@ -458,7 +458,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("เลือกที่อยู่จัดส่ง",
-                style: GoogleFonts.sarabun(
+                style: FunctionHelper.FontTheme(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: Colors.black)),

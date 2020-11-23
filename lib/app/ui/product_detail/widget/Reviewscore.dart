@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/models/ReviewModel.dart';
 import 'package:naifarm/app/viewmodels/ReviewViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -40,7 +41,7 @@ class Reviewscore extends StatelessWidget {
           children: [
            SvgPicture.asset('assets/images/svg/star.svg',width: 30,height: 30,),
             SizedBox(width: 8),
-            Text("คะแนนรีวิว",style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
+            Text("คะแนนรีวิว",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
           ],
         ),
       )
@@ -74,7 +75,7 @@ class Reviewscore extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 10),
-                        Text(item.reviewName,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
+                        Text(item.reviewName,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SmoothStarRating(
@@ -115,7 +116,7 @@ class Reviewscore extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
-                Text(item.reviewComment,style: GoogleFonts.sarabun(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w500)),
+                Text(item.reviewComment,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w500)),
 
               ],
             ),

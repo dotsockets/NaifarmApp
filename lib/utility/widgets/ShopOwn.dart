@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -57,16 +58,16 @@ class ShopOwn extends StatelessWidget {
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
                      Text(productDetail.shopName,
-                         style: GoogleFonts.sarabun(
+                         style: FunctionHelper.FontTheme(
                              fontSize: ScreenUtil().setSp(45), color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
                      SizedBox(height: 5),
                      Text(productDetail.acticeTime,
-                         style: GoogleFonts.sarabun(
+                         style: FunctionHelper.FontTheme(
                              fontSize: ScreenUtil().setSp(40),
                              color: Colors.black.withOpacity(0.8))),
                      SizedBox(height: 2),
                      Text(productDetail.provice,
-                         style: GoogleFonts.sarabun(
+                         style: FunctionHelper.FontTheme(
                              fontSize: ScreenUtil().setSp(40),
                              color: Colors.black.withOpacity(0.8),height: 1.5)),
                    ],
@@ -88,7 +89,7 @@ class ShopOwn extends StatelessWidget {
                     },
                     child: Text(
                       "ติดตาม",
-                      style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),
+                      style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),
                     ),
                   ),
                 )
@@ -106,12 +107,12 @@ class ShopOwn extends StatelessWidget {
                 Column(
                   children: [
                     Text("${productDetail.ownProduct}",
-                        style: GoogleFonts.sarabun(
+                        style: FunctionHelper.FontTheme(
                             fontSize: ScreenUtil().setSp(50),
                             color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
                     SizedBox(height: 5),
                     Text("รายการสินค้า",
-                        style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40)))
+                        style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40)))
                   ],
                 ),
                 SizedBox(width: 10),
@@ -126,7 +127,7 @@ class ShopOwn extends StatelessWidget {
                     Row(
                       children: [
                         Text("${productDetail.rateShow}",
-                            style: GoogleFonts.sarabun(
+                            style: FunctionHelper.FontTheme(
                                 fontSize: ScreenUtil().setSp(50),
                                 color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
                         SizedBox(width: 10),
@@ -146,7 +147,7 @@ class ShopOwn extends StatelessWidget {
                     ),
                     SizedBox(height: 5),
                     Text("คะแนนที่ได้",
-                        style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40))),
+                        style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40))),
                   ],
                 ),
                 Container(
@@ -159,10 +160,10 @@ class ShopOwn extends StatelessWidget {
                 Column(
                   children: [
                     Text("3",
-                        style: GoogleFonts.sarabun(fontSize: 20,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
+                        style: FunctionHelper.FontTheme(fontSize: 20,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
                     SizedBox(height: 5,),
                     Text("ผู้ติดตาม",
-                        style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40))),
+                        style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40))),
                   ],
                 )
               ],

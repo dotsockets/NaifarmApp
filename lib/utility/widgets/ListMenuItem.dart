@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 
 class ListMenuItem extends StatelessWidget {
   final String icon;
@@ -48,7 +49,7 @@ class ListMenuItem extends StatelessWidget {
                       visible: icon != "" ? true : false,
                     ),
                     Text(title,
-                        style: GoogleFonts.sarabun(
+                        style: FunctionHelper.FontTheme(
                             fontSize: 16,
                             fontWeight: fontWeight,
                             color: Colors.black)),
@@ -59,7 +60,7 @@ class ListMenuItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(Message,
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           color: Colors.black.withOpacity(opacityMessage))),

@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -68,7 +69,7 @@ class _MyProductViewState extends State<MyProductView> {
           onPressed: () {AppRoute.MyNewProduct(context);},
           child: Text(
             "เพิ่มสินค้า",
-            style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w500),
+            style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.w500),
           ),
         ),
       );
@@ -102,7 +103,7 @@ class _MyProductViewState extends State<MyProductView> {
                           item.product_name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
-                          style: GoogleFonts.sarabun(
+                          style: FunctionHelper.FontTheme(
                               fontSize: 18, fontWeight: FontWeight.w600),
                         ),
                         SizedBox(
@@ -110,7 +111,7 @@ class _MyProductViewState extends State<MyProductView> {
                         ),
                         Text(
                           "฿${item.product_price}",
-                          style: GoogleFonts.sarabun(
+                          style: FunctionHelper.FontTheme(
                               fontSize: 22,
                               color: ThemeColor.ColorSale(),
                               fontWeight: FontWeight.w600),
@@ -123,7 +124,7 @@ class _MyProductViewState extends State<MyProductView> {
                             children: [
                               Expanded(
                                 child: Text("จำนวนสินค้า ${item.amoutProduct}",
-                                    style: GoogleFonts.sarabun(fontSize: 14)),
+                                    style: FunctionHelper.FontTheme(fontSize: 14)),
                               ),
                               SizedBox(width: 10,),
                               Expanded(
@@ -131,7 +132,7 @@ class _MyProductViewState extends State<MyProductView> {
                                   alignment: Alignment.topRight,
                                   child: Text(
                                     "${item.product_status}",
-                                    style: GoogleFonts.sarabun(fontSize: 14),
+                                    style: FunctionHelper.FontTheme(fontSize: 14),
                                   ),
                                 ),
                               )
@@ -145,9 +146,9 @@ class _MyProductViewState extends State<MyProductView> {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(child: Text("ถูกใจ 10", style: GoogleFonts.sarabun(fontSize: 15)),),
+                                Expanded(child: Text("ถูกใจ 10", style: FunctionHelper.FontTheme(fontSize: 15)),),
                                 SizedBox(width: 10,),
-                                Expanded(child: Align(alignment: Alignment.topRight,child: Text("เข้าชม 10", style: GoogleFonts.sarabun(fontSize: 15),))
+                                Expanded(child: Align(alignment: Alignment.topRight,child: Text("เข้าชม 10", style: FunctionHelper.FontTheme(fontSize: 15),))
                                 )
                               ]),
                         ),
@@ -171,7 +172,7 @@ class _MyProductViewState extends State<MyProductView> {
                      flex: 2,
                      child:  Text(
                        item.isSelect?"ขายสินค้า":"พักการขาย",
-                       style: GoogleFonts.sarabun(
+                       style: FunctionHelper.FontTheme(
                            fontSize: 18, fontWeight: FontWeight.w600),
                      ),
                    ),

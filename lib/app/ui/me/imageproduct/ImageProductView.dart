@@ -4,6 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
@@ -43,7 +44,7 @@ class _ImageProductViewState extends State<ImageProductView> {
                     children: [
                       SizedBox(height: 20,),
                       Text("แสดงรูปสินค้าได้จำนวน 10 รูป",
-                          style: GoogleFonts.sarabun(fontSize: 18,fontWeight: FontWeight.w500)),
+                          style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.w500)),
                       SizedBox(height: 15,),
                       Container(
                           margin: EdgeInsets.only(left: 10, right: 10),
@@ -112,13 +113,13 @@ class _ImageProductViewState extends State<ImageProductView> {
               children: [
                 Text(
                   "+",
-                  style: GoogleFonts.sarabun(fontSize: 30),
+                  style: FunctionHelper.FontTheme(fontSize: 30),
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: Text(
                     "เพิ่มรูปสินค้า",
-                    style: GoogleFonts.sarabun(fontSize: 16),
+                    style: FunctionHelper.FontTheme(fontSize: 16),
                   ),
                 )
               ],
@@ -163,7 +164,7 @@ class _ImageProductViewState extends State<ImageProductView> {
       onPressed: () {},
       child: Text(
         btnTxt,
-        style: GoogleFonts.sarabun(fontSize: 20, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
       ),
     );
   }

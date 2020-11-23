@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -122,7 +123,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     padding: EdgeInsets.all(10),
                     color: ThemeColor.ColorSale(),
                     child: Text("ซื้อสินค้า",
-                        style: GoogleFonts.sarabun(
+                        style: FunctionHelper.FontTheme(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.white))))

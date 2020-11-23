@@ -169,7 +169,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       child:  Visibility(
         child: Text(
           errorTxt,
-          style: GoogleFonts.sarabun(fontSize: 14, color: Colors.grey),
+          style: FunctionHelper.FontTheme(fontSize: 14, color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
       ),
@@ -185,7 +185,7 @@ class _AddressAddViewState extends State<AddressAddView> {
         children: [
           Text(
             head,
-            style: GoogleFonts.sarabun(fontSize: 16),
+            style: FunctionHelper.FontTheme(fontSize: 16),
           ),
           FlutterSwitch(
             height: 30,
@@ -240,7 +240,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       },
       child: Text(
         btnTxt,
-        style: GoogleFonts.sarabun(fontSize: 20, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
       ),
     );
   }

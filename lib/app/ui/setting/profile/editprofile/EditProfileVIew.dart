@@ -46,7 +46,7 @@ class EditProfileVIew extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(height: 20,),
-                          Text("ข้อมูลส่วนตัว",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.bold),),
+                          Text("ข้อมูลส่วนตัว",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.bold),),
                           SizedBox(height: 20,),
                           ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(60)),
@@ -77,7 +77,7 @@ class EditProfileVIew extends StatelessWidget {
                               color: ThemeColor.ColorSale()
                             ),
                             child: Text("แก้ไขรูป",
-                                style: GoogleFonts.sarabun(
+                                style: FunctionHelper.FontTheme(
                                     color: Colors.white,
                                     fontSize:  ScreenUtil().setSp(35),
                                     fontWeight: FontWeight.bold)),

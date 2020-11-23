@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 
 class TabMenu extends StatelessWidget {
@@ -23,7 +24,7 @@ class TabMenu extends StatelessWidget {
             children: [
               SvgPicture.asset(icon),
               SizedBox(height: 10),
-              Text(title,style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.black))
+              Text(title,style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.black))
             ],
           ),
           notification > 0?

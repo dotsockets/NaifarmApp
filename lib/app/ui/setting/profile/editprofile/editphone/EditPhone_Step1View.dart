@@ -45,7 +45,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
         Title: "เบอร์โทรศัพท์", header_type: Header_Type.barNormal,),
       body: Column(
         children: [
-          Container(padding:EdgeInsets.all(15), child: Text("หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่  หมายเลขบัญชีทั้งหมดที่ผู้กับบัญชีนี้จะถูกแก้ไขด้วย",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40)),),),
+          Container(padding:EdgeInsets.all(15), child: Text("หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่  หมายเลขบัญชีทั้งหมดที่ผู้กับบัญชีนี้จะถูกแก้ไขด้วย",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40)),),),
           Container(
             color: Colors.white,
             child: Container(
@@ -78,7 +78,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
             child: Text("ดำเนินการต่อ",
-              style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+              style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
             ),
           )
         ],

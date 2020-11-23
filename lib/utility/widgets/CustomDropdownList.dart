@@ -25,7 +25,7 @@ class _CustomDropdownListState extends State<CustomDropdownList> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(widget.txtSelect,style: GoogleFonts.sarabun(fontSize: 18),),
+            Text(widget.txtSelect,style: FunctionHelper.FontTheme(fontSize: 18),),
             Icon(Icons.keyboard_arrow_down)
           ],
         )

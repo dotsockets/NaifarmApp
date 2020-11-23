@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -108,7 +109,7 @@ class FlashSaleView extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 3),
           child: Text(
             text,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Colors.white,

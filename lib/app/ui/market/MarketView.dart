@@ -132,7 +132,7 @@ class _MarketViewState extends State<MarketView> {
             backgroundColor: ThemeColor.primaryColor(),
             title: Text(
               "สินค้า Naifarm ฟาร์มมาร์เก็ต",
-              style: GoogleFonts.sarabun(color: Colors.black),
+              style: FunctionHelper.FontTheme(color: Colors.black),
           ),
         ),
       );

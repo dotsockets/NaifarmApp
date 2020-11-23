@@ -52,7 +52,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("ยืนยันรหัสผ่านใหม่",
-                    style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+                    style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 15,),
                   BuildEditText(
@@ -78,7 +78,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
             child: Text("ดำเนินการต่อ",
-              style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+              style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
             ),
           )
         ],

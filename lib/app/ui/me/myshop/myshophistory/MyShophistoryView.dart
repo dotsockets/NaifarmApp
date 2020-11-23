@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/paid/PaidView.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/refund/RefundView.dart';
@@ -85,7 +86,7 @@ class MyShophistoryView extends StatelessWidget {
     return Tab(
       child: Row(
         children: [
-          Text(title,style: GoogleFonts.sarabun(fontSize: 16)),
+          Text(title,style: FunctionHelper.FontTheme(fontSize: 16)),
           SizedBox(width: 10,),
           message?ClipRRect(
             borderRadius: BorderRadius.circular(9.0),

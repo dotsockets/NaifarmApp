@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -51,8 +52,8 @@ class ReviewView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("หมายเลขคำสั่งซื้อ",style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.bold),),
-              Text("09988203dergd4",style: GoogleFonts.sarabun(fontSize: 16,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),),
+              Text("หมายเลขคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.bold),),
+              Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: 16,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),),
 
             ],
           ),
@@ -89,7 +90,7 @@ class ReviewView extends StatelessWidget {
                     ),
                     Text(item.shopName,
                         style:
-                        GoogleFonts.sarabun(fontSize: 16, fontWeight: FontWeight.bold))
+                        FunctionHelper.FontTheme(fontSize: 16, fontWeight: FontWeight.bold))
                   ],
                 ),
 
@@ -129,28 +130,28 @@ class ReviewView extends StatelessWidget {
                   children: [
                     SizedBox(height: 15),
                     Text(item.product_name,
-                        style: GoogleFonts.sarabun(
+                        style: FunctionHelper.FontTheme(
                             fontSize: 16, fontWeight: FontWeight.w500)),
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("x ${item.amoutProduct}",
-                            style: GoogleFonts.sarabun(
+                            style: FunctionHelper.FontTheme(
                                 fontSize: 18, color: Colors.black)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             item.ProductDicount != 0
                                 ? Text("฿${item.ProductDicount}",
-                                style: GoogleFonts.sarabun(
+                                style: FunctionHelper.FontTheme(
                                     color: Colors.black.withOpacity(0.5),
                                     fontSize: 18,
                                     decoration: TextDecoration.lineThrough))
                                 : SizedBox(),
                             SizedBox(width: 10),
                             Text("฿${item.product_price}",
-                                style: GoogleFonts.sarabun(
+                                style: FunctionHelper.FontTheme(
                                     fontSize: 18, color: ThemeColor.ColorSale()))
                           ],
                         )
@@ -174,7 +175,7 @@ class ReviewView extends StatelessWidget {
       color: Colors.white,
         child: Column(
           children: [
-            Text("ให้คะแนน",style: GoogleFonts.sarabun(fontSize: 18,fontWeight: FontWeight.bold),),
+            Text("ให้คะแนน",style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),),
             SizedBox(height: 20,),
             CustomStarRating(
                 allowHalfRating: false,
@@ -225,7 +226,7 @@ class ReviewView extends StatelessWidget {
       },
       child: Text(
         title,
-        style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -246,7 +247,7 @@ class ReviewView extends StatelessWidget {
         },
         child: Text(
           "ยืนยัน",
-          style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500),
         ),
       ),
     );

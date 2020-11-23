@@ -43,7 +43,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
           backgroundColor: ThemeColor.primaryColor(),
           title: Text(
             "ที่อยู่ของฉัน",
-            style: GoogleFonts.sarabun(color: Colors.black),
+            style: FunctionHelper.FontTheme(color: Colors.black),
           ),
         ),
         body: SingleChildScrollView(
@@ -107,10 +107,10 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                    Row(
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
-                       Text(item.Name,style: GoogleFonts.sarabun(fontWeight: FontWeight.bold,fontSize: 18,height: 1.6,color: ThemeColor.primaryColor()),),
+                       Text(item.Name,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: 18,height: 1.6,color: ThemeColor.primaryColor()),),
                   Row(
                          children: [
-                           select==index?Text("เป็นที่อยู่หลัก",style: GoogleFonts.sarabun(fontWeight: FontWeight.w500,fontSize: 16,color: ThemeColor.ColorSale())):SizedBox(),
+                           select==index?Text("เป็นที่อยู่หลัก",style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: 16,color: ThemeColor.ColorSale())):SizedBox(),
                            SizedBox(width: 5,),
                            Icon(Icons.arrow_forward_ios,color: Colors.grey.shade500,)
                          ],
@@ -119,10 +119,10 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                      ],
                    ),
                     SizedBox(height: 5,),
-                    Text(item.phone,style: GoogleFonts.sarabun(fontSize: 14,height: 1.5),),
-                    Text(item.address,style: GoogleFonts.sarabun(fontSize: 14,height: 1.5),),
-                    Text(item.provice,style: GoogleFonts.sarabun(fontSize: 14,height: 1.5),),
-                    Text(item.zipcode,style: GoogleFonts.sarabun(fontSize: 14,height: 1.5),),
+                    Text(item.phone,style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),),
+                    Text(item.address,style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),),
+                    Text(item.provice,style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),),
+                    Text(item.zipcode,style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),),
                   ],
                 ),
               ),
@@ -148,7 +148,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
         },
         child: Text(
           "เพิ่มที่อยู่ใหม่",
-          style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500),
         ),
       ),
     );

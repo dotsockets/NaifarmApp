@@ -61,7 +61,7 @@ class _Setting_EditProdile_BioViewState extends State<Setting_EditProdile_BioVie
                 ),
                 onPressed: ()=>FormCheck()?verify():SizedBox(),
                 child: Text("บันทึก",
-                  style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
                 ),
               )
             ],

@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/BankModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
@@ -42,7 +43,7 @@ class _BankSettingViewState extends State<BankSettingView> {
               children: [
                 Text(
                   "บัตรเครดิต",
-                  style: GoogleFonts.sarabun(fontSize: 14),
+                  style: FunctionHelper.FontTheme(fontSize: 14),
                 ),
                 SizedBox(height: 5,),
                 Column(
@@ -55,7 +56,7 @@ class _BankSettingViewState extends State<BankSettingView> {
                 SizedBox(height: 20,),
                 Text(
                   "บัญชีธนาคารเพื่อรับเงิน",
-                  style: GoogleFonts.sarabun(fontSize: 14),
+                  style: FunctionHelper.FontTheme(fontSize: 14),
                 ),SizedBox(height: 5,),
                 Column(
                   children: CartViewModel().getBankCartType2().asMap().map((index, value){
@@ -101,8 +102,8 @@ class _BankSettingViewState extends State<BankSettingView> {
           ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(item.NameBank,style: GoogleFonts.sarabun(fontSize: 16)),
-          Text(item.NumberCard,style: GoogleFonts.sarabun(fontSize: 16))],)
+          children: [Text(item.NameBank,style: FunctionHelper.FontTheme(fontSize: 16)),
+          Text(item.NumberCard,style: FunctionHelper.FontTheme(fontSize: 16))],)
         ],
       ),
     );
@@ -124,9 +125,9 @@ class _BankSettingViewState extends State<BankSettingView> {
             ),
             child: Row(
               children: [
-                Text("+",style: GoogleFonts.sarabun(fontSize: 20,fontWeight: FontWeight.w200),),
+                Text("+",style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.w200),),
                 SizedBox(width: 15,),
-                Text(txtBtn,style: GoogleFonts.sarabun(color: ThemeColor.primaryColor(),fontSize: 16),),
+                Text(txtBtn,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: 16),),
               ],
             ),
           ),

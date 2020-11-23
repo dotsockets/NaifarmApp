@@ -74,7 +74,7 @@ class _LoginViewState extends State<LoginView> {
         child: Column(
           children: [
             SizedBox(height: 30,),
-            Text("เข้าสู่ระบบ",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(60),fontWeight: FontWeight.w500),),
+            Text("เข้าสู่ระบบ",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(60),fontWeight: FontWeight.w500),),
             SizedBox(height: 30,),
             BuildEditText(head: "เบอร์โทรศัพท์/อีเมลทรศัพท์", hint: "เบอร์โทรศัพท์/อีเมล",inputType: TextInputType.text,controller: _username,BorderOpacity: 0.3,borderRadius: 7,),
             SizedBox(height: 20,),
@@ -93,7 +93,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 onPressed: () => _validate(),
                 child: Text("เข้าสู่ระบบ",
-                  style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
                 ),
               ),
             ),
@@ -102,7 +102,7 @@ class _LoginViewState extends State<LoginView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(flex: 3,child: Container(margin: EdgeInsets.only(left: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
-                Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text("หรือ",style: GoogleFonts.sarabun(fontSize: 16),)),),
+                Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text("หรือ",style: FunctionHelper.FontTheme(fontSize: 16),)),),
                 Expanded(flex: 3,child: Container(margin: EdgeInsets.only(right: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
               ],
             ),
@@ -120,19 +120,19 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 onPressed: ()=>_login(),
                 child: Text("เข้าสู่ระบบด้วย Facebook",
-                  style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
                 ),
               ),
             ),
             SizedBox(height: 30,),
             Wrap(
               children: [
-                Text("หากยังไม่ได้เป็นสมาชิก",style: GoogleFonts.sarabun(fontSize: 15,height: 1.7,fontWeight: FontWeight.w500),),
+                Text("หากยังไม่ได้เป็นสมาชิก",style: FunctionHelper.FontTheme(fontSize: 15,height: 1.7,fontWeight: FontWeight.w500),),
                 Column(
 
                   children: [
                     SizedBox(height: 3,),
-                    InkWell(child: Text(" สมัครสมาชิก ",style: GoogleFonts.sarabun(color: ThemeColor.secondaryColor(),fontSize: 15)),onTap: (){
+                    InkWell(child: Text(" สมัครสมาชิก ",style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: 15)),onTap: (){
                       AppRoute.Register(context);
                     },),
                     Container(
@@ -149,7 +149,7 @@ class _LoginViewState extends State<LoginView> {
 
               children: [
                 SizedBox(height: 3,),
-                InkWell(child: Text(" ลืมรหัสผ่าน ",style: GoogleFonts.sarabun(color: ThemeColor.secondaryColor(),fontSize: 15)),onTap: (){
+                InkWell(child: Text(" ลืมรหัสผ่าน ",style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: 15)),onTap: (){
                   AppRoute.Home(context);
                 },),
                 Container(
@@ -174,7 +174,7 @@ class _LoginViewState extends State<LoginView> {
         ),
         child: Column(
           children: [
-            Text("NaiFarm",style: GoogleFonts.sarabun(color: Colors.white,fontSize: ScreenUtil().setSp(70),fontWeight: FontWeight.w500),),
+            Text("NaiFarm",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: ScreenUtil().setSp(70),fontWeight: FontWeight.w500),),
           ],
         )
     );

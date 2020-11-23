@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 
 class BuildChoosesize extends StatelessWidget {
@@ -19,7 +20,7 @@ class BuildChoosesize extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("เลือกขนาด", style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.bold)),
+          Text("เลือกขนาด", style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.bold)),
           Wrap(
             children: [
               _buildBtnAddProduct1(title: "ขนาดเล็ก",index: 1),
@@ -29,7 +30,7 @@ class BuildChoosesize extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10,),
-          Text("เลือกน้ำหนัก", style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.bold)),
+          Text("เลือกน้ำหนัก", style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.bold)),
           Wrap(
             children: [
               _buildBtnAddProduct2(title: "1 กิโลกรัม",index: 1),
@@ -59,7 +60,7 @@ class BuildChoosesize extends StatelessWidget {
         },
         child: Text(
           title,
-          style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(37),fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(37),fontWeight: FontWeight.w500),
         ),
       ),
     );
@@ -82,7 +83,7 @@ class BuildChoosesize extends StatelessWidget {
         },
         child: Text(
           title,
-          style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(37),fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(37),fontWeight: FontWeight.w500),
         ),
       ),
     );

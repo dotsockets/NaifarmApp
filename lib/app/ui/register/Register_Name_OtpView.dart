@@ -56,7 +56,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
                 ),
                 onPressed: ()=>FormCheck()?verify():SizedBox(),
                 child: Text("ถัดไป",
-                  style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
                 ),
               )
             ],

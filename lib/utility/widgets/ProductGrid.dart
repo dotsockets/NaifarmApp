@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -73,7 +74,7 @@ class ProductGrid extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 Text(titleInto,
-                    style: GoogleFonts.sarabun(
+                    style: FunctionHelper.FontTheme(
                         color: Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.bold)),
@@ -116,13 +117,13 @@ class ProductGrid extends StatelessWidget {
           SizedBox(height: 8),
           Text(
             item.product_name,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 color: Colors.black, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 5),
           Text(
             "฿${item.product_price}",
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 color: ThemeColor.ColorSale(), fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 5),
@@ -138,7 +139,7 @@ class ProductGrid extends StatelessWidget {
                     color: ThemeColor.ColorSale(),
                     child: Text(
                       item.product_status,
-                      style: GoogleFonts.sarabun(
+                      style: FunctionHelper.FontTheme(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -160,7 +161,7 @@ class ProductGrid extends StatelessWidget {
     return Column(
       children: [
         Text(item.product_name,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 color: Colors.black,
                 fontSize: ScreenUtil().setSp(45),
                 fontWeight: FontWeight.w500)),
@@ -170,7 +171,7 @@ class ProductGrid extends StatelessWidget {
         Text(
           "฿${item.product_price}",
           style:
-              GoogleFonts.sarabun(color: ThemeColor.ColorSale(), fontSize: ScreenUtil().setSp(45)),
+              FunctionHelper.FontTheme(color: ThemeColor.ColorSale(), fontSize: ScreenUtil().setSp(45)),
         ),
         SizedBox(
           height: 8,
@@ -194,7 +195,7 @@ class ProductGrid extends StatelessWidget {
                   spacing: 0.0),
             ),
             Text((item.product_status),
-                style: GoogleFonts.sarabun(
+                style: FunctionHelper.FontTheme(
                     fontSize: ScreenUtil().setSp(30),
                     color: Colors.black,
                     fontWeight: FontWeight.w500))
@@ -253,7 +254,7 @@ class ProductGrid extends StatelessWidget {
                           left: 10, right: 10, top: 5, bottom: 5),
                       child: Text(
                         "50%",
-                        style: GoogleFonts.sarabun(
+                        style: FunctionHelper.FontTheme(
                             color: Colors.white, fontWeight: FontWeight.bold,fontSize: ScreenUtil().setSp(40)),
                       ),
                     ),

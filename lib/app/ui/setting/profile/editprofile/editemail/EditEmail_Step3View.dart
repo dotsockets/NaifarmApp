@@ -108,7 +108,7 @@ class _EditEmail_Step3ViewState extends State<EditEmail_Step3View> {
                           ),
                           Text(
                             "ขอรหัสยืนยันใหม่อีกครั้ง",
-                            style: GoogleFonts.sarabun(
+                            style: FunctionHelper.FontTheme(
                                 fontSize: ScreenUtil().setSp(38)),
                           )
                         ],
@@ -137,7 +137,7 @@ class _EditEmail_Step3ViewState extends State<EditEmail_Step3View> {
             onPressed: () => FormCheck() ? verify() : SizedBox(),
             child: Text(
               FormCheck() ? "ยืนยัน" : "ดำเนินการต่อ",
-              style: GoogleFonts.sarabun(
+              style: FunctionHelper.FontTheme(
                   fontSize: ScreenUtil().setSp(45),
                   fontWeight: FontWeight.w500),
             ),

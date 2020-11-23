@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 
@@ -30,21 +31,21 @@ class NotiViewModel {
       children: [
         Text(
           "สินค้าทุกชิ้นในคำสั่งซื้อหมายเลข ",
-          style: GoogleFonts.sarabun(fontSize: 14),
+          style: FunctionHelper.FontTheme(fontSize: 14),
         ),
         Text(number_order,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontSize: 14, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           "จัดส่งถึงแล้วเมื่อ ",
-          style: GoogleFonts.sarabun(fontSize: 14,height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),
         ),
         Text(order_date,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontSize: 14, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " กรุณารอให้ผู้ซื้อตรวจสอบและยืนยันการรับสินค้าภายใน 3  จากนั้น NaiFarm จะดำเนินการโอนเงินให้คุณ",
-          style: GoogleFonts.sarabun(fontSize: 14,height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),
         ),
       ],
     );
@@ -55,7 +56,7 @@ class NotiViewModel {
       children: [
         Text(
           "ยินดีต้อนรับร้านใหม่ สามารถเพิ่มสินค้าการขาย หรือวิธีการขายได้ที่นี่เลย",
-          style: GoogleFonts.sarabun(fontSize: 14),
+          style: FunctionHelper.FontTheme(fontSize: 14),
         ),
       ],
     );
@@ -66,14 +67,14 @@ class NotiViewModel {
       children: [
         Text(
           "กรุณาตรวจสอบสินค้าทั้งหมดที่คุณได้รับของคำสั่งซื้อ ",
-          style: GoogleFonts.sarabun(fontSize: 14,height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),
         ),
         Text(number_order,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontSize: 14, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " ก่อนกดรับสินค้า เพื่อ Naifarm จะดำเนินการโดอนเงนคือนสินค้าไปยังผู้ขาย",
-          style: GoogleFonts.sarabun(fontSize: 14,height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),
         ),
       ],
     );
@@ -84,14 +85,14 @@ class NotiViewModel {
       children: [
         Text(
           "คำสั่งซื้อ ",
-          style: GoogleFonts.sarabun(fontSize: 14,height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),
         ),
         Text(number_order,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontSize: 14, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " กรุณาให้คะแนนสินค้า",
-          style: GoogleFonts.sarabun(fontSize: 14,height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),
         ),
       ],
     );
@@ -102,14 +103,14 @@ class NotiViewModel {
       children: [
         Text(
           "คำสั่งซื้อ ",
-          style: GoogleFonts.sarabun(fontSize: 14,height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),
         ),
         Text(number_order,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontSize: 14, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " ถูกยกเลิกแล้ว เพราะไม่สามารถตรวจสอบการชำระเงินของคุณได้",
-          style: GoogleFonts.sarabun(fontSize: 14,height: 1.5,fontWeight: FontWeight.bold),
+          style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5,fontWeight: FontWeight.bold),
         ),
       ],
     );
@@ -135,21 +136,21 @@ class NotiViewModel {
       children: [
         Text(
           "พัสดุหมายเลข ",
-          style: GoogleFonts.sarabun(fontSize: 14,height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),
         ),
         Text(parcel_number,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontSize: 14, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " คำสั่งซื้อหมายเลข",
-          style: GoogleFonts.sarabun(fontSize: 14),
+          style: FunctionHelper.FontTheme(fontSize: 14),
         ),
         Text(number_order,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontSize: 14, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " จัดส่งสำเร็จแล้ว",
-          style: GoogleFonts.sarabun(fontSize: 14),
+          style: FunctionHelper.FontTheme(fontSize: 14),
         ),
       ],
     );
@@ -161,24 +162,24 @@ class NotiViewModel {
       children: [
         Text(
           "ยืนยันการชำระเงินสำหรับคำสั่งซื้อ ",
-          style: GoogleFonts.sarabun(fontSize: 14),
+          style: FunctionHelper.FontTheme(fontSize: 14),
         ),
         Text(number_order,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontSize: 14, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " กรุณาส่งสินค้าไปให้คุณ ",
-          style: GoogleFonts.sarabun(fontSize: 14),
+          style: FunctionHelper.FontTheme(fontSize: 14),
         ),
         Text(name_Received,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontSize: 14, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " ภายในวันที่ ",
-          style: GoogleFonts.sarabun(fontSize: 14),
+          style: FunctionHelper.FontTheme(fontSize: 14),
         ),
         Text(date_send,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontSize: 14, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
       ],
     );
@@ -189,19 +190,19 @@ class NotiViewModel {
     return Wrap(
       children: [
         Text(name_Received,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontSize: 14, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           "ได้ทำรายการสั่งซื้อสินค้า ",
-          style: GoogleFonts.sarabun(fontSize: 14),
+          style: FunctionHelper.FontTheme(fontSize: 14),
         ),
-        Text(name_product, style: GoogleFonts.sarabun(fontSize: 14,height: 1.5,fontWeight: FontWeight.bold)),
+        Text(name_product, style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " และต้องชำระเงินภายในวันที่ ",
-          style: GoogleFonts.sarabun(fontSize: 14),
+          style: FunctionHelper.FontTheme(fontSize: 14),
         ),
         Text(date_send,
-            style: GoogleFonts.sarabun(
+            style: FunctionHelper.FontTheme(
                 fontSize: 14, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
       ],
     );
