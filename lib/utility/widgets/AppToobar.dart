@@ -23,7 +23,7 @@ class AppToobar extends PreferredSize {
  final String icon;
  final isEnable_Search;
 
-  const AppToobar({this.onClick, this.icon="", Key key, this.header_type, this.Title="",this.isEnable_Search=false}) : super(key: key);
+  const AppToobar({this.onClick=null, this.icon="", Key key, this.header_type, this.Title="",this.isEnable_Search=false}) : super(key: key);
 
 
  @override
@@ -48,7 +48,7 @@ class AppToobar extends PreferredSize {
      child: AppBar(
        leading: IconButton(
          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-         onPressed: () => Navigator.of(context).pop(),
+         onPressed: () => onClick==null?Navigator.of(context).pop():onClick(),
        ),
        actions: [
          Container(

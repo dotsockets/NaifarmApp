@@ -135,7 +135,7 @@ class EditProfileVIew extends StatelessWidget {
                             Message: "xxxxxx0987",
                             title: "เบอร์โทรศัพท์",
                             onClick: () {
-                              AppRoute.EditPhone(context);
+                              AppRoute.EditPhoneStep1(context);
                             },
                           ),
                           SizedBox(height: 10,),
@@ -145,7 +145,7 @@ class EditProfileVIew extends StatelessWidget {
                             Message: "puwee@gmail.com",
                             title: "อีเมล",
                             onClick: () {
-                              AppRoute.SettingLanguage(context);
+                              AppRoute.EditEmail_Step1(context);
                             },
                           ),
                           _buildLine(),
@@ -155,7 +155,7 @@ class EditProfileVIew extends StatelessWidget {
                             Message: "********",
                             title: "เปลี่ยนรหัสผ่าน",
                             onClick: () {
-                              AppRoute.SettingLanguage(context);
+                              AppRoute.EditpasswordStep1(context);
                             },
                           ),
                         ],

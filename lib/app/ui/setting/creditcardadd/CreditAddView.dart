@@ -1,3 +1,4 @@
+import 'package:card_scanner/card_scanner.dart';
 import 'package:custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -69,17 +70,24 @@ class _CreditAddViewState extends State<CreditAddView> {
                                 style: GoogleFonts.sarabun(
                                     fontSize: 19, fontWeight: FontWeight.w500),
                               ),
-                              Row(
-                                children: [
-                                  Text("ถ่ายรูปบัตร",
-                                      style: GoogleFonts.sarabun(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500)),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Icon(Icons.camera_alt_outlined)
-                                ],
+                              GestureDetector(
+                                child: Row(
+                                  children: [
+                                    Text("ถ่ายรูปบัตร",
+                                        style: GoogleFonts.sarabun(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500)),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Icon(Icons.camera_alt_outlined)
+                                  ],
+                                ),
+                                onTap: () async {
+                                  var cardDetails = await CardScanner.scanCard();
+
+                                  print(cardDetails);
+                                },
                               )
                             ],
                           ),

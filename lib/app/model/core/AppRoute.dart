@@ -44,7 +44,13 @@ import 'package:naifarm/app/ui/setting/profile/SettingProfileView.dart';
 import 'package:naifarm/app/ui/setting/profile/editprofile/EditProfileVIew.dart';
 import 'package:naifarm/app/ui/setting/profile/editprofile/Setting_EditProdile_BioView.dart';
 import 'package:naifarm/app/ui/setting/profile/editprofile/Setting_EditProfile_NameView.dart';
-import 'package:naifarm/app/ui/setting/profile/editprofile/editphone/EditPhoneView.dart';
+import 'package:naifarm/app/ui/setting/profile/editprofile/editemail/EditEmail_Step1View.dart';
+import 'package:naifarm/app/ui/setting/profile/editprofile/editemail/EditEmail_Step2View.dart';
+import 'package:naifarm/app/ui/setting/profile/editprofile/editemail/EditEmail_Step3View.dart';
+import 'package:naifarm/app/ui/setting/profile/editprofile/editpassword/EditpasswordStep1View.dart';
+import 'package:naifarm/app/ui/setting/profile/editprofile/editpassword/EditpasswordStep2View.dart';
+import 'package:naifarm/app/ui/setting/profile/editprofile/editphone/EditPhone_Step1View.dart';
+import 'package:naifarm/app/ui/setting/profile/editprofile/editphone/EditPhone_Step2View.dart';
 import 'package:naifarm/app/ui/setting/rulesOfUse/RuleOfUseView.dart';
 import 'package:naifarm/app/ui/shopmain/ShopMainView.dart';
 import 'package:naifarm/app/ui/shopmain/followers/FollowersView.dart';
@@ -227,13 +233,20 @@ class AppRoute{
   }
 
   static Setting_EditProdile_Bio(BuildContext context){
+
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Setting_EditProdile_BioView()));
   }
-  static EditPhone(BuildContext context) {
+  static EditPhoneStep1(BuildContext context) {
     Navigator.push(context, PageTransition(
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
-        child: EditPhoneView()));
+        child: EditPhone_Step1View()));
+  }
+  static EditPhoneStep2(BuildContext context,String PhoneNew) {
+    Navigator.pushReplacement(context, PageTransition(
+        duration: Duration(milliseconds: 300),
+        type: PageTransitionType.fade,
+        child: EditPhone_Step2View(PhoneNew: PhoneNew,)));
   }
   static SettingBankAdd(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: BankAddView()));
@@ -241,6 +254,38 @@ class AppRoute{
   static SettingCreditAdd(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CreditAddView()));
 
+  }
+  static EditEmail_Step1(BuildContext context) {
+    Navigator.push(context, PageTransition(
+        duration: Duration(milliseconds: 300),
+        type: PageTransitionType.fade,
+        child: EditEmail_Step1View()));
+  }
+  static EditEmail_Step2(BuildContext context) {
+    Navigator.pushReplacement(context, PageTransition(
+        duration: Duration(milliseconds: 300),
+        type: PageTransitionType.fade,
+        child: EditEmail_Step2View()));
+  }
+  static EditEmail_Step3(BuildContext context,String email) {
+    Navigator.pushReplacement(context, PageTransition(
+        duration: Duration(milliseconds: 300),
+        type: PageTransitionType.fade,
+        child: EditEmail_Step3View(email: email,)));
+  }
+
+  static EditpasswordStep1(BuildContext context) {
+    Navigator.pushReplacement(context, PageTransition(
+        duration: Duration(milliseconds: 300),
+        type: PageTransitionType.fade,
+        child: EditpasswordStep1View()));
+  }
+
+  static EditpasswordStep2(BuildContext context) {
+    Navigator.pushReplacement(context, PageTransition(
+        duration: Duration(milliseconds: 300),
+        type: PageTransitionType.fade,
+        child: EditpasswordStep2View()));
   }
 }
 

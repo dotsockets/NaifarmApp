@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
-
-class EditPhoneView extends StatefulWidget {
+import 'package:regexed_validator/regexed_validator.dart';
+class EditpasswordStep2View extends StatefulWidget {
   @override
-  _EditPhoneViewState createState() => _EditPhoneViewState();
+  _EditpasswordStep2ViewState createState() => _EditpasswordStep2ViewState();
 }
 
-class _EditPhoneViewState extends State<EditPhoneView> {
-  TextEditingController PhoneController = TextEditingController();
+class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
+  TextEditingController EmailController = TextEditingController();
+
+  String onError="";
+
 
   bool FormCheck(){
-    if(PhoneController.text.isEmpty){
+    if(EmailController.text.isEmpty){
       return false;
     }else{
       return true;
@@ -25,8 +30,9 @@ class _EditPhoneViewState extends State<EditPhoneView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    PhoneController.text = "0941654641";
+    EmailController.text = "";
   }
+
 
 
   @override
@@ -34,10 +40,9 @@ class _EditPhoneViewState extends State<EditPhoneView> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        Title: "เบอร์โทรศัพท์", header_type: Header_Type.barNormal,),
+        Title: "เปลี่ยนรหัสผ่าน", header_type: Header_Type.barNormal,),
       body: Column(
         children: [
-          Container(padding:EdgeInsets.all(15), child: Text("หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่  หมายเลขบัญชีทั้งหมดที่ผู้กับบัญชีนี้จะถูกแก้ไขด้วย",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(40)),),),
           Container(
             color: Colors.white,
             child: Container(
@@ -46,13 +51,17 @@ class _EditPhoneViewState extends State<EditPhoneView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("หมายเลขโทรศัพท์เดิม xxxxxx0987 ",style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(50))),
-                  SizedBox(height: 20,),
+                  Text("ยืนยันรหัสผ่านใหม่",
+                    style: GoogleFonts.sarabun(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 15,),
                   BuildEditText(
-                      head: "กรุณาใส่หมายเลขใหม่เพื่อรับ OTP",
-                      hint: "หมายเลขโทรศัพท์ใหม่",maxLength: 10,controller: PhoneController,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
+                      head: "รหัสผ่านใหม่",
+                      hint: "ระบุรหัสผ่าน",maxLength: 10,controller: EmailController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
                     setState(() {});
-                    }),
+                  }),
+                  SizedBox(height: 20,),
+
                 ],
               ),
             ),
@@ -86,6 +95,19 @@ class _EditPhoneViewState extends State<EditPhoneView> {
     // AppRoute.Home(context);
 
     //});
+
+    if(EmailController.text.length>=8 && EmailController.text.length<=12){
+      //AppRoute.EditEmail_Step3(context,EmailController.text);
+      FunctionHelper.SuccessDialog(context,message: "เปลี่ยนรหัสผ่านสำเร็จ",onClick: (){
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      });
+    }else{
+      setState(() {
+        onError = "ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป";
+      });
+    }
+
 
   }
 }
