@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class CreditAddView extends StatefulWidget {
   @override
@@ -18,9 +19,11 @@ class CreditAddView extends StatefulWidget {
 class _CreditAddViewState extends State<CreditAddView> {
   TextEditingController nameController = TextEditingController();
   TextEditingController exController = TextEditingController();
+  TextEditingController numCardController = TextEditingController();
   TextEditingController cvvController = TextEditingController();
   TextEditingController detailAddrController = TextEditingController();
   bool checkKeyBoard = false;
+  CardDetails _cardDetails;
   String errorNameTxt = "",errorDetailTxt = "",errorExTxt = "",errorCvvTxt = "";
 
   @override
@@ -84,9 +87,10 @@ class _CreditAddViewState extends State<CreditAddView> {
                                   ],
                                 ),
                                 onTap: () async {
-                                  var cardDetails = await CardScanner.scanCard();
-
-                                  print(cardDetails);
+                                  var status = await Permission.camera.request();
+                                  if (status == PermissionStatus.granted) {
+                                    scanCard();
+                                  }
                                 },
                               )
                             ],
@@ -95,6 +99,7 @@ class _CreditAddViewState extends State<CreditAddView> {
                         _buildLine(),
                         _buildDropDown(
                             title: "ประเภทบัตร", list: ["VISA", "VISA2"]),
+                        _buildEditCard(head: "หมายเลขบัตร", hint: "หมายเลขบัตร",controller: numCardController),
                         _buildEditCard(head: "วันหมดอายุ", hint: "MM/YY",controller: exController),
                         _buildError(errorTxt: errorExTxt),
                         _buildEditCard(head: "CVV", hint: "?",controller: cvvController),
@@ -107,7 +112,7 @@ class _CreditAddViewState extends State<CreditAddView> {
                         _buildDropDown(title: "รหัสไปรษณีย์", list: ["10400"]),
                         _buildEditCard(
                             head:
-                                "รายละเอียดที่อยู่ (ห้อง, บ้านเลขที่, ตึก, ถนน)",
+                            "รายละเอียดที่อยู่ (ห้อง, บ้านเลขที่, ตึก, ถนน)",
                             hint: "612/399 A space condo ชั้น 4",controller: detailAddrController),
                         _buildError(errorTxt: errorDetailTxt),
                         Container(
@@ -159,6 +164,7 @@ class _CreditAddViewState extends State<CreditAddView> {
       color: Colors.white,
       child: BuildEditText(
           head: head,
+
           EnableMaxLength: false,
           hint: hint,
           controller: controller,
@@ -248,4 +254,32 @@ class _CreditAddViewState extends State<CreditAddView> {
       });
     }else{errorCvvTxt = "";}
   }
+
+
+  Future<void> scanCard() async {
+    String newCreditNum="";
+
+    var cardDetails =
+    await CardScanner.scanCard(scanOptions: CardScanOptions(scanCardHolderName: true));
+
+    if (!mounted) return;
+    setState(() {
+      _cardDetails = cardDetails;
+      print(_cardDetails);
+      exController.text = _cardDetails.expiryDate;
+      nameController.text = _cardDetails.cardIssuer;
+      /*for(int i= 0;i<_cardDetails.cardNumber.toString().length;i++){
+        newCreditNum +=  _cardDetails.cardNumber.toString().ch;
+      if(i==4){
+        newCreditNum += " ";
+      }
+      }*/
+      // newCreditNum +=  _cardDetails.cardNumber.toString().substring(0,4);
+
+      //numCardController.text = _cardDetails.cardNumber;
+      numCardController.text =  _cardDetails.cardNumber;
+    });
+  }
+
+
 }
