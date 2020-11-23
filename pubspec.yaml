@@ -69,6 +69,7 @@ dependencies:
   nuts_activity_indicator: ^0.1.1
   flutter_countdown_timer: ^1.4.0
   card_scanner: ^0.2.0+3
+  permission_handler: ^5.0.1+1
 
 
 dev_dependencies:
