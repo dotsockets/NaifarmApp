@@ -1,4 +1,4 @@
-import 'package:card_scanner/card_scanner.dart';
+
 import 'package:custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class _CreditAddViewState extends State<CreditAddView> {
   TextEditingController cvvController = TextEditingController();
   TextEditingController detailAddrController = TextEditingController();
   bool checkKeyBoard = false;
-  CardDetails _cardDetails;
+  //CardDetails _cardDetails;
   String errorNameTxt = "",errorDetailTxt = "",errorExTxt = "",errorCvvTxt = "";
 
   @override
@@ -90,7 +90,7 @@ class _CreditAddViewState extends State<CreditAddView> {
                                 onTap: () async {
                                   var status = await Permission.camera.request();
                                   if (status == PermissionStatus.granted) {
-                                    scanCard();
+                                    //scanCard();
                                   }
                                 },
                               )
@@ -257,30 +257,30 @@ class _CreditAddViewState extends State<CreditAddView> {
   }
 
 
-  Future<void> scanCard() async {
-    String newCreditNum="";
-
-    var cardDetails =
-    await CardScanner.scanCard(scanOptions: CardScanOptions(scanCardHolderName: true));
-
-    if (!mounted) return;
-    setState(() {
-      _cardDetails = cardDetails;
-      print(_cardDetails);
-      exController.text = _cardDetails.expiryDate;
-      nameController.text = _cardDetails.cardIssuer;
-      /*for(int i= 0;i<_cardDetails.cardNumber.toString().length;i++){
-        newCreditNum +=  _cardDetails.cardNumber.toString().ch;
-      if(i==4){
-        newCreditNum += " ";
-      }
-      }*/
-      // newCreditNum +=  _cardDetails.cardNumber.toString().substring(0,4);
-
-      //numCardController.text = _cardDetails.cardNumber;
-      numCardController.text =  _cardDetails.cardNumber;
-    });
-  }
+  // Future<void> scanCard() async {
+  //   String newCreditNum="";
+  //
+  //   var cardDetails =
+  //   await CardScanner.scanCard(scanOptions: CardScanOptions(scanCardHolderName: true));
+  //
+  //   if (!mounted) return;
+  //   setState(() {
+  //     _cardDetails = cardDetails;
+  //     print(_cardDetails);
+  //     exController.text = _cardDetails.expiryDate;
+  //     nameController.text = _cardDetails.cardIssuer;
+  //     /*for(int i= 0;i<_cardDetails.cardNumber.toString().length;i++){
+  //       newCreditNum +=  _cardDetails.cardNumber.toString().ch;
+  //     if(i==4){
+  //       newCreditNum += " ";
+  //     }
+  //     }*/
+  //     // newCreditNum +=  _cardDetails.cardNumber.toString().substring(0,4);
+  //
+  //     //numCardController.text = _cardDetails.cardNumber;
+  //     numCardController.text =  _cardDetails.cardNumber;
+  //   });
+  // }
 
 
 }
