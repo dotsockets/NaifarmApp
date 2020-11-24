@@ -47,7 +47,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         ListMenuItem(
                           icon: '',
                           title: 'หน้าโปรไฟล์',
-                          onClick: ()=>AppRoute.EditProfile(context),
+                          onClick: () => AppRoute.EditProfile(context),
                         ),
                         _buildLine(),
                         ListMenuItem(
@@ -119,7 +119,9 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         ListMenuItem(
                           icon: '',
                           title: 'คำขอลบบัญชีผู้ใช้',
-                          onClick: () {showMyDialog(context);},
+                          onClick: () {
+                            showMyDialog(context);
+                          },
                         ),
                         _BuildButton()
                       ],
@@ -186,18 +188,43 @@ class _SettingProfileViewState extends State<SettingProfileView> {
       builder: (BuildContext context) {
         return Dialog(
           child: Container(
-
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                  Container(
-                      padding: EdgeInsets.all(15),
-                      child: Center(child: Text("เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หาคุณต้องการลบจะไม่สามารถกู้คืนได้",style: GoogleFonts.sarabun(fontSize: 16),textAlign: TextAlign.center,)))
-                ,Row(
+                Container(
+                    padding: EdgeInsets.all(15),
+                    child: Center(
+                        child: Text(
+                      "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หาคุณต้องการลบจะไม่สามารถกู้คืนได้",
+                      style: GoogleFonts.sarabun(fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ))),
+                Row(
                   children: [
-                  Expanded(child: Align(alignment: Alignment.center,child: Text("ยกเลิก",style: GoogleFonts.sarabun(fontSize: 16),))),
-                    Expanded(child: Align(alignment: Alignment.center,child: Text("ตกลง",style: GoogleFonts.sarabun(fontSize: 16))))],)
+                    Expanded(
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.grey.withOpacity(0.4)),
+                                ),
+                                child: Text(
+                                  "ยกเลิก",
+                                  style: GoogleFonts.sarabun(
+                                      fontSize: 16,
+                                      color: ThemeColor.ColorSale()),
+                                )))),
+                    Expanded(
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: Text("ตกลง",
+                                style: GoogleFonts.sarabun(
+                                    fontSize: 16,
+                                    color: ThemeColor.primaryColor()))))
+                  ],
+                )
               ],
             ),
           ),

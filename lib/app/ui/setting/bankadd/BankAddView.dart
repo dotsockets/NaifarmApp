@@ -18,7 +18,7 @@ class _BankAddViewState extends State<BankAddView> {
   TextEditingController nameController = TextEditingController();
   TextEditingController idController = TextEditingController();
 
-  String errorNameTxt = "", errorIdTxt = "";
+  String errorIdTxt = "";
 
   @override
   void initState() {
@@ -47,7 +47,6 @@ class _BankAddViewState extends State<BankAddView> {
                       hint: "ระบุชื่อ-นามสกุล",
                       controller: nameController,
                       type: TextInputType.text),
-                  _buildError(errorTxt: errorNameTxt),
                   _buildEditCard(
                       head: "เลขบัตรประชาชน",
                       hint: "ระบุเลขบัตรประชาชน",
@@ -75,7 +74,7 @@ class _BankAddViewState extends State<BankAddView> {
   Widget _buildError({String errorTxt}) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+      padding: EdgeInsets.only(left: 20, right: 20),
       color: Colors.white,
       child: Visibility(
         child: Text(
@@ -164,25 +163,12 @@ class _BankAddViewState extends State<BankAddView> {
   }
 
   void _checkError() {
-    if (nameController.text.isEmpty) {
-      setState(() {
-        errorNameTxt = "กรอกชื่อ-นามสกุล";
-      });
-    } else {
-      errorNameTxt = "";
-    }
-    if (idController.text.isEmpty) {
-      setState(() {
-        errorIdTxt = "กรอกเลขบัตรประชาชน";
-      });
-    } else {
-      if (idController.text.length != 13) {
+      if (idController.text.length != 13&&idController.text.isNotEmpty) {
         setState(() {
           errorIdTxt = "กรอกเลขบัตรประชาชน 13 หลัก";
         });
       } else {
         errorIdTxt = "";
       }
-    }
   }
 }

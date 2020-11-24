@@ -183,15 +183,10 @@ class ProductViewModel {
           product_status: 'ขายได้ 4589 ชิ้น',
           product_image:
               'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU'),
+
       ProductModel(
           product_name: 'อโวกาโก้ ภาคเหนือ',
-          product_price: 100,
-          product_status: 'ขายได้ 4589 ชิ้น',
-          product_image:
-              'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg'),
-      ProductModel(
-          product_name: 'อโวกาโก้ ภาคเหนือ',
-          product_price: 100,
+          product_price: 120,
           product_status: 'ขายได้ 4589 ชิ้น',
           product_image:
               'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg'),

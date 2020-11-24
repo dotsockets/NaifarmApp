@@ -27,15 +27,16 @@ class ReviewView extends StatelessWidget {
         onClick: () {},
       ),
       body: Container(
-        child: Column(
-          children: [
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
 
-            _Header(item: ProductViewModel().getHistorySuccess()[0],index: 0,context: context),
-            SizedBox(height: 10,),
-            _BuildForm(context),
-            SizedBox(height: 30,),
-            _buildBtnSend()
-          ],
+              _Header(item: ProductViewModel().getHistorySuccess()[0],index: 0,context: context),
+              SizedBox(height: 10,),
+              _BuildForm(context),
+              _buildBtnSend()
+            ],
+          ),
         ),
       ),
     );
@@ -53,7 +54,6 @@ class ReviewView extends StatelessWidget {
             children: [
               Text("หมายเลขคำสั่งซื้อ",style: GoogleFonts.sarabun(fontSize: 16,fontWeight: FontWeight.bold),),
               Text("09988203dergd4",style: GoogleFonts.sarabun(fontSize: 16,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),),
-
             ],
           ),
           SizedBox(height: 10,),
@@ -232,7 +232,7 @@ class ReviewView extends StatelessWidget {
 
   Widget _buildBtnSend({Function() onClick}){
     return Container(
-
+      margin: EdgeInsets.only(top: 20,bottom: 20),
       child: FlatButton(
         color: ThemeColor.secondaryColor(),
         textColor: Colors.white,
