@@ -31,7 +31,6 @@ class MyShophistoryView extends StatelessWidget {
           Title: "ประวัติการขาย",
           header_type: Header_Type.barNormal,
           icon: '',
-          onClick: () {},
         ),
         body: SafeArea(
           child: Container(
@@ -63,7 +62,6 @@ class MyShophistoryView extends StatelessWidget {
                 // create widgets for each tab bar here
                 Expanded(
                   child: TabBarView(
-
                     children: [
                       PaidView(),
                       ShippedView(),

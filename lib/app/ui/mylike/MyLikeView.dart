@@ -16,9 +16,7 @@ class MyLikeView extends StatelessWidget {
         body: SingleChildScrollView(
             child: Container(
               child: StickyHeader(
-                header:  AppToobar(Title: "สิ่งที่ถูกใจ",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',onClick: (){
-
-                },),
+                header:  AppToobar(Title: "สิ่งที่ถูกใจ",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg'),
                 content: ProductGrid(
                   producViewModel: ProductViewModel().getMarketRecommend(),
                   IconInto: 'assets/images/svg/like.svg',

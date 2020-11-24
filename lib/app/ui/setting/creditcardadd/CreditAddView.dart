@@ -27,6 +27,7 @@ class _CreditAddViewState extends State<CreditAddView> {
   //CardDetails _cardDetails;
   String errorNameTxt = "",errorDetailTxt = "",errorExTxt = "",errorCvvTxt = "";
 
+
   @override
   void initState() {
     super.initState();
@@ -61,7 +62,7 @@ class _CreditAddViewState extends State<CreditAddView> {
                         _buildEditCard(
                             head: "ชื่อที่ปรากฎบนบัตร",
                             hint: "ระบุชื่อที่ปรากฎบนบัตร",controller: nameController),
-                        _buildError(errorTxt: errorNameTxt),
+
                         Container(
                           padding: EdgeInsets.only(
                               top: 10, left: 20, right: 20, bottom: 10),
@@ -102,9 +103,7 @@ class _CreditAddViewState extends State<CreditAddView> {
                             title: "ประเภทบัตร", list: ["VISA", "VISA2"]),
                         _buildEditCard(head: "หมายเลขบัตร", hint: "หมายเลขบัตร",controller: numCardController),
                         _buildEditCard(head: "วันหมดอายุ", hint: "MM/YY",controller: exController),
-                        _buildError(errorTxt: errorExTxt),
                         _buildEditCard(head: "CVV", hint: "?",controller: cvvController),
-                        _buildError(errorTxt: errorCvvTxt),
                         _buildDropDown(
                             title: "จังหวัด",
                             list: ["กรุงเทพมหานคร", "เชียงใหม่"]),
@@ -115,7 +114,6 @@ class _CreditAddViewState extends State<CreditAddView> {
                             head:
                             "รายละเอียดที่อยู่ (ห้อง, บ้านเลขที่, ตึก, ถนน)",
                             hint: "612/399 A space condo ชั้น 4",controller: detailAddrController),
-                        _buildError(errorTxt: errorDetailTxt),
                         Container(
                           color: Colors.white, height: 20,)
                       ],
@@ -228,32 +226,9 @@ class _CreditAddViewState extends State<CreditAddView> {
       ),
     );
   }
+
   void _checkError(){
-    if(nameController.text.isEmpty){
-      setState(() {
-        errorNameTxt = "กรอกชื่อที่ปรากฎบนบัตร";
-      });
-    }else{errorNameTxt = "";}
 
-
-    if(detailAddrController.text.isEmpty){
-      setState(() {
-        errorDetailTxt = "กรอกรายละเอียดที่อยู๋";
-      });
-    }else{errorDetailTxt = "";}
-
-
-    if(exController.text.isEmpty){
-      setState(() {
-        errorExTxt = "กรอกวันหมดอายุ";
-      });
-    }else{errorExTxt = "";}
-
-    if(cvvController.text.isEmpty){
-      setState(() {
-        errorCvvTxt = "กรอก CVV";
-      });
-    }else{errorCvvTxt = "";}
   }
 
 

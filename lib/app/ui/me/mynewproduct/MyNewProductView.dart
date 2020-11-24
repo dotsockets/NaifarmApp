@@ -62,7 +62,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             BuildEditText(
-                                head: "ชื่อสินค้า * ",
+                                head: "ชื่อสินค้า * ",EnableMaxLength: true,
                                 hint: "กรอกชื่อสินค้า",maxLength: 10,controller: nameProductController,inputType: TextInputType.text),
                             SizedBox(height: 15,),
                             _BuildDropdown (
@@ -70,7 +70,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                 hint: "เลือกหมวดหมู่",dataList: listType),
                             SizedBox(height: 15,),
                             BuildEditText(
-                                head: "รายละเอียดสินค้า * ",maxLength: 5000,
+                                head: "รายละเอียดสินค้า * ",EnableMaxLength: true,maxLength: 5000,
                                 hint: "กรอกรายละเอียดสินค้า",maxLine: 5,controller: detailtController,inputType: TextInputType.text),
                             SizedBox(height: 15,),
                             _BuildDropdown(
@@ -177,7 +177,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   Widget _BuildButtonItem({String btnTxt}) {
     return FlatButton(
      height: 50,
-        color: nameProductController.text.length!=0&&detailtController.text.length!=0&&priceController.text.length!=0&&amountController.text.length!=0
+        color: nameProductController.text.isNotEmpty&&detailtController.text.isNotEmpty&&priceController.text.isNotEmpty&&amountController.text.isNotEmpty
             ?ThemeColor.secondaryColor():Colors.grey.shade400,
         textColor: Colors.white,
         splashColor: Colors.white.withOpacity(0.3),

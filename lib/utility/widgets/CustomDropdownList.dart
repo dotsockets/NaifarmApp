@@ -31,7 +31,7 @@ class _CustomDropdownListState extends State<CustomDropdownList> {
         )
       ),
       onTap: (){
-        Platform.isAndroid?FunctionHelper.DropDownIOS(context,widget.dataList,onTap:(int index){}):FunctionHelper.DropDownIOS(context,widget.dataList,onTap:(int index){});
+        Platform.isAndroid?FunctionHelper.DropDownAndroid(context,widget.dataList,onTap:(int index){}):FunctionHelper.DropDownIOS(context,widget.dataList,onTap:(int index){});
       },
     );
   }

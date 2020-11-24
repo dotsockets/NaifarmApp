@@ -48,7 +48,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         ListMenuItem(
                           icon: '',
                           title: 'หน้าโปรไฟล์',
-                          onClick: ()=>AppRoute.EditProfile(context),
+                          onClick: () => AppRoute.EditProfile(context),
                         ),
                         _buildLine(),
                         ListMenuItem(
@@ -120,7 +120,9 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         ListMenuItem(
                           icon: '',
                           title: 'คำขอลบบัญชีผู้ใช้',
-                          onClick: () {showMyDialog(context);},
+                          onClick: () {
+                            showMyDialog(context);
+                          },
                         ),
                         _BuildButton()
                       ],
@@ -187,7 +189,6 @@ class _SettingProfileViewState extends State<SettingProfileView> {
       builder: (BuildContext context) {
         return Dialog(
           child: Container(
-
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,

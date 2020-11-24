@@ -255,7 +255,8 @@ class _EditProductViewState extends State<EditProductView> {
 
   Widget _buildButtonSave({String btnTxt}) {
     return FlatButton(
-      color: ThemeColor.secondaryColor(),
+      color: nameProductController.text.isNotEmpty&&detailtController.text.isNotEmpty&&priceController.text.isNotEmpty&&amountController.text.isNotEmpty
+          ?ThemeColor.secondaryColor():Colors.grey.shade400,
       textColor: Colors.white,
       height: 50,
       splashColor: Colors.white.withOpacity(0.3),
@@ -272,7 +273,8 @@ class _EditProductViewState extends State<EditProductView> {
 
   Widget _buildButtonDel({String btnTxt}) {
     return FlatButton(
-      color: ThemeColor.ColorSale(),
+      color: nameProductController.text.isNotEmpty&&detailtController.text.isNotEmpty&&priceController.text.isNotEmpty&&amountController.text.isNotEmpty
+          ?ThemeColor.ColorSale():Colors.grey.shade400,
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),
       height: 50,

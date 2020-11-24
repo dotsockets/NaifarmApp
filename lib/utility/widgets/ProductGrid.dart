@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,12 +33,12 @@ class ProductGrid extends StatelessWidget {
       this.producViewModel,
       this.EnableHeader = true,
       this.tagHero,
-      this.FlashSallLabel = false, this.isLike= false})
+      this.FlashSallLabel = false,
+      this.isLike = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
         width: MediaQuery.of(context).size.width,
         color: Colors.white,
@@ -46,16 +47,7 @@ class ProductGrid extends StatelessWidget {
             EnableHeader ? _header_bar() : SizedBox(),
             _buildCardProduct(context: context)
           ],
-        ) /*Column(
-        children: [
-          _header_bar(),
-          _buildCardProduct(),
-         /* Column(
-            children: List.generate( producViewModel.length,(index) => _buildCardProduct(item: producViewModel[index], index: index)),
-          )*/
-        ],
-      ),*/
-        );
+        ));
   }
 
   Container _header_bar() => Container(
@@ -65,8 +57,6 @@ class ProductGrid extends StatelessWidget {
           children: [
             Row(
               children: [
-                // Image.asset(IconI=nto,width: 50,height: 50,),
-
                 SvgPicture.asset(
                   IconInto,
                   width: 30,
@@ -85,30 +75,28 @@ class ProductGrid extends StatelessWidget {
       );
 
   Widget _buildCardProduct({BuildContext context}) {
-    var _crossAxisSpacing = 100;
-    var _screenWidth = MediaQuery.of(context).size.width;
-    var _crossAxisCount = 2;
-    var _width = (_screenWidth - ((_crossAxisCount - 1) * _crossAxisSpacing)) /
-        _crossAxisCount;
-    var cellHeight = ScreenUtil().setHeight(500);
-    var _aspectRatio = _width / cellHeight;
     return Container(
-      padding: EdgeInsets.all(10),
-      child: GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: producViewModel.length,
-        padding: EdgeInsets.only(top: 10),
-        shrinkWrap: true,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: _crossAxisCount, childAspectRatio: _aspectRatio),
-        itemBuilder: (context, index) {
-          return Container(
-            child: _buildProduct(item: producViewModel[index], index: index,context: context),
-          );
-        },
-      ),
+      margin: EdgeInsets.only(top: 10),
+      child: ItemRow(context),
     );
   }
+
+  Container ItemRow(BuildContext context) => Container(
+    child: Column(
+        children: [
+            for( int i=0;i<producViewModel.length;i+=2)
+              Container(
+                padding: EdgeInsets.only(left: 10,right: 10),
+                margin: EdgeInsets.only(bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: List.generate(Check(i), (index) => _buildProduct(index: i+index,item: producViewModel[i+index],context: context)),
+                ),
+              )
+          ],
+        ),
+  );
+
 
   Widget _FlashintoProduct({ProductModel item, int index}) {
     return Container(
@@ -205,28 +193,30 @@ class ProductGrid extends StatelessWidget {
     );
   }
 
-  Widget _buildProduct({ProductModel item, int index,BuildContext context}) {
+  Widget _buildProduct({ProductModel item, int index, BuildContext context}) {
     return GestureDetector(
       child: Container(
-        padding: EdgeInsets.only(right: 10, left: 5),
+        width: (MediaQuery.of(context).size.width / 2)-15,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Stack(
               children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.all(35),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Colors.black.withOpacity(0.2), width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Hero(
-                    tag: "${tagHero}_${index}",
+                Hero(
+                  tag: "${tagHero}_${index}",
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.all(30),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.black.withOpacity(0.2), width: 1),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: CachedNetworkImage(
                       width: 120,
                       height: 120,
                       placeholder: (context, url) => Container(
+                        width: 120,
+                        height: 120,
                         color: Colors.white,
                         child:
                             Lottie.asset(Env.value.loadingAnimaion, height: 30),
@@ -254,18 +244,20 @@ class ProductGrid extends StatelessWidget {
                           left: 10, right: 10, top: 5, bottom: 5),
                       child: Text(
                         "50%",
-                        style: FunctionHelper.FontTheme(
+                        style: GoogleFonts.sarabun(
                             color: Colors.white, fontWeight: FontWeight.bold,fontSize: ScreenUtil().setSp(40)),
                       ),
                     ),
-                    isLike?Container(
-                        margin: EdgeInsets.only(right: 15,top: 7),
-                        child: SvgPicture.asset(
-                      'assets/images/svg/like_line.svg',
-                      width: 35,
-                      height: 35,
-                          color: ThemeColor.ColorSale(),
-                    )):SizedBox()
+                    isLike
+                        ? Container(
+                            margin: EdgeInsets.only(right: 15, top: 7),
+                            child: SvgPicture.asset(
+                              'assets/images/svg/like_line.svg',
+                              width: 35,
+                              height: 35,
+                              color: ThemeColor.ColorSale(),
+                            ))
+                        : SizedBox()
                   ],
                 )
               ],
@@ -282,4 +274,7 @@ class ProductGrid extends StatelessWidget {
       onTap: () => onTapItem(index),
     );
   }
+
+  int Check(int i)=>i!=producViewModel.length-1?2:1;
+
 }

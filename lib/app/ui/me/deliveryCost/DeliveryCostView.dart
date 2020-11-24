@@ -171,7 +171,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
 
   Widget _BuildButtonItem({String btnTxt}) {
     return FlatButton(
-      color: weightProductController.text.length!=0 && widthProductController.text.length!=0&&longProductController.text.length!=0&&heightProductController.text.length!=0?ThemeColor.secondaryColor():Colors.grey.shade400,
+      color: weightProductController.text.isNotEmpty && widthProductController.text.isNotEmpty&&longProductController.text.isNotEmpty&&heightProductController.text.isNotEmpty?ThemeColor.secondaryColor():Colors.grey.shade400,
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),
       shape: RoundedRectangleBorder(
