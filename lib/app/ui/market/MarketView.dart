@@ -109,10 +109,8 @@ class _MarketViewState extends State<MarketView> {
                       producViewModel: ProductViewModel().getMarketRecommend(),
                       IconInto: 'assets/images/svg/like.svg',
                       onSelectMore: () {
-
                       },
                       onTapItem: (int index) {
-
                         AppRoute.ProductDetail(context,
                             productImage: "market_farm_${index}");
                       },tagHero: 'market_farm' ),
@@ -125,24 +123,5 @@ class _MarketViewState extends State<MarketView> {
       ),
     );
 
-     /*
-      Scaffold(
-        backgroundColor: Colors.grey.shade300,
-        appBar: AppBar(
-            backgroundColor: ThemeColor.primaryColor(),
-            title: Text(
-              "สินค้า Naifarm ฟาร์มมาร์เก็ต",
-              style: FunctionHelper.FontTheme(color: Colors.black),
-          ),
-        ),
-      );
-     /* body:
-      ),*/
-*/
-
-
-
-
-   // );
   }
 }

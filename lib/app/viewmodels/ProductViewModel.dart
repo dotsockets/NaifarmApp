@@ -183,7 +183,6 @@ class ProductViewModel {
           product_status: 'ขายได้ 4589 ชิ้น',
           product_image:
               'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU'),
-
       ProductModel(
           product_name: 'อโวกาโก้ ภาคเหนือ',
           product_price: 120,
@@ -242,7 +241,6 @@ class ProductViewModel {
             'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg',
         amoutProduct: "300",
         provice: "ลำพูน",
-
       ),
       ProductModel(
         product_name: 'ผักสดๆจากไร่',
@@ -256,18 +254,18 @@ class ProductViewModel {
     ];
   }
 
-
   List<ProductModel> getHistorySale() {
     return [
       ProductModel(
-        shopName: "ไร่มอนหลวงสาย",
+          shopName: "ไร่มอนหลวงสาย",
           product_name: 'ชุดอุปกรณ์ดูแลฟาร์ม ปลูกผัก',
           product_price: 100,
           product_status: 'รอชำระเงิน',
           ProductDicount: 140,
-          ProfiletImage: "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
+          ProfiletImage:
+              "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
           product_image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU',
           amoutProduct: "2"),
       ProductModel(
           shopName: "ไร่มอนหลวงสาย",
@@ -275,19 +273,21 @@ class ProductViewModel {
           product_price: 100,
           product_status: 'รอชำระเงิน',
           ProductDicount: 140,
-          ProfiletImage: "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
+          ProfiletImage:
+              "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
           product_image:
-          'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg',
+              'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg',
           amoutProduct: "3"),
       ProductModel(
           shopName: "ไร่มอนหลวงสาย",
           product_name: 'ผักสดๆจากไร่',
           product_price: 100,
           product_status: 'รอชำระเงิน',
-          ProfiletImage: "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
+          ProfiletImage:
+              "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
           ProductDicount: 140,
           product_image:
-          'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg',
+              'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg',
           amoutProduct: "2"),
     ];
   }
@@ -300,9 +300,10 @@ class ProductViewModel {
           product_price: 100,
           product_status: 'จัดส่งสำเร็จ',
           ProductDicount: 140,
-          ProfiletImage: "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
+          ProfiletImage:
+              "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
           product_image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU',
           amoutProduct: "2"),
       ProductModel(
           shopName: "ไร่มอนหลวงสาย",
@@ -310,21 +311,66 @@ class ProductViewModel {
           product_price: 100,
           product_status: 'ให้คะแนนแล้ว',
           ProductDicount: 140,
-          ProfiletImage: "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
+          ProfiletImage:
+              "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
           product_image:
-          'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg',
+              'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg',
           amoutProduct: "3"),
       ProductModel(
           shopName: "ไร่มอนหลวงสาย",
           product_name: 'ผักสดๆจากไร่',
           product_price: 100,
           product_status: 'ให้คะแนนแล้ว',
-          ProfiletImage: "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
+          ProfiletImage:
+              "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
           ProductDicount: 140,
           product_image:
-          'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg',
+              'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg',
           amoutProduct: "2"),
     ];
   }
-  
+
+  List<ProductModel> getVegetableChilli() {
+    return [
+      ProductModel(
+          product_name: 'พริกจินดา',
+          product_price: 10,
+          product_status: 'ขายได้ 4,589 ชิ้น',
+          product_image:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU'),
+      ProductModel(
+          product_name: 'พริกชีฟ้า',
+          product_price: 10,
+          product_status: 'ขายได้ 1,589 ชิ้น',
+          product_image:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU'),
+      ProductModel(
+          product_name: 'พริกแห้ง',
+          product_price: 30,
+          product_status: 'ขายได้ 1,009 ชิ้น',
+          product_image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU')
+    ];
+  }
+
+  List<ProductModel> getVegetable1() {
+    return [
+      ProductModel(
+          product_name: 'ผักบุ้ง',
+          product_price: 10,
+          product_status: 'ขายได้ 4,589 ชิ้น',
+          product_image:
+              'https://www.trueplookpanya.com/data/product/uploads/other5/shutterstock_166543490.jpg'),
+      ProductModel(
+          product_name: 'ผักบุ้งจีน',
+          product_price: 10,
+          product_status: 'ขายได้ 1,589 ชิ้น',
+          product_image:
+              'https://www.trueplookpanya.com/data/product/uploads/other5/shutterstock_166543490.jpg'),
+      ProductModel(
+          product_name: 'ผักบุ้งไทย',
+          product_price: 30,
+          product_status: 'ขายได้ 1,009 ชิ้น',
+          product_image: 'https://www.trueplookpanya.com/data/product/uploads/other5/shutterstock_166543490.jpg'),
+    ];
+  }
 }

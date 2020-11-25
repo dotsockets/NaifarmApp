@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
@@ -13,9 +14,10 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 
 class CategoryView extends StatelessWidget {
-  final List<MenuModel> _menuViewModel = MenuViewModel().getMenustype();
   @override
+  final List<MenuModel> _menuViewModel = MenuViewModel().getMenustype();
   Widget build(BuildContext context) {
+    _menuViewModel.removeAt(0);
     return Scaffold(
       backgroundColor: Colors.white,
     body: SingleChildScrollView(
@@ -32,31 +34,60 @@ class CategoryView extends StatelessWidget {
 
 
   Widget _content({BuildContext context}){
-    var _crossAxisSpacing = 75;
-    var _screenWidth = MediaQuery.of(context).size.width;
-    var _crossAxisCount = 4;
-    var _width = ( _screenWidth - ((_crossAxisCount - 1) * _crossAxisSpacing)) / _crossAxisCount;
-    var cellHeight = ScreenUtil().setHeight(150);
-    var _aspectRatio = _width /cellHeight;
-    return Container(
-      padding: EdgeInsets.all(20),
-      child: GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: _menuViewModel.length-1,
-        padding: EdgeInsets.only(top: 10),
-        shrinkWrap: true,
-        gridDelegate:
-        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: _crossAxisCount,childAspectRatio: _aspectRatio,mainAxisSpacing: 20,crossAxisSpacing:10),
-        itemBuilder: (context,index){
-          return Container(
-            child:_ProductImage(item: _menuViewModel[index+1],index: index),
-          );
-        },
-      ),
-    );
+   return Container(
+     padding: EdgeInsets.all(10),
+     child: Column(
+       children: [
+         Column(
+           children: item((_menuViewModel.length/4).floor(),4,context),
+         ),
+         Column(
+           children: item(1,(_menuViewModel.length/4).floor()*4,context),
+         )
+       ],
+     ),
+   );
   }
 
-  Widget _ProductImage({MenuModel item,int index}){
+
+
+  List<Widget> item(int con,int count,BuildContext context){
+    var data = List<Widget>();
+    var j=0;
+    int n = ((_menuViewModel.length/4).floor()*4)+4-_menuViewModel.length;
+    for( int i=0;i<(con);i++){
+      j+=4;
+      data.add(
+          Container(
+            padding: EdgeInsets.only(left: 10,right: 10),
+            margin: EdgeInsets.only(bottom: 20),
+            child: con!=1?Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  for( int i=count;i>=1;i--)
+                    _ProductImage(item: _menuViewModel[j-i],index: j-1,context: context)
+                ]
+            ):Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  for( int i=count;i<_menuViewModel.length;i++)
+                    _ProductImage(item: _menuViewModel[i],index: i,context: context),
+
+                  if(_menuViewModel.length%4!=0)
+                    for( int i=0;i<n;i++)
+                      SizedBox(width:SizeUtil.categoryBox(),
+                        height: SizeUtil.categoryBox(),)
+
+
+                ]
+            ),
+          )
+      );
+    }
+    return data;
+  }
+
+  Widget _ProductImage({MenuModel item,int index,BuildContext context}){
     return InkWell(
       child: Container(
         child: Column(
@@ -88,10 +119,19 @@ class CategoryView extends StatelessWidget {
         ),
       ),
       onTap: (){
-        print("click");
+       // print(index);
+        for (int i=0;i<_menuViewModel.length;i++){
+           if(_menuViewModel[i].type==item.type){
+             AppRoute.CategoryVegetable(context,i);
+             break;
+           }
+
+        }
+
+       // AppRoute.CategoryVegetable(context,_menuViewModel[].type);
       },
     );
   }
-
+  int Check(int i)=>i!=_menuViewModel.length-1?4:1;
 
 }
