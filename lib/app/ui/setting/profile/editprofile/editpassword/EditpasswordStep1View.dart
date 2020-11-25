@@ -55,7 +55,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                 children: [
                   BuildEditText(
                       head: "รหัสผ่านเดิม",
-                      hint: "ระบุรหัสผ่าน",maxLength: 10,controller: PassController,onError: onError,IsPassword: true,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
+                      hint: "ระบุรหัสผ่าน",maxLength: 10,controller: PassController,onError: onError,IsPassword: true,inputType: TextInputType.text,BorderOpacity: 0.2,onChanged: (String char){
                     setState(() {});
                   }),
                   SizedBox(height: 20,),

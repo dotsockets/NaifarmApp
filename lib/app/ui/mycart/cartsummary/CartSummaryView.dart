@@ -12,6 +12,7 @@ import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/ui/mycart/widget/ModalFitBottom_Sheet.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 
 class CartSummaryView extends StatefulWidget {
@@ -39,13 +40,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         key: _scaffoldKey,
         backgroundColor:
             _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-        appBar: AppBar(
-          backgroundColor: ThemeColor.primaryColor(),
-          title: Text(
-            "ทำการสั่งซื้อ",
-            style: FunctionHelper.FontTheme(color: Colors.black),
-          ),
-        ),
+        appBar:AppToobar(Title: "ทำการสั่งซื้อ",header_type: Header_Type.barNormal,icon: "",),
         body: Column(
           children: [
             Expanded(

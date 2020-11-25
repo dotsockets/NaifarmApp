@@ -90,7 +90,7 @@ class AppToobar extends PreferredSize {
        backgroundColor: ThemeColor.primaryColor(),
        title: Text(
          Title,
-         style: FunctionHelper.FontTheme(color: Colors.black,fontSize: ScreenUtil().setSp(50)),
+         style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18),
        ),
      ),
    );

@@ -57,7 +57,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                   SizedBox(height: 10,),
                   BuildEditText(
                       head: "รหัสผ่าน",
-                      hint: "ระบุรหัสผ่าน",maxLength: 10,controller: PassController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
+                      hint: "ระบุรหัสผ่าน",maxLength: 10,controller: PassController,onError: onError,inputType: TextInputType.text,IsPassword: true,BorderOpacity: 0.2,onChanged: (String char){
                     setState(() {});
                   }),
                   SizedBox(height: 20,),

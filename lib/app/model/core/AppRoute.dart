@@ -275,10 +275,11 @@ class AppRoute{
   }
 
   static EditpasswordStep1(BuildContext context) {
-    Navigator.pushReplacement(context, PageTransition(
+    Navigator.push(context, PageTransition(
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
         child: EditpasswordStep1View()));
+
   }
 
   static EditpasswordStep2(BuildContext context) {

@@ -11,6 +11,7 @@ import 'package:naifarm/app/models/AddressModel.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class CartAaddressView extends StatefulWidget {
   @override
@@ -39,13 +40,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
         key: _scaffoldKey,
         backgroundColor:
             _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-        appBar: AppBar(
-          backgroundColor: ThemeColor.primaryColor(),
-          title: Text(
-            "ที่อยู่ของฉัน",
-            style: FunctionHelper.FontTheme(color: Colors.black),
-          ),
-        ),
+        appBar: AppToobar(Title: "ที่อยู่ของฉัน",header_type: Header_Type.barNormal,icon: "",),
         body: SingleChildScrollView(
           child: Column(
             children: [

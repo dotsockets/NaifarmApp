@@ -42,7 +42,16 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        Title: "เปลี่ยนอีเมล", header_type: Header_Type.barNormal,),
+        Title: "เปลี่ยนอีเมล", header_type: Header_Type.barNormal,onClick: (){
+        FunctionHelper.ConfirmDialog(context,
+            message: "คุณต้องการออกจากการเปลี่ยนแปลงอีเมล์ใช่หรือไม่",
+            onClick: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            }, onCancel: () {
+              Navigator.of(context).pop();
+            });
+      },),
       body: Column(
         children: [
         Container(

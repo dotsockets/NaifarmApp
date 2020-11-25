@@ -67,7 +67,6 @@ class _ShopMainViewState extends State<ShopMainView>
           Title: "ไร่มอนหลวงสาย",
           header_type: Header_Type.barNormal,
           icon: 'assets/images/svg/search.svg',
-          onClick: () {},
         ),
         body: DefaultTabController(
           length: 3,

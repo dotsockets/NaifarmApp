@@ -38,7 +38,7 @@ class EditProfileVIew extends StatelessWidget {
                       },
                     ),
                   ),
-                  expandedHeight: 200,
+                  expandedHeight: 220,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Container(
                       color: ThemeColor.primaryColor(),
@@ -81,7 +81,7 @@ class EditProfileVIew extends StatelessWidget {
                                     color: Colors.white,
                                     fontSize:  ScreenUtil().setSp(35),
                                     fontWeight: FontWeight.bold)),
-                          )
+                          ),
                         ],
                       ),
                     ),

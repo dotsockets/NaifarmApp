@@ -21,7 +21,6 @@ class FollowersView extends StatelessWidget {
         Title: "ผู้ติดตาม",
         header_type: Header_Type.barNormal,
         icon: 'assets/images/svg/search.svg',
-        onClick: () {},
       ),
       body: Container(
         color: Colors.white,

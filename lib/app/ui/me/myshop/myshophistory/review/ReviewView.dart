@@ -25,7 +25,6 @@ class ReviewView extends StatelessWidget {
         Title: "รีวิว",
         header_type: Header_Type.barNormal,
         icon: '',
-        onClick: () {},
       ),
       body: Container(
         child: SingleChildScrollView(
