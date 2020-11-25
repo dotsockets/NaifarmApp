@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/ui/category/vegetable/CategoryVegetableView.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
@@ -286,6 +287,12 @@ class AppRoute{
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
         child: EditpasswordStep2View()));
+  }
+  static CategoryVegetable(BuildContext context,int index){
+    Navigator.push(context, PageTransition(
+        duration: Duration(milliseconds: 300),
+        type: PageTransitionType.fade,
+        child: CategoryVegetableView(index: index)));
   }
 }
 

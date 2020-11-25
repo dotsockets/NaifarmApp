@@ -23,6 +23,7 @@ class ProductGrid extends StatelessWidget {
   final String tagHero;
   final bool FlashSallLabel;
   final bool isLike;
+  final bool showBorder;
 
   const ProductGrid(
       {Key key,
@@ -34,20 +35,26 @@ class ProductGrid extends StatelessWidget {
       this.EnableHeader = true,
       this.tagHero,
       this.FlashSallLabel = false,
-      this.isLike = false})
+      this.isLike = false,
+      this.showBorder = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        color: Colors.white,
-        child: Column(
-          children: [
-            EnableHeader ? _header_bar() : SizedBox(),
-            _buildCardProduct(context: context)
-          ],
-        ));
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(showBorder ? 40 : 0),
+          topRight: Radius.circular(showBorder ? 40 : 0)),
+      child: Container(
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: Column(
+            children: [
+              EnableHeader ? _header_bar() : SizedBox(),
+              _buildCardProduct(context: context)
+            ],
+          )),
+    );
   }
 
   Container _header_bar() => Container(
@@ -82,21 +89,25 @@ class ProductGrid extends StatelessWidget {
   }
 
   Container ItemRow(BuildContext context) => Container(
-    child: Column(
-        children: [
-            for( int i=0;i<producViewModel.length;i+=2)
+        child: Column(
+          children: [
+            for (int i = 0; i < producViewModel.length; i += 2)
               Container(
-                padding: EdgeInsets.only(left: 10,right: 10),
+                padding: EdgeInsets.only(left: 10, right: 10),
                 margin: EdgeInsets.only(bottom: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(Check(i), (index) => _buildProduct(index: i+index,item: producViewModel[i+index],context: context)),
+                  children: List.generate(
+                      Check(i),
+                      (index) => _buildProduct(
+                          index: i + index,
+                          item: producViewModel[i + index],
+                          context: context)),
                 ),
               )
           ],
         ),
-  );
-
+      );
 
   Widget _FlashintoProduct({ProductModel item, int index}) {
     return Container(
@@ -158,8 +169,8 @@ class ProductGrid extends StatelessWidget {
         ),
         Text(
           "฿${item.product_price}",
-          style:
-              FunctionHelper.FontTheme(color: ThemeColor.ColorSale(), fontSize: ScreenUtil().setSp(45)),
+          style: FunctionHelper.FontTheme(
+              color: ThemeColor.ColorSale(), fontSize: ScreenUtil().setSp(45)),
         ),
         SizedBox(
           height: 8,
@@ -196,7 +207,7 @@ class ProductGrid extends StatelessWidget {
   Widget _buildProduct({ProductModel item, int index, BuildContext context}) {
     return GestureDetector(
       child: Container(
-        width: (MediaQuery.of(context).size.width / 2)-15,
+        width: (MediaQuery.of(context).size.width / 2) - 15,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -245,7 +256,9 @@ class ProductGrid extends StatelessWidget {
                       child: Text(
                         "50%",
                         style: GoogleFonts.sarabun(
-                            color: Colors.white, fontWeight: FontWeight.bold,fontSize: ScreenUtil().setSp(40)),
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: ScreenUtil().setSp(40)),
                       ),
                     ),
                     isLike
@@ -275,6 +288,5 @@ class ProductGrid extends StatelessWidget {
     );
   }
 
-  int Check(int i)=>i!=producViewModel.length-1?2:1;
-
+  int Check(int i) => i != producViewModel.length - 1 ? 2 : 1;
 }

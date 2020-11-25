@@ -34,59 +34,109 @@ class MenuViewModel {
   List<MenuModel> getMenustype() {
     return [
       MenuModel(
+        type: 1,
         icon: '',
         iconSelected: '',
         label: "แนะนำ",
       ),
       MenuModel(
+        type: 2,
         icon:
             'https://i.pinimg.com/474x/23/62/82/236282008edd75a537efb8e2466523fc.jpg',
         iconSelected: '',
         label: "พืช",
       ),
       MenuModel(
+        type: 3,
         icon: 'https://fbi.dek-d.com/27/0562/0008/121605209',
         iconSelected: '',
         label: "ไร่",
       ),
       MenuModel(
+        type: 4,
         icon:
-            'https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg',
+            'https://lh3.googleusercontent.com/proxy/vH8Hid1HPJGBXf0drhMJsvZWyUSiRVUwZ5fgZrMEsSiCD8myZG2Zt_KW1NK9D9jiDkm3-plLwkbQ1o-nBynfrX5QAUriaM1kQd4HmG89pJaLNpVXUno3yd6FS4MzSg',
         iconSelected: '',
         label: "ปศุสัตว์",
       ),
       MenuModel(
+        type: 5,
         icon: 'https://cf.shopee.co.th/file/c8153734422a141d410e1f3a3a7c8ae6',
         iconSelected: '',
         label: "ไม้เศรษฐกิจ",
       ),
       MenuModel(
+        type: 6,
         icon: 'https://www.chaipat.or.th/images/Media/rice-1594612_960_720.jpg',
         iconSelected: '',
         label: "ข้าว",
       ),
       MenuModel(
+        type: 7,
         icon:
             'https://www.kasetkaoklai.com/home/wp-content/uploads/2019/08/136251.jpg',
         iconSelected: '',
         label: "ประมง",
       ),
       MenuModel(
+        type: 8,
         icon:
             'https://obs.line-scdn.net/0hNNWq9Dm-EWFqCD74AgFuNlBeEg5ZZAJiDj5AYjZmT1VPbwIwUmoKD0kKH1VPb1Y_BGZXA0cIClBBOgY-BGsK/w644',
         iconSelected: '',
         label: "เนื้อสัตว์",
       ),
       MenuModel(
+        type: 9,
         icon: 'https://dd.lnwfile.com/_/dd/_raw/ie/pe/k7.jpg',
         iconSelected: '',
         label: "ปุ๋ยและยา",
       ),
       MenuModel(
+        type: 10,
         icon:
-        'https://ktw.co.th/content/images/thumbs/0364748_hsd1g-80c-รื่รนิน-สร์ทมื-new_300.jpeg',
+            'https://ktw.co.th/content/images/thumbs/0364748_hsd1g-80c-รื่รนิน-สร์ทมื-new_300.jpeg',
         iconSelected: '',
         label: "เครื่องมือ",
+      )
+    ];
+  }
+
+  List<MenuModel> getMenusVegetable() {
+    return [
+      MenuModel(
+        icon: '',
+        iconSelected: '',
+        label: "แนะนำ",
+      ),
+      MenuModel(
+        icon: '',
+        iconSelected: '',
+        label: "ผักบุ้ง",
+      ),
+      MenuModel(
+        icon: '',
+        iconSelected: '',
+        label: "พริก",
+      ),
+      MenuModel(
+        icon: '',
+        iconSelected: '',
+        label: "คะน้า",
+      ),
+      MenuModel(
+        icon: '',
+        iconSelected: '',
+        label: "แตงกวา",
+      ),
+      MenuModel(
+        icon: '',
+        iconSelected: '',
+        label: "มะขาม",
+      ),
+      MenuModel(
+        icon: '',
+        iconSelected: '',
+        label: "ผักกาด",
       ),
     ];
   }

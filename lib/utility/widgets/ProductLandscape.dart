@@ -20,9 +20,11 @@ class ProductLandscape extends StatelessWidget {
   final String IconInto;
   final List<ProductModel> producViewModel;
   final String tagHero;
+  final bool showIcon;
+  final bool showPriceSale;
 
 
-  const ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero}) : super(key: key);
+  const ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true}) : super(key: key);
 
 
   @override
@@ -50,7 +52,8 @@ class ProductLandscape extends StatelessWidget {
           children: [
             Row(
               children: [
-                SvgPicture.asset(IconInto,width: 30,height: 30,),
+                Visibility(child: SvgPicture.asset(IconInto,width: 30,height: 30,),visible: showIcon,
+                ),
                 SizedBox(width: 8),
                 Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
               ],
@@ -60,7 +63,6 @@ class ProductLandscape extends StatelessWidget {
                 GestureDetector(child: Text("ดูทั้งหมด",style: FunctionHelper.FontTheme(color: Colors.black,fontSize:  ScreenUtil().setSp(45),fontWeight: FontWeight.w500)),onTap: ()=>onSelectMore()),
                 SizedBox(width: 8),
                 SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
-
               ],
             )
           ],
@@ -115,16 +117,19 @@ class ProductLandscape extends StatelessWidget {
                 errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
               ),
             ),
-            Container(
-              margin: EdgeInsets.all(5),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5.0),
-                child: Container(
-                  padding: EdgeInsets.only(right: 8,left: 8,top: 3,bottom: 3),
-                  color: ThemeColor.ColorSale(),
-                  child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white),),
+            Visibility(
+              child: Container(
+                margin: EdgeInsets.all(5),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5.0),
+                  child: Container(
+                    padding: EdgeInsets.only(right: 8,left: 8,top: 3,bottom: 3),
+                    color: ThemeColor.ColorSale(),
+                    child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white),),
+                  ),
                 ),
               ),
+              visible: showPriceSale,
             )
           ],
         ),

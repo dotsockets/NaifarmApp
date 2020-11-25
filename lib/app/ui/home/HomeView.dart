@@ -22,7 +22,6 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   // print("ewwfcewf ${ScreenUtil().scaleWidth}");
   }
 
   @override
