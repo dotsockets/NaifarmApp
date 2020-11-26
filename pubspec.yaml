@@ -64,12 +64,12 @@ dependencies:
   custom_dropdown: ^0.0.2
   modal_bottom_sheet: ^1.0.1-dev
   keyboard_visibility: ^0.5.6
-  image_picker: ^0.6.0+9
   flutter_screenutil: ^3.1.0
   nuts_activity_indicator: ^0.1.1
   flutter_countdown_timer: ^1.4.0
+  image_picker: ^0.6.0+9
+  card_scanner: ^0.2.0+3
   permission_handler: ^5.0.1+1
-
 
 dev_dependencies:
   flutter_test:

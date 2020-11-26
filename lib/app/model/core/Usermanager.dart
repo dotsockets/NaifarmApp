@@ -1,6 +1,5 @@
 
 
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:naifarm/app/model/pojo/response/User.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -63,7 +62,7 @@ class Usermanager{
     _prefs.remove(PHONE);
     _prefs.remove(IMAGEURL);
     _prefs.remove(IS_LOGIN);
-    await FacebookLogin().logOut();
+   // await FacebookLogin().logOut();
 
    //return await Future<void>.delayed(Duration(seconds: 1));
   }

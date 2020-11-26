@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker/image_picker.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -61,18 +61,18 @@ class _ImageProductViewState extends State<ImageProductView> {
     );
   }
 
-  Future<void> captureImage(ImageSource imageSource, int index) async {
-    try {
-      final imageFile = await ImagePicker.pickImage(source: imageSource);
-      setState(() {
-        arr[index] = imageFile;
-        print(imageFile);
-        //_imageFile = imageFile;
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
+  // Future<void> captureImage(ImageSource imageSource, int index) async {
+  //   try {
+  //     final imageFile = await ImagePicker.pickImage(source: imageSource);
+  //     setState(() {
+  //       arr[index] = imageFile;
+  //       print(imageFile);
+  //       //_imageFile = imageFile;
+  //     });
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
 
   Widget _buildGrid() {
@@ -128,7 +128,7 @@ class _ImageProductViewState extends State<ImageProductView> {
                 child: Image.file(arr[index]))),
           ),
           onTap: () {
-            captureImage(ImageSource.gallery, index);
+         //   captureImage(ImageSource.gallery, index);
             // _onImageButtonPressed(ImageSource.gallery, context: context);
           },
           onLongPress: (){
