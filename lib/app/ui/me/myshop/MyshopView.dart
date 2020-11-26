@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -17,11 +16,11 @@ class MyshopView extends StatelessWidget {
       color: Colors.grey.shade200,
       child: Column(
         children: [
-          _buildTabMenu(),
+          _buildTabMenu(context),
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
             title: 'ประวัติการซื้อ',
-            onClick: () => AppRoute.MyShophistory(context),
+            onClick: () => AppRoute.MyShophistory(context,0),
           ),
           IsLogin ? _BuildDivider() : SizedBox(),
           IsLogin
@@ -68,13 +67,13 @@ class MyshopView extends StatelessWidget {
             },
           ),
           SizedBox(height: 50),
-          _buildBtnAddProduct()
+          _buildBtnAddProduct(context)
         ],
       ),
     );
   }
 
-  Widget _buildTabMenu() {
+  Widget _buildTabMenu(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(20),
       color: Colors.grey.shade300,
@@ -84,15 +83,19 @@ class MyshopView extends StatelessWidget {
           TabMenu(
               icon: 'assets/images/svg/status_delivery.svg',
               title: "ร้านค้าของฉัน",
+              onClick: (){AppRoute.ShopMain(context);},
               notification: 0),
           TabMenu(
             icon: 'assets/images/svg/status_cancel.svg',
             title: "ยกเลิกสินค้า",
+         onClick: (){AppRoute.MyShophistory(context,4);
+         },
             notification: 1,
           ),
           TabMenu(
             icon: 'assets/images/svg/status_restore.svg',
             title: "คืนสินค้า",
+            onClick: (){AppRoute.MyShophistory(context,5);},
             notification: 0,
           ),
           TabMenu(
@@ -105,7 +108,7 @@ class MyshopView extends StatelessWidget {
     );
   }
 
-  Widget _buildBtnAddProduct() {
+  Widget _buildBtnAddProduct(BuildContext context) {
     return Container(
       child: FlatButton(
         color: ThemeColor.secondaryColor(),
@@ -116,7 +119,7 @@ class MyshopView extends StatelessWidget {
           borderRadius: BorderRadius.circular(40.0),
         ),
         onPressed: () {
-          /*...*/
+          AppRoute.MyNewProduct(context);
         },
         child: Text(
           "เพิ่มสินค้า",

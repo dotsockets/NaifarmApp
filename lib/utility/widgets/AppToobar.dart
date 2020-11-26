@@ -58,9 +58,11 @@ class AppToobar extends PreferredSize {
          )
        ],
        backgroundColor: ThemeColor.primaryColor(),
-       title: Text(
-         Title,
-         style: FunctionHelper.FontTheme(color: Colors.black),
+       title: Center(
+         child: Text(
+           Title,
+           style: FunctionHelper.FontTheme(color: Colors.black),
+         ),
        ),
      ),
    );
@@ -88,9 +90,11 @@ class AppToobar extends PreferredSize {
          )
        ],
        backgroundColor: ThemeColor.primaryColor(),
-       title: Text(
-         Title,
-         style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18),
+       title: Center(
+         child: Text(
+           Title,
+           style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18),
+         ),
        ),
      ),
    );

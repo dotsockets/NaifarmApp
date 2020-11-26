@@ -59,7 +59,7 @@ class RecommendMenu extends StatelessWidget {
       ),
     onTap: (){
       switch(item.page){
-        case  "MarketView" : AppRoute.Market(context);
+        case  "ShopMyNear" : AppRoute.ShopMyNear(context);
         break;
         case  "MarketView" : AppRoute.Market(context);
         break;

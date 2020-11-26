@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/ui/mycart/cartbank/CartBankView.dart';
+import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -46,18 +47,11 @@ class _MyCartViewState extends State<MyCartView> {
         key: _scaffoldKey,
         backgroundColor:
             _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading:  widget.BtnBack?IconButton(
-            icon:  Icon(Icons.arrow_back_ios, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
-          ):SizedBox(),
-          backgroundColor: ThemeColor.primaryColor(),
-          title: Text(
-            "รถเข็น",
-            style: FunctionHelper.FontTheme(color: Colors.black),
-          ),
-        ),
+        appBar: AppToobar(
+        Title: "รถเข็น",
+        icon: "",
+        header_type: Header_Type.barNormal,
+      ),
         body: _data_aar.length != 0
             ? Column(
                 children: [

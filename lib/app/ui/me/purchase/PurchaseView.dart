@@ -19,11 +19,11 @@ class PurchaseView extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          _buildTabMenu(),
+          _buildTabMenu(context),
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
             title: 'ประวัติการซื้อ',
-            onClick: () => AppRoute.MyShophistory(context),
+            onClick: () => AppRoute.MyShophistory(context,0),
           ),
           _BuildDivider(),
           ListMenuItem(
@@ -64,7 +64,7 @@ class PurchaseView extends StatelessWidget {
     );
   }
 
-  Widget _buildTabMenu() {
+  Widget _buildTabMenu(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(20),
       color: Colors.grey.shade300,
@@ -74,19 +74,23 @@ class PurchaseView extends StatelessWidget {
           TabMenu(
               icon: 'assets/images/svg/status_pay.svg',
               title: "ที่ต้องชำระ",
+              onClick: (){AppRoute.MyShophistory(context,0);},
               notification: 1),
           TabMenu(
             icon: 'assets/images/svg/status_delivery.svg',
             title: "ที่ต้องจัดส่ง",
+            onClick: (){AppRoute.MyShophistory(context,1);},
             notification: 0,
           ),
           TabMenu(
               icon: 'assets/images/svg/status_pickup.svg',
               title: "ที่ต้องได้รับ",
+              onClick: (){AppRoute.MyShophistory(context,3);},
               notification: 0),
           TabMenu(
               icon: 'assets/images/svg/status_star.svg',
               title: "รอรีวิว",
+              onClick: (){AppRoute.MyShophistory(context,3);},
               notification: 0)
         ],
       ),
