@@ -50,12 +50,13 @@ class _CartBankViewState extends State<CartBankView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("บัตรเครดิต" ,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
-                  SizedBox(height: 8),
+                SizedBox(height: 8),
                   Column(
                     children: CartViewModel().getBankCartType1().asMap().map((index, value){
                           return MapEntry(index, _BuildCard(item: CartViewModel().getBankCartType1()[index],index: index));
                     }).values.toList(),
-                  ),
+                  ), SizedBox(height: 20,),
+                _BuildBtnAddBack(txt: "เพิ่มบัตรเครดิต",index: 0),
                 SizedBox(height: 20,),
                 Text("บัญชีธนาคารเพื่อรับเงิน",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
                 SizedBox(height: 8),
@@ -64,8 +65,8 @@ class _CartBankViewState extends State<CartBankView> {
                     return MapEntry(index, _BuildCard(item: CartViewModel().getBankCartType2()[index],index: index));
                   }).values.toList(),
                 ),
-                SizedBox(height: 30,),
-                _BuildBtnAddBack()
+                SizedBox(height: 20,),
+                _BuildBtnAddBack(txt: "เพิ่มบัญชีธนาคาร",index: 1)
               ],
             ),
           ),
@@ -156,34 +157,39 @@ class _CartBankViewState extends State<CartBankView> {
     );
   }
 
-  Widget _BuildBtnAddBack(){
-    return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(12)),
-      child: DottedBorder(
-        dashPattern: [8, 4],
-        color: Colors.black.withOpacity(0.3),
-        strokeWidth: 5,
-        child: Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10))
-          ),
-          child: Row(
-            children: [
-              SizedBox(width: 10),
-              SvgPicture.asset(
-                'assets/images/svg/plus.svg',
-                width: 35,
-                height: 35,
-                color: Colors.black.withOpacity(0.5),
-              ),
-              SizedBox(width: 15),
-              Text("เพิ่มบัญชีธนาคาร/บัตร",style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: 18),),
-            ],
+  Widget _BuildBtnAddBack({String txt,int index}){
+    return InkWell(
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        child: DottedBorder(
+          dashPattern: [8, 4],
+          color: Colors.black.withOpacity(0.3),
+          strokeWidth: 5,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(10))
+            ),
+            child: Row(
+              children: [
+                SizedBox(width: 10),
+                SvgPicture.asset(
+                  'assets/images/svg/plus.svg',
+                  width: 35,
+                  height: 35,
+                  color: Colors.black.withOpacity(0.5),
+                ),
+                SizedBox(width: 15),
+                Text(txt,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: 18),),
+              ],
+            ),
           ),
         ),
       ),
+      onTap: (){
+        index==0? AppRoute.SettingCreditAdd(context):AppRoute.SettingBankAdd(context);
+      },
     );
   }
 

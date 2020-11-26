@@ -147,7 +147,7 @@ class MenuViewModel {
           icon: 'assets/images/svg/menu_near.svg',
           iconSelected: 'assets/images/svg/menu_near.svg',
           label: "ใกล้ฉัน",
-          page: "MarketView"),
+          page: "ShopMyNear"),
       MenuModel(
           icon: 'assets/images/svg/menu_market.svg',
           iconSelected: 'assets/images/svg/menu_market.svg',

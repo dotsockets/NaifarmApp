@@ -5,6 +5,7 @@ import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/app/ui/login/SplashLoginView.dart';
+import 'package:naifarm/app/ui/map/ShopMyNearView.dart';
 import 'package:naifarm/app/ui/market/MarketView.dart';
 import 'package:naifarm/app/ui/me/deliveryCost/DeliveryCostView.dart';
 import 'package:naifarm/app/ui/me/editmyproduct/EditProductView.dart';
@@ -147,8 +148,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: WithdrawMoneyView()));
   }
 
-  static MyShophistory(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyShophistoryView()));
+  static MyShophistory(BuildContext context,int index){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyShophistoryView(index: index)));
   }
 
 
@@ -294,6 +295,10 @@ class AppRoute{
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
         child: CategoryVegetableView(index: index)));
+  }
+
+  static ShopMyNear(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ShopMyNearView()));
   }
 }
 

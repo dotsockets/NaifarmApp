@@ -121,7 +121,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                           icon: '',
                           title: 'คำขอลบบัญชีผู้ใช้',
                           onClick: () {
-                            showMyDialog(context);
+                            FunctionHelper.ConfirmDialog(context,message: "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หาคุณต้องการลบจะไม่สามารถกู้คืนได้",onCancel: (){},);
                           },
                         ),
                         _BuildButton()
@@ -180,31 +180,6 @@ class _SettingProfileViewState extends State<SettingProfileView> {
         btnTxt,
         style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
       ),
-    );
-  }
-
-  void showMyDialog(BuildContext context) {
-    showDialog<bool>(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                  Container(
-                      padding: EdgeInsets.all(15),
-                      child: Center(child: Text("เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หาคุณต้องการลบจะไม่สามารถกู้คืนได้",style: FunctionHelper.FontTheme(fontSize: 16),textAlign: TextAlign.center,)))
-                ,Row(
-                  children: [
-                  Expanded(child: Align(alignment: Alignment.center,child: Text("ยกเลิก",style: FunctionHelper.FontTheme(fontSize: 16),))),
-                    Expanded(child: Align(alignment: Alignment.center,child: Text("ตกลง",style: FunctionHelper.FontTheme(fontSize: 16))))],)
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }

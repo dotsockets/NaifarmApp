@@ -20,11 +20,14 @@ import 'delivery/DeliveryView.dart';
 
 class MyShophistoryView extends StatelessWidget {
   int tab_count = 6;
+  final int index;
+  MyShophistoryView({Key key,this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: tab_count,
+      initialIndex: index,
       child: Scaffold(
         backgroundColor: Colors.grey.shade300,
         appBar: AppToobar(
@@ -47,6 +50,7 @@ class MyShophistoryView extends StatelessWidget {
                         indicatorColor: ThemeColor.ColorSale(),
                       ),
                       isScrollable: true,
+
                       tabs: [
                         _tabbar(title: "ที่ต้องชำระ",message: false),
                         _tabbar(title: "ที่ต้องจัดส่ง",message: true),
