@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -16,6 +19,8 @@ class _ShopMyNearViewState extends State<ShopMyNearView> {
   CameraPosition _cameraPosition;
   GoogleMapController _controller ;
   Set<Marker> _markers={};
+  var address;
+  Set<Circle> circles = {};
 
   @override
   void initState() {
@@ -34,17 +39,22 @@ class _ShopMyNearViewState extends State<ShopMyNearView> {
             appBar: AppToobar(
               Title: "",
               icon: "",
-              header_type: Header_Type.barHome,
+              mapTxt: address,
+              header_type: Header_Type.barMap,
             ),
             body: Stack(
               children: [
                 GoogleMap(
+                  myLocationEnabled: true,
+                  zoomControlsEnabled: false,
+                //  circles: circles,
                   initialCameraPosition: _cameraPosition,
                   onMapCreated: (GoogleMapController controller){
                     _controller=(controller);
                     _controller.animateCamera(
                         CameraUpdate.newCameraPosition(_cameraPosition));
                   },
+
                   markers: _markers,
                   onCameraIdle: (){
                     setState(() {
@@ -77,13 +87,26 @@ class _ShopMyNearViewState extends State<ShopMyNearView> {
       _cameraPosition=CameraPosition(target:latlong,zoom: 16.0 );
       if(_controller!=null)
         _controller.animateCamera(
-
             CameraUpdate.newCameraPosition(_cameraPosition));
-print("---------------- ${latlong.latitude}---------------${latlong.longitude}");
+        print("---------------- ${latlong.latitude}---------------${latlong.longitude}");
       _markers.add(Marker(
+        draggable: true,
           markerId: MarkerId("1"),
+          icon:BitmapDescriptor.fromAsset('assets/images/png/icon_navigation.png'),
           position: LatLng(latlong.latitude,latlong.longitude)
       ));
+
+      circles.add(
+          Circle(
+            circleId: CircleId("1"),
+            center: LatLng(latlong.latitude,latlong.longitude),
+            radius: 20,
+            fillColor: Colors.blue,
+            strokeColor: Colors.white,
+            strokeWidth: 5
+
+          )
+      );
     });
   }
 
@@ -93,7 +116,6 @@ print("---------------- ${latlong.latitude}---------------${latlong.longitude}")
     results  = await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = results.first;
     if(first!=null) {
-      var address;
       address = first.featureName;
       address =   " $address, ${first.subLocality}" ;
       address =  " $address, ${first.subLocality}" ;
@@ -104,5 +126,8 @@ print("---------------- ${latlong.latitude}---------------${latlong.longitude}")
       print(address);
     }
   }
+
+
+
 
 }

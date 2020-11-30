@@ -149,8 +149,7 @@ class _RecommendViewState extends State<RecommendView> {
                 SizedBox(height: 15),
                 CategoryTab(),
                 SizedBox(height: 15),
-                SearchHot(onSelectChang: (){},onTapItem: (int index){ AppRoute.ProductDetail(context,
-                    productImage: "search_${index}");},tagHero: "search"),
+                SearchHot(onSelectChang: (){}),
                 SizedBox(height: 15),
                 ProductVertical(
                     titleInto: "สินค้าสำหรับคุณ",

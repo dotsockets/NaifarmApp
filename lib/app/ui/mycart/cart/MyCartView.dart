@@ -340,7 +340,7 @@ class _MyCartViewState extends State<MyCartView> {
         padding: EdgeInsets.only(right: 5,left:0) ,
         child: ListMenuItem(
           icon: 'assets/images/svg/coupon.svg',
-          title: "ซื้อเพิ่มอีก ฿12 เพื่อรัรบส่วนลด ฿40 ",
+          title: "ซื้อเพิ่มอีก ฿12 เพื่อรับส่วนลด ฿40 ",
           Message: "",
           iconSize: 35,
           fontWeight: FontWeight.w500,

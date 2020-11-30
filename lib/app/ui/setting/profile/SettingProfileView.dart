@@ -121,7 +121,9 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                           icon: '',
                           title: 'คำขอลบบัญชีผู้ใช้',
                           onClick: () {
-                            FunctionHelper.ConfirmDialog(context,message: "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หาคุณต้องการลบจะไม่สามารถกู้คืนได้",onCancel: (){},);
+                            FunctionHelper.ConfirmDialog(context,message: "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หาคุณต้องการลบจะไม่สามารถกู้คืนได้",onCancel: (){
+
+                            },);
                           },
                         ),
                         _BuildButton()

@@ -50,7 +50,7 @@ class ListMenuItem extends StatelessWidget {
                     ),
                     Text(title,
                         style: FunctionHelper.FontTheme(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: fontWeight,
                             color: Colors.black)),
                   ],
@@ -61,7 +61,7 @@ class ListMenuItem extends StatelessWidget {
                 children: [
                   Text(Message,
                       style: FunctionHelper.FontTheme(
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: Colors.black.withOpacity(opacityMessage))),
                   SizedBox(
