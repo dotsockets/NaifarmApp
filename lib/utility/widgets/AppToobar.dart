@@ -14,7 +14,8 @@ enum Header_Type {
   barHome,
   barNoBackground,
   barNormal,
-  barcartShop
+  barcartShop,
+  barMap
 }
 
 class AppToobar extends PreferredSize {
@@ -23,8 +24,9 @@ class AppToobar extends PreferredSize {
  final Function onClick;
  final String icon;
  final isEnable_Search;
+ final String mapTxt;
 
-  const AppToobar({this.onClick=null, this.icon="", Key key, this.header_type, this.Title="",this.isEnable_Search=false}) : super(key: key);
+  const AppToobar({this.onClick=null, this.icon="", Key key, this.header_type, this.Title="",this.isEnable_Search=false,this.mapTxt=""}) : super(key: key);
 
 
  @override
@@ -40,7 +42,10 @@ class AppToobar extends PreferredSize {
       return barNoSearchNoTitle(context);
     }else if(header_type==Header_Type.barNormal){
       return BarNormal(context);
+    }else if(header_type==Header_Type.barMap){
+      return BarMap(context);
     }
+
   }
 
 
@@ -127,7 +132,27 @@ class AppToobar extends PreferredSize {
       },
     );
   }
+ Widget BarMap(BuildContext context){
 
+   return Container(
+     color: ThemeColor.primaryColor(),
+     child: SafeArea(
+       bottom: false,
+       child: Padding(
+         padding: const EdgeInsets.only(top: 8,bottom: 8,right: 8,left: 12),
+         child: Row(
+           crossAxisAlignment: CrossAxisAlignment.center,
+           children: [
+             GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg',color: Colors.white,),onTap: (){
+               Navigator.pop(context);
+             },),
+             _buildSearchMap(false),
+           ],
+         ),
+       ),
+     ),
+   );
+ }
 
   Widget BarHome(BuildContext context){
     return Container(
@@ -139,7 +164,7 @@ class AppToobar extends PreferredSize {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSearch(),
+              _buildSearch(true),
               SizedBox(width: 8),
               BuildIconShop(notification: 20,size: 30,)
             ],
@@ -149,13 +174,11 @@ class AppToobar extends PreferredSize {
     );
   }
 
-
-
-  Expanded _buildSearch() {
+  Expanded _buildSearch(bool isEditable) {
     final border = OutlineInputBorder(
       borderSide: const BorderSide(
         color: Colors.transparent,
-        width: 10,
+        width:10,
       ),
       borderRadius: const BorderRadius.all(
         const Radius.circular(10.0),
@@ -174,6 +197,7 @@ class AppToobar extends PreferredSize {
             borderRadius: new BorderRadius.all(Radius.circular(40.0))
         ),
         child: TextField(
+          enabled: isEditable,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.all(4),
             focusedBorder: border,
@@ -200,7 +224,49 @@ class AppToobar extends PreferredSize {
       ),
     );
   }
+ Expanded _buildSearchMap(bool isEditable) {
+   TextEditingController txtController = TextEditingController();
+   txtController.text= mapTxt;
+   final border = OutlineInputBorder(
+     borderSide: const BorderSide(
+       color: Colors.transparent,
+       width:10,
+     ),
+     borderRadius: const BorderRadius.all(
+       const Radius.circular(10.0),
+     ),
+   );
 
+   final sizeIcon = BoxConstraints(
+     minWidth: 35,
+     minHeight: 35,
+   );
+   return Expanded(
+     child: Container(
+       decoration: new BoxDecoration(
+           color: Colors.white,
+           borderRadius: new BorderRadius.all(Radius.circular(40.0))
+       ),
+       child: TextField(
+           enabled: isEditable,
+          controller: txtController,
+           decoration: InputDecoration(
+             focusedBorder: border,
+             enabledBorder: border,
+             isDense: true,
+             prefixIcon: Padding(
+               padding: const EdgeInsets.all(4.0),
+               child: Icon(Icons.location_on,color: Colors.grey,size: 20,),
+             ),
+             prefixIconConstraints: sizeIcon,
+             suffixIcon:  Padding(
+                 padding: const EdgeInsets.only(top: 4,bottom: 4,right: 10),
+                 child: SvgPicture.asset('assets/images/svg/search.svg',color: ThemeColor.ColorSale())),
+           ),
 
+       ),
+     ),
+   );
+ }
 
 }

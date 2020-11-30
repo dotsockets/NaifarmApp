@@ -24,8 +24,7 @@ class MyLikeView extends StatelessWidget {
 
                   },
                   onTapItem: (int index) {
-                    AppRoute.ProductDetail(context,
-                        productImage: "mylike_${index}");
+                    AppRoute.ProductDetail(context, productImage: "mylike_${index}");
                   },EnableHeader: false,tagHero: "mylike",isLike: true,),
               ),
             ),

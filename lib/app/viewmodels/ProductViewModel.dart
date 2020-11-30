@@ -142,7 +142,14 @@ class ProductViewModel {
           product_price: 250,
           product_status: 'ขายได้ 13 ชิ้น',
           product_image:
-              'https://www.img.in.th/images/3094b7880e5d7a998412e8318c75e340.png')
+              'https://www.img.in.th/images/3094b7880e5d7a998412e8318c75e340.png'),
+      ProductModel(
+          product_name: 'อบเชย',
+          product_price: 15,
+          product_status: 'ขายได้ 500 ชิ้น',
+          product_image:
+          'https://www.img.in.th/images/a632419b5cb8e9f384b2d6ce2559c70c.jpg'),
+
     ];
   }
 
