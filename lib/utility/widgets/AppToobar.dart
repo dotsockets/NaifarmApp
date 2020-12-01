@@ -1,4 +1,3 @@
-
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,163 +9,168 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 
 import 'BuildIconShop.dart';
 
-enum Header_Type {
-  barHome,
-  barNoBackground,
-  barNormal,
-  barcartShop,
-  barMap
-}
+enum Header_Type { barHome, barNoBackground, barNormal, barcartShop, barMap }
 
 class AppToobar extends PreferredSize {
- final Header_Type header_type;
- final  String Title;
- final Function onClick;
- final String icon;
- final isEnable_Search;
- final String mapTxt;
+  final Header_Type header_type;
+  final String Title;
+  final Function onClick;
+  final String icon;
+  final isEnable_Search;
+  final String mapTxt;
+  final String hint;
+  final Function(String) onSearch;
 
-  const AppToobar({this.onClick=null, this.icon="", Key key, this.header_type, this.Title="",this.isEnable_Search=false,this.mapTxt=""}) : super(key: key);
+  const AppToobar(
+      {this.onClick = null,
+      this.icon = "",
+      Key key,
+      this.header_type,
+      this.Title = "",
+      this.isEnable_Search = false,
+      this.mapTxt = "",
+      this.hint = "",this.onSearch})
+      : super(key: key);
 
+  @override
+  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 
- @override
- Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
-
- @override
+  @override
   Widget build(BuildContext context) {
-    if(header_type==Header_Type.barHome){
-        return BarHome(context);
-    }else if(header_type==Header_Type.barcartShop){
-        return BarCartShop(context);
-    }else if(header_type==Header_Type.barNoBackground){
+    if (header_type == Header_Type.barHome) {
+      return BarHome(context);
+    } else if (header_type == Header_Type.barcartShop) {
+      return BarCartShop(context);
+    } else if (header_type == Header_Type.barNoBackground) {
       return barNoSearchNoTitle(context);
-    }else if(header_type==Header_Type.barNormal){
+    } else if (header_type == Header_Type.barNormal) {
       return BarNormal(context);
-    }else if(header_type==Header_Type.barMap){
+    } else if (header_type == Header_Type.barMap) {
       return BarMap(context);
     }
-
   }
 
+  Widget BarNormal(BuildContext context) {
+    return Container(
+      child: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () =>
+              onClick == null ? Navigator.of(context).pop() : onClick(),
+        ),
+        actions: [
+          Container(
+            margin: EdgeInsets.only(right: 10),
+            child: SvgPicture.asset(
+              icon,
+              color: Colors.white,
+              width: 30,
+              height: 30,
+            ),
+          )
+        ],
+        backgroundColor: ThemeColor.primaryColor(),
+        title: Center(
+          child: Text(
+            Title,
+            style: FunctionHelper.FontTheme(color: Colors.black),
+          ),
+        ),
+      ),
+    );
+  }
 
- Widget BarNormal(BuildContext context){
-   return Container(
-     child: AppBar(
-       leading: IconButton(
-         icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-         onPressed: () => onClick==null?Navigator.of(context).pop():onClick(),
-       ),
-       actions: [
-         Container(
-           margin: EdgeInsets.only(right: 10),
-           child: SvgPicture.asset(icon,color: Colors.white,width: 30,height: 30,),
-         )
-       ],
-       backgroundColor: ThemeColor.primaryColor(),
-       title: Center(
-         child: Text(
-           Title,
-           style: FunctionHelper.FontTheme(color: Colors.black),
-         ),
-       ),
-     ),
-   );
- }
+  Widget BarCartShop(BuildContext context) {
+    return Container(
+      child: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        actions: [
+          isEnable_Search
+              ? Container(
+                  margin: EdgeInsets.only(bottom: 5, right: 5),
+                  child: GestureDetector(
+                    child: SvgPicture.asset('assets/images/svg/search.svg',
+                        color: Colors.white),
+                    onTap: () {
+                      onClick();
+                    },
+                  ),
+                )
+              : SizedBox(),
+          Container(
+            margin: EdgeInsets.only(right: 10),
+            child: BuildIconShop(
+              size: 30,
+            ),
+          )
+        ],
+        backgroundColor: ThemeColor.primaryColor(),
+        title: Center(
+          child: Text(
+            Title,
+            style: FunctionHelper.FontTheme(color: Colors.black, fontSize: 18),
+          ),
+        ),
+      ),
+    );
+  }
 
- Widget BarCartShop(BuildContext context){
-   return Container(
-     child: AppBar(
-       leading: IconButton(
-         icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-         onPressed: () => Navigator.of(context).pop(),
-       ),
-       actions: [
-         isEnable_Search?Container(
-           margin: EdgeInsets.only(bottom: 5,right: 5),
-           child: GestureDetector(child: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.white),
-             onTap: (){
-               onClick();
-             },
-           ),
-         ):SizedBox(),
-         Container(
-           margin: EdgeInsets.only(right: 10),
-           child: BuildIconShop(size: 30,),
-         )
-       ],
-       backgroundColor: ThemeColor.primaryColor(),
-       title: Center(
-         child: Text(
-           Title,
-           style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18),
-         ),
-       ),
-     ),
-   );
- }
-
-  Widget barNoSearchNoTitle(BuildContext context){
+  Widget barNoSearchNoTitle(BuildContext context) {
     return GestureDetector(
       child: Container(
-        padding: EdgeInsets.only(right: 15,left: 20,top: 10,bottom: 20),
+        padding: EdgeInsets.only(right: 15, left: 20, top: 10, bottom: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg'),onTap: (){
-              Navigator.pop(context);
-            },),
+            GestureDetector(
+              child: SvgPicture.asset('assets/images/svg/back_black.svg'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
             Container(
               width: ScreenUtil().setWidth(120),
               height: ScreenUtil().setWidth(120),
               decoration: BoxDecoration(
                   color: ThemeColor.primaryColor(),
-                borderRadius: BorderRadius.all(Radius.circular(40))
+                  borderRadius: BorderRadius.all(Radius.circular(40))),
+              child: BuildIconShop(
+                size: ScreenUtil().setWidth(65),
+                notification: 0,
               ),
-              child: BuildIconShop(size: ScreenUtil().setWidth(65),notification: 0,),
             )
           ],
         ),
       ),
-      onTap: (){
-        AppRoute.MyCart(context,true);
+      onTap: () {
+        AppRoute.MyCart(context, true);
       },
     );
   }
- Widget BarMap(BuildContext context){
 
-   return Container(
-     color: ThemeColor.primaryColor(),
-     child: SafeArea(
-       bottom: false,
-       child: Padding(
-         padding: const EdgeInsets.only(top: 8,bottom: 8,right: 8,left: 12),
-         child: Row(
-           crossAxisAlignment: CrossAxisAlignment.center,
-           children: [
-             GestureDetector(child: SvgPicture.asset('assets/images/svg/back_black.svg',color: Colors.white,),onTap: (){
-               Navigator.pop(context);
-             },),
-             _buildSearchMap(false),
-           ],
-         ),
-       ),
-     ),
-   );
- }
-
-  Widget BarHome(BuildContext context){
+  Widget BarMap(BuildContext context) {
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         bottom: false,
         child: Padding(
-          padding: const EdgeInsets.only(top: 8,bottom: 8,right: 8,left: 12),
+          padding: const EdgeInsets.only(top: 8, bottom: 8, right: 8, left: 12),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _buildSearch(true),
-              SizedBox(width: 8),
-              BuildIconShop(notification: 20,size: 30,)
+              GestureDetector(
+                child: SvgPicture.asset(
+                  'assets/images/svg/back_black.svg',
+                  color: Colors.white,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              _buildSearchMap(false),
             ],
           ),
         ),
@@ -174,11 +178,34 @@ class AppToobar extends PreferredSize {
     );
   }
 
-  Expanded _buildSearch(bool isEditable) {
+  Widget BarHome(BuildContext context) {
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        bottom: false,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8, bottom: 8, right: 8, left: 12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildSearch(isEnable_Search ? false : true, context),
+              SizedBox(width: 8),
+              BuildIconShop(
+                notification: 20,
+                size: 30,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Expanded _buildSearch(bool isEditable, BuildContext context) {
     final border = OutlineInputBorder(
       borderSide: const BorderSide(
         color: Colors.transparent,
-        width:10,
+        width: 10,
       ),
       borderRadius: const BorderRadius.all(
         const Radius.circular(10.0),
@@ -191,82 +218,129 @@ class AppToobar extends PreferredSize {
     );
 
     return Expanded(
+        child: Container(
+      decoration: new BoxDecoration(
+          color: Colors.white,
+          borderRadius: new BorderRadius.all(Radius.circular(40.0))),
+      child: Container(
+        padding: EdgeInsets.only(left: 10,right: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Visibility(
+                child: SvgPicture.asset(
+                  'assets/images/svg/search.svg',
+                  color: Colors.black,
+                  width: 35,
+                  height: 35,
+                ),
+                visible: isEnable_Search,
+              ),
+              Flexible(child:
+              InkWell(
+                child: TextField(
+                  enabled: isEditable,
+                  decoration: InputDecoration(
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      hintText: ""
+                  ),
+                  onChanged: (String s)=> onSearch!=null?onSearch(s):null,
+                ),
+                onTap: (){AppRoute.SearchHome(context);},
+              )),
+              SvgPicture.asset(
+                'assets/images/svg/search_photo.svg',
+                color: Color(ColorUtils.hexToInt('#c7bfbf')),
+                width: 30,
+                height: 30,
+              )
+            ],
+          )
+
+          /* InkWell(
+          child: TextField(
+            enabled: isEditable,
+            decoration: InputDecoration(
+              focusedBorder: border,
+              enabledBorder: border,
+              isDense: true,
+            // hintText: "search",
+              hintStyle: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+              ),
+              prefixIcon: Visibility(
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.black),
+                ),
+                visible: isEnable_Search,
+              ),
+              prefixIconConstraints: sizeIcon,
+              suffixIcon: Padding(
+                padding: const EdgeInsets.only(top: 4,bottom: 4,right: 10),
+                child: SvgPicture.asset('assets/images/svg/search_photo.svg',color: Color(ColorUtils.hexToInt('#c7bfbf'))),
+              ),
+              suffixIconConstraints: sizeIcon,
+              filled: true
+            ),
+          ),
+          onTap: (){AppRoute.SearchHome(context);},
+        ),*/
+          ),
+    ));
+  }
+
+  Expanded _buildSearchMap(bool isEditable) {
+    TextEditingController txtController = TextEditingController();
+    txtController.text = mapTxt;
+    final border = OutlineInputBorder(
+      borderSide: const BorderSide(
+        color: Colors.transparent,
+        width: 10,
+      ),
+      borderRadius: const BorderRadius.all(
+        const Radius.circular(10.0),
+      ),
+    );
+
+    final sizeIcon = BoxConstraints(
+      minWidth: 35,
+      minHeight: 35,
+    );
+    return Expanded(
       child: Container(
         decoration: new BoxDecoration(
             color: Colors.white,
-            borderRadius: new BorderRadius.all(Radius.circular(40.0))
-        ),
-        child: TextField(
-          enabled: isEditable,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(4),
-            focusedBorder: border,
-            enabledBorder: border,
-            isDense: true,
-          // hintText: "search",
-            hintStyle: TextStyle(
-              fontSize: 18,
-              color: Colors.black,
-            ),
-            prefixIcon: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.black),
-            ),
-            prefixIconConstraints: sizeIcon,
-            suffixIcon:  Padding(
-              padding: const EdgeInsets.only(top: 4,bottom: 4,right: 10),
-              child: SvgPicture.asset('assets/images/svg/search_photo.svg',color: Color(ColorUtils.hexToInt('#c7bfbf'))),
-            ),
-            suffixIconConstraints: sizeIcon,
-            filled: true
+            borderRadius: new BorderRadius.all(Radius.circular(40.0))),
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SvgPicture.asset('assets/images/svg/location.svg',
+                  color: Colors.grey),
+              Expanded(
+                child: Text(
+                    " " +
+                        txtController.text
+                            .toString()
+                            .trim()
+                            .replaceAll("null", ""),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.black, fontSize: 12)),
+              ),
+              SvgPicture.asset(
+                'assets/images/svg/search.svg',
+                color: ThemeColor.ColorSale(),
+              )
+            ],
           ),
         ),
       ),
     );
   }
- Expanded _buildSearchMap(bool isEditable) {
-   TextEditingController txtController = TextEditingController();
-   txtController.text= mapTxt;
-   final border = OutlineInputBorder(
-     borderSide: const BorderSide(
-       color: Colors.transparent,
-       width:10,
-     ),
-     borderRadius: const BorderRadius.all(
-       const Radius.circular(10.0),
-     ),
-   );
-
-   final sizeIcon = BoxConstraints(
-     minWidth: 35,
-     minHeight: 35,
-   );
-   return Expanded(
-     child: Container(
-       decoration: new BoxDecoration(
-           color: Colors.white,
-           borderRadius: new BorderRadius.all(Radius.circular(40.0))
-       ),
-       child: TextField(
-           enabled: isEditable,
-          controller: txtController,
-           decoration: InputDecoration(
-             focusedBorder: border,
-             enabledBorder: border,
-             isDense: true,
-             prefixIcon: Padding(
-               padding: const EdgeInsets.all(4.0),
-               child: Icon(Icons.location_on,color: Colors.grey,size: 20,),
-             ),
-             prefixIconConstraints: sizeIcon,
-             suffixIcon:  Padding(
-                 padding: const EdgeInsets.only(top: 4,bottom: 4,right: 10),
-                 child: SvgPicture.asset('assets/images/svg/search.svg',color: ThemeColor.ColorSale())),
-           ),
-
-       ),
-     ),
-   );
- }
-
 }

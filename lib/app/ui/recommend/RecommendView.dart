@@ -105,6 +105,7 @@ class _RecommendViewState extends State<RecommendView> {
               children: [
                 AppToobar(
                   header_type: Header_Type.barHome,
+                  isEnable_Search: true,
                 ),
                 CategoryMenu(
                   selectedIndex: _categoryselectedIndex,

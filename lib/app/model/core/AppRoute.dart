@@ -32,6 +32,7 @@ import 'package:naifarm/app/ui/register/RegisterView.dart';
 import 'package:naifarm/app/ui/register/Register_FBView.dart';
 import 'package:naifarm/app/ui/register/Register_Name_OtpView.dart';
 import 'package:naifarm/app/ui/register/Register_set_PasswordView.dart';
+import 'package:naifarm/app/ui/search/SearchView.dart';
 import 'package:naifarm/app/ui/setting/about/AboutView.dart';
 import 'package:naifarm/app/ui/setting/address/AddressView.dart';
 import 'package:naifarm/app/ui/setting/addressAdd/AddressAddView.dart';
@@ -299,6 +300,9 @@ class AppRoute{
 
   static ShopMyNear(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ShopMyNearView()));
+  }
+  static SearchHome(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SearchView()));
   }
 }
 
