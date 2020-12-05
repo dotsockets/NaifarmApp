@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 
@@ -60,7 +61,7 @@ class _EditProductViewState extends State<EditProductView> {
               Container(
                   height: 80,
                   child: AppToobar(
-                    Title: "ข้อมูลสินค้า",
+                    title: "ข้อมูลสินค้า",
                     icon: "",
                     header_type: Header_Type.barNormal,
                   )),
@@ -145,7 +146,7 @@ class _EditProductViewState extends State<EditProductView> {
             children: [
               Text(
                 head,
-                style: FunctionHelper.FontTheme(fontSize: 16),
+                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
               ),
               inputType == TextInputType.text ? Text("(${controller != null
                   ? controller.text.length
@@ -193,7 +194,7 @@ class _EditProductViewState extends State<EditProductView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(fontSize: 16),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
           ),
           Container(
             padding: EdgeInsets.all(10),
@@ -221,7 +222,7 @@ class _EditProductViewState extends State<EditProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("ค่าขนส่ง", style: FunctionHelper.FontTheme(fontSize: 16)),
+                  Text("ค่าขนส่ง", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey.withOpacity(0.7),
@@ -296,7 +297,7 @@ class _EditProductViewState extends State<EditProductView> {
           margin: EdgeInsets.all(15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text(head, style: FunctionHelper.FontTheme(fontSize: 16),
+              children: [Text(head, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
             ),
                 FlutterSwitch(
                   height: 30,

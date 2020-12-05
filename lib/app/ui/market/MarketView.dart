@@ -84,7 +84,7 @@ class _MarketViewState extends State<MarketView> {
               child: StickyHeader(
                 header:  Column(
                   children: [
-                    AppToobar(Title: "สินค้า Naifarm ฟาร์มมาร์เก็ต",header_type:  Header_Type.barcartShop,isEnable_Search: true,),
+                    AppToobar(title: "สินค้า Naifarm ฟาร์มมาร์เก็ต",header_type:  Header_Type.barcartShop,isEnable_Search: true,),
                     CategoryMenu(selectedIndex: _categoryselectedIndex,menuViewModel: _menuViewModel,onTap: (int val){
                       setState(() {
                         _categoryselectedIndex = val;

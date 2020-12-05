@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/ui/Shopmynear/ShopMyNearView.dart';
-import 'package:naifarm/app/ui/category/vegetable/CategoryVegetableView.dart';
+import 'package:naifarm/app/ui/category/vegetable/CategoryDetailView.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
@@ -12,6 +12,8 @@ import 'package:naifarm/app/ui/me/editmyproduct/EditProductView.dart';
 import 'package:naifarm/app/ui/me/imageproduct/ImageProductView.dart';
 import 'package:naifarm/app/ui/me/mynewproduct/MyNewProductView.dart';
 import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
+import 'package:naifarm/app/ui/me/myproductaddtype/ProductAddTypeView.dart';
+import 'package:naifarm/app/ui/me/myproductsetprice/ProductSetPriceView.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/MyShophiStoryView.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/review/ReviewView.dart';
 import 'package:naifarm/app/ui/me/myshop/withdrawmoney/WithdrawMoneyView.dart';
@@ -57,6 +59,7 @@ import 'package:naifarm/app/ui/setting/profile/editprofile/editphone/EditPhone_S
 import 'package:naifarm/app/ui/setting/rulesOfUse/RuleOfUseView.dart';
 import 'package:naifarm/app/ui/shopmain/ShopMainView.dart';
 import 'package:naifarm/app/ui/shopmain/followers/FollowersView.dart';
+import 'package:naifarm/app/ui/shopmynear/searchmap/SearchMapView.dart';
 import 'package:naifarm/app/ui/specialproducts/SpecialproductsView.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -295,7 +298,7 @@ class AppRoute{
     Navigator.push(context, PageTransition(
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
-        child: CategoryVegetableView(index: index)));
+        child: CategoryDetailView(index: index)));
   }
 
   static ShopMyNear(BuildContext context){
@@ -303,6 +306,16 @@ class AppRoute{
   }
   static SearchHome(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SearchView()));
+  }
+  static SearchMap(BuildContext context,String locationTxt){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SearchMapView(locationTxt: locationTxt,)));
+  }
+  static ProductAddType(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductAddTypeView()));
+  }
+
+  static ProductSetPrice(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductSetPriceView()));
   }
 }
 

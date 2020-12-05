@@ -18,13 +18,13 @@ class BuildIconShop extends StatelessWidget {
             onPressed: (){
               AppRoute.MyCart(context,BtnBack);
             },
-            icon: Icon(Icons.shopping_cart_outlined),
+            icon: Icon(Icons.shopping_cart_outlined,),
             color: Colors.white,
           ),
           notification == 0
               ? SizedBox()
               : Positioned(
-            right: 5,
+            right: 8,
             top: 5,
             child: Container(
               padding: EdgeInsets.all(3),

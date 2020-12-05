@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomStarRating.dart';
@@ -22,7 +23,7 @@ class ReviewView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        Title: "รีวิว",
+        title: "รีวิว",
         header_type: Header_Type.barNormal,
         icon: '',
       ),
@@ -52,8 +53,8 @@ class ReviewView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("หมายเลขคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.bold),),
-              Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: 16,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),),
+              Text("หมายเลขคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
+              Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),),
 
             ],
           ),
@@ -90,7 +91,7 @@ class ReviewView extends StatelessWidget {
                     ),
                     Text(item.shopName,
                         style:
-                        FunctionHelper.FontTheme(fontSize: 16, fontWeight: FontWeight.bold))
+                        FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold))
                   ],
                 ),
 
@@ -131,7 +132,7 @@ class ReviewView extends StatelessWidget {
                     SizedBox(height: 15),
                     Text(item.product_name,
                         style: FunctionHelper.FontTheme(
-                            fontSize: 16, fontWeight: FontWeight.w500)),
+                            fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500)),
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -226,7 +227,7 @@ class ReviewView extends StatelessWidget {
       },
       child: Text(
         title,
-        style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -247,7 +248,7 @@ class ReviewView extends StatelessWidget {
         },
         child: Text(
           "ยืนยัน",
-          style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
         ),
       ),
     );

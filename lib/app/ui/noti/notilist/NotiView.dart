@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 //'assets/images/svg/cart_top.svg'
@@ -18,7 +19,7 @@ class NotiView extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Scaffold(
-        appBar:  AppToobar(header_type: Header_Type.barNormal,icon: 'assets/images/svg/cart_top.svg',Title: "แจ้งเตือน",),
+        appBar:  AppToobar(header_type: Header_Type.barNormal,icon: 'assets/images/svg/cart_top.svg',title: "แจ้งเตือน",),
         body: SingleChildScrollView(
           child: Container(
             color: Colors.white,
@@ -89,7 +90,7 @@ class NotiView extends StatelessWidget {
                            child: Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
-                               Hero( tag: "notititle_${index}",child: Text(item.Title,style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.bold,color: item.Status_Sell!=2?Colors.black:Colors.red))),
+                               Hero( tag: "notititle_${index}",child: Text(item.Title,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold,color: item.Status_Sell!=2?Colors.black:Colors.red))),
                                SizedBox(height: 5),
                                NotiViewModel().GetStatusMessage(status: item)
                              ],

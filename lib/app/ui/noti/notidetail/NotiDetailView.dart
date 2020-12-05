@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -27,7 +28,7 @@ class NotiDetailView extends StatelessWidget {
             color: Colors.white,
             child: StickyHeader(
               header: AppToobar(
-                Title: "แจ้งเตือน",
+                title: "แจ้งเตือน",
                 header_type: Header_Type.barNormal,
                 icon: 'assets/images/svg/cart_top.svg',
               ),
@@ -143,7 +144,7 @@ class NotiDetailView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: 16),),
+                  Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize()),),
                   SizedBox(height: 5),
                   NotiViewModel().GetStatusStep(status: item),
                   SizedBox(height: 20),

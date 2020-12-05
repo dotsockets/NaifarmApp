@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:http/http.dart' as http;
@@ -91,7 +92,7 @@ class _RegisterViewState extends State<RegisterView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(flex: 3,child: Container(margin: EdgeInsets.only(left: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
-              Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text("หรือ",style: FunctionHelper.FontTheme(fontSize: 16),)),),
+              Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text("หรือ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),)),),
               Expanded(flex: 3,child: Container(margin: EdgeInsets.only(right: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
             ],
           ),

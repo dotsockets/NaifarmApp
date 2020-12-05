@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 
@@ -25,7 +26,7 @@ class _AddressViewState extends State<AddressView> {
         top: false,
         child: Scaffold(
           appBar: AppToobar(
-            Title: "ที่อยู่ของฉัน",
+            title: "ที่อยู่ของฉัน",
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -64,8 +65,8 @@ class _AddressViewState extends State<AddressView> {
               ),
             ],
           ),SizedBox(height: 10,),
-            Text("(+66) 978765432",style: FunctionHelper.FontTheme(fontSize: 16)),
-            Text("612/399 A space condo ชั้น 4 เขตดินแดง \nจังหวัดกรุงเทพมหานคร\n10400",style: FunctionHelper.FontTheme(fontSize: 16))
+            Text("(+66) 978765432",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+            Text("612/399 A space condo ชั้น 4 เขตดินแดง \nจังหวัดกรุงเทพมหานคร\n10400",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()))
           ],
         ),
       ),
@@ -87,7 +88,7 @@ class _AddressViewState extends State<AddressView> {
         },
         child: Text(
           "เพิ่มที่อยู่ใหม่",
-          style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
         ),
 
       ),

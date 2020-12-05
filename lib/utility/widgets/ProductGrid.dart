@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ProductGrid extends StatelessWidget {
@@ -73,7 +74,7 @@ class ProductGrid extends StatelessWidget {
                 Text(titleInto,
                     style: FunctionHelper.FontTheme(
                         color: Colors.black,
-                        fontSize: 18,
+                        fontSize: SizeUtil.titleFontSize(),
                         fontWeight: FontWeight.bold)),
               ],
             ),
@@ -117,13 +118,13 @@ class ProductGrid extends StatelessWidget {
           Text(
             item.product_name,
             style: FunctionHelper.FontTheme(
-                color: Colors.black, fontWeight: FontWeight.bold),
+                color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),
           ),
           SizedBox(height: 5),
           Text(
             "฿${item.product_price}",
             style: FunctionHelper.FontTheme(
-                color: ThemeColor.ColorSale(), fontWeight: FontWeight.bold),
+                color: ThemeColor.ColorSale(), fontWeight: FontWeight.bold,fontSize: SizeUtil.priceFontSize()),
           ),
           SizedBox(height: 5),
           Stack(
@@ -138,7 +139,7 @@ class ProductGrid extends StatelessWidget {
                     color: ThemeColor.ColorSale(),
                     child: Text(
                       item.product_status,
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize(),
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),

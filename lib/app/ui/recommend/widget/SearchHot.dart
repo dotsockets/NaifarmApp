@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/CustomGridView.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
@@ -53,7 +54,7 @@ class SearchHot extends StatelessWidget {
                 Text("ค้นหายอดฮิต",
                     style: FunctionHelper.FontTheme(
                         color: Colors.black,
-                        fontSize: ScreenUtil().setSp(50),
+                        fontSize: SizeUtil.titleFontSize(),
                         fontWeight: FontWeight.bold)),
               ],
             ),
@@ -63,7 +64,7 @@ class SearchHot extends StatelessWidget {
                   Text("เปลี่ยน",
                       style: FunctionHelper.FontTheme(
                           color: Colors.black,
-                          fontSize: ScreenUtil().setSp(45))),
+                          fontSize: SizeUtil.titleFontSize())),
                   SizedBox(width: 8),
                   SvgPicture.asset(
                     'assets/images/svg/change.svg',

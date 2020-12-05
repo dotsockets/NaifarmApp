@@ -20,7 +20,7 @@ class _MyShopAddTypeViewState extends State<MyShopAddTypeView> {
         top: false,
         child: Scaffold(
           appBar: AppToobar(
-            Title: "เพิ่มตัวเลือกสินค้า",
+            title: "เพิ่มตัวเลือกสินค้า",
             icon: "",
             header_type: Header_Type.barNormal,
           ),

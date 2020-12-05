@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 class SuccessView extends StatelessWidget {
   @override
@@ -176,7 +177,7 @@ class SuccessView extends StatelessWidget {
                         },
                         child: Text(
                           "รอให้คะแนน",
-                          style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500),
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                         ),
                       ):SizedBox(),
                       SizedBox(width: 10,),
@@ -192,7 +193,7 @@ class SuccessView extends StatelessWidget {
                         },
                         child: Text(
                           "ซื้ออีกครั้ง",
-                          style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500),
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                         ),
                       )
                     ],
@@ -241,10 +242,10 @@ class SuccessView extends StatelessWidget {
               ),
               Text(item.shopName,
                   style:
-                  FunctionHelper.FontTheme(fontSize: 16, fontWeight: FontWeight.bold))
+                  FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold))
             ],
           ),
-          Text(item.product_status,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: 16,fontWeight: FontWeight.w500),)
+          Text(item.product_status,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),)
         ],
       ),
     );

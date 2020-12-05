@@ -5,6 +5,7 @@ import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
@@ -47,7 +48,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
             children: [
               Container(
                   child: AppToobar(
-                    Title: "ข้อมูลสินค้า",
+                    title: "ข้อมูลสินค้า",
                     icon: "",
                     header_type: Header_Type.barNormal,
                   )),
@@ -115,7 +116,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(fontSize: 16),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
           ),
           Container(
             padding: EdgeInsets.all(10),
@@ -165,16 +166,16 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: _BuildButtonItem(btnTxt: "บันทึก"),
+                  child: _BuildButtonItem(btnTxt: "บันทึก",index: 0),
                 ),
                 SizedBox(width: 10,)
                 ,
-                Expanded(child: _BuildButtonItem(btnTxt: "ลงขาย"),)
+                Expanded(child: _BuildButtonItem(btnTxt: "ลงขาย",index: 1),)
               ],
             )));
   }
 
-  Widget _BuildButtonItem({String btnTxt}) {
+  Widget _BuildButtonItem({String btnTxt,int index}) {
     return FlatButton(
      height: 50,
         color: nameProductController.text.isNotEmpty&&detailtController.text.isNotEmpty&&priceController.text.isNotEmpty&&amountController.text.isNotEmpty
@@ -185,7 +186,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
           borderRadius: BorderRadius.circular(40.0),
         ),
         onPressed: () {
-          AppRoute.ImageProduct(context);
+          index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
         },
         child: Text(
           btnTxt,

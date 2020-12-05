@@ -43,7 +43,7 @@ class _Setting_EditProdile_BioViewState extends State<Setting_EditProdile_BioVie
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(Title: "แนะนำตัวเอง",header_type: Header_Type.barNormal,),
+      appBar: AppToobar(title: "แนะนำตัวเอง",header_type: Header_Type.barNormal,),
       body: Container(
         child: Container(
           child: Column(

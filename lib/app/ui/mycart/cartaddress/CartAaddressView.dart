@@ -11,6 +11,7 @@ import 'package:naifarm/app/models/AddressModel.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class CartAaddressView extends StatefulWidget {
@@ -40,7 +41,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
         key: _scaffoldKey,
         backgroundColor:
             _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-        appBar: AppToobar(Title: "ที่อยู่ของฉัน",header_type: Header_Type.barNormal,icon: "",),
+        appBar: AppToobar(title: "ที่อยู่ของฉัน",header_type: Header_Type.barNormal,icon: "",),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -105,7 +106,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                        Text(item.Name,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: 18,height: 1.6,color: ThemeColor.primaryColor()),),
                   Row(
                          children: [
-                           select==index?Text("เป็นที่อยู่หลัก",style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: 16,color: ThemeColor.ColorSale())):SizedBox(),
+                           select==index?Text("เป็นที่อยู่หลัก",style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale())):SizedBox(),
                            SizedBox(width: 5,),
                            Icon(Icons.arrow_forward_ios,color: Colors.grey.shade500,)
                          ],
@@ -114,10 +115,10 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                      ],
                    ),
                     SizedBox(height: 5,),
-                    Text(item.phone,style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),),
-                    Text(item.address,style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),),
-                    Text(item.provice,style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),),
-                    Text(item.zipcode,style: FunctionHelper.FontTheme(fontSize: 14,height: 1.5),),
+                    Text(item.phone,style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(),height: 1.5),),
+                    Text(item.address,style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(),height: 1.5),),
+                    Text(item.provice,style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(),height: 1.5),),
+                    Text(item.zipcode,style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(),height: 1.5),),
                   ],
                 ),
               ),
@@ -143,7 +144,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
         },
         child: Text(
           "เพิ่มที่อยู่ใหม่",
-          style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
         ),
       ),
     );

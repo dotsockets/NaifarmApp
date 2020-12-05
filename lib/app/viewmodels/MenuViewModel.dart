@@ -54,8 +54,7 @@ class MenuViewModel {
       ),
       MenuModel(
         type: 4,
-        icon:
-            'https://lh3.googleusercontent.com/proxy/vH8Hid1HPJGBXf0drhMJsvZWyUSiRVUwZ5fgZrMEsSiCD8myZG2Zt_KW1NK9D9jiDkm3-plLwkbQ1o-nBynfrX5QAUriaM1kQd4HmG89pJaLNpVXUno3yd6FS4MzSg',
+        icon: 'https://www.thairath.co.th/media/dFQROr7oWzulq5FZUIVNsFtKGN7Nk74n7k4JN7bUDMsN06dFf3LsfBmjEVdF0GWSZsm.jpg',
         iconSelected: '',
         label: "ปศุสัตว์",
       ),

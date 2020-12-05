@@ -42,7 +42,7 @@ class _CartBankViewState extends State<CartBankView> {
         key: _scaffoldKey,
         backgroundColor:
             _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-        appBar: AppToobar(Title: "เลือกวิธีกาชำระ",header_type: Header_Type.barNormal),
+        appBar: AppToobar(title: "เลือกวิธีกาชำระ",header_type: Header_Type.barNormal),
         body: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.only(right: 20,left: 20,top: 20),

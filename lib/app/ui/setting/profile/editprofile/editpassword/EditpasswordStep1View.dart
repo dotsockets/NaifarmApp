@@ -41,7 +41,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        Title: "เปลี่ยนรหัสผ่าน", header_type: Header_Type.barNormal,),
+        title: "เปลี่ยนรหัสผ่าน", header_type: Header_Type.barNormal,),
       body: Column(
         children: [
           Container(padding:EdgeInsets.all(15), child: Text("เพื่อความปลอดภัยบัญชีของคุณกรุณาระบุรหัสผ่านเพื่อการดำเนินต่อ",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40)),),),

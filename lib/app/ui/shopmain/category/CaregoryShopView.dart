@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 class CaregoryShopView extends StatelessWidget {
   @override
@@ -30,7 +31,7 @@ class CaregoryShopView extends StatelessWidget {
             child:  Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(item.label,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: 16,color: Colors.black)),
+                Text(item.label,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),color: Colors.black)),
                 SizedBox(width: 10),
                 Row(
                   children: [

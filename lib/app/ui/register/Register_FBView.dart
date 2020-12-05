@@ -92,7 +92,7 @@ class _Register_FBViewState extends State<Register_FBView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(Title: "กำหนดรหัสผ่าน",header_type: Header_Type.barNormal,),
+      appBar: AppToobar(title: "กำหนดรหัสผ่าน",header_type: Header_Type.barNormal,),
       body: Container(
         child: Container(
           child: Column(

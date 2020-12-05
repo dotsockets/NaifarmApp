@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/WithDrawModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/CategoryMenu.dart';
 
@@ -168,8 +169,8 @@ class WithdrawMoneyView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(item.Title,style: FunctionHelper.FontTheme(fontSize: 18,height: 1.8,fontWeight: FontWeight.bold),),
-                      Text(item.Subtitle,style: FunctionHelper.FontTheme(fontSize: 14,height: 1.8),),
-                      Text(item.Text_date,style: FunctionHelper.FontTheme(fontSize: 14,height: 1.8),),
+                      Text(item.Subtitle,style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(),height: 1.8),),
+                      Text(item.Text_date,style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(),height: 1.8),),
                     ],
                   )
                 ],

@@ -40,7 +40,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        Title: "เปลี่ยนรหัสผ่าน", header_type: Header_Type.barNormal,onClick: (){
+        title: "เปลี่ยนรหัสผ่าน", header_type: Header_Type.barNormal,onClick: (){
         FunctionHelper.ConfirmDialog(context,
             message: "คุณต้องการออกจากการเปลี่ยนแปลงรหัสผ่านใช่หรือไม่",
             onClick: () {

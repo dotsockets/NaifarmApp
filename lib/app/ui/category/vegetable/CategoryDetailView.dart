@@ -18,14 +18,14 @@ import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/ProductVertical.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
-class CategoryVegetableView extends StatefulWidget {
+class CategoryDetailView extends StatefulWidget {
   final int index;
-  CategoryVegetableView({Key key, this.index}) : super(key: key);
+  CategoryDetailView({Key key, this.index}) : super(key: key);
   @override
-  _CategoryVegetableViewState createState() => _CategoryVegetableViewState();
+  _CategoryDetailViewState createState() => _CategoryDetailViewState();
 }
 
-class _CategoryVegetableViewState extends State<CategoryVegetableView> {
+class _CategoryDetailViewState extends State<CategoryDetailView> {
   final _scrollController = TrackingScrollController();
   final List<MenuModel> _menuViewModel = MenuViewModel().getMenusVegetable();
   final List<MenuModel> menuTypeViewModel = MenuViewModel().getMenustype();
@@ -87,7 +87,7 @@ class _CategoryVegetableViewState extends State<CategoryVegetableView> {
                 header: Column(
                   children: [
                     AppToobar(
-                      Title: menuTypeViewModel[widget.index+1].label,
+                      title: menuTypeViewModel[widget.index+1].label,
                       header_type: Header_Type.barcartShop,
                       isEnable_Search: true,
                     ),

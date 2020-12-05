@@ -22,7 +22,7 @@ class _HelpViewState extends State<HelpView> {
         top: false,
         child: Scaffold(
           appBar: AppToobar(
-            Title: "ศูนย์ความช่วยเหลือ",
+            title: "ศูนย์ความช่วยเหลือ",
             icon: "",
             header_type: Header_Type.barNormal,
           ),

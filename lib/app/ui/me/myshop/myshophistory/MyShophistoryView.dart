@@ -10,6 +10,7 @@ import 'package:naifarm/app/ui/me/myshop/myshophistory/success/SuccessView.dart'
 import 'package:naifarm/app/ui/shopmain/category/CaregoryShopView.dart';
 import 'package:naifarm/app/ui/shopmain/shop/Shop.dart';
 import 'package:naifarm/app/ui/shopmain/shopdetails/ShopDetailsView.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/MD2Indicator.dart';
 
@@ -31,7 +32,7 @@ class MyShophistoryView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.grey.shade300,
         appBar: AppToobar(
-          Title: "ประวัติการขาย",
+          title: "ประวัติการขาย",
           header_type: Header_Type.barNormal,
           icon: '',
         ),
@@ -88,7 +89,7 @@ class MyShophistoryView extends StatelessWidget {
     return Tab(
       child: Row(
         children: [
-          Text(title,style: FunctionHelper.FontTheme(fontSize: 16)),
+          Text(title,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
           SizedBox(width: 10,),
           message?ClipRRect(
             borderRadius: BorderRadius.circular(9.0),

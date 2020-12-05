@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 //import 'package:image_picker/image_picker.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class ImageProductView extends StatefulWidget {
@@ -30,7 +31,7 @@ class _ImageProductViewState extends State<ImageProductView> {
       top: false,
       child: Scaffold(
         appBar: AppToobar(
-          Title: "รูปสินค้า",
+          title: "รูปสินค้า",
           icon: "",
           header_type: Header_Type.barNormal,
         ),
@@ -119,7 +120,7 @@ class _ImageProductViewState extends State<ImageProductView> {
                   margin: EdgeInsets.only(bottom: 10),
                   child: Text(
                     "เพิ่มรูปสินค้า",
-                    style: FunctionHelper.FontTheme(fontSize: 16),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
                   ),
                 )
               ],

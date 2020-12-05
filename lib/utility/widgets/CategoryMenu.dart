@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 class CategoryMenu extends StatelessWidget {
   final List<MenuModel> menuViewModel;
@@ -36,7 +37,7 @@ class CategoryMenu extends StatelessWidget {
                     ),
                   ):SizedBox(),
                   SizedBox(width: 8),
-                  Text(menuViewModel[index].label,style: FunctionHelper.FontTheme(color: selectedIndex==index?Colors.black:Colors.white,fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.bold)),
+                  Text(menuViewModel[index].label,style: FunctionHelper.FontTheme(color: selectedIndex==index?Colors.black:Colors.white,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
 
                 ],
               ),

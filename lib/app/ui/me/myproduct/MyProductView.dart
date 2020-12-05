@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class MyProductView extends StatefulWidget {
@@ -31,7 +32,7 @@ class _MyProductViewState extends State<MyProductView> {
         top: false,
         child: Scaffold(
           appBar: AppToobar(
-            Title: "สินค้าของฉัน",
+            title: "สินค้าของฉัน",
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -124,7 +125,7 @@ class _MyProductViewState extends State<MyProductView> {
                             children: [
                               Expanded(
                                 child: Text("จำนวนสินค้า ${item.amoutProduct}",
-                                    style: FunctionHelper.FontTheme(fontSize: 14)),
+                                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize())),
                               ),
                               SizedBox(width: 10,),
                               Expanded(
@@ -132,7 +133,7 @@ class _MyProductViewState extends State<MyProductView> {
                                   alignment: Alignment.topRight,
                                   child: Text(
                                     "${item.product_status}",
-                                    style: FunctionHelper.FontTheme(fontSize: 14),
+                                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize()),
                                   ),
                                 ),
                               )

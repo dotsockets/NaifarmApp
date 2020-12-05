@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/ui/mycart/cartbank/CartBankView.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
@@ -48,8 +49,9 @@ class _MyCartViewState extends State<MyCartView> {
         backgroundColor:
             _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
         appBar: AppToobar(
-        Title: "รถเข็น",
+        title: "รถเข็น",
         icon: "",
+        showBackBtn: widget.BtnBack ,
         header_type: Header_Type.barNormal,
       ),
         body: _data_aar.length != 0
@@ -73,15 +75,14 @@ class _MyCartViewState extends State<MyCartView> {
                                     "ลบ",
                                     style: FunctionHelper.FontTheme(
                                         color: Colors.white,
-                                        fontSize: 16,
+                                        fontSize: SizeUtil.titleFontSize(),
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
                               ),
                             ),
                             key: Key("${_data_aar[index].ProductName}"),
-                            child:
-                                _CardCart(item: _data_aar[index], index: index),
+                            child: _CardCart(item: _data_aar[index], index: index),
                             onDismissed: (direction) {
                               setState(() {
                                 _data_aar.removeAt(index);
@@ -226,7 +227,7 @@ class _MyCartViewState extends State<MyCartView> {
         ),
         Text(item.NameShop,
             style:
-            FunctionHelper.FontTheme(fontSize: 16, fontWeight: FontWeight.bold))
+            FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.bold))
       ],
     );
   }
@@ -263,20 +264,20 @@ class _MyCartViewState extends State<MyCartView> {
               children: [
                 Text(item.ProductName,
                     style: FunctionHelper.FontTheme(
-                        fontSize: 16, fontWeight: FontWeight.w500)),
+                        fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500)),
                 SizedBox(height: 5),
                 Row(
                   children: [
                     item.ProductDicount != 0
                         ? Text("฿${item.ProductDicount}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: 16,
+                                fontSize: SizeUtil.priceFontSize(),
                                 decoration: TextDecoration.lineThrough))
                         : SizedBox(),
                     SizedBox(width: 8),
                     Text("฿${item.ProductPrice}",
                         style: FunctionHelper.FontTheme(
-                            fontSize: 16, color: ThemeColor.ColorSale()))
+                            fontSize: SizeUtil.priceFontSize(), color: ThemeColor.ColorSale()))
                   ],
                 )
               ],
@@ -295,7 +296,7 @@ class _MyCartViewState extends State<MyCartView> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(3),
                         bottomLeft: Radius.circular(3))),
-                child: Center(child: Text("-", style: TextStyle(fontSize: 18))),
+                child: Center(child: Text("-", style: TextStyle(fontSize: SizeUtil.titleFontSize()))),
               ),
               onTap: () {
                 setState(() {
@@ -309,7 +310,7 @@ class _MyCartViewState extends State<MyCartView> {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.2))),
               child: Center(
-                  child: Text("${item.amout}", style: TextStyle(fontSize: 16))),
+                  child: Text("${item.amout}", style: TextStyle(fontSize: SizeUtil.titleFontSize()))),
             ),
             InkWell(
               child: Container(
@@ -320,7 +321,7 @@ class _MyCartViewState extends State<MyCartView> {
                         topRight: Radius.circular(3),
                         bottomRight: Radius.circular(3)),
                     border: Border.all(color: Colors.black.withOpacity(0.2))),
-                child: Center(child: Text("+", style: TextStyle(fontSize: 18))),
+                child: Center(child: Text("+", style: TextStyle(fontSize: SizeUtil.titleFontSize()))),
               ),
               onTap: () {
                 setState(() {
@@ -368,10 +369,10 @@ class _MyCartViewState extends State<MyCartView> {
             SizedBox(width: 10),
             Text("ฟรี  ",
                 style: FunctionHelper.FontTheme(
-                    fontSize: 16, color: ThemeColor.ColorSale())),
+                    fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.ColorSale())),
             Text("ส่วนลดค่าจัดส่ง ฿40 เมื่อขั้นต่ำถึง ฿0",
                 style: FunctionHelper.FontTheme(
-                    fontSize: 16, fontWeight: FontWeight.w500)),
+                    fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500)),
           ],
         ),
       ),
@@ -404,7 +405,7 @@ class _MyCartViewState extends State<MyCartView> {
                             SizedBox(width: 10),
                             Text("เลือกทั้งหมด",
                                 style: FunctionHelper.FontTheme(
-                                    fontSize: 15,
+                                    fontSize: SizeUtil.titleSmallFontSize(),
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black))
                           ],
@@ -414,7 +415,7 @@ class _MyCartViewState extends State<MyCartView> {
                     flex: 2,
                     child: Text("จำนวน ${SumTotalItem()} รายการ",
                         style: FunctionHelper.FontTheme(
-                            fontSize: 15,
+                            fontSize: SizeUtil.titleSmallFontSize(),
                             fontWeight: FontWeight.w500,
                             color: Colors.black)),
                   )
@@ -437,7 +438,7 @@ class _MyCartViewState extends State<MyCartView> {
                         margin: EdgeInsets.only(left: 20),
                         child: Text("รวมทั้งหมด",
                             style: FunctionHelper.FontTheme(
-                                fontSize: 15,
+                                fontSize: SizeUtil.titleFontSize(),
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black)))),
                 Expanded(
@@ -447,7 +448,7 @@ class _MyCartViewState extends State<MyCartView> {
                         margin: EdgeInsets.only(right: 10),
                         child: Text("฿${SumTotalPrice()}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: 15,
+                                fontSize: SizeUtil.titleFontSize(),
                                 fontWeight: FontWeight.bold,
                                 color: ThemeColor.ColorSale())))),
                 Expanded(
@@ -462,7 +463,7 @@ class _MyCartViewState extends State<MyCartView> {
                           },
                           child: Text("ชำระเงิน",
                               style: FunctionHelper.FontTheme(
-                                  fontSize: 18,
+                                  fontSize:SizeUtil.titleFontSize(),
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white)),
                           ),

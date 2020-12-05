@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
@@ -34,7 +35,7 @@ class _BankAddViewState extends State<BankAddView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            Title: "เพิ่มบัญชีธนาคาร",
+            title: "เพิ่มบัญชีธนาคาร",
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -80,7 +81,7 @@ class _BankAddViewState extends State<BankAddView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: FunctionHelper.FontTheme(fontSize: 14, color: Colors.grey),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(), color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
       ),
