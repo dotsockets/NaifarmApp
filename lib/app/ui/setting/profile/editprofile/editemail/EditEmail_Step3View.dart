@@ -42,7 +42,7 @@ class _EditEmail_Step3ViewState extends State<EditEmail_Step3View> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        Title: "อีเมลใหม่",
+        title: "อีเมลใหม่",
         header_type: Header_Type.barNormal,
         onClick: () {
           FunctionHelper.ConfirmDialog(context,

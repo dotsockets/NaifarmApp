@@ -38,7 +38,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(Title: "ชื่อผู้เช้าใข้",header_type: Header_Type.barNormal,),
+      appBar: AppToobar(title: "ชื่อผู้เช้าใข้",header_type: Header_Type.barNormal,),
       body: Container(
         child: Container(
           child: Column(

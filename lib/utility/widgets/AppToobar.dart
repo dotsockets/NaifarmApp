@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 import 'BuildIconShop.dart';
 
@@ -13,23 +14,26 @@ enum Header_Type { barHome, barNoBackground, barNormal, barcartShop, barMap }
 
 class AppToobar extends PreferredSize {
   final Header_Type header_type;
-  final String Title;
+  final String title;
   final Function onClick;
   final String icon;
   final isEnable_Search;
-  final String mapTxt;
+  final String locationTxt;
   final String hint;
   final Function(String) onSearch;
+  final bool showBackBtn;
 
   const AppToobar(
       {this.onClick = null,
       this.icon = "",
       Key key,
       this.header_type,
-      this.Title = "",
+      this.title = "",
       this.isEnable_Search = false,
-      this.mapTxt = "",
-      this.hint = "",this.onSearch})
+      this.showBackBtn = true,
+      this.locationTxt = "",
+      this.hint = "",
+      this.onSearch})
       : super(key: key);
 
   @override
@@ -53,10 +57,13 @@ class AppToobar extends PreferredSize {
   Widget BarNormal(BuildContext context) {
     return Container(
       child: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () =>
-              onClick == null ? Navigator.of(context).pop() : onClick(),
+        leading: Visibility(
+          child: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+            onPressed: () =>
+                onClick == null ? Navigator.of(context).pop() : onClick(),
+          ),
+          visible: showBackBtn,
         ),
         actions: [
           Container(
@@ -72,8 +79,8 @@ class AppToobar extends PreferredSize {
         backgroundColor: ThemeColor.primaryColor(),
         title: Center(
           child: Text(
-            Title,
-            style: FunctionHelper.FontTheme(color: Colors.black),
+            title,
+            style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize()),
           ),
         ),
       ),
@@ -110,8 +117,8 @@ class AppToobar extends PreferredSize {
         backgroundColor: ThemeColor.primaryColor(),
         title: Center(
           child: Text(
-            Title,
-            style: FunctionHelper.FontTheme(color: Colors.black, fontSize: 18),
+            title,
+            style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.titleFontSize()),
           ),
         ),
       ),
@@ -170,7 +177,18 @@ class AppToobar extends PreferredSize {
                   Navigator.pop(context);
                 },
               ),
-              _buildSearchMap(false),
+              _buildSearchMap(context),
+              Visibility(
+                child: Container(
+                  margin: EdgeInsets.only(left: 5,),
+                  child: SvgPicture.asset(
+                    'assets/images/svg/map.svg',
+                    width: 30,
+                    height: 30,
+                  ),
+                ),
+                visible: isEnable_Search,
+              )
             ],
           ),
         ),
@@ -180,29 +198,40 @@ class AppToobar extends PreferredSize {
 
   Widget BarHome(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(top: 8, bottom: 8, left: isEnable_Search ? 15:10),
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         bottom: false,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 8, right: 8, left: 12),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildSearch(isEnable_Search ? false : true, context),
-              SizedBox(width: 8),
-              BuildIconShop(
-                notification: 20,
-                size: 30,
-              )
-            ],
-          ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Visibility(
+              child: Container(
+                child: GestureDetector(
+                  child: SvgPicture.asset(
+                    'assets/images/svg/back_black.svg',
+                    color: Colors.white,
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              visible: isEnable_Search ? false : true,
+            ),
+            _buildSearch(isEnable_Search ? false : true, context),
+            BuildIconShop(
+              notification: 20,
+              size: 25,
+            )
+          ],
         ),
       ),
     );
   }
 
   Expanded _buildSearch(bool isEditable, BuildContext context) {
-    final border = OutlineInputBorder(
+    /* final border = OutlineInputBorder(
       borderSide: const BorderSide(
         color: Colors.transparent,
         width: 10,
@@ -215,7 +244,7 @@ class AppToobar extends PreferredSize {
     final sizeIcon = BoxConstraints(
       minWidth: 35,
       minHeight: 35,
-    );
+    );*/
 
     return Expanded(
         child: Container(
@@ -223,7 +252,7 @@ class AppToobar extends PreferredSize {
           color: Colors.white,
           borderRadius: new BorderRadius.all(Radius.circular(40.0))),
       child: Container(
-        padding: EdgeInsets.only(left: 10,right: 10),
+          padding: EdgeInsets.only(left: 5, right: 12,bottom: 1),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -236,18 +265,29 @@ class AppToobar extends PreferredSize {
                 ),
                 visible: isEnable_Search,
               ),
-              Flexible(child:
-              InkWell(
-                child: TextField(
-                  enabled: isEditable,
-                  decoration: InputDecoration(
+              Expanded(
+                  child: InkWell(
+                child: isEnable_Search?SizedBox(height: 50,):
+                Container(
+                  padding: EdgeInsets.only(left: 5),
+                  child: TextField(
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.black, fontSize: SizeUtil.detailFontSize()),
+                    enabled: isEditable,
+                    decoration: InputDecoration(
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,
-                      hintText: ""
+                      hintText: hint,
+                      hintStyle: FunctionHelper.FontTheme(
+                          color: Colors.grey, fontSize: SizeUtil.detailFontSize()),
+                    ),
+                    onChanged: (String s) =>
+                        onSearch != null ? onSearch(s) : null,
                   ),
-                  onChanged: (String s)=> onSearch!=null?onSearch(s):null,
                 ),
-                onTap: (){AppRoute.SearchHome(context);},
+                onTap: () {
+                  AppRoute.SearchHome(context);
+                },
               )),
               SvgPicture.asset(
                 'assets/images/svg/search_photo.svg',
@@ -292,10 +332,11 @@ class AppToobar extends PreferredSize {
     ));
   }
 
-  Expanded _buildSearchMap(bool isEditable) {
+  Expanded _buildSearchMap(BuildContext context) {
     TextEditingController txtController = TextEditingController();
-    txtController.text = mapTxt;
-    final border = OutlineInputBorder(
+    txtController.text = locationTxt.toString().trim().replaceAll("null", "");
+
+    /*final border = OutlineInputBorder(
       borderSide: const BorderSide(
         color: Colors.transparent,
         width: 10,
@@ -308,37 +349,65 @@ class AppToobar extends PreferredSize {
     final sizeIcon = BoxConstraints(
       minWidth: 35,
       minHeight: 35,
-    );
+    );*/
     return Expanded(
       child: Container(
         decoration: new BoxDecoration(
             color: Colors.white,
             borderRadius: new BorderRadius.all(Radius.circular(40.0))),
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SvgPicture.asset('assets/images/svg/location.svg',
-                  color: Colors.grey),
-              Expanded(
-                child: Text(
-                    " " +
-                        txtController.text
-                            .toString()
-                            .trim()
-                            .replaceAll("null", ""),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: FunctionHelper.FontTheme(
-                        color: Colors.black, fontSize: 12)),
-              ),
-              SvgPicture.asset(
-                'assets/images/svg/search.svg',
-                color: ThemeColor.ColorSale(),
-              )
-            ],
+        child: InkWell(
+          child: Container(
+            padding: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SvgPicture.asset(
+                  'assets/images/svg/location.svg',
+                  color: Colors.black.withOpacity(0.5),
+                  width: 15,
+                  height: 15,
+                ),
+                Expanded(
+                    child: !isEnable_Search
+                        ? Container(
+                            padding: EdgeInsets.only(left: 5),
+                            child: Text(txtController.text,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: FunctionHelper.FontTheme(
+                                    color: Colors.black, fontSize: SizeUtil.detailFontSize())),
+                          )
+                        : Container(
+                            padding: EdgeInsets.only(left: 5,top: 10),
+                            child: TextFormField(
+                              style: FunctionHelper.FontTheme(
+                                  color: Colors.black, fontSize: SizeUtil.detailFontSize()),
+                              enabled: true,
+                              maxLines: 1,
+                              initialValue:locationTxt.toString().length > 30 ?  locationTxt.toString().trim().substring(0, 30) + "..." : "",
+                              decoration: InputDecoration(
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                hintText: hint,
+                                hintStyle: FunctionHelper.FontTheme(
+                                    color: Colors.grey, fontSize: SizeUtil.detailFontSize()),
+                              ),
+                              onChanged: (String s) =>
+                                  onSearch != null ? onSearch(s) : null,
+                            ),
+                          )),
+                SvgPicture.asset(
+                  'assets/images/svg/search.svg',
+                  color: ThemeColor.ColorSale(),
+                  width: 25,
+                  height: 25,
+                )
+              ],
+            ),
           ),
+          onTap: () {
+            AppRoute.SearchMap(context, txtController.text);
+          },
         ),
       ),
     );

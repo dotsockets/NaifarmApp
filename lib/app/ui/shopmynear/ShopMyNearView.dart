@@ -37,16 +37,18 @@ class _ShopMyNearViewState extends State<ShopMyNearView> {
         top: false,
         child: Scaffold(
             appBar: AppToobar(
-              Title: "",
+              title: "",
               icon: "",
-              mapTxt: address,
+              locationTxt: address,
+
               header_type: Header_Type.barMap,
             ),
             body: Stack(
               children: [
                 GoogleMap(
                   myLocationEnabled: true,
-                  zoomControlsEnabled: false,
+                  myLocationButtonEnabled: false,
+
                 //  circles: circles,
                   initialCameraPosition: _cameraPosition,
                   onMapCreated: (GoogleMapController controller){
@@ -54,7 +56,6 @@ class _ShopMyNearViewState extends State<ShopMyNearView> {
                     _controller.animateCamera(
                         CameraUpdate.newCameraPosition(_cameraPosition));
                   },
-
                   markers: _markers,
                   onCameraIdle: (){
                     setState(() {
@@ -92,26 +93,26 @@ class _ShopMyNearViewState extends State<ShopMyNearView> {
       _markers.add(Marker(
         draggable: true,
           markerId: MarkerId("1"),
-          icon:BitmapDescriptor.fromAsset('assets/images/png/icon_navigation.png'),
+          icon:BitmapDescriptor.fromAsset('assets/images/png/icon_location.png'),
           position: LatLng(latlong.latitude,latlong.longitude)
       ));
+
+
 
       circles.add(
           Circle(
             circleId: CircleId("1"),
             center: LatLng(latlong.latitude,latlong.longitude),
-            radius: 20,
+            radius: 10,
             fillColor: Colors.blue,
             strokeColor: Colors.white,
             strokeWidth: 5
-
           )
       );
     });
   }
 
-  getCurrentAddress() async
-  {
+  getCurrentAddress() async {
     final coordinates = new Coordinates(latlong.latitude, latlong.longitude);
     results  = await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = results.first;

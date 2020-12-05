@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:retrofit/http.dart';
 
@@ -80,7 +81,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppToobar(Title: "ใส่รหัสยืนยันตัวตน",header_type: Header_Type.barNormal,),
+      appBar: AppToobar(title: "ใส่รหัสยืนยันตัวตน",header_type: Header_Type.barNormal,),
       body: SafeArea(
         child: Column(
           children: [
@@ -410,7 +411,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                           if (time != null) {
                             return Text(
                                 '${FunctionHelper.ConverTime(time: time.sec != null ? time.sec.toString() : "0")}',
-                                style: FunctionHelper.FontTheme(fontSize: 16,color: ThemeColor.ColorSale()));
+                                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale()));
                           } else {
                             return Container(
                               child:InkWell(

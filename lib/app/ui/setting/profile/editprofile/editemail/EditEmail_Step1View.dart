@@ -42,7 +42,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        Title: "อีเมล", header_type: Header_Type.barNormal,),
+        title: "อีเมล", header_type: Header_Type.barNormal,),
       body: Column(
         children: [
           Container(padding:EdgeInsets.all(15), child: Text("เพื่อความปลอดภัยบัญชีของคุณกรุณาระบุรหัสผ่านเพื่อการดำเนินต่อ",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40)),),),

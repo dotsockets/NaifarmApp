@@ -8,6 +8,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -84,7 +85,7 @@ class FunctionHelper {
                       "กำลังโหลด...",
                       style: FunctionHelper.FontTheme(
                           color: Colors.black,
-                          fontSize: 16,
+                          fontSize: SizeUtil.titleFontSize(),
                           decoration: TextDecoration.none),
                     )
                   ],
@@ -163,7 +164,7 @@ class FunctionHelper {
                         child: Text(
                           dataList[index],
                           style: FunctionHelper.FontTheme(
-                              fontSize: 16, fontWeight: FontWeight.w400),
+                              fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w400),
                         ),
                       ),
                     ),
@@ -342,7 +343,7 @@ class FunctionHelper {
                     padding: EdgeInsets.all(20),
                     child: Center(
                         child: Text(message,
-                      style: FunctionHelper.FontTheme(fontSize: 16),
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
                       textAlign: TextAlign.center,
                     ))),
                 Container(
@@ -359,7 +360,7 @@ class FunctionHelper {
                                 alignment: Alignment.center,
                                 child: Text(
                                   "ยกเลิก",
-                                  style: FunctionHelper.FontTheme(fontSize: 16,color: ThemeColor.ColorSale()),
+                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale()),
                                 )),
                           ),
                             onTap: () => onCancel())),
@@ -373,7 +374,7 @@ class FunctionHelper {
                           child: Align(
                               alignment: Alignment.center,
                               child: Text("ตกลง",
-                                  style: FunctionHelper.FontTheme(fontSize: 16,color: ThemeColor.primaryColor()))),
+                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.primaryColor()))),
                             onTap: () => onClick()))
                   ],
                 )

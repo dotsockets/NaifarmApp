@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/FollowersModel.dart';
 import 'package:naifarm/app/viewmodels/ReviewViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class FollowersView extends StatelessWidget {
@@ -18,7 +19,7 @@ class FollowersView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        Title: "ผู้ติดตาม",
+        title: "ผู้ติดตาม",
         header_type: Header_Type.barNormal,
         icon: 'assets/images/svg/search.svg',
       ),
@@ -63,7 +64,7 @@ class FollowersView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 15),
-                  Text(item.Name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),)
+                  Text(item.Name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize()),)
                 ],
               ),
               Container(
@@ -81,7 +82,7 @@ class FollowersView extends StatelessWidget {
                   },
                   child: Text(
                     item.IsFollow?"กำลังติดตาม":"ติดตาม",
-                    style: FunctionHelper.FontTheme(fontSize: 16,fontWeight: FontWeight.w500),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                   ),
                 ),
               )

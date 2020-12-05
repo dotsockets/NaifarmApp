@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/ui/recommend/widget/SearchHot.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class SearchView extends StatefulWidget {
@@ -24,7 +25,6 @@ class _SearchViewState extends State<SearchView> {
   Widget build(BuildContext context) {
 
     return Container(
-      color: Colors.grey,
       child: SafeArea(
         top: false,
         child: Scaffold(
@@ -32,6 +32,7 @@ class _SearchViewState extends State<SearchView> {
             icon: "",
             isEnable_Search: false,
             header_type: Header_Type.barHome,
+            hint: "ค้นหาสินค้า",
             onSearch: (String text){
               setState(() {
                 SearchLike(text);
@@ -46,13 +47,13 @@ class _SearchViewState extends State<SearchView> {
                   color: Colors.white,
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: listClone.length!=0&&listClone.length>3?3:listClone.length,
+                    itemCount: !checkSeemore&&listClone.length!=0&&listClone.length>3?3:listClone.length,
                     itemBuilder: (context, index) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                              child: Text(listClone[index], style: FunctionHelper.FontTheme(color: Colors.black, fontSize: 14)
+                              child: Text(listClone[index], style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.detailFontSize())
                               ),padding: EdgeInsets.all(10),
                           ),
                           _BuildLine()
@@ -67,8 +68,11 @@ class _SearchViewState extends State<SearchView> {
                     padding: EdgeInsets.only(top:10,bottom: 10),
                     width: MediaQuery.of(context).size.width,
                     child: Center(
-                      child: Text(listClone.length!=0?"แสดงเพิ่ม":"ไม่พบข้อมูล",
-                          style: FunctionHelper.FontTheme(color: Colors.grey, fontSize: 14)),
+                      child: Visibility(
+                        child: Text(listClone.length==0?"ไม่พบข้อมูล":checkSeemore?"ย่อ":"แสดงเพิ่ม",
+                            style: FunctionHelper.FontTheme(color: Colors.grey, fontSize: SizeUtil.detailFontSize())),
+                      visible: listClone.length>0&&listClone.length<=3?false:true,
+                      ),
                     ),
                   ),
                   onTap: () {

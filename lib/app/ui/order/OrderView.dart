@@ -9,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 class OrderView extends StatelessWidget {
   int  Status_Sell;
@@ -92,9 +93,9 @@ class OrderView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 30,),
-                Text("คำสั่งซื้อเสร็จสมบูรณ์และขอบคุณสำหรับการให้คะแนน",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
+                Text("คำสั่งซื้อเสร็จสมบูรณ์และขอบคุณสำหรับการให้คะแนน",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold),),
                 SizedBox(height: 3),
-                Text("เวลาที่สำเร็จ 28-06-2563  18:39",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black.withOpacity(0.5)),)
+                Text("เวลาที่สำเร็จ 28-06-2563  18:39",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black.withOpacity(0.5)),)
               ]
           ),
         ),
@@ -109,7 +110,7 @@ class OrderView extends StatelessWidget {
   Widget _labelText({String title}){
     return Container(
       padding: EdgeInsets.only(left: 15,top: 15,bottom: 15),
-      child: Text(title,style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
+      child: Text(title,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold),),
     );
   }
 
@@ -162,8 +163,8 @@ class OrderView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("หมายเลขคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
-                Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: 16,color:ThemeColor.ColorSale(),fontWeight: FontWeight.bold,height: 1.5),),
+                Text("หมายเลขคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+                Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color:ThemeColor.ColorSale(),fontWeight: FontWeight.bold,height: 1.5),),
               ],
             ),
             SizedBox(height: 13,),
@@ -193,12 +194,12 @@ class OrderView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 15,),
-                    Text("ไร่มอนหลวงสาย",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),)
+                    Text("ไร่มอนหลวงสาย",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),)
                   ],
                 ),
                 Row(
                   children: [
-                    Text("ไปยังร้านค้า",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+                    Text("ไปยังร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                     SizedBox(width: 10,),
                     Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
                   ],
@@ -236,24 +237,24 @@ class OrderView extends StatelessWidget {
                     children: [
                       Text("หอมใหญ่",
                           style: FunctionHelper.FontTheme(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
+                              fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold)),
                       SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("x 2",
                               style: FunctionHelper.FontTheme(
-                                  fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold)),
+                                  fontSize: SizeUtil.titleFontSize(), color: Colors.black, fontWeight: FontWeight.bold)),
                           Row(
                             children: [
                               Text("฿140",
                                   style: FunctionHelper.FontTheme(
-                                      fontSize: 16,
+                                      fontSize: SizeUtil.titleFontSize(),
                                       decoration: TextDecoration.lineThrough,color: Colors.black.withOpacity(0.5))),
                               SizedBox(width: 8),
                               Text("฿100",
                                   style: FunctionHelper.FontTheme(
-                                      fontSize: 16, color: Colors.black))
+                                      fontSize: SizeUtil.titleFontSize(), color: Colors.black))
                             ],
                           )
                         ],
@@ -267,27 +268,27 @@ class OrderView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("รวมค่าสินค้า :",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+                Text("รวมค่าสินค้า :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 SizedBox(width: 10,),
-                Text("฿100", style: FunctionHelper.FontTheme(fontSize: 16, color: Colors.black))
+                Text("฿100", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), color: Colors.black))
               ],
             ),
             SizedBox(height: 5,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("ค่าจัดส่ง :",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+                Text("ค่าจัดส่ง :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 SizedBox(width: 10,),
-                Text("฿36.00", style: FunctionHelper.FontTheme(fontSize: 16, color: Colors.black))
+                Text("฿36.00", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), color: Colors.black))
               ],
             ),
             SizedBox(height: 5,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("รวม :",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+                Text("รวม :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 SizedBox(width: 10,),
-                Text("฿136.00", style: FunctionHelper.FontTheme(fontSize: 16, color: ThemeColor.ColorSale()))
+                Text("฿136.00", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), color: ThemeColor.ColorSale()))
               ],
             ),
           ],
@@ -320,7 +321,7 @@ class OrderView extends StatelessWidget {
                 )),
           ),
           SizedBox(width: 10,),
-          Text("ธนาคารไทยพาณิชย์", style: FunctionHelper.FontTheme(fontSize: 16, color: Colors.black,fontWeight: FontWeight.bold))
+          Text("ธนาคารไทยพาณิชย์", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), color: Colors.black,fontWeight: FontWeight.bold))
         ],
       ),
     );
@@ -336,40 +337,40 @@ class OrderView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("หมายเลขคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
-              Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: 16,color:ThemeColor.ColorSale(),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("หมายเลขคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+              Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color:ThemeColor.ColorSale(),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
           SizedBox(height: 13,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("เวลาที่สั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
-              Text("28-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: 16,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("เวลาที่สั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("28-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
           SizedBox(height: 13,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("เวลาชำระเงิน",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
-              Text("28-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: 16,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("เวลาชำระเงิน",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("28-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
           SizedBox(height: 13,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("เวลาส่งสินค้า",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
-              Text("30-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: 16,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("เวลาส่งสินค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("30-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
           SizedBox(height: 13,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("เวลาที่สำเร็จ",style: FunctionHelper.FontTheme(fontSize: 16,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
-              Text("31-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: 16,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("เวลาที่สำเร็จ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("31-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
           SizedBox(height: 13,),

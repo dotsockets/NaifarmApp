@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 class DeliveryView extends StatelessWidget {
   @override
@@ -175,10 +176,10 @@ class DeliveryView extends StatelessWidget {
               ),
               Text(item.shopName,
                   style:
-                  FunctionHelper.FontTheme(fontSize: 16, fontWeight: FontWeight.bold))
+                  FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold))
             ],
           ),
-          Text(item.product_status,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: 16,fontWeight: FontWeight.w500),)
+          Text(item.product_status,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),)
         ],
       ),
     );

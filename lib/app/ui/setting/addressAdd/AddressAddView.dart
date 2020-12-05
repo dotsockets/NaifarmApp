@@ -4,6 +4,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -49,7 +50,7 @@ class _AddressAddViewState extends State<AddressAddView> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            Title: "เพิ่มที่อยู่",
+            title: "เพิ่มที่อยู่",
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -158,7 +159,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: FunctionHelper.FontTheme(fontSize: 14, color: Colors.grey),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(), color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
       ),
@@ -174,7 +175,7 @@ class _AddressAddViewState extends State<AddressAddView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(fontSize: 16),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
           ),
           FlutterSwitch(
             height: 30,

@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildIconShop.dart';
 import 'myshop/MyshopView.dart';
 import 'purchase/PurchaseView.dart';
@@ -230,7 +231,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: 16,color: Colors.black)),
+          Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),color: Colors.black)),
           SizedBox(width: 10,),
           message?ClipRRect(
             borderRadius: BorderRadius.circular(9.0),

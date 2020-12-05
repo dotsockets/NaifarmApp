@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class PolicyView extends StatefulWidget {
@@ -23,7 +24,7 @@ class _PolicyViewState extends State<PolicyView> {
         top: false,
         child: Scaffold(
           appBar: AppToobar(
-            Title: "นโยบายของ Naifarm",
+            title: "นโยบายของ Naifarm",
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -45,7 +46,7 @@ class _PolicyViewState extends State<PolicyView> {
   Widget _buildTxt({String txt}) {
     return Text(
       txt,
-      style: FunctionHelper.FontTheme(fontSize: 16),
+      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
     );
 
   }

@@ -29,7 +29,7 @@ class FlashSaleView extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             color: Colors.grey.withOpacity(0.3),
             child: StickyHeader(
-              header:  AppToobar(Title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
+              header:  AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
               content: Stack(
                 children: [
                   Container(

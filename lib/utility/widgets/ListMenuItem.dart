@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 class ListMenuItem extends StatelessWidget {
   final String icon;
@@ -50,7 +51,7 @@ class ListMenuItem extends StatelessWidget {
                     ),
                     Text(title,
                         style: FunctionHelper.FontTheme(
-                            fontSize: 14,
+                            fontSize: SizeUtil.titleFontSize(),
                             fontWeight: fontWeight,
                             color: Colors.black)),
                   ],
@@ -61,7 +62,7 @@ class ListMenuItem extends StatelessWidget {
                 children: [
                   Text(Message,
                       style: FunctionHelper.FontTheme(
-                          fontSize: 14,
+                          fontSize: SizeUtil.titleSmallFontSize(),
                           fontWeight: FontWeight.w500,
                           color: Colors.black.withOpacity(opacityMessage))),
                   SizedBox(

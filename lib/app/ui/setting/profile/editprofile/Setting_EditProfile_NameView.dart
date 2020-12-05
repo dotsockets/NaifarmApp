@@ -43,7 +43,7 @@ class _Setting_EditProfile_NameViewState extends State<Setting_EditProfile_NameV
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(Title: "ชื่อ",header_type: Header_Type.barNormal,),
+      appBar: AppToobar(title: "ชื่อ",header_type: Header_Type.barNormal,),
       body: Container(
         child: Container(
           child: Column(

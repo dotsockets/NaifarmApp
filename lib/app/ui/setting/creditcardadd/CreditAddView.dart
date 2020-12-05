@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
@@ -49,7 +50,7 @@ class _CreditAddViewState extends State<CreditAddView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            Title: "เพิ่มบัตรเครดิต/บัตรเครดิต",
+            title: "เพิ่มบัตรเครดิต/บัตรเครดิต",
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -81,7 +82,7 @@ class _CreditAddViewState extends State<CreditAddView> {
                                   children: [
                                     Text("ถ่ายรูปบัตร",
                                         style: FunctionHelper.FontTheme(
-                                            fontSize: 16,
+                                            fontSize: SizeUtil.titleFontSize(),
                                             fontWeight: FontWeight.w500)),
                                     SizedBox(
                                       width: 5,
@@ -140,7 +141,7 @@ class _CreditAddViewState extends State<CreditAddView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: FunctionHelper.FontTheme(fontSize: 14, color: Colors.grey),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(), color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
       ),

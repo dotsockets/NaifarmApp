@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/DiscountModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 class ModalFitBottom_Sheet extends StatelessWidget {
 
@@ -77,10 +78,10 @@ class ModalFitBottom_Sheet extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(item.Title,style: FunctionHelper.FontTheme(
-                          fontSize: 16, fontWeight: FontWeight.bold),),
+                          fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold),),
                       SizedBox(height: 5,),
                       Text(item.SubTitle,style: FunctionHelper.FontTheme(
-                          fontSize: 16, fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
+                          fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
                     ],
                   ),
                 ),
@@ -100,11 +101,11 @@ class ModalFitBottom_Sheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(item.LabelText,style: FunctionHelper.FontTheme(
-                    fontSize: 16, fontWeight: FontWeight.bold),),
+                    fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold),),
                 Row(
                   children: [
                     Text("ช้อปต่อ",style: FunctionHelper.FontTheme(
-                        fontSize: 16, fontWeight: FontWeight.w500,color: ThemeColor.ColorSale()),),
+                        fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500,color: ThemeColor.ColorSale()),),
                     SizedBox(width: 5,),
                     Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
                   ],
@@ -137,7 +138,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
         },
         child: Text(
           isUse?"ใช้แล้ว":"ใช้ส่วนลด",
-          style: FunctionHelper.FontTheme(fontSize: 16, fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
         ),
       ),
     );

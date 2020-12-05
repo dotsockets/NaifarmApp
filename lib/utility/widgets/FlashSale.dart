@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 
 class FlashSale extends StatelessWidget {
@@ -32,7 +33,7 @@ class FlashSale extends StatelessWidget {
          child: Column(
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
-             SizedBox(height: 50),
+             SizedBox(height: 35),
              Center(child: _textSale(context: context)),
              _flashProduct(context)
            ],
@@ -49,11 +50,11 @@ class FlashSale extends StatelessWidget {
   Widget _textSale({BuildContext context}){
     return InkWell(
       child: Container(
-        margin: EdgeInsets.only(bottom: 20),
+        margin: EdgeInsets.only(bottom: 5),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("เลือกซื้อสินค้าต่อ",style: FunctionHelper.FontTheme(fontSize: 20),),
+            Text("เลือกซื้อสินค้าต่อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),),
             SvgPicture.asset('assets/images/svg/next.svg')
           ],
         ),
@@ -110,7 +111,7 @@ class FlashSale extends StatelessWidget {
                   ),
                   fit: BoxFit.cover,
                   imageUrl: item.product_image,
-                  errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
+                  errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: SizeUtil.titleSmallFontSize(),)),
                 ),
               ),
               Container(
@@ -120,7 +121,7 @@ class FlashSale extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.only(right: 8,left: 8,top: 3,bottom: 3),
                     color: ThemeColor.ColorSale(),
-                    child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white),),
+                    child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize()),),
                   ),
                 ),
               )
@@ -135,9 +136,9 @@ class FlashSale extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 8),
-          Hero(tag:  "productName_${index}",child: Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold),)),
+          Hero(tag:  "productName_${index}",child: Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:SizeUtil.titleSmallFontSize() ),)),
           SizedBox(height: 5),
-          Hero(tag: "productPrice_${index}",child: Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),)),
+          Hero(tag: "productPrice_${index}",child: Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize:SizeUtil.priceFontSize()),)),
           SizedBox(height: 5),
           Stack(
             children: [
@@ -148,7 +149,7 @@ class FlashSale extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
                     color: ThemeColor.ColorSale(),
-                    child:  Hero(tag: "productStatus_${index}",child: Text(item.product_status,style: FunctionHelper.FontTheme(color: Colors.white,fontWeight: FontWeight.bold),)),
+                    child:  Hero(tag: "productStatus_${index}",child: Text(item.product_status,style: FunctionHelper.FontTheme(color: Colors.white,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize()),)),
                   ),
                 ),
               ),

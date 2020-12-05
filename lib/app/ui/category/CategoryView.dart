@@ -19,14 +19,13 @@ class CategoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     _menuViewModel.removeAt(0);
     return Scaffold(
+      appBar:  AppToobar(header_type: Header_Type.barHome,isEnable_Search: true,),
+
       backgroundColor: Colors.white,
     body: SingleChildScrollView(
       child: Container(
         color: Colors.white,
-        child: StickyHeader(
-          header: AppToobar(header_type: Header_Type.barHome),
-          content: _content(context: context),
-        ),
+        child: _content(context: context)
       ),
     ),
     );
@@ -114,7 +113,7 @@ class CategoryView extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            Text(item.label,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: ScreenUtil().setSp(35),fontWeight: FontWeight.bold),)
+            Text(item.label,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold),)
           ],
         ),
       ),

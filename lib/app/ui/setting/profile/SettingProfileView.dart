@@ -5,6 +5,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,7 +33,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            Title: "ตั้งค่าบัญชี",
+            title: "ตั้งค่าบัญชี",
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -151,7 +152,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
       padding: EdgeInsets.only(left: 15, top: 8, bottom: 8),
       child: Text(
         txt,
-        style: FunctionHelper.FontTheme(fontSize: 16),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
       ),
     );
   }

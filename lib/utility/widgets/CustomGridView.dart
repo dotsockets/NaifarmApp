@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class CustomGridView extends StatelessWidget {
@@ -95,7 +96,7 @@ class CustomGridView extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: FunctionHelper.FontTheme(
                       color: Colors.black,
-                      fontSize: ScreenUtil().setSp(40),
+                      fontSize: SizeUtil.titleSmallFontSize(),
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 2),
@@ -104,7 +105,7 @@ class CustomGridView extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: FunctionHelper.FontTheme(
                       color: Colors.black,
-                      fontSize: ScreenUtil().setSp(36),
+                      fontSize: SizeUtil.detailSmallFontSize(),
                       fontWeight: FontWeight.normal),
                 ),
               ],

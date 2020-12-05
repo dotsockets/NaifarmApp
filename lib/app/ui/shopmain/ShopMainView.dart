@@ -10,6 +10,7 @@ import 'package:naifarm/app/ui/me/purchase/PurchaseView.dart';
 import 'package:naifarm/app/ui/shopmain/shop/Shop.dart';
 import 'package:naifarm/app/ui/shopmain/shopdetails/ShopDetailsView.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/FlashSale.dart';
 import 'package:naifarm/utility/widgets/ProductGrid.dart';
@@ -64,7 +65,7 @@ class _ShopMainViewState extends State<ShopMainView>
       child: Scaffold(
         backgroundColor: Colors.grey.shade300,
         appBar: AppToobar(
-          Title: "ไร่มอนหลวงสาย",
+          title: "ไร่มอนหลวงสาย",
           header_type: Header_Type.barNormal,
           icon: 'assets/images/svg/search.svg',
         ),
@@ -125,7 +126,7 @@ class _ShopMainViewState extends State<ShopMainView>
         child: Text(title,
             style: FunctionHelper.FontTheme(
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: SizeUtil.titleFontSize(),
                 color: tabController.index == index
                     ? Colors.black
                     : Colors.grey.shade700)),

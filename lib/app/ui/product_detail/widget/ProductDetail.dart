@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProductDetail extends StatefulWidget {
@@ -151,7 +152,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               style: FunctionHelper.FontTheme(
                                   color: ThemeColor.primaryColor(),
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 16),
+                                  fontSize: SizeUtil.titleFontSize()),
                             ))),
                         onTap: () {
                           setState(() {

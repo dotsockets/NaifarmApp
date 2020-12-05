@@ -3,7 +3,6 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -19,7 +18,6 @@ import 'package:naifarm/utility/widgets/CategoryMenu.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/ProductVertical.dart';
 import 'package:sticky_headers/sticky_headers.dart';
-
 import 'widget/RecommendMenu.dart';
 import 'widget/SearchHot.dart';
 
@@ -61,114 +59,115 @@ class _RecommendViewState extends State<RecommendView> {
   @override
   Widget build(BuildContext context) {
     return CustomRefreshIndicator(
-      controller: _indicatorController,
-      onRefresh: () => Future.delayed(const Duration(seconds: 2)),
-      loadingToIdleDuration: const Duration(seconds: 1),
-      armedToLoadingDuration: const Duration(seconds: 1),
-      draggingToIdleDuration: const Duration(seconds: 1),
-      leadingGlowVisible: false,
-      trailingGlowVisible: false,
-      offsetToArmed: 100.0,
-      builder: (
-        BuildContext context,
-        Widget child,
-        IndicatorController controller,
-      ) {
-        return AnimatedBuilder(
-          animation: controller,
-          builder: (BuildContext context, _) {
-            return Stack(
-              alignment: Alignment.topCenter,
-              children: <Widget>[
-                if (!controller.isIdle)
-                  Positioned(
-                    top: 60 * controller.value,
-                    child: SpinKitThreeBounce(
-                      color: ThemeColor.primaryColor(),
-                      size: 30,
+        controller: _indicatorController,
+        onRefresh: () => Future.delayed(const Duration(seconds: 2)),
+        loadingToIdleDuration: const Duration(seconds: 1),
+        armedToLoadingDuration: const Duration(seconds: 1),
+        draggingToIdleDuration: const Duration(seconds: 1),
+        leadingGlowVisible: false,
+        trailingGlowVisible: false,
+        offsetToArmed: 100.0,
+        builder: (
+          BuildContext context,
+          Widget child,
+          IndicatorController controller,
+        ) {
+          return AnimatedBuilder(
+            animation: controller,
+            builder: (BuildContext context, _) {
+              return Stack(
+                alignment: Alignment.topCenter,
+                children: <Widget>[
+                  if (!controller.isIdle)
+                    Positioned(
+                      top: 60 * controller.value,
+                      child: SpinKitThreeBounce(
+                        color: ThemeColor.primaryColor(),
+                        size: 30,
+                      ),
+                    ),
+                  Transform.translate(
+                    offset: Offset(0, 130.0 * controller.value),
+                    child: child,
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        child: SafeArea(
+            top: false,
+            child: Scaffold(
+              appBar: AppToobar(
+                header_type: Header_Type.barHome,
+                isEnable_Search: true,
+              ),
+              body: SingleChildScrollView(
+                child: Container(
+                  color: Colors.grey.shade300,
+                  child: StickyHeader(
+                    header: CategoryMenu(
+                      selectedIndex: _categoryselectedIndex,
+                      menuViewModel: _menuViewModel,
+                      onTap: (int val) {
+                        setState(() {
+                          _categoryselectedIndex = val;
+                        });
+                      },
+                    ),
+                    content: Column(
+                      children: [
+                        BannerSlide(),
+                        RecommendMenu(),
+                        FlashSale(),
+                        SizedBox(height: 15),
+                        ProductLandscape(
+                            titleInto: "สินค้าขายดี",
+                            producViewModel: ProductViewModel().getBaseSaller(),
+                            IconInto: 'assets/images/svg/product_hot.svg',
+                            onSelectMore: () {},
+                            onTapItem: (int index) {
+                              AppRoute.ProductDetail(context,
+                                  productImage: "product_hot_${index}");
+                            },
+                            tagHero: "product_hot"),
+                        SizedBox(height: 15),
+                        _BannerAds(),
+                        ProductVertical(
+                            titleInto: "ฟาร์มมาร์เก็ต",
+                            producViewModel:
+                                ProductViewModel().getProductFarm(),
+                            IconInto: 'assets/images/svg/menu_market.svg',
+                            onSelectMore: () {},
+                            onTapItem: (int index) {
+                              AppRoute.ProductDetail(context,
+                                  productImage: "market_${index}");
+                            },
+                            borderRadius: false,
+                            tagHero: "market"),
+                        SizedBox(height: 15),
+                        CategoryTab(),
+                        SizedBox(height: 15),
+                        SearchHot(onSelectChang: () {}),
+                        SizedBox(height: 15),
+                        ProductVertical(
+                            titleInto: "สินค้าสำหรับคุณ",
+                            producViewModel:
+                                ProductViewModel().getProductForYou(),
+                            IconInto: 'assets/images/svg/foryou.svg',
+                            onSelectMore: () {},
+                            onTapItem: (int index) {
+                              AppRoute.ProductDetail(context,
+                                  productImage: "foryou_${index}");
+                            },
+                            borderRadius: false,
+                            tagHero: "foryou")
+                      ],
                     ),
                   ),
-                Transform.translate(
-                  offset: Offset(0, 130.0 * controller.value),
-                  child: child,
                 ),
-              ],
-            );
-          },
-        );
-      },
-      child: SingleChildScrollView(
-        child: Container(
-          color: Colors.grey.shade300,
-          child: StickyHeader(
-            header: Column(
-              children: [
-                AppToobar(
-                  header_type: Header_Type.barHome,
-                  isEnable_Search: true,
-                ),
-                CategoryMenu(
-                  selectedIndex: _categoryselectedIndex,
-                  menuViewModel: _menuViewModel,
-                  onTap: (int val) {
-                    setState(() {
-                      _categoryselectedIndex = val;
-                    });
-                  },
-                ),
-              ],
-            ),
-            content: Column(
-              children: [
-                BannerSlide(),
-                RecommendMenu(),
-                FlashSale(),
-                SizedBox(height: 15),
-                ProductLandscape(
-                    titleInto: "สินค้าขายดี",
-                    producViewModel: ProductViewModel().getBaseSaller(),
-                    IconInto: 'assets/images/svg/product_hot.svg',
-                    onSelectMore: () {},
-                    onTapItem: (int index) {
-                      AppRoute.ProductDetail(context,
-                          productImage: "product_hot_${index}");
-                    },
-                    tagHero: "product_hot"),
-                SizedBox(height: 15),
-                _BannerAds(),
-                ProductVertical(
-                    titleInto: "ฟาร์มมาร์เก็ต",
-                    producViewModel: ProductViewModel().getProductFarm(),
-                    IconInto: 'assets/images/svg/menu_market.svg',
-                    onSelectMore: () {},
-                    onTapItem: (int index) {
-                      AppRoute.ProductDetail(context,
-                          productImage: "market_${index}");
-                    },
-                    borderRadius: false,
-                    tagHero: "market"),
-                SizedBox(height: 15),
-                CategoryTab(),
-                SizedBox(height: 15),
-                SearchHot(onSelectChang: (){}),
-                SizedBox(height: 15),
-                ProductVertical(
-                    titleInto: "สินค้าสำหรับคุณ",
-                    producViewModel: ProductViewModel().getProductForYou(),
-                    IconInto: 'assets/images/svg/foryou.svg',
-                    onSelectMore: () {},
-                    onTapItem: (int index) {
-                      AppRoute.ProductDetail(context,
-                          productImage: "foryou_${index}");
-                    },
-                    borderRadius: false,
-                    tagHero: "foryou")
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+              ),
+            )));
   }
 
   _BannerAds() {

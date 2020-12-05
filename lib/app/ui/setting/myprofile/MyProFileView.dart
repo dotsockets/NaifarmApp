@@ -21,7 +21,7 @@ class _MyProfileViewState extends State<MyProfileView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            Title: "ข้อมูลส่วนตัว",
+            title: "ข้อมูลส่วนตัว",
             icon: "",
             header_type: Header_Type.barNormal,
           ),

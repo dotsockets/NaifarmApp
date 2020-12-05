@@ -14,7 +14,7 @@ class SpecialproductsView extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Scaffold(
-        appBar: AppToobar(Title: "สินค้าราคาพิเศษ",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg'),
+        appBar: AppToobar(title: "สินค้าราคาพิเศษ",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg'),
         body: SingleChildScrollView(
             child: Container(
               child: ProductGrid(

@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/models/ReviewModel.dart';
 import 'package:naifarm/app/viewmodels/ReviewViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class Reviewscore extends StatelessWidget {
@@ -116,7 +117,7 @@ class Reviewscore extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
-                Text(item.reviewComment,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w500)),
+                Text(item.reviewComment,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.detailFontSize(),fontWeight: FontWeight.w500)),
 
               ],
             ),

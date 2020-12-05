@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/BankModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class BankSettingView extends StatefulWidget {
@@ -32,7 +33,7 @@ class _BankSettingViewState extends State<BankSettingView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            Title: "ข้อมูลบัญชีธนาคาร/บัตร",
+            title: "ข้อมูลบัญชีธนาคาร/บัตร",
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -43,7 +44,7 @@ class _BankSettingViewState extends State<BankSettingView> {
               children: [
                 Text(
                   "บัตรเครดิต",
-                  style: FunctionHelper.FontTheme(fontSize: 14),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize()),
                 ),
                 SizedBox(height: 5,),
                 Column(
@@ -56,7 +57,7 @@ class _BankSettingViewState extends State<BankSettingView> {
                 SizedBox(height: 20,),
                 Text(
                   "บัญชีธนาคารเพื่อรับเงิน",
-                  style: FunctionHelper.FontTheme(fontSize: 14),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize()),
                 ),SizedBox(height: 5,),
                 Column(
                   children: CartViewModel().getBankCartType2().asMap().map((index, value){
@@ -102,8 +103,8 @@ class _BankSettingViewState extends State<BankSettingView> {
           ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(item.NameBank,style: FunctionHelper.FontTheme(fontSize: 16)),
-          Text(item.NumberCard,style: FunctionHelper.FontTheme(fontSize: 16))],)
+          children: [Text(item.NameBank,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+          Text(item.NumberCard,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()))],)
         ],
       ),
     );
@@ -127,7 +128,7 @@ class _BankSettingViewState extends State<BankSettingView> {
               children: [
                 Text("+",style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.w200),),
                 SizedBox(width: 15,),
-                Text(txtBtn,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: 16),),
+                Text(txtBtn,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleFontSize()),),
               ],
             ),
           ),

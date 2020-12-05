@@ -41,7 +41,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        Title: "เบอร์โทรศัพท์",
+        title: "เบอร์โทรศัพท์",
         header_type: Header_Type.barNormal,
         onClick: () {
           FunctionHelper.ConfirmDialog(context,

@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 class RecommendMenu extends StatelessWidget {
 
@@ -54,7 +55,7 @@ class RecommendMenu extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10),
-          Text(item.label,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize:  14))
+          Text(item.label,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.detailFontSize()))
         ],
       ),
     onTap: (){
