@@ -53,7 +53,7 @@ class _SearchViewState extends State<SearchView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                              child: Text(listClone[index], style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.detailFontSize())
+                              child: Text(listClone[index], style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.titleSmallFontSize())
                               ),padding: EdgeInsets.all(10),
                           ),
                           _BuildLine()
@@ -70,7 +70,7 @@ class _SearchViewState extends State<SearchView> {
                     child: Center(
                       child: Visibility(
                         child: Text(listClone.length==0?"ไม่พบข้อมูล":checkSeemore?"ย่อ":"แสดงเพิ่ม",
-                            style: FunctionHelper.FontTheme(color: Colors.grey, fontSize: SizeUtil.detailFontSize())),
+                            style: FunctionHelper.FontTheme(color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize())),
                       visible: listClone.length>0&&listClone.length<=3?false:true,
                       ),
                     ),

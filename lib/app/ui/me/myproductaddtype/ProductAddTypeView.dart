@@ -319,8 +319,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                 style: FunctionHelper.FontTheme(
                     color: Colors.white,
                     fontSize: SizeUtil.detailFontSize(),
-                    fontWeight: FontWeight.w500),
-              )
+                    fontWeight: FontWeight.w500),)
             ],
           ),
         ),

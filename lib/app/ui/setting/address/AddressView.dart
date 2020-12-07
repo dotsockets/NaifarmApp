@@ -56,10 +56,10 @@ class _AddressViewState extends State<AddressView> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text(nameTxt,style: FunctionHelper.FontTheme(fontSize: 18,color: ThemeColor.primaryColor())),
+            children: [Text(nameTxt,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.primaryColor())),
               Row(
                 children: [
-                  Text(typeAddr,style: FunctionHelper.FontTheme(fontSize: 18,color: ThemeColor.ColorSale())),
+                  Text(typeAddr,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale())),
                   Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
                 ],
               ),

@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 
@@ -60,7 +61,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
             padding: EdgeInsets.all(15),
             child: Text(
               "หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่  หมายเลขบัญชีทั้งหมดที่ผู้กับบัญชีนี้จะถูกแก้ไขด้วย",
-              style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40)),
+              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
             ),
           ),
           Container(
@@ -73,7 +74,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
                 children: [
                   Text("หมายเลขโทรศัพท์เดิม xxxxxx0987 ",
                       style: FunctionHelper.FontTheme(
-                          fontSize: ScreenUtil().setSp(50))),
+                          fontSize: SizeUtil.titleFontSize())),
                   SizedBox(
                     height: 20,
                   ),
@@ -116,7 +117,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
                           Text(
                             "ขอรหัสยืนยันใหม่อีกครั้ง",
                             style: FunctionHelper.FontTheme(
-                                fontSize: ScreenUtil().setSp(38)),
+                                fontSize:SizeUtil.titleSmallFontSize()),
                           )
                         ],
                       ),
@@ -145,7 +146,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
             child: Text(
               FormCheck() ? "ยืนยัน" : "ดำเนินการต่อ",
               style: FunctionHelper.FontTheme(
-                  fontSize: ScreenUtil().setSp(45),
+                  fontSize: SizeUtil.titleFontSize(),
                   fontWeight: FontWeight.w500),
             ),
           )

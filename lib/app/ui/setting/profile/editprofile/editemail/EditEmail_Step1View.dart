@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
@@ -45,7 +46,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
         title: "อีเมล", header_type: Header_Type.barNormal,),
       body: Column(
         children: [
-          Container(padding:EdgeInsets.all(15), child: Text("เพื่อความปลอดภัยบัญชีของคุณกรุณาระบุรหัสผ่านเพื่อการดำเนินต่อ",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40)),),),
+          Container(padding:EdgeInsets.all(15), child: Text("เพื่อความปลอดภัยบัญชีของคุณกรุณาระบุรหัสผ่านเพื่อการดำเนินต่อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),),),
           Container(
             color: Colors.white,
             child: Container(
@@ -65,7 +66,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
 
                     children: [
                       SizedBox(height: 3,),
-                      Text(" หากลืมรหัสผ่าน  ",style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: 15)),
+                      Text(" หากลืมรหัสผ่าน  ",style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize())),
                       SizedBox(height: 2,),
                       Container(
                         width: ScreenUtil().setWidth(250),
@@ -75,7 +76,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                     ],
                   ),
                   SizedBox(height: 3,),
-                  Text("กรุณาออกจากระบบโดยไปที่หน้า ฉัน > ตั้งค่าบัญชี > ออกจากระบบ และกดปุ่ม “ลืมรหัสผ่าน” ที่หน้าเข้าสู่ระบบ  ",style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: 15))
+                  Text("กรุณาออกจากระบบโดยไปที่หน้า ฉัน > ตั้งค่าบัญชี > ออกจากระบบ และกดปุ่ม “ลืมรหัสผ่าน” ที่หน้าเข้าสู่ระบบ  ",style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize()))
 
                 ],
               ),
@@ -93,7 +94,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
             child: Text("ดำเนินการต่อ",
-              style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
             ),
           )
         ],

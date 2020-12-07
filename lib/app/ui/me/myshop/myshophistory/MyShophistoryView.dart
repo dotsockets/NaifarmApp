@@ -89,7 +89,7 @@ class MyShophistoryView extends StatelessWidget {
     return Tab(
       child: Row(
         children: [
-          Text(title,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+          Text(title,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize())),
           SizedBox(width: 10,),
           message?ClipRRect(
             borderRadius: BorderRadius.circular(9.0),

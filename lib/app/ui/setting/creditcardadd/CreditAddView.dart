@@ -75,7 +75,7 @@ class _CreditAddViewState extends State<CreditAddView> {
                               Text(
                                 "หมายเลขบัตรเครดิต",
                                 style: FunctionHelper.FontTheme(
-                                    fontSize: 19, fontWeight: FontWeight.w500),
+                                    fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
                               ),
                               GestureDetector(
                                 child: Row(

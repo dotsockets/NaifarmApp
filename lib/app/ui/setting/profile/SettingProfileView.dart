@@ -45,7 +45,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildTxt(txt: "บัญชีของฉัน"),
+                        _buildTitle(txt: "บัญชีของฉัน"),
                         ListMenuItem(
                           icon: '',
                           title: 'หน้าโปรไฟล์',
@@ -68,7 +68,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                           },
                         ),
                         _buildLine(),
-                        _buildTxt(txt: "ตั้งค่า"),
+                        _buildTitle(txt: "ตั้งค่า"),
                         ListMenuItem(
                           icon: '',
                           title: 'ตั้งค่าการแจ้งเตือน',
@@ -85,7 +85,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                             AppRoute.SettingLanguage(context);
                           },
                         ),
-                        _buildTxt(txt: "ช่วยเหลือ"),
+                        _buildTitle(txt: "ช่วยเหลือ"),
                         ListMenuItem(
                           icon: '',
                           title: 'ศุนย์ช่วยเหลือ',
@@ -147,12 +147,12 @@ class _SettingProfileViewState extends State<SettingProfileView> {
     );
   }
 
-  Widget _buildTxt({String txt}) {
+  Widget _buildTitle({String txt}) {
     return Container(
       padding: EdgeInsets.only(left: 15, top: 8, bottom: 8),
       child: Text(
         txt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
       ),
     );
   }
@@ -181,7 +181,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
       ),
     );
   }

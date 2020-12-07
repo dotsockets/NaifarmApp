@@ -64,7 +64,7 @@ class ListMenuItem extends StatelessWidget {
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleSmallFontSize(),
                           fontWeight: FontWeight.w500,
-                          color: Colors.black.withOpacity(opacityMessage))),
+                          color: Colors.grey.withOpacity(opacityMessage))),
                   SizedBox(
                     width: 10,
                   ),

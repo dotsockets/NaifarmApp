@@ -107,7 +107,7 @@ class _NotiSettingViewState extends State<NotiSettingView> {
         margin: EdgeInsets.only(left: 15),
         child: Text(
           title,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
         ));
   }
 }

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
@@ -45,7 +46,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
         title: "เบอร์โทรศัพท์", header_type: Header_Type.barNormal,),
       body: Column(
         children: [
-          Container(padding:EdgeInsets.all(15), child: Text("หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่  หมายเลขบัญชีทั้งหมดที่ผู้กับบัญชีนี้จะถูกแก้ไขด้วย",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40)),),),
+          Container(padding:EdgeInsets.all(15), child: Text("หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่  หมายเลขบัญชีทั้งหมดที่ผู้กับบัญชีนี้จะถูกแก้ไขด้วย",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),),),
           Container(
             color: Colors.white,
             child: Container(
@@ -78,7 +79,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
             child: Text("ดำเนินการต่อ",
-              style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
             ),
           )
         ],

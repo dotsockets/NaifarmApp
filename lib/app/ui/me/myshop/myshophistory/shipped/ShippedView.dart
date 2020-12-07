@@ -85,7 +85,7 @@ class ShippedView extends StatelessWidget {
                     SizedBox(height: 15),
                     Text(item.product_name,
                         style: FunctionHelper.FontTheme(
-                            fontSize: 18, fontWeight: FontWeight.w500)),
+                            fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500)),
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -94,13 +94,13 @@ class ShippedView extends StatelessWidget {
                             ? Text("฿${item.ProductDicount}",
                             style: FunctionHelper.FontTheme(
                                 color: Colors.black.withOpacity(0.5),
-                                fontSize: 18,
+                                fontSize: SizeUtil.titleFontSize(),
                                 decoration: TextDecoration.lineThrough))
                             : SizedBox(),
                         SizedBox(width: 10),
                         Text("฿${item.product_price}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: 18, color: ThemeColor.ColorSale()))
+                                fontSize: SizeUtil.titleFontSize(), color: ThemeColor.ColorSale()))
                       ],
                     ),
                     Divider(color: Colors.black.withOpacity(0.4),)
@@ -120,23 +120,23 @@ class ShippedView extends StatelessWidget {
                 children: [
                   Text("x ${item.amoutProduct}",
                       style: FunctionHelper.FontTheme(
-                          fontSize: 18, color: Colors.black)),
+                          fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
                   Row(
                     children: [
                       Text("รวมการสั่งซื้อ : ",
                           style: FunctionHelper.FontTheme(
-                              fontSize: 18, color: Colors.black)),
+                              fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
                       SizedBox(width: 8),
                       Text("฿${item.product_price*int.parse(item.amoutProduct)}.00",
                           style: FunctionHelper.FontTheme(
-                              fontSize: 18, color: ThemeColor.ColorSale())),
+                              fontSize: SizeUtil.titleFontSize(), color: ThemeColor.ColorSale())),
                       SizedBox(width: 8),
                     ],
                   ),
                 ],
               ),
               Divider(color: Colors.grey.shade400,),
-              Text("วันที่ซื้อ 28-06-2563",style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.6)),)
+              Text("วันที่ซื้อ 28-06-2563",style: FunctionHelper.FontTheme(fontSize:SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6)),)
             ],
           ),
 
@@ -178,10 +178,10 @@ class ShippedView extends StatelessWidget {
               ),
               Text(item.shopName,
                   style:
-                  FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold))
+                  FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.bold))
             ],
           ),
-          Text(item.product_status,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),)
+          Text(item.product_status,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),)
         ],
       ),
     );

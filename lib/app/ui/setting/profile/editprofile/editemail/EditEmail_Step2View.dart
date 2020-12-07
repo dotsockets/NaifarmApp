@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
@@ -63,7 +64,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("อีเมลเดิม puwee@gmial.com",
-                    style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 15,),
                   BuildEditText(
@@ -89,7 +90,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
             child: Text("ดำเนินการต่อ",
-              style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
             ),
           )
         ],

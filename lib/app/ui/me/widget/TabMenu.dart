@@ -31,7 +31,7 @@ class TabMenu extends StatelessWidget {
                   SizedBox(height: 10),
                   Text(title,
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize(),
+                          fontSize: SizeUtil.detailFontSize(),
                           fontWeight: FontWeight.w500,
                           color: Colors.black))
                 ],

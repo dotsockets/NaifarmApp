@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 
@@ -46,7 +47,7 @@ class EditProfileVIew extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(height: 20,),
-                          Text("ข้อมูลส่วนตัว",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.bold),),
+                          Text("ข้อมูลส่วนตัว",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
                           SizedBox(height: 20,),
                           ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(60)),
@@ -79,7 +80,7 @@ class EditProfileVIew extends StatelessWidget {
                             child: Text("แก้ไขรูป",
                                 style: FunctionHelper.FontTheme(
                                     color: Colors.white,
-                                    fontSize:  ScreenUtil().setSp(35),
+                                    fontSize:  SizeUtil.detailSmallFontSize(),
                                     fontWeight: FontWeight.bold)),
                           ),
                         ],

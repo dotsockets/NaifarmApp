@@ -463,6 +463,7 @@ class _MyCartViewState extends State<MyCartView> {
                           },
                           child: Text("ชำระเงิน",
                               style: FunctionHelper.FontTheme(
+
                                   fontSize:SizeUtil.titleFontSize(),
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white)),

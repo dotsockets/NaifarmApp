@@ -29,7 +29,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
             Text(
               "โค้ดส่วนลดของ ไร่มอนหลวงสาย",
               style: FunctionHelper.FontTheme(
-                  fontSize: 20, fontWeight: FontWeight.bold),
+                  fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
             Column(
@@ -78,10 +78,10 @@ class ModalFitBottom_Sheet extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(item.Title,style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold),),
+                          fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.bold),),
                       SizedBox(height: 5,),
                       Text(item.SubTitle,style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
+                          fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
                     ],
                   ),
                 ),
@@ -101,11 +101,11 @@ class ModalFitBottom_Sheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(item.LabelText,style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold),),
+                    fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.bold),),
                 Row(
                   children: [
                     Text("ช้อปต่อ",style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500,color: ThemeColor.ColorSale()),),
+                        fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500,color: ThemeColor.ColorSale()),),
                     SizedBox(width: 5,),
                     Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
                   ],
@@ -138,7 +138,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
         },
         child: Text(
           isUse?"ใช้แล้ว":"ใช้ส่วนลด",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500),
         ),
       ),
     );

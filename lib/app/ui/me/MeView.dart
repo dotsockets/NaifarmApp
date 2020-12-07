@@ -123,7 +123,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                       Text("วีระชัย ใจกว้าง",
                           style: FunctionHelper.FontTheme(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: SizeUtil.titleFontSize(),
                               fontWeight: FontWeight.bold))
                     ],
                   ):_FormLogin(),
@@ -198,7 +198,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                   AppRoute.Login(context,IsCallBack: true);
                 },
                 child: Text("เข้าสู่ระบบ",
-                  style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                 ),
               ),
               SizedBox(width: 20,),
@@ -215,7 +215,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                   AppRoute.Register(context);
                 },
                 child: Text("สมัครสมาชิก",
-                  style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                 ),
               )
             ],
@@ -231,7 +231,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),color: Colors.black)),
+          Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black)),
           SizedBox(width: 10,),
           message?ClipRRect(
             borderRadius: BorderRadius.circular(9.0),

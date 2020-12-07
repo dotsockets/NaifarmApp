@@ -57,7 +57,8 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
         margin: EdgeInsets.only(left: 10,right: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(languageTxt,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),
+          children: [
+            Text(languageTxt,style: FunctionHelper.FontTheme(fontSize:SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),
             InkWell(
               onTap: (){
                 setState(() {

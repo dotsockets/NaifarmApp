@@ -164,7 +164,7 @@ class FunctionHelper {
                         child: Text(
                           dataList[index],
                           style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w400),
+                              fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
@@ -204,7 +204,7 @@ class FunctionHelper {
                   CupertinoButton(
                     child: Text(
                       'ยกเลิก',
-                      style: FunctionHelper.FontTheme(color: Colors.black),
+                      style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                     onPressed: () {},
                     padding: const EdgeInsets.symmetric(
@@ -216,7 +216,7 @@ class FunctionHelper {
                     child: Text(
                       'ตกลง',
                       style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontWeight: FontWeight.w500),
+                          color: Colors.black, fontWeight: FontWeight.w500,fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                     onPressed: () => onTap(select),
                     padding: const EdgeInsets.symmetric(
@@ -238,8 +238,7 @@ class FunctionHelper {
                 children: List.generate(dataList.length, (index) {
                   return Text(
                     "" + dataList[index],
-                    style: FunctionHelper.FontTheme(),
-                  );
+                    style: FunctionHelper.FontTheme(),);
                 }),
               ),
             )
@@ -403,7 +402,7 @@ class FunctionHelper {
                   SvgPicture.asset('assets/images/svg/checkmark.svg',color: ThemeColor.primaryColor(),width: 50,height: 50,),
                   SizedBox(height: 15,),
                   Text(message,
-                    style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ],

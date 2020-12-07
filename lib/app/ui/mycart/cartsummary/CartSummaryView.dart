@@ -66,7 +66,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                   "ลบ",
                                   style: FunctionHelper.FontTheme(
                                       color: Colors.white,
-                                      fontSize: SizeUtil.titleFontSize(),
+                                      fontSize: SizeUtil.titleSmallFontSize(),
                                       fontWeight: FontWeight.bold),
                                 )
                               ],
@@ -164,7 +164,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         ),
         Text(item.NameShop,
             style:
-                FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold))
+                FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.bold))
       ],
     );
   }
@@ -246,7 +246,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 SizedBox(width: 5,),
                 Text("จัดส่งโดย ",
                     style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500,color: ThemeColor.primaryColor())),
+                        fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500,color: ThemeColor.primaryColor())),
               ],
             ),
             SizedBox(height: 5),
@@ -339,10 +339,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 children: [
                   Text("รวมการสั่งซื้อ  ",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize(),color: Colors.black.withOpacity(0.6))),
+                          fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6))),
                   Text("฿136.00",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
+                          fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
                 ],
               ),
             ),
@@ -353,10 +353,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 children: [
                   Text("การจัดส่ง  ",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize(),color: Colors.black.withOpacity(0.6))),
+                          fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6))),
                   Text("฿72.00",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
+                          fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
                 ],
               ),
             ),
@@ -399,7 +399,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           children: [
                             Text("จำนวน 2 รายการ",
                                 style: FunctionHelper.FontTheme(
-                                    fontSize: SizeUtil.titleFontSize(),
+                                    fontSize: SizeUtil.titleSmallFontSize(),
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black)),
                             SizedBox(height: 2),
@@ -417,7 +417,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         margin: EdgeInsets.only(right: 10),
                         child: Text("฿212",
                             style: FunctionHelper.FontTheme(
-                                fontSize: 20,
+                                fontSize: SizeUtil.priceFontSize(),
                                 fontWeight: FontWeight.bold,
                                 color: ThemeColor.ColorSale())))),
                 Expanded(
@@ -432,7 +432,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         },
                         child: Text("ชำระเงิน",
                             style: FunctionHelper.FontTheme(
-                                fontSize: 18,
+                                fontSize: SizeUtil.titleFontSize(),
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white)),
                       ),

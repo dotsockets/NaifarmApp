@@ -44,7 +44,7 @@ class _BankSettingViewState extends State<BankSettingView> {
               children: [
                 Text(
                   "บัตรเครดิต",
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize()),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
                 ),
                 SizedBox(height: 5,),
                 Column(
@@ -57,7 +57,7 @@ class _BankSettingViewState extends State<BankSettingView> {
                 SizedBox(height: 20,),
                 Text(
                   "บัญชีธนาคารเพื่อรับเงิน",
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize()),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
                 ),SizedBox(height: 5,),
                 Column(
                   children: CartViewModel().getBankCartType2().asMap().map((index, value){
@@ -126,7 +126,7 @@ class _BankSettingViewState extends State<BankSettingView> {
             ),
             child: Row(
               children: [
-                Text("+",style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.w200),),
+                Text("+",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w200),),
                 SizedBox(width: 15,),
                 Text(txtBtn,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleFontSize()),),
               ],

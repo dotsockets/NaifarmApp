@@ -62,7 +62,7 @@ class _SearchMapViewState extends State<SearchMapView> {
                         Container(
                           child: Text(listClone[index],
                               style: FunctionHelper.FontTheme(
-                                  color: Colors.black, fontSize: SizeUtil.detailFontSize())),
+                                  color: Colors.black, fontSize: SizeUtil.titleFontSize())),
                           padding: EdgeInsets.all(15),
                         ),
                         _BuildLine()
@@ -123,7 +123,8 @@ class _SearchMapViewState extends State<SearchMapView> {
                       color: Colors.black, fontSize: SizeUtil.titleFontSize())),
               Text(description,
                   style: FunctionHelper.FontTheme(
-                      color: Colors.grey, fontSize: 12)),
+                      color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize()
+                  )),
             ],
           )
         ],

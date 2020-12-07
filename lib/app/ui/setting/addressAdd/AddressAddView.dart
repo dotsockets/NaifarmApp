@@ -159,7 +159,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(), color: Colors.grey),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(), color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
       ),

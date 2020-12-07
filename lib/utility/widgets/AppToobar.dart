@@ -272,14 +272,14 @@ class AppToobar extends PreferredSize {
                   padding: EdgeInsets.only(left: 5),
                   child: TextField(
                     style: FunctionHelper.FontTheme(
-                        color: Colors.black, fontSize: SizeUtil.detailFontSize()),
+                        color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
                     enabled: isEditable,
                     decoration: InputDecoration(
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,
                       hintText: hint,
                       hintStyle: FunctionHelper.FontTheme(
-                          color: Colors.grey, fontSize: SizeUtil.detailFontSize()),
+                          color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                     onChanged: (String s) =>
                         onSearch != null ? onSearch(s) : null,
@@ -375,13 +375,13 @@ class AppToobar extends PreferredSize {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: FunctionHelper.FontTheme(
-                                    color: Colors.black, fontSize: SizeUtil.detailFontSize())),
+                                    color: Colors.black, fontSize: SizeUtil.titleSmallFontSize())),
                           )
                         : Container(
                             padding: EdgeInsets.only(left: 5,top: 10),
                             child: TextFormField(
                               style: FunctionHelper.FontTheme(
-                                  color: Colors.black, fontSize: SizeUtil.detailFontSize()),
+                                  color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
                               enabled: true,
                               maxLines: 1,
                               initialValue:locationTxt.toString().length > 30 ?  locationTxt.toString().trim().substring(0, 30) + "..." : "",
@@ -390,7 +390,7 @@ class AppToobar extends PreferredSize {
                                 enabledBorder: InputBorder.none,
                                 hintText: hint,
                                 hintStyle: FunctionHelper.FontTheme(
-                                    color: Colors.grey, fontSize: SizeUtil.detailFontSize()),
+                                    color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize()),
                               ),
                               onChanged: (String s) =>
                                   onSearch != null ? onSearch(s) : null,

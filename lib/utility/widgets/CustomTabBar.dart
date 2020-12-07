@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 class CustomTabBar extends StatelessWidget {
   final List<MenuModel> menuViewModel;
@@ -107,7 +108,7 @@ class CustomTabBar extends StatelessWidget {
     child: Text(
       text,
       style: TextStyle(
-        fontSize: 13,
+        fontSize: SizeUtil.detailSmallFontSize(),
         color: color,
         fontWeight: FontWeight.bold,
         letterSpacing: wrapText ? -1.0 : null,

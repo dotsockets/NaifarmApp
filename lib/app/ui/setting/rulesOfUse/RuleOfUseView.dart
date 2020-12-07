@@ -53,7 +53,7 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
   Widget _buildTxt({String txt}) {
     return Text(
       txt,
-      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
     );
 
   }

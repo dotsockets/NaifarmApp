@@ -83,14 +83,14 @@ class SuccessView extends StatelessWidget {
                     SizedBox(height: 15),
                     Text(item.product_name,
                         style: FunctionHelper.FontTheme(
-                            fontSize: 18, fontWeight: FontWeight.w500)),
+                            fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500)),
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("x ${item.amoutProduct}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: 18, color: Colors.black)),
+                                fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -98,13 +98,13 @@ class SuccessView extends StatelessWidget {
                                 ? Text("฿${item.ProductDicount}",
                                 style: FunctionHelper.FontTheme(
                                     color: Colors.black.withOpacity(0.5),
-                                    fontSize: 18,
+                                    fontSize: SizeUtil.titleFontSize(),
                                     decoration: TextDecoration.lineThrough))
                                 : SizedBox(),
                             SizedBox(width: 10),
                             Text("฿${item.product_price}",
                                 style: FunctionHelper.FontTheme(
-                                    fontSize: 18, color: ThemeColor.ColorSale()))
+                                    fontSize: SizeUtil.titleFontSize(), color: ThemeColor.ColorSale()))
                           ],
                         )
                       ],
@@ -126,11 +126,11 @@ class SuccessView extends StatelessWidget {
                 children: [
                   Text("รวมการสั่งซื้อ : ",
                       style: FunctionHelper.FontTheme(
-                          fontSize: 18, color: Colors.black)),
+                          fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
                   SizedBox(width: 8),
                   Text("฿${item.product_price*int.parse(item.amoutProduct)}.00",
                       style: FunctionHelper.FontTheme(
-                          fontSize: 18, color: ThemeColor.ColorSale())),
+                          fontSize: SizeUtil.titleFontSize(), color: ThemeColor.ColorSale())),
                   SizedBox(width: 8),
                 ],
               ),
@@ -150,7 +150,7 @@ class SuccessView extends StatelessWidget {
                       SizedBox(width: 8),
                       Text("[ฺBangkok] วีระชัย",
                           style: FunctionHelper.FontTheme(
-                              fontSize: 18, color: ThemeColor.primaryColor())),
+                              fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.primaryColor())),
                       SizedBox(width: 8),
                     ],
                   ),
@@ -162,7 +162,7 @@ class SuccessView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("วันที่ซื้อ 28-06-2563",style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.6)),),
+                  Text("วันที่ซื้อ 28-06-2563",style: FunctionHelper.FontTheme(fontSize:SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6)),),
                   Row(
                     children: [
                       index==1?FlatButton(
@@ -180,7 +180,7 @@ class SuccessView extends StatelessWidget {
                           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                         ),
                       ):SizedBox(),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 5,),
                       FlatButton(
                         color: ThemeColor.ColorSale(),
                         textColor: Colors.white,
@@ -242,10 +242,10 @@ class SuccessView extends StatelessWidget {
               ),
               Text(item.shopName,
                   style:
-                  FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold))
+                  FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.bold))
             ],
           ),
-          Text(item.product_status,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),)
+          Text(item.product_status,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),)
         ],
       ),
     );

@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 
@@ -67,7 +68,7 @@ class _EditEmail_Step3ViewState extends State<EditEmail_Step3View> {
                 children: [
 
                   BuildEditText(
-                      head: "อีเมลใหม่ OTP",
+                      head: "อีเมลใหม่",
                       hint: "ระบุอีเมลใหม่",
                       maxLength: 10,
                       controller: PhoneController,
@@ -80,7 +81,9 @@ class _EditEmail_Step3ViewState extends State<EditEmail_Step3View> {
                   SizedBox(
                     height: 20,
                   ),
-                  Text("กรุณาเปิดอีเมล ${widget.email} เพื่อรับ OTP"),
+                  Text("กรุณาเปิดอีเมล ${widget.email} เพื่อรับ OTP",style: FunctionHelper.FontTheme(
+                  fontSize: SizeUtil.titleSmallFontSize(),
+                fontWeight: FontWeight.w500),),
                   SizedBox(
                     height: 5,
                   ),
@@ -109,7 +112,7 @@ class _EditEmail_Step3ViewState extends State<EditEmail_Step3View> {
                           Text(
                             "ขอรหัสยืนยันใหม่อีกครั้ง",
                             style: FunctionHelper.FontTheme(
-                                fontSize: ScreenUtil().setSp(38)),
+                                fontSize:SizeUtil.titleSmallFontSize()),
                           )
                         ],
                       ),
@@ -138,7 +141,7 @@ class _EditEmail_Step3ViewState extends State<EditEmail_Step3View> {
             child: Text(
               FormCheck() ? "ยืนยัน" : "ดำเนินการต่อ",
               style: FunctionHelper.FontTheme(
-                  fontSize: ScreenUtil().setSp(45),
+                  fontSize: SizeUtil.titleFontSize(),
                   fontWeight: FontWeight.w500),
             ),
           )
