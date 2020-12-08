@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -124,7 +125,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     color: ThemeColor.ColorSale(),
                     child: Text("ซื้อสินค้า",
                         style: FunctionHelper.FontTheme(
-                            fontSize: 15,
+                            fontSize: SizeUtil.titleFontSize(),
                             fontWeight: FontWeight.bold,
                             color: Colors.white))))
           ],

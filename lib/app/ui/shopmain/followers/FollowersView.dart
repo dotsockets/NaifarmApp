@@ -23,11 +23,13 @@ class FollowersView extends StatelessWidget {
         header_type: Header_Type.barNormal,
         icon: 'assets/images/svg/search.svg',
       ),
-      body: Container(
-        color: Colors.white,
-        padding: EdgeInsets.only(top: 10),
-        child: Column(
-          children: ReviewViewModel().getFollower().asMap().map((key, value) => MapEntry(key, _BuildCard(item: ReviewViewModel().getFollower()[key],context: context))).values.toList(),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          padding: EdgeInsets.only(top: 10),
+          child: Column(
+            children: ReviewViewModel().getFollower().asMap().map((key, value) => MapEntry(key, _BuildCard(item: ReviewViewModel().getFollower()[key],context: context))).values.toList(),
+          ),
         ),
       )
     );
@@ -64,7 +66,7 @@ class FollowersView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 15),
-                  Text(item.Name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize()),)
+                  Text(item.Name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),)
                 ],
               ),
               Container(
@@ -82,7 +84,7 @@ class FollowersView extends StatelessWidget {
                   },
                   child: Text(
                     item.IsFollow?"กำลังติดตาม":"ติดตาม",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
                   ),
                 ),
               )

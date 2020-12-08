@@ -45,7 +45,7 @@ class _ImageProductViewState extends State<ImageProductView> {
                     children: [
                       SizedBox(height: 20,),
                       Text("แสดงรูปสินค้าได้จำนวน 10 รูป",
-                          style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.w500)),
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),
                       SizedBox(height: 15,),
                       Container(
                           margin: EdgeInsets.only(left: 10, right: 10),
@@ -165,7 +165,7 @@ class _ImageProductViewState extends State<ImageProductView> {
       onPressed: () {},
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
       ),
     );
   }

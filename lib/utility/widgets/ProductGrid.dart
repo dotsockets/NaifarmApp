@@ -163,7 +163,7 @@ class ProductGrid extends StatelessWidget {
         Text(item.product_name,
             style: FunctionHelper.FontTheme(
                 color: Colors.black,
-                fontSize: ScreenUtil().setSp(45),
+                fontSize: SizeUtil.titleSmallFontSize(),
                 fontWeight: FontWeight.w500)),
         SizedBox(
           height: 10,
@@ -171,7 +171,7 @@ class ProductGrid extends StatelessWidget {
         Text(
           "฿${item.product_price}",
           style: FunctionHelper.FontTheme(
-              color: ThemeColor.ColorSale(), fontSize: ScreenUtil().setSp(45)),
+              color: ThemeColor.ColorSale(), fontSize: SizeUtil.titleSmallFontSize()),
         ),
         SizedBox(
           height: 8,
@@ -196,7 +196,7 @@ class ProductGrid extends StatelessWidget {
             ),
             Text((item.product_status),
                 style: FunctionHelper.FontTheme(
-                    fontSize: ScreenUtil().setSp(30),
+                    fontSize: SizeUtil.detailSmallFontSize(),
                     color: Colors.black,
                     fontWeight: FontWeight.w500))
           ],
@@ -259,7 +259,7 @@ class ProductGrid extends StatelessWidget {
                         style: GoogleFonts.sarabun(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: ScreenUtil().setSp(40)),
+                            fontSize: SizeUtil.titleSmallFontSize()),
                       ),
                     ),
                     isLike

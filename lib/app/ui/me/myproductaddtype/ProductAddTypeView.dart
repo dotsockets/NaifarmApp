@@ -89,7 +89,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
               Text(
                 "ชื่อตัวเลือก",
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleFontSize(),
+                    fontSize: SizeUtil.titleSmallFontSize(),
                     fontWeight: FontWeight.w500),
               ),
               Container(
@@ -199,7 +199,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                           ),
                           child: Text(item[index],
                               style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.detailFontSize(),
+                                  fontSize: SizeUtil.titleSmallFontSize(),
                                   fontWeight: FontWeight.w500))),
                       SizedBox(
                         width: 10,
@@ -221,7 +221,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                               child: Text("x",
                                   style: FunctionHelper.FontTheme(
                                       color: ThemeColor.ColorSale(),
-                                      fontSize: 12,
+                                      fontSize: SizeUtil.titleSmallFontSize(),
                                       fontWeight: FontWeight.bold)),
                             ),
                             constraints: BoxConstraints(
@@ -252,14 +252,14 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                 Text(
                   "+",
                   style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.detailFontSize(),
+                      fontSize: SizeUtil.titleSmallFontSize(),
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
                   " เพิ่ม",
                   style: FunctionHelper.FontTheme(
                       color: Colors.white,
-                      fontSize: SizeUtil.detailFontSize(),
+                      fontSize: SizeUtil.titleSmallFontSize(),
                       fontWeight: FontWeight.w500),
                 )
               ],
@@ -311,14 +311,14 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
               Text(
                 "+",
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.detailFontSize(),
+                    fontSize: SizeUtil.titleSmallFontSize(),
                     fontWeight: FontWeight.w500),
               ),
               Text(
                 " เพิ่มตัวเลือก",
                 style: FunctionHelper.FontTheme(
                     color: Colors.white,
-                    fontSize: SizeUtil.detailFontSize(),
+                    fontSize: SizeUtil.titleSmallFontSize(),
                     fontWeight: FontWeight.w500),)
             ],
           ),

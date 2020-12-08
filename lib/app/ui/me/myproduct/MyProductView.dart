@@ -70,7 +70,7 @@ class _MyProductViewState extends State<MyProductView> {
           onPressed: () {AppRoute.MyNewProduct(context);},
           child: Text(
             "เพิ่มสินค้า",
-            style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.w500),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
           ),
         ),
       );
@@ -96,7 +96,7 @@ class _MyProductViewState extends State<MyProductView> {
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.only(left: 10,right: 30),
+                    padding: EdgeInsets.only(left: 10,right: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -105,17 +105,17 @@ class _MyProductViewState extends State<MyProductView> {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: FunctionHelper.FontTheme(
-                              fontSize: 18, fontWeight: FontWeight.w600),
+                              fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w600),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 8,
                         ),
                         Text(
                           "฿${item.product_price}",
                           style: FunctionHelper.FontTheme(
-                              fontSize: 22,
+                              fontSize: SizeUtil.priceFontSize(),
                               color: ThemeColor.ColorSale(),
-                              fontWeight: FontWeight.w600),
+                              fontWeight: FontWeight.w500),
                         ),
                         SizedBox(
                           height: 10,
@@ -147,9 +147,9 @@ class _MyProductViewState extends State<MyProductView> {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(child: Text("ถูกใจ 10", style: FunctionHelper.FontTheme(fontSize: 15)),),
+                                Expanded(child: Text("ถูกใจ 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize())),),
                                 SizedBox(width: 10,),
-                                Expanded(child: Align(alignment: Alignment.topRight,child: Text("เข้าชม 10", style: FunctionHelper.FontTheme(fontSize: 15),))
+                                Expanded(child: Align(alignment: Alignment.topRight,child: Text("เข้าชม 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize()),))
                                 )
                               ]),
                         ),
@@ -174,7 +174,7 @@ class _MyProductViewState extends State<MyProductView> {
                      child:  Text(
                        item.isSelect?"ขายสินค้า":"พักการขาย",
                        style: FunctionHelper.FontTheme(
-                           fontSize: 18, fontWeight: FontWeight.w600),
+                           fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w600),
                      ),
                    ),
                     Container(height: 50,color: Colors.grey.shade300,),

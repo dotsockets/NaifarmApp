@@ -169,7 +169,7 @@ class _EditProductViewState extends State<EditProductView> {
               maxLines: maxLine,
               controller: controller,
               decoration: InputDecoration(
-                hintStyle: TextStyle(fontSize: 17, color: Colors.grey),
+                hintStyle: TextStyle(fontSize: SizeUtil.titleFontSize(), color: Colors.grey),
                 hintText: hint,
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.all(15),
@@ -267,7 +267,7 @@ class _EditProductViewState extends State<EditProductView> {
       onPressed: () {},
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -285,7 +285,7 @@ class _EditProductViewState extends State<EditProductView> {
       onPressed: () {},
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
       ),
     );
   }

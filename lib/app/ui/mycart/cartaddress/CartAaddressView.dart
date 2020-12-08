@@ -103,7 +103,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                    Row(
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
-                       Text(item.Name,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: 18,height: 1.6,color: ThemeColor.primaryColor()),),
+                       Text(item.Name,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize(),height: 1.6,color: ThemeColor.primaryColor()),),
                   Row(
                          children: [
                            select==index?Text("เป็นที่อยู่หลัก",style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale())):SizedBox(),
@@ -115,10 +115,10 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                      ],
                    ),
                     SizedBox(height: 5,),
-                    Text(item.phone,style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(),height: 1.5),),
-                    Text(item.address,style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(),height: 1.5),),
-                    Text(item.provice,style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(),height: 1.5),),
-                    Text(item.zipcode,style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(),height: 1.5),),
+                    Text(item.phone,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),),
+                    Text(item.address,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),),
+                    Text(item.provice,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),),
+                    Text(item.zipcode,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),),
                   ],
                 ),
               ),

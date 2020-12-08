@@ -53,7 +53,7 @@ class WithdrawMoneyView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text("ยอดเงินในกระเป๋า",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
+          Text("ยอดเงินในกระเป๋า",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold),),
           SizedBox(height: 10),
           Text("฿300.00",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: 28),)
         ],
@@ -92,7 +92,7 @@ class WithdrawMoneyView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 50),
-                  Text("ประวัติการทำรายการ",style: FunctionHelper.FontTheme(fontSize: 18,color: Colors.black.withOpacity(0.7))),
+                  Text("ประวัติการทำรายการ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black.withOpacity(0.7))),
                   Column(
                     children: CartViewModel().getWidthDrawMoney().asMap().map((key, value) => MapEntry(key, _ItemCard(item: CartViewModel().getWidthDrawMoney()[key]))).values.toList(),
                   )
@@ -124,7 +124,7 @@ class WithdrawMoneyView extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 6,
-                  child: Align(alignment: Alignment.center,child: Text("ถอนเงิน",style: FunctionHelper.FontTheme(fontSize: 20,color: Colors.white))),
+                  child: Align(alignment: Alignment.center,child: Text("ถอนเงิน",style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize(),color: Colors.white))),
                 ),
                 Expanded(
                   flex: 1,
@@ -168,14 +168,14 @@ class WithdrawMoneyView extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(item.Title,style: FunctionHelper.FontTheme(fontSize: 18,height: 1.8,fontWeight: FontWeight.bold),),
-                      Text(item.Subtitle,style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(),height: 1.8),),
-                      Text(item.Text_date,style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(),height: 1.8),),
+                      Text(item.Title,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),height: 1.8,fontWeight: FontWeight.bold),),
+                      Text(item.Subtitle,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.8),),
+                      Text(item.Text_date,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.8),),
                     ],
                   )
                 ],
               ),
-              Text("${item.price>0?"+":"-"}฿${item.price>0?item.price:item.price.abs()}.00",style: FunctionHelper.FontTheme(fontSize: 18,height: 1.8,fontWeight: FontWeight.bold)),
+              Text("${item.price>0?"+":"-"}฿${item.price>0?item.price:item.price.abs()}.00",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),height: 1.8,fontWeight: FontWeight.bold)),
             ],
           )
         ],

@@ -13,6 +13,7 @@ import 'package:naifarm/app/models/BankModel.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class CartBankView extends StatefulWidget {
@@ -49,7 +50,7 @@ class _CartBankViewState extends State<CartBankView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("บัตรเครดิต" ,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
+                Text("บัตรเครดิต" ,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
                 SizedBox(height: 8),
                   Column(
                     children: CartViewModel().getBankCartType1().asMap().map((index, value){
@@ -58,7 +59,7 @@ class _CartBankViewState extends State<CartBankView> {
                   ), SizedBox(height: 20,),
                 _BuildBtnAddBack(txt: "เพิ่มบัตรเครดิต",index: 0),
                 SizedBox(height: 20,),
-                Text("บัญชีธนาคารเพื่อรับเงิน",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
+                Text("บัญชีธนาคารเพื่อรับเงิน",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
                 SizedBox(height: 8),
                 Column(
                   children: CartViewModel().getBankCartType2().asMap().map((index, value){
@@ -137,10 +138,10 @@ class _CartBankViewState extends State<CartBankView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(item.NameBank,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: 18,height: 1.6,color: Colors.black),),
+                        Text(item.NameBank,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),height: 1.6,color: Colors.black),),
                         Row(
                           children: [
-                            Text(item.NumberCard,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: 18,height: 1.6,color: Colors.black),),
+                            Text(item.NumberCard,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),height: 1.6,color: Colors.black),),
                             SizedBox(width: 5,),
                             Icon(Icons.arrow_forward_ios,color: Colors.grey.shade500,)
                           ],
@@ -181,7 +182,7 @@ class _CartBankViewState extends State<CartBankView> {
                   color: Colors.black.withOpacity(0.5),
                 ),
                 SizedBox(width: 15),
-                Text(txt,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: 18),),
+                Text(txt,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleFontSize()),),
               ],
             ),
           ),

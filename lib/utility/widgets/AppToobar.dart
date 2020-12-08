@@ -307,7 +307,7 @@ class AppToobar extends PreferredSize {
               isDense: true,
             // hintText: "search",
               hintStyle: TextStyle(
-                fontSize: 18,
+                fontSize: SizeUtil.titleFontSize(),
                 color: Colors.black,
               ),
               prefixIcon: Visibility(

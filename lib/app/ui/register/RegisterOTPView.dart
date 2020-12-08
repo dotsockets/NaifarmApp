@@ -90,11 +90,11 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
               child: Column(
                 children: [
                   SizedBox(height: 30,),
-                  Text("ยืนยันตัวตนด้วย โค้ด 6 หลักจาก SMS ที่ได้จากหมายเลข",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),color: Colors.black),),
+                  Text("ยืนยันตัวตนด้วย โค้ด 6 หลักจาก SMS ที่ได้จากหมายเลข",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black),),
                   SizedBox(height: 10,),
-                  Text(widget.phoneNumber,style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(60),color: Colors.black)),
+                  Text(widget.phoneNumber,style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize(),color: Colors.black)),
                   SizedBox(height: 10,),
-                  Text("ยืนยัน OTP [Ref : tedf]",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),color: Colors.black,fontWeight: FontWeight.w500)),
+                  Text("ยืนยัน OTP [Ref : tedf]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w500)),
                   SizedBox(height: 30,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -405,14 +405,14 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      endTimes?Text("กรุณารอ ",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),color: Colors.black,fontWeight: FontWeight.w400)):SizedBox(),
+                      endTimes?Text("กรุณารอ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w400)):SizedBox(),
                       CountdownTimer(
                         endTime: endTime,
                         widgetBuilder: (_, CurrentRemainingTime time) {
                           if (time != null) {
                             return Text(
                                 '${FunctionHelper.ConverTime(time: time.sec != null ? time.sec.toString() : "0")}',
-                                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale()));
+                                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: ThemeColor.ColorSale()));
                           } else {
                             return Container(
                               child:InkWell(
@@ -420,7 +420,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                   children: [
                                     SvgPicture.asset('assets/images/svg/change.svg'),
                                       SizedBox(width: 10,),
-                                      Text("ขอรหัสยืนยันใหม่อีกครั้ง",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(38)),)
+                                      Text("ขอรหัสยืนยันใหม่อีกครั้ง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),)
                                   ],
                                 ),
                                 onTap: (){
@@ -447,7 +447,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                          // Navigator.pop(context,false);
                         },
                       ),
-                      endTimes?Text("  ก่อนกดอีกครั้ง",style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),color: Colors.black,fontWeight: FontWeight.w400)):SizedBox()
+                      endTimes?Text("  ก่อนกดอีกครั้ง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w400)):SizedBox()
                     ],
                   )
 
@@ -481,7 +481,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
 
       },
       child: Text("ถัดไป",
-        style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(45),fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
       ),
     );
   }

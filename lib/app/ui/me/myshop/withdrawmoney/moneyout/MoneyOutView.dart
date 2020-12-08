@@ -68,7 +68,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("การถอนเงิน Wallet ไปที่",style: FunctionHelper.FontTheme(fontSize: 18),),
+          Text("การถอนเงิน Wallet ไปที่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),),
           SizedBox(
             height: 15,
           ),

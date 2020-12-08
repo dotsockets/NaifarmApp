@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 
+import '../SizeUtil.dart';
+
 class CustomDropdownList extends StatefulWidget {
   String title;
   String txtSelect;
@@ -25,7 +27,7 @@ class _CustomDropdownListState extends State<CustomDropdownList> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(widget.txtSelect,style: FunctionHelper.FontTheme(fontSize: 18),),
+            Text(widget.txtSelect,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),),
             Icon(Icons.keyboard_arrow_down)
           ],
         )

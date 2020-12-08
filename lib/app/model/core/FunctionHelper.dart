@@ -122,7 +122,7 @@ class FunctionHelper {
                       "กำลังโหลด...",
                       style: FunctionHelper.FontTheme(
                           color: Colors.white,
-                          fontSize: 12,
+                          fontSize: SizeUtil.titleSmallFontSize(),
                           decoration: TextDecoration.none),
                     )
                   ],

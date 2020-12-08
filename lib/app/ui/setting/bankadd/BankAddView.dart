@@ -114,7 +114,7 @@ class _BankAddViewState extends State<BankAddView> {
         children: [
           Text(title,
               style: FunctionHelper.FontTheme(
-                  fontSize: ScreenUtil().setSp(45), color: Colors.black)),
+                  fontSize: SizeUtil.titleSmallFontSize(), color: Colors.black)),
           SizedBox(
             height: 10,
           ),
@@ -159,7 +159,7 @@ class _BankAddViewState extends State<BankAddView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
       ),
     );
   }

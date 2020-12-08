@@ -87,7 +87,7 @@ class NotiDetailView extends StatelessWidget {
                       Hero( tag: notiTitle,
                         child: Text(item.Title,
                             style: FunctionHelper.FontTheme(
-                                fontSize: 18,
+                                fontSize: SizeUtil.titleFontSize(),
                                 fontWeight: FontWeight.bold,
                                 color: item.Status_Sell != 2
                                     ? Colors.black

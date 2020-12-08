@@ -101,7 +101,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
         margin: EdgeInsets.only(top: 10, left: 20, bottom: 10,right: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(head, style: FunctionHelper.FontTheme(fontSize: 18),
+          children: [Text(head, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
           ),Row(
             children: [
               Container(
@@ -146,7 +146,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                 keyboardType: TextInputType.number,
                 controller: controller,
                 decoration: InputDecoration(
-                  hintStyle: TextStyle(fontSize: 17, color: Colors.grey),
+                  hintStyle: TextStyle(fontSize: SizeUtil.titleFontSize(), color: Colors.grey),
                   hintText: hint,
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.all(15),
@@ -181,7 +181,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
       onPressed: () {},
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
       ),
     );
   }

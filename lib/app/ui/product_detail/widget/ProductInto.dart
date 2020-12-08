@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 
 class ProductInto extends StatelessWidget {
   final ProductModel productDetail;
@@ -31,7 +32,7 @@ class ProductInto extends StatelessWidget {
                     child: Text(
                       productDetail.product_name,
                       style: FunctionHelper.FontTheme(
-                          fontSize: ScreenUtil().setSp(55), fontWeight: FontWeight.w500),
+                          fontSize: SizeUtil.priceFontSize(), fontWeight: FontWeight.w500),
                     )),
               ),
               Expanded(flex: 1, child: SvgPicture.asset(
@@ -48,17 +49,17 @@ class ProductInto extends StatelessWidget {
             children: [
               Text("${productDetail.product_price}",
                   style: FunctionHelper.FontTheme(
-                      fontSize: ScreenUtil().setSp(45), decoration: TextDecoration.lineThrough)),
+                      fontSize: SizeUtil.priceFontSize(), decoration: TextDecoration.lineThrough)),
               SizedBox(width: 8),
               Text("${productDetail.ProductDicount}",
                   style: FunctionHelper.FontTheme(
-                      fontSize: ScreenUtil().setSp(45), color: ThemeColor.ColorSale()))
+                      fontSize: SizeUtil.priceFontSize(), color: ThemeColor.ColorSale()))
             ],
           ),
           SizedBox(height: 10),
           Text(
             productDetail.product_status,
-            style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(55)),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
           ),
           SizedBox(height: 15),
           _IntroShipment()
@@ -82,10 +83,10 @@ class ProductInto extends StatelessWidget {
             SizedBox(width: 10),
             Text("ฟรี  ",
                 style: FunctionHelper.FontTheme(
-                    fontSize: ScreenUtil().setSp(43), color: ThemeColor.ColorSale())),
+                    fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.ColorSale())),
             Text("ส่วนลดค่าจัดส่ง ฿40 เมื่อขั้นต่ำถึง ฿0",
                 style: FunctionHelper.FontTheme(
-                    fontSize: ScreenUtil().setSp(43), fontWeight: FontWeight.w500)),
+                    fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500)),
           ],
         ),
       ),

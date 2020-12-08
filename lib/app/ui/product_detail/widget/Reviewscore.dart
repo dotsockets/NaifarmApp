@@ -42,7 +42,7 @@ class Reviewscore extends StatelessWidget {
           children: [
            SvgPicture.asset('assets/images/svg/star.svg',width: 30,height: 30,),
             SizedBox(width: 8),
-            Text("คะแนนรีวิว",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
+            Text("คะแนนรีวิว",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
           ],
         ),
       )
@@ -76,7 +76,7 @@ class Reviewscore extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 10),
-                        Text(item.reviewName,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
+                        Text(item.reviewName,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SmoothStarRating(
@@ -117,7 +117,7 @@ class Reviewscore extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
-                Text(item.reviewComment,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.detailFontSize(),fontWeight: FontWeight.w500)),
+                Text(item.reviewComment,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500)),
 
               ],
             ),

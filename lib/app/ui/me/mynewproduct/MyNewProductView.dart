@@ -143,7 +143,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("ค่าขนส่ง", style: FunctionHelper.FontTheme(fontSize: 18)),
+                  Text("ค่าขนส่ง", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey.withOpacity(0.7),
@@ -190,7 +190,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         },
         child: Text(
           btnTxt,
-          style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
         ),
       );
 

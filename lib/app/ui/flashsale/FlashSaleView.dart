@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ProductGrid.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
@@ -82,11 +83,11 @@ class FlashSaleView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               SvgPicture.asset('assets/images/svg/flash_sale.svg',width: 45,height: 45,),
-              Text("Fla",style: GoogleFonts.kanit(fontSize: 20,color: Colors.white)),
+              Text("Fla",style: GoogleFonts.kanit(fontSize: SizeUtil.titleFontSize(),color: Colors.white)),
               SizedBox(width: 5),
               SvgPicture.asset('assets/images/svg/flash.svg',width: 45,height: 40,),
               SizedBox(width: 5),
-              Text("h Sale",style: GoogleFonts.kanit(fontSize: 20,color: Colors.white)),
+              Text("h Sale",style: GoogleFonts.kanit(fontSize: SizeUtil.titleFontSize(),color: Colors.white)),
               SizedBox(width: 10),
               _buildCountDown()
             ],
@@ -110,7 +111,7 @@ class FlashSaleView extends StatelessWidget {
           child: Text(
             text,
             style: FunctionHelper.FontTheme(
-              fontSize: 18,
+              fontSize: SizeUtil.titleFontSize(),
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),

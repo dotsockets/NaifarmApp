@@ -126,7 +126,7 @@ class _ShopMainViewState extends State<ShopMainView>
         child: Text(title,
             style: FunctionHelper.FontTheme(
                 fontWeight: FontWeight.w500,
-                fontSize: SizeUtil.titleFontSize(),
+                fontSize: SizeUtil.titleSmallFontSize(),
                 color: tabController.index == index
                     ? Colors.black
                     : Colors.grey.shade700)),

@@ -108,7 +108,7 @@ class _MyCartViewState extends State<MyCartView> {
                       Text(
                         "ไม่พบรายการในรถเข็น",
                         style: FunctionHelper.FontTheme(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold),
                       )
                     ],
                   ),

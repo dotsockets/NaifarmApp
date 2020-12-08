@@ -31,11 +31,11 @@ class CaregoryShopView extends StatelessWidget {
             child:  Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(item.label,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),color: Colors.black)),
+                Text(item.label,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black)),
                 SizedBox(width: 10),
                 Row(
                   children: [
-                    Text("${Random().nextInt(100)} รายการสินค้า",style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: 15,color: Colors.black.withOpacity(0.5))),
+                    Text("${Random().nextInt(100)} รายการสินค้า",style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.detailFontSize(),color: Colors.black.withOpacity(0.5))),
                     SizedBox(width: 10),
                     Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
                   ],

@@ -11,6 +11,8 @@ import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
+import '../SizeUtil.dart';
+
 class ShopOwn extends StatelessWidget {
   final ProductModel productDetail;
 
@@ -59,21 +61,20 @@ class ShopOwn extends StatelessWidget {
                    children: [
                      Text(productDetail.shopName,
                          style: FunctionHelper.FontTheme(
-                             fontSize: ScreenUtil().setSp(45), color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
+                             fontSize: SizeUtil.titleSmallFontSize(), color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
                      SizedBox(height: 5),
                      Text(productDetail.acticeTime,
                          style: FunctionHelper.FontTheme(
-                             fontSize: ScreenUtil().setSp(40),
+                             fontSize: SizeUtil.titleSmallFontSize(),
                              color: Colors.black.withOpacity(0.8))),
                      SizedBox(height: 2),
                      Text(productDetail.provice,
                          style: FunctionHelper.FontTheme(
-                             fontSize: ScreenUtil().setSp(40),
+                             fontSize: SizeUtil.titleSmallFontSize(),
                              color: Colors.black.withOpacity(0.8),height: 1.5)),
                    ],
                  ),
                ),
-                SizedBox(width: 20),
                 Container(
 
                   child: FlatButton(
@@ -89,7 +90,7 @@ class ShopOwn extends StatelessWidget {
                     },
                     child: Text(
                       "ติดตาม",
-                      style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
                     ),
                   ),
                 )
@@ -108,11 +109,11 @@ class ShopOwn extends StatelessWidget {
                   children: [
                     Text("${productDetail.ownProduct}",
                         style: FunctionHelper.FontTheme(
-                            fontSize: ScreenUtil().setSp(50),
+                            fontSize: SizeUtil.priceFontSize(),
                             color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
                     SizedBox(height: 5),
                     Text("รายการสินค้า",
-                        style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40)))
+                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()))
                   ],
                 ),
                 SizedBox(width: 10),
@@ -128,7 +129,7 @@ class ShopOwn extends StatelessWidget {
                       children: [
                         Text("${productDetail.rateShow}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: ScreenUtil().setSp(50),
+                                fontSize: SizeUtil.priceFontSize(),
                                 color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
                         SizedBox(width: 10),
                         SmoothStarRating(
@@ -147,7 +148,7 @@ class ShopOwn extends StatelessWidget {
                     ),
                     SizedBox(height: 5),
                     Text("คะแนนที่ได้",
-                        style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40))),
+                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize())),
                   ],
                 ),
                 Container(
@@ -160,10 +161,10 @@ class ShopOwn extends StatelessWidget {
                 Column(
                   children: [
                     Text("3",
-                        style: FunctionHelper.FontTheme(fontSize: 20,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
+                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize(),color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
                     SizedBox(height: 5,),
                     Text("ผู้ติดตาม",
-                        style: FunctionHelper.FontTheme(fontSize: ScreenUtil().setSp(40))),
+                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize())),
                   ],
                 )
               ],

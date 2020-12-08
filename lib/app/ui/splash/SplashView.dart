@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/SplashLoginView.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -59,8 +60,8 @@ class _SplashViewState extends State<SplashView>
                       padding: EdgeInsets.only(bottom: 20.0),
                       child: Column(
                         children: [
-                          Text("NaiFarm",style: GoogleFonts.kanit(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),),
-                          Text("Version 0.0.1",style: GoogleFonts.kanit(fontSize: ScreenUtil().setSp(40),fontWeight: FontWeight.w500),)
+                          Text("NaiFarm",style: GoogleFonts.kanit(fontSize: SizeUtil.detailFontSize(),fontWeight: FontWeight.w500),),
+                          Text("Version 0.0.1",style: GoogleFonts.kanit(fontSize: SizeUtil.detailFontSize(),fontWeight: FontWeight.w500),)
                         ],
                       ))
                 ],

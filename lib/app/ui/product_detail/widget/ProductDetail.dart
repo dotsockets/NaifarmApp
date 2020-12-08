@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -51,7 +52,7 @@ class _ProductDetailState extends State<ProductDetail> {
               style: FunctionHelper.FontTheme(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18),
+                  fontSize: SizeUtil.titleFontSize()),
             ),
           ),
           Divider(
@@ -67,19 +68,20 @@ class _ProductDetailState extends State<ProductDetail> {
                     Text(
                       "จำนวนสินค้า",
                       style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontSize: 15),
+
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                     SizedBox(height: 2),
                     Text(
                       "สถานที่จัดส่ง",
                       style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontSize: 15),
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                     SizedBox(height: 2),
                     Text(
                       "ส่งจาก",
                       style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontSize: 15),
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                   ],
                 ),
@@ -89,20 +91,22 @@ class _ProductDetailState extends State<ProductDetail> {
                   children: [
                     Text(
                       "409 กิโลกรัม",
-                      style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontSize: 15),
+                      style: FunctionHelper.FontTheme( fontWeight: FontWeight.w500,
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                     SizedBox(height: 2),
                     Text(
                       "ทั่วประเทศ",
                       style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontSize: 15),
+                        fontWeight: FontWeight.w500,
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                     SizedBox(height: 2),
                     Text(
                       "อำเภอฝาง, จังหวัดเชียงราย",
                       style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontSize: 15),
+                        fontWeight: FontWeight.w500,
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                   ],
                 )
@@ -118,7 +122,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 padding: EdgeInsets.only(left: 15, right: 15, top: 8),
                 child: Text(
                   widget.productDetail.ProductInto,
-                  style: FunctionHelper.FontTheme(height: 1.6),
+                  style: FunctionHelper.FontTheme(height: 1.6,fontSize: SizeUtil.titleSmallFontSize()),
                   maxLines: lineInto,
                   key: _keyRed,
                 ),
@@ -152,7 +156,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               style: FunctionHelper.FontTheme(
                                   color: ThemeColor.primaryColor(),
                                   fontWeight: FontWeight.w500,
-                                  fontSize: SizeUtil.titleFontSize()),
+                                  fontSize: SizeUtil.titleSmallFontSize()),
                             ))),
                         onTap: () {
                           setState(() {

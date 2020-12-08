@@ -139,7 +139,7 @@ class ReviewView extends StatelessWidget {
                       children: [
                         Text("x ${item.amoutProduct}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: 18, color: Colors.black)),
+                                fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -147,13 +147,13 @@ class ReviewView extends StatelessWidget {
                                 ? Text("฿${item.ProductDicount}",
                                 style: FunctionHelper.FontTheme(
                                     color: Colors.black.withOpacity(0.5),
-                                    fontSize: 18,
+                                    fontSize: SizeUtil.titleFontSize(),
                                     decoration: TextDecoration.lineThrough))
                                 : SizedBox(),
                             SizedBox(width: 10),
                             Text("฿${item.product_price}",
                                 style: FunctionHelper.FontTheme(
-                                    fontSize: 18, color: ThemeColor.ColorSale()))
+                                    fontSize: SizeUtil.titleFontSize(), color: ThemeColor.ColorSale()))
                           ],
                         )
                       ],
@@ -176,7 +176,7 @@ class ReviewView extends StatelessWidget {
       color: Colors.white,
         child: Column(
           children: [
-            Text("ให้คะแนน",style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),),
+            Text("ให้คะแนน",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
             SizedBox(height: 20,),
             CustomStarRating(
                 allowHalfRating: false,

@@ -229,7 +229,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: 20, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
       ),
     );
   }
