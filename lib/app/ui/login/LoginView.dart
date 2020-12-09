@@ -175,7 +175,7 @@ class _LoginViewState extends State<LoginView> {
         ),
         child: Column(
           children: [
-            Text("NaiFarm",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: ScreenUtil().setSp(70),fontWeight: FontWeight.w500),),
+            Text("NaiFarm",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.appNameFontSize(),fontWeight: FontWeight.w500),),
           ],
         )
     );

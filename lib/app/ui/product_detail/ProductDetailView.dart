@@ -101,8 +101,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
           children: [
             Expanded(child: SvgPicture.asset(
               'assets/images/svg/share.svg',
-              width: 40,
-              height: 40,
+              width: 35,
+              height: 35,
             )),
             Container(
               color: Colors.grey.withOpacity(0.4),
@@ -111,8 +111,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
             ),
             Expanded(child: SvgPicture.asset(
               'assets/images/svg/like_line_null.svg',
-              width: 40,
-              height: 40,
+              width: 35,
+              height: 35,
               color: Colors.black.withOpacity(0.7),
             )),
             Expanded(

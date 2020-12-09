@@ -48,7 +48,7 @@ class NotiView extends StatelessWidget {
       if(item.Status_Sell==1)
         AppRoute.NotiDetail(context,"notiitem_${index}","notititle_${index}");
       else
-        AppRoute.OrderDetail(context,item.Status_Sell);
+        item.Status_Sell!=2?AppRoute.OrderDetail(context,item.Status_Sell):print("press 2");
 
     },
          child: Container(
@@ -103,8 +103,7 @@ class NotiView extends StatelessWidget {
                    ],
                  ),
                  SizedBox(height: 5,),
-                 Divider(color: Colors.black.withOpacity(0.4),),
-                 SizedBox(height: 5,),
+                 Divider(color: Colors.black.withOpacity(0.4),)
                ],
              )
          ),

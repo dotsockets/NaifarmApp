@@ -71,7 +71,7 @@ class OrderView extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.only(right: 13,left: 10,top: 5,bottom: 5),
             color: ThemeColor.primaryColor(),
-            child: Center(child: Text(Status_Sell==3?"รอให้คะแนน":Status_Sell==4?"ให้คะแนนแล้ว ":"ยกเลิกแล้ว",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.white),)),
+            child: Center(child: Text(Status_Sell==3?"รอให้คะแนน":Status_Sell==4?"ให้คะแนนแล้ว ":"ยกเลิกแล้ว",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.white),)),
           ),
         ),
       );
@@ -394,7 +394,7 @@ class OrderView extends StatelessWidget {
                 padding: EdgeInsets.only(left: 15,right: 15,bottom: 0),
                 child: Row(
                   children: [
-                    SvgPicture.asset('assets/images/svg/status_star.svg',width: 60,height: 60,),
+                    SvgPicture.asset('assets/images/svg/status_star.svg',width: 35,height: 35,),
                     SizedBox(width: 0,),
                     Text("ริวิว",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                   ],

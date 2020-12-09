@@ -40,8 +40,8 @@ class Reviewscore extends StatelessWidget {
         margin: EdgeInsets.all(10),
         child: Row(
           children: [
-           SvgPicture.asset('assets/images/svg/star.svg',width: 30,height: 30,),
-            SizedBox(width: 8),
+           SvgPicture.asset('assets/images/svg/star.svg',width: 35,height: 35,),
+            SizedBox(width: 5),
             Text("คะแนนรีวิว",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
           ],
         ),

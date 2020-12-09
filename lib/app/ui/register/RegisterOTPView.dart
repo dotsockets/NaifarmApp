@@ -1,6 +1,7 @@
 
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -132,7 +133,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 color: Colors.transparent,
                                 fontSize: 0,
                               )),
-                          style: GoogleFonts.kanit(fontSize: ScreenUtil().setSp(70)),
+                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize()),
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {
@@ -182,7 +183,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 color: Colors.transparent,
                                 fontSize: 0,
                               )),
-                          style: GoogleFonts.kanit(fontSize: ScreenUtil().setSp(70)),
+                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize()),
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {
@@ -232,7 +233,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 color: Colors.transparent,
                                 fontSize: 0,
                               )),
-                          style: GoogleFonts.kanit(fontSize: ScreenUtil().setSp(70)),
+                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize()),
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {
@@ -282,7 +283,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 color: Colors.transparent,
                                 fontSize: 0,
                               )),
-                          style: GoogleFonts.kanit(fontSize: ScreenUtil().setSp(70)),
+                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize()),
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {
@@ -332,7 +333,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 color: Colors.transparent,
                                 fontSize: 0,
                               )),
-                          style: GoogleFonts.kanit(fontSize: ScreenUtil().setSp(70)),
+                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize()),
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {
@@ -382,7 +383,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 color: Colors.transparent,
                                 fontSize: 0,
                               )),
-                          style: GoogleFonts.kanit(fontSize: ScreenUtil().setSp(70)),
+                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize()),
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {

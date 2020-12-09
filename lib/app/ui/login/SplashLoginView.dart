@@ -54,7 +54,7 @@ class SplashLoginView extends StatelessWidget {
               "NaiFarm",
               style: FunctionHelper.FontTheme(
                   color: Colors.white,
-                  fontSize: ScreenUtil().setSp(90),
+                  fontSize: SizeUtil.appNameFontSize(),
                   fontWeight: FontWeight.w500),
 
             ),

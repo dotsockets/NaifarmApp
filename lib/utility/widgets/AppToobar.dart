@@ -260,15 +260,16 @@ class AppToobar extends PreferredSize {
                 child: SvgPicture.asset(
                   'assets/images/svg/search.svg',
                   color: Colors.black,
-                  width: 35,
-                  height: 35,
+                  width: 30,
+                  height: 30,
                 ),
                 visible: isEnable_Search,
               ),
               Expanded(
                   child: InkWell(
-                child: isEnable_Search?SizedBox(height: 50,):
+                child: isEnable_Search?SizedBox(height: 40,):
                 Container(
+                  height: 40,
                   padding: EdgeInsets.only(left: 5),
                   child: TextField(
                     style: FunctionHelper.FontTheme(
@@ -292,8 +293,8 @@ class AppToobar extends PreferredSize {
               SvgPicture.asset(
                 'assets/images/svg/search_photo.svg',
                 color: Color(ColorUtils.hexToInt('#c7bfbf')),
-                width: 30,
-                height: 30,
+                width: 25,
+                height: 25,
               )
             ],
           )

@@ -28,65 +28,70 @@ class _SearchViewState extends State<SearchView> {
       child: SafeArea(
         top: false,
         child: Scaffold(
-          appBar: AppToobar(
-            icon: "",
-            isEnable_Search: false,
-            header_type: Header_Type.barHome,
-            hint: "ค้นหาสินค้า",
-            onSearch: (String text){
-              setState(() {
-                SearchLike(text);
-              });
-            },
 
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  color: Colors.white,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: !checkSeemore&&listClone.length!=0&&listClone.length>3?3:listClone.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              child: Text(listClone[index], style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.titleSmallFontSize())
-                              ),padding: EdgeInsets.all(10),
-                          ),
-                          _BuildLine()
-                        ],
-                      );
-                    },
-                  ),
-                ),
-                InkWell(
-                  child: Container(
-                    color: Colors.white,
-                    padding: EdgeInsets.only(top:10,bottom: 10),
-                    width: MediaQuery.of(context).size.width,
-                    child: Center(
-                      child: Visibility(
-                        child: Text(listClone.length==0?"ไม่พบข้อมูล":checkSeemore?"ย่อ":"แสดงเพิ่ม",
-                            style: FunctionHelper.FontTheme(color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize())),
-                      visible: listClone.length>0&&listClone.length<=3?false:true,
+          body: Column(
+            children: [
+              AppToobar(
+                icon: "",
+                isEnable_Search: false,
+                header_type: Header_Type.barHome,
+                hint: "ค้นหาสินค้า",
+                onSearch: (String text){
+                  setState(() {
+                    SearchLike(text);
+                  });
+                },
+
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      color: Colors.white,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: !checkSeemore&&listClone.length!=0&&listClone.length>3?3:listClone.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                  child: Text(listClone[index], style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.titleSmallFontSize())
+                                  ),padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
+                              ),
+                              _BuildLine()
+                            ],
+                          );
+                        },
                       ),
                     ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      checkSeemore ? checkSeemore = false : checkSeemore = true;
-                    });
-                  },
+                    InkWell(
+                      child: Container(
+                        color: Colors.white,
+                        padding: EdgeInsets.only(top:10,bottom: 10),
+                        width: MediaQuery.of(context).size.width,
+                        child: Center(
+                          child: Visibility(
+                            child: Text(listClone.length==0?"ไม่พบข้อมูล":checkSeemore?"ย่อ":"แสดงเพิ่ม",
+                                style: FunctionHelper.FontTheme(color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize())),
+                          visible: listClone.length>0&&listClone.length<=3?false:true,
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          checkSeemore ? checkSeemore = false : checkSeemore = true;
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SearchHot(onSelectChang: () {})
+                  ],
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                SearchHot(onSelectChang: () {})
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

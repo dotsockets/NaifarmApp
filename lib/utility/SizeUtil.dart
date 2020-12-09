@@ -4,7 +4,9 @@ class SizeUtil {
   static double categoryBox() {
     return Device.get().isPhone ? 75 : 100;
   }
-
+  static double appNameFontSize() {
+    return Device.get().isPhone ? 30 : 80;
+  }
   static double priceFontSize() {
     return Device.get().isPhone ? 17 : 70;
   }

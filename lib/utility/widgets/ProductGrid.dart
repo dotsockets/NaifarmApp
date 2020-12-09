@@ -264,7 +264,7 @@ class ProductGrid extends StatelessWidget {
                     ),
                     isLike
                         ? Container(
-                            margin: EdgeInsets.only(right: 15, top: 7),
+                            margin: EdgeInsets.only(right: 8, top: 7),
                             child: SvgPicture.asset(
                               'assets/images/svg/like_line.svg',
                               width: 35,

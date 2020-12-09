@@ -55,7 +55,7 @@ class NotiDetailView extends StatelessWidget {
                 Hero(
                   tag: notiImage,
                   child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: Colors.black.withOpacity(0.2), width: 1),
