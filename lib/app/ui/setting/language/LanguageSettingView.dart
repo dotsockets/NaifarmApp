@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,15 +32,15 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: "เลือกภาษา",
+            title: LocaleKeys.setting_language_title.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
           body: InkWell(
             child: Column(
               children: [
-                _BuildCheckBox(languageTxt: "ภาษาไทย",index: 0),
-                _BuildCheckBox(languageTxt: "English",index: 1),
+                _BuildCheckBox(languageTxt: "ภาษาไทย",locale: EasyLocalization.of(context).supportedLocales[1]),
+                _BuildCheckBox(languageTxt: "English",locale: EasyLocalization.of(context).supportedLocales[0]),
               ],
             ),
             onTap: (){
@@ -49,7 +51,7 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
       ),
     );
   }
-  Widget _BuildCheckBox({String languageTxt,int index}){
+  Widget _BuildCheckBox({String languageTxt, Locale locale}){
     return Container(
       padding: EdgeInsets.all(15),
       color: Colors.white,
@@ -62,11 +64,11 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
             InkWell(
               onTap: (){
                 setState(() {
-                  checkSelect = index;
+                  EasyLocalization.of(context).locale = locale;
                 });
               },
               child:
-              checkSelect==index?
+              locale==EasyLocalization.of(context).locale?
               SvgPicture.asset(
                 'assets/images/svg/checkmark.svg',
                 color: ThemeColor.primaryColor(),

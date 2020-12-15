@@ -80,7 +80,7 @@ class AppToobar extends PreferredSize {
         title: Center(
           child: Text(
             title,
-            style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize()),
+            style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.normal),
           ),
         ),
       ),
