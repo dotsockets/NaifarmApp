@@ -98,17 +98,17 @@ class _RecommendViewState extends State<RecommendView> {
         child: SafeArea(
             top: false,
             child: Scaffold(
-
+appBar: AppToobar(
+  header_type: Header_Type.barHome,
+  isEnable_Search: true,
+),
               body: SingleChildScrollView(
                 child: Container(
                   color: Colors.grey.shade300,
                   child: StickyHeader(
                     header: Column(
                       children: [
-                        AppToobar(
-                        header_type: Header_Type.barHome,
-                        isEnable_Search: true,
-                      ),CategoryMenu(
+                        CategoryMenu(
                         selectedIndex: _categoryselectedIndex,
                         menuViewModel: _menuViewModel,
                         onTap: (int val) {
