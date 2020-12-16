@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/success/SuccessView.dart';
-import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -138,6 +137,12 @@ class FunctionHelper {
     } else {
       return time;
     }
+  }
+  static String LocaleLanguage({Locale locale}) {
+   if(locale.toString() == "th_TH")
+     return "ภาษาไทย";
+   else
+     return "English";
   }
 
   static DropDownAndroid(BuildContext context, List<String> dataList,
@@ -420,4 +425,5 @@ class FunctionHelper {
     return GoogleFonts.sarabun(fontWeight: fontWeight,fontSize: fontSize,color: color,height: height,letterSpacing: letterSpacing,backgroundColor: backgroundColor,
     shadows: shadows,wordSpacing: wordSpacing,textBaseline: textBaseline,foreground: foreground,background: background,decoration: decoration);
   }
+
 }

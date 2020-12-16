@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
+
 class NotiSettingView extends StatefulWidget {
   @override
   _NotiSettingViewState createState() => _NotiSettingViewState();

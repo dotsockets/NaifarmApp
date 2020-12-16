@@ -1,10 +1,27 @@
 {
-	"setting": {
-		"setting_title":"Setting",
-		"language_title": "Select Language",
-		"language": {
-			"th": "Thailand",
-			"en": "English"
-		}
-	}
+  "setting": {
+    "setting_title": "Setting",
+    "language_title": "Select Language",
+    "language": {
+      "th": "Thailand",
+      "en": "English"
+    }
+  },
+  "setting_profile": {
+    "title_profile": "Profile",
+    "title_address": "My Address",
+    "title_bank": "Bank/Credit cards",
+    "title_noti":"Setting notification",
+    "title_language": "Language",
+    "title_help": "Help",
+    "title_rule": "Rule of Use",
+    "title_policy": "Policy of Use",
+    "title_about": "About",
+    "title_delete_account": "Delete Account",
+    "head_profile": "My Profile",
+    "head_setting": "Setting",
+    "head_help": "Help",
+    "toobar_setting_profile": "Profile Setting"
+  },
+  "logout": "Logout"
 }

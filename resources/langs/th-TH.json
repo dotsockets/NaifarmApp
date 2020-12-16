@@ -6,5 +6,22 @@
 			"th": "ไทย",
 			"en": "อังกฤษ"
 		}
-	}
+	},
+	"setting_profile": {
+		"title_profile": "หน้าโปรไฟล์",
+		"title_address": "ที่อยู่ของฉัน",
+		"title_bank": "ข้อมูลบัญชีธนาคาร/บัตร",
+		"title_noti":"ตั้งค่าการแจ้งเตือน",
+		"title_language": "ภาษา",
+		"title_help": "ศูนย์ช่วยเหลือ",
+		"title_rule": "กฎระเบียบการใช้",
+		"title_policy": "นโยบายของ Naifarm",
+		"title_about": "เกี่ยวกับ",
+		"title_delete_account": "คำขอลบบัญชีผู้ใช้",
+		"head_profile": "บัญชีของฉัน",
+		"head_setting": "ตั้งค่า",
+		"head_help": "ช่วยเหลือ",
+		"toobar_setting_profile": "ตั้งค่าบัญชี"
+	},
+	"logout": "ออกจากระบบ"
 }

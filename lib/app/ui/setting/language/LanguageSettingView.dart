@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -63,9 +64,8 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
             Text(languageTxt,style: FunctionHelper.FontTheme(fontSize:SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),
             InkWell(
               onTap: (){
-                setState(() {
                   EasyLocalization.of(context).locale = locale;
-                });
+                  print(EasyLocalization.of(context).locale.toString());
               },
               child:
               locale==EasyLocalization.of(context).locale?
