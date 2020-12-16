@@ -41,6 +41,7 @@ class _HomeViewState extends State<HomeView> {
           ),
             bottomNavigationBar: Container(
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(topRight:  Radius.circular(40),topLeft:  Radius.circular(40)),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: Colors.black26,
@@ -48,6 +49,7 @@ class _HomeViewState extends State<HomeView> {
                     spreadRadius: 0.5,
                   ),
                 ],
+
                   color: ThemeColor.primaryColor(),
               ),
               child: SafeArea(

@@ -49,7 +49,7 @@ class AppComponentState extends State<AppComponent> {
   Widget build(BuildContext context) {
 
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
-//flutter pub run gen_lang:generate
+//flutter pub run easy_localization:generate
 // flutter pub run easy_localization:generate -f keys -o locale_keys.g.dart
     final app = new MaterialApp(
       localizationsDelegates: context.localizationDelegates,
