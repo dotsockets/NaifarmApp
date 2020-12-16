@@ -103,6 +103,7 @@ appBar: AppToobar(
   isEnable_Search: true,
 ),
               body: SingleChildScrollView(
+                physics: ClampingScrollPhysics(),
                 child: Container(
                   color: Colors.grey.shade300,
                   child: StickyHeader(
@@ -116,7 +117,8 @@ appBar: AppToobar(
                             _categoryselectedIndex = val;
                           });
                         },
-                      ),],
+                      ),
+                      ],
                     ),
                     content: Column(
                       children: [
