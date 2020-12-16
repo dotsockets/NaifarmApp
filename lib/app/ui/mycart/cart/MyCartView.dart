@@ -472,7 +472,7 @@ class _MyCartViewState extends State<MyCartView> {
                     ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

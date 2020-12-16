@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/category/CategoryView.dart';
@@ -57,9 +58,14 @@ class _HomeViewState extends State<HomeView> {
                   menuViewModel: _menuViewModel,
                   selectedIndex: _selectedIndex,
                   onTap: (index) {
-                    setState(() {
-                       _selectedIndex = index;
-                    });
+                    if(index==2){
+                      AppRoute.MyCart(context, true);
+                    }else{
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    }
+
                   },
                 ),
               ),
