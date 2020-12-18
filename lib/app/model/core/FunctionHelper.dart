@@ -7,9 +7,11 @@ import 'package:naifarm/app/ui/me/myshop/myshophistory/success/SuccessView.dart'
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class FunctionHelper {
@@ -363,7 +365,7 @@ class FunctionHelper {
                             child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "ยกเลิก",
+                                  LocaleKeys.cancel_btn.tr(),
                                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale()),
                                 )),
                           ),
@@ -377,7 +379,7 @@ class FunctionHelper {
                         child: GestureDetector(
                           child: Align(
                               alignment: Alignment.center,
-                              child: Text("ตกลง",
+                              child: Text(LocaleKeys.ok_btn.tr(),
                                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.primaryColor()))),
                             onTap: () => onClick()))
                   ],

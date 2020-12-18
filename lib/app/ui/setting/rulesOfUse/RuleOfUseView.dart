@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class RulesOfUseView extends StatefulWidget {
   @override
@@ -24,7 +26,7 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
         top: false,
         child: Scaffold(
           appBar: AppToobar(
-            title: "กฎระเบียบการใช้งาน",
+            title: LocaleKeys.setting_rule_toobar.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),

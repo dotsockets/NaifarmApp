@@ -3,19 +3,18 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
-import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EditProfileVIew extends StatelessWidget {
-  List<String> datalist = ["ชาย","หญิง","อื่นๆ"];
+  List<String> datalist = ["ชาย","หญิง"];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,7 +46,7 @@ class EditProfileVIew extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(height: 20,),
-                          Text("ข้อมูลส่วนตัว",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
+                          Text(LocaleKeys.my_profile_title.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
                           SizedBox(height: 20,),
                           ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(60)),
@@ -77,7 +76,7 @@ class EditProfileVIew extends StatelessWidget {
                               borderRadius: BorderRadius.all(Radius.circular(15)),
                               color: ThemeColor.ColorSale()
                             ),
-                            child: Text("แก้ไขรูป",
+                            child: Text(LocaleKeys.edit_img_btn.tr(),
                                 style: FunctionHelper.FontTheme(
                                     color: Colors.white,
                                     fontSize:  SizeUtil.detailSmallFontSize(),
@@ -98,7 +97,7 @@ class EditProfileVIew extends StatelessWidget {
                             opacityMessage: 0.5,
                             icon: '',
                             Message: "บ้านจำปีแดง",
-                            title: "ชื่อ",
+                            title: LocaleKeys.my_profile_name.tr(),
                             onClick: ()=> AppRoute.Setting_EditProfile_Name(context),
                           ),
                           _buildLine(),
@@ -106,7 +105,7 @@ class EditProfileVIew extends StatelessWidget {
                             opacityMessage: 0.5,
                             icon: '',
                             Message: "เป็นร้านจำหน่าย...",
-                            title: "แนะนำตัวเอง",
+                            title: LocaleKeys.my_profile_about_me.tr(),
                             onClick: ()=>AppRoute.Setting_EditProdile_Bio(context),
                           ),
                           _buildLine(),
@@ -114,7 +113,7 @@ class EditProfileVIew extends StatelessWidget {
                             opacityMessage: 0.5,
                             icon: '',
                             Message: "ชาย",
-                            title: "เพศ",
+                            title: LocaleKeys.my_profile_gender.tr(),
                             onClick: () {
                               Platform.isAndroid?FunctionHelper.DropDownAndroid(context,datalist,onTap:(int index){}):FunctionHelper.DropDownIOS(context,datalist,onTap:(int index){});
                             },
@@ -124,7 +123,7 @@ class EditProfileVIew extends StatelessWidget {
                             opacityMessage: 0.5,
                             icon: '',
                             Message: "09 กรกฎาคม 2563",
-                            title: "วันเกิด",
+                            title: LocaleKeys.my_profile_birthday.tr(),
                             onClick: () {
                               Platform.isAndroid?FunctionHelper.selectDate(context,OnDateTime: (DateTime s){}):FunctionHelper.showPickerDate(context,datalist,onTap:(DateTime index){Navigator.pop(context);});
                             },
@@ -134,7 +133,7 @@ class EditProfileVIew extends StatelessWidget {
                             opacityMessage: 0.5,
                             icon: '',
                             Message: "xxxxxx0987",
-                            title: "เบอร์โทรศัพท์",
+                            title: LocaleKeys.my_profile_phone.tr(),
                             onClick: () {
                               AppRoute.EditPhoneStep1(context);
                             },
@@ -144,7 +143,7 @@ class EditProfileVIew extends StatelessWidget {
                             opacityMessage: 0.5,
                             icon: '',
                             Message: "puwee@gmail.com",
-                            title: "อีเมล",
+                            title: LocaleKeys.my_profile_email.tr(),
                             onClick: () {
                               AppRoute.EditEmail_Step1(context);
                             },
@@ -154,7 +153,7 @@ class EditProfileVIew extends StatelessWidget {
                             opacityMessage: 0.5,
                             icon: '',
                             Message: "********",
-                            title: "เปลี่ยนรหัสผ่าน",
+                            title: LocaleKeys.my_profile_change_password.tr(),
                             onClick: () {
                               AppRoute.EditpasswordStep1(context);
                             },

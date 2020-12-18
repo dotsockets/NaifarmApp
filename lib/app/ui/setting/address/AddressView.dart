@@ -4,9 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:naifarm/utility/widgets/ListMenuItem.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AddressView extends StatefulWidget {
   @override
@@ -26,14 +27,14 @@ class _AddressViewState extends State<AddressView> {
         top: false,
         child: Scaffold(
           appBar: AppToobar(
-            title: "ที่อยู่ของฉัน",
+            title: LocaleKeys.setting_account_title_address.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
           body: Container(
             color: Colors.grey.shade300,
             child: Column(
-              children: [_buildCardAddr(nameTxt: "วีระชัย ใจกว้าง",typeAddr: "เป็นที่อยู่หลัก"),
+              children: [_buildCardAddr(nameTxt: "วีระชัย ใจกว้าง",typeAddr: LocaleKeys.address_default.tr()),
                 SizedBox(height: 10,),
                 _buildCardAddr(nameTxt: "วีระชัย ใจกว้าง",typeAddr: ""),_BuildButton(),
               ],
@@ -87,7 +88,7 @@ class _AddressViewState extends State<AddressView> {
           AppRoute.SettingAddAddress(context);
         },
         child: Text(
-          "เพิ่มที่อยู่ใหม่",
+          LocaleKeys.add_address_btn.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
         ),
 

@@ -3,8 +3,10 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/ui/me/widget/TabMenu.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MyshopView extends StatelessWidget {
   final bool IsLogin;
@@ -20,14 +22,14 @@ class MyshopView extends StatelessWidget {
           _buildTabMenu(context),
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
-            title: 'ประวัติการซื้อ',
+            title: LocaleKeys.me_title_history.tr(),
             onClick: () => AppRoute.MyShophistory(context,0),
           ),
           IsLogin ? _BuildDivider() : SizedBox(),
           IsLogin
               ? ListMenuItem(
                   icon: 'assets/images/svg/like_2.svg',
-                  title: 'กระเป๋าเงิน',
+                  title: LocaleKeys.me_title_wallet.tr(),
                   Message: "300 บาท",
                   onClick: () => AppRoute.WithdrawMoney(context),
                 )
@@ -36,7 +38,7 @@ class MyshopView extends StatelessWidget {
           IsLogin
               ? ListMenuItem(
                   icon: 'assets/images/svg/editprofile.svg',
-                  title: 'สินค้าของฉัน',
+                  title: LocaleKeys.me_title_my_product.tr(),
                   onClick: () {
                     AppRoute.MyProduct(context);
                   },
@@ -46,7 +48,7 @@ class MyshopView extends StatelessWidget {
           IsLogin
               ? ListMenuItem(
                   icon: 'assets/images/svg/delivery.svg',
-                  title: 'การจัดส่ง',
+                  title: LocaleKeys.me_title_shipping.tr(),
                   onClick: () {
                     AppRoute.DeliveryMe(context);
                   },
@@ -55,14 +57,14 @@ class MyshopView extends StatelessWidget {
           _BuildDivider(),
           ListMenuItem(
               icon: 'assets/images/svg/money.svg',
-              title: 'วิธีการชำระเงิน',
+              title: LocaleKeys.me_title_payment.tr(),
               onClick: () {
                 AppRoute.PaymentMe(context);
               }),
           _BuildDivider(),
           ListMenuItem(
             icon: 'assets/images/svg/help.svg',
-            title: 'ช่วยเหลือ',
+            title: LocaleKeys.me_title_help.tr(),
             onClick: () {
               AppRoute.SettingHelp(context);
             },
@@ -83,25 +85,25 @@ class MyshopView extends StatelessWidget {
         children: [
           TabMenu(
               icon: 'assets/images/svg/status_delivery.svg',
-              title: "ร้านค้าของฉัน",
+              title: LocaleKeys.me_tab_shop.tr(),
               onClick: (){AppRoute.ShopMain(context);},
               notification: 0),
           TabMenu(
             icon: 'assets/images/svg/status_cancel.svg',
-            title: "ยกเลิกสินค้า",
+            title: LocaleKeys.me_menu_cancel_product.tr(),
          onClick: (){AppRoute.MyShophistory(context,4);
          },
             notification: 1,
           ),
           TabMenu(
             icon: 'assets/images/svg/status_restore.svg',
-            title: "คืนสินค้า",
+            title: LocaleKeys.me_menu_refund_product.tr(),
             onClick: (){AppRoute.MyShophistory(context,5);},
             notification: 0,
           ),
           TabMenu(
             icon: 'assets/images/svg/orther.svg',
-            title: "อื่นๆ",
+            title: LocaleKeys.me_menu_other.tr(),
             notification: 0,
           )
         ],
@@ -123,7 +125,7 @@ class MyshopView extends StatelessWidget {
           AppRoute.MyNewProduct(context);
         },
         child: Text(
-          "เพิ่มสินค้า",
+          LocaleKeys.add_product_btn.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
         ),
       ),

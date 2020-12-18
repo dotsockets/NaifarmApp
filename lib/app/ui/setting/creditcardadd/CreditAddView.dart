@@ -1,13 +1,12 @@
 
 import 'package:card_scanner/card_scanner.dart';
-import 'package:custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -50,7 +49,7 @@ class _CreditAddViewState extends State<CreditAddView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: "เพิ่มบัตรเครดิต/บัตรเครดิต",
+            title:  LocaleKeys.card_add_toobar.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -62,8 +61,8 @@ class _CreditAddViewState extends State<CreditAddView> {
                     child: Column(
                       children: [
                         _buildEditCard(
-                            head: "ชื่อที่ปรากฎบนบัตร",
-                            hint: "ระบุชื่อที่ปรากฎบนบัตร",controller: nameController),
+                            head: LocaleKeys.card_name.tr(),
+                            hint:   LocaleKeys.set_default.tr()+LocaleKeys.card_name.tr(),controller: nameController),
 
                         Container(
                           padding: EdgeInsets.only(
@@ -73,14 +72,14 @@ class _CreditAddViewState extends State<CreditAddView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "หมายเลขบัตรเครดิต",
+                                LocaleKeys.card_number.tr(),
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
                               ),
                               GestureDetector(
                                 child: Row(
                                   children: [
-                                    Text("ถ่ายรูปบัตร",
+                                    Text(LocaleKeys.card_img.tr(),
                                         style: FunctionHelper.FontTheme(
                                             fontSize: SizeUtil.titleFontSize(),
                                             fontWeight: FontWeight.w500)),
@@ -102,19 +101,19 @@ class _CreditAddViewState extends State<CreditAddView> {
                         ),
                         _buildLine(),
                         _buildDropDown(
-                            title: "ประเภทบัตร", list: ["VISA", "VISA2"]),
-                        _buildEditCard(head: "หมายเลขบัตร", hint: "หมายเลขบัตร",controller: numCardController),
-                        _buildEditCard(head: "วันหมดอายุ", hint: "MM/YY",controller: exController),
+                            title:  LocaleKeys.card_type.tr(), list: ["VISA", "VISA2"]),
+                        _buildEditCard(head:  LocaleKeys.card_number.tr(), hint: LocaleKeys.card_number.tr(),controller: numCardController),
+                        _buildEditCard(head:  LocaleKeys.card_exp.tr(), hint: "MM/YY",controller: exController),
                         _buildEditCard(head: "CVV", hint: "?",controller: cvvController),
                         _buildDropDown(
-                            title: "จังหวัด",
+                            title: LocaleKeys.address_province.tr(),
                             list: ["กรุงเทพมหานคร", "เชียงใหม่"]),
                         _buildDropDown(
-                            title: "เขต/อำเภอ", list: ["ขลุง", "ขลุง"]),
-                        _buildDropDown(title: "รหัสไปรษณีย์", list: ["10400"]),
+                            title: LocaleKeys.address_city.tr(), list: ["ขลุง", "ขลุง"]),
+                        _buildDropDown(title: LocaleKeys.address_postal.tr(), list: ["10400"]),
                         _buildEditCard(
                             head:
-                            "รายละเอียดที่อยู่ (ห้อง, บ้านเลขที่, ตึก, ถนน)",
+                            LocaleKeys.address_detail.tr(),
                             hint: "612/399 A space condo ชั้น 4",controller: detailAddrController),
                         Container(
                           color: Colors.white, height: 20,)
@@ -208,7 +207,7 @@ class _CreditAddViewState extends State<CreditAddView> {
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(15),
-            child: _buildButtonItem(btnTxt: "บันทึก")));
+            child: _buildButtonItem(btnTxt: LocaleKeys.save_btn.tr())));
   }
 
   Widget _buildButtonItem({String btnTxt}) {

@@ -2,8 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -11,6 +10,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/BankModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
@@ -33,7 +33,7 @@ class _BankSettingViewState extends State<BankSettingView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: "ข้อมูลบัญชีธนาคาร/บัตร",
+            title: LocaleKeys.setting_account_title_bank.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -43,7 +43,7 @@ class _BankSettingViewState extends State<BankSettingView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "บัตรเครดิต",
+              LocaleKeys.card_title.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
                 ),
                 SizedBox(height: 5,),
@@ -53,10 +53,10 @@ class _BankSettingViewState extends State<BankSettingView> {
                   }).values.toList(),
                 ),
                 SizedBox(height: 10,),
-                _buildAddBtn(txtBtn: "เพิ่มบัตรเครดิต/บัตรเดบิต",indexBtn: 0),
+                _buildAddBtn(txtBtn: LocaleKeys.card_add_toobar.tr(),indexBtn: 0),
                 SizedBox(height: 20,),
                 Text(
-                  "บัญชีธนาคารเพื่อรับเงิน",
+                  LocaleKeys.bank_title.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
                 ),SizedBox(height: 5,),
                 Column(
@@ -65,7 +65,7 @@ class _BankSettingViewState extends State<BankSettingView> {
                   }).values.toList(),
                 ),
                 SizedBox(height: 10,),
-                _buildAddBtn(txtBtn: "เพิ่มบัญชีธนาคาร",indexBtn: 1),
+                _buildAddBtn(txtBtn: LocaleKeys.bank_add_toobar.tr(),indexBtn: 1),
                 SizedBox(height: 10,),
               ],
             ),

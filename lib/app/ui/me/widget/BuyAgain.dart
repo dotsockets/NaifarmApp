@@ -2,14 +2,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BuyAgain extends StatelessWidget {
 
@@ -55,7 +55,7 @@ class BuyAgain extends StatelessWidget {
             ),
             Row(
               children: [
-                GestureDetector(child: Text("ดูสินค้าอื่น",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),onTap: ()=>onSelectMore()),
+                GestureDetector(child: Text(LocaleKeys.me_message_other.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),onTap: ()=>onSelectMore()),
                 SizedBox(width: 8),
                 SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
 

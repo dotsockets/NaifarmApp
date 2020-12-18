@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AddressAddView extends StatefulWidget {
   @override
@@ -50,7 +51,7 @@ class _AddressAddViewState extends State<AddressAddView> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: "เพิ่มที่อยู่",
+            title: LocaleKeys.address_add_toobar.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -64,7 +65,7 @@ class _AddressAddViewState extends State<AddressAddView> {
                       SizedBox(
                         height: 10,
                       ),
-                      _buildSwitch(head: "เป็นที่อยู่หลัก")
+                      _buildSwitch(head: LocaleKeys.address_default.tr())
                     ]),
                   ),
                 ),
@@ -88,18 +89,18 @@ class _AddressAddViewState extends State<AddressAddView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BuildEditText(
-              head: "ชื่อ-นามสกุล",
+              head: LocaleKeys.my_profile_fullname.tr(),
               EnableMaxLength: false,
-              hint: "ระบุชื่อ-นามสกุล",
+              hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_fullname.tr(),
               controller: nameController,
               inputType: TextInputType.text),
           SizedBox(
             height: 15,
           ),
           BuildEditText(
-              head: "อีเมล",
+              head: LocaleKeys.my_profile_email.tr(),
               EnableMaxLength: false,
-              hint: "ระบุอีเมล",
+              hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_email.tr(),
               controller: emailController,
               inputType: TextInputType.text),
           _buildError(errorTxt: errorEmailTxt),
@@ -107,9 +108,9 @@ class _AddressAddViewState extends State<AddressAddView> {
             height: 15,
           ),
           BuildEditText(
-              head: "หมายเลขโทรศัพท์",
+              head: LocaleKeys.my_profile_phoneNum.tr(),
               EnableMaxLength: false,
-              hint: "ระบุหมายเลขโทรศัพท์",
+              hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_phoneNum.tr(),
               controller: phoneController,
               inputType: TextInputType.number),
           _buildError(errorTxt: errorPhoneTxt),
@@ -117,36 +118,36 @@ class _AddressAddViewState extends State<AddressAddView> {
             height: 15,
           ),
           BuildEditText(
-              head: "จังหวัด",
+              head: LocaleKeys.address_province.tr(),
               EnableMaxLength: false,
-              hint: "เลือกจังหวัด",
+              hint: LocaleKeys.select.tr()+LocaleKeys.address_province.tr(),
               controller: provinceController,
               inputType: TextInputType.text),
           SizedBox(
             height: 15,
           ),
           BuildEditText(
-              head: "เขต/อำเภอ",
+              head: LocaleKeys.address_city.tr(),
               EnableMaxLength: false,
-              hint: "เลือกเขต/อำเภอ",
+              hint: LocaleKeys.select.tr()+LocaleKeys.address_city.tr(),
               controller: districtController,
               inputType: TextInputType.text),
           SizedBox(
             height: 15,
           ),
           BuildEditText(
-              head: "รหัสไปรษณีย์",
+              head: LocaleKeys.address_postal.tr(),
               EnableMaxLength: false,
-              hint: "เลือกรหัสไปรษณีย์",
+              hint: LocaleKeys.select.tr()+LocaleKeys.address_postal.tr(),
               controller: postController,
               inputType: TextInputType.number),
           SizedBox(
             height: 15,
           ),
           BuildEditText(
-              head: "รายละเอียดที่อยู่ (ห้อง, บ้านเลขที่, ตึก, ถนน)",
+              head: LocaleKeys.address_detail.tr(),
               EnableMaxLength: false,
-              hint: "ระบุรายละเอียด",
+              hint: LocaleKeys.set_default.tr()+LocaleKeys.address_detail.tr(),
               controller: detailAddrController,
               inputType: TextInputType.text),
         ],

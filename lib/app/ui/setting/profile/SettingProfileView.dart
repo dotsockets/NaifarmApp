@@ -51,7 +51,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: LocaleKeys.setting_profile_toobar_setting_profile.tr(),
+            title: LocaleKeys.setting_account_toobar.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -63,16 +63,16 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildTitle(txt: LocaleKeys.setting_profile_head_profile.tr()),
+                        _buildTitle(txt: LocaleKeys.setting_account_head_profile.tr()),
                         ListMenuItem(
                           icon: '',
-                          title: LocaleKeys.setting_profile_title_profile.tr(),
+                          title: LocaleKeys.setting_account_title_profile.tr(),
                           onClick: () => AppRoute.EditProfile(context),
                         ),
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          title: LocaleKeys.setting_profile_title_address.tr(),
+                          title: LocaleKeys.setting_account_title_address.tr(),
                           onClick: () {
                             AppRoute.SettingAddress(context);
                           },
@@ -80,16 +80,16 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          title: LocaleKeys.setting_profile_title_bank.tr(),
+                          title: LocaleKeys.setting_account_title_bank.tr(),
                           onClick: () {
                             AppRoute.SettingBank(context);
                           },
                         ),
                         _buildLine(),
-                        _buildTitle(txt: LocaleKeys.setting_profile_head_setting.tr()),
+                        _buildTitle(txt: LocaleKeys.setting_account_head_setting.tr()),
                         ListMenuItem(
                           icon: '',
-                          title: LocaleKeys.setting_profile_title_noti.tr(),
+                          title: LocaleKeys.setting_account_title_noti.tr(),
                           onClick: () {
                             AppRoute.SettingNoti(context);
                           },
@@ -98,15 +98,15 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                         ListMenuItem(
                           icon: '',
                           Message: FunctionHelper.LocaleLanguage(locale: EasyLocalization.of(context).locale),
-                          title: LocaleKeys.setting_profile_title_language.tr(),
+                          title: LocaleKeys.setting_account_title_language.tr(),
                           onClick: () {
                             AppRoute.SettingLanguage(context);
                           },
                         ),
-                        _buildTitle(txt: LocaleKeys.setting_profile_head_help.tr()),
+                        _buildTitle(txt: LocaleKeys.setting_account_head_help.tr()),
                         ListMenuItem(
                           icon: '',
-                          title: LocaleKeys.setting_profile_title_help.tr(),
+                          title: LocaleKeys.setting_account_title_help.tr(),
                           onClick: () {
                             AppRoute.SettingHelp(context);
                           },
@@ -114,7 +114,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          title: LocaleKeys.setting_profile_title_rule.tr(),
+                          title: LocaleKeys.setting_account_title_rule.tr(),
                           onClick: () {
                             AppRoute.SettingRules(context);
                           },
@@ -122,7 +122,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          title: LocaleKeys.setting_profile_title_policy.tr(),
+                          title: LocaleKeys.setting_account_title_policy.tr(),
                           onClick: () {
                             AppRoute.SettingPolicy(context);
                           },
@@ -130,7 +130,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          title: LocaleKeys.setting_profile_title_about.tr(),
+                          title: LocaleKeys.setting_account_title_about.tr(),
                           onClick: () {
                             AppRoute.SettingAbout(context);
                           },
@@ -138,10 +138,9 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          title: LocaleKeys.setting_profile_title_delete_account.tr(),
+                          title: LocaleKeys.setting_account_title_delete_account.tr(),
                           onClick: () {
-                            FunctionHelper.ConfirmDialog(context,message: "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หาคุณต้องการลบจะไม่สามารถกู้คืนได้",onCancel: (){
-
+                            FunctionHelper.ConfirmDialog(context,message: LocaleKeys.dialog_message_del_account.tr(),onCancel: (){
                             },);
                           },
                         ),
@@ -182,7 +181,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(15),
-            child: _BuildButtonItem(btnTxt: LocaleKeys.logout)));
+            child: _BuildButtonItem(btnTxt: LocaleKeys.logout_btn.tr())));
   }
 
   Widget _BuildButtonItem({String btnTxt}) {

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/pojo/response/User.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -44,7 +41,7 @@ class _Setting_EditProfile_NameViewState extends State<Setting_EditProfile_NameV
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(title: "ชื่อ",header_type: Header_Type.barNormal,),
+      appBar: AppToobar(title: LocaleKeys.my_profile_name.tr(),header_type: Header_Type.barNormal,),
       body: Container(
         child: Container(
           child: Column(
@@ -61,7 +58,7 @@ class _Setting_EditProfile_NameViewState extends State<Setting_EditProfile_NameV
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 onPressed: ()=>FormCheck()?verify():SizedBox(),
-                child: Text("บันทึก",
+                child: Text(LocaleKeys.save_btn.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                 ),
               )
@@ -77,7 +74,7 @@ class _Setting_EditProfile_NameViewState extends State<Setting_EditProfile_NameV
       padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),
       child: Column(
         children: [
-          BuildEditText(head: "ชื่อบัญชี",hint: "ระบุชื่อ",inputType: TextInputType.text,BorderOpacity: 0.2,maxLength: 20,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
+          BuildEditText(head: LocaleKeys.my_profile_username.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_username.tr(),inputType: TextInputType.text,BorderOpacity: 0.2,maxLength: 20,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
             setState(() {});
           },),
 

@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class PolicyView extends StatefulWidget {
   @override
@@ -24,7 +27,7 @@ class _PolicyViewState extends State<PolicyView> {
         top: false,
         child: Scaffold(
           appBar: AppToobar(
-            title: "นโยบายของ Naifarm",
+            title: LocaleKeys.setting_account_title_policy.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),

@@ -4,9 +4,10 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 
 class NotiSettingView extends StatefulWidget {
   @override
@@ -32,7 +33,7 @@ class _NotiSettingViewState extends State<NotiSettingView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: "ตั้งค่าการแจ้งเตือน",
+            title: LocaleKeys.setting_account_title_noti.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -41,26 +42,26 @@ class _NotiSettingViewState extends State<NotiSettingView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildTitleTxt(title: "การแจ้งเตือน"),
+                _buildTitleTxt(title: LocaleKeys.setting_noti_title_notification.tr()),
                 SizedBox(height: 10,),
                 _BuildSwitch(
-                    title: "การแจ้งเตือน",
+                    title: LocaleKeys.setting_noti_title_notification.tr(),
                     index: 0,
                     onClick: () =>
                         setState(() => isSelectNoti = isSelectNoti ? false : true)),
                 SizedBox(height: 10,),
                 _BuildSwitch(
-                    title: "อัพเดตคำสั่งซื้อ",
+                    title: LocaleKeys.setting_noti_title_update.tr(),
                     index: 1,
                     onClick: () =>
                         setState(() => isSelectUpdate = isSelectUpdate ? false : true)),
                 _BuildSwitch(
-                    title: "ตั้งค่าความเป็นส่วนตัว",
+                    title: LocaleKeys.setting_noti_title_privacy.tr(),
                     index: 2,
                     onClick: () =>
                         setState(() => isSelectPrivate = isSelectPrivate ? false : true)),
                 _BuildSwitch(
-                    title: "เสียงการแจ้งเตือน",
+                    title: LocaleKeys.setting_noti_title_sound.tr(),
                     index: 3,
                     onClick: () =>
                         setState(() => isSelectSound = isSelectSound ? false : true)),

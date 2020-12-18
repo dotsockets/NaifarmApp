@@ -1,14 +1,14 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EditEmail_Step2View extends StatefulWidget {
   @override
@@ -43,9 +43,9 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        title: "เปลี่ยนอีเมล", header_type: Header_Type.barNormal,onClick: (){
+        title: LocaleKeys.edit_email_toobar.tr(), header_type: Header_Type.barNormal,onClick: (){
         FunctionHelper.ConfirmDialog(context,
-            message: "คุณต้องการออกจากการเปลี่ยนแปลงอีเมล์ใช่หรือไม่",
+            message: LocaleKeys.dialog_message_mail_change_cancel.tr(),
             onClick: () {
               Navigator.of(context).pop();
               Navigator.of(context).pop();
@@ -63,13 +63,13 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("อีเมลเดิม puwee@gmial.com",
+                  Text(LocaleKeys.edit_email_old.tr()+" puwee@gmial.com",
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 15,),
                   BuildEditText(
-                      head: "อีเมลใหม่",
-                      hint: "ระบุอีเมลใหม่",maxLength: 10,controller: EmailController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
+                      head: LocaleKeys.edit_email_new.tr(),
+                      hint:   LocaleKeys.set_default.tr()+LocaleKeys.edit_email_new.tr(),maxLength: 10,controller: EmailController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
                     setState(() {});
                   }),
                   SizedBox(height: 20,),
@@ -89,7 +89,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
               borderRadius: BorderRadius.circular(40.0),
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
-            child: Text("ดำเนินการต่อ",
+            child: Text( LocaleKeys.next_btn.tr(),
               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
             ),
           )

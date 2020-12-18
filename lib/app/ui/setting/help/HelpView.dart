@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HelpView extends StatefulWidget {
   @override
@@ -22,7 +24,7 @@ class _HelpViewState extends State<HelpView> {
         top: false,
         child: Scaffold(
           appBar: AppToobar(
-            title: "ศูนย์ความช่วยเหลือ",
+            title: LocaleKeys.setting_account_title_help.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
