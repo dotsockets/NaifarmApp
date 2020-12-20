@@ -1,11 +1,10 @@
 import 'package:custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -35,7 +34,7 @@ class _BankAddViewState extends State<BankAddView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: "เพิ่มบัญชีธนาคาร",
+            title: LocaleKeys.bank_add_toobar.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -45,20 +44,20 @@ class _BankAddViewState extends State<BankAddView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildEditCard(
-                      head: "ชื่อ-นามสกุล ตามที่ปรากฎในบัญชีธนาคาร",
-                      hint: "ระบุชื่อ-นามสกุล",
+                      head: LocaleKeys.bank_name_account.tr(),
+                      hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_fullname.tr(),
                       controller: nameController,
                       type: TextInputType.text),
                   _buildEditCard(
-                      head: "เลขบัตรประชาชน",
-                      hint: "ระบุเลขบัตรประชาชน",
+                      head: LocaleKeys.bank_id_card.tr(),
+                      hint: LocaleKeys.set_default.tr()+LocaleKeys.bank_id_card.tr(),
                       controller: idController,
                       type: TextInputType.number),
                   _buildError(errorTxt: errorIdTxt),
                   _buildDropDown(
-                      title: "ชื่อธนาคาร",
+                      title: LocaleKeys.bank_name.tr(),
                       list: ["ไทยพาณิชย์", "กรุงไทย"],
-                      txtSelect: "เลือกธนาคาร"),
+                      txtSelect: LocaleKeys.bank_select.tr()),
                   Container(
                     color: Colors.white,
                     height: 20,
@@ -140,7 +139,7 @@ class _BankAddViewState extends State<BankAddView> {
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(15),
-            child: _buildButtonItem(btnTxt: "บันทึก")));
+            child: _buildButtonItem(btnTxt: LocaleKeys.save_btn.tr())));
   }
 
   Widget _buildButtonItem({String btnTxt}) {

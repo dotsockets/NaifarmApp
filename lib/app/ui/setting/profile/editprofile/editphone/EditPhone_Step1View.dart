@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EditPhone_Step1View extends StatefulWidget {
   @override
@@ -43,10 +42,10 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        title: "เบอร์โทรศัพท์", header_type: Header_Type.barNormal,),
+        title: LocaleKeys.my_profile_phone.tr(), header_type: Header_Type.barNormal,),
       body: Column(
         children: [
-          Container(padding:EdgeInsets.all(15), child: Text("หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่  หมายเลขบัญชีทั้งหมดที่ผู้กับบัญชีนี้จะถูกแก้ไขด้วย",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),),),
+          Container(padding:EdgeInsets.all(15), child: Text(LocaleKeys.message_phone_edit.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),),),
           Container(
             color: Colors.white,
             child: Container(
@@ -57,8 +56,8 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
                 children: [
                   SizedBox(height: 20,),
                   BuildEditText(
-                      head: "กรุณาใส่หมายเลขใหม่เพื่อรับ OTP",
-                      hint: "หมายเลขโทรศัพท์ใหม่",maxLength: 10,controller: PhoneController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
+                      head: LocaleKeys.edit_phone_title.tr(),
+                      hint: LocaleKeys.edit_phone_hint.tr(),maxLength: 10,controller: PhoneController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
                     setState(() {});
                     }),
                   SizedBox(height: 20,),
@@ -78,7 +77,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
               borderRadius: BorderRadius.circular(40.0),
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
-            child: Text("ดำเนินการต่อ",
+            child: Text(LocaleKeys.next_btn.tr(),
               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
             ),
           )

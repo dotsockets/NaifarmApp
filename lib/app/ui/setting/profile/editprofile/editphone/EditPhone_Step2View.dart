@@ -4,9 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+
+import 'package:easy_localization/easy_localization.dart';
 
 class EditPhone_Step2View extends StatefulWidget {
   final String PhoneNew;
@@ -42,11 +45,11 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        title: "เบอร์โทรศัพท์",
+        title: LocaleKeys.my_profile_phone.tr(),
         header_type: Header_Type.barNormal,
         onClick: () {
           FunctionHelper.ConfirmDialog(context,
-              message: "คุณต้องการออกจากการเปลี่ยนแปลงเบอร์โทรศัพท์ใช่หรือไม่",
+              message: LocaleKeys.dialog_message_phone_edit_cancel.tr(),
               onClick: () {
             Navigator.of(context).pop();
             Navigator.of(context).pop();
@@ -60,7 +63,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
           Container(
             padding: EdgeInsets.all(15),
             child: Text(
-              "หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่  หมายเลขบัญชีทั้งหมดที่ผู้กับบัญชีนี้จะถูกแก้ไขด้วย",
+              LocaleKeys.message_phone_edit.tr(),
               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
             ),
           ),
@@ -72,15 +75,15 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("หมายเลขโทรศัพท์เดิม xxxxxx0987 ",
+                  Text(LocaleKeys.edit_phone_old_phone.tr()+" xxxxxx0987 ",
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleFontSize())),
                   SizedBox(
                     height: 20,
                   ),
                   BuildEditText(
-                      head: "กรุณาใส่หมายเลขใหม่เพื่อรับ OTP",
-                      hint: "หมายเลขโทรศัพท์ใหม่",
+                      head: LocaleKeys.edit_phone_title.tr(),
+                      hint: LocaleKeys.edit_phone_hint.tr(),
                       maxLength: 10,
                       controller: PhoneController,
                       inputType: TextInputType.phone,
@@ -93,8 +96,8 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
                     height: 20,
                   ),
                   BuildEditText(
-                      head: "ยืนยัน OTP [Ref : tedf]",
-                      hint: "กรอก OTP",
+                      head: LocaleKeys.edit_phone_confirm_otp.tr(),
+                      hint: "OTP",
                       maxLength: 6,
                       controller: OtpController,
                       inputType: TextInputType.phone,
@@ -115,7 +118,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
                             width: 10,
                           ),
                           Text(
-                            "ขอรหัสยืนยันใหม่อีกครั้ง",
+                            LocaleKeys.edit_phone_otp_again.tr(),
                             style: FunctionHelper.FontTheme(
                                 fontSize:SizeUtil.titleSmallFontSize()),
                           )
@@ -144,7 +147,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
             ),
             onPressed: () => FormCheck() ? verify() : SizedBox(),
             child: Text(
-              FormCheck() ? "ยืนยัน" : "ดำเนินการต่อ",
+              FormCheck() ? LocaleKeys.confirm_btn.tr() : LocaleKeys.next_btn.tr(),
               style: FunctionHelper.FontTheme(
                   fontSize: SizeUtil.titleFontSize(),
                   fontWeight: FontWeight.w500),
@@ -157,7 +160,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
 
   void verify() {
     if (OtpController.text.length < 6) {
-        setState(()=>onErrorOtp = "รหัสยืนยันต้องไม่น้อยกว่า 6");
+        setState(()=>onErrorOtp = "รหัสยืต้องไม่น้อยกว่า 6");
     }else{
         FunctionHelper.SuccessDialog(context,message: "เปลี่ยนเบอร์โทรศัพท์สำเร็จ",onClick: (){
           Navigator.of(context).pop();

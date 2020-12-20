@@ -223,6 +223,9 @@ class AppRoute{
   static SettingLanguage(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LanguageSettingView()));
   }
+  static SettingLanguageToHome(BuildContext context){
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeView()), (Route<dynamic> route) => false);
+  }
   static SettingBank(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: BankSettingView()));
   }

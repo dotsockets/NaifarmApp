@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
+
 class CategoryMenu extends StatelessWidget {
   final List<MenuModel> menuViewModel;
   final int selectedIndex;
@@ -38,8 +39,7 @@ class CategoryMenu extends StatelessWidget {
                     ),
                   ):SizedBox(),
                   SizedBox(width: 8),
-                  Text(menuViewModel[index].label,style: FunctionHelper.FontTheme(color: selectedIndex==index?Colors.black:Colors.white,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
-
+                  Text(menuViewModel[index].label,style: FunctionHelper.FontTheme(color: selectedIndex==index?Colors.black:Colors.white,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
                 ],
               ),
               onTap: (){

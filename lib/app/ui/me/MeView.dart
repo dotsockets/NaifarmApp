@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -9,10 +8,12 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildIconShop.dart';
 import 'myshop/MyshopView.dart';
 import 'purchase/PurchaseView.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 
 class MeView extends StatefulWidget {
@@ -147,8 +148,8 @@ class _MeViewState extends State<MeView> with RouteAware  {
                               child: TabBar(
                                 isScrollable: false,
                                 tabs: [
-                                  _tabbar(title: "การซื้อ",message: false),
-                                  _tabbar(title: "ร้านค้าของฉัน",message: false)
+                                  _tabbar(title: LocaleKeys.me_tab_buy.tr(),message: false),
+                                  _tabbar(title: LocaleKeys.me_tab_shop.tr(),message: false)
                                 ],
                               ),
                             ),
@@ -197,7 +198,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                 onPressed: () {
                   AppRoute.Login(context,IsCallBack: true);
                 },
-                child: Text("เข้าสู่ระบบ",
+                child: Text(LocaleKeys.login_btn.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                 ),
               ),
@@ -214,7 +215,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                 onPressed: () {
                   AppRoute.Register(context);
                 },
-                child: Text("สมัครสมาชิก",
+                child: Text(LocaleKeys.register_btn.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                 ),
               )

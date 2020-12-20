@@ -4,13 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/success/SuccessView.dart';
-import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class FunctionHelper {
@@ -138,6 +139,12 @@ class FunctionHelper {
     } else {
       return time;
     }
+  }
+  static String LocaleLanguage({Locale locale}) {
+   if(locale.toString() == "th_TH")
+     return "ภาษาไทย";
+   else
+     return "English";
   }
 
   static DropDownAndroid(BuildContext context, List<String> dataList,
@@ -358,7 +365,7 @@ class FunctionHelper {
                             child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "ยกเลิก",
+                                  LocaleKeys.cancel_btn.tr(),
                                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale()),
                                 )),
                           ),
@@ -372,7 +379,7 @@ class FunctionHelper {
                         child: GestureDetector(
                           child: Align(
                               alignment: Alignment.center,
-                              child: Text("ตกลง",
+                              child: Text(LocaleKeys.ok_btn.tr(),
                                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.primaryColor()))),
                             onTap: () => onClick()))
                   ],
@@ -420,4 +427,5 @@ class FunctionHelper {
     return GoogleFonts.sarabun(fontWeight: fontWeight,fontSize: fontSize,color: color,height: height,letterSpacing: letterSpacing,backgroundColor: backgroundColor,
     shadows: shadows,wordSpacing: wordSpacing,textBaseline: textBaseline,foreground: foreground,background: background,decoration: decoration);
   }
+
 }

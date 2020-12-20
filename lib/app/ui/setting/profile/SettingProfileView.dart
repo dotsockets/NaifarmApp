@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SettingProfileView extends StatefulWidget {
   final String languageTxt;
@@ -19,11 +22,26 @@ class SettingProfileView extends StatefulWidget {
   _SettingProfileViewState createState() => _SettingProfileViewState();
 }
 
-class _SettingProfileViewState extends State<SettingProfileView> {
+class _SettingProfileViewState extends State<SettingProfileView> with RouteAware {
   @override
   void initState() {
     super.initState();
   }
+
+  @override
+  void didChangeDependencies() {
+    print("Change dependencies!!!!");
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+
+
+  @override
+  void didPopNext() {
+   setState(() {});
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +51,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: "ตั้งค่าบัญชี",
+            title: LocaleKeys.setting_account_toobar.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -45,16 +63,16 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildTitle(txt: "บัญชีของฉัน"),
+                        _buildTitle(txt: LocaleKeys.setting_account_head_profile.tr()),
                         ListMenuItem(
                           icon: '',
-                          title: 'หน้าโปรไฟล์',
+                          title: LocaleKeys.setting_account_title_profile.tr(),
                           onClick: () => AppRoute.EditProfile(context),
                         ),
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          title: 'ที่อยู่ของฉัน',
+                          title: LocaleKeys.setting_account_title_address.tr(),
                           onClick: () {
                             AppRoute.SettingAddress(context);
                           },
@@ -62,16 +80,16 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          title: 'ข้อมูลบัญชีธนาคาร/บัตร',
+                          title: LocaleKeys.setting_account_title_bank.tr(),
                           onClick: () {
                             AppRoute.SettingBank(context);
                           },
                         ),
                         _buildLine(),
-                        _buildTitle(txt: "ตั้งค่า"),
+                        _buildTitle(txt: LocaleKeys.setting_account_head_setting.tr()),
                         ListMenuItem(
                           icon: '',
-                          title: 'ตั้งค่าการแจ้งเตือน',
+                          title: LocaleKeys.setting_account_title_noti.tr(),
                           onClick: () {
                             AppRoute.SettingNoti(context);
                           },
@@ -79,16 +97,16 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          Message: "ภาษาไทย",
-                          title: "ภาษา",
+                          Message: FunctionHelper.LocaleLanguage(locale: EasyLocalization.of(context).locale),
+                          title: LocaleKeys.setting_account_title_language.tr(),
                           onClick: () {
                             AppRoute.SettingLanguage(context);
                           },
                         ),
-                        _buildTitle(txt: "ช่วยเหลือ"),
+                        _buildTitle(txt: LocaleKeys.setting_account_head_help.tr()),
                         ListMenuItem(
                           icon: '',
-                          title: 'ศุนย์ช่วยเหลือ',
+                          title: LocaleKeys.setting_account_title_help.tr(),
                           onClick: () {
                             AppRoute.SettingHelp(context);
                           },
@@ -96,7 +114,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          title: 'กฎระเบียบในการใช้',
+                          title: LocaleKeys.setting_account_title_rule.tr(),
                           onClick: () {
                             AppRoute.SettingRules(context);
                           },
@@ -104,7 +122,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          title: 'นโยบายของ Naifarm',
+                          title: LocaleKeys.setting_account_title_policy.tr(),
                           onClick: () {
                             AppRoute.SettingPolicy(context);
                           },
@@ -112,7 +130,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          title: 'เกี่ยวกับ',
+                          title: LocaleKeys.setting_account_title_about.tr(),
                           onClick: () {
                             AppRoute.SettingAbout(context);
                           },
@@ -120,10 +138,9 @@ class _SettingProfileViewState extends State<SettingProfileView> {
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          title: 'คำขอลบบัญชีผู้ใช้',
+                          title: LocaleKeys.setting_account_title_delete_account.tr(),
                           onClick: () {
-                            FunctionHelper.ConfirmDialog(context,message: "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หาคุณต้องการลบจะไม่สามารถกู้คืนได้",onCancel: (){
-
+                            FunctionHelper.ConfirmDialog(context,message: LocaleKeys.dialog_message_del_account.tr(),onCancel: (){
                             },);
                           },
                         ),
@@ -164,7 +181,7 @@ class _SettingProfileViewState extends State<SettingProfileView> {
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(15),
-            child: _BuildButtonItem(btnTxt: "ออกจากระบบ")));
+            child: _BuildButtonItem(btnTxt: LocaleKeys.logout_btn.tr())));
   }
 
   Widget _BuildButtonItem({String btnTxt}) {

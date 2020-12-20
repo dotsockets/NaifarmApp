@@ -1,12 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 
 class EditpasswordStep1View extends StatefulWidget {
@@ -42,10 +43,10 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        title: "เปลี่ยนรหัสผ่าน", header_type: Header_Type.barNormal,),
+        title: LocaleKeys.edit_password_toobar.tr(), header_type: Header_Type.barNormal,),
       body: Column(
         children: [
-          Container(padding:EdgeInsets.all(15), child: Text("เพื่อความปลอดภัยบัญชีของคุณกรุณาระบุรหัสผ่านเพื่อการดำเนินต่อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),
+          Container(padding:EdgeInsets.all(15), child: Text(LocaleKeys.message_mail_edit.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),
         fontWeight: FontWeight.w500),),),
           Container(
             color: Colors.white,
@@ -56,8 +57,8 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   BuildEditText(
-                      head: "รหัสผ่านเดิม",
-                      hint: "ระบุรหัสผ่าน",maxLength: 10,controller: PassController,onError: onError,IsPassword: true,inputType: TextInputType.text,BorderOpacity: 0.2,onChanged: (String char){
+                      head: LocaleKeys.edit_password_old.tr(),
+                      hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),maxLength: 10,controller: PassController,onError: onError,IsPassword: true,inputType: TextInputType.text,BorderOpacity: 0.2,onChanged: (String char){
                     setState(() {});
                   }),
                   SizedBox(height: 20,),
@@ -65,7 +66,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
 
                     children: [
                       SizedBox(height: 3,),
-                      Text(" หากลืมรหัสผ่าน  ",style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize(),
+                      Text(LocaleKeys.forgot_pass_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize(),
                           )),
                       SizedBox(height: 2,),
                       Container(
@@ -76,7 +77,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                     ],
                   ),
                   SizedBox(height: 3,),
-                  Text("กรุณาออกจากระบบโดยไปที่หน้า ฉัน > ตั้งค่าบัญชี > ออกจากระบบ และกดปุ่ม “ลืมรหัสผ่าน” ที่หน้าเข้าสู่ระบบ  ",style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize()))
+                  Text(LocaleKeys.message_forgot_mail.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize()))
 
                 ],
               ),
@@ -93,7 +94,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
               borderRadius: BorderRadius.circular(40.0),
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
-            child: Text("ดำเนินการต่อ",
+            child: Text(LocaleKeys.next_btn.tr(),
               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
             ),
           )
@@ -116,7 +117,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
       AppRoute.EditpasswordStep2(context);
     }else{
       setState(() {
-        onError = "รหัสผ่านไม่ถูกต้อง";
+        onError = LocaleKeys.message_error_password_incorrect.tr();
       });
     }
 

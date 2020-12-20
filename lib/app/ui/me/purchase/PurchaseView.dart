@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/ui/me/widget/BuyAgain.dart';
 import 'package:naifarm/app/ui/me/widget/TabMenu.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
-import 'package:naifarm/utility/widgets/ProductVertical.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PurchaseView extends StatelessWidget {
   final bool IsLogin;
@@ -22,13 +20,13 @@ class PurchaseView extends StatelessWidget {
           _buildTabMenu(context),
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
-            title: 'ประวัติการซื้อ',
+            title: LocaleKeys.me_title_history.tr(),
             onClick: () => AppRoute.MyShophistory(context,0),
           ),
           _BuildDivider(),
           ListMenuItem(
               icon: 'assets/images/svg/like_2.svg',
-              title: 'สิ่งที่ฉันถูกใจ',
+              title: LocaleKeys.me_title_likes.tr(),
               Message: "8 รายการ",
               onClick: () {
                 AppRoute.MyLike(context);
@@ -37,7 +35,7 @@ class PurchaseView extends StatelessWidget {
           IsLogin
               ? Container(
                   child: BuyAgain(
-                      titleInto: "ซื้ออีกครั้ง",
+                      titleInto: LocaleKeys.me_title_again.tr(),
                       producViewModel: ProductViewModel().getProductForYou(),
                       IconInto: 'assets/images/svg/foryou.svg',
                       onSelectMore: () {},
@@ -50,11 +48,11 @@ class PurchaseView extends StatelessWidget {
               : SizedBox(),
           IsLogin ? _BuildDivider() : SizedBox(),
           ListMenuItem(
-              icon: 'assets/images/svg/editprofile.svg', title: 'ตั้งค่าบัญชี',onClick: (){AppRoute.SettingProfile(context,"ภาษาไทย");},),
+              icon: 'assets/images/svg/editprofile.svg', title: LocaleKeys.me_title_setting.tr(),onClick: (){AppRoute.SettingProfile(context,"ภาษาไทย");},),
           _BuildDivider(),
           ListMenuItem(
             icon: 'assets/images/svg/help.svg',
-            title: 'ศูนย์ช่วยเหลือ',
+            title: LocaleKeys.me_title_help.tr(),
             onClick: () {
               AppRoute.SettingHelp(context);
             },
@@ -73,23 +71,23 @@ class PurchaseView extends StatelessWidget {
         children: [
           TabMenu(
               icon: 'assets/images/svg/status_pay.svg',
-              title: "ที่ต้องชำระ",
+              title: LocaleKeys.me_menu_pay.tr(),
               onClick: (){AppRoute.MyShophistory(context,0);},
               notification: 1),
           TabMenu(
             icon: 'assets/images/svg/status_delivery.svg',
-            title: "ที่ต้องจัดส่ง",
+            title: LocaleKeys.me_menu_ship.tr(),
             onClick: (){AppRoute.MyShophistory(context,1);},
             notification: 0,
           ),
           TabMenu(
               icon: 'assets/images/svg/status_pickup.svg',
-              title: "ที่ต้องได้รับ",
+              title: LocaleKeys.me_menu_receive.tr(),
               onClick: (){AppRoute.MyShophistory(context,3);},
               notification: 0),
           TabMenu(
               icon: 'assets/images/svg/status_star.svg',
-              title: "รอรีวิว",
+              title: LocaleKeys.me_menu_rate.tr(),
               onClick: (){AppRoute.MyShophistory(context,3);},
               notification: 0)
         ],

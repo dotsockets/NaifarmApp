@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:easy_localization/easy_localization.dart';
 class EditpasswordStep2View extends StatefulWidget {
   @override
   _EditpasswordStep2ViewState createState() => _EditpasswordStep2ViewState();
@@ -41,9 +40,9 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        title: "เปลี่ยนรหัสผ่าน", header_type: Header_Type.barNormal,onClick: (){
+        title: LocaleKeys.edit_password_toobar.tr(), header_type: Header_Type.barNormal,onClick: (){
         FunctionHelper.ConfirmDialog(context,
-            message: "คุณต้องการออกจากการเปลี่ยนแปลงรหัสผ่านใช่หรือไม่",
+            message: LocaleKeys.dialog_message_phone_edit_cancel.tr(),
             onClick: () {
               Navigator.of(context).pop();
               Navigator.of(context).pop();
@@ -61,13 +60,13 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("ยืนยันรหัสผ่านใหม่",
+                  Text( LocaleKeys.edit_password_confirm_new.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 15,),
                   BuildEditText(
-                      head: "รหัสผ่านใหม่",
-                      hint: "ระบุรหัสผ่าน",maxLength: 10,controller: EmailController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
+                      head: LocaleKeys.edit_password_new.tr(),
+                      hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),maxLength: 10,controller: EmailController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
                     setState(() {});
                   }),
                   SizedBox(height: 20,),
@@ -87,7 +86,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
               borderRadius: BorderRadius.circular(40.0),
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
-            child: Text("ดำเนินการต่อ",
+            child: Text(LocaleKeys.next_btn.tr(),
               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
             ),
           )
@@ -108,13 +107,13 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
 
     if(EmailController.text.length>=8 && EmailController.text.length<=12){
       //AppRoute.EditEmail_Step3(context,EmailController.text);
-      FunctionHelper.SuccessDialog(context,message: "เปลี่ยนรหัสผ่านสำเร็จ",onClick: (){
+      FunctionHelper.SuccessDialog(context,message:  LocaleKeys.dialog_message_password_success.tr(),onClick: (){
         Navigator.of(context).pop();
         Navigator.of(context).pop();
       });
     }else{
       setState(() {
-        onError = "ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป";
+        onError =  LocaleKeys.message_error_password_length.tr();
       });
     }
 
