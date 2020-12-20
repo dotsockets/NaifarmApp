@@ -2,8 +2,10 @@
 
 import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/api/APIProvider.dart';
-import 'package:naifarm/app/model/db/DBBookingRepository.dart';
+import 'package:naifarm/app/model/db/DBNaiFarmRepository.dart';
+import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
+import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Task.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/http/HttpException.dart';
@@ -35,7 +37,15 @@ class APIRepository{
     return _apiProvider.getTasks();
   }
 
-  Future<Fb_Profile> getFBProfile({String access_token}) => _apiProvider.getProFileFacebook(access_token);
+  Future<Fb_Profile> getFBProfile({String access_token}){
+   // throwIfNoSuccess(response);
+    return _apiProvider.getProFileFacebook(access_token);
+  }
+
+  Future<LoginRespone> CustomersLogin({LoginRequest loginRequest}){
+    // throwIfNoSuccess(response);
+    return _apiProvider.CustomersLogin(loginRequest);
+  }
 
 //  Observable<List<AppContent>> getTop100FreeApp(){
 //    return Observable.fromFuture(_apiProvider.getTopFreeApp(TOP_100))
@@ -47,9 +57,5 @@ class APIRepository{
 //
 
 
-  void throwIfNoSuccess(Response response) {
-    if(response.statusCode < 200 || response.statusCode > 299) {
-      throw new HttpException(response);
-    }
-  }
+
 }

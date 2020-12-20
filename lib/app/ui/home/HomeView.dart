@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/category/CategoryView.dart';
 import 'package:naifarm/app/ui/me/MeView.dart';
@@ -18,12 +19,18 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final List<MenuModel> _menuViewModel = MenuViewModel().getTabBarMenus();
   int _selectedIndex = 0;
-
+  bool IsLogin = true;
+  
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    setState(() {
+      ISLogin();
+    });
   }
+
+  void ISLogin() async => IsLogin = await Usermanager().isLogin();
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +66,7 @@ class _HomeViewState extends State<HomeView> {
                   selectedIndex: _selectedIndex,
                   onTap: (index) {
                     if(index==2){
-                      AppRoute.MyCart(context, true);
+                      IsLogin?AppRoute.MyCart(context, true):AppRoute.Login(context);
                     }else{
                       setState(() {
                         _selectedIndex = index;

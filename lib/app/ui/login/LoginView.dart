@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/response/User.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -47,6 +48,10 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+
+    AppProvider.getApplication(context).appStoreAPIRepository.CustomersLogin(loginRequest: LoginRequest(username: "ApisitKaewsasan@gmail.com",password: "cccza007")).then((value){
+      print("Token = ${value.token}");
+    });
 
     return Container(
       color: ThemeColor.primaryColor(),
@@ -228,10 +233,10 @@ class _LoginViewState extends State<LoginView> {
       case FacebookLoginStatus.loggedIn:
         FunctionHelper.showDialogProcess(context);
         final FacebookAccessToken accessToken = result.accessToken;
-
+print(accessToken.token);
         AppProvider.getApplication(context).appStoreAPIRepository.getFBProfile(access_token: accessToken.token).then((value){
-          Navigator.of(context).pop();
-          AppRoute.Register_FB(context,value.email);
+         Navigator.of(context).pop();
+         AppRoute.Register_FB(context,value.email);
         }).catchError((Object obj){
           switch (obj.runtimeType) {
             case DioError:

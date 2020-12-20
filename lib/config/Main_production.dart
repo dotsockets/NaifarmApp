@@ -10,5 +10,5 @@ class Production extends Env {
   EnvType environmentType = EnvType.PRODUCTION;
   final String appName = "NaiFarm";
   final String baseUrl = 'https://api.website.org';
-  final String dbName = 'DSBooKing.db';
+  final String dbName = 'Naifarm.db';
 }

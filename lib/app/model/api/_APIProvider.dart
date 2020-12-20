@@ -52,4 +52,36 @@ class _APIProvider implements APIProvider {
     return value;
   }
 
+
+  @override
+  Future<LoginRespone> CustomersLogin(LoginRequest loginRequest) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "username":loginRequest.username,
+      "phone":loginRequest.phone,
+      "password":loginRequest.password
+    };
+    final _result = await _dio.request<dynamic>('/customers/login',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+  //  throwIfNoSuccess(_result);
+    print("esvfcresv ${json.decode(_result.data.toString())}");
+    var value = LoginRespone.fromJson(json.decode(_result.data.toString()));
+    return value;
+  }
+
+  void throwIfNoSuccess(Response response) {
+    if(response.statusCode < 200 || response.statusCode > 299) {
+      throw new HttpException(response);
+    }
+  }
+
+
+
 }
