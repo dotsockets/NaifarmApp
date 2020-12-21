@@ -164,7 +164,7 @@ class AppToobar extends PreferredSize {
       child: SafeArea(
         bottom: false,
         child: Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 8, right: 8, left: 12),
+          padding: const EdgeInsets.only(top: 7, bottom: 8, right: 14, left: 6),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -180,7 +180,7 @@ class AppToobar extends PreferredSize {
               _buildSearchMap(context),
               Visibility(
                 child: Container(
-                  margin: EdgeInsets.only(left: 5,),
+                  margin: EdgeInsets.only(left: 8,),
                   child: SvgPicture.asset(
                     'assets/images/svg/map.svg',
                     width: 30,
@@ -358,12 +358,12 @@ class AppToobar extends PreferredSize {
             borderRadius: new BorderRadius.all(Radius.circular(40.0))),
         child: InkWell(
           child: Container(
-            padding: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
+            padding: EdgeInsets.only(right: 10, top: 8, bottom: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SvgPicture.asset(
-                  'assets/images/svg/location.svg',
+                  'assets/images/svg/fontSize: SizeUtil.titleSmallFontSize()svg',
                   color: Colors.black.withOpacity(0.5),
                   width: 15,
                   height: 15,

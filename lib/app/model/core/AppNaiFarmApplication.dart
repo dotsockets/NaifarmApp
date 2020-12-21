@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/api/APIProvider.dart';
 import 'package:naifarm/app/model/api/APIRepository.dart';
 import 'package:naifarm/app/model/db/AppDatabaseMigrationListener.dart';
-import 'package:naifarm/app/model/db/DBBookingRepository.dart';
+import 'package:naifarm/app/model/db/DBNaiFarmRepository.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/db/DatabaseHelper.dart';
 import 'package:naifarm/utility/framework/Application.dart';

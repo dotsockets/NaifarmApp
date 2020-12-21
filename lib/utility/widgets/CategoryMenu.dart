@@ -17,9 +17,10 @@ class CategoryMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 8,right: 8,bottom: 13,top:8),
+      padding: EdgeInsets.only(left: 8,right: 8,bottom: 5,top:0),
       width: MediaQuery.of(context).size.width,
       color: ThemeColor.primaryColor(),
+      height: 30,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
