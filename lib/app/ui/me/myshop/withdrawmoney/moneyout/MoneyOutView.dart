@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -24,7 +25,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppToobar(
-        title: "ถอนเงิน",
+        title: LocaleKeys.wallet_balance_withdraw.tr(),
         header_type: Header_Type.barNormal,
         icon: "",
       ),
@@ -68,7 +69,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("การถอนเงิน Wallet ไปที่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),),
+          Text(LocaleKeys.wallet_balance_withdraw_to.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),),
           SizedBox(
             height: 15,
           ),
@@ -134,11 +135,11 @@ class _MoneyOutViewState extends State<MoneyOutView> {
                 });
               },),
               SizedBox(width: 10,),
-              Text("ถอนเงินทั้งหมดใน Wallet (฿300.00)",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()))
+              Text(LocaleKeys.wallet_balance_withdraw_all.tr()+" (฿300.00)",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()))
             ],
           ),
           SizedBox(height: 10,),
-          Text("ยอดที่ต้องการถอน (บาท)",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+          Text(LocaleKeys.wallet_balance_withdraw_amount.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
           BuildEditText(
               head: "",maxLength: 16,
               hint: "0.00",maxLine: 1,controller: inputController,inputType: TextInputType.number),
@@ -146,8 +147,8 @@ class _MoneyOutViewState extends State<MoneyOutView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("ค่าธรรมเนียนการถอนเงิน",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
-              Text("ฟรี",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()))
+              Text(LocaleKeys.wallet_balance_withdraw_fee.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+              Text(LocaleKeys.cart_free.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()))
             ],
           )
         ],
@@ -167,7 +168,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
           /*...*/
         },
         child: Text(
-          "ยืนยัน",
+          LocaleKeys.confirm_btn.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
         ),
       ),

@@ -4,8 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProductAddTypeView extends StatefulWidget {
   @override
@@ -33,7 +35,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: "เพิ่มตัวเลือกสินค้า",
+            title: LocaleKeys.my_product_options_add_product.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -87,7 +89,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "ชื่อตัวเลือก",
+                LocaleKeys.my_product_options_name.tr(),
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize(),
                     fontWeight: FontWeight.w500),
@@ -256,7 +258,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  " เพิ่ม",
+                  " "+LocaleKeys.add.tr(),
                   style: FunctionHelper.FontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleSmallFontSize(),
@@ -286,7 +288,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
             AppRoute.ProductSetPrice(context);
           },
           child: Text(
-            "ตั้งราคาต่อ",
+            LocaleKeys.set_price_btn.tr(),
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
           ),
@@ -315,7 +317,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                     fontWeight: FontWeight.w500),
               ),
               Text(
-                " เพิ่มตัวเลือก",
+                " "+LocaleKeys.my_product_options_add.tr(),
                 style: FunctionHelper.FontTheme(
                     color: Colors.white,
                     fontSize: SizeUtil.titleSmallFontSize(),

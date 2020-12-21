@@ -26,9 +26,13 @@
     "tab_shop": "ร้านค้าของฉัน",
     "menu_pay": "ที่ต้องชำระ",
     "menu_ship": "ที่ต้องจัดส่ง",
-    "menu_receive": "ที่ต้องได้รับ",
+    "menu_receive_shop": "จัดส่ง",
     "menu_rate": "รอรีวิว",
+    "menu_complete_shop": "สำเร็จ",
+    "menu_cancel": "ยกเลิกแล้ว",
+    "menu_refund": "คืนเงิน/คืนสินค้า",
     "title_history": "ประวัติการซื้อ",
+    "title_history_shop": "ประวัติการขาย",
     "title_likes": "สิ่งที่ฉันถูกใจ",
     "title_again": "ซื้ออีกครั้ง",
     "title_setting": "ตั้งค่าบัญชี",
@@ -106,10 +110,13 @@
     "default":"ระบุ",
     "message": "ระบุข้อความ"
   },
+  "fill": "กรอก",
+  "add": "เพิ่ม",
 
   "setting_language_toobar": "เลือกภาษา",
   "setting_rule_toobar": "กฎระเบียบการใช้งาน",
   "setting_about_toobar": "เกี่ยวกับเรา",
+  "shipping_toobar": "การขนส่งสินค้า",
 
   "logout_btn": "ออกจากระบบ",
   "login_btn": "เข้าสู่ระบบ",
@@ -123,6 +130,8 @@
   "cancel_btn": "ยกเลิก",
   "forgot_pass_btn": "หากลิมรหัสผ่าน",
   "confirm_btn": "ยืนยัน",
+  "sell_btn": "ลงขาย",
+  "set_price_btn": "ตั้งราคาต่อ",
 
   "dialog_message":{
     "del_account": "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หากคุณต้องการลบจะไม่สามารถกู้คืนได้",
@@ -130,8 +139,6 @@
     "change_mail": "คุณต้องการออกจากการเปลี่ยนแปลงอีเมลใช่หรือไม่",
     "password_success": "เปลี่ยนรหัสผ่านสำเร็จ"
   },
-
-
 
   "message":{
     "phone_edit":"หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่ หมายเลขบัญชีทั้งหมดที่ผูกกับบัญชีนี้จะถูกแก้ไขด้วย",
@@ -141,6 +148,87 @@
       "password_incorrect":"รหัสผ่านไม่ถูกต้อง",
       "password_length": "ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป"
     }
-  }
+  },
+  "cart": {
+    "toobar": "ตะกร้า",
+    "select_discount": "เลือกโค้ดส่วนลด",
+    "discount_from": "โค้ดส่วนลดจาก",
+    "all": "เลือกทั้งหมด",
+    "total": "รวมทั้งหมด",
+    "item": "รายการ",
+    "order_total": "จำนวน",
+    "delivery_free": "ฟรี ส่วนลดค่าจัดส่ง ฿40 เมื่อขั้นต่ำถึง ฿0",
+    "free": "ฟรี ",
+    "del": "ลบ",
+    "empty": "ไม่พบรายการในรถเข็น",
+    "discount": "ซื้อเพิ่มอีก ฿12 เพื่อรับส่วนลด ฿40 ",
+    "check_out": "ชำระเงิน"
+  },
+  "history":{
+    "order_time": "วัยที่ซื้อ",
+    "order_price": "รวมการสั่งซื้อ",
+    "wait_rate": "รอให้คะแนน"
+  },
+  "payment_method": {
+    "cash_delivery": "เก็บเงินปลายทาง",
+    "bank": "โอนเงินผ่านบัญชี"
+
+  },
+  "wallet_balance": {
+    "title": "ยอดเงินในกระเป๋า",
+    "trans_history": "ประวัติการทำรายการ",
+    "payment": "ชำระโดย ",
+    "withdraw": "การถอนเงิน",
+    "withdraw_to": "การถอนเงิน Wallet ไปที่",
+    "withdraw_all": "ถอนเงินทั้งหมดใน Wallet",
+    "withdraw_amount": "ยอดที่ต้องการถอน (บาท)",
+    "withdraw_fee":"ค่าธรรมเนียมการถอนเงิน"
+  },
+
+  "my_product": {
+    "sell": "ขายสินค้า",
+    "break": "พักการขาย",
+    "amount": "จำนวนสินค้า",
+    "sold": "ขายได้",
+    "like": "ถูกใจ",
+    "visit": "เข้าชม",
+    "baht": "บาท",
+    "data": "ข้อมูลสินค้า",
+    "name": "ชื่อสินค้า",
+    "category": "หมวดหมู่สินค้า",
+    "price": "ราคาสินค้า",
+    "price_no_product": "ราคา",
+    "unit": "หน่วยสินค้า",
+    "detail": "รายละเอียดสินค้า",
+    "weight": "น้ำหนักสินค้า",
+    "size": "ขนาดสินค้า",
+    "width": "กว้าง",
+    "long": "ยาว",
+    "height": "สูง",
+    "image": "รูปสินค้า",
+    "image_guide": "แสดงรูปสินค้าได้จำนวน 10 รูป",
+    "delivery_addr": "สถานที่จัดส่ง",
+    "delivery_from": "ส่งจาก",
+    "delivery_price": "ค่าขนส่ง",
+    "delivery_price_each": "ค่าขนส่งแต่ละที่",
+    "options_add": "เพิ่มตัวเลือก",
+    "options_add_product": "เพิ่มตัวเลือกสินค้า",
+    "options_name": "ชื่อตัวเลือก",
+    "option": "ตัวเลือกสินค้า",
+    "stock_set": "ตั้งค่าสต็อกและราคา"
+  },
+
+  "shop":{
+    "title": "ร้านค้า",
+    "category": "หมวดหมู่",
+    "detail": "รายละเอียดร้าน",
+    "rate": "คะแนนที่ได้",
+    "follow": "ตืดตาม",
+    "follower": "ผู้ติดตาม",
+    "product_list": "รายการสินค้า"
+  },
+
+
+
 
 }

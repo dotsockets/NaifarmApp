@@ -3,12 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
@@ -32,7 +33,7 @@ class _MyProductViewState extends State<MyProductView> {
         top: false,
         child: Scaffold(
           appBar: AppToobar(
-            title: "สินค้าของฉัน",
+            title: LocaleKeys.me_title_my_product.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -69,7 +70,7 @@ class _MyProductViewState extends State<MyProductView> {
           splashColor: Colors.white.withOpacity(0.3),
           onPressed: () {AppRoute.MyNewProduct(context);},
           child: Text(
-            "เพิ่มสินค้า",
+            LocaleKeys.add_product_btn.tr(),
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
           ),
         ),
@@ -124,7 +125,7 @@ class _MyProductViewState extends State<MyProductView> {
                           child: Row(
                             children: [
                               Expanded(
-                                child: Text("จำนวนสินค้า ${item.amoutProduct}",
+                                child: Text(LocaleKeys.my_product_amount.tr()+" ${item.amoutProduct}",
                                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize())),
                               ),
                               SizedBox(width: 10,),
@@ -147,9 +148,9 @@ class _MyProductViewState extends State<MyProductView> {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(child: Text("ถูกใจ 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize())),),
+                                Expanded(child: Text(LocaleKeys.my_product_like.tr()+" 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize())),),
                                 SizedBox(width: 10,),
-                                Expanded(child: Align(alignment: Alignment.topRight,child: Text("เข้าชม 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize()),))
+                                Expanded(child: Align(alignment: Alignment.topRight,child: Text(LocaleKeys.my_product_visit.tr()+" 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize()),))
                                 )
                               ]),
                         ),
@@ -172,7 +173,7 @@ class _MyProductViewState extends State<MyProductView> {
                    Expanded(
                      flex: 2,
                      child:  Text(
-                       item.isSelect?"ขายสินค้า":"พักการขาย",
+                       item.isSelect?LocaleKeys.my_product_sell.tr():LocaleKeys.my_product_break.tr(),
                        style: FunctionHelper.FontTheme(
                            fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w600),
                      ),

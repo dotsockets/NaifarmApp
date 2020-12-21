@@ -6,10 +6,9 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/WithDrawModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
-import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:naifarm/utility/widgets/CategoryMenu.dart';
 
 class WithdrawMoneyView extends StatelessWidget {
   @override
@@ -53,7 +52,7 @@ class WithdrawMoneyView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text("ยอดเงินในกระเป๋า",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold),),
+          Text(LocaleKeys.wallet_balance_title.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold),),
           SizedBox(height: 10),
           Text("฿300.00",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: 28),)
         ],
@@ -92,7 +91,7 @@ class WithdrawMoneyView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 50),
-                  Text("ประวัติการทำรายการ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black.withOpacity(0.7))),
+                  Text(LocaleKeys.wallet_balance_trans_history.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black.withOpacity(0.7))),
                   Column(
                     children: CartViewModel().getWidthDrawMoney().asMap().map((key, value) => MapEntry(key, _ItemCard(item: CartViewModel().getWidthDrawMoney()[key]))).values.toList(),
                   )
@@ -124,7 +123,7 @@ class WithdrawMoneyView extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 6,
-                  child: Align(alignment: Alignment.center,child: Text("ถอนเงิน",style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize(),color: Colors.white))),
+                  child: Align(alignment: Alignment.center,child: Text(LocaleKeys.wallet_balance_withdraw.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize(),color: Colors.white))),
                 ),
                 Expanded(
                   flex: 1,
