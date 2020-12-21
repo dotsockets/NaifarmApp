@@ -2,9 +2,14 @@
 
 import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
+import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
+import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
+import 'package:naifarm/app/model/pojo/response/OtpVerifyRespone.dart';
+import 'package:naifarm/app/model/pojo/response/RegisterRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Task.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/utility/http/HttpException.dart';
 import 'package:retrofit/retrofit.dart';
 import 'dart:convert';
@@ -22,7 +27,19 @@ abstract class APIProvider{
   @POST("/customers/login")
   Future<LoginRespone> CustomersLogin(@Body() LoginRequest loginRequest);
 
+  @POST("/customers/register")
+  Future<RegisterRespone> CustomersRegister(@Body() RegisterRequest registerRequest);
+
+  @POST("/otp/request")
+  @FormUrlEncoded()
+  Future<OTPRespone> OtpRequest(@Field() String numbephone);
+
+  @POST("/otp/verify")
+  @FormUrlEncoded()
+  Future<OtpVerifyRespone> OtpVerify(@Field() String phone,@Field() String code,@Field() String ref);
+
 }
+
 
 // @JsonSerializable()
 // class Task {

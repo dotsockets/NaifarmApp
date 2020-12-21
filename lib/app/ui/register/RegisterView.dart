@@ -39,6 +39,9 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -170,10 +173,15 @@ class _RegisterViewState extends State<RegisterView> {
       FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "เบอร์โทรศัพท์ไม่ถูกต้อง");
     }else{
       FunctionHelper.showDialogProcess(context);
-      Future.delayed(const Duration(milliseconds: 1000), () {
-        Navigator.of(context).pop();
-        AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text);
+      AppProvider.getApplication(context).appStoreAPIRepository.OTPRequest(numberphone: PhoneController.text).then((value){
 
+        if(value.http_call_back.status==200){
+          Navigator.of(context).pop();
+          AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: value.refCode);
+        }else{
+          Navigator.of(context).pop();
+          FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: value.http_call_back.result.error.message);
+        }
       });
 
     }

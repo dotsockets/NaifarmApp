@@ -1,32 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="54" height="54" viewBox="0 0 54 54">
-    <defs>
-        <path id="prefix__a" d="M0 15.002v13.725c0 .587.471 1.063 1.05 1.063h27.9c.58 0 1.05-.475 1.05-1.063V15.002H0z"/>
-        <path id="prefix__d" d="M15 28.523L15 13.311 30 20.917z"/>
-        <filter id="prefix__c" width="126.7%" height="119.7%" x="-6.7%" y="-13.1%" filterUnits="objectBoundingBox">
-            <feOffset dx="2" dy="-1" in="SourceAlpha" result="shadowOffsetOuter1"/>
-            <feColorMatrix in="shadowOffsetOuter1" values="0 0 0 0 0.831372549 0 0 0 0 0.847058824 0 0 0 0 0.847058824 0 0 0 1 0"/>
-        </filter>
-    </defs>
-    <g fill="none" fill-rule="evenodd">
-        <rect width="54" height="54" fill="#FFF" rx="16"/>
-        <g transform="translate(12 12)">
-            <rect width="30" height="17.747" y="12.043" fill="#D05216" rx="1.056"/>
-            <mask id="prefix__b" fill="#fff">
-                <use xlink:href="#prefix__a"/>
-            </mask>
-            <use fill="#F09A27" xlink:href="#prefix__a"/>
-            <path fill="#BB6320" d="M-1.639 29.886L-1.639 13.262 14.984 21.574z" mask="url(#prefix__b)" transform="rotate(-4 6.672 21.574)"/>
-            <path fill="#A86B1A" d="M15.051 29.886L15.051 13.262 31.674 21.574z" mask="url(#prefix__b)" transform="scale(-1 1) rotate(-4 0 690.582)"/>
-            <g>
-                <path fill="#ECF0F1" d="M3.689 0L0 4.299 0 20.917 26.62 20.917 26.62 0z" transform="translate(1.69)"/>
-                <path fill="#EFC22A" d="M3.639 0.06L3.639 4.256 -0.001 4.256z" transform="translate(1.69)"/>
-                <path fill="#D4D8D8" d="M3.639 4.315L3.639 8.511 -0.001 8.511z" transform="translate(1.69) rotate(180 1.796 6.383)"/>
-            </g>
-            <path fill="#EFC22A" d="M0 28.523L0 13.311 15 20.917z"/>
-            <g transform="matrix(-1 0 0 1 45 0)">
-                <use fill="#000" filter="url(#prefix__c)" xlink:href="#prefix__d"/>
-                <use fill="#E27C2D" xlink:href="#prefix__d"/>
-            </g>
-        </g>
-    </g>
+<svg id="menu_noti" xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 54 54">
+  <rect id="Rectangle_1547" data-name="Rectangle 1547" width="54" height="54" rx="16" fill="#fff"/>
+  <rect id="Rectangle_1548" data-name="Rectangle 1548" width="30" height="17.747" rx="1.056" transform="translate(12 24.043)" fill="#d05216"/>
+  <path id="Path_933" data-name="Path 933" d="M0,15V28.727A1.057,1.057,0,0,0,1.05,29.79h27.9A1.056,1.056,0,0,0,30,28.727V15Z" transform="translate(12 12)" fill="#f09a27"/>
+  <path id="Path_934" data-name="Path 934" d="M-1.639,29.886V13.262l16.623,8.312Z" transform="translate(10.511 12.518) rotate(-4)" fill="#bb6320" fill-rule="evenodd"/>
+  <path id="Path_935" data-name="Path 935" d="M15.051-29.886v16.624l16.623-8.312Z" transform="translate(60.172 13.682) rotate(-176)" fill="#a86b1a" fill-rule="evenodd"/>
+  <path id="Path_936" data-name="Path 936" d="M3.689,0,0,4.3V20.917H26.62V0Z" transform="translate(13.69 12)" fill="#ecf0f1" fill-rule="evenodd"/>
+  <path id="Path_937" data-name="Path 937" d="M3.639.06v4.2H0Z" transform="translate(13.69 12)" fill="#efc22a" fill-rule="evenodd"/>
+  <path id="Path_938" data-name="Path 938" d="M3.639,4.315v4.2H0Z" transform="translate(17.282 24.766) rotate(180)" fill="#d4d8d8" fill-rule="evenodd"/>
+  <path id="Path_939" data-name="Path 939" d="M0,28.523V13.311l15,7.606Z" transform="translate(12 12)" fill="#efc22a" fill-rule="evenodd"/>
+  <path id="Path_940" data-name="Path 940" d="M15-28.523v15.212l15-7.606Z" transform="translate(57 12) rotate(180)"/>
+  <path id="Path_941" data-name="Path 941" d="M15-28.523v15.212l15-7.606Z" transform="translate(57 12) rotate(180)" fill="#e27c2d"/>
 </svg>

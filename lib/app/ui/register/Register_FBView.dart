@@ -82,7 +82,7 @@ class _Register_FBViewState extends State<Register_FBView> {
     }
 
     if(t1 && t2){
-      AppRoute.Register_Name_Otp(context);
+     // AppRoute.Register_Name_Otp(context);
     }
 
 

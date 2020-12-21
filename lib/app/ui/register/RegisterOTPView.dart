@@ -1,12 +1,12 @@
 
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -16,7 +16,8 @@ import 'package:retrofit/http.dart';
 
 class RegisterOTPView extends StatefulWidget {
   final String phoneNumber;
-  RegisterOTPView({Key key, this.phoneNumber}) : super(key: key);
+  final String refCode;
+  RegisterOTPView({Key key, this.phoneNumber, this.refCode}) : super(key: key);
   @override
   _RegisterOTPViewState createState() => _RegisterOTPViewState();
 }
@@ -81,6 +82,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: AppToobar(title: "ใส่รหัสยืนยันตัวตน",header_type: Header_Type.barNormal,),
       body: SafeArea(
@@ -94,7 +96,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                   SizedBox(height: 10,),
                   Text(widget.phoneNumber,style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize(),color: Colors.black)),
                   SizedBox(height: 10,),
-                  Text("ยืนยัน OTP [Ref : tedf]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w500)),
+                  Text("ยืนยัน OTP [Ref : ${widget.refCode}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w500)),
                   SizedBox(height: 30,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +118,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                               hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.2)),
                               contentPadding:
-                              EdgeInsets.fromLTRB(15.0, 0.0, 20.0, 0.0),
+                              EdgeInsets.fromLTRB(13.0, 0.0, 13.0, 0.0),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                 BorderSide(color: ThemeColor.secondaryColor()),
@@ -166,7 +168,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                               hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.2)),
                               contentPadding:
-                              EdgeInsets.fromLTRB(15.0, 0.0, 20.0, 0.0),
+                              EdgeInsets.fromLTRB(13.0, 0.0, 13.0, 0.0),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                 BorderSide(color: ThemeColor.secondaryColor()),
@@ -216,7 +218,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                               hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.2)),
                               contentPadding:
-                              EdgeInsets.fromLTRB(15.0, 0.0, 20.0, 0.0),
+                              EdgeInsets.fromLTRB(13.0, 0.0, 13.0, 0.0),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                 BorderSide(color: ThemeColor.secondaryColor()),
@@ -266,7 +268,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                               hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.2)),
                               contentPadding:
-                              EdgeInsets.fromLTRB(15.0, 0.0, 20.0, 0.0),
+                              EdgeInsets.fromLTRB(13.0, 0.0, 13.0, 0.0),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                 BorderSide(color: ThemeColor.secondaryColor()),
@@ -316,7 +318,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                               hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.2)),
                               contentPadding:
-                              EdgeInsets.fromLTRB(15.0, 0.0, 20.0, 0.0),
+                              EdgeInsets.fromLTRB(13.0, 0.0, 13.0, 0.0),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                 BorderSide(color: ThemeColor.secondaryColor()),
@@ -366,7 +368,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                               hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.2)),
                               contentPadding:
-                              EdgeInsets.fromLTRB(15.0, 0.0, 20.0, 0.0),
+                              EdgeInsets.fromLTRB(13.0, 0.0, 13.0, 0.0),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                 BorderSide(color: ThemeColor.secondaryColor()),
@@ -387,8 +389,9 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {
-                              Navigator.pop(context, false);
+
                               verify.onPressed();
+                              FocusScope.of(context).nextFocus();
                             } else {
                               FocusScope.of(context).previousFocus();
                             }
@@ -477,7 +480,17 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       ),
       onPressed: () {
         //  AppRoute.ImageProduct(context);
-        SuccessForm?AppRoute.Register_set_Password(context):SizedBox();
+       // Navigator.pop(context, false);
+        FunctionHelper.showDialogProcess(context);
+        AppProvider.getApplication(context).appStoreAPIRepository.OtpVerify(phone: widget.phoneNumber,code: "${_input1.text}${_input2.text}${_input3.text}${_input4.text}${_input5.text}${_input6.text}",ref: widget.refCode).then((value){
+          Navigator.pop(context);
+          if(value.success && SuccessForm){
+            AppRoute.Register_set_Password(context,widget.phoneNumber);
+          }else{
+            FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: value.http_call_back.result.error.message);
+          }
+        });
+       // SuccessForm?AppRoute.Register_set_Password(context):SizedBox();
 
       },
       child: Text("ถัดไป",

@@ -10,6 +10,9 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 
  class Register_set_PasswordView extends StatefulWidget {
+   final String phone;
+
+  const Register_set_PasswordView({Key key, this.phone}) : super(key: key);
    @override
    _Register_set_PasswordViewState createState() => _Register_set_PasswordViewState();
  }
@@ -68,7 +71,7 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
      }
 
      if(t1 && t2){
-       AppRoute.Register_Name_Otp(context);
+       AppRoute.Register_Name_Otp(context,widget.phone,_input1.text);
      }
 
 

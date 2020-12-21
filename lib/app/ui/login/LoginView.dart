@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
+import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/User.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -49,9 +50,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
 
-    AppProvider.getApplication(context).appStoreAPIRepository.CustomersLogin(loginRequest: LoginRequest(username: "ApisitKaewsasan@gmail.com",password: "cccza007")).then((value){
-      print("Token = ${value.token}");
-    });
+
 
     return Container(
       color: ThemeColor.primaryColor(),
@@ -202,27 +201,35 @@ class _LoginViewState extends State<LoginView> {
 
   void _validate() {
     RegExp nameRegExp = RegExp('[a-zA-Z]');
+    bool IsPhone = false;
     // var stats_form = _form.currentState.validate();
     if(_username.text.isEmpty || _password.text.isEmpty){
       FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "ชื่อผู้ใช้งาน หรือ รหัสผ่าน ห้ามว่าง",context: context);
-    }else if(!validator.email(_username.text)){
+    }else if(!nameRegExp.hasMatch(_username.text) && _username.text.length<10 || !nameRegExp.hasMatch(_username.text) && _username.text.length>10){
+      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "เบอร์โทรไม่ถูกต้อง",context: context);
+  }else if(!validator.email(_username.text) && nameRegExp.hasMatch(_username.text)){
       FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "อีเมล์ไม่ถูกต้อง");
-    }else if(!validator.password(_password.text)){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "เบอร์โทรศัพท์ไม่ถูกต้อง");
     }else{
-      FunctionHelper.showDialogProcess(context);
-      if(Usermanager.USERNAME_DEMO == _username.text && Usermanager.PASSWORD_DEMO == _password.text){
-        Usermanager().Savelogin(user: User(id: "1",fullname: "John Mayer",username: "ApisitKaewsasan@gmail.com",email: "ApisitKaewsasan@gmail.com",phone: "0932971160",
-            imageurl:  "https://freshairboutique.files.wordpress.com/2015/05/28438-long-red-head-girl.jpg")).then((value){
-             Navigator.of(context).pop();
-         // _navigateToProfilePage(context);
-             widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
+
+        FunctionHelper.showDialogProcess(context);
+        IsPhone = !validator.email(_username.text);
+
+        AppProvider.getApplication(context).appStoreAPIRepository.CustomersLogin(loginRequest: LoginRequest(username: !IsPhone?_username.text:"",phone: IsPhone?_username.text:"",password:_password.text)).then((value){
+            if(value.http_call_back.status==200){
+              Usermanager().Savelogin(user: LoginRespone(name: value.name,token: value.token,email: value.email)).then((value){
+                Navigator.of(context).pop();
+                // _navigateToProfilePage(context);
+                widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
+
+              });
+            }else{
+              Navigator.of(context).pop();
+              FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: value.http_call_back.result.error.message);
+            }
 
         });
 
-      }else{
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "รหัสผ่านไม่ถูกต้อง");
-      }
+
     }
   }
 
@@ -233,7 +240,7 @@ class _LoginViewState extends State<LoginView> {
       case FacebookLoginStatus.loggedIn:
         FunctionHelper.showDialogProcess(context);
         final FacebookAccessToken accessToken = result.accessToken;
-print(accessToken.token);
+
         AppProvider.getApplication(context).appStoreAPIRepository.getFBProfile(access_token: accessToken.token).then((value){
          Navigator.of(context).pop();
          AppRoute.Register_FB(context,value.email);

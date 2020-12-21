@@ -4,8 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/api/APIProvider.dart';
 import 'package:naifarm/app/model/db/DBNaiFarmRepository.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
+import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
+import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
+import 'package:naifarm/app/model/pojo/response/OtpVerifyRespone.dart';
+import 'package:naifarm/app/model/pojo/response/RegisterRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Task.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/http/HttpException.dart';
@@ -46,6 +50,25 @@ class APIRepository{
     // throwIfNoSuccess(response);
     return _apiProvider.CustomersLogin(loginRequest);
   }
+
+  Future<RegisterRespone> CustomersRegister({RegisterRequest registerRequest}){
+    // throwIfNoSuccess(response);
+    return _apiProvider.CustomersRegister(registerRequest);
+  }
+
+  Future<OTPRespone> OTPRequest({String numberphone}){
+    // throwIfNoSuccess(response);
+    return _apiProvider.OtpRequest(numberphone);
+  }
+
+  Future<OtpVerifyRespone> OtpVerify({ String phone,String code,String ref}){
+    // throwIfNoSuccess(response);
+    return _apiProvider.OtpVerify(phone,code,ref);
+  }
+
+
+
+
 
 //  Observable<List<AppContent>> getTop100FreeApp(){
 //    return Observable.fromFuture(_apiProvider.getTopFreeApp(TOP_100))

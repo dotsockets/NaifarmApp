@@ -52,7 +52,7 @@ class FunctionHelper {
         content: Text(message,
             style: FunctionHelper.FontTheme(
                 fontWeight: FontWeight.w500, color: Colors.white)),
-        duration: Duration(seconds: 10),
+        duration: Duration(seconds: 5),
         action: SnackBarAction(
           textColor: Colors.white,
           label: "Ok",
@@ -95,6 +95,7 @@ class FunctionHelper {
             ),
           )
         : showDialog(
+      barrierDismissible: false,
             context: context,
             builder: (context) => Center(
               child: Container(

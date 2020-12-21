@@ -68,12 +68,12 @@ class AppToobar extends PreferredSize {
         actions: [
           Container(
             margin: EdgeInsets.only(right: 10),
-            child: SvgPicture.asset(
+            child: icon!=""?SvgPicture.asset(
               icon,
               color: Colors.white,
               width: 30,
               height: 30,
-            ),
+            ):SizedBox(),
           )
         ],
         backgroundColor: ThemeColor.primaryColor(),

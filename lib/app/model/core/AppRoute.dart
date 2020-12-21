@@ -206,15 +206,15 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AddressAddView()));
   }
 
-  static RegisterOTP(BuildContext context,  {String phoneNumber}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: RegisterOTPView(phoneNumber: phoneNumber,)));
+  static RegisterOTP(BuildContext context,  {String phoneNumber,String refCode}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: RegisterOTPView(phoneNumber: phoneNumber,refCode: refCode,)));
   }
-  static Register_set_Password(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_set_PasswordView()));
+  static Register_set_Password(BuildContext context,String phone){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_set_PasswordView(phone: phone,)));
   }
 
-  static Register_Name_Otp(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_Name_OtpView()));
+  static Register_Name_Otp(BuildContext context,String phone,String password){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_Name_OtpView(phone: phone,password: password,)));
   }
 
   static Register_FB(BuildContext context,String email){

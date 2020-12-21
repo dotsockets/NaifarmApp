@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
@@ -16,7 +17,7 @@ class HomeView extends StatefulWidget {
   _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView> with RouteAware {
   final List<MenuModel> _menuViewModel = MenuViewModel().getTabBarMenus();
   int _selectedIndex = 0;
   bool IsLogin = true;
@@ -28,6 +29,19 @@ class _HomeViewState extends State<HomeView> {
     setState(() {
       ISLogin();
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+
+
+  @override
+  void didPopNext() {
+    setState(()=>{ISLogin()});
   }
 
   void ISLogin() async => IsLogin = await Usermanager().isLogin();

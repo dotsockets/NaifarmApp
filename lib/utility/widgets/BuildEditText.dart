@@ -68,7 +68,7 @@ class _BuildEditTextState extends State<BuildEditText> {
               style: FunctionHelper.FontTheme(fontSize:SizeUtil.titleFontSize()),
               onChanged: (String char){
 
-                widget.onChanged(char);
+                widget.onChanged!=null?widget.onChanged(char):null;
                 // setState(() {
                 //
                 // });
