@@ -9,7 +9,8 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/CartModel.dart';
-import 'package:naifarm/app/ui/mycart/cartbank/CartBankView.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
@@ -49,7 +50,7 @@ class _MyCartViewState extends State<MyCartView> {
         backgroundColor:
             _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
         appBar: AppToobar(
-        title: "รถเข็น",
+        title: LocaleKeys.cart_toobar.tr(),
         icon: "",
         showBackBtn: widget.BtnBack ,
         header_type: Header_Type.barNormal,
@@ -72,7 +73,7 @@ class _MyCartViewState extends State<MyCartView> {
                                   Lottie.asset('assets/json/delete.json',
                                       height: 30, width: 30, repeat: true),
                                   Text(
-                                    "ลบ",
+                                    LocaleKeys.cart_del.tr(),
                                     style: FunctionHelper.FontTheme(
                                         color: Colors.white,
                                         fontSize: SizeUtil.titleFontSize(),
@@ -106,7 +107,7 @@ class _MyCartViewState extends State<MyCartView> {
                       Lottie.asset('assets/json/boxorder.json',
                           height: 300, width: 300, repeat: false),
                       Text(
-                        "ไม่พบรายการในรถเข็น",
+                        LocaleKeys.cart_empty.tr(),
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold),
                       )
@@ -124,8 +125,8 @@ class _MyCartViewState extends State<MyCartView> {
       padding: EdgeInsets.only(right: 5,left:0) ,
         child: ListMenuItem(
       icon: 'assets/images/svg/sale_cart.svg',
-      title: "โค๊ดส่วนลดจาก Naifarm",
-      Message: "เลือกโค๊ดส่วนลด",
+      title: LocaleKeys.cart_discount_from.tr(),
+      Message: LocaleKeys.cart_select_discount.tr(),
       iconSize: 35,
       fontWeight: FontWeight.w500,
       onClick: () {
@@ -341,7 +342,7 @@ class _MyCartViewState extends State<MyCartView> {
         padding: EdgeInsets.only(right: 5,left:0) ,
         child: ListMenuItem(
           icon: 'assets/images/svg/coupon.svg',
-          title: "ซื้อเพิ่มอีก ฿12 เพื่อรับส่วนลด ฿40 ",
+          title: LocaleKeys.cart_discount.tr(),
           Message: "",
           iconSize: 35,
           fontWeight: FontWeight.w500,
@@ -367,10 +368,10 @@ class _MyCartViewState extends State<MyCartView> {
               height: 30,
             ),
             SizedBox(width: 10),
-            Text("ฟรี  ",
+            Text(LocaleKeys.cart_free.tr(),
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.ColorSale())),
-            Text("ส่วนลดค่าจัดส่ง ฿40 เมื่อขั้นต่ำถึง ฿0",
+            Text(LocaleKeys.cart_delivery_free.tr(),
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500)),
           ],
@@ -403,7 +404,7 @@ class _MyCartViewState extends State<MyCartView> {
                               height: 25,
                             ),
                             SizedBox(width: 10),
-                            Text("เลือกทั้งหมด",
+                            Text(LocaleKeys.cart_all.tr(),
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.titleSmallFontSize(),
                                     fontWeight: FontWeight.w500,
@@ -413,7 +414,7 @@ class _MyCartViewState extends State<MyCartView> {
                       )),
                   Expanded(
                     flex: 2,
-                    child: Text("จำนวน ${SumTotalItem()} รายการ",
+                    child: Text(LocaleKeys.cart_order_total.tr()+" ${SumTotalItem()} "+LocaleKeys.cart_item.tr(),
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleSmallFontSize(),
                             fontWeight: FontWeight.w500,
@@ -436,7 +437,7 @@ class _MyCartViewState extends State<MyCartView> {
                     flex: 3,
                     child: Container(
                         margin: EdgeInsets.only(left: 20),
-                        child: Text("รวมทั้งหมด",
+                        child: Text(LocaleKeys.cart_total.tr(),
                             style: FunctionHelper.FontTheme(
                                 fontSize: SizeUtil.titleFontSize(),
                                 fontWeight: FontWeight.w500,
@@ -461,9 +462,8 @@ class _MyCartViewState extends State<MyCartView> {
                           onPressed: () {
                             AppRoute.CartSummary(context);
                           },
-                          child: Text("ชำระเงิน",
+                          child: Text(LocaleKeys.cart_check_out.tr(),
                               style: FunctionHelper.FontTheme(
-
                                   fontSize:SizeUtil.titleFontSize(),
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white)),

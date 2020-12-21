@@ -82,7 +82,7 @@ class PurchaseView extends StatelessWidget {
           ),
           TabMenu(
               icon: 'assets/images/svg/status_pickup.svg',
-              title: LocaleKeys.me_menu_receive.tr(),
+              title: LocaleKeys.me_menu_receive_shop.tr(),
               onClick: (){AppRoute.MyShophistory(context,3);},
               notification: 0),
           TabMenu(

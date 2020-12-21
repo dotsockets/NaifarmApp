@@ -2,7 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
 class SuccessView extends StatelessWidget {
@@ -124,7 +125,7 @@ class SuccessView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text("รวมการสั่งซื้อ : ",
+                  Text(LocaleKeys.history_order_price.tr()+" : ",
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
                   SizedBox(width: 8),
@@ -162,7 +163,7 @@ class SuccessView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("วันที่ซื้อ 28-06-2563",style: FunctionHelper.FontTheme(fontSize:SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6)),),
+                  Text(LocaleKeys.history_order_time.tr()+" 28-06-2563",style: FunctionHelper.FontTheme(fontSize:SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6)),),
                   Row(
                     children: [
                       index==1?FlatButton(
@@ -176,7 +177,7 @@ class SuccessView extends StatelessWidget {
                          AppRoute.Review(context);
                         },
                         child: Text(
-                          "รอให้คะแนน",
+                          LocaleKeys.history_wait_rate.tr(),
                           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                         ),
                       ):SizedBox(),
@@ -192,7 +193,7 @@ class SuccessView extends StatelessWidget {
                           /*...*/
                         },
                         child: Text(
-                          "ซื้ออีกครั้ง",
+                          LocaleKeys.me_title_again.tr(),
                           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                         ),
                       )

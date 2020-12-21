@@ -24,11 +24,15 @@
   "me": {
     "tab_buy": "Purchase",
     "tab_shop": "My Shop",
-    "menu_pay": "To Buy",
+    "menu_pay": "To Pay",
     "menu_ship": "To Ship",
-    "menu_receive": "To Receive",
+    "menu_receive_shop": "To Receive",
     "menu_rate": "To Rate",
+    "menu_complete_shop": "Completed",
+    "menu_cancel": "Cancelled",
+    "menu_refund": "Return Refund",
     "title_history": "Purchase History",
+    "title_history_shop": "Sales History",
     "title_likes": "My Likes",
     "title_again":"Buy Again",
     "title_setting": "Account Settings",
@@ -40,7 +44,7 @@
     "title_wallet": "Wallet",
     "title_my_product": "My Products",
     "title_shipping": "Shipping",
-    "title_payment": "Payment"
+    "title_payment": "Payment Method"
   },
   "edit_phone": {
     "title": "Please enter a new phone number to receive a OTP",
@@ -104,15 +108,18 @@
   },
 
   "select": "Select ",
-
   "set": {
     "default":"Set ",
     "message": "Set Message"
   },
+  "fill": "Fill ",
+  "add": "Add ",
 
   "setting_language_toobar": "Select Language",
   "setting_rule_toobar": "Rules of Use",
   "setting_about_toobar": "About Us",
+  "my_like_toobar": "My Likes",
+  "shipping_toobar": "Shipping",
 
   "logout_btn": "LOGOUT",
   "add_address_btn": "Add New Address",
@@ -126,6 +133,8 @@
   "cancel_btn": "Cancel",
   "forgot_pass_btn": "Forgot password?",
   "confirm_btn": "Confirm",
+  "sell_btn": "SELL",
+  "set_price_btn": "Set Price",
 
   "dialog_message":{
     "del_account": "We are sad that you want to leave us, but please note that account deletion is irreversible",
@@ -133,8 +142,6 @@
     "mail_change_cancel": "Do you want to leave email change",
     "password_success": "Change Password Success"
   },
-
-
 
   "message":{
     "phone_edit":"If you edit phone number. All account numbers associated with this account will be modified",
@@ -144,6 +151,83 @@
       "password_incorrect":"Password is incorrect",
       "password_length": "Should set a password of 8-12 characters or more"
     }
-  }
+  },
 
+  "cart": {
+    "toobar": "Cart",
+    "select_discount": "Select discount code",
+    "discount_from": "Discount code from",
+    "all": "All",
+    "total": "SubTotal",
+    "item": "Items",
+    "order_total": "Order Total",
+    "delivery_free": "฿40 off shipping with min spend of ฿0 ",
+    "free": "Free ",
+    "del": "delete",
+    "empty": "Your Shopping Cart is Empty",
+    "discount": "Add ฿12 more to get discount ฿40 ",
+    "check_out": "Check Out"
+  },
+  "history":{
+    "order_time": "Payment Time",
+    "order_price": "Order Total",
+    "wait_rate": "Rate"
+  },
+  "payment_method": {
+    "cash_delivery": "Cash on Delivery",
+    "bank": "Bank account"
+  },
+
+  "wallet_balance": {
+    "title": "Wallet Balance",
+    "trans_history": "Transaction History",
+    "payment": "Payment by ",
+    "withdraw": "Withdraw",
+    "withdraw_to": "Withdraw wallet to",
+    "withdraw_all": "Withdraw all in wallet",
+    "withdraw_amount": "Amount to withdraw (Baht)",
+    "withdraw_fee":"Withdraw Fee"
+  },
+
+  "my_product": {
+    "sell": "sell product",
+    "break": "stop sell",
+    "amount": "Product Amount",
+    "sold": "sold",
+    "like": "Likes",
+    "visit": "visit",
+    "baht": "Baht",
+    "data": "Product Information",
+    "name": "Product Name",
+    "category": "Product Category",
+    "price": "Product Price",
+    "price_no_product": "Price",
+    "unit": "Product Unit",
+    "detail": "Product Details",
+    "weight": "Product Weight",
+    "size": "Product Size",
+    "width": "Product Width",
+    "long": "Product Long",
+    "height": "Product Height",
+    "image": "Product Image",
+    "image_guide": "show 10 product images",
+    "delivery_addr": "Delivery Address",
+    "delivery_from": "Delivery from",
+    "delivery_price": "Shipping Cost",
+    "delivery_price_each": "Each Shipping Cost",
+    "options_add": "Add Options",
+    "options_add_product": "Add Product Options",
+    "options_name": "Option Name",
+    "option": "Product Options",
+    "stock_set": "Set stock and price"
+  },
+  "shop":{
+    "title": "Shop",
+    "category": "Category",
+    "detail": "Shop Detail",
+    "rate": "Shop Rating",
+    "follow": "Follow",
+    "follower": "Follower",
+    "product_list": "Product amount"
+  }
 }

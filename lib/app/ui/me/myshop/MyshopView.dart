@@ -22,7 +22,7 @@ class MyshopView extends StatelessWidget {
           _buildTabMenu(context),
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
-            title: LocaleKeys.me_title_history.tr(),
+            title: LocaleKeys.me_title_history_shop.tr(),
             onClick: () => AppRoute.MyShophistory(context,0),
           ),
           IsLogin ? _BuildDivider() : SizedBox(),

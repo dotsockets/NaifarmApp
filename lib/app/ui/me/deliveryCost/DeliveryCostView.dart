@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
@@ -44,7 +45,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
             children: [
               Container(
                   child: AppToobar(
-                    title: "ค่าขนส่ง",
+                    title: LocaleKeys.my_product_delivery_price.tr(),
                     icon: "",
                     header_type: Header_Type.barNormal,
                   )),
@@ -53,16 +54,16 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _BuildEditText(head: "น้ำหนักสินค้า (kg)", hint: "ระบุความกว้าง",controller: weightProductController),
+                      _BuildEditText(head: LocaleKeys.my_product_weight.tr()+" (kg)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_weight.tr(),controller: weightProductController),
                       _BuildSpace(),
 
-                      _BuildHeadText(head: "ขนาดสินค้า"),
-                      _BuildEditText(head: "กว้าง (cm)", hint: "ระบุความกว้าง",controller: widthProductController),
-                      _BuildEditText(head: "ยาว (cm)", hint: "ระบุความยาว",controller: longProductController),
-                      _BuildEditText(head: "สูง (cm)", hint: "ระบุความสูง",controller: heightProductController),
+                      _BuildHeadText(head: LocaleKeys.my_product_size.tr()),
+                      _BuildEditText(head: LocaleKeys.my_product_width.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_width.tr(),controller: widthProductController),
+                      _BuildEditText(head: LocaleKeys.my_product_long.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_long.tr(),controller: longProductController),
+                      _BuildEditText(head: LocaleKeys.my_product_height.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_height.tr(),controller: heightProductController),
                       _BuildSpace(),
 
-                      _BuildHeadText(head: "ค่าขนส่งแต่ละที่"),
+                      _BuildHeadText(head: LocaleKeys.my_product_delivery_price_each.tr()),
                       _BuildSwitchDelivery(head: "Kerry",index: 1,onClick: ()=>setState(()=> isSelect1 = isSelect1?false:true)),
                       _BuildSwitchDelivery(head: "J&T Express",index: 2,onClick: ()=>setState(()=> isSelect2 = isSelect2?false:true)),
                     ],
@@ -105,7 +106,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
           ),Row(
             children: [
               Container(
-                  child: Text("ระบุน้ำหนักสินค้า  ", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale()))),
+                  child: Text(LocaleKeys.set_default.tr()+LocaleKeys.my_product_weight.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale()))),
               FlutterSwitch(
                 width: 50.0,
                 height: 30.0,
@@ -167,7 +168,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
         child: Container(
           width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(15),
-            child: _BuildButtonItem(btnTxt: "บันทึก")));
+            child: _BuildButtonItem(btnTxt: LocaleKeys.save_btn.tr())));
   }
 
   Widget _BuildButtonItem({String btnTxt}) {

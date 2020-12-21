@@ -7,9 +7,8 @@ import 'package:naifarm/app/ui/me/myshop/myshophistory/paid/PaidView.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/refund/RefundView.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/shipped/ShippedView.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/success/SuccessView.dart';
-import 'package:naifarm/app/ui/shopmain/category/CaregoryShopView.dart';
-import 'package:naifarm/app/ui/shopmain/shop/Shop.dart';
-import 'package:naifarm/app/ui/shopmain/shopdetails/ShopDetailsView.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/MD2Indicator.dart';
@@ -32,7 +31,7 @@ class MyShophistoryView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.grey.shade300,
         appBar: AppToobar(
-          title: "ประวัติการขาย",
+          title: LocaleKeys.me_title_history_shop.tr(),
           header_type: Header_Type.barNormal,
           icon: '',
         ),
@@ -53,12 +52,12 @@ class MyShophistoryView extends StatelessWidget {
                       isScrollable: true,
 
                       tabs: [
-                        _tabbar(title: "ที่ต้องชำระ",message: false),
-                        _tabbar(title: "ที่ต้องจัดส่ง",message: true),
-                        _tabbar(title: "จัดส่ง",message: true),
-                        _tabbar(title: "สำเร็จ",message: false),
-                        _tabbar(title: "ยกเลิกแล้ว",message: false),
-                        _tabbar(title: "คืนเงิน/สินค้า",message: false),
+                        _tabbar(title: LocaleKeys.me_menu_pay.tr(),message: false),
+                        _tabbar(title: LocaleKeys.me_menu_ship.tr(),message: true),
+                        _tabbar(title: LocaleKeys.me_menu_receive_shop.tr(),message: true),
+                        _tabbar(title: LocaleKeys.me_menu_complete_shop.tr(),message: false),
+                        _tabbar(title: LocaleKeys.me_menu_cancel.tr(),message: false),
+                        _tabbar(title: LocaleKeys.me_menu_refund.tr(),message: false),
                       ],
                     ),
                   ),

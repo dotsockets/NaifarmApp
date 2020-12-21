@@ -1,20 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/ui/me/myshop/MyshopView.dart';
-import 'package:naifarm/app/ui/me/purchase/PurchaseView.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/ui/shopmain/shop/Shop.dart';
 import 'package:naifarm/app/ui/shopmain/shopdetails/ShopDetailsView.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:naifarm/utility/widgets/FlashSale.dart';
-import 'package:naifarm/utility/widgets/ProductGrid.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/ShopOwn.dart';
 
 import '../../../utility/widgets/MD2Indicator.dart';
@@ -95,9 +90,9 @@ class _ShopMainViewState extends State<ShopMainView>
                     ),
                     controller: tabController,
                     tabs: [
-                      _tabbar(title: 'ร้านค้า',index: 0),
-                      _tabbar(title: 'หมวดหมู่',index: 1),
-                      _tabbar(title: 'รายละเอียดร้าน',index: 2),
+                      _tabbar(title: LocaleKeys.shop_title.tr(),index: 0),
+                      _tabbar(title: LocaleKeys.shop_category.tr(),index: 1),
+                      _tabbar(title: LocaleKeys.shop_detail.tr(),index: 2),
                     ],
                   ),
                 ),

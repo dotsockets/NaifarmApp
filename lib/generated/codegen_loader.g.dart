@@ -40,11 +40,15 @@ class CodegenLoader extends AssetLoader{
   "me": {
     "tab_buy": "Purchase",
     "tab_shop": "My Shop",
-    "menu_pay": "To Buy",
+    "menu_pay": "To Pay",
     "menu_ship": "To Ship",
-    "menu_receive": "To Receive",
+    "menu_receive_shop": "To Receive",
     "menu_rate": "To Rate",
+    "menu_complete_shop": "Completed",
+    "menu_cancel": "Cancelled",
+    "menu_refund": "Return Refund",
     "title_history": "Purchase History",
+    "title_history_shop": "Sales History",
     "title_likes": "My Likes",
     "title_again": "Buy Again",
     "title_setting": "Account Settings",
@@ -56,7 +60,7 @@ class CodegenLoader extends AssetLoader{
     "title_wallet": "Wallet",
     "title_my_product": "My Products",
     "title_shipping": "Shipping",
-    "title_payment": "Payment"
+    "title_payment": "Payment Method"
   },
   "edit_phone": {
     "title": "Please enter a new phone number to receive a OTP",
@@ -120,9 +124,13 @@ class CodegenLoader extends AssetLoader{
     "default": "Set ",
     "message": "Set Message"
   },
+  "fill": "Fill ",
+  "add": "Add ",
   "setting_language_toobar": "Select Language",
   "setting_rule_toobar": "Rules of Use",
   "setting_about_toobar": "About Us",
+  "my_like_toobar": "My Likes",
+  "shipping_toobar": "Shipping",
   "logout_btn": "LOGOUT",
   "add_address_btn": "Add New Address",
   "add_product_btn": "Add Product",
@@ -135,6 +143,8 @@ class CodegenLoader extends AssetLoader{
   "cancel_btn": "Cancel",
   "forgot_pass_btn": "Forgot password?",
   "confirm_btn": "Confirm",
+  "sell_btn": "SELL",
+  "set_price_btn": "Set Price",
   "dialog_message": {
     "del_account": "We are sad that you want to leave us, but please note that account deletion is irreversible",
     "phone_edit_cancel": "Do you want to leave the bind phone number process",
@@ -149,6 +159,81 @@ class CodegenLoader extends AssetLoader{
       "password_incorrect": "Password is incorrect",
       "password_length": "Should set a password of 8-12 characters or more"
     }
+  },
+  "cart": {
+    "toobar": "Cart",
+    "select_discount": "Select discount code",
+    "discount_from": "Discount code from",
+    "all": "All",
+    "total": "SubTotal",
+    "item": "Items",
+    "order_total": "Order Total",
+    "delivery_free": "฿40 off shipping with min spend of ฿0 ",
+    "free": "Free ",
+    "del": "delete",
+    "empty": "Your Shopping Cart is Empty",
+    "discount": "Add ฿12 more to get discount ฿40 ",
+    "check_out": "Check Out"
+  },
+  "history": {
+    "order_time": "Payment Time",
+    "order_price": "Order Total",
+    "wait_rate": "Rate"
+  },
+  "payment_method": {
+    "cash_delivery": "Cash on Delivery",
+    "bank": "Bank account"
+  },
+  "wallet_balance": {
+    "title": "Wallet Balance",
+    "trans_history": "Transaction History",
+    "payment": "Payment by ",
+    "withdraw": "Withdraw",
+    "withdraw_to": "Withdraw wallet to",
+    "withdraw_all": "Withdraw all in wallet",
+    "withdraw_amount": "Amount to withdraw (Baht)",
+    "withdraw_fee": "Withdraw Fee"
+  },
+  "my_product": {
+    "sell": "sell product",
+    "break": "stop sell",
+    "amount": "Product Amount",
+    "sold": "sold",
+    "like": "Likes",
+    "visit": "visit",
+    "baht": "Baht",
+    "data": "Product Information",
+    "name": "Product Name",
+    "category": "Product Category",
+    "price": "Product Price",
+    "price_no_product": "Price",
+    "unit": "Product Unit",
+    "detail": "Product Details",
+    "weight": "Product Weight",
+    "size": "Product Size",
+    "width": "Product Width",
+    "long": "Product Long",
+    "height": "Product Height",
+    "image": "Product Image",
+    "image_guide": "show 10 product images",
+    "delivery_addr": "Delivery Address",
+    "delivery_from": "Delivery from",
+    "delivery_price": "Shipping Cost",
+    "delivery_price_each": "Each Shipping Cost",
+    "options_add": "Add Options",
+    "options_add_product": "Add Product Options",
+    "options_name": "Option Name",
+    "option": "Product Options",
+    "stock_set": "Set stock and price"
+  },
+  "shop": {
+    "title": "Shop",
+    "category": "Category",
+    "detail": "Shop Detail",
+    "rate": "Shop Rating",
+    "follow": "Follow",
+    "follower": "Follower",
+    "product_list": "Product List"
   }
 };
 static const Map<String,dynamic> th_TH = {
@@ -179,9 +264,13 @@ static const Map<String,dynamic> th_TH = {
     "tab_shop": "ร้านค้าของฉัน",
     "menu_pay": "ที่ต้องชำระ",
     "menu_ship": "ที่ต้องจัดส่ง",
-    "menu_receive": "ที่ต้องได้รับ",
+    "menu_receive_shop": "จัดส่ง",
     "menu_rate": "รอรีวิว",
+    "menu_complete_shop": "สำเร็จ",
+    "menu_cancel": "ยกเลิกแล้ว",
+    "menu_refund": "คืนเงิน/คืนสินค้า",
     "title_history": "ประวัติการซื้อ",
+    "title_history_shop": "ประวัติการขาย",
     "title_likes": "สิ่งที่ฉันถูกใจ",
     "title_again": "ซื้ออีกครั้ง",
     "title_setting": "ตั้งค่าบัญชี",
@@ -257,9 +346,12 @@ static const Map<String,dynamic> th_TH = {
     "default": "ระบุ",
     "message": "ระบุข้อความ"
   },
+  "fill": "กรอก",
+  "add": "เพิ่ม",
   "setting_language_toobar": "เลือกภาษา",
   "setting_rule_toobar": "กฎระเบียบการใช้งาน",
   "setting_about_toobar": "เกี่ยวกับเรา",
+  "shipping_toobar": "การขนส่งสินค้า",
   "logout_btn": "ออกจากระบบ",
   "login_btn": "เข้าสู่ระบบ",
   "edit_btn": "แก้ไขรูป",
@@ -272,6 +364,8 @@ static const Map<String,dynamic> th_TH = {
   "cancel_btn": "ยกเลิก",
   "forgot_pass_btn": "หากลิมรหัสผ่าน",
   "confirm_btn": "ยืนยัน",
+  "sell_btn": "ลงขาย",
+  "set_price_btn": "ตั้งราคาต่อ",
   "dialog_message": {
     "del_account": "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หากคุณต้องการลบจะไม่สามารถกู้คืนได้",
     "phone_edit_cancel": "คุณต้องการออกจากการเปลี่ยนแปลงเบอร์โทรศัพท์ใช่หรือไม่",
@@ -286,6 +380,81 @@ static const Map<String,dynamic> th_TH = {
       "password_incorrect": "รหัสผ่านไม่ถูกต้อง",
       "password_length": "ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป"
     }
+  },
+  "cart": {
+    "toobar": "ตะกร้า",
+    "select_discount": "เลือกโค้ดส่วนลด",
+    "discount_from": "โค้ดส่วนลดจาก",
+    "all": "เลือกทั้งหมด",
+    "total": "รวมทั้งหมด",
+    "item": "รายการ",
+    "order_total": "จำนวน",
+    "delivery_free": "ฟรี ส่วนลดค่าจัดส่ง ฿40 เมื่อขั้นต่ำถึง ฿0",
+    "free": "ฟรี ",
+    "del": "ลบ",
+    "empty": "ไม่พบรายการในรถเข็น",
+    "discount": "ซื้อเพิ่มอีก ฿12 เพื่อรับส่วนลด ฿40 ",
+    "check_out": "ชำระเงิน"
+  },
+  "history": {
+    "order_time": "วัยที่ซื้อ",
+    "order_price": "รวมการสั่งซื้อ",
+    "wait_rate": "รอให้คะแนน"
+  },
+  "payment_method": {
+    "cash_delivery": "เก็บเงินปลายทาง",
+    "bank": "โอนเงินผ่านบัญชี"
+  },
+  "wallet_balance": {
+    "title": "ยอดเงินในกระเป๋า",
+    "trans_history": "ประวัติการทำรายการ",
+    "payment": "ชำระโดย ",
+    "withdraw": "การถอนเงิน",
+    "withdraw_to": "การถอนเงิน Wallet ไปที่",
+    "withdraw_all": "ถอนเงินทั้งหมดใน Wallet",
+    "withdraw_amount": "ยอดที่ต้องการถอน (บาท)",
+    "withdraw_fee": "ค่าธรรมเนียมการถอนเงิน"
+  },
+  "my_product": {
+    "sell": "ขายสินค้า",
+    "break": "พักการขาย",
+    "amount": "จำนวนสินค้า",
+    "sold": "ขายได้",
+    "like": "ถูกใจ",
+    "visit": "เข้าชม",
+    "baht": "บาท",
+    "data": "ข้อมูลสินค้า",
+    "name": "ชื่อสินค้า",
+    "category": "หมวดหมู่สินค้า",
+    "price": "ราคาสินค้า",
+    "price_no_product": "ราคา",
+    "unit": "หน่วยสินค้า",
+    "detail": "รายละเอียดสินค้า",
+    "weight": "น้ำหนักสินค้า",
+    "size": "ขนาดสินค้า",
+    "width": "กว้าง",
+    "long": "ยาว",
+    "height": "สูง",
+    "image": "รูปสินค้า",
+    "image_guide": "แสดงรูปสินค้าได้จำนวน 10 รูป",
+    "delivery_addr": "สถานที่จัดส่ง",
+    "delivery_from": "ส่งจาก",
+    "delivery_price": "ค่าขนส่ง",
+    "delivery_price_each": "ค่าขนส่งแต่ละที่",
+    "options_add": "เพิ่มตัวเลือก",
+    "options_add_product": "เพิ่มตัวเลือกสินค้า",
+    "options_name": "ชื่อตัวเลือก",
+    "option": "ตัวเลือกสินค้า",
+    "stock_set": "ตั้งค่าสต็อกและราคา"
+  },
+  "shop": {
+    "title": "ร้านค้า",
+    "category": "หมวดหมู่",
+    "detail": "รายละเอียดร้าน",
+    "rate": "คะแนนที่ได้",
+    "follow": "ตืดตาม",
+    "follower": "ผู้ติดตาม",
+    "product_list": "รายการสินค้า"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en_US": en_US, "th_TH": th_TH};

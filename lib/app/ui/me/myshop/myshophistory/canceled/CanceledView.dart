@@ -1,7 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
 class CanceledView extends StatelessWidget {
@@ -120,7 +121,7 @@ class CanceledView extends StatelessWidget {
                           fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
                   Row(
                     children: [
-                      Text("รวมการสั่งซื้อ : ",
+                      Text(LocaleKeys.history_order_price.tr()+" : ",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
                       SizedBox(width: 8),
@@ -133,7 +134,8 @@ class CanceledView extends StatelessWidget {
                 ],
               ),
               Divider(color: Colors.grey.shade400,),
-              Text("วันที่ซื้อ 28-06-2563",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6)),)
+              Text(
+                LocaleKeys.history_order_time.tr()+" 28-06-2563",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6)),)
             ],
           ),
 

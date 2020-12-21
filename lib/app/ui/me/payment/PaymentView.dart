@@ -1,9 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
@@ -29,14 +30,14 @@ class _PaymentViewState extends State<PaymentView> {
           child: Column(
               children: [
                 Container(
-                    child: AppToobar(title: "การขนส่งสินค้า",icon: "",header_type:  Header_Type.barNormal,)),
+                    child: AppToobar(title: LocaleKeys.me_title_payment.tr(),icon: "",header_type:  Header_Type.barNormal,)),
                 Column(
                   children: [
-                    _BuildDelivery(nameDeli: "โอนเงินผ่านบัญชี",index: 1),
+                    _BuildDelivery(nameDeli: LocaleKeys.payment_method_bank.tr(),index: 1),
                     Container(height: 1,color: Colors.grey.shade300,),
-                    _BuildDelivery(nameDeli: "เก็บเงินปลายทาง",index: 2),
+                    _BuildDelivery(nameDeli: LocaleKeys.payment_method_cash_delivery.tr(),index: 2),
                     Container(height: 1,color: Colors.grey.shade300,),
-                    _BuildDelivery(nameDeli: "บัตรเครดิต",index: 3)
+                    _BuildDelivery(nameDeli: LocaleKeys.card_title.tr(),index: 3)
                   ],
                 ),
               ],

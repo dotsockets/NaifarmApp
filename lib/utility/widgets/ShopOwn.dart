@@ -1,14 +1,14 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import '../SizeUtil.dart';
@@ -89,7 +89,7 @@ class ShopOwn extends StatelessWidget {
                       AppRoute.Followers(context);
                     },
                     child: Text(
-                      "ติดตาม",
+                      LocaleKeys.shop_follow.tr(),
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
                     ),
                   ),
@@ -112,7 +112,7 @@ class ShopOwn extends StatelessWidget {
                             fontSize: SizeUtil.priceFontSize(),
                             color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
                     SizedBox(height: 5),
-                    Text("รายการสินค้า",
+                    Text(LocaleKeys.shop_product_list.tr(),
                         style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()))
                   ],
                 ),
@@ -147,7 +147,7 @@ class ShopOwn extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 5),
-                    Text("คะแนนที่ได้",
+                    Text(LocaleKeys.shop_rate.tr(),
                         style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize())),
                   ],
                 ),
@@ -163,7 +163,7 @@ class ShopOwn extends StatelessWidget {
                     Text("3",
                         style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize(),color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
                     SizedBox(height: 5,),
-                    Text("ผู้ติดตาม",
+                    Text(LocaleKeys.shop_follower.tr(),
                         style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize())),
                   ],
                 )

@@ -1,10 +1,11 @@
 import 'package:custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -24,7 +25,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   List<String> listUnit = ["ชิ้น","ถุง"];
   List<String> listProvince = ["เชียงใหม่","ลำปาง","ลำพูน","เชียงใหม่","ลำปาง","ลำพูน","เชียงใหม่","ลำปาง","ลำพูน","เชียงใหม่","ลำปาง","ลำพูน","เชียงใหม่","ลำปาง"];
   List<String> listType = ["ผัก","พืช","ข้าว","เนื้อ"];
-  List<String> listAddrDeli = ["ทั่วประเทศ","นอกประเทศ","ในประเทศ"];
+  List<String> listAddrDeli = ["ทั่วประเทศ","ทั่วประเทศ","ทั่วประเทศ",];
   @override
   void initState() {
     super.initState();
@@ -48,7 +49,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
             children: [
               Container(
                   child: AppToobar(
-                    title: "ข้อมูลสินค้า",
+                    title: LocaleKeys.my_product_data.tr(),
                     icon: "",
                     header_type: Header_Type.barNormal,
                   )),
@@ -63,29 +64,29 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             BuildEditText(
-                                head: "ชื่อสินค้า * ",EnableMaxLength: true,
-                                hint: "กรอกชื่อสินค้า",maxLength: 10,controller: nameProductController,inputType: TextInputType.text),
+                                head: LocaleKeys.my_product_name.tr()+" * ",EnableMaxLength: true,
+                                hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 10,controller: nameProductController,inputType: TextInputType.text),
                             SizedBox(height: 15,),
                             _BuildDropdown (
-                                head: "หมวดหมู่สินค้า *",
-                                hint: "เลือกหมวดหมู่",dataList: listType),
+                                head: LocaleKeys.my_product_category.tr()+" *",
+                                hint: LocaleKeys.select.tr()+LocaleKeys.my_product_category.tr(),dataList: listType),
                             SizedBox(height: 15,),
                             BuildEditText(
-                                head: "รายละเอียดสินค้า * ",EnableMaxLength: true,maxLength: 5000,
-                                hint: "กรอกรายละเอียดสินค้า",maxLine: 5,controller: detailtController,inputType: TextInputType.text),
+                                head: LocaleKeys.my_product_detail.tr()+" * ",EnableMaxLength: true,maxLength: 5000,
+                                hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailtController,inputType: TextInputType.text),
                             SizedBox(height: 15,),
                             _BuildDropdown(
-                                head: "สถานที่จัดส่ง *", hint: "ทั่วประเทศ",dataList: listAddrDeli),
+                                head: LocaleKeys.my_product_delivery_addr.tr(), hint: "ทั่วประเทศ",dataList: listAddrDeli),
                             SizedBox(height: 15,),
                             _BuildDropdown(
-                                head: "ส่งจาก", hint: "เลือกจังหวัด",dataList: listProvince),
+                                head: LocaleKeys.my_product_delivery_from.tr(), hint: LocaleKeys.select.tr()+LocaleKeys.address_province.tr(),dataList: listProvince),
                             SizedBox(height: 15,),
                             BuildEditText(
-                                head: "ราคาสินค้า * (บาท)", hint: "0",inputType: TextInputType.number,controller: priceController),
+                                head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController),
                             SizedBox(height: 15,),
-                            BuildEditText(head: "จำนวนสินค้า *", hint: "0",inputType: TextInputType.number,controller: amountController),
+                            BuildEditText(head: LocaleKeys.my_product_amount.tr()+" *", hint: "0",inputType: TextInputType.number,controller: amountController),
                             SizedBox(height: 15,),
-                            _BuildDropdown(head: "หน่วยสินค้า *", hint: "ชิ้น",dataList: listUnit),
+                            _BuildDropdown(head: LocaleKeys.my_product_category.tr()+" *", hint: "ชิ้น",dataList: listUnit),
                             SizedBox(
                               height: 20,
                             )
@@ -116,7 +117,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
           ),
           Container(
             padding: EdgeInsets.all(10),
@@ -143,7 +144,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("ค่าขนส่ง", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+                  Text(LocaleKeys.my_product_delivery_price.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey.withOpacity(0.7),
@@ -166,11 +167,11 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: _BuildButtonItem(btnTxt: "บันทึก",index: 0),
+                  child: _BuildButtonItem(btnTxt: LocaleKeys.save_btn.tr(),index: 0),
                 ),
                 SizedBox(width: 10,)
                 ,
-                Expanded(child: _BuildButtonItem(btnTxt: "ลงขาย",index: 1),)
+                Expanded(child: _BuildButtonItem(btnTxt: LocaleKeys.sell_btn.tr(),index: 1),)
               ],
             )));
   }

@@ -8,9 +8,8 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
-import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
@@ -39,7 +38,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: "ตั้งค่าสต็อกและราคา",
+            title: LocaleKeys.my_product_stock_set.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
           ),
@@ -187,17 +186,17 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "ตัวเลือกสินค้า",
+            LocaleKeys.my_product_option.tr(),
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
           ),
           Text(
-            "ราคา",
+            LocaleKeys.my_product_price_no_product.tr(),
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
           ),
           Text(
-            "จำนวนสินค้า",
+            LocaleKeys.my_product_amount.tr(),
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
           )
@@ -219,7 +218,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
         ),
         onPressed: () {},
         child: Text(
-          "บันทึก",
+          LocaleKeys.save_btn.tr(),
           style: FunctionHelper.FontTheme(
               fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
         ),
