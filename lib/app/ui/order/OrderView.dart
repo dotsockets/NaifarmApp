@@ -1,15 +1,16 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class OrderView extends StatelessWidget {
   int  Status_Sell;
@@ -20,16 +21,10 @@ class OrderView extends StatelessWidget {
       top: false,
       child: Scaffold(
         backgroundColor: Colors.grey.shade200,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          backgroundColor: ThemeColor.primaryColor(),
-          title: Text(
-            "รายละเอียดคำสั่งซื้อ",
-            style: FunctionHelper.FontTheme(color: Colors.black),
-          ),
+        appBar: AppToobar(
+          title: LocaleKeys.order_detail_title.tr(),
+          header_type: Header_Type.barNormal,
+          icon: '',
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,13 +35,13 @@ class OrderView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _HeaderStatus(context: context),
-                    _labelText(title: "ที่อยู่ในการส่ง"),
+                    _labelText(title: LocaleKeys.order_detail_ship_addr.tr()),
                     _addtess_recive(context: context),
-                    _labelText(title: "ข้อมูลการจัดส่ง"),
+                    _labelText(title: LocaleKeys.order_detail_ship_data.tr()),
                     _Shipping_information(context: context),
                     SizedBox(height: 15,),
                     _Order_number_information(context: context),
-                    _labelText(title: "ช่องทางการชำระเงิน"),
+                    _labelText(title: LocaleKeys.order_detail_payment.tr()),
                     _payment_info(context: context),
                     SizedBox(height: 15,),
                     _Timeline_order(context: context)
@@ -71,7 +66,7 @@ class OrderView extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.only(right: 13,left: 10,top: 5,bottom: 5),
             color: ThemeColor.primaryColor(),
-            child: Center(child: Text(Status_Sell==3?"รอให้คะแนน":Status_Sell==4?"ให้คะแนนแล้ว ":"ยกเลิกแล้ว",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.white),)),
+            child: Center(child: Text(Status_Sell==3?LocaleKeys.order_detail_wait_rate.tr():Status_Sell==4?LocaleKeys.order_detail_complete_rate.tr():LocaleKeys.me_menu_cancel.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.white),)),
           ),
         ),
       );
@@ -93,9 +88,9 @@ class OrderView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 30,),
-                Text("คำสั่งซื้อเสร็จสมบูรณ์และขอบคุณสำหรับการให้คะแนน",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.bold),),
+                Text(LocaleKeys.order_detail_thank_rate.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.bold),),
                 SizedBox(height: 3),
-                Text("เวลาที่สำเร็จ 28-06-2563  18:39",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.5)),)
+                Text(LocaleKeys.order_detail_complete_time.tr()+" 28-06-2563  18:39",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.5)),)
               ]
           ),
         ),
@@ -163,7 +158,7 @@ class OrderView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("หมายเลขคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+                Text(LocaleKeys.order_detail_order_num.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color:ThemeColor.ColorSale(),fontWeight: FontWeight.bold,height: 1.5),),
               ],
             ),
@@ -199,7 +194,7 @@ class OrderView extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text("ไปยังร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+                    Text(LocaleKeys.order_detail_go_shop.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                     SizedBox(width: 10,),
                     Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
                   ],
@@ -268,7 +263,7 @@ class OrderView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("รวมค่าสินค้า :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+                Text(LocaleKeys.order_detail_subtotal.tr()+" :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 SizedBox(width: 10,),
                 Text("฿100", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), color: Colors.black))
               ],
@@ -277,7 +272,7 @@ class OrderView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("ค่าจัดส่ง :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+                Text(LocaleKeys.order_detail_ship_price.tr()+" :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 SizedBox(width: 10,),
                 Text("฿36.00", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), color: Colors.black))
               ],
@@ -286,7 +281,7 @@ class OrderView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("รวม :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+                Text(LocaleKeys.order_detail_total.tr()+" :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 SizedBox(width: 10,),
                 Text("฿136.00", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), color: ThemeColor.ColorSale()))
               ],
@@ -337,7 +332,7 @@ class OrderView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("หมายเลขคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+              Text(LocaleKeys.order_detail_order_num.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
               Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color:ThemeColor.ColorSale(),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
@@ -345,7 +340,7 @@ class OrderView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("เวลาที่สั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text(LocaleKeys.order_detail_buy_time.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
               Text("28-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
@@ -353,7 +348,7 @@ class OrderView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("เวลาชำระเงิน",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text(LocaleKeys.order_detail_pay_time.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
               Text("28-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
@@ -361,7 +356,7 @@ class OrderView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("เวลาส่งสินค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text(LocaleKeys.order_detail_ship_time.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
               Text("30-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
@@ -369,7 +364,7 @@ class OrderView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("เวลาที่สำเร็จ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text(LocaleKeys.order_detail_complete_time.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
               Text("31-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
@@ -389,20 +384,20 @@ class OrderView extends StatelessWidget {
         child: Row(
           children: [
             Status_Sell!=5?Expanded(
-              flex: 3,
+              flex: 4,
               child: Container(
                 padding: EdgeInsets.only(left: 15,right: 15,bottom: 0),
                 child: Row(
                   children: [
                     SvgPicture.asset('assets/images/svg/status_star.svg',width: 35,height: 35,),
                     SizedBox(width: 0,),
-                    Text("ริวิว",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+                    Text(LocaleKeys.review_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                   ],
                 ),
               ),
             ):SizedBox(),
             Expanded(
-              flex: 7,
+              flex: 8,
               child: Container(
                 height: 60,
                 child: FlatButton(
@@ -413,7 +408,7 @@ class OrderView extends StatelessWidget {
                     /*...*/
                   },
                   child: Text(
-                    "ซื้อสินค้าอีกครั้ง",
+                    LocaleKeys.buy_product_again_btn.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),
                   ),
                 ),

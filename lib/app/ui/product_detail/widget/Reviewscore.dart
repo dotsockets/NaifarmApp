@@ -2,12 +2,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/models/ReviewModel.dart';
 import 'package:naifarm/app/viewmodels/ReviewViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -42,7 +43,7 @@ class Reviewscore extends StatelessWidget {
           children: [
            SvgPicture.asset('assets/images/svg/star.svg',width: 35,height: 35,),
             SizedBox(width: 5),
-            Text("คะแนนรีวิว",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+            Text(LocaleKeys.my_product_review_score.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
           ],
         ),
       )

@@ -23,7 +23,7 @@ class BuildChoosesize extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LocaleKeys.select.tr()+LocaleKeys.my_product_size, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
+          Text(LocaleKeys.select.tr()+LocaleKeys.my_product_size.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
           Wrap(
             children: [
               _buildBtnAddProduct1(title: "ขนาดเล็ก",index: 1),
@@ -33,7 +33,7 @@ class BuildChoosesize extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10,),
-          Text("เลือกน้ำหนัก", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
+          Text(LocaleKeys.select.tr()+LocaleKeys.my_product_weight.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
           Wrap(
             children: [
               _buildBtnAddProduct2(title: "1 กิโลกรัม",index: 1),

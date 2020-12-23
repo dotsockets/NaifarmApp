@@ -127,6 +127,7 @@ class CodegenLoader extends AssetLoader{
   "fill": "Fill ",
   "add": "Add ",
   "by": " By",
+  "or": "OR",
   "setting_language_toobar": "Select Language",
   "setting_rule_toobar": "Rules of Use",
   "setting_about_toobar": "About Us",
@@ -137,9 +138,10 @@ class CodegenLoader extends AssetLoader{
   "add_address_btn": "Add New Address",
   "add_product_btn": "Add Product",
   "login_btn": "LOGIN",
+  "facebook_login_btn": "Login with Facebook",
   "edit_img_btn": "Edit Image",
   "save_btn": "SAVE",
-  "register_btn": "REGISTER",
+  "register_btn": "SIGN UP",
   "ok_btn": "OK",
   "next_btn": "Next",
   "cancel_btn": "Cancel",
@@ -151,11 +153,14 @@ class CodegenLoader extends AssetLoader{
   "buy_product_btn": "Buy Now",
   "del_product_btn": "Delete Product",
   "save_edit_btn": "Save Edit",
+  "review_btn": "Review",
+  "buy_product_again_btn": "Buy Again",
   "dialog_message": {
     "del_account": "We are sad that you want to leave us, but please note that account deletion is irreversible",
     "phone_edit_cancel": "Do you want to leave the bind phone number process",
     "mail_change_cancel": "Do you want to leave email change",
-    "password_success": "Change Password Success"
+    "password_success": "Change Password Success",
+    "loading": "Loading..."
   },
   "message": {
     "phone_edit": "If you edit phone number. All account numbers associated with this account will be modified",
@@ -163,7 +168,10 @@ class CodegenLoader extends AssetLoader{
     "forgot_mail": "Please logout of your account and tap \"Forgot Password\" at the login page. To logout, Me page > Account Setting > Logout and tap on \"Forgot Password\"",
     "error": {
       "password_incorrect": "Password is incorrect",
-      "password_length": "Should set a password of 8-12 characters or more"
+      "password_length": "Should set a password of 8-12 characters or more",
+      "userpass_empty": "Username or password must not be empty",
+      "phone_invalid": "Invalid phone number",
+      "mail_invalid": "Invalid Email"
     }
   },
   "cart": {
@@ -227,20 +235,22 @@ class CodegenLoader extends AssetLoader{
     "weight": "Product Weight",
     "size_product": "Product Size",
     "size": "Size",
-    "width": "Product Width",
-    "long": "Product Long",
-    "height": "Product Height",
+    "width": "Width",
+    "long": "Long",
+    "height": "Height",
     "image": "Product Image",
     "image_guide": "show 10 product images",
-    "delivery_addr": "Delivery Address",
-    "delivery_from": "Delivery from",
+    "delivery_addr": "Ships Address",
+    "delivery_from": "Ships from",
     "delivery_price": "Shipping Cost",
     "delivery_price_each": "Each Shipping Cost",
     "options_add": "Add Options",
     "options_add_product": "Add Product Options",
     "options_name": "Option Name",
     "option": "Product Options",
-    "stock_set": "Set stock and price"
+    "stock_set": "Set stock and price",
+    "review_score": "Product Ratings",
+    "read_more": "Read More"
   },
   "shop": {
     "title": "Shop",
@@ -261,7 +271,57 @@ class CodegenLoader extends AssetLoader{
     "change": "Change",
     "see_more": "See more",
     "select_all": "See All Products",
-    "title": "Recommend"
+    "title": "Recommend",
+    "you_like": "You May Also Like",
+    "near_me": "Near Me",
+    "special_price": "Special Price",
+    "special_price_product": "Special Price Products",
+    "notification": "Notification"
+  },
+  "tab_bar": {
+    "recommend": "Recommend",
+    "category": "Category",
+    "cart": "Cart",
+    "me": "Me",
+    "home": "Home"
+  },
+  "noti": {
+    "order_shipped": "Your order has been shipped",
+    "shipped1": "All product in order ",
+    "shipped2": "shipped in ",
+    "shipped3": " please wait for buyer comfirm receipts order within 3 days. NaiFarm will transfer the money to you.",
+    "welcome_shop": "Welcome Shop",
+    "welcome1": "Welcome Shop, you can add your products or sales method here.",
+    "confirm_receipt": "Confirm Receipt",
+    "receipt1": "Please check all products for your order ",
+    "receipt2": "before confirm receipt the product. Naifarm will transfer the money to the seller.",
+    "rate_purchase": "Rate Purchase",
+    "rate1": "Order ",
+    "rate2": " Please rate the product.",
+    "order_cancel": "Order Canceled",
+    "order2": " has been canceled because we unable to verify your payment."
+  },
+  "order_detail": {
+    "title": "Order Detail",
+    "wait_rate": "Waiting For Rating",
+    "complete_rate": "Rating Success",
+    "thank_rate": "Order completed.Thank you for rating",
+    "complete_time": "Completed Time",
+    "buy_time": "Order Time",
+    "pay_time": "Payment Time",
+    "ship_time": "Ship Time",
+    "ship_data": "Shipping Information",
+    "order_num": "Order ID",
+    "go_shop": "Visit Shop",
+    "ship_price": "Shipping Fee",
+    "ship_addr": "Shipping Address",
+    "total": "Order Total",
+    "subtotal": "Order Subtotal",
+    "payment": "Payment Method"
+  },
+  "login": {
+    "forgot_password": "Forgot Password",
+    "not_member": "Not a member?"
   }
 };
 static const Map<String,dynamic> th_TH = {
@@ -377,6 +437,7 @@ static const Map<String,dynamic> th_TH = {
   "fill": "กรอก",
   "add": "เพิ่ม",
   "by": "โดย",
+  "or": "หรือ",
   "setting_language_toobar": "เลือกภาษา",
   "setting_rule_toobar": "กฎระเบียบการใช้งาน",
   "setting_about_toobar": "เกี่ยวกับเรา",
@@ -384,6 +445,7 @@ static const Map<String,dynamic> th_TH = {
   "market_toobar": "สินค้า Naifarm ฟาร์มมาร์เก็ต",
   "logout_btn": "ออกจากระบบ",
   "login_btn": "เข้าสู่ระบบ",
+  "facebook_login_btn": "เข้าสู่ระบบด้วย Facebook",
   "edit_btn": "แก้ไขรูป",
   "register_btn": "สมัครสมาชิก",
   "add_address_btn": "เพิ่มที่อยู่ใหม่",
@@ -400,11 +462,14 @@ static const Map<String,dynamic> th_TH = {
   "buy_product_btn": "ซื้อสินค้า",
   "del_product_btn": "ลบรายการ",
   "save_edit_btn": "บันทึกการแก้ไข",
+  "review_btn": "รีวิว",
+  "buy_product_again_btn": "ซื้อสินค้าอีกครั้ง",
   "dialog_message": {
     "del_account": "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หากคุณต้องการลบจะไม่สามารถกู้คืนได้",
     "phone_edit_cancel": "คุณต้องการออกจากการเปลี่ยนแปลงเบอร์โทรศัพท์ใช่หรือไม่",
     "change_mail": "คุณต้องการออกจากการเปลี่ยนแปลงอีเมลใช่หรือไม่",
-    "password_success": "เปลี่ยนรหัสผ่านสำเร็จ"
+    "password_success": "เปลี่ยนรหัสผ่านสำเร็จ",
+    "loading": "กำลังโหลด..."
   },
   "message": {
     "phone_edit": "หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่ หมายเลขบัญชีทั้งหมดที่ผูกกับบัญชีนี้จะถูกแก้ไขด้วย",
@@ -412,7 +477,10 @@ static const Map<String,dynamic> th_TH = {
     "forgot_mail": "กรุณาออกจากระบบโดยไปที่หน้า ฉัน > ตั้งค่าบัญชี > ออกจากระบบ และกดปุ่ม \"ลืมรหัสผ่าน\" ที่หน้าเข้าสู่ระบบ",
     "error": {
       "password_incorrect": "รหัสผ่านไม่ถูกต้อง",
-      "password_length": "ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป"
+      "password_length": "ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป",
+      "pass_empty": "ชื่อผู้ใช้งาน หรือ รหัสผ่าน ห้ามว่าง",
+      "phone_invalid": "เบอร์โทรไม่ถูกต้อง",
+      "mail_invalid": "อีเมล์ไม่ถูกต้อง"
     }
   },
   "cart": {
@@ -489,7 +557,9 @@ static const Map<String,dynamic> th_TH = {
     "options_add_product": "เพิ่มตัวเลือกสินค้า",
     "options_name": "ชื่อตัวเลือก",
     "option": "ตัวเลือกสินค้า",
-    "stock_set": "ตั้งค่าสต็อกและราคา"
+    "stock_set": "ตั้งค่าสต็อกและราคา",
+    "review_score": "คะแนนรีวิว",
+    "read_more": "อ่านเพิ่มเติม"
   },
   "shop": {
     "title": "ร้านค้า",
@@ -510,7 +580,56 @@ static const Map<String,dynamic> th_TH = {
     "change": "เปลี่ยน",
     "see_more": "ดูทั้งหมด",
     "select_all": "เลือกซื้อสินค้าต่อ",
-    "title": "แนะนำ"
+    "you_like": "คุณอาจจะชอบสิ่งนี้",
+    "near_me": "ใกล้ฉัน",
+    "special_price": "ราคาพิเศษ",
+    "special_price_product": "สินค้าราคาพิเศษ",
+    "notification": "แจ้งเตือน"
+  },
+  "tab_bar": {
+    "recommend": "แนะนำ",
+    "category": "ประเภท",
+    "cart": "ตะกร้า",
+    "me": "ฉัน",
+    "home": "หน้าแรก"
+  },
+  "noti": {
+    "order_shipped": "คำสั่งซื้อถูกจัดส่งแล้ว",
+    "shipped1": "สินค้าทุกชิ้นในคำสั่งซื้อหมายเลข ",
+    "shipped2": "จัดส่งถึงแล้วเมื่อ ",
+    "shipped3": " กรุณารอให้ผู้ซื้อตรวจสอบและยืนยันการรับสินค้าภายใน 3 วันจากนั้น NaiFarm จะดำเนินการโอนเงินให้คุณ",
+    "welcome_shop": "ยินดีต้อนรับร้านค้าใหม่",
+    "welcome1": "ยินดีต้อนรับร้านใหม่ สามารถเพิ่มสินค้าการขาย หรือวิธีการขายได้ที่นี่เลย",
+    "confirm_receipt": "ได้รับสินค้าแล้วหรือยัง",
+    "receipt1": "กรุณาตรวจสอบสินค้าทั้งหมดที่คุณได้รับของคำสั่งซื้อ ",
+    "receipt2": "ก่อนกดรับสินค้า เพื่อ Naifarm จะดำเนินการโอนเงินไปยังผู้ขาย",
+    "rate_purchase": "ให้คะแนนสินค้า",
+    "rate1": "คำสั่งซื้อ ",
+    "rate2": " กรุณาให้คะแนนสินค้า",
+    "order_cancel": "คำสั่งซื้อถูกยกเลิก",
+    "order2": " ถูกยกเลิกแล้ว เพราะไม่สามารถตรวจสอบการชำระเงินของคุณได้"
+  },
+  "order_detail": {
+    "title": "รายละเอียดคำสั่งซื้อ",
+    "wait_rate": "รอให้คะแนน",
+    "complete_rate": "ให้คะแนนแล้ว",
+    "thank_rate": "คำสั่งซื้อเสร็จสมบูรณ์และขอบคุณสำหรับการให้คะแนน",
+    "complete_time": "เวลาที่สำเร็จ",
+    "buy_time": "เวลาที่สั่งซื้อ",
+    "pay_time": "เวลาชำระเงิน",
+    "ship_time": "เวลาส่งสินค้า",
+    "ship_data": "ข้อมูลการจัดส่ง",
+    "order_num": "หมายเลขคำสั่งซื้อ",
+    "go_shop": "ไปยังร้านค้า",
+    "ship_price": "ค่าจัดส่ง",
+    "ship_addr": "ที่อยู่ในการส่ง",
+    "total": "รวม",
+    "subtotal": "รวมค่าสินค้า",
+    "payment": "ช่องทางการชำระเงิน"
+  },
+  "login": {
+    "forgot_password": "ลืมรหัสผ่าน",
+    "not_member": "หากยังไม่ได้เป็นสมาชิก"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en_US": en_US, "th_TH": th_TH};

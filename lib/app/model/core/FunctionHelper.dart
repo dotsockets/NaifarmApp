@@ -85,7 +85,7 @@ class FunctionHelper {
                       width: 20,
                     ),
                     Text(
-                      "กำลังโหลด...",
+                      LocaleKeys.dialog_message_loading.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.black,
                           fontSize: SizeUtil.titleFontSize(),
@@ -123,7 +123,7 @@ class FunctionHelper {
                       height: 10,
                     ),
                     Text(
-                      "กำลังโหลด...",
+                      LocaleKeys.dialog_message_loading.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleSmallFontSize(),

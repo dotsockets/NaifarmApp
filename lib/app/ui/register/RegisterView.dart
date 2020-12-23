@@ -4,11 +4,7 @@ import 'dart:convert';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:logger/logger.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -16,6 +12,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OtpVerifyRespone.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
@@ -95,9 +92,9 @@ class _RegisterViewState extends State<RegisterView> {
       child: Column(
         children: [
           SizedBox(height: 20,),
-          Text("ลงทะเบียน",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),),
+          Text(LocaleKeys.register_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),),
          SizedBox(height: 30,),
-          BuildEditText(head: "เบอร์โทรศัพท์ *", hint: "เบอร์โทรศัพท์",inputType: TextInputType.number,controller: PhoneController,BorderOpacity: 0.3,),
+          BuildEditText(head: LocaleKeys.my_profile_phone.tr()+" *", hint: LocaleKeys.my_profile_phone.tr(),inputType: TextInputType.number,controller: PhoneController,BorderOpacity: 0.3,),
           SizedBox(height: 30,),
           Padding(
             padding: const EdgeInsets.only(right: 15,left: 15),
@@ -111,7 +108,7 @@ class _RegisterViewState extends State<RegisterView> {
                 borderRadius: BorderRadius.circular(40.0),
               ),
               onPressed: ()=>_validate(),
-              child: Text("ยืนยัน",
+              child: Text(LocaleKeys.confirm_btn.tr(),
                 style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
               ),
             ),
@@ -121,7 +118,7 @@ class _RegisterViewState extends State<RegisterView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(flex: 3,child: Container(margin: EdgeInsets.only(left: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
-              Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text("หรือ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),)),),
+              Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text(LocaleKeys.or.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),)),),
               Expanded(flex: 3,child: Container(margin: EdgeInsets.only(right: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
             ],
           ),

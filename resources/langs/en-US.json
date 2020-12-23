@@ -115,6 +115,9 @@
   "fill": "Fill ",
   "add": "Add ",
   "by": " By",
+  "or": "OR",
+  "with": "With",
+  "and": "and",
 
   "setting_language_toobar": "Select Language",
   "setting_rule_toobar": "Rules of Use",
@@ -127,9 +130,11 @@
   "add_address_btn": "Add New Address",
   "add_product_btn": "Add Product",
   "login_btn": "LOGIN",
+  "facebook_login_btn": "Login with Facebook",
+  "facebook_regis_btn": "Sign up with Facebook",
   "edit_img_btn": "Edit Image",
   "save_btn": "SAVE",
-  "register_btn": "REGISTER",
+  "register_btn": "SIGN UP",
   "ok_btn": "OK",
   "next_btn": "Next",
   "cancel_btn": "Cancel",
@@ -141,6 +146,8 @@
   "buy_product_btn": "Buy Now",
   "del_product_btn": "Delete Product",
   "save_edit_btn": "Save Edit",
+  "review_btn": "Review",
+  "buy_product_again_btn": "Buy Again",
 
 
 
@@ -148,7 +155,8 @@
     "del_account": "We are sad that you want to leave us, but please note that account deletion is irreversible",
     "phone_edit_cancel": "Do you want to leave the bind phone number process",
     "mail_change_cancel": "Do you want to leave email change",
-    "password_success": "Change Password Success"
+    "password_success": "Change Password Success",
+    "loading": "Loading..."
   },
 
   "message":{
@@ -157,7 +165,10 @@
     "forgot_mail": "Please logout of your account and tap \"Forgot Password\" at the login page. To logout, Me page > Account Setting > Logout and tap on \"Forgot Password\"",
     "error": {
       "password_incorrect":"Password is incorrect",
-      "password_length": "Should set a password of 8-12 characters or more"
+      "password_length": "Should set a password of 8-12 characters or more",
+      "userpass_empty": "Username or password must not be empty",
+      "phone_invalid": "Invalid phone number",
+      "mail_invalid": "Invalid Email"
     }
   },
 
@@ -229,15 +240,17 @@
     "height": "Height",
     "image": "Product Image",
     "image_guide": "show 10 product images",
-    "delivery_addr": "Delivery Address",
-    "delivery_from": "Delivery from",
+    "delivery_addr": "Ships Address",
+    "delivery_from": "Ships from",
     "delivery_price": "Shipping Cost",
     "delivery_price_each": "Each Shipping Cost",
     "options_add": "Add Options",
     "options_add_product": "Add Product Options",
     "options_name": "Option Name",
     "option": "Product Options",
-    "stock_set": "Set stock and price"
+    "stock_set": "Set stock and price",
+    "review_score": "Product Ratings",
+    "read_more": "Read More"
   },
   "shop":{
     "title": "Shop",
@@ -258,14 +271,65 @@
     "change": "Change",
     "see_more": "See more",
     "select_all": "See All Products",
-    "title": "Recommend"
+    "title": "Recommend",
+    "you_like":"You May Also Like",
+    "near_me":"Near Me",
+    "special_price":"Special Price",
+    "special_price_product":"Special Price Products",
+    "notification": "Notification"
   },
-  
+
   "tab_bar":{
-    "recommend": "แนะนำ",
-    "category": "แนะนำ",
-    "cart": "ตะกร้า",
-    "me": "แัน"
+    "recommend": "Recommend",
+    "category": "Category",
+    "cart": "Cart",
+    "me": "Me",
+    "home": "Home"
+  },
+
+  "noti":{
+    "order_shipped": "Your order has been shipped",
+    "shipped1": "All product in order ",
+    "shipped2": "shipped in ",
+    "shipped3": " please wait for buyer comfirm receipts order within 3 days. NaiFarm will transfer the money to you.",
+    "welcome_shop":"Welcome Shop",
+    "welcome1": "Welcome Shop, you can add your products or sales method here.",
+    "confirm_receipt": "Confirm Receipt",
+    "receipt1": "Please check all products for your order ",
+    "receipt2": "before confirm receipt the product. Naifarm will transfer the money to the seller.",
+    "rate_purchase": "Rate Purchase",
+    "rate1": "Order ",
+    "rate2": " Please rate the product.",
+    "order_cancel": "Order Canceled",
+    "order2": " has been canceled because we unable to verify your payment."
+
+  },
+  "order_detail":{
+    "title": "Order Detail",
+    "wait_rate": "Waiting For Rating",
+    "complete_rate": "Rating Success",
+    "thank_rate": "Order completed.Thank you for rating",
+    "complete_time": "Completed Time",
+    "buy_time": "Order Time",
+    "pay_time": "Payment Time",
+    "ship_time": "Ship Time",
+    "ship_data": "Shipping Information",
+    "order_num": "Order ID",
+    "go_shop": "Visit Shop",
+    "ship_price": "Shipping Fee",
+    "ship_addr": "Shipping Address",
+    "total": "Order Total",
+    "subtotal": "Order Subtotal",
+    "payment": "Payment Method"
+  },
+  "login": {
+    "forgot_password": "Forgot Password",
+    "not_member": "Not a member?"
+  },
+  "regis": {
+    "agree": "By signing up, you agree to",
+    "rule": "Rules of Use",
+    "policy": "Privacy Policy"
   }
 
 }

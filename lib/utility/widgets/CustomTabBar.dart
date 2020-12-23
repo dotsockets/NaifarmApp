@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CustomTabBar extends StatelessWidget {
   final List<MenuModel> menuViewModel;
@@ -35,7 +37,7 @@ class CustomTabBar extends StatelessWidget {
           String text = menuModel.label;
 
           if (!isSelect && index == 0) {
-            text = "หน้าแรก";
+            text = LocaleKeys.tab_bar_home.tr();
           }
 
           return MapEntry(

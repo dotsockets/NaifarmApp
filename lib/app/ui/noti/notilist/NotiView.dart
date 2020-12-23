@@ -9,9 +9,10 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:sticky_headers/sticky_headers.dart';
+import 'package:easy_localization/easy_localization.dart';
 //'assets/images/svg/cart_top.svg'
 class NotiView extends StatelessWidget {
   @override
@@ -19,7 +20,7 @@ class NotiView extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Scaffold(
-        appBar:  AppToobar(header_type: Header_Type.barNormal,icon: 'assets/images/svg/cart_top.svg',title: "แจ้งเตือน",),
+        appBar:  AppToobar(header_type: Header_Type.barNormal,icon: 'assets/images/svg/cart_top.svg',title: LocaleKeys.recommend_notification.tr(),),
         body: SingleChildScrollView(
           child: Container(
             color: Colors.white,

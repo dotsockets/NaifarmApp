@@ -18,7 +18,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> with RouteAware {
-  final List<MenuModel> _menuViewModel = MenuViewModel().getTabBarMenus();
+  List<MenuModel> _menuViewModel;
   int _selectedIndex = 0;
   bool IsLogin = true;
   
@@ -48,6 +48,7 @@ class _HomeViewState extends State<HomeView> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    _menuViewModel = MenuViewModel().getTabBarMenus();
     return DefaultTabController(
         length: _menuViewModel.length,
         child: Scaffold(

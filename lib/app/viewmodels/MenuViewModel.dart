@@ -1,8 +1,3 @@
-import 'package:basic_utils/basic_utils.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -13,22 +8,22 @@ class MenuViewModel {
       MenuModel(
         icon: 'assets/images/svg/home_active.svg',
         iconSelected: 'assets/images/svg/home_active.svg',
-        label: LocaleKeys.cart_del.tr(),
+        label: LocaleKeys.tab_bar_recommend.tr(),
       ),
       MenuModel(
         icon: 'assets/images/svg/type.svg',
         iconSelected: 'assets/images/svg/type.svg',
-        label: "ประเภท",
+        label: LocaleKeys.tab_bar_category.tr(),
       ),
       MenuModel(
         icon: 'assets/images/svg/cart.svg',
         iconSelected: 'assets/images/svg/cart.svg',
-        label: "ตะกร้า",
+        label: LocaleKeys.tab_bar_cart.tr(),
       ),
       MenuModel(
         icon: 'assets/images/svg/me.svg',
         iconSelected: 'assets/images/svg/me.svg',
-        label: "ฉัน",
+        label: LocaleKeys.tab_bar_me.tr(),
       )
     ];
   }
@@ -148,27 +143,27 @@ class MenuViewModel {
       MenuModel(
           icon: 'assets/images/svg/menu_near.svg',
           iconSelected: 'assets/images/svg/menu_near.svg',
-          label: "ใกล้ฉัน",
+          label: LocaleKeys.recommend_near_me.tr(),
           page: "ShopMyNear"),
       MenuModel(
           icon: 'assets/images/svg/menu_market.svg',
           iconSelected: 'assets/images/svg/menu_market.svg',
-          label: "ฟาร์มมาร์เก็ต",
+          label: LocaleKeys.recommend_market.tr(),
           page: "MarketView"),
       MenuModel(
           icon: 'assets/images/svg/menu_spacial_price.svg',
           iconSelected: 'assets/images/svg/menu_spacial_price.svg',
-          label: "ราคาพิเศษ",
+          label: LocaleKeys.recommend_special_price.tr(),
           page: "SpecialproductsView"),
       MenuModel(
           icon: 'assets/images/svg/menu_noti.svg',
           iconSelected: 'assets/images/svg/menu_noti.svg',
-          label: "แจ้งเตือน",
+          label: LocaleKeys.recommend_notification.tr(),
           page: "NotiView"),
       MenuModel(
           icon: 'assets/images/svg/menu_like.svg',
           iconSelected: 'assets/images/svg/menu_like.svg',
-          label: "ถูกใจ",
+          label: LocaleKeys.my_product_like.tr(),
           page: "MyLikeView")
     ];
   }

@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
 class NotiViewModel {
@@ -31,21 +32,21 @@ class NotiViewModel {
     return Wrap(
       children: [
         Text(
-          "สินค้าทุกชิ้นในคำสั่งซื้อหมายเลข ",
+          LocaleKeys.noti_shipped1.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
         ),
         Text(number_order,
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
-          "จัดส่งถึงแล้วเมื่อ ",
+          LocaleKeys.noti_shipped2.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
         ),
         Text(order_date,
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
-          " กรุณารอให้ผู้ซื้อตรวจสอบและยืนยันการรับสินค้าภายใน 3  จากนั้น NaiFarm จะดำเนินการโอนเงินให้คุณ",
+          LocaleKeys.noti_shipped3.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
         ),
       ],
@@ -56,7 +57,7 @@ class NotiViewModel {
     return Wrap(
       children: [
         Text(
-          "ยินดีต้อนรับร้านใหม่ สามารถเพิ่มสินค้าการขาย หรือวิธีการขายได้ที่นี่เลย",
+          LocaleKeys.noti_welcome1.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
         ),
       ],
@@ -67,14 +68,14 @@ class NotiViewModel {
     return Wrap(
       children: [
         Text(
-          "กรุณาตรวจสอบสินค้าทั้งหมดที่คุณได้รับของคำสั่งซื้อ ",
+          LocaleKeys.noti_receipt1.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
         ),
         Text(number_order,
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
-          "ก่อนกดรับสินค้า เพื่อ Naifarm จะดำเนินการโดอนเงนคือนสินค้าไปยังผู้ขาย",
+          LocaleKeys.noti_receipt2.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
         ),
       ],
@@ -85,14 +86,14 @@ class NotiViewModel {
     return Wrap(
       children: [
         Text(
-          "คำสั่งซื้อ ",
+          LocaleKeys.noti_rate1.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
         ),
         Text(number_order,
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
-          " กรุณาให้คะแนนสินค้า",
+          LocaleKeys.noti_rate2.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
         ),
       ],
@@ -103,15 +104,15 @@ class NotiViewModel {
     return Wrap(
       children: [
         Text(
-          "คำสั่งซื้อ ",
+          LocaleKeys.noti_rate1.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
         ),
         Text(number_order,
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
-          " ถูกยกเลิกแล้ว เพราะไม่สามารถตรวจสอบการชำระเงินของคุณได้",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5,fontWeight: FontWeight.bold),
+          LocaleKeys.noti_order2.tr(),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
         ),
       ],
     );
@@ -212,7 +213,7 @@ class NotiViewModel {
   List<NotiModel> getNoti() {
     return [
       NotiModel(
-          Title: "คำสั่งซื้อถูกจัดส่งแล้ว",
+          Title: LocaleKeys.noti_order_shipped.tr(),
           Date_Order: "19-06-2563",
           ImageShop:
               "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
@@ -242,7 +243,7 @@ class NotiViewModel {
                 Order_number: "200613ND38CKQ5")
           ]),
       NotiModel(
-          Title: "ยินดีต้องรับร้านค้าใหม่",
+          Title: LocaleKeys.noti_welcome_shop.tr(),
           Date_Order: "19-06-2563",
           ImageShop:
               "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Woman_1.jpg/768px-Woman_1.jpg",
@@ -258,7 +259,7 @@ class NotiViewModel {
                 Order_number: "200613ND38CKQ5"),
           ]),
       NotiModel(
-          Title: "ได้รับสินค้าแล้วหรือยัง",
+          Title: LocaleKeys.noti_confirm_receipt.tr(),
           Date_Order: "19-06-2563",
           ImageShop:
               "https://assets.brandinside.asia/uploads/2018/08/shopping-woman.jpg",
@@ -274,7 +275,7 @@ class NotiViewModel {
                 Order_number: "200613ND38CKQ5"),
           ]),
       NotiModel(
-          Title: "ให้คะแนนสินค้า",
+          Title: LocaleKeys.noti_rate_purchase.tr(),
           Date_Order: "19-06-2563",
           ImageShop:
               "https://i1.wp.com/www.korseries.com/wp-content/uploads/2019/11/Womanof9.9Billion-LeeJiHoon.jpg?resize=696%2C522&ssl=1",
@@ -290,7 +291,7 @@ class NotiViewModel {
                 Order_number: "200613ND38CKQ5"),
           ]),
       NotiModel(
-          Title: "คำสั่งซื้อถูกยกเลิก",
+          Title: LocaleKeys.noti_order_cancel.tr(),
           Date_Order: "19-06-2563",
           ImageShop:
               "https://cdn.lifehack.org/wp-content/uploads/2015/01/alpha-woman-1024x768.jpeg",

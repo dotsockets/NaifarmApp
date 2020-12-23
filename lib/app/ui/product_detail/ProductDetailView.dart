@@ -64,7 +64,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       ProductDetail(productDetail: _productDetail),
                       _Divider(),
                       ProductLandscape(
-                        titleInto: "คุณอาจจะชอบสิ่งนี้",
+                        titleInto: LocaleKeys.recommend_you_like.tr(),
                         producViewModel: ProductViewModel().getBaseSaller(),
                         IconInto: 'assets/images/svg/like.svg',
                         onSelectMore: () {
