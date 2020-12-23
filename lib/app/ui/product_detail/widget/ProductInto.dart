@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
 class ProductInto extends StatelessWidget {
@@ -58,7 +59,7 @@ class ProductInto extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            productDetail.product_status,
+            productDetail.product_status+" "+LocaleKeys.my_product_sold_end.tr(),
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
           ),
           SizedBox(height: 15),
@@ -81,10 +82,10 @@ class ProductInto extends StatelessWidget {
               height: 30,
             ),
             SizedBox(width: 10),
-            Text("ฟรี  ",
+            Text(LocaleKeys.cart_free.tr(),
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.ColorSale())),
-            Text("ส่วนลดค่าจัดส่ง ฿40 เมื่อขั้นต่ำถึง ฿0",
+            Text(LocaleKeys.cart_delivery_free.tr(),
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500)),
           ],

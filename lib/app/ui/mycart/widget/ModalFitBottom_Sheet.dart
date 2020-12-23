@@ -2,12 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/DiscountModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
 class ModalFitBottom_Sheet extends StatelessWidget {
@@ -27,7 +28,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              "โค้ดส่วนลดของ ไร่มอนหลวงสาย",
+              LocaleKeys.cart_discount_from.tr()+" ไร่มอนหลวงสาย",
               style: FunctionHelper.FontTheme(
                   fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold),
             ),
@@ -104,7 +105,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
                     fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.bold),),
                 Row(
                   children: [
-                    Text("ช้อปต่อ",style: FunctionHelper.FontTheme(
+                    Text(LocaleKeys.cart_add_more.tr(),style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500,color: ThemeColor.ColorSale()),),
                     SizedBox(width: 5,),
                     Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
@@ -137,7 +138,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
           Navigator.of(context).pop();
         },
         child: Text(
-          isUse?"ใช้แล้ว":"ใช้ส่วนลด",
+          isUse?LocaleKeys.cart_used.tr():LocaleKeys.cart_use.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500),
         ),
       ),

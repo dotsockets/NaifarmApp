@@ -57,7 +57,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                       _BuildEditText(head: LocaleKeys.my_product_weight.tr()+" (kg)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_weight.tr(),controller: weightProductController),
                       _BuildSpace(),
 
-                      _BuildHeadText(head: LocaleKeys.my_product_size.tr()),
+                      _BuildHeadText(head: LocaleKeys.my_product_size_product.tr()),
                       _BuildEditText(head: LocaleKeys.my_product_width.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_width.tr(),controller: widthProductController),
                       _BuildEditText(head: LocaleKeys.my_product_long.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_long.tr(),controller: longProductController),
                       _BuildEditText(head: LocaleKeys.my_product_height.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_height.tr(),controller: heightProductController),

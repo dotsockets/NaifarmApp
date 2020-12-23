@@ -8,11 +8,12 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/models/AddressModel.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/models/BankModel.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
@@ -43,23 +44,23 @@ class _CartBankViewState extends State<CartBankView> {
         key: _scaffoldKey,
         backgroundColor:
             _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-        appBar: AppToobar(title: "เลือกวิธีกาชำระ",header_type: Header_Type.barNormal),
+        appBar: AppToobar(title: LocaleKeys.select.tr()+LocaleKeys.me_title_payment.tr(),header_type: Header_Type.barNormal),
         body: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.only(right: 20,left: 20,top: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("บัตรเครดิต" ,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
+                Text(LocaleKeys.card_title.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
                 SizedBox(height: 8),
                   Column(
                     children: CartViewModel().getBankCartType1().asMap().map((index, value){
                           return MapEntry(index, _BuildCard(item: CartViewModel().getBankCartType1()[index],index: index));
                     }).values.toList(),
                   ), SizedBox(height: 20,),
-                _BuildBtnAddBack(txt: "เพิ่มบัตรเครดิต",index: 0),
+                _BuildBtnAddBack(txt: LocaleKeys.add.tr()+LocaleKeys.card_title.tr(),index: 0),
                 SizedBox(height: 20,),
-                Text("บัญชีธนาคารเพื่อรับเงิน",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
+                Text(LocaleKeys.bank_title.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
                 SizedBox(height: 8),
                 Column(
                   children: CartViewModel().getBankCartType2().asMap().map((index, value){
@@ -67,7 +68,7 @@ class _CartBankViewState extends State<CartBankView> {
                   }).values.toList(),
                 ),
                 SizedBox(height: 20,),
-                _BuildBtnAddBack(txt: "เพิ่มบัญชีธนาคาร",index: 1)
+                _BuildBtnAddBack(txt: LocaleKeys.bank_add_toobar.tr(),index: 1)
               ],
             ),
           ),

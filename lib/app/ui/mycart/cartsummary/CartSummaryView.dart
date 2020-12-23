@@ -2,7 +2,7 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -12,6 +12,7 @@ import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/ui/mycart/widget/ModalFitBottom_Sheet.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
@@ -41,7 +42,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         key: _scaffoldKey,
         backgroundColor:
             _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-        appBar:AppToobar(title: "ทำการสั่งซื้อ",header_type: Header_Type.barNormal,icon: "",),
+        appBar:AppToobar(title: LocaleKeys.cart_place_order.tr(),header_type: Header_Type.barNormal,icon: "",),
         body: Column(
           children: [
             Expanded(
@@ -63,7 +64,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                 Lottie.asset('assets/json/delete.json',
                                     height: 30, width: 30, repeat: true),
                                 Text(
-                                  "ลบ",
+                                  LocaleKeys.cart_del.tr(),
                                   style: FunctionHelper.FontTheme(
                                       color: Colors.white,
                                       fontSize: SizeUtil.titleSmallFontSize(),
@@ -244,7 +245,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                   height: 30,
                 ),
                 SizedBox(width: 5,),
-                Text("จัดส่งโดย ",
+                Text(LocaleKeys.cart_shipping.tr()+LocaleKeys.by.tr(),
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500,color: ThemeColor.primaryColor())),
               ],
@@ -275,7 +276,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("คำสั่งซื้อทั้งหมด 2 ชิ้น  ",
+                    Text("คำสั่งซื้อทั้งหมด 2 "+LocaleKeys.cart_item.tr(),
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
                     Text("฿136.00",
@@ -297,7 +298,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         padding: EdgeInsets.only(right: 5,left:0) ,
         child: ListMenuItem(
           icon: 'assets/images/svg/sale_cart.svg',
-          title: "โค๊ดส่วนลดจาก Naifarm",
+          title: LocaleKeys.cart_discount_from.tr()+" Naifarm",
           Message: "",
           iconSize: 35,
           fontWeight: FontWeight.w500,
@@ -323,7 +324,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 color: Colors.white,
                 child: ListMenuItem(
                   icon: 'assets/images/svg/payment.svg',
-                  title: "เลือกวิธีการชำระ",
+                  title: LocaleKeys.select.tr()+LocaleKeys.me_title_payment.tr(),
                   Message: "",
                   iconSize: 35,
                   fontWeight: FontWeight.w500,
@@ -337,7 +338,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("รวมการสั่งซื้อ  ",
+                  Text(LocaleKeys.cart_sub_total.tr()+"  ",
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6))),
                   Text("฿136.00",
@@ -351,7 +352,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("การจัดส่ง  ",
+                  Text(LocaleKeys.me_title_shipping.tr()+"  ",
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6))),
                   Text("฿72.00",
@@ -365,7 +366,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("ยอดชำระเงินทั้งหมด  ",
+                  Text(LocaleKeys.cart_total_payment.tr()+"  ",
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleFontSize(), color: Colors.black, fontWeight: FontWeight.bold)),
                   Text("฿212.00",
@@ -397,13 +398,13 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("จำนวน 2 รายการ",
+                            Text(LocaleKeys.cart_quantity.tr()+" 2 "+LocaleKeys.cart_item.tr(),
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.titleSmallFontSize(),
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black)),
                             SizedBox(height: 2),
-                            Text("รวมทั้งหมด",
+                            Text(LocaleKeys.cart_total.tr(),
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.titleFontSize(),
                                     fontWeight: FontWeight.bold,
@@ -430,7 +431,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         onPressed: () {
                           AppRoute.CartSummary(context);
                         },
-                        child: Text("ชำระเงิน",
+                        child: Text(LocaleKeys.cart_check_out.tr(),
                             style: FunctionHelper.FontTheme(
                                 fontSize: SizeUtil.titleFontSize(),
                                 fontWeight: FontWeight.bold,
@@ -453,7 +454,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
        child: Row(
          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("เลือกที่อยู่จัดส่ง",
+            Text(LocaleKeys.select.tr()+LocaleKeys.cart_shipping_addr.tr(),
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleFontSize(),
                     fontWeight: FontWeight.w500,

@@ -8,9 +8,11 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EditProductView extends StatefulWidget {
   final int index ;
@@ -61,7 +63,7 @@ class _EditProductViewState extends State<EditProductView> {
               Container(
                   height: 80,
                   child: AppToobar(
-                    title: "ข้อมูลสินค้า",
+                    title: LocaleKeys.my_product_data.tr(),
                     icon: "",
                     header_type: Header_Type.barNormal,
                   )),
@@ -75,40 +77,40 @@ class _EditProductViewState extends State<EditProductView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _buildEditText(
-                                head: "ชื่อสินค้า * ",
+                                head: LocaleKeys.my_product_name.tr()+" * ",
                                 txt: listProducts[widget.index].product_name,
-                                hint: "กรอกชื่อสินค้า",
+                                hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),
                                 maxLength: 120,
                                 controller: nameProductController,
                                 inputType: TextInputType.text),
                             _buildDropdown(
-                                head: "หมวดหมู่สินค้า *",
-                                hint: "เลือกหมวดหมู่", dataList: listType),
+                                head: LocaleKeys.my_product_category.tr()+" *",
+                                hint: LocaleKeys.select.tr()+LocaleKeys.my_product_category.tr(), dataList: listType),
                             _buildEditText(
-                                head: "รายละเอียดสินค้า * ",
+                                head: LocaleKeys.my_product_detail.tr()+" * ",
                                 maxLength: 5000,
-                                hint: "กรอกรายละเอียดสินค้า",
+                                hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),
                                 maxLine: 5,
                                 controller: detailtController,
                                 inputType: TextInputType.text),
                             _buildDropdown(
-                                head: "สถานที่จัดส่ง *",
+                                head: LocaleKeys.my_product_delivery_addr.tr()+" *",
                                 hint: "ทั่วประเทศ",
                                 dataList: listAddrDeli),
                             _buildDropdown(
-                                head: "ส่งจาก",
+                                head: LocaleKeys.my_product_delivery_from.tr(),
                                 hint: listProducts[widget.index].provice.toString(),
                                 dataList: listProvince),
                             _buildEditText(
-                                head: "ราคาสินค้า * (บาท)",
+                                head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")",
                                 hint: "0",
                                 inputType: TextInputType.number,
                                 controller: priceController),
-                            _buildEditText(head: "จำนวนสินค้า *",
+                            _buildEditText(head: LocaleKeys.my_product_amount.tr()+" * ",
                                 hint: "0",
                                 inputType: TextInputType.number,
                                 controller: amountController),
-                            _buildDropdown(head: "หน่วยสินค้า *",
+                            _buildDropdown(head: LocaleKeys.my_product_category.tr()+" * ",
                                 hint: "ชิ้น",
                                 dataList: listUnit),
                             SizedBox(
@@ -118,7 +120,7 @@ class _EditProductViewState extends State<EditProductView> {
                         ),
                       ),
                       _buildDeliveryTab(),
-                      _buildSwitch(head: "พักการขาย")
+                      _buildSwitch(head: LocaleKeys.my_product_break.tr())
                     ],
                   ),
                 ),
@@ -222,7 +224,7 @@ class _EditProductViewState extends State<EditProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("ค่าขนส่ง", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+                  Text(LocaleKeys.my_product_delivery_price.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey.withOpacity(0.7),
@@ -245,10 +247,10 @@ class _EditProductViewState extends State<EditProductView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: _buildButtonDel(btnTxt: "ลบรายการ"),
+                  child: _buildButtonDel(btnTxt: LocaleKeys.del_product_btn.tr()),
                 ),
                 SizedBox(width: 10,),
-                Expanded(child: _buildButtonSave(btnTxt: "บันทึกการแก้ไข"),
+                Expanded(child: _buildButtonSave(btnTxt: LocaleKeys.save_edit_btn.tr()),
                 )
               ],
             )));

@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BuildChoosesize extends StatelessWidget {
   final Function(int) onclick1;
@@ -21,7 +23,7 @@ class BuildChoosesize extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("เลือกขนาด", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
+          Text(LocaleKeys.select.tr()+LocaleKeys.my_product_size, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
           Wrap(
             children: [
               _buildBtnAddProduct1(title: "ขนาดเล็ก",index: 1),

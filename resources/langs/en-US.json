@@ -50,17 +50,17 @@
     "title": "Please enter a new phone number to receive a OTP",
     "hint": "New Phone number",
     "confirm_otp": "Confirm OTP [Ref : tedf]",
-    "old_phone": "Old Phone Number",
+    "old_phone": "Previous Phone Number",
     "otp_again": "Resend a verification code again"
   },
   "edit_email":{
     "new": "New Email",
-    "old": "Old Email",
+    "old": "Previous Email",
     "toobar": "Change Email"
   },
   "edit_password":{
     "new": "New Password",
-    "old": "Old Password",
+    "old": "Previous Password",
     "toobar": "Change Password",
     "confirm_new": "Confirm Password"
   },
@@ -114,12 +114,14 @@
   },
   "fill": "Fill ",
   "add": "Add ",
+  "by": " By",
 
   "setting_language_toobar": "Select Language",
   "setting_rule_toobar": "Rules of Use",
   "setting_about_toobar": "About Us",
   "my_like_toobar": "My Likes",
   "shipping_toobar": "Shipping",
+  "market_toobar": "Naifarm Farm Market Products",
 
   "logout_btn": "LOGOUT",
   "add_address_btn": "Add New Address",
@@ -135,6 +137,12 @@
   "confirm_btn": "Confirm",
   "sell_btn": "SELL",
   "set_price_btn": "Set Price",
+  "buy_now_btn": "Buy Now",
+  "buy_product_btn": "Buy Now",
+  "del_product_btn": "Delete Product",
+  "save_edit_btn": "Save Edit",
+
+
 
   "dialog_message":{
     "del_account": "We are sad that you want to leave us, but please note that account deletion is irreversible",
@@ -155,18 +163,26 @@
 
   "cart": {
     "toobar": "Cart",
-    "select_discount": "Select discount code",
-    "discount_from": "Discount code from",
+    "select_discount": "Select code",
+    "discount_from": "Voucher from",
     "all": "All",
-    "total": "SubTotal",
-    "item": "Items",
-    "order_total": "Order Total",
+    "total": "Order Total",
+    "total_payment" : "Total Payment",
+    "sub_total": "Order Subtotal",
+    "item": "Item",
+    "quantity": "Quantity",
     "delivery_free": "฿40 off shipping with min spend of ฿0 ",
     "free": "Free ",
     "del": "delete",
     "empty": "Your Shopping Cart is Empty",
     "discount": "Add ฿12 more to get discount ฿40 ",
-    "check_out": "Check Out"
+    "check_out": "Check Out",
+    "add_more":"Add more",
+    "used":"Used",
+    "use":"Use",
+    "place_order": "Place Order",
+    "shipping": "Shipping",
+    "shipping_addr": "Shipping Address"
   },
   "history":{
     "order_time": "Payment Time",
@@ -190,10 +206,11 @@
   },
 
   "my_product": {
-    "sell": "sell product",
-    "break": "stop sell",
-    "amount": "Product Amount",
-    "sold": "sold",
+    "sell": "Sell Product",
+    "break": "Stop Sell",
+    "amount": "Amount",
+    "sold": "sold ",
+    "sold_end": "Sold",
     "like": "Likes",
     "visit": "visit",
     "baht": "Baht",
@@ -205,10 +222,11 @@
     "unit": "Product Unit",
     "detail": "Product Details",
     "weight": "Product Weight",
-    "size": "Product Size",
-    "width": "Product Width",
-    "long": "Product Long",
-    "height": "Product Height",
+    "size_product": "Product Size",
+    "size": "Size",
+    "width": "Width",
+    "long": "Long",
+    "height": "Height",
     "image": "Product Image",
     "image_guide": "show 10 product images",
     "delivery_addr": "Delivery Address",
@@ -227,7 +245,27 @@
     "detail": "Shop Detail",
     "rate": "Shop Rating",
     "follow": "Follow",
+    "following": "Following",
     "follower": "Follower",
-    "product_list": "Product amount"
+    "product_list": "Products"
+  },
+  "recommend": {
+    "market": "Farm Market",
+    "search_hot":"Hot Search",
+    "category_product": "Product Category",
+    "best_seller": "Best Seller",
+    "product_for_you": "Product For You",
+    "change": "Change",
+    "see_more": "See more",
+    "select_all": "See All Products",
+    "title": "Recommend"
+  },
+  
+  "tab_bar":{
+    "recommend": "แนะนำ",
+    "category": "แนะนำ",
+    "cart": "ตะกร้า",
+    "me": "แัน"
   }
+
 }

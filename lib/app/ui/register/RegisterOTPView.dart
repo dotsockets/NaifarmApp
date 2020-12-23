@@ -44,9 +44,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
     // TODO: implement initState
     super.initState();
     verify = _verifyBtn();
-
   }
-
 
   void _validate() {
     RegExp nameRegExp = RegExp('[a-zA-Z]');
@@ -457,6 +455,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                             );
                           }
                         },
+
                         onEnd: () {
                           setState(() {
                             endTimes = false;

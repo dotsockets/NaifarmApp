@@ -1,16 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/CustomGridView.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
-import 'package:naifarm/config/Env.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class SearchHot extends StatelessWidget {
   final Function() onSelectChang;
@@ -51,7 +49,7 @@ class SearchHot extends StatelessWidget {
                   height: 35,
                 ),
                 SizedBox(width: 8),
-                Text("ค้นหายอดฮิต",
+                Text(LocaleKeys.recommend_search_hot.tr(),
                     style: FunctionHelper.FontTheme(
                         color: Colors.black,
                         fontSize: SizeUtil.titleFontSize(),
@@ -61,7 +59,7 @@ class SearchHot extends StatelessWidget {
             GestureDetector(
               child: Row(
                 children: [
-                  Text("เปลี่ยน",
+                  Text(LocaleKeys.recommend_change.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.black,
                           fontSize: SizeUtil.titleFontSize())),

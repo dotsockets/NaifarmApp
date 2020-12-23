@@ -8,8 +8,9 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
 class ProductLandscape extends StatelessWidget {
@@ -60,7 +61,7 @@ class ProductLandscape extends StatelessWidget {
             ),
             Row(
               children: [
-                GestureDetector(child: Text("ดูทั้งหมด",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),onTap: ()=>onSelectMore()),
+                GestureDetector(child: Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),onTap: ()=>onSelectMore()),
                 SizedBox(width: 8),
                 SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
               ],

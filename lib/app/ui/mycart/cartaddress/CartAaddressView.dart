@@ -11,8 +11,10 @@ import 'package:naifarm/app/models/AddressModel.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CartAaddressView extends StatefulWidget {
   @override
@@ -41,7 +43,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
         key: _scaffoldKey,
         backgroundColor:
             _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-        appBar: AppToobar(title: "ที่อยู่ของฉัน",header_type: Header_Type.barNormal,icon: "",),
+        appBar: AppToobar(title: LocaleKeys.setting_account_title_address.tr(),header_type: Header_Type.barNormal,icon: "",),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -106,7 +108,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                        Text(item.Name,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize(),height: 1.6,color: ThemeColor.primaryColor()),),
                   Row(
                          children: [
-                           select==index?Text("เป็นที่อยู่หลัก",style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale())):SizedBox(),
+                           select==index?Text(LocaleKeys.address_default.tr(),style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale())):SizedBox(),
                            SizedBox(width: 5,),
                            Icon(Icons.arrow_forward_ios,color: Colors.grey.shade500,)
                          ],
@@ -143,7 +145,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
           AppRoute.SettingAddAddress(context);
         },
         child: Text(
-          "เพิ่มที่อยู่ใหม่",
+          LocaleKeys.add_address_btn.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
         ),
       ),

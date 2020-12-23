@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/recommend/widget/CategoryTab.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/FlashSale.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -20,6 +21,8 @@ import 'package:naifarm/utility/widgets/ProductVertical.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'widget/RecommendMenu.dart';
 import 'widget/SearchHot.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class RecommendView extends StatefulWidget {
   final Size size;
@@ -127,7 +130,7 @@ class _RecommendViewState extends State<RecommendView> {
                         FlashSale(),
                         SizedBox(height: 15),
                         ProductLandscape(
-                            titleInto: "สินค้าขายดี",
+                            titleInto: LocaleKeys.recommend_best_seller.tr(),
                             producViewModel: ProductViewModel().getBaseSaller(),
                             IconInto: 'assets/images/svg/product_hot.svg',
                             onSelectMore: () {},
@@ -139,11 +142,13 @@ class _RecommendViewState extends State<RecommendView> {
                         SizedBox(height: 15),
                         _BannerAds(),
                         ProductVertical(
-                            titleInto: "ฟาร์มมาร์เก็ต",
+                            titleInto: LocaleKeys.recommend_market.tr(),
                             producViewModel:
                                 ProductViewModel().getProductFarm(),
                             IconInto: 'assets/images/svg/menu_market.svg',
-                            onSelectMore: () {},
+                            onSelectMore: () {
+                              AppRoute.Market(context);
+                            },
                             onTapItem: (int index) {
                               AppRoute.ProductDetail(context,
                                   productImage: "market_${index}");
@@ -156,7 +161,7 @@ class _RecommendViewState extends State<RecommendView> {
                         SearchHot(onSelectChang: () {}),
                         SizedBox(height: 15),
                         ProductVertical(
-                            titleInto: "สินค้าสำหรับคุณ",
+                            titleInto: LocaleKeys.recommend_product_for_you.tr(),
                             producViewModel:
                                 ProductViewModel().getProductForYou(),
                             IconInto: 'assets/images/svg/foryou.svg',

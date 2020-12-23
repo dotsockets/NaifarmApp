@@ -391,7 +391,6 @@ class _MyCartViewState extends State<MyCartView> {
             child: InkWell(
               child: Row(
                 children: [
-
                   Expanded(
                       flex: 4,
                       child:  Container(
@@ -414,7 +413,7 @@ class _MyCartViewState extends State<MyCartView> {
                       )),
                   Expanded(
                     flex: 2,
-                    child: Text(LocaleKeys.cart_order_total.tr()+" ${SumTotalItem()} "+LocaleKeys.cart_item.tr(),
+                    child: Text(LocaleKeys.cart_quantity.tr()+" ${SumTotalItem()} "+LocaleKeys.cart_item.tr(),
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleSmallFontSize(),
                             fontWeight: FontWeight.w500,

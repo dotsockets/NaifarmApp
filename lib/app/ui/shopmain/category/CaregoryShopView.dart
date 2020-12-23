@@ -2,10 +2,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
 class CaregoryShopView extends StatelessWidget {
@@ -35,7 +36,7 @@ class CaregoryShopView extends StatelessWidget {
                 SizedBox(width: 10),
                 Row(
                   children: [
-                    Text("${Random().nextInt(100)} รายการสินค้า",style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.detailFontSize(),color: Colors.black.withOpacity(0.5))),
+                    Text("${Random().nextInt(100)} "+LocaleKeys.shop_product_list.tr(),style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.detailFontSize(),color: Colors.black.withOpacity(0.5))),
                     SizedBox(width: 10),
                     Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
                   ],

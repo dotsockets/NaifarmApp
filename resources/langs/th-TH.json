@@ -112,11 +112,13 @@
   },
   "fill": "กรอก",
   "add": "เพิ่ม",
+  "by": "โดย",
 
   "setting_language_toobar": "เลือกภาษา",
   "setting_rule_toobar": "กฎระเบียบการใช้งาน",
   "setting_about_toobar": "เกี่ยวกับเรา",
   "shipping_toobar": "การขนส่งสินค้า",
+  "market_toobar": "สินค้า Naifarm ฟาร์มมาร์เก็ต",
 
   "logout_btn": "ออกจากระบบ",
   "login_btn": "เข้าสู่ระบบ",
@@ -132,6 +134,10 @@
   "confirm_btn": "ยืนยัน",
   "sell_btn": "ลงขาย",
   "set_price_btn": "ตั้งราคาต่อ",
+  "buy_now_btn": "ซื้อเลย",
+  "buy_product_btn": "ซื้อสินค้า",
+  "del_product_btn": "ลบรายการ",
+  "save_edit_btn": "บันทึกการแก้ไข",
 
   "dialog_message":{
     "del_account": "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หากคุณต้องการลบจะไม่สามารถกู้คืนได้",
@@ -151,18 +157,26 @@
   },
   "cart": {
     "toobar": "ตะกร้า",
-    "select_discount": "เลือกโค้ดส่วนลด",
-    "discount_from": "โค้ดส่วนลดจาก",
+    "select_discount": "เลือกโค๊ดส่วนลด",
+    "discount_from": "โค๊ดส่วนลดจาก",
     "all": "เลือกทั้งหมด",
     "total": "รวมทั้งหมด",
+    "total_payment" : "ยอดชำระเงินทั้งหมด",
+    "sub_total": "รวมการสั่งซื้อ",
     "item": "รายการ",
-    "order_total": "จำนวน",
+    "quantity": "จำนวน",
     "delivery_free": "ฟรี ส่วนลดค่าจัดส่ง ฿40 เมื่อขั้นต่ำถึง ฿0",
     "free": "ฟรี ",
     "del": "ลบ",
     "empty": "ไม่พบรายการในรถเข็น",
     "discount": "ซื้อเพิ่มอีก ฿12 เพื่อรับส่วนลด ฿40 ",
-    "check_out": "ชำระเงิน"
+    "check_out": "ชำระเงิน",
+    "add_more":"ช้อปต่อ",
+    "used":"ใช้แล้ว",
+    "use":"ใช้ส่วนลด",
+    "place_order": "ทำการสั่งซื้อ",
+    "shipping": "จัดส่ง",
+    "shipping_addr": "ที่อยู่จัดส่ง"
   },
   "history":{
     "order_time": "วัยที่ซื้อ",
@@ -190,6 +204,7 @@
     "break": "พักการขาย",
     "amount": "จำนวนสินค้า",
     "sold": "ขายได้",
+    "sold_end": "ขายแล้ว",
     "like": "ถูกใจ",
     "visit": "เข้าชม",
     "baht": "บาท",
@@ -201,7 +216,8 @@
     "unit": "หน่วยสินค้า",
     "detail": "รายละเอียดสินค้า",
     "weight": "น้ำหนักสินค้า",
-    "size": "ขนาดสินค้า",
+    "size_product": "ขนาดสินค้า",
+    "size": "ขนาด",
     "width": "กว้าง",
     "long": "ยาว",
     "height": "สูง",
@@ -216,6 +232,7 @@
     "options_name": "ชื่อตัวเลือก",
     "option": "ตัวเลือกสินค้า",
     "stock_set": "ตั้งค่าสต็อกและราคา"
+
   },
 
   "shop":{
@@ -224,11 +241,27 @@
     "detail": "รายละเอียดร้าน",
     "rate": "คะแนนที่ได้",
     "follow": "ตืดตาม",
+    "following": "กำลังติดตาม",
     "follower": "ผู้ติดตาม",
     "product_list": "รายการสินค้า"
   }
 
+  "recommend": {
+    "market": "ฟาร์มมาร์เก็ต",
+    "search_hot":"ค้นหายอดฮิต",
+    "category_product": "ประเภทสินค้า",
+    "best_seller": "สินค้าขายดี",
+    "product_for_you": "สินค้าสำหรับคุณ",
+    "change": "เปลี่ยน",
+    "see_more": "ดูทั้งหมด",
+    "select_all": "เลือกซื้อสินค้าต่อ"
+  },
 
-
+  "tab_bar":{
+    "recommend": "แนะนำ",
+    "category": "แนะนำ",
+    "cart": "ตะกร้า",
+    "me": "แัน"
+  }
 
 }

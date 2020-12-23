@@ -11,6 +11,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildIconShop.dart';
+import 'package:naifarm/utility/widgets/MD2Indicator.dart';
 import 'myshop/MyshopView.dart';
 import 'purchase/PurchaseView.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -146,6 +147,12 @@ class _MeViewState extends State<MeView> with RouteAware  {
                             child: Container(
                               // color: ThemeColor.psrimaryColor(context),
                               child: TabBar(
+                               indicatorColor: ThemeColor.ColorSale(),
+                               /* indicator: MD2Indicator(
+                                  indicatorSize: MD2IndicatorSize.tiny,
+                                  indicatorHeight: 5.0,
+                                  indicatorColor: ThemeColor.ColorSale(),
+                                ),*/
                                 isScrollable: false,
                                 tabs: [
                                   _tabbar(title: LocaleKeys.me_tab_buy.tr(),message: false),
@@ -229,6 +236,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
 
   Widget _tabbar({String title,bool message}){
     return Tab(
+
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

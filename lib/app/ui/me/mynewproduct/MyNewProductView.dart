@@ -76,7 +76,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                 hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailtController,inputType: TextInputType.text),
                             SizedBox(height: 15,),
                             _BuildDropdown(
-                                head: LocaleKeys.my_product_delivery_addr.tr(), hint: "ทั่วประเทศ",dataList: listAddrDeli),
+                                head: LocaleKeys.my_product_delivery_addr.tr()+" * ", hint: "ทั่วประเทศ",dataList: listAddrDeli),
                             SizedBox(height: 15,),
                             _BuildDropdown(
                                 head: LocaleKeys.my_product_delivery_from.tr(), hint: LocaleKeys.select.tr()+LocaleKeys.address_province.tr(),dataList: listProvince),
