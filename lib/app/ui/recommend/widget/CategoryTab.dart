@@ -2,13 +2,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
-import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
 class CategoryTab extends StatelessWidget {
@@ -37,12 +37,12 @@ class CategoryTab extends StatelessWidget {
               children: [
                 SvgPicture.asset('assets/images/svg/boxes.svg',width: 30,height: 30,),
                 SizedBox(width: 8),
-                Text("ประเภทสินค้า",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+                Text(LocaleKeys.recommend_category_product.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
               ],
             ),
             Row(
               children: [
-                Text("เปลี่ยน",style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize())),
+                Text(LocaleKeys.recommend_change.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize())),
                 SizedBox(width: 8),
                 SvgPicture.asset('assets/images/svg/change.svg',width: 30,height: 30,),
 

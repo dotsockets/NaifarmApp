@@ -10,11 +10,11 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'widget/BuildChoosesize.dart';
 import 'widget/ProductDetail.dart';
 import 'widget/ProductInto.dart';
@@ -123,7 +123,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     height: 60,
                     padding: EdgeInsets.all(10),
                     color: ThemeColor.ColorSale(),
-                    child: Text("ซื้อสินค้า",
+                    child: Text(LocaleKeys.buy_product_btn.tr(),
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleFontSize(),
                             fontWeight: FontWeight.bold,

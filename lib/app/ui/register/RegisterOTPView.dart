@@ -1,7 +1,8 @@
 
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
+import 'package:flutter_countdown_timer/index.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:form_validator/form_validator.dart';
@@ -33,6 +34,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
   TextEditingController _input5 = new TextEditingController();
   TextEditingController _input6 = new TextEditingController();
   int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 1;
+
   FlatButton verify;
   bool SuccessForm = false;
   bool endTimes = true;
@@ -42,9 +44,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
     // TODO: implement initState
     super.initState();
     verify = _verifyBtn();
-
   }
-
 
   void _validate() {
     RegExp nameRegExp = RegExp('[a-zA-Z]');
@@ -77,6 +77,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       });
     }
   }
+
 
 
   @override
@@ -443,6 +444,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                             );
                           }
                         },
+
                         onEnd: () {
                          setState(() {
                            endTimes = false;

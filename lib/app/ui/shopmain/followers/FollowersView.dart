@@ -2,7 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/FollowersModel.dart';
 import 'package:naifarm/app/viewmodels/ReviewViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
@@ -19,7 +20,7 @@ class FollowersView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        title: "ผู้ติดตาม",
+        title: LocaleKeys.shop_follower.tr(),
         header_type: Header_Type.barNormal,
         icon: 'assets/images/svg/search.svg',
       ),
@@ -83,7 +84,7 @@ class FollowersView extends StatelessWidget {
                     AppRoute.Followers(context);
                   },
                   child: Text(
-                    item.IsFollow?"กำลังติดตาม":"ติดตาม",
+                    item.IsFollow?LocaleKeys.shop_following.tr():LocaleKeys.shop_follow.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
                   ),
                 ),

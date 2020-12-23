@@ -6,7 +6,7 @@ class ProductViewModel {
       ProductModel(
           product_name: 'อโวกาโก้ ภาคเหนือ',
           product_price: 100,
-          product_status: '4,901 ขายแล้ว',
+          product_status: '4,901',
           product_image:
               'https://www.img.in.th/images/7fc6ff825238293be21ea341e2f54755.png',
           ProductDicount: 140,

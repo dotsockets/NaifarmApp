@@ -205,7 +205,7 @@ class _AddressAddViewState extends State<AddressAddView> {
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(15),
-            child: _buildButtonItem(btnTxt: "ยืนยัน")));
+            child: _buildButtonItem(btnTxt: LocaleKeys.confirm_btn.tr())));
   }
 
   Widget _buildButtonItem({String btnTxt}) {

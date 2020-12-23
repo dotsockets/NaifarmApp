@@ -8,8 +8,9 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
 class ProductVertical extends StatelessWidget {
@@ -59,13 +60,18 @@ class ProductVertical extends StatelessWidget {
                 Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
               ],
             ),
-            Row(
-              children: [
-                Text("ดูทั้งหมด",style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),
-                SizedBox(width: 8),
-                SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
+            InkWell(
+              child: Row(
+                children: [
+                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),
+                  SizedBox(width: 8),
+                  SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
 
-              ],
+                ],
+              ),
+              onTap: (){
+                onSelectMore();
+              },
             )
           ],
         ),
@@ -142,12 +148,12 @@ class ProductVertical extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(right: 10),
-                padding: EdgeInsets.only(right: 15,left: 15,top: 5,bottom: 5),
+                padding: EdgeInsets.only(right: 10,left: 10,top: 5,bottom: 5),
                 decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.all(Radius.circular(15))
                 ),
-                child: Text('ซื้อเลย',style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
+                child: Text(LocaleKeys.buy_now_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
               )
             ],
           )

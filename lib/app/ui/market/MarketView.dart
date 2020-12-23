@@ -3,12 +3,13 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:lottie/lottie.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/CategoryMenu.dart';
@@ -84,7 +85,7 @@ class _MarketViewState extends State<MarketView> {
               child: StickyHeader(
                 header:  Column(
                   children: [
-                    AppToobar(title: "สินค้า Naifarm ฟาร์มมาร์เก็ต",header_type:  Header_Type.barcartShop,isEnable_Search: true,),
+                    AppToobar(title: LocaleKeys.market_toobar.tr(),header_type:  Header_Type.barcartShop,isEnable_Search: true,),
                     CategoryMenu(selectedIndex: _categoryselectedIndex,menuViewModel: _menuViewModel,onTap: (int val){
                       setState(() {
                         _categoryselectedIndex = val;
@@ -96,7 +97,7 @@ class _MarketViewState extends State<MarketView> {
                   children: [
                     BannerSlide(),
                     SizedBox(height: 15),
-                    ProductVertical(titleInto: "ขายดี",
+                    ProductVertical(titleInto: LocaleKeys.recommend_best_seller.tr(),
                         producViewModel: ProductViewModel().getProductFarm(),
                         IconInto: 'assets/images/svg/product_hot.svg',
                         onSelectMore: () {},
@@ -105,7 +106,7 @@ class _MarketViewState extends State<MarketView> {
                               productImage: "sell_${index}");
                         },borderRadius: true,IconSize: 30,tagHero: "sell",),
                     SizedBox(height: 15),
-                    ProductGrid(titleInto: "แนะนำ",
+                    ProductGrid(titleInto: LocaleKeys.recommend_title.tr(),
                       producViewModel: ProductViewModel().getMarketRecommend(),
                       IconInto: 'assets/images/svg/like.svg',
                       onSelectMore: () {

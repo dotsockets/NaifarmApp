@@ -11,7 +11,10 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 
 class FlashSale extends StatelessWidget {
@@ -54,7 +57,7 @@ class FlashSale extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("เลือกซื้อสินค้าต่อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),),
+            Text(LocaleKeys.recommend_select_all.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),),
             SvgPicture.asset('assets/images/svg/next.svg')
           ],
         ),

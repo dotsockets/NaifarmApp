@@ -101,11 +101,13 @@ abstract class  LocaleKeys {
   static const set = 'set';
   static const fill = 'fill';
   static const add = 'add';
+  static const by = 'by';
   static const setting_language_toobar = 'setting_language_toobar';
   static const setting_rule_toobar = 'setting_rule_toobar';
   static const setting_about_toobar = 'setting_about_toobar';
   static const my_like_toobar = 'my_like_toobar';
   static const shipping_toobar = 'shipping_toobar';
+  static const market_toobar = 'market_toobar';
   static const logout_btn = 'logout_btn';
   static const add_address_btn = 'add_address_btn';
   static const add_product_btn = 'add_product_btn';
@@ -120,6 +122,10 @@ abstract class  LocaleKeys {
   static const confirm_btn = 'confirm_btn';
   static const sell_btn = 'sell_btn';
   static const set_price_btn = 'set_price_btn';
+  static const buy_now_btn = 'buy_now_btn';
+  static const buy_product_btn = 'buy_product_btn';
+  static const del_product_btn = 'del_product_btn';
+  static const save_edit_btn = 'save_edit_btn';
   static const dialog_message_del_account = 'dialog_message.del_account';
   static const dialog_message_phone_edit_cancel = 'dialog_message.phone_edit_cancel';
   static const dialog_message_mail_change_cancel = 'dialog_message.mail_change_cancel';
@@ -137,14 +143,22 @@ abstract class  LocaleKeys {
   static const cart_discount_from = 'cart.discount_from';
   static const cart_all = 'cart.all';
   static const cart_total = 'cart.total';
+  static const cart_total_payment = 'cart.total_payment';
+  static const cart_sub_total = 'cart.sub_total';
   static const cart_item = 'cart.item';
-  static const cart_order_total = 'cart.order_total';
+  static const cart_quantity = 'cart.quantity';
   static const cart_delivery_free = 'cart.delivery_free';
   static const cart_free = 'cart.free';
   static const cart_del = 'cart.del';
   static const cart_empty = 'cart.empty';
   static const cart_discount = 'cart.discount';
   static const cart_check_out = 'cart.check_out';
+  static const cart_add_more = 'cart.add_more';
+  static const cart_used = 'cart.used';
+  static const cart_use = 'cart.use';
+  static const cart_place_order = 'cart.place_order';
+  static const cart_shipping = 'cart.shipping';
+  static const cart_shipping_addr = 'cart.shipping_addr';
   static const cart = 'cart';
   static const history_order_time = 'history.order_time';
   static const history_order_price = 'history.order_price';
@@ -166,6 +180,7 @@ abstract class  LocaleKeys {
   static const my_product_break = 'my_product.break';
   static const my_product_amount = 'my_product.amount';
   static const my_product_sold = 'my_product.sold';
+  static const my_product_sold_end = 'my_product.sold_end';
   static const my_product_like = 'my_product.like';
   static const my_product_visit = 'my_product.visit';
   static const my_product_baht = 'my_product.baht';
@@ -177,6 +192,7 @@ abstract class  LocaleKeys {
   static const my_product_unit = 'my_product.unit';
   static const my_product_detail = 'my_product.detail';
   static const my_product_weight = 'my_product.weight';
+  static const my_product_size_product = 'my_product.size_product';
   static const my_product_size = 'my_product.size';
   static const my_product_width = 'my_product.width';
   static const my_product_long = 'my_product.long';
@@ -198,8 +214,19 @@ abstract class  LocaleKeys {
   static const shop_detail = 'shop.detail';
   static const shop_rate = 'shop.rate';
   static const shop_follow = 'shop.follow';
+  static const shop_following = 'shop.following';
   static const shop_follower = 'shop.follower';
   static const shop_product_list = 'shop.product_list';
   static const shop = 'shop';
+  static const recommend_market = 'recommend.market';
+  static const recommend_search_hot = 'recommend.search_hot';
+  static const recommend_category_product = 'recommend.category_product';
+  static const recommend_best_seller = 'recommend.best_seller';
+  static const recommend_product_for_you = 'recommend.product_for_you';
+  static const recommend_change = 'recommend.change';
+  static const recommend_see_more = 'recommend.see_more';
+  static const recommend_select_all = 'recommend.select_all';
+  static const recommend_title = 'recommend.title';
+  static const recommend = 'recommend';
 
 }

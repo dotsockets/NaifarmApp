@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/ui/Shopmynear/ShopMyNearView.dart';
-import 'package:naifarm/app/ui/category/vegetable/CategoryDetailView.dart';
+import 'package:naifarm/app/ui/category/detail/CategoryDetailView.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
