@@ -9,10 +9,13 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
+import 'package:naifarm/app/model/pojo/response/OtpVerifyRespone.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
@@ -30,6 +33,8 @@ class _RegisterViewState extends State<RegisterView> {
   TextEditingController PhoneController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+  MemberBloc bloc;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -37,9 +42,30 @@ class _RegisterViewState extends State<RegisterView> {
     PhoneController.text = "0932971160";
   }
 
+  void _init(){
+    if(null == bloc){
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: (event as OTPRespone).refCode);
+      });
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
-
+    _init();
 
 
     return Container(
@@ -111,7 +137,7 @@ class _RegisterViewState extends State<RegisterView> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40.0),
               ),
-              onPressed: ()=>_login(),
+              onPressed: ()=>bloc.LoginFacebook(),
               child: Text("สมัครด้วย Facebook",
                 style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
               ),
@@ -172,57 +198,12 @@ class _RegisterViewState extends State<RegisterView> {
     }else if(PhoneController.text.length!=10){
       FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "เบอร์โทรศัพท์ไม่ถูกต้อง");
     }else{
-      FunctionHelper.showDialogProcess(context);
-      AppProvider.getApplication(context).appStoreAPIRepository.OTPRequest(numberphone: PhoneController.text).then((value){
-
-        if(value.http_call_back.status==200){
-          Navigator.of(context).pop();
-          AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: value.refCode);
-        }else{
-          Navigator.of(context).pop();
-          FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: value.http_call_back.result.error.message);
-        }
-      });
+      bloc.OTPRequest(numberphone: PhoneController.text);
 
     }
   }
 
 
-  Future<Null> _login() async {
-    final FacebookLogin facebookSignIn = new FacebookLogin();
-    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        FunctionHelper.showDialogProcess(context);
-        final FacebookAccessToken accessToken = result.accessToken;
 
-        AppProvider.getApplication(context).appStoreAPIRepository.getFBProfile(access_token: accessToken.token).then((value){
-          Navigator.of(context).pop();
-          AppRoute.Register_FB(context,value.email);
-        }).catchError((Object obj){
-          switch (obj.runtimeType) {
-            case DioError:
-            // Here's the sample to get the failed response error code and message
-              final res = (obj as DioError).response;
-              Logger().e("Got error : ${res.statusCode} -> ${res.statusMessage}");
-              break;
-            default:
-          }
-        });
-        //get image  https://graph.facebook.com/2305752019445635/picture?type=large&width=720&height=720
-
-        // final graphResponse = await http.get(
-        //     'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
-        // final profile = JSON.decode(graphResponse.body);
-        break;
-      case FacebookLoginStatus.cancelledByUser:
-        print('Login cancelled by the user.');
-        break;
-      case FacebookLoginStatus.error:
-        print('Something went wrong with the login process.\n'
-            'Here\'s the error Facebook gave us: ${result.errorMessage}');
-        break;
-    }
-  }
 
 }

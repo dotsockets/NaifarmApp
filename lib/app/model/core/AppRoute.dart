@@ -29,6 +29,7 @@ import 'package:naifarm/app/ui/noti/notidetail/NotiDetailView.dart';
 import 'package:naifarm/app/ui/noti/notilist/NotiView.dart';
 import 'package:naifarm/app/ui/order/OrderView.dart';
 import 'package:naifarm/app/ui/product_detail/ProductDetailView.dart';
+import 'package:naifarm/app/ui/register/ForgotPasswordView.dart';
 import 'package:naifarm/app/ui/register/RegisterOTPView.dart';
 import 'package:naifarm/app/ui/register/RegisterView.dart';
 import 'package:naifarm/app/ui/register/Register_FBView.dart';
@@ -319,6 +320,9 @@ class AppRoute{
 
   static ProductSetPrice(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductSetPriceView()));
+  }
+  static ForgotPassword(BuildContext context){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ForgotPasswordView()));
   }
 }
 

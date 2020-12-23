@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -31,6 +32,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String onError1 = "";
   String onError2 = "";
+  MemberBloc bloc;
 
 
   bool FormCheck(){
@@ -41,11 +43,33 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
     }
   }
 
+  void _init(){
+    if(null == bloc){
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        AppRoute.Home(context);
+      });
+    }
+
+  }
+
 
 
 
   @override
   Widget build(BuildContext context) {
+    _init();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.grey.shade200,
@@ -110,16 +134,8 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
     }
 
     if(onError1=="" && onError2==""){
-      FunctionHelper.showDialogProcess(context);
-      AppProvider.getApplication(context).appStoreAPIRepository.CustomersRegister(registerRequest: RegisterRequest(name: _input1.text,email: _input2.text,
-      password: widget.password,phone: widget.phone,agree: 0)).then((value){
-          Navigator.of(context).pop();
-          if(value.http_call_back.status==200 || value.http_call_back.status==201){
-            Usermanager().SavePhone(phone: widget.phone).then((value) => AppRoute.Home(context));
-          }else{
-            FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: value.http_call_back.result.error.message);
-          }
-      });
+      bloc.CustomersRegister(registerRequest: RegisterRequest(name: _input1.text,email: _input2.text,
+          password: widget.password,phone: widget.phone,agree: 0));
     }
 
 

@@ -103,7 +103,12 @@ class _APIProvider implements APIProvider {
       var value = OTPRespone.fromJson(_result.data);
       return OTPRespone(phone: value.phone,refCode: value.refCode,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
-      return OTPRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+      if(e.response.statusCode==416 || e.response.statusCode==400){
+        return OTPRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+      }else{
+        return OTPRespone(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
+      }
+
     }
 
 
@@ -163,6 +168,94 @@ class _APIProvider implements APIProvider {
     }
 
 
+  }
+
+  @override
+  Future<ForgotRespone> ForgotPasswordRequest(String email) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+
+    try {
+      final _result = await _dio.request<dynamic>('/customers/forgot-password/${email}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{},
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      var value = ForgotRespone.fromJson(_result.data);
+      return ForgotRespone(email: value.email,token: value.token,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      if(e.response.statusCode==416 || e.response.statusCode==400){
+        return ForgotRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+      }else{
+        return ForgotRespone(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
+      }
+
+    }
+  }
+
+  @override
+  Future<RegisterRespone> ResetPasswordRequest(String email, String password,String token) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "email":email,
+      "password":password
+    };
+
+    try {
+      final _result = await _dio.request<dynamic>('/customers/reset-password/${token}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{},
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      var value = RegisterRespone.fromJson(_result.data);
+      return RegisterRespone(id: value.id,name: value.name,niceName: value.niceName,email: value.email,
+          phone: value.phone,sex: value.sex,dob: value.dob,description: value.description,shop: value.shop,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      if(e.response.statusCode==416 || e.response.statusCode==400){
+        return RegisterRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+      }else{
+        return RegisterRespone(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
+      }
+
+    }
+  }
+
+  @override
+  Future<CustomerInfoRespone> getCustomerInfo(String access_token)async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+
+    try {
+      final _result = await _dio.request<dynamic>('/customers/info',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":access_token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      var value = CustomerInfoRespone.fromJson(_result.data);
+      return CustomerInfoRespone(id: value.id,name: value.name,niceName: value.niceName,email: value.email,
+          phone: value.phone,sex: value.sex,dob: value.dob,description: value.description,shop: value.shop,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      if(e.response.statusCode==416 || e.response.statusCode==400){
+        return CustomerInfoRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+      }else{
+        return CustomerInfoRespone(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
+      }
+
+    }
   }
 
 

@@ -3,7 +3,9 @@
 import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
+import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OtpVerifyRespone.dart';
@@ -37,6 +39,17 @@ abstract class APIProvider{
   @POST("/otp/verify")
   @FormUrlEncoded()
   Future<OtpVerifyRespone> OtpVerify(@Field() String phone,@Field() String code,@Field() String ref);
+
+  @POST("/customers/forgot-password")
+  Future<ForgotRespone> ForgotPasswordRequest(@Part() String email);
+
+  @POST("/customers/reset-password")
+  @FormUrlEncoded()
+  Future<RegisterRespone> ResetPasswordRequest(@Field() String email,@Field() String password,@Field() String token);
+
+  @GET("/customers/info")
+  Future<CustomerInfoRespone> getCustomerInfo(String access_token);
+
 
 }
 

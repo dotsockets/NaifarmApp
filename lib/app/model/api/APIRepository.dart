@@ -5,7 +5,9 @@ import 'package:naifarm/app/model/api/APIProvider.dart';
 import 'package:naifarm/app/model/db/DBNaiFarmRepository.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
+import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OtpVerifyRespone.dart';
@@ -66,6 +68,21 @@ class APIRepository{
     return _apiProvider.OtpVerify(phone,code,ref);
   }
 
+  Future<ForgotRespone> ForgotPassword({ String email}){
+    // throwIfNoSuccess(response);
+    return _apiProvider.ForgotPasswordRequest(email);
+  }
+
+
+  Future<RegisterRespone> ResetPasswordRequest({String email, String password,String token}){
+    // throwIfNoSuccess(response);
+    return _apiProvider.ResetPasswordRequest(email,password,token);
+  }
+
+  Future<CustomerInfoRespone> getCustomerInfo({String token}){
+    // throwIfNoSuccess(response);
+    return _apiProvider.getCustomerInfo(token);
+  }
 
 
 

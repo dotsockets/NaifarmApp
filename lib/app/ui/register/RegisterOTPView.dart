@@ -1,11 +1,11 @@
 
-import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -16,7 +16,7 @@ import 'package:retrofit/http.dart';
 
 class RegisterOTPView extends StatefulWidget {
   final String phoneNumber;
-  final String refCode;
+  String refCode;
   RegisterOTPView({Key key, this.phoneNumber, this.refCode}) : super(key: key);
   @override
   _RegisterOTPViewState createState() => _RegisterOTPViewState();
@@ -32,10 +32,12 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
   TextEditingController _input4 = new TextEditingController();
   TextEditingController _input5 = new TextEditingController();
   TextEditingController _input6 = new TextEditingController();
-  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 1;
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30 * 1;
   FlatButton verify;
   bool SuccessForm = false;
   bool endTimes = true;
+
+  MemberBloc bloc;
 
   @override
   void initState() {
@@ -56,7 +58,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       FunctionHelper.SnackBarShow(
           scaffoldKey: _scaffoldKey, message: "ทำรายการไม่ถูกต้อง");
     } else {
-     // Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CreateAccountView()));
+      // Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CreateAccountView()));
     }
   }
 
@@ -68,9 +70,9 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         _input4.text.isEmpty ||
         _input5.text.isEmpty ||
         _input6.text.isEmpty) {
-     setState(() {
-       SuccessForm = false;
-     });
+      setState(() {
+        SuccessForm = false;
+      });
     } else {
       setState(() {
         SuccessForm = true;
@@ -79,8 +81,30 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
   }
 
 
+  void _init(){
+    if(null == bloc){
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        AppRoute.Register_set_Password(context,widget.phoneNumber);
+      });
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    _init();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,
@@ -422,32 +446,22 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 child: Row(
                                   children: [
                                     SvgPicture.asset('assets/images/svg/change.svg'),
-                                      SizedBox(width: 10,),
-                                      Text("ขอรหัสยืนยันใหม่อีกครั้ง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),)
+                                    SizedBox(width: 10,),
+                                    Text("ขอรหัสยืนยันใหม่อีกครั้ง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),)
                                   ],
                                 ),
                                 onTap: (){
-                                  setState(() {
-                                    endTimes = true;
-                                    SuccessForm = false;
-                                    endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 1;
-                                    _input1.text = "";
-                                    _input2.text = "";
-                                    _input3.text = "";
-                                    _input4.text = "";
-                                    _input5.text = "";
-                                    _input6.text = "";
-                                  });
+                                  RequestOTPNEW();
                                 },
                               ),
                             );
                           }
                         },
                         onEnd: () {
-                         setState(() {
-                           endTimes = false;
-                         });
-                         // Navigator.pop(context,false);
+                          setState(() {
+                            endTimes = false;
+                          });
+                          // Navigator.pop(context,false);
                         },
                       ),
                       endTimes?Text("  ก่อนกดอีกครั้ง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w400)):SizedBox()
@@ -469,6 +483,35 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
     );
   }
 
+  void RequestOTPNEW(){
+    FunctionHelper.showDialogProcess(context);
+    AppProvider.getApplication(context).appStoreAPIRepository.OTPRequest(numberphone: widget.phoneNumber).then((value){
+
+      if(value.http_call_back.status==200){
+        Navigator.of(context).pop();
+        setState(() {
+          widget.refCode = value.refCode;
+          endTimes = true;
+          SuccessForm = false;
+          endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30 * 1;
+          CleanForm();
+        });
+      }else{
+        Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: value.http_call_back.result.error.message);
+      }
+    });
+  }
+
+  void CleanForm(){
+    _input1.text = "";
+    _input2.text = "";
+    _input3.text = "";
+    _input4.text = "";
+    _input5.text = "";
+    _input6.text = "";
+  }
+
   Widget _verifyBtn() {
     return FlatButton(
       height: 50,
@@ -480,17 +523,9 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       ),
       onPressed: () {
         //  AppRoute.ImageProduct(context);
-       // Navigator.pop(context, false);
-        FunctionHelper.showDialogProcess(context);
-        AppProvider.getApplication(context).appStoreAPIRepository.OtpVerify(phone: widget.phoneNumber,code: "${_input1.text}${_input2.text}${_input3.text}${_input4.text}${_input5.text}${_input6.text}",ref: widget.refCode).then((value){
-          Navigator.pop(context);
-          if(value.success && SuccessForm){
-            AppRoute.Register_set_Password(context,widget.phoneNumber);
-          }else{
-            FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: value.http_call_back.result.error.message);
-          }
-        });
-       // SuccessForm?AppRoute.Register_set_Password(context):SizedBox();
+        // Navigator.pop(context, false);
+       bloc.OTPVerify(phone: widget.phoneNumber,code: "${_input1.text}${_input2.text}${_input3.text}${_input4.text}${_input5.text}${_input6.text}",ref: widget.refCode);
+        // SuccessForm?AppRoute.Register_set_Password(context):SizedBox();
 
       },
       child: Text("ถัดไป",

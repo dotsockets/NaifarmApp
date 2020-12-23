@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -35,6 +36,7 @@ class _LoginViewState extends State<LoginView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController _username = new TextEditingController();
   TextEditingController _password = new TextEditingController();
+  MemberBloc bloc;
 
   @override
   void initState() {
@@ -47,11 +49,30 @@ class _LoginViewState extends State<LoginView> {
 
   }
 
+  void _init(){
+    if(null == bloc){
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
+      });
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
-
-
-
+    _init();
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -123,7 +144,7 @@ class _LoginViewState extends State<LoginView> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0),
                 ),
-                onPressed: ()=>_login(),
+                onPressed: ()=>bloc.LoginFacebook(),
                 child: Text("เข้าสู่ระบบด้วย Facebook",
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                 ),
@@ -155,7 +176,7 @@ class _LoginViewState extends State<LoginView> {
               children: [
                 SizedBox(height: 3,),
                 InkWell(child: Text(" ลืมรหัสผ่าน ",style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize())),onTap: (){
-                  AppRoute.Home(context);
+                  AppRoute.ForgotPassword(context);
                 },),
                 Container(
                   width: ScreenUtil().setWidth(180),
@@ -201,7 +222,6 @@ class _LoginViewState extends State<LoginView> {
 
   void _validate() {
     RegExp nameRegExp = RegExp('[a-zA-Z]');
-    bool IsPhone = false;
     // var stats_form = _form.currentState.validate();
     if(_username.text.isEmpty || _password.text.isEmpty){
       FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "ชื่อผู้ใช้งาน หรือ รหัสผ่าน ห้ามว่าง",context: context);
@@ -210,65 +230,10 @@ class _LoginViewState extends State<LoginView> {
   }else if(!validator.email(_username.text) && nameRegExp.hasMatch(_username.text)){
       FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "อีเมล์ไม่ถูกต้อง");
     }else{
-
-        FunctionHelper.showDialogProcess(context);
-        IsPhone = !validator.email(_username.text);
-
-        AppProvider.getApplication(context).appStoreAPIRepository.CustomersLogin(loginRequest: LoginRequest(username: !IsPhone?_username.text:"",phone: IsPhone?_username.text:"",password:_password.text)).then((value){
-            if(value.http_call_back.status==200){
-              Usermanager().Savelogin(user: LoginRespone(name: value.name,token: value.token,email: value.email)).then((value){
-                Navigator.of(context).pop();
-                // _navigateToProfilePage(context);
-                widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
-
-              });
-            }else{
-              Navigator.of(context).pop();
-              FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: value.http_call_back.result.error.message);
-            }
-
-        });
-
-
+        bloc.CustomerLogin(loginRequest: LoginRequest(username: validator.email(_username.text)?_username.text:"",phone: !validator.email(_username.text)?_username.text:"",password:_password.text));
     }
   }
 
-  Future<Null> _login() async {
-    final FacebookLogin facebookSignIn = new FacebookLogin();
-    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        FunctionHelper.showDialogProcess(context);
-        final FacebookAccessToken accessToken = result.accessToken;
-
-        AppProvider.getApplication(context).appStoreAPIRepository.getFBProfile(access_token: accessToken.token).then((value){
-         Navigator.of(context).pop();
-         AppRoute.Register_FB(context,value.email);
-        }).catchError((Object obj){
-          switch (obj.runtimeType) {
-            case DioError:
-            // Here's the sample to get the failed response error code and message
-              final res = (obj as DioError).response;
-              Logger().e("Got error : ${res.statusCode} -> ${res.statusMessage}");
-              break;
-            default:
-          }
-        });
-        //get image  https://graph.facebook.com/2305752019445635/picture?type=large&width=720&height=720
-
-        // final graphResponse = await http.get(
-        //     'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
-        // final profile = JSON.decode(graphResponse.body);
-        break;
-      case FacebookLoginStatus.cancelledByUser:
-        print('Login cancelled by the user.');
-        break;
-      case FacebookLoginStatus.error:
-        print('Something went wrong with the login process.\n'
-            'Here\'s the error Facebook gave us: ${result.errorMessage}');
-        break;
-    }
-  }
 
 
 

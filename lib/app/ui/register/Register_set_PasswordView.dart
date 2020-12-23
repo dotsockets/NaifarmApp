@@ -35,14 +35,14 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
 
    void verify(){
      bool t1=true,t2=true;
-     if(_input1.text.length<=8 || _input1.text.length>=12){
+     if(_input1.text.length<8 || _input1.text.length>12){
        t1 = false;
        setState(() {
          onError1  = "ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป";
        });
      }
 
-     if(_input2.text.length<=8 || _input2.text.length>=12){
+     if(_input2.text.length<8 || _input2.text.length>12){
        t2 = false;
        setState(() {
          onError2  = "ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป";

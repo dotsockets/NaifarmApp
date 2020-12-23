@@ -4,24 +4,63 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class EditProfileVIew extends StatelessWidget {
+class EditProfileVIew extends StatefulWidget {
+  @override
+  _EditProfileVIewState createState() => _EditProfileVIewState();
+}
+
+class _EditProfileVIewState extends State<EditProfileVIew> {
+  MemberBloc bloc;
   List<String> datalist = ["ชาย","หญิง"];
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  void _init(){
+    if(null == bloc){
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        print("Token = ${(event as CustomerInfoRespone).email}");
+        //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
+      });
+
+      bloc.getCustomerInfo(token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg3IiwiZW1haWwiOiJBcGlzaXRLYWV3c2FzYW5AZ21haWwuY29tIiwibmFtZSI6ImNjY3phMDA3IiwiaWF0IjoxNjA4NjQ2NTYzLCJleHAiOjE2MDkyNTEzNjN9.tV4BqFMDSw-vU11doPtSBV-_GBcW5dzqjQ0QnX2nWT8");
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
+
+    _init();
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         bottom: false,
         child: Scaffold(
+          key: _scaffoldKey,
             backgroundColor: Colors.grey.shade200,
             body: CustomScrollView(
               slivers: [
