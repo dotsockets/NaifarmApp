@@ -15,11 +15,10 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
-import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
-import 'package:naifarm/app/model/pojo/response/User.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
-import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 
 class LoginView extends StatefulWidget {
@@ -100,11 +99,11 @@ class _LoginViewState extends State<LoginView> {
         child: Column(
           children: [
             SizedBox(height: 30,),
-            Text("เข้าสู่ระบบ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),),
+            Text(LocaleKeys.login_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),),
             SizedBox(height: 30,),
-            BuildEditText(head: "เบอร์โทรศัพท์/อีเมลทรศัพท์", hint: "เบอร์โทรศัพท์/อีเมล",inputType: TextInputType.text,controller: _username,BorderOpacity: 0.3,borderRadius: 7,),
+            BuildEditText(head: LocaleKeys.my_profile_phone.tr()+"/"+LocaleKeys.my_profile_email.tr(), hint: LocaleKeys.my_profile_phone.tr()+"/"+LocaleKeys.my_profile_email.tr(),inputType: TextInputType.text,controller: _username,BorderOpacity: 0.3,borderRadius: 7,),
             SizedBox(height: 20,),
-            BuildEditText(head: "รหัสผ่าน", hint: "รหัสผ่าน",inputType: TextInputType.text,controller: _password,BorderOpacity: 0.3,IsPassword: true,borderRadius: 7),
+            BuildEditText(head: LocaleKeys.my_profile_password.tr(), hint: LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,controller: _password,BorderOpacity: 0.3,IsPassword: true,borderRadius: 7),
             SizedBox(height: 30,),
             Padding(
               padding: const EdgeInsets.only(right: 15,left: 15),
@@ -118,7 +117,7 @@ class _LoginViewState extends State<LoginView> {
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 onPressed: () => _validate(),
-                child: Text("เข้าสู่ระบบ",
+                child: Text(LocaleKeys.login_btn.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                 ),
               ),
@@ -128,7 +127,7 @@ class _LoginViewState extends State<LoginView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(flex: 3,child: Container(margin: EdgeInsets.only(left: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
-                Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text("หรือ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),)),),
+                Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text(LocaleKeys.or.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),)),),
                 Expanded(flex: 3,child: Container(margin: EdgeInsets.only(right: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
               ],
             ),
@@ -145,7 +144,7 @@ class _LoginViewState extends State<LoginView> {
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 onPressed: ()=>bloc.LoginFacebook(),
-                child: Text("เข้าสู่ระบบด้วย Facebook",
+                child: Text(LocaleKeys.facebook_login_btn.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                 ),
               ),
@@ -153,12 +152,12 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(height: 30,),
             Wrap(
               children: [
-                Text("หากยังไม่ได้เป็นสมาชิก",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
+                Text(LocaleKeys.login_not_member.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
                 Column(
 
                   children: [
                     SizedBox(height: 3,),
-                    InkWell(child: Text(" สมัครสมาชิก ",style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize())),onTap: (){
+                    InkWell(child: Text(" "+LocaleKeys.register_btn.tr()+" ",style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize())),onTap: (){
                       AppRoute.Register(context);
                     },),
                     Container(
@@ -175,7 +174,7 @@ class _LoginViewState extends State<LoginView> {
 
               children: [
                 SizedBox(height: 3,),
-                InkWell(child: Text(" ลืมรหัสผ่าน ",style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize())),onTap: (){
+                InkWell(child: Text(" "+LocaleKeys.login_forgot_password.tr(),style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize())),onTap: (){
                   AppRoute.ForgotPassword(context);
                 },),
                 Container(
@@ -224,11 +223,11 @@ class _LoginViewState extends State<LoginView> {
     RegExp nameRegExp = RegExp('[a-zA-Z]');
     // var stats_form = _form.currentState.validate();
     if(_username.text.isEmpty || _password.text.isEmpty){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "ชื่อผู้ใช้งาน หรือ รหัสผ่าน ห้ามว่าง",context: context);
+      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_userpass_empty.tr(),context: context);
     }else if(!nameRegExp.hasMatch(_username.text) && _username.text.length<10 || !nameRegExp.hasMatch(_username.text) && _username.text.length>10){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "เบอร์โทรไม่ถูกต้อง",context: context);
+      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_phone_invalid.tr(),context: context);
   }else if(!validator.email(_username.text) && nameRegExp.hasMatch(_username.text)){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "อีเมล์ไม่ถูกต้อง");
+      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_mail_invalid.tr());
     }else{
         bloc.CustomerLogin(loginRequest: LoginRequest(username: validator.email(_username.text)?_username.text:"",phone: !validator.email(_username.text)?_username.text:"",password:_password.text));
     }

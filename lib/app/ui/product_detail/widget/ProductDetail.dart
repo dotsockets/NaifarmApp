@@ -4,8 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProductDetail extends StatefulWidget {
   final ProductModel productDetail;
@@ -48,7 +49,7 @@ class _ProductDetailState extends State<ProductDetail> {
           Container(
             padding: EdgeInsets.only(left: 15, top: 10, bottom: 10),
             child: Text(
-              "รายละเอียดสินค้า",
+              LocaleKeys.my_product_detail.tr(),
               style: FunctionHelper.FontTheme(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -66,20 +67,20 @@ class _ProductDetailState extends State<ProductDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "จำนวนสินค้า",
+                      LocaleKeys.my_product_amount.tr(),
                       style: FunctionHelper.FontTheme(
 
                           color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                     SizedBox(height: 2),
                     Text(
-                      "สถานที่จัดส่ง",
+                      LocaleKeys.my_product_delivery_addr.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                     SizedBox(height: 2),
                     Text(
-                      "ส่งจาก",
+                      LocaleKeys.my_product_delivery_from.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
                     ),
@@ -152,7 +153,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             width: MediaQuery.of(context).size.width,
                             child: Center(
                                 child: Text(
-                              "อ่านเพิ่มเติม",
+                              LocaleKeys.my_product_read_more.tr(),
                               style: FunctionHelper.FontTheme(
                                   color: ThemeColor.primaryColor(),
                                   fontWeight: FontWeight.w500,

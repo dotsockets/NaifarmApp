@@ -2,12 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sticky_headers/sticky_headers.dart';
@@ -28,7 +29,7 @@ class NotiDetailView extends StatelessWidget {
             color: Colors.white,
             child: StickyHeader(
               header: AppToobar(
-                title: "แจ้งเตือน",
+                title: LocaleKeys.recommend_notification.tr(),
                 header_type: Header_Type.barNormal,
                 icon: 'assets/images/svg/cart_top.svg',
               ),

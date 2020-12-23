@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ProductGrid.dart';
-import 'package:sticky_headers/sticky_headers/widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SpecialproductsView extends StatelessWidget {
   @override
@@ -14,7 +15,7 @@ class SpecialproductsView extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Scaffold(
-        appBar: AppToobar(title: "สินค้าราคาพิเศษ",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg'),
+        appBar: AppToobar(title: LocaleKeys.recommend_special_price_product.tr(),header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg'),
         body: SingleChildScrollView(
             child: Container(
               child: ProductGrid(

@@ -2,9 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/FlashSale.dart';
 import 'package:naifarm/utility/widgets/ProductGrid.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Shop extends StatelessWidget {
   Shop({Key key}) : super(key: key);
@@ -16,7 +18,7 @@ class Shop extends StatelessWidget {
           FlashSale(),
           SizedBox(height: 15),
           ProductLandscape(
-              titleInto: "สินค้าขายดี",
+              titleInto: LocaleKeys.recommend_best_seller.tr(),
               producViewModel: ProductViewModel().getBaseSaller(),
               IconInto: 'assets/images/svg/product_hot.svg',
               onSelectMore: () {},
@@ -26,7 +28,7 @@ class Shop extends StatelessWidget {
               },
               tagHero: "product_hot"),
           SizedBox(height: 15),
-          ProductGrid(titleInto: "แนะนำ",
+          ProductGrid(titleInto: LocaleKeys.tab_bar_recommend.tr(),
               producViewModel: ProductViewModel().getMarketRecommend(),
               IconInto: 'assets/images/svg/like.svg',
               onSelectMore: () {
