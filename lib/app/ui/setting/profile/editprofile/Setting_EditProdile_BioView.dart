@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 
 class Setting_EditProdile_BioView extends StatefulWidget {
+
+  final CustomerInfoRespone customerInfoRespone;
+
+  const Setting_EditProdile_BioView({Key key, this.customerInfoRespone}) : super(key: key);
+
   @override
   _Setting_EditProdile_BioViewState createState() => _Setting_EditProdile_BioViewState();
 }
@@ -31,7 +37,7 @@ class _Setting_EditProdile_BioViewState extends State<Setting_EditProdile_BioVie
   void initState() {
     // TODO: implement initState
     super.initState();
-    _input1.text = "เป็นร้านจำหน่าย";
+    _input1.text = widget.customerInfoRespone.description;
   }
 
   @override
@@ -54,7 +60,7 @@ class _Setting_EditProdile_BioViewState extends State<Setting_EditProdile_BioVie
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0),
                 ),
-                onPressed: ()=>FormCheck()?verify():SizedBox(),
+                onPressed: ()=>FormCheck()?Navigator.pop(context, widget.customerInfoRespone):SizedBox(),
                 child: Text(LocaleKeys.save_btn.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                 ),
@@ -72,7 +78,7 @@ class _Setting_EditProdile_BioViewState extends State<Setting_EditProdile_BioVie
       child: Column(
         children: [
           BuildEditText(head: LocaleKeys.my_profile_about_me.tr(),hint: LocaleKeys.set_message.tr(),inputType: TextInputType.text,maxLine: 5,BorderOpacity: 0.2,maxLength: 20,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
-            setState(() {});
+            widget.customerInfoRespone.description = char;
           },),
 
         ],
@@ -80,16 +86,6 @@ class _Setting_EditProdile_BioViewState extends State<Setting_EditProdile_BioVie
     );
   }
 
-  void verify(){
-    // FunctionHelper.showDialogProcess(context);
-    // Usermanager().Savelogin(user: User(id: "1",fullname: "John Mayer",username: "ApisitKaewsasan@gmail.com",email: "ApisitKaewsasan@gmail.com",phone: "0932971160",
-    //     imageurl:  "https://freshairboutique.files.wordpress.com/2015/05/28438-long-red-head-girl.jpg")).then((value){
-    //   Navigator.of(context).pop();
-      // _navigateToProfilePage(context);
-     // AppRoute.Home(context);
 
-   // });
-
-  }
 }
 

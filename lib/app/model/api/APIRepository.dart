@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/api/APIProvider.dart';
 import 'package:naifarm/app/model/db/DBNaiFarmRepository.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
+import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
@@ -82,6 +83,16 @@ class APIRepository{
   Future<CustomerInfoRespone> getCustomerInfo({String token}){
     // throwIfNoSuccess(response);
     return _apiProvider.getCustomerInfo(token);
+  }
+
+  Future<CustomerInfoRespone> ModifyProfile({CustomerInfoRespone data ,String token}){
+    // throwIfNoSuccess(response);
+    return _apiProvider.ModifyProfile(data,token);
+  }
+
+  Future<CustomerInfoRespone> ModifyPassword({ModifyPasswordrequest data ,String token}){
+    // throwIfNoSuccess(response);
+    return _apiProvider.ModifyPassword(data,token);
   }
 
 

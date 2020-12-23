@@ -28,7 +28,7 @@ class Usermanager{
 
   Future<User> getUser() async {
      _prefs = await SharedPreferences.getInstance();
-    return User(id: _prefs.getString(TOKEN),fullname: _prefs.getString(NAME),email: _prefs.getString(EMAIL),imageurl: _prefs.getString(IMAGEURL));
+    return User(token: _prefs.getString(TOKEN),fullname: _prefs.getString(NAME),email: _prefs.getString(EMAIL),imageurl: _prefs.getString(IMAGEURL));
   }
 
   Future<void> Savelogin({LoginRespone user}) async {

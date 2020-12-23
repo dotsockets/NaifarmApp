@@ -258,6 +258,64 @@ class _APIProvider implements APIProvider {
     }
   }
 
+  @override
+  Future<CustomerInfoRespone> ModifyProfile(CustomerInfoRespone data, String access_token) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+
+    try {
+      final _result = await _dio.request<dynamic>('/customers/modify-profile',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token":access_token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: data);
+      var value = CustomerInfoRespone.fromJson(_result.data);
+      return CustomerInfoRespone(id: value.id,name: value.name,niceName: value.niceName,email: value.email,
+          phone: value.phone,sex: value.sex,dob: value.dob,description: value.description,shop: value.shop,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      if(e.response.statusCode==416 || e.response.statusCode==400){
+        return CustomerInfoRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+      }else{
+        return CustomerInfoRespone(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
+      }
+
+    }
+  }
+
+  @override
+  Future<CustomerInfoRespone> ModifyPassword(ModifyPasswordrequest data, String access_token) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+
+    try {
+      final _result = await _dio.request<dynamic>('/customers/modify-password',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token":access_token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: data);
+      var value = CustomerInfoRespone.fromJson(_result.data);
+      return CustomerInfoRespone(id: value.id,name: value.name,niceName: value.niceName,email: value.email,
+          phone: value.phone,sex: value.sex,dob: value.dob,description: value.description,shop: value.shop,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      if(e.response.statusCode==416 || e.response.statusCode==400){
+        return CustomerInfoRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+      }else{
+        return CustomerInfoRespone(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
+      }
+
+    }
+  }
+
 
 
 }

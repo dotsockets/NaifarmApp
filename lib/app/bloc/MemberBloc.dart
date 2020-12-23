@@ -4,7 +4,9 @@ import 'dart:async';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
@@ -180,5 +182,36 @@ class MemberBloc{
     });
     _compositeSubscription.add(subscription);
   }
+
+  ModifyProfile({CustomerInfoRespone data ,String token,bool onload}) async{
+    onload?onLoad.add(true):null;
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.ModifyProfile(data: data,token: token)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        onSuccess.add(respone);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  ModifyPassword({ModifyPasswordrequest data ,String token}) async{
+    // onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.ModifyPassword(data: data,token: token)).listen((respone) {
+      //onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        //  onSuccess.add(respone);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
 
 }

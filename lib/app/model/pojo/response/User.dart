@@ -9,9 +9,10 @@ class User{
   String username;
   String email;
   String phone;
+  String token;
   String imageurl;
 
-  User({this.id,this.fullname, this.username,this.email,this.phone,this.imageurl});
+  User({this.id,this.fullname, this.username,this.email,this.phone,this.token,this.imageurl});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -19,6 +20,7 @@ class User{
     username = json['username'];
     email = json['email'];
     phone = json['phone'];
+    token = json['token'];
     imageurl = json['imageurl'];
   }
 
@@ -31,6 +33,7 @@ class User{
     data['username'] = this.username;
     data['email'] = this.email;
     data['phone'] = this.phone;
+    data['token'] = this.token;
     data['imageurl'] = this.imageurl;
     return data;
   }
@@ -43,6 +46,7 @@ class User{
     username = map['username'];
     email = map['email'];
     phone = map['phone'];
+    token = map['token'];
     imageurl = map['imageurl'];
   }
 

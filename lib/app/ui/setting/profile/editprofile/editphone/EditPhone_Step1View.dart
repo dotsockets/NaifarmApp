@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -10,6 +11,11 @@ import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class EditPhone_Step1View extends StatefulWidget {
+
+  final CustomerInfoRespone customerInfoRespone;
+
+  const EditPhone_Step1View({Key key, this.customerInfoRespone}) : super(key: key);
+
   @override
   _EditPhone_Step1ViewState createState() => _EditPhone_Step1ViewState();
 }
@@ -54,7 +60,10 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20,),
+                  Text(LocaleKeys.edit_phone_old_phone.tr()+" xxxxxx${widget.customerInfoRespone.phone.substring(6,widget.customerInfoRespone.phone.length)}",
+                      style: FunctionHelper.FontTheme(
+                          fontSize: SizeUtil.titleFontSize())),
+                  SizedBox(height: 15,),
                   BuildEditText(
                       head: LocaleKeys.edit_phone_title.tr(),
                       hint: LocaleKeys.edit_phone_hint.tr(),maxLength: 10,controller: PhoneController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
@@ -86,7 +95,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
     );
   }
 
-  void verify(){
+  Future<void> verify() async {
     // FunctionHelper.showDialogProcess(context);
     // Usermanager().Savelogin(user: User(id: "1",fullname: "John Mayer",username: "ApisitKaewsasan@gmail.com",email: "ApisitKaewsasan@gmail.com",phone: "0932971160",
     //     imageurl:  "https://freshairboutique.files.wordpress.com/2015/05/28438-long-red-head-girl.jpg")).then((value){
@@ -97,7 +106,10 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
     //});
 
     if(validator.phone(PhoneController.text)){
-      AppRoute.EditPhoneStep2(context,PhoneController.text);
+      final result = await AppRoute.EditPhoneStep2(context,widget.customerInfoRespone,PhoneController.text);
+      if(result!=null){
+        Navigator.pop(context, widget.customerInfoRespone);
+      }
     }else{
       setState(() {
         onError = "ไม่เบอร์ไม่ถูกต้อง";

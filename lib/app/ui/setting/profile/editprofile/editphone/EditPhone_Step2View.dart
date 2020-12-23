@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
+import 'package:naifarm/app/model/pojo/response/OtpVerifyRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -12,9 +19,12 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class EditPhone_Step2View extends StatefulWidget {
+
+  final CustomerInfoRespone customerInfoRespone;
   final String PhoneNew;
 
-  const EditPhone_Step2View({Key key, this.PhoneNew}) : super(key: key);
+  const EditPhone_Step2View({Key key, this.customerInfoRespone, this.PhoneNew}) : super(key: key);
+
 
   @override
   _EditPhone_Step2ViewState createState() => _EditPhone_Step2ViewState();
@@ -23,6 +33,10 @@ class EditPhone_Step2View extends StatefulWidget {
 class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
   TextEditingController PhoneController = TextEditingController();
   TextEditingController OtpController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  MemberBloc bloc;
+  OTPRespone otpRespone;
+  int step = 0;
   String onErrorOtp="";
 
   bool FormCheck() {
@@ -33,15 +47,58 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
     }
   }
 
+  void _init(){
+    if(null == bloc){
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        if(event is OTPRespone){
+          setState(()=>otpRespone = (event as OTPRespone));
+        }else if(event is bool){
+          if((event as bool)){
+            widget.customerInfoRespone.phone = widget.PhoneNew;
+            Usermanager().getUser().then((value) =>  bloc.ModifyProfile(data: widget.customerInfoRespone,token: value.token,onload: true));
+          }
+        }else if(event is CustomerInfoRespone){
+          FunctionHelper.SuccessDialog(context,message: "ตั้งรหัสผ่านสำเร็จ",onClick: (){
+            Navigator.of(context).pop();
+            Navigator.pop(context, widget.customerInfoRespone);
+          });
+        }
+
+        //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
+      });
+
+      if(otpRespone==null){
+        bloc.OTPRequest(numberphone: widget.PhoneNew);
+      }
+
+    }
+
+  }
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     PhoneController.text = widget.PhoneNew;
+
   }
 
   @override
   Widget build(BuildContext context) {
+    _init();
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
@@ -75,14 +132,8 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(LocaleKeys.edit_phone_old_phone.tr()+" xxxxxx0987 ",
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize())),
-                  SizedBox(
-                    height: 20,
-                  ),
                   BuildEditText(
-                      head: LocaleKeys.edit_phone_title.tr(),
+                      head: "${LocaleKeys.edit_phone_title.tr()}",
                       hint: LocaleKeys.edit_phone_hint.tr(),
                       maxLength: 10,
                       controller: PhoneController,
@@ -96,7 +147,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
                     height: 20,
                   ),
                   BuildEditText(
-                      head: LocaleKeys.edit_phone_confirm_otp.tr(),
+                      head: otpRespone!=null?"${LocaleKeys.edit_phone_confirm_otp.tr()} [Ref : ${otpRespone.refCode}]":"${LocaleKeys.edit_phone_confirm_otp.tr()} ",
                       hint: "OTP",
                       maxLength: 6,
                       controller: OtpController,
@@ -145,7 +196,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40.0),
             ),
-            onPressed: () => FormCheck() ? verify() : SizedBox(),
+            onPressed: () => FormCheck() ? bloc.OTPVerify(phone: otpRespone.phone,ref: otpRespone.refCode,code: OtpController.text): SizedBox(),
             child: Text(
               FormCheck() ? LocaleKeys.confirm_btn.tr() : LocaleKeys.next_btn.tr(),
               style: FunctionHelper.FontTheme(
@@ -158,14 +209,4 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
     );
   }
 
-  void verify() {
-    if (OtpController.text.length < 6) {
-        setState(()=>onErrorOtp = "รหัสยืต้องไม่น้อยกว่า 6");
-    }else{
-        FunctionHelper.SuccessDialog(context,message: "เปลี่ยนเบอร์โทรศัพท์สำเร็จ",onClick: (){
-          Navigator.of(context).pop();
-          Navigator.of(context).pop();
-        });
-    }
-  }
 }

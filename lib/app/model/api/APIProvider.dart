@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
+import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
@@ -49,6 +50,12 @@ abstract class APIProvider{
 
   @GET("/customers/info")
   Future<CustomerInfoRespone> getCustomerInfo(String access_token);
+
+  @PATCH("/customers/modify-profile")
+  Future<CustomerInfoRespone> ModifyProfile(@Body() CustomerInfoRespone data,String access_token);
+
+  @PATCH("/customers/modify-password")
+  Future<CustomerInfoRespone> ModifyPassword(@Body() ModifyPasswordrequest data,String access_token);
 
 
 }

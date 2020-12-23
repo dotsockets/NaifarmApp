@@ -9,12 +9,16 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:page_transition/page_transition.dart';
+
+import 'Setting_EditProfile_NameView.dart';
 
 class EditProfileVIew extends StatefulWidget {
   @override
@@ -25,6 +29,15 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
   MemberBloc bloc;
   List<String> datalist = ["ชาย","หญิง"];
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  CustomerInfoRespone itemInfo = CustomerInfoRespone();
+  bool onUpdate = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Usermanager().getUser().then((value) =>  bloc.getCustomerInfo(token: value.token));
+  }
 
   void _init(){
     if(null == bloc){
@@ -42,13 +55,19 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
       });
       bloc.onSuccess.stream.listen((event) {
         print("Token = ${(event as CustomerInfoRespone).email}");
+        setState(() {
+          itemInfo = (event as CustomerInfoRespone);
+        });
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
 
-      bloc.getCustomerInfo(token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg3IiwiZW1haWwiOiJBcGlzaXRLYWV3c2FzYW5AZ21haWwuY29tIiwibmFtZSI6ImNjY3phMDA3IiwiaWF0IjoxNjA4NjQ2NTYzLCJleHAiOjE2MDkyNTEzNjN9.tV4BqFMDSw-vU11doPtSBV-_GBcW5dzqjQ0QnX2nWT8");
+
+
     }
 
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +92,13 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                           color: Colors.white,size: 30
                       ),
                       onTap: (){
-                        Navigator.pop(context);
+                        if(onUpdate){
+                          Usermanager().getUser().then((value) =>  bloc.ModifyProfile(data: itemInfo,token: value.token,onload: false));
+                          Navigator.of(context).pop();
+                        }else{
+                          Navigator.pop(context);
+                        }
+
                       },
                     ),
                   ),
@@ -132,56 +157,85 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                       height: 700,
                       child: Column(
                         children: [
+
                           ListMenuItem(
                             opacityMessage: 0.5,
                             icon: '',
-                            Message: "บ้านจำปีแดง",
+                            Message: itemInfo.name!=null?itemInfo.name:'',
                             title: LocaleKeys.my_profile_name.tr(),
-                            onClick: ()=> AppRoute.Setting_EditProfile_Name(context),
+                            onClick: () async {
+                              final result = await AppRoute.Setting_EditProfile_Name(context,itemInfo);
+                             if(result!=null){
+                               onUpdate = true;
+                               setState(()=>itemInfo = (result as CustomerInfoRespone));
+                             }
+                            },
                           ),
                           _buildLine(),
                           ListMenuItem(
                             opacityMessage: 0.5,
                             icon: '',
-                            Message: "เป็นร้านจำหน่าย...",
+                            Message: itemInfo.description!=null?itemInfo.description.length>20?'${itemInfo.description.substring(0,20)}...':itemInfo.description:'',
                             title: LocaleKeys.my_profile_about_me.tr(),
-                            onClick: ()=>AppRoute.Setting_EditProdile_Bio(context),
+                            onClick: () async {
+                              final result = await AppRoute.Setting_EditProdile_Bio(context,itemInfo);
+                              if(result!=null){
+                                onUpdate = true;
+                                setState(()=>itemInfo = (result as CustomerInfoRespone));
+                              }
+                            },
                           ),
                           _buildLine(),
                           ListMenuItem(
                             opacityMessage: 0.5,
                             icon: '',
-                            Message: "ชาย",
+                            Message: itemInfo.sex!=null?itemInfo.sex:'',
                             title: LocaleKeys.my_profile_gender.tr(),
                             onClick: () {
-                              Platform.isAndroid?FunctionHelper.DropDownAndroid(context,datalist,onTap:(int index){}):FunctionHelper.DropDownIOS(context,datalist,onTap:(int index){});
+                              Platform.isAndroid?FunctionHelper.DropDownAndroid(context,datalist,onTap:(int index){
+                                onUpdate = true;
+                                setState(()=>itemInfo.sex = datalist[index]);
+                              }):FunctionHelper.DropDownIOS(context,datalist,onTap:(int index){
+                                  onUpdate = true;
+                                  setState(()=>itemInfo.sex = datalist[index]);
+                              });
                             },
                           ),
                           _buildLine(),
                           ListMenuItem(
                             opacityMessage: 0.5,
                             icon: '',
-                            Message: "09 กรกฎาคม 2563",
+                            Message: itemInfo.dob!=null?itemInfo.dob:'',
                             title: LocaleKeys.my_profile_birthday.tr(),
                             onClick: () {
-                              Platform.isAndroid?FunctionHelper.selectDate(context,OnDateTime: (DateTime s){}):FunctionHelper.showPickerDate(context,datalist,onTap:(DateTime index){Navigator.pop(context);});
+                              Platform.isAndroid?FunctionHelper.selectDateAndroid(context,DateTime.parse(itemInfo.dob),OnDateTime: (DateTime date){
+                                onUpdate = true;
+                                if(date!=null)  setState(()=>itemInfo.dob = DateFormat('yyyy-MM-dd').format(date));
+                              }):FunctionHelper.showPickerDateIOS(context,DateTime.parse(itemInfo.dob),onTap:(DateTime date){
+                                onUpdate = true;
+                                if(date!=null) setState(()=>itemInfo.dob = DateFormat('yyyy-MM-dd').format(date));
+                              });
                             },
                           ),
                           _buildLine(),
                           ListMenuItem(
                             opacityMessage: 0.5,
                             icon: '',
-                            Message: "xxxxxx0987",
+                            Message: itemInfo.phone!=null?itemInfo.phone:'',
                             title: LocaleKeys.my_profile_phone.tr(),
-                            onClick: () {
-                              AppRoute.EditPhoneStep1(context);
+                            onClick: () async {
+                              final result = await AppRoute.EditPhoneStep1(context,itemInfo);
+                              if(result!=null){
+                                onUpdate = true;
+                                setState(()=>itemInfo = (result as CustomerInfoRespone));
+                              }
                             },
                           ),
                           SizedBox(height: 10,),
                           ListMenuItem(
                             opacityMessage: 0.5,
                             icon: '',
-                            Message: "puwee@gmail.com",
+                            Message: itemInfo.email!=null?itemInfo.email:'',
                             title: LocaleKeys.my_profile_email.tr(),
                             onClick: () {
                               AppRoute.EditEmail_Step1(context);

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/success/SuccessView.dart';
@@ -13,6 +14,7 @@ import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:vibration/vibration.dart';
 
 class FunctionHelper {
   static String ReportDateTwo({String date}) {
@@ -160,23 +162,34 @@ class FunctionHelper {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(dataList.length, (index) {
-                  return GestureDetector(
-                    child: Container(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.only(
-                            right: 20,
-                            left: 20,
-                            bottom: 10,
-                            top: index == 0 ? 15 : 10),
-                        child: Text(
-                          dataList[index],
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        child: Container(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.only(
+                                right: 20,
+                                left: 20,
+                                bottom: 20,
+                                top: index == 0 ? 15 : 10),
+                            child: Text(
+                              dataList[index],
+                              style: FunctionHelper.FontTheme(
+                                  fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+                            ),
+                          ),
                         ),
+                        onTap: (){
+                          onTap(index);
+                          Navigator.pop(context);
+                        },
                       ),
-                    ),
-                    onTap: () => onTap(index),
+                      Container(
+                        padding: EdgeInsets.only(right: 10,left: 10),
+                        child: Divider(height: 1,color: Colors.grey.withOpacity(0.5),),
+                      )
+                    ],
                   );
                 }),
               ),
@@ -212,7 +225,7 @@ class FunctionHelper {
                   CupertinoButton(
                     child: Text(
                       'ยกเลิก',
-                      style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize()),
+                      style: FunctionHelper.FontTheme(color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                     onPressed: () {},
                     padding: const EdgeInsets.symmetric(
@@ -224,9 +237,12 @@ class FunctionHelper {
                     child: Text(
                       'ตกลง',
                       style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontWeight: FontWeight.w500,fontSize: SizeUtil.titleSmallFontSize()),
+                          color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),
                     ),
-                    onPressed: () => onTap(select),
+                    onPressed: () {
+                      onTap(select);
+                      Navigator.pop(context);
+                    },
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16.0,
                       vertical: 5.0,
@@ -241,12 +257,13 @@ class FunctionHelper {
               child: CupertinoPicker(
                 onSelectedItemChanged: (value) {
                   select = value;
+                  Vibration.vibrate(duration: 500);
                 },
                 itemExtent: 32.0,
                 children: List.generate(dataList.length, (index) {
                   return Text(
                     "" + dataList[index],
-                    style: FunctionHelper.FontTheme(),);
+                    style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold),);
                 }),
               ),
             )
@@ -256,82 +273,26 @@ class FunctionHelper {
     );
   }
 
-  static showPickerDate(BuildContext context, List<String> dataList,
+  static showPickerDateIOS(BuildContext context, DateTime dateTime,
       {Function(DateTime) onTap}) {
-    DateTime select = DateTime.now();
-    var now = DateTime.now();
-    var today = new DateTime(now.year, now.month, now.day);
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                border: Border(
-                  bottom: BorderSide(
-                    color: Color(0xff999999),
-                    width: 0.0,
-                  ),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  CupertinoButton(
-                    child: Text(
-                      'ยกเลิก',
-                      style: FunctionHelper.FontTheme(color: Colors.black),
-                    ),
-                    onPressed: () {},
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 5.0,
-                    ),
-                  ),
-                  CupertinoButton(
-                    child: Text(
-                      'ตกลง',
-                      style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontWeight: FontWeight.w500),
-                    ),
-                    onPressed: () => onTap(select),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 5.0,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              height: 200.0,
-              color: Color(0xfff7f7f7),
-              child: CupertinoDatePicker(
-                minimumDate: today,
-                minuteInterval: 1,
-                mode: CupertinoDatePickerMode.dateAndTime,
-                onDateTimeChanged: (DateTime dateTime) {
-                  select = dateTime;
-                  print("dateTime: ${dateTime}");
-                },
-              ),
-            )
-          ],
-        );
-      },
-    );
+    DatePicker.showDatePicker(context,
+        theme: DatePickerTheme(
+          containerHeight: 210.0,
+        ),
+        showTitleActions: true,
+        minTime: DateTime(1900, 1, 1),
+        maxTime: DateTime.now(), onConfirm: (date) {
+          onTap(date);
+        }, currentTime: dateTime, locale: EasyLocalization.of(context).locale==EasyLocalization.of(context).supportedLocales[1]?LocaleType.th:LocaleType.en);
   }
 
-  static Future<void> selectDate(BuildContext context,
+  static Future<void> selectDateAndroid(BuildContext context, DateTime dateTime,
       {Function(DateTime) OnDateTime}) async {
     OnDateTime(await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(Duration(days: 25000)),
-      lastDate: DateTime.now().add(Duration(days: 0)),
+      initialDate: dateTime,
+      firstDate: DateTime(1900, 1, 1),
+      lastDate: DateTime.now(),
     ));
   }
 

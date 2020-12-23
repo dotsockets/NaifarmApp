@@ -3,13 +3,13 @@ import 'ThrowIfNoSuccess.dart';
 class CustomerInfoRespone {
   int id;
   String name;
-  Null niceName;
+  String niceName;
   String email;
   String phone;
-  Null sex;
-  Null dob;
-  Null description;
-  Null shop;
+  String sex;
+  String dob;
+  String description;
+  String shop;
   List<Image> image;
   ThrowIfNoSuccess http_call_back;
 

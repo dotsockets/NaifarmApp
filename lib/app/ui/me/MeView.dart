@@ -92,7 +92,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                 ),
 
               ],
-              expandedHeight: ScreenUtil().setHeight(IsLogin?500:400),
+              expandedHeight: ScreenUtil().setHeight(IsLogin?450:400),
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   color: ThemeColor.primaryColor(),

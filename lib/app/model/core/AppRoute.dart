@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/ui/Shopmynear/ShopMyNearView.dart';
 import 'package:naifarm/app/ui/category/detail/CategoryDetailView.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
@@ -238,25 +239,24 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProfileVIew()));
   }
 
-  static Setting_EditProfile_Name(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Setting_EditProfile_NameView()));
+  static Future<CustomerInfoRespone> Setting_EditProfile_Name(BuildContext context,CustomerInfoRespone customerInfoRespone) async {
+    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Setting_EditProfile_NameView(customerInfoRespone: customerInfoRespone,)));
   }
 
-  static Setting_EditProdile_Bio(BuildContext context){
-
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Setting_EditProdile_BioView()));
+  static Future<CustomerInfoRespone> Setting_EditProdile_Bio(BuildContext context,CustomerInfoRespone customerInfoRespone) async {
+    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Setting_EditProdile_BioView(customerInfoRespone: customerInfoRespone,)));
   }
-  static EditPhoneStep1(BuildContext context) {
-    Navigator.push(context, PageTransition(
+  static  Future<CustomerInfoRespone>  EditPhoneStep1(BuildContext context,CustomerInfoRespone customerInfoRespone) async {
+    return  await   Navigator.push(context, PageTransition(
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
-        child: EditPhone_Step1View()));
+        child: EditPhone_Step1View(customerInfoRespone: customerInfoRespone)));
   }
-  static EditPhoneStep2(BuildContext context,String PhoneNew) {
-    Navigator.pushReplacement(context, PageTransition(
+  static Future<CustomerInfoRespone> EditPhoneStep2(BuildContext context,CustomerInfoRespone customerInfoRespone,String PhoneNew) async {
+    return  await  Navigator.push(context, PageTransition(
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
-        child: EditPhone_Step2View(PhoneNew: PhoneNew,)));
+        child: EditPhone_Step2View(PhoneNew: PhoneNew,customerInfoRespone: customerInfoRespone,)));
   }
   static SettingBankAdd(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: BankAddView()));

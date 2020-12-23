@@ -75,6 +75,8 @@ dependencies:
   geolocator: ^6.1.8
   geocoder: ^0.2.1
   fdottedline: ^1.0.1
+  vibration: ^1.7.3
+  flutter_datetime_picker: ^1.4.0
 
 dev_dependencies:
   flutter_test:
