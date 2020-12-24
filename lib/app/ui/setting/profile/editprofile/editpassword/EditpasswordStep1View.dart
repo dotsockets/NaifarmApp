@@ -43,7 +43,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        title: LocaleKeys.edit_password_toobar.tr(), header_type: Header_Type.barNormal,),
+        title: LocaleKeys.my_profile_change_password.tr(), header_type: Header_Type.barNormal,),
       body: Column(
         children: [
           Container(padding:EdgeInsets.all(15), child: Text(LocaleKeys.message_mail_edit.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),
@@ -94,7 +94,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
               borderRadius: BorderRadius.circular(40.0),
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
-            child: Text(LocaleKeys.next_btn.tr(),
+            child: Text(LocaleKeys.continue_btn.tr(),
               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
             ),
           )

@@ -62,10 +62,14 @@ class CodegenLoader extends AssetLoader{
     "title_shipping": "Shipping",
     "title_payment": "Payment Method"
   },
+  "review": {
+    "write": "write review",
+    "rate": "Rate"
+  },
   "edit_phone": {
     "title": "Please enter a new phone number to receive a OTP",
     "hint": "New Phone number",
-    "confirm_otp": "Confirm OTP [Ref : tedf]",
+    "confirm_otp": "Confirm OTP",
     "old_phone": "Previous Phone Number",
     "otp_again": "Resend a verification code again"
   },
@@ -77,8 +81,8 @@ class CodegenLoader extends AssetLoader{
   "edit_password": {
     "new": "New Password",
     "old": "Previous Password",
-    "toobar": "Change Password",
-    "confirm_new": "Confirm Password"
+    "confirm_new": "Confirm Password",
+    "set": "Set Password"
   },
   "my_profile": {
     "title": "My Profile",
@@ -90,7 +94,8 @@ class CodegenLoader extends AssetLoader{
     "email": "Email",
     "username": "Username",
     "change_password": "Change Password",
-    "fullname": "Fullname",
+    "request_change_password": "Request Change Password",
+    "fullname": "Full name",
     "phoneNum": "Phone Number",
     "password": "Password"
   },
@@ -128,6 +133,8 @@ class CodegenLoader extends AssetLoader{
   "add": "Add ",
   "by": " By",
   "or": "OR",
+  "withh": "with",
+  "and": "and",
   "setting_language_toobar": "Select Language",
   "setting_rule_toobar": "Rules of Use",
   "setting_about_toobar": "About Us",
@@ -139,10 +146,12 @@ class CodegenLoader extends AssetLoader{
   "add_product_btn": "Add Product",
   "login_btn": "LOGIN",
   "facebook_login_btn": "Login with Facebook",
+  "facebook_regis_btn": "Sign up with Facebook",
   "edit_img_btn": "Edit Image",
   "save_btn": "SAVE",
   "register_btn": "SIGN UP",
   "ok_btn": "OK",
+  "continue_btn": "Continue",
   "next_btn": "Next",
   "cancel_btn": "Cancel",
   "forgot_pass_btn": "Forgot password?",
@@ -169,9 +178,13 @@ class CodegenLoader extends AssetLoader{
     "error": {
       "password_incorrect": "Password is incorrect",
       "password_length": "Should set a password of 8-12 characters or more",
+      "password_not_match": "Password do not match",
+      "username_length": "Should set a username of 6 characters or more",
       "userpass_empty": "Username or password must not be empty",
+      "phone_empty": "Phone number must not be empty",
       "phone_invalid": "Invalid phone number",
-      "mail_invalid": "Invalid Email"
+      "mail_invalid": "Invalid Email",
+      "mail_empty": "Email must not be empty"
     }
   },
   "cart": {
@@ -195,7 +208,8 @@ class CodegenLoader extends AssetLoader{
     "use": "Use",
     "place_order": "Place Order",
     "shipping": "Shipping",
-    "shipping_addr": "Shipping Address"
+    "shipping_addr": "Shipping Address",
+    "use_before": "valid till"
   },
   "history": {
     "order_time": "Payment Time",
@@ -260,7 +274,11 @@ class CodegenLoader extends AssetLoader{
     "follow": "Follow",
     "following": "Following",
     "follower": "Follower",
-    "product_list": "Products"
+    "product_list": "Products",
+    "active": {
+      "hour": "hours ago",
+      "minute": "minutes ago"
+    }
   },
   "recommend": {
     "market": "Farm Market",
@@ -312,6 +330,7 @@ class CodegenLoader extends AssetLoader{
     "ship_time": "Ship Time",
     "ship_data": "Shipping Information",
     "order_num": "Order ID",
+    "parcel_num": "Parcel ID",
     "go_shop": "Visit Shop",
     "ship_price": "Shipping Fee",
     "ship_addr": "Shipping Address",
@@ -322,6 +341,31 @@ class CodegenLoader extends AssetLoader{
   "login": {
     "forgot_password": "Forgot Password",
     "not_member": "Not a member?"
+  },
+  "regis": {
+    "agree": "By signing up, you agree to",
+    "rule": "Rules of Use",
+    "policy": "Privacy Policy",
+    "otp": {
+      "title": "verification code",
+      "message": "Your verification code 6 digits is sent by SMS to",
+      "please_wait": "Please wait",
+      "before_tab": ""
+    }
+  },
+  "map": {
+    "home": "My Home",
+    "office": "Office"
+  },
+  "splashLogin": {
+    "skip": "SKIP",
+    "skip_message": "tap \"SKIP\" go to home page"
+  },
+  "search_product": {
+    "title": "Search Product",
+    "show": "Show more",
+    "hide": "Hide",
+    "not_found": "Product not found"
   }
 };
 static const Map<String,dynamic> th_TH = {
@@ -372,10 +416,14 @@ static const Map<String,dynamic> th_TH = {
     "title_shipping": "การจัดส่ง",
     "title_payment": "วิธีการชำระเงิน"
   },
+  "review": {
+    "write": "เขียนรีวืว",
+    "rate": "ให้คะแนน"
+  },
   "edit_phone": {
     "title": "กรุณาใส่หมายเลขใหม่เพื่อรับ OTP",
     "hint": "หมายเลขโทรศัพท์ใหม่",
-    "confirm_otp": "ยืนยัน OTP [Ref : tedf]",
+    "confirm_otp": "ยืนยัน OTP",
     "old_phone": "หมายเลขโทรศัพท์เก่า",
     "otp_again": "ขอรหัสยืนยันใหม่อีกครั้ง"
   },
@@ -387,8 +435,8 @@ static const Map<String,dynamic> th_TH = {
   "edit_password": {
     "new": "รหัสผ่านใหม่",
     "old": "รหัสผ่านเดิม",
-    "toobar": "เปลี่ยนรหัสผ่าน",
-    "confirm_new": "ยืนยันรหัสผ่านใหม่"
+    "confirm_new": "ยืนยันรหัสผ่านใหม่",
+    "set": "กำหนดรหัสผ่าน"
   },
   "my_profile": {
     "title": "ข้อมูลส่วนตัว",
@@ -400,6 +448,7 @@ static const Map<String,dynamic> th_TH = {
     "email": "อีเมล",
     "username": "ชื่อผู้ใช้",
     "change_password": "เปลี่ยนรหัสผ่าน",
+    "request_change_password": "ขอเปลี่ยนรหัสผ่าน",
     "fullname": "ชื่อ-นามสกุล",
     "phoneNum": "หมายเลขโทรศัพท์",
     "password": "รหัสผ่าน"
@@ -438,6 +487,8 @@ static const Map<String,dynamic> th_TH = {
   "add": "เพิ่ม",
   "by": "โดย",
   "or": "หรือ",
+  "withh": "กับ",
+  "and": "และ",
   "setting_language_toobar": "เลือกภาษา",
   "setting_rule_toobar": "กฎระเบียบการใช้งาน",
   "setting_about_toobar": "เกี่ยวกับเรา",
@@ -446,13 +497,15 @@ static const Map<String,dynamic> th_TH = {
   "logout_btn": "ออกจากระบบ",
   "login_btn": "เข้าสู่ระบบ",
   "facebook_login_btn": "เข้าสู่ระบบด้วย Facebook",
+  "facebook_regis_btn": "สมัครด้วย Facebook",
   "edit_btn": "แก้ไขรูป",
   "register_btn": "สมัครสมาชิก",
   "add_address_btn": "เพิ่มที่อยู่ใหม่",
   "add_product_btn": "เพิ่มสินค้า",
   "save_btn": "บันทึก",
   "ok_btn": "ตกลง",
-  "next_btn": "ดำเนินการต่อ",
+  "continue_btn": "ดำเนินการต่อ",
+  "next_btn": "ถัดไป",
   "cancel_btn": "ยกเลิก",
   "forgot_pass_btn": "หากลิมรหัสผ่าน",
   "confirm_btn": "ยืนยัน",
@@ -478,9 +531,13 @@ static const Map<String,dynamic> th_TH = {
     "error": {
       "password_incorrect": "รหัสผ่านไม่ถูกต้อง",
       "password_length": "ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป",
-      "pass_empty": "ชื่อผู้ใช้งาน หรือ รหัสผ่าน ห้ามว่าง",
+      "password_not_match": "รหัสผ่านไม่ตรงกัน",
+      "userpass_empty": "ชื่อผู้ใช้งาน หรือ รหัสผ่าน ห้ามว่าง",
+      "username_length": "ชื่อผู้ใช้งานต้องต้องมีตัวหนังสือ 6 ขึ้นไป",
+      "phone_empty": "เบอร์โทรต้องไม่ว่าง",
       "phone_invalid": "เบอร์โทรไม่ถูกต้อง",
-      "mail_invalid": "อีเมล์ไม่ถูกต้อง"
+      "mail_invalid": "อีเมลไม่ถูกต้อง",
+      "mail_empty": "อีเมล์ ห้ามว่าง"
     }
   },
   "cart": {
@@ -504,10 +561,11 @@ static const Map<String,dynamic> th_TH = {
     "use": "ใช้ส่วนลด",
     "place_order": "ทำการสั่งซื้อ",
     "shipping": "จัดส่ง",
-    "shipping_addr": "ที่อยู่จัดส่ง"
+    "shipping_addr": "ที่อยู่จัดส่ง",
+    "use_before": "ใช้ได้ก่อน"
   },
   "history": {
-    "order_time": "วัยที่ซื้อ",
+    "order_time": "วันที่ซื้อ",
     "order_price": "รวมการสั่งซื้อ",
     "wait_rate": "รอให้คะแนน"
   },
@@ -569,7 +627,11 @@ static const Map<String,dynamic> th_TH = {
     "follow": "ตืดตาม",
     "following": "กำลังติดตาม",
     "follower": "ผู้ติดตาม",
-    "product_list": "รายการสินค้า"
+    "product_list": "รายการสินค้า",
+    "active": {
+      "hour": "ชั่วโมง ที่ผ่านมา",
+      "minute": "นาที ที่ผ่านมา"
+    }
   },
   "recommend": {
     "market": "ฟาร์มมาร์เก็ต",
@@ -620,6 +682,7 @@ static const Map<String,dynamic> th_TH = {
     "ship_time": "เวลาส่งสินค้า",
     "ship_data": "ข้อมูลการจัดส่ง",
     "order_num": "หมายเลขคำสั่งซื้อ",
+    "parcel_num": "พัสดุหมายเลข",
     "go_shop": "ไปยังร้านค้า",
     "ship_price": "ค่าจัดส่ง",
     "ship_addr": "ที่อยู่ในการส่ง",
@@ -630,6 +693,31 @@ static const Map<String,dynamic> th_TH = {
   "login": {
     "forgot_password": "ลืมรหัสผ่าน",
     "not_member": "หากยังไม่ได้เป็นสมาชิก"
+  },
+  "regis": {
+    "agree": "ในการสมัครใช้งาน เราถือว่าคุณยอมรับ",
+    "rule": "ข้อตกลงการใช้งาน",
+    "policy": "นโยบายความเป็นส่วนตัว",
+    "otp": {
+      "title": "ใส่รหัสยืนยันตัวตน",
+      "message": "ยืนยันตัวตนด้วย โค้ด 6 หลักจาก SMS ที่ได้จากหมายเลข",
+      "please_wait": "กรุณารอ",
+      "before_tab": "ก่อนกดอีกครั้ง"
+    }
+  },
+  "map": {
+    "home": "บ้านฉัน",
+    "office": "ที่ทำงาน"
+  },
+  "splashLogin": {
+    "skip": "ข้ามหน้านี้",
+    "skip_message": "กดข้ามเพื่อเข้าสู่หน้าหลัก"
+  },
+  "search_product": {
+    "title": "ค้นหาสินค้า",
+    "show": "แสดงเพิ่ม",
+    "hide": "ย่อ",
+    "not_found": "ไม่พบข้อมูล"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en_US": en_US, "th_TH": th_TH};

@@ -152,7 +152,7 @@ class FlashSale extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
                     color: ThemeColor.ColorSale(),
-                    child:  Hero(tag: "productStatus_${index}",child: Text(item.product_status,style: FunctionHelper.FontTheme(color: Colors.white,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize()),)),
+                    child:  Hero(tag: "productStatus_${index}",child: Text(item.product_status+" "+LocaleKeys.my_product_sold_end.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize()),)),
                   ),
                 ),
               ),

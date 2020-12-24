@@ -198,7 +198,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
             ),
             onPressed: () => FormCheck() ? bloc.OTPVerify(phone: otpRespone.phone,ref: otpRespone.refCode,code: OtpController.text): SizedBox(),
             child: Text(
-              FormCheck() ? LocaleKeys.confirm_btn.tr() : LocaleKeys.next_btn.tr(),
+              FormCheck() ? LocaleKeys.confirm_btn.tr() : LocaleKeys.continue_btn.tr(),
               style: FunctionHelper.FontTheme(
                   fontSize: SizeUtil.titleFontSize(),
                   fontWeight: FontWeight.w500),

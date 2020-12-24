@@ -11,8 +11,9 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CustomGridView extends StatelessWidget {
   final int lengthRow;
@@ -101,7 +102,7 @@ class CustomGridView extends StatelessWidget {
                 ),
                 SizedBox(height: 2),
                 Text(
-                  item.product_status,
+                  LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr(),
                   overflow: TextOverflow.ellipsis,
                   style: FunctionHelper.FontTheme(
                       color: Colors.black,

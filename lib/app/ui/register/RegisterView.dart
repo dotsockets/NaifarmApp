@@ -135,7 +135,7 @@ class _RegisterViewState extends State<RegisterView> {
                 borderRadius: BorderRadius.circular(40.0),
               ),
               onPressed: ()=>bloc.LoginFacebook(),
-              child: Text("สมัครด้วย Facebook",
+              child: Text(LocaleKeys.facebook_regis_btn.tr(),
                 style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
               ),
             ),
@@ -143,15 +143,15 @@ class _RegisterViewState extends State<RegisterView> {
           SizedBox(height: 30,),
           Wrap(
             children: [
-              Text("ในการสมัครใช้งาน เราถือว่าคุณยอมรับ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
-              InkWell(child: Text(" ข้อตกลงในการใช้งาน",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
+              Text(LocaleKeys.regis_agree.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
+              InkWell(child: Text(" "+LocaleKeys.regis_rule.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
                ,onTap: (){AppRoute.SettingRules(context);},
               ),
-              Text(" และ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
-              InkWell(child: Text("นโยบายความเป็นส่วนตัว",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
+              Text(" "+LocaleKeys.and.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
+              InkWell(child: Text(LocaleKeys.regis_policy.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
               ,onTap: (){AppRoute.SettingPolicy(context);},
               ),
-              Text(" กับทาง NaiFarm",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
+              Text(" "+LocaleKeys.withh.tr()+" NaiFarm",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
             ],
           )
         ],
@@ -191,9 +191,9 @@ class _RegisterViewState extends State<RegisterView> {
 
   void _validate() {
     if(PhoneController.text.isEmpty){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "เบอร์โทรต้องไม่ว่าง",context: context);
+      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_phone_empty.tr(),context: context);
     }else if(PhoneController.text.length!=10){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "เบอร์โทรศัพท์ไม่ถูกต้อง");
+      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_phone_invalid.tr());
     }else{
       bloc.OTPRequest(numberphone: PhoneController.text);
 

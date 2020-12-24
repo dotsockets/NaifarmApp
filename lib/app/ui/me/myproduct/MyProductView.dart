@@ -133,7 +133,7 @@ class _MyProductViewState extends State<MyProductView> {
                                 child: Align(
                                   alignment: Alignment.topRight,
                                   child: Text(
-                                    "${item.product_status}",
+                                    "${LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr()}",
                                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize()),
                                   ),
                                 ),

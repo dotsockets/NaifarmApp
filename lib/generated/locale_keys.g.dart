@@ -45,6 +45,9 @@ abstract class  LocaleKeys {
   static const me_title_shipping = 'me.title_shipping';
   static const me_title_payment = 'me.title_payment';
   static const me = 'me';
+  static const review_write = 'review.write';
+  static const review_rate = 'review.rate';
+  static const review = 'review';
   static const edit_phone_title = 'edit_phone.title';
   static const edit_phone_hint = 'edit_phone.hint';
   static const edit_phone_confirm_otp = 'edit_phone.confirm_otp';
@@ -57,8 +60,8 @@ abstract class  LocaleKeys {
   static const edit_email = 'edit_email';
   static const edit_password_new = 'edit_password.new';
   static const edit_password_old = 'edit_password.old';
-  static const edit_password_toobar = 'edit_password.toobar';
   static const edit_password_confirm_new = 'edit_password.confirm_new';
+  static const edit_password_set = 'edit_password.set';
   static const edit_password = 'edit_password';
   static const my_profile_title = 'my_profile.title';
   static const my_profile_name = 'my_profile.name';
@@ -69,6 +72,7 @@ abstract class  LocaleKeys {
   static const my_profile_email = 'my_profile.email';
   static const my_profile_username = 'my_profile.username';
   static const my_profile_change_password = 'my_profile.change_password';
+  static const my_profile_request_change_password = 'my_profile.request_change_password';
   static const my_profile_fullname = 'my_profile.fullname';
   static const my_profile_phoneNum = 'my_profile.phoneNum';
   static const my_profile_password = 'my_profile.password';
@@ -103,6 +107,8 @@ abstract class  LocaleKeys {
   static const add = 'add';
   static const by = 'by';
   static const or = 'or';
+  static const withh = 'withh';
+  static const and = 'and';
   static const setting_language_toobar = 'setting_language_toobar';
   static const setting_rule_toobar = 'setting_rule_toobar';
   static const setting_about_toobar = 'setting_about_toobar';
@@ -114,10 +120,12 @@ abstract class  LocaleKeys {
   static const add_product_btn = 'add_product_btn';
   static const login_btn = 'login_btn';
   static const facebook_login_btn = 'facebook_login_btn';
+  static const facebook_regis_btn = 'facebook_regis_btn';
   static const edit_img_btn = 'edit_img_btn';
   static const save_btn = 'save_btn';
   static const register_btn = 'register_btn';
   static const ok_btn = 'ok_btn';
+  static const continue_btn = 'continue_btn';
   static const next_btn = 'next_btn';
   static const cancel_btn = 'cancel_btn';
   static const forgot_pass_btn = 'forgot_pass_btn';
@@ -141,9 +149,13 @@ abstract class  LocaleKeys {
   static const message_forgot_mail = 'message.forgot_mail';
   static const message_error_password_incorrect = 'message.error.password_incorrect';
   static const message_error_password_length = 'message.error.password_length';
+  static const message_error_password_not_match = 'message.error.password_not_match';
+  static const message_error_username_length = 'message.error.username_length';
   static const message_error_userpass_empty = 'message.error.userpass_empty';
+  static const message_error_phone_empty = 'message.error.phone_empty';
   static const message_error_phone_invalid = 'message.error.phone_invalid';
   static const message_error_mail_invalid = 'message.error.mail_invalid';
+  static const message_error_mail_empty = 'message.error.mail_empty';
   static const message_error = 'message.error';
   static const message = 'message';
   static const cart_toobar = 'cart.toobar';
@@ -167,6 +179,7 @@ abstract class  LocaleKeys {
   static const cart_place_order = 'cart.place_order';
   static const cart_shipping = 'cart.shipping';
   static const cart_shipping_addr = 'cart.shipping_addr';
+  static const cart_use_before = 'cart.use_before';
   static const cart = 'cart';
   static const history_order_time = 'history.order_time';
   static const history_order_price = 'history.order_price';
@@ -227,6 +240,9 @@ abstract class  LocaleKeys {
   static const shop_following = 'shop.following';
   static const shop_follower = 'shop.follower';
   static const shop_product_list = 'shop.product_list';
+  static const shop_active_hour = 'shop.active.hour';
+  static const shop_active_minute = 'shop.active.minute';
+  static const shop_active = 'shop.active';
   static const shop = 'shop';
   static const recommend_market = 'recommend.market';
   static const recommend_search_hot = 'recommend.search_hot';
@@ -274,6 +290,7 @@ abstract class  LocaleKeys {
   static const order_detail_ship_time = 'order_detail.ship_time';
   static const order_detail_ship_data = 'order_detail.ship_data';
   static const order_detail_order_num = 'order_detail.order_num';
+  static const order_detail_parcel_num = 'order_detail.parcel_num';
   static const order_detail_go_shop = 'order_detail.go_shop';
   static const order_detail_ship_price = 'order_detail.ship_price';
   static const order_detail_ship_addr = 'order_detail.ship_addr';
@@ -284,5 +301,25 @@ abstract class  LocaleKeys {
   static const login_forgot_password = 'login.forgot_password';
   static const login_not_member = 'login.not_member';
   static const login = 'login';
+  static const regis_agree = 'regis.agree';
+  static const regis_rule = 'regis.rule';
+  static const regis_policy = 'regis.policy';
+  static const regis_otp_title = 'regis.otp.title';
+  static const regis_otp_message = 'regis.otp.message';
+  static const regis_otp_please_wait = 'regis.otp.please_wait';
+  static const regis_otp_before_tab = 'regis.otp.before_tab';
+  static const regis_otp = 'regis.otp';
+  static const regis = 'regis';
+  static const map_home = 'map.home';
+  static const map_office = 'map.office';
+  static const map = 'map';
+  static const splashLogin_skip = 'splashLogin.skip';
+  static const splashLogin_skip_message = 'splashLogin.skip_message';
+  static const splashLogin = 'splashLogin';
+  static const search_product_title = 'search_product.title';
+  static const search_product_show = 'search_product.show';
+  static const search_product_hide = 'search_product.hide';
+  static const search_product_not_found = 'search_product.not_found';
+  static const search_product = 'search_product';
 
 }
