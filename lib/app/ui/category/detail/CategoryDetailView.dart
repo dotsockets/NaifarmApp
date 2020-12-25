@@ -10,6 +10,7 @@ import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BannerSlide.dart';
 import 'package:naifarm/utility/widgets/CategoryMenu.dart';
@@ -17,6 +18,7 @@ import 'package:naifarm/utility/widgets/ProductGrid.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/ProductVertical.dart';
 import 'package:sticky_headers/sticky_headers.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CategoryDetailView extends StatefulWidget {
   final int index;
@@ -107,7 +109,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                     BannerSlide(),
                     SizedBox(height: 15),
                     ProductGrid(
-                        titleInto: "แนะนำ",
+                        titleInto: LocaleKeys.tab_bar_recommend.tr(),
                         showBorder: true,
                         producViewModel:
                             ProductViewModel().getMarketRecommend(),
@@ -122,7 +124,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                     _BannerAds(),
                     SizedBox(height: 5),
                     ProductVertical(
-                      titleInto: "ขายดี",
+                      titleInto: LocaleKeys.recommend_best_seller.tr(),
                       producViewModel: ProductViewModel().getProductFarm(),
                       IconInto: 'assets/images/svg/product_hot.svg',
                       onSelectMore: () {},

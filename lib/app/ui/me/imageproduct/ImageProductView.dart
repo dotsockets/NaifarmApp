@@ -151,7 +151,7 @@ class _ImageProductViewState extends State<ImageProductView> {
                 .size
                 .width,
             margin: EdgeInsets.all(15),
-            child: _buildButtonItem(btnTxt: LocaleKeys.next_btn.tr())));
+            child: _buildButtonItem(btnTxt: LocaleKeys.continue_btn.tr())));
   }
 
   Widget _buildButtonItem({String btnTxt}) {

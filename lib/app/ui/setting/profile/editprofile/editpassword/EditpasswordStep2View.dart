@@ -82,7 +82,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
       key: _scaffoldKey,
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        title: LocaleKeys.edit_password_toobar.tr(), header_type: Header_Type.barNormal,onClick: (){
+        title: LocaleKeys.my_profile_change_password.tr(), header_type: Header_Type.barNormal,onClick: (){
         FunctionHelper.ConfirmDialog(context,
             message: LocaleKeys.dialog_message_phone_edit_cancel.tr(),
             onClick: () {
@@ -128,7 +128,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
               borderRadius: BorderRadius.circular(40.0),
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
-            child: Text(LocaleKeys.next_btn.tr(),
+            child: Text(LocaleKeys.continue_btn.tr(),
               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
             ),
           )

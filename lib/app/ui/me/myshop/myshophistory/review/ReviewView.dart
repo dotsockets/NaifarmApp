@@ -8,11 +8,12 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomStarRating.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ReviewView extends StatelessWidget {
 
@@ -23,7 +24,7 @@ class ReviewView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
-        title: "รีวิว",
+        title: LocaleKeys.review_btn.tr(),
         header_type: Header_Type.barNormal,
         icon: '',
       ),
@@ -53,7 +54,7 @@ class ReviewView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("หมายเลขคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
+              Text(LocaleKeys.order_detail_order_num.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
               Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),),
 
             ],
@@ -176,7 +177,7 @@ class ReviewView extends StatelessWidget {
       color: Colors.white,
         child: Column(
           children: [
-            Text("ให้คะแนน",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
+            Text(LocaleKeys.review_rate.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
             SizedBox(height: 20,),
             CustomStarRating(
                 allowHalfRating: false,
@@ -195,8 +196,8 @@ class ReviewView extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(left: 20,right: 20,top: 20),
               child: BuildEditText(
-                  head: "รีวิว * ",maxLength: 5000,
-                  hint: "เขียนรีวิว",maxLine: 5,controller: reviewController,inputType: TextInputType.text),
+                  head: LocaleKeys.review_btn.tr()+" * ",maxLength: 5000,
+                  hint: LocaleKeys.review_write.tr(),maxLine: 5,controller: reviewController,inputType: TextInputType.text),
             ),
             SizedBox(height: 15,),
             Row(
@@ -247,7 +248,7 @@ class ReviewView extends StatelessWidget {
           onClick();
         },
         child: Text(
-          "ยืนยัน",
+          LocaleKeys.confirm_btn.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
         ),
       ),

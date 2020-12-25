@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SearchMapView extends StatefulWidget {
   final String locationTxt;
@@ -90,9 +92,9 @@ class _SearchMapViewState extends State<SearchMapView> {
       padding: EdgeInsets.all(10),
       child: Row(
         children: [
-          _BuildBlockLocation(description: "คอนโด เอสเปส...", title: "บ้านฉัน",iconTxt: 'assets/images/svg/home_active.svg'),
+          _BuildBlockLocation(description: "คอนโด เอสเปส...", title: LocaleKeys.map_home.tr(),iconTxt: 'assets/images/svg/home_active.svg'),
           SizedBox(width: 10,),
-          _BuildBlockLocation(description: "คอนโด เอสเปส...", title: "ที่ทำงาน",iconTxt: 'assets/images/svg/work.svg'),
+          _BuildBlockLocation(description: "คอนโด เอสเปส...", title: LocaleKeys.map_office.tr(),iconTxt: 'assets/images/svg/work.svg'),
         ],
       ),
     );

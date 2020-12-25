@@ -9,8 +9,9 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -138,7 +139,7 @@ class ProductGrid extends StatelessWidget {
                         EdgeInsets.only(left: 15, right: 7, bottom: 3, top: 3),
                     color: ThemeColor.ColorSale(),
                     child: Text(
-                      item.product_status,
+                      LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr(),
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize(),
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -194,7 +195,7 @@ class ProductGrid extends StatelessWidget {
                   borderColor: Colors.black,
                   spacing: 0.0),
             ),
-            Text((item.product_status),
+            Text(LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr(),
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.detailSmallFontSize(),
                     color: Colors.black,

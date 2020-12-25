@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -38,20 +38,20 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
      if(_input1.text.length<8 || _input1.text.length>12){
        t1 = false;
        setState(() {
-         onError1  = "ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป";
+         onError1  = LocaleKeys.message_error_password_length.tr();
        });
      }
 
      if(_input2.text.length<8 || _input2.text.length>12){
        t2 = false;
        setState(() {
-         onError2  = "ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป";
+         onError2  = LocaleKeys.message_error_password_length.tr();
        });
      }else{
        if(_input1.text != _input2.text){
          t2 = false;
          setState(() {
-           onError2  = "รหัสผ่านไม่ตรงกัน";
+           onError2  = LocaleKeys.message_error_password_not_match.tr();
          });
        }
      }
@@ -81,7 +81,7 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(title: "กำหนดรหัสผ่าน",header_type: Header_Type.barNormal,),
+      appBar: AppToobar(title: LocaleKeys.edit_password_set.tr(),header_type: Header_Type.barNormal,),
       body: Container(
         child: Container(
           child: Column(
@@ -98,7 +98,7 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 onPressed: ()=>FormCheck()?verify():SizedBox(),
-                child: Text("ถัดไป",
+                child: Text(LocaleKeys.continue_btn.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                 ),
               )
@@ -115,11 +115,11 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
       padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),
       child: Column(
         children: [
-          BuildEditText(head: "รหัสผ่าน",hint: "ระบุรหัสผ่าน",inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input1,onError: onError1,onChanged: (String char){
+          BuildEditText(head: LocaleKeys.my_profile_password.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input1,onError: onError1,onChanged: (String char){
            setState(() {});
           },),
           SizedBox(height: 20,),
-          BuildEditText(head: "ยืนยันรหัสผ่าน",hint: "ระบุรหัสผ่าน",inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input2,onError: onError2,onChanged: (String char){
+          BuildEditText(head: LocaleKeys.confirm_btn.tr()+" "+LocaleKeys.my_profile_password.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input2,onError: onError2,onChanged: (String char){
             setState(() {});
           },)
         ],

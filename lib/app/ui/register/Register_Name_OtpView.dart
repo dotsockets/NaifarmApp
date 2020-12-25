@@ -9,7 +9,8 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
-import 'package:naifarm/app/model/pojo/response/User.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -73,7 +74,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(title: "ชื่อผู้เช้าใข้",header_type: Header_Type.barNormal,),
+      appBar: AppToobar(title: LocaleKeys.my_profile_username.tr(),header_type: Header_Type.barNormal,),
       body: Container(
         child: Container(
           child: Column(
@@ -90,7 +91,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 onPressed: ()=>verify(),
-                child: Text("ถัดไป",
+                child: Text(LocaleKeys.next_btn.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                 ),
               )
@@ -106,11 +107,11 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
       padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),
       child: Column(
         children: [
-          BuildEditText(head: "ชื่อผู้เช้าใข้",hint: "ระบุชื่อผู้เช้าใข้",inputType: TextInputType.text,maxLength: 20,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
+          BuildEditText(head: LocaleKeys.my_profile_username.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_username.tr(),inputType: TextInputType.text,maxLength: 20,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
             setState(() {});
           },),
           SizedBox(height: 20,),
-          BuildEditText(head: "อีเมล",hint: "ระบุอีเมล",inputType: TextInputType.emailAddress,maxLength: 20,borderRadius: 5,onError: onError2,controller: _input2,onChanged: (String char){
+          BuildEditText(head: LocaleKeys.my_profile_email.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_email.tr(),inputType: TextInputType.emailAddress,maxLength: 20,borderRadius: 5,onError: onError2,controller: _input2,onChanged: (String char){
             setState(() {});
           },)
         ],
@@ -122,12 +123,12 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
   //  FunctionHelper.showDialogProcess(context);
 
     if(_input1.text.isEmpty || _input1.text.length<6){
-      setState(()=> onError1 = "ชื่อผู้ใช้งานต้องต้องมีตัวหนังสือ 6 ขึ้นไป");
+      setState(()=> onError1 = LocaleKeys.message_error_username_length.tr());
     }else{
       setState(()=> onError1 = "");
     }
     if(!validator.email(_input2.text)){
-      setState(()=> onError2 = "รูปแบบอีเมล์ไม่ถูกต้อง");
+      setState(()=> onError2 = LocaleKeys.message_error_mail_invalid.tr());
     }
     else{
       setState(()=> onError2 = "");

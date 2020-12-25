@@ -135,7 +135,7 @@ class ProductVertical extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Text(item.product_status,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:  SizeUtil.detailSmallFontSize()),),
+                  Text(LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:  SizeUtil.detailSmallFontSize()),),
                   SizedBox(height: 5),
                   Row(
                     children: [

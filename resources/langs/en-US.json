@@ -46,10 +46,14 @@
     "title_shipping": "Shipping",
     "title_payment": "Payment Method"
   },
+  "review": {
+    "write": "write review",
+    "rate": "Rate"
+  },
   "edit_phone": {
     "title": "Please enter a new phone number to receive a OTP",
     "hint": "New Phone number",
-    "confirm_otp": "Confirm OTP [Ref : tedf]",
+    "confirm_otp": "Confirm OTP",
     "old_phone": "Previous Phone Number",
     "otp_again": "Resend a verification code again"
   },
@@ -61,8 +65,8 @@
   "edit_password":{
     "new": "New Password",
     "old": "Previous Password",
-    "toobar": "Change Password",
-    "confirm_new": "Confirm Password"
+    "confirm_new": "Confirm Password",
+    "set": "Set Password"
   },
 
   "my_profile": {
@@ -75,7 +79,8 @@
     "email": "Email",
     "username":"Username",
     "change_password": "Change Password",
-    "fullname": "Fullname",
+    "request_change_password": "Request Change Password",
+    "fullname": "Full name",
     "phoneNum": "Phone Number",
     "password": "Password"
   },
@@ -116,7 +121,7 @@
   "add": "Add ",
   "by": " By",
   "or": "OR",
-  "with": "With",
+  "withh": "with",
   "and": "and",
 
   "setting_language_toobar": "Select Language",
@@ -136,6 +141,7 @@
   "save_btn": "SAVE",
   "register_btn": "SIGN UP",
   "ok_btn": "OK",
+  "continue_btn": "Continue",
   "next_btn": "Next",
   "cancel_btn": "Cancel",
   "forgot_pass_btn": "Forgot password?",
@@ -166,9 +172,13 @@
     "error": {
       "password_incorrect":"Password is incorrect",
       "password_length": "Should set a password of 8-12 characters or more",
+      "password_not_match": "Password do not match",
+      "username_length" : "Should set a username of 6 characters or more",
       "userpass_empty": "Username or password must not be empty",
+      "phone_empty": "Phone number must not be empty",
       "phone_invalid": "Invalid phone number",
-      "mail_invalid": "Invalid Email"
+      "mail_invalid": "Invalid Email",
+      "mail_empty": "Email must not be empty"
     }
   },
 
@@ -193,7 +203,8 @@
     "use":"Use",
     "place_order": "Place Order",
     "shipping": "Shipping",
-    "shipping_addr": "Shipping Address"
+    "shipping_addr": "Shipping Address",
+    "use_before": "valid till"
   },
   "history":{
     "order_time": "Payment Time",
@@ -260,7 +271,11 @@
     "follow": "Follow",
     "following": "Following",
     "follower": "Follower",
-    "product_list": "Products"
+    "product_list": "Products",
+    "active": {
+      "hour": "hours ago",
+      "minute" : "minutes ago"
+    }
   },
   "recommend": {
     "market": "Farm Market",
@@ -315,6 +330,7 @@
     "ship_time": "Ship Time",
     "ship_data": "Shipping Information",
     "order_num": "Order ID",
+    "parcel_num": "Parcel ID",
     "go_shop": "Visit Shop",
     "ship_price": "Shipping Fee",
     "ship_addr": "Shipping Address",
@@ -329,7 +345,27 @@
   "regis": {
     "agree": "By signing up, you agree to",
     "rule": "Rules of Use",
-    "policy": "Privacy Policy"
+    "policy": "Privacy Policy",
+    "otp": {
+      "title": "verification code",
+      "message": "Your verification code 6 digits is sent by SMS to",
+      "please_wait": "Please wait",
+      "before_tab": ""
+    }
+  },
+  "map": {
+    "home": "My Home",
+    "office": "Office"
+  },
+  "splashLogin": {
+    "skip": "SKIP",
+    "skip_message": "tap \"SKIP\" go to home page"
+  },
+  "search_product": {
+    "title": "Search Product",
+    "show": "Show more",
+    "hide": "Hide",
+    "not_found": "Data not found"
   }
 
 }

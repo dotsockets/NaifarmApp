@@ -167,6 +167,7 @@ class SuccessView extends StatelessWidget {
                   Row(
                     children: [
                       index==1?FlatButton(
+                        minWidth: 10,
                         color: ThemeColor.ColorSale(),
                         textColor: Colors.white,
                         splashColor: Colors.white.withOpacity(0.3),

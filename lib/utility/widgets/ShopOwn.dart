@@ -138,7 +138,7 @@ class ShopOwn extends StatelessWidget {
                             starCount: 5,
                             rating: productDetail.rateShow,
                             size: 25.0,
-                            isReadOnly: false,
+                            isReadOnly: true,
                             filledIconData: Icons.star,
                             halfFilledIconData: Icons.star_half_outlined,
                             color: Colors.amber,

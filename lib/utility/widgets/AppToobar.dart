@@ -73,7 +73,9 @@ class AppToobar extends PreferredSize {
               color: Colors.white,
               width: 30,
               height: 30,
-            ):SizedBox(),
+            ):Container(
+                padding: EdgeInsets.only(right: 10),
+                child: SizedBox(width: 30,)),
           )
         ],
         backgroundColor: ThemeColor.primaryColor(),

@@ -11,9 +11,11 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:retrofit/http.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class RegisterOTPView extends StatefulWidget {
   final String phoneNumber;
@@ -107,7 +109,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,
-      appBar: AppToobar(title: "ใส่รหัสยืนยันตัวตน",header_type: Header_Type.barNormal,),
+      appBar: AppToobar(title: LocaleKeys.regis_otp_title.tr(),header_type: Header_Type.barNormal,),
       body: SafeArea(
         child: Column(
           children: [
@@ -115,11 +117,11 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
               child: Column(
                 children: [
                   SizedBox(height: 30,),
-                  Text("ยืนยันตัวตนด้วย โค้ด 6 หลักจาก SMS ที่ได้จากหมายเลข",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black),),
+                  Text(LocaleKeys.regis_otp_message.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black),),
                   SizedBox(height: 10,),
                   Text(widget.phoneNumber,style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize(),color: Colors.black)),
                   SizedBox(height: 10,),
-                  Text("ยืนยัน OTP [Ref : ${widget.refCode}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w500)),
+                  Text(LocaleKeys.edit_phone_confirm_otp.tr()+" [Ref : ${widget.refCode}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w500)),
                   SizedBox(height: 30,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -431,7 +433,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      endTimes?Text("กรุณารอ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w400)):SizedBox(),
+                      endTimes?Text(LocaleKeys.regis_otp_please_wait.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w400)):SizedBox(),
                       CountdownTimer(
                         endTime: endTime,
                         widgetBuilder: (_, CurrentRemainingTime time) {
@@ -446,7 +448,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                   children: [
                                     SvgPicture.asset('assets/images/svg/change.svg'),
                                     SizedBox(width: 10,),
-                                    Text("ขอรหัสยืนยันใหม่อีกครั้ง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),)
+                                    Text(LocaleKeys.edit_phone_otp_again.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),)
                                   ],
                                 ),
                                 onTap: (){
@@ -464,7 +466,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                           // Navigator.pop(context,false);
                         },
                       ),
-                      endTimes?Text("  ก่อนกดอีกครั้ง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w400)):SizedBox()
+                      endTimes?Text("  "+LocaleKeys.regis_otp_before_tab.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w400)):SizedBox()
                     ],
                   )
 
@@ -528,7 +530,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         // SuccessForm?AppRoute.Register_set_Password(context):SizedBox();
 
       },
-      child: Text("ถัดไป",
+      child: Text(LocaleKeys.continue_btn.tr(),
         style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
       ),
     );

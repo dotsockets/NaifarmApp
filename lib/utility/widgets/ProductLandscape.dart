@@ -150,7 +150,7 @@ class ProductLandscape extends StatelessWidget {
             padding: EdgeInsets.all(5),
             child: Container(
               padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
-              child:  Text(item.product_status,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize()),),
+              child:  Text(LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize()),),
             ),
           )
         ],

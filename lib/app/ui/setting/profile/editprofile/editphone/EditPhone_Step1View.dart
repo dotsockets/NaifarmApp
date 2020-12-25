@@ -86,7 +86,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
               borderRadius: BorderRadius.circular(40.0),
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
-            child: Text(LocaleKeys.next_btn.tr(),
+            child: Text(LocaleKeys.continue_btn.tr(),
               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
             ),
           )

@@ -4,6 +4,8 @@ import 'package:naifarm/app/models/BankModel.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/models/DiscountModel.dart';
 import 'package:naifarm/app/models/WithDrawModel.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CartViewModel{
   List<CartModel> getMyCart(){
@@ -83,7 +85,7 @@ class CartViewModel{
               ShopImage: "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
               price: 400,
               isDelivery: false,
-              SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+              SubTitle: LocaleKeys.cart_use_before.tr()+" : 01.12.2020",
               isUse: false,
               minimum: 399
           ),
@@ -93,7 +95,7 @@ class CartViewModel{
               ShopImage: "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
               price: 400,
               isDelivery: false,
-              SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+              SubTitle: LocaleKeys.cart_use_before.tr()+" : 01.12.2020",
               isUse: false,
               minimum:699
           ),
@@ -103,7 +105,7 @@ class CartViewModel{
               ShopImage: "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
               price: 400,
               isDelivery: false,
-              SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+              SubTitle: LocaleKeys.cart_use_before.tr()+" : 01.12.2020",
               isUse: true,
               minimum: 399
           ),
@@ -113,7 +115,7 @@ class CartViewModel{
               ShopImage: "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
               price: 400,
               isDelivery: true,
-              SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+              SubTitle: LocaleKeys.cart_use_before.tr()+" : 01.12.2020",
               isUse: false,
               minimum: 40
           )
@@ -132,7 +134,7 @@ class CartViewModel{
                 ShopImage: "https://womensagenda.com.au/wp-content/uploads/2020/05/Sarah-Hill-002-1024x683.jpeg",
                 price: 400,
                 isDelivery: false,
-                SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+                SubTitle: LocaleKeys.cart_use_before.tr()+" : 01.12.2020",
                 isUse: false,
               minimum: 399
             ),
@@ -142,7 +144,7 @@ class CartViewModel{
                 ShopImage: "https://womensagenda.com.au/wp-content/uploads/2020/05/Sarah-Hill-002-1024x683.jpeg",
                 price: 400,
                 isDelivery: false,
-                SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+                SubTitle: LocaleKeys.cart_use_before.tr()+" : 01.12.2020",
                 isUse: false,
               minimum: 699
             ),
@@ -152,7 +154,7 @@ class CartViewModel{
                 ShopImage: "https://womensagenda.com.au/wp-content/uploads/2020/05/Sarah-Hill-002-1024x683.jpeg",
                 price: 400,
                 isDelivery: false,
-                SubTitle: "ใช้ได้ก่อน : 01.12.2020",
+                SubTitle: LocaleKeys.cart_use_before.tr()+" : 01.12.2020",
                 isUse: true,
                 minimum: 399
             )

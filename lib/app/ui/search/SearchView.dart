@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/ui/recommend/widget/SearchHot.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class SearchView extends StatefulWidget {
   @override
@@ -30,7 +33,7 @@ class _SearchViewState extends State<SearchView> {
            icon: "",
            isEnable_Search: false,
            header_type: Header_Type.barHome,
-           hint: "ค้นหาสินค้า",
+           hint: LocaleKeys.search_product_title.tr(),
            onSearch: (String text){
              setState(() {
                SearchLike(text);
@@ -38,10 +41,10 @@ class _SearchViewState extends State<SearchView> {
            },
 
          ),
-        body: Column(
-          children: [
-            SingleChildScrollView(
-              child: Column(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
@@ -54,7 +57,7 @@ class _SearchViewState extends State<SearchView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              padding: EdgeInsets.only(left: 10,right: 10),
+                              padding: EdgeInsets.only(left: 10,top: 10,bottom: 10),
                               child: Text(listClone[index], style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.titleSmallFontSize())
                                 ),
                             ),
@@ -71,7 +74,7 @@ class _SearchViewState extends State<SearchView> {
                       width: MediaQuery.of(context).size.width,
                       child: Center(
                         child: Visibility(
-                          child: Text(listClone.length==0?"ไม่พบข้อมูล":checkSeemore?"ย่อ":"แสดงเพิ่ม",
+                          child: Text(listClone.length==0?LocaleKeys.search_product_not_found.tr():checkSeemore?LocaleKeys.search_product_hide.tr():LocaleKeys.search_product_show.tr(),
                               style: FunctionHelper.FontTheme(color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize())),
                         visible: listClone.length>0&&listClone.length<=3?false:true,
                         ),
@@ -89,8 +92,8 @@ class _SearchViewState extends State<SearchView> {
                   SearchHot(onSelectChang: () {})
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -99,7 +102,7 @@ class _SearchViewState extends State<SearchView> {
   Widget _BuildLine() {
     return Container(
       height: 2,
-      margin: EdgeInsets.only(bottom: 10),
+
       color: Colors.grey.shade50,
     );
   }

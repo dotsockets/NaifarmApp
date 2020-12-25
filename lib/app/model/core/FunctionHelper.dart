@@ -224,7 +224,7 @@ class FunctionHelper {
                 children: <Widget>[
                   CupertinoButton(
                     child: Text(
-                      'ยกเลิก',
+                      LocaleKeys.cancel_btn.tr(),
                       style: FunctionHelper.FontTheme(color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),
                     ),
                     onPressed: () {},
@@ -235,7 +235,7 @@ class FunctionHelper {
                   ),
                   CupertinoButton(
                     child: Text(
-                      'ตกลง',
+                      LocaleKeys.ok_btn.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),
                     ),

@@ -20,9 +20,10 @@ import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/RegisterRespone.dart';
 import 'package:naifarm/app/model/pojo/response/User.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
-import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 
 
@@ -105,13 +106,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         child: Column(
           children: [
             SizedBox(height: 30,),
-            Text("ลืมรหัสผ่าน",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),),
+            Text(LocaleKeys.login_forgot_password.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),),
             SizedBox(height: 30,),
-            BuildEditText(head: "อีเมล์", hint: "อีเมล",inputType: TextInputType.text,controller: _email,BorderOpacity: 0.3,borderRadius: 7,onError: emailError,),
+            BuildEditText(head: LocaleKeys.my_profile_email.tr(), hint: LocaleKeys.my_profile_email.tr(),inputType: TextInputType.text,controller: _email,BorderOpacity: 0.3,borderRadius: 7,onError: emailError,),
             SizedBox(height: 20,),
-            _forgotRespone!=null?BuildEditText(head: "รหัสผ่าน", hint: "รหัสผ่าน",inputType: TextInputType.text,controller: _password,BorderOpacity: 0.3,IsPassword: true,borderRadius: 7,onError: passwordError,):SizedBox(),
+            _forgotRespone!=null?BuildEditText(head: LocaleKeys.my_profile_password.tr(), hint: LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,controller: _password,BorderOpacity: 0.3,IsPassword: true,borderRadius: 7,onError: passwordError,):SizedBox(),
             _forgotRespone!=null?SizedBox(height: 20,):SizedBox(),
-            _forgotRespone!=null?BuildEditText(head: "ยืนยันรหัสผ่าน", hint: "ยืนยันรหัสผ่าน",inputType: TextInputType.text,controller: _repassword,BorderOpacity: 0.3,IsPassword: true,borderRadius: 7,onError: repasswordError,):SizedBox(),
+            _forgotRespone!=null?BuildEditText(head: LocaleKeys.confirm_btn.tr()+LocaleKeys.my_profile_password.tr(), hint: LocaleKeys.confirm_btn.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,controller: _repassword,BorderOpacity: 0.3,IsPassword: true,borderRadius: 7,onError: repasswordError,):SizedBox(),
             SizedBox(height: 30,),
             Padding(
               padding: const EdgeInsets.only(right: 15,left: 15),
@@ -125,7 +126,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 onPressed: () => _validate(),
-                child: Text(_forgotRespone==null?"ขอเปลี่ยนรหัสผ่าน":"เปลี่ยนรหัสผ่าน",
+                child: Text(_forgotRespone==null?LocaleKeys.my_profile_request_change_password.tr():LocaleKeys.my_profile_change_password.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                 ),
               ),
@@ -171,21 +172,21 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     bool check = true;
     if(_email.text.isEmpty){
       check = false;
-      setState(()=>emailError="อีเมล์ ห้ามว่าง");
+      setState(()=>emailError=LocaleKeys.message_error_mail_empty.tr());
     } if(!validator.email(_email.text)){
       check = false;
-      setState(()=>emailError="รูปแบบอีเมล์ไม่ถูกต้อง");
+      setState(()=>emailError=LocaleKeys.message_error_mail_invalid.tr());
     } if(_password.text.length < 8 && _forgotRespone!=null){
       check = false;
-      setState(()=>passwordError="รหัสต้อง 8-12 ตัวอักษรขึ้นไป");
+      setState(()=>passwordError=LocaleKeys.message_error_password_length.tr());
     } if(_repassword.text.length < 8 && _forgotRespone!=null){
       check = false;
-      setState(()=>repasswordError="รหัสต้อง 8-12 ตัวอักษรขึ้นไป");
+      setState(()=>repasswordError=LocaleKeys.message_error_password_length.tr());
     } if(_password.text != _repassword.text && _forgotRespone!=null){
       check = false;
       setState((){
-        passwordError="รหัสผ่านไม่ตรงกัน";
-        repasswordError="รหัสผ่านไม่ตรงกัน";
+        passwordError=LocaleKeys.message_error_password_not_match.tr();
+        repasswordError=LocaleKeys.message_error_password_not_match.tr();
       });
     }
     if(check){

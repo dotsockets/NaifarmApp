@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
 
@@ -78,7 +79,7 @@ class SplashLoginView extends StatelessWidget {
                   onPressed: () {
                      AppRoute.Login(context,IsCallBack: false);
                   },
-                  child: Text("เข้าสู่ระบบ",
+                  child: Text(LocaleKeys.login_btn.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -95,7 +96,7 @@ class SplashLoginView extends StatelessWidget {
                   onPressed: () {
                     AppRoute.Register(context);
                   },
-                  child: Text("สมัครสมาชิก",
+                  child: Text(LocaleKeys.register_btn.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                   ),
                 )
@@ -104,15 +105,15 @@ class SplashLoginView extends StatelessWidget {
             SizedBox(height: ScreenUtil().setHeight(60),),
             Wrap(
               children: [
-                Text("กดข้ามเพื่อเข้าสู่หน้าหลัก ",style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize())),
+                Text(LocaleKeys.splashLogin_skip_message.tr()+" ",style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize())),
                 Column(
                   children: [
-                    InkWell(child: Text(" ข้ามหน้านี้ ",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize())),onTap: (){
+                    InkWell(child: Text(LocaleKeys.splashLogin_skip.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize())),onTap: (){
                       FunctionHelper.showDialogProcess(context);
                       AppRoute.Home(context);
                     },),
                     Container(
-                      width: ScreenUtil().setWidth(150),
+                      width: ScreenUtil().setWidth(100),
                       color: Colors.white,
                       height: 2,
                     )
