@@ -4,18 +4,22 @@ import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
+import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
-import 'package:naifarm/app/model/pojo/response/OtpVerifyRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ResponeObject.dart';
+import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/app/model/pojo/response/RegisterRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Task.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/utility/http/HttpException.dart';
 import 'package:retrofit/retrofit.dart';
 import 'dart:convert';
+
+import 'package:rxdart/rxdart.dart';
 part '_APIProvider.dart';
 
 abstract class APIProvider{
@@ -28,35 +32,41 @@ abstract class APIProvider{
   Future<Fb_Profile> getProFileFacebook(@Query("access_token") String access_token);
 
   @POST("/customers/login")
-  Future<LoginRespone> CustomersLogin(@Body() LoginRequest loginRequest);
+  Future<ResponeObject> CustomersLogin(@Body() LoginRequest loginRequest);
 
   @POST("/customers/register")
-  Future<RegisterRespone> CustomersRegister(@Body() RegisterRequest registerRequest);
+  Future<ResponeObject> CustomersRegister(@Body() RegisterRequest registerRequest);
 
   @POST("/otp/request")
   @FormUrlEncoded()
-  Future<OTPRespone> OtpRequest(@Field() String numbephone);
+  Future<ResponeObject> OtpRequest(@Field() String numbephone);
 
   @POST("/otp/verify")
   @FormUrlEncoded()
-  Future<OtpVerifyRespone> OtpVerify(@Field() String phone,@Field() String code,@Field() String ref);
+  Future<ResponeObject> OtpVerify(@Field() String phone,@Field() String code,@Field() String ref);
 
   @POST("/customers/forgot-password")
-  Future<ForgotRespone> ForgotPasswordRequest(@Part() String email);
+  Future<ResponeObject> ForgotPasswordRequest(@Part() String email);
 
   @POST("/customers/reset-password")
   @FormUrlEncoded()
-  Future<RegisterRespone> ResetPasswordRequest(@Field() String email,@Field() String password,@Field() String token);
+  Future<ResponeObject> ResetPasswordRequest(@Field() String email,@Field() String password,@Field() String token);
 
   @GET("/customers/info")
-  Future<CustomerInfoRespone> getCustomerInfo(String access_token);
+  Future<ResponeObject> getCustomerInfo(String access_token);
 
   @PATCH("/customers/modify-profile")
-  Future<CustomerInfoRespone> ModifyProfile(@Body() CustomerInfoRespone data,String access_token);
+  Future<ResponeObject> ModifyProfile(@Body() CustomerInfoRespone data,String access_token);
 
   @PATCH("/customers/modify-password")
-  Future<CustomerInfoRespone> ModifyPassword(@Body() ModifyPasswordrequest data,String access_token);
+  Future<ResponeObject> ModifyPassword(@Body() ModifyPasswordrequest data,String access_token);
 
+  @POST("/customers/verify-password")
+  @FormUrlEncoded()
+  Future<ResponeObject> VerifyPassword(@Field() String password,String token);
+
+  @GET("/addresses")
+  Future<ResponeObject> AddressesList(String token);
 
 }
 

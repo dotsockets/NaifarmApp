@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -15,17 +19,51 @@ class AddressView extends StatefulWidget {
 }
 
 class _AddressViewState extends State<AddressView> {
+
+  MemberBloc bloc;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
   }
 
+  void _init(){
+    if(null == bloc){
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+    print((event as AddressesListRespone).total);
+        //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
+      });
+
+
+
+    }
+
+    Usermanager().getUser().then((value) =>  bloc.AddressesList(token: value.token));
+
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    _init();
     return Container(
       child: SafeArea(
         top: false,
         child: Scaffold(
+          key: _scaffoldKey,
           appBar: AppToobar(
             title: LocaleKeys.setting_account_title_address.tr(),
             icon: "",
@@ -33,11 +71,19 @@ class _AddressViewState extends State<AddressView> {
           ),
           body: Container(
             color: Colors.grey.shade300,
-            child: Column(
-              children: [_buildCardAddr(nameTxt: "วีระชัย ใจกว้าง",typeAddr: LocaleKeys.address_default.tr()),
-                SizedBox(height: 10,),
-                _buildCardAddr(nameTxt: "วีระชัย ใจกว้าง",typeAddr: ""),_BuildButton(),
-              ],
+            child: StreamBuilder(
+              stream: bloc.feedList.stream,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if(snapshot.connectionState == ConnectionState.done){
+                    return Column(
+                      children: (snapshot as AddressesListRespone).data.asMap().map((key, value) => MapEntry(key,_buildCardAddr(nameTxt: (snapshot as AddressesListRespone).data[key].addressTitle,typeAddr: (snapshot as AddressesListRespone).data[key].addressLine1))).values.toList()
+                    );
+                  }else if(snapshot.connectionState == ConnectionState.waiting){
+                    return Text("waiting ${(snapshot.data)}");
+                  }else{
+                    return Text("no data ${(snapshot.data as AddressesListRespone).total}");
+                  }
+                }
             ),
           ),
         ),
@@ -45,6 +91,7 @@ class _AddressViewState extends State<AddressView> {
     );
   }
 
+  //LocaleKeys.address_default.tr()
   Widget _buildCardAddr({String nameTxt,String typeAddr}) {
     return Container(
       color: Colors.white,

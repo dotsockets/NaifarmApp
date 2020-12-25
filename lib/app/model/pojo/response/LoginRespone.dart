@@ -6,9 +6,8 @@ class LoginRespone {
   String token;
   String name;
   String email;
-  ThrowIfNoSuccess http_call_back;
 
-  LoginRespone({this.token, this.name, this.email,this.http_call_back});
+  LoginRespone({this.token, this.name, this.email});
 
   LoginRespone.fromJson(Map<String, dynamic> json) {
     token = json['token'];

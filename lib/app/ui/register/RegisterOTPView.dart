@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:retrofit/http.dart';
@@ -489,7 +490,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       if(value.http_call_back.status==200){
         Navigator.of(context).pop();
         setState(() {
-          widget.refCode = value.refCode;
+          widget.refCode = (value as OTPRespone).refCode;
           endTimes = true;
           SuccessForm = false;
           endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30 * 1;

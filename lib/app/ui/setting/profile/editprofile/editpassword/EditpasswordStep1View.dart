@@ -1,9 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -17,7 +21,8 @@ class EditpasswordStep1View extends StatefulWidget {
 
 class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
   TextEditingController PassController = TextEditingController();
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  MemberBloc bloc;
   String onError="";
 
 
@@ -27,6 +32,36 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
     }else{
       return true;
     }
+  }
+
+  void _init(){
+    if(null == bloc){
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+
+        if((event as VerifyRespone).success){
+          AppRoute.EditpasswordStep2(context,PassController.text);
+
+          //AppRoute.EditEmail_Step2(context,widget.customerInfoRespone);
+        }
+        //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
+      });
+
+
+
+    }
+
   }
 
   @override
@@ -40,7 +75,9 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
 
   @override
   Widget build(BuildContext context) {
+    _init();
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
         title: LocaleKeys.edit_password_toobar.tr(), header_type: Header_Type.barNormal,),
@@ -114,7 +151,8 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
     //});
 
     if(PassController.text.length>6){
-      AppRoute.EditpasswordStep2(context);
+      Usermanager().getUser().then((value) => bloc.VerifyPassword(password: PassController.text,token: value.token));
+
     }else{
       setState(() {
         onError = LocaleKeys.message_error_password_incorrect.tr();

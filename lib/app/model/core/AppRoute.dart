@@ -265,23 +265,23 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CreditAddView()));
 
   }
-  static EditEmail_Step1(BuildContext context) {
-    Navigator.push(context, PageTransition(
+  static Future<CustomerInfoRespone> EditEmail_Step1(BuildContext context,CustomerInfoRespone customerInfoRespone) async {
+    return  await  Navigator.push(context, PageTransition(
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
-        child: EditEmail_Step1View()));
+        child: EditEmail_Step1View(customerInfoRespone: customerInfoRespone,)));
   }
-  static EditEmail_Step2(BuildContext context) {
-    Navigator.pushReplacement(context, PageTransition(
+  static Future<CustomerInfoRespone>  EditEmail_Step2(BuildContext context,CustomerInfoRespone customerInfoRespone) async {
+    return  await  Navigator.pushReplacement(context, PageTransition(
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
-        child: EditEmail_Step2View()));
+        child: EditEmail_Step2View(customerInfoRespone: customerInfoRespone,)));
   }
-  static EditEmail_Step3(BuildContext context,String email) {
-    Navigator.pushReplacement(context, PageTransition(
+  static Future<CustomerInfoRespone> EditEmail_Step3(BuildContext context,String emailnew,CustomerInfoRespone customerInfoRespone) async {
+    return  await Navigator.pushReplacement(context, PageTransition(
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
-        child: EditEmail_Step3View(email: email,)));
+        child: EditEmail_Step3View(emailnew: emailnew,customerInfoRespone: customerInfoRespone,)));
   }
 
   static EditpasswordStep1(BuildContext context) {
@@ -292,11 +292,11 @@ class AppRoute{
 
   }
 
-  static EditpasswordStep2(BuildContext context) {
+  static EditpasswordStep2(BuildContext context,String passwordOld) {
     Navigator.pushReplacement(context, PageTransition(
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
-        child: EditpasswordStep2View()));
+        child: EditpasswordStep2View(passwordOld: passwordOld,)));
   }
   static CategoryVegetable(BuildContext context,int index){
     Navigator.push(context, PageTransition(

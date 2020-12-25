@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
+import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -8,36 +14,72 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
 class EditpasswordStep2View extends StatefulWidget {
+  final String passwordOld;
+
+  const EditpasswordStep2View({Key key, this.passwordOld}) : super(key: key);
+
   @override
   _EditpasswordStep2ViewState createState() => _EditpasswordStep2ViewState();
 }
 
 class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
-  TextEditingController EmailController = TextEditingController();
-
+  TextEditingController passController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  MemberBloc bloc;
   String onError="";
 
 
   bool FormCheck(){
-    if(EmailController.text.isEmpty){
+    if(passController.text.isEmpty){
       return false;
     }else{
       return true;
     }
   }
 
+  void _init(){
+    if(null == bloc){
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+
+        FunctionHelper.SuccessDialog(context,message:  LocaleKeys.dialog_message_password_success.tr(),onClick: (){
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+        });
+        //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
+      });
+
+
+
+    }
+
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    EmailController.text = "";
+    passController.text = "";
   }
 
 
 
   @override
   Widget build(BuildContext context) {
+    _init();
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
         title: LocaleKeys.edit_password_toobar.tr(), header_type: Header_Type.barNormal,onClick: (){
@@ -66,7 +108,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                   SizedBox(height: 15,),
                   BuildEditText(
                       head: LocaleKeys.edit_password_new.tr(),
-                      hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),maxLength: 10,controller: EmailController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
+                      hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),maxLength: 10,controller: passController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
                     setState(() {});
                   }),
                   SizedBox(height: 20,),
@@ -105,12 +147,10 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
 
     //});
 
-    if(EmailController.text.length>=8 && EmailController.text.length<=12){
+    if(passController.text.length>=8 && passController.text.length<=12){
       //AppRoute.EditEmail_Step3(context,EmailController.text);
-      FunctionHelper.SuccessDialog(context,message:  LocaleKeys.dialog_message_password_success.tr(),onClick: (){
-        Navigator.of(context).pop();
-        Navigator.of(context).pop();
-      });
+      Usermanager().getUser().then((value) => bloc.ModifyPassword(data: ModifyPasswordrequest(password: passController.text,oldPassword: widget.passwordOld,checkPassword: passController.text),token: value.token));
+
     }else{
       setState(() {
         onError =  LocaleKeys.message_error_password_length.tr();

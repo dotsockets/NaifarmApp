@@ -238,7 +238,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                             Message: itemInfo.email!=null?itemInfo.email:'',
                             title: LocaleKeys.my_profile_email.tr(),
                             onClick: () {
-                              AppRoute.EditEmail_Step1(context);
+                              AppRoute.EditEmail_Step1(context,itemInfo);
                             },
                           ),
                           _buildLine(),

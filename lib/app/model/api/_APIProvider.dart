@@ -55,7 +55,7 @@ class _APIProvider implements APIProvider {
 
 
   @override
-  Future<LoginRespone> CustomersLogin(LoginRequest loginRequest) async {
+  Future<ResponeObject> CustomersLogin(LoginRequest loginRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -73,10 +73,9 @@ class _APIProvider implements APIProvider {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    var value = LoginRespone.fromJson(_result.data);
-    return LoginRespone(email: value.email,token: value.token,name: value.name,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    return ResponeObject(respone: LoginRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
-      return LoginRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+      return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
     }
 
 
@@ -84,7 +83,7 @@ class _APIProvider implements APIProvider {
 
 
   @override
-  Future<OTPRespone> OtpRequest(String numbephone) async {
+  Future<ResponeObject> OtpRequest(String numbephone) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -100,13 +99,12 @@ class _APIProvider implements APIProvider {
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
-      var value = OTPRespone.fromJson(_result.data);
-      return OTPRespone(phone: value.phone,refCode: value.refCode,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+      return ResponeObject(respone: OTPRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
       if(e.response.statusCode==416 || e.response.statusCode==400){
-        return OTPRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+        return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
       }else{
-        return OTPRespone(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
+        return ResponeObject(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
       }
 
     }
@@ -115,7 +113,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<OtpVerifyRespone> OtpVerify(String phone, String code, String ref) async {
+  Future<ResponeObject> OtpVerify(String phone, String code, String ref) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -133,14 +131,14 @@ class _APIProvider implements APIProvider {
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
-      return OtpVerifyRespone(success: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+      return ResponeObject(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
-      return OtpVerifyRespone(success: false,http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+      return ResponeObject(respone: true,http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
     }
   }
 
   @override
-  Future<RegisterRespone> CustomersRegister(RegisterRequest registerRequest) async {
+  Future<ResponeObject> CustomersRegister(RegisterRequest registerRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -160,18 +158,16 @@ class _APIProvider implements APIProvider {
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
-      var value = RegisterRespone.fromJson(_result.data);
-      return RegisterRespone(id: value.id,name: value.name,niceName: value.niceName,email: value.email,
-          phone: value.phone,sex: value.sex,dob: value.dob,description: value.description,shop: value.shop,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+      return ResponeObject(respone: RegisterRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
-      return RegisterRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+      return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
     }
 
 
   }
 
   @override
-  Future<ForgotRespone> ForgotPasswordRequest(String email) async {
+  Future<ResponeObject> ForgotPasswordRequest(String email) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -185,20 +181,20 @@ class _APIProvider implements APIProvider {
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
-      var value = ForgotRespone.fromJson(_result.data);
-      return ForgotRespone(email: value.email,token: value.token,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+
+      return ResponeObject(respone: ForgotRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
       if(e.response.statusCode==416 || e.response.statusCode==400){
-        return ForgotRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+        return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
       }else{
-        return ForgotRespone(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
+        return ResponeObject(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
       }
 
     }
   }
 
   @override
-  Future<RegisterRespone> ResetPasswordRequest(String email, String password,String token) async {
+  Future<ResponeObject> ResetPasswordRequest(String email, String password,String token) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -215,21 +211,19 @@ class _APIProvider implements APIProvider {
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
-      var value = RegisterRespone.fromJson(_result.data);
-      return RegisterRespone(id: value.id,name: value.name,niceName: value.niceName,email: value.email,
-          phone: value.phone,sex: value.sex,dob: value.dob,description: value.description,shop: value.shop,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+      return ResponeObject(respone: RegisterRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
       if(e.response.statusCode==416 || e.response.statusCode==400){
-        return RegisterRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+        return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
       }else{
-        return RegisterRespone(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
+        return ResponeObject(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
       }
 
     }
   }
 
   @override
-  Future<CustomerInfoRespone> getCustomerInfo(String access_token)async {
+  Future<ResponeObject> getCustomerInfo(String access_token)async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -245,21 +239,19 @@ class _APIProvider implements APIProvider {
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
-      var value = CustomerInfoRespone.fromJson(_result.data);
-      return CustomerInfoRespone(id: value.id,name: value.name,niceName: value.niceName,email: value.email,
-          phone: value.phone,sex: value.sex,dob: value.dob,description: value.description,shop: value.shop,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+      return ResponeObject(respone: CustomerInfoRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
       if(e.response.statusCode==416 || e.response.statusCode==400){
-        return CustomerInfoRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+        return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
       }else{
-        return CustomerInfoRespone(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
+        return ResponeObject(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
       }
 
     }
   }
 
   @override
-  Future<CustomerInfoRespone> ModifyProfile(CustomerInfoRespone data, String access_token) async {
+  Future<ResponeObject> ModifyProfile(CustomerInfoRespone data, String access_token) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
 
@@ -274,21 +266,19 @@ class _APIProvider implements APIProvider {
               extra: _extra,
               baseUrl: baseUrl),
           data: data);
-      var value = CustomerInfoRespone.fromJson(_result.data);
-      return CustomerInfoRespone(id: value.id,name: value.name,niceName: value.niceName,email: value.email,
-          phone: value.phone,sex: value.sex,dob: value.dob,description: value.description,shop: value.shop,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+      return ResponeObject(respone: CustomerInfoRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
       if(e.response.statusCode==416 || e.response.statusCode==400){
-        return CustomerInfoRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+        return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
       }else{
-        return CustomerInfoRespone(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
+        return ResponeObject(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
       }
 
     }
   }
 
   @override
-  Future<CustomerInfoRespone> ModifyPassword(ModifyPasswordrequest data, String access_token) async {
+  Future<ResponeObject> ModifyPassword(ModifyPasswordrequest data, String access_token) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
 
@@ -303,19 +293,66 @@ class _APIProvider implements APIProvider {
               extra: _extra,
               baseUrl: baseUrl),
           data: data);
-      var value = CustomerInfoRespone.fromJson(_result.data);
-      return CustomerInfoRespone(id: value.id,name: value.name,niceName: value.niceName,email: value.email,
-          phone: value.phone,sex: value.sex,dob: value.dob,description: value.description,shop: value.shop,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+      return ResponeObject(respone: CustomerInfoRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
       if(e.response.statusCode==416 || e.response.statusCode==400){
-        return CustomerInfoRespone(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+        return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
       }else{
-        return CustomerInfoRespone(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
+        return ResponeObject(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: e.response.statusCode,message: "${e.response.statusCode} An error occurred at Server"))));
       }
 
     }
   }
 
+  @override
+  Future<ResponeObject> VerifyPassword(String password, String token) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "password": password
+    };
+
+    try {
+      final _result = await _dio.request<dynamic>('/customers/verify-password',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+
+      return ResponeObject(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ResponeObject(respone: false,http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+    }
+  }
+
+  @override
+  Future<ResponeObject> AddressesList(String token) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/addresses',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ResponeObject(respone: AddressesListRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+    }
+  }
 
 
 }

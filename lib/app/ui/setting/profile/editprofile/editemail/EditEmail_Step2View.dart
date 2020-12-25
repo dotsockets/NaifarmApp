@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -11,6 +12,12 @@ import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class EditEmail_Step2View extends StatefulWidget {
+
+  final CustomerInfoRespone customerInfoRespone;
+
+  const EditEmail_Step2View({Key key, this.customerInfoRespone}) : super(key: key);
+
+
   @override
   _EditEmail_Step2ViewState createState() => _EditEmail_Step2ViewState();
 }
@@ -63,7 +70,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(LocaleKeys.edit_email_old.tr()+" puwee@gmial.com",
+                  Text(LocaleKeys.edit_email_old.tr()+" ${widget.customerInfoRespone.email}",
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 15,),
@@ -109,7 +116,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
     //});
 
     if(validator.email(EmailController.text)){
-      AppRoute.EditEmail_Step3(context,EmailController.text);
+      AppRoute.EditEmail_Step3(context,EmailController.text,widget.customerInfoRespone);
     }else{
       setState(() {
         onError = "Email ไม่ถูกต้อง";

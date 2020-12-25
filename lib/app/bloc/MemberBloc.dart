@@ -6,6 +6,7 @@ import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
+import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:rxdart/rxdart.dart';
@@ -23,6 +24,8 @@ class MemberBloc{
 
   final onError = BehaviorSubject<String>();
 
+  StreamController<Object> feedList = new StreamController<Object>();
+
   MemberBloc(this._application);
 
   void dispose() {
@@ -34,10 +37,13 @@ class MemberBloc{
      onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.CustomersLogin(loginRequest: LoginRequest(username: loginRequest.username,phone: loginRequest.phone,password: loginRequest.password))).listen((respone) {
+
+      var item = (respone.respone as LoginRespone);
       if(respone.http_call_back.status==200){
-        Usermanager().Savelogin(user: LoginRespone(name: respone.name,token: respone.token,email: respone.email)).then((value){
+        Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email)).then((value){
           onLoad.add(false);
-          onSuccess.add(respone);
+          onSuccess.add(item);
+
         });
       }else{
         onLoad.add(false);
@@ -95,7 +101,7 @@ class MemberBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.OTPRequest(numberphone: numberphone)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
-        onSuccess.add(respone);
+        onSuccess.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -144,7 +150,7 @@ class MemberBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.ForgotPassword(email:email)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
-        onSuccess.add(respone);
+        onSuccess.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -159,7 +165,7 @@ class MemberBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.ResetPasswordRequest(email: email,password: password,token: token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
-        onSuccess.add(respone);
+        onSuccess.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -174,7 +180,7 @@ class MemberBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.getCustomerInfo(token: token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
-        onSuccess.add(respone);
+        onSuccess.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -189,7 +195,7 @@ class MemberBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.ModifyProfile(data: data,token: token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
-        onSuccess.add(respone);
+        onSuccess.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -199,12 +205,12 @@ class MemberBloc{
   }
 
   ModifyPassword({ModifyPasswordrequest data ,String token}) async{
-    // onLoad.add(true);
+     onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.ModifyPassword(data: data,token: token)).listen((respone) {
-      //onLoad.add(false);
+      onLoad.add(false);
       if(respone.http_call_back.status==200){
-        //  onSuccess.add(respone);
+          onSuccess.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -212,6 +218,38 @@ class MemberBloc{
     });
     _compositeSubscription.add(subscription);
   }
+
+  VerifyPassword({String password ,String token}) async{
+     onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.VerifyPassword(password: password,token: token)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+          onSuccess.add(respone.respone);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  AddressesList({String token}) async{
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.AddressesList(token: token)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        onSuccess.add(respone.respone);
+        feedList.add(respone.respone);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
 
 
 }

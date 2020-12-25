@@ -1,10 +1,10 @@
 
 import 'ThrowIfNoSuccess.dart';
 
-class OtpVerifyRespone {
+class VerifyRespone {
   bool success;
   ThrowIfNoSuccess http_call_back;
 
-  OtpVerifyRespone({this.success,this.http_call_back});
+  VerifyRespone({this.success,this.http_call_back});
 
 }

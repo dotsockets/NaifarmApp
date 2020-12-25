@@ -68,7 +68,6 @@ dependencies:
   nuts_activity_indicator: ^0.1.1
   flutter_countdown_timer: ^1.5.0
   image_picker: ^0.6.0+9
-  card_scanner: ^0.2.0+3
   permission_handler: ^5.0.1+1
   google_maps_flutter: ^1.0.6
   location: ^3.1.0

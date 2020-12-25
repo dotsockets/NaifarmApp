@@ -2,9 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -12,14 +17,21 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class EditEmail_Step1View extends StatefulWidget {
+
+  final CustomerInfoRespone customerInfoRespone;
+
+  const EditEmail_Step1View({Key key, this.customerInfoRespone}) : super(key: key);
+
   @override
   _EditEmail_Step1ViewState createState() => _EditEmail_Step1ViewState();
 }
 
 class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
   TextEditingController PassController = TextEditingController();
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  MemberBloc bloc;
   String onError="";
+
 
 
   bool FormCheck(){
@@ -37,11 +49,42 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
     PassController.text = "";
   }
 
+  void _init(){
+    if(null == bloc){
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+
+        if((event as VerifyRespone).success){
+          AppRoute.EditEmail_Step2(context,widget.customerInfoRespone);
+        }
+        //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
+      });
+
+
+
+    }
+
+  }
+
+
 
 
   @override
   Widget build(BuildContext context) {
+    _init();
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
         title: LocaleKeys.my_profile_email.tr(), header_type: Header_Type.barNormal,),
@@ -114,7 +157,8 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
     //});
 
     if(PassController.text.length>6){
-      AppRoute.EditEmail_Step2(context);
+      Usermanager().getUser().then((value) =>  bloc.VerifyPassword(password: PassController.text,token: value.token));
+
     }else{
       setState(() {
         onError = LocaleKeys.message_error_password_incorrect.tr();
