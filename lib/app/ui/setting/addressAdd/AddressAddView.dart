@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -29,6 +31,8 @@ class _AddressAddViewState extends State<AddressAddView> {
   bool checkKeyBoard = false;
   bool isSelect = false;
 
+  MemberBloc bloc;
+
   //bool checkError = false;
   @override
   void initState() {
@@ -42,8 +46,33 @@ class _AddressAddViewState extends State<AddressAddView> {
     );
   }
 
+  void _init(){
+    if(null == bloc){
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        // print("Token = ${(event as CustomerInfoRespone).email}");
+        // setState(() {
+        //   itemInfo = (event as CustomerInfoRespone);
+        // });
+        // //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    _init();
     return Container(
       child: SafeArea(
         top: false,

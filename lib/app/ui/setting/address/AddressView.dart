@@ -74,14 +74,22 @@ class _AddressViewState extends State<AddressView> {
             child: StreamBuilder(
               stream: bloc.feedList.stream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if(snapshot.connectionState == ConnectionState.done){
+                  if(snapshot.hasData){
+                    var item = (snapshot.data as AddressesListRespone).data;
                     return Column(
-                      children: (snapshot as AddressesListRespone).data.asMap().map((key, value) => MapEntry(key,_buildCardAddr(nameTxt: (snapshot as AddressesListRespone).data[key].addressTitle,typeAddr: (snapshot as AddressesListRespone).data[key].addressLine1))).values.toList()
+                      children: [
+                        Column(children: item.asMap().map((key, value) {
+                          return MapEntry(key,Column(
+                            children: [
+                              _buildCardAddr(item: item[key]),
+                              key+1==item.length?_BuildButton():SizedBox()
+                            ],
+                          ));
+                        }).values.toList()),
+                      ],
                     );
-                  }else if(snapshot.connectionState == ConnectionState.waiting){
-                    return Text("waiting ${(snapshot.data)}");
                   }else{
-                    return Text("no data ${(snapshot.data as AddressesListRespone).total}");
+                    return Text("");
                   }
                 }
             ),
@@ -92,10 +100,10 @@ class _AddressViewState extends State<AddressView> {
   }
 
   //LocaleKeys.address_default.tr()
-  Widget _buildCardAddr({String nameTxt,String typeAddr}) {
+  Widget _buildCardAddr({Data item}) {
     return Container(
+      margin: EdgeInsets.only(bottom: 10),
       color: Colors.white,
-      
       width: MediaQuery.of(context).size.width,
       child: Container(
         padding: EdgeInsets.all(20),
@@ -104,17 +112,26 @@ class _AddressViewState extends State<AddressView> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text(nameTxt,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.primaryColor())),
+            children: [Text(item.addressTitle,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()+5,color: ThemeColor.primaryColor())),
               Row(
                 children: [
-                  Text(typeAddr,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale())),
+                  Text(item.addressType=="Primary"?LocaleKeys.address_default.tr():"",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w600,color: ThemeColor.ColorSale())),
+                 SizedBox(width: 10,),
                   Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
                 ],
               ),
             ],
           ),SizedBox(height: 10,),
-            Text("(+66) 978765432",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
-            Text("612/399 A space condo ชั้น 4 เขตดินแดง \nจังหวัดกรุงเทพมหานคร\n10400",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()))
+            Container(
+              width: 200,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("${item.phone}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+                  Text("${item.addressLine1}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()))
+                ],
+              ),
+            )
           ],
         ),
       ),

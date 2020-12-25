@@ -68,7 +68,11 @@ abstract class APIProvider{
   @GET("/addresses")
   Future<ResponeObject> AddressesList(String token);
 
+  @GET("/countries/1/states")
+  Future<ResponeObject> StatesProvice(String token);
+
 }
+
 
 
 // @JsonSerializable()

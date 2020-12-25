@@ -354,5 +354,29 @@ class _APIProvider implements APIProvider {
     }
   }
 
+  @override
+  Future<ResponeObject> StatesProvice(String token) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/addresses',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ResponeObject(respone: AddressesListRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+    }
+  }
+
 
 }
