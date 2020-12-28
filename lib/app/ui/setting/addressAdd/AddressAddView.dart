@@ -10,6 +10,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -32,6 +33,8 @@ class _AddressAddViewState extends State<AddressAddView> {
   bool isSelect = false;
 
   MemberBloc bloc;
+
+  List<String> listAddrDeli = ["1","2","3",];
 
   //bool checkError = false;
   @override
@@ -146,21 +149,13 @@ class _AddressAddViewState extends State<AddressAddView> {
           SizedBox(
             height: 15,
           ),
-          BuildEditText(
-              head: LocaleKeys.address_province.tr(),
-              EnableMaxLength: false,
-              hint: LocaleKeys.select.tr()+LocaleKeys.address_province.tr(),
-              controller: provinceController,
-              inputType: TextInputType.text),
+          _BuildDropdown(
+              head: LocaleKeys.select.tr()+LocaleKeys.address_province.tr()+" * ", hint: "ทั่วประเทศ",dataList: listAddrDeli),
           SizedBox(
             height: 15,
           ),
-          BuildEditText(
-              head: LocaleKeys.address_city.tr(),
-              EnableMaxLength: false,
-              hint: LocaleKeys.select.tr()+LocaleKeys.address_city.tr(),
-              controller: districtController,
-              inputType: TextInputType.text),
+          _BuildDropdown(
+              head: LocaleKeys.select.tr()+LocaleKeys.address_city.tr()+" * ", hint: "ทั่วประเทศ",dataList: listAddrDeli),
           SizedBox(
             height: 15,
           ),
@@ -214,7 +209,7 @@ class _AddressAddViewState extends State<AddressAddView> {
             activeColor: Colors.grey.shade200,
             inactiveColor: Colors.grey.shade200,
             toggleColor:
-                isSelect ? ThemeColor.primaryColor() : Colors.grey.shade400,
+            isSelect ? ThemeColor.primaryColor() : Colors.grey.shade400,
             value: isSelect ? true : false,
             onToggle: (val) {
               setState(() {
@@ -241,12 +236,12 @@ class _AddressAddViewState extends State<AddressAddView> {
     return FlatButton(
       padding: EdgeInsets.only(top: 15, bottom: 15),
       color: nameController.text.isNotEmpty &&
-              emailController.text.isNotEmpty &&
-              phoneController.text.isNotEmpty &&
-              provinceController.text.isNotEmpty &&
-              districtController.text.isNotEmpty &&
-              postController.text.isNotEmpty &&
-              detailAddrController.text.isNotEmpty
+          emailController.text.isNotEmpty &&
+          phoneController.text.isNotEmpty &&
+          provinceController.text.isNotEmpty &&
+          districtController.text.isNotEmpty &&
+          postController.text.isNotEmpty &&
+          detailAddrController.text.isNotEmpty
           ? ThemeColor.secondaryColor()
           : Colors.grey.shade400,
       textColor: Colors.white,
@@ -296,5 +291,27 @@ class _AddressAddViewState extends State<AddressAddView> {
     } else {
       errorPhoneTxt = "";
     }
+  }
+  Widget _BuildDropdown({String head, String hint, List<String> dataList}) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            head,
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.only(top: 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(color: Colors.black.withOpacity(0.3))),
+            child: CustomDropdownList(txtSelect: hint,title: head,dataList: dataList,),
+          ),
+
+        ],
+      ),
+    );
   }
 }
