@@ -29,7 +29,7 @@ class PurchaseView extends StatelessWidget {
               title: LocaleKeys.me_title_likes.tr(),
               Message: "8 รายการ",
               onClick: () {
-                AppRoute.MyLike(context);
+                AppRoute.ProductMore(context,LocaleKeys.me_title_likes.tr(),ProductViewModel().getMarketRecommend());
               }),
           _BuildDivider(),
           IsLogin
@@ -38,7 +38,9 @@ class PurchaseView extends StatelessWidget {
                       titleInto: LocaleKeys.me_title_again.tr(),
                       producViewModel: ProductViewModel().getProductForYou(),
                       IconInto: 'assets/images/svg/foryou.svg',
-                      onSelectMore: () {},
+                      onSelectMore: () {
+                        AppRoute.ProductMore(context,LocaleKeys.me_title_again.tr(),ProductViewModel().getProductForYou());
+                      },
                       onTapItem: (int index) {
                         AppRoute.ProductDetail(context,
                             productImage: "payagin_${index}");
@@ -48,7 +50,7 @@ class PurchaseView extends StatelessWidget {
               : SizedBox(),
           IsLogin ? _BuildDivider() : SizedBox(),
           ListMenuItem(
-              icon: 'assets/images/svg/editprofile.svg', title: LocaleKeys.me_title_setting.tr(),onClick: (){AppRoute.SettingProfile(context,"ภาษาไทย");},),
+              icon: 'assets/images/svg/editprofile.svg', title: LocaleKeys.me_title_setting.tr(),onClick: (){AppRoute.SettingProfile(context,IsLogin);},),
           _BuildDivider(),
           ListMenuItem(
             icon: 'assets/images/svg/help.svg',

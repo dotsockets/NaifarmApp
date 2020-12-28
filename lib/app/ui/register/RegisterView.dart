@@ -1,8 +1,5 @@
 
-import 'dart:convert';
-
 import 'package:basic_utils/basic_utils.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/bloc/MemberBloc.dart';
@@ -15,7 +12,6 @@ import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
-import 'package:regexed_validator/regexed_validator.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -143,8 +139,8 @@ class _RegisterViewState extends State<RegisterView> {
           SizedBox(height: 30,),
           Wrap(
             children: [
-              Text(LocaleKeys.regis_agree.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
-              InkWell(child: Text(" "+LocaleKeys.regis_rule.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
+              Text(LocaleKeys.regis_agree.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
+              InkWell(child: Text(LocaleKeys.regis_rule.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
                ,onTap: (){AppRoute.SettingRules(context);},
               ),
               Text(" "+LocaleKeys.and.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),

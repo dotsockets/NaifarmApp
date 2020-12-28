@@ -39,7 +39,7 @@ class ProductViewModel {
     ];
   }
 
-  List<ProductModel> getBaseSaller() {
+  List<ProductModel> getBestSaller() {
     return [
       ProductModel(
           product_name: 'อโวกาโก้ ภาคเหนือ',

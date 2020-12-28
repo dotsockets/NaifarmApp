@@ -121,7 +121,7 @@ class CategoryView extends StatelessWidget {
        // print(index);
         for (int i=0;i<_menuViewModel.length;i++){
            if(_menuViewModel[i].type==item.type){
-             AppRoute.CategoryVegetable(context,i);
+             AppRoute.CategoryDetail(context,i);
              break;
            }
 

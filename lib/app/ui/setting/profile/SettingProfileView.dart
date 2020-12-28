@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -10,13 +9,12 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class SettingProfileView extends StatefulWidget {
-  final String languageTxt;
 
-  const SettingProfileView({Key key, this.languageTxt}) : super(key: key);
+  final bool IsLogin;
+  const SettingProfileView({Key key, this.IsLogin}) : super(key: key);
 
   @override
   _SettingProfileViewState createState() => _SettingProfileViewState();
@@ -63,29 +61,29 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildTitle(txt: LocaleKeys.setting_account_head_profile.tr()),
-                        ListMenuItem(
+                        widget.IsLogin?_buildTitle(txt: LocaleKeys.setting_account_head_profile.tr()):SizedBox(),
+                        widget.IsLogin?ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_profile.tr(),
                           onClick: () => AppRoute.EditProfile(context),
-                        ),
-                        _buildLine(),
-                        ListMenuItem(
+                        ):SizedBox(),
+                        widget.IsLogin?_buildLine():SizedBox(),
+                        widget.IsLogin?ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_address.tr(),
                           onClick: () {
                             AppRoute.SettingAddress(context);
                           },
-                        ),
-                        _buildLine(),
-                        ListMenuItem(
+                        ):SizedBox(),
+                        widget.IsLogin?_buildLine():SizedBox(),
+                        widget.IsLogin?ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_bank.tr(),
                           onClick: () {
                             AppRoute.SettingBank(context);
                           },
-                        ),
-                        _buildLine(),
+                        ):SizedBox(),
+                        widget.IsLogin?_buildLine():SizedBox(),
                         _buildTitle(txt: LocaleKeys.setting_account_head_setting.tr()),
                         ListMenuItem(
                           icon: '',
@@ -144,7 +142,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                             },);
                           },
                         ),
-                        _BuildButton()
+                        widget.IsLogin? _BuildButton():SizedBox()
                       ],
                     ),
                   ),

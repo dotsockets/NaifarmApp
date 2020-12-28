@@ -114,7 +114,9 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                         producViewModel:
                             ProductViewModel().getMarketRecommend(),
                         IconInto: 'assets/images/svg/like.svg',
-                        onSelectMore: () {},
+                        onSelectMore: () {
+                          AppRoute.ProductMore(context,LocaleKeys.tab_bar_recommend.tr(),ProductViewModel().getMarketRecommend());
+                        },
                         onTapItem: (int index) {
                           AppRoute.ProductDetail(context,
                               productImage: "market_farm_${index}");
@@ -127,7 +129,9 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                       titleInto: LocaleKeys.recommend_best_seller.tr(),
                       producViewModel: ProductViewModel().getProductFarm(),
                       IconInto: 'assets/images/svg/product_hot.svg',
-                      onSelectMore: () {},
+                      onSelectMore: () {
+                        AppRoute.ProductMore(context,LocaleKeys.recommend_best_seller.tr(),ProductViewModel().getProductFarm());
+                      },
                       onTapItem: (int index) {
                         AppRoute.ProductDetail(context,
                             productImage: "sell_${index}");
@@ -143,7 +147,9 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                         IconInto: 'assets/images/svg/product_hot.svg',
                         showIcon: false,
                         showPriceSale: false,
-                        onSelectMore: () {},
+                        onSelectMore: () {
+                          AppRoute.ProductMore(context,"ผักบุ้ง",ProductViewModel().getVegetable1());
+                        },
                         onTapItem: (int index) {
                           AppRoute.ProductDetail(context,
                               productImage: "product_section1_${index}");
@@ -156,7 +162,9 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                         showPriceSale: false,
                         producViewModel: ProductViewModel().getVegetableChilli(),
                         IconInto: 'assets/images/svg/product_hot.svg',
-                        onSelectMore: () {},
+                        onSelectMore: () {
+                          AppRoute.ProductMore(context,"พริก",ProductViewModel().getVegetableChilli());
+                        },
                         onTapItem: (int index) {
                           AppRoute.ProductDetail(context,
                               productImage: "product_section2_${index}");

@@ -65,7 +65,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       _Divider(),
                       ProductLandscape(
                         titleInto: LocaleKeys.recommend_you_like.tr(),
-                        producViewModel: ProductViewModel().getBaseSaller(),
+                        producViewModel: ProductViewModel().getBestSaller(),
                         IconInto: 'assets/images/svg/like.svg',
                         onSelectMore: () {
 

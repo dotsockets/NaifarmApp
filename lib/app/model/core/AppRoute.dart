@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/ui/Shopmynear/ShopMyNearView.dart';
 import 'package:naifarm/app/ui/category/detail/CategoryDetailView.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
@@ -25,11 +26,11 @@ import 'package:naifarm/app/ui/mycart/cartaddress/CartAaddressView.dart';
 import 'package:naifarm/app/ui/mycart/cartbank/CartBankView.dart';
 import 'package:naifarm/app/ui/me/delivery/DeliveryView.dart';
 import 'package:naifarm/app/ui/mycart/cartsummary/CartSummaryView.dart';
-import 'package:naifarm/app/ui/mylike/MyLikeView.dart';
 import 'package:naifarm/app/ui/noti/notidetail/NotiDetailView.dart';
 import 'package:naifarm/app/ui/noti/notilist/NotiView.dart';
 import 'package:naifarm/app/ui/order/OrderView.dart';
-import 'package:naifarm/app/ui/product_detail/ProductDetailView.dart';
+import 'package:naifarm/app/ui/productdetail/ProductDetailView.dart';
+import 'package:naifarm/app/ui/productmore/ProductMoreView.dart';
 import 'package:naifarm/app/ui/register/ForgotPasswordView.dart';
 import 'package:naifarm/app/ui/register/RegisterOTPView.dart';
 import 'package:naifarm/app/ui/register/RegisterView.dart';
@@ -62,7 +63,6 @@ import 'package:naifarm/app/ui/setting/rulesOfUse/RuleOfUseView.dart';
 import 'package:naifarm/app/ui/shopmain/ShopMainView.dart';
 import 'package:naifarm/app/ui/shopmain/followers/FollowersView.dart';
 import 'package:naifarm/app/ui/shopmynear/searchmap/SearchMapView.dart';
-import 'package:naifarm/app/ui/specialproducts/SpecialproductsView.dart';
 import 'package:page_transition/page_transition.dart';
 
 class AppRoute{
@@ -76,9 +76,7 @@ class AppRoute{
   static  Market(BuildContext context){
   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MarketView()));
   }
-  static  Specialproducts(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SpecialproductsView()));
-  }
+
   static  FlashSaleAll(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FlashSaleView()));
   }
@@ -96,9 +94,6 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiDetailView(notiImage: notiImage,notiTitle: notiTitle,)));
   }
 
-  static  MyLike(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyLikeView()));
-  }
   static  OrderDetail(BuildContext context,int  Status_Sell){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView( Status_Sell: Status_Sell)));
   }
@@ -195,8 +190,8 @@ class AppRoute{
   static SettingPolicy(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: PolicyView()));
   }
-  static SettingProfile(BuildContext context,String languageTxt){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SettingProfileView(languageTxt:languageTxt)));
+  static SettingProfile(BuildContext context,bool IsLogin){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SettingProfileView(IsLogin:IsLogin)));
   }
   static SettingAbout(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AboutView()));
@@ -298,7 +293,7 @@ class AppRoute{
         type: PageTransitionType.fade,
         child: EditpasswordStep2View(passwordOld: passwordOld,)));
   }
-  static CategoryVegetable(BuildContext context,int index){
+  static CategoryDetail(BuildContext context,int index){
     Navigator.push(context, PageTransition(
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
@@ -323,6 +318,9 @@ class AppRoute{
   }
   static ForgotPassword(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ForgotPasswordView()));
+  }
+  static ProductMore(BuildContext context,String barTxt,List<ProductModel> productList){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductMoreView(barTxt:barTxt,productList:productList)));
   }
 }
 

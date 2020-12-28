@@ -19,7 +19,7 @@ class Shop extends StatelessWidget {
           SizedBox(height: 15),
           ProductLandscape(
               titleInto: LocaleKeys.recommend_best_seller.tr(),
-              producViewModel: ProductViewModel().getBaseSaller(),
+              producViewModel: ProductViewModel().getBestSaller(),
               IconInto: 'assets/images/svg/product_hot.svg',
               onSelectMore: () {},
               onTapItem: (int index) {
