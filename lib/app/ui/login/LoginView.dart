@@ -1,13 +1,7 @@
 
 import 'package:basic_utils/basic_utils.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:logger/logger.dart';
 import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -84,7 +78,6 @@ class _LoginViewState extends State<LoginView> {
               _BuildBar(context),
               _BuildHeader(context),
               _BuildContent(context)
-
             ],
           ),
         ),
@@ -152,36 +145,25 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(height: 30,),
             Wrap(
               children: [
-                Text(LocaleKeys.login_not_member.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
+                Text(LocaleKeys.login_not_member.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
                 Column(
-
                   children: [
-                    SizedBox(height: 3,),
-                    InkWell(child: Text(" "+LocaleKeys.register_btn.tr()+" ",style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize())),onTap: (){
+                    InkWell(child: Text(LocaleKeys.register_btn.tr(),style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500)),onTap: (){
                       AppRoute.Register(context);
                     },),
-                    Container(
-                      width: ScreenUtil().setWidth(180),
-                      color: ThemeColor.secondaryColor(),
-                      height: 1,
-                    )
+
                   ],
                 )
               ],
             ),
-            SizedBox(height: 20,),
-            Column(
 
+            Column(
               children: [
-                SizedBox(height: 3,),
-                InkWell(child: Text(" "+LocaleKeys.login_forgot_password.tr(),style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize())),onTap: (){
+                SizedBox(height: 10,),
+                InkWell(child: Text(LocaleKeys.login_forgot_password.tr(),style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500)),onTap: (){
                   AppRoute.ForgotPassword(context);
                 },),
-                Container(
-                  width: ScreenUtil().setWidth(180),
-                  color: ThemeColor.secondaryColor(),
-                  height: 1,
-                )
+
               ],
             )
           ],

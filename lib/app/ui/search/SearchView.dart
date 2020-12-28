@@ -39,7 +39,6 @@ class _SearchViewState extends State<SearchView> {
                SearchLike(text);
              });
            },
-
          ),
         body: SingleChildScrollView(
           child: Column(

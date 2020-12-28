@@ -113,11 +113,13 @@ class _RecommendViewState extends State<RecommendView> {
                     header: Column(
                       children: [
                         CategoryMenu(
-                          selectedIndex: _categoryselectedIndex,
+                         //selectedIndex: _categoryselectedIndex,
+                          selectedIndex: 0,
                           menuViewModel: _menuViewModel,
                           onTap: (int val) {
                             setState(() {
                               _categoryselectedIndex = val;
+                              _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
                             });
                           },
                         ),
@@ -131,9 +133,11 @@ class _RecommendViewState extends State<RecommendView> {
                         SizedBox(height: 15),
                         ProductLandscape(
                             titleInto: LocaleKeys.recommend_best_seller.tr(),
-                            producViewModel: ProductViewModel().getBaseSaller(),
+                            producViewModel: ProductViewModel().getBestSaller(),
                             IconInto: 'assets/images/svg/product_hot.svg',
-                            onSelectMore: () {},
+                            onSelectMore: () {
+                              AppRoute.ProductMore(context,LocaleKeys.recommend_best_seller.tr(), ProductViewModel().getBestSaller());
+                            },
                             onTapItem: (int index) {
                               AppRoute.ProductDetail(context,
                                   productImage: "product_hot_${index}");
@@ -165,7 +169,9 @@ class _RecommendViewState extends State<RecommendView> {
                             producViewModel:
                                 ProductViewModel().getProductForYou(),
                             IconInto: 'assets/images/svg/foryou.svg',
-                            onSelectMore: () {},
+                            onSelectMore: () {
+                              AppRoute.ProductMore(context,LocaleKeys.recommend_product_for_you.tr(),ProductViewModel().getProductForYou());
+                            },
                             onTapItem: (int index) {
                               AppRoute.ProductDetail(context,
                                   productImage: "foryou_${index}");

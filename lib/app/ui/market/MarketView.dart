@@ -85,10 +85,15 @@ class _MarketViewState extends State<MarketView> {
               child: StickyHeader(
                 header:  Column(
                   children: [
-                    AppToobar(title: LocaleKeys.market_toobar.tr(),header_type:  Header_Type.barcartShop,isEnable_Search: true,),
-                    CategoryMenu(selectedIndex: _categoryselectedIndex,menuViewModel: _menuViewModel,onTap: (int val){
+                    AppToobar(title: LocaleKeys.market_toobar.tr(),header_type:  Header_Type.barcartShop,isEnable_Search: true,
+                      onClick: (){AppRoute.SearchHome(context);},),
+                    CategoryMenu(
+                      //selectedIndex: _categoryselectedIndex,
+                      selectedIndex: 0,
+                      menuViewModel: _menuViewModel,onTap: (int val){
                       setState(() {
                         _categoryselectedIndex = val;
+                        _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
                       });
                     },),
                   ],
@@ -100,7 +105,9 @@ class _MarketViewState extends State<MarketView> {
                     ProductVertical(titleInto: LocaleKeys.recommend_best_seller.tr(),
                         producViewModel: ProductViewModel().getProductFarm(),
                         IconInto: 'assets/images/svg/product_hot.svg',
-                        onSelectMore: () {},
+                        onSelectMore: () {
+                          AppRoute.ProductMore(context,LocaleKeys.recommend_best_seller.tr(),ProductViewModel().getProductFarm());
+                        },
                         onTapItem: (int index) {
                           AppRoute.ProductDetail(context,
                               productImage: "sell_${index}");

@@ -75,7 +75,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                     color: Colors.white,size: 30
                   ),
                   onTap: (){
-                    AppRoute.EditProfile(context);
+                    AppRoute.SettingProfile(context, IsLogin);
                   },
                 ),
               ),

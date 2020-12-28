@@ -53,13 +53,15 @@ class BuyAgain extends StatelessWidget {
                 Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
               ],
             ),
-            Row(
-              children: [
-                GestureDetector(child: Text(LocaleKeys.me_message_other.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),onTap: ()=>onSelectMore()),
-                SizedBox(width: 8),
-                SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
-
-              ],
+            GestureDetector(
+              child: Row(
+                children: [
+                  Text(LocaleKeys.me_message_other.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+                  SizedBox(width: 8),
+                  SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
+                ],
+              ),
+                onTap: ()=>onSelectMore()
             )
           ],
         ),
