@@ -92,7 +92,20 @@ class APIRepository{
     return _apiProvider.AddressesList(token);
   }
 
+  Future<ResponeObject> StatesProvice({String countries}){
+    // throwIfNoSuccess(response);
+    return _apiProvider.StatesProvice(countries);
+  }
 
+  Future<ResponeObject> StatesCity({String countriesid, String statesId}){
+    // throwIfNoSuccess(response);
+    return _apiProvider.StatesCity(countriesid,statesId);
+  }
+
+  Future<ResponeObject> StatesZipCode({String countries,String statesId,String cityId}){
+    // throwIfNoSuccess(response);
+    return _apiProvider.zipCode(countries,statesId,cityId);
+  }
 
 
 //  Observable<List<AppContent>> getTop100FreeApp(){

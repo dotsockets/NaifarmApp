@@ -72,7 +72,7 @@ class _AddressViewState extends State<AddressView> {
           body: Container(
             color: Colors.grey.shade300,
             child: StreamBuilder(
-              stream: bloc.feedList.stream,
+              stream: bloc.feedList,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if(snapshot.hasData){
                     var item = (snapshot.data as AddressesListRespone).data;

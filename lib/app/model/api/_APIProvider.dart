@@ -355,24 +355,66 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ResponeObject> StatesProvice(String token) async {
+  Future<ResponeObject> StatesProvice(String countries) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
     };
     try {
 
-      final _result = await _dio.request<dynamic>('/addresses',
+      final _result = await _dio.request<dynamic>('/countries/1/states',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{
-                "token":token
-              },
+              headers: <String, dynamic>{},
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
-      return ResponeObject(respone: AddressesListRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+      return ResponeObject(respone: StatesRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+    }
+  }
+
+  @override
+  Future<ResponeObject> StatesCity(String countries,String statesId) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/countries/${countries}/states/${statesId}/cities',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{},
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ResponeObject(respone: StatesRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
+    }
+  }
+
+  @override
+  Future<ResponeObject> zipCode(String countries,String statesId,String cityId) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/countries/${countries}/states/$statesId/cities/${cityId}/zipCode',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{},
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ResponeObject(respone: zipCodeRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
       return ResponeObject(http_call_back: ThrowIfNoSuccess.fromJson(e.response.data));
     }

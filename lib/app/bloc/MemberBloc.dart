@@ -24,7 +24,7 @@ class MemberBloc{
 
   final onError = BehaviorSubject<String>();
 
-  StreamController<Object> feedList = new StreamController<Object>();
+  Stream<Object> get feedList => onSuccess.stream;
 
   MemberBloc(this._application);
 
@@ -241,7 +241,6 @@ class MemberBloc{
       onLoad.add(false);
       if(respone.http_call_back.status==200){
         onSuccess.add(respone.respone);
-        feedList.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -249,6 +248,8 @@ class MemberBloc{
     });
     _compositeSubscription.add(subscription);
   }
+
+
 
 
 

@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:naifarm/app/bloc/AddressBloc.dart';
 import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -32,7 +34,7 @@ class _AddressAddViewState extends State<AddressAddView> {
   bool checkKeyBoard = false;
   bool isSelect = false;
 
-  MemberBloc bloc;
+  AddressBloc bloc;
 
   List<String> listAddrDeli = ["1","2","3",];
 
@@ -51,7 +53,7 @@ class _AddressAddViewState extends State<AddressAddView> {
 
   void _init(){
     if(null == bloc){
-      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc = AddressBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if(event){
           FunctionHelper.showDialogProcess(context);
@@ -70,6 +72,7 @@ class _AddressAddViewState extends State<AddressAddView> {
         // });
         // //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
+      bloc.StatesProvice(countries: "1");
     }
   }
 
@@ -149,13 +152,42 @@ class _AddressAddViewState extends State<AddressAddView> {
           SizedBox(
             height: 15,
           ),
-          _BuildDropdown(
-              head: LocaleKeys.select.tr()+LocaleKeys.address_province.tr()+" * ", hint: "ทั่วประเทศ",dataList: listAddrDeli),
+          StreamBuilder(
+            stream: bloc.provice.stream,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+               if(snapshot.hasData) {
+
+                 return _BuildDropdown(
+                     head: LocaleKeys.select.tr() +
+                         LocaleKeys.address_province.tr() + " * ",
+                     hint: "ทั่วประเทศ",item: (snapshot.data as StatesRespone).data);
+               }else{
+                 return _BuildDropdown(
+                     head: LocaleKeys.select.tr() +
+                         LocaleKeys.address_province.tr() + " * ",
+                     hint: "ทั่วประเทศ",);
+               }
+            },
+          ),
           SizedBox(
             height: 15,
           ),
-          _BuildDropdown(
-              head: LocaleKeys.select.tr()+LocaleKeys.address_city.tr()+" * ", hint: "ทั่วประเทศ",dataList: listAddrDeli),
+          StreamBuilder(
+            stream: bloc.city.stream,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if(snapshot.hasData) {
+                return _BuildDropdown(
+                    head: LocaleKeys.select.tr() +
+                        LocaleKeys.address_province.tr() + " * ",
+                    hint: "ทั่วประเทศ",item: (snapshot.data as StatesRespone).data);
+              }else{
+                return _BuildDropdown(
+                  head: LocaleKeys.select.tr() +
+                      LocaleKeys.address_province.tr() + " * ",
+                  hint: "ทั่วประเทศ",);
+              }
+            },
+          ),
           SizedBox(
             height: 15,
           ),
@@ -292,7 +324,13 @@ class _AddressAddViewState extends State<AddressAddView> {
       errorPhoneTxt = "";
     }
   }
-  Widget _BuildDropdown({String head, String hint, List<String> dataList}) {
+  Widget _BuildDropdown({String head, String hint, List<DataStates> item}) {
+
+    var datalist = List<String>();
+    if(item.isNotEmpty){
+      for(int i=0;i<item.length;i++){datalist.add(item[i].name);}
+    }
+
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,9 +343,9 @@ class _AddressAddViewState extends State<AddressAddView> {
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: Colors.black.withOpacity(0.3))),
-            child: CustomDropdownList(txtSelect: hint,title: head,dataList: dataList,),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.black.withOpacity(0.5))),
+            child: CustomDropdownList(txtSelect: hint,title: head,dataList: datalist,),
           ),
 
         ],

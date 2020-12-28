@@ -11,11 +11,13 @@ import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ResponeObject.dart';
+import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/app/model/pojo/response/RegisterRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Task.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/utility/http/HttpException.dart';
+import 'package:naifarm/app/model/pojo/response/zipCodeRespone.dart';
 import 'package:retrofit/retrofit.dart';
 import 'dart:convert';
 
@@ -69,7 +71,13 @@ abstract class APIProvider{
   Future<ResponeObject> AddressesList(String token);
 
   @GET("/countries/1/states")
-  Future<ResponeObject> StatesProvice(String token);
+  Future<ResponeObject> StatesProvice(String countries);
+
+  @GET("/countries/1/states/1/cities")
+  Future<ResponeObject> StatesCity(String countriesid,String statesId);
+
+  @GET("/countries/1/states/1/cities")
+  Future<ResponeObject> zipCode(String countries,String statesId,String cityId);
 
 }
 
