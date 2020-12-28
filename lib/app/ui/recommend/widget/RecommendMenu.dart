@@ -10,6 +10,7 @@ import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:sizer/sizer.dart';
 
 class RecommendMenu extends StatelessWidget {
 
@@ -18,7 +19,7 @@ class RecommendMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: EdgeInsets.only(top: 25),
+        margin: EdgeInsets.only(top: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: _menuViewModel.asMap().map((key, value){
@@ -37,7 +38,7 @@ class RecommendMenu extends StatelessWidget {
             children: [
               Container(
                 padding: EdgeInsets.all(3),
-                child: SvgPicture.asset(item.icon,width: 60,height: 60,),
+                child: SvgPicture.asset(item.icon,width: 6.0.w,height: 6.0.h,),
               ),
               index==3?Positioned(
                 right: 0,
@@ -56,8 +57,8 @@ class RecommendMenu extends StatelessWidget {
               ):SizedBox()
             ],
           ),
-          SizedBox(height: 10),
-          Text(item.label,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.detailFontSize()))
+          SizedBox(height: 5),
+          Text(item.label,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.detailFontSize().sp))
         ],
       ),
     onTap: (){

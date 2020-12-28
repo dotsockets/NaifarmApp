@@ -9,6 +9,7 @@ import 'package:naifarm/utility/log/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 final RouteObserver<PageRoute> routeObserver = new RouteObserver<PageRoute>();
 
@@ -51,16 +52,25 @@ class AppComponentState extends State<AppComponent> {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
 //flutter pub run easy_localization:generate
 // flutter pub run easy_localization:generate -f keys -o locale_keys.g.dart
-    final app = new MaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      title: Env.value.appName,
-      debugShowCheckedModeBanner: false,
-      theme: new ThemeData(primarySwatch: ThemeColor.primarySwatch(context),snackBarTheme: ThemeColor.SnackBarThemeColor(context),primaryColor: Colors.white,
-      ),
-      home: SplashView(),
-      navigatorObservers: [routeObserver],
+    final app = new LayoutBuilder(
+      builder: (context, constraints) {
+        return OrientationBuilder(
+          builder: (context, orientation) {
+            SizerUtil().init(constraints, orientation);
+            return MaterialApp(
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              title: Env.value.appName,
+              debugShowCheckedModeBanner: false,
+              theme: new ThemeData(primarySwatch: ThemeColor.primarySwatch(context),snackBarTheme: ThemeColor.SnackBarThemeColor(context),primaryColor: Colors.white,
+              ),
+              home: SplashView(),
+              navigatorObservers: [routeObserver],
+            );
+          },
+        );
+      },
     );
 
 

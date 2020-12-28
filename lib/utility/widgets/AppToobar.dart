@@ -7,7 +7,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-
+import 'package:sizer/sizer.dart';
 import 'BuildIconShop.dart';
 
 enum Header_Type { barHome, barNoBackground, barNormal, barcartShop, barMap }
@@ -262,8 +262,8 @@ class AppToobar extends PreferredSize {
                 child: SvgPicture.asset(
                   'assets/images/svg/search.svg',
                   color: Colors.black,
-                  width: 30,
-                  height: 30,
+                  width: 7.0.w,
+                  height: 7.0.w,
                 ),
                 visible: isEnable_Search,
               ),
@@ -295,8 +295,8 @@ class AppToobar extends PreferredSize {
               SvgPicture.asset(
                 'assets/images/svg/search_photo.svg',
                 color: Color(ColorUtils.hexToInt('#c7bfbf')),
-                width: 25,
-                height: 25,
+                width: 3.0.w,
+                height: 3.0.h,
               )
             ],
           )

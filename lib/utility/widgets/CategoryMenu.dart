@@ -1,12 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-
+import 'package:sizer/sizer.dart';
 
 class CategoryMenu extends StatelessWidget {
   final List<MenuModel> menuViewModel;
@@ -39,7 +38,7 @@ class CategoryMenu extends StatelessWidget {
                     ),
                   ):SizedBox(),
                   SizedBox(width: 8),
-                  Text(menuViewModel[index].label,style: FunctionHelper.FontTheme(color: selectedIndex==index?Colors.black:Colors.white,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+                  Text(menuViewModel[index].label,style: FunctionHelper.FontTheme(color: selectedIndex==index?Colors.black:Colors.white,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
                 ],
               ),
               onTap: (){

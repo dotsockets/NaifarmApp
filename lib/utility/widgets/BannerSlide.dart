@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:sizer/sizer.dart';
+
 
 class BannerSlide extends StatelessWidget {
   final List<String> _imgList = [
@@ -13,13 +15,14 @@ class BannerSlide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 26.0.h,
       width: double.infinity,
-      padding: EdgeInsets.only(top: 3,bottom: 30),
+        padding: EdgeInsets.only(top: 3,bottom: 15),
       decoration: new BoxDecoration(
           color: ThemeColor.primaryColor(),
           borderRadius: new BorderRadius.only(
-            bottomLeft: const Radius.circular(40.0),
-            bottomRight: const Radius.circular(40.0)
+            bottomLeft: const Radius.circular(30.0),
+            bottomRight: const Radius.circular(30.0)
           )
       ),
       child: CarouselSlider(
@@ -36,7 +39,7 @@ class BannerSlide extends StatelessWidget {
         items: _imgList
             .map(
               (item) => Container(
-                margin: EdgeInsets.only(left: 6,right: 6),
+                margin: EdgeInsets.only(left: 5,right: 5),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0),
                   child: CachedNetworkImage(

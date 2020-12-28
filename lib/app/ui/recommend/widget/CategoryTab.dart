@@ -10,6 +10,7 @@ import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:sizer/sizer.dart';
 
 class CategoryTab extends StatelessWidget {
   final List<ProductModel> _producViewModel = ProductViewModel().getProductCategory();
@@ -35,16 +36,16 @@ class CategoryTab extends StatelessWidget {
           children: [
             Row(
               children: [
-                SvgPicture.asset('assets/images/svg/boxes.svg',width: 30,height: 30,),
+                SvgPicture.asset('assets/images/svg/boxes.svg',width: 5.0.w,height: 5.0.w,),
                 SizedBox(width: 8),
-                Text(LocaleKeys.recommend_category_product.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+                Text(LocaleKeys.recommend_category_product.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
               ],
             ),
             Row(
               children: [
-                Text(LocaleKeys.recommend_change.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize())),
+                Text(LocaleKeys.recommend_change.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp)),
                 SizedBox(width: 8),
-                SvgPicture.asset('assets/images/svg/change.svg',width: 30,height: 30,),
+                SvgPicture.asset('assets/images/svg/change.svg',width: 3.0.w,height: 3.0.h,),
 
               ],
             )
@@ -87,8 +88,8 @@ class CategoryTab extends StatelessWidget {
       child: Column(
         children: [
           CachedNetworkImage(
-            width: 130,
-            height: 130,
+            width: 30.0.w,
+            height: 30.0.w,
             placeholder: (context, url) => Container(
               color: Colors.white,
               child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
@@ -98,7 +99,7 @@ class CategoryTab extends StatelessWidget {
             errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
           ),
           SizedBox(height: 10),
-          Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold),),
+          Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),),
           SizedBox(height: 10),
         ],
       ),

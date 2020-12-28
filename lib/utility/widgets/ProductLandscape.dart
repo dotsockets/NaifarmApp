@@ -12,6 +12,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductLandscape extends StatelessWidget {
 
@@ -53,18 +54,18 @@ class ProductLandscape extends StatelessWidget {
           children: [
             Row(
               children: [
-                Visibility(child: SvgPicture.asset(IconInto,width: 30,height: 30,),visible: showIcon,
+                Visibility(child: SvgPicture.asset(IconInto,width: 3.0.w,height: 3.0.h,),visible: showIcon,
                 ),
                 SizedBox(width: 8),
-                Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+                Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
               ],
             ),
             GestureDetector(
               child: Row(
                 children: [
-                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),
+                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
                   SizedBox(width: 8),
-                  SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
+                  SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
                 ],
               ),
                 onTap: ()=>onSelectMore()
@@ -110,8 +111,8 @@ class ProductLandscape extends StatelessWidget {
             Hero(
               tag: "${tagHero}_${index}",
               child: CachedNetworkImage(
-                width: 130,
-                height: 130,
+                width: 30.0.w,
+                height: 30.0.w,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
                   child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
@@ -127,9 +128,9 @@ class ProductLandscape extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
                   child: Container(
-                    padding: EdgeInsets.only(right: 8,left: 8,top: 3,bottom: 3),
+                    padding: EdgeInsets.only(right: 6,left: 6,top: 3,bottom: 3),
                     color: ThemeColor.ColorSale(),
-                    child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize()),),
+                    child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
                   ),
                 ),
               ),
@@ -146,14 +147,14 @@ class ProductLandscape extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 8),
-          Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),),
+          Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),),
           SizedBox(height: 5),
-          Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize()),),
+          Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
           Container(
             padding: EdgeInsets.all(5),
             child: Container(
               padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
-              child:  Text(LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize()),),
+              child:  Text(LocaleKeys.my_product_sold.tr()+" "+item.product_status+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize().sp),),
             ),
           )
         ],

@@ -22,6 +22,7 @@ import 'package:sticky_headers/sticky_headers.dart';
 import 'widget/RecommendMenu.dart';
 import 'widget/SearchHot.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 
 class RecommendView extends StatefulWidget {
@@ -130,7 +131,7 @@ class _RecommendViewState extends State<RecommendView> {
                         BannerSlide(),
                         RecommendMenu(),
                         FlashSale(),
-                        SizedBox(height: 15),
+                        SizedBox(height: 2.0.h),
                         ProductLandscape(
                             titleInto: LocaleKeys.recommend_best_seller.tr(),
                             producViewModel: ProductViewModel().getBestSaller(),
@@ -143,8 +144,9 @@ class _RecommendViewState extends State<RecommendView> {
                                   productImage: "product_hot_${index}");
                             },
                             tagHero: "product_hot"),
-                        SizedBox(height: 15),
+                        SizedBox(height: 2.0.h),
                         _BannerAds(),
+
                         ProductVertical(
                             titleInto: LocaleKeys.recommend_market.tr(),
                             producViewModel:
@@ -159,11 +161,11 @@ class _RecommendViewState extends State<RecommendView> {
                             },
                             borderRadius: false,
                             tagHero: "market"),
-                        SizedBox(height: 15),
+                        SizedBox(height: 2.0.h),
                         CategoryTab(),
-                        SizedBox(height: 15),
+                        SizedBox(height: 2.0.h),
                         SearchHot(onSelectChang: () {}),
-                        SizedBox(height: 15),
+                        SizedBox(height: 2.0.h),
                         ProductVertical(
                             titleInto: LocaleKeys.recommend_product_for_you.tr(),
                             producViewModel:

@@ -8,7 +8,7 @@ import 'package:naifarm/utility/widgets/CustomGridView.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:easy_localization/easy_localization.dart';
-
+import 'package:sizer/sizer.dart';
 
 class SearchHot extends StatelessWidget {
   final Function() onSelectChang;
@@ -45,14 +45,14 @@ class SearchHot extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   'assets/images/svg/search.svg',
-                  width: 35,
-                  height: 35,
+                  width: 4.0.w,
+                  height: 4.0.h,
                 ),
                 SizedBox(width: 8),
                 Text(LocaleKeys.recommend_search_hot.tr(),
                     style: FunctionHelper.FontTheme(
                         color: Colors.black,
-                        fontSize: SizeUtil.titleFontSize(),
+                        fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.bold)),
               ],
             ),
@@ -62,12 +62,12 @@ class SearchHot extends StatelessWidget {
                   Text(LocaleKeys.recommend_change.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.black,
-                          fontSize: SizeUtil.titleFontSize())),
+                          fontSize: SizeUtil.titleFontSize().sp)),
                   SizedBox(width: 8),
                   SvgPicture.asset(
                     'assets/images/svg/change.svg',
-                    width: 30,
-                    height: 30,
+                    width: 3.0.w,
+                    height: 3.0.h,
                   ),
                 ],
               ),
