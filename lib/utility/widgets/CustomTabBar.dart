@@ -8,6 +8,7 @@ import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class CustomTabBar extends StatelessWidget {
   final List<MenuModel> menuViewModel;
@@ -52,17 +53,17 @@ class CustomTabBar extends StatelessWidget {
                     color: isSelect ?ThemeColor.secondaryColor():Colors.white,
                     index: index,
                   ),
-                  SizedBox(height: 3),
+
                   _buildLabel(
                     text: text,
                     color: isSelect ?ThemeColor.secondaryColor():Colors.white,
                     wrapText: menuViewModel[0].label == text,
                   ),
-                  SizedBox(height: 3),
+                  SizedBox(height: 0.5.w),
                   isSelect ?Container(
                     color: Color(ColorUtils.hexToInt("#e85440")),
-                    width: 35,
-                    height: 5,
+                    width: 10.0.w,
+                    height: 1.0.w,
                   ):SizedBox()
                 ],
               ),
@@ -82,21 +83,21 @@ class CustomTabBar extends StatelessWidget {
       Stack(
         children: [
           Container(
-            padding: EdgeInsets.all(3),
+            padding: EdgeInsets.all(1.0.w),
             child: SvgPicture.asset(path_icon,color: color),
           ),
           index==2?Positioned(
             right: 0,
             top: 0,
             child: Container(
-              padding: EdgeInsets.all(3),
+              padding: EdgeInsets.all(1.0.w),
               decoration: BoxDecoration(
                 color: ThemeColor.ColorSale(),
                 borderRadius: BorderRadius.circular(10),
               ),
               constraints: BoxConstraints(
-                minWidth: 13,
-                minHeight: 13,
+                minWidth: 3.0.w,
+                minHeight: 3.0.w,
               ),
             ),
           ):SizedBox()
@@ -110,7 +111,7 @@ class CustomTabBar extends StatelessWidget {
     child: Text(
       text,
       style: TextStyle(
-        fontSize: SizeUtil.detailSmallFontSize(),
+        fontSize: SizeUtil.detailSmallFontSize().sp,
         color: color,
         fontWeight: FontWeight.bold,
         letterSpacing: wrapText ? -1.0 : null,

@@ -15,9 +15,9 @@ class BannerSlide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 26.0.h,
-      width: double.infinity,
-        padding: EdgeInsets.only(top: 3,bottom: 15),
+      height: 28.0.h,
+      width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.only(top: 2.0.w,bottom: 2.0.w),
       decoration: new BoxDecoration(
           color: ThemeColor.primaryColor(),
           borderRadius: new BorderRadius.only(
@@ -39,19 +39,25 @@ class BannerSlide extends StatelessWidget {
         items: _imgList
             .map(
               (item) => Container(
-                margin: EdgeInsets.only(left: 5,right: 5),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: CachedNetworkImage(
-                    placeholder: (context, url) => Container(
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.white,
-                      child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                margin: EdgeInsets.only(left: 1.0.h,right: 1.0.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(3.0.h),
+                      child: CachedNetworkImage(
+                        placeholder: (context, url) => Container(
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.white,
+                          child: Lottie.asset(Env.value.loadingAnimaion,height: 23.0.h),
+                        ),
+                        fit: BoxFit.fill,
+                        imageUrl: item,
+                        height: 25.0.h,
+                        errorWidget: (context, url, error) => Container(height: 23.0.h,child: Icon(Icons.error,size: 23.0.h,)),
+                      ),
                     ),
-                    fit: BoxFit.cover,
-                    imageUrl: item,
-                    errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
-                  ),
+                  ],
                 ),
               ),
         )

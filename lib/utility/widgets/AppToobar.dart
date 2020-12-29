@@ -200,7 +200,7 @@ class AppToobar extends PreferredSize {
 
   Widget BarHome(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 8, bottom: 8, left: isEnable_Search ? 15:10),
+      padding: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h, left: isEnable_Search ? 15:10),
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         bottom: false,
@@ -224,7 +224,7 @@ class AppToobar extends PreferredSize {
             _buildSearch(isEnable_Search ? false : true, context),
             BuildIconShop(
               notification: 20,
-              size: 25,
+              size: 3.5.h,
             )
           ],
         ),
@@ -295,8 +295,8 @@ class AppToobar extends PreferredSize {
               SvgPicture.asset(
                 'assets/images/svg/search_photo.svg',
                 color: Color(ColorUtils.hexToInt('#c7bfbf')),
-                width: 3.0.w,
-                height: 3.0.h,
+                width: 4.0.w,
+                height: 4.0.h,
               )
             ],
           )
