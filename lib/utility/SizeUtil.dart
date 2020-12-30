@@ -2,7 +2,7 @@ import 'package:flutter_device_type/flutter_device_type.dart';
 
 class SizeUtil {
   static double categoryBox() {
-    return Device.get().isPhone ? 75 : 100;
+    return Device.get().isPhone ? 9 : 40;
   }
   static double appNameFontSize() {
     return Device.get().isPhone ? 30 : 80;

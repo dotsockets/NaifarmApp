@@ -15,6 +15,7 @@ import 'package:naifarm/utility/widgets/MD2Indicator.dart';
 import 'myshop/MyshopView.dart';
 import 'purchase/PurchaseView.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 
 class MeView extends StatefulWidget {
@@ -68,11 +69,11 @@ class _MeViewState extends State<MeView> with RouteAware  {
           slivers: [
             SliverAppBar(
               leading: Container(
-                margin: EdgeInsets.only(left: 15),
+                margin: EdgeInsets.only(left: 5.0.w),
                 child: GestureDetector(
                   child: Icon(
                     Icons.settings,
-                    color: Colors.white,size: 30
+                    color: Colors.white,size: 7.0.w
                   ),
                   onTap: (){
                     AppRoute.SettingProfile(context, IsLogin);
@@ -84,7 +85,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                   child: Container(
                     margin: EdgeInsets.only(right: 13,top: 5),
                     child:
-                    BuildIconShop(size: 30,)
+                    BuildIconShop(size: 7.0.w,)
                   ),
                   onTap: (){
                     AppRoute.MyCart(context,true);
@@ -103,8 +104,8 @@ class _MeViewState extends State<MeView> with RouteAware  {
                       ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(60)),
                         child: CachedNetworkImage(
-                          width: 80,
-                          height: 80,
+                          width: 20.0.w,
+                          height: 20.0.w,
                           placeholder: (context, url) => Container(
                             color: Colors.white,
                             child: Lottie.asset(Env.value.loadingAnimaion,
@@ -125,7 +126,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                       Text("วีระชัย ใจกว้าง",
                           style: FunctionHelper.FontTheme(
                               color: Colors.white,
-                              fontSize: SizeUtil.titleFontSize(),
+                              fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.bold))
                     ],
                   ):_FormLogin(),
@@ -206,7 +207,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                   AppRoute.Login(context,IsCallBack: true);
                 },
                 child: Text(LocaleKeys.login_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                 ),
               ),
               SizedBox(width: 20,),
@@ -223,7 +224,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                   AppRoute.Register(context);
                 },
                 child: Text(LocaleKeys.register_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                 ),
               )
             ],
@@ -240,7 +241,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black)),
+          Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black)),
           SizedBox(width: 10,),
           message?ClipRRect(
             borderRadius: BorderRadius.circular(9.0),

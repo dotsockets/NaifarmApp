@@ -16,10 +16,10 @@ class CategoryMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 8,right: 8,bottom: 5,top:0),
+      padding: EdgeInsets.only(left: 1.0.w,right: 1.0.w),
       width: MediaQuery.of(context).size.width,
       color: ThemeColor.primaryColor(),
-      height: 30,
+      height: 4.0.h,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
@@ -27,17 +27,17 @@ class CategoryMenu extends StatelessWidget {
             return GestureDetector(
               child: Row(
                 children: [
-                  SizedBox(width: 14),
+                  SizedBox(width: 2.0.w),
                   selectedIndex==index?Container(
                     width: 10,
                     height: 10,
-                    padding: EdgeInsets.only(bottom: 3,left: 3,right: 3,top: 3),
+                    padding: EdgeInsets.only(bottom: 2.0.w,left: 2.0.w,right: 2.0.w,top: 2.0.w),
                     decoration: BoxDecoration(
                       color: Colors.deepOrange,
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ):SizedBox(),
-                  SizedBox(width: 8),
+                  SizedBox(width: 2.0.w),
                   Text(menuViewModel[index].label,style: FunctionHelper.FontTheme(color: selectedIndex==index?Colors.black:Colors.white,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
                 ],
               ),

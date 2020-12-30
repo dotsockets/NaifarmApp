@@ -30,21 +30,21 @@ class CategoryTab extends StatelessWidget {
 
   Container _header_bar() => Container(
       child: Container(
-        margin: EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 5),
+        margin: EdgeInsets.all(1.5.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
                 SvgPicture.asset('assets/images/svg/boxes.svg',width: 5.0.w,height: 5.0.w,),
-                SizedBox(width: 8),
+                SizedBox(width: 2.0.w),
                 Text(LocaleKeys.recommend_category_product.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
               ],
             ),
             Row(
               children: [
                 Text(LocaleKeys.recommend_change.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp)),
-                SizedBox(width: 8),
+                SizedBox(width: 2.0.w),
                 SvgPicture.asset('assets/images/svg/change.svg',width: 3.0.w,height: 3.0.h,),
 
               ],
@@ -60,7 +60,7 @@ class CategoryTab extends StatelessWidget {
       child: Row(
         children: List.generate(_producViewModel.length, (index){
           return Container(
-            margin: EdgeInsets.only(top: 10),
+            margin: EdgeInsets.only(top: 0.5.h),
             child: Column(
               children: [
                 _ProductImage(item: _producViewModel[index],index: index)
@@ -76,7 +76,7 @@ class CategoryTab extends StatelessWidget {
 
   Widget _ProductImage({ProductModel item,int index}){
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(1.0.h),
       decoration: BoxDecoration(
           border: Border(
             top: BorderSide(width: 2,color: Colors.grey.shade200),
@@ -98,9 +98,9 @@ class CategoryTab extends StatelessWidget {
             imageUrl: item.product_image,
             errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 1.0.h),
           Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),),
-          SizedBox(height: 10),
+          SizedBox(height: 1.0.h),
         ],
       ),
     );

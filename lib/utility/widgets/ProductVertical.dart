@@ -30,7 +30,6 @@ class ProductVertical extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.only(topLeft: Radius.circular(borderRadius?40:0),topRight:  Radius.circular(borderRadius?40:0)),
       child: Container(
-        padding: EdgeInsets.only(top: 10,right: 5,bottom: 15),
         width: MediaQuery.of(context).size.width,
         color: Colors.white,
         child: Column(
@@ -48,16 +47,15 @@ class ProductVertical extends StatelessWidget {
 
   Container _header_bar() => Container(
       child: Container(
-        margin: EdgeInsets.only(top: 5,left: 10,right: 10,bottom: 0),
+        margin: EdgeInsets.all(1.5.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
                // Image.asset(IconI=nto,width: 50,height: 50,),
-
                 SvgPicture.asset(IconInto,width: 10.0.w,height: 10.0.w,),
-                SizedBox(width: 8),
+                SizedBox(width: 2.0.w),
                 Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
               ],
             ),
@@ -65,7 +63,7 @@ class ProductVertical extends StatelessWidget {
               child: Row(
                 children: [
                   Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
-                  SizedBox(width: 8),
+                  SizedBox(width: 2.0.w),
                   SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
 
                 ],
@@ -82,7 +80,7 @@ class ProductVertical extends StatelessWidget {
   _buildCardProduct({ProductModel item,int index}){
     return GestureDetector(
       child: Container(
-        padding: EdgeInsets.only(left: 10,right: 10),
+        padding: EdgeInsets.only(left: 2.0.w,right: 2.0.w),
         child: Column(
           children: [
             Row(
@@ -99,7 +97,9 @@ class ProductVertical extends StatelessWidget {
                           color: Colors.white,
                           child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                         ),
-                        fit: BoxFit.cover,
+                        height: 15.0.h,
+                        width: 15.0.h,
+                        fit: BoxFit.contain,
                         imageUrl: item.product_image,
                         errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
                       ),
@@ -128,28 +128,28 @@ class ProductVertical extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:   SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
-          SizedBox(height: 10,),
+          SizedBox(height: 1.0.h,),
           Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize:  SizeUtil.priceFontSize().sp),),
-          SizedBox(height: 8,),
+          SizedBox(height: 0.8.h,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
                   Text(LocaleKeys.my_product_sold.tr()+" "+item.product_status+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:  SizeUtil.detailSmallFontSize().sp),),
-                  SizedBox(height: 5),
+                  SizedBox(height: 0.8.h),
                   Row(
                     children: [
                       Icon(Icons.location_pin,color: Color(ColorUtils.hexToInt("#666666")),),
-                      SizedBox(width: 5,),
+                      SizedBox(width: 0.3.w,),
                       Text('เชียงใหม่',style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize:  SizeUtil.detailFontSize().sp),)
                     ],
                   )
                 ],
               ),
               Container(
-                margin: EdgeInsets.only(right: 10),
-                padding: EdgeInsets.only(right: 10,left: 10,top: 5,bottom: 5),
+                margin: EdgeInsets.only(right: 2.0.w),
+                padding: EdgeInsets.only(right: 3.0.w,left: 3.0.w,top: 1.5.w,bottom: 1.5.w),
                 decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.all(Radius.circular(15))

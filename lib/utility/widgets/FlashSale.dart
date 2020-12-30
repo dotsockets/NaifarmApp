@@ -112,17 +112,17 @@ class FlashSale extends StatelessWidget {
                     color: Colors.white,
                     child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                   ),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   imageUrl: item.product_image,
                   errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: SizeUtil.titleSmallFontSize().sp,)),
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(1.0.h),
+                margin: EdgeInsets.all(1.5.w),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(1.0.h),
+                  borderRadius: BorderRadius.circular(1.0.w),
                   child: Container(
-                    padding: EdgeInsets.only(right: 0.5.h,left: 0.5.h,top: 0.5.h,bottom: 0.5.h),
+                    padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
                     color: ThemeColor.ColorSale(),
                     child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
                   ),
@@ -138,17 +138,16 @@ class FlashSale extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          SizedBox(height: 2.0.h),
+          SizedBox(height: 1.0.h),
           Hero(tag:  "productName_${index}",child: Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:SizeUtil.titleSmallFontSize().sp ),)),
-          SizedBox(height: 1.0.h),
+          SizedBox(height: 0.8.h),
           Hero(tag: "productPrice_${index}",child: Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize:SizeUtil.priceFontSize().sp),)),
-          SizedBox(height: 1.0.h),
           Stack(
             children: [
               Container(
-                padding: EdgeInsets.all(1.0.w),
+                padding: EdgeInsets.all(0.8.h),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(2.0.h),
                   child: Container(
                     padding: EdgeInsets.only(left: 3.0.w,right: 2.0.w,bottom: 1.0.w,top: 1.0.w),
                     color: ThemeColor.ColorSale(),

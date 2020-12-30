@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:sizer/sizer.dart';
 
 class BuildIconShop extends StatelessWidget {
   final int notification;
@@ -24,17 +25,17 @@ class BuildIconShop extends StatelessWidget {
           notification == 0
               ? SizedBox()
               : Positioned(
-            right: 8,
-            top: 5,
+            right: 5,
+            top: 8,
             child: Container(
-              padding: EdgeInsets.all(3),
+              padding: EdgeInsets.all(1.0.w),
               decoration: BoxDecoration(
                 color: ThemeColor.ColorSale(),
                 borderRadius: BorderRadius.circular(10),
               ),
               constraints: BoxConstraints(
-                minWidth: 13,
-                minHeight: 13,
+                minWidth: 3.0.w,
+                minHeight: 3.0.w,
               ),
             ),
           ),

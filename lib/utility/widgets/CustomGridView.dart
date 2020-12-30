@@ -60,7 +60,7 @@ class CustomGridView extends StatelessWidget {
   Widget _ProductImage({ProductModel item, int index,BuildContext context}) {
     return InkWell(
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(1.0.w),
         width: (MediaQuery.of(context).size.width/2),
         decoration: BoxDecoration(
             border: Border(
@@ -88,7 +88,7 @@ class CustomGridView extends StatelessWidget {
                     size: 30,
                   )),
             ),
-            SizedBox(width: 10),
+            SizedBox(width: 2.0.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +101,7 @@ class CustomGridView extends StatelessWidget {
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 2),
+                SizedBox(height: 0.5.h),
                 Text(
                   LocaleKeys.my_product_sold.tr()+" "+item.product_status+" "+LocaleKeys.cart_item.tr(),
                   overflow: TextOverflow.ellipsis,

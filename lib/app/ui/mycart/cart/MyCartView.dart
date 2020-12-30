@@ -16,7 +16,7 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
-
+import 'package:sizer/sizer.dart';
 import '../widget/ModalFitBottom_Sheet.dart';
 
 class MyCartView extends StatefulWidget {
@@ -64,19 +64,19 @@ class _MyCartViewState extends State<MyCartView> {
                         children: List.generate(_data_aar.length, (index) {
                           return Dismissible(
                             background: Container(
-                              padding: EdgeInsets.only(right: 30),
+                              padding: EdgeInsets.only(right: 5.0.w),
                               alignment: Alignment.centerRight,
                               color: ThemeColor.ColorSale(),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Lottie.asset('assets/json/delete.json',
-                                      height: 30, width: 30, repeat: true),
+                                      height: 4.0.h, width: 4.0.h, repeat: true),
                                   Text(
                                     LocaleKeys.cart_del.tr(),
                                     style: FunctionHelper.FontTheme(
                                         color: Colors.white,
-                                        fontSize: SizeUtil.titleFontSize(),
+                                        fontSize: SizeUtil.titleFontSize().sp,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
@@ -100,16 +100,16 @@ class _MyCartViewState extends State<MyCartView> {
               )
             : Center(
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 100),
+                  margin: EdgeInsets.only(bottom: 15.0.h),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Lottie.asset('assets/json/boxorder.json',
-                          height: 300, width: 300, repeat: false),
+                          height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
                         LocaleKeys.cart_empty.tr(),
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold),
+                            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
@@ -144,7 +144,7 @@ class _MyCartViewState extends State<MyCartView> {
         _BuildCard(item: item, index: index),
         _IntroShipment(),
         item.ProductDicount==0?_Buildcoupon():SizedBox(),
-        SizedBox(height: 13),
+        SizedBox(height: 1.0.h),
       ],
     );
   }
@@ -162,13 +162,13 @@ class _MyCartViewState extends State<MyCartView> {
                   child: item.select
                       ? SvgPicture.asset(
                           'assets/images/svg/checkmark.svg',
-                          width: 25,
-                          height: 25,
+                          width: 6.0.w,
+                          height: 6.0.w,
                         )
                       : SvgPicture.asset(
                           'assets/images/svg/uncheckmark.svg',
-                          width: 25,
-                          height: 25,
+                          width: 6.0.w,
+                          height: 6.0.w,
                           color: Colors.black.withOpacity(0.5),
                         ),
                   onTap: () {
@@ -181,11 +181,11 @@ class _MyCartViewState extends State<MyCartView> {
               Expanded(
                 flex: 8,
                 child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(3.0.w),
                   child: Column(
                     children: [
                       _OwnShop(item: item),
-                      SizedBox(height: 10),
+                      SizedBox(height: 2.0.w),
                       _ProductDetail(item: item, index: index),
                     ],
                   ),
@@ -207,8 +207,8 @@ class _MyCartViewState extends State<MyCartView> {
         ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           child: CachedNetworkImage(
-            width: 25,
-            height: 25,
+            width: 7.0.w,
+            height: 7.0.w,
             placeholder: (context, url) => Container(
               color: Colors.white,
               child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
@@ -224,11 +224,11 @@ class _MyCartViewState extends State<MyCartView> {
           ),
         ),
         SizedBox(
-          width: 10,
+          width: 2.0.w,
         ),
         Text(item.NameShop,
             style:
-            FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.bold))
+            FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp, fontWeight: FontWeight.bold))
       ],
     );
   }
@@ -243,8 +243,8 @@ class _MyCartViewState extends State<MyCartView> {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
               child: CachedNetworkImage(
-                width: 80,
-                height: 80,
+                width: 20.0.w,
+                height: 20.0.w,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
                   child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
@@ -259,45 +259,45 @@ class _MyCartViewState extends State<MyCartView> {
                     )),
               ),
             ),
-            SizedBox(width: 10),
+            SizedBox(width: 3.0.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(item.ProductName,
                     style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500)),
+                        fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500)),
                 SizedBox(height: 5),
                 Row(
                   children: [
                     item.ProductDicount != 0
                         ? Text("฿${item.ProductDicount}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.priceFontSize(),
+                                fontSize: SizeUtil.priceFontSize().sp,
                                 decoration: TextDecoration.lineThrough))
                         : SizedBox(),
-                    SizedBox(width: 8),
+                    SizedBox(width: 2.0.w),
                     Text("฿${item.ProductPrice}",
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.priceFontSize(), color: ThemeColor.ColorSale()))
+                            fontSize: SizeUtil.priceFontSize().sp, color: ThemeColor.ColorSale()))
                   ],
                 )
               ],
             )
           ],
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 1.0.h),
         Row(
           children: [
             InkWell(
               child: Container(
-                width: 30,
-                height: 25,
+                width: 7.0.w,
+                height: 3.0.h,
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.black.withOpacity(0.2)),
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(3),
                         bottomLeft: Radius.circular(3))),
-                child: Center(child: Text("-", style: TextStyle(fontSize: SizeUtil.titleFontSize()))),
+                child: Center(child: Text("-", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
               ),
               onTap: () {
                 setState(() {
@@ -306,23 +306,23 @@ class _MyCartViewState extends State<MyCartView> {
               },
             ),
             Container(
-              width: 30,
-              height: 25,
+              width: 7.0.w,
+              height: 3.0.h,
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.2))),
               child: Center(
-                  child: Text("${item.amout}", style: TextStyle(fontSize: SizeUtil.titleFontSize()))),
+                  child: Text("${item.amout}", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
             ),
             InkWell(
               child: Container(
-                width: 30,
-                height: 25,
+                width: 7.0.w,
+                height: 3.0.h,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(3),
                         bottomRight: Radius.circular(3)),
                     border: Border.all(color: Colors.black.withOpacity(0.2))),
-                child: Center(child: Text("+", style: TextStyle(fontSize: SizeUtil.titleFontSize()))),
+                child: Center(child: Text("+", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
               ),
               onTap: () {
                 setState(() {
@@ -339,12 +339,12 @@ class _MyCartViewState extends State<MyCartView> {
   Widget _Buildcoupon(){
     return Container(
         color: Colors.white,
-        padding: EdgeInsets.only(right: 5,left:0) ,
+        padding: EdgeInsets.only(right: 1.0.w,left:0) ,
         child: ListMenuItem(
           icon: 'assets/images/svg/coupon.svg',
           title: LocaleKeys.cart_discount.tr(),
           Message: "",
-          iconSize: 35,
+          iconSize: 4.0.h,
           fontWeight: FontWeight.w500,
           onClick: () {
             showMaterialModalBottomSheet(
@@ -364,16 +364,16 @@ class _MyCartViewState extends State<MyCartView> {
           children: [
             SvgPicture.asset(
               'assets/images/svg/delivery.svg',
-              width: 30,
-              height: 30,
+              width: 4.0.h,
+              height: 4.0.h,
             ),
-            SizedBox(width: 10),
+            SizedBox(width: 2.0.w),
             Text(LocaleKeys.cart_free.tr(),
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.ColorSale())),
-            Text(LocaleKeys.cart_delivery_free.tr(),
+                    fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.ColorSale())),
+            Text(" "+LocaleKeys.cart_delivery_free.tr(),
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500)),
+                    fontSize: SizeUtil.titleSmallFontSize().sp, fontWeight: FontWeight.w500)),
           ],
         ),
       ),
@@ -387,25 +387,25 @@ class _MyCartViewState extends State<MyCartView> {
         children: [
           Container(color: Colors.black.withOpacity(0.1), height: 1),
           Container(
-            padding: EdgeInsets.only(top: 10, bottom: 10),
+            padding: EdgeInsets.only(top: 2.5.h),
             child: InkWell(
               child: Row(
                 children: [
                   Expanded(
-                      flex: 4,
+                      flex: 6,
                       child:  Container(
-                        padding: EdgeInsets.only(left: 23),
+                        padding: EdgeInsets.only(left: 5.0.w),
                         child: Row(
                           children: [
                             SvgPicture.asset(
                               'assets/images/svg/checkmark.svg',
-                              width: 25,
-                              height: 25,
+                              width: 6.0.w,
+                              height: 6.0.w,
                             ),
-                            SizedBox(width: 10),
+                            SizedBox(width: 3.0.w),
                             Text(LocaleKeys.cart_all.tr(),
                                 style: FunctionHelper.FontTheme(
-                                    fontSize: SizeUtil.titleSmallFontSize(),
+                                    fontSize: SizeUtil.titleSmallFontSize().sp,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black))
                           ],
@@ -415,7 +415,7 @@ class _MyCartViewState extends State<MyCartView> {
                     flex: 2,
                     child: Text(LocaleKeys.cart_quantity.tr()+" ${SumTotalItem()} "+LocaleKeys.cart_item.tr(),
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleSmallFontSize(),
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.w500,
                             color: Colors.black)),
                   )
@@ -435,26 +435,26 @@ class _MyCartViewState extends State<MyCartView> {
                 Expanded(
                     flex: 3,
                     child: Container(
-                        margin: EdgeInsets.only(left: 20),
+                        margin: EdgeInsets.only(left: 5.0.w),
                         child: Text(LocaleKeys.cart_total.tr(),
                             style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize(),
+                                fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black)))),
                 Expanded(
                     flex: 2,
                     child: Container(
                         alignment: Alignment.topRight,
-                        margin: EdgeInsets.only(right: 10),
+                        margin: EdgeInsets.only(right: 2.0.w),
                         child: Text("฿${SumTotalPrice()}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize(),
+                                fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.bold,
                                 color: ThemeColor.ColorSale())))),
                 Expanded(
                     flex: 2,
                     child: Container(
-                      height: 55,
+                      height: 7.0.h,
                       color: ThemeColor.ColorSale(),
                       child: FlatButton(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -463,7 +463,7 @@ class _MyCartViewState extends State<MyCartView> {
                           },
                           child: Text(LocaleKeys.cart_check_out.tr(),
                               style: FunctionHelper.FontTheme(
-                                  fontSize:SizeUtil.titleFontSize(),
+                                  fontSize:SizeUtil.titleFontSize().sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white)),
                           ),

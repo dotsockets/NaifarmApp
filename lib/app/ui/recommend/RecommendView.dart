@@ -146,7 +146,6 @@ class _RecommendViewState extends State<RecommendView> {
                             tagHero: "product_hot"),
                         SizedBox(height: 2.0.h),
                         _BannerAds(),
-
                         ProductVertical(
                             titleInto: LocaleKeys.recommend_market.tr(),
                             producViewModel:

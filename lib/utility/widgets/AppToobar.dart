@@ -82,7 +82,7 @@ class AppToobar extends PreferredSize {
         title: Center(
           child: Text(
             title,
-            style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.normal),
+            style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal),
           ),
         ),
       ),
@@ -120,7 +120,7 @@ class AppToobar extends PreferredSize {
         title: Center(
           child: Text(
             title,
-            style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.titleFontSize()),
+            style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.titleFontSize().sp),
           ),
         ),
       ),
@@ -200,7 +200,7 @@ class AppToobar extends PreferredSize {
 
   Widget BarHome(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h, left: isEnable_Search ? 15:10),
+      padding: EdgeInsets.only(top:0.5.h,bottom:0.5.h,left: isEnable_Search ? 15:10),
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         bottom: false,
@@ -224,7 +224,7 @@ class AppToobar extends PreferredSize {
             _buildSearch(isEnable_Search ? false : true, context),
             BuildIconShop(
               notification: 20,
-              size: 3.5.h,
+              size: 3.0.h,
             )
           ],
         ),
@@ -250,6 +250,7 @@ class AppToobar extends PreferredSize {
 
     return Expanded(
         child: Container(
+          height: 4.6.h,
       decoration: new BoxDecoration(
           color: Colors.white,
           borderRadius: new BorderRadius.all(Radius.circular(40.0))),
@@ -271,18 +272,17 @@ class AppToobar extends PreferredSize {
                   child: InkWell(
                 child: isEnable_Search?SizedBox(height: 40,):
                 Container(
-                  height: 40,
                   padding: EdgeInsets.only(left: 5),
                   child: TextField(
                     style: FunctionHelper.FontTheme(
-                        color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
+                        color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     enabled: isEditable,
                     decoration: InputDecoration(
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,
                       hintText: hint,
                       hintStyle: FunctionHelper.FontTheme(
-                          color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize()),
+                          color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
                     onChanged: (String s) =>
                         onSearch != null ? onSearch(s) : null,
@@ -295,8 +295,8 @@ class AppToobar extends PreferredSize {
               SvgPicture.asset(
                 'assets/images/svg/search_photo.svg',
                 color: Color(ColorUtils.hexToInt('#c7bfbf')),
-                width: 4.0.w,
-                height: 4.0.h,
+                width: 5.0.w,
+                height: 5.0.w,
               )
             ],
           )
@@ -378,13 +378,13 @@ class AppToobar extends PreferredSize {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: FunctionHelper.FontTheme(
-                                    color: Colors.black, fontSize: SizeUtil.titleSmallFontSize())),
+                                    color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp)),
                           )
                         : Container(
                             padding: EdgeInsets.only(left: 5,top: 10),
                             child: TextFormField(
                               style: FunctionHelper.FontTheme(
-                                  color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
+                                  color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                               enabled: true,
                               maxLines: 1,
                               initialValue:locationTxt.toString().length > 30 ?  locationTxt.toString().trim().substring(0, 30) + "..." : "",
@@ -393,7 +393,7 @@ class AppToobar extends PreferredSize {
                                 enabledBorder: InputBorder.none,
                                 hintText: hint,
                                 hintStyle: FunctionHelper.FontTheme(
-                                    color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize()),
+                                    color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize().sp),
                               ),
                               onChanged: (String s) =>
                                   onSearch != null ? onSearch(s) : null,
