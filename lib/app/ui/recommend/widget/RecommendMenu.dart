@@ -38,7 +38,7 @@ class RecommendMenu extends StatelessWidget {
             children: [
               Container(
                 padding: EdgeInsets.all(1.0.w),
-                child: SvgPicture.asset(item.icon,width: 10.0.w,height: 13.0.w,),
+                child: SvgPicture.asset(item.icon,width: 13.0.w,height: 14.0.w,),
               ),
               index==3?Positioned(
                 right: 0,
