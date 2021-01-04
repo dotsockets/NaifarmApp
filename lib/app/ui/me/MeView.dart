@@ -83,7 +83,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
               actions: [
                 GestureDetector(
                   child: Container(
-                    margin: EdgeInsets.only(right: 13,top: 5),
+                    margin: EdgeInsets.only(right: 2.5.w,top: 2.0.w),
                     child:
                     BuildIconShop(size: 7.0.w,)
                   ),
@@ -93,7 +93,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                 ),
 
               ],
-              expandedHeight: ScreenUtil().setHeight(IsLogin?450:400),
+              expandedHeight: ScreenUtil().setHeight(IsLogin?75.0.h:65.0.h),
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   color: ThemeColor.primaryColor(),
@@ -104,8 +104,8 @@ class _MeViewState extends State<MeView> with RouteAware  {
                       ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(60)),
                         child: CachedNetworkImage(
-                          width: 20.0.w,
-                          height: 20.0.w,
+                          width: 10.0.h,
+                          height: 10.0.h,
                           placeholder: (context, url) => Container(
                             color: Colors.white,
                             child: Lottie.asset(Env.value.loadingAnimaion,
@@ -122,7 +122,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                               )),
                         ),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 2.0.h),
                       Text("วีระชัย ใจกว้าง",
                           style: FunctionHelper.FontTheme(
                               color: Colors.white,

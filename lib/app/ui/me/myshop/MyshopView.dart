@@ -7,6 +7,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class MyshopView extends StatelessWidget {
   final bool IsLogin;
@@ -78,7 +79,7 @@ class MyshopView extends StatelessWidget {
 
   Widget _buildTabMenu(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(5.0.w),
       color: Colors.grey.shade300,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

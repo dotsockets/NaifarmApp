@@ -51,7 +51,7 @@ class BannerSlide extends StatelessWidget {
                           color: Colors.white,
                           child: Lottie.asset(Env.value.loadingAnimaion,height: 23.0.h),
                         ),
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                         imageUrl: item,
                         height: 25.0.h,
                         errorWidget: (context, url, error) => Container(height: 23.0.h,child: Icon(Icons.error,size: 23.0.h,)),
