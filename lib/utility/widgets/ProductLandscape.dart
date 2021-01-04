@@ -5,8 +5,10 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
@@ -23,9 +25,10 @@ class ProductLandscape extends StatelessWidget {
   final String tagHero;
   final bool showIcon;
   final bool showPriceSale;
+  final ProductRespone productRespone;
 
 
-  const ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true}) : super(key: key);
+  ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true, this.productRespone}) : super(key: key);
 
 
   @override
@@ -78,14 +81,14 @@ class ProductLandscape extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: List.generate(producViewModel.length, (index){
+        children: List.generate(productRespone.data.length, (index){
           return GestureDetector(
             child: Container(
               margin: EdgeInsets.all(10),
               child: Column(
                 children: [
-                  _ProductImage(item: producViewModel[index],index: index),
-                  _intoProduct(item: producViewModel[index])
+                  _ProductImage(item: productRespone.data[index],index: index),
+                  _intoProduct(item: productRespone.data[index])
                 ],
               ),
             ),
@@ -98,7 +101,8 @@ class ProductLandscape extends StatelessWidget {
 
 
 
-  Widget _ProductImage({ProductModel item,int index}){
+  Widget _ProductImage({ProductData item,int index}){
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
       child: Container(
@@ -117,7 +121,7 @@ class ProductLandscape extends StatelessWidget {
                   child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                 ),
                 fit: BoxFit.cover,
-                imageUrl: item.product_image,
+                imageUrl: "${Env.value.baseUrl}/storage/images/${item.image[0].path}",
                 errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
               ),
             ),
@@ -141,19 +145,19 @@ class ProductLandscape extends StatelessWidget {
     );
   }
 
-  Widget _intoProduct({ProductModel item}){
+  Widget _intoProduct({ProductData item}){
     return Container(
       child: Column(
         children: [
           SizedBox(height: 8),
-          Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),),
+          Text(item.name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),),
           SizedBox(height: 5),
-          Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize()),),
+          Text("฿${item.salePrice}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize()),),
           Container(
             padding: EdgeInsets.all(5),
             child: Container(
               padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
-              child:  Text(LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize()),),
+              child:  Text(LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize()),),
             ),
           )
         ],

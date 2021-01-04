@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/ui/Shopmynear/ShopMyNearView.dart';
 import 'package:naifarm/app/ui/category/detail/CategoryDetailView.dart';
@@ -41,6 +43,7 @@ import 'package:naifarm/app/ui/search/SearchView.dart';
 import 'package:naifarm/app/ui/setting/about/AboutView.dart';
 import 'package:naifarm/app/ui/setting/address/AddressView.dart';
 import 'package:naifarm/app/ui/setting/addressAdd/AddressAddView.dart';
+import 'package:naifarm/app/ui/setting/addressEdit/AddressEditView.dart';
 import 'package:naifarm/app/ui/setting/bank/BankSettingView.dart';
 import 'package:naifarm/app/ui/setting/bankadd/BankAddView.dart';
 import 'package:naifarm/app/ui/setting/creditcardadd/CreditAddView.dart';
@@ -199,8 +202,8 @@ class AppRoute{
   static SettingAddress(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AddressView()));
   }
-  static SettingAddAddress(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AddressAddView()));
+  static Future<bool> SettingAddAddress(BuildContext context) async {
+    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AddressAddView()));
   }
 
   static RegisterOTP(BuildContext context,  {String phoneNumber,String refCode}){
@@ -319,8 +322,12 @@ class AppRoute{
   static ForgotPassword(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ForgotPasswordView()));
   }
-  static ProductMore(BuildContext context,String barTxt,List<ProductModel> productList){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductMoreView(barTxt:barTxt,productList:productList)));
+  static ProductMore({BuildContext context,String barTxt,List<ProductModel> productList,ProductRespone installData}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductMoreView(barTxt:barTxt,productList:productList,installData: installData,)));
+  }
+
+  static Future<bool> AddressEdit(BuildContext context,AddressesData item) async {
+    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:AddressEditView(item: item,)));
   }
 }
 

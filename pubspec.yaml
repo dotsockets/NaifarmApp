@@ -76,6 +76,7 @@ dependencies:
   fdottedline: ^1.0.1
   vibration: ^1.7.3
   flutter_datetime_picker: ^1.4.0
+  freezed_annotation: ^0.12.0
 
 dev_dependencies:
   flutter_test:

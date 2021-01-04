@@ -115,7 +115,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                             ProductViewModel().getMarketRecommend(),
                         IconInto: 'assets/images/svg/like.svg',
                         onSelectMore: () {
-                          AppRoute.ProductMore(context,LocaleKeys.tab_bar_recommend.tr(),ProductViewModel().getMarketRecommend());
+                          AppRoute.ProductMore(context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),productList:ProductViewModel().getMarketRecommend());
                         },
                         onTapItem: (int index) {
                           AppRoute.ProductDetail(context,
@@ -130,7 +130,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                       producViewModel: ProductViewModel().getProductFarm(),
                       IconInto: 'assets/images/svg/product_hot.svg',
                       onSelectMore: () {
-                        AppRoute.ProductMore(context,LocaleKeys.recommend_best_seller.tr(),ProductViewModel().getProductFarm());
+                        AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),productList:ProductViewModel().getProductFarm());
                       },
                       onTapItem: (int index) {
                         AppRoute.ProductDetail(context,
@@ -148,7 +148,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                         showIcon: false,
                         showPriceSale: false,
                         onSelectMore: () {
-                          AppRoute.ProductMore(context,"ผักบุ้ง",ProductViewModel().getVegetable1());
+                          AppRoute.ProductMore(context:context,barTxt:"ผักบุ้ง",productList:ProductViewModel().getVegetable1());
                         },
                         onTapItem: (int index) {
                           AppRoute.ProductDetail(context,
@@ -163,7 +163,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                         producViewModel: ProductViewModel().getVegetableChilli(),
                         IconInto: 'assets/images/svg/product_hot.svg',
                         onSelectMore: () {
-                          AppRoute.ProductMore(context,"พริก",ProductViewModel().getVegetableChilli());
+                          AppRoute.ProductMore(context:context,barTxt:"พริก",productList:ProductViewModel().getVegetableChilli());
                         },
                         onTapItem: (int index) {
                           AppRoute.ProductDetail(context,

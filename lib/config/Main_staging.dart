@@ -9,6 +9,6 @@ void main() => Staging();
 class Staging extends Env {
   EnvType environmentType = EnvType.STAGING;
   final String appName = "NaiFarmStaging";
-  final String baseUrl = 'https://stg-api-test.naifarm.com/v1';
+  final String baseUrl = 'https://stg-api-test.naifarm.com';
   final String dbName = 'Naifarm-Stg.db';
 }

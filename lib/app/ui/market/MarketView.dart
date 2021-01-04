@@ -106,7 +106,7 @@ class _MarketViewState extends State<MarketView> {
                         producViewModel: ProductViewModel().getProductFarm(),
                         IconInto: 'assets/images/svg/product_hot.svg',
                         onSelectMore: () {
-                          AppRoute.ProductMore(context,LocaleKeys.recommend_best_seller.tr(),ProductViewModel().getProductFarm());
+                          AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),productList:ProductViewModel().getProductFarm());
                         },
                         onTapItem: (int index) {
                           AppRoute.ProductDetail(context,

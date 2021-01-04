@@ -12,8 +12,10 @@ class CustomDropdownList extends StatefulWidget {
   String title;
   String txtSelect;
   List<String> dataList;
+  Function(int) onSelect;
+  int initialItem;
 
-   CustomDropdownList({Key key, this.txtSelect="", this.title="เลือกหมวดหมู่",this.dataList}) : super(key: key);
+   CustomDropdownList({Key key, this.txtSelect="", this.title="เลือกหมวดหมู่",this.dataList,this.onSelect,this.initialItem=0}) : super(key: key);
   @override
   _CustomDropdownListState createState() => _CustomDropdownListState();
 }
@@ -34,7 +36,11 @@ class _CustomDropdownListState extends State<CustomDropdownList> {
         )
       ),
       onTap: (){
-        Platform.isAndroid?FunctionHelper.DropDownAndroid(context,widget.dataList,onTap:(int index){}):FunctionHelper.DropDownIOS(context,widget.dataList,onTap:(int index){});
+        Platform.isAndroid?FunctionHelper.DropDownAndroid(context,widget.dataList,onTap:(int index){
+          widget.onSelect(index);
+        }):FunctionHelper.DropDownIOS(context,widget.dataList,onTap:(int index){
+          widget.onSelect(index);
+        },initialItem: widget.initialItem);
       },
     );
   }

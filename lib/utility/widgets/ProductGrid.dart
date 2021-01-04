@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
@@ -26,6 +27,7 @@ class ProductGrid extends StatelessWidget {
   final bool FlashSallLabel;
   final bool isLike;
   final bool showBorder;
+  final ProductRespone productRespone;
 
   const ProductGrid(
       {Key key,
@@ -38,7 +40,7 @@ class ProductGrid extends StatelessWidget {
       this.tagHero,
       this.FlashSallLabel = false,
       this.isLike = false,
-      this.showBorder = false})
+      this.showBorder = false,this.productRespone})
       : super(key: key);
 
   @override
@@ -60,28 +62,28 @@ class ProductGrid extends StatelessWidget {
   }
 
   Container _header_bar() => Container(
-        margin: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    margin: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
           children: [
-            Row(
-              children: [
-                SvgPicture.asset(
-                  IconInto,
-                  width: 30,
-                  height: 30,
-                ),
-                SizedBox(width: 8),
-                Text(titleInto,
-                    style: FunctionHelper.FontTheme(
-                        color: Colors.black,
-                        fontSize: SizeUtil.titleFontSize(),
-                        fontWeight: FontWeight.bold)),
-              ],
+            SvgPicture.asset(
+              IconInto,
+              width: 30,
+              height: 30,
             ),
+            SizedBox(width: 8),
+            Text(titleInto,
+                style: FunctionHelper.FontTheme(
+                    color: Colors.black,
+                    fontSize: SizeUtil.titleFontSize(),
+                    fontWeight: FontWeight.bold)),
           ],
         ),
-      );
+      ],
+    ),
+  );
 
   Widget _buildCardProduct({BuildContext context}) {
     return Container(
@@ -91,39 +93,39 @@ class ProductGrid extends StatelessWidget {
   }
 
   Container ItemRow(BuildContext context) => Container(
-        child: Column(
-          children: [
-            for (int i = 0; i < producViewModel.length; i += 2)
-              Container(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                margin: EdgeInsets.only(bottom: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(
-                      Check(i),
+    child: Column(
+      children: [
+        for (int i = 0; i < productRespone.data.length; i += 2)
+          Container(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            margin: EdgeInsets.only(bottom: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(
+                  Check(i),
                       (index) => _buildProduct(
-                          index: i + index,
-                          item: producViewModel[i + index],
-                          context: context)),
-                ),
-              )
-          ],
-        ),
-      );
+                      index: i + index,
+                      item: productRespone.data[i + index],
+                      context: context)),
+            ),
+          )
+      ],
+    ),
+  );
 
-  Widget _FlashintoProduct({ProductModel item, int index}) {
+  Widget _FlashintoProduct({ProductData item, int index}) {
     return Container(
       child: Column(
         children: [
           SizedBox(height: 8),
           Text(
-            item.product_name,
+            item.name,
             style: FunctionHelper.FontTheme(
                 color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),
           ),
           SizedBox(height: 5),
           Text(
-            "฿${item.product_price}",
+            "฿${item.salePrice}",
             style: FunctionHelper.FontTheme(
                 color: ThemeColor.ColorSale(), fontWeight: FontWeight.bold,fontSize: SizeUtil.priceFontSize()),
           ),
@@ -136,10 +138,10 @@ class ProductGrid extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0),
                   child: Container(
                     padding:
-                        EdgeInsets.only(left: 15, right: 7, bottom: 3, top: 3),
+                    EdgeInsets.only(left: 15, right: 7, bottom: 3, top: 3),
                     color: ThemeColor.ColorSale(),
                     child: Text(
-                      LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr(),
+                      LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize(),
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -158,10 +160,10 @@ class ProductGrid extends StatelessWidget {
     );
   }
 
-  Widget _intoProduct({ProductModel item, int index}) {
+  Widget _intoProduct({ProductData item, int index}) {
     return Column(
       children: [
-        Text(item.product_name,
+        Text(item.name,
             style: FunctionHelper.FontTheme(
                 color: Colors.black,
                 fontSize: SizeUtil.titleSmallFontSize(),
@@ -170,7 +172,7 @@ class ProductGrid extends StatelessWidget {
           height: 10,
         ),
         Text(
-          "฿${item.product_price}",
+          "฿${item.salePrice}",
           style: FunctionHelper.FontTheme(
               color: ThemeColor.ColorSale(), fontSize: SizeUtil.titleSmallFontSize()),
         ),
@@ -195,7 +197,7 @@ class ProductGrid extends StatelessWidget {
                   borderColor: Colors.black,
                   spacing: 0.0),
             ),
-            Text(LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr(),
+            Text(LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.detailSmallFontSize(),
                     color: Colors.black,
@@ -206,7 +208,7 @@ class ProductGrid extends StatelessWidget {
     );
   }
 
-  Widget _buildProduct({ProductModel item, int index, BuildContext context}) {
+  Widget _buildProduct({ProductData item, int index, BuildContext context}) {
     return GestureDetector(
       child: Container(
         width: (MediaQuery.of(context).size.width / 2) - 15,
@@ -232,10 +234,10 @@ class ProductGrid extends StatelessWidget {
                         height: 120,
                         color: Colors.white,
                         child:
-                            Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                        Lottie.asset(Env.value.loadingAnimaion, height: 30),
                       ),
                       fit: BoxFit.cover,
-                      imageUrl: item.product_image,
+                      imageUrl: "${Env.value.baseUrl}/storage/images/${item.image[0].path}",
                       errorWidget: (context, url, error) => Container(
                           height: 30,
                           child: Icon(
@@ -265,13 +267,13 @@ class ProductGrid extends StatelessWidget {
                     ),
                     isLike
                         ? Container(
-                            margin: EdgeInsets.only(right: 8, top: 7),
-                            child: SvgPicture.asset(
-                              'assets/images/svg/like_line.svg',
-                              width: 35,
-                              height: 35,
-                              color: ThemeColor.ColorSale(),
-                            ))
+                        margin: EdgeInsets.only(right: 8, top: 7),
+                        child: SvgPicture.asset(
+                          'assets/images/svg/like_line.svg',
+                          width: 35,
+                          height: 35,
+                          color: ThemeColor.ColorSale(),
+                        ))
                         : SizedBox()
                   ],
                 )
@@ -290,5 +292,5 @@ class ProductGrid extends StatelessWidget {
     );
   }
 
-  int Check(int i) => i != producViewModel.length - 1 ? 2 : 1;
+  int Check(int i) => i != productRespone.data.length - 1 ? 2 : 1;
 }

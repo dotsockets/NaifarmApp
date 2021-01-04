@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -13,6 +14,10 @@ import 'package:naifarm/utility/SizeUtil.dart';
 
 class CategoryTab extends StatelessWidget {
   final List<ProductModel> _producViewModel = ProductViewModel().getProductCategory();
+  final CategoryGroupRespone categoryGroupRespone;
+
+   CategoryTab({Key key, this.categoryGroupRespone}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,12 +62,12 @@ class CategoryTab extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: List.generate(_producViewModel.length, (index){
+        children: List.generate(categoryGroupRespone.data.length, (index){
           return Container(
             margin: EdgeInsets.only(top: 10),
             child: Column(
               children: [
-                _ProductImage(item: _producViewModel[index],index: index)
+                _ProductImage(item: categoryGroupRespone.data[index],index: index)
               ],
             ),
           );
@@ -73,9 +78,9 @@ class CategoryTab extends StatelessWidget {
 
 
 
-  Widget _ProductImage({ProductModel item,int index}){
+  Widget _ProductImage({CategoryGroupData item,int index}){
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
           border: Border(
             top: BorderSide(width: 2,color: Colors.grey.shade200),
@@ -87,18 +92,18 @@ class CategoryTab extends StatelessWidget {
       child: Column(
         children: [
           CachedNetworkImage(
-            width: 130,
-            height: 130,
+            width: 110,
+            height: 110,
             placeholder: (context, url) => Container(
               color: Colors.white,
               child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
             ),
             fit: BoxFit.cover,
-            imageUrl: item.product_image,
+            imageUrl: "https://dev2-test.naifarm.com/category-icon/${item.icon}.png",
             errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
           ),
           SizedBox(height: 10),
-          Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold),),
+          Text(item.name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold),),
           SizedBox(height: 10),
         ],
       ),

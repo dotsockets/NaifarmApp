@@ -66,11 +66,11 @@ class RecommendMenu extends StatelessWidget {
         break;
         case  "MarketView" : AppRoute.Market(context);
         break;
-        case  "SpecialproductsView" : AppRoute.ProductMore(context,LocaleKeys.recommend_special_price_product.tr(),ProductViewModel().getMarketRecommend());
+        case  "SpecialproductsView" : AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_special_price_product.tr(),productList:ProductViewModel().getMarketRecommend());
         break;
         case  "NotiView" :  AppRoute.MyNoti(context);
         break;
-        case  "MyLikeView" :  AppRoute.ProductMore(context,LocaleKeys.me_title_likes.tr(),ProductViewModel().getMarketRecommend());
+        case  "MyLikeView" :  AppRoute.ProductMore(context:context,barTxt:LocaleKeys.me_title_likes.tr(),productList:ProductViewModel().getMarketRecommend());
         break;
       }
     },

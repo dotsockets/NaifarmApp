@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/AddressBloc.dart';
 import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -20,7 +22,7 @@ class AddressView extends StatefulWidget {
 
 class _AddressViewState extends State<AddressView> {
 
-  MemberBloc bloc;
+  AddressBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   void initState() {
@@ -29,7 +31,7 @@ class _AddressViewState extends State<AddressView> {
 
   void _init(){
     if(null == bloc){
-      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc = AddressBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if(event){
           FunctionHelper.showDialogProcess(context);
@@ -42,7 +44,6 @@ class _AddressViewState extends State<AddressView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-    print((event as AddressesListRespone).total);
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
 
@@ -60,38 +61,84 @@ class _AddressViewState extends State<AddressView> {
   Widget build(BuildContext context) {
     _init();
     return Container(
+      color: Colors.grey.shade300,
       child: SafeArea(
         top: false,
         child: Scaffold(
+          backgroundColor: Colors.grey.shade300,
           key: _scaffoldKey,
           appBar: AppToobar(
             title: LocaleKeys.setting_account_title_address.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
+            onClick: (){
+              for(var item in bloc.deleteData){
+                Usermanager().getUser().then((value) => bloc.DeleteAddress(id: item.id.toString(),token: value.token));
+              }
+              Navigator.of(context).pop();
+            },
           ),
           body: Container(
             color: Colors.grey.shade300,
-            child: StreamBuilder(
-              stream: bloc.feedList,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if(snapshot.hasData){
-                    var item = (snapshot.data as AddressesListRespone).data;
-                    return Column(
-                      children: [
-                        Column(children: item.asMap().map((key, value) {
-                          return MapEntry(key,Column(
-                            children: [
-                              _buildCardAddr(item: item[key]),
-                              key+1==item.length?_BuildButton():SizedBox()
-                            ],
-                          ));
-                        }).values.toList()),
-                      ],
-                    );
-                  }else{
-                    return Text("");
+            child: SingleChildScrollView(
+              child: StreamBuilder(
+                  stream: bloc.feedList,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if(snapshot.hasData){
+                      var item = (snapshot.data as AddressesListRespone).data;
+                      return Column(
+                        children: [
+                          Column(children: item.asMap().map((key, value) {
+                            return MapEntry(key,InkWell(
+                              child: Container(
+                                margin: EdgeInsets.only(bottom: 10),
+                                child: Dismissible(
+                                    background: Container(
+                                      padding: EdgeInsets.only(right: 30),
+                                      alignment: Alignment.centerRight,
+                                      color: ThemeColor.ColorSale(),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Lottie.asset('assets/json/delete.json',
+                                              height: 30, width: 30, repeat: true),
+                                          Text(
+                                            LocaleKeys.cart_del.tr(),
+                                            style: FunctionHelper.FontTheme(
+                                                color: Colors.white,
+                                                fontSize: SizeUtil.titleFontSize(),
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  key: Key("${item[key].id}"),
+                                  child: _buildCardAddr(item: item[key]),
+                                  onDismissed: (direction) {
+                                    bloc.deleteData.add(item[key]);
+                                      item.removeAt(key);
+                                    bloc.onSuccess.add(AddressesListRespone(total: (snapshot.data as AddressesListRespone).total,http_call_back: (snapshot.data as AddressesListRespone).http_call_back,
+                                    data:item));
+                                  },
+                                ),
+                              ),
+                              onTap: () async {
+                                var result = await   AppRoute.AddressEdit(context, item[key]);
+                                if(result!=null)
+                                  if(result)
+                                    setState(() {});
+
+                              },
+                            ));
+                          }).values.toList()),
+                          _BuildButton()
+                        ],
+                      );
+                    }else{
+                      return Text("");
+                    }
                   }
-                }
+              ),
             ),
           ),
         ),
@@ -100,9 +147,8 @@ class _AddressViewState extends State<AddressView> {
   }
 
   //LocaleKeys.address_default.tr()
-  Widget _buildCardAddr({Data item}) {
+  Widget _buildCardAddr({AddressesData item}) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
       color: Colors.white,
       width: MediaQuery.of(context).size.width,
       child: Container(
@@ -139,7 +185,7 @@ class _AddressViewState extends State<AddressView> {
   }
   Widget _BuildButton() {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: EdgeInsets.only(top: 20,bottom: 20),
       child: FlatButton(
         color: ThemeColor.ColorSale(),
         textColor: Colors.white,
@@ -148,8 +194,11 @@ class _AddressViewState extends State<AddressView> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(40.0),
         ),
-        onPressed: () {
-          AppRoute.SettingAddAddress(context);
+        onPressed: () async {
+          var result = await AppRoute.SettingAddAddress(context);
+          if(result!=null)
+            if(result)
+              setState(() {});
         },
         child: Text(
           LocaleKeys.add_address_btn.tr(),

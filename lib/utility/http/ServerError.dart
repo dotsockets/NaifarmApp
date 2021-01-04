@@ -1,45 +1,39 @@
 
 import 'package:dio/dio.dart' hide Headers;
+import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 
-class ServerError implements Exception {
-  int _errorCode;
-  String _errorMessage = "";
+class ServerError{
 
-  ServerError.withError({DioError error}) {
-    _handleError(error);
-  }
+  static  ApiResult  DioErrorExpction(DioError error) {
+    String message = "";
 
-  getErrorCode() {
-    return _errorCode;
-  }
-
-  getErrorMessage() {
-    return _errorMessage;
-  }
-
-  _handleError(DioError error) {
     switch (error.type) {
       case DioErrorType.CANCEL:
-        _errorMessage = "Request was cancelled";
+        message = "Request was cancelled";
         break;
       case DioErrorType.CONNECT_TIMEOUT:
-        _errorMessage = "Connection timeout";
+        message = "Connection timeout";
         break;
       case DioErrorType.DEFAULT:
-        _errorMessage =
-        "Connection failed due to internet connection";
+        message = "Connection failed due to internet connection";
         break;
       case DioErrorType.RECEIVE_TIMEOUT:
-        _errorMessage = "Receive timeout in connection";
+        message = "Receive timeout in connection";
         break;
       case DioErrorType.RESPONSE:
-        _errorMessage =
-        "Received invalid status code: ${error.response.statusCode}";
+        if(error.response.statusCode==406 || error.response.statusCode==400){
+          return ApiResult(http_call_back: ThrowIfNoSuccess.fromJson(error.response.data));
+        }else{
+          message = "Received invalid status code: ${error.response.statusCode}";
+        }
         break;
       case DioErrorType.SEND_TIMEOUT:
-        _errorMessage = "Receive timeout in send request";
+        message = "Receive timeout in send request";
         break;
     }
-    return _errorMessage;
+
+    return ApiResult(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: error.response.statusCode,message:  message))));
   }
+
 }

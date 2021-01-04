@@ -234,10 +234,11 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
-  AddressesList({String token}) async{
+
+  CreateMyShop({String name, String slug, String description, String token}) async{
     onLoad.add(true);
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.AddressesList(token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.CreateMyShop(name: name,slug: slug,description: description,token: token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
         onSuccess.add(respone.respone);
@@ -248,8 +249,6 @@ class MemberBloc{
     });
     _compositeSubscription.add(subscription);
   }
-
-
 
 
 

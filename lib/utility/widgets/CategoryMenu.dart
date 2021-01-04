@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/FeaturedRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
@@ -12,8 +13,9 @@ class CategoryMenu extends StatelessWidget {
   final List<MenuModel> menuViewModel;
   final int selectedIndex;
   final Function(int) onTap;
+  final FeaturedRespone featuredRespone;
 
-  const CategoryMenu({Key key, this.menuViewModel, this.selectedIndex, this.onTap}) : super(key: key);
+  const CategoryMenu({Key key, this.menuViewModel, this.selectedIndex, this.onTap, this.featuredRespone}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +26,7 @@ class CategoryMenu extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: List.generate(menuViewModel.length, (index){
+          children: List.generate(featuredRespone.data.length, (index){
             return GestureDetector(
               child: Row(
                 children: [
@@ -39,7 +41,7 @@ class CategoryMenu extends StatelessWidget {
                     ),
                   ):SizedBox(),
                   SizedBox(width: 8),
-                  Text(menuViewModel[index].label,style: FunctionHelper.FontTheme(color: selectedIndex==index?Colors.black:Colors.white,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+                  Text(featuredRespone.data[index].name,style: FunctionHelper.FontTheme(color: selectedIndex==index?Colors.black:Colors.white,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
                 ],
               ),
               onTap: (){

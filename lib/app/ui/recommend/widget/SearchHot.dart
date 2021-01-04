@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/CustomGridView.dart';
@@ -14,8 +15,9 @@ class SearchHot extends StatelessWidget {
   final Function() onSelectChang;
 
   final String tagHero;
+  final ProductRespone productRespone;
 
-  SearchHot({Key key, this.onSelectChang, this.tagHero})
+  SearchHot({Key key, this.onSelectChang, this.tagHero,this.productRespone})
       : super(key: key);
 
   @override
@@ -27,7 +29,7 @@ class SearchHot extends StatelessWidget {
         children: [
           _header_bar(),
           CustomGridView(
-              producViewModel: ProductViewModel().getProductSearchHot(),lengthRow: 2,
+            productRespone: productRespone,lengthRow: 2,
               onTapItem: (int index){ AppRoute.ProductDetail(context,
                  productImage: "search_${index}");})
         ],

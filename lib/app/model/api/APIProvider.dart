@@ -1,16 +1,23 @@
 
 
 import 'package:dio/dio.dart';
+import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
+import 'package:naifarm/app/model/pojo/response/FeaturedRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ResponeObject.dart';
+import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
+import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/app/model/pojo/response/RegisterRespone.dart';
@@ -18,7 +25,9 @@ import 'package:naifarm/app/model/pojo/response/Task.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/utility/http/HttpException.dart';
 import 'package:naifarm/app/model/pojo/response/zipCodeRespone.dart';
+import 'package:naifarm/utility/http/ServerError.dart';
 import 'package:retrofit/retrofit.dart';
+import 'dart:convert';
 import 'dart:convert';
 
 import 'package:rxdart/rxdart.dart';
@@ -27,57 +36,92 @@ part '_APIProvider.dart';
 abstract class APIProvider{
   factory APIProvider(Dio dio, {String baseUrl}) = _APIProvider;
 
-  @GET("/tasks")
-  Future<List<Task>> getTasks();
+
 
   @GET("/tasks/{id}")
   Future<Fb_Profile> getProFileFacebook(@Query("access_token") String access_token);
 
-  @POST("/customers/login")
-  Future<ResponeObject> CustomersLogin(@Body() LoginRequest loginRequest);
+  @POST("/v1/customers/login")
+  Future<ApiResult> CustomersLogin(@Body() LoginRequest loginRequest);
 
-  @POST("/customers/register")
-  Future<ResponeObject> CustomersRegister(@Body() RegisterRequest registerRequest);
+  @POST("/v1/customers/register")
+  Future<ApiResult> CustomersRegister(@Body() RegisterRequest registerRequest);
 
-  @POST("/otp/request")
+  @POST("/v1/otp/request")
   @FormUrlEncoded()
-  Future<ResponeObject> OtpRequest(@Field() String numbephone);
+  Future<ApiResult> OtpRequest(@Field() String numbephone);
 
-  @POST("/otp/verify")
+  @POST("/v1/otp/verify")
   @FormUrlEncoded()
-  Future<ResponeObject> OtpVerify(@Field() String phone,@Field() String code,@Field() String ref);
+  Future<ApiResult> OtpVerify(@Field() String phone,@Field() String code,@Field() String ref);
 
-  @POST("/customers/forgot-password")
-  Future<ResponeObject> ForgotPasswordRequest(@Part() String email);
+  @POST("/v1/customers/forgot-password")
+  Future<ApiResult> ForgotPasswordRequest(@Part() String email);
 
-  @POST("/customers/reset-password")
+  @POST("/v1/customers/reset-password")
   @FormUrlEncoded()
-  Future<ResponeObject> ResetPasswordRequest(@Field() String email,@Field() String password,@Field() String token);
+  Future<ApiResult> ResetPasswordRequest(@Field() String email,@Field() String password,@Field() String token);
 
-  @GET("/customers/info")
-  Future<ResponeObject> getCustomerInfo(String access_token);
+  @GET("/v1/customers/info")
+  Future<ApiResult> getCustomerInfo(String access_token);
 
-  @PATCH("/customers/modify-profile")
-  Future<ResponeObject> ModifyProfile(@Body() CustomerInfoRespone data,String access_token);
+  @PATCH("/v1/customers/modify-profile")
+  Future<ApiResult> ModifyProfile(@Body() CustomerInfoRespone data,String access_token);
 
-  @PATCH("/customers/modify-password")
-  Future<ResponeObject> ModifyPassword(@Body() ModifyPasswordrequest data,String access_token);
+  @PATCH("/v1/customers/modify-password")
+  Future<ApiResult> ModifyPassword(@Body() ModifyPasswordrequest data,String access_token);
 
-  @POST("/customers/verify-password")
+  @POST("/v1/customers/verify-password")
   @FormUrlEncoded()
-  Future<ResponeObject> VerifyPassword(@Field() String password,String token);
+  Future<ApiResult> VerifyPassword(@Field() String password,String token);
 
-  @GET("/addresses")
-  Future<ResponeObject> AddressesList(String token);
+  @GET("/v1/addresses")
+  Future<ApiResult> AddressesList(String token);
 
-  @GET("/countries/1/states")
-  Future<ResponeObject> StatesProvice(String countries);
+  @GET("/v1/countries/1/states")
+  Future<ApiResult> StatesProvice(String countries);
 
-  @GET("/countries/1/states/1/cities")
-  Future<ResponeObject> StatesCity(String countriesid,String statesId);
+  @GET("/v1/countries/1/states/1/cities")
+  Future<ApiResult> StatesCity(String countriesid,String statesId);
 
-  @GET("/countries/1/states/1/cities")
-  Future<ResponeObject> zipCode(String countries,String statesId,String cityId);
+  @GET("/v1/countries/1/states/1/cities")
+  Future<ApiResult> zipCode(String countries,String statesId,String cityId);
+
+  @POST("/v1/addresses")
+  Future<ApiResult> CreateAddress(@Body() AddressCreaterequest addressCreaterequest,String token);
+
+  @DELETE("/v1/addresses")
+  @FormUrlEncoded()
+  Future<ApiResult> DeleteAddress(String id,String token);
+
+  @PATCH("/v1/addresses")
+  Future<ApiResult> UpdateAddress(@Body() AddressCreaterequest data,String access_token);
+
+
+  @GET("/v1/sliders")
+  Future<ApiResult> getSliderImage();
+
+  @GET("/v1/products/types/popular?limit=9&page=1")
+  Future<ApiResult> getProductPopular(String page);
+
+  @GET("/v1/products/types/products?limit=9&page=1")
+  Future<ApiResult> getProduct(String page);
+
+  @GET("/v1/category-group")
+  Future<ApiResult> getCategoryGroup();
+
+  @GET("/v1/categories/featured")
+  Future<ApiResult> getCategoriesFeatured();
+
+  @GET("/v1/products/types/trending?limit=6&page=1")
+  Future<ApiResult> getProductTrending(String page);
+
+  @GET("/v1/search/products?q=s&limit=10&page=1")
+  Future<ApiResult> getSearch({String page, String query,int limit});
+
+  @POST("/v1/customers/myshop")
+  @FormUrlEncoded()
+  Future<ApiResult> CreateMyShop({@Field() String name,@Field() String slug,@Field() String description,@Field() String token});
 
 }
 

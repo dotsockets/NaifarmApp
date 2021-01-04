@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
+import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -18,12 +19,18 @@ import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class AddressAddView extends StatefulWidget {
+class AddressEditView extends StatefulWidget {
+
+  final AddressesData item;
+
+  const AddressEditView({Key key, this.item}) : super(key: key);
+
   @override
-  _AddressAddViewState createState() => _AddressAddViewState();
+  _AddressEditViewState createState() => _AddressEditViewState();
 }
 
-class _AddressAddViewState extends State<AddressAddView> {
+class _AddressEditViewState extends State<AddressEditView> {
+
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController postController = TextEditingController();
@@ -51,6 +58,14 @@ class _AddressAddViewState extends State<AddressAddView> {
         });
       },
     );
+    nameController.text = widget.item.addressTitle;
+    phoneController.text = widget.item.phone;
+    detailAddrController.text = widget.item.addressLine1;
+    proviceSelect = widget.item.stateId;
+    citySelect = widget.item.cityId;
+    isSelect = widget.item.addressType == "Primary"?true:false;
+
+
   }
 
   void _init(){
@@ -76,12 +91,14 @@ class _AddressAddViewState extends State<AddressAddView> {
       });
       bloc.zipCcde.stream.listen((event) {
         _checkError();
-        postController.text = event.zipCode.toString();
+        setState(()=>postController.text = event.zipCode!=null?event.zipCode.toString():"");
       });
-      bloc.city..stream.listen((event) {
+      bloc.city.stream.listen((event) {
         _checkError();
-        postController.text = "";
       });
+      bloc.StatesCity(countriesid: "1",statesId: widget.item.stateId.toString());
+      postController.text = widget.item.zipCode;
+
     }
   }
 
@@ -160,6 +177,7 @@ class _AddressAddViewState extends State<AddressAddView> {
                if(snapshot.hasData) {
 
                  return _BuildDropdown(
+                   initialItem: loopIndex((snapshot.data as StatesRespone).data,proviceSelect),
                      head: LocaleKeys.select.tr() +
                          LocaleKeys.address_province.tr() + " * ",
                      hint: loopString((snapshot.data as StatesRespone).data,proviceSelect),item: (snapshot.data as StatesRespone).data,
@@ -181,6 +199,7 @@ class _AddressAddViewState extends State<AddressAddView> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if(snapshot.hasData) {
                 return _BuildDropdown(
+                    initialItem: loopIndex((snapshot.data as StatesRespone).data,citySelect),
                     head: LocaleKeys.select.tr() +
                         LocaleKeys.address_city.tr() + " * ",
                     hint: loopString((snapshot.data as StatesRespone).data,citySelect),item: (snapshot.data as StatesRespone).data,onSelect: (int index){
@@ -206,6 +225,7 @@ class _AddressAddViewState extends State<AddressAddView> {
             height: 15,
           ),
           BuildEditText(
+            maxLength: 100,
               head: LocaleKeys.address_detail.tr(),
               EnableMaxLength: false,
               hint: LocaleKeys.set_default.tr()+LocaleKeys.address_detail.tr(),
@@ -223,6 +243,19 @@ class _AddressAddViewState extends State<AddressAddView> {
     for(var index in data){
       if(index.id == id){
         item = index.name;
+        break;
+      }
+      i++;
+    }
+    return item;
+  }
+
+  int loopIndex(List<DataStates> data,int id){
+    int item = 0;
+    var i = 0;
+    for(var index in data){
+      if(index.id == id){
+        item = i;
         break;
       }
       i++;
@@ -294,8 +327,9 @@ class _AddressAddViewState extends State<AddressAddView> {
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () {
-        Usermanager().getUser().then((value) =>  bloc.CreateAddress(addressCreaterequest: AddressCreaterequest(cityId: citySelect,phone: phoneController.text,addressLine1: detailAddrController.text,
-            addressLine2: "",addressTitle: nameController.text,countryId: 1,stateId: proviceSelect,zipCode: postController.text,addressType: isSelect?"Primary":"Shipping"),token: value.token));
+
+        Usermanager().getUser().then((value) =>     bloc.UpdateAddress(data: AddressCreaterequest(countryId: 1,id: widget.item.id,cityId: citySelect,phone: phoneController.text,addressLine1: detailAddrController.text,
+            addressLine2: "",addressTitle: nameController.text,stateId: proviceSelect,zipCode: postController.text,addressType: isSelect?"Primary":"Shipping"),token: value.token));
       },
       child: Text(
         btnTxt,
@@ -316,7 +350,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       errorPhoneTxt = "";
     }
 
-    if (detailAddrController.text.length==0 || nameController.text.length==0 ||
+    if (detailAddrController.text.length==0 || nameController.text.length==0  ||
     postController.text.length==0 || detailAddrController.text.length==0 || proviceSelect==0 || citySelect==0) {
       check = false;
     }
@@ -324,7 +358,7 @@ class _AddressAddViewState extends State<AddressAddView> {
 
     setState(() {});
   }
-  Widget _BuildDropdown({String head, String hint, List<DataStates> item,Function(int) onSelect}) {
+  Widget _BuildDropdown({String head, String hint, List<DataStates> item,Function(int) onSelect,int initialItem}) {
 
     var datalist = List<String>();
     if(item.isNotEmpty){
@@ -345,7 +379,7 @@ class _AddressAddViewState extends State<AddressAddView> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.black.withOpacity(0.5))),
-            child: CustomDropdownList(txtSelect: hint,title: head,dataList: datalist,onSelect: (int index)=>onSelect(index),),
+            child: CustomDropdownList(txtSelect: hint,title: head,dataList: datalist,onSelect: (int index)=>onSelect(index),initialItem: initialItem,),
           ),
 
         ],

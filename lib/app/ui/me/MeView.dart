@@ -2,11 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -26,6 +29,11 @@ class _MeViewState extends State<MeView> with RouteAware  {
 
   bool IsLogin = true;
 
+  MemberBloc bloc;
+
+  CustomerInfoRespone  customerInfoRespone;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 
   @override
   void initState() {
@@ -35,6 +43,31 @@ class _MeViewState extends State<MeView> with RouteAware  {
      setState(() {
        ISLogin();
      });
+
+
+  }
+
+  void _init(){
+    if(null == bloc){
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        // if(event){
+        //   FunctionHelper.showDialogProcess(context);
+        // }else{
+        //   Navigator.of(context).pop();
+        // }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+       // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        customerInfoRespone = event;
+
+      });
+
+      Usermanager().getUser().then((value) => bloc.getCustomerInfo(token: value.token));
+    }
 
   }
 
@@ -59,10 +92,12 @@ class _MeViewState extends State<MeView> with RouteAware  {
 
   @override
   Widget build(BuildContext context) {
+    _init();
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
+          key: _scaffoldKey,
           backgroundColor: Colors.grey.shade200,
             body: CustomScrollView(
           slivers: [
@@ -167,7 +202,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                             child: TabBarView(
                               children: [
                                 PurchaseView(IsLogin: IsLogin,),
-                                MyshopView(IsLogin: IsLogin,)
+                                MyshopView(IsLogin: IsLogin,scaffoldKey: _scaffoldKey,customerInfoRespone: customerInfoRespone,)
                               ],
                             ),
                           ),

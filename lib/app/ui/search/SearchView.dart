@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/ui/recommend/widget/SearchHot.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -18,6 +21,21 @@ class _SearchViewState extends State<SearchView> {
   List <String> listClone = List<String>();
   bool checkSeemore = false;
   TextEditingController txtController = TextEditingController();
+  int limit = 3;
+  String SearchText = "";
+  ProductBloc bloc;
+
+
+  void _init(){
+    if(null == bloc) {
+      bloc = ProductBloc(AppProvider.getApplication(context));
+      bloc.loadProductTrending("1");
+      bloc.loadProductSearch(page: "1",query: SearchText,limit: limit);
+
+    }
+
+  }
+
   @override
   void initState() {
     super.initState();
@@ -26,7 +44,7 @@ class _SearchViewState extends State<SearchView> {
 
   @override
   Widget build(BuildContext context) {
-
+    _init();
     return Container(
       child: Scaffold(
          appBar: AppToobar(
@@ -46,49 +64,82 @@ class _SearchViewState extends State<SearchView> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    color: Colors.white,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: !checkSeemore&&listClone.length!=0&&listClone.length>3?3:listClone.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(left: 10,top: 10,bottom: 10),
-                              child: Text(listClone[index], style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.titleSmallFontSize())
-                                ),
-                            ),
-                            _BuildLine()
-                          ],
-                        );
-                      },
-                    ),
+                  StreamBuilder(
+                    stream: bloc.SearchProduct.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                       if(snapshot.hasData){
+                         return Container(
+                           color: Colors.white,
+                           child: ListView.builder(
+                               shrinkWrap: true,
+                               // itemCount: !checkSeemore&&listClone.length!=0&&listClone.length>3?3:listClone.length,
+                               itemCount: (snapshot.data as SearchRespone).hits.length,
+                               itemBuilder: (context, index) {
+
+                                 return Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                   children: [
+                                     Container(
+                                       padding: EdgeInsets.only(left: 10,top: 10,bottom: 10),
+                                       child: Text((snapshot.data as SearchRespone).hits[index].name, style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.titleSmallFontSize())
+                                       ),
+                                     ),
+                                     _BuildLine()
+                                   ],
+                                 );
+                               }
+                           ),
+                         );
+                       }else{
+                         return SizedBox();
+                       }
+                    },
                   ),
                   InkWell(
                     child: Container(
                       color: Colors.white,
-                      padding: EdgeInsets.only(top:10,bottom: 10),
+                      padding: EdgeInsets.only(top:0,bottom: 10),
                       width: MediaQuery.of(context).size.width,
                       child: Center(
-                        child: Visibility(
-                          child: Text(listClone.length==0?LocaleKeys.search_product_not_found.tr():checkSeemore?LocaleKeys.search_product_hide.tr():LocaleKeys.search_product_show.tr(),
-                              style: FunctionHelper.FontTheme(color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize())),
-                        visible: listClone.length>0&&listClone.length<=3?false:true,
+                        child:StreamBuilder(
+                          stream: bloc.SearchProduct.stream,
+                          builder: (BuildContext context, AsyncSnapshot snapshot) {
+                            if(snapshot.hasData){
+                              var item = (snapshot.data as SearchRespone);
+                              return  Visibility(
+                                child: Text(item.limit==0?LocaleKeys.search_product_not_found.tr():limit==6?LocaleKeys.search_product_hide.tr():LocaleKeys.search_product_show.tr(),
+                                    style: FunctionHelper.FontTheme(color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize())),
+                                visible: item.limit==0?false:true,
+                              );
+                            }else{
+                              return SizedBox();
+                            }
+                          },
                         ),
                       ),
                     ),
                     onTap: () {
-                      setState(() {
-                        checkSeemore ? checkSeemore = false : checkSeemore = true;
-                      });
+                      // setState(() {
+                      //   checkSeemore ? checkSeemore = false : checkSeemore = true;
+                      // });
+                      limit = limit==6?3:6;
+                      bloc.loadProductSearch(page: "1",query: SearchText,limit: limit);
+
                     },
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  SearchHot(onSelectChang: () {})
+                  StreamBuilder(
+                    stream: bloc.TrendingGroup.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if(snapshot.hasData) {
+                        return  SearchHot(productRespone: snapshot.data,onSelectChang: () {});
+                      }else{
+                        return SizedBox();
+                      }
+                    },
+                  ),
                 ],
               ),
             ],
@@ -107,12 +158,14 @@ class _SearchViewState extends State<SearchView> {
   }
 
   void SearchLike(String text){
-    listClone.clear();
-    for(int i=0;i<searchList.length;i++){
-      if(searchList[i].contains(text)){
-        listClone.add(searchList[i]);
-      }
-    }
+    // listClone.clear();
+    // for(int i=0;i<searchList.length;i++){
+    //   if(searchList[i].contains(text)){
+    //     listClone.add(searchList[i]);
+    //   }
+    // }
+    SearchText = text;
+    bloc.loadProductSearch(page: "1",query: SearchText,limit: limit);
 
   }
 }

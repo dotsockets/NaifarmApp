@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/api/APIProvider.dart';
 import 'package:naifarm/app/model/db/DBNaiFarmRepository.dart';
+import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
@@ -12,7 +13,7 @@ import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ResponeObject.dart';
+import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/app/model/pojo/response/RegisterRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Task.dart';
@@ -32,79 +33,108 @@ class APIRepository{
 
 
   Future<Fb_Profile> getFBProfile({String access_token}){
-   // throwIfNoSuccess(response);
     return _apiProvider.getProFileFacebook(access_token);
   }
 
-  Future<ResponeObject> CustomersLogin({LoginRequest loginRequest}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> CustomersLogin({LoginRequest loginRequest}){
     return _apiProvider.CustomersLogin(loginRequest);
   }
 
-  Future<ResponeObject> CustomersRegister({RegisterRequest registerRequest}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> CustomersRegister({RegisterRequest registerRequest}){
     return _apiProvider.CustomersRegister(registerRequest);
   }
 
-  Future<ResponeObject> OTPRequest({String numberphone}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> OTPRequest({String numberphone}){
     return _apiProvider.OtpRequest(numberphone);
   }
 
-  Future<ResponeObject> OtpVerify({ String phone,String code,String ref}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> OtpVerify({ String phone,String code,String ref}){
     return _apiProvider.OtpVerify(phone,code,ref);
   }
 
-  Future<ResponeObject> ForgotPassword({ String email}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> ForgotPassword({ String email}){
     return _apiProvider.ForgotPasswordRequest(email);
   }
 
 
-  Future<ResponeObject> ResetPasswordRequest({String email, String password,String token}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> ResetPasswordRequest({String email, String password,String token}){
     return _apiProvider.ResetPasswordRequest(email,password,token);
   }
 
-  Future<ResponeObject> getCustomerInfo({String token}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> getCustomerInfo({String token}){
     return _apiProvider.getCustomerInfo(token);
   }
 
-  Future<ResponeObject> ModifyProfile({CustomerInfoRespone data ,String token}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> ModifyProfile({CustomerInfoRespone data ,String token}){
     return _apiProvider.ModifyProfile(data,token);
   }
 
-  Future<ResponeObject> ModifyPassword({ModifyPasswordrequest data ,String token}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> ModifyPassword({ModifyPasswordrequest data ,String token}){
     return _apiProvider.ModifyPassword(data,token);
   }
 
-  Future<ResponeObject> VerifyPassword({String password ,String token}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> VerifyPassword({String password ,String token}){
     return _apiProvider.VerifyPassword(password,token);
   }
 
-  Future<ResponeObject> AddressesList({String token}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> AddressesList({String token}){
     return _apiProvider.AddressesList(token);
   }
 
-  Future<ResponeObject> StatesProvice({String countries}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> StatesProvice({String countries}){
     return _apiProvider.StatesProvice(countries);
   }
 
-  Future<ResponeObject> StatesCity({String countriesid, String statesId}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> StatesCity({String countriesid, String statesId}){
     return _apiProvider.StatesCity(countriesid,statesId);
   }
 
-  Future<ResponeObject> StatesZipCode({String countries,String statesId,String cityId}){
-    // throwIfNoSuccess(response);
+  Future<ApiResult> StatesZipCode({String countries,String statesId,String cityId}){
     return _apiProvider.zipCode(countries,statesId,cityId);
+  }
+
+  Future<ApiResult> CreateAddress({AddressCreaterequest addressCreaterequest,String token}){
+    return _apiProvider.CreateAddress(addressCreaterequest,token);
+  }
+
+  Future<ApiResult> DeleteAddress({String id,String token}){
+    return _apiProvider.DeleteAddress(id,token);
+  }
+
+  Future<ApiResult> UpdateAddress({AddressCreaterequest data, String token}){
+    return _apiProvider.UpdateAddress(data,token);
+  }
+
+  Future<ApiResult> getSliderImage(){
+    return _apiProvider.getSliderImage();
+  }
+
+  Future<ApiResult> getProductPopular(String page){
+    return _apiProvider.getProductPopular(page);
+  }
+
+  Future<ApiResult> getCategoryGroup(){
+    return _apiProvider.getCategoryGroup();
+  }
+
+  Future<ApiResult> getCategoriesFeatured(){
+    return _apiProvider.getCategoriesFeatured();
+  }
+
+  Future<ApiResult> getProductTrending(String page){
+    return _apiProvider.getProductTrending(page);
+  }
+
+  Future<ApiResult> getProduct(String page){
+    return _apiProvider.getProduct(page);
+  }
+
+  Future<ApiResult> getSearch({String page, String query,int limit}){
+    return _apiProvider.getSearch(page: page,query: query,limit: limit);
+  }
+
+  Future<ApiResult> CreateMyShop({String name, String slug, String description, String token}){
+    return _apiProvider.CreateMyShop(name: name,slug: slug,description: description,token: token);
   }
 
 

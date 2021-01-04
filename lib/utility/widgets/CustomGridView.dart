@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -18,13 +19,13 @@ import 'package:easy_localization/easy_localization.dart';
 class CustomGridView extends StatelessWidget {
   final int lengthRow;
   final Function(int) onTapItem;
-  final List<ProductModel> producViewModel;
+  final ProductRespone productRespone;
 
   const CustomGridView({
     Key key,
     this.onTapItem,
-    this.producViewModel,
     this.lengthRow=0,
+    this.productRespone
   }) : super(key: key);
 
   @override
@@ -44,10 +45,10 @@ class CustomGridView extends StatelessWidget {
             Container(
               child: Row(
                 children: List.generate(
-                    i==producViewModel.length-1?1:2,
+                    i==productRespone.data.length-1?1:2,
                         (index) => _ProductImage(
                         index: i + index,
-                        item: producViewModel[i+index], context: context)
+                        item: productRespone.data[i+index], context: context)
                 ),
               ),
             )
@@ -56,7 +57,7 @@ class CustomGridView extends StatelessWidget {
     );
   }
 
-  Widget _ProductImage({ProductModel item, int index,BuildContext context}) {
+  Widget _ProductImage({ProductData item, int index,BuildContext context}) {
     return InkWell(
       child: Container(
         padding: EdgeInsets.all(10),
@@ -79,7 +80,7 @@ class CustomGridView extends StatelessWidget {
                 child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
               ),
               fit: BoxFit.cover,
-              imageUrl: item.product_image,
+              imageUrl: "${Env.value.baseUrl}/storage/images/${item.image[0].path}",
               errorWidget: (context, url, error) => Container(
                   height: 30,
                   child: Icon(
@@ -93,7 +94,7 @@ class CustomGridView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  item.product_name,
+                  item.name,
                   overflow: TextOverflow.ellipsis,
                   style: FunctionHelper.FontTheme(
                       color: Colors.black,
@@ -102,7 +103,7 @@ class CustomGridView extends StatelessWidget {
                 ),
                 SizedBox(height: 2),
                 Text(
-                  LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr(),
+                  LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
                   overflow: TextOverflow.ellipsis,
                   style: FunctionHelper.FontTheme(
                       color: Colors.black,

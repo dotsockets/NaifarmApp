@@ -29,7 +29,7 @@ class PurchaseView extends StatelessWidget {
               title: LocaleKeys.me_title_likes.tr(),
               Message: "8 รายการ",
               onClick: () {
-                AppRoute.ProductMore(context,LocaleKeys.me_title_likes.tr(),ProductViewModel().getMarketRecommend());
+                AppRoute.ProductMore(context:context,barTxt:LocaleKeys.me_title_likes.tr(),productList:ProductViewModel().getMarketRecommend());
               }),
           _BuildDivider(),
           IsLogin
@@ -39,7 +39,7 @@ class PurchaseView extends StatelessWidget {
                       producViewModel: ProductViewModel().getProductForYou(),
                       IconInto: 'assets/images/svg/foryou.svg',
                       onSelectMore: () {
-                        AppRoute.ProductMore(context,LocaleKeys.me_title_again.tr(),ProductViewModel().getProductForYou());
+                        AppRoute.ProductMore(context:context,barTxt:LocaleKeys.me_title_again.tr(),productList:ProductViewModel().getProductForYou());
                       },
                       onTapItem: (int index) {
                         AppRoute.ProductDetail(context,

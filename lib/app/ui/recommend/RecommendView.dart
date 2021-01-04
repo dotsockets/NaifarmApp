@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
@@ -40,6 +42,7 @@ class _RecommendViewState extends State<RecommendView> {
   final _indicatorController = IndicatorController();
   final _scrollController = TrackingScrollController();
   int _categoryselectedIndex = 0;
+  ProductBloc bloc;
   Offset _position;
 
   double _dxMax;
@@ -59,8 +62,17 @@ class _RecommendViewState extends State<RecommendView> {
     super.dispose();
   }
 
+  void _init(){
+    if(null == bloc) {
+      bloc = ProductBloc(AppProvider.getApplication(context));
+      bloc.loadHomeData();
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    _init();
     return CustomRefreshIndicator(
         controller: _indicatorController,
         onRefresh: () => Future.delayed(const Duration(seconds: 2)),
@@ -112,15 +124,24 @@ class _RecommendViewState extends State<RecommendView> {
                   child: StickyHeader(
                     header: Column(
                       children: [
-                        CategoryMenu(
-                         //selectedIndex: _categoryselectedIndex,
-                          selectedIndex: 0,
-                          menuViewModel: _menuViewModel,
-                          onTap: (int val) {
-                            setState(() {
-                              _categoryselectedIndex = val;
-                              _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
-                            });
+                        StreamBuilder(
+                          stream: bloc.FeaturedGroup.stream,
+                          builder: (BuildContext context, AsyncSnapshot snapshot) {
+                            if(snapshot.hasData) {
+                              return CategoryMenu(
+                                featuredRespone: snapshot.data,
+                                //selectedIndex: _categoryselectedIndex,
+                                selectedIndex: 0,
+                                onTap: (int val) {
+                                  // setState(() {
+                                  //   _categoryselectedIndex = val;
+                                  //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
+                                  // });
+                                },
+                              );
+                            }else{
+                              return SizedBox();
+                            }
                           },
                         ),
                       ],
@@ -131,53 +152,101 @@ class _RecommendViewState extends State<RecommendView> {
                         RecommendMenu(),
                         FlashSale(),
                         SizedBox(height: 15),
-                        ProductLandscape(
-                            titleInto: LocaleKeys.recommend_best_seller.tr(),
-                            producViewModel: ProductViewModel().getBestSaller(),
-                            IconInto: 'assets/images/svg/product_hot.svg',
-                            onSelectMore: () {
-                              AppRoute.ProductMore(context,LocaleKeys.recommend_best_seller.tr(), ProductViewModel().getBestSaller());
-                            },
-                            onTapItem: (int index) {
-                              AppRoute.ProductDetail(context,
-                                  productImage: "product_hot_${index}");
-                            },
-                            tagHero: "product_hot"),
+                        StreamBuilder(
+                          stream: bloc.ProductPopular.stream,
+                          builder: (BuildContext context, AsyncSnapshot snapshot) {
+                              if(snapshot.hasData) {
+                                return ProductLandscape(
+                                  productRespone: snapshot.data,
+                                    titleInto: LocaleKeys.recommend_best_seller.tr(),
+                                    producViewModel: ProductViewModel().getBestSaller(),
+                                    IconInto: 'assets/images/svg/product_hot.svg',
+                                    onSelectMore: () {
+                                      AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_best_seller.tr(),installData: snapshot.data);
+                                    },
+                                    onTapItem: (int index) {
+                                      AppRoute.ProductDetail(context,
+                                          productImage: "product_hot_${index}");
+                                    },
+                                    tagHero: "product_hot");
+                              }else{
+                                return SizedBox();
+                              }
+                          },
+                        ),
                         SizedBox(height: 15),
                         _BannerAds(),
-                        ProductVertical(
-                            titleInto: LocaleKeys.recommend_market.tr(),
-                            producViewModel:
-                                ProductViewModel().getProductFarm(),
-                            IconInto: 'assets/images/svg/menu_market.svg',
-                            onSelectMore: () {
-                              AppRoute.Market(context);
-                            },
-                            onTapItem: (int index) {
-                              AppRoute.ProductDetail(context,
-                                  productImage: "market_${index}");
-                            },
-                            borderRadius: false,
-                            tagHero: "market"),
+                        StreamBuilder(
+                          stream: bloc.TrendingGroup.stream,
+                          builder: (BuildContext context, AsyncSnapshot snapshot) {
+                            if(snapshot.hasData) {
+                              return  ProductVertical(
+                                productRespone:  snapshot.data,
+                                  titleInto: LocaleKeys.recommend_market.tr(),
+                                  producViewModel:
+                                  ProductViewModel().getProductFarm(),
+                                  IconInto: 'assets/images/svg/menu_market.svg',
+                                  onSelectMore: () {
+                                    AppRoute.Market(context);
+                                  },
+                                  onTapItem: (int index) {
+                                    AppRoute.ProductDetail(context,
+                                        productImage: "market_${index}");
+                                  },
+                                  borderRadius: false,
+                                  tagHero: "market");
+                            }else{
+                              return SizedBox();
+                            }
+                          },
+                        ),
                         SizedBox(height: 15),
-                        CategoryTab(),
+                        StreamBuilder(
+                          stream: bloc.CategoryGroup.stream,
+                          builder: (BuildContext context, AsyncSnapshot snapshot) {
+                            if(snapshot.hasData) {
+                              return CategoryTab(categoryGroupRespone: snapshot.data,);
+                            }else{
+                              return SizedBox();
+                            }
+                          },
+                        ),
                         SizedBox(height: 15),
-                        SearchHot(onSelectChang: () {}),
+                        StreamBuilder(
+                          stream: bloc.TrendingGroup.stream,
+                          builder: (BuildContext context, AsyncSnapshot snapshot) {
+                            if(snapshot.hasData) {
+                              return  SearchHot(productRespone: snapshot.data,onSelectChang: () {});
+                            }else{
+                              return SizedBox();
+                            }
+                          },
+                        ),
                         SizedBox(height: 15),
-                        ProductVertical(
-                            titleInto: LocaleKeys.recommend_product_for_you.tr(),
-                            producViewModel:
-                                ProductViewModel().getProductForYou(),
-                            IconInto: 'assets/images/svg/foryou.svg',
-                            onSelectMore: () {
-                              AppRoute.ProductMore(context,LocaleKeys.recommend_product_for_you.tr(),ProductViewModel().getProductForYou());
-                            },
-                            onTapItem: (int index) {
-                              AppRoute.ProductDetail(context,
-                                  productImage: "foryou_${index}");
-                            },
-                            borderRadius: false,
-                            tagHero: "foryou")
+                        StreamBuilder(
+                          stream: bloc.TrendingGroup.stream,
+                          builder: (BuildContext context, AsyncSnapshot snapshot) {
+                            if(snapshot.hasData) {
+                              return  ProductVertical(
+                                productRespone: snapshot.data,
+                                  titleInto: LocaleKeys.recommend_product_for_you.tr(),
+                                  producViewModel:
+                                  ProductViewModel().getProductForYou(),
+                                  IconInto: 'assets/images/svg/foryou.svg',
+                                  onSelectMore: () {
+                                    AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_product_for_you.tr(),installData: snapshot.data);
+                                  },
+                                  onTapItem: (int index) {
+                                    AppRoute.ProductDetail(context,
+                                        productImage: "foryou_${index}");
+                                  },
+                                  borderRadius: false,
+                                  tagHero: "foryou");
+                            }else{
+                              return SizedBox();
+                            }
+                          },
+                        ),
                       ],
                     ),
                   ),

@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
@@ -22,8 +23,9 @@ class ProductVertical extends StatelessWidget {
   final  bool borderRadius;
   final String tagHero;
   final double IconSize;
+  final ProductRespone productRespone;
 
-  const ProductVertical({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.producViewModel, this.borderRadius, this.tagHero, this.IconSize=35}) : super(key: key);
+  const ProductVertical({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.producViewModel, this.borderRadius, this.tagHero, this.IconSize=35,this.productRespone}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -36,7 +38,7 @@ class ProductVertical extends StatelessWidget {
           children: [
             _header_bar(),
             Column(
-              children: List.generate(producViewModel.length, (index) => _buildCardProduct(item: producViewModel[index],index: index)),
+              children: List.generate(productRespone.data.length, (index) => _buildCardProduct(item: productRespone.data[index],index: index)),
             )
           ],
         ),
@@ -78,7 +80,7 @@ class ProductVertical extends StatelessWidget {
       )
   );
 
-  _buildCardProduct({ProductModel item,int index}){
+  _buildCardProduct({ProductData item,int index}){
     return GestureDetector(
       child: Container(
         padding: EdgeInsets.only(left: 10,right: 10),
@@ -99,7 +101,7 @@ class ProductVertical extends StatelessWidget {
                           child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                         ),
                         fit: BoxFit.cover,
-                        imageUrl: item.product_image,
+                        imageUrl: "${Env.value.baseUrl}/storage/images/${item.image[0].path}",
                         errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
                       ),
                     ),
@@ -121,21 +123,21 @@ class ProductVertical extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoProduct({ProductModel item}){
+  Widget _buildInfoProduct({ProductData item}){
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:   SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+          Text(item.name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:   SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
           SizedBox(height: 10,),
-          Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize:  SizeUtil.priceFontSize()),),
+          Text("฿${item.salePrice}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize:  SizeUtil.priceFontSize()),),
           SizedBox(height: 8,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
-                  Text(LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:  SizeUtil.detailSmallFontSize()),),
+                  Text(LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:  SizeUtil.detailSmallFontSize()),),
                   SizedBox(height: 5),
                   Row(
                     children: [

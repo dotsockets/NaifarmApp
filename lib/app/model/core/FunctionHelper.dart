@@ -201,8 +201,8 @@ class FunctionHelper {
   }
 
   static DropDownIOS(BuildContext context, List<String> dataList,
-      {Function(int) onTap}) {
-    int select = 0;
+      {Function(int) onTap,int initialItem=0}) {
+    int select = initialItem;
     showCupertinoModalPopup(
       context: context,
       builder: (context) {
@@ -265,6 +265,7 @@ class FunctionHelper {
                     "" + dataList[index],
                     style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold),);
                 }),
+                  scrollController: FixedExtentScrollController(initialItem: initialItem)
               ),
             )
           ],

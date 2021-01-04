@@ -1,66 +1,37 @@
-import 'ThrowIfNoSuccess.dart';
-
-class AddressesListRespone {
-  List<AddressesData> data;
-  int total;
-  ThrowIfNoSuccess http_call_back;
-
-  AddressesListRespone({this.data, this.total,this.http_call_back});
-
-  AddressesListRespone.fromJson(Map<String, dynamic> json) {
-    if (json['data'] != null) {
-      data = new List<AddressesData>();
-      json['data'].forEach((v) {
-        data.add(new AddressesData.fromJson(v));
-      });
-    }
-    total = json['total'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
-    }
-    data['total'] = this.total;
-    return data;
-  }
-}
-
-class AddressesData {
+class AddressCreaterequest {
   int id;
   String addressType;
   String addressTitle;
+  int countryId;
+  String zipCode;
   String addressLine1;
   String addressLine2;
   int cityId;
   int stateId;
-  String zipCode;
   String phone;
 
-
-  
-
-  AddressesData(
+  AddressCreaterequest(
       {this.id,
         this.addressType,
         this.addressTitle,
+        this.countryId,
+        this.zipCode,
         this.addressLine1,
         this.addressLine2,
         this.cityId,
         this.stateId,
-        this.zipCode,
         this.phone});
 
-  AddressesData.fromJson(Map<String, dynamic> json) {
+  AddressCreaterequest.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     addressType = json['addressType'];
     addressTitle = json['addressTitle'];
+    countryId = json['countryId'];
+    zipCode = json['zipCode'];
     addressLine1 = json['addressLine1'];
     addressLine2 = json['addressLine2'];
     cityId = json['cityId'];
     stateId = json['stateId'];
-    zipCode = json['zipCode'];
     phone = json['phone'];
   }
 
@@ -69,11 +40,12 @@ class AddressesData {
     data['id'] = this.id;
     data['addressType'] = this.addressType;
     data['addressTitle'] = this.addressTitle;
+    data['countryId'] = this.countryId;
+    data['zipCode'] = this.zipCode;
     data['addressLine1'] = this.addressLine1;
     data['addressLine2'] = this.addressLine2;
     data['cityId'] = this.cityId;
     data['stateId'] = this.stateId;
-    data['zipCode'] = this.zipCode;
     data['phone'] = this.phone;
     return data;
   }
