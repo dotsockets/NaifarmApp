@@ -40,7 +40,7 @@ class CategoryMenu extends StatelessWidget {
                     ),
                   ):SizedBox(),
                   SizedBox(width: 2.0.w),
-                  Text(menuViewModel[index].label,style: FunctionHelper.FontTheme(color: selectedIndex==index?Colors.black:Colors.white,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
+                  Text(featuredRespone.data[index].name,style: FunctionHelper.FontTheme(color: selectedIndex==index?Colors.black:Colors.white,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
                 ],
               ),
               onTap: (){
