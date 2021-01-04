@@ -14,7 +14,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
-
+import 'package:sizer/sizer.dart';
 
 
 class FlashSale extends StatelessWidget {
@@ -27,16 +27,16 @@ class FlashSale extends StatelessWidget {
      children: [
        Container(
          width: MediaQuery.of(context).size.width,
-         margin: EdgeInsets.only(top: 50),
+         margin: EdgeInsets.only(top: 5.0.h),
            decoration: BoxDecoration(
                color: Colors.white,
-               borderRadius: BorderRadius.only(topRight:  Radius.circular(40),topLeft: Radius.circular(40)),
+               borderRadius: BorderRadius.only(topRight:  Radius.circular(5.0.h),topLeft: Radius.circular(5.0.h)),
                border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
            ),
          child: Column(
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
-             SizedBox(height: 35),
+             SizedBox(height: 6.0.h),
              Center(child: _textSale(context: context)),
              _flashProduct(context)
            ],
@@ -53,12 +53,12 @@ class FlashSale extends StatelessWidget {
   Widget _textSale({BuildContext context}){
     return InkWell(
       child: Container(
-        margin: EdgeInsets.only(bottom: 5),
+        margin: EdgeInsets.only(bottom: 1.0.h),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(LocaleKeys.recommend_select_all.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),),
-            SvgPicture.asset('assets/images/svg/next.svg')
+            Text(LocaleKeys.recommend_select_all.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),),
+            SvgPicture.asset('assets/images/svg/next.svg',height: 3.0.h,width: 3.0.w,)
           ],
         ),
       ),
@@ -75,7 +75,7 @@ class FlashSale extends StatelessWidget {
         children: List.generate(_producViewModel.length, (index){
           return InkWell(
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(1.0.h),
               child: Column(
                   children: [
                     _ProductImage(item: _producViewModel[index],index: index),
@@ -96,7 +96,7 @@ class FlashSale extends StatelessWidget {
 
   Widget _ProductImage({ProductModel item,int index}){
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10.0),
+      borderRadius: BorderRadius.circular(1.0.h),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2,color: Colors.grey.shade200)
@@ -106,25 +106,25 @@ class FlashSale extends StatelessWidget {
               Hero(
                 tag: "productImage_${index}",
                 child: CachedNetworkImage(
-                  width: 130,
-                  height: 130,
+                  width: 30.0.w,
+                  height: 30.0.w,
                   placeholder: (context, url) => Container(
                     color: Colors.white,
                     child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                   ),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   imageUrl: item.product_image,
-                  errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: SizeUtil.titleSmallFontSize(),)),
+                  errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: SizeUtil.titleSmallFontSize().sp,)),
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(5),
+                margin: EdgeInsets.all(1.5.w),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5.0),
+                  borderRadius: BorderRadius.circular(1.0.w),
                   child: Container(
-                    padding: EdgeInsets.only(right: 8,left: 8,top: 3,bottom: 3),
+                    padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
                     color: ThemeColor.ColorSale(),
-                    child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize()),),
+                    child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
                   ),
                 ),
               )
@@ -138,25 +138,24 @@ class FlashSale extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          SizedBox(height: 8),
-          Hero(tag:  "productName_${index}",child: Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:SizeUtil.titleSmallFontSize() ),)),
-          SizedBox(height: 5),
-          Hero(tag: "productPrice_${index}",child: Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize:SizeUtil.priceFontSize()),)),
-          SizedBox(height: 5),
+          SizedBox(height: 1.0.h),
+          Hero(tag:  "productName_${index}",child: Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:SizeUtil.titleSmallFontSize().sp ),)),
+          SizedBox(height: 0.8.h),
+          Hero(tag: "productPrice_${index}",child: Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize:SizeUtil.priceFontSize().sp),)),
           Stack(
             children: [
               Container(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.all(0.8.h),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(2.0.h),
                   child: Container(
-                    padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
+                    padding: EdgeInsets.only(left: 3.0.w,right: 2.0.w,bottom: 1.0.w,top: 1.0.w),
                     color: ThemeColor.ColorSale(),
-                    child:  Hero(tag: "productStatus_${index}",child: Text(item.product_status+" "+LocaleKeys.my_product_sold_end.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize()),)),
+                    child:  Hero(tag: "productStatus_${index}",child: Text(item.product_status+" "+LocaleKeys.my_product_sold_end.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize().sp),)),
                   ),
                 ),
               ),
-              SvgPicture.asset('assets/images/svg/flash.svg',width: 45,height: 40,)
+              SvgPicture.asset('assets/images/svg/flash.svg',width: 8.0.w,height: 8.0.w,)
             ],
           )
         ],
@@ -167,22 +166,22 @@ class FlashSale extends StatelessWidget {
 
   Widget _flashSaleText(){
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: EdgeInsets.only(top: 2.0.h),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Container(
-          padding: EdgeInsets.only(right: 13,left: 10,top: 5,bottom: 5),
+          padding: EdgeInsets.only(right: 2.0.w,left: 2.0.w,top: 2.0.w,bottom: 2.0.w),
           color: ThemeColor.ColorSale(),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SvgPicture.asset('assets/images/svg/flash_sale.svg',width: 45,height: 45,),
-              Text("Fla",style: GoogleFonts.kanit(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.white)),
-              SizedBox(width: 5),
-              SvgPicture.asset('assets/images/svg/flash.svg',width: 45,height: 40,),
-              SizedBox(width: 5),
-              Text("h Sale",style: GoogleFonts.kanit(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.white)),
-              SizedBox(width: 10),
+              SvgPicture.asset('assets/images/svg/flash_sale.svg',width: 5.0.w,height: 5.0.h,),
+              Text("Fla",style: GoogleFonts.kanit(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.white)),
+              SizedBox(width: 1.0.h),
+              SvgPicture.asset('assets/images/svg/flash.svg',width: 5.0.w,height: 5.0.h),
+              SizedBox(width: 1.0.h),
+              Text("h Sale",style: GoogleFonts.kanit(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.white)),
+              SizedBox(width: 1.0.h),
               _buildCountDown()
             ],
           ),
@@ -199,13 +198,13 @@ class FlashSale extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
         child: Container(
           color: Colors.black,
-          padding: EdgeInsets.only(left: 9,right: 9,top: 7,bottom: 7),
+          padding: EdgeInsets.only(left: 1.5.h,right: 1.5.h,top: 1.0.h,bottom: 1.0.h),
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(horizontal: 3),
           child: Text(
             text,
             style: FunctionHelper.FontTheme(
-              fontSize: SizeUtil.titleSmallFontSize(),
+              fontSize: SizeUtil.titleSmallFontSize().sp,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),

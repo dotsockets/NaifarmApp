@@ -15,6 +15,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class CustomGridView extends StatelessWidget {
   final int lengthRow;
@@ -60,7 +61,7 @@ class CustomGridView extends StatelessWidget {
   Widget _ProductImage({ProductData item, int index,BuildContext context}) {
     return InkWell(
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(1.0.w),
         width: (MediaQuery.of(context).size.width/2),
         decoration: BoxDecoration(
             border: Border(
@@ -71,13 +72,13 @@ class CustomGridView extends StatelessWidget {
         child: Row(
           children: [
             CachedNetworkImage(
-              width: 50,
-              height: 50,
+              width: 20.0.w,
+              height: 20.0.w,
               placeholder: (context, url) => Container(
-                width: 50,
-                height: 50,
+                width: 20.0.w,
+                height: 20.0.w,
                 color: Colors.white,
-                child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                child: Lottie.asset(Env.value.loadingAnimaion, height: 20.0.w),
               ),
               fit: BoxFit.cover,
               imageUrl: "${Env.value.baseUrl}/storage/images/${item.image[0].path}",
@@ -88,7 +89,7 @@ class CustomGridView extends StatelessWidget {
                     size: 30,
                   )),
             ),
-            SizedBox(width: 10),
+            SizedBox(width: 2.0.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -98,16 +99,16 @@ class CustomGridView extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: FunctionHelper.FontTheme(
                       color: Colors.black,
-                      fontSize: SizeUtil.titleSmallFontSize(),
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 2),
+                SizedBox(height: 0.5.h),
                 Text(
                   LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
                   overflow: TextOverflow.ellipsis,
                   style: FunctionHelper.FontTheme(
                       color: Colors.black,
-                      fontSize: SizeUtil.detailSmallFontSize(),
+                      fontSize: SizeUtil.detailSmallFontSize().sp,
                       fontWeight: FontWeight.normal),
                 ),
               ],

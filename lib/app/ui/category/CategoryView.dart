@@ -12,6 +12,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
+import 'package:sizer/sizer.dart';
 
 class CategoryView extends StatelessWidget {
   @override
@@ -34,7 +35,7 @@ class CategoryView extends StatelessWidget {
 
   Widget _content({BuildContext context}){
    return Container(
-     padding: EdgeInsets.all(10),
+     padding: EdgeInsets.all(2.0.h),
      child: Column(
        children: [
          Column(
@@ -58,8 +59,7 @@ class CategoryView extends StatelessWidget {
       j+=4;
       data.add(
           Container(
-            padding: EdgeInsets.only(left: 10,right: 10),
-            margin: EdgeInsets.only(bottom: 20),
+            margin: EdgeInsets.only(bottom: 2.0.h),
             child: con!=1?Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -100,20 +100,21 @@ class CategoryView extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: CachedNetworkImage(
-                  width:SizeUtil.categoryBox(),
-                  height: SizeUtil.categoryBox(),
+                  width: 16.0.w,
+                  height: 16.0.w,
                   placeholder: (context, url) => Container(
                     color: Colors.white,
                     child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                   ),
                   fit: BoxFit.cover,
                   imageUrl: item.icon,
+
                   errorWidget: (context, url, error) => Container(height: ScreenUtil().setWidth(200),width: ScreenUtil().setHeight(160),child: Icon(Icons.error,size: 30,)),
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            Text(item.label,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold),)
+            SizedBox(height: 1.0.h),
+            Text(item.label,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),)
           ],
         ),
       ),

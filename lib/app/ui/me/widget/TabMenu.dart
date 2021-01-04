@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:sizer/sizer.dart';
 
 class TabMenu extends StatelessWidget {
   final String icon;
@@ -31,7 +32,7 @@ class TabMenu extends StatelessWidget {
                   SizedBox(height: 10),
                   Text(title,
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.detailFontSize(),
+                          fontSize: SizeUtil.detailFontSize().sp,
                           fontWeight: FontWeight.w500,
                           color: Colors.black))
                 ],

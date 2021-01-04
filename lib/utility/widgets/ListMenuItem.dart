@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:sizer/sizer.dart';
 
 class ListMenuItem extends StatelessWidget {
   final String icon;
@@ -51,7 +52,7 @@ class ListMenuItem extends StatelessWidget {
                     ),
                     Text(title,
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize(),
+                            fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: fontWeight,
                             color: Colors.black)),
                   ],
@@ -62,7 +63,7 @@ class ListMenuItem extends StatelessWidget {
                 children: [
                   Text(Message,
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleSmallFontSize(),
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
                           fontWeight: FontWeight.w500,
                           color: Colors.grey.withOpacity(opacityMessage))),
                   SizedBox(

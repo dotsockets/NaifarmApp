@@ -24,6 +24,7 @@ import 'package:sticky_headers/sticky_headers.dart';
 import 'widget/RecommendMenu.dart';
 import 'widget/SearchHot.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 
 class RecommendView extends StatefulWidget {

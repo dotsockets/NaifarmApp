@@ -10,6 +10,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class BuyAgain extends StatelessWidget {
 
@@ -50,13 +51,13 @@ class BuyAgain extends StatelessWidget {
               children: [
                 SvgPicture.asset(IconInto,width: 30,height: 30,),
                 SizedBox(width: 8),
-                Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+                Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
               ],
             ),
             GestureDetector(
               child: Row(
                 children: [
-                  Text(LocaleKeys.me_message_other.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+                  Text(LocaleKeys.me_message_other.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
                   SizedBox(width: 8),
                   SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
                 ],
@@ -127,9 +128,9 @@ class BuyAgain extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 8),
-          Text(item.product_name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.bold),),
+          Text(item.product_name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
           SizedBox(height: 5),
-          Text("฿${item.product_price}",style: FunctionHelper.FontTheme(fontSize:SizeUtil.priceFontSize(),color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500),),
+          Text("฿${item.product_price}",style: FunctionHelper.FontTheme(fontSize:SizeUtil.priceFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500),),
 
         ],
       ),

@@ -14,6 +14,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductLandscape extends StatelessWidget {
 
@@ -50,24 +51,24 @@ class ProductLandscape extends StatelessWidget {
 
   Container _header_bar() => Container(
       child: Container(
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.all(1.5.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
-                Visibility(child: SvgPicture.asset(IconInto,width: 30,height: 30,),visible: showIcon,
+                Visibility(child: SvgPicture.asset(IconInto,width: 3.0.w,height: 3.0.h,),visible: showIcon,
                 ),
-                SizedBox(width: 8),
-                Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+                SizedBox(width: 2.0.w),
+                Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
               ],
             ),
             GestureDetector(
               child: Row(
                 children: [
-                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),
-                  SizedBox(width: 8),
-                  SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
+                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
+                  SizedBox(width: 2.0.w),
+                  SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
                 ],
               ),
                 onTap: ()=>onSelectMore()
@@ -104,7 +105,7 @@ class ProductLandscape extends StatelessWidget {
   Widget _ProductImage({ProductData item,int index}){
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10.0),
+      borderRadius: BorderRadius.circular(1.0.h),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2,color: Colors.grey.shade200)
@@ -114,8 +115,8 @@ class ProductLandscape extends StatelessWidget {
             Hero(
               tag: "${tagHero}_${index}",
               child: CachedNetworkImage(
-                width: 130,
-                height: 130,
+                width: 30.0.w,
+                height: 30.0.w,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
                   child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
@@ -127,13 +128,13 @@ class ProductLandscape extends StatelessWidget {
             ),
             Visibility(
               child: Container(
-                margin: EdgeInsets.all(5),
+                margin: EdgeInsets.all(1.5.w),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5.0),
+                  borderRadius: BorderRadius.circular(1.0.w),
                   child: Container(
-                    padding: EdgeInsets.only(right: 8,left: 8,top: 3,bottom: 3),
+                    padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
                     color: ThemeColor.ColorSale(),
-                    child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize()),),
+                    child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
                   ),
                 ),
               ),
@@ -154,7 +155,7 @@ class ProductLandscape extends StatelessWidget {
           SizedBox(height: 5),
           Text("฿${item.salePrice}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize()),),
           Container(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(0.8.h),
             child: Container(
               padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
               child:  Text(LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize()),),

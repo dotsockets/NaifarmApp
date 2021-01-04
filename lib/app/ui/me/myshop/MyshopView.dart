@@ -12,6 +12,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 
 class MyshopView extends StatefulWidget {
@@ -166,7 +167,7 @@ class _MyshopViewState extends State<MyshopView> {
 
   Widget _buildTabMenu(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(5.0.w),
       color: Colors.grey.shade300,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

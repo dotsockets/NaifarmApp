@@ -13,6 +13,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductVertical extends StatelessWidget {
   final String titleInto;
@@ -31,7 +32,6 @@ class ProductVertical extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.only(topLeft: Radius.circular(borderRadius?40:0),topRight:  Radius.circular(borderRadius?40:0)),
       child: Container(
-        padding: EdgeInsets.only(top: 10,left: 5,right: 5,bottom: 15),
         width: MediaQuery.of(context).size.width,
         color: Colors.white,
         child: Column(
@@ -49,25 +49,24 @@ class ProductVertical extends StatelessWidget {
 
   Container _header_bar() => Container(
       child: Container(
-        margin: EdgeInsets.only(top: 5,left: 10,right: 10,bottom: 0),
+        margin: EdgeInsets.all(1.5.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
                // Image.asset(IconI=nto,width: 50,height: 50,),
-
-                SvgPicture.asset(IconInto,width: IconSize,height: IconSize,),
-                SizedBox(width: 8),
-                Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+                SvgPicture.asset(IconInto,width: 10.0.w,height: 10.0.w,),
+                SizedBox(width: 2.0.w),
+                Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
               ],
             ),
             InkWell(
               child: Row(
                 children: [
-                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),
-                  SizedBox(width: 8),
-                  SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
+                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
+                  SizedBox(width: 2.0.w),
+                  SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
 
                 ],
               ),
@@ -83,7 +82,7 @@ class ProductVertical extends StatelessWidget {
   _buildCardProduct({ProductData item,int index}){
     return GestureDetector(
       child: Container(
-        padding: EdgeInsets.only(left: 10,right: 10),
+        padding: EdgeInsets.only(left: 2.0.w,right: 2.0.w),
         child: Column(
           children: [
             Row(
@@ -142,20 +141,20 @@ class ProductVertical extends StatelessWidget {
                   Row(
                     children: [
                       Icon(Icons.location_pin,color: Color(ColorUtils.hexToInt("#666666")),),
-                      SizedBox(width: 5,),
-                      Text('เชียงใหม่',style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize:  SizeUtil.detailFontSize()),)
+                      SizedBox(width: 0.3.w,),
+                      Text('เชียงใหม่',style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize:  SizeUtil.detailFontSize().sp),)
                     ],
                   )
                 ],
               ),
               Container(
-                margin: EdgeInsets.only(right: 10),
-                padding: EdgeInsets.only(right: 10,left: 10,top: 5,bottom: 5),
+                margin: EdgeInsets.only(right: 2.0.w),
+                padding: EdgeInsets.only(right: 3.0.w,left: 3.0.w,top: 1.5.w,bottom: 1.5.w),
                 decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.all(Radius.circular(15))
                 ),
-                child: Text(LocaleKeys.buy_now_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
+                child: Text(LocaleKeys.buy_now_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
               )
             ],
           )

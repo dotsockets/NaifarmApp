@@ -11,6 +11,7 @@ import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:sizer/sizer.dart';
 
 class CategoryTab extends StatelessWidget {
   final List<ProductModel> _producViewModel = ProductViewModel().getProductCategory();
@@ -34,22 +35,22 @@ class CategoryTab extends StatelessWidget {
 
   Container _header_bar() => Container(
       child: Container(
-        margin: EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 5),
+        margin: EdgeInsets.all(1.5.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
-                SvgPicture.asset('assets/images/svg/boxes.svg',width: 30,height: 30,),
-                SizedBox(width: 8),
-                Text(LocaleKeys.recommend_category_product.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+                SvgPicture.asset('assets/images/svg/boxes.svg',width: 5.0.w,height: 5.0.w,),
+                SizedBox(width: 2.0.w),
+                Text(LocaleKeys.recommend_category_product.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
               ],
             ),
             Row(
               children: [
-                Text(LocaleKeys.recommend_change.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize())),
-                SizedBox(width: 8),
-                SvgPicture.asset('assets/images/svg/change.svg',width: 30,height: 30,),
+                Text(LocaleKeys.recommend_change.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp)),
+                SizedBox(width: 2.0.w),
+                SvgPicture.asset('assets/images/svg/change.svg',width: 3.0.w,height: 3.0.h,),
 
               ],
             )
@@ -64,7 +65,7 @@ class CategoryTab extends StatelessWidget {
       child: Row(
         children: List.generate(categoryGroupRespone.data.length, (index){
           return Container(
-            margin: EdgeInsets.only(top: 10),
+            margin: EdgeInsets.only(top: 0.5.h),
             child: Column(
               children: [
                 _ProductImage(item: categoryGroupRespone.data[index],index: index)
