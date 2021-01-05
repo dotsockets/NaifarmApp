@@ -30,7 +30,7 @@ class ListMenuItem extends StatelessWidget {
     return InkWell(
       child: Container(
           color: Colors.white,
-          padding: EdgeInsets.only(right: 10, left: 15, top: 13, bottom: 13),
+          padding: EdgeInsets.only(right: 2.0.w, left: 3.5.w, top: 1.5.h, bottom: 1.5.h),
           child: Row(
             children: [
               Expanded(

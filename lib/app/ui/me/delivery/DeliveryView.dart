@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:sizer/sizer.dart';
 
 class DeliveryView extends StatefulWidget {
   @override
@@ -51,13 +52,13 @@ class _DeliveryViewState extends State<DeliveryView> {
   }
 Widget _BuildDelivery({String nameDeli,int index}){
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(2.0.h),
       color: Colors.white,
       child: Container(
-        margin: EdgeInsets.only(left: 10,right: 10),
+        margin: EdgeInsets.only(left: 2.0.w,right: 2.0.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(nameDeli,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),
+          children: [Text(nameDeli,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
             InkWell(
               onTap: (){
                 setState(() {
@@ -69,13 +70,13 @@ Widget _BuildDelivery({String nameDeli,int index}){
               SvgPicture.asset(
                 'assets/images/svg/checkmark.svg',
                 color: ThemeColor.primaryColor(),
-                width: 30,
-                height: 30,
+                width: 8.0.w,
+                height: 8.0.w,
               ):
               SvgPicture.asset(
                 'assets/images/svg/uncheckmark.svg',
-                width: 30,
-                height: 30,
+                width: 8.0.w,
+                height: 8.0.w,
                 color: Colors.black.withOpacity(0.3),
               ),
             ),

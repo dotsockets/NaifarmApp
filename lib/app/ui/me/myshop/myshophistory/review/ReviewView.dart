@@ -14,6 +14,7 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomStarRating.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class ReviewView extends StatelessWidget {
 
@@ -34,7 +35,7 @@ class ReviewView extends StatelessWidget {
             children: [
 
               _Header(item: ProductViewModel().getHistorySuccess()[0],index: 0,context: context),
-              SizedBox(height: 10,),
+              SizedBox(height: 2.0.w,),
               _BuildForm(context),
               _buildBtnSend()
             ],
@@ -54,8 +55,8 @@ class ReviewView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(LocaleKeys.order_detail_order_num.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
-              Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),),
+              Text(LocaleKeys.order_detail_order_num.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
+              Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),),
 
             ],
           ),
@@ -92,7 +93,7 @@ class ReviewView extends StatelessWidget {
                     ),
                     Text(item.shopName,
                         style:
-                        FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold))
+                        FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold))
                   ],
                 ),
 
@@ -108,13 +109,13 @@ class ReviewView extends StatelessWidget {
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.black.withOpacity(0.1))),
                   child: CachedNetworkImage(
-                    width: 80,
-                    height: 80,
+                    width: 22.0.w,
+                    height: 22.0.w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
                     ),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     imageUrl: item.product_image,
                     errorWidget: (context, url, error) => Container(
                         height: 30,
@@ -130,17 +131,17 @@ class ReviewView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 15),
+                    SizedBox(height: 3.0.w),
                     Text(item.product_name,
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500)),
-                    SizedBox(height: 20),
+                            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500)),
+                    SizedBox(height: 6.0.w),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("x ${item.amoutProduct}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
+                                fontSize: SizeUtil.titleFontSize().sp, color: Colors.black)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -148,13 +149,13 @@ class ReviewView extends StatelessWidget {
                                 ? Text("฿${item.ProductDicount}",
                                 style: FunctionHelper.FontTheme(
                                     color: Colors.black.withOpacity(0.5),
-                                    fontSize: SizeUtil.titleFontSize(),
+                                    fontSize: SizeUtil.titleFontSize().sp,
                                     decoration: TextDecoration.lineThrough))
                                 : SizedBox(),
-                            SizedBox(width: 10),
+                            SizedBox(width: 3.0.w),
                             Text("฿${item.product_price}",
                                 style: FunctionHelper.FontTheme(
-                                    fontSize: SizeUtil.titleFontSize(), color: ThemeColor.ColorSale()))
+                                    fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale()))
                           ],
                         )
                       ],
@@ -177,7 +178,7 @@ class ReviewView extends StatelessWidget {
       color: Colors.white,
         child: Column(
           children: [
-            Text(LocaleKeys.review_rate.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
+            Text(LocaleKeys.review_rate.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
             SizedBox(height: 20,),
             CustomStarRating(
                 allowHalfRating: false,
@@ -228,7 +229,7 @@ class ReviewView extends StatelessWidget {
       },
       child: Text(
         title,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -249,7 +250,7 @@ class ReviewView extends StatelessWidget {
         },
         child: Text(
           LocaleKeys.confirm_btn.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
         ),
       ),
     );

@@ -16,6 +16,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:retrofit/http.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class RegisterOTPView extends StatefulWidget {
   final String phoneNumber;
@@ -117,11 +118,11 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
               child: Column(
                 children: [
                   SizedBox(height: 30,),
-                  Text(LocaleKeys.regis_otp_message.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black),),
+                  Text(LocaleKeys.regis_otp_message.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black),),
                   SizedBox(height: 10,),
-                  Text(widget.phoneNumber,style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize(),color: Colors.black)),
+                  Text(widget.phoneNumber,style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize().sp,color: Colors.black)),
                   SizedBox(height: 10,),
-                  Text(LocaleKeys.edit_phone_confirm_otp.tr()+" [Ref : ${widget.refCode}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w500)),
+                  Text(LocaleKeys.edit_phone_confirm_otp.tr()+" [Ref : ${widget.refCode}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500)),
                   SizedBox(height: 30,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -160,7 +161,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 color: Colors.transparent,
                                 fontSize: 0,
                               )),
-                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize()),
+                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {
@@ -210,7 +211,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 color: Colors.transparent,
                                 fontSize: 0,
                               )),
-                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize()),
+                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {
@@ -260,7 +261,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 color: Colors.transparent,
                                 fontSize: 0,
                               )),
-                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize()),
+                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {
@@ -310,7 +311,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 color: Colors.transparent,
                                 fontSize: 0,
                               )),
-                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize()),
+                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {
@@ -360,7 +361,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 color: Colors.transparent,
                                 fontSize: 0,
                               )),
-                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize()),
+                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {
@@ -410,7 +411,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 color: Colors.transparent,
                                 fontSize: 0,
                               )),
-                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize()),
+                          style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
                           onChanged: (text) {
                             _CheckForm();
                             if (text.isNotEmpty) {
@@ -433,14 +434,14 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      endTimes?Text(LocaleKeys.regis_otp_please_wait.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w400)):SizedBox(),
+                      endTimes?Text(LocaleKeys.regis_otp_please_wait.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox(),
                       CountdownTimer(
                         endTime: endTime,
                         widgetBuilder: (_, CurrentRemainingTime time) {
                           if (time != null) {
                             return Text(
                                 '${FunctionHelper.ConverTime(time: time.sec != null ? time.sec.toString() : "0")}',
-                                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: ThemeColor.ColorSale()));
+                                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: ThemeColor.ColorSale()));
                           } else {
                             return Container(
                               child:InkWell(
@@ -448,7 +449,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                   children: [
                                     SvgPicture.asset('assets/images/svg/change.svg'),
                                     SizedBox(width: 10,),
-                                    Text(LocaleKeys.edit_phone_otp_again.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),)
+                                    Text(LocaleKeys.edit_phone_otp_again.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),)
                                   ],
                                 ),
                                 onTap: (){
@@ -466,7 +467,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                           // Navigator.pop(context,false);
                         },
                       ),
-                      endTimes?Text("  "+LocaleKeys.regis_otp_before_tab.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black,fontWeight: FontWeight.w400)):SizedBox()
+                      endTimes?Text("  "+LocaleKeys.regis_otp_before_tab.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox()
                     ],
                   )
 
@@ -531,7 +532,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
 
       },
       child: Text(LocaleKeys.continue_btn.tr(),
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
       ),
     );
   }

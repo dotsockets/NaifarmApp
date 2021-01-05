@@ -8,6 +8,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductAddTypeView extends StatefulWidget {
   @override
@@ -91,7 +92,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
               Text(
                 LocaleKeys.my_product_options_name.tr(),
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize(),
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500),
               ),
               Container(
@@ -164,7 +165,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
               child: Text(
                 typeTxt,
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleFontSize(),
+                    fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.w500),
               ),
             ),
@@ -201,7 +202,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                           ),
                           child: Text(item[index],
                               style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleSmallFontSize(),
+                                  fontSize: SizeUtil.titleSmallFontSize().sp,
                                   fontWeight: FontWeight.w500))),
                       SizedBox(
                         width: 10,
@@ -223,7 +224,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                               child: Text("x",
                                   style: FunctionHelper.FontTheme(
                                       color: ThemeColor.ColorSale(),
-                                      fontSize: SizeUtil.titleSmallFontSize(),
+                                      fontSize: SizeUtil.titleSmallFontSize().sp,
                                       fontWeight: FontWeight.bold)),
                             ),
                             constraints: BoxConstraints(
@@ -254,14 +255,14 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                 Text(
                   "+",
                   style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleSmallFontSize(),
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
                   " "+LocaleKeys.add.tr(),
                   style: FunctionHelper.FontTheme(
                       color: Colors.white,
-                      fontSize: SizeUtil.titleSmallFontSize(),
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.w500),
                 )
               ],
@@ -290,7 +291,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
           child: Text(
             LocaleKeys.set_price_btn.tr(),
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
           ),
         ),
       ),
@@ -313,14 +314,14 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
               Text(
                 "+",
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize(),
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500),
               ),
               Text(
                 " "+LocaleKeys.my_product_options_add.tr(),
                 style: FunctionHelper.FontTheme(
                     color: Colors.white,
-                    fontSize: SizeUtil.titleSmallFontSize(),
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500),)
             ],
           ),

@@ -80,17 +80,17 @@ class _MyshopViewState extends State<MyshopView> {
           child: Column(
             children: [
               BuildEditText(
-                  head: LocaleKeys.my_profile_fullname.tr(),
+                  head: LocaleKeys.shop_name.tr(),
                   EnableMaxLength: false,
-                  hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_fullname.tr(),
+                  hint: LocaleKeys.set_default.tr()+LocaleKeys.shop_name.tr(),
                   controller: nameshopController,
                   onChanged: (String x)=>_checkError(),
                   inputType: TextInputType.text),
               SizedBox(height: 20,),
               BuildEditText(
-                  head: LocaleKeys.my_profile_fullname.tr(),
+                  head: LocaleKeys.shop_detail.tr(),
                   EnableMaxLength: false,
-                  hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_fullname.tr(),
+                  hint: LocaleKeys.set_default.tr()+LocaleKeys.shop_detail.tr(),
                   controller: slugshopController,
                   onChanged: (String x)=>_checkError(),
                   inputType: TextInputType.text),
@@ -112,12 +112,14 @@ class _MyshopViewState extends State<MyshopView> {
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
             title: LocaleKeys.me_title_history_shop.tr(),
+            iconSize: 8.0.w,
             onClick: () => AppRoute.MyShophistory(context,0),
           ),
           widget.IsLogin ? _BuildDivider() : SizedBox(),
           widget.IsLogin
               ? ListMenuItem(
             icon: 'assets/images/svg/like_2.svg',
+            iconSize: 8.0.w,
             title: LocaleKeys.me_title_wallet.tr(),
             Message: "300 บาท",
             onClick: () => AppRoute.WithdrawMoney(context),
@@ -126,6 +128,7 @@ class _MyshopViewState extends State<MyshopView> {
           widget.IsLogin ? _BuildDivider() : SizedBox(),
           widget.IsLogin
               ? ListMenuItem(
+            iconSize: 8.0.w,
             icon: 'assets/images/svg/editprofile.svg',
             title: LocaleKeys.me_title_my_product.tr(),
             onClick: () {
@@ -136,6 +139,7 @@ class _MyshopViewState extends State<MyshopView> {
           widget.IsLogin ? _BuildDivider() : SizedBox(),
           widget.IsLogin
               ? ListMenuItem(
+            iconSize: 8.0.w,
             icon: 'assets/images/svg/delivery.svg',
             title: LocaleKeys.me_title_shipping.tr(),
             onClick: () {
@@ -145,6 +149,7 @@ class _MyshopViewState extends State<MyshopView> {
               : SizedBox(),
           _BuildDivider(),
           ListMenuItem(
+              iconSize: 8.0.w,
               icon: 'assets/images/svg/money.svg',
               title: LocaleKeys.me_title_payment.tr(),
               onClick: () {
@@ -152,6 +157,7 @@ class _MyshopViewState extends State<MyshopView> {
               }),
           _BuildDivider(),
           ListMenuItem(
+            iconSize: 8.0.w,
             icon: 'assets/images/svg/help.svg',
             title: LocaleKeys.me_title_help.tr(),
             onClick: () {
@@ -215,7 +221,7 @@ class _MyshopViewState extends State<MyshopView> {
         },
         child: Text(
           LocaleKeys.add_product_btn.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
         ),
       ),
     );
@@ -228,13 +234,13 @@ class _MyshopViewState extends State<MyshopView> {
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(15),
-            child: _buildButtonItem(btnTxt: LocaleKeys.confirm_btn.tr())));
+            child: _buildButtonItem(btnTxt: LocaleKeys.continue_btn.tr())));
   }
 
   Widget _buildButtonItem({String btnTxt}) {
     return FlatButton(
       padding: EdgeInsets.only(top: 15, bottom: 15),
-      color:!check? ThemeColor.secondaryColor()
+      color:!check? ThemeColor.ColorSale()
           : Colors.grey.shade400,
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),
@@ -247,7 +253,7 @@ class _MyshopViewState extends State<MyshopView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
       ),
     );
   }

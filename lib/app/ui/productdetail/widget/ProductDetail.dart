@@ -7,6 +7,7 @@ import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductDetail extends StatefulWidget {
   final ProductModel productDetail;
@@ -53,7 +54,7 @@ class _ProductDetailState extends State<ProductDetail> {
               style: FunctionHelper.FontTheme(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontSize: SizeUtil.titleFontSize()),
+                  fontSize: SizeUtil.titleFontSize().sp),
             ),
           ),
           Divider(
@@ -70,19 +71,19 @@ class _ProductDetailState extends State<ProductDetail> {
                       LocaleKeys.my_product_amount.tr(),
                       style: FunctionHelper.FontTheme(
 
-                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
                     SizedBox(height: 2),
                     Text(
                       LocaleKeys.my_product_delivery_addr.tr(),
                       style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
                     SizedBox(height: 2),
                     Text(
                       LocaleKeys.my_product_delivery_from.tr(),
                       style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
                   ],
                 ),
@@ -93,21 +94,21 @@ class _ProductDetailState extends State<ProductDetail> {
                     Text(
                       "409 กิโลกรัม",
                       style: FunctionHelper.FontTheme( fontWeight: FontWeight.w500,
-                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
                     SizedBox(height: 2),
                     Text(
                       "ทั่วประเทศ",
                       style: FunctionHelper.FontTheme(
                         fontWeight: FontWeight.w500,
-                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
                     SizedBox(height: 2),
                     Text(
                       "อำเภอฝาง, จังหวัดเชียงราย",
                       style: FunctionHelper.FontTheme(
                         fontWeight: FontWeight.w500,
-                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize()),
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
                   ],
                 )
@@ -123,7 +124,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 padding: EdgeInsets.only(left: 15, right: 15, top: 8),
                 child: Text(
                   widget.productDetail.ProductInto,
-                  style: FunctionHelper.FontTheme(height: 1.6,fontSize: SizeUtil.titleSmallFontSize()),
+                  style: FunctionHelper.FontTheme(height: 1.6,fontSize: SizeUtil.titleSmallFontSize().sp),
                   maxLines: lineInto,
                   key: _keyRed,
                 ),
@@ -157,7 +158,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               style: FunctionHelper.FontTheme(
                                   color: ThemeColor.primaryColor(),
                                   fontWeight: FontWeight.w500,
-                                  fontSize: SizeUtil.titleSmallFontSize()),
+                                  fontSize: SizeUtil.titleSmallFontSize().sp),
                             ))),
                         onTap: () {
                           setState(() {

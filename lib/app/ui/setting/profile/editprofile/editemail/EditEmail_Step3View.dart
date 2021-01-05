@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:sizer/sizer.dart';
 
 class EditEmail_Step3View extends StatefulWidget {
   final String emailnew;
@@ -133,7 +134,7 @@ class _EditEmail_Step3ViewState extends State<EditEmail_Step3View> {
                     height: 20,
                   ),
                   Text("กรุณาเปิดอีเมล ${widget.emailnew} เพื่อรับ OTP",style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleSmallFontSize(),
+                  fontSize: SizeUtil.titleSmallFontSize().sp,
                 fontWeight: FontWeight.w500),),
                   SizedBox(
                     height: 5,
@@ -163,7 +164,7 @@ class _EditEmail_Step3ViewState extends State<EditEmail_Step3View> {
                           Text(
                             "ขอรหัสยืนยันใหม่อีกครั้ง",
                             style: FunctionHelper.FontTheme(
-                                fontSize:SizeUtil.titleSmallFontSize()),
+                                fontSize:SizeUtil.titleSmallFontSize().sp),
                           )
                         ],
                       ),
@@ -192,7 +193,7 @@ class _EditEmail_Step3ViewState extends State<EditEmail_Step3View> {
             child: Text(
               FormCheck() ? "ยืนยัน" : "ดำเนินการต่อ",
               style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleFontSize(),
+                  fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),
             ),
           )

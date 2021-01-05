@@ -11,6 +11,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:sizer/sizer.dart';
 
 class Reviewscore extends StatelessWidget {
 
@@ -43,7 +44,7 @@ class Reviewscore extends StatelessWidget {
           children: [
            SvgPicture.asset('assets/images/svg/star.svg',width: 35,height: 35,),
             SizedBox(width: 5),
-            Text(LocaleKeys.my_product_review_score.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold)),
+            Text(LocaleKeys.my_product_review_score.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
           ],
         ),
       )
@@ -77,7 +78,7 @@ class Reviewscore extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 10),
-                        Text(item.reviewName,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
+                        Text(item.reviewName,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SmoothStarRating(
@@ -118,7 +119,7 @@ class Reviewscore extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
-                Text(item.reviewComment,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500)),
+                Text(item.reviewComment,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500)),
 
               ],
             ),

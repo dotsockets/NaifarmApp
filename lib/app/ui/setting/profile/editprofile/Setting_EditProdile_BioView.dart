@@ -8,6 +8,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:sizer/sizer.dart';
 
 class Setting_EditProdile_BioView extends StatefulWidget {
 
@@ -62,7 +63,7 @@ class _Setting_EditProdile_BioViewState extends State<Setting_EditProdile_BioVie
                 ),
                 onPressed: ()=>FormCheck()?Navigator.pop(context, widget.customerInfoRespone):SizedBox(),
                 child: Text(LocaleKeys.save_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                 ),
               )
             ],

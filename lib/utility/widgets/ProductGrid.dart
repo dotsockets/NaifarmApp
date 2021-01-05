@@ -15,6 +15,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductGrid extends StatelessWidget {
   final String titleInto;
@@ -77,7 +78,7 @@ class ProductGrid extends StatelessWidget {
             Text(titleInto,
                 style: FunctionHelper.FontTheme(
                     color: Colors.black,
-                    fontSize: SizeUtil.titleFontSize(),
+                    fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.bold)),
           ],
         ),
@@ -121,13 +122,13 @@ class ProductGrid extends StatelessWidget {
           Text(
             item.name,
             style: FunctionHelper.FontTheme(
-                color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),
+                color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           SizedBox(height: 5),
           Text(
             "฿${item.salePrice}",
             style: FunctionHelper.FontTheme(
-                color: ThemeColor.ColorSale(), fontWeight: FontWeight.bold,fontSize: SizeUtil.priceFontSize()),
+                color: ThemeColor.ColorSale(), fontWeight: FontWeight.bold,fontSize: SizeUtil.priceFontSize().sp),
           ),
           SizedBox(height: 5),
           Stack(
@@ -142,7 +143,7 @@ class ProductGrid extends StatelessWidget {
                     color: ThemeColor.ColorSale(),
                     child: Text(
                       LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize(),
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize().sp,
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -166,7 +167,7 @@ class ProductGrid extends StatelessWidget {
         Text(item.name,
             style: FunctionHelper.FontTheme(
                 color: Colors.black,
-                fontSize: SizeUtil.titleSmallFontSize(),
+                fontSize: SizeUtil.titleSmallFontSize().sp,
                 fontWeight: FontWeight.w500)),
         SizedBox(
           height: 10,
@@ -174,7 +175,7 @@ class ProductGrid extends StatelessWidget {
         Text(
           "฿${item.salePrice}",
           style: FunctionHelper.FontTheme(
-              color: ThemeColor.ColorSale(), fontSize: SizeUtil.titleSmallFontSize()),
+              color: ThemeColor.ColorSale(), fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
         SizedBox(
           height: 8,
@@ -199,7 +200,7 @@ class ProductGrid extends StatelessWidget {
             ),
             Text(LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.detailSmallFontSize(),
+                    fontSize: SizeUtil.detailSmallFontSize().sp,
                     color: Colors.black,
                     fontWeight: FontWeight.w500))
           ],
@@ -262,7 +263,7 @@ class ProductGrid extends StatelessWidget {
                         style: GoogleFonts.sarabun(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: SizeUtil.titleSmallFontSize()),
+                            fontSize: SizeUtil.titleSmallFontSize().sp),
                       ),
                     ),
                     isLike

@@ -25,6 +25,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:sizer/sizer.dart';
 
 
 class ForgotPasswordView extends StatefulWidget {
@@ -106,7 +107,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         child: Column(
           children: [
             SizedBox(height: 30,),
-            Text(LocaleKeys.login_forgot_password.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),),
+            Text(LocaleKeys.login_forgot_password.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),),
             SizedBox(height: 30,),
             BuildEditText(head: LocaleKeys.my_profile_email.tr(), hint: LocaleKeys.my_profile_email.tr(),inputType: TextInputType.text,controller: _email,BorderOpacity: 0.3,borderRadius: 7,onError: emailError,),
             SizedBox(height: 20,),
@@ -127,7 +128,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 ),
                 onPressed: () => _validate(),
                 child: Text(_forgotRespone==null?LocaleKeys.my_profile_request_change_password.tr():LocaleKeys.my_profile_change_password.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                 ),
               ),
             ),
@@ -148,7 +149,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         ),
         child: Column(
           children: [
-            Text("NaiFarm",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.appNameFontSize(),fontWeight: FontWeight.w500),),
+            Text("NaiFarm",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.appNameFontSize().sp,fontWeight: FontWeight.w500),),
           ],
         )
     );

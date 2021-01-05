@@ -16,7 +16,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:sizer/sizer.dart';
 
 import 'Setting_EditProfile_NameView.dart';
 
@@ -110,13 +110,13 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(height: 20,),
-                          Text(LocaleKeys.my_profile_title.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
+                          Text(LocaleKeys.my_profile_title.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
                           SizedBox(height: 20,),
                           ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(60)),
                             child: CachedNetworkImage(
-                              width: 80,
-                              height: 80,
+                              width: 22.0.w,
+                              height: 22.0.w,
                               placeholder: (context, url) => Container(
                                 color: Colors.white,
                                 child: Lottie.asset(Env.value.loadingAnimaion,
@@ -133,7 +133,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                                   )),
                             ),
                           ),
-                          SizedBox(height: 15),
+                          SizedBox(height: 2.0.h),
                           Container(
                             padding: EdgeInsets.only(right: 15,left: 15,bottom: 5,top: 5),
                             decoration: BoxDecoration(
@@ -143,7 +143,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                             child: Text(LocaleKeys.edit_img_btn.tr(),
                                 style: FunctionHelper.FontTheme(
                                     color: Colors.white,
-                                    fontSize:  SizeUtil.detailSmallFontSize(),
+                                    fontSize:  SizeUtil.detailSmallFontSize().sp,
                                     fontWeight: FontWeight.bold)),
                           ),
                         ],
@@ -264,7 +264,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
 
   Widget _buildLine() {
     return Container(
-      height: 0.5,
+      height: 0.1.w,
       color: Colors.black.withOpacity(0.4),
     );
   }

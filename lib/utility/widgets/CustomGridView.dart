@@ -104,11 +104,11 @@ class CustomGridView extends StatelessWidget {
                 ),
                 SizedBox(height: 0.5.h),
                 Text(
-                  LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
+                  LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
                   overflow: TextOverflow.ellipsis,
                   style: FunctionHelper.FontTheme(
                       color: Colors.black,
-                      fontSize: SizeUtil.detailSmallFontSize().sp,
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.normal),
                 ),
               ],

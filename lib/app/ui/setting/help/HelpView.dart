@@ -4,6 +4,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class HelpView extends StatefulWidget {
   @override
@@ -52,7 +53,7 @@ class _HelpViewState extends State<HelpView> {
   }
   Widget _buildLine(){
     return Container(
-      height: 0.5,
+      height: 0.1.w,
       color: Colors.black.withOpacity(0.4),
     );
   }

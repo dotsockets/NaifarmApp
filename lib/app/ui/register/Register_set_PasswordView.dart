@@ -8,6 +8,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:sizer/sizer.dart';
 
  class Register_set_PasswordView extends StatefulWidget {
    final String phone;
@@ -99,7 +100,7 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
                 ),
                 onPressed: ()=>FormCheck()?verify():SizedBox(),
                 child: Text(LocaleKeys.continue_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                 ),
               )
             ],

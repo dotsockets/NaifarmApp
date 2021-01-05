@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class BuildChoosesize extends StatelessWidget {
   final Function(int) onclick1;
@@ -23,7 +24,7 @@ class BuildChoosesize extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LocaleKeys.select.tr()+LocaleKeys.my_product_size.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
+          Text(LocaleKeys.select.tr()+LocaleKeys.my_product_size.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold)),
           Wrap(
             children: [
               _buildBtnAddProduct1(title: "ขนาดเล็ก",index: 1),
@@ -33,7 +34,7 @@ class BuildChoosesize extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10,),
-          Text(LocaleKeys.select.tr()+LocaleKeys.my_product_weight.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
+          Text(LocaleKeys.select.tr()+LocaleKeys.my_product_weight.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold)),
           Wrap(
             children: [
               _buildBtnAddProduct2(title: "1 กิโลกรัม",index: 1),
@@ -63,7 +64,7 @@ class BuildChoosesize extends StatelessWidget {
         },
         child: Text(
           title,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
         ),
       ),
     );
@@ -86,7 +87,7 @@ class BuildChoosesize extends StatelessWidget {
         },
         child: Text(
           title,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
         ),
       ),
     );

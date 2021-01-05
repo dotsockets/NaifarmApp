@@ -16,6 +16,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:sizer/sizer.dart';
 
 class CartBankView extends StatefulWidget {
   @override
@@ -41,90 +42,125 @@ class _CartBankViewState extends State<CartBankView> {
     return SafeArea(
       top: false,
       child: Scaffold(
-        key: _scaffoldKey,
-        backgroundColor:
-            _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-        appBar: AppToobar(title: LocaleKeys.select.tr()+LocaleKeys.me_title_payment.tr(),header_type: Header_Type.barNormal),
-        body: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.only(right: 20,left: 20,top: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(LocaleKeys.card_title.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
-                SizedBox(height: 8),
+          key: _scaffoldKey,
+          backgroundColor:
+              _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
+          appBar: AppToobar(
+              title: LocaleKeys.select.tr() + LocaleKeys.me_title_payment.tr(),
+              header_type: Header_Type.barNormal),
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(2.0.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(LocaleKeys.card_title.tr(),
+                      style: FunctionHelper.FontTheme(
+                          color: Colors.black,
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          fontWeight: FontWeight.bold)),
+                  SizedBox(height: 8),
                   Column(
-                    children: CartViewModel().getBankCartType1().asMap().map((index, value){
-                          return MapEntry(index, _BuildCard(item: CartViewModel().getBankCartType1()[index],index: index));
-                    }).values.toList(),
-                  ), SizedBox(height: 20,),
-                _BuildBtnAddBack(txt: LocaleKeys.add.tr()+LocaleKeys.card_title.tr(),index: 0),
-                SizedBox(height: 20,),
-                Text(LocaleKeys.bank_title.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold)),
-                SizedBox(height: 8),
-                Column(
-                  children: CartViewModel().getBankCartType2().asMap().map((index, value){
-                    return MapEntry(index, _BuildCard(item: CartViewModel().getBankCartType2()[index],index: index));
-                  }).values.toList(),
-                ),
-                SizedBox(height: 20,),
-                _BuildBtnAddBack(txt: LocaleKeys.bank_add_toobar.tr(),index: 1)
-              ],
+                    children: CartViewModel()
+                        .getBankCartType1()
+                        .asMap()
+                        .map((index, value) {
+                          return MapEntry(
+                              index,
+                              _buildCardBank(
+                                  item:
+                                      CartViewModel().getBankCartType1()[index],
+                                  index: index));
+                        })
+                        .values
+                        .toList(),
+                  ),
+                  SizedBox(
+                    height: 1.0.h,
+                  ),
+                  _buildAddBtn(
+                      txtBtn: LocaleKeys.add.tr() + LocaleKeys.card_title.tr(),
+                      indexBtn: 0),
+                  SizedBox(
+                    height: 2.0.h,
+                  ),
+                  Text(LocaleKeys.bank_title.tr(),
+                      style: FunctionHelper.FontTheme(
+                          color: Colors.black,
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          fontWeight: FontWeight.bold)),
+                  SizedBox(height: 8),
+                  Column(
+                    children: CartViewModel()
+                        .getBankCartType2()
+                        .asMap()
+                        .map((index, value) {
+                          return MapEntry(
+                              index,
+                              _buildCardBank(
+                                  item:
+                                      CartViewModel().getBankCartType2()[index],
+                                  index: index));
+                        })
+                        .values
+                        .toList(),
+                  ),
+                  SizedBox(
+                    height: 1.0.h,
+                  ),
+                  _buildAddBtn(
+                      txtBtn: LocaleKeys.bank_add_toobar.tr(), indexBtn: 1)
+                ],
+              ),
             ),
-          ),
-        )
-      ),
+          )),
     );
   }
 
-  Widget _BuildCard({BankModel item,int index}){
+  Widget _buildCardBank({BankModel item, int index}) {
     return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(10))
-      ),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Expanded(
-              flex: 2,
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: InkWell(
-                  child: select==index
-                      ? SvgPicture.asset(
-                    'assets/images/svg/checkmark.svg',
-                    width: 35,
-                    height: 35,
-                    color: ThemeColor.primaryColor(),
-                  )
-                      : SvgPicture.asset(
-                    'assets/images/svg/uncheckmark.svg',
-                    width: 35,
-                    height: 35,
-                    color: Colors.black.withOpacity(0.5),
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: InkWell(
+                    child: select == index
+                        ? SvgPicture.asset(
+                            'assets/images/svg/checkmark.svg',
+                            width: 8.0.w,
+                            height: 8.0.w,
+                            color: ThemeColor.primaryColor(),
+                          )
+                        : SvgPicture.asset(
+                            'assets/images/svg/uncheckmark.svg',
+                            width: 8.0.w,
+                            height: 8.0.w,
+                            color: Colors.black.withOpacity(0.5),
+                          ),
+                    onTap: () {
+                      setState(() {
+                        select = select != index ? index : 0;
+                      });
+                    },
                   ),
-                  onTap: () {
-                    setState(() {
-                      select = select!=index ? index : 0;
-                    });
-                  },
                 ),
-              ),
-            ),
-            Expanded(
-              flex: 8,
-              child: Container(
-                padding: EdgeInsets.only(left: 10,right: 10,bottom: 10),
-                child: Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CachedNetworkImage(
-                      height: 30,
+                      height: 3.5.h,
                       placeholder: (context, url) => Container(
                         color: Colors.white,
                         child:
-                        Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                            Lottie.asset(Env.value.loadingAnimaion, height: 30),
                       ),
                       fit: BoxFit.cover,
                       imageUrl: item.BackIcon,
@@ -135,65 +171,61 @@ class _CartBankViewState extends State<CartBankView> {
                             size: 30,
                           )),
                     ),
-                    SizedBox(height: 0,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(item.NameBank,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),height: 1.6,color: Colors.black),),
-                        Row(
-                          children: [
-                            Text(item.NumberCard,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),height: 1.6,color: Colors.black),),
-                            SizedBox(width: 5,),
-                            Icon(Icons.arrow_forward_ios,color: Colors.grey.shade500,)
-                          ],
-                        ),
-
-                      ],
-                    ),
+                    Text(item.NameBank,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
                   ],
                 ),
-              ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(item.NumberCard,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
+                ),  Icon(Icons.arrow_forward_ios,color: Colors.grey.shade500,)
+              ],
             )
           ],
-        ),
-    );
+        ));
   }
 
-  Widget _BuildBtnAddBack({String txt,int index}){
-    return InkWell(
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(12)),
-        child: DottedBorder(
-          dashPattern: [8, 4],
-          color: Colors.black.withOpacity(0.3),
-          strokeWidth: 5,
+  Widget _buildAddBtn({String txtBtn, int indexBtn}) {
+    return ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      child: DottedBorder(
+        dashPattern: [5, 5],
+        color: Colors.grey.withOpacity(0.5),
+        strokeWidth: 5,
+        child: InkWell(
           child: Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(10))
-            ),
+                borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Row(
               children: [
-                SizedBox(width: 10),
-                SvgPicture.asset(
-                  'assets/images/svg/plus.svg',
-                  width: 35,
-                  height: 35,
-                  color: Colors.black.withOpacity(0.5),
+                Text(
+                  "+",
+                  style: FunctionHelper.FontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp,
+                      fontWeight: FontWeight.w200),
                 ),
-                SizedBox(width: 15),
-                Text(txt,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleFontSize()),),
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  txtBtn,
+                  style: FunctionHelper.FontTheme(
+                      color: ThemeColor.primaryColor(),
+                      fontSize: SizeUtil.titleFontSize().sp),
+                ),
               ],
             ),
           ),
+          onTap: () {
+            indexBtn == 0
+                ? AppRoute.SettingCreditAdd(context)
+                : AppRoute.SettingBankAdd(context);
+          },
         ),
       ),
-      onTap: (){
-        index==0? AppRoute.SettingCreditAdd(context):AppRoute.SettingBankAdd(context);
-      },
     );
   }
-
-
 }

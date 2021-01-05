@@ -10,6 +10,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:sizer/sizer.dart';
 
 class MoneyOutView extends StatefulWidget {
   @override
@@ -69,7 +70,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LocaleKeys.wallet_balance_withdraw_to.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),),
+          Text(LocaleKeys.wallet_balance_withdraw_to.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),),
           SizedBox(
             height: 15,
           ),
@@ -98,12 +99,12 @@ class _MoneyOutViewState extends State<MoneyOutView> {
                   SizedBox(
                     width: 10,
                   ),
-                  Text("ธนาคารไทยพาณิช",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+                  Text("ธนาคารไทยพาณิช",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
                 ],
               ),
               Row(
                 children: [
-                  Text("* 9803",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+                  Text("* 9803",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
                   SizedBox(
                     width: 5,
                   ),
@@ -135,11 +136,11 @@ class _MoneyOutViewState extends State<MoneyOutView> {
                 });
               },),
               SizedBox(width: 10,),
-              Text(LocaleKeys.wallet_balance_withdraw_all.tr()+" (฿300.00)",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()))
+              Text(LocaleKeys.wallet_balance_withdraw_all.tr()+" (฿300.00)",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp))
             ],
           ),
           SizedBox(height: 10,),
-          Text(LocaleKeys.wallet_balance_withdraw_amount.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+          Text(LocaleKeys.wallet_balance_withdraw_amount.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
           BuildEditText(
               head: "",maxLength: 16,
               hint: "0.00",maxLine: 1,controller: inputController,inputType: TextInputType.number),
@@ -147,8 +148,8 @@ class _MoneyOutViewState extends State<MoneyOutView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(LocaleKeys.wallet_balance_withdraw_fee.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
-              Text(LocaleKeys.cart_free.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()))
+              Text(LocaleKeys.wallet_balance_withdraw_fee.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+              Text(LocaleKeys.cart_free.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp))
             ],
           )
         ],
@@ -169,7 +170,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
         },
         child: Text(
           LocaleKeys.confirm_btn.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
         ),
       ),
     );

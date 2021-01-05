@@ -7,6 +7,8 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:sizer/sizer.dart';
+
 
 
 class SplashLoginView extends StatelessWidget {
@@ -55,14 +57,14 @@ class SplashLoginView extends StatelessWidget {
               "NaiFarm",
               style: FunctionHelper.FontTheme(
                   color: Colors.white,
-                  fontSize: SizeUtil.appNameFontSize(),
+                  fontSize: SizeUtil.appNameFontSize().sp,
                   fontWeight: FontWeight.w500),
 
             ),
             SizedBox(height: ScreenUtil().setHeight(70),),
             Image.asset('assets/images/png/img_login.png',height: ScreenUtil().setHeight(600),),
             SizedBox(height: 20,),
-            Text("แอปเพื่อเกษตรกรไทย ซื่อง่าย ขายคล่อง",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize()),),
+            Text("แอปเพื่อเกษตรกรไทย ซื่อง่าย ขายคล่อง",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp),),
             SizedBox(height: ScreenUtil().setHeight(80),),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -80,7 +82,7 @@ class SplashLoginView extends StatelessWidget {
                      AppRoute.Login(context,IsCallBack: false);
                   },
                   child: Text(LocaleKeys.login_btn.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                   ),
                 ),
                 SizedBox(width: 20,),
@@ -97,7 +99,7 @@ class SplashLoginView extends StatelessWidget {
                     AppRoute.Register(context);
                   },
                   child: Text(LocaleKeys.register_btn.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                   ),
                 )
               ],
@@ -105,10 +107,10 @@ class SplashLoginView extends StatelessWidget {
             SizedBox(height: ScreenUtil().setHeight(60),),
             Wrap(
               children: [
-                Text(LocaleKeys.splashLogin_skip_message.tr()+" ",style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize())),
+                Text(LocaleKeys.splashLogin_skip_message.tr()+" ",style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize().sp)),
                 Column(
                   children: [
-                    InkWell(child: Text(LocaleKeys.splashLogin_skip.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize())),onTap: (){
+                    InkWell(child: Text(LocaleKeys.splashLogin_skip.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp)),onTap: (){
                       FunctionHelper.showDialogProcess(context);
                       AppRoute.Home(context);
                     },),

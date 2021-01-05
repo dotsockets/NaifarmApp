@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:sizer/sizer.dart';
 
 class ImageProductView extends StatefulWidget {
   @override
@@ -45,7 +46,7 @@ class _ImageProductViewState extends State<ImageProductView> {
                     children: [
                       SizedBox(height: 20,),
                       Text(LocaleKeys.my_product_image_guide.tr(),
-                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500)),
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
                       SizedBox(height: 15,),
                       Container(
                           margin: EdgeInsets.only(left: 10, right: 10),
@@ -120,7 +121,7 @@ class _ImageProductViewState extends State<ImageProductView> {
                   margin: EdgeInsets.only(bottom: 10),
                   child: Text(
                       LocaleKeys.add.tr()+LocaleKeys.my_product_image.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
                   ),
                 )
               ],
@@ -165,7 +166,7 @@ class _ImageProductViewState extends State<ImageProductView> {
       onPressed: () {},
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
       ),
     );
   }

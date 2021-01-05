@@ -15,6 +15,7 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:vibration/vibration.dart';
+import 'package:sizer/sizer.dart';
 
 class FunctionHelper {
   static String ReportDateTwo({String date}) {
@@ -88,7 +89,7 @@ class FunctionHelper {
                       LocaleKeys.dialog_message_loading.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.black,
-                          fontSize: SizeUtil.titleFontSize(),
+                          fontSize: SizeUtil.titleFontSize().sp,
                           decoration: TextDecoration.none),
                     )
                   ],
@@ -126,7 +127,7 @@ class FunctionHelper {
                       LocaleKeys.dialog_message_loading.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.white,
-                          fontSize: SizeUtil.titleSmallFontSize(),
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
                           decoration: TextDecoration.none),
                     )
                   ],
@@ -176,7 +177,7 @@ class FunctionHelper {
                             child: Text(
                               dataList[index],
                               style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+                                  fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
                             ),
                           ),
                         ),
@@ -225,7 +226,7 @@ class FunctionHelper {
                   CupertinoButton(
                     child: Text(
                       LocaleKeys.cancel_btn.tr(),
-                      style: FunctionHelper.FontTheme(color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),
+                      style: FunctionHelper.FontTheme(color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
                     onPressed: () {},
                     padding: const EdgeInsets.symmetric(
@@ -237,7 +238,7 @@ class FunctionHelper {
                     child: Text(
                       LocaleKeys.ok_btn.tr(),
                       style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),
+                          color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
                     onPressed: () {
                       onTap(select);
@@ -312,7 +313,7 @@ class FunctionHelper {
                     padding: EdgeInsets.all(20),
                     child: Center(
                         child: Text(message,
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
                       textAlign: TextAlign.center,
                     ))),
                 Container(
@@ -329,7 +330,7 @@ class FunctionHelper {
                                 alignment: Alignment.center,
                                 child: Text(
                                   LocaleKeys.cancel_btn.tr(),
-                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale()),
+                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale()),
                                 )),
                           ),
                             onTap: () => onCancel())),
@@ -343,7 +344,7 @@ class FunctionHelper {
                           child: Align(
                               alignment: Alignment.center,
                               child: Text(LocaleKeys.ok_btn.tr(),
-                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.primaryColor()))),
+                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor()))),
                             onTap: () => onClick()))
                   ],
                 )
@@ -372,7 +373,7 @@ class FunctionHelper {
                   SvgPicture.asset('assets/images/svg/checkmark.svg',color: ThemeColor.primaryColor(),width: 50,height: 50,),
                   SizedBox(height: 15,),
                   Text(message,
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ],

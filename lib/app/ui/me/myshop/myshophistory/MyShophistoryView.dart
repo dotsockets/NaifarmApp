@@ -12,7 +12,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/MD2Indicator.dart';
-
+import 'package:sizer/sizer.dart';
 import 'canceled/CanceledView.dart';
 import 'delivery/DeliveryView.dart';
 
@@ -88,7 +88,7 @@ class MyShophistoryView extends StatelessWidget {
     return Tab(
       child: Row(
         children: [
-          Text(title,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize())),
+          Text(title,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
           SizedBox(width: 10,),
           message?ClipRRect(
             borderRadius: BorderRadius.circular(9.0),

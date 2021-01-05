@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductInto extends StatelessWidget {
   final ProductModel productDetail;
@@ -19,7 +20,7 @@ class ProductInto extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          SizedBox(height: 10),
+          SizedBox(height: 1.0.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -33,13 +34,13 @@ class ProductInto extends StatelessWidget {
                     child: Text(
                       productDetail.product_name,
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.priceFontSize(), fontWeight: FontWeight.w500),
+                          fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
                     )),
               ),
               Expanded(flex: 1, child: SvgPicture.asset(
                 'assets/images/svg/like_line_null.svg',
-                width: 40,
-                height: 40,
+                width: 9.0.w,
+                height: 9.0.w,
                 color: Colors.black.withOpacity(0.7),
               ))
             ],
@@ -50,17 +51,17 @@ class ProductInto extends StatelessWidget {
             children: [
               Text("${productDetail.product_price}",
                   style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.priceFontSize(), decoration: TextDecoration.lineThrough)),
+                      fontSize: SizeUtil.priceFontSize().sp, decoration: TextDecoration.lineThrough)),
               SizedBox(width: 8),
               Text("${productDetail.ProductDicount}",
                   style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.priceFontSize(), color: ThemeColor.ColorSale()))
+                      fontSize: SizeUtil.priceFontSize().sp, color: ThemeColor.ColorSale()))
             ],
           ),
           SizedBox(height: 10),
           Text(
             productDetail.product_status+" "+LocaleKeys.my_product_sold_end.tr(),
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           SizedBox(height: 15),
           _IntroShipment()
@@ -78,16 +79,16 @@ class ProductInto extends StatelessWidget {
           children: [
             SvgPicture.asset(
               'assets/images/svg/delivery.svg',
-              width: 30,
-              height: 30,
+              width: 8.0.w,
+              height: 8.0.w,
             ),
-            SizedBox(width: 10),
+            SizedBox(width: 2.0.w),
             Text(LocaleKeys.cart_free.tr(),
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.ColorSale())),
+                    fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.ColorSale())),
             Text(LocaleKeys.cart_delivery_free.tr(),
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500)),
+                    fontSize: SizeUtil.titleSmallFontSize().sp, fontWeight: FontWeight.w500)),
           ],
         ),
       ),

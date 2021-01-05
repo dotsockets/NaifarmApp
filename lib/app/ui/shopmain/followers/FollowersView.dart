@@ -13,6 +13,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:sizer/sizer.dart';
 
 class FollowersView extends StatelessWidget {
   @override
@@ -67,7 +68,7 @@ class FollowersView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 15),
-                  Text(item.Name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),)
+                  Text(item.Name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),)
                 ],
               ),
               Container(
@@ -85,7 +86,7 @@ class FollowersView extends StatelessWidget {
                   },
                   child: Text(
                     item.IsFollow?LocaleKeys.shop_following.tr():LocaleKeys.shop_follow.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
                   ),
                 ),
               )

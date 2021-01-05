@@ -15,7 +15,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
-
+import 'package:sizer/sizer.dart';
 
 class Register_Name_OtpView extends StatefulWidget {
   final String phone;
@@ -92,7 +92,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
                 ),
                 onPressed: ()=>verify(),
                 child: Text(LocaleKeys.next_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                 ),
               )
             ],

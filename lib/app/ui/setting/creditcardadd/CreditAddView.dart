@@ -12,6 +12,7 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sizer/sizer.dart';
 
 class CreditAddView extends StatefulWidget {
   @override
@@ -73,14 +74,14 @@ class _CreditAddViewState extends State<CreditAddView> {
                               Text(
                                 LocaleKeys.card_number.tr(),
                                 style: FunctionHelper.FontTheme(
-                                    fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+                                    fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
                               ),
                               GestureDetector(
                                 child: Row(
                                   children: [
                                     Text(LocaleKeys.card_img.tr(),
                                         style: FunctionHelper.FontTheme(
-                                            fontSize: SizeUtil.titleFontSize(),
+                                            fontSize: SizeUtil.titleFontSize().sp,
                                             fontWeight: FontWeight.w500)),
                                     SizedBox(
                                       width: 5,
@@ -139,7 +140,7 @@ class _CreditAddViewState extends State<CreditAddView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize(), color: Colors.grey),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp, color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
       ),
@@ -180,7 +181,7 @@ class _CreditAddViewState extends State<CreditAddView> {
         children: [
           Text(title,
               style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleSmallFontSize(), color: Colors.black)),
+                  fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black)),
           SizedBox(
             height: 10,
           ),
@@ -222,7 +223,7 @@ class _CreditAddViewState extends State<CreditAddView> {
       onPressed: () { _checkError();},
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
       ),
     );
   }

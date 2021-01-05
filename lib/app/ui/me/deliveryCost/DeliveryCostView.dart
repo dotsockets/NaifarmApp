@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:sizer/sizer.dart';
 
 class DeliveryCostView extends StatefulWidget {
   @override
@@ -91,7 +92,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
       margin: EdgeInsets.only(top: 10, left: 20, bottom: 10),
       child: Text(
         head,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
       ),
     );
   }
@@ -102,11 +103,11 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
         margin: EdgeInsets.only(top: 10, left: 20, bottom: 10,right: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(head, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+          children: [Text(head, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),Row(
             children: [
               Container(
-                  child: Text(LocaleKeys.set_default.tr()+LocaleKeys.my_product_weight.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale()))),
+                  child: Text(LocaleKeys.set_default.tr()+LocaleKeys.my_product_weight.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale()))),
               FlutterSwitch(
                 width: 50.0,
                 height: 30.0,
@@ -136,7 +137,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
           children: [
             Text(
               head,
-              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
             ),
             Container(
               margin: EdgeInsets.only(top: 10),
@@ -147,7 +148,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                 keyboardType: TextInputType.number,
                 controller: controller,
                 decoration: InputDecoration(
-                  hintStyle: TextStyle(fontSize: SizeUtil.titleFontSize(), color: Colors.grey),
+                  hintStyle: TextStyle(fontSize: SizeUtil.titleFontSize().sp, color: Colors.grey),
                   hintText: hint,
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.all(15),
@@ -182,7 +183,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
       onPressed: () {},
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
       ),
     );
   }

@@ -12,6 +12,7 @@ import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:sizer/sizer.dart';
 
 class MyProductView extends StatefulWidget {
   @override
@@ -71,7 +72,7 @@ class _MyProductViewState extends State<MyProductView> {
           onPressed: () {AppRoute.MyNewProduct(context);},
           child: Text(
             LocaleKeys.add_product_btn.tr(),
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
           ),
         ),
       );
@@ -91,8 +92,8 @@ class _MyProductViewState extends State<MyProductView> {
               children: [
                 CachedNetworkImage(
                   fit: BoxFit.contain,
-                  width: 140,
-                  height: 160,
+                  width: 40.0.w,
+                  height: 45.0.w,
                   imageUrl: item.product_image,
                 ),
                 Expanded(
@@ -106,7 +107,7 @@ class _MyProductViewState extends State<MyProductView> {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w600),
+                              fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w600),
                         ),
                         SizedBox(
                           height: 8,
@@ -114,7 +115,7 @@ class _MyProductViewState extends State<MyProductView> {
                         Text(
                           "฿${item.product_price}",
                           style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.priceFontSize(),
+                              fontSize: SizeUtil.priceFontSize().sp,
                               color: ThemeColor.ColorSale(),
                               fontWeight: FontWeight.w500),
                         ),
@@ -126,15 +127,15 @@ class _MyProductViewState extends State<MyProductView> {
                             children: [
                               Expanded(
                                 child: Text(LocaleKeys.my_product_amount.tr()+" ${item.amoutProduct}",
-                                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize())),
+                                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp)),
                               ),
                               SizedBox(width: 10,),
                               Expanded(
                                 child: Align(
                                   alignment: Alignment.topRight,
                                   child: Text(
-                                    "${LocaleKeys.my_product_sold.tr()+item.product_status+" "+LocaleKeys.cart_item.tr()}",
-                                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize()),
+                                    "${LocaleKeys.my_product_sold.tr()+" "+item.product_status+" "+LocaleKeys.cart_item.tr()}",
+                                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp),
                                   ),
                                 ),
                               )
@@ -148,9 +149,9 @@ class _MyProductViewState extends State<MyProductView> {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(child: Text(LocaleKeys.my_product_like.tr()+" 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize())),),
+                                Expanded(child: Text(LocaleKeys.my_product_like.tr()+" 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp)),),
                                 SizedBox(width: 10,),
-                                Expanded(child: Align(alignment: Alignment.topRight,child: Text(LocaleKeys.my_product_visit.tr()+" 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize()),))
+                                Expanded(child: Align(alignment: Alignment.topRight,child: Text(LocaleKeys.my_product_visit.tr()+" 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp),))
                                 )
                               ]),
                         ),
@@ -175,15 +176,15 @@ class _MyProductViewState extends State<MyProductView> {
                      child:  Text(
                        item.isSelect?LocaleKeys.my_product_sell.tr():LocaleKeys.my_product_break.tr(),
                        style: FunctionHelper.FontTheme(
-                           fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w600),
+                           fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w600),
                      ),
                    ),
                     Container(height: 50,color: Colors.grey.shade300,),
                     Expanded(
                       flex: 1,
                       child: FlutterSwitch(
-                        height: 35,
-                        toggleSize: 30,
+                        height: 9.0.w,
+                        toggleSize: 7.0.w,
                         activeColor: Colors.grey.shade200,
                         inactiveColor: Colors.grey.shade200,
                         toggleColor: item.isSelect?ThemeColor.primaryColor():Colors.grey.shade400,
@@ -202,8 +203,8 @@ class _MyProductViewState extends State<MyProductView> {
                          child: Container(
                            child: SvgPicture.asset(
                              'assets/images/svg/Edit.svg',
-                             width: 25,
-                             height: 25,
+                             width: 6.0.w,
+                             height: 6.0.w,
                              color: ThemeColor.ColorSale(),
                            ),
                          ),
@@ -216,8 +217,8 @@ class _MyProductViewState extends State<MyProductView> {
                     Expanded(
                       child: SvgPicture.asset(
                         'assets/images/svg/trash.svg',
-                        width: 25,
-                        height: 25,
+                        width: 6.0.w,
+                        height: 6.0.w,
                         color: ThemeColor.ColorSale(),
                       ),
                     ),

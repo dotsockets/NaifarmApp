@@ -17,6 +17,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class AddressAddView extends StatefulWidget {
   @override
@@ -235,7 +236,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(), color: Colors.grey),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
       ),
@@ -251,7 +252,7 @@ class _AddressAddViewState extends State<AddressAddView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
           FlutterSwitch(
             height: 30,
@@ -299,7 +300,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -337,7 +338,7 @@ class _AddressAddViewState extends State<AddressAddView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           Container(
             padding: EdgeInsets.all(10),

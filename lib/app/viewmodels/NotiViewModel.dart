@@ -5,6 +5,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:sizer/sizer.dart';
 
 class NotiViewModel {
   Widget GetStatusMessage({NotiModel status}) {
@@ -33,21 +34,21 @@ class NotiViewModel {
       children: [
         Text(
           LocaleKeys.noti_shipped1.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
         Text(number_order,
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           LocaleKeys.noti_shipped2.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
         ),
         Text(order_date,
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           LocaleKeys.noti_shipped3.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
         ),
       ],
     );
@@ -58,7 +59,7 @@ class NotiViewModel {
       children: [
         Text(
           LocaleKeys.noti_welcome1.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
       ],
     );
@@ -69,14 +70,14 @@ class NotiViewModel {
       children: [
         Text(
           LocaleKeys.noti_receipt1.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
         ),
         Text(number_order,
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           LocaleKeys.noti_receipt2.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
         ),
       ],
     );
@@ -87,14 +88,14 @@ class NotiViewModel {
       children: [
         Text(
           LocaleKeys.noti_rate1.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
         ),
         Text(number_order,
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           LocaleKeys.noti_rate2.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
         ),
       ],
     );
@@ -105,14 +106,14 @@ class NotiViewModel {
       children: [
         Text(
           LocaleKeys.noti_rate1.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
         ),
         Text(number_order,
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           LocaleKeys.noti_order2.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
         ),
       ],
     );
@@ -138,21 +139,21 @@ class NotiViewModel {
       children: [
         Text(
           "พัสดุหมายเลข ",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
         ),
         Text(parcel_number,
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " คำสั่งซื้อหมายเลข",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
         Text(number_order,
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " จัดส่งสำเร็จแล้ว",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
       ],
     );
@@ -164,25 +165,25 @@ class NotiViewModel {
       children: [
         Text(
           "ยืนยันการชำระเงินสำหรับคำสั่งซื้อ ",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
         Text(number_order,
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " กรุณาส่งสินค้าไปให้คุณ ",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
         Text(name_Received,
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " ภายในวันที่ ",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
         Text(date_send,
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
       ],
     );
   }
@@ -193,19 +194,19 @@ class NotiViewModel {
       children: [
         Text(name_Received,
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           "ได้ทำรายการสั่งซื้อสินค้า ",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
-        Text(name_product, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(name_product, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5,fontWeight: FontWeight.bold)),
         Text(
           " และต้องชำระเงินภายในวันที่ ",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
         Text(date_send,
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize(), color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
       ],
     );
   }

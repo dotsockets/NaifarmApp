@@ -11,7 +11,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
-import 'package:regexed_validator/regexed_validator.dart';
+import 'package:sizer/sizer.dart';
 import 'package:easy_localization/easy_localization.dart';
 class EditpasswordStep2View extends StatefulWidget {
   final String passwordOld;
@@ -103,7 +103,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text( LocaleKeys.edit_password_confirm_new.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 15,),
                   BuildEditText(
@@ -129,7 +129,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
             child: Text(LocaleKeys.continue_btn.tr(),
-              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
             ),
           )
         ],

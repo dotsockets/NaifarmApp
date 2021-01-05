@@ -14,6 +14,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class AddressView extends StatefulWidget {
   @override
@@ -88,7 +89,7 @@ class _AddressViewState extends State<AddressView> {
                       var item = (snapshot.data as AddressesListRespone).data;
                       return Column(
                         children: [
-                          Column(children: item.asMap().map((key, value) {
+                          item.length!=0?Column(children: item.asMap().map((key, value) {
                             return MapEntry(key,InkWell(
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 10),
@@ -106,7 +107,7 @@ class _AddressViewState extends State<AddressView> {
                                             LocaleKeys.cart_del.tr(),
                                             style: FunctionHelper.FontTheme(
                                                 color: Colors.white,
-                                                fontSize: SizeUtil.titleFontSize(),
+                                                fontSize: SizeUtil.titleFontSize().sp,
                                                 fontWeight: FontWeight.bold),
                                           )
                                         ],
@@ -130,8 +131,21 @@ class _AddressViewState extends State<AddressView> {
 
                               },
                             ));
-                          }).values.toList()),
-                          _BuildButton()
+                          }).values.toList())
+                          :Column(
+                            children: [
+                              SizedBox(
+                                height: (MediaQuery.of(context).size.height/100)*30,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top:20.0,),
+                                  child: Lottie.asset('assets/json/boxorder.json', repeat: true),
+                                ),
+                              ),
+                             // Text(LocaleKeys.search_product_not_found.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp+2.0.w),),
+                               _BuildButton()
+                            ],
+                          ),
+                          item.length!=0?_BuildButton():SizedBox()
                         ],
                       );
                     }else{
@@ -158,10 +172,10 @@ class _AddressViewState extends State<AddressView> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text(item.addressTitle,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()+5,color: ThemeColor.primaryColor())),
+            children: [Text(item.addressTitle,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp+5,color: ThemeColor.primaryColor())),
               Row(
                 children: [
-                  Text(item.addressType=="Primary"?LocaleKeys.address_default.tr():"",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w600,color: ThemeColor.ColorSale())),
+                  Text(item.addressType=="Primary"?LocaleKeys.address_default.tr():"",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w600,color: ThemeColor.ColorSale())),
                  SizedBox(width: 10,),
                   Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
                 ],
@@ -173,8 +187,8 @@ class _AddressViewState extends State<AddressView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("${item.phone}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
-                  Text("${item.addressLine1}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()))
+                  Text("${item.phone}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+                  Text("${item.addressLine1}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp))
                 ],
               ),
             )
@@ -186,25 +200,27 @@ class _AddressViewState extends State<AddressView> {
   Widget _BuildButton() {
     return Container(
       margin: EdgeInsets.only(top: 20,bottom: 20),
-      child: FlatButton(
-        color: ThemeColor.ColorSale(),
-        textColor: Colors.white,
-        padding: EdgeInsets.only(left: 100,right: 100,top: 20,bottom: 20),
-        splashColor: Colors.white.withOpacity(0.3),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40.0),
-        ),
-        onPressed: () async {
-          var result = await AppRoute.SettingAddAddress(context);
-          if(result!=null)
-            if(result)
-              setState(() {});
-        },
-        child: Text(
-          LocaleKeys.add_address_btn.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
-        ),
+      child: Center(
+        child: FlatButton(
+          color: ThemeColor.ColorSale(),
+          textColor: Colors.white,
+          padding: EdgeInsets.only(left: 100,right: 100,top: 20,bottom: 20),
+          splashColor: Colors.white.withOpacity(0.3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+          onPressed: () async {
+            var result = await AppRoute.SettingAddAddress(context);
+            if(result!=null)
+              if(result)
+                setState(() {});
+          },
+          child: Text(
+            LocaleKeys.add_address_btn.tr(),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+          ),
 
+        ),
       ),
     );
   }

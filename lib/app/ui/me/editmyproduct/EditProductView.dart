@@ -13,6 +13,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class EditProductView extends StatefulWidget {
   final int index ;
@@ -148,7 +149,7 @@ class _EditProductViewState extends State<EditProductView> {
             children: [
               Text(
                 head,
-                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
               ),
               inputType == TextInputType.text ? Text("(${controller != null
                   ? controller.text.length
@@ -171,7 +172,7 @@ class _EditProductViewState extends State<EditProductView> {
               maxLines: maxLine,
               controller: controller,
               decoration: InputDecoration(
-                hintStyle: TextStyle(fontSize: SizeUtil.titleFontSize(), color: Colors.grey),
+                hintStyle: TextStyle(fontSize: SizeUtil.titleFontSize().sp, color: Colors.grey),
                 hintText: hint,
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.all(15),
@@ -196,7 +197,7 @@ class _EditProductViewState extends State<EditProductView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
           Container(
             padding: EdgeInsets.all(10),
@@ -224,7 +225,7 @@ class _EditProductViewState extends State<EditProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(LocaleKeys.my_product_delivery_price.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+                  Text(LocaleKeys.my_product_delivery_price.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey.withOpacity(0.7),
@@ -269,7 +270,7 @@ class _EditProductViewState extends State<EditProductView> {
       onPressed: () {},
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -287,7 +288,7 @@ class _EditProductViewState extends State<EditProductView> {
       onPressed: () {},
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -299,7 +300,7 @@ class _EditProductViewState extends State<EditProductView> {
           margin: EdgeInsets.all(15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text(head, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+              children: [Text(head, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
             ),
                 FlutterSwitch(
                   height: 30,

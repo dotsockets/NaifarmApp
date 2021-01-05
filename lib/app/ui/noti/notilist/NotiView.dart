@@ -13,6 +13,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 //'assets/images/svg/cart_top.svg'
 class NotiView extends StatelessWidget {
   @override
@@ -91,7 +92,7 @@ class NotiView extends StatelessWidget {
                            child: Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
-                               Hero( tag: "notititle_${index}",child: Text(item.Title,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold,color: item.Status_Sell!=2?Colors.black:Colors.red))),
+                               Hero( tag: "notititle_${index}",child: Text(item.Title,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: item.Status_Sell!=2?Colors.black:Colors.red))),
                                SizedBox(height: 5),
                                NotiViewModel().GetStatusMessage(status: item)
                              ],

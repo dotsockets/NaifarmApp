@@ -240,6 +240,7 @@ abstract class  LocaleKeys {
   static const shop_following = 'shop.following';
   static const shop_follower = 'shop.follower';
   static const shop_product_list = 'shop.product_list';
+  static const shop_name = 'shop.name';
   static const shop_active_hour = 'shop.active.hour';
   static const shop_active_minute = 'shop.active.minute';
   static const shop_active = 'shop.active';

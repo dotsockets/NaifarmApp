@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductSlide extends StatelessWidget {
 
@@ -58,7 +59,7 @@ class ProductSlide extends StatelessWidget {
     return Container(
       color: Colors.white,
       width: double.infinity,
-      padding: EdgeInsets.only(top: 3,bottom: 30),
+      padding: EdgeInsets.only(top: 1.0.h,bottom: 30),
       child: CarouselSlider(
         options: CarouselOptions(
           viewportFraction: 0.945,
@@ -73,7 +74,7 @@ class ProductSlide extends StatelessWidget {
         items: _imgList
             .map(
               (item) => Container(
-            margin: EdgeInsets.only(left: 6,right: 6),
+            margin: EdgeInsets.only(left: 1.0.w,right: 1.0.w),
             child: CachedNetworkImage(
               placeholder: (context, url) => Container(
                 width: MediaQuery.of(context).size.width,

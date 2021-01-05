@@ -1,12 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dotted_border/dotted_border.dart';
+
 import 'package:fdottedline/fdottedline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_switch/flutter_switch.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:sizer/sizer.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -71,7 +67,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                 child: Text(
                   titleType,
                   style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
                 )),
             Column(
                 children: List.generate(
@@ -94,7 +90,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                   children: [
                                     Text(listSizeType[index],
                                         style: FunctionHelper.FontTheme(
-                                            fontSize: SizeUtil.titleFontSize(),
+                                            fontSize: SizeUtil.titleFontSize().sp,
                                             fontWeight: FontWeight.w500)),
                                     Container(
                                       padding: EdgeInsets.only(top: 5,bottom: 5),
@@ -117,7 +113,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                             child: TextFormField(
                                               style: FunctionHelper.FontTheme(
                                                   color: Colors.black,
-                                                  fontSize: SizeUtil.detailFontSize()),
+                                                  fontSize: SizeUtil.detailFontSize().sp),
                                               maxLines: 1,
                                               keyboardType: TextInputType.number,
                                               decoration: InputDecoration(
@@ -128,7 +124,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                                 hintStyle:
                                                     FunctionHelper.FontTheme(
                                                         color: Colors.grey,
-                                                        fontSize: SizeUtil.detailFontSize()),
+                                                        fontSize: SizeUtil.detailFontSize().sp),
                                               ),
                                             ),
                                           ),
@@ -148,7 +144,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                                 child: TextFormField(
                                                   style: FunctionHelper.FontTheme(
                                                       color: Colors.black,
-                                                      fontSize: SizeUtil.detailFontSize()),
+                                                      fontSize: SizeUtil.detailFontSize().sp),
                                                   maxLines: 1,
                                                   keyboardType: TextInputType.number,
                                                   decoration: InputDecoration(
@@ -160,7 +156,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                                     hintStyle:
                                                         FunctionHelper.FontTheme(
                                                             color: Colors.grey,
-                                                            fontSize: SizeUtil.detailFontSize()),
+                                                            fontSize: SizeUtil.detailFontSize().sp),
                                                   ),
                                                 ),
                                               ),
@@ -188,17 +184,17 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
           Text(
             LocaleKeys.my_product_option.tr(),
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
           ),
           Text(
             LocaleKeys.my_product_price_no_product.tr(),
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
           ),
           Text(
             LocaleKeys.my_product_amount.tr(),
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
           )
         ],
       ),
@@ -220,7 +216,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
         child: Text(
           LocaleKeys.save_btn.tr(),
           style: FunctionHelper.FontTheme(
-              fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+              fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
         ),
       ),
     );
