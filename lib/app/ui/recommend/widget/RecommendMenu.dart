@@ -15,6 +15,7 @@ import 'package:sizer/sizer.dart';
 class RecommendMenu extends StatelessWidget {
 
   final List<MenuModel> _menuViewModel = MenuViewModel().getRecommendmenu();
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -65,9 +66,9 @@ class RecommendMenu extends StatelessWidget {
       switch(item.page){
         case  "ShopMyNear" : AppRoute.ShopMyNear(context);
         break;
-        case  "MarketView" : AppRoute.Market(context);
+        case  "MarketView" : AppRoute.ShopMain(context);
         break;
-        case  "SpecialproductsView" : AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_special_price_product.tr(),productList:ProductViewModel().getMarketRecommend());
+        case  "SpecialproductsView" : AppRoute.ProductMore(api_link: "products/types/popular",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr(),productList:ProductViewModel().getMarketRecommend());
         break;
         case  "NotiView" :  AppRoute.MyNoti(context);
         break;

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -75,6 +76,20 @@ class _ImageProductViewState extends State<ImageProductView> {
   //   }
   // }
 
+  Future captureImage(ImageSource imageSource, int index) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: imageSource);
+
+
+    setState(() {
+      if (pickedFile != null) {
+        arr[index] = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
 
   Widget _buildGrid() {
     return GridView.count(
@@ -129,7 +144,7 @@ class _ImageProductViewState extends State<ImageProductView> {
                 child: Image.file(arr[index]))),
           ),
           onTap: () {
-         //   captureImage(ImageSource.gallery, index);
+              captureImage(ImageSource.gallery, index);
             // _onImageButtonPressed(ImageSource.gallery, context: context);
           },
           onLongPress: (){

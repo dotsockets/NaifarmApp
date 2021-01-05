@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -16,12 +20,39 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ProductGrid.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 
-class FlashSaleView extends StatelessWidget {
+import 'ProductGridFlashSaleView.dart';
 
-  final List<ProductModel> _producViewModel = ProductViewModel().getFlashSaleProduct();
+class FlashSaleView extends StatefulWidget {
+  final FlashsaleRespone instalData;
+
+  FlashSaleView({Key key, this.instalData}) : super(key: key);
+  @override
+  _FlashSaleViewState createState() => _FlashSaleViewState();
+}
+
+class _FlashSaleViewState extends State<FlashSaleView> {
+
+
+  ProductBloc bloc;
+  List<ProductData> product_data = List<ProductData>();
+
+
+  void _init(){
+    if(null == bloc) {
+      bloc = ProductBloc(AppProvider.getApplication(context));
+      if(widget.instalData!=null){
+        bloc.Flashsale.add(widget.instalData);
+      }else{
+        bloc.loadFlashsaleData(page: "1",limit: 5);
+      }
+
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
+    _init();
     return SafeArea(
       top: false,
       child: Scaffold(
@@ -43,7 +74,8 @@ class FlashSaleView extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(height: 50),
-                        ProductGrid(
+                        ProductGridFlashSaleView(
+                          flashsaleProduct: widget.instalData,
                           producViewModel: ProductViewModel().getMarketRecommend(),
                           IconInto: 'assets/images/svg/like.svg',
                           onSelectMore: () {
@@ -52,7 +84,8 @@ class FlashSaleView extends StatelessWidget {
                           onTapItem: (int index) {
                             AppRoute.ProductDetail(context,
                                 productImage: "special_${index}");
-                          },EnableHeader: false,tagHero: "special",FlashSallLabel: true,)
+                          },EnableHeader: false,tagHero: "special",FlashSallLabel: true,api_link: "flashsale",)
+                        ,
                       ],
                     ),
                   ),

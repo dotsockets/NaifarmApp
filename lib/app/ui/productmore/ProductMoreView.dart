@@ -13,8 +13,9 @@ class ProductMoreView extends StatefulWidget {
   final String barTxt ;
   final List<ProductModel> productList;
   final ProductRespone installData;
+  final String api_link;
 
-  ProductMoreView({Key key, this.barTxt,this.productList,this.installData}) : super(key: key);
+  ProductMoreView({Key key, this.barTxt,this.productList,this.installData, this.api_link}) : super(key: key);
 
 
   @override
@@ -23,47 +24,23 @@ class ProductMoreView extends StatefulWidget {
 
 class _ProductMoreViewState extends State<ProductMoreView> {
 
-
-
-  ProductBloc bloc;
-
-  void _init(){
-    if(null == bloc) {
-      bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.ProductPopular.add(widget.installData);
-    }
-
-  }
-
   @override
   Widget build(BuildContext context) {
-    _init();
     return SafeArea(
       top: false,
       child: Scaffold(
+        appBar: AppToobar(title:
+        widget.barTxt,header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
         body: SingleChildScrollView(
             child: Container(
-              child: StickyHeader(
-                header:  AppToobar(title:
-                widget.barTxt,header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
-                content: StreamBuilder(
-                  stream: bloc.ProductPopular.stream,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                       if(snapshot.hasData) {
-                         return ProductGrid(titleInto: "",
-                             productRespone: snapshot.data,
-                             IconInto: '',
-                             onTapItem: (int index) {
-                               AppRoute.ProductDetail(context,
-                                   productImage: "product_more_${index}");
-                             },tagHero: 'product_more' ,EnableHeader: false);
-                       }else{
-                         return SizedBox();
-                       }
-
-                  },
-                ),
-              ),
+              child: ProductGrid(titleInto: "",
+                  api_link: widget.api_link,
+                  productRespone: widget.installData,
+                  IconInto: '',
+                  onTapItem: (int index) {
+                    AppRoute.ProductDetail(context,
+                        productImage: "product_more_${index}");
+                  },tagHero: 'product_more' ,EnableHeader: false),
             ),
         ),
       ),

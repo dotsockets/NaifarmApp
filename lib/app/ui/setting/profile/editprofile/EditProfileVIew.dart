@@ -1,8 +1,10 @@
 
-import 'dart:io';
 
+
+import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -11,6 +13,8 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ImageUploadRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -31,7 +35,8 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CustomerInfoRespone itemInfo = CustomerInfoRespone();
   bool onUpdate = false;
-
+  bool onImageUpdate = false;
+  File fileImage;
   @override
   void initState() {
     // TODO: implement initState
@@ -42,22 +47,29 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
   void _init(){
     if(null == bloc){
       bloc = MemberBloc(AppProvider.getApplication(context));
-      bloc.onLoad.stream.listen((event) {
-        if(event){
-          FunctionHelper.showDialogProcess(context);
-        }else{
-          Navigator.of(context).pop();
-        }
-      });
+      // bloc.onLoad.stream.listen((event) {
+      //   if(event){
+      //     FunctionHelper.showDialogProcess(context);
+      //   }else{
+      //     Navigator.of(context).pop();
+      //   }
+      // });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        print("Token = ${(event as CustomerInfoRespone).email}");
-        setState(() {
-          itemInfo = (event as CustomerInfoRespone);
-        });
+        if(event is ImageUploadRespone){
+          setState(() {
+            onImageUpdate = true;
+            itemInfo.image[0].path = (event as ImageUploadRespone).path;
+          });
+        }else if(event is CustomerInfoRespone){
+          setState(() {
+            itemInfo = (event as CustomerInfoRespone);
+          });
+        }
+
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
 
@@ -94,10 +106,8 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                       onTap: (){
                         if(onUpdate){
                           Usermanager().getUser().then((value) =>  bloc.ModifyProfile(data: itemInfo,token: value.token,onload: false));
-                          Navigator.of(context).pop();
-                        }else{
-                          Navigator.pop(context);
                         }
+                         Navigator.pop(context,onImageUpdate);
 
                       },
                     ),
@@ -114,37 +124,55 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                           SizedBox(height: 20,),
                           ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(60)),
-                            child: CachedNetworkImage(
+                            child: fileImage==null?CachedNetworkImage(
                               width: 80,
                               height: 80,
                               placeholder: (context, url) => Container(
+                                width: 80,height: 80,
                                 color: Colors.white,
                                 child: Lottie.asset(Env.value.loadingAnimaion,
                                     height: 30),
                               ),
                               fit: BoxFit.cover,
-                              imageUrl:
-                              "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS_rDu4Nc6GLkHxx1h3h7NV-skFgSoaV7Ltgw&usqp=CAU",
+                              imageUrl:itemInfo!=null?itemInfo.image!=null?"${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}":'':'',
                               errorWidget: (context, url, error) => Container(
-                                  height: 30,
+                                width: 80,
+                                  height: 80,
                                   child: Icon(
                                     Icons.error,
                                     size: 30,
                                   )),
+                            ):Stack(
+                              children: [
+                                Container(
+                                  width: 80,
+                                  height: 80,
+                                  color: Colors.white,
+                                  child: Lottie.asset(Env.value.loadingAnimaion,
+                                      height: 30),
+                                ),
+                                Image.file(fileImage,width: 80, height: 80,fit: BoxFit.cover,),
+
+                              ],
                             ),
                           ),
                           SizedBox(height: 15),
-                          Container(
-                            padding: EdgeInsets.only(right: 15,left: 15,bottom: 5,top: 5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              color: ThemeColor.ColorSale()
+                          InkWell(
+                            child: Container(
+                              padding: EdgeInsets.only(right: 15,left: 15,bottom: 5,top: 5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                color: ThemeColor.ColorSale()
+                              ),
+                              child: Text(LocaleKeys.edit_img_btn.tr(),
+                                  style: FunctionHelper.FontTheme(
+                                      color: Colors.white,
+                                      fontSize:  SizeUtil.detailSmallFontSize(),
+                                      fontWeight: FontWeight.bold)),
                             ),
-                            child: Text(LocaleKeys.edit_img_btn.tr(),
-                                style: FunctionHelper.FontTheme(
-                                    color: Colors.white,
-                                    fontSize:  SizeUtil.detailSmallFontSize(),
-                                    fontWeight: FontWeight.bold)),
+                            onTap: (){
+                              captureImage(ImageSource.gallery);
+                            },
                           ),
                         ],
                       ),
@@ -208,10 +236,10 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                             Message: itemInfo.dob!=null?itemInfo.dob:'',
                             title: LocaleKeys.my_profile_birthday.tr(),
                             onClick: () {
-                              Platform.isAndroid?FunctionHelper.selectDateAndroid(context,DateTime.parse(itemInfo.dob),OnDateTime: (DateTime date){
+                              Platform.isAndroid?FunctionHelper.selectDateAndroid(context,DateTime.parse(itemInfo.dob!=null?itemInfo.dob:DateFormat('yyyy-MM-dd').format(DateTime.now())),OnDateTime: (DateTime date){
                                 onUpdate = true;
                                 if(date!=null)  setState(()=>itemInfo.dob = DateFormat('yyyy-MM-dd').format(date));
-                              }):FunctionHelper.showPickerDateIOS(context,DateTime.parse(itemInfo.dob),onTap:(DateTime date){
+                              }):FunctionHelper.showPickerDateIOS(context,DateTime.parse(itemInfo.dob!=null?itemInfo.dob:DateFormat('yyyy-MM-dd').format(DateTime.now())),onTap:(DateTime date){
                                 onUpdate = true;
                                 if(date!=null) setState(()=>itemInfo.dob = DateFormat('yyyy-MM-dd').format(date));
                               });
@@ -269,14 +297,21 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
     );
   }
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime d = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(Duration(days: 1)),
-      lastDate:DateTime.now().add(Duration(days: 30)),
-    );
 
+  Future captureImage(ImageSource imageSource) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: imageSource);
+
+
+    setState(() {
+      if (pickedFile != null) {
+        fileImage = File(pickedFile.path);
+        Usermanager().getUser().then((value) => bloc.UploadImage(imageFile: fileImage,imageableType: "customer",imageableId: itemInfo.id,token: value.token));
+      } else {
+        print('No image selected.');
+      }
+    });
   }
+
 
 }

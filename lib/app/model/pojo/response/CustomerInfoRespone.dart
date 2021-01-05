@@ -1,3 +1,5 @@
+import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
+
 import 'ThrowIfNoSuccess.dart';
 
 class CustomerInfoRespone {
@@ -10,7 +12,7 @@ class CustomerInfoRespone {
   String dob;
   String description;
   Shop shop;
-  List<Image> image;
+  List<ImageShop> image;
   ThrowIfNoSuccess http_call_back;
 
   CustomerInfoRespone(
@@ -36,9 +38,9 @@ class CustomerInfoRespone {
     description = json['description'];
     shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
     if (json['image'] != null) {
-      image = new List<Image>();
+      image = new List<ImageShop>();
       json['image'].forEach((v) {
-        image.add(new Image.fromJson(v));
+        image.add(new ImageShop.fromJson(v));
       });
     }
   }
@@ -63,13 +65,13 @@ class CustomerInfoRespone {
   }
 }
 
-class Image {
+class ImageShop {
   String name;
   String path;
 
-  Image({this.name, this.path});
+  ImageShop({this.name, this.path});
 
-  Image.fromJson(Map<String, dynamic> json) {
+  ImageShop.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     path = json['path'];
   }
@@ -86,9 +88,9 @@ class Shop {
   int id;
   String name;
   String slug;
-  Null state;
-  Null updatedAt;
-  List<Image> image;
+  DataStates state;
+  String updatedAt;
+  List<ImageShop> image;
 
   Shop({this.id, this.name, this.slug, this.state, this.updatedAt, this.image});
 
@@ -96,12 +98,12 @@ class Shop {
     id = json['id'];
     name = json['name'];
     slug = json['slug'];
-    state = json['state'];
+    state = json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = new List<Image>();
+      image = new List<ImageShop>();
       json['image'].forEach((v) {
-        image.add(new Image.fromJson(v));
+        image.add(new ImageShop.fromJson(v));
       });
     }
   }
@@ -111,7 +113,9 @@ class Shop {
     data['id'] = this.id;
     data['name'] = this.name;
     data['slug'] = this.slug;
-    data['state'] = this.state;
+    if (this.state != null) {
+      data['state'] = this.state.toJson();
+    }
     data['updatedAt'] = this.updatedAt;
     if (this.image != null) {
       data['image'] = this.image.map((v) => v.toJson()).toList();

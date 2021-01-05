@@ -158,6 +158,16 @@ class _MyshopViewState extends State<MyshopView> {
               AppRoute.SettingHelp(context);
             },
           ),
+          _BuildDivider(num: 10),
+          ListMenuItem(
+            icon: 'assets/images/svg/help.svg',
+            title: "ตั้งค่าข้อมูลร้านค้า",
+            IsPhoto: "https://www.chaiyoreadyweb.com/images/online-shop.png",
+            Message: widget.customerInfoRespone.shop.name,
+            onClick: () {
+              AppRoute.ShopProfile(context);
+            },
+          ),
           SizedBox(height: 50),
           _buildBtnAddProduct(context)
         ],
@@ -252,10 +262,10 @@ class _MyshopViewState extends State<MyshopView> {
     );
   }
 
-  Widget _BuildDivider() {
+  Widget _BuildDivider({double num=0.5}) {
     return Container(
-      height: 0.5,
-      color: Colors.black.withOpacity(0.4),
+      height: num,
+      color: Colors.grey.shade300,
     );
   }
 

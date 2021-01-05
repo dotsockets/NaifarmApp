@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
@@ -63,7 +66,9 @@ class _MeViewState extends State<MeView> with RouteAware  {
        // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        customerInfoRespone = event;
+        setState(() {
+          customerInfoRespone = event;
+        });
 
       });
 
@@ -110,8 +115,12 @@ class _MeViewState extends State<MeView> with RouteAware  {
                     Icons.settings,
                     color: Colors.white,size: 7.0.w
                   ),
-                  onTap: (){
-                    AppRoute.SettingProfile(context, IsLogin);
+                  onTap: () async {
+                    final result = await AppRoute.SettingProfile(context, IsLogin);
+                    if(result!=null && result){
+                       Usermanager().getUser().then((value) => bloc.getCustomerInfo(token: value.token));
+                    }
+
                   },
                 ),
               ),
@@ -142,15 +151,17 @@ class _MeViewState extends State<MeView> with RouteAware  {
                           width: 10.0.h,
                           height: 10.0.h,
                           placeholder: (context, url) => Container(
+                            width: 10.0.h,
+                            height: 10.0.h,
                             color: Colors.white,
                             child: Lottie.asset(Env.value.loadingAnimaion,
                                 height: 30),
                           ),
                           fit: BoxFit.cover,
-                          imageUrl:
-                              "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS_rDu4Nc6GLkHxx1h3h7NV-skFgSoaV7Ltgw&usqp=CAU",
+                          imageUrl:customerInfoRespone!=null?customerInfoRespone.image.length>0?"${Env.value.baseUrl}/storage/images/${customerInfoRespone.image[0].path}":'':'',
                           errorWidget: (context, url, error) => Container(
-                              height: 30,
+                            width: 10.0.h,
+                              height: 10.0.h,
                               child: Icon(
                                 Icons.error,
                                 size: 30,
@@ -158,7 +169,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                         ),
                       ),
                       SizedBox(height: 2.0.h),
-                      Text("วีระชัย ใจกว้าง",
+                      Text(customerInfoRespone!=null?customerInfoRespone.name:"ฟาร์มมาร์เก็ต",
                           style: FunctionHelper.FontTheme(
                               color: Colors.white,
                               fontSize: SizeUtil.titleFontSize().sp,
@@ -291,6 +302,8 @@ class _MeViewState extends State<MeView> with RouteAware  {
       ),
     );
   }
+
+
 
 
 

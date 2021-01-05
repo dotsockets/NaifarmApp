@@ -470,13 +470,13 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getProductPopular(String page) async {
+  Future<ApiResult> getProductPopular(String page,int limit) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     try {
 
-      final _result = await _dio.request<dynamic>('/v1/products/types/popular?limit=9&page=${page}',
+      final _result = await _dio.request<dynamic>('/v1/products/types/popular?limit=${limit}&page=${page}',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
@@ -533,13 +533,13 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getProductTrending(String page) async {
+  Future<ApiResult> getProductTrending(String page,int limit) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     try {
 
-      final _result = await _dio.request<dynamic>('/v1/products/types/trending?limit=9&page=$page',
+      final _result = await _dio.request<dynamic>('/v1/products/types/trending?limit=${limit}&page=$page',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
@@ -554,13 +554,13 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getProduct(String page) async {
+  Future<ApiResult> getProduct(String page,int limit) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     try {
 
-      final _result = await _dio.request<dynamic>('/v1/products/types/products?limit=9&page=$page',
+      final _result = await _dio.request<dynamic>('/v1/products/types/products?limit=${limit}&page=$page',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
@@ -621,6 +621,172 @@ class _APIProvider implements APIProvider {
 
     }
   }
+
+  @override
+  Future<ApiResult> getMyShopInfo(String access_token) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/myshop/shop',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":access_token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: MyShopRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> MyShopUpdate({MyShopRequest data, String access_token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+
+    try {
+      final _result = await _dio.request<dynamic>('/v1/myshop/shop',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token":access_token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: data);
+      return ApiResult(respone: MyShopRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+
+    }
+  }
+
+  @override
+  Future<ApiResult> FarmMarket() async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/shop/slug/farm-market',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{},
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: MyShopRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> MoreProduct({String page, int limit, String link}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/${link}?limit=${limit}&page=${page}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{},
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: ProductRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> Flashsale({String page, int limit}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/flashsale?limit=${limit}&page=${page}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{},
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: FlashsaleRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> UploadImage({File imageFile,String imageableType, int imageableId, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    String fileName = imageFile.path.split('/').last;
+    FormData _data = FormData.fromMap({
+      "file": await MultipartFile.fromFile(
+        imageFile.path,
+        filename: fileName,
+      ),
+    });
+    FormData  formData = FormData.fromMap({
+      "file": await MultipartFile.fromFile(imageFile.path,filename: fileName),
+    });
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/image?imageableType=customer&imageableId=4',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: formData);
+      return ApiResult(respone: ImageUploadRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> ProductsById({int id}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/products/${id}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{},
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: ProducItemRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+
 
 
 

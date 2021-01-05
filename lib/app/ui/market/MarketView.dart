@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
@@ -18,6 +20,9 @@ import 'package:naifarm/utility/widgets/ProductVertical.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import '../../../utility/widgets/BannerSlide.dart';
 
+
+// ไม่ได้ใช้งาน
+
 class MarketView extends StatefulWidget {
 
   @override
@@ -30,6 +35,16 @@ class _MarketViewState extends State<MarketView> {
   final List<MenuModel> _menuViewModel = MenuViewModel().getMenustype();
   final _indicatorController = IndicatorController();
   int _categoryselectedIndex = 0;
+
+  ProductBloc bloc;
+
+  void _init(){
+    if(null == bloc) {
+      bloc = ProductBloc(AppProvider.getApplication(context));
+      bloc.loadProductPopular("1");
+    }
+
+  }
   @override
   void dispose() {
     _scrollController?.dispose();
@@ -38,6 +53,7 @@ class _MarketViewState extends State<MarketView> {
 
   @override
   Widget build(BuildContext context) {
+    _init();
     return CustomRefreshIndicator(
       controller: _indicatorController,
       onRefresh: () => Future.delayed(const Duration(seconds: 2)),
@@ -102,16 +118,27 @@ class _MarketViewState extends State<MarketView> {
                   children: [
                     BannerSlide(),
                     SizedBox(height: 15),
-                    ProductVertical(titleInto: LocaleKeys.recommend_best_seller.tr(),
-                        producViewModel: ProductViewModel().getProductFarm(),
-                        IconInto: 'assets/images/svg/product_hot.svg',
-                        onSelectMore: () {
-                          AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),productList:ProductViewModel().getProductFarm());
-                        },
-                        onTapItem: (int index) {
-                          AppRoute.ProductDetail(context,
-                              productImage: "sell_${index}");
-                        },borderRadius: true,IconSize: 30,tagHero: "sell",),
+                    StreamBuilder(
+                      stream: bloc.ProductPopular.stream,
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if(snapshot.hasData) {
+                          return ProductVertical(
+                              productRespone: snapshot.data,
+                              titleInto: LocaleKeys.recommend_best_seller.tr(),
+                              producViewModel: ProductViewModel().getBestSaller(),
+                              IconInto: 'assets/images/svg/product_hot.svg',
+                              onSelectMore: () {
+                                AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_best_seller.tr(),installData: snapshot.data);
+                              },
+                              onTapItem: (int index) {
+                                AppRoute.ProductDetail(context,
+                                    productImage: "sell_${index}");
+                              },borderRadius: true,IconSize: 30,tagHero: "sell");
+                        }else{
+                          return SizedBox();
+                        }
+                      },
+                    ),
                     SizedBox(height: 15),
                     ProductGrid(titleInto: LocaleKeys.recommend_title.tr(),
                       producViewModel: ProductViewModel().getMarketRecommend(),

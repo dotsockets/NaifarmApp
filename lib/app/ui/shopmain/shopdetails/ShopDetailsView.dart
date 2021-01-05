@@ -2,8 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
 
 class ShopDetailsView extends StatelessWidget {
+  final MarketObjectCombine marketObjectCombine;
+
+  const ShopDetailsView({Key key, this.marketObjectCombine}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -15,7 +19,7 @@ class ShopDetailsView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("เราให้บริการร้านอาหารและร้านขายผลิตภัณฑ์สินค้าที่มีคุณภาพ ตลาดชุมชุน อาหารสดและอาหารทะเลผักไฮโดรโปนิกส์ และสินค้าออแกนิค รวมทั้งผลิตภัณฑ์ ประเภทต่างๆอื่นๆอีกมากมาย ที่ผ่านการคัดสรรมาอย่างดีรอให้ท่านได้ลิ้มลอง เรามีบริการรับส่งสินค้า พร้อมให้บริการ ถึงบ้านท่านในเวลาที่รวดเร็ว โดยทีมงานที่เป็นมืออาชืพที่มีประสบการณ์"
+              Text(marketObjectCombine.profileshop.description
               ,style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.7),height: 2),),
               Text("line : @monruangsay",style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.7),height: 2),),
               Text("ig : monruangsay",style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.7),height: 2),)

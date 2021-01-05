@@ -1,8 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
@@ -14,6 +19,9 @@ class ListMenuItem extends StatelessWidget {
   final double iconSize;
   final FontWeight fontWeight;
   final double opacityMessage;
+  final String IsPhoto;
+  final Function(bool) IsSwitch;
+  final bool SelectSwitch;
 
   const ListMenuItem(
       {Key key,
@@ -22,7 +30,7 @@ class ListMenuItem extends StatelessWidget {
       this.Message = "",
       this.onClick,
       this.iconSize = 30,
-      this.fontWeight = FontWeight.bold, this.opacityMessage=1})
+      this.fontWeight = FontWeight.bold, this.opacityMessage=1,this.IsPhoto="",this.IsSwitch,this.SelectSwitch})
       : super(key: key);
 
   @override
@@ -37,10 +45,29 @@ class ListMenuItem extends StatelessWidget {
                 child: Row(
                   children: [
                     Visibility(
-                      child: SvgPicture.asset(
+                      child: IsPhoto==""?SvgPicture.asset(
                         icon,
                         width: iconSize,
                         height: iconSize,
+                      ):ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(60)),
+                        child: CachedNetworkImage(
+                          width: iconSize,
+                          height: iconSize,
+                          placeholder: (context, url) => Container(
+                            color: Colors.white,
+                            child: Lottie.asset(Env.value.loadingAnimaion,
+                                height: iconSize),
+                          ),
+                          fit: BoxFit.cover,
+                          imageUrl:IsPhoto,
+                          errorWidget: (context, url, error) => Container(
+                              height: iconSize,
+                              child: Icon(
+                                Icons.error,
+                                size: iconSize,
+                              )),
+                        ),
                       ),
                       visible: icon != "" ? true : false,
                     ),
@@ -61,11 +88,24 @@ class ListMenuItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(Message,
+                  IsSwitch==null?Text(Message,
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleSmallFontSize().sp,
                           fontWeight: FontWeight.w500,
-                          color: Colors.grey.withOpacity(opacityMessage))),
+                          color: Colors.grey.withOpacity(opacityMessage))):
+                  FlutterSwitch(
+                    height: 30,
+                    width: 50,
+                    toggleSize: 20,
+                    activeColor: Colors.grey.shade200,
+                    inactiveColor: Colors.grey.shade200,
+                    toggleColor:
+                    SelectSwitch ? ThemeColor.primaryColor() : Colors.grey.shade400,
+                    value: SelectSwitch ? true : false,
+                    onToggle: (val) {
+                      IsSwitch(val);
+                    },
+                  ),
                   SizedBox(
                     width: 10,
                   ),

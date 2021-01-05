@@ -10,18 +10,19 @@ import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-import 'ProductLandscape.dart';
 
-class ProductGrid extends StatefulWidget {
 
+class ProductGridFlashSaleView extends StatefulWidget {
   final String titleInto;
   final Function() onSelectMore;
   final Function(int) onTapItem;
@@ -32,10 +33,10 @@ class ProductGrid extends StatefulWidget {
   final bool FlashSallLabel;
   final bool isLike;
   final bool showBorder;
-  final ProductRespone productRespone;
+  final FlashsaleRespone flashsaleProduct;
   final String api_link;
 
-  const ProductGrid(
+  const ProductGridFlashSaleView(
       {Key key,
         this.titleInto,
         this.onSelectMore,
@@ -46,22 +47,22 @@ class ProductGrid extends StatefulWidget {
         this.tagHero,
         this.FlashSallLabel = false,
         this.isLike = false,
-        this.showBorder = false,this.productRespone, this.api_link})
+        this.showBorder = false,this.flashsaleProduct, this.api_link})
       : super(key: key);
   @override
-  _ProductGridState createState() => _ProductGridState();
+  _ProductGridFlashSaleViewState createState() => _ProductGridFlashSaleViewState();
 }
 
-class _ProductGridState extends State<ProductGrid> {
+class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
 
   ProductBloc bloc;
-  List<ProductData> product_data = List<ProductData>();
+  List<FlashsaleItems> product_data = List<FlashsaleItems>();
 
   void _init(){
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      if(widget.productRespone!=null){
-       bloc.MoreProduct.add(widget.productRespone);
+      if(widget.flashsaleProduct!=null){
+        bloc.Flashsale.add(widget.flashsaleProduct);
       }else{
         bloc.loadMoreData(page: "1",limit: 5,link: widget.api_link);
       }
@@ -125,7 +126,9 @@ class _ProductGridState extends State<ProductGrid> {
       stream: bloc.MoreProduct.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if(snapshot.hasData){
-          product_data.addAll((snapshot.data as ProductRespone).data);
+          if((snapshot.data as FlashsaleRespone).data.isNotEmpty){
+            product_data.addAll((snapshot.data as FlashsaleRespone).data[0].items);
+          }
           return Column(
             children: [
               for (int i = 0; i < product_data.length; i += 2)
@@ -277,7 +280,7 @@ class _ProductGridState extends State<ProductGrid> {
                       fit: BoxFit.cover,
                       imageUrl: ProductLandscape.CovertUrlImage(item.image),
                       errorWidget: (context, url, error) => Container(
-                        width: 120,
+                          width: 120,
                           height: 120,
                           child: Icon(
                             Icons.error,

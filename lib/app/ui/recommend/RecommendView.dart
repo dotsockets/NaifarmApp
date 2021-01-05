@@ -151,7 +151,16 @@ class _RecommendViewState extends State<RecommendView> {
                       children: [
                         BannerSlide(),
                         RecommendMenu(),
-                        FlashSale(),
+                        StreamBuilder(
+                          stream: bloc.Flashsale.stream,
+                          builder: (BuildContext context, AsyncSnapshot snapshot) {
+                            if(snapshot.hasData) {
+                              return FlashSale(flashsaleRespone: snapshot.data,);
+                            }else{
+                              return SizedBox();
+                            }
+                          },
+                        ),
                         SizedBox(height: 15),
                         StreamBuilder(
                           stream: bloc.ProductPopular.stream,
@@ -167,7 +176,7 @@ class _RecommendViewState extends State<RecommendView> {
                                     },
                                     onTapItem: (int index) {
                                       AppRoute.ProductDetail(context,
-                                          productImage: "product_hot_${index}");
+                                          productImage: "product_hot_${index}",Product_id: index);
                                     },
                                     tagHero: "product_hot");
                               }else{
@@ -178,7 +187,7 @@ class _RecommendViewState extends State<RecommendView> {
                         SizedBox(height: 15),
                         _BannerAds(),
                         StreamBuilder(
-                          stream: bloc.TrendingGroup.stream,
+                          stream: bloc.ProductMartket.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
                             if(snapshot.hasData) {
                               return  ProductVertical(
@@ -188,7 +197,7 @@ class _RecommendViewState extends State<RecommendView> {
                                   ProductViewModel().getProductFarm(),
                                   IconInto: 'assets/images/svg/menu_market.svg',
                                   onSelectMore: () {
-                                    AppRoute.Market(context);
+                                    AppRoute.ShopMain(context);
                                   },
                                   onTapItem: (int index) {
                                     AppRoute.ProductDetail(context,

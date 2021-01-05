@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -14,11 +17,27 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:sizer/sizer.dart';
 
-class CategoryView extends StatelessWidget {
+class CategoryView extends StatefulWidget {
+  @override
+  _CategoryViewState createState() => _CategoryViewState();
+}
+
+class _CategoryViewState extends State<CategoryView> {
+
   @override
   final List<MenuModel> _menuViewModel = MenuViewModel().getMenustype();
+  ProductBloc bloc;
+
+  void _init(){
+    if(null == bloc) {
+      bloc = ProductBloc(AppProvider.getApplication(context));
+      bloc.loadCategoryGroup();
+    }
+
+  }
+
   Widget build(BuildContext context) {
-    _menuViewModel.removeAt(0);
+    _init();
     return Scaffold(
       appBar:  AppToobar(header_type: Header_Type.barHome,isEnable_Search: true,),
 
@@ -36,25 +55,36 @@ class CategoryView extends StatelessWidget {
   Widget _content({BuildContext context}){
    return Container(
      padding: EdgeInsets.all(2.0.h),
-     child: Column(
-       children: [
-         Column(
-           children: item((_menuViewModel.length/4).floor(),4,context),
-         ),
-         Column(
-           children: item(1,(_menuViewModel.length/4).floor()*4,context),
-         )
-       ],
+     child: StreamBuilder(
+       stream: bloc.CategoryGroup.stream,
+       builder: (BuildContext context, AsyncSnapshot snapshot) {
+         if(snapshot.hasData){
+           return Column(
+             children: [
+               Column(
+                 children: item(((snapshot.data as CategoryGroupRespone).data.length/4).floor(),4,context,snapshot.data),
+               ),
+               Column(
+                 children: item(1,((snapshot.data as CategoryGroupRespone).data.length/4).floor()*4,context,snapshot.data),
+               )
+             ],
+           );
+         }else{
+           return SizedBox();
+         }
+       },
      ),
    );
   }
 
 
 
-  List<Widget> item(int con,int count,BuildContext context){
+
+
+  List<Widget> item(int con,int count,BuildContext context,CategoryGroupRespone item){
     var data = List<Widget>();
     var j=0;
-    int n = ((_menuViewModel.length/4).floor()*4)+4-_menuViewModel.length;
+    int n = ((item.data.length/4).floor()*4)+4-item.data.length;
     for( int i=0;i<(con);i++){
       j+=4;
       data.add(
@@ -64,18 +94,18 @@ class CategoryView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   for( int i=count;i>=1;i--)
-                    _ProductImage(item: _menuViewModel[j-i],index: j-1,context: context)
+                    _ProductImage(item: item.data[j-i],index: j-1,context: context)
                 ]
             ):Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  for( int i=count;i<_menuViewModel.length;i++)
-                    _ProductImage(item: _menuViewModel[i],index: i,context: context),
+                  for( int i=count;i<item.data.length;i++)
+                    _ProductImage(item: item.data[i],index: i,context: context),
 
-                  if(_menuViewModel.length%4!=0)
+                  if(item.data.length%4!=0)
                     for( int i=0;i<n;i++)
-                      SizedBox(width:SizeUtil.categoryBox(),
-                        height: SizeUtil.categoryBox(),)
+                      SizedBox(width:17.0.w,
+                        height: 17.0.w,)
 
 
                 ]
@@ -86,11 +116,12 @@ class CategoryView extends StatelessWidget {
     return data;
   }
 
-  Widget _ProductImage({MenuModel item,int index,BuildContext context}){
+  Widget _ProductImage({CategoryGroupData item,int index,BuildContext context}){
     return InkWell(
       child: Container(
         child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               decoration: BoxDecoration(
@@ -99,39 +130,41 @@ class CategoryView extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: CachedNetworkImage(
-                  width: 16.0.w,
-                  height: 16.0.w,
-                  placeholder: (context, url) => Container(
-                    color: Colors.white,
-                    child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
-                  ),
-                  fit: BoxFit.cover,
-                  imageUrl: item.icon,
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: CachedNetworkImage(
+                    width: 14.0.w,
+                    height: 14.0.w,
+                    placeholder: (context, url) => Container(
+                      color: Colors.white,
+                      child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                    ),
+                    fit: BoxFit.cover,
+                    imageUrl: "https://dev2-test.naifarm.com/category-icon/${item.icon}.png",
 
-                  errorWidget: (context, url, error) => Container(height: ScreenUtil().setWidth(200),width: ScreenUtil().setHeight(160),child: Icon(Icons.error,size: 30,)),
+                    errorWidget: (context, url, error) => Container(height: ScreenUtil().setWidth(200),width: ScreenUtil().setHeight(160),child: Icon(Icons.error,size: 30,)),
+                  ),
                 ),
               ),
             ),
             SizedBox(height: 1.0.h),
-            Text(item.label,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),)
+            Container(width: 180.w,height: 70.h,child: Text(item.name,maxLines: 2,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),))
           ],
         ),
       ),
       onTap: (){
-       // print(index);
-        for (int i=0;i<_menuViewModel.length;i++){
-           if(_menuViewModel[i].type==item.type){
-             AppRoute.CategoryDetail(context,i);
-             break;
-           }
-
-        }
+        print(item.id);
+       //  for (int i=0;i<item.length;i++){
+       //     if(_menuViewModel[i].type==item.type){
+       //       AppRoute.CategoryDetail(context,i);
+       //       break;
+       //     }
+       //
+       //  }
 
        // AppRoute.CategoryVegetable(context,_menuViewModel[].type);
       },
     );
   }
-  int Check(int i)=>i!=_menuViewModel.length-1?4:1;
 
 }

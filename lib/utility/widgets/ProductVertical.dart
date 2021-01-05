@@ -15,6 +15,8 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
+import 'ProductLandscape.dart';
+
 class ProductVertical extends StatelessWidget {
   final String titleInto;
   final Function() onSelectMore;
@@ -95,12 +97,13 @@ class ProductVertical extends StatelessWidget {
                     child: Hero(
                       tag: "${tagHero}_${index}",
                       child: CachedNetworkImage(
+                        height: 100,
                         placeholder: (context, url) => Container(
                           color: Colors.white,
                           child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                         ),
                         fit: BoxFit.cover,
-                        imageUrl: "${Env.value.baseUrl}/storage/images/${item.image[0].path}",
+                        imageUrl: ProductLandscape.CovertUrlImage(item.image),
                         errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
                       ),
                     ),
@@ -112,7 +115,7 @@ class ProductVertical extends StatelessWidget {
                 )
               ],
             ),
-            producViewModel.length!=index+1?Divider(color: Colors.black.withOpacity(0.5)):SizedBox()
+            producViewModel.length!=index?Divider(color: Colors.black.withOpacity(0.5)):SizedBox(height: 30,)
           ],
         ),
       ),

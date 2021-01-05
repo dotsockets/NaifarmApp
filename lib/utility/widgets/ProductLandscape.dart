@@ -1,4 +1,6 @@
 
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -93,7 +95,7 @@ class ProductLandscape extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: ()=>onTapItem(index),
+            onTap: ()=>onTapItem(productRespone.data[index].id),
           );
         }),
       ),
@@ -122,8 +124,8 @@ class ProductLandscape extends StatelessWidget {
                   child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                 ),
                 fit: BoxFit.cover,
-                imageUrl: "${Env.value.baseUrl}/storage/images/${item.image[0].path}",
-                errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
+                imageUrl: CovertUrlImage(item.image),
+                errorWidget: (context, url, error) => Container(width: 30.0.w,height: 30.0.w,child: Icon(Icons.error,size: 30,)),
               ),
             ),
             Visibility(
@@ -144,6 +146,16 @@ class ProductLandscape extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  static String CovertUrlImage(List<ProductImage> image){
+    if(image.length!=0){
+      Random random = new Random();
+      int randomNumber = random.nextInt(image.length); // from
+        return "${Env.value.baseUrl}/storage/images/${image[randomNumber].path}";
+    }else{
+      return "";
+    }
   }
 
   Widget _intoProduct({ProductData item}){

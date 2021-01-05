@@ -1,20 +1,26 @@
 
 
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
+import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/FeaturedRespone.dart';
+import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ImageUploadRespone.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
+import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
@@ -102,10 +108,10 @@ abstract class APIProvider{
   Future<ApiResult> getSliderImage();
 
   @GET("/v1/products/types/popular?limit=9&page=1")
-  Future<ApiResult> getProductPopular(String page);
+  Future<ApiResult> getProductPopular(String page,int limit);
 
   @GET("/v1/products/types/products?limit=9&page=1")
-  Future<ApiResult> getProduct(String page);
+  Future<ApiResult> getProduct(String page,int limit);
 
   @GET("/v1/category-group")
   Future<ApiResult> getCategoryGroup();
@@ -114,7 +120,7 @@ abstract class APIProvider{
   Future<ApiResult> getCategoriesFeatured();
 
   @GET("/v1/products/types/trending?limit=6&page=1")
-  Future<ApiResult> getProductTrending(String page);
+  Future<ApiResult> getProductTrending(String page,int limit);
 
   @GET("/v1/search/products?q=s&limit=10&page=1")
   Future<ApiResult> getSearch({String page, String query,int limit});
@@ -122,6 +128,26 @@ abstract class APIProvider{
   @POST("/v1/customers/myshop")
   @FormUrlEncoded()
   Future<ApiResult> CreateMyShop({@Field() String name,@Field() String slug,@Field() String description,@Field() String token});
+
+  @GET("/v1/myshop/shop")
+  Future<ApiResult> getMyShopInfo(String access_token);
+
+  @PATCH("/v1/myshop/shop")
+  Future<ApiResult> MyShopUpdate({@Body() MyShopRequest data,String access_token});
+
+  @GET("/v1/myshop/shop")
+  Future<ApiResult> FarmMarket();
+
+  Future<ApiResult> MoreProduct({String page, int limit, String link});
+
+  @GET("/v1/flashsale?limit=20&page=1")
+  Future<ApiResult> Flashsale({String page, int limit});
+
+  @POST("/v1/image")
+  Future<ApiResult> UploadImage({File imageFile,String imageableType, int imageableId, String token});
+
+  @GET("/v1/products")
+  Future<ApiResult> ProductsById({int id});
 
 }
 

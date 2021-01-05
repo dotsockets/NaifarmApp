@@ -1,11 +1,14 @@
 
 
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/api/APIProvider.dart';
 import 'package:naifarm/app/model/db/DBNaiFarmRepository.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
+import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
@@ -109,8 +112,10 @@ class APIRepository{
     return _apiProvider.getSliderImage();
   }
 
-  Future<ApiResult> getProductPopular(String page){
-    return _apiProvider.getProductPopular(page);
+  Future<ApiResult> getProductPopular(String page,int limit){
+    return _apiProvider.getProductPopular(page,limit
+
+    );
   }
 
   Future<ApiResult> getCategoryGroup(){
@@ -121,12 +126,12 @@ class APIRepository{
     return _apiProvider.getCategoriesFeatured();
   }
 
-  Future<ApiResult> getProductTrending(String page){
-    return _apiProvider.getProductTrending(page);
+  Future<ApiResult> getProductTrending(String page,int limit){
+    return _apiProvider.getProductTrending(page,limit);
   }
 
-  Future<ApiResult> getProduct(String page){
-    return _apiProvider.getProduct(page);
+  Future<ApiResult> getProduct(String page,int limit){
+    return _apiProvider.getProduct(page,limit);
   }
 
   Future<ApiResult> getSearch({String page, String query,int limit}){
@@ -136,6 +141,39 @@ class APIRepository{
   Future<ApiResult> CreateMyShop({String name, String slug, String description, String token}){
     return _apiProvider.CreateMyShop(name: name,slug: slug,description: description,token: token);
   }
+
+  Future<ApiResult> getMyShopInfo({String access_token}){
+    return _apiProvider.getMyShopInfo(access_token);
+  }
+
+  Future<ApiResult> MyShopUpdate({MyShopRequest data, String access_token}){
+    return _apiProvider.MyShopUpdate(data: data,access_token: access_token);
+  }
+
+  Future<ApiResult> FarmMarket(){
+    return _apiProvider.FarmMarket();
+  }
+
+  Future<ApiResult> MoreProduct({String page, int limit, String link}){
+    return _apiProvider.MoreProduct(page: page,limit: limit,link: link);
+  }
+
+  Future<ApiResult> Flashsale({String page, int limit}){
+    return _apiProvider.Flashsale(page: page,limit: limit);
+  }
+
+  Future<ApiResult> UploadImage({File imageFile,String imageableType, int imageableId, String token}){
+    return _apiProvider.UploadImage(imageFile: imageFile,imageableType: imageableType,imageableId: imageableId,token: token);
+  }
+
+
+  Future<ApiResult> ProductsById({int id}){
+    return _apiProvider.ProductsById(id: id);
+  }
+
+
+
+
 
 
 //  Observable<List<AppContent>> getTop100FreeApp(){

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/ui/Shopmynear/ShopMyNearView.dart';
@@ -20,6 +22,13 @@ import 'package:naifarm/app/ui/me/myproductaddtype/ProductAddTypeView.dart';
 import 'package:naifarm/app/ui/me/myproductsetprice/ProductSetPriceView.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/MyShophiStoryView.dart';
 import 'package:naifarm/app/ui/me/myshop/myshophistory/review/ReviewView.dart';
+import 'package:naifarm/app/ui/me/myshop/shopprofile/EditDetailView.dart';
+import 'package:naifarm/app/ui/me/myshop/shopprofile/EditExtrlUrlView.dart';
+import 'package:naifarm/app/ui/me/myshop/shopprofile/EditProviceView.dart';
+import 'package:naifarm/app/ui/me/myshop/shopprofile/EditSlugView.dart';
+import 'package:naifarm/app/ui/me/myshop/shopprofile/ShopProfileView.dart';
+import 'package:naifarm/app/ui/me/myshop/shopprofile/EditNameShopView.dart';
+import 'package:naifarm/app/ui/me/myshop/shopprofile/OfficialNameView.dart';
 import 'package:naifarm/app/ui/me/myshop/withdrawmoney/WithdrawMoneyView.dart';
 import 'package:naifarm/app/ui/me/myshop/withdrawmoney/moneyout/MoneyOutView.dart';
 import 'package:naifarm/app/ui/me/payment/PaymentView.dart';
@@ -73,15 +82,15 @@ class AppRoute{
   //   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: HomeView()));
   // }
 
-  static ProductDetail(BuildContext context,{String productImage}){
-    Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: ProductDetailView(productImage: productImage)));
+  static ProductDetail(BuildContext context,{String productImage,int Product_id}){
+    Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: ProductDetailView(productImage: productImage,Product_id: Product_id,)));
   }
   static  Market(BuildContext context){
   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MarketView()));
   }
 
-  static  FlashSaleAll(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FlashSaleView()));
+  static  FlashSaleAll(BuildContext context,{FlashsaleRespone instalData}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FlashSaleView(instalData: instalData,)));
   }
 
   static  MyCart(BuildContext context,bool BtnBack){
@@ -193,8 +202,8 @@ class AppRoute{
   static SettingPolicy(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: PolicyView()));
   }
-  static SettingProfile(BuildContext context,bool IsLogin){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SettingProfileView(IsLogin:IsLogin)));
+  static Future<bool> SettingProfile(BuildContext context,bool IsLogin) async {
+    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SettingProfileView(IsLogin:IsLogin)));
   }
   static SettingAbout(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AboutView()));
@@ -233,8 +242,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiSettingView()));
   }
 
-  static EditProfile(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProfileVIew()));
+  static Future<bool> EditProfile(BuildContext context) async {
+    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProfileVIew()));
   }
 
   static Future<CustomerInfoRespone> Setting_EditProfile_Name(BuildContext context,CustomerInfoRespone customerInfoRespone) async {
@@ -322,14 +331,43 @@ class AppRoute{
   static ForgotPassword(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ForgotPasswordView()));
   }
-  static ProductMore({BuildContext context,String barTxt,List<ProductModel> productList,ProductRespone installData}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductMoreView(barTxt:barTxt,productList:productList,installData: installData,)));
+  static ProductMore({BuildContext context,String barTxt,List<ProductModel> productList,ProductRespone installData,String api_link}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductMoreView(barTxt:barTxt,productList:productList,installData: installData,api_link: api_link,)));
   }
 
   static Future<bool> AddressEdit(BuildContext context,AddressesData item) async {
     return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:AddressEditView(item: item,)));
   }
+
+  static  ShopProfile(BuildContext context) async {
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ShopProfileView()));
+  }
+
+  static Future<MyShopRespone>  EditNameShop(BuildContext context,{MyShopRespone itemInfo}) async {
+    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:EditNameShopView(itemInfo: itemInfo,)));
+  }
+
+  static Future<MyShopRespone>  OfficialName(BuildContext context,{MyShopRespone itemInfo}) async {
+    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:OfficialNameView(itemInfo: itemInfo,)));
+  }
+
+  static Future<MyShopRespone>  EditSlug(BuildContext context,{MyShopRespone itemInfo}) async {
+    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:EditSlugView(itemInfo: itemInfo,)));
+  }
+
+  static Future<MyShopRespone>  EditDetail(BuildContext context,{MyShopRespone itemInfo}) async {
+    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:EditDetailView(itemInfo: itemInfo,)));
+  }
+
+  static Future<MyShopRespone>  EditExtrlUrl(BuildContext context,{MyShopRespone itemInfo}) async {
+    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:EditExtrlUrlView(itemInfo: itemInfo,)));
+  }
+
+  static Future<MyShopRespone>  EditProvice(BuildContext context,{MyShopRespone itemInfo}) async {
+    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:EditProviceView(itemInfo: itemInfo,)));
+  }
 }
+
 
 
 

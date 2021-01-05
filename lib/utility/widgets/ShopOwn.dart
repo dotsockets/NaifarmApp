@@ -6,17 +6,21 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import '../SizeUtil.dart';
+import 'ProductLandscape.dart';
 
 class ShopOwn extends StatelessWidget {
   final ProductModel productDetail;
+  final ShopItem shopItem;
 
-  const ShopOwn({Key key, this.productDetail}) : super(key: key);
+  const ShopOwn({Key key, this.productDetail, this.shopItem}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -43,7 +47,7 @@ class ShopOwn extends StatelessWidget {
                         Lottie.asset(Env.value.loadingAnimaion, height: 30),
                       ),
                       fit: BoxFit.cover,
-                      imageUrl: productDetail.ProfiletImage,
+                      imageUrl: ProductLandscape.CovertUrlImage(shopItem.image),
                       errorWidget: (context, url, error) => Container(
                           height: 30,
                           child: Icon(
@@ -59,7 +63,7 @@ class ShopOwn extends StatelessWidget {
                  child:  Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
-                     Text(productDetail.shopName,
+                     Text(shopItem.name,
                          style: FunctionHelper.FontTheme(
                              fontSize: SizeUtil.titleSmallFontSize(), color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
                      SizedBox(height: 5),
@@ -68,7 +72,7 @@ class ShopOwn extends StatelessWidget {
                              fontSize: SizeUtil.titleSmallFontSize(),
                              color: Colors.black.withOpacity(0.8))),
                      SizedBox(height: 2),
-                     Text(productDetail.provice,
+                     Text(shopItem.name,
                          style: FunctionHelper.FontTheme(
                              fontSize: SizeUtil.titleSmallFontSize(),
                              color: Colors.black.withOpacity(0.8),height: 1.5)),

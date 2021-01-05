@@ -1,13 +1,20 @@
 
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 
 class ProductSlide extends StatelessWidget {
+  final List<ProductImage> imgList;
 
+  const ProductSlide({Key key, this.imgList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,7 @@ class ProductSlide extends StatelessWidget {
       overflow: Overflow.visible,
       alignment: Alignment.bottomCenter,
       children: [
-        BannerSection()
+        BannerSection(imgList: imgList)
       ],
     );
   }
@@ -24,17 +31,17 @@ class ProductSlide extends StatelessWidget {
 
 
   class BannerSection extends StatefulWidget {
+    final List<ProductImage> imgList;
+
+  const BannerSection({Key key, this.imgList}) : super(key: key);
   @override
   _BannerSectionState createState() => _BannerSectionState();
   }
 
   class _BannerSectionState extends State<BannerSection> {
 
-  final List<String> _imgList = [
-    'https://www.img.in.th/images/7fc6ff825238293be21ea341e2f54755.png',
-    'https://www.img.in.th/images/7fc6ff825238293be21ea341e2f54755.png',
-    'https://www.img.in.th/images/7fc6ff825238293be21ea341e2f54755.png'
-  ];
+  final List<String> _imgList = List<String>();
+
 
   int _current;
 
@@ -42,7 +49,12 @@ class ProductSlide extends StatelessWidget {
   void initState() {
     _current = 0;
     super.initState();
+    for(var item in widget.imgList){
+      _imgList.add("${Env.value.baseUrl}/storage/images/${item.path}");
+    }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +69,13 @@ class ProductSlide extends StatelessWidget {
   Widget _buildBanner(){
     return Container(
       color: Colors.white,
-      width: double.infinity,
+      width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.only(top: 3,bottom: 30),
       child: CarouselSlider(
         options: CarouselOptions(
           viewportFraction: 0.945,
           autoPlay: true,
+          enableInfiniteScroll: widget.imgList.length>1?true:false,
           autoPlayInterval: Duration(seconds: 7),
           onPageChanged: (index, reason) {
             setState(() {
@@ -92,7 +105,7 @@ class ProductSlide extends StatelessWidget {
 
 
   Widget _buildIndicator() => Positioned(
-    bottom: 10,
+    bottom: 0,
   //  left: MediaQuery.of(context).size.width/2*0.86,
     child: Container(
       width: MediaQuery.of(context).size.width,
@@ -100,8 +113,8 @@ class ProductSlide extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: _imgList.asMap().map((key, value){
           return MapEntry(key, Container(
-            width: 13,
-            height: 13,
+            width: 10,
+            height: 10,
             margin: EdgeInsets.symmetric(horizontal: 4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black.withOpacity(0.6)),

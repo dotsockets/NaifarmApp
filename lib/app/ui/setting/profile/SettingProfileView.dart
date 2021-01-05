@@ -21,6 +21,8 @@ class SettingProfileView extends StatefulWidget {
 }
 
 class _SettingProfileViewState extends State<SettingProfileView> with RouteAware {
+  bool onImageUpdate = false;
+
   @override
   void initState() {
     super.initState();
@@ -52,6 +54,9 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
             title: LocaleKeys.setting_account_toobar.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
+            onClick: (){
+              Navigator.pop(context,onImageUpdate);
+            },
           ),
           body: Column(
             children: [
@@ -65,7 +70,13 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                         widget.IsLogin?ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_profile.tr(),
-                          onClick: () => AppRoute.EditProfile(context),
+                          onClick: () async {
+                            final result = await AppRoute.EditProfile(context);
+                                  if(result!=null){
+                                     onImageUpdate = true;
+                                   }
+
+                          },
                         ):SizedBox(),
                         widget.IsLogin?_buildLine():SizedBox(),
                         widget.IsLogin?ListMenuItem(

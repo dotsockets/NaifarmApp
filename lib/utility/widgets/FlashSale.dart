@@ -8,6 +8,7 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -16,10 +17,20 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
+import 'ProductLandscape.dart';
 
-class FlashSale extends StatelessWidget {
-
+class FlashSale extends StatefulWidget {
   final List<ProductModel> _producViewModel = ProductViewModel().getFlashSaleProduct();
+  final FlashsaleRespone flashsaleRespone;
+
+  FlashSale({Key key, this.flashsaleRespone}) : super(key: key);
+
+  @override
+  _FlashSaleState createState() => _FlashSaleState();
+}
+
+class _FlashSaleState extends State<FlashSale> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +64,7 @@ class FlashSale extends StatelessWidget {
   Widget _textSale({BuildContext context}){
     return InkWell(
       child: Container(
-        margin: EdgeInsets.only(bottom: 1.0.h),
+        margin: EdgeInsets.only(bottom: 3.0.h),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -63,7 +74,7 @@ class FlashSale extends StatelessWidget {
         ),
       ),
       onTap: (){
-        AppRoute.FlashSaleAll(context);
+        AppRoute.FlashSaleAll(context,instalData: widget.flashsaleRespone);
       },
     );
   }
@@ -72,19 +83,20 @@ class FlashSale extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: List.generate(_producViewModel.length, (index){
+        children: List.generate(widget.flashsaleRespone.data.length!=0?widget.flashsaleRespone.data[0].items.length:0, (index){
           return InkWell(
             child: Container(
               margin: EdgeInsets.all(1.0.h),
               child: Column(
                   children: [
-                    _ProductImage(item: _producViewModel[index],index: index),
-                    _intoProduct(item: _producViewModel[index],index: index)
+                    _ProductImage(item: widget.flashsaleRespone.data[0].items[index].product,index: index),
+                    _intoProduct(item: widget.flashsaleRespone.data[0].items[index].product,index: index)
                   ],
               ),
             ),
             onTap: (){
-              AppRoute.ProductDetail(context,productImage: "productImage_${index}");
+
+              AppRoute.ProductDetail(context,productImage: "productImage_${index}",Product_id: widget.flashsaleRespone.data[0].items[index].product.id);
             },
           );
         }),
@@ -94,7 +106,7 @@ class FlashSale extends StatelessWidget {
 
 
 
-  Widget _ProductImage({ProductModel item,int index}){
+  Widget _ProductImage({FlashsaleProduct item,int index}){
     return ClipRRect(
       borderRadius: BorderRadius.circular(1.0.h),
       child: Container(
@@ -113,7 +125,7 @@ class FlashSale extends StatelessWidget {
                     child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                   ),
                   fit: BoxFit.contain,
-                  imageUrl: item.product_image,
+                  imageUrl: ProductLandscape.CovertUrlImage(item.image),
                   errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: SizeUtil.titleSmallFontSize().sp,)),
                 ),
               ),
@@ -134,14 +146,14 @@ class FlashSale extends StatelessWidget {
     );
   }
 
-  Widget _intoProduct({ProductModel item,int index}){
+  Widget _intoProduct({FlashsaleProduct item,int index}){
     return Container(
       child: Column(
         children: [
           SizedBox(height: 1.0.h),
-          Hero(tag:  "productName_${index}",child: Text(item.product_name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:SizeUtil.titleSmallFontSize().sp ),)),
+          Hero(tag:  "productName_${index}",child: Text(item.name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:SizeUtil.titleSmallFontSize().sp ),)),
           SizedBox(height: 0.8.h),
-          Hero(tag: "productPrice_${index}",child: Text("฿${item.product_price}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize:SizeUtil.priceFontSize().sp),)),
+          Hero(tag: "productPrice_${index}",child: Text("฿${item.salePrice}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize:SizeUtil.priceFontSize().sp),)),
           Stack(
             children: [
               Container(
@@ -151,7 +163,7 @@ class FlashSale extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.only(left: 3.0.w,right: 2.0.w,bottom: 1.0.w,top: 1.0.w),
                     color: ThemeColor.ColorSale(),
-                    child:  Hero(tag: "productStatus_${index}",child: Text(item.product_status+" "+LocaleKeys.my_product_sold_end.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize().sp),)),
+                    child:  Hero(tag: "productStatus_${index}",child: Text(item.hasVariant.toString()+" "+LocaleKeys.my_product_sold_end.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize().sp),)),
                   ),
                 ),
               ),

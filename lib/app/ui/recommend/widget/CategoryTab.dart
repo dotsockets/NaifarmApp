@@ -11,6 +11,7 @@ import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+
 import 'package:sizer/sizer.dart';
 
 class CategoryTab extends StatelessWidget {
@@ -93,8 +94,8 @@ class CategoryTab extends StatelessWidget {
       child: Column(
         children: [
           CachedNetworkImage(
-            width: 110,
-            height: 110,
+            width: 20.0.w,
+            height: 20.0.w,
             placeholder: (context, url) => Container(
               color: Colors.white,
               child: Lottie.asset(Env.value.loadingAnimaion,height: 30),

@@ -1,9 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/ui/shopmain/shop/Shop.dart';
 import 'package:naifarm/app/ui/shopmain/shopdetails/ShopDetailsView.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -24,6 +28,16 @@ class _ShopMainViewState extends State<ShopMainView>
     with SingleTickerProviderStateMixin {
   TabController tabController;
   int selectedIndex = 0;
+
+  ProductBloc bloc;
+
+  void _init(){
+    if(null == bloc) {
+      bloc = ProductBloc(AppProvider.getApplication(context));
+      bloc.loadMartket("1");
+    }
+
+  }
 
   @override
   void initState() {
@@ -55,60 +69,72 @@ class _ShopMainViewState extends State<ShopMainView>
 
   @override
   Widget build(BuildContext context) {
+    _init();
     return SafeArea(
       top: false,
       child: Scaffold(
         backgroundColor: Colors.grey.shade300,
         appBar: AppToobar(
-          title: "ไร่มอนหลวงสาย",
+          title: "ร้านค้า",
           header_type: Header_Type.barNormal,
           icon: 'assets/images/svg/search.svg',
         ),
-        body: DefaultTabController(
-          length: 3,
-          child: NestedScrollView(
-            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-              return [
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    <Widget>[
-                    ShopOwn(productDetail: ProductViewModel().getFlashSaleProduct()[0])
-                    ]
-                  ),
-                ),
-              ];
-            },
-            body: Column(
-              children: <Widget>[
-                Container(
-                  color: Colors.white,
-                  child: TabBar(
-                    indicator: MD2Indicator(
-                      indicatorSize: MD2IndicatorSize.tiny,
-                      indicatorHeight: 5.0,
-                      indicatorColor: ThemeColor.primaryColor(),
+        body: StreamBuilder(
+            stream: bloc.ZipMarketProfile.stream,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if(snapshot.hasData) {
+                var item = (snapshot.data as MarketObjectCombine);
+                return  DefaultTabController(
+                  length: 3,
+                  child: NestedScrollView(
+                    headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                      return [
+                        SliverList(
+                          delegate: SliverChildListDelegate(
+                              <Widget>[
+                                ShopOwn(productDetail: ProductViewModel().getFlashSaleProduct()[0],shopItem: ShopItem(id: item.profileshop.id,slug: item.profileshop.slug,
+                                name: item.profileshop.name,image: item.profileshop.image,state: item.profileshop.state,updatedAt: item.profileshop.updatedAt))
+                              ]
+                          ),
+                        ),
+                      ];
+                    },
+                    body: Column(
+                      children: <Widget>[
+                        Container(
+                          color: Colors.white,
+                          child: TabBar(
+                            indicator: MD2Indicator(
+                              indicatorSize: MD2IndicatorSize.tiny,
+                              indicatorHeight: 5.0,
+                              indicatorColor: ThemeColor.primaryColor(),
+                            ),
+                            controller: tabController,
+                            tabs: [
+                              _tabbar(title: LocaleKeys.shop_title.tr(),index: 0),
+                              _tabbar(title: LocaleKeys.shop_category.tr(),index: 1),
+                              _tabbar(title: LocaleKeys.shop_detail.tr(),index: 2),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: TabBarView(
+                            controller: tabController,
+                            children: [
+                              Shop(productRespone: snapshot.data),
+                              CaregoryShopView(),
+                              ShopDetailsView(marketObjectCombine: snapshot.data,)
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    controller: tabController,
-                    tabs: [
-                      _tabbar(title: LocaleKeys.shop_title.tr(),index: 0),
-                      _tabbar(title: LocaleKeys.shop_category.tr(),index: 1),
-                      _tabbar(title: LocaleKeys.shop_detail.tr(),index: 2),
-                    ],
                   ),
-                ),
-                Expanded(
-                  child: TabBarView(
-                    controller: tabController,
-                    children: [
-                      Shop(),
-                      CaregoryShopView(),
-                      ShopDetailsView()
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+                );
+              }else{
+                return SizedBox();
+              }
+            }
         ),
       ),
     );
