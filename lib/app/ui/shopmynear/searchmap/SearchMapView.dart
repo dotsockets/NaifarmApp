@@ -7,6 +7,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class SearchMapView extends StatefulWidget {
   final String locationTxt;
@@ -64,7 +65,7 @@ class _SearchMapViewState extends State<SearchMapView> {
                         Container(
                           child: Text(listClone[index],
                               style: FunctionHelper.FontTheme(
-                                  color: Colors.black, fontSize: SizeUtil.titleFontSize())),
+                                  color: Colors.black, fontSize: SizeUtil.titleFontSize().sp)),
                           padding: EdgeInsets.all(15),
                         ),
                         _BuildLine()
@@ -122,10 +123,10 @@ class _SearchMapViewState extends State<SearchMapView> {
             children: [
               Text(title,
                   style: FunctionHelper.FontTheme(
-                      color: Colors.black, fontSize: SizeUtil.titleFontSize())),
+                      color: Colors.black, fontSize: SizeUtil.titleFontSize().sp)),
               Text(description,
                   style: FunctionHelper.FontTheme(
-                      color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize()
+                      color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize().sp
                   )),
             ],
           )

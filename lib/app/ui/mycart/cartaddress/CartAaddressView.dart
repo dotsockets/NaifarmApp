@@ -15,6 +15,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class CartAaddressView extends StatefulWidget {
   @override
@@ -105,10 +106,10 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                    Row(
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
-                       Text(item.Name,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize(),height: 1.6,color: ThemeColor.primaryColor()),),
+                       Text(item.Name,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp,height: 1.6,color: ThemeColor.primaryColor()),),
                   Row(
                          children: [
-                           select==index?Text(LocaleKeys.address_default.tr(),style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize(),color: ThemeColor.ColorSale())):SizedBox(),
+                           select==index?Text(LocaleKeys.address_default.tr(),style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())):SizedBox(),
                            SizedBox(width: 5,),
                            Icon(Icons.arrow_forward_ios,color: Colors.grey.shade500,)
                          ],
@@ -117,10 +118,10 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                      ],
                    ),
                     SizedBox(height: 5,),
-                    Text(item.phone,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),),
-                    Text(item.address,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),),
-                    Text(item.provice,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),),
-                    Text(item.zipcode,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.5),),
+                    Text(item.phone,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),),
+                    Text(item.address,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),),
+                    Text(item.provice,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),),
+                    Text(item.zipcode,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),),
                   ],
                 ),
               ),
@@ -146,7 +147,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
         },
         child: Text(
           LocaleKeys.add_address_btn.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
         ),
       ),
     );

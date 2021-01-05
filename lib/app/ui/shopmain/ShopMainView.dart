@@ -15,7 +15,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ShopOwn.dart';
-
+import 'package:sizer/sizer.dart';
 import '../../../utility/widgets/MD2Indicator.dart';
 import 'category/CaregoryShopView.dart';
 
@@ -147,7 +147,7 @@ class _ShopMainViewState extends State<ShopMainView>
         child: Text(title,
             style: FunctionHelper.FontTheme(
                 fontWeight: FontWeight.w500,
-                fontSize: SizeUtil.titleSmallFontSize(),
+                fontSize: SizeUtil.titleSmallFontSize().sp,
                 color: tabController.index == index
                     ? Colors.black
                     : Colors.grey.shade700)),

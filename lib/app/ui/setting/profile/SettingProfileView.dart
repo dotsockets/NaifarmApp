@@ -10,6 +10,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class SettingProfileView extends StatefulWidget {
 
@@ -168,24 +169,24 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
 
   Widget _buildLine() {
     return Container(
-      height: 0.5,
+      height: 0.1.w,
       color: Colors.black.withOpacity(0.4),
     );
   }
 
   Widget _buildTitle({String txt}) {
     return Container(
-      padding: EdgeInsets.only(left: 15, top: 8, bottom: 8),
+      padding: EdgeInsets.only(left: 3.0.w, top: 1.0.h, bottom: 1.0.h),
       child: Text(
         txt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
       ),
     );
   }
 
   Widget _BuildButton() {
     return Container(
-        padding: EdgeInsets.only(left: 50, right: 50),
+        padding: EdgeInsets.only(left: 15.0.w, right: 15.0.w),
         color: Colors.grey.shade300,
         child: Container(
             width: MediaQuery.of(context).size.width,
@@ -207,7 +208,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
       ),
     );
   }

@@ -161,7 +161,7 @@ class _RecommendViewState extends State<RecommendView> {
                             }
                           },
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 2.0.h),
                         StreamBuilder(
                           stream: bloc.ProductPopular.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -184,7 +184,7 @@ class _RecommendViewState extends State<RecommendView> {
                               }
                           },
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 2.0.h),
                         _BannerAds(),
                         StreamBuilder(
                           stream: bloc.ProductMartket.stream,
@@ -210,7 +210,7 @@ class _RecommendViewState extends State<RecommendView> {
                             }
                           },
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 2.0.h),
                         StreamBuilder(
                           stream: bloc.CategoryGroup.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -221,7 +221,7 @@ class _RecommendViewState extends State<RecommendView> {
                             }
                           },
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 2.0.h),
                         StreamBuilder(
                           stream: bloc.TrendingGroup.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -232,7 +232,7 @@ class _RecommendViewState extends State<RecommendView> {
                             }
                           },
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 2.0.h),
                         StreamBuilder(
                           stream: bloc.TrendingGroup.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {

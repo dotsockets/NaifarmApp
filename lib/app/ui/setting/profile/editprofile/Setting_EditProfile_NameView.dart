@@ -4,7 +4,7 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:sizer/sizer.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -67,7 +67,7 @@ class _Setting_EditProfile_NameViewState extends State<Setting_EditProfile_NameV
                 ),
                 onPressed: ()=>FormCheck()?Navigator.pop(context, widget.customerInfoRespone):SizedBox(),
                 child: Text(LocaleKeys.save_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                 ),
               )
             ],

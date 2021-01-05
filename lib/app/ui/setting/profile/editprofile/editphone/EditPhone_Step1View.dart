@@ -9,6 +9,7 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class EditPhone_Step1View extends StatefulWidget {
 
@@ -51,7 +52,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
         title: LocaleKeys.my_profile_phone.tr(), header_type: Header_Type.barNormal,),
       body: Column(
         children: [
-          Container(padding:EdgeInsets.all(15), child: Text(LocaleKeys.message_phone_edit.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),),),
+          Container(padding:EdgeInsets.all(15), child: Text(LocaleKeys.message_phone_edit.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),),),
           Container(
             color: Colors.white,
             child: Container(
@@ -62,7 +63,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
                 children: [
                   Text(LocaleKeys.edit_phone_old_phone.tr()+" xxxxxx${widget.customerInfoRespone.phone.substring(6,widget.customerInfoRespone.phone.length)}",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize())),
+                          fontSize: SizeUtil.titleFontSize().sp)),
                   SizedBox(height: 15,),
                   BuildEditText(
                       head: LocaleKeys.edit_phone_title.tr(),
@@ -87,7 +88,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
             child: Text(LocaleKeys.continue_btn.tr(),
-              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
             ),
           )
         ],

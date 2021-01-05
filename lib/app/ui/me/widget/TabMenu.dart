@@ -28,8 +28,8 @@ class TabMenu extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  SvgPicture.asset(icon),
-                  SizedBox(height: 10),
+                  SvgPicture.asset(icon,width: 13.0.w,height: 13.0.w,),
+                  SizedBox(height: 1.0.h),
                   Text(title,
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.detailFontSize().sp,
@@ -42,7 +42,7 @@ class TabMenu extends StatelessWidget {
                       right: 5,
                       top: 0,
                       child: Container(
-                        padding: EdgeInsets.all(3),
+                        padding: EdgeInsets.all(2.0.w),
                         decoration: BoxDecoration(
                           color: ThemeColor.ColorSale(),
                           borderRadius: BorderRadius.circular(10),

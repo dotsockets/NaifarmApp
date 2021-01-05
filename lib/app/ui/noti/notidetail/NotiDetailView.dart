@@ -13,6 +13,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+import 'package:sizer/sizer.dart';
 
 class NotiDetailView extends StatelessWidget {
   final String notiImage;
@@ -88,7 +89,7 @@ class NotiDetailView extends StatelessWidget {
                       Hero( tag: notiTitle,
                         child: Text(item.Title,
                             style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize(),
+                                fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.bold,
                                 color: item.Status_Sell != 2
                                     ? Colors.black
@@ -145,7 +146,7 @@ class NotiDetailView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize()),),
+                  Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),),
                   SizedBox(height: 5),
                   NotiViewModel().GetStatusStep(status: item),
                   SizedBox(height: 20),

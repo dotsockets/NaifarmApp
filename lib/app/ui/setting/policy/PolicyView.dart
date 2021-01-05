@@ -6,6 +6,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 
 class PolicyView extends StatefulWidget {
@@ -49,7 +50,7 @@ class _PolicyViewState extends State<PolicyView> {
   Widget _buildTxt({String txt}) {
     return Text(
       txt,
-      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
     );
 
   }

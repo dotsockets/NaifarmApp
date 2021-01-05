@@ -17,6 +17,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:sizer/sizer.dart';
 
 import 'ProductLandscape.dart';
 
@@ -105,7 +106,7 @@ class _ProductGridState extends State<ProductGrid> {
             Text(widget.titleInto,
                 style: FunctionHelper.FontTheme(
                     color: Colors.black,
-                    fontSize: SizeUtil.titleFontSize(),
+                    fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.bold)),
           ],
         ),
@@ -159,13 +160,13 @@ class _ProductGridState extends State<ProductGrid> {
           Text(
             item.name,
             style: FunctionHelper.FontTheme(
-                color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),
+                color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           SizedBox(height: 5),
           Text(
             "฿${item.salePrice}",
             style: FunctionHelper.FontTheme(
-                color: ThemeColor.ColorSale(), fontWeight: FontWeight.bold,fontSize: SizeUtil.priceFontSize()),
+                color: ThemeColor.ColorSale(), fontWeight: FontWeight.bold,fontSize: SizeUtil.priceFontSize().sp),
           ),
           SizedBox(height: 5),
           Stack(
@@ -180,7 +181,7 @@ class _ProductGridState extends State<ProductGrid> {
                     color: ThemeColor.ColorSale(),
                     child: Text(
                       LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize(),
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize().sp,
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -204,7 +205,7 @@ class _ProductGridState extends State<ProductGrid> {
         Text(item.name,
             style: FunctionHelper.FontTheme(
                 color: Colors.black,
-                fontSize: SizeUtil.titleSmallFontSize(),
+                fontSize: SizeUtil.titleSmallFontSize().sp,
                 fontWeight: FontWeight.w500)),
         SizedBox(
           height: 10,
@@ -212,7 +213,7 @@ class _ProductGridState extends State<ProductGrid> {
         Text(
           "฿${item.salePrice}",
           style: FunctionHelper.FontTheme(
-              color: ThemeColor.ColorSale(), fontSize: SizeUtil.titleSmallFontSize()),
+              color: ThemeColor.ColorSale(), fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
         SizedBox(
           height: 8,
@@ -237,7 +238,7 @@ class _ProductGridState extends State<ProductGrid> {
             ),
             Text(LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.detailSmallFontSize(),
+                    fontSize: SizeUtil.detailSmallFontSize().sp,
                     color: Colors.black,
                     fontWeight: FontWeight.w500))
           ],
@@ -301,7 +302,7 @@ class _ProductGridState extends State<ProductGrid> {
                         style: GoogleFonts.sarabun(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: SizeUtil.titleSmallFontSize()),
+                            fontSize: SizeUtil.titleSmallFontSize().sp),
                       ),
                     ),
                     widget.isLike

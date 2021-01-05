@@ -121,7 +121,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
             padding: EdgeInsets.all(15),
             child: Text(
               LocaleKeys.message_phone_edit.tr(),
-              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
+              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
             ),
           ),
           Container(
@@ -171,7 +171,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
                           Text(
                             LocaleKeys.edit_phone_otp_again.tr(),
                             style: FunctionHelper.FontTheme(
-                                fontSize:SizeUtil.titleSmallFontSize()),
+                                fontSize:SizeUtil.titleSmallFontSize().sp),
                           )
                         ],
                       ),
@@ -200,7 +200,7 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
             child: Text(
               FormCheck() ? LocaleKeys.confirm_btn.tr() : LocaleKeys.continue_btn.tr(),
               style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleFontSize(),
+                  fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),
             ),
           )

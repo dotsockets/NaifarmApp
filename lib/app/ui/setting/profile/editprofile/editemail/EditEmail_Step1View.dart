@@ -15,6 +15,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class EditEmail_Step1View extends StatefulWidget {
 
@@ -90,7 +91,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
         title: LocaleKeys.my_profile_email.tr(), header_type: Header_Type.barNormal,),
       body: Column(
         children: [
-          Container(padding:EdgeInsets.all(15), child: Text(LocaleKeys.message_mail_edit.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),),),
+          Container(padding:EdgeInsets.all(15), child: Text(LocaleKeys.message_mail_edit.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),),),
           Container(
             color: Colors.white,
             child: Container(
@@ -110,7 +111,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
 
                     children: [
                       SizedBox(height: 3,),
-                      Text(LocaleKeys.forgot_pass_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize())),
+                      Text(LocaleKeys.forgot_pass_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp)),
                       SizedBox(height: 2,),
                       Container(
                         width: ScreenUtil().setWidth(250),
@@ -120,7 +121,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                     ],
                   ),
                   SizedBox(height: 3,),
-                  Text(LocaleKeys.message_forgot_mail.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize()))
+                  Text(LocaleKeys.message_forgot_mail.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp))
 
                 ],
               ),
@@ -138,7 +139,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
             child: Text(LocaleKeys.continue_btn.tr(),
-              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
             ),
           )
         ],

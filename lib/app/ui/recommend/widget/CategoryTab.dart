@@ -82,7 +82,7 @@ class CategoryTab extends StatelessWidget {
 
   Widget _ProductImage({CategoryGroupData item,int index}){
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(2.0.h),
       decoration: BoxDecoration(
           border: Border(
             top: BorderSide(width: 2,color: Colors.grey.shade200),
@@ -104,9 +104,9 @@ class CategoryTab extends StatelessWidget {
             imageUrl: "https://dev2-test.naifarm.com/category-icon/${item.icon}.png",
             errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
           ),
-          SizedBox(height: 10),
-          Text(item.name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.bold),),
-          SizedBox(height: 10),
+          SizedBox(height: 2.0.h),
+          Text(item.name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),),
+          SizedBox(height: 1.0.h),
         ],
       ),
     );

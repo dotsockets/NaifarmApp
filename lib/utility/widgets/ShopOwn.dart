@@ -12,7 +12,7 @@ import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-
+import 'package:sizer/sizer.dart';
 import '../SizeUtil.dart';
 import 'ProductLandscape.dart';
 
@@ -65,16 +65,16 @@ class ShopOwn extends StatelessWidget {
                    children: [
                      Text(shopItem.name,
                          style: FunctionHelper.FontTheme(
-                             fontSize: SizeUtil.titleSmallFontSize(), color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
+                             fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
                      SizedBox(height: 5),
                      Text(productDetail.acticeTime,
                          style: FunctionHelper.FontTheme(
-                             fontSize: SizeUtil.titleSmallFontSize(),
+                             fontSize: SizeUtil.titleSmallFontSize().sp,
                              color: Colors.black.withOpacity(0.8))),
                      SizedBox(height: 2),
                      Text(shopItem.name,
                          style: FunctionHelper.FontTheme(
-                             fontSize: SizeUtil.titleSmallFontSize(),
+                             fontSize: SizeUtil.titleSmallFontSize().sp,
                              color: Colors.black.withOpacity(0.8),height: 1.5)),
                    ],
                  ),
@@ -94,7 +94,7 @@ class ShopOwn extends StatelessWidget {
                     },
                     child: Text(
                       LocaleKeys.shop_follow.tr(),
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
                     ),
                   ),
                 )
@@ -113,11 +113,11 @@ class ShopOwn extends StatelessWidget {
                   children: [
                     Text("${productDetail.ownProduct}",
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.priceFontSize(),
+                            fontSize: SizeUtil.priceFontSize().sp,
                             color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
                     SizedBox(height: 5),
                     Text(LocaleKeys.shop_product_list.tr(),
-                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()))
+                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp))
                   ],
                 ),
                 SizedBox(width: 10),
@@ -133,7 +133,7 @@ class ShopOwn extends StatelessWidget {
                       children: [
                         Text("${productDetail.rateShow}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.priceFontSize(),
+                                fontSize: SizeUtil.priceFontSize().sp,
                                 color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
                         SizedBox(width: 10),
                         SmoothStarRating(
@@ -152,7 +152,7 @@ class ShopOwn extends StatelessWidget {
                     ),
                     SizedBox(height: 5),
                     Text(LocaleKeys.shop_rate.tr(),
-                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize())),
+                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
                   ],
                 ),
                 Container(
@@ -165,10 +165,10 @@ class ShopOwn extends StatelessWidget {
                 Column(
                   children: [
                     Text("3",
-                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize(),color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
+                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
                     SizedBox(height: 5,),
                     Text(LocaleKeys.shop_follower.tr(),
-                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize())),
+                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
                   ],
                 )
               ],

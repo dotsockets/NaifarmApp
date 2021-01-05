@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
-
+import 'package:sizer/sizer.dart';
 import '../SizeUtil.dart';
 
 class CustomDropdownList extends StatefulWidget {
@@ -30,7 +30,7 @@ class _CustomDropdownListState extends State<CustomDropdownList> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(widget.txtSelect,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),),
+            Text(widget.txtSelect,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),),
             Icon(Icons.keyboard_arrow_down)
           ],
         )

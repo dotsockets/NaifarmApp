@@ -310,7 +310,7 @@ class AppToobar extends PreferredSize {
               isDense: true,
             // hintText: "search",
               hintStyle: TextStyle(
-                fontSize: SizeUtil.titleFontSize(),
+                fontSize: SizeUtil.titleFontSize().sp,
                 color: Colors.black,
               ),
               prefixIcon: Visibility(
@@ -365,7 +365,7 @@ class AppToobar extends PreferredSize {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SvgPicture.asset(
-                  'assets/images/svg/fontSize: SizeUtil.titleSmallFontSize()svg',
+                  'assets/images/svg/fontSize: SizeUtil.titleSmallFontSize().spsvg',
                   color: Colors.black.withOpacity(0.5),
                   width: 15,
                   height: 15,

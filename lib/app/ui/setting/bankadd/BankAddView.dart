@@ -9,6 +9,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
+import 'package:sizer/sizer.dart';
 
 class BankAddView extends StatefulWidget {
   @override
@@ -80,7 +81,7 @@ class _BankAddViewState extends State<BankAddView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(), color: Colors.grey),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
       ),
@@ -113,7 +114,7 @@ class _BankAddViewState extends State<BankAddView> {
         children: [
           Text(title,
               style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleSmallFontSize(), color: Colors.black)),
+                  fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black)),
           SizedBox(
             height: 10,
           ),
@@ -158,7 +159,7 @@ class _BankAddViewState extends State<BankAddView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
       ),
     );
   }

@@ -11,13 +11,14 @@ import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:sizer/sizer.dart';
 
 class ShippedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: EdgeInsets.only(top: 10),
+        margin: EdgeInsets.only(top: 2.0.w),
         child: Column(
           children: [
             _BuildCard(item: ProductViewModel().getHistorySale()[1],index: 1,context: context)
@@ -34,7 +35,7 @@ class ShippedView extends StatelessWidget {
           children: [
             _OwnShop(item: item),
             _ProductDetail(item: item,index: index),
-            SizedBox(height: 10,)
+            SizedBox(height: 2.0.w,)
           ],
         ),
       ),
@@ -48,7 +49,7 @@ class ShippedView extends StatelessWidget {
 
   Widget _ProductDetail({ProductModel item, int index}) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(3.0.w),
       color: Colors.white,
       child: Column(
         children: [
@@ -61,13 +62,13 @@ class ShippedView extends StatelessWidget {
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.black.withOpacity(0.1))),
                   child: CachedNetworkImage(
-                    width: 80,
-                    height: 80,
+                    width: 22.0.w,
+                    height: 22.0.w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
                     ),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     imageUrl: item.product_image,
                     errorWidget: (context, url, error) => Container(
                         height: 30,
@@ -78,16 +79,16 @@ class ShippedView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 10),
+              SizedBox(width: 2.0.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 15),
+                    SizedBox(height: 3.0.w),
                     Text(item.product_name,
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500)),
-                    SizedBox(height: 20),
+                            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500)),
+                    SizedBox(height: 6.0.w),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -95,13 +96,13 @@ class ShippedView extends StatelessWidget {
                             ? Text("฿${item.ProductDicount}",
                             style: FunctionHelper.FontTheme(
                                 color: Colors.black.withOpacity(0.5),
-                                fontSize: SizeUtil.titleFontSize(),
+                                fontSize: SizeUtil.titleFontSize().sp,
                                 decoration: TextDecoration.lineThrough))
                             : SizedBox(),
-                        SizedBox(width: 10),
+                        SizedBox(width: 3.0.w),
                         Text("฿${item.product_price}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize(), color: ThemeColor.ColorSale()))
+                                fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale()))
                       ],
                     ),
                     Divider(color: Colors.black.withOpacity(0.4),)
@@ -110,34 +111,34 @@ class ShippedView extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 3.0.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              SizedBox(height: 5),
+              SizedBox(height: 1.5.w),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("x ${item.amoutProduct}",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
+                          fontSize: SizeUtil.titleFontSize().sp, color: Colors.black)),
                   Row(
                     children: [
                       Text(LocaleKeys.history_order_price.tr()+" : ",
                           style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
-                      SizedBox(width: 8),
+                              fontSize: SizeUtil.titleFontSize().sp, color: Colors.black)),
+                      SizedBox(width: 2.0.w),
                       Text("฿${item.product_price*int.parse(item.amoutProduct)}.00",
                           style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize(), color: ThemeColor.ColorSale())),
-                      SizedBox(width: 8),
+                              fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale())),
+                      SizedBox(width: 2.0.w),
                     ],
                   ),
                 ],
               ),
               Divider(color: Colors.grey.shade400,),
-              Text(LocaleKeys.history_order_time.tr()+" 28-06-2563",style: FunctionHelper.FontTheme(fontSize:SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6)),)
+              Text(LocaleKeys.history_order_time.tr()+" 28-06-2563",style: FunctionHelper.FontTheme(fontSize:SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.6)),)
             ],
           ),
 
@@ -179,10 +180,10 @@ class ShippedView extends StatelessWidget {
               ),
               Text(item.shopName,
                   style:
-                  FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.bold))
+                  FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp, fontWeight: FontWeight.bold))
             ],
           ),
-          Text(item.product_status,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),)
+          Text(item.product_status,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),)
         ],
       ),
     );

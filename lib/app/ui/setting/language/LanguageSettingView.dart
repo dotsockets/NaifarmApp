@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:sizer/sizer.dart';
 
 class LanguageSettingView extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class LanguageSettingView extends StatefulWidget {
 
 class _LanguageSettingViewState extends State<LanguageSettingView> {
   int checkSelect = 0;
-  String language = "ภาษาไทย";
+
 
   @override
   void initState() {
@@ -52,28 +53,28 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
   Widget _BuildCheckBox({String languageTxt, Locale locale}) {
     return InkWell(
       child: Container(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.all(2.0.h),
         color: Colors.white,
         child: Container(
-          margin: EdgeInsets.only(left: 10, right: 10),
+          margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(languageTxt,
                   style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize(),
+                      fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.w500)),
               locale == EasyLocalization.of(context).locale
                   ? SvgPicture.asset(
                       'assets/images/svg/checkmark.svg',
                       color: ThemeColor.primaryColor(),
-                      width: 30,
-                      height: 30,
+                      width: 8.0.w,
+                      height: 8.0.w,
                     )
                   : SvgPicture.asset(
                       'assets/images/svg/uncheckmark.svg',
-                      width: 30,
-                      height: 30,
+                      width: 8.0.w,
+                      height: 8.0.w,
                       color: Colors.black.withOpacity(0.3),
                     ),
             ],

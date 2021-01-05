@@ -13,6 +13,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:sizer/sizer.dart';
 
 class BankSettingView extends StatefulWidget {
   @override
@@ -38,13 +39,13 @@ class _BankSettingViewState extends State<BankSettingView> {
             header_type: Header_Type.barNormal,
           ),
           body: Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(2.0.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
               LocaleKeys.card_title.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
                 ),
                 SizedBox(height: 5,),
                 Column(
@@ -52,21 +53,21 @@ class _BankSettingViewState extends State<BankSettingView> {
                     return MapEntry(index, _buildCardBank(item: CartViewModel().getBankCartType1()[index],index: index));
                   }).values.toList(),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(height: 1.0.h,),
                 _buildAddBtn(txtBtn: LocaleKeys.card_add_toobar.tr(),indexBtn: 0),
-                SizedBox(height: 20,),
+                SizedBox(height: 2.0.h,),
                 Text(
                   LocaleKeys.bank_title.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
-                ),SizedBox(height: 5,),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+                ),SizedBox(height: 1.0.h,),
                 Column(
                   children: CartViewModel().getBankCartType2().asMap().map((index, value){
                     return MapEntry(index, _buildCardBank(item: CartViewModel().getBankCartType2()[index],index: index));
                   }).values.toList(),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(height: 1.0.h,),
                 _buildAddBtn(txtBtn: LocaleKeys.bank_add_toobar.tr(),indexBtn: 1),
-                SizedBox(height: 10,),
+                SizedBox(height: 1.0.h,),
               ],
             ),
           ),
@@ -86,7 +87,7 @@ class _BankSettingViewState extends State<BankSettingView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CachedNetworkImage(
-            height: 30,
+            height: 3.5.h,
             placeholder: (context, url) => Container(
               color: Colors.white,
               child:
@@ -103,8 +104,8 @@ class _BankSettingViewState extends State<BankSettingView> {
           ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(item.NameBank,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
-          Text(item.NumberCard,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()))],)
+          children: [Text(item.NameBank,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+          Text(item.NumberCard,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp))],)
         ],
       ),
     );
@@ -126,9 +127,9 @@ class _BankSettingViewState extends State<BankSettingView> {
             ),
             child: Row(
               children: [
-                Text("+",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w200),),
+                Text("+",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w200),),
                 SizedBox(width: 15,),
-                Text(txtBtn,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleFontSize()),),
+                Text(txtBtn,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleFontSize().sp),),
               ],
             ),
           ),

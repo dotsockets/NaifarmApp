@@ -22,6 +22,7 @@ class PurchaseView extends StatelessWidget {
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
             title: LocaleKeys.me_title_history.tr(),
+            iconSize: 8.0.w,
             onClick: () => AppRoute.MyShophistory(context,0),
           ),
           _BuildDivider(),
@@ -29,6 +30,7 @@ class PurchaseView extends StatelessWidget {
               icon: 'assets/images/svg/like_2.svg',
               title: LocaleKeys.me_title_likes.tr(),
               Message: "8 รายการ",
+              iconSize: 8.0.w,
               onClick: () {
                 AppRoute.ProductMore(context:context,barTxt:LocaleKeys.me_title_likes.tr(),productList:ProductViewModel().getMarketRecommend());
               }),
@@ -51,9 +53,11 @@ class PurchaseView extends StatelessWidget {
               : SizedBox(),
           IsLogin ? _BuildDivider() : SizedBox(),
           ListMenuItem(
+            iconSize: 8.0.w,
               icon: 'assets/images/svg/editprofile.svg', title: LocaleKeys.me_title_setting.tr(),onClick: (){AppRoute.SettingProfile(context,IsLogin);},),
           _BuildDivider(),
           ListMenuItem(
+            iconSize: 8.0.w,
             icon: 'assets/images/svg/help.svg',
             title: LocaleKeys.me_title_help.tr(),
             onClick: () {

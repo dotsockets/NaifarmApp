@@ -10,6 +10,7 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class EditEmail_Step2View extends StatefulWidget {
 
@@ -71,7 +72,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(LocaleKeys.edit_email_old.tr()+" ${widget.customerInfoRespone.email}",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 15,),
                   BuildEditText(
@@ -97,7 +98,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
             ),
             onPressed: ()=>FormCheck()?verify():SizedBox(),
             child: Text( LocaleKeys.continue_btn.tr(),
-              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
             ),
           )
         ],

@@ -25,6 +25,7 @@ import 'widget/ProductInto.dart';
 import 'widget/ProductSlide.dart';
 import 'widget/Reviewscore.dart';
 import '../../../utility/widgets/ShopOwn.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductDetailView extends StatefulWidget {
   final String productImage;
@@ -128,31 +129,30 @@ class _ProductDetailViewState extends State<ProductDetailView> {
           children: [
             Expanded(child: SvgPicture.asset(
               'assets/images/svg/share.svg',
-              width: 35,
-              height: 35,
+              width: 9.0.w,
+              height: 9.0.w,
             )),
             Container(
               color: Colors.grey.withOpacity(0.4),
-              height: 60,
+              height: 10.0.h,
               width: 1,
             ),
             Expanded(child: SvgPicture.asset(
               'assets/images/svg/like_line_null.svg',
-              width: 35,
-              height: 35,
+              width: 9.0.w,
+              height: 9.0.w,
               color: Colors.black.withOpacity(0.7),
             )),
             Expanded(
                 flex: 2,
                 child: Container(
                     alignment: Alignment.center,
-                    width: 80,
-                    height: 60,
+                    height: 10.0.h,
                     padding: EdgeInsets.all(10),
                     color: ThemeColor.ColorSale(),
                     child: Text(LocaleKeys.buy_product_btn.tr(),
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize(),
+                            fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.white))))
           ],
@@ -165,7 +165,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   Widget _Divider() {
     return Container(
       color: Colors.black.withOpacity(0.2),
-      height: 10,
+      height: 2.0.w,
     );
   }
 }

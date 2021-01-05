@@ -8,6 +8,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class NotiSettingView extends StatefulWidget {
   @override
@@ -38,18 +39,18 @@ class _NotiSettingViewState extends State<NotiSettingView> {
             header_type: Header_Type.barNormal,
           ),
           body: Container(
-            margin: EdgeInsets.only(top: 10),
+            margin: EdgeInsets.only(top: 1.0.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildTitleTxt(title: LocaleKeys.setting_noti_title_notification.tr()),
-                SizedBox(height: 10,),
+                SizedBox(height: 1.0.h,),
                 _BuildSwitch(
                     title: LocaleKeys.setting_noti_title_notification.tr(),
                     index: 0,
                     onClick: () =>
                         setState(() => isSelectNoti = isSelectNoti ? false : true)),
-                SizedBox(height: 10,),
+                SizedBox(height: 1.0.h,),
                 _BuildSwitch(
                     title: LocaleKeys.setting_noti_title_update.tr(),
                     index: 1,
@@ -77,18 +78,18 @@ class _NotiSettingViewState extends State<NotiSettingView> {
     return Container(
       color: Colors.white,
       child: Container(
-        margin: EdgeInsets.only(top: 10, left: 15, bottom: 10, right: 15),
+        margin: EdgeInsets.only(top: 1.0.h, left: 3.0.w, bottom: 1.0.h, right: 3.0.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               title,
-              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize()),
+              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
             ),
             FlutterSwitch(
-              width: 50.0,
-              height: 30.0,
-              toggleSize: 25.0,
+              width: 15.0.w,
+              height: 4.0.h,
+              toggleSize: 3.0.h,
               activeColor: Colors.grey.shade200,
               inactiveColor: Colors.grey.shade200,
               toggleColor: index == 0 ? isSelectNoti ? ThemeColor.primaryColor() : Colors.black.withOpacity(0.3) :
@@ -106,10 +107,10 @@ class _NotiSettingViewState extends State<NotiSettingView> {
 
   Widget _buildTitleTxt({String title}) {
     return Container(
-        margin: EdgeInsets.only(left: 15),
+        margin: EdgeInsets.only(left: 3.0.w),
         child: Text(
           title,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
         ));
   }
 }

@@ -16,6 +16,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
+import 'package:sizer/sizer.dart';
 
 class CartSummaryView extends StatefulWidget {
   @override
@@ -67,7 +68,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                   LocaleKeys.cart_del.tr(),
                                   style: FunctionHelper.FontTheme(
                                       color: Colors.white,
-                                      fontSize: SizeUtil.titleSmallFontSize(),
+                                      fontSize: SizeUtil.titleSmallFontSize().sp,
                                       fontWeight: FontWeight.bold),
                                 )
                               ],
@@ -165,7 +166,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         ),
         Text(item.NameShop,
             style:
-                FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.bold))
+                FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp, fontWeight: FontWeight.bold))
       ],
     );
   }
@@ -180,13 +181,13 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
               child: CachedNetworkImage(
-                width: 80,
-                height: 80,
+                width: 22.0.w,
+                height: 22.0.w,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
                   child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
                 ),
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
                 imageUrl: item.ProductImage,
                 errorWidget: (context, url, error) => Container(
                     height: 30,
@@ -203,26 +204,26 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 children: [
                   Text(item.ProductName,
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500)),
+                          fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500)),
                   SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("x 2",
                           style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
+                              fontSize: SizeUtil.titleFontSize().sp, color: Colors.black)),
                       Row(
                         children: [
                           item.ProductDicount != 0
                               ? Text("฿${item.ProductDicount}",
                               style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize(),
+                                  fontSize: SizeUtil.titleFontSize().sp,
                                   decoration: TextDecoration.lineThrough))
                               : SizedBox(),
                           SizedBox(width: 8),
                           Text("฿${item.ProductPrice}",
                               style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize(), color: ThemeColor.ColorSale()))
+                                  fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale()))
                         ],
                       )
                     ],
@@ -247,7 +248,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 SizedBox(width: 5,),
                 Text(LocaleKeys.cart_shipping.tr()+LocaleKeys.by.tr(),
                     style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500,color: ThemeColor.primaryColor())),
+                        fontSize: SizeUtil.titleSmallFontSize().sp, fontWeight: FontWeight.w500,color: ThemeColor.primaryColor())),
               ],
             ),
             SizedBox(height: 5),
@@ -256,13 +257,13 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               children: [
                 Text("Kerry Express",
                     style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
+                        fontSize: SizeUtil.titleFontSize().sp, color: Colors.black)),
                 Row(
                   children: [
                     SizedBox(width: 8),
                     Text("฿36.00",
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
+                            fontSize: SizeUtil.titleFontSize().sp, color: Colors.black)),
                     SizedBox(width: 8),
                     Icon(Icons.arrow_forward_ios,color: Colors.grey.shade500,)
                   ],
@@ -278,10 +279,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                   children: [
                     Text("คำสั่งซื้อทั้งหมด 2 "+LocaleKeys.cart_item.tr(),
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize(), color: Colors.black)),
+                            fontSize: SizeUtil.titleFontSize().sp, color: Colors.black)),
                     Text("฿136.00",
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.w500,color: ThemeColor.ColorSale())),
+                            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500,color: ThemeColor.ColorSale())),
                   ],
                 ),
               ),
@@ -340,10 +341,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 children: [
                   Text(LocaleKeys.cart_sub_total.tr()+"  ",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6))),
+                          fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.6))),
                   Text("฿136.00",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
+                          fontSize: SizeUtil.titleSmallFontSize().sp, fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
                 ],
               ),
             ),
@@ -354,10 +355,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 children: [
                   Text(LocaleKeys.me_title_shipping.tr()+"  ",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleSmallFontSize(),color: Colors.black.withOpacity(0.6))),
+                          fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.6))),
                   Text("฿72.00",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleSmallFontSize(), fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
+                          fontSize: SizeUtil.titleSmallFontSize().sp, fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.5))),
                 ],
               ),
             ),
@@ -368,10 +369,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 children: [
                   Text(LocaleKeys.cart_total_payment.tr()+"  ",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize(), color: Colors.black, fontWeight: FontWeight.bold)),
+                          fontSize: SizeUtil.titleFontSize().sp, color: Colors.black, fontWeight: FontWeight.bold)),
                   Text("฿212.00",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize(), fontWeight: FontWeight.bold,color: ThemeColor.ColorSale())),
+                          fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold,color: ThemeColor.ColorSale())),
                 ],
               ),
             ),
@@ -400,13 +401,13 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           children: [
                             Text(LocaleKeys.cart_quantity.tr()+" 2 "+LocaleKeys.cart_item.tr(),
                                 style: FunctionHelper.FontTheme(
-                                    fontSize: SizeUtil.titleSmallFontSize(),
+                                    fontSize: SizeUtil.titleSmallFontSize().sp,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black)),
                             SizedBox(height: 2),
                             Text(LocaleKeys.cart_total.tr(),
                                 style: FunctionHelper.FontTheme(
-                                    fontSize: SizeUtil.titleFontSize(),
+                                    fontSize: SizeUtil.titleFontSize().sp,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black))
                           ],
@@ -418,7 +419,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         margin: EdgeInsets.only(right: 10),
                         child: Text("฿212",
                             style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.priceFontSize(),
+                                fontSize: SizeUtil.priceFontSize().sp,
                                 fontWeight: FontWeight.bold,
                                 color: ThemeColor.ColorSale())))),
                 Expanded(
@@ -433,7 +434,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         },
                         child: Text(LocaleKeys.cart_check_out.tr(),
                             style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize(),
+                                fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white)),
                       ),
@@ -456,7 +457,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
           children: [
             Text(LocaleKeys.select.tr()+LocaleKeys.cart_shipping_addr.tr(),
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleFontSize(),
+                    fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.w500,
                     color: Colors.black)),
             Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)

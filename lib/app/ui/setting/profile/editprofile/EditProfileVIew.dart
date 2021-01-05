@@ -20,7 +20,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:sizer/sizer.dart';
 
 import 'Setting_EditProfile_NameView.dart';
 
@@ -120,7 +120,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(height: 20,),
-                          Text(LocaleKeys.my_profile_title.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
+                          Text(LocaleKeys.my_profile_title.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
                           SizedBox(height: 20,),
                           ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(60)),
@@ -292,7 +292,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
 
   Widget _buildLine() {
     return Container(
-      height: 0.5,
+      height: 0.1.w,
       color: Colors.black.withOpacity(0.4),
     );
   }

@@ -234,7 +234,7 @@ class CodegenLoader extends AssetLoader{
     "sell": "Sell Product",
     "break": "Stop Sell",
     "amount": "Amount",
-    "sold": "sold ",
+    "sold": "sold",
     "sold_end": "Sold",
     "like": "Likes",
     "visit": "visit",
@@ -275,6 +275,7 @@ class CodegenLoader extends AssetLoader{
     "following": "Following",
     "follower": "Follower",
     "product_list": "Products",
+    "name": "Shop Name",
     "active": {
       "hour": "hours ago",
       "minute": "minutes ago"
@@ -365,7 +366,7 @@ class CodegenLoader extends AssetLoader{
     "title": "Search Product",
     "show": "Show more",
     "hide": "Hide",
-    "not_found": "Product not found"
+    "not_found": "Data not found"
   }
 };
 static const Map<String,dynamic> th_TH = {
@@ -505,6 +506,7 @@ static const Map<String,dynamic> th_TH = {
   "save_btn": "บันทึก",
   "ok_btn": "ตกลง",
   "continue_btn": "ดำเนินการต่อ",
+  "edit_img_btn": "แก้ไขรูป",
   "next_btn": "ถัดไป",
   "cancel_btn": "ยกเลิก",
   "forgot_pass_btn": "หากลิมรหัสผ่าน",
@@ -628,6 +630,7 @@ static const Map<String,dynamic> th_TH = {
     "following": "กำลังติดตาม",
     "follower": "ผู้ติดตาม",
     "product_list": "รายการสินค้า",
+    "name": "ชื่อร้าน",
     "active": {
       "hour": "ชั่วโมง ที่ผ่านมา",
       "minute": "นาที ที่ผ่านมา"

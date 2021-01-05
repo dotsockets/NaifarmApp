@@ -10,6 +10,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
+import 'package:sizer/sizer.dart';
 
 class MyNewProductView extends StatefulWidget {
   @override
@@ -117,7 +118,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           Container(
             padding: EdgeInsets.all(10),
@@ -144,7 +145,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(LocaleKeys.my_product_delivery_price.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize())),
+                  Text(LocaleKeys.my_product_delivery_price.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey.withOpacity(0.7),
@@ -191,7 +192,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         },
         child: Text(
           btnTxt,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
         ),
       );
 

@@ -162,15 +162,15 @@ class ProductLandscape extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          SizedBox(height: 8),
-          Text(item.name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),),
-          SizedBox(height: 5),
-          Text("฿${item.salePrice}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize()),),
+          SizedBox(height: 1.0.h),
+          Text(item.name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),),
+          SizedBox(height: 0.8.h),
+          Text("฿${item.salePrice}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
           Container(
             padding: EdgeInsets.all(0.8.h),
             child: Container(
               padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
-              child:  Text(LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize()),),
+              child:  Text(LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize().sp),),
             ),
           )
         ],

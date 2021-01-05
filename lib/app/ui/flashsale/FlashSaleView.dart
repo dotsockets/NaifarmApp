@@ -19,6 +19,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ProductGrid.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
+import 'package:sizer/sizer.dart';
 
 import 'ProductGridFlashSaleView.dart';
 
@@ -116,11 +117,11 @@ class _FlashSaleViewState extends State<FlashSaleView> {
             mainAxisSize: MainAxisSize.min,
             children: [
               SvgPicture.asset('assets/images/svg/flash_sale.svg',width: 45,height: 45,),
-              Text("Fla",style: GoogleFonts.kanit(fontSize: SizeUtil.titleFontSize(),color: Colors.white)),
+              Text("Fla",style: GoogleFonts.kanit(fontSize: SizeUtil.titleFontSize().sp,color: Colors.white)),
               SizedBox(width: 5),
               SvgPicture.asset('assets/images/svg/flash.svg',width: 45,height: 40,),
               SizedBox(width: 5),
-              Text("h Sale",style: GoogleFonts.kanit(fontSize: SizeUtil.titleFontSize(),color: Colors.white)),
+              Text("h Sale",style: GoogleFonts.kanit(fontSize: SizeUtil.titleFontSize().sp,color: Colors.white)),
               SizedBox(width: 10),
               _buildCountDown()
             ],
@@ -144,7 +145,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
           child: Text(
             text,
             style: FunctionHelper.FontTheme(
-              fontSize: SizeUtil.titleFontSize(),
+              fontSize: SizeUtil.titleFontSize().sp,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),

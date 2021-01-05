@@ -43,7 +43,7 @@ class BuyAgain extends StatelessWidget {
 
   Container _header_bar() => Container(
       child: Container(
-        margin: EdgeInsets.only(left: 18,right: 20,bottom: 10,top: 10),
+        margin: EdgeInsets.only(right: 1.5.w, left: 3.5.w, top: 1.5.h, bottom: 1.5.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -58,8 +58,8 @@ class BuyAgain extends StatelessWidget {
               child: Row(
                 children: [
                   Text(LocaleKeys.me_message_other.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
-                  SizedBox(width: 8),
-                  SvgPicture.asset('assets/images/svg/next.svg',width: 30,height: 30,),
+                  SizedBox(width: 2.0.w),
+                  SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
                 ],
               ),
                 onTap: ()=>onSelectMore()
@@ -105,8 +105,8 @@ class BuyAgain extends StatelessWidget {
             Hero(
               tag: "${tagHero}_${index}",
               child: CachedNetworkImage(
-                width: 130,
-                height: 130,
+                width: 30.0.w,
+                height: 30.0.w,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
                   child: Lottie.asset(Env.value.loadingAnimaion,height: 30),

@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductSlide extends StatelessWidget {
   final List<ProductImage> imgList;
@@ -86,7 +87,7 @@ class ProductSlide extends StatelessWidget {
         items: _imgList
             .map(
               (item) => Container(
-            margin: EdgeInsets.only(left: 6,right: 6),
+            margin: EdgeInsets.only(left: 1.0.w,right: 1.0.w),
             child: CachedNetworkImage(
               placeholder: (context, url) => Container(
                 width: MediaQuery.of(context).size.width,

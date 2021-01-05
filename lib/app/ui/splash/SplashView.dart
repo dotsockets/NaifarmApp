@@ -10,6 +10,8 @@ import 'package:naifarm/app/ui/login/SplashLoginView.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sizer/sizer.dart';
+import 'package:sizer/sizer.dart';
 
 class SplashView extends StatefulWidget {
 
@@ -60,8 +62,8 @@ class _SplashViewState extends State<SplashView>
                       padding: EdgeInsets.only(bottom: 20.0),
                       child: Column(
                         children: [
-                          Text("NaiFarm",style: GoogleFonts.kanit(fontSize: SizeUtil.detailFontSize(),fontWeight: FontWeight.w500),),
-                          Text("Version 0.0.1",style: GoogleFonts.kanit(fontSize: SizeUtil.detailFontSize(),fontWeight: FontWeight.w500),)
+                          Text("NaiFarm",style: GoogleFonts.kanit(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.w500),),
+                          Text("Version 0.0.1",style: GoogleFonts.kanit(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.w500),)
                         ],
                       ))
                 ],

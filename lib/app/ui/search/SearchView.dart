@@ -9,7 +9,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
-
+import 'package:sizer/sizer.dart';
 
 class SearchView extends StatefulWidget {
   @override
@@ -81,7 +81,7 @@ class _SearchViewState extends State<SearchView> {
                                    children: [
                                      Container(
                                        padding: EdgeInsets.only(left: 10,top: 10,bottom: 10),
-                                       child: Text((snapshot.data as SearchRespone).hits[index].name, style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.titleSmallFontSize())
+                                       child: Text((snapshot.data as SearchRespone).hits[index].name, style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp)
                                        ),
                                      ),
                                      _BuildLine()
@@ -108,7 +108,7 @@ class _SearchViewState extends State<SearchView> {
                               var item = (snapshot.data as SearchRespone);
                               return  Visibility(
                                 child: Text(item.limit==0?LocaleKeys.search_product_not_found.tr():limit==6?LocaleKeys.search_product_hide.tr():LocaleKeys.search_product_show.tr(),
-                                    style: FunctionHelper.FontTheme(color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize())),
+                                    style: FunctionHelper.FontTheme(color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize().sp)),
                                 visible: item.limit==0?false:true,
                               );
                             }else{

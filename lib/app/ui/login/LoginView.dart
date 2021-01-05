@@ -14,6 +14,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:sizer/sizer.dart';
 
 class LoginView extends StatefulWidget {
   final bool IsCallBack;
@@ -92,7 +93,7 @@ class _LoginViewState extends State<LoginView> {
         child: Column(
           children: [
             SizedBox(height: 30,),
-            Text(LocaleKeys.login_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),),
+            Text(LocaleKeys.login_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),),
             SizedBox(height: 30,),
             BuildEditText(head: LocaleKeys.my_profile_phone.tr()+"/"+LocaleKeys.my_profile_email.tr(), hint: LocaleKeys.my_profile_phone.tr()+"/"+LocaleKeys.my_profile_email.tr(),inputType: TextInputType.text,controller: _username,BorderOpacity: 0.3,borderRadius: 7,),
             SizedBox(height: 20,),
@@ -111,7 +112,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 onPressed: () => _validate(),
                 child: Text(LocaleKeys.login_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                 ),
               ),
             ),
@@ -120,7 +121,7 @@ class _LoginViewState extends State<LoginView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(flex: 3,child: Container(margin: EdgeInsets.only(left: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
-                Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text(LocaleKeys.or.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),)),),
+                Expanded(flex: 1,child: Align(alignment: Alignment.center,child: Text(LocaleKeys.or.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),)),),
                 Expanded(flex: 3,child: Container(margin: EdgeInsets.only(right: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
               ],
             ),
@@ -138,17 +139,17 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 onPressed: ()=>bloc.LoginFacebook(),
                 child: Text(LocaleKeys.facebook_login_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                 ),
               ),
             ),
             SizedBox(height: 30,),
             Wrap(
               children: [
-                Text(LocaleKeys.login_not_member.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize(),height: 1.7,fontWeight: FontWeight.w500),),
+                Text(LocaleKeys.login_not_member.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.7,fontWeight: FontWeight.w500),),
                 Column(
                   children: [
-                    InkWell(child: Text(LocaleKeys.register_btn.tr(),style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500)),onTap: (){
+                    InkWell(child: Text(LocaleKeys.register_btn.tr(),style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize().sp,decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500)),onTap: (){
                       AppRoute.Register(context);
                     },),
 
@@ -160,7 +161,7 @@ class _LoginViewState extends State<LoginView> {
             Column(
               children: [
                 SizedBox(height: 10,),
-                InkWell(child: Text(LocaleKeys.login_forgot_password.tr(),style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500)),onTap: (){
+                InkWell(child: Text(LocaleKeys.login_forgot_password.tr(),style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize().sp,decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500)),onTap: (){
                   AppRoute.ForgotPassword(context);
                 },),
 
@@ -181,7 +182,7 @@ class _LoginViewState extends State<LoginView> {
         ),
         child: Column(
           children: [
-            Text("NaiFarm",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.appNameFontSize(),fontWeight: FontWeight.w500),),
+            Text("NaiFarm",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.appNameFontSize().sp,fontWeight: FontWeight.w500),),
           ],
         )
     );

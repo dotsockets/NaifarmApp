@@ -137,7 +137,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
                 ),
 
               ],
-              expandedHeight: ScreenUtil().setHeight(IsLogin?75.0.h:65.0.h),
+              expandedHeight: ScreenUtil().setHeight(IsLogin?450:400),
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   color: ThemeColor.primaryColor(),
@@ -288,7 +288,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black)),
-          SizedBox(width: 10,),
+          SizedBox(width: 20,),
           message?ClipRRect(
             borderRadius: BorderRadius.circular(9.0),
             child: Container(
