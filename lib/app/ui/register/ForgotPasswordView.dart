@@ -106,20 +106,20 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            SizedBox(height: 30,),
+            SizedBox(height: 4.0.h,),
             Text(LocaleKeys.login_forgot_password.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),),
-            SizedBox(height: 30,),
+            SizedBox(height: 4.0.h,),
             BuildEditText(head: LocaleKeys.my_profile_email.tr(), hint: LocaleKeys.my_profile_email.tr(),inputType: TextInputType.text,controller: _email,BorderOpacity: 0.3,borderRadius: 7,onError: emailError,),
-            SizedBox(height: 20,),
+            SizedBox(height: 3.0.h,),
             _forgotRespone!=null?BuildEditText(head: LocaleKeys.my_profile_password.tr(), hint: LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,controller: _password,BorderOpacity: 0.3,IsPassword: true,borderRadius: 7,onError: passwordError,):SizedBox(),
             _forgotRespone!=null?SizedBox(height: 20,):SizedBox(),
             _forgotRespone!=null?BuildEditText(head: LocaleKeys.confirm_btn.tr()+LocaleKeys.my_profile_password.tr(), hint: LocaleKeys.confirm_btn.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,controller: _repassword,BorderOpacity: 0.3,IsPassword: true,borderRadius: 7,onError: repasswordError,):SizedBox(),
-            SizedBox(height: 30,),
+            SizedBox(height: 4.0.h,),
             Padding(
               padding: const EdgeInsets.only(right: 15,left: 15),
               child: FlatButton(
                 minWidth: MediaQuery.of(context).size.width,
-                height: 50,
+                height: 7.0.h,
                 color: ThemeColor.secondaryColor(),
                 textColor: Colors.white,
                 splashColor: Colors.white.withOpacity(0.3),
@@ -132,7 +132,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 ),
               ),
             ),
-            SizedBox(height: 30,),
+            SizedBox(height: 4.0.h,),
 
           ],
         )
@@ -141,7 +141,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
   Widget _BuildHeader(BuildContext context){
     return Container(
-        padding: EdgeInsets.only(bottom: 30),
+        padding: EdgeInsets.only(bottom: 4.0.h),
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: ThemeColor.primaryColor(),

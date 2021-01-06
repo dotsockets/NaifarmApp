@@ -277,7 +277,7 @@ class CodegenLoader extends AssetLoader{
     "product_list": "Products",
     "name": "Shop Name",
     "active": {
-      "hour": "hours ago",
+      "hour": "hour ago",
       "minute": "minutes ago"
     }
   },
@@ -460,7 +460,7 @@ static const Map<String,dynamic> th_TH = {
     "postal": "รหัสไปรษณีย์",
     "detail": "รายละเอียดที่อยู่ (ห้อง, บ้านเลขที่, ตึก, ถนน)",
     "add_toobar": "เพิ่มที่อยู่",
-    "default_address": "เป็นที่อยู่หลัก"
+    "default": "เป็นที่อยู่หลัก"
   },
   "bank": {
     "title": "บัญชีธนาคารเพื่อรับเงิน",
@@ -552,7 +552,7 @@ static const Map<String,dynamic> th_TH = {
     "sub_total": "รวมการสั่งซื้อ",
     "item": "รายการ",
     "quantity": "จำนวน",
-    "delivery_free": "ฟรี ส่วนลดค่าจัดส่ง ฿40 เมื่อขั้นต่ำถึง ฿0",
+    "delivery_free": "ส่วนลดค่าจัดส่ง ฿40 เมื่อขั้นต่ำถึง ฿0",
     "free": "ฟรี ",
     "del": "ลบ",
     "empty": "ไม่พบรายการในรถเข็น",

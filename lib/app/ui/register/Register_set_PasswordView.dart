@@ -88,10 +88,10 @@ import 'package:sizer/sizer.dart';
           child: Column(
             children: [
               _Form(),
-              SizedBox(height: 30,),
+              SizedBox(height: 4.0.h,),
               FlatButton(
                 minWidth: 250,
-                height: 50,
+                height: 7.0.h,
                 color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
                 textColor: Colors.white,
                 splashColor: Colors.white.withOpacity(0.3),
@@ -113,13 +113,13 @@ import 'package:sizer/sizer.dart';
   Widget _Form(){
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),
+      padding: EdgeInsets.only(top: 3.0.h,bottom: 4.0.h,left: 5.0.w,right: 5.0.w),
       child: Column(
         children: [
           BuildEditText(head: LocaleKeys.my_profile_password.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input1,onError: onError1,onChanged: (String char){
            setState(() {});
           },),
-          SizedBox(height: 20,),
+          SizedBox(height: 3.0.h,),
           BuildEditText(head: LocaleKeys.confirm_btn.tr()+" "+LocaleKeys.my_profile_password.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input2,onError: onError2,onChanged: (String char){
             setState(() {});
           },)

@@ -117,18 +117,18 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
             Expanded(
               child: Column(
                 children: [
-                  SizedBox(height: 30,),
+                  SizedBox(height: 4.0.h,),
                   Text(LocaleKeys.regis_otp_message.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black),),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 2.0.h,),
                   Text(widget.phoneNumber,style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize().sp,color: Colors.black)),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 2.0.h,),
                   Text(LocaleKeys.edit_phone_confirm_otp.tr()+" [Ref : ${widget.refCode}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500)),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 4.0.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: 50,
+                        width: 13.0.w,
                         child: TextFormField(
                           controller: _input1,
                           cursorColor: ThemeColor.secondaryColor(),
@@ -175,9 +175,9 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                           },
                         ),
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(width: 3.0.w),
                       Container(
-                        width: 50,
+                        width: 13.0.w,
                         child: TextFormField(
                           controller: _input2,
                           cursorColor: ThemeColor.secondaryColor(),
@@ -225,9 +225,9 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                           },
                         ),
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(width: 3.0.w),
                       Container(
-                        width: 50,
+                        width: 13.0.w,
                         child: TextFormField(
                           controller: _input3,
                           cursorColor: ThemeColor.secondaryColor(),
@@ -275,9 +275,9 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                           },
                         ),
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(width: 3.0.w),
                       Container(
-                        width: 50,
+                        width: 13.0.w,
                         child: TextFormField(
                           controller: _input4,
                           cursorColor: ThemeColor.secondaryColor(),
@@ -325,9 +325,9 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                           },
                         ),
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(width: 3.0.w),
                       Container(
-                        width: 50,
+                        width: 13.0.w,
                         child: TextFormField(
                           controller: _input5,
                           cursorColor: ThemeColor.secondaryColor(),
@@ -375,9 +375,9 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                           },
                         ),
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(width: 3.0.w),
                       Container(
-                        width: 50,
+                        width: 13.0.w,
                         child: TextFormField(
                           controller: _input6,
                           cursorColor: ThemeColor.secondaryColor(),
@@ -430,7 +430,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                       )
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 3.0.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -476,7 +476,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(right: 70,left: 70,bottom: 30,top: 30),
+              padding: EdgeInsets.only(right: 20.0.w,left: 20.0.w,bottom: 4.0.h,top: 4.0.h),
               color: Colors.grey.shade300,
               child:  _verifyBtn(),
             )
@@ -517,7 +517,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
 
   Widget _verifyBtn() {
     return FlatButton(
-      height: 50,
+      height: 7.0.h,
       color: SuccessForm?ThemeColor.secondaryColor():Colors.grey.shade400,
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),

@@ -387,7 +387,7 @@ class _MyCartViewState extends State<MyCartView> {
         children: [
           Container(color: Colors.black.withOpacity(0.1), height: 1),
           Container(
-            padding: EdgeInsets.only(top: 2.5.h),
+            padding: EdgeInsets.only(top: 1.0.h,bottom: 1.0.h),
             child: InkWell(
               child: Row(
                 children: [
