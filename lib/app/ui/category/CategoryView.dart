@@ -18,6 +18,11 @@ import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:sizer/sizer.dart';
 
 class CategoryView extends StatefulWidget {
+
+  final CategoryGroupRespone item;
+
+  const CategoryView({Key key, this.item}) : super(key: key);
+
   @override
   _CategoryViewState createState() => _CategoryViewState();
 }
@@ -31,7 +36,8 @@ class _CategoryViewState extends State<CategoryView> {
   void _init(){
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.loadCategoryGroup();
+      bloc.CategoryGroup.add(widget.item);
+     // bloc.loadCategoryGroup();
     }
 
   }

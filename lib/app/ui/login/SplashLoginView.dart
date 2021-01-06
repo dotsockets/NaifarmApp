@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
@@ -13,6 +14,9 @@ import 'package:sizer/sizer.dart';
 
 class SplashLoginView extends StatelessWidget {
 
+  final HomeObjectCombine item;
+
+  const SplashLoginView({Key key, this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +83,7 @@ class SplashLoginView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                   onPressed: () {
-                     AppRoute.Login(context,IsCallBack: false);
+                     AppRoute.Login(context,IsCallBack: false,item: item);
                   },
                   child: Text(LocaleKeys.login_btn.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
@@ -96,7 +100,7 @@ class SplashLoginView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                   onPressed: () {
-                    AppRoute.Register(context);
+                    AppRoute.Register(context,item: item);
                   },
                   child: Text(LocaleKeys.register_btn.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
@@ -112,7 +116,7 @@ class SplashLoginView extends StatelessWidget {
                   children: [
                     InkWell(child: Text(LocaleKeys.splashLogin_skip.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp)),onTap: (){
                       FunctionHelper.showDialogProcess(context);
-                      AppRoute.Home(context);
+                      AppRoute.Home(context,item: item);
                     },),
                     Container(
                       width: ScreenUtil().setWidth(100),

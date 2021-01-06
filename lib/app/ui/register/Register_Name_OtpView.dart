@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -20,8 +21,9 @@ import 'package:sizer/sizer.dart';
 class Register_Name_OtpView extends StatefulWidget {
   final String phone;
   final String password;
+  final HomeObjectCombine item;
 
-  const Register_Name_OtpView({Key key, this.phone, this.password}) : super(key: key);
+  const Register_Name_OtpView({Key key, this.phone, this.password, this.item}) : super(key: key);
   @override
   _Register_Name_OtpViewState createState() => _Register_Name_OtpViewState();
 }
@@ -59,7 +61,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.Home(context);
+        AppRoute.Home(context,item: widget.item);
       });
     }
 

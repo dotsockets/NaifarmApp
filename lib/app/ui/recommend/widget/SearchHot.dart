@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -29,9 +30,10 @@ class SearchHot extends StatelessWidget {
         children: [
           _header_bar(),
           CustomGridView(
+            tagHero: "search_",
             productRespone: productRespone,lengthRow: 2,
-              onTapItem: (int index){ AppRoute.ProductDetail(context,
-                 productImage: "search_${index}");})
+              onTapItem: (ProductData item,int index) { AppRoute.ProductDetail(context,
+                 productImage: "search_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));})
         ],
       ),
     );

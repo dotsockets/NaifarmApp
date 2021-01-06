@@ -22,7 +22,7 @@ class ProductLandscape extends StatelessWidget {
 
   final String titleInto;
   final Function() onSelectMore;
-  final Function(int) onTapItem;
+  final Function(ProductData,int) onTapItem;
   final String IconInto;
   final List<ProductModel> producViewModel;
   final String tagHero;
@@ -36,6 +36,7 @@ class ProductLandscape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return SingleChildScrollView(
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -95,7 +96,7 @@ class ProductLandscape extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: ()=>onTapItem(productRespone.data[index].id),
+            onTap: ()=>onTapItem(productRespone.data[index],index),
           );
         }),
       ),

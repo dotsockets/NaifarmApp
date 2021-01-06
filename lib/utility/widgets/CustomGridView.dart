@@ -19,14 +19,15 @@ import 'package:sizer/sizer.dart';
 
 class CustomGridView extends StatelessWidget {
   final int lengthRow;
-  final Function(int) onTapItem;
+  final String tagHero;
+  final Function(ProductData,int) onTapItem;
   final ProductRespone productRespone;
 
   const CustomGridView({
     Key key,
     this.onTapItem,
     this.lengthRow=0,
-    this.productRespone
+    this.productRespone, this.tagHero
   }) : super(key: key);
 
   @override
@@ -71,23 +72,26 @@ class CustomGridView extends StatelessWidget {
                 left: BorderSide(width: index == 0 ? 2 : 0, color: Colors.grey.shade200))),
         child: Row(
           children: [
-            CachedNetworkImage(
-              width: 20.0.w,
-              height: 20.0.w,
-              placeholder: (context, url) => Container(
+            Hero(
+              tag: "${tagHero}${index}",
+              child: CachedNetworkImage(
                 width: 20.0.w,
                 height: 20.0.w,
-                color: Colors.white,
-                child: Lottie.asset(Env.value.loadingAnimaion, height: 20.0.w),
+                placeholder: (context, url) => Container(
+                  width: 20.0.w,
+                  height: 20.0.w,
+                  color: Colors.white,
+                  child: Lottie.asset(Env.value.loadingAnimaion, height: 20.0.w),
+                ),
+                fit: BoxFit.cover,
+                imageUrl: "${Env.value.baseUrl}/storage/images/${item.image[0].path}",
+                errorWidget: (context, url, error) => Container(
+                    height: 30,
+                    child: Icon(
+                      Icons.error,
+                      size: 30,
+                    )),
               ),
-              fit: BoxFit.cover,
-              imageUrl: "${Env.value.baseUrl}/storage/images/${item.image[0].path}",
-              errorWidget: (context, url, error) => Container(
-                  height: 30,
-                  child: Icon(
-                    Icons.error,
-                    size: 30,
-                  )),
             ),
             SizedBox(width: 2.0.w),
             Column(
@@ -116,7 +120,7 @@ class CustomGridView extends StatelessWidget {
           ],
         ),
       ),
-      onTap:(){onTapItem(index);} ,
+      onTap:(){onTapItem(item,index);} ,
     );
   }
 }

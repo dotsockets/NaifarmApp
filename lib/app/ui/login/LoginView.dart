@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -18,8 +19,9 @@ import 'package:sizer/sizer.dart';
 
 class LoginView extends StatefulWidget {
   final bool IsCallBack;
+  final HomeObjectCombine item;
 
-  const LoginView({Key key, this.IsCallBack=false}) : super(key: key);
+  const LoginView({Key key, this.IsCallBack=false, this.item}) : super(key: key);
 
   @override
   _LoginViewState createState() => _LoginViewState();
@@ -58,7 +60,7 @@ class _LoginViewState extends State<LoginView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
+        widget.IsCallBack? Navigator.pop(context, true):AppRoute.Home(context,item: widget.item);
       });
     }
 
@@ -195,7 +197,7 @@ class _LoginViewState extends State<LoginView> {
       width: MediaQuery.of(context).size.width,
       child: Row(
         children: [
-          InkWell(child: Icon(Icons.arrow_back_ios,color: Colors.white,),onTap: ()=>Navigator.of(context).pop(),)
+          InkWell(child: Icon(Icons.arrow_back_ios,color: Colors.white,),onTap: ()=>Navigator.pop(context, false),)
         ],
       ),
     );

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -23,29 +24,28 @@ class Shop extends StatelessWidget {
         children: [
           SizedBox(height: 15),
           ProductLandscape(
-            productRespone: productRespone.hotproduct,
+              productRespone: productRespone.hotproduct,
               titleInto: LocaleKeys.recommend_best_seller.tr(),
-              producViewModel: ProductViewModel().getBestSaller(),
               IconInto: 'assets/images/svg/product_hot.svg',
               onSelectMore: () {},
-              onTapItem: (int index) {
+              onTapItem: (ProductData item,int index) {
                 AppRoute.ProductDetail(context,
-                    productImage: "product_hot_${index}");
+                    productImage: "shop_product_hot_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item) );
               },
-              tagHero: "product_hot"),
+              tagHero: "shop_product_hot"),
           SizedBox(height: 15),
           ProductGrid(titleInto: LocaleKeys.tab_bar_recommend.tr(),
               productRespone: productRespone.recommend,
-              producViewModel: ProductViewModel().getMarketRecommend(),
               IconInto: 'assets/images/svg/like.svg',
+              api_link: "products",
               onSelectMore: () {
 
               },
-              onTapItem: (int index) {
+              onTapItem: (ProductData item,int index) {
 
                 AppRoute.ProductDetail(context,
-                    productImage: "market_farm_${index}");
-              },tagHero: 'market_farm' )
+                    productImage: "shop_market_farm_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
+              },tagHero: 'shop_market_farm' )
         ],
       ),
     );

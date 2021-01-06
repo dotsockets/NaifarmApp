@@ -8,6 +8,7 @@ import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -130,9 +131,9 @@ class _MarketViewState extends State<MarketView> {
                               onSelectMore: () {
                                 AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_best_seller.tr(),installData: snapshot.data);
                               },
-                              onTapItem: (int index) {
+                              onTapItem: (ProductData item,int index) {
                                 AppRoute.ProductDetail(context,
-                                    productImage: "sell_${index}");
+                                    productImage: "sell_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                               },borderRadius: true,IconSize: 30,tagHero: "sell");
                         }else{
                           return SizedBox();
@@ -141,13 +142,12 @@ class _MarketViewState extends State<MarketView> {
                     ),
                     SizedBox(height: 15),
                     ProductGrid(titleInto: LocaleKeys.recommend_title.tr(),
-                      producViewModel: ProductViewModel().getMarketRecommend(),
                       IconInto: 'assets/images/svg/like.svg',
                       onSelectMore: () {
                       },
-                      onTapItem: (int index) {
+                        onTapItem: (ProductData item,int index) {
                         AppRoute.ProductDetail(context,
-                            productImage: "market_farm_${index}");
+                            productImage: "market_farm_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                       },tagHero: 'market_farm' ),
                   ],
                 ),

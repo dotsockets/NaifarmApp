@@ -749,7 +749,7 @@ class _APIProvider implements APIProvider {
     });
     try {
 
-      final _result = await _dio.request<dynamic>('/v1/image?imageableType=customer&imageableId=4',
+      final _result = await _dio.request<dynamic>('/v1/image?imageableType=customer&imageableId=${imageableId}',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',

@@ -44,12 +44,13 @@ class ShopOwn extends StatelessWidget {
                       placeholder: (context, url) => Container(
                         color: Colors.white,
                         child:
-                        Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                        Lottie.asset(Env.value.loadingAnimaion,width: 30, height: 30),
                       ),
                       fit: BoxFit.cover,
-                      imageUrl: ProductLandscape.CovertUrlImage(shopItem.image),
+                      imageUrl: shopItem.image!=null?ProductLandscape.CovertUrlImage(shopItem.image):"",
                       errorWidget: (context, url, error) => Container(
-                          height: 30,
+                          width: 60,
+                          height: 60,
                           child: Icon(
                             Icons.error,
                             size: 30,

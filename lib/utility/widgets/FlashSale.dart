@@ -96,7 +96,7 @@ class _FlashSaleState extends State<FlashSale> {
             ),
             onTap: (){
 
-              AppRoute.ProductDetail(context,productImage: "productImage_${index}",Product_id: widget.flashsaleRespone.data[0].items[index].product.id);
+              AppRoute.ProductDetail(context,productImage: "productImage_${index}");
             },
           );
         }),

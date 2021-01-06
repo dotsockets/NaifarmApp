@@ -4,6 +4,7 @@ import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/category/CategoryView.dart';
 import 'package:naifarm/app/ui/me/MeView.dart';
@@ -13,41 +14,23 @@ import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
 
 class HomeView extends StatefulWidget {
+  final HomeObjectCombine item;
+
+  const HomeView({Key key, this.item}) : super(key: key);
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> with RouteAware {
+class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin {
   List<MenuModel> _menuViewModel;
   int _selectedIndex = 0;
   bool IsLogin = true;
-  
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    setState(() {
-      ISLogin();
-    });
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context));
-  }
 
 
-
-  @override
-  void didPopNext() {
-    setState(()=>{ISLogin()});
-  }
-
-  void ISLogin() async => IsLogin = await Usermanager().isLogin();
 
   @override
   Widget build(BuildContext context) {
+
     _menuViewModel = MenuViewModel().getTabBarMenus();
     return DefaultTabController(
         length: _menuViewModel.length,
@@ -56,10 +39,10 @@ class _HomeViewState extends State<HomeView> with RouteAware {
           body: IndexedStack(
             index: _selectedIndex,
             children: [
-              RecommendView(size: MediaQuery.of(context).size,paddingBottom: MediaQuery.of(context).padding.bottom,),
-              CategoryView(),
+              RecommendView(size: MediaQuery.of(context).size,paddingBottom: MediaQuery.of(context).padding.bottom,item: widget.item),
+              CategoryView(item:widget.item.categoryGroupRespone),
               MyCartView(BtnBack: false,),
-              MeView()
+              MeView(item: widget.item,)
             ],
           ),
             bottomNavigationBar: Container(

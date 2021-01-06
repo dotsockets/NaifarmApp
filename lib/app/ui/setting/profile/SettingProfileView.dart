@@ -5,6 +5,8 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -14,8 +16,10 @@ import 'package:sizer/sizer.dart';
 
 class SettingProfileView extends StatefulWidget {
 
+  final CustomerInfoRespone item;
+
   final bool IsLogin;
-  const SettingProfileView({Key key, this.IsLogin}) : super(key: key);
+  const SettingProfileView({Key key, this.IsLogin, this.item}) : super(key: key);
 
   @override
   _SettingProfileViewState createState() => _SettingProfileViewState();
@@ -72,7 +76,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                           icon: '',
                           title: LocaleKeys.setting_account_title_profile.tr(),
                           onClick: () async {
-                            final result = await AppRoute.EditProfile(context);
+                            final result = await AppRoute.EditProfile(context,item: widget.item);
                                   if(result!=null){
                                      onImageUpdate = true;
                                    }

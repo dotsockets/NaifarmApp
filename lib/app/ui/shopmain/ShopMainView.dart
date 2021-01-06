@@ -7,7 +7,9 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/ui/shopmain/shop/Shop.dart';
 import 'package:naifarm/app/ui/shopmain/shopdetails/ShopDetailsView.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -20,6 +22,13 @@ import '../../../utility/widgets/MD2Indicator.dart';
 import 'category/CaregoryShopView.dart';
 
 class ShopMainView extends StatefulWidget {
+
+  final MyShopRespone myShopRespone;
+  final ProductRespone  trendingRespone;
+  final ProductRespone productRespone;
+
+  const ShopMainView({Key key, this.myShopRespone, this.trendingRespone, this.productRespone}) : super(key: key);
+
   @override
   _ShopMainViewState createState() => _ShopMainViewState();
 }
@@ -34,7 +43,7 @@ class _ShopMainViewState extends State<ShopMainView>
   void _init(){
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.loadMartket("1");
+      bloc.ZipMarketProfile.add(MarketObjectCombine(profileshop: widget.myShopRespone,hotproduct: widget.productRespone,recommend: widget.trendingRespone));
     }
 
   }

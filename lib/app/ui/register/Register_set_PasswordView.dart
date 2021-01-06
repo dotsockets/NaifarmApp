@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -12,8 +13,9 @@ import 'package:sizer/sizer.dart';
 
  class Register_set_PasswordView extends StatefulWidget {
    final String phone;
+   final HomeObjectCombine item;
 
-  const Register_set_PasswordView({Key key, this.phone}) : super(key: key);
+  const Register_set_PasswordView({Key key, this.phone, this.item}) : super(key: key);
    @override
    _Register_set_PasswordViewState createState() => _Register_set_PasswordViewState();
  }
@@ -72,7 +74,7 @@ import 'package:sizer/sizer.dart';
      }
 
      if(t1 && t2){
-       AppRoute.Register_Name_Otp(context,widget.phone,_input1.text);
+       AppRoute.Register_Name_Otp(context,widget.phone,_input1.text,item: widget.item);
      }
 
 

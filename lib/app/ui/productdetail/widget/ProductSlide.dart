@@ -12,34 +12,18 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
 
-class ProductSlide extends StatelessWidget {
+
+class ProductSlide extends StatefulWidget {
+
   final List<ProductImage> imgList;
 
   const ProductSlide({Key key, this.imgList}) : super(key: key);
-
   @override
-  Widget build(BuildContext context) {
-    return Stack(
-      overflow: Overflow.visible,
-      alignment: Alignment.bottomCenter,
-      children: [
-        BannerSection(imgList: imgList)
-      ],
-    );
-  }
+  _ProductSlideState createState() => _ProductSlideState();
 }
 
+class _ProductSlideState extends State<ProductSlide> {
 
-
-  class BannerSection extends StatefulWidget {
-    final List<ProductImage> imgList;
-
-  const BannerSection({Key key, this.imgList}) : super(key: key);
-  @override
-  _BannerSectionState createState() => _BannerSectionState();
-  }
-
-  class _BannerSectionState extends State<BannerSection> {
 
   final List<String> _imgList = List<String>();
 
@@ -53,6 +37,9 @@ class ProductSlide extends StatelessWidget {
     for(var item in widget.imgList){
       _imgList.add("${Env.value.baseUrl}/storage/images/${item.path}");
     }
+    if(widget.imgList.isEmpty){
+       _imgList.add("https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com");
+    }
   }
 
 
@@ -62,7 +49,7 @@ class ProductSlide extends StatelessWidget {
     return Stack(
       children: [
         _buildBanner(),
-        _buildIndicator(),
+        widget.imgList.isNotEmpty?_buildIndicator():SizedBox(),
       ],
     );
   }
@@ -74,7 +61,7 @@ class ProductSlide extends StatelessWidget {
       padding: EdgeInsets.only(top: 3,bottom: 30),
       child: CarouselSlider(
         options: CarouselOptions(
-          viewportFraction: 0.945,
+          viewportFraction: 0.999,
           autoPlay: true,
           enableInfiniteScroll: widget.imgList.length>1?true:false,
           autoPlayInterval: Duration(seconds: 7),
@@ -87,10 +74,10 @@ class ProductSlide extends StatelessWidget {
         items: _imgList
             .map(
               (item) => Container(
-            margin: EdgeInsets.only(left: 1.0.w,right: 1.0.w),
             child: CachedNetworkImage(
               placeholder: (context, url) => Container(
                 width: MediaQuery.of(context).size.width,
+
                 child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
               ),
               fit: BoxFit.cover,

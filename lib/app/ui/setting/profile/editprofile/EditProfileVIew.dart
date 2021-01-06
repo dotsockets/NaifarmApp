@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ImageUploadRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -25,6 +26,10 @@ import 'package:sizer/sizer.dart';
 import 'Setting_EditProfile_NameView.dart';
 
 class EditProfileVIew extends StatefulWidget {
+  final CustomerInfoRespone item;
+
+  const EditProfileVIew({Key key, this.item}) : super(key: key);
+
   @override
   _EditProfileVIewState createState() => _EditProfileVIewState();
 }
@@ -47,6 +52,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
   void _init(){
     if(null == bloc){
       bloc = MemberBloc(AppProvider.getApplication(context));
+      itemInfo = widget.item;
       // bloc.onLoad.stream.listen((event) {
       //   if(event){
       //     FunctionHelper.showDialogProcess(context);
@@ -134,8 +140,9 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                                     height: 30),
                               ),
                               fit: BoxFit.cover,
-                              imageUrl:itemInfo!=null?itemInfo.image!=null?"${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}":'':'',
+                                imageUrl:itemInfo!=null?itemInfo.image.length>0?"${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}":'':'',
                               errorWidget: (context, url, error) => Container(
+                                  color: Colors.white,
                                 width: 80,
                                   height: 80,
                                   child: Icon(

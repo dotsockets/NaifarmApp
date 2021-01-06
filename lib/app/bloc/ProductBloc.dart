@@ -33,11 +33,14 @@ class ProductBloc{
   final MoreProduct =  BehaviorSubject<ProductRespone>();
   final Flashsale =  BehaviorSubject<FlashsaleRespone>();
   final ProductItem =  BehaviorSubject<ProducItemRespone>();
+  final myShop = BehaviorSubject<MyShopRespone>();
 
 
   final ZipProductDetail = BehaviorSubject<ProductDetailObjectCombine>();
 
   final ZipMarketProfile = BehaviorSubject<MarketObjectCombine>();
+
+  final ZipHomeObject = BehaviorSubject<HomeObjectCombine>();
 
   ProductBloc(this._application);
 
@@ -47,13 +50,14 @@ class ProductBloc{
 
 
   loadHomeData()async{
-    StreamSubscription subscription = Observable.combineLatest7(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage())
+    StreamSubscription subscription = Observable.combineLatest8(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage())
         , Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular("1",10)),
         Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup()),
         Observable.fromFuture(_application.appStoreAPIRepository.getCategoriesFeatured()),
         Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)),
         Observable.fromFuture(_application.appStoreAPIRepository.getProduct("1",5)),
-        Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: "1",limit: 5)),(a, b,c,d,e,f,g){
+        Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: "1",limit: 5)),
+        Observable.fromFuture(_application.appStoreAPIRepository.FarmMarket()),(a, b,c,d,e,f,g,h){
             final _slider = (a as ApiResult).respone;
             final _product  =(b as ApiResult).respone;
             final _category =(c as ApiResult).respone;
@@ -61,18 +65,14 @@ class ProductBloc{
             final _trending =(e as ApiResult).respone;
             final _martket =(f as ApiResult).respone;
             final _flashsale =(g as ApiResult).respone;
+            final _martkertall =(h as ApiResult).respone;
             return HomeObjectCombine(sliderRespone: (_slider as SliderRespone),
                 productRespone: (_product as ProductRespone),
                 categoryGroupRespone: (_category as CategoryGroupRespone),featuredRespone: (_featured as FeaturedRespone),
-            trendingRespone: (_trending as ProductRespone),martket: (_martket as ProductRespone),flashsaleRespone: (_flashsale as FlashsaleRespone));
+            trendingRespone: (_trending as ProductRespone),martket: (_martket as ProductRespone),flashsaleRespone: (_flashsale as FlashsaleRespone),myShopRespone: (_martkertall as MyShopRespone));
 
         }).listen((event) {
-           ProductPopular.add(event.productRespone);
-           CategoryGroup.add(event.categoryGroupRespone);
-           FeaturedGroup.add(event.featuredRespone);
-           TrendingGroup.add(event.trendingRespone);
-           ProductMartket.add(event.martket);
-           Flashsale.add(event.flashsaleRespone);
+      ZipHomeObject.add(event);
     });
     _compositeSubscription.add(subscription);
   }
@@ -173,6 +173,15 @@ class ProductBloc{
 
 
   }
+
+  static ProducItemRespone ConvertDataToProduct({ProductData data}){
+
+    return ProducItemRespone(name: data.name,salePrice: data.salePrice,hasVariant: data.hasVariant,brand: data.brand,minPrice: data.minPrice,maxPrice: data.maxPrice,
+        slug: data.slug,offerPrice: data.offerPrice,id: data.id,saleCount: data.saleCount,discountPercent: data.discountPercent,rating: data.rating,reviewCount: data.reviewCount,
+        shop: ShopItem(id: data.shop.id,name: data.shop.name,slug: data.shop.slug,updatedAt: data.shop.updatedAt),image: data.image);
+  }
+
+
 
 
 

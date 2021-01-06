@@ -174,7 +174,7 @@ class _MyshopViewState extends State<MyshopView> {
               AppRoute.ShopProfile(context);
             },
           ),
-          SizedBox(height: 50),
+          SizedBox(height: 30),
           _buildBtnAddProduct(context)
         ],
       ),

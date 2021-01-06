@@ -25,24 +25,22 @@ class ProductGrid extends StatefulWidget {
 
   final String titleInto;
   final Function() onSelectMore;
-  final Function(int) onTapItem;
+  final Function(ProductData,int) onTapItem;
   final String IconInto;
-  final List<ProductModel> producViewModel;
   final bool EnableHeader;
   final String tagHero;
   final bool FlashSallLabel;
   final bool isLike;
   final bool showBorder;
-  final ProductRespone productRespone;
+  ProductRespone productRespone;
   final String api_link;
 
-  const ProductGrid(
+   ProductGrid(
       {Key key,
         this.titleInto,
         this.onSelectMore,
         this.onTapItem,
         this.IconInto,
-        this.producViewModel,
         this.EnableHeader = true,
         this.tagHero,
         this.FlashSallLabel = false,
@@ -57,16 +55,29 @@ class _ProductGridState extends State<ProductGrid> {
 
   ProductBloc bloc;
   List<ProductData> product_data = List<ProductData>();
+  int page = 1;
 
   void _init(){
     if(null == bloc) {
-      bloc = ProductBloc(AppProvider.getApplication(context));
-      if(widget.productRespone!=null){
-       bloc.MoreProduct.add(widget.productRespone);
-      }else{
-        bloc.loadMoreData(page: "1",limit: 5,link: widget.api_link);
-      }
 
+      bloc = ProductBloc(AppProvider.getApplication(context));
+      bloc.MoreProduct.stream.listen((event) {
+        setState(() {
+          product_data.addAll(event.data);
+        });
+      });
+      // if(page==1){
+      //  bloc.MoreProduct.add(widget.productRespone);
+      //  page = 2;
+      // }else{
+      //   bloc.loadMoreData(page: page.toString(),limit: 5,link: widget.api_link);
+      // }
+      //
+      if(widget.productRespone!=null){
+        product_data.addAll(widget.productRespone.data);
+      }else{
+        bloc.loadMoreData(page: page.toString(),limit: 5,link: widget.api_link);
+      }
     }
 
   }
@@ -74,7 +85,7 @@ class _ProductGridState extends State<ProductGrid> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return ClipRRect(
+    return product_data.length>0?ClipRRect(
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(widget.showBorder ? 40 : 0),
           topRight: Radius.circular(widget.showBorder ? 40 : 0)),
@@ -84,10 +95,11 @@ class _ProductGridState extends State<ProductGrid> {
           child: Column(
             children: [
               widget.EnableHeader ? _header_bar() : SizedBox(),
+              SizedBox(height: 10,),
               _buildCardProduct(context: context)
             ],
           )),
-    );
+    ): SizedBox();
   }
 
   Container _header_bar() => Container(
@@ -122,33 +134,23 @@ class _ProductGridState extends State<ProductGrid> {
   }
 
   Container ItemRow(BuildContext context) => Container(
-    child: StreamBuilder(
-      stream: bloc.MoreProduct.stream,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if(snapshot.hasData){
-          product_data.addAll((snapshot.data as ProductRespone).data);
-          return Column(
-            children: [
-              for (int i = 0; i < product_data.length; i += 2)
-                Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  margin: EdgeInsets.only(bottom: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: List.generate(
-                        Check(i),
-                            (index) => _buildProduct(
-                            index: i + index,
-                            item: (snapshot.data as ProductRespone).data[i + index],
-                            context: context)),
-                  ),
-                )
-            ],
-          );
-        }else{
-          return SizedBox();
-        }
-      },
+    child: Column(
+      children: [
+        for (int i = 0; i < product_data.length; i += 2)
+          Container(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            margin: EdgeInsets.only(bottom: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(
+                  Check(i),
+                      (index) => _buildProduct(
+                      index: i + index,
+                      item: product_data[i + index],
+                      context: context)),
+            ),
+          )
+      ],
     ),
   );
 
@@ -256,15 +258,15 @@ class _ProductGridState extends State<ProductGrid> {
           children: [
             Stack(
               children: [
-                Hero(
-                  tag: "${widget.tagHero}_${index}",
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(30),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.black.withOpacity(0.2), width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(30),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Colors.black.withOpacity(0.2), width: 1),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Hero(
+                    tag: "${widget.tagHero}_${item.id}",
                     child: CachedNetworkImage(
                       width: 120,
                       height: 120,
@@ -328,7 +330,7 @@ class _ProductGridState extends State<ProductGrid> {
           ],
         ),
       ),
-      onTap: () => widget.onTapItem(index),
+      onTap: () => widget.onTapItem(item,index),
     );
   }
 

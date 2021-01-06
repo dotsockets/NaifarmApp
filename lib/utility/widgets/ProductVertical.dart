@@ -20,7 +20,7 @@ import 'ProductLandscape.dart';
 class ProductVertical extends StatelessWidget {
   final String titleInto;
   final Function() onSelectMore;
-  final Function(int) onTapItem;
+  final Function(ProductData,int) onTapItem;
   final String IconInto;
   final List<ProductModel> producViewModel;
   final  bool borderRadius;
@@ -96,19 +96,23 @@ class ProductVertical extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Hero(
                       tag: "${tagHero}_${index}",
-                      child: CachedNetworkImage(
-                        height: 100,
-                        placeholder: (context, url) => Container(
-                          color: Colors.white,
-                          child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(1.0.h),
+                        child: CachedNetworkImage(
+                          height: 100,
+                          placeholder: (context, url) => Container(
+                            color: Colors.white,
+                            child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                          ),
+                          fit: BoxFit.cover,
+                          imageUrl: ProductLandscape.CovertUrlImage(item.image),
+                          errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
                         ),
-                        fit: BoxFit.cover,
-                        imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                        errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
                       ),
                     ),
                   ),
                 ),
+                SizedBox(width: 10,),
                 Expanded(
                   flex: 3,
                   child: _buildInfoProduct(item: item),
@@ -120,7 +124,8 @@ class ProductVertical extends StatelessWidget {
         ),
       ),
       onTap: (){
-        onTapItem(index);
+
+        onTapItem(item,index);
       },
     );
   }

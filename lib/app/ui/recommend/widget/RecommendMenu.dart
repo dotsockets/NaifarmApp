@@ -5,6 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -14,7 +16,13 @@ import 'package:sizer/sizer.dart';
 
 class RecommendMenu extends StatelessWidget {
 
+  final ProductRespone popular_product;
+  final MyShopRespone myShopRespone;
+  final ProductRespone  trendingRespone;
+
   final List<MenuModel> _menuViewModel = MenuViewModel().getRecommendmenu();
+
+   RecommendMenu({Key key, this.popular_product, this.myShopRespone, this.trendingRespone}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +74,9 @@ class RecommendMenu extends StatelessWidget {
       switch(item.page){
         case  "ShopMyNear" : AppRoute.ShopMyNear(context);
         break;
-        case  "MarketView" : AppRoute.ShopMain(context);
+        case  "MarketView" : AppRoute.ShopMain(context,myShopRespone: myShopRespone,trendingRespone: trendingRespone,productRespone: popular_product);
         break;
-        case  "SpecialproductsView" : AppRoute.ProductMore(api_link: "products/types/popular",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr(),productList:ProductViewModel().getMarketRecommend());
+        case  "SpecialproductsView" : AppRoute.ProductMore(installData: popular_product,api_link: "products/types/popular",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr(),productList:ProductViewModel().getMarketRecommend());
         break;
         case  "NotiView" :  AppRoute.MyNoti(context);
         break;

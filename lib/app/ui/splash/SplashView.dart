@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/SplashLoginView.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -25,6 +28,7 @@ class _SplashViewState extends State<SplashView>
     with SingleTickerProviderStateMixin {
   AnimationController animationController;
   Animation<double> animation;
+  ProductBloc bloc;
 
   @override
   void initState() {
@@ -40,12 +44,24 @@ class _SplashViewState extends State<SplashView>
     animationController.forward();
 
 
-    startTimer();
+
   }
 
 
+  void _init(){
+    if(null == bloc) {
+      bloc = ProductBloc(AppProvider.getApplication(context));
+      bloc.ZipHomeObject.stream.listen((event) {
+        startTimer();
+      });
+      bloc.loadHomeData();
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    _init();
     ScreenUtil.init(context);
     return Scaffold(
       backgroundColor: Colors.white,
@@ -86,10 +102,10 @@ class _SplashViewState extends State<SplashView>
     return new Timer(duration, navigatorPage);
   }
 
-  navigatorPage() async {
+   navigatorPage() async {
     if(await Usermanager().isLogin())
-      Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  HomeView()), (Route<dynamic> route) => false);
+      Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  HomeView(item: bloc.ZipHomeObject.value)), (Route<dynamic> route) => false);
     else
-      Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  SplashLoginView()), (Route<dynamic> route) => false);
+      Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  SplashLoginView(item: bloc.ZipHomeObject.value,)), (Route<dynamic> route) => false);
   }
 }

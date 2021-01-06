@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/ui/me/widget/BuyAgain.dart';
 import 'package:naifarm/app/ui/me/widget/TabMenu.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -10,8 +11,10 @@ import 'package:sizer/sizer.dart';
 
 class PurchaseView extends StatelessWidget {
   final bool IsLogin;
+  final CustomerInfoRespone item;
+  final Function(bool) onStatus;
 
-  const PurchaseView({Key key, this.IsLogin}) : super(key: key);
+  const PurchaseView({Key key, this.IsLogin, this.item, this.onStatus}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,13 @@ class PurchaseView extends StatelessWidget {
           IsLogin ? _BuildDivider() : SizedBox(),
           ListMenuItem(
             iconSize: 8.0.w,
-              icon: 'assets/images/svg/editprofile.svg', title: LocaleKeys.me_title_setting.tr(),onClick: (){AppRoute.SettingProfile(context,IsLogin);},),
+              icon: 'assets/images/svg/editprofile.svg', title: LocaleKeys.me_title_setting.tr(),onClick: () async {
+            final result = await AppRoute.SettingProfile(context,IsLogin,item: item);
+            if(result!=null && result){
+              onStatus(result);
+            }
+
+              },),
           _BuildDivider(),
           ListMenuItem(
             iconSize: 8.0.w,

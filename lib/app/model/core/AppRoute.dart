@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/ui/Shopmynear/ShopMyNearView.dart';
@@ -82,8 +84,8 @@ class AppRoute{
   //   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: HomeView()));
   // }
 
-  static ProductDetail(BuildContext context,{String productImage,int Product_id}){
-    Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: ProductDetailView(productImage: productImage,Product_id: Product_id,)));
+  static ProductDetail(BuildContext context,{String productImage,ProducItemRespone productItem}){
+    Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: ProductDetailView(productImage: productImage,productItem: productItem,)));
   }
   static  Market(BuildContext context){
   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MarketView()));
@@ -136,8 +138,8 @@ class AppRoute{
   }
 
 
-  static ShopMain(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ShopMainView()));
+  static ShopMain(BuildContext context,{MyShopRespone myShopRespone,ProductRespone  trendingRespone,ProductRespone productRespone}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ShopMainView(myShopRespone: myShopRespone,productRespone: productRespone,trendingRespone: trendingRespone,)));
   }
 
 
@@ -174,21 +176,21 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MoneyOutView()));
   }
 
-  static Register(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: RegisterView()));
+  static Register(BuildContext context, {HomeObjectCombine item}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: RegisterView(item: item,)));
   }
 
   static SplashLogin(BuildContext context){
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => SplashLoginView()), (Route<dynamic> route) => false);
   }
 
-  static Home(BuildContext context){
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeView()), (Route<dynamic> route) => false);
+  static Home(BuildContext context, {HomeObjectCombine item}){
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeView(item: item,)), (Route<dynamic> route) => false);
   }
 
-  static Login(BuildContext context,{bool IsCallBack}){
+  static Future<bool>  Login(BuildContext context,{bool IsCallBack,  HomeObjectCombine item}) async {
 
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LoginView(IsCallBack: IsCallBack,)));
+    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LoginView(IsCallBack: IsCallBack,item: item,)));
   }
 
   static SettingHelp(BuildContext context){
@@ -202,8 +204,8 @@ class AppRoute{
   static SettingPolicy(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: PolicyView()));
   }
-  static Future<bool> SettingProfile(BuildContext context,bool IsLogin) async {
-    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SettingProfileView(IsLogin:IsLogin)));
+  static Future<bool> SettingProfile(BuildContext context,bool IsLogin,{CustomerInfoRespone item}) async {
+    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SettingProfileView(IsLogin:IsLogin,item: item,)));
   }
   static SettingAbout(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AboutView()));
@@ -215,15 +217,15 @@ class AppRoute{
     return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AddressAddView()));
   }
 
-  static RegisterOTP(BuildContext context,  {String phoneNumber,String refCode}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: RegisterOTPView(phoneNumber: phoneNumber,refCode: refCode,)));
+  static RegisterOTP(BuildContext context,  {String phoneNumber,String refCode,HomeObjectCombine item}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: RegisterOTPView(phoneNumber: phoneNumber,refCode: refCode,item: item,)));
   }
-  static Register_set_Password(BuildContext context,String phone){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_set_PasswordView(phone: phone,)));
+  static Register_set_Password(BuildContext context,String phone,{HomeObjectCombine item}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_set_PasswordView(phone: phone,item: item,)));
   }
 
-  static Register_Name_Otp(BuildContext context,String phone,String password){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_Name_OtpView(phone: phone,password: password,)));
+  static Register_Name_Otp(BuildContext context,String phone,String password,{HomeObjectCombine item}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_Name_OtpView(phone: phone,password: password,item: item,)));
   }
 
   static Register_FB(BuildContext context,String email){
@@ -242,8 +244,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiSettingView()));
   }
 
-  static Future<bool> EditProfile(BuildContext context) async {
-    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProfileVIew()));
+  static Future<bool> EditProfile(BuildContext context,{ CustomerInfoRespone item}) async {
+    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProfileVIew(item: item,)));
   }
 
   static Future<CustomerInfoRespone> Setting_EditProfile_Name(BuildContext context,CustomerInfoRespone customerInfoRespone) async {

@@ -41,7 +41,7 @@ class ProductData {
   int offerPrice;
   int hasVariant;
   String slug;
-  String saleCount;
+  int saleCount;
   ProductShop shop;
   List<ProductImage> image;
   int discountPercent;

@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -111,15 +113,13 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                     ProductGrid(
                         titleInto: LocaleKeys.tab_bar_recommend.tr(),
                         showBorder: true,
-                        producViewModel:
-                            ProductViewModel().getMarketRecommend(),
                         IconInto: 'assets/images/svg/like.svg',
                         onSelectMore: () {
                           AppRoute.ProductMore(context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),productList:ProductViewModel().getMarketRecommend());
                         },
-                        onTapItem: (int index) {
+                        onTapItem: (ProductData item,int index) {
                           AppRoute.ProductDetail(context,
-                              productImage: "market_farm_${index}");
+                              productImage: "market_farm_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                         },
                         tagHero: 'market_farm'),
                     SizedBox(height: 5),
@@ -132,9 +132,9 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                       onSelectMore: () {
                         AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),productList:ProductViewModel().getProductFarm());
                       },
-                      onTapItem: (int index) {
+                      onTapItem: (ProductData item,int index) {
                         AppRoute.ProductDetail(context,
-                            productImage: "sell_${index}");
+                            productImage: "sell_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                       },
                       borderRadius: false,
                       IconSize: 30,
@@ -150,9 +150,9 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                         onSelectMore: () {
                           AppRoute.ProductMore(context:context,barTxt:"ผักบุ้ง",productList:ProductViewModel().getVegetable1());
                         },
-                        onTapItem: (int index) {
+                        onTapItem: (ProductData item,int index) {
                           AppRoute.ProductDetail(context,
-                              productImage: "product_section1_${index}");
+                              productImage: "product_section1_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                         },
                         tagHero: "product_section1"),
                     SizedBox(height: 15),
@@ -165,7 +165,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                         onSelectMore: () {
                           AppRoute.ProductMore(context:context,barTxt:"พริก",productList:ProductViewModel().getVegetableChilli());
                         },
-                        onTapItem: (int index) {
+                          onTapItem: (ProductData item,int index) {
                           AppRoute.ProductDetail(context,
                               productImage: "product_section2_${index}");
                         },

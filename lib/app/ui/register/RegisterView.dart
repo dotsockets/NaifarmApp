@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -17,6 +18,10 @@ import 'package:http/http.dart' as http;
 
 
 class RegisterView extends StatefulWidget {
+
+  final HomeObjectCombine item;
+
+  const RegisterView({Key key, this.item}) : super(key: key);
   @override
   _RegisterViewState createState() => _RegisterViewState();
 }
@@ -51,7 +56,7 @@ class _RegisterViewState extends State<RegisterView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: (event as OTPRespone).refCode);
+        AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: (event as OTPRespone).refCode,item: widget.item);
       });
     }
 

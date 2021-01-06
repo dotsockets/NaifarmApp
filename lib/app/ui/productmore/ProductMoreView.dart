@@ -15,6 +15,7 @@ class ProductMoreView extends StatefulWidget {
   final ProductRespone installData;
   final String api_link;
 
+
   ProductMoreView({Key key, this.barTxt,this.productList,this.installData, this.api_link}) : super(key: key);
 
 
@@ -37,9 +38,9 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                   api_link: widget.api_link,
                   productRespone: widget.installData,
                   IconInto: '',
-                  onTapItem: (int index) {
+                  onTapItem: (ProductData item,int index) {
                     AppRoute.ProductDetail(context,
-                        productImage: "product_more_${index}");
+                        productImage: "product_more_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                   },tagHero: 'product_more' ,EnableHeader: false),
             ),
         ),

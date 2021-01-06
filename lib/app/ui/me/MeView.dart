@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -25,6 +26,9 @@ import 'package:sizer/sizer.dart';
 
 
 class MeView extends StatefulWidget {
+  final HomeObjectCombine item;
+
+  const MeView({Key key, this.item}) : super(key: key);
   @override
   _MeViewState createState() => _MeViewState();
 }
@@ -37,7 +41,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
 
   CustomerInfoRespone  customerInfoRespone;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  int notification = 1;
 
   @override
   void initState() {
@@ -47,6 +51,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
      setState(() {
        ISLogin();
      });
+
 
 
   }
@@ -98,135 +103,156 @@ class _MeViewState extends State<MeView> with RouteAware  {
 
   @override
   Widget build(BuildContext context) {
+
     _init();
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
-        child: Scaffold(
-          key: _scaffoldKey,
-          backgroundColor: Colors.grey.shade200,
-            body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              leading: Container(
-                margin: EdgeInsets.only(left: 5.0.w),
-                child: GestureDetector(
-                  child: Icon(
-                    Icons.settings,
-                    color: Colors.white,size: 7.0.w
-                  ),
-                  onTap: () async {
-                    final result = await AppRoute.SettingProfile(context, IsLogin);
-                    if(result!=null && result){
-                       Usermanager().getUser().then((value) => bloc.getCustomerInfo(token: value.token));
-                    }
-
-                  },
-                ),
-              ),
-              actions: [
-                GestureDetector(
-                  child: Container(
-                    margin: EdgeInsets.only(right: 2.5.w,top: 2.0.w),
-                    child:
-                    BuildIconShop(size: 7.0.w,)
-                  ),
-                  onTap: (){
-                    AppRoute.MyCart(context,true);
-                  },
-                ),
-
-              ],
-              expandedHeight: ScreenUtil().setHeight(IsLogin?450:400),
-              flexibleSpace: FlexibleSpaceBar(
-                background: Container(
-                  color: ThemeColor.primaryColor(),
-                  child: IsLogin?Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-
-                      ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(60)),
-                        child: CachedNetworkImage(
-                          width: 10.0.h,
-                          height: 10.0.h,
-                          placeholder: (context, url) => Container(
-                            width: 10.0.h,
-                            height: 10.0.h,
-                            color: Colors.white,
-                            child: Lottie.asset(Env.value.loadingAnimaion,
-                                height: 30),
+        child: Builder(
+          builder: (context){
+            final _scr = PrimaryScrollController.of(context);
+            _scr.addListener(() {
+              setState(() {
+                if (_scr.position.pixels >100) {
+                  notification = 0;
+                }else{
+                  notification = 1;
+                }
+              });
+            });
+            return Scaffold(
+                key: _scaffoldKey,
+                backgroundColor: Colors.grey.shade200,
+                body: CustomScrollView(
+                  controller: _scr,
+                  slivers: [
+                    SliverAppBar(
+                      leading: Container(
+                        margin: EdgeInsets.only(left: 5.0.w),
+                        child: GestureDetector(
+                          child: Icon(
+                              Icons.settings,
+                              color: Colors.white,size: 7.0.w
                           ),
-                          fit: BoxFit.cover,
-                          imageUrl:customerInfoRespone!=null?customerInfoRespone.image.length>0?"${Env.value.baseUrl}/storage/images/${customerInfoRespone.image[0].path}":'':'',
-                          errorWidget: (context, url, error) => Container(
-                            width: 10.0.h,
-                              height: 10.0.h,
-                              child: Icon(
-                                Icons.error,
-                                size: 30,
-                              )),
+                          onTap: () async {
+                            final result = await AppRoute.SettingProfile(context, IsLogin,item: customerInfoRespone);
+                            if(result!=null && result){
+                              Usermanager().getUser().then((value) => bloc.getCustomerInfo(token: value.token));
+                            }
+
+                          },
                         ),
                       ),
-                      SizedBox(height: 2.0.h),
-                      Text(customerInfoRespone!=null?customerInfoRespone.name:"ฟาร์มมาร์เก็ต",
-                          style: FunctionHelper.FontTheme(
-                              color: Colors.white,
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              fontWeight: FontWeight.bold))
-                    ],
-                  ):_FormLogin(),
-                ),
-              ),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(<Widget>[
-                Container(
-                  height: IsLogin?700:500,
-                  color: Colors.white,
-                  child: DefaultTabController(
-                    length: 2,
-                    child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 50,
+                      actions: [
+                        GestureDetector(
+                          child: Container(
+                              margin: EdgeInsets.only(right: 2.5.w,top: 2.0.w),
+                              child:
+                              BuildIconShop(size: 7.0.w,notification: notification,)
+                          ),
+                          onTap: (){
+                            AppRoute.MyCart(context,true);
+                          },
+                        ),
+
+                      ],
+                      expandedHeight: ScreenUtil().setHeight(IsLogin?450:400),
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: Container(
+                          color: ThemeColor.primaryColor(),
+                          child: IsLogin?Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+
+                              ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(60)),
+                                child: CachedNetworkImage(
+                                  width: 10.0.h,
+                                  height: 10.0.h,
+                                  placeholder: (context, url) => Container(
+                                    width: 10.0.h,
+                                    height: 10.0.h,
+                                    color: Colors.white,
+                                    child: Lottie.asset(Env.value.loadingAnimaion,
+                                        height: 30),
+                                  ),
+                                  fit: BoxFit.cover,
+                                  imageUrl:customerInfoRespone!=null?customerInfoRespone.image.length>0?"${Env.value.baseUrl}/storage/images/${customerInfoRespone.image[0].path}":'':'',
+                                  errorWidget: (context, url, error) => Container(
+                                      color: Colors.white,
+                                      width: 10.0.h,
+                                      height: 10.0.h,
+                                      child: Icon(
+                                        Icons.error,
+                                        size: 30,
+                                      )),
+                                ),
+                              ),
+                              SizedBox(height: 2.0.h),
+                              Text(customerInfoRespone!=null?customerInfoRespone.name:"ฟาร์มมาร์เก็ต",
+                                  style: FunctionHelper.FontTheme(
+                                      color: Colors.white,
+                                      fontSize: SizeUtil.titleFontSize().sp,
+                                      fontWeight: FontWeight.bold))
+                            ],
+                          ):_FormLogin(),
+                        ),
+                      ),
+                    ),
+                    SliverList(
+                      delegate: SliverChildListDelegate(<Widget>[
+                        Container(
+                          height: IsLogin?730:530,
+                          color: Colors.white,
+                          child: DefaultTabController(
+                            length: 2,
                             child: Container(
-                              // color: ThemeColor.psrimaryColor(context),
-                              child: TabBar(
-                               indicatorColor: ThemeColor.ColorSale(),
-                               /* indicator: MD2Indicator(
+                              child: Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 50,
+                                    child: Container(
+                                      // color: ThemeColor.psrimaryColor(context),
+                                      child: TabBar(
+                                        indicatorColor: ThemeColor.ColorSale(),
+                                        /* indicator: MD2Indicator(
                                   indicatorSize: MD2IndicatorSize.tiny,
                                   indicatorHeight: 5.0,
                                   indicatorColor: ThemeColor.ColorSale(),
                                 ),*/
-                                isScrollable: false,
-                                tabs: [
-                                  _tabbar(title: LocaleKeys.me_tab_buy.tr(),message: false),
-                                  _tabbar(title: LocaleKeys.me_tab_shop.tr(),message: false)
+                                        isScrollable: false,
+                                        tabs: [
+                                          _tabbar(title: LocaleKeys.me_tab_buy.tr(),message: false),
+                                          _tabbar(title: LocaleKeys.me_tab_shop.tr(),message: false)
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+
+                                  // create widgets for each tab bar here
+                                  Expanded(
+                                    child: TabBarView(
+                                      children: [
+                                        PurchaseView(IsLogin: IsLogin,item:customerInfoRespone,onStatus: (bool status){
+                                          if(status){
+                                            Usermanager().getUser().then((value) => bloc.getCustomerInfo(token: value.token));
+                                          }
+                                        }, ),
+                                        MyshopView(IsLogin: IsLogin,scaffoldKey: _scaffoldKey,customerInfoRespone: customerInfoRespone,)
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
                           ),
-
-                          // create widgets for each tab bar here
-                          Expanded(
-                            child: TabBarView(
-                              children: [
-                                PurchaseView(IsLogin: IsLogin,),
-                                MyshopView(IsLogin: IsLogin,scaffoldKey: _scaffoldKey,customerInfoRespone: customerInfoRespone,)
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ]),
-            )
-          ],
-        )),
+                        )
+                      ]),
+                    )
+                  ],
+                ));
+          },
+        ),
       ),
     );
   }
@@ -249,8 +275,11 @@ class _MeViewState extends State<MeView> with RouteAware  {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0),
                 ),
-                onPressed: () {
-                  AppRoute.Login(context,IsCallBack: true);
+                onPressed: () async {
+                  final result = await  AppRoute.Login(context,IsCallBack: true);
+                  if(result){
+                    Usermanager().getUser().then((value) => bloc.getCustomerInfo(token: value.token));
+                  }
                 },
                 child: Text(LocaleKeys.login_btn.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
@@ -266,8 +295,8 @@ class _MeViewState extends State<MeView> with RouteAware  {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0),
                 ),
-                onPressed: () {
-                  AppRoute.Register(context);
+                onPressed: () async{
+                  AppRoute.Register(context,item: widget.item);
                 },
                 child: Text(LocaleKeys.register_btn.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),

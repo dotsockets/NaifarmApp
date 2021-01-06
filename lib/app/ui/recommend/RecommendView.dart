@@ -8,6 +8,9 @@ import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/recommend/widget/CategoryTab.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -30,8 +33,9 @@ import 'package:sizer/sizer.dart';
 class RecommendView extends StatefulWidget {
   final Size size;
   final double paddingBottom;
+  final HomeObjectCombine item;
 
-  const RecommendView({Key key, this.size, this.paddingBottom})
+  const RecommendView({Key key, this.size, this.paddingBottom, this.item})
       : super(key: key);
 
   @override
@@ -66,7 +70,13 @@ class _RecommendViewState extends State<RecommendView> {
   void _init(){
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.loadHomeData();
+      bloc.Flashsale.add(widget.item.flashsaleRespone);
+      bloc.ProductPopular.add(widget.item.productRespone);
+      bloc.ProductMartket.add(widget.item.martket);
+      bloc.CategoryGroup.add(widget.item.categoryGroupRespone);
+      bloc.TrendingGroup.add(widget.item.trendingRespone);
+      bloc.myShop.add(widget.item.myShopRespone);
+     // bloc.loadHomeData();
     }
 
   }
@@ -150,7 +160,7 @@ class _RecommendViewState extends State<RecommendView> {
                     content: Column(
                       children: [
                         BannerSlide(),
-                        RecommendMenu(),
+                        RecommendMenu(popular_product: bloc.ProductPopular.value,trendingRespone: bloc.TrendingGroup.value,myShopRespone: bloc.myShop.value,),
                         StreamBuilder(
                           stream: bloc.Flashsale.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -174,9 +184,9 @@ class _RecommendViewState extends State<RecommendView> {
                                     onSelectMore: () {
                                       AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_best_seller.tr(),installData: snapshot.data);
                                     },
-                                    onTapItem: (int index) {
+                                    onTapItem: (ProductData item,int index) {
                                       AppRoute.ProductDetail(context,
-                                          productImage: "product_hot_${index}",Product_id: index);
+                                          productImage: "product_hot_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                                     },
                                     tagHero: "product_hot");
                               }else{
@@ -197,11 +207,11 @@ class _RecommendViewState extends State<RecommendView> {
                                   ProductViewModel().getProductFarm(),
                                   IconInto: 'assets/images/svg/menu_market.svg',
                                   onSelectMore: () {
-                                    AppRoute.ShopMain(context);
+                                    AppRoute.ShopMain(context,myShopRespone: widget.item.myShopRespone,productRespone: widget.item.productRespone,trendingRespone: widget.item.trendingRespone);
                                   },
-                                  onTapItem: (int index) {
+                                  onTapItem: (ProductData item,int index) {
                                     AppRoute.ProductDetail(context,
-                                        productImage: "market_${index}");
+                                        productImage: "market_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                                   },
                                   borderRadius: false,
                                   tagHero: "market");
@@ -246,9 +256,9 @@ class _RecommendViewState extends State<RecommendView> {
                                   onSelectMore: () {
                                     AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_product_for_you.tr(),installData: snapshot.data);
                                   },
-                                  onTapItem: (int index) {
+                                  onTapItem: (ProductData item,int index) {
                                     AppRoute.ProductDetail(context,
-                                        productImage: "foryou_${index}");
+                                        productImage: "foryou_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                                   },
                                   borderRadius: false,
                                   tagHero: "foryou");
@@ -264,6 +274,8 @@ class _RecommendViewState extends State<RecommendView> {
               ),
             )));
   }
+
+
 
   _BannerAds() {
     return Container(
