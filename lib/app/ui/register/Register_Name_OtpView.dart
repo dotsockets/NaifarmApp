@@ -82,10 +82,10 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
           child: Column(
             children: [
               _Form(),
-              SizedBox(height: 30,),
+              SizedBox(height: 4.0.h,),
               FlatButton(
                 minWidth: 250,
-                height: 50,
+                height: 7.0.h,
                 color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
                 textColor: Colors.white,
                 splashColor: Colors.white.withOpacity(0.3),
@@ -106,13 +106,13 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
   Widget _Form(){
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),
+      padding: EdgeInsets.only(top: 3.0.h,bottom: 4.0.h,left: 5.0.w,right: 5.0.w),
       child: Column(
         children: [
           BuildEditText(head: LocaleKeys.my_profile_username.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_username.tr(),inputType: TextInputType.text,maxLength: 20,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
             setState(() {});
           },),
-          SizedBox(height: 20,),
+          SizedBox(height: 3.0.h,),
           BuildEditText(head: LocaleKeys.my_profile_email.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_email.tr(),inputType: TextInputType.emailAddress,maxLength: 20,borderRadius: 5,onError: onError2,controller: _input2,onChanged: (String char){
             setState(() {});
           },)

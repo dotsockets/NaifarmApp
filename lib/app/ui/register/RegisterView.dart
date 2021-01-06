@@ -90,19 +90,19 @@ class _RegisterViewState extends State<RegisterView> {
 
   Widget _BuildContent(BuildContext context){
     return Container(
-      padding: EdgeInsets.all(28),
+      padding: EdgeInsets.all(20),
       child: Column(
         children: [
-          SizedBox(height: 20,),
-          Text(LocaleKeys.register_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),),
-         SizedBox(height: 30,),
+          SizedBox(height: 4.0.h,),
+          Text(LocaleKeys.register_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp+2,fontWeight: FontWeight.w500),),
+          SizedBox(height: 4.0.h,),
           BuildEditText(head: LocaleKeys.my_profile_phone.tr()+" *", hint: LocaleKeys.my_profile_phone.tr(),inputType: TextInputType.number,controller: PhoneController,BorderOpacity: 0.3,),
-          SizedBox(height: 30,),
+          SizedBox(height: 4.0.h,),
           Padding(
             padding: const EdgeInsets.only(right: 15,left: 15),
             child: FlatButton(
               minWidth: MediaQuery.of(context).size.width,
-              height: 50,
+              height: 7.0.h,
               color: ThemeColor.secondaryColor(),
               textColor: Colors.white,
               splashColor: Colors.white.withOpacity(0.3),
@@ -115,7 +115,7 @@ class _RegisterViewState extends State<RegisterView> {
               ),
             ),
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 3.5.h,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -124,12 +124,12 @@ class _RegisterViewState extends State<RegisterView> {
               Expanded(flex: 3,child: Container(margin: EdgeInsets.only(right: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
             ],
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 3.5.h,),
           Padding(
             padding: const EdgeInsets.only(right: 15,left: 15),
             child: FlatButton(
               minWidth: MediaQuery.of(context).size.width,
-              height: 50,
+              height: 7.0.h,
               color: Color(ColorUtils.hexToInt("#1f4dbf")),
               textColor: Colors.white,
               splashColor: Colors.white.withOpacity(0.3),
@@ -142,7 +142,7 @@ class _RegisterViewState extends State<RegisterView> {
               ),
             ),
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 3.5.h,),
           Wrap(
             children: [
               Text(LocaleKeys.regis_agree.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.7,fontWeight: FontWeight.w500),),
@@ -163,7 +163,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   Widget _BuildHeader(BuildContext context){
     return Container(
-        padding: EdgeInsets.only(bottom: 30),
+        padding: EdgeInsets.only(bottom: 4.0.h),
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: ThemeColor.primaryColor(),

@@ -79,7 +79,7 @@ class _AddressAddViewState extends State<AddressAddView> {
         _checkError();
         postController.text = event.zipCode.toString();
       });
-      bloc.city..stream.listen((event) {
+      bloc.city.stream.listen((event) {
         _checkError();
         postController.text = "";
       });
@@ -194,7 +194,7 @@ class _AddressAddViewState extends State<AddressAddView> {
             },
           ),
           SizedBox(
-            height: 15,
+            height: 10,
           ),
           BuildEditText(
               head: LocaleKeys.address_postal.tr(),
@@ -255,9 +255,9 @@ class _AddressAddViewState extends State<AddressAddView> {
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
           FlutterSwitch(
-            height: 30,
-            width: 50,
-            toggleSize: 20,
+            height: 4.0.h,
+            width: 13.0.w,
+            toggleSize: 3.0.h,
             activeColor: Colors.grey.shade200,
             inactiveColor: Colors.grey.shade200,
             toggleColor:

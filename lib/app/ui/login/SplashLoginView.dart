@@ -67,8 +67,8 @@ class SplashLoginView extends StatelessWidget {
             ),
             SizedBox(height: ScreenUtil().setHeight(70),),
             Image.asset('assets/images/png/img_login.png',height: ScreenUtil().setHeight(600),),
-            SizedBox(height: 20,),
-            Text("แอปเพื่อเกษตรกรไทย ซื่อง่าย ขายคล่อง",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp),),
+            SizedBox(height: 3.0.h,),
+            Text("แอปเพื่อเกษตรกรไทย ซื้อง่าย ขายคล่อง",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp),),
             SizedBox(height: ScreenUtil().setHeight(80),),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -89,7 +89,7 @@ class SplashLoginView extends StatelessWidget {
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                   ),
                 ),
-                SizedBox(width: 20,),
+                SizedBox(width: 2.0.h,),
                 FlatButton(
                   minWidth: ScreenUtil().setWidth(400),
                   height: ScreenUtil().setHeight(120),

@@ -39,7 +39,7 @@ class TabMenu extends StatelessWidget {
               ),
               notification > 0
                   ? Positioned(
-                      right: 5,
+                      right: 0,
                       top: 0,
                       child: Container(
                         padding: EdgeInsets.all(2.0.w),
