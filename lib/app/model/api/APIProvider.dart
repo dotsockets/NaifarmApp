@@ -26,6 +26,7 @@ import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ShppingMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
@@ -182,6 +183,15 @@ abstract class APIProvider{
 
   @GET("/v1/myshop/shipping")
   Future<ApiResult> GetShippingMyShop({String token});
+
+  @DELETE("/v1/myshop/shipping")
+  Future<ApiResult> DELETEShoppingMyShop({int ratesId,String token});
+
+  @POST("/v1/myshop/shipping")
+  Future<ApiResult> AddShoppingMyShop({ShppingMyShopRequest shopRequest,String token});
+
+  @PATCH("/v1/myshop/shipping")
+  Future<ApiResult> EditShoppingMyShop({ShppingMyShopRequest shopRequest,int rateID, String token});
 
 }
 

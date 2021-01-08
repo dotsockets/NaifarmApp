@@ -17,6 +17,7 @@ import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
+import 'package:naifarm/app/model/pojo/response/ShppingMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/app/model/pojo/response/RegisterRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Task.dart';
@@ -212,6 +213,20 @@ class APIRepository{
   Future<ApiResult> GetShippingMyShop({String token}){
     return _apiProvider.GetShippingMyShop(token: token);
   }
+
+  Future<ApiResult> DELETEShoppingMyShop({int ratesId,String token}){
+    return _apiProvider.DELETEShoppingMyShop(ratesId: ratesId,token: token);
+  }
+
+  Future<ApiResult> AddShoppingMyShop({ShppingMyShopRequest shopRequest, String token}){
+    return _apiProvider.AddShoppingMyShop(shopRequest: shopRequest,token: token);
+  }
+
+  Future<ApiResult> EditShoppingMyShop({ShppingMyShopRequest shopRequest,int rateID, String token}){
+    return _apiProvider.EditShoppingMyShop(shopRequest: shopRequest,token: token,rateID: rateID);
+  }
+
+
 
 
 

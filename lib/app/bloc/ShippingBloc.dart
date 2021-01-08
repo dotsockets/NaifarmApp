@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/ShppingMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingOjectCombine.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -55,6 +56,54 @@ class ShippingBloc{
     });
     _compositeSubscription.add(subscription);
 
+  }
+
+  DELETEShoppingMyShop({int ratesId,String token}){
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.DELETEShoppingMyShop(ratesId: ratesId ,token: token)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        // ZipPaymentObject.add(event);
+        onSuccess.add(true);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  AddShoppingMyShop({ShppingMyShopRequest shopRequest,String token}){
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.AddShoppingMyShop(shopRequest: shopRequest,token: token)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        // ZipPaymentObject.add(event);
+        onSuccess.add(true);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  EditShoppingMyShop({ShppingMyShopRequest shopRequest,int rateID, String token}){
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.EditShoppingMyShop(rateID: rateID,shopRequest: shopRequest,token: token)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        // ZipPaymentObject.add(event);
+        onSuccess.add(true);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
   }
 
 }

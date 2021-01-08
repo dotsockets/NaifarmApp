@@ -59,7 +59,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.only(right: 20,top: 20,left: 20),
                         color: Colors.white,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,25 +76,23 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                 head: LocaleKeys.my_product_detail.tr()+" * ",EnableMaxLength: true,maxLength: 5000,
                                 hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailtController,inputType: TextInputType.text),
                             SizedBox(height: 15,),
-                            _BuildDropdown(
-                                head: LocaleKeys.my_product_delivery_addr.tr()+" * ", hint: "ทั่วประเทศ",dataList: listAddrDeli),
-                            SizedBox(height: 15,),
-                            _BuildDropdown(
-                                head: LocaleKeys.my_product_delivery_from.tr(), hint: LocaleKeys.select.tr()+LocaleKeys.address_province.tr(),dataList: listProvince),
+
+                            BuildEditText(head: LocaleKeys.my_product_amount.tr()+" *", hint: "0",inputType: TextInputType.number,controller: amountController),
                             SizedBox(height: 15,),
                             BuildEditText(
                                 head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController),
-                            SizedBox(height: 15,),
-                            BuildEditText(head: LocaleKeys.my_product_amount.tr()+" *", hint: "0",inputType: TextInputType.number,controller: amountController),
-                            SizedBox(height: 15,),
-                            _BuildDropdown(head: LocaleKeys.my_product_category.tr()+" *", hint: "ชิ้น",dataList: listUnit),
                             SizedBox(
                               height: 20,
-                            )
+                            ),
+                            BuildEditText(
+                                head: "ราคาโปรโมชั่น"+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController),
+
                           ],
                         ),
                       ),
-                      _BuildDeliveryTab()
+                      _BuildDeliveryTab(),
+                      Divider(color: Colors.black,height: 5,),
+                      _BuildAtivceTab()
                     ],
                   ),
                 ),
@@ -136,9 +134,31 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   Widget _BuildDeliveryTab() {
     return InkWell(
       child: Container(
+        padding: EdgeInsets.all(20),
+          color: Colors.white,
+          child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(LocaleKeys.my_product_delivery_price.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.grey.withOpacity(0.7),
+                  )
+                ],
+              ))),
+      onTap: (){
+        AppRoute.DeliveryCost(context);
+      },
+    );
+  }
+
+  Widget _BuildAtivceTab() {
+    return InkWell(
+      child: Container(
           color: Colors.white,
           padding: EdgeInsets.only(left: 10,right: 10),
-          margin: EdgeInsets.only(top: 10),
+          margin: EdgeInsets.only(top: 8),
           height: 50,
           child: Container(
               margin: EdgeInsets.all(15),

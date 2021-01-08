@@ -1008,6 +1008,75 @@ class _APIProvider implements APIProvider {
     }
   }
 
+  @override
+  Future<ApiResult> DELETEShoppingMyShop({int ratesId, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/myshop/shipping/${ratesId}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'DELETE',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> AddShoppingMyShop({ShppingMyShopRequest shopRequest, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/myshop/shipping',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: shopRequest);
+      return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> EditShoppingMyShop({ShppingMyShopRequest shopRequest,int rateID, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/myshop/shipping/${rateID}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: shopRequest);
+      return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
 
 
 

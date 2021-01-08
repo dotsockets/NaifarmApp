@@ -63,7 +63,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                             onTap: () async {
                               var result = await AppRoute.DeliveryEdit(context,shppingMyShopRespone: item.shppingMyShopRespone,carriersDat: item.carriersRespone.data[index]);
                                 if(result){
-
+                                  Usermanager().getUser().then((value) => bloc.loadShppingPage(token: value.token));
                                 }
                               },
                           );
