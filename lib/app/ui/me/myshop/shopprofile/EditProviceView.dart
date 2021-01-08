@@ -74,33 +74,32 @@ class _EditProviceViewState extends State<EditProviceView> {
       backgroundColor: Colors.grey.shade200,
       appBar: AppToobar(title: "แก้ไขรายละเอียดร้านค้า",header_type: Header_Type.barNormal,),
       body: Container(
-        child: Container(
-          child: Column(
-            children: [
-              _Form(),
-              SizedBox(height: 30,),
-              FlatButton(
-                minWidth: 250,
-                height: 50,
-                color: _input1.text!=""?ThemeColor.secondaryColor():Colors.grey.shade400,
-                textColor: Colors.white,
-                splashColor: Colors.white.withOpacity(0.3),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                onPressed: (){
-                  if(bloc.provice.value!=null){
-                    widget.itemInfo.state = bloc.provice.value.data[loopIndex(bloc.provice.value.data,proviceSelect)];
-                  }
-                  Navigator.pop(context, widget.itemInfo);
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            _Form(),
+            SizedBox(height: 30,),
+            FlatButton(
+              minWidth: 250,
+              height: 50,
+              color: _input1.text!=""?ThemeColor.secondaryColor():Colors.grey.shade400,
+              textColor: Colors.white,
+              splashColor: Colors.white.withOpacity(0.3),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+              onPressed: (){
+                if(bloc.provice.value!=null){
+                  widget.itemInfo.state = bloc.provice.value.data[loopIndex(bloc.provice.value.data,proviceSelect)];
+                }
+                Navigator.pop(context, widget.itemInfo);
 
-                },
-                child: Text(LocaleKeys.save_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
-                ),
-              )
-            ],
-          ),
+              },
+              child: Text(LocaleKeys.save_btn.tr(),
+                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+              ),
+            )
+          ],
         ),
       ),
     );

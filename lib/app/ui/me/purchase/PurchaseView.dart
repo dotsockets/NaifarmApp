@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/ui/me/widget/BuyAgain.dart';
 import 'package:naifarm/app/ui/me/widget/TabMenu.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';

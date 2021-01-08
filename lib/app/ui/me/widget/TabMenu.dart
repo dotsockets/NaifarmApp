@@ -24,36 +24,36 @@ class TabMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         child: Container(
-          child: Stack(
+          child: Column(
             children: [
-              Column(
+              Stack(
                 children: [
-                  SvgPicture.asset(icon,width: 13.0.w,height: 13.0.w,),
-                  SizedBox(height: 1.0.h),
-                  Text(title,
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.detailFontSize().sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black))
+                  Container(padding: EdgeInsets.all(5),child: SvgPicture.asset(icon,width: 13.0.w,height: 13.0.w,)),
+                  notification > 0
+                      ? Positioned(
+                    right: 1,
+                    top: 2,
+                    child: Container(
+                      padding: EdgeInsets.all(1.0.w),
+                      decoration: BoxDecoration(
+                        color: ThemeColor.ColorSale(),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      constraints: BoxConstraints(
+                        minWidth: 15,
+                        minHeight: 15,
+                      ),
+                    ),
+                  )
+                      : SizedBox()
                 ],
               ),
-              notification > 0
-                  ? Positioned(
-                      right: 0,
-                      top: 0,
-                      child: Container(
-                        padding: EdgeInsets.all(2.0.w),
-                        decoration: BoxDecoration(
-                          color: ThemeColor.ColorSale(),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        constraints: BoxConstraints(
-                          minWidth: 15,
-                          minHeight: 15,
-                        ),
-                      ),
-                    )
-                  : SizedBox()
+              SizedBox(height: 1.0.h),
+              Text(title,
+                  style: FunctionHelper.FontTheme(
+                      fontSize: SizeUtil.detailFontSize().sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black))
             ],
           ),
         ),

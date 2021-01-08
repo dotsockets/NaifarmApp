@@ -76,6 +76,7 @@ class _RecommendViewState extends State<RecommendView> {
       bloc.CategoryGroup.add(widget.item.categoryGroupRespone);
       bloc.TrendingGroup.add(widget.item.trendingRespone);
       bloc.myShop.add(widget.item.myShopRespone);
+      bloc.FeaturedGroup.add(widget.item.featuredRespone);
      // bloc.loadHomeData();
     }
 
@@ -203,8 +204,6 @@ class _RecommendViewState extends State<RecommendView> {
                               return  ProductVertical(
                                 productRespone:  snapshot.data,
                                   titleInto: LocaleKeys.recommend_market.tr(),
-                                  producViewModel:
-                                  ProductViewModel().getProductFarm(),
                                   IconInto: 'assets/images/svg/menu_market.svg',
                                   onSelectMore: () {
                                     AppRoute.ShopMain(context,myShopRespone: widget.item.myShopRespone,productRespone: widget.item.productRespone,trendingRespone: widget.item.trendingRespone);
@@ -250,8 +249,6 @@ class _RecommendViewState extends State<RecommendView> {
                               return  ProductVertical(
                                 productRespone: snapshot.data,
                                   titleInto: LocaleKeys.recommend_product_for_you.tr(),
-                                  producViewModel:
-                                  ProductViewModel().getProductForYou(),
                                   IconInto: 'assets/images/svg/foryou.svg',
                                   onSelectMore: () {
                                     AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_product_for_you.tr(),installData: snapshot.data);

@@ -6,7 +6,9 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/ui/me/widget/TabMenu.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -19,10 +21,12 @@ class MyshopView extends StatefulWidget {
 
   final bool IsLogin;
   CustomerInfoRespone  customerInfoRespone;
+  final MyShopRespone myShopRespone;
   final GlobalKey<ScaffoldState> scaffoldKey;
+  final Function(bool) onStatus;
 
 
-  MyshopView({Key key, this.IsLogin,this.customerInfoRespone,this.scaffoldKey}) : super(key: key);
+  MyshopView({Key key, this.IsLogin,this.customerInfoRespone,this.scaffoldKey, this.myShopRespone, this.onStatus}) : super(key: key);
 
   @override
   _MyshopViewState createState() => _MyshopViewState();
@@ -168,10 +172,17 @@ class _MyshopViewState extends State<MyshopView> {
           ListMenuItem(
             icon: 'assets/images/svg/help.svg',
             title: "ตั้งค่าข้อมูลร้านค้า",
-            IsPhoto: "https://www.chaiyoreadyweb.com/images/online-shop.png",
-            Message: widget.customerInfoRespone.shop.name,
-            onClick: () {
-              AppRoute.ShopProfile(context);
+            IsPhoto: "${widget.myShopRespone.image!=null?"${Env.value.baseUrl}/storage/images/${widget.myShopRespone.image[0].path}":''}",
+            Message: widget.myShopRespone.name,
+            onClick: () async {
+
+              final result = await AppRoute.ShopProfile(context);
+
+              if(result!=null && result){
+                widget.onStatus(result);
+              }else{
+                widget.onStatus(false);
+              }
             },
           ),
           SizedBox(height: 30),

@@ -159,7 +159,6 @@ class _CategoryViewState extends State<CategoryView> {
         ),
       ),
       onTap: (){
-        print(item.id);
        //  for (int i=0;i<item.length;i++){
        //     if(_menuViewModel[i].type==item.type){
        //       AppRoute.CategoryDetail(context,i);
@@ -168,7 +167,7 @@ class _CategoryViewState extends State<CategoryView> {
        //
        //  }
 
-       // AppRoute.CategoryVegetable(context,_menuViewModel[].type);
+        AppRoute.CategoryDetail(context, item.id,title: item.name);
       },
     );
   }

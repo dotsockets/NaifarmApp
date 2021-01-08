@@ -117,10 +117,13 @@ class AppToobar extends PreferredSize {
           )
         ],
         backgroundColor: ThemeColor.primaryColor(),
-        title: Center(
-          child: Text(
-            title,
-            style: FunctionHelper.FontTheme(color: Colors.black, fontSize: SizeUtil.titleFontSize().sp),
+        title: Container(
+          padding: EdgeInsets.only(left: 30),
+          child: Center(
+            child: Text(
+              title,
+              style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold, fontSize: SizeUtil.titleFontSize().sp),
+            ),
           ),
         ),
       ),
@@ -130,6 +133,7 @@ class AppToobar extends PreferredSize {
   Widget barNoSearchNoTitle(BuildContext context) {
     return GestureDetector(
       child: Container(
+
         padding: EdgeInsets.only(right: 15, left: 20, top: 10, bottom: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -272,7 +276,7 @@ class AppToobar extends PreferredSize {
                   child: InkWell(
                 child: isEnable_Search?SizedBox(height: 40,):
                 Container(
-                  padding: EdgeInsets.only(left: 5),
+                  padding: EdgeInsets.only(left: 15,bottom: 4),
                   child: TextField(
                     style: FunctionHelper.FontTheme(
                         color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),

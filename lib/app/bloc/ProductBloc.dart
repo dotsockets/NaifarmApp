@@ -3,8 +3,9 @@ import 'dart:async';
 
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
+import 'package:naifarm/app/model/pojo/response/BannersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
-import 'package:naifarm/app/model/pojo/response/FeaturedRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CategoryObjectCombin.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
@@ -21,11 +22,11 @@ class ProductBloc{
 
   CompositeSubscription _compositeSubscription = CompositeSubscription();
 
-
+  final onLoad = BehaviorSubject<bool>();
 
   final ProductPopular = BehaviorSubject<ProductRespone>();
   final CategoryGroup = BehaviorSubject<CategoryGroupRespone>();
-  final FeaturedGroup = BehaviorSubject<FeaturedRespone>();
+  final FeaturedGroup = BehaviorSubject<CategoryGroupRespone>();
   final TrendingGroup = BehaviorSubject<ProductRespone>();
   final SearchProduct = BehaviorSubject<SearchRespone>();
   final ProductMartket = BehaviorSubject<ProductRespone>();
@@ -41,6 +42,8 @@ class ProductBloc{
   final ZipMarketProfile = BehaviorSubject<MarketObjectCombine>();
 
   final ZipHomeObject = BehaviorSubject<HomeObjectCombine>();
+
+  final ZipCategoryObject = BehaviorSubject<CategoryObjectCombin>();
 
   ProductBloc(this._application);
 
@@ -68,7 +71,7 @@ class ProductBloc{
             final _martkertall =(h as ApiResult).respone;
             return HomeObjectCombine(sliderRespone: (_slider as SliderRespone),
                 productRespone: (_product as ProductRespone),
-                categoryGroupRespone: (_category as CategoryGroupRespone),featuredRespone: (_featured as FeaturedRespone),
+                categoryGroupRespone: (_category as CategoryGroupRespone),featuredRespone: (_featured as CategoryGroupRespone),
             trendingRespone: (_trending as ProductRespone),martket: (_martket as ProductRespone),flashsaleRespone: (_flashsale as FlashsaleRespone),myShopRespone: (_martkertall as MyShopRespone));
 
         }).listen((event) {
@@ -157,14 +160,16 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  loadProductsById({int id}){
+  loadProductsById({int id,int shopid}){
 
-    StreamSubscription subscription = Observable.combineLatest2(
+    StreamSubscription subscription = Observable.combineLatest3(
         Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)),
-        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)),(a, b){
+        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)),
+        Observable.fromFuture(_application.appStoreAPIRepository.ShopById(id: shopid)),(a, b,c){
       final _product = (a as ApiResult).respone;
       final _recommend  =(b as ApiResult).respone;
-      return ProductDetailObjectCombine(productItem: _product,recommend: _recommend);
+      final _shop  =(c as ApiResult).respone;
+      return ProductDetailObjectCombine(productItem: _product,recommend: _recommend,shopRespone: _shop);
 
     }).listen((event) {
       ZipProductDetail.add(event);
@@ -174,12 +179,38 @@ class ProductBloc{
 
   }
 
+  loadCategoryPage({int GroupId}){
+    StreamSubscription subscription = Observable.combineLatest5(
+        Observable.fromFuture(_application.appStoreAPIRepository.CategorySubgroup(GroupId: GroupId)),
+        Observable.fromFuture(_application.appStoreAPIRepository.categoryGroupId(GroupId: GroupId,limit: 5,page: "1")),
+        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetBanners(group: "home_middle")),
+        Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular("1",6)),(a, b,c,d,e){
+      final _supgroup = (a as ApiResult).respone;
+      final _groupproduct  =(b as ApiResult).respone;
+      final recommend  =(c as ApiResult).respone;
+      final _banner  =(d as ApiResult).respone;
+      final _hotproduct  =(e as ApiResult).respone;
+
+      return CategoryObjectCombin(supGroup: (_supgroup as CategoryGroupRespone),goupProduct: (_groupproduct as ProductRespone),recommend: (recommend as ProductRespone),banner: (_banner as BannersRespone),hotProduct: (_hotproduct as ProductRespone));
+
+    }).listen((event) {
+      ZipCategoryObject.add(event);
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+
+
   static ProducItemRespone ConvertDataToProduct({ProductData data}){
 
     return ProducItemRespone(name: data.name,salePrice: data.salePrice,hasVariant: data.hasVariant,brand: data.brand,minPrice: data.minPrice,maxPrice: data.maxPrice,
         slug: data.slug,offerPrice: data.offerPrice,id: data.id,saleCount: data.saleCount,discountPercent: data.discountPercent,rating: data.rating,reviewCount: data.reviewCount,
         shop: ShopItem(id: data.shop.id,name: data.shop.name,slug: data.shop.slug,updatedAt: data.shop.updatedAt),image: data.image);
   }
+
+
+
 
 
 

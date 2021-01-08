@@ -63,9 +63,13 @@ class ListMenuItem extends StatelessWidget {
                           imageUrl:IsPhoto,
                           errorWidget: (context, url, error) => Container(
                               height: iconSize,
-                              child: Icon(
-                                Icons.error,
-                                size: iconSize,
+                              child: CircleAvatar(
+                                backgroundColor: Color(0xffE6E6E6),
+                                radius: 30,
+                                child: Icon(
+                                  Icons.shopping_bag_rounded,
+                                  color: Color(0xffCCCCCC),
+                                ),
                               )),
                         ),
                       ),

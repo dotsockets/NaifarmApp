@@ -1,6 +1,5 @@
 
 import 'CategoryGroupRespone.dart';
-import 'FeaturedRespone.dart';
 import 'FlashsaleRespone.dart';
 import 'MyShopRespone.dart';
 import 'ProductRespone.dart';
@@ -10,7 +9,7 @@ class HomeObjectCombine{
   final SliderRespone sliderRespone;
   final ProductRespone productRespone;
   final CategoryGroupRespone categoryGroupRespone;
-  final FeaturedRespone featuredRespone;
+  final CategoryGroupRespone featuredRespone;
   final ProductRespone  trendingRespone;
   final ProductRespone martket;
   final FlashsaleRespone flashsaleRespone;

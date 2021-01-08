@@ -9,10 +9,11 @@ import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
+import 'package:naifarm/app/model/pojo/response/BannersRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
-import 'package:naifarm/app/model/pojo/response/FeaturedRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ImageUploadRespone.dart';
@@ -20,9 +21,12 @@ import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
+import 'package:naifarm/app/model/pojo/response/PaymenMyshopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
@@ -148,6 +152,36 @@ abstract class APIProvider{
 
   @GET("/v1/products")
   Future<ApiResult> ProductsById({int id});
+
+  @GET("/v1/shop")
+  Future<ApiResult> ShopById({int id});
+
+  @GET("/v1/products?limit=20&page=1&categoryGroupId=1")
+  Future<ApiResult> categoryGroupId({String page,int limit,int GroupId});
+
+  @GET("/v1/category-group")
+  Future<ApiResult> CategorySubgroup({int GroupId});
+
+  @GET("/v1/banners")
+  Future<ApiResult> GetBanners({String group});
+
+  @GET("/v1/payments")
+  Future<ApiResult> GetPaymentList();
+
+  @GET("/v1/payment")
+  Future<ApiResult> GetPaymentMyShop({String token});
+
+  @POST("/v1/myshop/payment")
+  Future<ApiResult> AddPaymentMyShop({int paymentMethodId,String token});
+
+  @DELETE("/v1/payment")
+  Future<ApiResult> DELETEPaymentMyShop({int paymentMethodId,String token});
+
+  @GET("/v1/carriers")
+  Future<ApiResult> GetCarriersList();
+
+  @GET("/v1/myshop/shipping")
+  Future<ApiResult> GetShippingMyShop({String token});
 
 }
 

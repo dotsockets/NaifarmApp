@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -10,9 +11,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
 class ProductDetail extends StatefulWidget {
-  final ProductModel productDetail;
+  final ProducItemRespone productItem;
 
-  const ProductDetail({Key key, this.productDetail}) : super(key: key);
+  const ProductDetail({Key key, this.productItem}) : super(key: key);
+
 
   @override
   _ProductDetailState createState() => _ProductDetailState();
@@ -68,6 +70,13 @@ class _ProductDetailState extends State<ProductDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      "จำนวนสินค้า",
+                      style: FunctionHelper.FontTheme(
+
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
+                    ),
+                    SizedBox(height: 2),
+                    Text(
                       LocaleKeys.my_product_amount.tr(),
                       style: FunctionHelper.FontTheme(
 
@@ -91,6 +100,12 @@ class _ProductDetailState extends State<ProductDetail> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      "${widget.productItem!=null?widget.productItem.inventories[0].stockQuantity:0} ชิ้น",
+                      style: FunctionHelper.FontTheme( fontWeight: FontWeight.w500,
+                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
+                    ),
+                    SizedBox(height: 2),
                     Text(
                       "409 กิโลกรัม",
                       style: FunctionHelper.FontTheme( fontWeight: FontWeight.w500,
@@ -123,13 +138,13 @@ class _ProductDetailState extends State<ProductDetail> {
               Container(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 8),
                 child: Text(
-                  widget.productDetail.ProductInto,
+                  widget.productItem!=null?widget.productItem.description.replaceAll("\n", ""):'',
                   style: FunctionHelper.FontTheme(height: 1.6,fontSize: SizeUtil.titleSmallFontSize().sp),
                   maxLines: lineInto,
                   key: _keyRed,
                 ),
               ),
-              IntoLine > 6
+              IntoLine >= 6
                   ? Positioned(
                       bottom: 0,
                       child: Container(
@@ -146,7 +161,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                     )
                   : SizedBox(),
-              IntoLine > 6
+              IntoLine >= 6
                   ? Positioned(
                       bottom: 0,
                       child: GestureDetector(

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
@@ -13,6 +14,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ImageUploadRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/ui/me/myshop/shopprofile/EditProviceView.dart';
 import 'package:naifarm/config/Env.dart';
@@ -26,6 +28,7 @@ import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'EditProviceView.dart';
 
 class ShopProfileView extends StatefulWidget {
+
   @override
   _ShopprofileState createState() => _ShopprofileState();
 }
@@ -37,6 +40,8 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
   MyShopRespone itemInfo = MyShopRespone();
   bool onUpdate = false;
   bool isSelect = false;
+  File fileImage;
+  bool onImageUpdate = false;
 
   @override
   void initState() {
@@ -60,10 +65,18 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-       setState(() {
-         itemInfo = event;
-         isSelect = itemInfo.active==1?true:false;
-       });
+        if(event is ImageUploadRespone){
+          setState(() {
+            onImageUpdate = true;
+            itemInfo.image[0].path = (event as ImageUploadRespone).path;
+          });
+        }else{
+          setState(() {
+            itemInfo = event;
+            isSelect = itemInfo.active==1?true:false;
+          });
+        }
+
        if(onUpdate){
          Navigator.of(context).pop();
        }
@@ -109,13 +122,15 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                              slug: itemInfo.slug,
                              legalName: itemInfo.legalName,
                              externalUrl: itemInfo.externalUrl,
-                             stateId: itemInfo.state.id,
+                             stateId: itemInfo.state!=null?itemInfo.state.id:0,
                              active: isSelect?1:0
                            ),access_token: value.token));
                           // Navigator.of(context).pop();
                         }else{
-                          Navigator.pop(context);
+                          Navigator.pop(context,onImageUpdate);
                         }
+
+
 
                       },
                     ),
@@ -132,37 +147,56 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                           SizedBox(height: 20,),
                           ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(60)),
-                            child: CachedNetworkImage(
+                            child: fileImage==null?CachedNetworkImage(
                               width: 80,
                               height: 80,
                               placeholder: (context, url) => Container(
+                                width: 80,height: 80,
                                 color: Colors.white,
                                 child: Lottie.asset(Env.value.loadingAnimaion,
                                     height: 30),
                               ),
                               fit: BoxFit.cover,
-                              imageUrl:
-                              "https://www.chaiyoreadyweb.com/images/online-shop.png",
+                              imageUrl:itemInfo!=null?itemInfo.image!=null?"${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}":'':'',
                               errorWidget: (context, url, error) => Container(
-                                  height: 30,
+                                  color: Colors.white,
+                                  width: 80,
+                                  height: 80,
                                   child: Icon(
                                     Icons.error,
                                     size: 30,
                                   )),
+                            ):Stack(
+                              children: [
+                                Container(
+                                  width: 80,
+                                  height: 80,
+                                  color: Colors.white,
+                                  child: Lottie.asset(Env.value.loadingAnimaion,
+                                      height: 30),
+                                ),
+                                Image.file(fileImage,width: 80, height: 80,fit: BoxFit.cover,),
+
+                              ],
                             ),
                           ),
                           SizedBox(height: 15),
-                          Container(
-                            padding: EdgeInsets.only(right: 15,left: 15,bottom: 5,top: 5),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(15)),
-                                color: ThemeColor.ColorSale()
+                          InkWell(
+                            child: Container(
+                              padding: EdgeInsets.only(right: 15,left: 15,bottom: 5,top: 5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  color: ThemeColor.ColorSale()
+                              ),
+                              child: Text(LocaleKeys.edit_img_btn.tr(),
+                                  style: FunctionHelper.FontTheme(
+                                      color: Colors.white,
+                                      fontSize:  SizeUtil.detailSmallFontSize(),
+                                      fontWeight: FontWeight.bold)),
                             ),
-                            child: Text(LocaleKeys.edit_img_btn.tr(),
-                                style: FunctionHelper.FontTheme(
-                                    color: Colors.white,
-                                    fontSize:  SizeUtil.detailSmallFontSize(),
-                                    fontWeight: FontWeight.bold)),
+                            onTap: (){
+                              captureImage(ImageSource.gallery);
+                            },
                           ),
                         ],
                       ),
@@ -253,6 +287,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                             title: "จังหวัด",
                             onClick: () async {
                               final result = await AppRoute.EditProvice(context,itemInfo: itemInfo);
+
                               if(result!=null){
                                 onUpdate = true;
                                 setState(()=>itemInfo = result);
@@ -290,6 +325,22 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
       color: Colors.grey.shade300,
     );
   }
+
+  Future captureImage(ImageSource imageSource) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: imageSource);
+
+
+    setState(() {
+      if (pickedFile != null) {
+        fileImage = File(pickedFile.path);
+        Usermanager().getUser().then((value) => bloc.UploadImage(imageFile: fileImage,imageableType: "shop",imageableId: itemInfo.id,token: value.token));
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
 
 
 }

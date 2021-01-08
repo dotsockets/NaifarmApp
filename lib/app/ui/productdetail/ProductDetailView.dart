@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductDetailObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -43,19 +44,22 @@ class _ProductDetailViewState extends State<ProductDetailView> {
    int IndexTypes1=1;
    int IndexTypes2=1;
   ProductBloc bloc;
+  MyShopRespone shop;
 
 
 
   void _init(){
-    if(null == bloc) {
 
+    if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.ZipProductDetail.stream.listen((event) {
-        setState(() {
-          widget.productItem = event.productItem;
-        });
-      });
-      bloc.loadProductsById(id: widget.productItem.id);
+      bloc.ZipProductDetail.add(ProductDetailObjectCombine(shopRespone:  MyShopRespone(id: widget.productItem.shop.id  ,name: widget.productItem.shop.name,state: widget.productItem.shop.state,
+          image: widget.productItem.shop.image,updatedAt: "")));
+
+      // bloc.ZipProductDetail.stream.listen((event) {
+      //   bloc.ZipProductDetail.add(event);
+      //
+      // });
+      bloc.loadProductsById(id: widget.productItem.id,shopid: widget.productItem.shop.id);
 
     }
 
@@ -80,19 +84,33 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       _Divider(),
                       BuildChoosesize(IndexType1: IndexTypes1,IndexType2: IndexTypes2,onclick1: (int index)=>setState(() =>IndexTypes1 = index),onclick2: (int index)=>setState(() =>IndexTypes2 = index)),
                       _Divider(),
-                      InkWell(
-                        child: ShopOwn(productDetail: _productDetail,shopItem: widget.productItem.shop),
-                        onTap: (){
-                          AppRoute.ShopMain(context);
-                        },
+                      StreamBuilder(
+                      stream: bloc.ZipProductDetail.stream,
+                        builder: (BuildContext context, AsyncSnapshot snapshot) {
+                              if(snapshot.hasData) {
+                                return Column(
+                                  children: [
+                                    InkWell(
+                                      child: ShopOwn(shopItem: (snapshot.data as ProductDetailObjectCombine).shopRespone),
+                                      onTap: (){
+                                        AppRoute.ShopMain(context,myShopRespone: (snapshot.data as ProductDetailObjectCombine).shopRespone,trendingRespone: (snapshot.data as ProductDetailObjectCombine).recommend,productRespone: (snapshot.data as ProductDetailObjectCombine).recommend);
+                                      },
+                                    ),
+                                    _Divider(),
+                                    ProductDetail(productItem: (snapshot.data as ProductDetailObjectCombine).productItem),
+                                  ],
+                                );
+                              }else{
+                                return SizedBox();
+                              }
+                        }
                       ),
-                      _Divider(),
-                      ProductDetail(productDetail: _productDetail),
+
                       _Divider(),
                       StreamBuilder(
                         stream: bloc.ZipProductDetail.stream,
                         builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          if(snapshot.hasData) {
+                          if(snapshot.hasData && (snapshot.data as ProductDetailObjectCombine).recommend!=null) {
                             return  ProductLandscape(
                               productRespone: (snapshot.data as ProductDetailObjectCombine).recommend,
                               titleInto: LocaleKeys.recommend_you_like.tr(),

@@ -204,7 +204,8 @@ class _ProductGridState extends State<ProductGrid> {
   Widget _intoProduct({ProductData item, int index}) {
     return Column(
       children: [
-        Text(item.name,
+        Text(item.name,maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: FunctionHelper.FontTheme(
                 color: Colors.black,
                 fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -238,7 +239,7 @@ class _ProductGridState extends State<ProductGrid> {
                   borderColor: Colors.black,
                   spacing: 0.0),
             ),
-            Text(LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
+            Text(LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.detailSmallFontSize().sp,
                     color: Colors.black,
@@ -260,7 +261,6 @@ class _ProductGridState extends State<ProductGrid> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.all(30),
                   decoration: BoxDecoration(
                       border: Border.all(
                           color: Colors.black.withOpacity(0.2), width: 1),
@@ -269,10 +269,10 @@ class _ProductGridState extends State<ProductGrid> {
                     tag: "${widget.tagHero}_${item.id}",
                     child: CachedNetworkImage(
                       width: 120,
-                      height: 120,
+                      height: 150,
                       placeholder: (context, url) => Container(
                         width: 120,
-                        height: 120,
+                        height: 150,
                         color: Colors.white,
                         child:
                         Lottie.asset(Env.value.loadingAnimaion, height: 30),
@@ -281,7 +281,7 @@ class _ProductGridState extends State<ProductGrid> {
                       imageUrl: ProductLandscape.CovertUrlImage(item.image),
                       errorWidget: (context, url, error) => Container(
                         width: 120,
-                          height: 120,
+                          height: 150,
                           child: Icon(
                             Icons.error,
                             size: 30,
@@ -330,7 +330,7 @@ class _ProductGridState extends State<ProductGrid> {
           ],
         ),
       ),
-      onTap: () => widget.onTapItem(item,index),
+      onTap: () => widget.onTapItem(item,item.id),
     );
   }
 

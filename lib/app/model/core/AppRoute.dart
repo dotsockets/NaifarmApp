@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/ui/Shopmynear/ShopMyNearView.dart';
 import 'package:naifarm/app/ui/category/detail/CategoryDetailView.dart';
@@ -15,6 +17,7 @@ import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/app/ui/login/SplashLoginView.dart';
 import 'package:naifarm/app/ui/market/MarketView.dart';
+import 'package:naifarm/app/ui/me/delivery/DeliveryEditView.dart';
 import 'package:naifarm/app/ui/me/deliveryCost/DeliveryCostView.dart';
 import 'package:naifarm/app/ui/me/editmyproduct/EditProductView.dart';
 import 'package:naifarm/app/ui/me/imageproduct/ImageProductView.dart';
@@ -205,7 +208,7 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: PolicyView()));
   }
   static Future<bool> SettingProfile(BuildContext context,bool IsLogin,{CustomerInfoRespone item}) async {
-    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SettingProfileView(IsLogin:IsLogin,item: item,)));
+    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: SettingProfileView(IsLogin:IsLogin,item: item)));
   }
   static SettingAbout(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AboutView()));
@@ -307,11 +310,11 @@ class AppRoute{
         type: PageTransitionType.fade,
         child: EditpasswordStep2View(passwordOld: passwordOld,)));
   }
-  static CategoryDetail(BuildContext context,int index){
+  static CategoryDetail(BuildContext context,int index,{String title}){
     Navigator.push(context, PageTransition(
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
-        child: CategoryDetailView(index: index)));
+        child: CategoryDetailView(index: index,title: title,)));
   }
 
   static ShopMyNear(BuildContext context){
@@ -341,8 +344,8 @@ class AppRoute{
     return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:AddressEditView(item: item,)));
   }
 
-  static  ShopProfile(BuildContext context) async {
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ShopProfileView()));
+  static Future<bool>  ShopProfile(BuildContext context) async {
+    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ShopProfileView()));
   }
 
   static Future<MyShopRespone>  EditNameShop(BuildContext context,{MyShopRespone itemInfo}) async {
@@ -368,7 +371,13 @@ class AppRoute{
   static Future<MyShopRespone>  EditProvice(BuildContext context,{MyShopRespone itemInfo}) async {
     return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:EditProviceView(itemInfo: itemInfo,)));
   }
+
+  static Future<bool> DeliveryEdit(BuildContext context,{ShppingMyShopRespone shppingMyShopRespone,CarriersData carriersDat}) async {
+    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:DeliveryEditView(shppingMyShopRespone: shppingMyShopRespone,carriersData: carriersDat,)));
+  }
 }
+
+
 
 
 

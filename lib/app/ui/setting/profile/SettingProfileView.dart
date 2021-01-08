@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -17,9 +18,10 @@ import 'package:sizer/sizer.dart';
 class SettingProfileView extends StatefulWidget {
 
   final CustomerInfoRespone item;
+  final MyShopRespone myShopRespone;
 
   final bool IsLogin;
-  const SettingProfileView({Key key, this.IsLogin, this.item}) : super(key: key);
+  const SettingProfileView({Key key, this.IsLogin, this.item, this.myShopRespone}) : super(key: key);
 
   @override
   _SettingProfileViewState createState() => _SettingProfileViewState();

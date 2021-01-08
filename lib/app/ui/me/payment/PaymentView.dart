@@ -2,8 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_switch/flutter_switch.dart';
+import 'package:naifarm/app/bloc/PaymentBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/PaymentObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -16,39 +22,67 @@ class PaymentView extends StatefulWidget {
 
 class _PaymentViewState extends State<PaymentView> {
   int checkDeli = 1;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  PaymentBloc bloc;
   @override
   void initState() {
     super.initState();
   }
 
+  init(){
+    if(bloc==null){
+      bloc = PaymentBloc(AppProvider.getApplication(context));
+      bloc.onError.stream.listen((event) {
+        Usermanager().getUser().then((value) => bloc.loadPaymentPage(token: value.token));
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      Usermanager().getUser().then((value) => bloc.loadPaymentPage(token: value.token));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    init();
     return SafeArea(
       top: false,
       child: Scaffold(
+        key: _scaffoldKey,
         body:  Container(
           color: Colors.grey.shade300,
-          child: Column(
+          child: SingleChildScrollView(
+            child: Column(
               children: [
                 Container(
                     child: AppToobar(title: LocaleKeys.me_title_payment.tr(),icon: "",header_type:  Header_Type.barNormal,)),
-                Column(
-                  children: [
-                    _BuildDelivery(nameDeli: LocaleKeys.payment_method_bank.tr(),index: 1),
-                    Container(height: 1,color: Colors.grey.shade300,),
-                    _BuildDelivery(nameDeli: LocaleKeys.payment_method_cash_delivery.tr(),index: 2),
-                    Container(height: 1,color: Colors.grey.shade300,),
-                    _BuildDelivery(nameDeli: LocaleKeys.card_title.tr(),index: 3)
-                  ],
+                StreamBuilder(
+                  stream: bloc.ZipPaymentObject.stream,
+                  builder: (BuildContext context,AsyncSnapshot snapshot){
+                    if(snapshot.hasData ){
+                      return Column(
+                        children: List.generate((snapshot.data as PaymentObjectCombine).paymentRespone.total, (index){
+                          return Column(
+                            children: [
+                              _BuildDelivery(nameDeli: (snapshot.data as PaymentObjectCombine).paymentRespone.data[index].name,item: (snapshot.data as PaymentObjectCombine).paymentRespone.data[index]),
+                              Container(height: 1,color: Colors.grey.shade300,),
+                            ],
+                          );
+                        }),
+                      );
+                    }else{
+                      return SizedBox();
+                    }
+                  },
                 ),
+
               ],
             ),
+          ),
 
         ),
       ),
     );
   }
-Widget _BuildDelivery({String nameDeli,int index}){
+Widget _BuildDelivery({String nameDeli,PaymentData item}){
     return Container(
       padding: EdgeInsets.all(2.0.h),
       color: Colors.white,
@@ -57,26 +91,29 @@ Widget _BuildDelivery({String nameDeli,int index}){
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [Text(nameDeli,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),),
-            InkWell(
-              onTap: (){
-                setState(() {
-                  checkDeli = index;
-                });
+            FlutterSwitch(
+              height: 30,
+              width: 50,
+              toggleSize: 20,
+              activeColor: Colors.grey.shade200,
+              inactiveColor: Colors.grey.shade200,
+               toggleColor: item.active ? ThemeColor.primaryColor() : Colors.grey.shade400,
+             value:item.active,
+              onToggle: (val) {
+                //IsSwitch(val);
+                for(var index in bloc.ZipPaymentObject.value.paymentRespone.data){
+                  if(item.id == index.id){
+                    index.active = !index.active;
+                      if(index.active)
+                        Usermanager().getUser().then((value) => bloc.AddPayment(paymentMethodId: index.id,token: value.token));
+                      else
+                        Usermanager().getUser().then((value) => bloc.DeletePayment(paymentMethodId: index.id,token: value.token));
+                    break;
+                  }
+                }
+
+                bloc.ZipPaymentObject.add(bloc.ZipPaymentObject.value);
               },
-              child:
-              checkDeli==index?
-              SvgPicture.asset(
-                'assets/images/svg/checkmark.svg',
-                color: ThemeColor.primaryColor(),
-                width: 8.0.w,
-                height: 8.0.w,
-              ):
-              SvgPicture.asset(
-                'assets/images/svg/uncheckmark.svg',
-                width: 8.0.w,
-                height: 8.0.w,
-                color: Colors.black.withOpacity(0.5),
-              ),
             ),
           ],
         ),

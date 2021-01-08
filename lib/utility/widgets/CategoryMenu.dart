@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/pojo/response/FeaturedRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
@@ -12,7 +12,7 @@ class CategoryMenu extends StatelessWidget {
   final List<MenuModel> menuViewModel;
   final int selectedIndex;
   final Function(int) onTap;
-  final FeaturedRespone featuredRespone;
+  final CategoryGroupRespone featuredRespone;
 
   const CategoryMenu({Key key, this.menuViewModel, this.selectedIndex, this.onTap, this.featuredRespone}) : super(key: key);
   @override

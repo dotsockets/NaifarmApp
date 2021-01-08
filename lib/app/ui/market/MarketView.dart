@@ -126,7 +126,6 @@ class _MarketViewState extends State<MarketView> {
                           return ProductVertical(
                               productRespone: snapshot.data,
                               titleInto: LocaleKeys.recommend_best_seller.tr(),
-                              producViewModel: ProductViewModel().getBestSaller(),
                               IconInto: 'assets/images/svg/product_hot.svg',
                               onSelectMore: () {
                                 AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_best_seller.tr(),installData: snapshot.data);

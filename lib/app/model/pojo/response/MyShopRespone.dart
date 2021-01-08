@@ -1,7 +1,5 @@
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 
-import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
-
-import 'ProductRespone.dart';
 import 'StatesRespone.dart';
 
 class MyShopRespone {
@@ -19,17 +17,18 @@ class MyShopRespone {
   String cardHolderName;
   String cardBrand;
   String cardLastFour;
-  int paymentVerified;
+  String paymentVerified;
   int idVerified;
-  int phoneVerified;
-  int addressVerified;
+  String phoneVerified;
+  String addressVerified;
   String createdAt;
   String updatedAt;
-  Feedbacks feedbacks;
   List<Config> config;
   ShopPaymentMethod shopPaymentMethod;
   List<ProductImage> image;
   DataStates state;
+  int countProduct;
+  int rating;
   int active;
 
   MyShopRespone(
@@ -53,11 +52,13 @@ class MyShopRespone {
         this.addressVerified,
         this.createdAt,
         this.updatedAt,
-        this.feedbacks,
         this.config,
         this.shopPaymentMethod,
         this.image,
-        this.state,this.active});
+        this.state,
+        this.countProduct,
+        this.rating,
+        this.active});
 
   MyShopRespone.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -80,9 +81,6 @@ class MyShopRespone {
     addressVerified = json['addressVerified'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    feedbacks = json['feedbacks'] != null
-        ? new Feedbacks.fromJson(json['feedbacks'])
-        : null;
     if (json['config'] != null) {
       config = new List<Config>();
       json['config'].forEach((v) {
@@ -99,6 +97,8 @@ class MyShopRespone {
       });
     }
     state = json['state'] != null ? new DataStates.fromJson(json['state']) : null;
+    countProduct = json['countProduct'];
+    rating = json['rating'];
     active = json['active'];
   }
 
@@ -124,13 +124,9 @@ class MyShopRespone {
     data['addressVerified'] = this.addressVerified;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
-    if (this.feedbacks != null) {
-      data['feedbacks'] = this.feedbacks.toJson();
-    }
     if (this.config != null) {
-      data['image'] = this.config.map((v) => v.toJson()).toList();
+      data['config'] = this.config.map((v) => v.toJson()).toList();
     }
-
     if (this.shopPaymentMethod != null) {
       data['shopPaymentMethod'] = this.shopPaymentMethod.toJson();
     }
@@ -140,60 +136,25 @@ class MyShopRespone {
     if (this.state != null) {
       data['state'] = this.state.toJson();
     }
-    data['active'] = this.active;
-    return data;
-  }
-}
-
-class Feedbacks {
-  int id;
-  int customerId;
-  int rating;
-  String comment;
-  String feedbackableId;
-  String feedbackableType;
-
-  Feedbacks(
-      {this.id,
-        this.customerId,
-        this.rating,
-        this.comment,
-        this.feedbackableId,
-        this.feedbackableType});
-
-  Feedbacks.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    customerId = json['customerId'];
-    rating = json['rating'];
-    comment = json['comment'];
-    feedbackableId = json['feedbackableId'];
-    feedbackableType = json['feedbackableType'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['customerId'] = this.customerId;
+    data['countProduct'] = this.countProduct;
     data['rating'] = this.rating;
-    data['comment'] = this.comment;
-    data['feedbackableId'] = this.feedbackableId;
-    data['feedbackableType'] = this.feedbackableType;
+    data['active'] = this.active;
     return data;
   }
 }
 
 class Config {
   int shopId;
-  String supportPhone;
-  String supportPhoneTollFree;
+  int supportPhone;
+  int supportPhoneTollFree;
   String supportEmail;
   String defaultSenderEmailAddress;
   String defaultEmailSenderName;
-  String returnRefund;
+  int returnRefund;
   String orderNumberPrefix;
-  String orderNumberSuffix;
+  int orderNumberSuffix;
   int defaultTaxId;
-  String orderHandlingCost;
+  int orderHandlingCost;
   int autoArchiveOrder;
   int defaultPaymentMethodId;
   int pagination;
@@ -201,7 +162,6 @@ class Config {
   int digitalGoodsOnly;
   int defaultWarehouseId;
   int defaultSupplierId;
-  int defaultPackagingId;
   int notifyNewMessage;
   int notifyAlertQuantity;
   int notifyInventoryOut;
@@ -230,7 +190,6 @@ class Config {
         this.digitalGoodsOnly,
         this.defaultWarehouseId,
         this.defaultSupplierId,
-        this.defaultPackagingId,
         this.notifyNewMessage,
         this.notifyAlertQuantity,
         this.notifyInventoryOut,
@@ -259,7 +218,6 @@ class Config {
     digitalGoodsOnly = json['digitalGoodsOnly'];
     defaultWarehouseId = json['defaultWarehouseId'];
     defaultSupplierId = json['defaultSupplierId'];
-    defaultPackagingId = json['defaultPackagingId'];
     notifyNewMessage = json['notifyNewMessage'];
     notifyAlertQuantity = json['notifyAlertQuantity'];
     notifyInventoryOut = json['notifyInventoryOut'];
@@ -290,7 +248,6 @@ class Config {
     data['digitalGoodsOnly'] = this.digitalGoodsOnly;
     data['defaultWarehouseId'] = this.defaultWarehouseId;
     data['defaultSupplierId'] = this.defaultSupplierId;
-    data['defaultPackagingId'] = this.defaultPackagingId;
     data['notifyNewMessage'] = this.notifyNewMessage;
     data['notifyAlertQuantity'] = this.notifyAlertQuantity;
     data['notifyInventoryOut'] = this.notifyInventoryOut;
@@ -321,8 +278,6 @@ class ShopPaymentMethod {
     return data;
   }
 }
-
-
 
 
 

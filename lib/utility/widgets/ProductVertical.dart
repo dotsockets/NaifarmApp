@@ -22,13 +22,12 @@ class ProductVertical extends StatelessWidget {
   final Function() onSelectMore;
   final Function(ProductData,int) onTapItem;
   final String IconInto;
-  final List<ProductModel> producViewModel;
   final  bool borderRadius;
   final String tagHero;
   final double IconSize;
   final ProductRespone productRespone;
 
-  const ProductVertical({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.producViewModel, this.borderRadius, this.tagHero, this.IconSize=35,this.productRespone}) : super(key: key);
+  const ProductVertical({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.borderRadius, this.tagHero, this.IconSize=35,this.productRespone}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -58,7 +57,7 @@ class ProductVertical extends StatelessWidget {
             Row(
               children: [
                // Image.asset(IconI=nto,width: 50,height: 50,),
-                SvgPicture.asset(IconInto,width: 10.0.w,height: 10.0.w,),
+                SvgPicture.asset(IconInto,width: IconSize,height: IconSize,),
                 SizedBox(width: 2.0.w),
                 Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
               ],
@@ -119,7 +118,8 @@ class ProductVertical extends StatelessWidget {
                 )
               ],
             ),
-            producViewModel.length!=index?Divider(color: Colors.black.withOpacity(0.5)):SizedBox(height: 30,)
+            productRespone.data.length!=index?Divider(color: Colors.black.withOpacity(0.5)):SizedBox(height: 30,),
+            SizedBox(height: 10,),
           ],
         ),
       ),
@@ -135,7 +135,8 @@ class ProductVertical extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(item.name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:   SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
+          Text(item.name,maxLines: 1,
+          overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:   SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
           SizedBox(height: 10,),
           Text("฿${item.salePrice}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize:  SizeUtil.priceFontSize().sp),),
           SizedBox(height: 8,),

@@ -36,18 +36,20 @@ class _AddressViewState extends State<AddressView> {
     if(null == bloc){
       bloc = AddressBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-       /* if(event){
+
+        if(event){
         //  FunctionHelper.SuccessDialog(context,message: "555");
           FunctionHelper.showDialogProcess(context);
         }else{
           Navigator.of(context).pop();
-        }*/
+        }
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
+
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
 
@@ -83,15 +85,15 @@ class _AddressViewState extends State<AddressView> {
             child: StreamBuilder(
                 stream: bloc.feedList,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if(snapshot.hasData){
+                  if(snapshot.hasData && (snapshot.data as AddressesListRespone).total>0){
                     var item = (snapshot.data as AddressesListRespone).data;
-                    item.length!=0?isNoData=false:isNoData=true;
+                    isNoData = false;
                     return Container(
                       color: isNoData?Colors.white:Colors.grey.shade300,
                       height: MediaQuery.of(context).size.height,
                       child: Column(
                         children: [
-                          !isNoData?Column(children: item.asMap().map((key, value) {
+                          Column(children: item.asMap().map((key, value) {
                             return MapEntry(key,InkWell(
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 10),
@@ -138,29 +140,28 @@ class _AddressViewState extends State<AddressView> {
                               },
                             ));
                           }).values.toList())
-                          :Visibility(
-                            visible: isNoData,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: (MediaQuery.of(context).size.height/100)*30,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top:20.0,),
-                                    child: Lottie.asset('assets/json/boxorder.json', repeat: true),
-                                  ),
-                                ),
-                               // Text(LocaleKeys.search_product_not_found.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp+2.0.w),),
-                                 _BuildButton()
-                              ],
-                            ),
-                          ),
-                          item.length!=0?_BuildButton():SizedBox()
                         ],
                       ),
                     );
 
                   }else{
-                    return Text("");
+                    isNoData = true;
+                    return Visibility(
+                      visible: isNoData,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: (MediaQuery.of(context).size.height/100)*30,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top:20.0,),
+                              child: Lottie.asset('assets/json/boxorder.json', repeat: true),
+                            ),
+                          ),
+                          // Text(LocaleKeys.search_product_not_found.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp+2.0.w),),
+                          _BuildButton()
+                        ],
+                      ),
+                    );
                   }
                 }
             ),
@@ -223,7 +224,10 @@ class _AddressViewState extends State<AddressView> {
             var result = await AppRoute.SettingAddAddress(context);
             if(result!=null)
               if(result)
-                setState(() {});
+
+                setState(() {
+                  isNoData = false;
+                });
           },
           child: Text(
             LocaleKeys.add_address_btn.tr(),

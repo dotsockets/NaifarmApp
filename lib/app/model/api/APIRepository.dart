@@ -171,6 +171,53 @@ class APIRepository{
     return _apiProvider.ProductsById(id: id);
   }
 
+  Future<ApiResult> ShopById({int id}){
+    return _apiProvider.ShopById(id: id);
+  }
+
+
+  Future<ApiResult> categoryGroupId({String page,int limit,int GroupId}){
+    return _apiProvider.categoryGroupId(page: page,limit: limit,GroupId: GroupId);
+  }
+
+  Future<ApiResult> CategorySubgroup({int GroupId}){
+    return _apiProvider.CategorySubgroup(GroupId: GroupId);
+  }
+
+  Future<ApiResult> GetBanners({String group}){
+    return _apiProvider.GetBanners(group: group);
+  }
+
+  Future<ApiResult> GetPaymentList(){
+    return _apiProvider.GetPaymentList();
+  }
+
+  Future<ApiResult> GetPaymentMyShop({String token}){
+    return _apiProvider.GetPaymentMyShop(token: token);
+  }
+
+
+  Future<ApiResult> AddPaymentMyShop({int paymentMethodId, String token}){
+    return _apiProvider.AddPaymentMyShop(paymentMethodId: paymentMethodId,token: token);
+  }
+
+  Future<ApiResult> DELETEPaymentMyShop({int paymentMethodId, String token}){
+    return _apiProvider.DELETEPaymentMyShop(paymentMethodId: paymentMethodId,token: token);
+  }
+
+  Future<ApiResult> GetCarriersList(){
+    return _apiProvider.GetCarriersList();
+  }
+
+  Future<ApiResult> GetShippingMyShop({String token}){
+    return _apiProvider.GetShippingMyShop(token: token);
+  }
+
+
+
+
+
+
 
 
 

@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -17,10 +18,9 @@ import '../SizeUtil.dart';
 import 'ProductLandscape.dart';
 
 class ShopOwn extends StatelessWidget {
-  final ProductModel productDetail;
-  final ShopItem shopItem;
+  final MyShopRespone shopItem;
 
-  const ShopOwn({Key key, this.productDetail, this.shopItem}) : super(key: key);
+  const ShopOwn({Key key,  this.shopItem}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -51,9 +51,13 @@ class ShopOwn extends StatelessWidget {
                       errorWidget: (context, url, error) => Container(
                           width: 60,
                           height: 60,
-                          child: Icon(
-                            Icons.error,
-                            size: 30,
+                          child: CircleAvatar(
+                            backgroundColor: Color(0xffE6E6E6),
+                            radius: 30,
+                            child: Icon(
+                              Icons.shopping_bag_rounded,
+                              color: Color(0xffCCCCCC),
+                            ),
                           )),
                     ),
                   ),
@@ -68,12 +72,12 @@ class ShopOwn extends StatelessWidget {
                          style: FunctionHelper.FontTheme(
                              fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
                      SizedBox(height: 5),
-                     Text(productDetail.acticeTime,
+                     Text("${FunctionHelper.TimeAgo(shopItem.updatedAt)} ",
                          style: FunctionHelper.FontTheme(
                              fontSize: SizeUtil.titleSmallFontSize().sp,
                              color: Colors.black.withOpacity(0.8))),
                      SizedBox(height: 2),
-                     Text(shopItem.name,
+                     Text("${shopItem.state!=null?shopItem.state.name:'จังหวัดไม่ถูกต้อง'}",
                          style: FunctionHelper.FontTheme(
                              fontSize: SizeUtil.titleSmallFontSize().sp,
                              color: Colors.black.withOpacity(0.8),height: 1.5)),
@@ -101,79 +105,80 @@ class ShopOwn extends StatelessWidget {
                 )
               ],
             ),
-          )
-          ,
+          ),
+          Container(color: Colors.white,height: 10,width: MediaQuery.of(context).size.width,),
           Container(
             color: Colors.white,
             padding: EdgeInsets.only(left: 10, right: 20, bottom: 10, top: 10),
             width: MediaQuery.of(context).size.width,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                    Text("${productDetail.ownProduct}",
-                        style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.priceFontSize().sp,
-                            color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
-                    SizedBox(height: 5),
-                    Text(LocaleKeys.shop_product_list.tr(),
-                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp))
-                  ],
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      Text("${shopItem.countProduct!=null?shopItem.countProduct:'0'}",
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.priceFontSize().sp,
+                              color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
+                      SizedBox(height: 5),
+                      Text(LocaleKeys.shop_product_list.tr(),
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp))
+                    ],
+                  ),
                 ),
-                SizedBox(width: 10),
-                Container(
-                  color: Colors.black.withOpacity(0.5),
-                  width: 1,
-                  height: 50,
-                ),
-                SizedBox(width: 10),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text("${productDetail.rateShow}",
-                            style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.priceFontSize().sp,
-                                color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
-                        SizedBox(width: 10),
-                        SmoothStarRating(
-                            allowHalfRating: false,
-                            onRated: (v) {},
-                            starCount: 5,
-                            rating: productDetail.rateShow,
-                            size: 25.0,
-                            isReadOnly: true,
-                            filledIconData: Icons.star,
-                            halfFilledIconData: Icons.star_half_outlined,
-                            color: Colors.amber,
-                            borderColor: Colors.amber,
-                            spacing: 0.0)
-                      ],
-                    ),
-                    SizedBox(height: 5),
-                    Text(LocaleKeys.shop_rate.tr(),
-                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
-                  ],
-                ),
-                Container(
-                  color: Colors.black.withOpacity(0.5),
-                  width: 1,
-                  height: 50,
-                ),
-                SizedBox(width: 5),
 
-                Column(
-                  children: [
-                    Text("3",
-                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
-                    SizedBox(height: 5,),
-                    Text(LocaleKeys.shop_follower.tr(),
-                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
-                  ],
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("${shopItem.rating!=null?shopItem.rating:'0'}",
+                              style: FunctionHelper.FontTheme(
+                                  fontSize: SizeUtil.priceFontSize().sp,
+                                  color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
+                          SizedBox(width: 10),
+                          SmoothStarRating(
+                              allowHalfRating: false,
+                              onRated: (v) {},
+                              starCount: 5,
+                              rating: shopItem.rating!=null?shopItem.rating.toDouble():0,
+                              size: 18.0,
+                              isReadOnly: true,
+                              filledIconData: Icons.star,
+                              halfFilledIconData: Icons.star_half_outlined,
+                              color: Colors.amber,
+                              borderColor: Colors.amber,
+                              spacing: 0.0)
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                      Text(LocaleKeys.shop_rate.tr(),
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
+                    ],
+                  ),
+                ),
+
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      Text("3",
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
+                      SizedBox(height: 5,),
+                      Text(LocaleKeys.shop_follower.tr(),
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
+                    ],
+                  ),
                 )
               ],
             ),
+          ),
+          Divider(
+            height: 2,
+            color: Colors.black,
           )
         ],
       ),

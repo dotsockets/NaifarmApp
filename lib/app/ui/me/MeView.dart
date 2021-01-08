@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -40,6 +41,7 @@ class _MeViewState extends State<MeView> with RouteAware  {
   MemberBloc bloc;
 
   CustomerInfoRespone  customerInfoRespone;
+  MyShopRespone myShopRespone;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int notification = 1;
 
@@ -71,13 +73,23 @@ class _MeViewState extends State<MeView> with RouteAware  {
        // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        setState(() {
-          customerInfoRespone = event;
-        });
+        if(event is MyShopRespone){
+          setState(() {
+            myShopRespone = event;
+          });
+        }else if(event is CustomerInfoRespone){
+          setState(() {
+            customerInfoRespone = event;
+          });
+        }
+
 
       });
 
-      Usermanager().getUser().then((value) => bloc.getCustomerInfo(token: value.token));
+      Usermanager().getUser().then((value) {
+        bloc.getCustomerInfo(token: value.token);
+        bloc.getMyShopInfo(token: value.token);
+      });
     }
 
   }
@@ -238,7 +250,11 @@ class _MeViewState extends State<MeView> with RouteAware  {
                                             Usermanager().getUser().then((value) => bloc.getCustomerInfo(token: value.token));
                                           }
                                         }, ),
-                                        MyshopView(IsLogin: IsLogin,scaffoldKey: _scaffoldKey,customerInfoRespone: customerInfoRespone,)
+                                        MyshopView(IsLogin: IsLogin,scaffoldKey: _scaffoldKey,customerInfoRespone: customerInfoRespone,myShopRespone:myShopRespone,onStatus: (bool status){
+                                          if(status){
+                                            Usermanager().getUser().then((value) => bloc.getCustomerInfo(token: value.token));
+                                          }
+                                        },)
                                       ],
                                     ),
                                   ),

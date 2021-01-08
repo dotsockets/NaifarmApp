@@ -101,8 +101,7 @@ class _ShopMainViewState extends State<ShopMainView>
                         SliverList(
                           delegate: SliverChildListDelegate(
                               <Widget>[
-                                ShopOwn(productDetail: ProductViewModel().getFlashSaleProduct()[0],shopItem: ShopItem(id: item.profileshop.id,slug: item.profileshop.slug,
-                                name: item.profileshop.name,image: item.profileshop.image,state: item.profileshop.state,updatedAt: item.profileshop.updatedAt))
+                                ShopOwn(shopItem: widget.myShopRespone)
                               ]
                           ),
                         ),
