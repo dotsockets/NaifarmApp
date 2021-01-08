@@ -29,9 +29,10 @@ class ProductLandscape extends StatelessWidget {
   final bool showIcon;
   final bool showPriceSale;
   final ProductRespone productRespone;
+  final bool showSeeMore;
 
 
-  ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true, this.productRespone}) : super(key: key);
+  ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true, this.productRespone,this.showSeeMore=true}) : super(key: key);
 
 
   @override
@@ -67,12 +68,15 @@ class ProductLandscape extends StatelessWidget {
               ],
             ),
             GestureDetector(
-              child: Row(
-                children: [
-                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
-                  SizedBox(width: 2.0.w),
-                  SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
-                ],
+              child: Visibility(
+                visible: showSeeMore,
+                child: Row(
+                  children: [
+                    Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
+                    SizedBox(width: 2.0.w),
+                    SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
+                  ],
+                ),
               ),
                 onTap: ()=>onSelectMore()
             )
