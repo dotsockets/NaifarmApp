@@ -88,9 +88,9 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                       if(snapshot.hasData) {
                         return CategoryMenu(
                           featuredRespone: (snapshot.data as CategoryObjectCombin).supGroup,
-                          //selectedIndex: _categoryselectedIndex,
-                          selectedIndex: 0,
+                          selectedIndex:_categoryselectedIndex,
                           onTap: (int val) {
+                             AppRoute.CategorySubDetail(context, (snapshot.data as CategoryObjectCombin).supGroup.data[val].id,title:(snapshot.data as CategoryObjectCombin).supGroup.data[val].name );
                             // setState(() {
                             //   _categoryselectedIndex = val;
                             //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);

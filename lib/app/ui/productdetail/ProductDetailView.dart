@@ -162,7 +162,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
             )),
             Container(
               color: Colors.grey.withOpacity(0.4),
-              height: 10.0.h,
+              height: 8.0.h,
               width: 1,
             ),
             Expanded(child: SvgPicture.asset(
@@ -175,8 +175,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 flex: 2,
                 child: Container(
                     alignment: Alignment.center,
-                    height: 10.0.h,
-                    padding: EdgeInsets.all(10),
+                    height: 8.0.h,
                     color: ThemeColor.ColorSale(),
                     child: Text(LocaleKeys.buy_product_btn.tr(),
                         style: FunctionHelper.FontTheme(

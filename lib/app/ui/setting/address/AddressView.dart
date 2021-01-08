@@ -42,9 +42,6 @@ class _AddressViewState extends State<AddressView> {
         //Navigator.of(context).pop();
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
-      bloc.proviceTest.stream.listen((event) {
-
-      });
       bloc.onSuccess.stream.listen((event) {
 
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);

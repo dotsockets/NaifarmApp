@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:skeleton_loader/skeleton_loader.dart';
 import 'package:sticky_headers/sticky_headers.dart';
-
+import 'package:sizer/sizer.dart';
 class Skeleton{
   static  LoaderSlider(BuildContext context)=> ClipRRect(
     borderRadius: BorderRadius.only(bottomRight: Radius.circular(30),bottomLeft: Radius.circular(30)),
@@ -69,6 +69,33 @@ class Skeleton{
       ),
     ),
   );
+  static LoaderLandscape(BuildContext context)=>Container(
+    color: Colors.white,
+
+    child: SkeletonGridLoader(
+      builder: Container(
+        margin: EdgeInsets.only(bottom: 10),
+        child: Row(
+          children: <Widget>[
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              child: Container(
+                width: 100,
+                height: 100,
+                color: Colors.grey.shade300,
+              ),
+            ),
+
+          ],
+        ),
+      ),
+      items: 3,
+      itemsPerRow: 3,
+      period: Duration(seconds: 2),
+      highlightColor: Colors.grey,
+
+    ),
+  );
 
   static LoaderListTite(BuildContext context)=>Container(
     color: Colors.white,
@@ -87,26 +114,26 @@ class Skeleton{
                     color: Colors.grey.shade300,
                   ),
                 ),
-                SizedBox(width: 10),
+                SizedBox(width: 1.0.h),
                 Expanded(
                   flex: 3,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                        width: 150,
+                        width: 20.0.w,
                         height: 10,
                         color: Colors.white,
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 1.0.h),
                       Container(
-                        width: 170,
+                        width: 25.0.w,
                         height: 12,
                         color: Colors.white,
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 1.0.h),
                       Container(
-                        width: 180,
+                        width: 30.0.w,
                         height: 12,
                         color: Colors.white,
                       ),

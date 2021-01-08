@@ -142,9 +142,10 @@ class _RecommendViewState extends State<RecommendView> {
                             if(snapshot.hasData) {
                               return CategoryMenu(
                                 featuredRespone: snapshot.data,
-                                //selectedIndex: _categoryselectedIndex,
-                                selectedIndex: 0,
+                                selectedIndex: _categoryselectedIndex,
                                 onTap: (int val) {
+
+                                  //AppRoute.CategorySubDetail(context, , );
                                   // setState(() {
                                   //   _categoryselectedIndex = val;
                                   //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);

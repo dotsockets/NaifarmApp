@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/ui/Shopmynear/ShopMyNearView.dart';
 import 'package:naifarm/app/ui/category/detail/CategoryDetailView.dart';
+import 'package:naifarm/app/ui/category/detail/CategorySubDetailView.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
@@ -320,7 +321,12 @@ class AppRoute{
         type: PageTransitionType.fade,
         child: CategoryDetailView(index: index,title: title,)));
   }
-
+  static CategorySubDetail(BuildContext context,int index,{String title}){
+    Navigator.push(context, PageTransition(
+        duration: Duration(milliseconds: 300),
+        type: PageTransitionType.fade,
+        child: CategorySubDetailView(index: index,title: title,)));
+  }
   static ShopMyNear(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ShopMyNearView()));
   }
