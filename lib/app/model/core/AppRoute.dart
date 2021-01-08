@@ -216,8 +216,12 @@ class AppRoute{
   static SettingAddress(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AddressView()));
   }
+
   static Future<bool> SettingAddAddress(BuildContext context) async {
-    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: AddressAddView()));
+    return  await Navigator.pushReplacement(context, PageTransition(
+        duration: Duration(milliseconds: 300),
+        type: PageTransitionType.fade,
+        child:AddressAddView()));
   }
 
   static RegisterOTP(BuildContext context,  {String phoneNumber,String refCode,HomeObjectCombine item}){
