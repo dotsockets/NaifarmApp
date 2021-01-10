@@ -111,7 +111,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                           productRespone: snapshot.data,
                           IconInto: 'assets/images/svg/product_hot.svg',
                           onSelectMore: () {
-                            AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),productList:ProductViewModel().getProductFarm());
+                            AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr());
                           },
                           onTapItem: (ProductData item,int index) {
                             AppRoute.ProductDetail(context,

@@ -141,11 +141,11 @@ class ProductLandscape extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
                     color: ThemeColor.ColorSale(),
-                    child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
+                    child: Text("${item.discountPercent}%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
                   ),
                 ),
               ),
-              visible: showPriceSale,
+              visible: item.discountPercent>0?true:false,
             )
           ],
         ),

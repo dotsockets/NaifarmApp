@@ -2,6 +2,8 @@
 import 'dart:async';
 
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/BannersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
@@ -12,9 +14,11 @@ import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductDetailObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
+import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProductBloc{
@@ -23,6 +27,7 @@ class ProductBloc{
   CompositeSubscription _compositeSubscription = CompositeSubscription();
 
   final onLoad = BehaviorSubject<bool>();
+  final onError = BehaviorSubject<String>();
 
   final ProductPopular = BehaviorSubject<ProductRespone>();
   final CategoryGroup = BehaviorSubject<CategoryGroupRespone>();
@@ -35,6 +40,8 @@ class ProductBloc{
   final Flashsale =  BehaviorSubject<FlashsaleRespone>();
   final ProductItem =  BehaviorSubject<ProducItemRespone>();
   final myShop = BehaviorSubject<MyShopRespone>();
+  final ProductMyShop = BehaviorSubject<ProductMyShopListRespone>();
+  final Wishlists = BehaviorSubject<WishlistsRespone>();
 
 
   final ZipProductDetail = BehaviorSubject<ProductDetailObjectCombine>();
@@ -52,15 +59,17 @@ class ProductBloc{
   }
 
 
-  loadHomeData()async{
-    StreamSubscription subscription = Observable.combineLatest8(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage())
-        , Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular("1",10)),
-        Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup()),
-        Observable.fromFuture(_application.appStoreAPIRepository.getCategoriesFeatured()),
-        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)),
-        Observable.fromFuture(_application.appStoreAPIRepository.getProduct("1",5)),
-        Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: "1",limit: 5)),
-        Observable.fromFuture(_application.appStoreAPIRepository.FarmMarket()),(a, b,c,d,e,f,g,h){
+  loadHomeData({String token})async{
+    StreamSubscription subscription = Observable.combineLatest9(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage()) // สไลด์ภาพ
+        , Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular("1",10)), // สินค้าขายดี
+        Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup()), // หมวดหมู่ทั่วไป
+        Observable.fromFuture(_application.appStoreAPIRepository.getCategoriesFeatured()), // หมวดหมู่แนะนำ
+        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)), // สินค้าแนะนำ
+        Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(ShopId: 1,page: "1",limit: 5)), // สินค้าของ NaiFarm
+        Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: "1",limit: 5)), // สินค้าลดราคา
+        Observable.fromFuture(_application.appStoreAPIRepository.FarmMarket()),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetMyWishlists(token: token)), // NaiFarmShop
+            (a, b,c,d,e,f,g,h,k){
             final _slider = (a as ApiResult).respone;
             final _product  =(b as ApiResult).respone;
             final _category =(c as ApiResult).respone;
@@ -69,13 +78,16 @@ class ProductBloc{
             final _martket =(f as ApiResult).respone;
             final _flashsale =(g as ApiResult).respone;
             final _martkertall =(h as ApiResult).respone;
-            return HomeObjectCombine(sliderRespone: (_slider as SliderRespone),
-                productRespone: (_product as ProductRespone),
-                categoryGroupRespone: (_category as CategoryGroupRespone),featuredRespone: (_featured as CategoryGroupRespone),
-            trendingRespone: (_trending as ProductRespone),martket: (_martket as ProductRespone),flashsaleRespone: (_flashsale as FlashsaleRespone),myShopRespone: (_martkertall as MyShopRespone));
+            final _mywishlist =(k as ApiResult).respone;
+
+            return HomeObjectCombine(sliderRespone: _slider,
+                productRespone: _product, categoryGroupRespone: _category,featuredRespone: _featured,
+            trendingRespone: _trending,martket: _martket,flashsaleRespone: _flashsale,myShopRespone: _martkertall,wishlistsRespone: _mywishlist);
 
         }).listen((event) {
-      ZipHomeObject.add(event);
+
+            NaiFarmLocalStorage.saveHomeData(event).then((value) => ZipHomeObject.add(event));
+
     });
     _compositeSubscription.add(subscription);
   }
@@ -85,6 +97,28 @@ class ProductBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular(page,10)).listen((respone) {
       if(respone.http_call_back.status==200){
         ProductPopular.add((respone.respone as ProductRespone));
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  GetMyWishlists({String token}){
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.GetMyWishlists(token: token)).listen((respone) {
+      if(respone.http_call_back.status==200){
+
+        NaiFarmLocalStorage.getHomeDataCache().then((value1){
+          value1.wishlistsRespone = (respone.respone as WishlistsRespone);
+          NaiFarmLocalStorage.saveHomeData(value1).then((value2) {
+            Wishlists.add(value1.wishlistsRespone);
+          });
+
+        });
+
+
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
       }
 
     });
@@ -128,7 +162,7 @@ class ProductBloc{
     StreamSubscription subscription = Observable.combineLatest3(
         Observable.fromFuture(_application.appStoreAPIRepository.FarmMarket()),
         Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)),
-        Observable.fromFuture(_application.appStoreAPIRepository.getProduct("1",5)),(a, b,c){
+        Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(ShopId: 1,page: "1",limit: 5)),(a, b,c){
           final _market = (a as ApiResult).respone;
           final _hotproduct  =(b as ApiResult).respone;
           final _recommend =(c as ApiResult).respone;
@@ -160,16 +194,55 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  loadProductsById({int id,int shopid}){
+  GetWishlistsByProduct({int productID,String token}){
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.GetWishlistsByProduct(productID: productID,token: token)).listen((respone) {
+      Wishlists.add((respone.respone as WishlistsRespone));
+    });
+    _compositeSubscription.add(subscription);
+  }
 
-    StreamSubscription subscription = Observable.combineLatest3(
+  DELETEWishlists({int WishId,String token}){
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.DELETEWishlists(WishId: WishId,token: token)).listen((respone) {
+     // Wishlists.add((respone.respone as WishlistsRespone));
+      if(respone.http_call_back.status!=200){
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  AddWishlists({int inventoryId,int productId,String token}){
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.AddWishlists(inventoryId: inventoryId,productId: productId,token: token)).listen((respone) {
+      if(respone.http_call_back.status==200){
+        GetMyWishlists(token: token);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+
+
+
+  loadProductsById({int id,int shopid,String token}){
+
+    StreamSubscription subscription = Observable.combineLatest4(
         Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)),
         Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)),
-        Observable.fromFuture(_application.appStoreAPIRepository.ShopById(id: shopid)),(a, b,c){
+        Observable.fromFuture(_application.appStoreAPIRepository.ShopById(id: shopid)),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetWishlistsByProduct(productID: id,token: token)),(a, b,c,d){
       final _product = (a as ApiResult).respone;
       final _recommend  =(b as ApiResult).respone;
       final _shop  =(c as ApiResult).respone;
-      return ProductDetailObjectCombine(productItem: _product,recommend: _recommend,shopRespone: _shop);
+      final _wishlist  =(d as ApiResult).respone;
+      return ProductDetailObjectCombine(productItem: _product,recommend: _recommend,shopRespone: _shop,wishlistsRespone: _wishlist);
 
     }).listen((event) {
       ZipProductDetail.add(event);
@@ -178,6 +251,8 @@ class ProductBloc{
 
 
   }
+
+
 
   loadCategoryPage({int GroupId}){
     StreamSubscription subscription = Observable.combineLatest5(
@@ -196,6 +271,16 @@ class ProductBloc{
 
     }).listen((event) {
       ZipCategoryObject.add(event);
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  GetProductMyShop({String page, int limit,String token}){
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.GetProductMyShop(page: page,limit: limit,token: token)).listen((respone) {
+      if(respone.http_call_back.status==200){
+        ProductMyShop.add((respone.respone as ProductMyShopListRespone));
+      }
     });
     _compositeSubscription.add(subscription);
   }

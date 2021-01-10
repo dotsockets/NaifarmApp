@@ -39,7 +39,7 @@ class ProductVertical extends StatelessWidget {
           children: [
             _header_bar(),
             Column(
-              children: List.generate(productRespone.data.length, (index) => _buildCardProduct(item: productRespone.data[index],index: index)),
+              children: List.generate(productRespone.data.length, (index) => _buildCardProduct(context,item: productRespone.data[index],index: index)),
             )
           ],
         ),
@@ -80,35 +80,52 @@ class ProductVertical extends StatelessWidget {
       )
   );
 
-  _buildCardProduct({ProductData item,int index}){
+  _buildCardProduct(BuildContext context,{ProductData item,int index}){
     return GestureDetector(
       child: Container(
         padding: EdgeInsets.only(left: 2.0.w,right: 2.0.w),
         child: Column(
           children: [
             Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Hero(
-                      tag: "${tagHero}_${index}",
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(1.0.h),
-                        child: CachedNetworkImage(
-                          height: 100,
-                          placeholder: (context, url) => Container(
-                            color: Colors.white,
-                            child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Hero(
+                          tag: "${tagHero}_${index}",
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(1.0.h),
+                            child: CachedNetworkImage(
+                              height: 100,
+                              placeholder: (context, url) => Container(
+                                color: Colors.white,
+                                child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                              ),
+                              fit: BoxFit.cover,
+                              imageUrl: ProductLandscape.CovertUrlImage(item.image),
+                              errorWidget: (context, url, error) => Container(height: 100,child: Icon(Icons.error,size: 30,)),
+                            ),
                           ),
-                          fit: BoxFit.cover,
-                          imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                          errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
                         ),
                       ),
-                    ),
+                      Visibility(
+                        child: Container(
+                          margin: EdgeInsets.all(1.5.w),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(1.0.w),
+                            child: Container(
+                              padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
+                              color: ThemeColor.ColorSale(),
+                              child: Text("${item.discountPercent}%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
+                            ),
+                          ),
+                        ),
+                        visible: item.discountPercent>0?true:false,
+                      )
+                    ],
                   ),
                 ),
                 SizedBox(width: 10,),

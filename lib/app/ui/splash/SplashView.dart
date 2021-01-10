@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/SplashLoginView.dart';
@@ -50,11 +53,13 @@ class _SplashViewState extends State<SplashView>
 
   void _init(){
     if(null == bloc) {
+      NaiFarmLocalStorage.Clean(keyStore: NaiFarmLocalStorage.NaiFarm_Storage);
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.ZipHomeObject.stream.listen((event) {
+
         startTimer();
       });
-      bloc.loadHomeData();
+     Usermanager().getUser().then((value) =>  bloc.loadHomeData(token: value.token));
     }
 
   }
@@ -102,9 +107,12 @@ class _SplashViewState extends State<SplashView>
     return new Timer(duration, navigatorPage);
   }
 
+
+
    navigatorPage() async {
+     //Clean();
     if(await Usermanager().isLogin())
-      Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  HomeView(item: bloc.ZipHomeObject.value)), (Route<dynamic> route) => false);
+      Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  HomeView()), (Route<dynamic> route) => false);
     else
       Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  SplashLoginView(item: bloc.ZipHomeObject.value,)), (Route<dynamic> route) => false);
   }

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/ui/me/widget/BuyAgain.dart';
 import 'package:naifarm/app/ui/me/widget/TabMenu.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -10,7 +14,7 @@ import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
-class PurchaseView extends StatelessWidget {
+class PurchaseView extends StatefulWidget {
   final bool IsLogin;
   final CustomerInfoRespone item;
   final Function(bool) onStatus;
@@ -18,7 +22,26 @@ class PurchaseView extends StatelessWidget {
   const PurchaseView({Key key, this.IsLogin, this.item, this.onStatus}) : super(key: key);
 
   @override
+  _PurchaseViewState createState() => _PurchaseViewState();
+}
+
+class _PurchaseViewState extends State<PurchaseView> {
+
+  ProductBloc bloc;
+
+  init(){
+    if(bloc==null){
+      bloc = ProductBloc(AppProvider.getApplication(context));
+      NaiFarmLocalStorage.getHomeDataCache().then((value){
+        bloc.ProductPopular.add(value.trendingRespone);
+      });
+    }
+  }
+
+
+  @override
   Widget build(BuildContext context) {
+    init();
     return Container(
       child: Column(
         children: [
@@ -36,32 +59,40 @@ class PurchaseView extends StatelessWidget {
               Message: "8 รายการ",
               iconSize: 8.0.w,
               onClick: () {
-                AppRoute.ProductMore(context:context,barTxt:LocaleKeys.me_title_likes.tr(),productList:ProductViewModel().getMarketRecommend());
+                AppRoute.Wishlists(context:context);
               }),
           _BuildDivider(),
-          IsLogin
-              ? Container(
+          widget.IsLogin?StreamBuilder(
+            stream: bloc.ProductPopular.stream,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if(snapshot.hasData && (snapshot.data as ProductRespone).data.length>0){
+                return Container(
                   child: BuyAgain(
+                    productRespone: (snapshot.data as ProductRespone),
                       titleInto: LocaleKeys.me_title_again.tr(),
-                      producViewModel: ProductViewModel().getProductForYou(),
                       IconInto: 'assets/images/svg/foryou.svg',
                       onSelectMore: () {
-                        AppRoute.ProductMore(context:context,barTxt:LocaleKeys.me_title_again.tr(),productList:ProductViewModel().getProductForYou());
+                        AppRoute.ProductMore(context: context,barTxt: LocaleKeys.me_title_again.tr(),installData: (snapshot.data as ProductRespone));
+
                       },
-                      onTapItem: (int index) {
+                      onTapItem: (ProductData item,int index) {
                         AppRoute.ProductDetail(context,
-                            productImage: "payagin_${index}");
+                            productImage: "payagin_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                       },
                       tagHero: "payagin"),
-                )
-              : SizedBox(),
-          IsLogin ? _BuildDivider() : SizedBox(),
+                );
+              }else{
+                return SizedBox();
+              }
+            }
+        ): SizedBox(),
+          widget.IsLogin ? _BuildDivider() : SizedBox(),
           ListMenuItem(
             iconSize: 8.0.w,
               icon: 'assets/images/svg/editprofile.svg', title: LocaleKeys.me_title_setting.tr(),onClick: () async {
-            final result = await AppRoute.SettingProfile(context,IsLogin,item: item);
+            final result = await AppRoute.SettingProfile(context,widget.IsLogin,item: widget.item);
             if(result!=null && result){
-              onStatus(result);
+              widget.onStatus(result);
             }
 
               },),

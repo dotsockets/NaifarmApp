@@ -4,6 +4,7 @@ import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/category/CategoryView.dart';
@@ -14,9 +15,7 @@ import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
 
 class HomeView extends StatefulWidget {
-  final HomeObjectCombine item;
 
-  const HomeView({Key key, this.item}) : super(key: key);
   @override
   _HomeViewState createState() => _HomeViewState();
 }
@@ -31,6 +30,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
 
+
+
     _menuViewModel = MenuViewModel().getTabBarMenus();
     return DefaultTabController(
         length: _menuViewModel.length,
@@ -39,10 +40,10 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
           body: IndexedStack(
             index: _selectedIndex,
             children: [
-              RecommendView(size: MediaQuery.of(context).size,paddingBottom: MediaQuery.of(context).padding.bottom,item: widget.item),
-              CategoryView(item:widget.item.categoryGroupRespone),
+              RecommendView(size: MediaQuery.of(context).size,paddingBottom: MediaQuery.of(context).padding.bottom),
+              CategoryView(),
               MyCartView(BtnBack: false,),
-              MeView(item: widget.item,)
+              MeView()
             ],
           ),
             bottomNavigationBar: Container(
@@ -64,7 +65,16 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                   selectedIndex: _selectedIndex,
                   onTap: (index) {
                     if(index==2){
-                      IsLogin?AppRoute.MyCart(context, true):AppRoute.Login(context);
+                      Usermanager().isLogin().then((value) async {
+                        if(!value){
+                          final result = await  AppRoute.Login(context,IsCallBack: true);
+                          if(result){
+                            AppRoute.MyCart(context, true);
+                          }
+                        }else{
+                          AppRoute.MyCart(context, true);
+                        }
+                      });
                     }else{
                       setState(() {
                         _selectedIndex = index;

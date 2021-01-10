@@ -9,7 +9,9 @@ import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
@@ -25,6 +27,10 @@ class MemberBloc{
   final onLoad = BehaviorSubject<bool>();
 
   final onError = BehaviorSubject<String>();
+
+  final customerInfoRespone = BehaviorSubject<ProfileObjectCombine>();
+
+  final TextOn = BehaviorSubject<String>();
 
   Stream<Object> get feedList => onSuccess.stream;
 
@@ -176,11 +182,31 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
+  loadMyProfile({String token}){
+
+    StreamSubscription subscription = Observable.combineLatest2(
+        Observable.fromFuture(_application.appStoreAPIRepository.getCustomerInfo(token: token)),
+        Observable.fromFuture(_application.appStoreAPIRepository.getMyShopInfo(access_token: token)),(a, b){
+      final _customInfo = (a as ApiResult).respone;
+      final _myshopInfo  =(b as ApiResult).respone;
+
+      return ProfileObjectCombine(customerInfoRespone: _customInfo,myShopRespone: _myshopInfo);
+
+    }).listen((event) {
+      customerInfoRespone.add(event);
+    });
+    _compositeSubscription.add(subscription);
+
+
+  }
+
+
   getCustomerInfo({String token}) async{
     onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.getCustomerInfo(token: token)).listen((respone) {
       onLoad.add(false);
+
       if(respone.http_call_back.status==200){
         onSuccess.add(respone.respone);
       }else{
@@ -297,6 +323,9 @@ class MemberBloc{
     });
     _compositeSubscription.add(subscription);
   }
+
+
+
 
 
 

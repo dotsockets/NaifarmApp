@@ -21,9 +21,8 @@ import 'package:sizer/sizer.dart';
 
 class RegisterOTPView extends StatefulWidget {
   final String phoneNumber;
-  final HomeObjectCombine item;
   String refCode;
-  RegisterOTPView({Key key, this.phoneNumber, this.refCode, this.item}) : super(key: key);
+  RegisterOTPView({Key key, this.phoneNumber, this.refCode}) : super(key: key);
   @override
   _RegisterOTPViewState createState() => _RegisterOTPViewState();
 }
@@ -100,7 +99,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.Register_set_Password(context,widget.phoneNumber,item: widget.item);
+        AppRoute.Register_set_Password(context,widget.phoneNumber);
       });
     }
 

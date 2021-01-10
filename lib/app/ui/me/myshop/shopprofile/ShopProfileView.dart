@@ -77,8 +77,8 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
           });
         }
 
-       if(onUpdate){
-         Navigator.of(context).pop();
+       if(onUpdate || onImageUpdate){
+         Navigator.pop(context,true);
        }
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });

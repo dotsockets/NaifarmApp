@@ -100,7 +100,7 @@ class SplashLoginView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                   onPressed: () {
-                    AppRoute.Register(context,item: item);
+                    AppRoute.Register(context);
                   },
                   child: Text(LocaleKeys.register_btn.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),

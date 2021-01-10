@@ -131,8 +131,8 @@ class APIRepository{
     return _apiProvider.getProductTrending(page,limit);
   }
 
-  Future<ApiResult> getProduct(String page,int limit){
-    return _apiProvider.getProduct(page,limit);
+  Future<ApiResult> getShopProduct({int ShopId,String page,int limit}){
+    return _apiProvider.getShopProduct(ShopId: ShopId,page: page,limit: limit);
   }
 
   Future<ApiResult> getSearch({String page, String query,int limit}){
@@ -226,15 +226,29 @@ class APIRepository{
     return _apiProvider.EditShoppingMyShop(shopRequest: shopRequest,token: token,rateID: rateID);
   }
 
+  Future<ApiResult> GetProductMyShop({String page, int limit,String token}){
+    return _apiProvider.GetProductMyShop(page: page,limit: limit,token: token);
+  }
 
+  Future<ApiResult> GetWishlistsByProduct({int productID,String token}){
+    return _apiProvider.GetWishlistsByProduct(productID: productID,token: token);
+  }
 
+  Future<ApiResult> DELETEWishlists({int WishId,String token}){
+    return _apiProvider.DELETEWishlists(WishId: WishId,token: token);
+  }
 
+  Future<ApiResult> AddWishlists({int inventoryId,int productId,String token}){
+    return _apiProvider.AddWishlists(inventoryId: inventoryId,productId: productId,token: token);
+  }
 
+  Future<ApiResult> GetMyWishlists({String token}){
+    return _apiProvider.GetMyWishlists(token: token);
+  }
 
-
-
-
-
+  Future<ApiResult> GetCustomerCount({String token}){
+    return _apiProvider.GetCustomerCount(token: token);
+  }
 
 
 

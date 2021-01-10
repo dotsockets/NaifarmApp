@@ -20,6 +20,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
 
 import 'ProductLandscape.dart';
+import 'Skeleton.dart';
 
 class ProductGrid extends StatefulWidget {
 
@@ -99,7 +100,7 @@ class _ProductGridState extends State<ProductGrid> {
               _buildCardProduct(context: context)
             ],
           )),
-    ): SizedBox();
+    ):  Skeleton.LoaderGridV(context);;
   }
 
   Container _header_bar() => Container(
@@ -292,20 +293,23 @@ class _ProductGridState extends State<ProductGrid> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 7, left: 8),
-                      decoration: BoxDecoration(
-                          color: ThemeColor.ColorSale(),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      padding: EdgeInsets.only(
-                          left: 10, right: 10, top: 5, bottom: 5),
-                      child: Text(
-                        "50%",
-                        style: GoogleFonts.sarabun(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: SizeUtil.titleSmallFontSize().sp),
+                    Visibility(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 7, left: 8),
+                        decoration: BoxDecoration(
+                            color: ThemeColor.ColorSale(),
+                            borderRadius: BorderRadius.all(Radius.circular(7))),
+                        padding: EdgeInsets.only(
+                            left: 10, right: 10, top: 5, bottom: 5),
+                        child: Text(
+                          "50%",
+                          style: GoogleFonts.sarabun(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: SizeUtil.titleSmallFontSize().sp),
+                        ),
                       ),
+                      visible: item.discountPercent>0?true:false,
                     ),
                     widget.isLike
                         ? Container(

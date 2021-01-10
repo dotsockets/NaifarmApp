@@ -1,6 +1,7 @@
 import 'package:custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -91,7 +92,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                         ),
                       ),
                       _BuildDeliveryTab(),
-                      Divider(color: Colors.black,height: 5,),
+                      Divider(height: 10,),
                       _BuildAtivceTab()
                     ],
                   ),
@@ -157,18 +158,25 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     return InkWell(
       child: Container(
           color: Colors.white,
-          padding: EdgeInsets.only(left: 10,right: 10),
-          margin: EdgeInsets.only(top: 8),
-          height: 50,
+          padding: EdgeInsets.only(left: 5,right: 5),
           child: Container(
               margin: EdgeInsets.all(15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(LocaleKeys.my_product_delivery_price.tr(), style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.grey.withOpacity(0.7),
+                  Text("เปิดการขาย", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+                  FlutterSwitch(
+                    height: 30,
+                    width: 50,
+                    toggleSize: 20,
+                    activeColor: Colors.grey.shade200,
+                    inactiveColor: Colors.grey.shade200,
+                   // toggleColor: item.active ? ThemeColor.primaryColor() : Colors.grey.shade400,
+                    value:false,
+                    onToggle: (val) {
+                      //IsSwitch(val);
+
+                    },
                   )
                 ],
               ))),

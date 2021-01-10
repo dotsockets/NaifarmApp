@@ -1,9 +1,4 @@
-
-import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
-
-import 'ProductRespone.dart';
-
-class ProducItemRespone {
+class ProductMyShopRespone {
   int id;
   int shopId;
   int manufacturerId;
@@ -21,20 +16,20 @@ class ProducItemRespone {
   String slug;
   int saleCount;
   List<Inventories> inventories;
-  ShopItem shop;
+  Shop shop;
   List<Categories> categories;
-  List<ProductImage> image;
+  List<Image> image;
   int discountPercent;
   int rating;
   int reviewCount;
 
-  ProducItemRespone(
+  ProductMyShopRespone(
       {this.id,
         this.shopId,
         this.manufacturerId,
         this.brand,
         this.name,
-        this.description="",
+        this.description,
         this.minPrice,
         this.maxPrice,
         this.salePrice,
@@ -53,7 +48,7 @@ class ProducItemRespone {
         this.rating,
         this.reviewCount});
 
-  ProducItemRespone.fromJson(Map<String, dynamic> json) {
+  ProductMyShopRespone.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     shopId = json['shopId'];
     manufacturerId = json['manufacturerId'];
@@ -76,7 +71,7 @@ class ProducItemRespone {
         inventories.add(new Inventories.fromJson(v));
       });
     }
-    shop = json['shop'] != null ? new ShopItem.fromJson(json['shop']) : null;
+    shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
     if (json['categories'] != null) {
       categories = new List<Categories>();
       json['categories'].forEach((v) {
@@ -84,9 +79,9 @@ class ProducItemRespone {
       });
     }
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = new List<Image>();
       json['image'].forEach((v) {
-        image.add(new ProductImage.fromJson(v));
+        image.add(new Image.fromJson(v));
       });
     }
     discountPercent = json['discountPercent'];
@@ -154,7 +149,7 @@ class Inventories {
   int freeShipping;
   int minOrderQuantity;
   String linkedItems;
-  List<ProductImage> image;
+  List<Image> image;
   List<Feedbacks> feedbacks;
   List<AttributesItem> attributes;
   int discountPercent;
@@ -215,9 +210,9 @@ class Inventories {
     minOrderQuantity = json['minOrderQuantity'];
     linkedItems = json['linkedItems'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = new List<Image>();
       json['image'].forEach((v) {
-        image.add(new ProductImage.fromJson(v));
+        image.add(new Image.fromJson(v));
       });
     }
     if (json['feedbacks'] != null) {
@@ -277,6 +272,54 @@ class Inventories {
   }
 }
 
+class Image {
+  int id;
+  String path;
+  String name;
+  String extension;
+  String size;
+  int imageableId;
+  String imageableType;
+  int featured;
+  int order;
+
+  Image(
+      {this.id,
+        this.path,
+        this.name,
+        this.extension,
+        this.size,
+        this.imageableId,
+        this.imageableType,
+        this.featured,
+        this.order});
+
+  Image.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    path = json['path'];
+    name = json['name'];
+    extension = json['extension'];
+    size = json['size'];
+    imageableId = json['imageableId'];
+    imageableType = json['imageableType'];
+    featured = json['featured'];
+    order = json['order'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['path'] = this.path;
+    data['name'] = this.name;
+    data['extension'] = this.extension;
+    data['size'] = this.size;
+    data['imageableId'] = this.imageableId;
+    data['imageableType'] = this.imageableType;
+    data['featured'] = this.featured;
+    data['order'] = this.order;
+    return data;
+  }
+}
 
 class Feedbacks {
   int id;
@@ -315,15 +358,15 @@ class Feedbacks {
   }
 }
 
-class Attributes {
-  Attributes attributes;
+class AttributesItem {
+  AttributesItem attributes;
   Values values;
 
-  Attributes({this.attributes, this.values});
+  AttributesItem({this.attributes, this.values});
 
-  Attributes.fromJson(Map<String, dynamic> json) {
+  AttributesItem.fromJson(Map<String, dynamic> json) {
     attributes = json['attributes'] != null
-        ? new Attributes.fromJson(json['attributes'])
+        ? new AttributesItem.fromJson(json['attributes'])
         : null;
     values =
     json['values'] != null ? new Values.fromJson(json['values']) : null;
@@ -341,13 +384,13 @@ class Attributes {
   }
 }
 
-class AttributesItem {
+class Attributes {
   int id;
   String name;
 
-  AttributesItem({this.id, this.name});
+  Attributes({this.id, this.name});
 
-  AttributesItem.fromJson(Map<String, dynamic> json) {
+  Attributes.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
   }
@@ -382,26 +425,27 @@ class Values {
   }
 }
 
-class ShopItem {
+class Shop {
   int id;
   String name;
   String slug;
-  DataStates state;
+  Attributes state;
   String updatedAt;
-  List<ProductImage> image;
+  List<Image> image;
 
-  ShopItem({this.id, this.name, this.slug, this.state, this.updatedAt, this.image});
+  Shop({this.id, this.name, this.slug, this.state, this.updatedAt, this.image});
 
-  ShopItem.fromJson(Map<String, dynamic> json) {
+  Shop.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     slug = json['slug'];
-    state = json['state'] != null ? new DataStates.fromJson(json['state']) : null;
+    state =
+    json['state'] != null ? new Attributes.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = new List<Image>();
       json['image'].forEach((v) {
-        image.add(new ProductImage.fromJson(v));
+        image.add(new Image.fromJson(v));
       });
     }
   }

@@ -3,26 +3,32 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
 
 class BuyAgain extends StatelessWidget {
 
   final String titleInto;
   final Function() onSelectMore;
-  final Function(int) onTapItem;
+  final Function(ProductData,int) onTapItem;
   final String IconInto;
-  final List<ProductModel> producViewModel;
   final String tagHero;
+  final ProductRespone productRespone;
 
 
-  const BuyAgain({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero}) : super(key: key);
+  BuyAgain({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.tagHero, this.productRespone}) : super(key: key);
+
 
 
   @override
@@ -43,7 +49,7 @@ class BuyAgain extends StatelessWidget {
 
   Container _header_bar() => Container(
       child: Container(
-        margin: EdgeInsets.only(right: 1.5.w, left: 3.5.w, top: 1.5.h, bottom: 1.5.h),
+        margin: EdgeInsets.only(right: 1.5.w, left: 3.5.w, top: 1.5.h, bottom: 0.5.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -73,18 +79,18 @@ class BuyAgain extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: List.generate(producViewModel.length, (index){
+        children: List.generate(productRespone.data.length, (index){
           return GestureDetector(
             child: Container(
               margin: EdgeInsets.all(10),
               child: Column(
                 children: [
-                  _ProductImage(item: producViewModel[index],index: index),
-                  _intoProduct(item: producViewModel[index])
+                  _ProductImage(item: productRespone.data[index],index: index),
+                  _intoProduct(item: productRespone.data[index])
                 ],
               ),
             ),
-            onTap: ()=>onTapItem(index),
+            onTap: ()=>onTapItem(productRespone.data[index],index),
           );
         }),
       ),
@@ -93,7 +99,7 @@ class BuyAgain extends StatelessWidget {
 
 
 
-  Widget _ProductImage({ProductModel item,int index}){
+  Widget _ProductImage({ProductData item,int index}){
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
       child: Container(
@@ -103,34 +109,49 @@ class BuyAgain extends StatelessWidget {
         child: Stack(
           children: [
             Hero(
-              tag: "${tagHero}_${index}",
+              tag: "${tagHero}_${item.id}",
               child: CachedNetworkImage(
                 width: 30.0.w,
                 height: 30.0.w,
                 placeholder: (context, url) => Container(
+                  width: 30.0.w,
+                  height: 30.0.w,
                   color: Colors.white,
                   child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                 ),
                 fit: BoxFit.cover,
-                imageUrl: item.product_image,
-                errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
+                imageUrl: ProductLandscape.CovertUrlImage(item.image),
+                errorWidget: (context, url, error) => Container(width: 30.0.w,height: 30.0.w,child: Icon(Icons.error,size: 30,)),
               ),
             ),
-
+            Visibility(
+              child: Container(
+                margin: EdgeInsets.all(1.5.w),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(1.0.w),
+                  child: Container(
+                    padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
+                    color: ThemeColor.ColorSale(),
+                    child: Text("${item.discountPercent}%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
+                  ),
+                ),
+              ),
+              visible: item.discountPercent>0?true:false,
+            )
           ],
         ),
       ),
     );
   }
 
-  Widget _intoProduct({ProductModel item}){
+  Widget _intoProduct({ProductData item}){
     return Container(
       child: Column(
         children: [
           SizedBox(height: 8),
-          Text(item.product_name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
+          Text(item.name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
           SizedBox(height: 5),
-          Text("฿${item.product_price}",style: FunctionHelper.FontTheme(fontSize:SizeUtil.priceFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500),),
+          Text("฿${item.salePrice}",style: FunctionHelper.FontTheme(fontSize:SizeUtil.priceFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500),),
 
         ],
       ),

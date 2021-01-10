@@ -5,6 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
@@ -16,13 +18,12 @@ import 'package:sizer/sizer.dart';
 
 class RecommendMenu extends StatelessWidget {
 
-  final ProductRespone popular_product;
-  final MyShopRespone myShopRespone;
-  final ProductRespone  trendingRespone;
+  final HomeObjectCombine homeObjectCombine;
 
   final List<MenuModel> _menuViewModel = MenuViewModel().getRecommendmenu();
 
-   RecommendMenu({Key key, this.popular_product, this.myShopRespone, this.trendingRespone}) : super(key: key);
+   RecommendMenu({Key key, this.homeObjectCombine}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,17 +71,32 @@ class RecommendMenu extends StatelessWidget {
           Text(item.label,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.detailFontSize().sp))
         ],
       ),
-    onTap: (){
+    onTap: () {
       switch(item.page){
         case  "ShopMyNear" : AppRoute.ShopMyNear(context);
         break;
-        case  "MarketView" : AppRoute.ShopMain(context,myShopRespone: myShopRespone,trendingRespone: trendingRespone,productRespone: popular_product);
+        case  "MarketView" : AppRoute.ShopMain(context);
         break;
-        case  "SpecialproductsView" : AppRoute.ProductMore(installData: popular_product,api_link: "products/types/popular",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr(),productList:ProductViewModel().getMarketRecommend());
+        case  "SpecialproductsView" : AppRoute.ProductMore(installData: homeObjectCombine.trendingRespone,api_link: "products/types/popular",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr());
         break;
         case  "NotiView" :  AppRoute.MyNoti(context);
         break;
-        case  "MyLikeView" :  AppRoute.ProductMore(context:context,barTxt:LocaleKeys.me_title_likes.tr(),productList:ProductViewModel().getMarketRecommend());
+        case  "MyLikeView" : {
+
+          Usermanager().isLogin().then((value) async {
+            if(!value){
+              final result = await  AppRoute.Login(context,IsCallBack: true);
+              if(result){
+                AppRoute.Wishlists(context: context);
+              }
+            }else{
+              AppRoute.Wishlists(context: context);
+            }
+          });
+
+
+
+        }
         break;
       }
     },

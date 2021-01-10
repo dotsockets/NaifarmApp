@@ -13,9 +13,8 @@ import 'package:sizer/sizer.dart';
 
  class Register_set_PasswordView extends StatefulWidget {
    final String phone;
-   final HomeObjectCombine item;
 
-  const Register_set_PasswordView({Key key, this.phone, this.item}) : super(key: key);
+  const Register_set_PasswordView({Key key, this.phone}) : super(key: key);
    @override
    _Register_set_PasswordViewState createState() => _Register_set_PasswordViewState();
  }
@@ -74,7 +73,7 @@ import 'package:sizer/sizer.dart';
      }
 
      if(t1 && t2){
-       AppRoute.Register_Name_Otp(context,widget.phone,_input1.text,item: widget.item);
+       AppRoute.Register_Name_Otp(context,widget.phone,_input1.text);
      }
 
 

@@ -58,7 +58,7 @@ class FunctionHelper {
         content: Text(message,
             style: FunctionHelper.FontTheme(
                 fontWeight: FontWeight.w500, color: Colors.white)),
-        duration: Duration(seconds: 5),
+        duration: Duration(seconds: 3),
         action: SnackBarAction(
           textColor: Colors.white,
           label: "Ok",
@@ -387,6 +387,14 @@ class FunctionHelper {
         );
       },
     );
+  }
+
+  static String replaceText({String text,String pattern}){
+    try{
+      return text!=""?text.replaceAll("\n", ""):'';
+    }on Exception catch(e){
+      return "";
+    }
   }
 
   static String TimeAgo(String timestamp, {bool numericDates = true}){

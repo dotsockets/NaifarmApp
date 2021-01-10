@@ -2,12 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/CounterBloc.dart';
+import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -33,9 +37,7 @@ import 'package:sizer/sizer.dart';
 class RecommendView extends StatefulWidget {
   final Size size;
   final double paddingBottom;
-  final HomeObjectCombine item;
-
-  const RecommendView({Key key, this.size, this.paddingBottom, this.item})
+  const RecommendView({Key key, this.size, this.paddingBottom})
       : super(key: key);
 
   @override
@@ -43,40 +45,22 @@ class RecommendView extends StatefulWidget {
 }
 
 class _RecommendViewState extends State<RecommendView> {
-  final List<MenuModel> _menuViewModel = MenuViewModel().getMenustype();
   final _indicatorController = IndicatorController();
-  final _scrollController = TrackingScrollController();
   int _categoryselectedIndex = 0;
   ProductBloc bloc;
-  Offset _position;
+  MemberBloc bloc1;
 
-  double _dxMax;
-  double _dyMax;
 
-  @override
-  void initState() {
-    _dxMax = widget.size.width - 100;
-    _dyMax = widget.size.height - (160 + widget.paddingBottom);
-    super.initState();
-    // AppRoute.home(context);
-  }
-
-  @override
-  void dispose() {
-    _scrollController?.dispose();
-    super.dispose();
-  }
 
   void _init(){
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.Flashsale.add(widget.item.flashsaleRespone);
-      bloc.ProductPopular.add(widget.item.productRespone);
-      bloc.ProductMartket.add(widget.item.martket);
-      bloc.CategoryGroup.add(widget.item.categoryGroupRespone);
-      bloc.TrendingGroup.add(widget.item.trendingRespone);
-      bloc.myShop.add(widget.item.myShopRespone);
-      bloc.FeaturedGroup.add(widget.item.featuredRespone);
+      bloc1 = MemberBloc(AppProvider.getApplication(context));
+      NaiFarmLocalStorage.getHomeDataCache().then((value){
+        bloc.ZipHomeObject.add(value);
+      });
+
+
      // bloc.loadHomeData();
     }
 
@@ -136,15 +120,16 @@ class _RecommendViewState extends State<RecommendView> {
                   child: StickyHeader(
                     header: Column(
                       children: [
+
                         StreamBuilder(
-                          stream: bloc.FeaturedGroup.stream,
+                          stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
                             if(snapshot.hasData) {
                               return CategoryMenu(
-                                featuredRespone: snapshot.data,
+                                featuredRespone: (snapshot.data as HomeObjectCombine).featuredRespone,
                                 selectedIndex: _categoryselectedIndex,
                                 onTap: (int val) {
-
+                                  context.read<CounterBloc>().add(CounterEvent.increment);
                                   //AppRoute.CategorySubDetail(context, , );
                                   // setState(() {
                                   //   _categoryselectedIndex = val;
@@ -161,13 +146,18 @@ class _RecommendViewState extends State<RecommendView> {
                     ),
                     content: Column(
                       children: [
-                        BannerSlide(),
-                        RecommendMenu(popular_product: bloc.ProductPopular.value,trendingRespone: bloc.TrendingGroup.value,myShopRespone: bloc.myShop.value,),
+
                         StreamBuilder(
-                          stream: bloc.Flashsale.stream,
+                          stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
                             if(snapshot.hasData) {
-                              return FlashSale(flashsaleRespone: snapshot.data,);
+                              return Column(
+                                children: [
+                                  BannerSlide(),
+                                  RecommendMenu(homeObjectCombine:(snapshot.data as HomeObjectCombine)),
+                                  FlashSale(flashsaleRespone: (snapshot.data as HomeObjectCombine).flashsaleRespone)
+                                ],
+                              );
                             }else{
                               return SizedBox();
                             }
@@ -175,16 +165,16 @@ class _RecommendViewState extends State<RecommendView> {
                         ),
                         SizedBox(height: 2.0.h),
                         StreamBuilder(
-                          stream: bloc.ProductPopular.stream,
+                          stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
                               if(snapshot.hasData) {
                                 return ProductLandscape(
-                                  productRespone: snapshot.data,
+                                  productRespone: (snapshot.data as HomeObjectCombine).productRespone,
                                     titleInto: LocaleKeys.recommend_best_seller.tr(),
                                     producViewModel: ProductViewModel().getBestSaller(),
                                     IconInto: 'assets/images/svg/product_hot.svg',
                                     onSelectMore: () {
-                                      AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_best_seller.tr(),installData: snapshot.data);
+                                      AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_best_seller.tr(),installData: (snapshot.data as HomeObjectCombine).productRespone);
                                     },
                                     onTapItem: (ProductData item,int index) {
                                       AppRoute.ProductDetail(context,
@@ -199,15 +189,15 @@ class _RecommendViewState extends State<RecommendView> {
                         SizedBox(height: 2.0.h),
                         _BannerAds(),
                         StreamBuilder(
-                          stream: bloc.ProductMartket.stream,
+                          stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
                             if(snapshot.hasData) {
                               return  ProductVertical(
-                                productRespone:  snapshot.data,
+                                productRespone:  (snapshot.data as HomeObjectCombine).martket,
                                   titleInto: LocaleKeys.recommend_market.tr(),
                                   IconInto: 'assets/images/svg/menu_market.svg',
                                   onSelectMore: () {
-                                    AppRoute.ShopMain(context,myShopRespone: widget.item.myShopRespone,productRespone: widget.item.productRespone,trendingRespone: widget.item.trendingRespone);
+                                     AppRoute.ShopMain(context);
                                   },
                                   onTapItem: (ProductData item,int index) {
                                     AppRoute.ProductDetail(context,
@@ -222,10 +212,10 @@ class _RecommendViewState extends State<RecommendView> {
                         ),
                         SizedBox(height: 2.0.h),
                         StreamBuilder(
-                          stream: bloc.CategoryGroup.stream,
+                          stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
                             if(snapshot.hasData) {
-                              return CategoryTab(categoryGroupRespone: snapshot.data,);
+                              return CategoryTab(categoryGroupRespone: (snapshot.data as HomeObjectCombine).categoryGroupRespone);
                             }else{
                               return SizedBox();
                             }
@@ -233,10 +223,10 @@ class _RecommendViewState extends State<RecommendView> {
                         ),
                         SizedBox(height: 2.0.h),
                         StreamBuilder(
-                          stream: bloc.TrendingGroup.stream,
+                          stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
                             if(snapshot.hasData) {
-                              return  SearchHot(productRespone: snapshot.data,onSelectChang: () {});
+                              return  SearchHot(productRespone: (snapshot.data as HomeObjectCombine).trendingRespone,onSelectChang: () {});
                             }else{
                               return SizedBox();
                             }
@@ -244,15 +234,15 @@ class _RecommendViewState extends State<RecommendView> {
                         ),
                         SizedBox(height: 2.0.h),
                         StreamBuilder(
-                          stream: bloc.TrendingGroup.stream,
+                          stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
                             if(snapshot.hasData) {
                               return  ProductVertical(
-                                productRespone: snapshot.data,
+                                productRespone: (snapshot.data as HomeObjectCombine).trendingRespone,
                                   titleInto: LocaleKeys.recommend_product_for_you.tr(),
                                   IconInto: 'assets/images/svg/foryou.svg',
                                   onSelectMore: () {
-                                    AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_product_for_you.tr(),installData: snapshot.data);
+                                    AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_product_for_you.tr(),installData: (snapshot.data as HomeObjectCombine).trendingRespone);
                                   },
                                   onTapItem: (ProductData item,int index) {
                                     AppRoute.ProductDetail(context,

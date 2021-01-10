@@ -177,7 +177,6 @@ class _MyshopViewState extends State<MyshopView> {
             onClick: () async {
 
               final result = await AppRoute.ShopProfile(context);
-
               if(result!=null && result){
                 widget.onStatus(result);
               }else{

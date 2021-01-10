@@ -1,4 +1,8 @@
 import 'package:basic_utils/basic_utils.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:naifarm/app/bloc/CounterBloc.dart';
+import 'package:naifarm/app/bloc/CustomerCount/customer_count_bloc.dart';
+import 'package:naifarm/app/bloc/NaiFarmBlocObserver.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,10 +34,14 @@ class Env {
     WidgetsFlutterBinding.ensureInitialized();
     var application = AppNaiFarmApplication();
     await application.onCreate();
+    Bloc.observer = NaiFarmBlocObserver();
     runApp(EasyLocalization(
         supportedLocales: [Locale('en', 'US'), Locale('th', 'TH')],
         path: 'resources/langs', // <-- change patch to your
         fallbackLocale: Locale('en', 'US'),
-        child: AppComponent(application)));
+        child: BlocProvider(
+          create: (_) => CounterBloc(),
+          child: AppComponent(application),
+        )));
   }
 }

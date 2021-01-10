@@ -19,9 +19,6 @@ import 'package:http/http.dart' as http;
 
 class RegisterView extends StatefulWidget {
 
-  final HomeObjectCombine item;
-
-  const RegisterView({Key key, this.item}) : super(key: key);
   @override
   _RegisterViewState createState() => _RegisterViewState();
 }
@@ -56,7 +53,7 @@ class _RegisterViewState extends State<RegisterView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: (event as OTPRespone).refCode,item: widget.item);
+        AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: (event as OTPRespone).refCode);
       });
     }
 

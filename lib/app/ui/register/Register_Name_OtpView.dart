@@ -21,9 +21,7 @@ import 'package:sizer/sizer.dart';
 class Register_Name_OtpView extends StatefulWidget {
   final String phone;
   final String password;
-  final HomeObjectCombine item;
-
-  const Register_Name_OtpView({Key key, this.phone, this.password, this.item}) : super(key: key);
+  const Register_Name_OtpView({Key key, this.phone, this.password}) : super(key: key);
   @override
   _Register_Name_OtpViewState createState() => _Register_Name_OtpViewState();
 }
@@ -61,7 +59,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.Home(context,item: widget.item);
+        AppRoute.Home(context);
       });
     }
 

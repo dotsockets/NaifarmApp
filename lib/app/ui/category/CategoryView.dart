@@ -8,6 +8,7 @@ import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
@@ -19,9 +20,6 @@ import 'package:sizer/sizer.dart';
 
 class CategoryView extends StatefulWidget {
 
-  final CategoryGroupRespone item;
-
-  const CategoryView({Key key, this.item}) : super(key: key);
 
   @override
   _CategoryViewState createState() => _CategoryViewState();
@@ -30,13 +28,14 @@ class CategoryView extends StatefulWidget {
 class _CategoryViewState extends State<CategoryView> {
 
   @override
-  final List<MenuModel> _menuViewModel = MenuViewModel().getMenustype();
   ProductBloc bloc;
 
   void _init(){
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.CategoryGroup.add(widget.item);
+      NaiFarmLocalStorage.getHomeDataCache().then((value){
+        bloc.CategoryGroup.add(value.categoryGroupRespone);
+      });
      // bloc.loadCategoryGroup();
     }
 

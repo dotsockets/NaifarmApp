@@ -7,11 +7,13 @@ import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
+import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/BannersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
@@ -24,6 +26,8 @@ import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/PaymenMyshopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRequest.dart';
@@ -34,6 +38,7 @@ import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/app/model/pojo/response/RegisterRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Task.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
+import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/utility/http/HttpException.dart';
 import 'package:naifarm/app/model/pojo/response/zipCodeRespone.dart';
 import 'package:naifarm/utility/http/ServerError.dart';
@@ -115,8 +120,8 @@ abstract class APIProvider{
   @GET("/v1/products/types/popular?limit=9&page=1")
   Future<ApiResult> getProductPopular(String page,int limit);
 
-  @GET("/v1/products/types/products?limit=9&page=1")
-  Future<ApiResult> getProduct(String page,int limit);
+  @GET("/v1/shop/1/products?limit=20&page=1")
+  Future<ApiResult> getShopProduct({int ShopId,String page,int limit});
 
   @GET("/v1/category-group")
   Future<ApiResult> getCategoryGroup();
@@ -192,6 +197,28 @@ abstract class APIProvider{
 
   @PATCH("/v1/myshop/shipping")
   Future<ApiResult> EditShoppingMyShop({ShppingMyShopRequest shopRequest,int rateID, String token});
+
+  @GET("/v1/myshop/products")
+  Future<ApiResult> GetProductMyShop({String page, int limit,String token});
+
+  @POST("/v1/myshop/products")
+  Future<ApiResult> AddProductMyShop({ProductMyShopRequest shopRequest,String token});
+
+  @GET("/v1/wishlists/productId")
+  Future<ApiResult> GetWishlistsByProduct({int productID,String token});
+
+  @DELETE("/v1/wishlists")
+  Future<ApiResult> DELETEWishlists({int WishId,String token});
+
+
+  @POST("/v1/wishlists")
+  Future<ApiResult> AddWishlists({int inventoryId,int productId,String token});
+
+  @GET("/v1/wishlists")
+  Future<ApiResult> GetMyWishlists({String token});
+
+  @GET("/v1/customers/count")
+  Future<ApiResult> GetCustomerCount({String token});
 
 }
 

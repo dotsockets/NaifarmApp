@@ -26,30 +26,12 @@ class ProductInto extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 1.0.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 1,
-                child: SizedBox(),
-              ),
-              Expanded(
-                flex: 4,
-                child: Center(
-                    child: Text(
-                      data.name,
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
-                    )),
-              ),
-              Expanded(flex: 1, child: SvgPicture.asset(
-                'assets/images/svg/like_line_null.svg',
-                width: 9.0.w,
-                height: 9.0.w,
-                color: Colors.black.withOpacity(0.7),
-              ))
-            ],
-          ),
+          Center(
+              child: Text(
+                data.name,
+                style: FunctionHelper.FontTheme(
+                    fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
+              )),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

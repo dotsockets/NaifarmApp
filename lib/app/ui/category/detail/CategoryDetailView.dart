@@ -137,7 +137,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                             IconInto: 'assets/images/svg/like.svg',
                             api_link: 'products',
                             onSelectMore: () {
-                              AppRoute.ProductMore(context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),productList:ProductViewModel().getMarketRecommend());
+                              AppRoute.ProductMore(context:context,barTxt:LocaleKeys.tab_bar_recommend.tr());
                             },
                             onTapItem: (ProductData item,int index) {
                               AppRoute.ProductDetail(context,
@@ -161,7 +161,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                           productRespone: (snapshot.data as CategoryObjectCombin).recommend,
                           IconInto: 'assets/images/svg/product_hot.svg',
                           onSelectMore: () {
-                            AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),productList:ProductViewModel().getProductFarm());
+                            AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr());
                           },
                           onTapItem: (ProductData item,int index) {
                             AppRoute.ProductDetail(context,

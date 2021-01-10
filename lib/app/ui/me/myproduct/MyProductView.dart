@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -22,13 +25,21 @@ class MyProductView extends StatefulWidget {
 class _MyProductViewState extends State<MyProductView> {
   int status = 999;
   List<ProductModel> listProducts = ProductViewModel().getMyProducts();
-  @override
-  void initState() {
-    super.initState();
+
+  ProductBloc bloc;
+
+  init(){
+     if(bloc==null){
+       bloc=ProductBloc(AppProvider.getApplication(context));
+       bloc.loadCategoryGroup();
+       Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
+     }
   }
+
 
   @override
   Widget build(BuildContext context) {
+    init();
     return Container(
       child: SafeArea(
         top: false,
@@ -45,10 +56,19 @@ class _MyProductViewState extends State<MyProductView> {
               children: [
                   Expanded(
                     child: SingleChildScrollView(
-                      child: Column(
-                        children: List.generate(listProducts.length, (index) =>
-                            _BuildProduct(item: listProducts[index],index: index),),
-                      ),
+                      child: StreamBuilder(
+                        stream: bloc.ProductMyShop.stream,
+                        builder: (BuildContext context,AsyncSnapshot snapshot){
+                          if(snapshot.hasData){
+                            return Column(
+                              children: List.generate(listProducts.length, (index) =>
+                                  _BuildProduct(item: listProducts[index],index: index),),
+                            );
+                          }else{
+                            return SizedBox();
+                          }
+                        },
+                      )
                     ),
                   ),
                 _BuildButton()
