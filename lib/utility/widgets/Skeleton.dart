@@ -74,7 +74,7 @@ class Skeleton{
 
     child: SkeletonGridLoader(
       builder: Container(
-        margin: EdgeInsets.only(bottom: 10),
+        margin: EdgeInsets.only(bottom: 10,left: 5),
         child: Row(
           children: <Widget>[
             ClipRRect(

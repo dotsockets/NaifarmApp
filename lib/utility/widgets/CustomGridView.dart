@@ -62,7 +62,7 @@ class CustomGridView extends StatelessWidget {
   Widget _ProductImage({ProductData item, int index,BuildContext context}) {
     return InkWell(
       child: Container(
-        padding: EdgeInsets.all(1.0.w),
+        padding: EdgeInsets.only(right:1.0.w),
         width: (MediaQuery.of(context).size.width/2),
         decoration: BoxDecoration(
             border: Border(

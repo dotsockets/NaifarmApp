@@ -98,7 +98,7 @@ class AppRoute{
   }
 
   static  FlashSaleAll(BuildContext context,{FlashsaleRespone instalData}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FlashSaleView(instalData: instalData,)));
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeft, child: FlashSaleView(instalData: instalData,)));
   }
 
   static  MyCart(BuildContext context,bool BtnBack){

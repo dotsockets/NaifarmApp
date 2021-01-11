@@ -130,7 +130,8 @@ class _RecommendViewState extends State<RecommendView> {
                                 selectedIndex: _categoryselectedIndex,
                                 onTap: (int val) {
                                   context.read<CounterBloc>().add(CounterEvent.increment);
-                                  //AppRoute.CategorySubDetail(context, , );
+                                  var data = (snapshot.data as HomeObjectCombine).featuredRespone.data[val];
+                                  AppRoute.CategoryDetail(context,data.id , title: data.name);
                                   // setState(() {
                                   //   _categoryselectedIndex = val;
                                   //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);

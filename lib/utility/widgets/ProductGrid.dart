@@ -268,25 +268,28 @@ class _ProductGridState extends State<ProductGrid> {
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Hero(
                     tag: "${widget.tagHero}_${item.id}",
-                    child: CachedNetworkImage(
-                      width: 120,
-                      height: 150,
-                      placeholder: (context, url) => Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(1.0.h),
+                      child: CachedNetworkImage(
                         width: 120,
                         height: 150,
-                        color: Colors.white,
-                        child:
-                        Lottie.asset(Env.value.loadingAnimaion, height: 30),
-                      ),
-                      fit: BoxFit.cover,
-                      imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                      errorWidget: (context, url, error) => Container(
-                        width: 120,
+                        placeholder: (context, url) => Container(
+                          width: 120,
                           height: 150,
-                          child: Icon(
-                            Icons.error,
-                            size: 30,
-                          )),
+                          color: Colors.white,
+                          child:
+                          Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                        ),
+                        fit: BoxFit.cover,
+                        imageUrl: ProductLandscape.CovertUrlImage(item.image),
+                        errorWidget: (context, url, error) => Container(
+                          width: 120,
+                            height: 150,
+                            child: Icon(
+                              Icons.error,
+                              size: 30,
+                            )),
+                      ),
                     ),
                   ),
                 ),

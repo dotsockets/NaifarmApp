@@ -57,24 +57,41 @@ class _FlashSaleViewState extends State<FlashSaleView> {
     return SafeArea(
       top: false,
       child: Scaffold(
+        backgroundColor:  Colors.grey.shade300,
         body: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
-            color: Colors.grey.withOpacity(0.3),
+
             child: StickyHeader(
               header:  AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
               content: Stack(
                 children: [
+
                   Container(
                     margin: EdgeInsets.only(top: 50),
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.only(topRight:  Radius.circular(40),topLeft: Radius.circular(40)),
+                        borderRadius: BorderRadius.only(topRight:  Radius.circular(40),topLeft: Radius.circular(40)
+                            ,bottomLeft: Radius.circular( widget.instalData.data.length ==0?0:40),bottomRight: Radius.circular(widget.instalData.data.length ==0?0:40)
+                        ),
                         border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
                     ),
-                    child: Column(
+                    child:   widget.instalData.data.length !=0?
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height:50.0.h,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("ไม่พบสินค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ) :
+                    Column(
                       children: [
                         SizedBox(height: 50),
+
                         ProductGridFlashSaleView(
                           flashsaleProduct: widget.instalData,
                           producViewModel: ProductViewModel().getMarketRecommend(),

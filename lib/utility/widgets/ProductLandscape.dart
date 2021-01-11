@@ -121,16 +121,19 @@ class ProductLandscape extends StatelessWidget {
           children: [
             Hero(
               tag: "${tagHero}_${index}",
-              child: CachedNetworkImage(
-                width: 30.0.w,
-                height: 30.0.w,
-                placeholder: (context, url) => Container(
-                  color: Colors.white,
-                  child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(0.5.h),
+                child: CachedNetworkImage(
+                  width: 30.0.w,
+                  height: 30.0.w,
+                  placeholder: (context, url) => Container(
+                    color: Colors.white,
+                    child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                  ),
+                  fit: BoxFit.cover,
+                  imageUrl: CovertUrlImage(item.image),
+                  errorWidget: (context, url, error) => Container(width: 30.0.w,height: 30.0.w,child: Icon(Icons.error,size: 30,)),
                 ),
-                fit: BoxFit.cover,
-                imageUrl: CovertUrlImage(item.image),
-                errorWidget: (context, url, error) => Container(width: 30.0.w,height: 30.0.w,child: Icon(Icons.error,size: 30,)),
               ),
             ),
             Visibility(
@@ -165,10 +168,13 @@ class ProductLandscape extends StatelessWidget {
 
   Widget _intoProduct({ProductData item}){
     return Container(
+      width: 30.0.w,
+      height: 30.0.w,
       child: Column(
         children: [
           SizedBox(height: 1.0.h),
-          Text(item.name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),),
+          Text(" "+item.name+" ",
+              overflow: TextOverflow.ellipsis,maxLines: 1,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),),
           SizedBox(height: 0.8.h),
           Text("฿${item.salePrice}",maxLines: 1,
               overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
