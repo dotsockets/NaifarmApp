@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -20,7 +22,7 @@ import 'package:sizer/sizer.dart';
 import 'ProductLandscape.dart';
 
 class FlashSale extends StatefulWidget {
-  final List<ProductModel> _producViewModel = ProductViewModel().getFlashSaleProduct();
+
   final FlashsaleRespone flashsaleRespone;
 
   FlashSale({Key key, this.flashsaleRespone}) : super(key: key);
@@ -31,6 +33,13 @@ class FlashSale extends StatefulWidget {
 
 class _FlashSaleState extends State<FlashSale> {
 
+  bool OnFlashSale = false;
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    OnFlashSale = widget.flashsaleRespone.total>0?true:false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +58,7 @@ class _FlashSaleState extends State<FlashSale> {
            children: [
              SizedBox(height: 6.0.h),
              Center(child: _textSale(context: context)),
-             _flashProduct(context)
+             OnFlashSale? _flashProduct(context):SizedBox()
            ],
          ),
        ),
@@ -95,8 +104,8 @@ class _FlashSaleState extends State<FlashSale> {
               ),
             ),
             onTap: (){
+              AppRoute.ProductDetail(context,productImage: "productImage_${index}",productItem: ProductBloc.ConvertDataToProduct(data: widget.flashsaleRespone.data[0].items[index].product));
 
-              AppRoute.ProductDetail(context,productImage: "productImage_${index}");
             },
           );
         }),
@@ -106,7 +115,7 @@ class _FlashSaleState extends State<FlashSale> {
 
 
 
-  Widget _ProductImage({FlashsaleProduct item,int index}){
+  Widget _ProductImage({ProductData item,int index}){
     return ClipRRect(
       borderRadius: BorderRadius.circular(1.0.h),
       child: Container(
@@ -129,16 +138,19 @@ class _FlashSaleState extends State<FlashSale> {
                   errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: SizeUtil.titleSmallFontSize().sp,)),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.all(1.5.w),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(1.0.w),
-                  child: Container(
-                    padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
-                    color: ThemeColor.ColorSale(),
-                    child: Text("40%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
+              Visibility(
+                child: Container(
+                  margin: EdgeInsets.all(1.5.w),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(1.0.w),
+                    child: Container(
+                      padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
+                      color: ThemeColor.ColorSale(),
+                      child: Text("${item.discountPercent}%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
+                    ),
                   ),
                 ),
+                visible: item.discountPercent>0?true:false,
               )
             ],
           ),
@@ -146,7 +158,7 @@ class _FlashSaleState extends State<FlashSale> {
     );
   }
 
-  Widget _intoProduct({FlashsaleProduct item,int index}){
+  Widget _intoProduct({ProductData item,int index}){
     return Container(
       child: Column(
         children: [

@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/bloc/CounterBloc.dart';
+import 'package:naifarm/app/bloc/CustomerCount/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -48,14 +50,12 @@ class _RecommendViewState extends State<RecommendView> {
   final _indicatorController = IndicatorController();
   int _categoryselectedIndex = 0;
   ProductBloc bloc;
-  MemberBloc bloc1;
 
 
 
   void _init(){
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc1 = MemberBloc(AppProvider.getApplication(context));
       NaiFarmLocalStorage.getHomeDataCache().then((value){
         bloc.ZipHomeObject.add(value);
       });
@@ -120,7 +120,13 @@ class _RecommendViewState extends State<RecommendView> {
                   child: StickyHeader(
                     header: Column(
                       children: [
-
+                        // BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
+                        //   builder: (_, count) {
+                        //     return Center(
+                        //       child: Text('${count.like}', style: Theme.of(context).textTheme.headline1),
+                        //     );
+                        //   },
+                        // ),
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -129,12 +135,8 @@ class _RecommendViewState extends State<RecommendView> {
                                 featuredRespone: (snapshot.data as HomeObjectCombine).featuredRespone,
                                 selectedIndex: _categoryselectedIndex,
                                 onTap: (int val) {
-                                  context.read<CounterBloc>().add(CounterEvent.increment);
-                                  //AppRoute.CategorySubDetail(context, , );
-                                  // setState(() {
-                                  //   _categoryselectedIndex = val;
-                                  //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
-                                  // });
+                                //  Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+
                                 },
                               );
                             }else{

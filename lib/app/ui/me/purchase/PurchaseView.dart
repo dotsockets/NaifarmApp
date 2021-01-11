@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:naifarm/app/bloc/CustomerCount/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -53,14 +56,18 @@ class _PurchaseViewState extends State<PurchaseView> {
             onClick: () => AppRoute.MyShophistory(context,0),
           ),
           _BuildDivider(),
-          ListMenuItem(
-              icon: 'assets/images/svg/like_2.svg',
-              title: LocaleKeys.me_title_likes.tr(),
-              Message: "8 รายการ",
-              iconSize: 8.0.w,
-              onClick: () {
-                AppRoute.Wishlists(context:context);
-              }),
+          BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
+            builder: (_, count) {
+              return ListMenuItem(
+                  icon: 'assets/images/svg/like_2.svg',
+                  title: LocaleKeys.me_title_likes.tr(),
+                  Message: "${count.like} รายการ",
+                  iconSize: 8.0.w,
+                  onClick: () {
+                    AppRoute.Wishlists(context:context);
+                  });
+            },
+          ),
           _BuildDivider(),
           widget.IsLogin?StreamBuilder(
             stream: bloc.ProductPopular.stream,

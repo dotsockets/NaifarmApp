@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -35,7 +36,7 @@ class WishlistsView extends StatefulWidget {
   _WishlistsViewState createState() => _WishlistsViewState();
 }
 
-class _WishlistsViewState extends State<WishlistsView> {
+class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
   ProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -56,6 +57,25 @@ class _WishlistsViewState extends State<WishlistsView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
     }
+  }
+
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void didPopNext() {
+    NaiFarmLocalStorage.getHomeDataCache().then((value) {
+      if (value != null) {
+        bloc.Wishlists.add(value.wishlistsRespone);
+      } else {
+        bloc.Wishlists.add(WishlistsRespone());
+      }
+
+    });
   }
 
 
@@ -285,21 +305,23 @@ class _WishlistsViewState extends State<WishlistsView> {
                       ),
                       visible: item.product.discountPercent>0?true:false,
                     ),
-                    GestureDetector(
-                      child: Container(
-                          margin: EdgeInsets.only(right: 8, top: 7),
-                          child: SvgPicture.asset(
-                            'assets/images/svg/like_line.svg',
-                            width: 35,
-                            height: 35,
-                            color: ThemeColor.ColorSale(),
-                          )),
-                      onTap: () {
-                        Usermanager().getUser().then((value) =>
-                            bloc.DELETEWishlists(WishId: item.id, token: value
-                                .token));
-                      },
-                    )
+                    // GestureDetector(
+                    //   child: Container(
+                    //       margin: EdgeInsets.only(right: 8, top: 7),
+                    //       child: SvgPicture.asset(
+                    //         'assets/images/svg/like_line.svg',
+                    //         width: 35,
+                    //         height: 35,
+                    //         color: ThemeColor.ColorSale(),
+                    //       )),
+                    //   onTap: () {
+                    //     Usermanager().getUser().then((value){
+                    //       bloc.DELETEWishlists(WishId: item.id, token: value.token);
+                    //       Usermanager().getUser().then((value) =>
+                    //           bloc.GetMyWishlists(token: value.token));
+                    //     });
+                    //   },
+                    // )
                   ],
                 )
               ],

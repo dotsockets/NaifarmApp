@@ -28,6 +28,7 @@ class ProductBloc{
 
   final onLoad = BehaviorSubject<bool>();
   final onError = BehaviorSubject<String>();
+  final onSuccess = BehaviorSubject<Object>();
 
   final ProductPopular = BehaviorSubject<ProductRespone>();
   final CategoryGroup = BehaviorSubject<CategoryGroupRespone>();
@@ -206,7 +207,10 @@ class ProductBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.DELETEWishlists(WishId: WishId,token: token)).listen((respone) {
      // Wishlists.add((respone.respone as WishlistsRespone));
-      if(respone.http_call_back.status!=200){
+      GetMyWishlists(token: token);
+      if(respone.http_call_back.status==200){
+       onSuccess.add(true);
+      }else{
         onError.add(respone.http_call_back.result.error.message);
       }
 
@@ -220,6 +224,7 @@ class ProductBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.AddWishlists(inventoryId: inventoryId,productId: productId,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
         GetMyWishlists(token: token);
+        onSuccess.add(true);
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -233,16 +238,14 @@ class ProductBloc{
 
   loadProductsById({int id,int shopid,String token}){
 
-    StreamSubscription subscription = Observable.combineLatest4(
+    StreamSubscription subscription = Observable.combineLatest3(
         Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)),
         Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)),
-        Observable.fromFuture(_application.appStoreAPIRepository.ShopById(id: shopid)),
-        Observable.fromFuture(_application.appStoreAPIRepository.GetWishlistsByProduct(productID: id,token: token)),(a, b,c,d){
+        Observable.fromFuture(_application.appStoreAPIRepository.ShopById(id: shopid)),(a, b,c){
       final _product = (a as ApiResult).respone;
       final _recommend  =(b as ApiResult).respone;
       final _shop  =(c as ApiResult).respone;
-      final _wishlist  =(d as ApiResult).respone;
-      return ProductDetailObjectCombine(productItem: _product,recommend: _recommend,shopRespone: _shop,wishlistsRespone: _wishlist);
+      return ProductDetailObjectCombine(productItem: _product,recommend: _recommend,shopRespone: _shop);
 
     }).listen((event) {
       ZipProductDetail.add(event);

@@ -7,7 +7,6 @@ class ProductDetailObjectCombine{
   final ProducItemRespone productItem;
   final ProductRespone recommend;
   final MyShopRespone shopRespone;
-  final WishlistsRespone wishlistsRespone;
 
-  ProductDetailObjectCombine({this.wishlistsRespone, this.productItem, this.recommend,this.shopRespone});
+  ProductDetailObjectCombine({this.productItem, this.recommend,this.shopRespone});
 }

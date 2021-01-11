@@ -6,8 +6,8 @@ class CustomerCountRespone {
   BuyOrder sellOrder;
 
   CustomerCountRespone(
-      {this.like,
-        this.watingReview,
+      {this.like=0,
+        this.watingReview=0,
         this.notification,
         this.buyOrder,
         this.sellOrder});

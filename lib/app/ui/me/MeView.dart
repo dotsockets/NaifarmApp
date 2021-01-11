@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/bloc/CounterBloc.dart';
+import 'package:naifarm/app/bloc/CustomerCount/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
@@ -199,7 +200,13 @@ class _MeViewState extends State<MeView> with RouteAware  {
                                    child: Container(
                                      child: Column(
                                        children: <Widget>[
-                                 
+                                         // BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
+                                         //   builder: (_, count) {
+                                         //     return Center(
+                                         //       child: Text('${count.like}', style: Theme.of(context).textTheme.headline1),
+                                         //     );
+                                         //   },
+                                         // ),
                                          SizedBox(
                                            height: 50,
                                            child: Container(

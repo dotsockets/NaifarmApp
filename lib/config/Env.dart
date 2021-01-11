@@ -1,7 +1,6 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naifarm/app/bloc/CounterBloc.dart';
-import 'package:naifarm/app/bloc/CustomerCount/customer_count_bloc.dart';
+import 'package:naifarm/app/bloc/CustomerCount/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/NaiFarmBlocObserver.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
@@ -40,7 +39,7 @@ class Env {
         path: 'resources/langs', // <-- change patch to your
         fallbackLocale: Locale('en', 'US'),
         child: BlocProvider(
-          create: (_) => CounterBloc(),
+          create: (_) => CustomerCountBloc(application),
           child: AppComponent(application),
         )));
   }

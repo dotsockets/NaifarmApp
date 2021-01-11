@@ -59,7 +59,7 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
     super.initState();
     scrollController = ScrollController();
     _controller = AnimationController(
-        duration: const Duration(milliseconds: 4000),
+        duration: const Duration(milliseconds: 2500),
         vsync: this,
         value: 0,
         lowerBound: 0,
@@ -67,6 +67,18 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
     );
     _animation = CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn);
     _controller.forward();
+
+    scrollController.addListener(() {
+      if(scrollController.offset == scrollController.position.maxScrollExtent){
+        setState(() {
+          onStatus = false;
+        });
+      }else{
+        setState(() {
+          onStatus = true;
+        });
+      }
+    });
 
   }
 
@@ -81,7 +93,15 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
      });
 
-      Usermanager().getUser().then((value) => bloc.loadProductsById(id: widget.productItem.id,shopid: widget.productItem.shop.id,token: value.token));
+     bloc.onSuccess.stream.listen((event) {
+
+     });
+
+      Usermanager().getUser().then((value){
+        bloc.GetWishlistsByProduct(productID: widget.productItem.id,token: value.token);
+        bloc.loadProductsById(id: widget.productItem.id,shopid: widget.productItem.shop.id,token: value.token);
+      });
+
 
     }
 
@@ -94,29 +114,7 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
      super.dispose();
    }
 
-   _onStartScroll(ScrollMetrics metrics) {
 
-     _controller.reverse(from: 0.5);
-   }
-   _onUpdateScroll(ScrollMetrics metrics) {
-     if(scrollController.offset<scrollController.position.maxScrollExtent){
-       setState(() {
-         onStatus = false;
-       });
-     }
-
-   }
-   _onEndScroll(ScrollMetrics metrics) {
-
-     if(scrollController.offset<scrollController.position.maxScrollExtent){
-       _controller.forward(from: 0.5);
-       setState(() {
-         onStatus = true;
-       });
-     }
-
-
-   }
 
 
    @override
@@ -130,113 +128,100 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
           child:  Column(
             children: [
               Expanded(
-                child: NotificationListener<ScrollNotification>(
-                  onNotification: (scrollNotification) {
-                    if (scrollNotification is ScrollStartNotification) {
-                      _onStartScroll(scrollNotification.metrics);
-                    } else if (scrollNotification is ScrollUpdateNotification) {
-                      _onUpdateScroll(scrollNotification.metrics);
-                    }  else if (scrollNotification is ScrollEndNotification) {
-                      _onEndScroll(scrollNotification.metrics);
-                    }
-                    return true;
-                  },
-                  child: Stack(
-                    children: [
-
-                      SingleChildScrollView(
-                        controller: scrollController,
-                        child: Column(
-                          children: [
-                            AppToobar(header_type: Header_Type.barNoBackground),
-                            Hero(tag: widget.productImage, child: ProductSlide(imgList: widget.productItem.image)),
-                            ProductInto(data: widget.productItem),
-                            _Divider(),
-                            BuildChoosesize(IndexType1: IndexTypes1,IndexType2: IndexTypes2,onclick1: (int index)=>setState(() =>IndexTypes1 = index),onclick2: (int index)=>setState(() =>IndexTypes2 = index)),
-                            _Divider(),
-                            StreamBuilder(
-                                stream: bloc.ZipProductDetail.stream,
-                                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                                  if(snapshot.hasData) {
-                                    return Column(
-                                      children: [
-                                        InkWell(
-                                          child: ShopOwn(shopItem: (snapshot.data as ProductDetailObjectCombine).shopRespone),
-                                          onTap: (){
-                                            AppRoute.ShopMain(context);
-                                          },
-                                        ),
-                                        _Divider(),
-                                        ProductDetail(productItem: (snapshot.data as ProductDetailObjectCombine).productItem),
-                                      ],
-                                    );
-                                  }else{
-                                    return SizedBox();
-                                  }
-                                }
-                            ),
-
-                            _Divider(),
-                            StreamBuilder(
+                child: Stack(
+                  children: [
+                    SingleChildScrollView(
+                      controller: scrollController,
+                      child: Column(
+                        children: [
+                          AppToobar(header_type: Header_Type.barNoBackground),
+                          Hero(tag: widget.productImage, child: ProductSlide(imgList: widget.productItem.image)),
+                          ProductInto(data: widget.productItem),
+                          _Divider(),
+                          BuildChoosesize(IndexType1: IndexTypes1,IndexType2: IndexTypes2,onclick1: (int index)=>setState(() =>IndexTypes1 = index),onclick2: (int index)=>setState(() =>IndexTypes2 = index)),
+                          _Divider(),
+                          StreamBuilder(
                               stream: bloc.ZipProductDetail.stream,
                               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                                if(snapshot.hasData && (snapshot.data as ProductDetailObjectCombine).recommend!=null) {
-                                  return  ProductLandscape(
-                                    productRespone: (snapshot.data as ProductDetailObjectCombine).recommend,
-                                    titleInto: LocaleKeys.recommend_you_like.tr(),
-                                    producViewModel: ProductViewModel().getBestSaller(),
-                                    IconInto: 'assets/images/svg/like.svg',
-                                    onSelectMore: () {
-
-                                    },
-                                    onTapItem: (ProductData item,int index) {
-                                      AppRoute.ProductDetail(context,
-                                          productImage: "product_like_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
-                                    },
-                                    tagHero: "product_like",
+                                if(snapshot.hasData) {
+                                  return Column(
+                                    children: [
+                                      InkWell(
+                                        child: ShopOwn(shopItem: (snapshot.data as ProductDetailObjectCombine).shopRespone),
+                                        onTap: (){
+                                          AppRoute.ShopMain(context);
+                                        },
+                                      ),
+                                      _Divider(),
+                                      ProductDetail(productItem: (snapshot.data as ProductDetailObjectCombine).productItem),
+                                    ],
                                   );
                                 }else{
                                   return SizedBox();
                                 }
-                              },
-                            ),
-                            _Divider(),
-                            Reviewscore()
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0.0,
-                        right: 0.0,
-                        left: 0.0,
-                        child: Container(
-                          color: onStatus?Colors.white:Colors.transparent,
-                          child: StreamBuilder(
-                            stream: bloc.ZipProductDetail.stream,
-                            builder: (BuildContext context,AsyncSnapshot snapshot){
-                              if(snapshot.hasData){
-                                if((snapshot.data as ProductDetailObjectCombine).wishlistsRespone.total>0){
-                                  return  FadeTransition(
-                                    ///Providing our animation to opacity property
-                                    opacity: _animation,
-                                    child: _BuildFooterTotal(item: (snapshot.data as ProductDetailObjectCombine).wishlistsRespone),
-                                  );
-                                }else{
-                                  return  FadeTransition(
-                                    opacity: _animation,
-                                    child: _BuildFooterTotal(item: (snapshot.data as ProductDetailObjectCombine).wishlistsRespone),
-                                  );
-                                }
+                              }
+                          ),
 
+                          _Divider(),
+                          StreamBuilder(
+                            stream: bloc.ZipProductDetail.stream,
+                            builder: (BuildContext context, AsyncSnapshot snapshot) {
+                              if(snapshot.hasData && (snapshot.data as ProductDetailObjectCombine).recommend!=null) {
+                                return  ProductLandscape(
+                                  productRespone: (snapshot.data as ProductDetailObjectCombine).recommend,
+                                  titleInto: LocaleKeys.recommend_you_like.tr(),
+                                  producViewModel: ProductViewModel().getBestSaller(),
+                                  IconInto: 'assets/images/svg/like.svg',
+                                  onSelectMore: () {
+
+                                  },
+                                  onTapItem: (ProductData item,int index) {
+                                    AppRoute.ProductDetail(context,
+                                        productImage: "product_like_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
+                                  },
+                                  tagHero: "product_like",
+                                );
                               }else{
                                 return SizedBox();
                               }
                             },
                           ),
+                          _Divider(),
+                          Reviewscore()
+                        ],
+                      ),
+                    ),
+                    onStatus?Positioned(
+                      bottom: 0.0,
+                      right: 0.0,
+                      left: 0.0,
+                      child: Container(
+                        color: Colors.white,
+                        child: StreamBuilder(
+                          stream: bloc.Wishlists.stream,
+                          builder: (BuildContext context,AsyncSnapshot snapshot){
+                            if(snapshot.hasData){
+                              if((snapshot.data as WishlistsRespone).total>0){
+                                return  FadeTransition(
+                                  ///Providing our animation to opacity property
+                                  opacity: _animation,
+                                  child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
+                                );
+                              }else{
+                                return  FadeTransition(
+                                  opacity: _animation,
+                                  child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
+                                );
+                              }
+
+                            }else{
+                              return SizedBox();
+                            }
+                          },
                         ),
-                      )
-                    ],
-                  )
+                      ),
+                    ):SizedBox()
+                  ],
                 ),
 
               ),
@@ -289,7 +274,10 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                   bloc.Wishlists.add(item);
                   Usermanager().getUser().then((value) => bloc.DELETEWishlists(WishId:id,token: value.token));
                 }else{
-                  Usermanager().getUser().then((value) => bloc.AddWishlists(productId: bloc.ZipProductDetail.value.productItem.id,inventoryId: bloc.ZipProductDetail.value.productItem.inventories[0].id,token: value.token));
+                  Usermanager().getUser().then((value) => bloc.AddWishlists(productId: widget.productItem.id,inventoryId: bloc.ZipProductDetail.value.productItem.inventories[0].id,token: value.token));
+                  item.data = [];
+                  item.total = 1;
+                  bloc.Wishlists.add(item);
                 }
               },
             )),

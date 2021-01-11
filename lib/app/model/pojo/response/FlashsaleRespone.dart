@@ -67,13 +67,13 @@ class FlashsaleData {
 }
 
 class FlashsaleItems {
-  FlashsaleProduct product;
+  ProductData product;
 
   FlashsaleItems({this.product});
 
   FlashsaleItems.fromJson(Map<String, dynamic> json) {
     product =
-    json['product'] != null ? new FlashsaleProduct.fromJson(json['product']) : null;
+    json['product'] != null ? new ProductData.fromJson(json['product']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -85,91 +85,7 @@ class FlashsaleItems {
   }
 }
 
-class FlashsaleProduct {
-  int id;
-  String brand;
-  String name;
-  int minPrice;
-  int maxPrice;
-  int salePrice;
-  int offerPrice;
-  int hasVariant;
-  String slug;
-  int saleCount;
-  Shop shop;
-  List<ProductImage> image;
-  int discountPercent;
-  int rating;
-  int reviewCount;
-  int stockQuantity;
 
-  FlashsaleProduct(
-      {this.id,
-        this.brand,
-        this.name,
-        this.minPrice,
-        this.maxPrice,
-        this.salePrice,
-        this.offerPrice,
-        this.hasVariant,
-        this.slug,
-        this.saleCount,
-        this.shop,
-        this.image,
-        this.discountPercent,
-        this.rating,
-        this.reviewCount,
-        this.stockQuantity});
-
-  FlashsaleProduct.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    brand = json['brand'];
-    name = json['name'];
-    minPrice = json['minPrice'];
-    maxPrice = json['maxPrice'];
-    salePrice = json['salePrice'];
-    offerPrice = json['offerPrice'];
-    hasVariant = json['hasVariant'];
-    slug = json['slug'];
-    saleCount = json['saleCount'];
-    shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
-    if (json['image'] != null) {
-      image = new List<ProductImage>();
-      json['image'].forEach((v) {
-        image.add(new ProductImage.fromJson(v));
-      });
-    }
-    discountPercent = json['discountPercent'];
-    rating = json['rating'];
-    reviewCount = json['reviewCount'];
-    stockQuantity = json['stockQuantity'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['brand'] = this.brand;
-    data['name'] = this.name;
-    data['minPrice'] = this.minPrice;
-    data['maxPrice'] = this.maxPrice;
-    data['salePrice'] = this.salePrice;
-    data['offerPrice'] = this.offerPrice;
-    data['hasVariant'] = this.hasVariant;
-    data['slug'] = this.slug;
-    data['saleCount'] = this.saleCount;
-    if (this.shop != null) {
-      data['shop'] = this.shop.toJson();
-    }
-    if (this.image != null) {
-      data['image'] = this.image.map((v) => v.toJson()).toList();
-    }
-    data['discountPercent'] = this.discountPercent;
-    data['rating'] = this.rating;
-    data['reviewCount'] = this.reviewCount;
-    data['stockQuantity'] = this.stockQuantity;
-    return data;
-  }
-}
 
 class Shop {
   int id;
