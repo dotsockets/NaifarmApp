@@ -167,7 +167,7 @@ class ProductVertical extends StatelessWidget {
                   SizedBox(height: 5),
                   Row(
                     children: [
-                      Icon(Icons.location_pin,color: Color(ColorUtils.hexToInt("#666666")),),
+                      Icon(Icons.location_pin,color: Color(ColorUtils.hexToInt("#666666")),size: 3.5.w,),
                       SizedBox(width: 0.3.w,),
                       Text('เชียงใหม่',style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize:  SizeUtil.detailFontSize().sp),)
                     ],

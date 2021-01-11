@@ -135,6 +135,12 @@ class _RecommendViewState extends State<RecommendView> {
                                 featuredRespone: (snapshot.data as HomeObjectCombine).featuredRespone,
                                 selectedIndex: _categoryselectedIndex,
                                 onTap: (int val) {
+                                  var data = (snapshot.data as HomeObjectCombine).featuredRespone.data[val];
+                                  AppRoute.CategoryDetail(context,data.id , title: data.name);
+                                  // setState(() {
+                                  //   _categoryselectedIndex = val;
+                                  //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
+                                  // });
                                 //  Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
 
                                 },

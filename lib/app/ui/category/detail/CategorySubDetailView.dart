@@ -90,9 +90,9 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                                 },*/
                                 onTapItem: (ProductData item,int index) {
                                   AppRoute.ProductDetail(context,
-                                      productImage: "recommend_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
+                                      productImage: "recommend_sub_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                                 },
-                                tagHero: 'recommend'),
+                                tagHero: 'recommend_sub'),
                             _BannerAds(),
                           ],
                         );

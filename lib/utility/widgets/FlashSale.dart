@@ -73,7 +73,7 @@ class _FlashSaleState extends State<FlashSale> {
   Widget _textSale({BuildContext context}){
     return InkWell(
       child: Container(
-        margin: EdgeInsets.only(bottom: 3.0.h),
+        margin: EdgeInsets.only(bottom: 1.0.h),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -160,10 +160,14 @@ class _FlashSaleState extends State<FlashSale> {
 
   Widget _intoProduct({ProductData item,int index}){
     return Container(
+      width: 30.0.w,
+
       child: Column(
         children: [
           SizedBox(height: 1.0.h),
-          Hero(tag:  "productName_${index}",child: Text(item.name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:SizeUtil.titleSmallFontSize().sp ),)),
+          Hero(tag:  "productName_${index}",child: Text(item.name,
+            overflow: TextOverflow.ellipsis,maxLines: 1
+            ,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:SizeUtil.titleSmallFontSize().sp ),)),
           SizedBox(height: 0.8.h),
           Hero(tag: "productPrice_${index}",child: Text("฿${item.salePrice}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize:SizeUtil.priceFontSize().sp),)),
           Stack(
