@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:naifarm/app/bloc/MemberBloc.dart';
+import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';

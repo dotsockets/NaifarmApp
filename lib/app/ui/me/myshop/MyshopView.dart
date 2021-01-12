@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:naifarm/app/bloc/MemberBloc.dart';
+import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -237,7 +237,7 @@ class _MyshopViewState extends State<MyshopView> {
           borderRadius: BorderRadius.circular(40.0),
         ),
         onPressed: () {
-          AppRoute.MyNewProduct(context);
+          AppRoute.ImageProduct(context);
         },
         child: Text(
           LocaleKeys.add_product_btn.tr(),

@@ -250,6 +250,12 @@ class APIRepository{
     return _apiProvider.GetCustomerCount(token: token);
   }
 
+  Future<ApiResult> GetCategoriesAll(){
+    return _apiProvider.GetCategoriesAll();
+  }
+
+
+
 
 
 //  Observable<List<AppContent>> getTop100FreeApp(){

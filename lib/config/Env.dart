@@ -1,7 +1,7 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naifarm/app/bloc/CustomerCount/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/NaiFarmBlocObserver.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:easy_localization/easy_localization.dart';

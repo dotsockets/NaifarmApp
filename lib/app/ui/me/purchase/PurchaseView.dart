@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naifarm/app/bloc/CustomerCount/CustomerCountBloc.dart';
-import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';

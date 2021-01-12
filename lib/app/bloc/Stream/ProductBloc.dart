@@ -6,6 +6,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/BannersRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryObjectCombin.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
@@ -287,6 +288,18 @@ class ProductBloc{
     });
     _compositeSubscription.add(subscription);
   }
+
+  GetCategoriesAll(){
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.GetCategoriesAll()).listen((respone) {
+      if(respone.http_call_back.status==200){
+        NaiFarmLocalStorage.saveCategoriesAll((respone.respone as CategoriesAllRespone));
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+
 
 
 

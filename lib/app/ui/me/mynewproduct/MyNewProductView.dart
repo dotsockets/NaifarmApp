@@ -6,11 +6,13 @@ import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
+import 'package:naifarm/utility/widgets/OrderTypeDropdownList.dart';
 import 'package:sizer/sizer.dart';
 
 class MyNewProductView extends StatefulWidget {
@@ -38,6 +40,8 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         });
       },
     );
+
+
   }
 
   @override
@@ -119,13 +123,28 @@ class _MyNewProductViewState extends State<MyNewProductView> {
             head,
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
+
           Container(
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: Colors.black.withOpacity(0.3))),
-              child: CustomDropdownList(txtSelect: hint,title: head,dataList: dataList,),
+              child: InkWell(
+                child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(head,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),),
+                        Icon(Icons.keyboard_arrow_down)
+                      ],
+                    )
+                ),
+                onTap: (){
+                  _showMyDialog();
+                },
+              ),
           ),
 
         ],
@@ -223,6 +242,20 @@ class _MyNewProductViewState extends State<MyNewProductView> {
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
         ),
       );
+
+  }
+
+
+  Future<void> _showMyDialog() async {
+    NaiFarmLocalStorage.getAllCategoriesCache().then((value){
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return OrderTypeDropdownList(categoriesAllRespone: value,onSelect: (int id){
+              Navigator.of(context).pop();
+            },);
+          });
+    });
 
   }
 }

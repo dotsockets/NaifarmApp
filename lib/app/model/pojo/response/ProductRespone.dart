@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 class ProductRespone {
   List<ProductData> data;
   int total;
@@ -145,8 +147,9 @@ class ProductShop {
 class ProductImage {
   String name;
   String path;
+  File file;
 
-  ProductImage({this.name, this.path});
+  ProductImage({this.name="", this.path="",this.file});
 
   ProductImage.fromJson(Map<String, dynamic> json) {
     name = json['name'];

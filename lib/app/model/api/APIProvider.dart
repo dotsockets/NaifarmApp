@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/BannersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
@@ -219,6 +220,11 @@ abstract class APIProvider{
 
   @GET("/v1/customers/count")
   Future<ApiResult> GetCustomerCount({String token});
+
+  @GET("/v1/all-categories")
+  Future<ApiResult> GetCategoriesAll();
+
+
 
 }
 

@@ -1243,6 +1243,27 @@ class _APIProvider implements APIProvider {
     }
   }
 
+  @override
+  Future<ApiResult> GetCategoriesAll() async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/all-categories',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{},
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: CategoriesAllRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
 
 
 

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:naifarm/app/bloc/ProductBloc.dart';
+import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:flutter/material.dart';
@@ -45,9 +45,6 @@ class _SplashViewState extends State<SplashView>
 
     animation.addListener(() => this.setState(() {}));
     animationController.forward();
-
-
-
   }
 
 
@@ -60,6 +57,7 @@ class _SplashViewState extends State<SplashView>
         startTimer();
       });
      Usermanager().getUser().then((value) =>  bloc.loadHomeData(token: value.token));
+     bloc.GetCategoriesAll();
     }
 
   }
