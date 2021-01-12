@@ -49,6 +49,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
 
     }
 
+
   }
 
   @override
@@ -71,12 +72,12 @@ class _FlashSaleViewState extends State<FlashSaleView> {
                     margin: EdgeInsets.only(top: 50),
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.only(topRight:  Radius.circular(40),topLeft: Radius.circular(40)
-                            ,bottomLeft: Radius.circular( widget.instalData.data.length ==0?0:40),bottomRight: Radius.circular(widget.instalData.data.length ==0?0:40)
+                        borderRadius: BorderRadius.only(topRight:  Radius.circular(40),topLeft: Radius.circular(40),
+                            bottomLeft: Radius.circular( widget.instalData.data.length !=0?0:40),bottomRight: Radius.circular(widget.instalData.data.length !=0?0:40)
                         ),
                         border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
                     ),
-                    child:   widget.instalData.data.length !=0?
+                    child:   widget.instalData.data.length ==0?
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height:50.0.h,
@@ -101,7 +102,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
                           },
                           onTapItem: (int index) {
                             AppRoute.ProductDetail(context,
-                                productImage: "special_${index}");
+                                productImage: "special_${index}",productItem: ProductBloc.ConvertDataToProduct(data: widget.instalData.data[0].items[index].product));
                           },EnableHeader: false,tagHero: "special",FlashSallLabel: true,api_link: "flashsale",)
                         ,
                       ],
@@ -149,7 +150,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
   }
 
   CountdownFormatted _buildCountDown() => CountdownFormatted(
-    duration: Duration(hours: 1),
+    duration: Duration(seconds: FunctionHelper.flashSaleTime(timeFlash: widget.instalData.data[0].end),),
     onFinish: null,
     builder: (BuildContext context, String remaining) {
       final showTime = (String text) => ClipRRect(

@@ -100,7 +100,7 @@ class _ProductGridState extends State<ProductGrid> {
               _buildCardProduct(context: context)
             ],
           )),
-    ):  Skeleton.LoaderGridV(context);;
+    ):  Skeleton.LoaderGridV(context);
   }
 
   Container _header_bar() => Container(

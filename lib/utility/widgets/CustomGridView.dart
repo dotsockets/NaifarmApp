@@ -101,6 +101,7 @@ class CustomGridView extends StatelessWidget {
                 Text(
                   item.name,
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                   style: FunctionHelper.FontTheme(
                       color: Colors.black,
                       fontSize: SizeUtil.titleSmallFontSize().sp,

@@ -19,7 +19,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-
+import 'package:sizer/sizer.dart';
 
 
 class ProductGridFlashSaleView extends StatefulWidget {
@@ -106,7 +106,7 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
             Text(widget.titleInto,
                 style: FunctionHelper.FontTheme(
                     color: Colors.black,
-                    fontSize: SizeUtil.titleFontSize(),
+                    fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.bold)),
           ],
         ),
@@ -123,12 +123,11 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
 
   Container ItemRow(BuildContext context) => Container(
     child: StreamBuilder(
-      stream: bloc.MoreProduct.stream,
+      stream: bloc.Flashsale.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if(snapshot.hasData){
-          if((snapshot.data as FlashsaleRespone).data.isNotEmpty){
             product_data.addAll((snapshot.data as FlashsaleRespone).data[0].items);
-          }
+
           return Column(
             children: [
               for (int i = 0; i < product_data.length; i += 2)
@@ -141,7 +140,7 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
                         Check(i),
                             (index) => _buildProduct(
                             index: i + index,
-                            item: (snapshot.data as ProductRespone).data[i + index],
+                            item: product_data[i+index].product,
                             context: context)),
                   ),
                 )
@@ -160,15 +159,17 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
         children: [
           SizedBox(height: 8),
           Text(
-            item.name,
+            " "+item.name+" ",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: FunctionHelper.FontTheme(
-                color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize()),
+                color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           SizedBox(height: 5),
           Text(
             "฿${item.salePrice}",
             style: FunctionHelper.FontTheme(
-                color: ThemeColor.ColorSale(), fontWeight: FontWeight.bold,fontSize: SizeUtil.priceFontSize()),
+                color: ThemeColor.ColorSale(), fontWeight: FontWeight.bold,fontSize: SizeUtil.priceFontSize().sp),
           ),
           SizedBox(height: 5),
           Stack(
@@ -182,8 +183,8 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
                     EdgeInsets.only(left: 15, right: 7, bottom: 3, top: 3),
                     color: ThemeColor.ColorSale(),
                     child: Text(
-                      LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize(),
+                      LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize().sp,
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -191,8 +192,8 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
               ),
               SvgPicture.asset(
                 'assets/images/svg/flash.svg',
-                width: 45,
-                height: 40,
+                width: 8.0.w,
+                height: 8.0.w,
               )
             ],
           )
@@ -207,7 +208,7 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
         Text(item.name,
             style: FunctionHelper.FontTheme(
                 color: Colors.black,
-                fontSize: SizeUtil.titleSmallFontSize(),
+                fontSize: SizeUtil.titleSmallFontSize().sp,
                 fontWeight: FontWeight.w500)),
         SizedBox(
           height: 10,
@@ -215,7 +216,7 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
         Text(
           "฿${item.salePrice}",
           style: FunctionHelper.FontTheme(
-              color: ThemeColor.ColorSale(), fontSize: SizeUtil.titleSmallFontSize()),
+              color: ThemeColor.ColorSale(), fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
         SizedBox(
           height: 8,
@@ -240,7 +241,7 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
             ),
             Text(LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.detailSmallFontSize(),
+                    fontSize: SizeUtil.detailSmallFontSize().sp,
                     color: Colors.black,
                     fontWeight: FontWeight.w500))
           ],
@@ -253,6 +254,7 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
     return GestureDetector(
       child: Container(
         width: (MediaQuery.of(context).size.width / 2) - 15,
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -262,30 +264,32 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
                   tag: "${widget.tagHero}_${index}",
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(30),
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: Colors.black.withOpacity(0.2), width: 1),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: CachedNetworkImage(
-                      width: 120,
-                      height: 120,
-                      placeholder: (context, url) => Container(
+                    child:  ClipRRect(
+                      borderRadius: BorderRadius.circular(1.0.h),
+                      child: CachedNetworkImage(
                         width: 120,
-                        height: 120,
-                        color: Colors.white,
-                        child:
-                        Lottie.asset(Env.value.loadingAnimaion, height: 30),
-                      ),
-                      fit: BoxFit.cover,
-                      imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                      errorWidget: (context, url, error) => Container(
+                        height: 130,
+                        placeholder: (context, url) => Container(
                           width: 120,
-                          height: 120,
-                          child: Icon(
-                            Icons.error,
-                            size: 30,
-                          )),
+                          height: 130,
+                          color: Colors.white,
+                          child:
+                          Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                        ),
+                        fit: BoxFit.cover,
+                        imageUrl: ProductLandscape.CovertUrlImage(item.image),
+                        errorWidget: (context, url, error) => Container(
+                            width: 120,
+                            height: 120,
+                            child: Icon(
+                              Icons.error,
+                              size: 30,
+                            )),
+                      ),
                     ),
                   ),
                 ),
@@ -304,7 +308,7 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
                         style: GoogleFonts.sarabun(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: SizeUtil.titleSmallFontSize()),
+                            fontSize: SizeUtil.titleSmallFontSize().sp),
                       ),
                     ),
                     widget.isLike

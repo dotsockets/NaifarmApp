@@ -247,8 +247,8 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
             Expanded(child: GestureDetector(
               child: SvgPicture.asset(
                 'assets/images/svg/share.svg',
-                width: 9.0.w,
-                height: 9.0.w,
+                width: 8.0.w,
+                height: 8.0.w,
               ),
               onTap: (){
 
@@ -262,8 +262,8 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
             Expanded(child: GestureDetector(
               child: SvgPicture.asset(
                 item.total>0?'assets/images/svg/like_line.svg':'assets/images/svg/like_line_null.svg',
-                width: 9.0.w,
-                height: 9.0.w,
+                width: 8.0.w,
+                height: 8.0.w,
                 color: ThemeColor.ColorSale(),
               ),
               onTap: (){

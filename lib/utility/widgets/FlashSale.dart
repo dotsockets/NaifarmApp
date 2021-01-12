@@ -34,11 +34,13 @@ class FlashSale extends StatefulWidget {
 class _FlashSaleState extends State<FlashSale> {
 
   bool OnFlashSale = false;
+
  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     OnFlashSale = widget.flashsaleRespone.total>0?true:false;
+
   }
 
   @override
@@ -84,6 +86,7 @@ class _FlashSaleState extends State<FlashSale> {
       ),
       onTap: (){
         AppRoute.FlashSaleAll(context,instalData: widget.flashsaleRespone);
+
       },
     );
   }
@@ -126,16 +129,19 @@ class _FlashSaleState extends State<FlashSale> {
             children: [
               Hero(
                 tag: "productImage_${index}",
-                child: CachedNetworkImage(
-                  width: 30.0.w,
-                  height: 30.0.w,
-                  placeholder: (context, url) => Container(
-                    color: Colors.white,
-                    child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(0.5.h),
+                  child: CachedNetworkImage(
+                    width: 30.0.w,
+                    height: 30.0.w,
+                    placeholder: (context, url) => Container(
+                      color: Colors.white,
+                      child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                    ),
+                    fit: BoxFit.cover,
+                    imageUrl: ProductLandscape.CovertUrlImage(item.image),
+                    errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: SizeUtil.titleSmallFontSize().sp,)),
                   ),
-                  fit: BoxFit.contain,
-                  imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                  errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: SizeUtil.titleSmallFontSize().sp,)),
                 ),
               ),
               Visibility(
@@ -219,7 +225,7 @@ class _FlashSaleState extends State<FlashSale> {
   }
 
   CountdownFormatted _buildCountDown() => CountdownFormatted(
-    duration: Duration(hours: 1),
+    duration: Duration(seconds: FunctionHelper.flashSaleTime(timeFlash: widget.flashsaleRespone.data[0].end),),
     onFinish: null,
     builder: (BuildContext context, String remaining) {
       final showTime = (String text) => ClipRRect(

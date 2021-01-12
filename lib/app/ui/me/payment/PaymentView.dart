@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:sizer/sizer.dart';
 
 class PaymentView extends StatefulWidget {
@@ -47,13 +48,13 @@ class _PaymentViewState extends State<PaymentView> {
       top: false,
       child: Scaffold(
         key: _scaffoldKey,
+        appBar: AppToobar(title: LocaleKeys.me_title_payment.tr(),icon: "",header_type:  Header_Type.barNormal,),
         body:  Container(
           color: Colors.grey.shade300,
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                    child: AppToobar(title: LocaleKeys.me_title_payment.tr(),icon: "",header_type:  Header_Type.barNormal,)),
+
                 StreamBuilder(
                   stream: bloc.ZipPaymentObject.stream,
                   builder: (BuildContext context,AsyncSnapshot snapshot){
@@ -69,7 +70,7 @@ class _PaymentViewState extends State<PaymentView> {
                         }),
                       );
                     }else{
-                      return SizedBox();
+                      return Skeleton.LoaderList(context);
                     }
                   },
                 ),

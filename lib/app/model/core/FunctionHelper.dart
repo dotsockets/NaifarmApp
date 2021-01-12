@@ -388,6 +388,28 @@ class FunctionHelper {
       },
     );
   }
+  static int flashSaleTime({String timeFlash}){
+
+    final year = int.parse(timeFlash.substring(0, 4));
+    final month = int.parse(timeFlash.substring(5, 7));
+    final day = int.parse(timeFlash.substring(8, 10));
+    final hour = int.parse(timeFlash.substring(11, 13));
+    final minute = int.parse(timeFlash.substring(14, 16));
+    final second = int.parse(timeFlash.substring(17, 19));
+
+    final timeData = DateTime(year, month, day, hour, minute,second);
+    final currentTime = DateTime.now();
+    final diff_sc = timeData.difference(currentTime).inSeconds;
+  /*
+    final diff_day = timeData.difference(currentTime).inDays;
+    int monthResult = 0,dayResult = 0;
+      if (diff_day>30){
+       // monthResult = (diff_day/30).floor();
+        dayResult = diff_day-((diff_day/30).floor()*30);
+      }
+ */
+    return diff_sc;
+  }
 
   static String replaceText({String text,String pattern}){
     try{
@@ -396,6 +418,9 @@ class FunctionHelper {
       return "";
     }
   }
+
+
+
 
   static String TimeAgo(String timestamp, {bool numericDates = true}){
     if(timestamp!=null && timestamp!=""){
