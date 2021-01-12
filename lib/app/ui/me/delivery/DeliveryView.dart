@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/pojo/response/ShppingOjectCombine.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:sizer/sizer.dart';
 
 class DeliveryView extends StatefulWidget {
@@ -49,7 +50,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                 StreamBuilder(
                   stream: bloc.ZipShppingOject.stream,
                   builder: (BuildContext context,AsyncSnapshot snapshot){
-                    if(snapshot.hasData ){
+                    if(snapshot.hasData){
                       var item = (snapshot.data as ShppingOjectCombine);
                       return Column(
                         children: List.generate(item.carriersRespone.total, (index){
@@ -70,7 +71,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                         }),
                       );
                     }else{
-                      return SizedBox();
+                      return Skeleton.LoaderList(context);
                     }
                   },
                 )

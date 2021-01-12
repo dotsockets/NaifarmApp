@@ -204,7 +204,7 @@ class AppToobar extends PreferredSize {
 
   Widget BarHome(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top:0.5.h,bottom:0.5.h,left: isEnable_Search ? 15:10),
+      padding: EdgeInsets.only(top:0.5.h,bottom:0.5.h,left: isEnable_Search ? 15:10,right: 0.3.w),
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         bottom: false,
@@ -259,7 +259,7 @@ class AppToobar extends PreferredSize {
           color: Colors.white,
           borderRadius: new BorderRadius.all(Radius.circular(40.0))),
       child: Container(
-          padding: EdgeInsets.only(left: 5, right: 12,bottom: 1),
+          padding: EdgeInsets.only(left: 5, right: 11,bottom: 1),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

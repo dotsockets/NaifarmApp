@@ -170,9 +170,9 @@ class _MyshopViewState extends State<MyshopView> {
           ),
           _BuildDivider(num: 10),
           ListMenuItem(
-            icon: 'assets/images/svg/help.svg',
+            icon: 'assets/images/svg/work.svg',
             title: "ตั้งค่าข้อมูลร้านค้า",
-            IsPhoto: "${widget.myShopRespone.image!=null?"${Env.value.baseUrl}/storage/images/${widget.myShopRespone.image[0].path}":''}",
+            IsPhoto: "${widget.myShopRespone.image.isNotEmpty ?"${Env.value.baseUrl}/storage/images/${widget.myShopRespone.image[0].path}":''}",
             Message: widget.myShopRespone.name,
             onClick: () async {
 

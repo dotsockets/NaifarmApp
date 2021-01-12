@@ -34,32 +34,29 @@ class ShopOwn extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  flex: 1,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(40),
-                    child: CachedNetworkImage(
-                      width: 60,
-                      height: 60,
-                      placeholder: (context, url) => Container(
-                        color: Colors.white,
-                        child:
-                        Lottie.asset(Env.value.loadingAnimaion,width: 30, height: 30),
-                      ),
-                      fit: BoxFit.cover,
-                      imageUrl: shopItem.image!=null?ProductLandscape.CovertUrlImage(shopItem.image):"",
-                      errorWidget: (context, url, error) => Container(
-                          width: 60,
-                          height: 60,
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xffE6E6E6),
-                            radius: 30,
-                            child: Icon(
-                              Icons.shopping_bag_rounded,
-                              color: Color(0xffCCCCCC),
-                            ),
-                          )),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(40),
+                  child: CachedNetworkImage(
+                    width: 15.0.w,
+                    height: 15.0.w,
+                    placeholder: (context, url) => Container(
+                      color: Colors.white,
+                      child:
+                      Lottie.asset(Env.value.loadingAnimaion,width: 30, height: 30),
                     ),
+                    fit: BoxFit.cover,
+                    imageUrl: shopItem.image!=null?ProductLandscape.CovertUrlImage(shopItem.image):"",
+                    errorWidget: (context, url, error) => Container(
+                        width: 60,
+                        height: 60,
+                        child: CircleAvatar(
+                          backgroundColor: Color(0xffE6E6E6),
+                          radius: 30,
+                          child: Icon(
+                            Icons.shopping_bag_rounded,
+                            color: Color(0xffCCCCCC),
+                          ),
+                        )),
                   ),
                 ),
                 SizedBox(width: 20),

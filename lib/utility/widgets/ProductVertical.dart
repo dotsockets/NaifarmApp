@@ -94,6 +94,10 @@ class ProductVertical extends StatelessWidget {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.black.withOpacity(0.2), width: 1),
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
                         child: Hero(
                           tag: "${tagHero}_${index}",
                           child: ClipRRect(

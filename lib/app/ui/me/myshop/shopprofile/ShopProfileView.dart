@@ -157,7 +157,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                                     height: 30),
                               ),
                               fit: BoxFit.cover,
-                              imageUrl:itemInfo!=null?itemInfo.image!=null?"${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}":'':'',
+                              imageUrl:itemInfo!=null?itemInfo.image.isNotEmpty?"${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}":'':'',
                               errorWidget: (context, url, error) => Container(
                                   color: Colors.white,
                                   width: 80,

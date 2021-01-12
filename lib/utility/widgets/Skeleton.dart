@@ -96,6 +96,48 @@ class Skeleton{
 
     ),
   );
+  static LoaderList(BuildContext context)=>Container(
+    color: Colors.white,
+    child: SkeletonLoader(
+      builder: Column(
+        children: [
+          Container(
+
+            padding: EdgeInsets.only(bottom: 2.0.h,top: 2.0.h,left: 4.0.w,right: 4.0.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  child: Container(
+
+                    width: MediaQuery.of(context).size.width/2,
+                    height: 1.0.h,
+                    color: Colors.grey.shade300,
+                  ),
+                ),
+                SizedBox(height: 5,),
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  child: Container(
+
+                    width: MediaQuery.of(context).size.width,
+                    height: 1.0.h,
+                    color: Colors.grey.shade300,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Divider(height: 10,color: Colors.grey.shade300,)
+        ],
+      ),
+      items: 10,
+      period: Duration(seconds: 2),
+      highlightColor: Colors.grey,
+
+    ),
+  );
 
   static LoaderListTite(BuildContext context)=>Container(
     color: Colors.white,
