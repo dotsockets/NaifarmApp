@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -50,13 +52,13 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
   MyShopRespone shop;
    AnimationController _controller;
    Animation<double> _animation;
+  StreamController<bool> checkScrollControl = new StreamController<bool>();
 
-
-  bool onStatus = true;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    checkScrollControl.add(true);
     scrollController = ScrollController();
     _controller = AnimationController(
         duration: const Duration(milliseconds: 2500),
@@ -70,13 +72,9 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
 
     scrollController.addListener(() {
       if(scrollController.offset == scrollController.position.maxScrollExtent){
-        setState(() {
-          onStatus = false;
-        });
+       checkScrollControl.add(false);
       }else{
-        setState(() {
-          onStatus = true;
-        });
+        checkScrollControl.add(true);
       }
     });
 
@@ -191,36 +189,40 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                         ],
                       ),
                     ),
-                    onStatus?Positioned(
-                      bottom: 0.0,
-                      right: 0.0,
-                      left: 0.0,
-                      child: Container(
-                        color: Colors.white,
-                        child: StreamBuilder(
-                          stream: bloc.Wishlists.stream,
-                          builder: (BuildContext context,AsyncSnapshot snapshot){
-                            if(snapshot.hasData){
-                              if((snapshot.data as WishlistsRespone).total>0){
-                                return  FadeTransition(
-                                  ///Providing our animation to opacity property
-                                  opacity: _animation,
-                                  child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
-                                );
-                              }else{
-                                return  FadeTransition(
-                                  opacity: _animation,
-                                  child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
-                                );
-                              }
+                    StreamBuilder<Object>(
+                        stream: checkScrollControl.stream,
+                        builder: (context, snapshot) {
+                          return snapshot.data?Positioned(
+                            bottom: 0.0,
+                            right: 0.0,
+                            left: 0.0,
+                            child: Container(
+                              color: Colors.white,
+                              child: StreamBuilder(
+                                stream: bloc.Wishlists.stream,
+                                builder: (BuildContext context,AsyncSnapshot snapshot){
+                                  if(snapshot.hasData){
+                                    if((snapshot.data as WishlistsRespone).total>0){
+                                      return  FadeTransition(
+                                        ///Providing our animation to opacity property
+                                        opacity: _animation,
+                                        child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
+                                      );
+                                    }else{
+                                      return  FadeTransition(
+                                        opacity: _animation,
+                                        child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
+                                      );
+                                    }
 
-                            }else{
-                              return SizedBox();
-                            }
-                          },
-                        ),
-                      ),
-                    ):SizedBox()
+                                  }else{
+                                    return SizedBox();
+                                  }
+                                },
+                              ),
+                            ),
+                          ):SizedBox();
+                        })
                   ],
                 ),
 

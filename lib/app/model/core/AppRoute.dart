@@ -101,13 +101,13 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeft, child: FlashSaleView(instalData: instalData,)));
   }
 
-  static  MyCart(BuildContext context,bool BtnBack){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyCartView(BtnBack: BtnBack,)));
+  static  MyCart(BuildContext context,bool btnBack){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyCartView(btnBack: btnBack,)));
   }
 
 
-  static  MyNoti(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiView()));
+  static  MyNoti(BuildContext context,bool btnBack){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiView(btnBack:btnBack)));
   }
 
   static  NotiDetail(BuildContext context,String notiImage,String notiTitle){

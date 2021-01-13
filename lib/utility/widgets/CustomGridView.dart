@@ -84,9 +84,10 @@ class CustomGridView extends StatelessWidget {
                   child: Lottie.asset(Env.value.loadingAnimaion, height: 20.0.w),
                 ),
                 fit: BoxFit.cover,
-                imageUrl: "${Env.value.baseUrl}/storage/images/${item.image[0].path}",
+                imageUrl: "${Env.value.baseUrl}/storage/images/${item.image.length!=0?item.image[0].path:""}",
                 errorWidget: (context, url, error) => Container(
-                    height: 30,
+                    width: 20.0.w,
+                    height: 20.0.w,
                     child: Icon(
                       Icons.error,
                       size: 30,
@@ -94,29 +95,32 @@ class CustomGridView extends StatelessWidget {
               ),
             ),
             SizedBox(width: 2.0.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  item.name,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: FunctionHelper.FontTheme(
-                      color: Colors.black,
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 0.5.h),
-                Text(
-                  LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
-                  overflow: TextOverflow.ellipsis,
-                  style: FunctionHelper.FontTheme(
-                      color: Colors.black,
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
-                      fontWeight: FontWeight.normal),
-                ),
-              ],
+            Container(
+              width: MediaQuery.of(context).size.width/4,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    item.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.black,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 0.5.h),
+                  Text(
+                    LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
+                    overflow: TextOverflow.ellipsis,
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.black,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontWeight: FontWeight.normal),
+                  ),
+                ],
+              ),
             )
           ],
         ),
