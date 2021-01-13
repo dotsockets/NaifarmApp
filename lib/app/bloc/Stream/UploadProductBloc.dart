@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:rxdart/rxdart.dart';
@@ -17,8 +18,8 @@ class UploadProductBloc{
   final onSuccess = BehaviorSubject<Object>();
   final onChang = BehaviorSubject<Object>();
 
-  List<ProductImage> listImage = List<ProductImage>();
-  List<ProductImage> ItemImage = List<ProductImage>();
+
+  List<Asset> ItemImage = List<Asset>();
 
 
 
@@ -26,41 +27,26 @@ class UploadProductBloc{
   UploadProductBloc(this._application);
 
 
-  void InstallImage(){
-    for(var i=0;i<1;i++){
-      if(i<1){
-        listImage.add(ProductImage(name: "0"));
-      }else{
-        listImage.add(ProductImage());
-      }
+  void ConvertArrayFile({List<Asset> imageList, int index}){
+    ItemImage.remove(null);
+    // if(index<9){
+    // }
 
-    }
-    onChang.add(listImage);
+    ItemImage.addAll(imageList);
+    onChang.add(ItemImage);
   }
 
-  void ConvertArrayFile({File file, int index}){
-    listImage[index].file = file;
-    if(index<9)
-      listImage[index+1].name = "0";
-    else{
-      listImage[index].name = "0";
-    }
-
-   // ItemImage.add(listImage[index]);
-    onChang.add(listImage);
-  }
-
-  bool ValidateButton(){
-    bool value = false;
-    int i = 0;
-    for(var item in listImage){
-      if(listImage[i].file!=null) {
-        value = true;
-        break;
-      }
-      i++;
-    }
-    return value;
-  }
+  // bool ValidateButton(){
+  //   bool value = false;
+  //   int i = 0;
+  //   for(var item in listImage){
+  //     if(listImage[i].file!=null) {
+  //       value = true;
+  //       break;
+  //     }
+  //     i++;
+  //   }
+  //   return value;
+  // }
 
 }
