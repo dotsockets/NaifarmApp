@@ -9,6 +9,7 @@ import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/category/CategoryView.dart';
 import 'package:naifarm/app/ui/me/MeView.dart';
 import 'package:naifarm/app/ui/mycart/cart/MyCartView.dart';
+import 'package:naifarm/app/ui/noti/notilist/NotiView.dart';
 import 'package:naifarm/app/ui/recommend/RecommendView.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
@@ -48,7 +49,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
             children: [
               RecommendView(size: MediaQuery.of(context).size,paddingBottom: MediaQuery.of(context).padding.bottom),
               CategoryView(),
-              MyCartView(BtnBack: false,),
+              //MyCartView(BtnBack: false,),
+              NotiView(),
               MeView()
             ],
           ),
@@ -76,9 +78,15 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                           final result = await  AppRoute.Login(context,IsCallBack: true);
                           if(result){
                             AppRoute.MyCart(context, true);
+                            setState(() {
+                              _selectedIndex = index;
+                            });
                           }
                         }else{
-                          AppRoute.MyCart(context, true);
+                         // AppRoute.MyCart(context, true);
+                          setState(() {
+                            _selectedIndex = index;
+                          });
                         }
                       });
                     }else{

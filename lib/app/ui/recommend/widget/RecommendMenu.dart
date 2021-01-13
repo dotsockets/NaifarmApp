@@ -79,7 +79,7 @@ class RecommendMenu extends StatelessWidget {
         break;
         case  "SpecialproductsView" : AppRoute.ProductMore(installData: homeObjectCombine.trendingRespone,api_link: "products/types/popular",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr());
         break;
-        case  "NotiView" :  AppRoute.MyNoti(context);
+        case  "NotiView" :  AppRoute.MyNoti(context,true);
         break;
         case  "MyLikeView" : {
 

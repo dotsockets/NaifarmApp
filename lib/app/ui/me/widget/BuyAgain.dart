@@ -146,10 +146,12 @@ class BuyAgain extends StatelessWidget {
 
   Widget _intoProduct({ProductData item}){
     return Container(
+      width: 30.0.w,
       child: Column(
         children: [
           SizedBox(height: 8),
-          Text(item.name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
+          Text(item.name,maxLines: 1,
+            overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
           SizedBox(height: 5),
           Text("฿${item.salePrice}",style: FunctionHelper.FontTheme(fontSize:SizeUtil.priceFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500),),
 

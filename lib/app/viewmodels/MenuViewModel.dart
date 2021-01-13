@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -16,9 +17,9 @@ class MenuViewModel {
         label: LocaleKeys.tab_bar_category.tr(),
       ),
       MenuModel(
-        icon: 'assets/images/svg/cart.svg',
-        iconSelected: 'assets/images/svg/cart.svg',
-        label: LocaleKeys.tab_bar_cart.tr(),
+        icon: 'assets/images/svg/notification.svg',
+        iconSelected: 'assets/images/svg/notification.svg',
+        label: LocaleKeys.recommend_notification.tr(),
       ),
       MenuModel(
         icon: 'assets/images/svg/me.svg',

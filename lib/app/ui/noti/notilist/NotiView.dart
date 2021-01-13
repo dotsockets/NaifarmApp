@@ -16,12 +16,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 //'assets/images/svg/cart_top.svg'
 class NotiView extends StatelessWidget {
+
+  final bool btnBack;
+  const NotiView({Key key, this.btnBack=false}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
       child: Scaffold(
-        appBar:  AppToobar(header_type: Header_Type.barNormal,icon: 'assets/images/svg/cart_top.svg',title: LocaleKeys.recommend_notification.tr(),),
+        appBar:  AppToobar(showBackBtn: btnBack,header_type: Header_Type.barNormal,icon: 'assets/images/svg/cart_top.svg',title: LocaleKeys.recommend_notification.tr(),),
         body: SingleChildScrollView(
           child: Container(
             color: Colors.white,

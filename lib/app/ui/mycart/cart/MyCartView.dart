@@ -21,9 +21,8 @@ import '../widget/ModalFitBottom_Sheet.dart';
 
 class MyCartView extends StatefulWidget {
 
-  final bool BtnBack;
-
-  const MyCartView({Key key, this.BtnBack=false}) : super(key: key);
+  final bool btnBack;
+  const MyCartView({Key key, this.btnBack=false}) : super(key: key);
 
   @override
   _MyCartViewState createState() => _MyCartViewState();
@@ -52,7 +51,7 @@ class _MyCartViewState extends State<MyCartView> {
         appBar: AppToobar(
         title: LocaleKeys.cart_toobar.tr(),
         icon: "",
-        showBackBtn: widget.BtnBack ,
+        showBackBtn: widget.btnBack ,
         header_type: Header_Type.barNormal,
       ),
         body: _data_aar.length != 0
