@@ -1271,6 +1271,7 @@ class _APIProvider implements APIProvider {
     final _data = <String, dynamic>{};
     try {
 
+
       final _result = await _dio.request<dynamic>('/v1/categories',
           queryParameters: queryParameters,
           options: RequestOptions(
@@ -1286,11 +1287,39 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> UpdateProductMyShop({ProductMyShopRequest shopRequest,int productId, String token}) async {
+  Future<ApiResult> AddCartlists({CartRequest cartRequest, String token}) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      // "inventoryId":inventoryId,
+      // "productId":productId
+    };
     try {
+      final _result = await _dio.request<dynamic>('/v1/cart',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: cartRequest);
+      return ApiResult(respone: CartResponse.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+
+
+
+      @override
+      Future<ApiResult> UpdateProductMyShop({ProductMyShopRequest shopRequest,int productId, String token}) async {
+        const _extra = <String, dynamic>{ };
+        final queryParameters = <String, dynamic>{};
+        final _data = <String, dynamic>{};
+        try {
 
       final _result = await _dio.request<dynamic>('/v1/myshop/products/${productId}',
           queryParameters: queryParameters,
@@ -1303,6 +1332,30 @@ class _APIProvider implements APIProvider {
               baseUrl: baseUrl),
           data: shopRequest);
       return ApiResult(respone: ProductMyShopRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> GetCartlists({String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+
+      final _result = await _dio.request<dynamic>('/v1/cart',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: CartResponse.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
       return ServerError.DioErrorExpction(e);
     }
@@ -1331,6 +1384,34 @@ class _APIProvider implements APIProvider {
     }
   }
 
+
+
+
+
+
+
+  @override
+  Future<ApiResult> DELETECart({int cartid, int inventoryid, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/cart/${cartid}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'DELETE',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
 
 
 

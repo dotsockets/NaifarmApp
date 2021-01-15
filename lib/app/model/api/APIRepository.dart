@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/api/APIProvider.dart';
 import 'package:naifarm/app/model/db/DBNaiFarmRepository.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/request/AssetImage.dart';
+import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
@@ -244,6 +245,7 @@ class APIRepository{
     return _apiProvider.AddWishlists(inventoryId: inventoryId,productId: productId,token: token);
   }
 
+
   Future<ApiResult> GetMyWishlists({String token}){
     return _apiProvider.GetMyWishlists(token: token);
   }
@@ -259,11 +261,20 @@ class APIRepository{
   Future<ApiResult> GetCategories(){
     return _apiProvider.GetCategories();
   }
+  Future<ApiResult> AddCartlists({CartRequest cartRequest,String token}){
+    return _apiProvider.AddCartlists(cartRequest: cartRequest,token: token);
+  }
 
   Future<ApiResult> AddProductMyShop({ProductMyShopRequest shopRequest,String token}){
     return _apiProvider.AddProductMyShop(shopRequest: shopRequest,token: token);
   }
+  Future<ApiResult> GetCartlists({String token}){
+    return _apiProvider.GetCartlists(token: token);
+  }
 
+  Future<ApiResult> DeleteCart({int cartid,int inventoryid,String token}){
+    return _apiProvider.DELETECart(cartid: cartid,inventoryid: inventoryid,token: token);
+  }
 
   Future<ApiResult> UpdateProductMyShop({ProductMyShopRequest shopRequest,int productId,String token}){
     return _apiProvider.UpdateProductMyShop(shopRequest: shopRequest,productId: productId,token: token);

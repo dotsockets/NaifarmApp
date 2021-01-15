@@ -129,7 +129,7 @@ class _RecommendViewState extends State<RecommendView> {
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if(snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+                            if(snapshot.hasData ) {
                               return CategoryMenu(
                                 featuredRespone: (snapshot.data as HomeObjectCombine).featuredRespone,
                                 selectedIndex: _categoryselectedIndex,
@@ -157,7 +157,7 @@ class _RecommendViewState extends State<RecommendView> {
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if(snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+                            if(snapshot.hasData ) {
                               return Column(
                                 children: [
                                   BannerSlide(),
@@ -174,7 +174,7 @@ class _RecommendViewState extends State<RecommendView> {
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
-                              if(snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+                              if(snapshot.hasData ) {
                                 return ProductLandscape(
                                   productRespone: (snapshot.data as HomeObjectCombine).productRespone,
                                     titleInto: LocaleKeys.recommend_best_seller.tr(),
@@ -198,7 +198,7 @@ class _RecommendViewState extends State<RecommendView> {
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if(snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+                            if(snapshot.hasData ) {
                               return  ProductVertical(
                                 productRespone:  (snapshot.data as HomeObjectCombine).martket,
                                   titleInto: LocaleKeys.recommend_market.tr(),
@@ -221,7 +221,7 @@ class _RecommendViewState extends State<RecommendView> {
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if(snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+                            if(snapshot.hasData ) {
                               return CategoryTab(categoryGroupRespone: (snapshot.data as HomeObjectCombine).categoryGroupRespone);
                             }else{
                               return SizedBox();
@@ -232,7 +232,7 @@ class _RecommendViewState extends State<RecommendView> {
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if(snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+                            if(snapshot.hasData ) {
                               return  SearchHot(productRespone: (snapshot.data as HomeObjectCombine).trendingRespone,onSelectChang: () {});
                             }else{
                               return SizedBox();
@@ -243,7 +243,7 @@ class _RecommendViewState extends State<RecommendView> {
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if(snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+                            if(snapshot.hasData ) {
                               return  ProductVertical(
                                 productRespone: (snapshot.data as HomeObjectCombine).trendingRespone,
                                   titleInto: LocaleKeys.recommend_product_for_you.tr(),
