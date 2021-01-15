@@ -3,133 +3,218 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
+import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
+import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/utility/widgets/OrderTypeDropdownList.dart';
 import 'package:sizer/sizer.dart';
 
 class EditProductView extends StatefulWidget {
-  final int index ;
+  final int ProductId ;
+  final UploadProductStorage uploadProductStorage;
 
-  const EditProductView({Key key, this.index}) : super(key: key);
+  const EditProductView({Key key, this.ProductId, this.uploadProductStorage}) : super(key: key);
   @override
   _EditProductViewState createState() => _EditProductViewState();
 }
 
 class _EditProductViewState extends State<EditProductView> {
+
   TextEditingController nameProductController = TextEditingController();
   TextEditingController detailtController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController amountController = TextEditingController();
+  TextEditingController offerPriceController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool checkKeyBoard = false;
-  bool checkSwitch = false;
-  List<String> listUnit = ["ชิ้น", "ถุง"];
-  List<String> listProvince = ["เชียงใหม่", "ลำปาง", "ลำพูน", "เชียงใหม่", "ลำปาง", "ลำพูน", "เชียงใหม่", "ลำปาง", "ลำพูน", "เชียงใหม่", "ลำปาง", "ลำพูน", "เชียงใหม่", "ลำปาง"];
-  List<String> listType = ["ผัก", "พืช", "ข้าว", "เนื้อ"];
-  List<String> listAddrDeli = ["ทั่วประเทศ", "นอกประเทศ", "ในประเทศ"];
-  List<ProductModel> listProducts = ProductViewModel().getMyProducts();
+  UploadProductBloc bloc;
 
   @override
   void initState() {
     super.initState();
-    nameProductController.text = listProducts[widget.index].product_name;
-    detailtController.text = listProducts[widget.index].product_status;
-    priceController.text = listProducts[widget.index].product_price.toString();
-    amountController.text = listProducts[widget.index].amoutProduct.toString();
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) {
         setState(() {
-          checkKeyBoard = visible;
+          checkKeyBoard= visible;
         });
       },
     );
+
+
+  }
+
+  init() {
+    if (bloc == null) {
+      bloc = UploadProductBloc(AppProvider.getApplication(context));
+      bloc.uploadProductStorage.stream.listen((event) {
+        _installControllerInput(productMyShopRequest: event.productMyShopRequest);
+      });
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+      });
+      bloc.onSuccess.stream.listen((event)  {
+         if(event is bool){
+           var item = bloc.uploadProductStorage.value.productMyShopRequest;
+           var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
+           Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
+               token: value.token));
+        }
+      });
+      NaiFarmLocalStorage.getAllCategoriesCache().then((value){
+        bloc.categoriesAllRespone = value;
+      });
+
+      Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(token: value.token,ProductId: widget.ProductId));
+      bloc.uploadProductStorage.add(widget.uploadProductStorage);
+
+    }
+
   }
 
   @override
   Widget build(BuildContext context) {
+    init();
     return SafeArea(
       top: false,
       child: Scaffold(
+        key: _scaffoldKey,
         body: Container(
           color: Colors.grey.shade300,
           child: Column(
             children: [
               Container(
-                  height: 80,
                   child: AppToobar(
                     title: LocaleKeys.my_product_data.tr(),
                     icon: "",
-                    header_type: Header_Type.barNormal,
-                  )),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        color: Colors.white,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _buildEditText(
-                                head: LocaleKeys.my_product_name.tr()+" * ",
-                                txt: listProducts[widget.index].product_name,
-                                hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),
-                                maxLength: 120,
-                                controller: nameProductController,
-                                inputType: TextInputType.text),
-                            _buildDropdown(
-                                head: LocaleKeys.my_product_category.tr()+" *",
-                                hint: LocaleKeys.select.tr()+LocaleKeys.my_product_category.tr(), dataList: listType),
-                            _buildEditText(
-                                head: LocaleKeys.my_product_detail.tr()+" * ",
-                                maxLength: 5000,
-                                hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),
-                                maxLine: 5,
-                                controller: detailtController,
-                                inputType: TextInputType.text),
-                            _buildDropdown(
-                                head: LocaleKeys.my_product_delivery_addr.tr()+" *",
-                                hint: "ทั่วประเทศ",
-                                dataList: listAddrDeli),
-                            _buildDropdown(
-                                head: LocaleKeys.my_product_delivery_from.tr(),
-                                hint: listProducts[widget.index].provice.toString(),
-                                dataList: listProvince),
-                            _buildEditText(
-                                head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")",
-                                hint: "0",
-                                inputType: TextInputType.number,
-                                controller: priceController),
-                            _buildEditText(head: LocaleKeys.my_product_amount.tr()+" * ",
-                                hint: "0",
-                                inputType: TextInputType.number,
-                                controller: amountController),
-                            _buildDropdown(head: LocaleKeys.my_product_category.tr()+" * ",
-                                hint: "ชิ้น",
-                                dataList: listUnit),
-                            SizedBox(
-                              height: 20,
-                            )
-                          ],
+                    header_type: Header_Type.barNormal,onClick: (){
+                    Navigator.of(context).pop();
+                  },)),
+              StreamBuilder(
+                  stream: bloc.uploadProductStorage.stream,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if(snapshot.hasData){
+                      return  Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(right: 20,top: 20,left: 20),
+                                color: Colors.white,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    BuildEditText(
+                                      head: LocaleKeys.my_product_name.tr()+" * ",EnableMaxLength: true,
+                                      hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 10,controller: nameProductController,inputType: TextInputType.text,onChanged: (String char){
+                                      if(char.isNotEmpty){
+                                        bloc.uploadProductStorage.value.productMyShopRequest.name  = char;
+                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                      }
+
+                                    },),
+                                    SizedBox(height: 15,),
+                                    _BuildDropdown (
+                                        head: LocaleKeys.my_product_category.tr()+" *",
+                                        seletText: LocaleKeys.my_product_category.tr(),
+                                        hint: LocaleKeys.select.tr()+LocaleKeys.my_product_category.tr()),
+                                    SizedBox(height: 15,),
+                                    BuildEditText(
+                                      head: LocaleKeys.my_product_detail.tr()+" * ",EnableMaxLength: true,maxLength: 5000,
+                                      hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailtController,inputType: TextInputType.text,onChanged: (String char){
+                                      if(char.isNotEmpty){
+                                        bloc.uploadProductStorage.value.productMyShopRequest.description = char;
+                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                      }
+
+                                    },),
+                                    SizedBox(height: 15,),
+
+                                    BuildEditText(head: LocaleKeys.my_product_amount.tr()+" *", hint: "0",inputType: TextInputType.number,controller: amountController,onChanged: (String char){
+                                      if(char.isNotEmpty){
+                                        bloc.uploadProductStorage.value.productMyShopRequest.stockQuantity = int.parse(char);
+                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                      }
+
+                                    },),
+                                    SizedBox(height: 15,),
+                                    BuildEditText(
+                                      head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController,onChanged: (String char){
+                                      if(char.isNotEmpty){
+
+                                        bloc.uploadProductStorage.value.productMyShopRequest.salePrice = int.parse(char);
+                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+
+
+                                      }
+
+
+                                    },),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    BuildEditText(
+                                      head: "ราคาโปรโมชั่น"+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: offerPriceController,onChanged: (String char){
+                                      if(char.isNotEmpty){
+                                        bloc.uploadProductStorage.value.productMyShopRequest.offerPrice = int.parse(char);
+                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                      }
+
+                                    },),
+
+                                  ],
+                                ),
+                              ),
+                              _BuildDeliveryTab(),
+                              Divider(height: 10,),
+                              _BuildImageTab(),
+                              Divider(height: 10,),
+                              _BuildAtivceTab(),
+                            ],
+                          ),
                         ),
-                      ),
-                      _buildDeliveryTab(),
-                      _buildSwitch(head: LocaleKeys.my_product_break.tr())
-                    ],
-                  ),
-                ),
+                      );
+                    }else{
+                      return SizedBox();
+                    }
+                  }
               ),
-              Visibility(
-                visible: checkKeyBoard ? false : true,
-                child: _buildButton(),
-              )
+              StreamBuilder(
+                  stream: bloc.uploadProductStorage.stream,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if(snapshot.hasData){
+                      return Visibility(
+                        visible: checkKeyBoard?false:true,
+                        child:  _BuildButton(enable: CheckEnable()),
+                      );
+                    }else{
+                      return SizedBox();
+                    }
+                  }
+              ),
+
             ],
           ),
         ),
@@ -137,91 +222,68 @@ class _EditProductViewState extends State<EditProductView> {
     );
   }
 
-  Widget _buildEditText(
-      {String head, String hint, int maxLength, TextEditingController controller = null,
-        int maxLine = 1, TextInputType inputType,String txt}) {
-    return Container(
-      margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                head,
-                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
-              ),
-              inputType == TextInputType.text ? Text("(${controller != null
-                  ? controller.text.length
-                  : 0}/${maxLength})") :
-              Text("")
-            ],
-          ),
-
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    color: controller != null && inputType == TextInputType.text
-                        ? controller.text.length < maxLength ? Colors.black
-                        .withOpacity(0.5) : Colors.redAccent
-                        : Colors.black.withOpacity(0.5))),
-            child: TextFormField(
-              keyboardType: inputType,
-              maxLines: maxLine,
-              controller: controller,
-              decoration: InputDecoration(
-                hintStyle: TextStyle(fontSize: SizeUtil.titleFontSize().sp, color: Colors.grey),
-                hintText: hint,
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.all(15),
-              ),
-              onChanged: (String char) {
-                setState(() {
-
-                });
-              },
-            ),
-          )
-        ],
-      ),
-    );
+  bool CheckEnable(){
+    var item = bloc.uploadProductStorage.value.productMyShopRequest;
+    if(item.name!="" && item.category!=0 && item.description!="" && item.stockQuantity!=0 && item.salePrice!=0){
+      return true;
+    }else{
+      return false;
+    }
   }
 
-  Widget _buildDropdown({String head, String hint, List<String> dataList}) {
+
+  Widget _BuildDropdown({String head, String hint,String seletText, List<String> dataList}) {
+
+    for(var item in bloc.categoriesAllRespone.categoriesRespone.data){
+      if(item.id == bloc.uploadProductStorage.value.productMyShopRequest.category){
+        seletText = item.name;
+        break;
+      }
+    }
+
+
     return Container(
-      margin: EdgeInsets.only(top: 20, left: 20, right: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
+
           Container(
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: Colors.black.withOpacity(0.3))),
-            child: CustomDropdownList(
-              txtSelect: hint, title: head, dataList: dataList,),
+            child: InkWell(
+              child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(seletText,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),),
+                      Icon(Icons.keyboard_arrow_down)
+                    ],
+                  )
+              ),
+              onTap: (){
+                _showMyDialog();
+              },
+            ),
           ),
 
         ],
       ),
     );
   }
-
-  Widget _buildDeliveryTab() {
+  Widget _BuildDeliveryTab() {
     return InkWell(
       child: Container(
+          padding: EdgeInsets.all(20),
           color: Colors.white,
-          margin: EdgeInsets.only(top: 10),
-          height: 50,
           child: Container(
-              margin: EdgeInsets.all(15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -232,94 +294,169 @@ class _EditProductViewState extends State<EditProductView> {
                   )
                 ],
               ))),
-      onTap: () {
+      onTap: (){
         AppRoute.DeliveryCost(context);
       },
     );
   }
 
-  Widget _buildButton() {
+  Widget _BuildAtivceTab() {
+    return InkWell(
+      child: Container(
+          color: Colors.white,
+          padding: EdgeInsets.only(left: 5,right: 5),
+          child: Container(
+              margin: EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Open sales", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+                  FlutterSwitch(
+                    height: 30,
+                    width: 50,
+                    toggleSize: 20,
+                    activeColor: bloc.uploadProductStorage.value.productMyShopRequest.active==1?ThemeColor.primaryColor():Colors.grey.shade200,
+                    inactiveColor: Colors.grey.shade200,
+                    // toggleColor: item.active ? ThemeColor.primaryColor() : Colors.grey.shade400,
+                    value:bloc.uploadProductStorage.value.productMyShopRequest.active==1?true:false,
+                    onToggle: (val) {
+                      //IsSwitch(val);
+                      bloc.uploadProductStorage.value.productMyShopRequest.active = val?1:0;
+                      bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                    },
+                  )
+                ],
+              ))),
+      onTap: (){
+        AppRoute.DeliveryCost(context);
+      },
+    );
+  }
+
+  Widget _BuildButton({bool enable}) {
     return Container(
         color: Colors.grey.shade300,
         height: 80,
         child: Container(
-            padding: EdgeInsets.only(left: 20, right: 20),
+            padding: EdgeInsets.only(left: 20,right: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: _buildButtonDel(btnTxt: LocaleKeys.del_product_btn.tr()),
+                  child: _BuildButtonCancleItem(btnTxt: "Delete",index: 0,enable: enable),
                 ),
-                SizedBox(width: 10,),
-                Expanded(child: _buildButtonSave(btnTxt: LocaleKeys.save_edit_btn.tr()),
-                )
+                SizedBox(width: 10,)
+                ,
+                Expanded(child: _BuildButtonItem(btnTxt: "Save",index: 1,enable: enable),)
               ],
             )));
   }
 
-  Widget _buildButtonSave({String btnTxt}) {
+  Widget _BuildImageTab(){
+    return InkWell(
+      child: Container(
+          color: Colors.white,
+          padding: EdgeInsets.only(left: 5,right: 5),
+          child: Container(
+              margin: EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Edit picture", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.grey.withOpacity(0.7),
+                  )
+                ],
+              ))),
+      onTap: (){
+        AppRoute.EditImageProduct(context: context,uploadProductStorage: bloc.uploadProductStorage.value,ProductId: widget.ProductId);
+      },
+    );
+  }
+
+
+
+
+  Widget _BuildButtonItem({String btnTxt,int index ,bool enable}) {
     return FlatButton(
-      color: nameProductController.text.isNotEmpty&&detailtController.text.isNotEmpty&&priceController.text.isNotEmpty&&amountController.text.isNotEmpty
-          ?ThemeColor.secondaryColor():Colors.grey.shade400,
-      textColor: Colors.white,
       height: 50,
+      color: enable?ThemeColor.secondaryColor():Colors.grey.shade400,
+      textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40.0),
       ),
-      onPressed: () {},
+      onPressed: () {
+        // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
+        if(enable){
+          Usermanager().getUser().then((value) {
+            bloc.UpdateProductMyShop(shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,productId: widget.ProductId,token: value.token);
+          });
+
+        }
+
+      },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
       ),
     );
+
   }
 
-  Widget _buildButtonDel({String btnTxt}) {
+  Widget _BuildButtonCancleItem({String btnTxt,int index ,bool enable}) {
     return FlatButton(
-      color: nameProductController.text.isNotEmpty&&detailtController.text.isNotEmpty&&priceController.text.isNotEmpty&&amountController.text.isNotEmpty
-          ?ThemeColor.ColorSale():Colors.grey.shade400,
+      height: 50,
+      color: enable?ThemeColor.ColorSale():Colors.grey.shade400,
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),
-      height: 50,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40.0),
       ),
-      onPressed: () {},
+      onPressed: () {
+        if(enable){
+          NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Product_Upload).then((value){
+            Navigator.of(context).pop();
+          });
+        }
+
+      },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
       ),
     );
+
   }
 
-  Widget _buildSwitch({String head}) {
-    return Container(
-        color: Colors.white,
-        child: Container(
-          margin: EdgeInsets.all(15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text(head, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
-            ),
-                FlutterSwitch(
-                  height: 30,
-                  width: 50,
-                  toggleSize: 20,
-                  activeColor: Colors.grey.shade200,
-                  inactiveColor: Colors.grey.shade200,
-                  toggleColor: checkSwitch?ThemeColor.primaryColor():Colors.grey.shade400,
-                  value: checkSwitch?true:false,
-                  onToggle: (val) {
-                    setState(() {
-                      checkSwitch = val;
-                    });
-                  },
-                ),
-              ],
 
-    ),
-    ),
-    );
+  Future<void> _showMyDialog() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return OrderTypeDropdownList(categoriesAllRespone: bloc.categoriesAllRespone.categoriesAllRespone,onSelect: (int index,String name){
+            bloc.uploadProductStorage.value.productMyShopRequest.category = index;
+            bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+            Navigator.of(context).pop();
+          },);
+        });
+  }
+
+  void _installControllerInput({ProductMyShopRequest productMyShopRequest}){
+    nameProductController.text = productMyShopRequest.name;
+    nameProductController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.name!=null?productMyShopRequest.name.length:0));
+
+    detailtController.text = productMyShopRequest.description;
+    detailtController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.description!=null?productMyShopRequest.description.length:0));
+
+    amountController.text = productMyShopRequest.stockQuantity.toString();
+    amountController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.stockQuantity!=null?productMyShopRequest.stockQuantity.toString().length:0));
+
+    priceController.text = productMyShopRequest.salePrice.toString();
+    priceController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.salePrice!=null?productMyShopRequest.salePrice.toString().length:0));
+
+    offerPriceController.text = productMyShopRequest.offerPrice.toString();
+    offerPriceController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.offerPrice!=null?productMyShopRequest.offerPrice.toString().length:0));
   }
 }

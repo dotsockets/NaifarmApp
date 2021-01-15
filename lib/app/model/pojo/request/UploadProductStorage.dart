@@ -49,8 +49,9 @@ class UploadProductStorage{
 class OnSelectItem{
   AssetImage image;
   bool onEdit;
+  String url;
 
-  OnSelectItem({this.image, this.onEdit});
+  OnSelectItem({this.image, this.onEdit,this.url});
 
   OnSelectItem.fromJson(Map<String, dynamic> json) {
 

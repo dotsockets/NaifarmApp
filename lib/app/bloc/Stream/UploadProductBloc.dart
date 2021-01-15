@@ -9,6 +9,7 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/AssetImage.dart';
+import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
@@ -39,7 +40,7 @@ class UploadProductBloc{
 
   List<OnSelectItem> ItemImage = List<OnSelectItem>();
 
-
+  int inventoriesId = 0;
 
 
   UploadProductBloc(this._application){
@@ -64,28 +65,14 @@ class UploadProductBloc{
           }
 
       }
-      NaiFarmLocalStorage.SaveProductStorage(UploadProductStorage(productMyShopRequest: ProductDetail,onSelectItem: ItemImage)).then((value){
-        onChang.add(ItemImage);
-      });
-
+      onChang.add(ItemImage);
     }
   }
 
   void EditImage({List<Asset> imageList,int index}){
-    List<AssetImage> ItemConvert = List<AssetImage>();
     ItemImage.remove(null);
-    for(var temp in imageList){
-      ItemConvert.add(AssetImage(temp.identifier,temp.name,temp.originalWidth,temp.originalHeight));
-    }
-
-
-
-    if(ItemConvert.length>=1){
-      ItemImage[index] = OnSelectItem(image: ItemConvert[0],onEdit: false);
-    }
-    NaiFarmLocalStorage.SaveProductStorage(UploadProductStorage(onSelectItem: ItemImage,productMyShopRequest: ProductDetail)).then((value){
-      onChang.add(ItemImage);
-    });
+    ItemImage[index] = OnSelectItem(image: AssetImage(imageList[index].identifier,imageList[index].name,imageList[index].originalWidth,imageList[index].originalHeight),onEdit: false);
+    onChang.add(ItemImage);
   }
 
   void DeleteImage({int index}){
@@ -176,14 +163,33 @@ class UploadProductBloc{
   }
 
   UpdateProductMyShop({ProductMyShopRequest shopRequest,int productId,String token}){
+    onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.UpdateProductMyShop(shopRequest: shopRequest,productId: productId,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
         onSuccess.add(true);
+      }else{
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result.error.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
+
+
+  UpdateProductInventories({InventoriesRequest inventoriesRequest, int productId, int inventoriesId, String token}){
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.UpdateProductInventories(inventoriesRequest: inventoriesRequest,inventoriesId: inventoriesId,productId: productId,token: token)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        //onSuccess.add(true);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
 
   GetProductMyShop({String page, int limit,String token}){
     StreamSubscription subscription =
@@ -207,7 +213,36 @@ class UploadProductBloc{
     _compositeSubscription.add(subscription);
   }
 
+  OnUpdateImage({int ProductId,String token}) async {
+    for(var item in ItemImage){
+      if(item.image!=null){
+        writeToFile(await item.image.getByteData(quality: 100)).then((file){
+        UploadImageProduct(token: token,imageableId: ProductId,imageFile: file,
+        imageableType: "product");
+        });
+      }
+    }
+  }
 
+
+  GetProductIDMyShop({int ProductId,String token}){
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.GetProductIDMyShop(ProductId: ProductId,token: token)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        var item = (respone.respone as ProductMyShopRespone);
+        inventoriesId = item.inventories[0].id;
+      uploadProductStorage.value.productMyShopRequest = ProductMyShopRequest(name: item.name,salePrice: item.salePrice,stockQuantity: item.inventories[0].stockQuantity,offerPrice: item.offerPrice,active: uploadProductStorage.value.productMyShopRequest.active,
+      category: item.categories[0].category.id,description: item.description);
+       uploadProductStorage.add(uploadProductStorage.value);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+
+    _compositeSubscription.add(subscription);
+  }
 
 
 

@@ -78,25 +78,10 @@ class NaiFarmLocalStorage{
     return value;
   }
 
-  static Future<void> SaveTest(UploadProductStorage data) async {
-    storage =  LocalStorage(NaiFarm_Storage);
-    await storage.ready;
-    storage.setItem(NaiFarm_Product_Upload, data);
-
-  }
 
 
-  static Future<UploadProductStorage> getTestCache() async {
-    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
-    await storage.ready;
-    Map<String, dynamic> data = storage.getItem(NaiFarm_Product_Upload);
 
-    if (data == null) {
-      return null;
-    }
-    UploadProductStorage value = UploadProductStorage.fromJson(data);
-    return value;
-  }
+
 
   static Future<void> DeleteCacheByItem({String key}) async {
     storage =  LocalStorage(NaiFarm_Storage);

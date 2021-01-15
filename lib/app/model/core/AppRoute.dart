@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
+import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
@@ -22,6 +23,7 @@ import 'package:naifarm/app/ui/login/SplashLoginView.dart';
 import 'package:naifarm/app/ui/market/MarketView.dart';
 import 'package:naifarm/app/ui/me/delivery/DeliveryEditView.dart';
 import 'package:naifarm/app/ui/me/deliveryCost/DeliveryCostView.dart';
+import 'package:naifarm/app/ui/me/editmyproduct/EditImageProductView.dart';
 import 'package:naifarm/app/ui/me/editmyproduct/EditProductView.dart';
 import 'package:naifarm/app/ui/me/imageproduct/ImageProductView.dart';
 import 'package:naifarm/app/ui/me/mynewproduct/MyNewProductView.dart';
@@ -147,8 +149,9 @@ class AppRoute{
     }
 
   }
-  static MyNewProduct(BuildContext context,{IsActive IsActive}){
-    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyNewProductView(isActive: IsActive,)));
+  static MyNewProduct(BuildContext context){
+
+    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyNewProductView()));
   }
 
 
@@ -165,8 +168,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: DeliveryCostView()));
   }
 
-  static EditProduct(BuildContext context,int index){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProductView(index: index,)));
+  static EditProduct(BuildContext context,int index,{UploadProductStorage uploadProductStorage}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProductView(ProductId: index,uploadProductStorage: uploadProductStorage,)));
   }
 
   static ImageProduct(BuildContext context){
@@ -406,6 +409,10 @@ class AppRoute{
 
   static Splash({BuildContext context}){
     Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:SplashView()));
+  }
+
+  static EditImageProduct({BuildContext context,UploadProductStorage uploadProductStorage,int ProductId}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:EditImageProductView(ProductId: ProductId,uploadProductStorage: uploadProductStorage,)));
   }
 }
 

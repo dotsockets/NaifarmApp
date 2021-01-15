@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
+import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -293,7 +294,12 @@ class _MyProductViewState extends State<MyProductView> {
                            ),
                          ),
                        onTap: (){
-                         AppRoute.MyNewProduct(context,IsActive: IsActive.NewProduct);
+                         var product = ProductMyShopRequest(name: item.name,salePrice: item.salePrice,stockQuantity: item.stockQuantity,offerPrice: item.offerPrice,active: item.active);
+                         var onSelectItem = List<OnSelectItem>();
+                         for(var value in item.image){
+                           onSelectItem.add(OnSelectItem(onEdit: false,url: value.path));
+                         }
+                         AppRoute.EditProduct(context, item.id,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
                        },
                        ),
                     ),

@@ -1312,6 +1312,28 @@ class _APIProvider implements APIProvider {
   }
 
 
+  @override
+  Future<ApiResult> GetProductIDMyShop({int productId, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/myshop/products/${productId}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: ProductMyShopRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
 
 
       @override
@@ -1408,6 +1430,29 @@ class _APIProvider implements APIProvider {
               baseUrl: baseUrl),
           data: _data);
       return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> UpdateProductInventories({InventoriesRequest inventoriesRequest, int productId, int inventoriesId, String token}) async{
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/myshop/products/${productId}/inventories/${inventoriesId}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: inventoriesRequest);
+      return ApiResult(respone: ProductMyShopRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
       return ServerError.DioErrorExpction(e);
     }

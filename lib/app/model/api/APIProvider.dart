@@ -8,6 +8,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/request/AssetImage.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
+import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
@@ -233,11 +234,13 @@ abstract class APIProvider{
 
   @GET("/v1/categories")
   Future<ApiResult> GetCategories();
+
   @POST("/v1/cart")
   Future<ApiResult> AddCartlists({CartRequest cartRequest,String token});
 
   @PATCH("/v1/myshop/products")
   Future<ApiResult> UpdateProductMyShop({ProductMyShopRequest shopRequest,int productId,String token});
+
   @GET("/v1/cart")
   Future<ApiResult> GetCartlists({String token});
 
@@ -246,6 +249,12 @@ abstract class APIProvider{
 
   @DELETE("/v1/cart")
   Future<ApiResult> DELETECart({int cartid,int inventoryid,String token});
+
+  @GET("/v1/myshop/products")
+  Future<ApiResult> GetProductIDMyShop({int productId, String token});
+
+  @PATCH("/v1/myshop/products")
+  Future<ApiResult> UpdateProductInventories({InventoriesRequest inventoriesRequest,int productId,int inventoriesId,String token});
 
 }
 

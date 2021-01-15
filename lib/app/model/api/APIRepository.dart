@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/db/DBNaiFarmRepository.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/request/AssetImage.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
+import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
@@ -282,6 +283,14 @@ class APIRepository{
 
   Future<ApiResult> DELETEProductMyShop({int ProductId, String token}){
     return _apiProvider.DELETEProductMyShop(ProductId: ProductId,token: token);
+  }
+
+  Future<ApiResult> GetProductIDMyShop({int ProductId, String token}){
+    return _apiProvider.GetProductIDMyShop(productId: ProductId,token: token);
+  }
+
+  Future<ApiResult> UpdateProductInventories({InventoriesRequest inventoriesRequest, int productId, int inventoriesId, String token}){
+    return _apiProvider.UpdateProductInventories(productId: productId,token: token,inventoriesId: inventoriesId,inventoriesRequest: inventoriesRequest);
   }
 
 

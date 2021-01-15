@@ -33,9 +33,6 @@ import 'package:sizer/sizer.dart';
 
 class MyNewProductView extends StatefulWidget {
 
-  final IsActive isActive;
-
-  const MyNewProductView({Key key, this.isActive}) : super(key: key);
 
   @override
   _MyNewProductViewState createState() => _MyNewProductViewState();
@@ -104,15 +101,11 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         bloc.categoriesAllRespone = value;
       });
 
-      if(widget.isActive == IsActive.NewProduct){
-        NaiFarmLocalStorage.getProductStorageCache().then((value){
-          if(value!=null){
-            bloc.uploadProductStorage.add(UploadProductStorage(productMyShopRequest: value.productMyShopRequest,onSelectItem: value.onSelectItem));
-          }
-        });
-      }else{
-
-      }
+      NaiFarmLocalStorage.getProductStorageCache().then((value){
+        if(value!=null){
+          bloc.uploadProductStorage.add(UploadProductStorage(productMyShopRequest: value.productMyShopRequest,onSelectItem: value.onSelectItem));
+        }
+      });
 
     }
 
@@ -214,7 +207,9 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                ),
                                _BuildDeliveryTab(),
                                Divider(height: 10,),
-                               _BuildAtivceTab()
+                               _BuildImageTab(),
+                               Divider(height: 10,),
+                               _BuildAtivceTab(),
                              ],
                            ),
                          ),
@@ -323,6 +318,29 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     );
   }
 
+  Widget _BuildImageTab(){
+    return InkWell(
+      child: Container(
+          color: Colors.white,
+          padding: EdgeInsets.only(left: 5,right: 5),
+          child: Container(
+              margin: EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Edit picture", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.grey.withOpacity(0.7),
+                  )
+                ],
+              ))),
+      onTap: (){
+        AppRoute.ImageProduct(context);
+      },
+    );
+  }
+
   Widget _BuildAtivceTab() {
     return InkWell(
       child: Container(
@@ -333,7 +351,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("เปิดการขาย", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+                  Text("Open sales", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
                   FlutterSwitch(
                     height: 30,
                     width: 50,
@@ -366,11 +384,11 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: _BuildButtonCancleItem(btnTxt: "ลบ",index: 0,enable: enable),
+                  child: _BuildButtonCancleItem(btnTxt: "Delete",index: 0,enable: enable),
                 ),
                 SizedBox(width: 10,)
                 ,
-                Expanded(child: _BuildButtonItem(btnTxt: "บันทึก",index: 1,enable: enable),)
+                Expanded(child: _BuildButtonItem(btnTxt: "Save",index: 1,enable: enable),)
               ],
             )));
   }
@@ -390,13 +408,9 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         onPressed: () {
          // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
           if(enable){
-            if(widget.isActive == IsActive.NewProduct){
-              Usermanager().getUser().then((value) {
-                bloc.AddProductMyShop(shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,token: value.token);
-              });
-            }else{
-
-            }
+            Usermanager().getUser().then((value) {
+              bloc.AddProductMyShop(shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,token: value.token);
+            });
 
           }
 

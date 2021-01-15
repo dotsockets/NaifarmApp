@@ -1,33 +1,43 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
 
-class ImageProductView extends StatefulWidget {
+class EditImageProductView extends StatefulWidget {
+
+  final int ProductId ;
+  final UploadProductStorage uploadProductStorage;
+
+  const EditImageProductView({Key key, this.uploadProductStorage, this.ProductId}) : super(key: key);
+
   @override
-  _ImageProductViewState createState() => _ImageProductViewState();
+  _EditImageProductViewState createState() => _EditImageProductViewState();
 }
 
-class _ImageProductViewState extends State<ImageProductView> {
+class _EditImageProductViewState extends State<EditImageProductView> {
   List<Asset> images = List<Asset>();
   String _error = 'No Error Dectected';
 
@@ -38,18 +48,13 @@ class _ImageProductViewState extends State<ImageProductView> {
 
   init() {
 
-
-
     if (bloc == null) {
 
       bloc = UploadProductBloc(AppProvider.getApplication(context));
-      NaiFarmLocalStorage.getProductStorageCache().then((value){
-         if(value!=null){
-           bloc.ProductDetail = value.productMyShopRequest;
-           bloc.LoadImage(item: value.onSelectItem);
-         }
+      bloc.uploadProductStorage.add(widget.uploadProductStorage);
+      bloc.ItemImage.addAll(widget.uploadProductStorage.onSelectItem);
+      bloc.onChang.add(widget.uploadProductStorage.onSelectItem);
 
-      });
     }
   }
 
@@ -128,7 +133,7 @@ class _ImageProductViewState extends State<ImageProductView> {
     final pickedFile = await picker.getImage(source: imageSource);
     if (pickedFile != null) {
       // bloc.ConvertArrayFile(file: File(pickedFile.path),index: index);
-     // bloc.onChang.add(images);
+      // bloc.onChang.add(images);
     } else {
       print('No image selected.');
     }
@@ -141,7 +146,7 @@ class _ImageProductViewState extends State<ImageProductView> {
         if (snapshot.hasData) {
           var item = (snapshot.data as List<OnSelectItem>);
           if(item.length<10)
-             item.add(null);
+            item.add(null);
           return GridView.count(
             crossAxisCount: 2,
             // childAspectRatio: (itemWidth / itemHeight),
@@ -270,10 +275,26 @@ class _ImageProductViewState extends State<ImageProductView> {
                   // child: Image.file(bloc.listImage[index].file)
                   child: Stack(
                     children: [
-                      AssetThumb(
+                      item.image!=null?AssetThumb(
                         asset: Asset(item.image.identifier,item.image.name,item.image.originalWidth,item.image.originalHeight),
                         width: 300,
                         height: 300,
+                      ):ClipRRect(
+                        borderRadius: BorderRadius.circular(1.0.h),
+                        child: CachedNetworkImage(
+                          width: 40.0.w,
+                          height: 40.0.w,
+                          placeholder: (context, url) => Container(
+                            width: 40.0.w,
+                            height: 40.0.w,
+                            color: Colors.white,
+                            child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                          ),
+                          fit: BoxFit.cover,
+                          imageUrl: item.url.isNotEmpty?"${Env.value.baseUrl}/storage/images/${item.url}":'',
+                          errorWidget: (context, url, error) => Container( width: 40.0.w,
+                              height: 40.0.w,child: Icon(Icons.error,size: 30,)),
+                        ),
                       ),
                       item.onEdit?Container(
                         width: 300,
@@ -306,7 +327,7 @@ class _ImageProductViewState extends State<ImageProductView> {
                                 ),
                               ),
                               onTap: (){
-                                 bloc.DeleteImage(index: index);
+                                bloc.DeleteImage(index: index);
                               },
                             ),
                           ],
@@ -346,8 +367,10 @@ class _ImageProductViewState extends State<ImageProductView> {
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () {
-         AppRoute.MyNewProduct(context);
-
+        //AppRoute.MyNewProduct(context);
+      Usermanager().getUser().then((value){
+        bloc.OnUpdateImage(ProductId: widget.ProductId,token: value.token);
+      });
 
       },
       child: Text(
