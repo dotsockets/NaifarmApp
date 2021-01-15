@@ -54,6 +54,7 @@ class CartData {
   PaymentMethod paymentMethod;
   Coupon coupon;
 
+
   CartData(
       {this.id,
         this.shopId,
@@ -228,13 +229,14 @@ class CartItems {
   int unitPrice;
   int total;
   CartInventory inventory;
+  bool select=false;
 
   CartItems(
       {this.itemDescription,
         this.quantity,
         this.unitPrice,
         this.total,
-        this.inventory});
+        this.inventory,this.select});
 
   CartItems.fromJson(Map<String, dynamic> json) {
     itemDescription = json['itemDescription'];
