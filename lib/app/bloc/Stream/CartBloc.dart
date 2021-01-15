@@ -13,6 +13,7 @@ class CartBloc {
   final onLoad = BehaviorSubject<bool>();
   final onError = BehaviorSubject<String>();
   final onSuccess = BehaviorSubject<Object>();
+  final CartList = BehaviorSubject<CartResponse>();
   CartBloc(this._application);
 
   final deleteData = List<CartData>();
@@ -28,7 +29,7 @@ class CartBloc {
 
       if(respone.http_call_back.status==200){
         onLoad.add(false);
-        onSuccess.add((respone.respone as CartResponse));
+        CartList.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -41,10 +42,12 @@ class CartBloc {
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.DeleteCart(inventoryid: inventoryId,cartid: cartid,token: token)).listen((respone) {
 
-      /* if(respone.http_call_back.status==200){
+       if(respone.http_call_back.status==200){
+        // CartList.add(CartList.value);
       }else{
+
          onError.add(respone.http_call_back.result.error.message);
-       }*/
+       }
 
     });
     _compositeSubscription.add(subscription);

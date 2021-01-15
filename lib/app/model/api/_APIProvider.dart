@@ -1394,10 +1394,13 @@ class _APIProvider implements APIProvider {
   Future<ApiResult> DELETECart({int cartid, int inventoryid, String token}) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "cartId":cartid,
+      "inventoryId":inventoryid
+    };
     try {
 
-      final _result = await _dio.request<dynamic>('/v1/cart/${cartid}',
+      final _result = await _dio.request<dynamic>('/v1/cart',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'DELETE',
