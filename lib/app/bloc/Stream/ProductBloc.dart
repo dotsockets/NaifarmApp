@@ -4,8 +4,10 @@ import 'dart:async';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/BannersRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryObjectCombin.dart';
@@ -236,7 +238,6 @@ class ProductBloc{
 
 
 
-
   loadProductsById({int id,int shopid,String token}){
 
     StreamSubscription subscription = Observable.combineLatest3(
@@ -301,6 +302,20 @@ class ProductBloc{
 
 
 
+  AddCartlists({CartRequest cartRequest,String token}){
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.AddCartlists(cartRequest: cartRequest,token: token)).listen((respone) {
+      if(respone.http_call_back.status==200||respone.http_call_back.status==201){
+        onLoad.add(false);
+        onSuccess.add((respone.respone as CartResponse));
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
 
 
   static ProducItemRespone ConvertDataToProduct({ProductData data}){

@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductDetailObjectCombine.dart';
@@ -91,6 +92,14 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
      });
 
+     bloc.onLoad.stream.listen((event) {
+       if (event) {
+         //  FunctionHelper.SuccessDialog(context,message: "555");
+         FunctionHelper.showDialogProcess(context);
+       } else {
+         Navigator.of(context).pop();
+       }
+     });
      bloc.onSuccess.stream.listen((event) {
 
      });
@@ -285,15 +294,25 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
             )),
             Expanded(
                 flex: 2,
-                child: Container(
-                    alignment: Alignment.center,
-                    height: 8.0.h,
-                    color: ThemeColor.ColorSale(),
-                    child: Text(LocaleKeys.buy_product_btn.tr(),
-                        style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize().sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white))))
+                child: InkWell(
+                  onTap:(){
+                    List<Items> items = new List<Items>();
+                    items.add(Items(inventoryId: bloc.ZipProductDetail.value.productItem.inventories[0].id,quantity: 1));
+                    Usermanager().getUser().then((value) => bloc.AddCartlists(cartRequest: CartRequest(
+                      shopId: widget.productItem.shop.id,
+                      items:items,
+                    ),token: value.token));
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      height: 8.0.h,
+                      color: ThemeColor.ColorSale(),
+                      child: Text(LocaleKeys.buy_product_btn.tr(),
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white))),
+                ))
           ],
         ),
     );

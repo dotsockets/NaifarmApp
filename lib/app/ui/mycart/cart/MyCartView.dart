@@ -5,9 +5,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -16,6 +20,7 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
 import '../widget/ModalFitBottom_Sheet.dart';
 
@@ -30,90 +35,105 @@ class MyCartView extends StatefulWidget {
 
 class _MyCartViewState extends State<MyCartView> {
   List<CartModel> _data_aar = List<CartModel>();
-
+  List<CartData> _cartList = List<CartData>();
+    bool isSelectProduct =false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  CartBloc bloc;
+  int select = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _data_aar.addAll(CartViewModel().getMyCart());
-  }
 
+  }
+  void _init() {
+    if (null == bloc) {
+      bloc = CartBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+      });
+
+      bloc.onSuccess.stream.listen((event) {
+
+      });
+    }
+
+    Usermanager()
+        .getUser()
+        .then((value) => bloc.GetCartlists(token: value.token));
+
+  }
   @override
   Widget build(BuildContext context) {
+    _init();
     return SafeArea(
       top: false,
       child: Scaffold(
         key: _scaffoldKey,
-        backgroundColor:
-            _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
+        backgroundColor:Colors.grey.shade300,
+            //_data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
         appBar: AppToobar(
         title: LocaleKeys.cart_toobar.tr(),
         icon: "",
         showBackBtn: widget.btnBack ,
         header_type: Header_Type.barNormal,
       ),
-        body: _data_aar.length != 0
-            ? Column(
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
+        body: StreamBuilder(
+              stream: bloc.onSuccess.stream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  var item = (snapshot.data as CartResponse).data;
+                  _cartList.addAll((snapshot.data as CartResponse).data);
+                  return item.length!=0?Column(
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: List.generate(item.length, (index) {
+                              return _CardCart(
+                                  item: item[index], index: index);
+                            }),
+                          ),
+                        ),
+                      ),
+                      _BuildDiscountCode(),
+                      _BuildFooterTotal(),
+                    ],
+                  ):
+                  Center(
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 15.0.h),
                       child: Column(
-                        children: List.generate(_data_aar.length, (index) {
-                          return Dismissible(
-                            background: Container(
-                              padding: EdgeInsets.only(right: 5.0.w),
-                              alignment: Alignment.centerRight,
-                              color: ThemeColor.ColorSale(),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Lottie.asset('assets/json/delete.json',
-                                      height: 4.0.h, width: 4.0.h, repeat: true),
-                                  Text(
-                                    LocaleKeys.cart_del.tr(),
-                                    style: FunctionHelper.FontTheme(
-                                        color: Colors.white,
-                                        fontSize: SizeUtil.titleFontSize().sp,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                            key: Key("${_data_aar[index].ProductName}"),
-                            child: _CardCart(item: _data_aar[index], index: index),
-                            onDismissed: (direction) {
-                              setState(() {
-                                _data_aar.removeAt(index);
-                              });
-                            },
-                          );
-                        }),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Lottie.asset('assets/json/boxorder.json',
+                              height: 70.0.w, width: 70.0.w, repeat: false),
+                          Text(
+                            LocaleKeys.cart_empty.tr(),
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                  _BuildDiscountCode(),
-                  _BuildFooterTotal(),
-                ],
-              )
-            : Center(
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 15.0.h),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Lottie.asset('assets/json/boxorder.json',
-                          height: 70.0.w, width: 70.0.w, repeat: false),
-                      Text(
-                        LocaleKeys.cart_empty.tr(),
-                        style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+                  );
+                }
+            else{
+              return SizedBox();
+                }
+
+        }
+            )
+
       ),
     );
   }
@@ -137,18 +157,18 @@ class _MyCartViewState extends State<MyCartView> {
     ));
   }
 
-  Widget _CardCart({CartModel item, int index}) {
+  Widget _CardCart({CartData item, int index,}) {
     return Column(
       children: [
         _BuildCard(item: item, index: index),
         _IntroShipment(),
-        item.ProductDicount==0?_Buildcoupon():SizedBox(),
+      //  item.ProductDicount==0?_Buildcoupon():SizedBox(),
         SizedBox(height: 1.0.h),
       ],
     );
   }
 
-  Widget _BuildCard({CartModel item, int index}) {
+  Widget _BuildCard({CartData item, int index}) {
     return Container(
       color: Colors.white,
       child: Column(
@@ -156,36 +176,56 @@ class _MyCartViewState extends State<MyCartView> {
           Row(
             children: [
               Expanded(
-                flex: 1,
-                child: InkWell(
-                  child: item.select
-                      ? SvgPicture.asset(
-                          'assets/images/svg/checkmark.svg',
-                          width: 6.0.w,
-                          height: 6.0.w,
-                        )
-                      : SvgPicture.asset(
-                          'assets/images/svg/uncheckmark.svg',
-                          width: 6.0.w,
-                          height: 6.0.w,
-                          color: Colors.black.withOpacity(0.5),
-                        ),
-                  onTap: () {
-                    setState(() {
-                      _data_aar[index].select = item.select ? false : true;
-                    });
-                  },
-                ),
-              ),
-              Expanded(
-                flex: 8,
                 child: Container(
-                  padding: EdgeInsets.all(3.0.w),
+                
                   child: Column(
                     children: [
-                      _OwnShop(item: item),
-                      SizedBox(height: 2.0.w),
-                      _ProductDetail(item: item, index: index),
+                      _OwnShop(item: item.shop),
+                      Column(children: List.generate(item.items.length, (index) {
+                        return Dismissible(
+                          background: Container(
+                            padding: EdgeInsets.only(right: 5.0.w),
+                            alignment: Alignment.centerRight,
+                            color: ThemeColor.ColorSale(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Lottie.asset('assets/json/delete.json',
+                                    height: 4.0.h,
+                                    width: 4.0.h,
+                                    repeat: true),
+                                Text(
+                                  LocaleKeys.cart_del.tr(),
+                                  style: FunctionHelper.FontTheme(
+                                      color: Colors.white,
+                                      fontSize: SizeUtil
+                                          .titleFontSize()
+                                          .sp,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          ),
+                          key: Key("${item.items[index]}"),
+                          child: Column(
+                            children: [
+                              _ProductDetail(item: item, index: index),
+                              item.items.length>1&&item.items.length-1!=index?Divider(height: 10,color: Colors.grey.shade300,):SizedBox(),
+                            ],
+                          )
+                        /*  ,onDismissed: (direction) {
+                                  setState(() {
+                                 // bloc.deleteData.add(item[key]);
+                                   // isNoData = true;
+                                    //item.removeAt(key);
+                                    //_data_aar.removeAt(index);
+                                      for(var item in bloc.deleteData){
+                            Usermanager().getUser().then((value) => bloc.DeleteCart(cartid: item.id,inventoryId:item.items[index].inventory.id ,token: value.token));
+                          }
+                                  });
+                                },*/
+                        );
+                      }),)
                     ],
                   ),
                 ),
@@ -200,137 +240,176 @@ class _MyCartViewState extends State<MyCartView> {
     );
   }
 
-  Widget _OwnShop({CartModel item}) {
-    return Row(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          child: CachedNetworkImage(
-            width: 7.0.w,
-            height: 7.0.w,
-            placeholder: (context, url) => Container(
-              color: Colors.white,
-              child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+  Widget _OwnShop({CartShop item}) {
+    return Container(
+      padding: EdgeInsets.all(3.0.w),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            child: CachedNetworkImage(
+              width: 7.0.w,
+              height: 7.0.w,
+              placeholder: (context, url) => Container(
+                color: Colors.white,
+                child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+              ),
+              fit: BoxFit.cover,
+              imageUrl: ProductLandscape.CovertUrlImage(
+                  item.image),
+              errorWidget: (context, url, error) => Container(
+                  height: 30,
+                  child: Icon(
+                    Icons.error,
+                    size: 30,
+                  )),
             ),
-            fit: BoxFit.cover,
-            imageUrl: item.PofileShop,
-            errorWidget: (context, url, error) => Container(
-                height: 30,
-                child: Icon(
-                  Icons.error,
-                  size: 30,
-                )),
           ),
-        ),
-        SizedBox(
-          width: 2.0.w,
-        ),
-        Text(item.NameShop,
-            style:
-            FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp, fontWeight: FontWeight.bold))
-      ],
+          SizedBox(
+            width: 2.0.w,
+          ),
+          Text(item.name,
+              style:
+              FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp, fontWeight: FontWeight.bold))
+        ],
+      ),
     );
   }
 
-  Widget _ProductDetail({CartModel item, int index}) {
-    return Column(
+  Widget _ProductDetail({CartData item, int index}) {
+    return Row(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black.withOpacity(0.1))),
-              child: CachedNetworkImage(
-                width: 20.0.w,
-                height: 20.0.w,
-                placeholder: (context, url) => Container(
-                  color: Colors.white,
-                  child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
-                ),
-                fit: BoxFit.cover,
-                imageUrl: item.ProductImage,
-                errorWidget: (context, url, error) => Container(
-                    height: 30,
-                    child: Icon(
-                      Icons.error,
-                      size: 30,
-                    )),
-              ),
+        Expanded(
+          flex: 1,
+          child: InkWell(
+            child:  select==index?
+            SvgPicture.asset(
+              'assets/images/svg/checkmark.svg',
+              width: 6.0.w,
+              height: 6.0.w,
+            ) : SvgPicture.asset(
+              'assets/images/svg/uncheckmark.svg',
+              width: 6.0.w,
+              height: 6.0.w,
+              color: Colors.black.withOpacity(0.5),
             ),
-            SizedBox(width: 3.0.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(item.ProductName,
-                    style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500)),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    item.ProductDicount != 0
-                        ? Text("฿${item.ProductDicount}",
-                            style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.priceFontSize().sp,
-                                decoration: TextDecoration.lineThrough))
-                        : SizedBox(),
-                    SizedBox(width: 2.0.w),
-                    Text("฿${item.ProductPrice}",
-                        style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.priceFontSize().sp, color: ThemeColor.ColorSale()))
-                  ],
-                )
-              ],
-            )
-          ],
+            onTap: () {
+              setState(() {
+                // _data_aar[index].select = item.select ? false : true;
+                select = select!=index ? index : 0;
+              });
+            },
+          ),
         ),
-        SizedBox(height: 1.0.h),
-        Row(
-          children: [
-            InkWell(
-              child: Container(
-                width: 7.0.w,
-                height: 3.0.h,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black.withOpacity(0.2)),
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(3),
-                        bottomLeft: Radius.circular(3))),
-                child: Center(child: Text("-", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
+        Expanded(
+          flex: 8,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black.withOpacity(0.1))),
+                    child: CachedNetworkImage(
+                      width: 20.0.w,
+                      height: 20.0.w,
+                      placeholder: (context, url) => Container(
+                        color: Colors.white,
+                        child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                      ),
+                      fit: BoxFit.cover,
+                      imageUrl: ProductLandscape.CovertUrlImage(
+                          item.items[index].inventory.product.image),
+                      errorWidget: (context, url, error) => Container(
+                          height: 30,
+                          child: Icon(
+                            Icons.error,
+                            size: 30,
+                          )),
+                    ),
+                  ),
+                  SizedBox(width: 3.0.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width/1.6,
+                        child: Text(item.items[index].inventory.product.name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500)),
+                      ),
+                      SizedBox(height: 5),
+                      Row(
+                        children: [
+                       //   item.ProductDicount != 0 ?
+                          Text("฿${item.items[index].inventory.salePrice}",
+                                  style: FunctionHelper.FontTheme(
+                                      fontSize: SizeUtil.priceFontSize().sp,
+                                      decoration: TextDecoration.lineThrough)),
+                              //: SizedBox(),
+                          SizedBox(width: 2.0.w),
+                          Text("฿${item.items[index].inventory.salePrice}",
+                              style: FunctionHelper.FontTheme(
+                                  fontSize: SizeUtil.priceFontSize().sp, color: ThemeColor.ColorSale()))
+                        ],
+                      )
+                    ],
+                  )
+                ],
               ),
-              onTap: () {
-                setState(() {
-                  _data_aar[index].amout != 0 ? _data_aar[index].amout -= 1 : 0;
-                });
-              },
-            ),
-            Container(
-              width: 7.0.w,
-              height: 3.0.h,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black.withOpacity(0.2))),
-              child: Center(
-                  child: Text("${item.amout}", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
-            ),
-            InkWell(
-              child: Container(
-                width: 7.0.w,
-                height: 3.0.h,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(3),
-                        bottomRight: Radius.circular(3)),
-                    border: Border.all(color: Colors.black.withOpacity(0.2))),
-                child: Center(child: Text("+", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
-              ),
-              onTap: () {
-                setState(() {
-                  _data_aar[index].amout += 1;
-                });
-              },
-            )
-          ],
-        )
+              SizedBox(height: 1.0.h),
+              Row(
+                children: [
+                  InkWell(
+                    child: Container(
+                      width: 7.0.w,
+                      height: 3.0.h,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black.withOpacity(0.2)),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(3),
+                              bottomLeft: Radius.circular(3))),
+                      child: Center(child: Text("-", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        item.items[index].quantity != 0 ? item.items[index].quantity -= 1 : 0;
+                      });
+                    },
+                  ),
+                  Container(
+                    width: 7.0.w,
+                    height: 3.0.h,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black.withOpacity(0.2))),
+                    child: Center(
+                        child: Text("${item.items[index].quantity}", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
+                  ),
+                  InkWell(
+                    child: Container(
+                      width: 7.0.w,
+                      height: 3.0.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(3),
+                              bottomRight: Radius.circular(3)),
+                          border: Border.all(color: Colors.black.withOpacity(0.2))),
+                      child: Center(child: Text("+", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        item.items[index].quantity += 1;
+                      });
+                    },
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -422,7 +501,7 @@ class _MyCartViewState extends State<MyCartView> {
               ),
               onTap: () {
                 setState(() {
-                  selectall();
+                 // selectall();
                 });
               },
             ),
@@ -479,8 +558,8 @@ class _MyCartViewState extends State<MyCartView> {
 
   int SumTotalPrice() {
     int sum = 0;
-    for (int i = 0; i < _data_aar.length; i++) {
-      sum += _data_aar[i].select ? _data_aar[i].ProductPrice : 0;
+    for (int i = 0; i < _cartList.length; i++) {
+      sum += _cartList[i].total;
     }
     return sum;
   }
@@ -494,8 +573,8 @@ class _MyCartViewState extends State<MyCartView> {
   }
 
   void selectall() {
-    for (int i = 0; i < _data_aar.length; i++) {
-      _data_aar[i].select = true;
+    for (int i = 0; i < _cartList.length; i++) {
+      isSelectProduct = true;
     }
   }
 }

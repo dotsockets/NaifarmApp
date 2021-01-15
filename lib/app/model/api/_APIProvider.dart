@@ -1264,6 +1264,79 @@ class _APIProvider implements APIProvider {
     }
   }
 
+  @override
+  Future<ApiResult> AddCartlists({CartRequest cartRequest, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+     // "inventoryId":inventoryId,
+     // "productId":productId
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/cart',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: cartRequest);
+      return ApiResult(respone: CartResponse.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> GetCartlists({String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/cart',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: CartResponse.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> DELETECart({int cartid, int inventoryid, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/cart/${cartid}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'DELETE',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+
 
 
 

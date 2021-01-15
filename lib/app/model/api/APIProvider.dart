@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
+import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
@@ -12,6 +13,7 @@ import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/BannersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
@@ -224,7 +226,14 @@ abstract class APIProvider{
   @GET("/v1/all-categories")
   Future<ApiResult> GetCategoriesAll();
 
+  @POST("/v1/cart")
+  Future<ApiResult> AddCartlists({CartRequest cartRequest,String token});
 
+  @GET("/v1/cart")
+  Future<ApiResult> GetCartlists({String token});
+
+  @DELETE("/v1/cart")
+  Future<ApiResult> DELETECart({int cartid,int inventoryid,String token});
 
 }
 
