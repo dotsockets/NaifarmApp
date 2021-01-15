@@ -1,35 +1,57 @@
+
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
+import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
+import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
+import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
+import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
+import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:naifarm/utility/widgets/OrderTypeDropdownList.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:regexed_validator/regexed_validator.dart';
 import 'package:sizer/sizer.dart';
 
 class MyNewProductView extends StatefulWidget {
+
+  final IsActive isActive;
+
+  const MyNewProductView({Key key, this.isActive}) : super(key: key);
+
   @override
   _MyNewProductViewState createState() => _MyNewProductViewState();
 }
 
 class _MyNewProductViewState extends State<MyNewProductView> {
+
   TextEditingController nameProductController = TextEditingController();
   TextEditingController detailtController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController amountController = TextEditingController();
+  TextEditingController offerPriceController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool checkKeyBoard = false;
-  List<String> listUnit = ["ชิ้น","ถุง"];
-  List<String> listProvince = ["เชียงใหม่","ลำปาง","ลำพูน","เชียงใหม่","ลำปาง","ลำพูน","เชียงใหม่","ลำปาง","ลำพูน","เชียงใหม่","ลำปาง","ลำพูน","เชียงใหม่","ลำปาง"];
-  List<String> listType = ["ผัก","พืช","ข้าว","เนื้อ"];
-  List<String> listAddrDeli = ["ทั่วประเทศ","ทั่วประเทศ","ทั่วประเทศ",];
+  UploadProductBloc bloc;
+
   @override
   void initState() {
     super.initState();
@@ -44,11 +66,65 @@ class _MyNewProductViewState extends State<MyNewProductView> {
 
   }
 
+  init() {
+    if (bloc == null) {
+      bloc = UploadProductBloc(AppProvider.getApplication(context));
+      bloc.uploadProductStorage.stream.listen((event) {
+        _installControllerInput(productMyShopRequest: event.productMyShopRequest);
+      });
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+      });
+      bloc.onSuccess.stream.listen((event)  {
+        if(event is ProductMyShopRespone){
+          Usermanager().getUser().then((value) async {
+            var i = 0;
+            for(var item in bloc.uploadProductStorage.value.onSelectItem){
+              bloc.writeToFile(await item.image.getByteData(quality: 100)).then((file){
+                bloc.UploadImageProduct(token: value.token,imageableId: event.id,imageFile: file,
+                    imageableType: "product",index: i);
+              });
+              i++;
+            }
+          });
+        }else if(event is bool){
+          NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Product_Upload).then((value){
+            AppRoute.MyProduct(context,pushEvent: true);
+          });
+        }
+      });
+      NaiFarmLocalStorage.getAllCategoriesCache().then((value){
+        bloc.categoriesAllRespone = value;
+      });
+
+      if(widget.isActive == IsActive.NewProduct){
+        NaiFarmLocalStorage.getProductStorageCache().then((value){
+          if(value!=null){
+            bloc.uploadProductStorage.add(UploadProductStorage(productMyShopRequest: value.productMyShopRequest,onSelectItem: value.onSelectItem));
+          }
+        });
+      }else{
+
+      }
+
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    init();
     return SafeArea(
       top: false,
       child: Scaffold(
+        key: _scaffoldKey,
         body: Container(
           color: Colors.grey.shade300,
           child: Column(
@@ -57,55 +133,111 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                   child: AppToobar(
                     title: LocaleKeys.my_product_data.tr(),
                     icon: "",
-                    header_type: Header_Type.barNormal,
-                  )),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(right: 20,top: 20,left: 20),
-                        color: Colors.white,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            BuildEditText(
-                                head: LocaleKeys.my_product_name.tr()+" * ",EnableMaxLength: true,
-                                hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 10,controller: nameProductController,inputType: TextInputType.text),
-                            SizedBox(height: 15,),
-                            _BuildDropdown (
-                                head: LocaleKeys.my_product_category.tr()+" *",
-                                hint: LocaleKeys.select.tr()+LocaleKeys.my_product_category.tr(),dataList: listType),
-                            SizedBox(height: 15,),
-                            BuildEditText(
-                                head: LocaleKeys.my_product_detail.tr()+" * ",EnableMaxLength: true,maxLength: 5000,
-                                hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailtController,inputType: TextInputType.text),
-                            SizedBox(height: 15,),
+                    header_type: Header_Type.barNormal,onClick: (){
+                    bloc.SaveProductDetail();
+                      Navigator.of(context).pop();
+                  },)),
+              StreamBuilder(
+                stream: bloc.uploadProductStorage.stream,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                     if(snapshot.hasData){
+                       return  Expanded(
+                         child: SingleChildScrollView(
+                           child: Column(
+                             children: [
+                               Container(
+                                 padding: EdgeInsets.only(right: 20,top: 20,left: 20),
+                                 color: Colors.white,
+                                 child: Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                   children: [
+                                     BuildEditText(
+                                       head: LocaleKeys.my_product_name.tr()+" * ",EnableMaxLength: true,
+                                       hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 10,controller: nameProductController,inputType: TextInputType.text,onChanged: (String char){
+                                        if(char.isNotEmpty){
+                                          bloc.uploadProductStorage.value.productMyShopRequest.name  = char;
+                                          bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                        }
 
-                            BuildEditText(head: LocaleKeys.my_product_amount.tr()+" *", hint: "0",inputType: TextInputType.number,controller: amountController),
-                            SizedBox(height: 15,),
-                            BuildEditText(
-                                head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            BuildEditText(
-                                head: "ราคาโปรโมชั่น"+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController),
+                                     },),
+                                     SizedBox(height: 15,),
+                                     _BuildDropdown (
+                                         head: LocaleKeys.my_product_category.tr()+" *",
+                                         seletText: LocaleKeys.my_product_category.tr(),
+                                         hint: LocaleKeys.select.tr()+LocaleKeys.my_product_category.tr()),
+                                     SizedBox(height: 15,),
+                                     BuildEditText(
+                                       head: LocaleKeys.my_product_detail.tr()+" * ",EnableMaxLength: true,maxLength: 5000,
+                                       hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailtController,inputType: TextInputType.text,onChanged: (String char){
+                                       if(char.isNotEmpty){
+                                         bloc.uploadProductStorage.value.productMyShopRequest.description = char;
+                                         bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                       }
 
-                          ],
-                        ),
-                      ),
-                      _BuildDeliveryTab(),
-                      Divider(height: 10,),
-                      _BuildAtivceTab()
-                    ],
-                  ),
-                ),
+                                     },),
+                                     SizedBox(height: 15,),
+
+                                     BuildEditText(head: LocaleKeys.my_product_amount.tr()+" *", hint: "0",inputType: TextInputType.number,controller: amountController,onChanged: (String char){
+                                       if(char.isNotEmpty){
+                                         bloc.uploadProductStorage.value.productMyShopRequest.stockQuantity = int.parse(char);
+                                         bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                       }
+
+                                     },),
+                                     SizedBox(height: 15,),
+                                     BuildEditText(
+                                       head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController,onChanged: (String char){
+                                       if(char.isNotEmpty){
+
+                                            bloc.uploadProductStorage.value.productMyShopRequest.salePrice = int.parse(char);
+                                            bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+
+
+                                       }
+
+
+                                     },),
+                                     SizedBox(
+                                       height: 20,
+                                     ),
+                                     BuildEditText(
+                                       head: "ราคาโปรโมชั่น"+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: offerPriceController,onChanged: (String char){
+                                       if(char.isNotEmpty){
+                                         bloc.uploadProductStorage.value.productMyShopRequest.offerPrice = int.parse(char);
+                                         bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                       }
+
+                                     },),
+
+                                   ],
+                                 ),
+                               ),
+                               _BuildDeliveryTab(),
+                               Divider(height: 10,),
+                               _BuildAtivceTab()
+                             ],
+                           ),
+                         ),
+                       );
+                     }else{
+                       return SizedBox();
+                     }
+                  }
               ),
-            Visibility(
-              visible: checkKeyBoard?false:true,
-              child:  _BuildButton(),
-            )
+              StreamBuilder(
+                  stream: bloc.uploadProductStorage.stream,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if(snapshot.hasData){
+                      return Visibility(
+                        visible: checkKeyBoard?false:true,
+                        child:  _BuildButton(enable: CheckEnable()),
+                      );
+                    }else{
+                      return SizedBox();
+                    }
+                  }
+              ),
+
             ],
           ),
         ),
@@ -113,8 +245,26 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     );
   }
 
+  bool CheckEnable(){
+    var item = bloc.uploadProductStorage.value.productMyShopRequest;
+    if(item.name!="" && item.category!=0 && item.description!="" && item.stockQuantity!=0 && item.salePrice!=0){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
-  Widget _BuildDropdown({String head, String hint, List<String> dataList}) {
+
+  Widget _BuildDropdown({String head, String hint,String seletText, List<String> dataList}) {
+
+    for(var item in bloc.categoriesAllRespone.categoriesRespone.data){
+      if(item.id == bloc.uploadProductStorage.value.productMyShopRequest.category){
+        seletText = item.name;
+        break;
+      }
+    }
+
+
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,7 +286,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(head,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),),
+                        Text(seletText,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),),
                         Icon(Icons.keyboard_arrow_down)
                       ],
                     )
@@ -188,13 +338,14 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                     height: 30,
                     width: 50,
                     toggleSize: 20,
-                    activeColor: Colors.grey.shade200,
+                    activeColor: bloc.uploadProductStorage.value.productMyShopRequest.active==1?ThemeColor.primaryColor():Colors.grey.shade200,
                     inactiveColor: Colors.grey.shade200,
                    // toggleColor: item.active ? ThemeColor.primaryColor() : Colors.grey.shade400,
-                    value:false,
+                    value:bloc.uploadProductStorage.value.productMyShopRequest.active==1?true:false,
                     onToggle: (val) {
                       //IsSwitch(val);
-
+                      bloc.uploadProductStorage.value.productMyShopRequest.active = val?1:0;
+                      bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
                     },
                   )
                 ],
@@ -205,7 +356,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     );
   }
 
-  Widget _BuildButton() {
+  Widget _BuildButton({bool enable}) {
     return Container(
         color: Colors.grey.shade300,
         height: 80,
@@ -215,27 +366,40 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: _BuildButtonItem(btnTxt: LocaleKeys.save_btn.tr(),index: 0),
+                  child: _BuildButtonCancleItem(btnTxt: "ลบ",index: 0,enable: enable),
                 ),
                 SizedBox(width: 10,)
                 ,
-                Expanded(child: _BuildButtonItem(btnTxt: LocaleKeys.sell_btn.tr(),index: 1),)
+                Expanded(child: _BuildButtonItem(btnTxt: "บันทึก",index: 1,enable: enable),)
               ],
             )));
   }
 
-  Widget _BuildButtonItem({String btnTxt,int index}) {
+
+
+
+  Widget _BuildButtonItem({String btnTxt,int index ,bool enable}) {
     return FlatButton(
      height: 50,
-        color: nameProductController.text.isNotEmpty&&detailtController.text.isNotEmpty&&priceController.text.isNotEmpty&&amountController.text.isNotEmpty
-            ?ThemeColor.secondaryColor():Colors.grey.shade400,
+        color: enable?ThemeColor.secondaryColor():Colors.grey.shade400,
         textColor: Colors.white,
         splashColor: Colors.white.withOpacity(0.3),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(40.0),
         ),
         onPressed: () {
-          index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
+         // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
+          if(enable){
+            if(widget.isActive == IsActive.NewProduct){
+              Usermanager().getUser().then((value) {
+                bloc.AddProductMyShop(shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,token: value.token);
+              });
+            }else{
+
+            }
+
+          }
+
         },
         child: Text(
           btnTxt,
@@ -245,17 +409,58 @@ class _MyNewProductViewState extends State<MyNewProductView> {
 
   }
 
+  Widget _BuildButtonCancleItem({String btnTxt,int index ,bool enable}) {
+    return FlatButton(
+      height: 50,
+      color: enable?ThemeColor.ColorSale():Colors.grey.shade400,
+      textColor: Colors.white,
+      splashColor: Colors.white.withOpacity(0.3),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(40.0),
+      ),
+      onPressed: () {
+        if(enable){
+          NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Product_Upload).then((value){
+            Navigator.of(context).pop();
+          });
+        }
+
+      },
+      child: Text(
+        btnTxt,
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
+      ),
+    );
+
+  }
+
 
   Future<void> _showMyDialog() async {
-    NaiFarmLocalStorage.getAllCategoriesCache().then((value){
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return OrderTypeDropdownList(categoriesAllRespone: value,onSelect: (int id){
-              Navigator.of(context).pop();
-            },);
-          });
-    });
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return OrderTypeDropdownList(categoriesAllRespone: bloc.categoriesAllRespone.categoriesAllRespone,onSelect: (int index,String name){
+            bloc.uploadProductStorage.value.productMyShopRequest.category = index;
+            bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+            Navigator.of(context).pop();
+          },);
+        });
+  }
 
+  void _installControllerInput({ProductMyShopRequest productMyShopRequest}){
+    nameProductController.text = productMyShopRequest.name;
+    nameProductController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.name!=null?productMyShopRequest.name.length:0));
+
+    detailtController.text = productMyShopRequest.description;
+    detailtController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.description!=null?productMyShopRequest.description.length:0));
+
+    amountController.text = productMyShopRequest.stockQuantity.toString();
+    amountController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.stockQuantity!=null?productMyShopRequest.stockQuantity.toString().length:0));
+
+    priceController.text = productMyShopRequest.salePrice.toString();
+    priceController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.salePrice!=null?productMyShopRequest.salePrice.toString().length:0));
+
+    offerPriceController.text = productMyShopRequest.offerPrice.toString();
+    offerPriceController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.offerPrice!=null?productMyShopRequest.offerPrice.toString().length:0));
   }
 }

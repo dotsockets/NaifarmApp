@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/BannersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryObjectCombin.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
@@ -42,7 +43,6 @@ class ProductBloc{
   final Flashsale =  BehaviorSubject<FlashsaleRespone>();
   final ProductItem =  BehaviorSubject<ProducItemRespone>();
   final myShop = BehaviorSubject<MyShopRespone>();
-  final ProductMyShop = BehaviorSubject<ProductMyShopListRespone>();
   final Wishlists = BehaviorSubject<WishlistsRespone>();
 
 
@@ -81,6 +81,7 @@ class ProductBloc{
             final _flashsale =(g as ApiResult).respone;
             final _martkertall =(h as ApiResult).respone;
             final _mywishlist =(k as ApiResult).respone;
+
 
             return HomeObjectCombine(sliderRespone: _slider,
                 productRespone: _product, categoryGroupRespone: _category,featuredRespone: _featured,
@@ -279,27 +280,36 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  GetProductMyShop({String page, int limit,String token}){
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.GetProductMyShop(page: page,limit: limit,token: token)).listen((respone) {
-      if(respone.http_call_back.status==200){
-        ProductMyShop.add((respone.respone as ProductMyShopListRespone));
-      }
-    });
-    _compositeSubscription.add(subscription);
-  }
+
 
   GetCategoriesAll(){
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.GetCategoriesAll()).listen((respone) {
-      if(respone.http_call_back.status==200){
-        NaiFarmLocalStorage.saveCategoriesAll((respone.respone as CategoriesAllRespone));
-      }
+
+
+    StreamSubscription subscription = Observable.combineLatest2(
+        Observable.fromFuture(_application.appStoreAPIRepository.GetCategoriesAll()),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetCategories()),(a, b){
+      final _categorteAll= (a as ApiResult).respone;
+      final _categortes  =(b as ApiResult).respone;
+      return CategoryCombin(categoriesAllRespone: _categorteAll,categoriesRespone: _categortes);
+
+    }).listen((respone) {
+        NaiFarmLocalStorage.saveCategoriesAll(respone);
+
     });
     _compositeSubscription.add(subscription);
   }
 
+  void loadCustomerCount({String token}){
+    Observable.fromFuture(_application.appStoreAPIRepository.GetCustomerCount(token: token)).listen((respone) {
+      if(respone.http_call_back.status==200){
+        onSuccess.add(true);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+  }
 
+//CategoryCombin
 
 
 

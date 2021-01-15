@@ -13,21 +13,22 @@ class ProductMyShopRequest {
   String offerStart;
   String offerEnd;
   List<Attributes> attributes;
+  int active;
 
   ProductMyShopRequest(
       {this.name,
-        this.category,
-        this.stockQuantity,
-        this.salePrice,
+        this.category=0,
+        this.stockQuantity=0,
+        this.salePrice=0,
         this.sendArea,
         this.weight,
         this.packaging,
         this.description,
         this.slug,
-        this.offerPrice,
+        this.offerPrice=0,
         this.offerStart,
         this.offerEnd,
-        this.attributes});
+        this.attributes,this.active=0});
 
   ProductMyShopRequest.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -48,6 +49,7 @@ class ProductMyShopRequest {
         attributes.add(new Attributes.fromJson(v));
       });
     }
+    active = json['active'];
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +69,7 @@ class ProductMyShopRequest {
     if (this.attributes != null) {
       data['attributes'] = this.attributes.map((v) => v.toJson()).toList();
     }
+    data['active'] = this.active;
     return data;
   }
 }

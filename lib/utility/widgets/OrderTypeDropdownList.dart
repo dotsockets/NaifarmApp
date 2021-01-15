@@ -15,7 +15,7 @@ class OrderTypeDropdownList extends StatefulWidget {
   String title;
   String txtSelect;
   List<String> dataList;
-  Function(int) onSelect;
+  Function(int,String) onSelect;
   int initialItem;
   CategoriesAllRespone categoriesAllRespone;
 
@@ -88,18 +88,18 @@ class _OrderTypeDropdownListState extends State<OrderTypeDropdownList> with Sing
           child: Center(child: Text("[${item.name} : ${item.categorySubGroups[0].name}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),)),
         ),
         Column(
-          children: item.categorySubGroups[0].category.asMap().entries.map((e) => SubItemRow(item: e.value)).toList(),
+          children: item.categorySubGroups[0].category.asMap().entries.map((e) => SubItemRow(item: e.value,index: e.key)).toList(),
         ),
       ],
     ),
   );
 
-  Container SubItemRow({Category item})=> Container(
+  Container SubItemRow({Category item,int index})=> Container(
     padding: EdgeInsets.all(20),
     width: MediaQuery.of(context).size.width,
     child: InkWell(
       child: Text("- "+item.name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
-      onTap: ()=>widget.onSelect(item.categorySubGroupId),
+      onTap: ()=>widget.onSelect(item.id,item.name),
     ),
   );
 }

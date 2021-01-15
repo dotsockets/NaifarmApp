@@ -9,8 +9,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
+import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
+import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -30,15 +35,20 @@ class _ImageProductViewState extends State<ImageProductView> {
   // List<String> imageUrlList = [];
   UploadProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  StreamController<int> onEdit = StreamController<int>();
 
   init() {
+
+
+
     if (bloc == null) {
+
       bloc = UploadProductBloc(AppProvider.getApplication(context));
-      bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(
-            scaffoldKey: _scaffoldKey,
-            message: "กรุณาอัพรูปตามลำดับช่องที่มีให้");
+      NaiFarmLocalStorage.getProductStorageCache().then((value){
+         if(value!=null){
+           bloc.ProductDetail = value.productMyShopRequest;
+           bloc.LoadImage(item: value.onSelectItem);
+         }
+
       });
     }
   }
@@ -86,7 +96,7 @@ class _ImageProductViewState extends State<ImageProductView> {
                 stream: bloc.onChang.stream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    var item = (snapshot.data as List<Asset>);
+                    var item = (snapshot.data as List<OnSelectItem>);
                     return _buildButton(item: item);
                   } else {
                     return SizedBox();
@@ -118,7 +128,7 @@ class _ImageProductViewState extends State<ImageProductView> {
     final pickedFile = await picker.getImage(source: imageSource);
     if (pickedFile != null) {
       // bloc.ConvertArrayFile(file: File(pickedFile.path),index: index);
-      bloc.onChang.add(images);
+     // bloc.onChang.add(images);
     } else {
       print('No image selected.');
     }
@@ -129,8 +139,9 @@ class _ImageProductViewState extends State<ImageProductView> {
       stream: bloc.onChang.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          var item = (snapshot.data as List<Asset>);
-
+          var item = (snapshot.data as List<OnSelectItem>);
+          if(item.length<10)
+             item.add(null);
           return GridView.count(
             crossAxisCount: 2,
             // childAspectRatio: (itemWidth / itemHeight),
@@ -141,64 +152,77 @@ class _ImageProductViewState extends State<ImageProductView> {
                     (index) => _buildImageItem(item: item[index], index: index)),
           );
         } else {
-          return AddButton();
+          return GridView.count(
+            crossAxisCount: 2,
+            // childAspectRatio: (itemWidth / itemHeight),
+            controller: new ScrollController(keepScrollOffset: false),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            children: [
+              AddButton(index: 0,flag: 1,maxImages: 10),
+            ],
+          );
         }
       },
     );
   }
 
-  DottedBorder AddButton() => DottedBorder(
-      strokeWidth: 1.5,
-      dashPattern: [10, 2],
-      borderType: BorderType.RRect,
-      radius: Radius.circular(10),
-      color: ThemeColor.primaryColor(),
-      child: Center(
+  InkWell AddButton({int index,int flag,int maxImages}) => InkWell(
+    child: Container(
+      margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+      decoration: BoxDecoration(
+          color: Colors.grey.withOpacity(0.1),
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      child: DottedBorder(
+        strokeWidth: 1.5,
+        dashPattern: [10, 2],
+        borderType: BorderType.RRect,
+        radius: Radius.circular(10),
+        color: ThemeColor.primaryColor(),
+        child: Center(
           child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(8)),
-            // child: Image.file(bloc.listImage[index].file)
-            child: InkWell(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "+",
-                      style: FunctionHelper.FontTheme(fontSize: 30),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      child: Text(
-                        LocaleKeys.add.tr() + LocaleKeys.my_product_image.tr(),
-                        style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize().sp),
-                      ),
-                    )
-                  ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "+",
+                  style: FunctionHelper.FontTheme(fontSize: 30),
                 ),
-              ),
-              onTap: () {
-                loadAssets();
-              },
-              onLongPress: () {
-                // if(bloc.listImage[index].name=="0"){
-                //   bloc.listImage[index].file = null;
-                //   bloc.onChang.add(bloc.listImage);
-                // }else{
-                //   bloc.onError.add(true);
-                // }
-              },
+                Container(
+                  margin: EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    LocaleKeys.add.tr() + LocaleKeys.my_product_image.tr(),
+                    style: FunctionHelper.FontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp),
+                  ),
+                )
+              ],
             ),
-          )));
+          ),
+        ),
+      ),
+    ),
+    onTap: () {
+      loadAssets(flag: flag,index: index,maxImages: maxImages);
+    },
+    onLongPress: () {
+      // if(bloc.listImage[index].name=="0"){
+      //   bloc.listImage[index].file = null;
+      //   bloc.onChang.add(bloc.listImage);
+      // }else{
+      //   bloc.onError.add(true);
+      // }
+    },
+  );
 
-  Future<void> loadAssets({int index}) async {
+  Future<void> loadAssets({int index,int flag,int maxImages}) async {
     List<Asset> resultList = List<Asset>();
     String error = 'No Error Dectected';
 
     try {
       resultList = await MultiImagePicker.pickImages(
-        maxImages: 300,
+        maxImages: maxImages,
         enableCamera: true,
         selectedAssets: images,
         cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
@@ -210,7 +234,12 @@ class _ImageProductViewState extends State<ImageProductView> {
           selectCircleStrokeColor: "#000000",
         ),
       );
-      bloc.ConvertArrayFile(imageList: resultList, index: index);
+      if(flag==1){
+        bloc.ConvertArrayFile(imageList: resultList, index: index);
+      }else if(flag==2){
+        bloc.EditImage(imageList: resultList,index: index);
+      }
+
     } on Exception catch (e) {
       error = e.toString();
     }
@@ -221,7 +250,7 @@ class _ImageProductViewState extends State<ImageProductView> {
     if (!mounted) return;
   }
 
-  Widget _buildImageItem({Asset item, int index}) {
+  Widget _buildImageItem({OnSelectItem item, int index}) {
     return item != null
         ? InkWell(
       child: Container(
@@ -242,92 +271,60 @@ class _ImageProductViewState extends State<ImageProductView> {
                   child: Stack(
                     children: [
                       AssetThumb(
-                        asset: item,
+                        asset: Asset(item.image.identifier,item.image.name,item.image.originalWidth,item.image.originalHeight),
                         width: 300,
                         height: 300,
                       ),
-                      StreamBuilder<int>(
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          return Container(
-                            width: 300,
-                            height: 300,
-                            color: Colors.black.withOpacity(0.1),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    color: Colors.white.withOpacity(0.5),
-                                    child: Icon(Icons.edit_rounded,color: Colors.white,),
-                                  ),
+                      item.onEdit?Container(
+                        width: 300,
+                        height: 300,
+                        color: Colors.black.withOpacity(0.3),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(30)),
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  color: Colors.white.withOpacity(0.5),
+                                  child: Icon(Icons.edit_rounded,color: Colors.white,),
                                 ),
-                                SizedBox(width: 20,),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    color: Colors.white.withOpacity(0.5),
-                                    child: Icon(Icons.delete_forever_sharp,color: Colors.white,),
-                                  ),
-                                )
-                              ],
+                              ),
+                              onTap: (){
+                                loadAssets(index: index,flag: 2,maxImages: 1);
+                              },
                             ),
-                          );
-                        },
-                      )
+                            SizedBox(width: 20,),
+                            InkWell(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(30)),
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  color: Colors.white.withOpacity(0.5),
+                                  child: Icon(Icons.delete_forever_sharp,color: Colors.white,),
+                                ),
+                              ),
+                              onTap: (){
+                                 bloc.DeleteImage(index: index);
+                              },
+                            ),
+                          ],
+                        ),
+                      ):SizedBox()
                     ],
                   ),
                 ))),
       ),
       onTap: () {
-        //loadAssets(index: index);
+        bloc.ConvertOnEdit(index: index);
+
       },
     )
-        : Container(
-      margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-      decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.1),
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-      child: DottedBorder(
-        strokeWidth: 1.5,
-        dashPattern: [10, 2],
-        borderType: BorderType.RRect,
-        radius: Radius.circular(10),
-        color: ThemeColor.primaryColor(),
-        child: InkWell(
-          child: Center(
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "+",
-                    style: FunctionHelper.FontTheme(fontSize: 30),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      LocaleKeys.add.tr() + LocaleKeys.my_product_image.tr(),
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          onTap: () {
-            loadAssets();
-          },
-        ),
-      ),
-    );
+        : AddButton(index: index,flag: 1,maxImages: 10-(bloc.ItemImage.length-1));
   }
 
-  Widget _buildButton({List<Asset> item}) {
+  Widget _buildButton({List<OnSelectItem> item}) {
     return Container(
         padding: EdgeInsets.only(left: 40, right: 40),
         color: Colors.grey.shade300,
@@ -348,7 +345,11 @@ class _ImageProductViewState extends State<ImageProductView> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40.0),
       ),
-      onPressed: () {},
+      onPressed: () {
+         AppRoute.MyNewProduct(context,IsActive: IsActive.NewProduct);
+
+
+      },
       child: Text(
         btnTxt,
         style: FunctionHelper.FontTheme(

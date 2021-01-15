@@ -1,3 +1,6 @@
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
+
 class ProductMyShopListRespone {
   List<ProductMyShop> data;
   int total;
@@ -42,7 +45,7 @@ class ProductMyShop {
   String slug;
   int saleCount;
   Shop shop;
-  List<Image> image;
+  List<ProductImage> image;
   int discountPercent;
   int rating;
   int reviewCount;
@@ -81,9 +84,9 @@ class ProductMyShop {
     saleCount = json['saleCount'];
     shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
     if (json['image'] != null) {
-      image = new List<Image>();
+      image = new List<ProductImage>();
       json['image'].forEach((v) {
-        image.add(new Image.fromJson(v));
+        image.add(new ProductImage.fromJson(v));
       });
     }
     discountPercent = json['discountPercent'];
@@ -124,9 +127,9 @@ class Shop {
   int id;
   String name;
   String slug;
-  State state;
+  DataStates state;
   String updatedAt;
-  List<Image> image;
+  List<ProductImage> image;
 
   Shop({this.id, this.name, this.slug, this.state, this.updatedAt, this.image});
 
@@ -134,12 +137,12 @@ class Shop {
     id = json['id'];
     name = json['name'];
     slug = json['slug'];
-    state = json['state'] != null ? new State.fromJson(json['state']) : null;
+    state = json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = new List<Image>();
+      image = new List<ProductImage>();
       json['image'].forEach((v) {
-        image.add(new Image.fromJson(v));
+        image.add(new ProductImage.fromJson(v));
       });
     }
   }
@@ -160,71 +163,5 @@ class Shop {
   }
 }
 
-class State {
-  int id;
-  String name;
 
-  State({this.id, this.name});
-
-  State.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    return data;
-  }
-}
-
-class Image {
-  int id;
-  String path;
-  String name;
-  String extension;
-  String size;
-  int imageableId;
-  String imageableType;
-  int featured;
-  int order;
-
-  Image(
-      {this.id,
-        this.path,
-        this.name,
-        this.extension,
-        this.size,
-        this.imageableId,
-        this.imageableType,
-        this.featured,
-        this.order});
-
-  Image.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    path = json['path'];
-    name = json['name'];
-    extension = json['extension'];
-    size = json['size'];
-    imageableId = json['imageableId'];
-    imageableType = json['imageableType'];
-    featured = json['featured'];
-    order = json['order'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['path'] = this.path;
-    data['name'] = this.name;
-    data['extension'] = this.extension;
-    data['size'] = this.size;
-    data['imageableId'] = this.imageableId;
-    data['imageableType'] = this.imageableType;
-    data['featured'] = this.featured;
-    data['order'] = this.order;
-    return data;
-  }
-}
 

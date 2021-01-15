@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -60,6 +61,9 @@ class _BuildEditTextState extends State<BuildEditText> {
               maxLines: widget.maxLine,
               controller: widget.controller,
               readOnly: widget.readOnly,
+              inputFormatters: [
+                widget.inputType == TextInputType.number?FilteringTextInputFormatter.digitsOnly:FilteringTextInputFormatter.deny(' ')
+              ],
               decoration: InputDecoration(
                 hintStyle: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.grey),
                 hintText: widget.hint,

@@ -1084,7 +1084,7 @@ class _APIProvider implements APIProvider {
     final _data = <String, dynamic>{};
     try {
 
-      final _result = await _dio.request<dynamic>('/v1/myshop/products',
+      final _result = await _dio.request<dynamic>('/v1/myshop/products?sort=product.createdAt:desc',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
@@ -1263,6 +1263,75 @@ class _APIProvider implements APIProvider {
       return ServerError.DioErrorExpction(e);
     }
   }
+
+  @override
+  Future<ApiResult> GetCategories() async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/categories',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{},
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: CategoriesRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> UpdateProductMyShop({ProductMyShopRequest shopRequest,int productId, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/myshop/products/${productId}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: shopRequest);
+      return ApiResult(respone: ProductMyShopRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> DELETEProductMyShop({int ProductId, String token}) async{
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/myshop/products/${ProductId}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'DELETE',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+
 
 
 

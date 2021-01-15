@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
@@ -82,6 +83,8 @@ import 'package:naifarm/app/ui/setting/rulesOfUse/RuleOfUseView.dart';
 import 'package:naifarm/app/ui/shopmain/ShopMainView.dart';
 import 'package:naifarm/app/ui/shopmain/followers/FollowersView.dart';
 import 'package:naifarm/app/ui/shopmynear/searchmap/SearchMapView.dart';
+import 'package:naifarm/app/ui/splash/ConnectErrorView.dart';
+import 'package:naifarm/app/ui/splash/SplashView.dart';
 import 'package:naifarm/app/ui/wishlist/WishlistsView.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -136,11 +139,16 @@ class AppRoute{
   static PaymentMe(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: PaymentView()));
   }
-  static MyProduct(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
+  static MyProduct(BuildContext context,{bool pushEvent=false}){
+    if(pushEvent){
+      Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
+    }else{
+      Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
+    }
+
   }
-  static MyNewProduct(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyNewProductView()));
+  static MyNewProduct(BuildContext context,{IsActive IsActive}){
+    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyNewProductView(isActive: IsActive,)));
   }
 
 
@@ -390,6 +398,14 @@ class AppRoute{
 
   static Wishlists({BuildContext context}){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:WishlistsView()));
+  }
+
+  static ConnectError({BuildContext context,String text_error}){
+    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ConnectErrorView(text_error: text_error,)));
+  }
+
+  static Splash({BuildContext context}){
+    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:SplashView()));
   }
 }
 

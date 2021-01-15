@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,7 @@ import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/SplashLoginView.dart';
+import 'package:naifarm/app/ui/splash/ConnectErrorView.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_svg/svg.dart';
@@ -52,12 +54,22 @@ class _SplashViewState extends State<SplashView>
     if(null == bloc) {
       NaiFarmLocalStorage.Clean(keyStore: NaiFarmLocalStorage.NaiFarm_Storage);
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.ZipHomeObject.stream.listen((event) {
+      Usermanager().getUser().then((value) =>  bloc.loadCustomerCount(token: value.token));
+      bloc.onError.stream.listen((event) {
+        Future.delayed(const Duration(milliseconds: 1000), () {
+          AppRoute.ConnectError(context: context,text_error: event);
+        });
 
+      });
+      bloc.onSuccess.stream.listen((event) {
+        Usermanager().getUser().then((value) =>  bloc.loadHomeData(token: value.token));
+        bloc.GetCategoriesAll();
+      });
+      bloc.ZipHomeObject.stream.listen((event) {
         startTimer();
       });
-     Usermanager().getUser().then((value) =>  bloc.loadHomeData(token: value.token));
-     bloc.GetCategoriesAll();
+
+
     }
 
   }

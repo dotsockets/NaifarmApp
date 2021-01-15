@@ -3,7 +3,10 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
+import 'package:naifarm/app/model/pojo/request/AssetImage.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
@@ -13,6 +16,7 @@ import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/BannersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CategoriesRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
@@ -43,6 +47,7 @@ import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/utility/http/HttpException.dart';
 import 'package:naifarm/app/model/pojo/response/zipCodeRespone.dart';
 import 'package:naifarm/utility/http/ServerError.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:retrofit/retrofit.dart';
 import 'dart:convert';
 import 'dart:convert';
@@ -224,7 +229,14 @@ abstract class APIProvider{
   @GET("/v1/all-categories")
   Future<ApiResult> GetCategoriesAll();
 
+  @GET("/v1/categories")
+  Future<ApiResult> GetCategories();
 
+  @PATCH("/v1/myshop/products")
+  Future<ApiResult> UpdateProductMyShop({ProductMyShopRequest shopRequest,int productId,String token});
+
+  @DELETE("/v1/myshop/products")
+  Future<ApiResult> DELETEProductMyShop({int ProductId,String token});
 
 }
 
