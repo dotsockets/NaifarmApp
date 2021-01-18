@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/ui/me/myshop/myshophistory/success/SuccessView.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -363,7 +362,7 @@ class FunctionHelper {
   static SuccessDialog(BuildContext context, {Function() onClick,String message}) {
     showDialog<bool>(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return GestureDetector(
           child: Dialog(
@@ -386,7 +385,9 @@ class FunctionHelper {
           onTap: ()=>onClick(),
         );
       },
-    );
+    ).then((value){
+      onClick();
+    });
   }
   static int flashSaleTime({String timeFlash}){
 
@@ -413,7 +414,12 @@ class FunctionHelper {
 
   static String replaceText({String text,String pattern}){
     try{
-      return text!=""?text.replaceAll("\n", ""):'';
+      if(text!=null){
+        return text!=""?text.replaceAll("\n", ""):'';
+      }else{
+        return "-";
+      }
+
     }on Exception catch(e){
       return "";
     }

@@ -23,6 +23,11 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
 
 class ImageProductView extends StatefulWidget {
+
+  final IsActive isActive;
+
+  const ImageProductView({Key key, this.isActive}) : super(key: key);
+
   @override
   _ImageProductViewState createState() => _ImageProductViewState();
 }
@@ -43,12 +48,19 @@ class _ImageProductViewState extends State<ImageProductView> {
     if (bloc == null) {
 
       bloc = UploadProductBloc(AppProvider.getApplication(context));
+
+      bloc.onChang.stream.listen((event) {
+        if(widget.isActive == IsActive.NewProduct || widget.isActive == IsActive.ReplacemenView ) {
+          NaiFarmLocalStorage.SaveProductStorage(UploadProductStorage(
+              onSelectItem: bloc.ItemImage,
+              productMyShopRequest: bloc.ProductDetail));
+        }
+      });
       NaiFarmLocalStorage.getProductStorageCache().then((value){
          if(value!=null){
            bloc.ProductDetail = value.productMyShopRequest;
            bloc.LoadImage(item: value.onSelectItem);
          }
-
       });
     }
   }
@@ -65,6 +77,7 @@ class _ImageProductViewState extends State<ImageProductView> {
           title: LocaleKeys.my_product_image.tr(),
           icon: "",
           header_type: Header_Type.barNormal,
+          onClick: ()=> Navigator.pop(context, false),
         ),
         body: Container(
           width: MediaQuery.of(context).size.width,
@@ -123,16 +136,6 @@ class _ImageProductViewState extends State<ImageProductView> {
   //   }
   // }
 
-  Future captureImage(ImageSource imageSource, int index) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: imageSource);
-    if (pickedFile != null) {
-      // bloc.ConvertArrayFile(file: File(pickedFile.path),index: index);
-     // bloc.onChang.add(images);
-    } else {
-      print('No image selected.');
-    }
-  }
 
   Widget _buildGrid() {
     return StreamBuilder(
@@ -140,6 +143,7 @@ class _ImageProductViewState extends State<ImageProductView> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           var item = (snapshot.data as List<OnSelectItem>);
+          item.remove(null);
           if(item.length<10)
              item.add(null);
           return GridView.count(
@@ -346,8 +350,13 @@ class _ImageProductViewState extends State<ImageProductView> {
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () {
-         AppRoute.MyNewProduct(context);
+        if(widget.isActive == IsActive.NewProduct || widget.isActive == IsActive.ReplacemenView){
+          AppRoute.MyNewProduct(context,isActive: widget.isActive);
+        }else{
 
+          NaiFarmLocalStorage.SaveProductStorage(UploadProductStorage(onSelectItem: bloc.GetSelectItem(),productMyShopRequest: bloc.ProductDetail));
+          Navigator.pop(context, true);
+        }
 
       },
       child: Text(

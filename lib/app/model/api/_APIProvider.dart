@@ -140,13 +140,18 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> ForgotPasswordRequest(String email) async {
+  Future<ApiResult> ForgotPasswordRequest({ String phone,String code,String ref,String password}) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "phone":phone,
+      "code":code,
+      "ref":ref,
+      "password":password
+    };
 
     try {
-      final _result = await _dio.request<dynamic>('/v1/customers/forgot-password/${email}',
+      final _result = await _dio.request<dynamic>('/v1/customers/forgot-password-phone',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',
@@ -154,8 +159,8 @@ class _APIProvider implements APIProvider {
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
-
-      return ApiResult(respone: ForgotRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+     // ForgotRespone
+      return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
       return ServerError.DioErrorExpction(e);
 
@@ -814,7 +819,7 @@ class _APIProvider implements APIProvider {
     final _data = <String, dynamic>{};
     try {
 
-      final _result = await _dio.request<dynamic>('/v1/products/types/products?limit=${limit}&page=${page}&categoryGroupId=${GroupId}',
+      final _result = await _dio.request<dynamic>('/v1/products?limit=${limit}&page=${page}&categoryGroupId=${GroupId}',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
@@ -1461,6 +1466,133 @@ class _APIProvider implements APIProvider {
     }
   }
 
+  @override
+  Future<ApiResult> DeleteImageProduct({String imageableId, String imageableType, String path, String token}) async{
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "imageableId":imageableId,
+      "imageableType":imageableType,
+      "path":path,
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/image',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'DELETE',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> GetOrder({String orderType,int page,int limit,int statusId,String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+
+      final _result = await _dio.request<dynamic>('/v1/${orderType}?limit=${limit}&page=${page}&sort=orders.createdAt:desc&orderStatusId=${statusId}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: OrderRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> GetOrderById({int id, String token}) async{
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+
+      final _result = await _dio.request<dynamic>('/v1/order/${id}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: OrderData.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> getProductTypeShop({String type, int shopId, String page, int limit, String token})async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+
+      final _result = await _dio.request<dynamic>('/v1/products/types/${type}?shopId=${shopId}&limit=${limit}&page=${page}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: ProductRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> GetNotificationByGroup({String group, int page,String sort="notification.createdAt:desc", int limit, String token}) async{
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{
+      "group":group,
+      "page":page,
+      "limit":limit,
+      "sort":sort,
+    };
+    final _data = <String, dynamic>{};
+    try {
+
+
+      final _result = await _dio.request<dynamic>('/v1/notifications',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: NotiRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
 
 
 

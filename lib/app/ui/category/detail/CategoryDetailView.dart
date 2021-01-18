@@ -3,6 +3,7 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -16,6 +17,7 @@ import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BannerSlide.dart';
 import 'package:naifarm/utility/widgets/CategoryMenu.dart';
@@ -27,6 +29,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:skeleton_loader/skeleton_loader.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class CategoryDetailView extends StatefulWidget {
   final int index;
@@ -81,6 +84,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                     title: widget.title,
                     header_type: Header_Type.barcartShop,
                     isEnable_Search: true,
+                    onClick: ()=>AppRoute.SearchHome(context),
                   ),
                   StreamBuilder(
                     stream: bloc.ZipCategoryObject.stream,
@@ -131,23 +135,25 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                   StreamBuilder(
                     stream: bloc.ZipCategoryObject.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if(snapshot.hasData) {
-                        return ProductGrid(
-                            productRespone: (snapshot.data as CategoryObjectCombin).hotProduct,
+                      if(snapshot.hasData ) {
+                        return ProductLandscape(
+                            showSeeMore: false,
+                            productRespone: (snapshot.data as CategoryObjectCombin).goupProduct,
                             titleInto: LocaleKeys.tab_bar_recommend.tr(),
-                            showBorder: true,
+                            //  showBorder: true,
                             IconInto: 'assets/images/svg/like.svg',
-                            api_link: 'products',
-                            onSelectMore: () {
-                              AppRoute.ProductMore(context:context,barTxt:LocaleKeys.tab_bar_recommend.tr());
-                            },
+                            //  api_link: 'products',
+                            /* onSelectMore: () {
+                                  AppRoute.ProductMore(context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),productList:ProductViewModel().getMarketRecommend());
+                                },*/
                             onTapItem: (ProductData item,int index) {
                               AppRoute.ProductDetail(context,
                                   productImage: "recommend_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                             },
                             tagHero: 'recommend');
                       }else{
-                        return Skeleton.LoaderGridV(context);
+
+                        return Skeleton.LoaderLandscape(context);
                       }
                     },
                   ),
@@ -157,10 +163,10 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                   StreamBuilder(
                     stream: bloc.ZipCategoryObject.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if(snapshot.hasData) {
+                      if(snapshot.hasData ) {
                         return ProductVertical(
                           titleInto: LocaleKeys.recommend_best_seller.tr(),
-                          productRespone: (snapshot.data as CategoryObjectCombin).recommend,
+                          productRespone: (snapshot.data as CategoryObjectCombin).goupProduct,
                           IconInto: 'assets/images/svg/product_hot.svg',
                           onSelectMore: () {
                             AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr());
@@ -188,11 +194,11 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
     );
   }
 
+
   _BannerAds() {
     return Container(
       child: CachedNetworkImage(
         placeholder: (context, url) => Container(
-          color: Colors.white,
           child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
         ),
         fit: BoxFit.cover,

@@ -11,4 +11,5 @@ class Production extends Env {
   final String appName = "NaiFarm";
   final String baseUrl = 'https://stg-api-test.naifarm.com';
   final String dbName = 'Naifarm.db';
+  final String noItemUrl = "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com";
 }

@@ -18,7 +18,7 @@ class Env {
 
   EnvType environmentType = EnvType.DEVELOPMENT;
   String loadingAnimaion = 'assets/json/loading.json';
-
+  String noItemUrl;
 
   // Database Config
   int dbVersion = 1;

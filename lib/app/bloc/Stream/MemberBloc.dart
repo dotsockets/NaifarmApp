@@ -152,10 +152,10 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
-  ForgotPassword({String email}) async{
+  ForgotPassword({ String phone,String code,String ref,String password}) async{
     onLoad.add(true);
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.ForgotPassword(email:email)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.ForgotPassword(code: code,ref: ref,phone: phone,password: password)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
         onSuccess.add(respone.respone);
@@ -325,10 +325,9 @@ class MemberBloc{
   }
 
 
+}
 
-
-
-
-
-
+enum RequestOtp{
+  Register,
+  Forgotpassword
 }

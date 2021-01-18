@@ -76,7 +76,7 @@ class _MyCartViewState extends State<MyCartView> {
       top: false,
       child: Scaffold(
         key: _scaffoldKey,
-        backgroundColor:Colors.grey.shade300,
+        backgroundColor:Colors.white,
             //_data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
         appBar: AppToobar(
         title: LocaleKeys.cart_toobar.tr(),
@@ -93,13 +93,16 @@ class _MyCartViewState extends State<MyCartView> {
                     return Column(
                       children: [
                         Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: List.generate(item.length, (index) {
-                                return _CardCart(
-                                    item: item[index], index: index);
+                          child: Container(
+                            color: Colors.grey.shade300,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: List.generate(item.length, (index) {
+                                  return _CardCart(
+                                      item: item[index], index: index);
 
-                              }),
+                                }),
+                              ),
                             ),
                           ),
                         ),

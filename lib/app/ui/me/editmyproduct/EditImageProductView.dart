@@ -46,16 +46,31 @@ class _EditImageProductViewState extends State<EditImageProductView> {
   UploadProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+
+
   init() {
 
     if (bloc == null) {
-
       bloc = UploadProductBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onSuccess.stream.listen((event) {
+        Navigator.pop(context, true);
+      });
+      bloc.onError.stream.listen((event) {
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+      });
       bloc.uploadProductStorage.add(widget.uploadProductStorage);
-      bloc.ItemImage.addAll(widget.uploadProductStorage.onSelectItem);
+      bloc.ItemImage = widget.uploadProductStorage.onSelectItem;
       bloc.onChang.add(widget.uploadProductStorage.onSelectItem);
 
     }
+
   }
 
   @override
@@ -70,6 +85,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
           title: LocaleKeys.my_product_image.tr(),
           icon: "",
           header_type: Header_Type.barNormal,
+          onClick: ()=>Navigator.pop(context, false),
         ),
         body: Container(
           width: MediaQuery.of(context).size.width,
@@ -116,10 +132,10 @@ class _EditImageProductViewState extends State<EditImageProductView> {
   }
 
   // Future<void> captureImage(ImageSource imageSource, int index) async {
-  //   try {
-  //     final imageFile = await ImagePicker.pickImage(source: imageSource);
+  //   try {ckImage(source: imageSource);
   //     setState(() {
   //       arr[index] = imageFile;
+  //     final imageFile = await ImagePicker.pi
   //       print(imageFile);
   //       //_imageFile = imageFile;
   //     });
@@ -128,16 +144,6 @@ class _EditImageProductViewState extends State<EditImageProductView> {
   //   }
   // }
 
-  Future captureImage(ImageSource imageSource, int index) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: imageSource);
-    if (pickedFile != null) {
-      // bloc.ConvertArrayFile(file: File(pickedFile.path),index: index);
-      // bloc.onChang.add(images);
-    } else {
-      print('No image selected.');
-    }
-  }
 
   Widget _buildGrid() {
     return StreamBuilder(
@@ -145,6 +151,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           var item = (snapshot.data as List<OnSelectItem>);
+          item.remove(null);
           if(item.length<10)
             item.add(null);
           return GridView.count(
@@ -255,7 +262,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
     if (!mounted) return;
   }
 
-  Widget _buildImageItem({OnSelectItem item, int index}) {
+  Widget  _buildImageItem({OnSelectItem item, int index}) {
     return item != null
         ? InkWell(
       child: Container(
@@ -355,7 +362,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
             margin: EdgeInsets.all(15),
             child: _buildButtonItem(
                 btnTxt: LocaleKeys.continue_btn.tr(),
-                isEnable: item.length > 0 ? true : false)));
+                isEnable: bloc.CountSelectImage()>0?true:false)));
   }
 
   Widget _buildButtonItem({String btnTxt, isEnable = false}) {
@@ -368,9 +375,15 @@ class _EditImageProductViewState extends State<EditImageProductView> {
       ),
       onPressed: () {
         //AppRoute.MyNewProduct(context);
-      Usermanager().getUser().then((value){
-        bloc.OnUpdateImage(ProductId: widget.ProductId,token: value.token);
-      });
+
+        if(isEnable){
+          Usermanager().getUser().then((value){
+            bloc.OnUpdateImage(ProductId: widget.ProductId,token: value.token,data: bloc.GetSelectItemUpdate());
+          });
+        }else{
+          Navigator.pop(context, false);
+        }
+
 
       },
       child: Text(

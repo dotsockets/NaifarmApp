@@ -14,12 +14,10 @@ class HomeObjectCombine{
   ProductRespone  trendingRespone;
   ProductRespone martket;
   FlashsaleRespone flashsaleRespone;
-  MyShopRespone myShopRespone;
-  WishlistsRespone  wishlistsRespone;
 
 
 
-  HomeObjectCombine({this.sliderRespone, this.productRespone,this.categoryGroupRespone,this.featuredRespone,this.trendingRespone,this.martket,this.flashsaleRespone,this.myShopRespone,this.wishlistsRespone});
+  HomeObjectCombine({this.sliderRespone, this.productRespone,this.categoryGroupRespone,this.featuredRespone,this.trendingRespone,this.martket,this.flashsaleRespone});
 
 
   HomeObjectCombine.fromJson(Map<String, dynamic> json) {
@@ -31,8 +29,6 @@ class HomeObjectCombine{
     trendingRespone = json['trendingRespone'] != null ? new ProductRespone.fromJson(json['trendingRespone']) : null;
     martket = json['martket'] != null ? new ProductRespone.fromJson(json['martket']) : null;
     flashsaleRespone = json['flashsaleRespone'] != null ? new FlashsaleRespone.fromJson(json['flashsaleRespone']) : null;
-    myShopRespone = json['myShopRespone'] != null ? new MyShopRespone.fromJson(json['myShopRespone']) : null;
-    wishlistsRespone = json['wishlistsRespone'] != null ? new WishlistsRespone.fromJson(json['wishlistsRespone']) : null;
 
   }
 
@@ -67,13 +63,8 @@ class HomeObjectCombine{
       data['flashsaleRespone'] = this.flashsaleRespone.toJson();
     }
 
-    if (this.myShopRespone != null) {
-      data['myShopRespone'] = this.myShopRespone.toJson();
-    }
 
-    if (this.wishlistsRespone != null) {
-      data['wishlistsRespone'] = this.wishlistsRespone.toJson();
-    }
+
     return data;
   }
 }

@@ -11,4 +11,5 @@ class Staging extends Env {
   final String appName = "NaiFarmStaging";
   final String baseUrl = 'https://stg-api-test.naifarm.com';
   final String dbName = 'Naifarm-Stg.db';
+  final String noItemUrl = "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com";
 }

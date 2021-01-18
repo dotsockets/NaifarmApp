@@ -3,7 +3,7 @@ class CustomerCountRespone {
   int watingReview;
   Notification notification;
   BuyOrder buyOrder;
-  BuyOrder sellOrder;
+  SellOrder sellOrder;
 
   CustomerCountRespone(
       {this.like=0,
@@ -22,7 +22,7 @@ class CustomerCountRespone {
         ? new BuyOrder.fromJson(json['buyOrder'])
         : null;
     sellOrder = json['sellOrder'] != null
-        ? new BuyOrder.fromJson(json['sellOrder'])
+        ? new SellOrder.fromJson(json['sellOrder'])
         : null;
   }
 
@@ -67,7 +67,7 @@ class BuyOrder {
   int failed;
   int confirm;
   int fulfill;
-  int awaitingDelivered;
+  int toBeRecieve;
   int delivered;
   int refund;
   int cancel;
@@ -77,7 +77,7 @@ class BuyOrder {
         this.failed,
         this.confirm,
         this.fulfill,
-        this.awaitingDelivered,
+        this.toBeRecieve,
         this.delivered,
         this.refund,
         this.cancel});
@@ -87,7 +87,7 @@ class BuyOrder {
     failed = json['failed'];
     confirm = json['confirm'];
     fulfill = json['fulfill'];
-    awaitingDelivered = json['awaitingDelivered'];
+    toBeRecieve = json['toBeRecieve'];
     delivered = json['delivered'];
     refund = json['refund'];
     cancel = json['cancel'];
@@ -99,7 +99,48 @@ class BuyOrder {
     data['failed'] = this.failed;
     data['confirm'] = this.confirm;
     data['fulfill'] = this.fulfill;
-    data['awaitingDelivered'] = this.awaitingDelivered;
+    data['toBeRecieve'] = this.toBeRecieve;
+    data['delivered'] = this.delivered;
+    data['refund'] = this.refund;
+    data['cancel'] = this.cancel;
+    return data;
+  }
+}
+
+class SellOrder {
+  int unpaid;
+  int failed;
+  int confirm;
+  int shipping;
+  int delivered;
+  int refund;
+  int cancel;
+
+  SellOrder(
+      {this.unpaid,
+        this.failed,
+        this.confirm,
+        this.shipping,
+        this.delivered,
+        this.refund,
+        this.cancel});
+
+  SellOrder.fromJson(Map<String, dynamic> json) {
+    unpaid = json['unpaid'];
+    failed = json['failed'];
+    confirm = json['confirm'];
+    shipping = json['shipping'];
+    delivered = json['delivered'];
+    refund = json['refund'];
+    cancel = json['cancel'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['unpaid'] = this.unpaid;
+    data['failed'] = this.failed;
+    data['confirm'] = this.confirm;
+    data['shipping'] = this.shipping;
     data['delivered'] = this.delivered;
     data['refund'] = this.refund;
     data['cancel'] = this.cancel;

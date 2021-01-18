@@ -1,3 +1,5 @@
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+
 class SearchRespone {
   List<Hits> hits;
   int offset;
@@ -49,14 +51,14 @@ class SearchRespone {
 class Hits {
   int productId;
   int shopId;
-  Null manufacturerId;
+  int manufacturerId;
   String brand;
   String name;
-  Null saleCount;
+  int saleCount;
   List<Inventories> inventories;
   List<Shop> shop;
   List<Categories> categories;
-  List<Image> image;
+  List<ProductImage> image;
 
   Hits(
       {this.productId,
@@ -96,9 +98,9 @@ class Hits {
       });
     }
     if (json['image'] != null) {
-      image = new List<Image>();
+      image = new List<ProductImage>();
       json['image'].forEach((v) {
-        image.add(new Image.fromJson(v));
+        image.add(new ProductImage.fromJson(v));
       });
     }
   }
@@ -174,24 +176,7 @@ class Shop {
   }
 }
 
-class Image {
-  String name;
-  String path;
 
-  Image({this.name, this.path});
-
-  Image.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    path = json['path'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['path'] = this.path;
-    return data;
-  }
-}
 
 class Categories {
   int id;

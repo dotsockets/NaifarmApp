@@ -43,19 +43,12 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      NaiFarmLocalStorage.getHomeDataCache().then((value) {
-        if (value != null) {
-          bloc.Wishlists.add(value.wishlistsRespone);
-        } else {
-          bloc.Wishlists.add(WishlistsRespone());
-        }
-
-        Usermanager().getUser().then((value) =>
-            bloc.GetMyWishlists(token: value.token));
-      });
       bloc.onError.stream.listen((event) {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
+
+      Usermanager().getUser().then((value) =>
+          bloc.GetMyWishlists(token: value.token));
     }
   }
 
@@ -68,14 +61,8 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
 
   @override
   void didPopNext() {
-    NaiFarmLocalStorage.getHomeDataCache().then((value) {
-      if (value != null) {
-        bloc.Wishlists.add(value.wishlistsRespone);
-      } else {
-        bloc.Wishlists.add(WishlistsRespone());
-      }
-
-    });
+    Usermanager().getUser().then((value) =>
+        bloc.GetMyWishlists(token: value.token));
   }
 
 
@@ -275,10 +262,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                           Container(
                               width: 120,
                               height: 150,
-                              child: Icon(
-                                Icons.error,
-                                size: 30,
-                              )),
+                              child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                     ),
                   ),
                 ),

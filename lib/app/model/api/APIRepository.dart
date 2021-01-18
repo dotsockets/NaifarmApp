@@ -60,8 +60,8 @@ class APIRepository{
     return _apiProvider.OtpVerify(phone,code,ref);
   }
 
-  Future<ApiResult> ForgotPassword({ String email}){
-    return _apiProvider.ForgotPasswordRequest(email);
+  Future<ApiResult> ForgotPassword({ String phone,String code,String ref,String password}){
+    return _apiProvider.ForgotPasswordRequest(code: code,ref: ref,phone: phone,password: password);
   }
 
 
@@ -294,7 +294,26 @@ class APIRepository{
   }
 
 
+  Future<ApiResult> DeleteImageProduct({String imageableId, String imageableType, String path, String token}){
+    return _apiProvider.DeleteImageProduct(imageableType: imageableType,imageableId: imageableId,path: path,token: token);
+  }
 
+  Future<ApiResult> GetOrder({String orderType,int page=1,int limit=20,int statusId,String token}){
+    return _apiProvider.GetOrder(orderType: orderType,page: page,limit: limit,statusId: statusId,token: token);
+  }
+
+  Future<ApiResult> GetOrderById({int id,String token}){
+    return _apiProvider.GetOrderById(id: id,token: token);
+  }
+
+
+  Future<ApiResult> getProductTypeShop({String type,int shopId,String page,int limit,String token}){
+    return _apiProvider.getProductTypeShop(page: page,limit: limit,shopId: shopId,type: type,token: token);
+  }
+
+  Future<ApiResult> GetNotificationByGroup({String group, int page,String sort, int limit, String token}){
+    return _apiProvider.GetNotificationByGroup(group: group,limit: limit,page: page,sort: sort ,token: token);
+  }
 
 
 

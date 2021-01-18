@@ -53,7 +53,7 @@ class _RegisterViewState extends State<RegisterView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: (event as OTPRespone).refCode);
+        AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: (event as OTPRespone).refCode,requestOtp: RequestOtp.Register);
       });
     }
 

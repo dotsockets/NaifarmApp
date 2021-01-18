@@ -57,6 +57,7 @@ class OnSelectItem{
 
     image = json['image'] != null ? new AssetImage.fromJson(json['image']) : null;
     onEdit = json['onEdit'];
+    url = json['url'];
 
   }
 
@@ -67,6 +68,7 @@ class OnSelectItem{
       data['image'] = this.image.toJson();
     }
     data['onEdit'] = this.onEdit;
+    data['url'] = this.url;
     return data;
   }
 

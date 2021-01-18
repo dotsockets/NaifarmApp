@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -30,17 +32,54 @@ class RecommendMenu extends StatelessWidget {
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.only(top: 2.0.h),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: _menuViewModel.asMap().map((key, value){
-              return MapEntry(key, _menuBox(item: value,index: key,context: context));
-            }).values.toList(),
+          child: BlocBuilder<CustomerCountBloc, CustomerCountState>(
+            builder: (_, count) {
+              if(count is CustomerCountLoaded){
+                return  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _menuViewModel.asMap().map((key, value){
+                    return MapEntry(key, _menuBox(item: value,index: key,notification: count.countLoaded.notification.unreadShop+count.countLoaded.notification.unreadCustomer,context: context));
+                  }).values.toList(),
+                );
+              }else{
+                return  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _menuViewModel.asMap().map((key, value){
+                    return MapEntry(key, _menuBox(item: value,index: key,notification: 0,context: context));
+                  }).values.toList(),
+                );
+              }
+
+            },
           ),
       ),
     );
   }
 
-  Widget _menuBox({MenuModel item,int index,BuildContext context}){
+
+  Widget getMessageRead({ int index,int notification}){
+    if(index==3 && notification>0){
+      return Positioned(
+        right: 0,
+        top: 0,
+        child: Container(
+          padding: EdgeInsets.all(1.0.h),
+          decoration: BoxDecoration(
+            color: ThemeColor.ColorSale(),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          constraints: BoxConstraints(
+            minWidth: 1.0.w,
+            minHeight: 1.0.h,
+          ),
+        ),
+      );
+    }else{
+      return SizedBox();
+    }
+  }
+
+  Widget _menuBox({MenuModel item,int index,int notification,BuildContext context}){
     return InkWell(
       child: Column(
         children: [
@@ -50,21 +89,7 @@ class RecommendMenu extends StatelessWidget {
                 padding: EdgeInsets.all(1.0.w),
                 child: SvgPicture.asset(item.icon,width: 13.0.w,height: 14.0.w,),
               ),
-              index==3?Positioned(
-                right: 0,
-                top: 0,
-                child: Container(
-                  padding: EdgeInsets.all(1.0.h),
-                  decoration: BoxDecoration(
-                    color: ThemeColor.ColorSale(),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  constraints: BoxConstraints(
-                    minWidth: 1.0.w,
-                    minHeight: 1.0.h,
-                  ),
-                ),
-              ):SizedBox()
+              getMessageRead(notification: notification,index: index)
             ],
           ),
           SizedBox(height: 0.1.h),
@@ -75,7 +100,7 @@ class RecommendMenu extends StatelessWidget {
       switch(item.page){
         case  "ShopMyNear" : AppRoute.ShopMyNear(context);
         break;
-        case  "MarketView" : AppRoute.ShopMain(context);
+        case  "MarketView" :  AppRoute.ShopMain(context: context,myShopRespone: MyShopRespone(id: 1));
         break;
         case  "SpecialproductsView" : AppRoute.ProductMore(installData: homeObjectCombine.trendingRespone,api_link: "products/types/popular",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr());
         break;

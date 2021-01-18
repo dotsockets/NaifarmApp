@@ -22,6 +22,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
+import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:sizer/sizer.dart';
 
 class MyProductView extends StatefulWidget {
@@ -64,6 +65,7 @@ class _MyProductViewState extends State<MyProductView> {
       child: SafeArea(
         top: false,
         child: Scaffold(
+          backgroundColor: Colors.white,
           key: _scaffoldKey,
           appBar: AppToobar(
             title: LocaleKeys.me_title_my_product.tr(),
@@ -71,26 +73,51 @@ class _MyProductViewState extends State<MyProductView> {
             header_type: Header_Type.barNormal,
           ),
           body: Container(
-            color: Colors.grey.shade300,
             child: Column(
-
               children: [
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: StreamBuilder(
-                        stream: bloc.ProductMyShop.stream,
-                        builder: (BuildContext context,AsyncSnapshot snapshot){
-                          if(snapshot.hasData){
-                            var item = (snapshot.data as ProductMyShopListRespone);
-                            return Column(
-                              children: List.generate(item.data.length, (index) =>
-                                  _BuildProduct(item: item.data[index],index: index),),
-                            );
-                          }else{
-                            return SizedBox();
-                          }
-                        },
-                      )
+                    child: StreamBuilder(
+                      stream: bloc.ProductMyShop.stream,
+                      builder: (BuildContext context,AsyncSnapshot snapshot){
+                        if(snapshot.hasData && (snapshot.data as ProductMyShopListRespone).data.length>0){
+                          var item = (snapshot.data as ProductMyShopListRespone);
+                          return Container(
+                            color: Colors.grey.shade300,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: List.generate(item.data.length, (index) =>
+                                    _BuildProduct(item: item.data[index],index: index),),
+                              ),
+                            ),
+                          );
+                        }else if(snapshot.connectionState == ConnectionState.waiting){
+                          return Container(
+                            margin: EdgeInsets.only(bottom: 15.0.h),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Skeleton.LoaderListTite(context)
+                              ],
+                            ),
+                          );
+                        }else{
+                          return Container(
+                            margin: EdgeInsets.only(bottom: 15.0.h),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Lottie.asset('assets/json/boxorder.json',
+                                    height: 70.0.w, width: 70.0.w, repeat: false),
+                                Text(
+                                  LocaleKeys.cart_empty.tr(),
+                                  style: FunctionHelper.FontTheme(
+                                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                      },
                     ),
                   ),
                 _BuildButton()
@@ -105,20 +132,30 @@ class _MyProductViewState extends State<MyProductView> {
 
   Widget _BuildButton() {
     return Container(
-        width: MediaQuery.of(context).size.width,
-        height: 65,
+     margin: EdgeInsets.all(10),
+        width: 50.0.w,
+        height: 50,
         child: FlatButton(
+          height: 50,
           color: ThemeColor.secondaryColor(),
           textColor: Colors.white,
           splashColor: Colors.white.withOpacity(0.3),
-          onPressed: () {
-            AppRoute.ImageProduct(context);
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+          onPressed: () async {
+            // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
+            var result = await AppRoute.ImageProduct(context,isactive: IsActive.ReplacemenView);
+            if(result){
+              Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
+            }
+
           },
           child: Text(
             LocaleKeys.add_product_btn.tr(),
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
           ),
-        ),
+        )
       );
   }
 
@@ -159,7 +196,7 @@ class _MyProductViewState extends State<MyProductView> {
                             fit: BoxFit.cover,
                             imageUrl: item.image.isNotEmpty?"${Env.value.baseUrl}/storage/images/${item.image[0].path}":'',
                             errorWidget: (context, url, error) => Container( width: 40.0.w,
-                              height: 30.0.w,child: Icon(Icons.error,size: 30,)),
+                              height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                           ),
                         ),
                       ),
@@ -293,13 +330,16 @@ class _MyProductViewState extends State<MyProductView> {
                              color: ThemeColor.ColorSale(),
                            ),
                          ),
-                       onTap: (){
+                       onTap: () async {
                          var product = ProductMyShopRequest(name: item.name,salePrice: item.salePrice,stockQuantity: item.stockQuantity,offerPrice: item.offerPrice,active: item.active);
                          var onSelectItem = List<OnSelectItem>();
                          for(var value in item.image){
                            onSelectItem.add(OnSelectItem(onEdit: false,url: value.path));
                          }
-                         AppRoute.EditProduct(context, item.id,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
+                         var result = await  AppRoute.EditProduct(context, item.id,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
+                          if(result){
+                            Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
+                          }
                        },
                        ),
                     ),

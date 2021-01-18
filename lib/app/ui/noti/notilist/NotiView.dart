@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
+import 'package:naifarm/app/ui/noti/notidetail/NotiCus.dart';
+import 'package:naifarm/app/ui/noti/notidetail/NotiShop.dart';
+import 'package:naifarm/app/ui/shopmain/category/CaregoryShopView.dart';
 import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -14,103 +18,119 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import 'package:naifarm/utility/widgets/CustomTabBar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 //'assets/images/svg/cart_top.svg'
-class NotiView extends StatelessWidget {
 
+class NotiView extends StatefulWidget {
   final bool btnBack;
-  const NotiView({Key key, this.btnBack=false}) : super(key: key);
+
+  const NotiView({Key key, this.btnBack = false}) : super(key: key);
+  @override
+  _NotiViewState createState() => _NotiViewState();
+}
+
+class _NotiViewState extends State<NotiView> with SingleTickerProviderStateMixin{
+
+
+  TabController _tabController;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 2, vsync: this);
+    super.initState();
+
+
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
       child: Scaffold(
-        appBar:  AppToobar(showBackBtn: btnBack,header_type: Header_Type.barNormal,icon: 'assets/images/svg/cart_top.svg',title: LocaleKeys.recommend_notification.tr(),),
-        body: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-            child: Column(
+        key: _scaffoldKey,
+        backgroundColor: Colors.white,
+        appBar:  AppToobar(showBackBtn: widget.btnBack,header_type: Header_Type.barNormal,icon: 'assets/images/svg/cart_top.svg',title: LocaleKeys.recommend_notification.tr(),),
+        body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return [
+              SliverList(
+                delegate: SliverChildListDelegate(
+                    <Widget>[
 
-              children: NotiViewModel()
-                  .getNoti()
-                  .asMap()
-                  .map((index, value) {
-                return MapEntry(
-                    index,
-                    _BuildCardNoti(
-                        item: NotiViewModel().getNoti()[index],context: context,index: index));
-              })
-                  .values
-                  .toList(),
+                      SizedBox(height: 2,),
+                    ]
+                ),
+              ),
+            ];
+          },
+          body: Container(
+            child: Column(
+              children: [
+                SizedBox(height: 20,),
+                Container(
+                  width: 80.0.w,
+                  height: 45,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(
+                      25.0,
+                    ),
+                  ),
+                  child: TabBar(
+                    controller: _tabController,
+                    // give the indicator a decoration (color and border radius)
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        25.0,
+                      ),
+                      color: ThemeColor.primaryColor(),
+                    ),
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.black,
+                    tabs: [
+                      // first tab [you can add an icon using the icon property]
+                      Tab(
+                        text: 'Buyer notification',
+                      ),
+
+                      // second tab [you can add an icon using the icon property]
+                      Tab(
+                        text: 'Alert seller',
+                      ),
+                    ],
+                  ),
+                ),
+                // tab bar view here
+                SizedBox(height: 5,),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    color: Colors.white,
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        // first tab bar view widget
+                        NotiCus(scaffoldKey: _scaffoldKey,),
+
+                        // second tab bar view widget
+                        NotiShop(scaffoldKey: _scaffoldKey,),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
   }
-
-  GestureDetector _BuildCardNoti({NotiModel item,BuildContext context,int index}) => GestureDetector(
-    onTap: (){
-      if(item.Status_Sell==1)
-        AppRoute.NotiDetail(context,"notiitem_${index}","notititle_${index}");
-      else
-        item.Status_Sell!=2?AppRoute.OrderDetail(context,item.Status_Sell):print("press 2");
-
-    },
-         child: Container(
-             padding: EdgeInsets.only(top: 10,right: 10,left: 10),
-             child: Column(
-               children: [
-                 Row(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: [
-                     Hero(
-                       tag: "notiitem_${index}",
-                       child: Container(
-                         padding: EdgeInsets.all(8),
-                         decoration: BoxDecoration(
-                             border: Border.all(
-                                 color: Colors.black.withOpacity(0.2), width: 1),
-                             borderRadius: BorderRadius.all(Radius.circular(6))),
-                         child: CachedNetworkImage(
-                           width: 35,
-                           height: 35,
-                           placeholder: (context, url) => Container(
-                             color: Colors.white,
-                             child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
-                           ),
-                           fit: BoxFit.cover,
-                           imageUrl: item.ImageShop,
-                           errorWidget: (context, url, error) => Container(
-                               height: 30,
-                               child: Icon(
-                                 Icons.error,
-                                 size: 30,
-                               )),
-                         ),
-                       ),
-                     ),
-                     Expanded(
-                         child: Container(
-                           padding: EdgeInsets.only(left: 10,right: 5),
-                           child: Column(
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                             children: [
-                               Hero( tag: "notititle_${index}",child: Text(item.Title,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: item.Status_Sell!=2?Colors.black:Colors.red))),
-                               SizedBox(height: 5),
-                               NotiViewModel().GetStatusMessage(status: item)
-                             ],
-                           ),
-                         )),
-                     item.Status_Sell!=2?Icon(
-                       Icons.arrow_forward_ios,
-                       color: Colors.black.withOpacity(0.4),
-                     ):SizedBox()
-                   ],
-                 ),
-                 SizedBox(height: 5,),
-                 Divider(color: Colors.black.withOpacity(0.4),)
-               ],
-             )
-         ),
-    );
 }

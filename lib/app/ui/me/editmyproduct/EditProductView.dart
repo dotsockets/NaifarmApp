@@ -44,7 +44,7 @@ class _EditProductViewState extends State<EditProductView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool checkKeyBoard = false;
   UploadProductBloc bloc;
-
+  bool onUpdate = false;
   @override
   void initState() {
     super.initState();
@@ -76,12 +76,18 @@ class _EditProductViewState extends State<EditProductView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event)  {
+        onUpdate = true;
          if(event is bool){
            var item = bloc.uploadProductStorage.value.productMyShopRequest;
            var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
            Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
                token: value.token));
-        }
+          // Navigator.pop(context, true);
+        }else if(event is ProductMyShopRespone){
+           Navigator.pop(context, onUpdate);
+         }else if(event is IsActive){
+           Navigator.pop(context, true);
+         }
       });
       NaiFarmLocalStorage.getAllCategoriesCache().then((value){
         bloc.categoriesAllRespone = value;
@@ -110,7 +116,7 @@ class _EditProductViewState extends State<EditProductView> {
                     title: LocaleKeys.my_product_data.tr(),
                     icon: "",
                     header_type: Header_Type.barNormal,onClick: (){
-                    Navigator.of(context).pop();
+                    Navigator.pop(context, onUpdate);
                   },)),
               StreamBuilder(
                   stream: bloc.uploadProductStorage.stream,
@@ -369,8 +375,17 @@ class _EditProductViewState extends State<EditProductView> {
                   )
                 ],
               ))),
-      onTap: (){
-        AppRoute.EditImageProduct(context: context,uploadProductStorage: bloc.uploadProductStorage.value,ProductId: widget.ProductId);
+      onTap: () async {
+        var result = await AppRoute.EditImageProduct(context: context,uploadProductStorage: bloc.uploadProductStorage.value,ProductId: widget.ProductId);
+        if(result){
+          onUpdate = true;
+          Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(token: value.token,ProductId: widget.ProductId));
+        }
+
+
+        for(var item in bloc.uploadProductStorage.value.onSelectItem){
+          print("wefcewfc ${item}");
+        }
       },
     );
   }
@@ -391,7 +406,8 @@ class _EditProductViewState extends State<EditProductView> {
         // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
         if(enable){
           Usermanager().getUser().then((value) {
-            bloc.UpdateProductMyShop(shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,productId: widget.ProductId,token: value.token);
+            bloc.onLoad.add(true);
+            bloc.UpdateProductMyShop(isActive: IsActive.UpdateProduct,shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,productId: widget.ProductId,token: value.token);
           });
 
         }
@@ -416,9 +432,7 @@ class _EditProductViewState extends State<EditProductView> {
       ),
       onPressed: () {
         if(enable){
-          NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Product_Upload).then((value){
-            Navigator.of(context).pop();
-          });
+          Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(ProductId:widget.ProductId,token: value.token));
         }
 
       },

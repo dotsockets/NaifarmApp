@@ -132,7 +132,7 @@ class ProductLandscape extends StatelessWidget {
                   ),
                   fit: BoxFit.cover,
                   imageUrl: CovertUrlImage(item.image),
-                  errorWidget: (context, url, error) => Container(width: 30.0.w,height: 30.0.w,child: Icon(Icons.error,size: 30,)),
+                  errorWidget: (context, url, error) => Container(width: 30.0.w,height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                 ),
               ),
             ),
@@ -182,7 +182,7 @@ class ProductLandscape extends StatelessWidget {
             padding: EdgeInsets.all(0.8.h),
             child: Container(
               padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
-              child:  Text(LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize().sp),),
+              child:  Text(LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize().sp),),
             ),
           )
         ],

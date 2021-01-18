@@ -65,7 +65,7 @@ class ShopOwn extends StatelessWidget {
                  child:  Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
-                     Text(shopItem.name,
+                     Text(shopItem.name!=null?shopItem.name:"Nifarm Shop",
                          style: FunctionHelper.FontTheme(
                              fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
                      SizedBox(height: 5),

@@ -20,9 +20,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
 class RegisterOTPView extends StatefulWidget {
+  final RequestOtp requestOtp;
   final String phoneNumber;
   String refCode;
-  RegisterOTPView({Key key, this.phoneNumber, this.refCode}) : super(key: key);
+  RegisterOTPView({Key key, this.phoneNumber, this.refCode, this.requestOtp}) : super(key: key);
   @override
   _RegisterOTPViewState createState() => _RegisterOTPViewState();
 }
@@ -99,7 +100,13 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.Register_set_Password(context,widget.phoneNumber);
+
+        if(widget.requestOtp == RequestOtp.Register){
+          AppRoute.Register_set_Password(context,widget.phoneNumber);
+        }else if(widget.requestOtp == RequestOtp.Forgotpassword){
+          AppRoute.Forgot_set_NewPassword(context,phone: widget.phoneNumber,ref: widget.refCode,code: "${_input1.text}${_input2.text}${_input3.text}${_input4.text}${_input5.text}${_input6.text}");
+        }
+
       });
     }
 
@@ -494,7 +501,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       if(value.http_call_back.status==200){
         Navigator.of(context).pop();
         setState(() {
-          widget.refCode = (value as OTPRespone).refCode;
+          widget.refCode = (value.respone as OTPRespone).refCode;
           endTimes = true;
           SuccessForm = false;
           endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30 * 1;

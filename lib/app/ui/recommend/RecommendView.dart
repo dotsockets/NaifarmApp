@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
@@ -204,7 +205,7 @@ class _RecommendViewState extends State<RecommendView> {
                                   titleInto: LocaleKeys.recommend_market.tr(),
                                   IconInto: 'assets/images/svg/menu_market.svg',
                                   onSelectMore: () {
-                                     AppRoute.ShopMain(context);
+                                     AppRoute.ShopMain(context: context,myShopRespone: MyShopRespone(id: 1));
                                   },
                                   onTapItem: (ProductData item,int index) {
                                     AppRoute.ProductDetail(context,

@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 
 class ShopDetailsView extends StatelessWidget {
-  final MarketObjectCombine marketObjectCombine;
+  final ZipShopObjectCombin zipShopObjectCombin;
 
-  const ShopDetailsView({Key key, this.marketObjectCombine}) : super(key: key);
+  const ShopDetailsView({Key key, this.zipShopObjectCombin}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -19,7 +20,7 @@ class ShopDetailsView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(marketObjectCombine.profileshop.description
+              Text(zipShopObjectCombin.shopRespone.description
               ,style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.7),height: 2),),
               Text("line : @monruangsay",style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.7),height: 2),),
               Text("ig : monruangsay",style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.7),height: 2),)

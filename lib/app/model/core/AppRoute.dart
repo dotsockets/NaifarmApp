@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
@@ -8,6 +9,7 @@ import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
@@ -30,8 +32,8 @@ import 'package:naifarm/app/ui/me/mynewproduct/MyNewProductView.dart';
 import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
 import 'package:naifarm/app/ui/me/myproductaddtype/ProductAddTypeView.dart';
 import 'package:naifarm/app/ui/me/myproductsetprice/ProductSetPriceView.dart';
-import 'package:naifarm/app/ui/me/myshop/myshophistory/MyShophiStoryView.dart';
-import 'package:naifarm/app/ui/me/myshop/myshophistory/review/ReviewView.dart';
+import 'package:naifarm/app/ui/me/myshop/myorderhistory/MyOrderHistoryView.dart';
+import 'package:naifarm/app/ui/me/myshop/myorderhistory/review/ReviewView.dart';
 import 'package:naifarm/app/ui/me/myshop/shopprofile/EditDetailView.dart';
 import 'package:naifarm/app/ui/me/myshop/shopprofile/EditExtrlUrlView.dart';
 import 'package:naifarm/app/ui/me/myshop/shopprofile/EditProviceView.dart';
@@ -53,6 +55,7 @@ import 'package:naifarm/app/ui/order/OrderView.dart';
 import 'package:naifarm/app/ui/productdetail/ProductDetailView.dart';
 import 'package:naifarm/app/ui/productmore/ProductMoreView.dart';
 import 'package:naifarm/app/ui/register/ForgotPasswordView.dart';
+import 'package:naifarm/app/ui/register/Forgot_set_NewPasswordView.dart';
 import 'package:naifarm/app/ui/register/RegisterOTPView.dart';
 import 'package:naifarm/app/ui/register/RegisterView.dart';
 import 'package:naifarm/app/ui/register/Register_FBView.dart';
@@ -119,8 +122,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiDetailView(notiImage: notiImage,notiTitle: notiTitle,)));
   }
 
-  static  OrderDetail(BuildContext context,int  Status_Sell){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView( Status_Sell: Status_Sell)));
+  static  OrderDetail(BuildContext context,int  Status_Sell,{OrderData orderData}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView( Status_Sell: Status_Sell,orderData: orderData,)));
   }
 
   static  CartSummary(BuildContext context){
@@ -149,14 +152,14 @@ class AppRoute{
     }
 
   }
-  static MyNewProduct(BuildContext context){
+  static MyNewProduct(BuildContext context,{IsActive isActive}){
 
     Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyNewProductView()));
   }
 
 
-  static ShopMain(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ShopMainView()));
+  static ShopMain({BuildContext context,MyShopRespone myShopRespone}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ShopMainView(myShopRespone: myShopRespone,)));
   }
 
 
@@ -168,20 +171,24 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: DeliveryCostView()));
   }
 
-  static EditProduct(BuildContext context,int index,{UploadProductStorage uploadProductStorage}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProductView(ProductId: index,uploadProductStorage: uploadProductStorage,)));
+  static Future<bool> EditProduct(BuildContext context,int index,{UploadProductStorage uploadProductStorage}) async {
+    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProductView(ProductId: index,uploadProductStorage: uploadProductStorage,)));
   }
 
-  static ImageProduct(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ImageProductView()));
+  static Future<bool> ImageProduct(BuildContext context,{IsActive isactive})async{
+    if(isactive== IsActive.ReplacemenView){
+      return await  Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ImageProductView(isActive: isactive,)));
+    }else{
+      return await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ImageProductView(isActive: isactive,)));
+    }
   }
 
   static WithdrawMoney(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: WithdrawMoneyView()));
   }
 
-  static MyShophistory(BuildContext context,int index){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyShophistoryView(index: index)));
+  static MyShophistory(BuildContext context,int index,{String orderType}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyOrderHistoryView(orderType:orderType,index: index)));
   }
 
 
@@ -238,12 +245,17 @@ class AppRoute{
         child:AddressAddView()));
   }
 
-  static RegisterOTP(BuildContext context,  {String phoneNumber,String refCode}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: RegisterOTPView(phoneNumber: phoneNumber,refCode: refCode)));
+  static RegisterOTP(BuildContext context,  {String phoneNumber,String refCode, RequestOtp requestOtp}){
+    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: RegisterOTPView(requestOtp: requestOtp,phoneNumber: phoneNumber,refCode: refCode)));
   }
   static Register_set_Password(BuildContext context,String phone){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_set_PasswordView(phone: phone)));
+    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_set_PasswordView(phone: phone)));
   }
+
+  static Forgot_set_NewPassword(BuildContext context,{String phone,String code,String ref}){
+    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Forgot_set_NewPasswordView(phone: phone,code: code,ref: ref,)));
+  }
+
 
   static Register_Name_Otp(BuildContext context,String phone,String password){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_Name_OtpView(phone: phone,password: password)));
@@ -411,10 +423,13 @@ class AppRoute{
     Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:SplashView()));
   }
 
-  static EditImageProduct({BuildContext context,UploadProductStorage uploadProductStorage,int ProductId}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:EditImageProductView(ProductId: ProductId,uploadProductStorage: uploadProductStorage,)));
+  static Future<bool>  EditImageProduct({BuildContext context,UploadProductStorage uploadProductStorage,int ProductId})async{
+    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:EditImageProductView(ProductId: ProductId,uploadProductStorage: uploadProductStorage,)));
   }
+
+
 }
+
 
 
 

@@ -121,7 +121,7 @@ class BuyAgain extends StatelessWidget {
                 ),
                 fit: BoxFit.cover,
                 imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                errorWidget: (context, url, error) => Container(width: 30.0.w,height: 30.0.w,child: Icon(Icons.error,size: 30,)),
+                errorWidget: (context, url, error) => Container(width: 30.0.w,height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
               ),
             ),
             Visibility(

@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
@@ -121,21 +122,25 @@ class _MeViewState extends State<MeView> with RouteAware {
                             ),
                             actions: [
                               GestureDetector(
-                                child: BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
-                                  builder: (_, count) {
-                                    return StreamBuilder<Object>(
-                                        stream: controller.stream,
-                                        builder: (context, snapshot) {
-                                          return Container(
-                                              margin: EdgeInsets.only(
-                                                  right: 2.5.w, top: 2.0.w),
-                                              child: BuildIconShop(
-                                                size: 7.0.w,
-                                                notification: count.notification.unreadShop>0&&snapshot.data?1:0,
-                                              ));
-                                        });
-                                  },
-                                ),
+                                child: Container(
+                                    margin: EdgeInsets.only(
+                                        right: 2.5.w, top: 2.0.w),
+                                    child: BlocBuilder<CustomerCountBloc,
+                                        CustomerCountState>(
+                                      builder: (_, count) {
+                                        if (count is CustomerCountLoaded) {
+                                          return BuildIconShop(
+                                            size: 7.0.w,
+                                            notification: count.countLoaded.notification.unreadCustomer,
+                                          );
+                                        } else {
+                                          return BuildIconShop(
+                                            size: 7.0.w,
+                                            notification: 0,
+                                          );
+                                        }
+                                      },
+                                    )),
                                 onTap: () {
                                   AppRoute.MyCart(context, true);
                                 },
@@ -176,16 +181,18 @@ class _MeViewState extends State<MeView> with RouteAware {
                                                       ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
                                                       : ''
                                                   : '',
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Container(
-                                                          color: Colors.white,
-                                                          width: 10.0.h,
-                                                          height: 10.0.h,
-                                                          child: Icon(
-                                                            Icons.error,
-                                                            size: 30,
-                                                          )),
+                                              errorWidget: (context, url,
+                                                      error) =>
+                                                  Container(
+                                                      color:
+                                                          Colors.grey.shade300,
+                                                      width: 10.0.h,
+                                                      height: 10.0.h,
+                                                      child: Icon(
+                                                        Icons.person,
+                                                        size: 50,
+                                                        color: Colors.white,
+                                                      )),
                                             ),
                                           ),
                                           SizedBox(height: 2.0.h),
@@ -331,11 +338,16 @@ class _MeViewState extends State<MeView> with RouteAware {
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 onPressed: () async {
+                  NaiFarmLocalStorage.saveNowPage(3);
                   final result =
                       await AppRoute.Login(context, IsCallBack: true);
                   if (result) {
-                    Usermanager().getUser().then(
-                        (value) => bloc.loadMyProfile(token: value.token));
+                    // Usermanager().getUser().then(
+                    //     (value){
+                    //       bloc.loadMyProfile(token: value.token);
+                    //     });
+                  }else{
+                    NaiFarmLocalStorage.saveNowPage(0);
                   }
                 },
                 child: Text(

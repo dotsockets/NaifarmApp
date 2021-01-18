@@ -23,6 +23,7 @@ import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProductBloc{
@@ -56,6 +57,8 @@ class ProductBloc{
 
   final ZipCategoryObject = BehaviorSubject<CategoryObjectCombin>();
 
+  final ZipShopObject = BehaviorSubject<ZipShopObjectCombin>();
+
   ProductBloc(this._application);
 
   void dispose() {
@@ -64,16 +67,14 @@ class ProductBloc{
 
 
   loadHomeData({String token})async{
-    StreamSubscription subscription = Observable.combineLatest9(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage()) // สไลด์ภาพ
+    StreamSubscription subscription = Observable.combineLatest7(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage()) // สไลด์ภาพ
         , Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular("1",10)), // สินค้าขายดี
         Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup()), // หมวดหมู่ทั่วไป
         Observable.fromFuture(_application.appStoreAPIRepository.getCategoriesFeatured()), // หมวดหมู่แนะนำ
         Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)), // สินค้าแนะนำ
         Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(ShopId: 1,page: "1",limit: 5)), // สินค้าของ NaiFarm
-        Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: "1",limit: 5)), // สินค้าลดราคา
-        Observable.fromFuture(_application.appStoreAPIRepository.FarmMarket()),
-        Observable.fromFuture(_application.appStoreAPIRepository.GetMyWishlists(token: token)), // NaiFarmShop
-            (a, b,c,d,e,f,g,h,k){
+        Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: "1",limit: 5)), // สiFarmShop
+            (a, b,c,d,e,f,g){
             final _slider = (a as ApiResult).respone;
             final _product  =(b as ApiResult).respone;
             final _category =(c as ApiResult).respone;
@@ -81,13 +82,11 @@ class ProductBloc{
             final _trending =(e as ApiResult).respone;
             final _martket =(f as ApiResult).respone;
             final _flashsale =(g as ApiResult).respone;
-            final _martkertall =(h as ApiResult).respone;
-            final _mywishlist =(k as ApiResult).respone;
 
 
             return HomeObjectCombine(sliderRespone: _slider,
                 productRespone: _product, categoryGroupRespone: _category,featuredRespone: _featured,
-            trendingRespone: _trending,martket: _martket,flashsaleRespone: _flashsale,myShopRespone: _martkertall,wishlistsRespone: _mywishlist);
+            trendingRespone: _trending,martket: _martket,flashsaleRespone: _flashsale);
 
         }).listen((event) {
 
@@ -113,13 +112,14 @@ class ProductBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.GetMyWishlists(token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
 
-        NaiFarmLocalStorage.getHomeDataCache().then((value1){
-          value1.wishlistsRespone = (respone.respone as WishlistsRespone);
-          NaiFarmLocalStorage.saveHomeData(value1).then((value2) {
-            Wishlists.add(value1.wishlistsRespone);
-          });
-
-        });
+        Wishlists.add((respone.respone as WishlistsRespone));
+        // NaiFarmLocalStorage.getHomeDataCache().then((value1){
+        //   value1.wishlistsRespone = (respone.respone as WishlistsRespone);
+        //   NaiFarmLocalStorage.saveHomeData(value1).then((value2) {
+        //     Wishlists.add(value1.wishlistsRespone);
+        //   });
+        //
+        // });
 
 
       }else{
@@ -259,6 +259,26 @@ class ProductBloc{
   }
 
 
+  loadShop({int shopid,String token}){
+
+    StreamSubscription subscription = Observable.combineLatest3(
+        Observable.fromFuture(_application.appStoreAPIRepository.getProductTypeShop(type:"popular" ,shopId: shopid,limit: 10,page: "1",token: token)),
+        Observable.fromFuture(_application.appStoreAPIRepository.getProductTypeShop(type:"trending" ,shopId: shopid,limit: 10,page: "1",token: token)),
+        Observable.fromFuture(_application.appStoreAPIRepository.ShopById(id: shopid)),(a, b,c){
+      final productmyshop = (a as ApiResult).respone;
+      final productrecommend  =(b as ApiResult).respone;
+      final shopRespone  =(c as ApiResult).respone;
+      return ZipShopObjectCombin(productmyshop: productmyshop,productrecommend: productrecommend,shopRespone: shopRespone);
+
+    }).listen((event) {
+      ZipShopObject.add(event);
+    });
+    _compositeSubscription.add(subscription);
+
+
+  }
+
+
 
   loadCategoryPage({int GroupId}){
     StreamSubscription subscription = Observable.combineLatest5(
@@ -282,6 +302,16 @@ class ProductBloc{
   }
 
 
+  GetProductCategoryGroupId({int GroupId}){
+    Observable.fromFuture(_application.appStoreAPIRepository.categoryGroupId(GroupId: GroupId,limit: 5,page: "1")).listen((respone) {
+      if(respone.http_call_back.status==200 || respone.http_call_back.result.error.status==401){
+        TrendingGroup.add((respone.respone as ProductRespone));
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+  }
+
 
   GetCategoriesAll(){
 
@@ -302,7 +332,7 @@ class ProductBloc{
 
   void loadCustomerCount({String token}){
     Observable.fromFuture(_application.appStoreAPIRepository.GetCustomerCount(token: token)).listen((respone) {
-      if(respone.http_call_back.status==200){
+      if(respone.http_call_back.status==200 || respone.http_call_back.result.error.status==401){
         onSuccess.add(true);
       }else{
         onError.add(respone.http_call_back.result.error.message);

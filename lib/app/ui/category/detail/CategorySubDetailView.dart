@@ -42,7 +42,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
   void _init(){
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.loadProductTrending("1");
+      bloc.GetProductCategoryGroupId(GroupId: widget.index);
       bloc.loadProductPopular("1");
     }
 
@@ -63,7 +63,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
               header: Column(
                 children: [
                   AppToobar(
-                    title: widget.title+" : "+widget.index.toString(),
+                    title: widget.title,
                     header_type: Header_Type.barcartShop,
                     isEnable_Search: true,
                   ),
@@ -103,7 +103,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                   ),
                   SizedBox(height: 1.0.h),
                   StreamBuilder(
-                    stream: bloc.ProductPopular.stream,
+                    stream: bloc.TrendingGroup.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if(snapshot.hasData) {
                         return ProductVertical(

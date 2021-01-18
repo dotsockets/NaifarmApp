@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
@@ -60,7 +61,14 @@ class _LoginViewState extends State<LoginView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        widget.IsCallBack? Navigator.pop(context, true):AppRoute.Home(context,item: widget.item);
+        // if(widget.IsCallBack){
+        //   NaiFarmLocalStorage.saveNowPage(3).then((value) =>  AppRoute.Home(context,item: widget.item));
+        // }else{
+        //   AppRoute.Home(context,item: widget.item);
+        // }
+        AppRoute.Home(context,item: widget.item);
+
+
       });
     }
 

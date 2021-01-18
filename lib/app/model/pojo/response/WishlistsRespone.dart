@@ -177,7 +177,7 @@ class Inventories {
   int stockQuantity;
   int damagedQuantity;
   int salePrice;
-  String offerPrice;
+  int offerPrice;
   String offerStart;
   String offerEnd;
   int preorder;

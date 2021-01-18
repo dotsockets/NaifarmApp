@@ -183,7 +183,7 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
                     EdgeInsets.only(left: 15, right: 7, bottom: 3, top: 3),
                     color: ThemeColor.ColorSale(),
                     child: Text(
-                      LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
+                      LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString()+" "+LocaleKeys.cart_item.tr(),
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize().sp,
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),

@@ -88,10 +88,7 @@ class CustomGridView extends StatelessWidget {
                 errorWidget: (context, url, error) => Container(
                     width: 20.0.w,
                     height: 20.0.w,
-                    child: Icon(
-                      Icons.error,
-                      size: 30,
-                    )),
+                    child: Image.network("https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com",fit: BoxFit.cover)),
               ),
             ),
             SizedBox(width: 2.0.w),
@@ -112,7 +109,7 @@ class CustomGridView extends StatelessWidget {
                   ),
                   SizedBox(height: 0.5.h),
                   Text(
-                    LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
+                    LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_item.tr(),
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.FontTheme(
                         color: Colors.black,

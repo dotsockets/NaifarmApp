@@ -156,7 +156,8 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                                       InkWell(
                                         child: ShopOwn(shopItem: (snapshot.data as ProductDetailObjectCombine).shopRespone),
                                         onTap: (){
-                                          AppRoute.ShopMain(context);
+                                          var item = (snapshot.data as ProductDetailObjectCombine).shopRespone;
+                                          AppRoute.ShopMain(context: context,myShopRespone: MyShopRespone(id: item.id,name: item.name,image: item.image,updatedAt: item.updatedAt));
                                         },
                                       ),
                                       _Divider(),

@@ -29,8 +29,10 @@ import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ImageUploadRespone.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
+import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/PaymenMyshopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
@@ -80,8 +82,8 @@ abstract class APIProvider{
   @FormUrlEncoded()
   Future<ApiResult> OtpVerify(@Field() String phone,@Field() String code,@Field() String ref);
 
-  @POST("/v1/customers/forgot-password")
-  Future<ApiResult> ForgotPasswordRequest(@Part() String email);
+  @POST("/v1/customers/v1/customers/forgot-password-phone")
+  Future<ApiResult> ForgotPasswordRequest({@Field() String phone,@Field() String code,@Field() String ref,@Field() String password});
 
   @POST("/v1/customers/reset-password")
   @FormUrlEncoded()
@@ -255,6 +257,22 @@ abstract class APIProvider{
 
   @PATCH("/v1/myshop/products")
   Future<ApiResult> UpdateProductInventories({InventoriesRequest inventoriesRequest,int productId,int inventoriesId,String token});
+
+  @DELETE("/v1/image")
+  Future<ApiResult> DeleteImageProduct({String imageableId,String imageableType,String path,String token});
+
+  @GET("/v1/order?limit=20&page=1&sort=orders.createdAt:desc&orderStatusId=1")
+  Future<ApiResult> GetOrder({String orderType,int page,int limit,int statusId,String token});
+
+  @GET("/v1/order")
+  Future<ApiResult> GetOrderById({int id,String token});
+
+  @GET("/v1/products/types/trending?shopId=1&limit=10&page=1")
+  Future<ApiResult> getProductTypeShop({String type,int shopId,String page,int limit,String token});
+
+  @GET("/v1/notifications?group=customer&page=1&limit=20&sort=notification.createdAt:desc")
+  Future<ApiResult> GetNotificationByGroup({String group,int page,int limit,String sort,String token});
+
 
 }
 

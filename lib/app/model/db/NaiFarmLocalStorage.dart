@@ -14,12 +14,29 @@ class NaiFarmLocalStorage{
   static String NaiFarm_HomeData = "homedata";
   static String NaiFarm_Allcategories = "allcategories";
   static String NaiFarm_Product_Upload = "product_upload";
+  static String NaiFarm_NowPage = "NowPage";
 
   static Future<void> saveHomeData(HomeObjectCombine data) async {
     storage =  LocalStorage(NaiFarm_Storage);
     await storage.ready;
     storage.setItem(NaiFarm_HomeData, data);
 
+  }
+
+
+  static Future<void> saveNowPage(int page) async {
+    storage =  LocalStorage(NaiFarm_Storage);
+    await storage.ready;
+    storage.setItem(NaiFarm_NowPage, page);
+  }
+
+  static Future<int> getNowPage() async {
+    storage =  LocalStorage(NaiFarm_Storage);
+    int data = storage.getItem(NaiFarm_NowPage);
+    if(data == null){
+      return 0;
+    }
+    return data;
   }
 
   static Future<void> Clean({String keyStore}) async {

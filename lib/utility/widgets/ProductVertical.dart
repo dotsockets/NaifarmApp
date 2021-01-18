@@ -103,14 +103,14 @@ class ProductVertical extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(1.0.h),
                             child: CachedNetworkImage(
-                              height: 100,
+                              height: 130,
                               placeholder: (context, url) => Container(
                                 color: Colors.white,
                                 child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                               ),
                               fit: BoxFit.cover,
                               imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                              errorWidget: (context, url, error) => Container(height: 100,child: Icon(Icons.error,size: 30,)),
+                              errorWidget: (context, url, error) => Container(height: 130,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                             ),
                           ),
                         ),
@@ -139,6 +139,7 @@ class ProductVertical extends StatelessWidget {
                 )
               ],
             ),
+            SizedBox(height: 10,),
             productRespone.data.length!=index?Divider(color: Colors.black.withOpacity(0.5)):SizedBox(height: 30,),
             SizedBox(height: 10,),
           ],
@@ -167,7 +168,7 @@ class ProductVertical extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:  SizeUtil.detailSmallFontSize().sp),),
+                  Text(LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:  SizeUtil.detailSmallFontSize().sp),),
                   SizedBox(height: 5),
                   Row(
                     children: [

@@ -4,6 +4,7 @@ import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/FlashSale.dart';
@@ -13,9 +14,11 @@ import 'package:easy_localization/easy_localization.dart';
 
 class Shop extends StatelessWidget {
 
-  final MarketObjectCombine productRespone;
+  final ZipShopObjectCombin productRespone;
 
   const Shop({Key key, this.productRespone}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class Shop extends StatelessWidget {
         children: [
           SizedBox(height: 15),
           ProductLandscape(
-              productRespone: productRespone.hotproduct,
+              productRespone: productRespone.productmyshop,
               titleInto: LocaleKeys.recommend_best_seller.tr(),
               IconInto: 'assets/images/svg/product_hot.svg',
               onSelectMore: () {},
@@ -35,7 +38,7 @@ class Shop extends StatelessWidget {
               tagHero: "shop_product_hot"),
           SizedBox(height: 15),
           ProductGrid(titleInto: LocaleKeys.tab_bar_recommend.tr(),
-              productRespone: productRespone.recommend,
+              productRespone: productRespone.productrecommend,
               IconInto: 'assets/images/svg/like.svg',
               api_link: "products",
               onSelectMore: () {

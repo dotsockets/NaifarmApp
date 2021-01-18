@@ -2,7 +2,9 @@
 
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -48,12 +50,25 @@ class CustomTabBar extends StatelessWidget {
               icon: SizedBox(),
               child: Column(
                 children: [
-                  _buildIcon(
-                    path_icon:isSelect ? menuModel.iconSelected : menuModel.icon,
-                    color: isSelect ?ThemeColor.secondaryColor():Colors.white,
-                    index: index,
-                  ),
 
+                  BlocBuilder<CustomerCountBloc, CustomerCountState>(
+                    builder: (_, count) {
+                      if(count is CustomerCountLoaded){
+                        return  _buildIcon(
+                          path_icon:isSelect ? menuModel.iconSelected : menuModel.icon,
+                          color: isSelect ?ThemeColor.secondaryColor():Colors.white,
+                          index: index,notification: count.countLoaded.notification.unreadCustomer+count.countLoaded.notification.unreadShop
+                        );
+                      }else{
+                        return _buildIcon(
+                          path_icon:isSelect ? menuModel.iconSelected : menuModel.icon,
+                          color: isSelect ?ThemeColor.secondaryColor():Colors.white,
+                          index: index,notification: 0
+                        );
+                      }
+
+                    },
+                  ),
                   _buildLabel(
                     text: text,
                     color: isSelect ?ThemeColor.secondaryColor():Colors.white,
@@ -77,7 +92,7 @@ class CustomTabBar extends StatelessWidget {
     );
   }
 
-  Stack _buildIcon({String path_icon, Color color, int index}) => Stack(
+  Stack _buildIcon({String path_icon, Color color, int index,int notification}) => Stack(
     overflow: Overflow.visible,
     children: [
       Stack(
@@ -86,25 +101,34 @@ class CustomTabBar extends StatelessWidget {
             padding: EdgeInsets.all(1.0.w),
             child: SvgPicture.asset(path_icon,color: color),
           ),
-          index==2?Positioned(
-            right: 0,
-            top: 0,
-            child: Container(
-              padding: EdgeInsets.all(1.0.w),
-              decoration: BoxDecoration(
-                color: ThemeColor.ColorSale(),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              constraints: BoxConstraints(
-                minWidth: 3.0.w,
-                minHeight: 3.0.w,
-              ),
-            ),
-          ):SizedBox()
+          getMessageRead(index: index,notification: notification)
         ],
       )
     ],
   );
+
+  Widget getMessageRead({ int index,int notification}){
+    if(index==2 && notification>0){
+      return Positioned(
+        right: 0,
+        top: 0,
+        child: Container(
+          padding: EdgeInsets.all(1.0.w),
+          decoration: BoxDecoration(
+            color: ThemeColor.ColorSale(),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          constraints: BoxConstraints(
+            minWidth: 3.0.w,
+            minHeight: 3.0.w,
+          ),
+        ),
+      );
+    }else{
+      return SizedBox();
+    }
+  }
+
 
   Baseline _buildLabel({String text, Color color, bool wrapText}) => Baseline(
     baselineType: TextBaseline.alphabetic,

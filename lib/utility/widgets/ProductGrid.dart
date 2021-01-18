@@ -285,10 +285,7 @@ class _ProductGridState extends State<ProductGrid> {
                         errorWidget: (context, url, error) => Container(
                           width: 120,
                             height: 150,
-                            child: Icon(
-                              Icons.error,
-                              size: 30,
-                            )),
+                            child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                       ),
                     ),
                   ),

@@ -34,6 +34,7 @@ import 'package:sizer/sizer.dart';
 class MyNewProductView extends StatefulWidget {
 
 
+
   @override
   _MyNewProductViewState createState() => _MyNewProductViewState();
 }
@@ -48,26 +49,27 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool checkKeyBoard = false;
   UploadProductBloc bloc;
-
-  @override
-  void initState() {
-    super.initState();
-    KeyboardVisibilityNotification().addNewListener(
-      onChange: (bool visible) {
-        setState(() {
-          checkKeyBoard= visible;
-        });
-      },
-    );
-
-
-  }
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   KeyboardVisibilityNotification().addNewListener(
+  //     onChange: (bool visible) {
+  //       setState(() {
+  //         checkKeyBoard= visible;
+  //       });
+  //     },
+  //   );
+  //
+  //
+  // }
 
   init() {
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.uploadProductStorage.stream.listen((event) {
         _installControllerInput(productMyShopRequest: event.productMyShopRequest);
+        NaiFarmLocalStorage.SaveProductStorage(bloc.uploadProductStorage.value);
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -81,16 +83,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
       });
       bloc.onSuccess.stream.listen((event)  {
         if(event is ProductMyShopRespone){
-          Usermanager().getUser().then((value) async {
-            var i = 0;
-            for(var item in bloc.uploadProductStorage.value.onSelectItem){
-              bloc.writeToFile(await item.image.getByteData(quality: 100)).then((file){
-                bloc.UploadImageProduct(token: value.token,imageableId: event.id,imageFile: file,
-                    imageableType: "product",index: i);
-              });
-              i++;
-            }
-          });
+
         }else if(event is bool){
           NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Product_Upload).then((value){
             AppRoute.MyProduct(context,pushEvent: true);
@@ -103,6 +96,8 @@ class _MyNewProductViewState extends State<MyNewProductView> {
 
       NaiFarmLocalStorage.getProductStorageCache().then((value){
         if(value!=null){
+          bloc.ItemImage.clear();
+          bloc.ItemImage.addAll(value.onSelectItem);
           bloc.uploadProductStorage.add(UploadProductStorage(productMyShopRequest: value.productMyShopRequest,onSelectItem: value.onSelectItem));
         }
       });
@@ -126,10 +121,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                   child: AppToobar(
                     title: LocaleKeys.my_product_data.tr(),
                     icon: "",
-                    header_type: Header_Type.barNormal,onClick: (){
-                    bloc.SaveProductDetail();
-                      Navigator.of(context).pop();
-                  },)),
+                    header_type: Header_Type.barNormal)),
               StreamBuilder(
                 stream: bloc.uploadProductStorage.stream,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -335,8 +327,16 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                   )
                 ],
               ))),
-      onTap: (){
-        AppRoute.ImageProduct(context);
+      onTap: ()async{
+        var result = await  AppRoute.ImageProduct(context,isactive: IsActive.UpdateProduct);
+        if(result){
+          NaiFarmLocalStorage.getProductStorageCache().then((value){
+            if(value!=null){
+              bloc.uploadProductStorage.add(UploadProductStorage(productMyShopRequest: value.productMyShopRequest,onSelectItem: value.onSelectItem));
+            }
+          });
+
+        }
       },
     );
   }

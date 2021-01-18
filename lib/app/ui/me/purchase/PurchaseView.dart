@@ -48,24 +48,45 @@ class _PurchaseViewState extends State<PurchaseView> {
     return Container(
       child: Column(
         children: [
-          _buildTabMenu(context),
+          BlocBuilder<CustomerCountBloc, CustomerCountState>(
+            builder: (_, count) {
+              if(count is CustomerCountLoaded){
+                return  _buildTabMenu(context,count.countLoaded);
+              }else{
+                return  _buildTabMenu(context,CustomerCountRespone(buyOrder: BuyOrder(unpaid: 0,toBeRecieve: 0,cancel: 0,confirm: 0,delivered: 0,failed: 0,fulfill: 0,refund: 0)));
+              }
+
+            },
+          ),
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
             title: LocaleKeys.me_title_history.tr(),
             iconSize: 8.0.w,
-            onClick: () => AppRoute.MyShophistory(context,0),
+            onClick: () => AppRoute.MyShophistory(context,0,orderType: "order"),
           ),
           _BuildDivider(),
-          BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
+          BlocBuilder<CustomerCountBloc, CustomerCountState>(
             builder: (_, count) {
-              return ListMenuItem(
-                  icon: 'assets/images/svg/like_2.svg',
-                  title: LocaleKeys.me_title_likes.tr(),
-                  Message: "${count.like} รายการ",
-                  iconSize: 8.0.w,
-                  onClick: () {
-                    AppRoute.Wishlists(context:context);
-                  });
+              if(count is CustomerCountLoaded){
+                return  ListMenuItem(
+                    icon: 'assets/images/svg/like_2.svg',
+                    title: LocaleKeys.me_title_likes.tr(),
+                    Message: "${count.countLoaded.like} รายการ",
+                    iconSize: 8.0.w,
+                    onClick: () {
+                      AppRoute.Wishlists(context:context);
+                    });
+              }else{
+                return  ListMenuItem(
+                    icon: 'assets/images/svg/like_2.svg',
+                    title: LocaleKeys.me_title_likes.tr(),
+                    Message: "${0} รายการ",
+                    iconSize: 8.0.w,
+                    onClick: () {
+                      AppRoute.Wishlists(context:context);
+                    });
+              }
+
             },
           ),
           _BuildDivider(),
@@ -117,7 +138,7 @@ class _PurchaseViewState extends State<PurchaseView> {
     );
   }
 
-  Widget _buildTabMenu(BuildContext context) {
+  Widget _buildTabMenu(BuildContext context,CustomerCountRespone count) {
     return Container(
       padding: EdgeInsets.all(5.0.w),
       color: Colors.grey.shade300,
@@ -127,24 +148,24 @@ class _PurchaseViewState extends State<PurchaseView> {
           TabMenu(
               icon: 'assets/images/svg/status_pay.svg',
               title: LocaleKeys.me_menu_pay.tr(),
-              onClick: (){AppRoute.MyShophistory(context,0);},
-              notification: 1),
+              onClick: (){AppRoute.MyShophistory(context,0,orderType: "order");},
+              notification: count.buyOrder.unpaid),
           TabMenu(
             icon: 'assets/images/svg/status_delivery.svg',
             title: LocaleKeys.me_menu_ship.tr(),
-            onClick: (){AppRoute.MyShophistory(context,1);},
-            notification: 0,
+            onClick: (){AppRoute.MyShophistory(context,1,orderType: "order");},
+            notification: count.buyOrder.confirm,
           ),
           TabMenu(
               icon: 'assets/images/svg/status_pickup.svg',
               title: LocaleKeys.me_menu_receive_shop.tr(),
-              onClick: (){AppRoute.MyShophistory(context,3);},
-              notification: 0),
+              onClick: (){AppRoute.MyShophistory(context,3,orderType: "order");},
+              notification: count.buyOrder.toBeRecieve),
           TabMenu(
               icon: 'assets/images/svg/status_star.svg',
               title: LocaleKeys.me_menu_rate.tr(),
-              onClick: (){AppRoute.MyShophistory(context,3);},
-              notification: 0)
+              onClick: (){AppRoute.MyShophistory(context,3,orderType: "order");},
+              notification: count.watingReview)
         ],
       ),
     );

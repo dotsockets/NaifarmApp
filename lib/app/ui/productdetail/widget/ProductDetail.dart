@@ -138,7 +138,7 @@ class _ProductDetailState extends State<ProductDetail> {
               Container(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 8),
                 child: Text(
-                  FunctionHelper.replaceText(text: widget.productItem!=null?widget.productItem.description:"-",pattern: "\n"),
+                  widget.productItem!=null?FunctionHelper.replaceText(text: widget.productItem.description,pattern: "\n"):"-",
                   style: FunctionHelper.FontTheme(height: 1.6,fontSize: SizeUtil.titleSmallFontSize().sp),
                   maxLines: lineInto,
                   key: _keyRed,

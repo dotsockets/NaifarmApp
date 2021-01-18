@@ -1,23 +1,49 @@
 
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
 
-class OrderView extends StatelessWidget {
-  int  Status_Sell;
-  OrderView({Key key,this.Status_Sell}) : super(key: key);
+class OrderView extends StatefulWidget {
+  final OrderData orderData;
+  final int  Status_Sell;
+  OrderView({Key key,this.Status_Sell, this.orderData}) : super(key: key);
+  @override
+  _OrderViewState createState() => _OrderViewState();
+}
+
+class _OrderViewState extends State<OrderView> {
+
+  OrdersBloc bloc;
+
+  init() {
+    if (bloc == null) {
+      bloc = OrdersBloc(AppProvider.getApplication(context));
+      bloc.onSuccess.add(widget.orderData);
+    }
+    Usermanager().getUser().then((value) => bloc.GetOrderById(id: widget.orderData.id, token: value.token));
+    // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
+  }
+
   @override
   Widget build(BuildContext context) {
+    init();
     return SafeArea(
       top: false,
       child: Scaffold(
@@ -27,37 +53,48 @@ class OrderView extends StatelessWidget {
           header_type: Header_Type.barNormal,
           icon: '',
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _HeaderStatus(context: context),
-                    _labelText(title: LocaleKeys.order_detail_ship_addr.tr()),
-                    _addtess_recive(context: context),
-                    _labelText(title: LocaleKeys.order_detail_ship_data.tr()),
-                    _Shipping_information(context: context),
-                    SizedBox(height: 15,),
-                    _Order_number_information(context: context),
-                    _labelText(title: LocaleKeys.order_detail_payment.tr()),
-                    _payment_info(context: context),
-                    SizedBox(height: 15,),
-                    _Timeline_order(context: context)
-                  ],
-                ),
-              ),
-            ),
-            _ButtonAgain(context: context),
-          ],
+        body: StreamBuilder(
+          stream: bloc.feedList,
+          builder: (BuildContext context,AsyncSnapshot snapshot){
+            if(snapshot.hasData){
+              var item = (snapshot.data as OrderData);
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _HeaderStatus(context: context,orderData: item),
+                          _labelText(title: LocaleKeys.order_detail_ship_addr.tr()),
+                          _addtess_recive(context: context,orderData: item),
+                          _labelText(title: LocaleKeys.order_detail_ship_data.tr()),
+                          item.shippingRate!=null?_Shipping_information(context: context,orderData: item):SizedBox(),
+                          SizedBox(height: 15,),
+                          item.shippingRate!=null?_Order_number_information(context: context,orderData: item,sumTotal: SumTotal(item.items),rate_delivery: item.shippingRate.rate):SizedBox(),
+                          _labelText(title: LocaleKeys.order_detail_payment.tr()),
+                          _payment_info(context: context,orderData: item),
+                          SizedBox(height: 15,),
+                          _Timeline_order(context: context,orderData: item)
+                        ],
+                      ),
+                    ),
+                  ),
+                  _ButtonActive(context: context,orderData: item),
+                ],
+              );
+            }else{
+              return SizedBox();
+            }
+          },
         ),
       ),
     );
   }
 
-  Widget _HeaderStatusText(){
+  Widget _HeaderStatusText({OrderData orderData}){
       return Container(
         width: 320,
         height: 60,
@@ -67,13 +104,13 @@ class OrderView extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.only(right: 13,left: 10,top: 5,bottom: 5),
             color: ThemeColor.primaryColor(),
-            child: Center(child: Text(Status_Sell==3?LocaleKeys.order_detail_wait_rate.tr():Status_Sell==4?LocaleKeys.order_detail_complete_rate.tr():LocaleKeys.me_menu_cancel.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.white),)),
+            child: Center(child: Text(orderData.orderStatusName,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.white),)),
           ),
         ),
       );
   }
 
-  Widget _HeaderStatus({BuildContext context}){
+  Widget _HeaderStatus({BuildContext context,OrderData orderData}){
     return Stack(
       children: [
         Container(
@@ -89,15 +126,15 @@ class OrderView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 30,),
-                Text(LocaleKeys.order_detail_thank_rate.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
+                Text("Order ${orderData.orderNumber}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
                 SizedBox(height: 3),
-                Text(LocaleKeys.order_detail_complete_time.tr()+" 28-06-2563  18:39",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5)),)
+                Text("กรุณาชำระเงินภายใน ${DateFormat('dd-MM-yyyy').format(DateTime.parse(orderData.paymentAt!=null?orderData.paymentAt:DateTime.now().toString()))} มิฉะนั้นระบบจะยกเลิกคำสั่งซื้อโดยอัตโนมัติ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5)),)
               ]
           ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: _HeaderStatusText(),
+          child: _HeaderStatusText(orderData: orderData),
         )
       ],
     );
@@ -110,7 +147,7 @@ class OrderView extends StatelessWidget {
     );
   }
 
-  Widget _addtess_recive({BuildContext context}){
+  Widget _addtess_recive({BuildContext context,OrderData orderData}){
     return Container(
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
@@ -118,19 +155,15 @@ class OrderView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("วีระชัย ใจกว้าง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor(),fontWeight: FontWeight.bold,height: 1.5),),
-            SizedBox(height: 8),
-            Text("(+66) 978765432",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-            Text("612/399 A space condo ชั้น 4 เขตดินแดง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-            Text("จังหวัดกรุงเทพมหานคร ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-            Text("10400 ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-          ],
+            Text(orderData.shippingAddress,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+             ],
         ),
     );
   }
 
 
-  Widget _Shipping_information({BuildContext context}){
+  Widget _Shipping_information({BuildContext context,OrderData orderData}){
+
     return Container(
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
@@ -138,18 +171,17 @@ class OrderView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("วีระชัย ใจกว้าง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor(),fontWeight: FontWeight.bold,height: 1.5),),
+          Text(orderData.shippingRate.carrier.name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor(),fontWeight: FontWeight.bold,height: 1.5),),
           SizedBox(height: 8),
-          Text("(+66) 978765432",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-          Text("612/399 A space condo ชั้น 4 เขตดินแดง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-          Text("จังหวัดกรุงเทพมหานคร ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-          Text("10400 ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+          Text(orderData.shippingRate.name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+          SizedBox(height: 6),
+          Text("วันที่รับ ${orderData.shippingRate.deliveryTakes} ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
         ],
       ),
     );
   }
 
-  Widget _Order_number_information({BuildContext context}){
+  Widget _Order_number_information({BuildContext context,OrderData orderData,int sumTotal,int rate_delivery}){
     return Container(
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
@@ -160,105 +192,57 @@ class OrderView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(LocaleKeys.order_detail_order_num.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
-                Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color:ThemeColor.ColorSale(),fontWeight: FontWeight.bold,height: 1.5),),
+                Text(orderData.orderNumber,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color:ThemeColor.ColorSale(),fontWeight: FontWeight.bold,height: 1.5),),
               ],
             ),
             SizedBox(height: 13,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(40),
-                      child: CachedNetworkImage(
-                        width: 30,
-                        height: 30,
-                        placeholder: (context, url) => Container(
-                          color: Colors.white,
-                          child:
-                          Lottie.asset(Env.value.loadingAnimaion, height: 30),
-                        ),
-                        fit: BoxFit.cover,
-                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Dwayne_Johnson_at_the_2009_Tribeca_Film_Festival.jpg/220px-Dwayne_Johnson_at_the_2009_Tribeca_Film_Festival.jpg",
-                        errorWidget: (context, url, error) => Container(
-                            height: 30,
-                            child: Icon(
-                              Icons.error,
-                              size: 30,
-                            )),
-                      ),
-                    ),
-                    SizedBox(width: 15,),
-                    Text("ไร่มอนหลวงสาย",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),)
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(LocaleKeys.order_detail_go_shop.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
-                    SizedBox(width: 10,),
-                    Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: 13,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black.withOpacity(0.1))),
-                  child: CachedNetworkImage(
-                    width: 22.0.w,
-                    height: 22.0.w,
-                    placeholder: (context, url) => Container(
-                      color: Colors.white,
-                      child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
-                    ),
-                    fit: BoxFit.contain,
-                    imageUrl: "https://www.img.in.th/images/7fc6ff825238293be21ea341e2f54755.png",
-                    errorWidget: (context, url, error) => Container(
-                        height: 30,
-                        child: Icon(
-                          Icons.error,
-                          size: 30,
-                        )),
-                  ),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            GestureDetector(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
-                      Text("หอมใหญ่",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold)),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("x 2",
-                              style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp, color: Colors.black, fontWeight: FontWeight.bold)),
-                          Row(
-                            children: [
-                              Text("฿140",
-                                  style: FunctionHelper.FontTheme(
-                                      fontSize: SizeUtil.titleFontSize().sp,
-                                      decoration: TextDecoration.lineThrough,color: Colors.black.withOpacity(0.5))),
-                              SizedBox(width: 8),
-                              Text("฿100",
-                                  style: FunctionHelper.FontTheme(
-                                      fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
-                            ],
-                          )
-                        ],
-                      )
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: CachedNetworkImage(
+                          width: 30,
+                          height: 30,
+                          placeholder: (context, url) => Container(
+                            color: Colors.white,
+                            child:
+                            Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                          ),
+                          fit: BoxFit.cover,
+                          imageUrl: "${Env.value.baseUrl}/storage/images/${orderData.shop.image.isNotEmpty ? orderData.shop.image[0].path : ''}",
+                          errorWidget: (context, url, error) => Container(
+                              height: 30,
+                              child: Icon(
+                                Icons.error,
+                                size: 30,
+                              )),
+                        ),
+                      ),
+                      SizedBox(width: 15,),
+                      Text(orderData.shop.name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),)
                     ],
                   ),
-                )
-              ],
+                  Row(
+                    children: [
+                      Text(LocaleKeys.order_detail_go_shop.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
+                      SizedBox(width: 10,),
+                      Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
+                    ],
+                  ),
+                ],
+              ),
+              onTap: (){
+                var item = orderData.shop;
+                AppRoute.ShopMain(context: context,myShopRespone: MyShopRespone(id: item.id,name: item.name,image: item.image,updatedAt: item.updatedAt));
+              },
+            ),
+            SizedBox(height: 13,),
+            Column(
+              children: orderData.items.asMap().map((key, value) => MapEntry(key,ItemProduct(orderItems: orderData.items[key]))).values.toList(),
             ),
             SizedBox(height: 13,),
             Row(
@@ -266,7 +250,7 @@ class OrderView extends StatelessWidget {
               children: [
                 Text(LocaleKeys.order_detail_subtotal.tr()+" :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 SizedBox(width: 10,),
-                Text("฿100", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
+                Text("฿${NumberFormat("#,##0.00", "en_US").format(sumTotal)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
               ],
             ),
             SizedBox(height: 5,),
@@ -275,7 +259,7 @@ class OrderView extends StatelessWidget {
               children: [
                 Text(LocaleKeys.order_detail_ship_price.tr()+" :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 SizedBox(width: 10,),
-                Text("฿36.00", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
+                Text("฿${NumberFormat("#,##0.00", "en_US").format(rate_delivery)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
               ],
             ),
             SizedBox(height: 5,),
@@ -284,7 +268,7 @@ class OrderView extends StatelessWidget {
               children: [
                 Text(LocaleKeys.order_detail_total.tr()+" :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 SizedBox(width: 10,),
-                Text("฿136.00", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale()))
+                Text("฿${NumberFormat("#,##0.00", "en_US").format(sumTotal+rate_delivery)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale()))
               ],
             ),
           ],
@@ -293,37 +277,101 @@ class OrderView extends StatelessWidget {
   }
 
 
-  Widget _payment_info({BuildContext context}){
+  Widget ItemProduct({OrderItems orderItems}){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.black.withOpacity(0.1))),
+          child: CachedNetworkImage(
+            width: 22.0.w,
+            height: 22.0.w,
+            placeholder: (context, url) => Container(
+              width: 22.0.w,
+              height: 22.0.w,
+              color: Colors.white,
+              child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+            ),
+            fit: BoxFit.cover,
+            imageUrl: "${Env.value.baseUrl}/storage/images/${orderItems.inventory.product.image.isNotEmpty?orderItems.inventory.product.image[0].path : ''}",
+            errorWidget: (context, url, error) => Container(
+                width: 22.0.w,
+                height: 22.0.w,
+                child: Icon(
+                  Icons.error,
+                  size: 30,
+                )),
+          ),
+        ),
+        SizedBox(width: 10),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("${orderItems.inventory.title}",
+                  style: FunctionHelper.FontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold)),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("x ${orderItems.quantity}",
+                      style: FunctionHelper.FontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp, color: Colors.black, fontWeight: FontWeight.bold)),
+                  Row(
+                    children: [
+                      // Text("฿${orderItems.inventory.offerPrice}",
+                      //     style: FunctionHelper.FontTheme(
+                      //         fontSize: SizeUtil.titleFontSize().sp,
+                      //         decoration: TextDecoration.lineThrough,color: Colors.black.withOpacity(0.5))),
+                      // SizedBox(width: 8),
+                      Text("฿${NumberFormat("#,##0.00", "en_US").format(orderItems.inventory.salePrice*orderItems.quantity)}",
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _payment_info({BuildContext context,OrderData orderData}){
     return Container(
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
       padding: EdgeInsets.all(15),
       child: Row(
         children: [
-          CachedNetworkImage(
-            height: 30,
-            placeholder: (context, url) => Container(
-              color: Colors.white,
-              child:
-              Lottie.asset(Env.value.loadingAnimaion, height: 30),
-            ),
-            fit: BoxFit.cover,
-            imageUrl: "https://img.utdstc.com/icons/scb-easy-android.png:225",
-            errorWidget: (context, url, error) => Container(
-                height: 30,
-                child: Icon(
-                  Icons.error,
-                  size: 30,
-                )),
-          ),
+          // CachedNetworkImage(
+          //   height: 30,
+          //   placeholder: (context, url) => Container(
+          //     color: Colors.white,
+          //     child:
+          //     Lottie.asset(Env.value.loadingAnimaion, height: 30),
+          //   ),
+          //   fit: BoxFit.cover,
+          //   imageUrl: "https://img.utdstc.com/icons/scb-easy-android.png:225",
+          //   errorWidget: (context, url, error) => Container(
+          //       height: 30,
+          //       child: Icon(
+          //         Icons.error,
+          //         size: 30,
+          //       )),
+          // ),
+          Icon(Icons.money),
           SizedBox(width: 10,),
-          Text("ธนาคารไทยพาณิชย์", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black,fontWeight: FontWeight.bold))
+          Text(orderData.paymentMethod.name, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black,fontWeight: FontWeight.bold))
         ],
       ),
     );
   }
 
-  Widget _Timeline_order({BuildContext context}){
+  Widget _Timeline_order({BuildContext context,OrderData orderData}){
     return Container(
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
@@ -334,7 +382,7 @@ class OrderView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(LocaleKeys.order_detail_order_num.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
-              Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color:ThemeColor.ColorSale(),fontWeight: FontWeight.bold,height: 1.5),),
+              Text(orderData.orderNumber,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color:ThemeColor.ColorSale(),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
           SizedBox(height: 13,),
@@ -342,7 +390,7 @@ class OrderView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(LocaleKeys.order_detail_buy_time.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
-              Text("28-07-2563  12:49",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("${DateFormat('dd-MM-yyyy hh:mm').format(DateTime.parse(orderData.createdAt))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
           SizedBox(height: 13,),
@@ -375,49 +423,42 @@ class OrderView extends StatelessWidget {
     );
   }
 
-  Widget _ButtonAgain({BuildContext context}){
+  Widget _ButtonActive({BuildContext context,OrderData orderData}){
+
       return Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            color: Colors.white,
-          border: Border(top: BorderSide(color: Colors.black.withOpacity(0.3)))
-        ),
-        child: Row(
-          children: [
-            Status_Sell!=5?Expanded(
-              flex: 4,
-              child: Container(
-                padding: EdgeInsets.only(left: 15,right: 15,bottom: 0),
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/images/svg/status_star.svg',width: 35,height: 35,),
-                    SizedBox(width: 0,),
-                    Text(LocaleKeys.review_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
-                  ],
-                ),
-              ),
-            ):SizedBox(),
-            Expanded(
-              flex: 8,
-              child: Container(
-                height: 60,
-                child: FlatButton(
-                  color: ThemeColor.ColorSale(),
-                  textColor: Colors.white,
-                  splashColor: Colors.white.withOpacity(0.3),
-                  onPressed: () {
-                    /*...*/
-                  },
-                  child: Text(
-                    LocaleKeys.buy_product_again_btn.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            )
-          ],
+        margin: EdgeInsets.only(bottom: 10),
+        child: Center(
+          child: FlatButton(
+            minWidth: 50.0.w,
+            height: 50,
+            color:  ThemeColor.ColorSale() ,
+            textColor: Colors.white,
+            splashColor: Colors.white.withOpacity(0.3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+            onPressed: () {
+
+
+            },
+            child: Text(
+              "Cancel order",
+              style: FunctionHelper.FontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+            ),
+          ),
         ),
       );
+
+
+  }
+
+  int SumTotal(List<OrderItems> items) {
+    var sum = 0;
+    for (var item in items) {
+      sum += item.inventory.salePrice;
+    }
+    return sum;
   }
 
 }

@@ -38,7 +38,7 @@ class _ProductSlideState extends State<ProductSlide> {
       _imgList.add("${Env.value.baseUrl}/storage/images/${item.path}");
     }
     if(widget.imgList.isEmpty){
-       _imgList.add("https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com");
+       _imgList.add(Env.value.noItemUrl);
     }
   }
 
@@ -46,11 +46,14 @@ class _ProductSlideState extends State<ProductSlide> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        _buildBanner(),
-        widget.imgList.isNotEmpty?_buildIndicator():SizedBox(),
-      ],
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      child: Stack(
+        children: [
+          _buildBanner(),
+          widget.imgList.isNotEmpty?_buildIndicator():SizedBox(),
+        ],
+      ),
     );
   }
 

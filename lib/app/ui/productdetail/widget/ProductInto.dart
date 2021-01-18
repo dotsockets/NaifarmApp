@@ -27,10 +27,14 @@ class ProductInto extends StatelessWidget {
         children: [
           SizedBox(height: 1.0.h),
           Center(
-              child: Text(
-                data.name,
-                style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
+              child: Container(
+                width: 80.0.w,
+                child: Text(
+                  data.name.toString(),
+                  textAlign: TextAlign.center,
+                  style: FunctionHelper.FontTheme(
+                      fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
+                ),
               )),
           SizedBox(height: 10),
           Row(
@@ -47,7 +51,7 @@ class ProductInto extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            data.hasVariant.toString()+" "+LocaleKeys.my_product_sold_end.tr(),
+          "${data.saleCount!=null? data.saleCount.toString():'0'} ${LocaleKeys.my_product_sold_end.tr()}",
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           SizedBox(height: 15),

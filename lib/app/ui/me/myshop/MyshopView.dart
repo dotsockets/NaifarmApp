@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
+import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/ui/me/widget/TabMenu.dart';
@@ -112,12 +116,21 @@ class _MyshopViewState extends State<MyshopView> {
       color: Colors.grey.shade200,
       child: Column(
         children: [
-          _buildTabMenu(context),
+          BlocBuilder<CustomerCountBloc, CustomerCountState>(
+            builder: (_, count) {
+              if(count is CustomerCountLoaded){
+                return  _buildTabMenu(context,count.countLoaded);
+              }else{
+                return  _buildTabMenu(context,CustomerCountRespone(sellOrder: SellOrder(unpaid: 0,shipping: 0,cancel: 0,confirm: 0,delivered: 0,failed: 0,refund: 0)));
+              }
+
+            },
+          ),
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
             title: LocaleKeys.me_title_history_shop.tr(),
             iconSize: 8.0.w,
-            onClick: () => AppRoute.MyShophistory(context,0),
+            onClick: () => AppRoute.MyShophistory(context,0,orderType: "myshop/orders"),
           ),
           widget.IsLogin ? _BuildDivider() : SizedBox(),
           widget.IsLogin
@@ -191,7 +204,7 @@ class _MyshopViewState extends State<MyshopView> {
     );
   }
 
-  Widget _buildTabMenu(BuildContext context) {
+  Widget _buildTabMenu(BuildContext context,CustomerCountRespone count) {
     return Container(
       padding: EdgeInsets.all(5.0.w),
       color: Colors.grey.shade300,
@@ -200,26 +213,27 @@ class _MyshopViewState extends State<MyshopView> {
         children: [
           TabMenu(
               icon: 'assets/images/svg/status_delivery.svg',
-              title: LocaleKeys.me_tab_shop.tr(),
-              onClick: (){AppRoute.ShopMain(context);},
-              notification: 0),
+              title: LocaleKeys.me_menu_ship.tr(),
+              onClick: (){AppRoute.MyShophistory(context,1,orderType: "myshop/orders");},
+              notification: count.sellOrder.delivered),
+          TabMenu(
+            icon: 'assets/images/svg/status_delivery.svg',
+            title: "Sending",
+         onClick: (){AppRoute.MyShophistory(context,2,orderType: "myshop/orders");
+         },
+            notification: count.sellOrder.shipping,
+          ),
           TabMenu(
             icon: 'assets/images/svg/status_cancel.svg',
             title: LocaleKeys.me_menu_cancel_product.tr(),
-         onClick: (){AppRoute.MyShophistory(context,4);
-         },
-            notification: 1,
+            onClick: (){AppRoute.MyShophistory(context,4,orderType: "myshop/orders");},
+            notification: count.sellOrder.cancel,
           ),
           TabMenu(
             icon: 'assets/images/svg/status_restore.svg',
             title: LocaleKeys.me_menu_refund_product.tr(),
-            onClick: (){AppRoute.MyShophistory(context,5);},
-            notification: 0,
-          ),
-          TabMenu(
-            icon: 'assets/images/svg/orther.svg',
-            title: LocaleKeys.me_menu_other.tr(),
-            notification: 0,
+            onClick: (){AppRoute.MyShophistory(context,5,orderType: "myshop/orders");},
+            notification: count.sellOrder.refund,
           )
         ],
       ),
@@ -237,7 +251,7 @@ class _MyshopViewState extends State<MyshopView> {
           borderRadius: BorderRadius.circular(40.0),
         ),
         onPressed: () {
-          AppRoute.ImageProduct(context);
+          AppRoute.ImageProduct(context,isactive: IsActive.NewProduct );
         },
         child: Text(
           LocaleKeys.add_product_btn.tr(),

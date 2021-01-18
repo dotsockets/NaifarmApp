@@ -74,8 +74,9 @@ class Skeleton{
 
     child: SkeletonGridLoader(
       builder: Container(
-        margin: EdgeInsets.only(bottom: 10,left: 5),
+        width: MediaQuery.of(context).size.width,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(15)),
