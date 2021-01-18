@@ -274,6 +274,8 @@ abstract class APIProvider{
   Future<ApiResult> GetNotificationByGroup({String group,int page,int limit,String sort,String token});
 
 
+  @PATCH("/v1/cart")
+  Future<ApiResult> UpdateCart(@Body() CartRequest data,int cartId,String token);
 }
 
 

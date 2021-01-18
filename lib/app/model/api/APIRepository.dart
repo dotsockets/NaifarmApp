@@ -276,6 +276,9 @@ class APIRepository{
   Future<ApiResult> DeleteCart({int cartid,int inventoryid,String token}){
     return _apiProvider.DELETECart(cartid: cartid,inventoryid: inventoryid,token: token);
   }
+  Future<ApiResult> UpdateCart({CartRequest data,int cartid, String token}){
+    return _apiProvider.UpdateCart(data,cartid,token);
+  }
 
   Future<ApiResult> UpdateProductMyShop({ProductMyShopRequest shopRequest,int productId,String token}){
     return _apiProvider.UpdateProductMyShop(shopRequest: shopRequest,productId: productId,token: token);

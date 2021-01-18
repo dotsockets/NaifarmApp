@@ -1444,6 +1444,29 @@ class _APIProvider implements APIProvider {
   }
 
   @override
+  Future<ApiResult> UpdateCart(CartRequest data,int cartId, String token) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+
+    try {
+      final _result = await _dio.request<dynamic>('/v1/cart/${cartId}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: data);
+
+      return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
   Future<ApiResult> UpdateProductInventories({InventoriesRequest inventoriesRequest, int productId, int inventoriesId, String token}) async{
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};

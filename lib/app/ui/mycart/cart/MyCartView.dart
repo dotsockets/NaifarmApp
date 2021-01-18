@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -38,11 +39,9 @@ class MyCartView extends StatefulWidget {
 
 class _MyCartViewState extends State<MyCartView> {
 
-    bool isSelectAll =false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CartBloc bloc;
-  int select = 0;
-
+//    CartRequest cartReq = CartRequest();
 
   void _init() {
     if (null == bloc) {
@@ -60,7 +59,7 @@ class _MyCartViewState extends State<MyCartView> {
       });
 
       bloc.onSuccess.stream.listen((event) {
-
+      //  cartReq = event;
       });
     }
 
@@ -161,10 +160,10 @@ class _MyCartViewState extends State<MyCartView> {
     ));
   }
 
-  Widget _CardCart({CartData item, int index,}) {
+  Widget _CardCart({CartData item, int index,CartResponse res}) {
     return Column(
       children: [
-        _BuildCard(item: item, index: index),
+        _BuildCard(item: item, index: index, res: res),
         _IntroShipment(),
       //  item.ProductDicount==0?_Buildcoupon():SizedBox(),
         SizedBox(height: 1.0.h),
@@ -172,7 +171,7 @@ class _MyCartViewState extends State<MyCartView> {
     );
   }
 
-  Widget _BuildCard({CartData item, int index}) {
+  Widget _BuildCard({CartData item, int index,CartResponse res}) {
     return Container(
       color: Colors.white,
       child: Column(
@@ -213,22 +212,23 @@ class _MyCartViewState extends State<MyCartView> {
                           key: Key("${bloc.CartList.value.data[index].items[indexItem].inventory.id}"),
                           child: Column(
                             children: [
-                              _ProductDetail(item: item,indexShop: index,indexShopItem: indexItem),
-                              item.items.length>1&&item.items.length-1!=index?Divider(height: 10,color: Colors.grey.shade300,):SizedBox(),
+                              _ProductDetail(item: item,indexShop: index,indexShopItem: indexItem,res:res),
+                              item.items.length>1&&item.items.length-1!=indexItem?Divider(height: 10,color: Colors.grey.shade300,):SizedBox(),
                             ],
                           )
                           ,onDismissed: (direction) {
-                          if(direction == DismissDirection.endToStart) {
-                          //  print("dsfdsfdsf ${item.id} dsfds ${item.items[indexItem].inventory.id} --- "+indexItem.toString()+"***"+index.toString());
-                            bloc.CartList.value.data[index].items.removeAt(indexItem);
-                            for(var item in bloc.CartList.value.data) {
-                              Usermanager().getUser().then((value) =>
-                                  bloc.DeleteCart(cartid: item.id,
-                                      inventoryId: item.items[indexItem]
-                                          .inventory.id,
-                                      token: value.token));
-                            }
-                             bloc.CartList.add(bloc.CartList.value);
+                          if(direction == DismissDirection.endToStart||direction == DismissDirection.startToEnd) {
+                          //  bloc.deleteData.add(item);
+                            // print("dsfdsfdsf ${item.items[indexItem].inventory.id} dsfds ${item.items[indexItem].inventory.title} --- "+indexItem.toString()+"***"+index.toString());
+                           // for(var item in bloc.deleteData) {
+                               Usermanager().getUser().then((value) => bloc.DeleteCart(cartid: item.id, inventoryId: item.items[indexItem].inventory.id, token: value.token));
+                           // }
+                            //  item.items.removeAt(index);
+                            //  bloc.deleteData[index].items.removeAt(indexItem);
+                           //   bloc.deleteData.add(bloc.deleteData[index]);
+
+                            //  bloc.CartList.value.data[index].items.removeAt(indexItem);
+                            //  bloc.CartList.add(CartResponse(data:bloc.deleteData));
                             }
                           },
                         );
@@ -283,14 +283,15 @@ class _MyCartViewState extends State<MyCartView> {
     );
   }
 
-  Widget _ProductDetail({CartData item, int indexShop,int indexShopItem}) {
+  Widget _ProductDetail({CartData item, int indexShop,int indexShopItem,CartResponse res}) {
 
-    return Row(
-      children: [
-        Expanded(
-          flex: 1,
-          child: InkWell(
-            child:  item.items[indexShopItem].select?
+    return InkWell(
+
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: item.items[indexShopItem].select?
             SvgPicture.asset(
               'assets/images/svg/checkmark.svg',
               width: 6.0.w,
@@ -301,125 +302,125 @@ class _MyCartViewState extends State<MyCartView> {
               height: 6.0.w,
               color: Colors.black.withOpacity(0.5),
             ),
-            onTap: () {
-              bloc.CartList.value.data[indexShop].items[indexShopItem].select = !item.items[indexShopItem].select;
-              bloc.CartList.add(bloc.CartList.value);
-            },
           ),
-        ),
-        Expanded(
-          flex: 8,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black.withOpacity(0.1))),
-                    child: CachedNetworkImage(
-                      width: 20.0.w,
-                      height: 20.0.w,
-                      placeholder: (context, url) => Container(
+          Expanded(
+            flex: 8,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black.withOpacity(0.1))),
+                      child: CachedNetworkImage(
                         width: 20.0.w,
                         height: 20.0.w,
-                        color: Colors.white,
-                        child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
-                      ),
-                      fit: BoxFit.cover,
-                      imageUrl: item.items[indexShopItem].inventory.product.image.isNotEmpty?"${Env.value.baseUrl}/storage/images/${item.items[indexShopItem].inventory.product.image[0].path}":'',
-                      errorWidget: (context, url, error) => Container(
+                        placeholder: (context, url) => Container(
                           width: 20.0.w,
                           height: 20.0.w,
-                          child: Icon(
-                            Icons.error,
-                            size: 30,
-                          )),
-                    ),
-                  ),
-                  SizedBox(width: 3.0.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width/1.6,
-                        child: Text(item.items[indexShopItem].inventory.product.name,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500)),
+                          color: Colors.white,
+                          child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                        ),
+                        fit: BoxFit.cover,
+                        imageUrl: item.items[indexShopItem].inventory.product.image.isNotEmpty?"${Env.value.baseUrl}/storage/images/${item.items[indexShopItem].inventory.product.image[0].path}":'',
+                        errorWidget: (context, url, error) => Container(
+                            width: 20.0.w,
+                            height: 20.0.w,
+                            child: Icon(
+                              Icons.error,
+                              size: 30,
+                            )),
                       ),
-                      SizedBox(height: 5),
-                      Row(
-                        children: [
-                       //   item.ProductDicount != 0 ?
-                          Text("฿${item.items[indexShopItem].inventory.salePrice}",
-                                  style: FunctionHelper.FontTheme(
-                                      fontSize: SizeUtil.priceFontSize().sp,
-                                      decoration: TextDecoration.lineThrough)),
-                              //: SizedBox(),
-                          SizedBox(width: 2.0.w),
-                          Text("฿${item.items[indexShopItem].inventory.salePrice}",
+                    ),
+                    SizedBox(width: 3.0.w),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width/1.6,
+                          child: Text(item.items[indexShopItem].inventory.product.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.priceFontSize().sp, color: ThemeColor.ColorSale()))
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(height: 1.0.h),
-              Row(
-                children: [
-                  InkWell(
-                    child: Container(
-                      width: 7.0.w,
-                      height: 3.0.h,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black.withOpacity(0.2)),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(3),
-                              bottomLeft: Radius.circular(3))),
-                      child: Center(child: Text("-", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
+                                  fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500)),
+                        ),
+                        SizedBox(height: 5),
+                        Row(
+                          children: [
+                         //   item.ProductDicount != 0 ?
+                            item.items[indexShopItem].inventory.offerPrice!=null?Text("฿${item.items[indexShopItem].inventory.offerPrice}",
+                                    style: FunctionHelper.FontTheme(
+                                        fontSize: SizeUtil.priceFontSize().sp,
+                                        decoration: TextDecoration.lineThrough)):SizedBox(),
+                                //: SizedBox(),
+                            SizedBox(width: item.items[indexShopItem].inventory.offerPrice!=null?2.0.w:0),
+                            Text("฿${item.items[indexShopItem].inventory.salePrice}",
+                                style: FunctionHelper.FontTheme(
+                                    fontSize: SizeUtil.priceFontSize().sp, color: ThemeColor.ColorSale()))
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                SizedBox(height: 1.0.h),
+                Row(
+                  children: [
+                    InkWell(
+                      child: Container(
+                        width: 7.0.w,
+                        height: 3.0.h,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black.withOpacity(0.2)),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(3),
+                                bottomLeft: Radius.circular(3))),
+                        child: Center(child: Text("-", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp,color: item.items[indexShopItem].quantity >1? Colors.black:Colors.grey))),
+                      ),
+                      onTap: () {
+                        List<Items> items = new List<Items>();
+                        items.add(Items(inventoryId: item.items[indexShopItem].inventory.id,quantity: item.items[indexShopItem].quantity >1 ?item.items[indexShopItem].quantity -= 1:1));
+                        Usermanager().getUser().then((value) => bloc.UpdateCart(data: CartRequest(items: items,shopId: item.shopId),cartid:item.id ,token: value.token));
+                      },
                     ),
-                    onTap: () {
-                      /*setState(() {
-                        item.items[index].quantity != 0 ? item.items[index].quantity -= 1 : 0;
-                      });*/
-                    },
-                  ),
-                  Container(
-                    width: 7.0.w,
-                    height: 3.0.h,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black.withOpacity(0.2))),
-                    child: Center(
-                        child: Text("${item.items[indexShopItem].quantity}", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
-                  ),
-                  InkWell(
-                    child: Container(
+                    Container(
                       width: 7.0.w,
                       height: 3.0.h,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(3),
-                              bottomRight: Radius.circular(3)),
                           border: Border.all(color: Colors.black.withOpacity(0.2))),
-                      child: Center(child: Text("+", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
+                      child: Center(
+                          child: Text("${item.items[indexShopItem].quantity}", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
                     ),
-                    onTap: () {
-                     /* setState(() {
-                        item.items[index].quantity += 1;
-                      }
-                      );*/
-                    },
-                  )
-                ],
-              )
-            ],
+                    InkWell(
+                      child: Container(
+                        width: 7.0.w,
+                        height: 3.0.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(3),
+                                bottomRight: Radius.circular(3)),
+                            border: Border.all(color: Colors.black.withOpacity(0.2))),
+                        child: Center(child: Text("+", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
+                      ),
+                      onTap: () {
+                       List<Items> items = new List<Items>();
+                       items.add(Items(inventoryId: item.items[indexShopItem].inventory.id,quantity: item.items[indexShopItem].quantity += 1));
+                        Usermanager().getUser().then((value) => bloc.UpdateCart(data: CartRequest(items: items,shopId: item.shopId),cartid:item.id ,token: value.token));
+                      },
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
+      onTap: (){
+        bloc.CartList.value.data[indexShop].items[indexShopItem].select = !item.items[indexShopItem].select;
+        bloc.CartList.add(bloc.CartList.value);
+        checkSelectAll(cartResponse: res);
+      },
     );
   }
 
@@ -484,11 +485,15 @@ class _MyCartViewState extends State<MyCartView> {
                         padding: EdgeInsets.only(left: 5.0.w),
                         child: Row(
                           children: [
-                            SvgPicture.asset(
+                            bloc.CartList.value.selectAll? SvgPicture.asset(
                               'assets/images/svg/checkmark.svg',
                               width: 6.0.w,
                               height: 6.0.w,
-                            ),
+                            ): SvgPicture.asset(
+                                'assets/images/svg/uncheckmark.svg',
+                                width: 6.0.w,
+                                height: 6.0.w,
+                                color: Colors.black.withOpacity(0.5)),
                             SizedBox(width: 3.0.w),
                             Text(LocaleKeys.cart_all.tr(),
                                 style: FunctionHelper.FontTheme(
@@ -509,7 +514,8 @@ class _MyCartViewState extends State<MyCartView> {
                 ],
               ),
               onTap: () {
-
+                bloc.CartList.value.selectAll = !bloc.CartList.value.selectAll;
+                setSelectAll(cartResponse: cartResponse);
 
               },
             ),
@@ -541,11 +547,11 @@ class _MyCartViewState extends State<MyCartView> {
                     flex: 2,
                     child: Container(
                       height: 7.0.h,
-                      color: ThemeColor.ColorSale(),
+                      color: checkSelectAll(cartResponse: cartResponse)?ThemeColor.ColorSale():Colors.grey,
                       child: FlatButton(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           onPressed: () {
-                            AppRoute.CartSummary(context);
+                            checkSelectAll(cartResponse: cartResponse)? AppRoute.CartSummary(context,cartResponse):print("");
                           },
                           child: Text(LocaleKeys.cart_check_out.tr(),
                               style: FunctionHelper.FontTheme(
@@ -566,27 +572,43 @@ class _MyCartViewState extends State<MyCartView> {
 
   int SumTotalPrice({CartResponse cartResponse}) {
     int sum = 0;
+    for(int i = 0;i<cartResponse.data.length;i++)
+      for(int j = 0;j<cartResponse.data[i].items.length;j++)
+      if(cartResponse.data[i].items[j].select){
+        sum += cartResponse.data[i].items[j].quantity * cartResponse.data[i].items[j].unitPrice;
+      } else sum += 0;
 
     return sum;
   }
+
   int SumQuantity({CartResponse cartResponse}){
     int sum = 0;
     for(int i = 0;i<cartResponse.data.length;i++) {
-
-
-
-
+      for(int j = 0;j<cartResponse.data[i].items.length;j++)
+        if(cartResponse.data[i].items[j].select){
+          sum += cartResponse.data[i].items[j].quantity;
+        }
     }
     return sum;
   }
 
-  int SumTotalItem({CartResponse cartResponse}) {
-    int sum = 0;
-
-    return sum;
+  bool checkSelectAll({CartResponse cartResponse}){
+    int count = 0,item = 0;
+    for(int i = 0;i<cartResponse.data.length;i++)
+      for (int j = 0; j < cartResponse.data[i].items.length; j++) {
+        bloc.CartList.value.data[i].items[j].select == true ? count += 1 : count += 0;
+        item+=1;
+      }
+        count == item? cartResponse.selectAll = true :cartResponse.selectAll = false;
+    if(count > 0) return true; else return false; ///check select checkbox -> pay btn
   }
 
-  void selectall({CartResponse cartResponse}) {
-
+  void setSelectAll({CartResponse cartResponse}){
+    for(int i = 0;i<cartResponse.data.length;i++) {
+      for (int j = 0; j < cartResponse.data[i].items.length; j++)
+        bloc.CartList.value.selectAll == true? bloc.CartList.value.data[i].items[j].select = true : bloc.CartList.value.data[i].items[j].select = false;
+        bloc.CartList.add(bloc.CartList.value);
+    }
   }
+
 }

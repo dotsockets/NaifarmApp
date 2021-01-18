@@ -3,8 +3,9 @@ import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 class CartResponse {
   List<CartData> data;
   int total;
+  bool selectAll =false;
 
-  CartResponse({this.data, this.total});
+  CartResponse({this.data, this.total,this.selectAll= false});
 
   CartResponse.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -230,6 +231,7 @@ class CartItems {
   int total;
   CartInventory inventory;
   bool select=false;
+
 
   CartItems(
       {this.itemDescription,

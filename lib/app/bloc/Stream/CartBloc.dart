@@ -23,11 +23,13 @@ class CartBloc {
   }
 
   GetCartlists({String token}){
+
     onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.GetCartlists(token: token)).listen((respone) {
-
+    //  var item = (respone.respone as CartRequest);
       if(respone.http_call_back.status==200){
+     //   onSuccess.add(item);
         onLoad.add(false);
         CartList.add(respone.respone);
       }else{
@@ -43,7 +45,7 @@ class CartBloc {
     Observable.fromFuture(_application.appStoreAPIRepository.DeleteCart(inventoryid: inventoryId,cartid: cartid,token: token)).listen((respone) {
 
        if(respone.http_call_back.status==200){
-        // CartList.add(CartList.value);
+        // CartList.add(CartResponse(data: CartList.value.data));
       }else{
 
          onError.add(respone.http_call_back.result.error.message);
@@ -52,6 +54,17 @@ class CartBloc {
     });
     _compositeSubscription.add(subscription);
   }
-
+  UpdateCart({CartRequest data,int cartid, String token}) async{
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.UpdateCart(data: data,cartid:cartid,token: token)).listen((respone) {
+      if(respone.http_call_back.status==200||respone.http_call_back.status == 201){
+        onLoad.add(false);
+        CartList.add(CartResponse(data: CartList.value.data));
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
 
 }
