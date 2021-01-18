@@ -8,6 +8,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/ui/mycart/widget/ModalFitBottom_Sheet.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
@@ -19,6 +20,10 @@ import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:sizer/sizer.dart';
 
 class CartSummaryView extends StatefulWidget {
+  final CartResponse item;
+
+  const CartSummaryView({Key key, this.item}) : super(key: key);
+
   @override
   _CartSummaryViewState createState() => _CartSummaryViewState();
 }
@@ -430,7 +435,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                       child: FlatButton(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         onPressed: () {
-                          AppRoute.CartSummary(context);
+                          //AppRoute.CartSummary(context,);
                         },
                         child: Text(LocaleKeys.cart_check_out.tr(),
                             style: FunctionHelper.FontTheme(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
@@ -121,8 +122,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView( Status_Sell: Status_Sell)));
   }
 
-  static  CartSummary(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CartSummaryView()));
+  static  CartSummary(BuildContext context,CartResponse item){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CartSummaryView(item:item)));
   }
 
   static  CartAaddres(BuildContext context){

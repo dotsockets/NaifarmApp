@@ -247,6 +247,9 @@ abstract class APIProvider{
   @DELETE("/v1/cart")
   Future<ApiResult> DELETECart({int cartid,int inventoryid,String token});
 
+  @PATCH("/v1/cart")
+  Future<ApiResult> UpdateCart(@Body() CartRequest data,int cartId,String token);
+
 }
 
 
