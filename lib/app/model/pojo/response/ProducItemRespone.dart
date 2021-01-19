@@ -384,19 +384,76 @@ class Values {
 
 class ShopItem {
   int id;
+  int ownerId;
   String name;
+  String legalName;
   String slug;
-  DataStates state;
+  String email;
+  String description;
+  String externalUrl;
+  int timezoneId;
+  String currentBillingPlan;
+  int stripeId;
+  String cardHolderName;
+  String cardBrand;
+  String cardLastFour;
+  String paymentVerified;
+  int idVerified;
+  String phoneVerified;
+  String addressVerified;
+  String createdAt;
   String updatedAt;
   List<ProductImage> image;
+  DataStates state;
+  int countProduct;
+  int rating;
 
-  ShopItem({this.id, this.name, this.slug, this.state, this.updatedAt, this.image});
+  ShopItem(
+      {this.id,
+        this.ownerId,
+        this.name,
+        this.legalName,
+        this.slug,
+        this.email,
+        this.description,
+        this.externalUrl,
+        this.timezoneId,
+        this.currentBillingPlan,
+        this.stripeId,
+        this.cardHolderName,
+        this.cardBrand,
+        this.cardLastFour,
+        this.paymentVerified,
+        this.idVerified,
+        this.phoneVerified,
+        this.addressVerified,
+        this.createdAt,
+        this.updatedAt,
+        this.image,
+        this.state,
+        this.countProduct,
+        this.rating});
 
   ShopItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    ownerId = json['ownerId'];
     name = json['name'];
+    legalName = json['legalName'];
     slug = json['slug'];
-    state = json['state'] != null ? new DataStates.fromJson(json['state']) : null;
+    email = json['email'];
+    description = json['description'];
+    externalUrl = json['externalUrl'];
+    timezoneId = json['timezoneId'];
+    currentBillingPlan = json['currentBillingPlan'];
+    stripeId = json['stripeId'];
+    cardHolderName = json['cardHolderName'];
+    cardBrand = json['cardBrand'];
+    cardLastFour = json['cardLastFour'];
+    paymentVerified = json['paymentVerified'];
+    idVerified = json['idVerified'];
+    phoneVerified = json['phoneVerified'];
+    addressVerified = json['addressVerified'];
+    createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
       image = new List<ProductImage>();
@@ -404,23 +461,45 @@ class ShopItem {
         image.add(new ProductImage.fromJson(v));
       });
     }
+    state = json['state'] != null ? new DataStates.fromJson(json['state']) : null;
+    countProduct = json['countProduct'];
+    rating = json['rating'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['ownerId'] = this.ownerId;
     data['name'] = this.name;
+    data['legalName'] = this.legalName;
     data['slug'] = this.slug;
-    if (this.state != null) {
-      data['state'] = this.state.toJson();
-    }
+    data['email'] = this.email;
+    data['description'] = this.description;
+    data['externalUrl'] = this.externalUrl;
+    data['timezoneId'] = this.timezoneId;
+    data['currentBillingPlan'] = this.currentBillingPlan;
+    data['stripeId'] = this.stripeId;
+    data['cardHolderName'] = this.cardHolderName;
+    data['cardBrand'] = this.cardBrand;
+    data['cardLastFour'] = this.cardLastFour;
+    data['paymentVerified'] = this.paymentVerified;
+    data['idVerified'] = this.idVerified;
+    data['phoneVerified'] = this.phoneVerified;
+    data['addressVerified'] = this.addressVerified;
+    data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     if (this.image != null) {
       data['image'] = this.image.map((v) => v.toJson()).toList();
     }
+    if (this.state != null) {
+      data['state'] = this.state.toJson();
+    }
+    data['countProduct'] = this.countProduct;
+    data['rating'] = this.rating;
     return data;
   }
 }
+
 
 class Categories {
   Category category;

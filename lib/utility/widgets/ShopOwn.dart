@@ -18,7 +18,7 @@ import '../SizeUtil.dart';
 import 'ProductLandscape.dart';
 
 class ShopOwn extends StatelessWidget {
-  final MyShopRespone shopItem;
+  final ShopItem shopItem;
 
   const ShopOwn({Key key,  this.shopItem}) : super(key: key);
   @override

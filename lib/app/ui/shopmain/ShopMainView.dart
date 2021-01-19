@@ -107,7 +107,7 @@ class _ShopMainViewState extends State<ShopMainView>
                                   SliverList(
                                     delegate: SliverChildListDelegate(
                                         <Widget>[
-                                             ShopOwn(shopItem: (snapshot.data as ZipShopObjectCombin).shopRespone)
+                                           //  ShopOwn(shopItem: (snapshot.data as ZipShopObjectCombin).shopRespone)
                                         ]
                                     ),
                                   ),

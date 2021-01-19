@@ -134,7 +134,7 @@ class ProductBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending(page,10)).listen((respone) {
       if(respone.http_call_back.status==200){
-        TrendingGroup.add((respone.respone as ProductRespone));
+        TrendingGroup.add(respone.respone);
       }
 
     });
@@ -239,23 +239,36 @@ class ProductBloc{
 
 
 
-  loadProductsById({int id,int shopid,String token}){
+  loadProductsById({int id,String token}){
 
-    StreamSubscription subscription = Observable.combineLatest3(
-        Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)),
-        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)),
-        Observable.fromFuture(_application.appStoreAPIRepository.ShopById(id: shopid)),(a, b,c){
-      final _product = (a as ApiResult).respone;
-      final _recommend  =(b as ApiResult).respone;
-      final _shop  =(c as ApiResult).respone;
-      return ProductDetailObjectCombine(productItem: _product,recommend: _recommend,shopRespone: _shop);
 
-    }).listen((event) {
-      ZipProductDetail.add(event);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)).listen((respone) {
+      if(respone.http_call_back.status==200){
+       // GetMyWishlists(token: token);
+        ProductItem.add(respone.respone);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
     });
     _compositeSubscription.add(subscription);
 
 
+  }
+
+  ShopById({int shopid,String token}){
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.ShopById(id: shopid)).listen((respone) {
+      if(respone.http_call_back.status==200){
+        GetMyWishlists(token: token);
+        onSuccess.add(true);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
   }
 
 
