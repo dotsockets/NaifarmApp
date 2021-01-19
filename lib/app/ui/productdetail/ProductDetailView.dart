@@ -177,36 +177,39 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                     StreamBuilder<Object>(
                         stream: checkScrollControl.stream,
                         builder: (context, snapshot) {
-                          return snapshot.data?Positioned(
-                            bottom: 0.0,
-                            right: 0.0,
-                            left: 0.0,
-                            child: Container(
-                              color: Colors.white,
-                              child: StreamBuilder(
-                                stream: bloc.Wishlists.stream,
-                                builder: (BuildContext context,AsyncSnapshot snapshot){
-                                  if(snapshot.hasData){
-                                    if((snapshot.data as WishlistsRespone).total>0){
-                                      return  FadeTransition(
-                                        ///Providing our animation to opacity property
-                                        opacity: _animation,
-                                        child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
-                                      );
-                                    }else{
-                                      return  FadeTransition(
-                                        opacity: _animation,
-                                        child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
-                                      );
-                                    }
+                          if(snapshot.hasData){
+                            return Positioned(
+                              bottom: 0.0,
+                              right: 0.0,
+                              left: 0.0,
+                              child: Container(
+                                color: Colors.white,
+                                child: StreamBuilder(
+                                  stream: bloc.Wishlists.stream,
+                                  builder: (BuildContext context,AsyncSnapshot snapshot){
+                                    if(snapshot.hasData){
+                                      if((snapshot.data as WishlistsRespone).total>0){
+                                        return  FadeTransition(
+                                          ///Providing our animation to opacity property
+                                          opacity: _animation,
+                                          child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
+                                        );
+                                      }else{
+                                        return  FadeTransition(
+                                          opacity: _animation,
+                                          child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
+                                        );
+                                      }
 
-                                  }else{
-                                    return SizedBox();
-                                  }
-                                },
+                                    }else{
+                                      return SizedBox();
+                                    }
+                                  },
+                                ),
                               ),
-                            ),
-                          ):SizedBox();
+                            );
+                          }
+                          return SizedBox();
                         })
                   ],
                 ),
@@ -320,7 +323,7 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                   bloc.Wishlists.add(item);
                   Usermanager().getUser().then((value) => bloc.DELETEWishlists(WishId:id,token: value.token));
                 }else{
-                  Usermanager().getUser().then((value) => bloc.AddWishlists(productId: widget.productItem.id,inventoryId: bloc.ZipProductDetail.value.productItem.inventories[0].id,token: value.token));
+                  Usermanager().getUser().then((value) => bloc.AddWishlists(productId: widget.productItem.id,inventoryId: bloc.ProductItem.value.inventories[0].id,token: value.token));
                   item.data = [];
                   item.total = 1;
                   bloc.Wishlists.add(item);
@@ -331,12 +334,17 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                 flex: 2,
                 child: InkWell(
                   onTap:(){
-                    List<Items> items = new List<Items>();
-                    items.add(Items(inventoryId: bloc.ZipProductDetail.value.productItem.inventories[0].id,quantity: 1));
-                    Usermanager().getUser().then((value) => bloc.AddCartlists(cartRequest: CartRequest(
-                      shopId: widget.productItem.shop.id,
-                      items:items,
-                    ),token: value.token));
+                    if(bloc.ProductItem.value.inventories[0].stockQuantity>0){
+                      List<Items> items = new List<Items>();
+                      items.add(Items(inventoryId: bloc.ProductItem.value.inventories[0].id,quantity: 1));
+                      Usermanager().getUser().then((value) => bloc.AddCartlists(cartRequest: CartRequest(
+                        shopId: widget.productItem.shop.id,
+                        items:items,
+                      ),token: value.token));
+                    }else{
+                      FunctionHelper.FailDialog(context,message: "ไม่สามารถทำรายการได้เนื่องจากไม่มีสินค้าในร้านในขณะนี้ กรุณาติดต่อกับทางร้าน");
+                    }
+
                   },
                   child: Container(
                       alignment: Alignment.center,

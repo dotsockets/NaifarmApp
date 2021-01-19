@@ -389,6 +389,39 @@ class FunctionHelper {
       onClick();
     });
   }
+
+  static FailDialog(BuildContext context, {Function() onClick,String message}) {
+    showDialog<bool>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return GestureDetector(
+          child: Dialog(
+            child: Container(
+              padding: EdgeInsets.all(30),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('assets/images/svg/fail-circle.svg',color: ThemeColor.ColorSale(),width: 50,height: 50,),
+                  SizedBox(height: 15,),
+                  Text(message,
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          onTap: ()=>onClick(),
+        );
+      },
+    ).then((value){
+      onClick();
+    });
+  }
+
+
   static int flashSaleTime({String timeFlash}){
 
     final year = int.parse(timeFlash.substring(0, 4));

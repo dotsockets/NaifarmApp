@@ -101,7 +101,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${widget.productItem!=null?widget.productItem.inventories[0].stockQuantity:0} ชิ้น",
+                      "${widget.productItem.inventories!=null?widget.productItem.inventories[0].stockQuantity:0} ชิ้น",
                       style: FunctionHelper.FontTheme( fontWeight: FontWeight.w500,
                           color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),

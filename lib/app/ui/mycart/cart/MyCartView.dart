@@ -65,7 +65,7 @@ class _MyCartViewState extends State<MyCartView> {
 
     Usermanager()
         .getUser()
-        .then((value) => bloc.GetCartlists(token: value.token));
+        .then((value) => bloc.GetCartlists(token: value.token,cartActive: CartActive.CartList));
 
   }
   @override
@@ -221,6 +221,7 @@ class _MyCartViewState extends State<MyCartView> {
                           //  bloc.deleteData.add(item);
                             // print("dsfdsfdsf ${item.items[indexItem].inventory.id} dsfds ${item.items[indexItem].inventory.title} --- "+indexItem.toString()+"***"+index.toString());
                            // for(var item in bloc.deleteData) {
+
                                Usermanager().getUser().then((value) => bloc.DeleteCart(cartid: item.id, inventoryId: item.items[indexItem].inventory.id, token: value.token));
                            // }
                             //  item.items.removeAt(index);
@@ -258,6 +259,8 @@ class _MyCartViewState extends State<MyCartView> {
               width: 7.0.w,
               height: 7.0.w,
               placeholder: (context, url) => Container(
+                width: 7.0.w,
+                height: 7.0.w,
                 color: Colors.white,
                 child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
               ),
@@ -265,10 +268,13 @@ class _MyCartViewState extends State<MyCartView> {
               imageUrl: ProductLandscape.CovertUrlImage(
                   item.image),
               errorWidget: (context, url, error) => Container(
-                  height: 30,
+                width: 7.0.w,
+                height: 7.0.w,
+                color: Colors.grey.shade300,
                   child: Icon(
-                    Icons.error,
-                    size: 30,
+                    Icons.person,
+                    size: 5.0.w,
+                    color: Colors.white,
                   )),
             ),
           ),
@@ -349,13 +355,13 @@ class _MyCartViewState extends State<MyCartView> {
                         Row(
                           children: [
                          //   item.ProductDicount != 0 ?
-                            item.items[indexShopItem].inventory.offerPrice!=null?Text("฿${item.items[indexShopItem].inventory.offerPrice}",
+                            item.items[indexShopItem].inventory.offerPrice!=null?Text("฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}",
                                     style: FunctionHelper.FontTheme(
                                         fontSize: SizeUtil.priceFontSize().sp,
                                         decoration: TextDecoration.lineThrough)):SizedBox(),
                                 //: SizedBox(),
                             SizedBox(width: item.items[indexShopItem].inventory.offerPrice!=null?2.0.w:0),
-                            Text("฿${item.items[indexShopItem].inventory.salePrice}",
+                            Text("฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.priceFontSize().sp, color: ThemeColor.ColorSale()))
                           ],
@@ -378,11 +384,8 @@ class _MyCartViewState extends State<MyCartView> {
                                 bottomLeft: Radius.circular(3))),
                         child: Center(child: Text("-", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp,color: item.items[indexShopItem].quantity >1? Colors.black:Colors.grey))),
                       ),
-                      onTap: () {
-                        List<Items> items = new List<Items>();
-                        items.add(Items(inventoryId: item.items[indexShopItem].inventory.id,quantity: item.items[indexShopItem].quantity >1 ?item.items[indexShopItem].quantity -= 1:1));
-                        Usermanager().getUser().then((value) => bloc.UpdateCart(data: CartRequest(items: items,shopId: item.shopId),cartid:item.id ,token: value.token));
-                      },
+                        onTap: ()=> Usermanager().getUser().then((value) => bloc.CartDeleteQuantity(item: item,indexShop: indexShop,indexShopItem: indexShopItem,token: value.token)),
+
                     ),
                     Container(
                       width: 7.0.w,
@@ -403,11 +406,7 @@ class _MyCartViewState extends State<MyCartView> {
                             border: Border.all(color: Colors.black.withOpacity(0.2))),
                         child: Center(child: Text("+", style: TextStyle(fontSize: SizeUtil.titleFontSize().sp))),
                       ),
-                      onTap: () {
-                       List<Items> items = new List<Items>();
-                       items.add(Items(inventoryId: item.items[indexShopItem].inventory.id,quantity: item.items[indexShopItem].quantity += 1));
-                        Usermanager().getUser().then((value) => bloc.UpdateCart(data: CartRequest(items: items,shopId: item.shopId),cartid:item.id ,token: value.token));
-                      },
+                      onTap: ()=> Usermanager().getUser().then((value) => bloc.CartPositiveQuantity(item: item,indexShop: indexShop,indexShopItem: indexShopItem,token: value.token)),
                     )
                   ],
                 )
@@ -423,6 +422,9 @@ class _MyCartViewState extends State<MyCartView> {
       },
     );
   }
+
+
+
 
   Widget _Buildcoupon(){
     return Container(
@@ -538,7 +540,7 @@ class _MyCartViewState extends State<MyCartView> {
                     child: Container(
                         alignment: Alignment.topRight,
                         margin: EdgeInsets.only(right: 2.0.w),
-                        child: Text("฿${SumTotalPrice(cartResponse: cartResponse)}",
+                        child: Text("฿${NumberFormat("#,##0.00", "en_US").format(SumTotalPrice(cartResponse: cartResponse))}",
                             style: FunctionHelper.FontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.bold,

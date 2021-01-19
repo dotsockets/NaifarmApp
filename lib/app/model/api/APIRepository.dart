@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
+import 'package:naifarm/app/model/pojo/request/OrderRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
@@ -316,6 +317,14 @@ class APIRepository{
 
   Future<ApiResult> GetNotificationByGroup({String group, int page,String sort, int limit, String token}){
     return _apiProvider.GetNotificationByGroup(group: group,limit: limit,page: page,sort: sort ,token: token);
+  }
+
+  Future<ApiResult> CreateOrder({OrderRequest orderRequest, String token}){
+    return _apiProvider.CreateOrder(orderRequest: orderRequest,token: token);
+  }
+
+  Future<ApiResult> GetShippings({int shopId}){
+    return _apiProvider.GetShippings(shopId: shopId);
   }
 
 

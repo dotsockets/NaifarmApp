@@ -2,7 +2,7 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 class CartResponse {
   List<CartData> data;
-  int total;
+  String total;
   bool selectAll =false;
 
   CartResponse({this.data, this.total,this.selectAll= false});
@@ -14,7 +14,12 @@ class CartResponse {
         data.add(new CartData.fromJson(v));
       });
     }
-    total = json['total'];
+    if(json['total'] is int){
+      total = json['total'].toString();
+    }else{
+      total =  json['total'];
+    }
+
   }
 
   Map<String, dynamic> toJson() {

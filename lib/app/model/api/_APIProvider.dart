@@ -1617,6 +1617,51 @@ class _APIProvider implements APIProvider {
     }
   }
 
+  @override
+  Future<ApiResult> CreateOrder({OrderRequest orderRequest, String token}) async{
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/order',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: orderRequest);
+      return ApiResult(respone: OrderData.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> GetShippings({int shopId}) async{
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+
+
+      final _result = await _dio.request<dynamic>('/v1/shop/${shopId}/shippings',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{},
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: ShippingsRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
 
 
 

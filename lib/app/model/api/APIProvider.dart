@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
+import 'package:naifarm/app/model/pojo/request/OrderRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
@@ -40,6 +41,7 @@ import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
@@ -276,6 +278,12 @@ abstract class APIProvider{
 
   @PATCH("/v1/cart")
   Future<ApiResult> UpdateCart(@Body() CartRequest data,int cartId,String token);
+
+  @POST("/v1/order")
+  Future<ApiResult> CreateOrder({OrderRequest orderRequest,String token});
+
+  @GET("/v1/shop/1/shippings")
+  Future<ApiResult> GetShippings({int shopId});
 }
 
 
