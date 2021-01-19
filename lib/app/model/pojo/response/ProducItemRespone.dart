@@ -20,7 +20,7 @@ class ProducItemRespone {
   int downloadable;
   String slug;
   int saleCount;
-  List<Inventories> inventories;
+  List<InventoriesProduct> inventories;
   ShopItem shop;
   List<Categories> categories;
   List<ProductImage> image;
@@ -71,9 +71,9 @@ class ProducItemRespone {
     slug = json['slug'];
     saleCount = json['saleCount'];
     if (json['inventories'] != null) {
-      inventories = new List<Inventories>();
+      inventories = new List<InventoriesProduct>();
       json['inventories'].forEach((v) {
-        inventories.add(new Inventories.fromJson(v));
+        inventories.add(new InventoriesProduct.fromJson(v));
       });
     }
     shop = json['shop'] != null ? new ShopItem.fromJson(json['shop']) : null;
@@ -131,7 +131,7 @@ class ProducItemRespone {
   }
 }
 
-class Inventories {
+class InventoriesProduct {
   int id;
   String title;
   int warehouseId;
@@ -161,7 +161,7 @@ class Inventories {
   int rating;
   int reviewCount;
 
-  Inventories(
+  InventoriesProduct(
       {this.id,
         this.title,
         this.warehouseId,
@@ -191,7 +191,7 @@ class Inventories {
         this.rating,
         this.reviewCount});
 
-  Inventories.fromJson(Map<String, dynamic> json) {
+  InventoriesProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     warehouseId = json['warehouseId'];

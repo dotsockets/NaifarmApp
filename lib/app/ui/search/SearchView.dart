@@ -98,6 +98,7 @@ class _SearchViewState extends State<SearchView> {
                                                 fontSize: SizeUtil
                                                         .titleSmallFontSize()
                                                     .sp)),
+                                        width: MediaQuery.of(context).size.width,
                                       ),
                                       onTap: () {
                                         var item = (snapshot.data as SearchRespone).hits[index];

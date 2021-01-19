@@ -31,6 +31,7 @@ import 'package:naifarm/app/ui/me/editmyproduct/EditProductView.dart';
 import 'package:naifarm/app/ui/me/imageproduct/ImageProductView.dart';
 import 'package:naifarm/app/ui/me/mynewproduct/MyNewProductView.dart';
 import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
+import 'package:naifarm/app/ui/me/myproduct/productDetailShop/ProductDetailShop.dart';
 import 'package:naifarm/app/ui/me/myproductaddtype/ProductAddTypeView.dart';
 import 'package:naifarm/app/ui/me/myproductsetprice/ProductSetPriceView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/MyOrderHistoryView.dart';
@@ -152,6 +153,9 @@ class AppRoute{
       Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
     }
 
+  }
+  static ProductDetailShop(BuildContext context,int productId){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ProductDetailShopView(productId:productId)));
   }
   static MyNewProduct(BuildContext context,{IsActive isActive}){
 

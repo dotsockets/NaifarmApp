@@ -92,9 +92,8 @@ class _MyProductViewState extends State<MyProductView> {
                           );
                         }else if(snapshot.connectionState == ConnectionState.waiting){
                           return Container(
-                            margin: EdgeInsets.only(bottom: 15.0.h),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Skeleton.LoaderListTite(context)
                               ],
@@ -102,8 +101,9 @@ class _MyProductViewState extends State<MyProductView> {
                           );
                         }else{
                           return Container(
-                            margin: EdgeInsets.only(bottom: 15.0.h),
+                            width: MediaQuery.of(context).size.width,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Lottie.asset('assets/json/boxorder.json',
@@ -173,30 +173,35 @@ class _MyProductViewState extends State<MyProductView> {
               children: [
                 Stack(
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(1),
-                      margin: EdgeInsets.only(right: 10,bottom: 10,top: 10),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.black.withOpacity(0.2), width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Hero(
-                        tag: "myproduct_${index}",
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(1.0.h),
-                          child: CachedNetworkImage(
-                            width: 40.0.w,
-                            height: 30.0.w,
-                            placeholder: (context, url) => Container(
+                    InkWell(
+                      onTap: (){
+                        AppRoute.ProductDetailShop(context, item.id);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(1),
+                        margin: EdgeInsets.only(right: 10,bottom: 10,top: 10),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.black.withOpacity(0.2), width: 1),
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                        child: Hero(
+                          tag: "myproduct_${index}",
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(1.0.h),
+                            child: CachedNetworkImage(
                               width: 40.0.w,
                               height: 30.0.w,
-                              color: Colors.white,
-                              child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                              placeholder: (context, url) => Container(
+                                width: 40.0.w,
+                                height: 30.0.w,
+                                color: Colors.white,
+                                child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                              ),
+                              fit: BoxFit.cover,
+                              imageUrl: item.image.isNotEmpty?"${Env.value.baseUrl}/storage/images/${item.image[0].path}":'',
+                              errorWidget: (context, url, error) => Container( width: 40.0.w,
+                                height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                             ),
-                            fit: BoxFit.cover,
-                            imageUrl: item.image.isNotEmpty?"${Env.value.baseUrl}/storage/images/${item.image[0].path}":'',
-                            errorWidget: (context, url, error) => Container( width: 40.0.w,
-                              height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                           ),
                         ),
                       ),
@@ -353,10 +358,13 @@ class _MyProductViewState extends State<MyProductView> {
                           color: ThemeColor.ColorSale(),
                         ),
                         onTap: (){
-                          bloc.ProductMyShop.value.data.removeAt(index);
-                          bloc.ProductMyShop.add(bloc.ProductMyShop.value);
-                          Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(ProductId: item.id,token: value.token));
-                        },
+                          FunctionHelper.ConfirmDialog(context,message: LocaleKeys.dialog_message_del_product.tr(),onClick: (){
+                            bloc.ProductMyShop.value.data.removeAt(index);
+                            bloc.ProductMyShop.add(bloc.ProductMyShop.value);
+                            Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(ProductId: item.id,token: value.token));
+                            Navigator.of(context).pop();
+                          },);
+                          },
                       ),
                     ),
                   ],

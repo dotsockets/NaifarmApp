@@ -19,8 +19,9 @@ import 'ProductLandscape.dart';
 
 class ShopOwn extends StatelessWidget {
   final ShopItem shopItem;
+  final MyShopRespone shopRespone;
 
-  const ShopOwn({Key key,  this.shopItem}) : super(key: key);
+  const ShopOwn({Key key, this.shopItem,this.shopRespone}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -92,10 +93,10 @@ class ShopOwn extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     onPressed: () {
-                      AppRoute.Followers(context);
+                      AppRoute.ShopMain(context: context,myShopRespone: shopRespone);
                     },
                     child: Text(
-                      LocaleKeys.shop_follow.tr(),
+                      LocaleKeys.shop_title.tr(),
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
                     ),
                   ),

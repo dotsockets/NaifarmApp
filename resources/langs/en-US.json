@@ -160,6 +160,7 @@
   "dialog_message":{
     "del_account": "We are sad that you want to leave us, but please note that account deletion is irreversible",
     "phone_edit_cancel": "Do you want to leave the bind phone number process",
+    "del_product": "Do you want to delete product",
     "mail_change_cancel": "Do you want to leave email change",
     "password_success": "Change Password Success",
     "loading": "Loading..."

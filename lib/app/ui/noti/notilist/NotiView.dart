@@ -94,6 +94,9 @@ class _NotiViewState extends State<NotiView> with SingleTickerProviderStateMixin
                       color: ThemeColor.primaryColor(),
                     ),
                     labelColor: Colors.white,
+                    labelStyle: FunctionHelper.FontTheme(
+                        fontWeight: FontWeight.bold,
+                        fontSize: SizeUtil.titleFontSize().sp),
                     unselectedLabelColor: Colors.black,
                     tabs: [
                       // first tab [you can add an icon using the icon property]
