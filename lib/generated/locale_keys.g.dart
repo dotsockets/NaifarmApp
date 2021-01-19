@@ -140,6 +140,7 @@ abstract class  LocaleKeys {
   static const buy_product_again_btn = 'buy_product_again_btn';
   static const dialog_message_del_account = 'dialog_message.del_account';
   static const dialog_message_phone_edit_cancel = 'dialog_message.phone_edit_cancel';
+  static const dialog_message_del_product = 'dialog_message.del_product';
   static const dialog_message_mail_change_cancel = 'dialog_message.mail_change_cancel';
   static const dialog_message_password_success = 'dialog_message.password_success';
   static const dialog_message_loading = 'dialog_message.loading';

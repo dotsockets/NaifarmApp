@@ -167,6 +167,7 @@ class CodegenLoader extends AssetLoader{
   "dialog_message": {
     "del_account": "We are sad that you want to leave us, but please note that account deletion is irreversible",
     "phone_edit_cancel": "Do you want to leave the bind phone number process",
+    "del_product": "Do you want to delete product",
     "mail_change_cancel": "Do you want to leave email change",
     "password_success": "Change Password Success",
     "loading": "Loading..."
@@ -521,6 +522,7 @@ static const Map<String,dynamic> th_TH = {
   "buy_product_again_btn": "ซื้อสินค้าอีกครั้ง",
   "dialog_message": {
     "del_account": "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หากคุณต้องการลบจะไม่สามารถกู้คืนได้",
+    "del_product": "คุณต้องการที่จะลบสินค้าที่คุณเลือก ใช่หรือไม่",
     "phone_edit_cancel": "คุณต้องการออกจากการเปลี่ยนแปลงเบอร์โทรศัพท์ใช่หรือไม่",
     "change_mail": "คุณต้องการออกจากการเปลี่ยนแปลงอีเมลใช่หรือไม่",
     "password_success": "เปลี่ยนรหัสผ่านสำเร็จ",
@@ -626,7 +628,7 @@ static const Map<String,dynamic> th_TH = {
     "category": "หมวดหมู่",
     "detail": "รายละเอียดร้าน",
     "rate": "คะแนนที่ได้",
-    "follow": "ตืดตาม",
+    "follow": "ติดตาม",
     "following": "กำลังติดตาม",
     "follower": "ผู้ติดตาม",
     "product_list": "รายการสินค้า",

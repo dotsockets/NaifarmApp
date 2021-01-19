@@ -329,6 +329,23 @@ class UploadProductBloc {
     _compositeSubscription.add(subscription);
   }
 
+  GetProductDetailShop({int ProductId, String token}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application
+        .appStoreAPIRepository
+        .GetProductIDMyShop(ProductId: ProductId, token: token))
+        .listen((respone) {
+      onLoad.add(false);
+      if (respone.http_call_back.status == 200) {
+       onLoad.add(false);
+       onSuccess.add((respone.respone as ProductMyShopRespone));
+      } else {
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+
+    _compositeSubscription.add(subscription);
+  }
   int CountSelectImage() {
     var number = 0;
     for (var item in ItemImage) {
