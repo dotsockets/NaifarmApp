@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
@@ -30,16 +32,20 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
   bool IsLogin = true;
   final _selectedIndex = BehaviorSubject<int>();
 
-
+  NotiBloc bloc;
 
 
   init(){
-    _menuViewModel = MenuViewModel().getTabBarMenus();
-    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-    NaiFarmLocalStorage.getNowPage().then((value){
-      _selectedIndex.add(value);
-      NaiFarmLocalStorage.saveNowPage(0);
-    });
+    if(bloc==null){
+      Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+      _menuViewModel = MenuViewModel().getTabBarMenus();
+      bloc = NotiBloc(AppProvider.getApplication(context));
+      NaiFarmLocalStorage.getNowPage().then((value){
+        _selectedIndex.add(value);
+        NaiFarmLocalStorage.saveNowPage(0);
+      });
+    }
+
   }
 
   @override
@@ -91,18 +97,19 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                         menuViewModel: _menuViewModel,
                         selectedIndex: snapshot.data,
                         onTap: (index) {
+                          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
                           if(index==2){
                             Usermanager().isLogin().then((value) async {
                               if(!value){
-                                NaiFarmLocalStorage.saveNowPage(2);
+                                NaiFarmLocalStorage.saveNowPage(index);
                                 final result = await  AppRoute.Login(context,IsCallBack: true);
-                                if(result){
-                                  AppRoute.MyCart(context, true);
-                                  _selectedIndex.add(index);
-                                }else{
-                                  NaiFarmLocalStorage.saveNowPage(0);
-                                }
                               }else{
+
+                                Usermanager().getUser().then((value){
+                                  bloc.MarkAsReadNotifications(token: value.token);
+                                });
+
+
                                 // AppRoute.MyCart(context, true);
                                 _selectedIndex.add(index);
                               }

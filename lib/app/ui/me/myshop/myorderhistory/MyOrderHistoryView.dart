@@ -5,6 +5,7 @@ import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/OrderBloc.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
@@ -25,8 +26,9 @@ import 'delivery/DeliveryView.dart';
 class MyOrderHistoryView extends StatelessWidget {
   final int index;
   final String orderType;
+  final bool callback ;
 
-  MyOrderHistoryView({Key key, this.index, this.orderType}) : super(key: key);
+  MyOrderHistoryView({Key key, this.index, this.orderType, this.callback}) : super(key: key);
 
   int tab_count = 6;
 
@@ -40,7 +42,13 @@ class MyOrderHistoryView extends StatelessWidget {
         appBar: AppToobar(
           title: LocaleKeys.me_title_history_shop.tr(),
           header_type: Header_Type.barNormal,
-          icon: '',
+          icon: '',onClick: (){
+            if(callback){
+              AppRoute.PoppageCount(context: context,countpage: 4);
+            }else{
+              AppRoute.PoppageCount(context: context,countpage: 1);
+            }
+        },
         ),
         body: SafeArea(
           child: Container(
@@ -88,7 +96,7 @@ class MyOrderHistoryView extends StatelessWidget {
                         PaidView(orderType: orderType,),
                         ShippedView(orderType: orderType,),
                         DeliveryView(orderType: orderType,),
-                        SuccessView(orderType: orderType,),
+                        SuccessView(orderType: "order/waiting-review",),
                         CanceledView(orderType: orderType,),
                         RefundView(orderType: orderType,)
                       ],

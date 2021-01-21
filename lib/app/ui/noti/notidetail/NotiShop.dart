@@ -133,7 +133,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(item.meta.status,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+                          Text(item.meta.status.toString(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
                           SizedBox(height: 5),
                           //NotiViewModel().GetStatusMessage(status: item)
                           Text("คุณได้ทำรายการสั่งซื้อสินค้า หมายเลขคำสั่งซื้อ ${item.meta.order}  ")

@@ -8,6 +8,7 @@ import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 import 'BuildIconShop.dart';
@@ -132,7 +133,12 @@ class AppToobar extends PreferredSize {
                     size: 7.0.w,
                     notification: count.countLoaded.notification.unreadCustomer,
                   );
-                } else {
+                } else if(count is CustomerCountLoading){
+                  return BuildIconShop(
+                    notification: 1,
+                    size: 3.0.h,
+                  );
+                }else {
                   return BuildIconShop(
                     size: 7.0.w,
                     notification: 0,
@@ -180,8 +186,8 @@ class AppToobar extends PreferredSize {
                   color: ThemeColor.primaryColor(),
                   borderRadius: BorderRadius.all(Radius.circular(40))),
               child: BuildIconShop(
-                size: ScreenUtil().setWidth(65),
                 notification: 0,
+                size: 3.0.h,
               ),
             )
           ],
@@ -261,20 +267,9 @@ class AppToobar extends PreferredSize {
               visible: isEnable_Search ? false : true,
             ),
             _buildSearch(isEnable_Search ? false : true, context),
-            BlocBuilder<CustomerCountBloc, CustomerCountState>(
-              builder: (_, count) {
-                if (count is CustomerCountLoaded) {
-                  return BuildIconShop(
-                    notification: count.countLoaded.notification.unreadCustomer,
-                    size: 3.0.h,
-                  );
-                } else {
-                  return BuildIconShop(
-                    notification: 0,
-                    size: 3.0.h,
-                  );
-                }
-              },
+            BuildIconShop(
+              notification: 0,
+              size: 3.0.h,
             )
           ],
         ),

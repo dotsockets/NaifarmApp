@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -25,10 +27,17 @@ class RecommendMenu extends StatelessWidget {
   final List<MenuModel> _menuViewModel = MenuViewModel().getRecommendmenu();
 
    RecommendMenu({Key key, this.homeObjectCombine}) : super(key: key);
+  NotiBloc bloc;
+
+  init(BuildContext context){
+    bloc = NotiBloc(AppProvider.getApplication(context));
+
+  }
 
 
   @override
   Widget build(BuildContext context) {
+    init(context);
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.only(top: 2.0.h),
@@ -39,6 +48,13 @@ class RecommendMenu extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: _menuViewModel.asMap().map((key, value){
                     return MapEntry(key, _menuBox(item: value,index: key,notification: count.countLoaded.notification.unreadShop+count.countLoaded.notification.unreadCustomer,context: context));
+                  }).values.toList(),
+                );
+              }else if(count is CustomerCountLoading){
+                return  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _menuViewModel.asMap().map((key, value){
+                    return MapEntry(key, _menuBox(item: value,index: key,notification: count.countLoaded!=null?count.countLoaded.notification.unreadCustomer+count.countLoaded.notification.unreadShop:0,context: context));
                   }).values.toList(),
                 );
               }else{
@@ -104,7 +120,12 @@ class RecommendMenu extends StatelessWidget {
         break;
         case  "SpecialproductsView" : AppRoute.ProductMore(installData: homeObjectCombine.trendingRespone,api_link: "products/types/popular",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr());
         break;
-        case  "NotiView" :  AppRoute.MyNoti(context,true);
+        case  "NotiView" :  {
+          AppRoute.MyNoti(context,true);
+          Usermanager().getUser().then((value){
+            bloc.MarkAsReadNotifications(token: value.token);
+          });
+        }
         break;
         case  "MyLikeView" : {
 

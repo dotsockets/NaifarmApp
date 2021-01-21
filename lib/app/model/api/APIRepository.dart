@@ -327,6 +327,11 @@ class APIRepository{
     return _apiProvider.GetShippings(shopId: shopId);
   }
 
+  Future<ApiResult> MarkAsReadNotifications({String token}){
+    return _apiProvider.MarkAsReadNotifications(token: token);
+  }
+
+
 
 
 

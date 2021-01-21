@@ -41,6 +41,7 @@ class Env {
         child: BlocProvider(
           create: (_) => CustomerCountBloc(application),
           child: AppComponent(application),
-        )));
+        )),
+    );
   }
 }

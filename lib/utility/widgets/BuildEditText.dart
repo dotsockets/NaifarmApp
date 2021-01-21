@@ -21,8 +21,9 @@ class BuildEditText extends StatefulWidget {
   final Function(String) onChanged;
   final String onError;
   final bool readOnly;
+  final String initialValue;
 
-  const BuildEditText({Key key, this.head="", this.hint, this.maxLength=30, this.controller, this.inputType,this.maxLine=1, this.BorderOpacity=0.5, this.IsPassword=false, this.EnableMaxLength=false, this.borderRadius=10, this.onChanged, this.onError="", this.readOnly=false}) : super(key: key);
+  const BuildEditText({Key key, this.head="", this.hint, this.maxLength=30, this.controller, this.inputType,this.maxLine=1, this.BorderOpacity=0.5, this.IsPassword=false, this.EnableMaxLength=false, this.borderRadius=10, this.onChanged, this.onError="", this.readOnly=false, this.initialValue}) : super(key: key);
   @override
   _BuildEditTextState createState() => _BuildEditTextState();
 }
@@ -60,6 +61,7 @@ class _BuildEditTextState extends State<BuildEditText> {
               keyboardType: widget.inputType,
               maxLines: widget.maxLine,
               controller: widget.controller,
+              initialValue: widget.initialValue,
               readOnly: widget.readOnly,
               inputFormatters: [
                 widget.inputType == TextInputType.number?FilteringTextInputFormatter.digitsOnly:FilteringTextInputFormatter.deny(' ')

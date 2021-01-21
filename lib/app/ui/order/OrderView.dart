@@ -426,7 +426,7 @@ class _OrderViewState extends State<OrderView> {
   Widget _ButtonActive({BuildContext context,OrderData orderData}){
 
       return Container(
-        margin: EdgeInsets.only(bottom: 10),
+        margin: EdgeInsets.only(bottom: 10,top: 10),
         child: Center(
           child: FlatButton(
             minWidth: 50.0.w,

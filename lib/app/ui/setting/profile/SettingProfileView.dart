@@ -210,7 +210,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () {
-        Usermanager().logout().then((value) => Navigator.of(context).pop());
+        Usermanager().logout().then((value) =>  Navigator.pop(context,true));
       },
       child: Text(
         btnTxt,

@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
@@ -20,6 +21,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NotiCus extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -37,7 +39,16 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
       bloc.onError.stream.listen((event) {
         FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
       });
-      Usermanager().getUser().then((value) => bloc.GetNotificationByGroup(group: "customer",page: 1,limit: 20,sort: "notification.createdAt:desc",token: value.token));
+      bloc.onSuccess.stream.listen((event) {
+       // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+      });
+
+
+
+      Usermanager().getUser().then((value){
+        bloc.GetNotificationByGroup(group: "customer",page: 1,limit: 20,sort: "notification.createdAt:desc",token: value.token);
+      });
+
     }
 
 

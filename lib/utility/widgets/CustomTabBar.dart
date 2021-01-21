@@ -59,6 +59,12 @@ class CustomTabBar extends StatelessWidget {
                           color: isSelect ?ThemeColor.secondaryColor():Colors.white,
                           index: index,notification: count.countLoaded.notification.unreadCustomer+count.countLoaded.notification.unreadShop
                         );
+                      }else if(count is CustomerCountLoading){
+                        return _buildIcon(
+                          path_icon:isSelect ? menuModel.iconSelected : menuModel.icon,
+                          color: isSelect ?ThemeColor.secondaryColor():Colors.white,
+                          index: index,notification: count.countLoaded!=null?count.countLoaded.notification.unreadCustomer+count.countLoaded.notification.unreadShop:0,
+                        );
                       }else{
                         return _buildIcon(
                           path_icon:isSelect ? menuModel.iconSelected : menuModel.icon,

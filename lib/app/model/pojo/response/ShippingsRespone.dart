@@ -28,14 +28,14 @@ class ShippingsData {
   int id;
   int shopId;
   String name;
-  Null taxId;
+  int taxId;
   String countryIds;
   String stateIds;
   int restOfTheWorld;
   int active;
   String createdAt;
-  Null updatedAt;
-  List<Rates> rates;
+  String updatedAt;
+  List<ShippingRates> rates;
 
   ShippingsData(
       {this.id,
@@ -62,11 +62,12 @@ class ShippingsData {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['rates'] != null) {
-      rates = new List<Rates>();
+      rates = new List<ShippingRates>();
       json['rates'].forEach((v) {
-        rates.add(new Rates.fromJson(v));
+        rates.add(new ShippingRates.fromJson(v));
       });
     }
+
   }
 
   Map<String, dynamic> toJson() {
@@ -88,7 +89,7 @@ class ShippingsData {
   }
 }
 
-class Rates {
+class ShippingRates {
   int id;
   String name;
   int shippingZoneId;
@@ -99,8 +100,9 @@ class Rates {
   int maximum;
   int rate;
   String deliveryTakes;
+  bool select;
 
-  Rates(
+  ShippingRates(
       {this.id,
         this.name,
         this.shippingZoneId,
@@ -110,9 +112,9 @@ class Rates {
         this.minimum,
         this.maximum,
         this.rate,
-        this.deliveryTakes});
+        this.deliveryTakes,this.select});
 
-  Rates.fromJson(Map<String, dynamic> json) {
+  ShippingRates.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     shippingZoneId = json['shippingZoneId'];
@@ -122,8 +124,9 @@ class Rates {
     basedOn = json['basedOn'];
     minimum = json['minimum'];
     maximum = json['maximum'];
-    rate = json['rate'];
+    rate = json['rate']!=null?json['rate']:0;
     deliveryTakes = json['deliveryTakes'];
+    select = json['select']!=null?json['select']:false;
   }
 
   Map<String, dynamic> toJson() {

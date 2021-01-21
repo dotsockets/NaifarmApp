@@ -66,7 +66,7 @@ class _LoginViewState extends State<LoginView> {
         // }else{
         //   AppRoute.Home(context,item: widget.item);
         // }
-        AppRoute.Home(context,item: widget.item);
+        AppRoute.Home(context);
 
 
       });

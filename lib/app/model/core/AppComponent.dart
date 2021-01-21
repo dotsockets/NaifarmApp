@@ -3,6 +3,7 @@ import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
+import 'package:naifarm/app/ui/mycart/cart/MyCartView.dart';
 import 'package:naifarm/app/ui/splash/SplashView.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/log/Log.dart';
@@ -67,6 +68,9 @@ class AppComponentState extends State<AppComponent> {
               ),
               home: SplashView(),
               navigatorObservers: [routeObserver],
+              routes: <String, WidgetBuilder> {
+                '/home': (BuildContext context) => HomeView()
+              },
             );
           },
         );

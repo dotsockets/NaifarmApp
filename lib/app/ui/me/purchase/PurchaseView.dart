@@ -48,16 +48,18 @@ class _PurchaseViewState extends State<PurchaseView> {
     return Container(
       child: Column(
         children: [
-          BlocBuilder<CustomerCountBloc, CustomerCountState>(
+          widget.IsLogin?BlocBuilder<CustomerCountBloc, CustomerCountState>(
             builder: (_, count) {
               if(count is CustomerCountLoaded){
                 return  _buildTabMenu(context,count.countLoaded);
+              }else if(count is CustomerCountLoading){
+                return _buildTabMenu(context,count.countLoaded!=null?count.countLoaded:CustomerCountRespone(buyOrder: BuyOrder(unpaid: 0,toBeRecieve: 0,cancel: 0,confirm: 0,delivered: 0,failed: 0,fulfill: 0,refund: 0)));
               }else{
                 return  _buildTabMenu(context,CustomerCountRespone(buyOrder: BuyOrder(unpaid: 0,toBeRecieve: 0,cancel: 0,confirm: 0,delivered: 0,failed: 0,fulfill: 0,refund: 0)));
               }
 
             },
-          ),
+          ):SizedBox(),
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
             title: LocaleKeys.me_title_history.tr(),
@@ -72,6 +74,15 @@ class _PurchaseViewState extends State<PurchaseView> {
                     icon: 'assets/images/svg/like_2.svg',
                     title: LocaleKeys.me_title_likes.tr(),
                     Message: "${count.countLoaded.like} รายการ",
+                    iconSize: 8.0.w,
+                    onClick: () {
+                      AppRoute.Wishlists(context:context);
+                    });
+              }else if(count is CustomerCountLoading){
+                return ListMenuItem(
+                    icon: 'assets/images/svg/like_2.svg',
+                    title: LocaleKeys.me_title_likes.tr(),
+                    Message: "${count.countLoaded!=null?count.countLoaded.like:0} รายการ",
                     iconSize: 8.0.w,
                     onClick: () {
                       AppRoute.Wishlists(context:context);

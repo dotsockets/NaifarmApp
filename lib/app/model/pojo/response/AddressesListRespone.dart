@@ -37,6 +37,7 @@ class AddressesData {
   int stateId;
   String zipCode;
   String phone;
+  bool select;
 
 
   
@@ -50,7 +51,7 @@ class AddressesData {
         this.cityId,
         this.stateId,
         this.zipCode,
-        this.phone});
+        this.phone,this.select});
 
   AddressesData.fromJson(Map<String, dynamic> json) {
     id = json['id'];

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
@@ -11,8 +12,10 @@ import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
@@ -25,6 +28,7 @@ import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/app/ui/login/SplashLoginView.dart';
 import 'package:naifarm/app/ui/market/MarketView.dart';
 import 'package:naifarm/app/ui/me/delivery/DeliveryEditView.dart';
+import 'package:naifarm/app/ui/me/delivery/DeliverySelectView.dart';
 import 'package:naifarm/app/ui/me/deliveryCost/DeliveryCostView.dart';
 import 'package:naifarm/app/ui/me/editmyproduct/EditImageProductView.dart';
 import 'package:naifarm/app/ui/me/editmyproduct/EditProductView.dart';
@@ -47,6 +51,7 @@ import 'package:naifarm/app/ui/me/myshop/withdrawmoney/WithdrawMoneyView.dart';
 import 'package:naifarm/app/ui/me/myshop/withdrawmoney/moneyout/MoneyOutView.dart';
 import 'package:naifarm/app/ui/me/payment/PaymentView.dart';
 import 'package:naifarm/app/ui/mycart/cart/MyCartView.dart';
+import 'package:naifarm/app/ui/mycart/cart/OrderSuccessView.dart';
 import 'package:naifarm/app/ui/mycart/cartaddress/CartAaddressView.dart';
 import 'package:naifarm/app/ui/mycart/cartbank/CartBankView.dart';
 import 'package:naifarm/app/ui/me/delivery/DeliveryView.dart';
@@ -129,15 +134,17 @@ class AppRoute{
   }
 
   static  CartSummary(BuildContext context,CartResponse item){
+
+
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CartSummaryView(item:item)));
   }
 
-  static  CartAaddres(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CartAaddressView()));
+  static Future<bool>  CartAaddres(BuildContext context) async {
+    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CartAaddressView()));
   }
 
-  static  CartBank(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CartBankView()));
+  static Future<PaymentRespone>  CartBank(BuildContext context,{PaymentRespone paymentRespone}) async {
+    return await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CartBankView(paymentRespone: paymentRespone,)));
   }
 
   static DeliveryMe(BuildContext context){
@@ -192,8 +199,9 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: WithdrawMoneyView()));
   }
 
-  static MyShophistory(BuildContext context,int index,{String orderType}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyOrderHistoryView(orderType:orderType,index: index)));
+  static MyShophistory(BuildContext context,int index,{String orderType,bool callback=false}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyOrderHistoryView(orderType:orderType,index: index,callback: callback,)));
+
   }
 
 
@@ -213,8 +221,9 @@ class AppRoute{
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => SplashLoginView()), (Route<dynamic> route) => false);
   }
 
-  static Home(BuildContext context, {HomeObjectCombine item}){
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeView()), (Route<dynamic> route) => false);
+  static Home(BuildContext context, ){
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeView()), (Route<dynamic> route) => route.isFirst);
+
   }
 
   static Future<bool>  Login(BuildContext context,{bool IsCallBack,  HomeObjectCombine item}) async {
@@ -244,7 +253,7 @@ class AppRoute{
   }
 
   static Future<bool> SettingAddAddress(BuildContext context) async {
-    return  await Navigator.pushReplacement(context, PageTransition(
+    return  await Navigator.push(context, PageTransition(
         duration: Duration(milliseconds: 300),
         type: PageTransitionType.fade,
         child:AddressAddView()));
@@ -431,6 +440,23 @@ class AppRoute{
   static Future<bool>  EditImageProduct({BuildContext context,UploadProductStorage uploadProductStorage,int ProductId})async{
     return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:EditImageProductView(ProductId: ProductId,uploadProductStorage: uploadProductStorage,)));
   }
+
+  static Future<ShippingRates>  DeliverySelect({BuildContext context,int shopId})async{
+    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:DeliverySelectView(shopId: shopId,)));
+  }
+
+  static OrderSuccess({BuildContext context,String payment_total}){
+
+    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:OrderSuccessView(payment_total: payment_total,)));
+  }
+
+  static PoppageCount({BuildContext context,int countpage}){
+    int count = 0;
+    Navigator.popUntil(context, (route) {
+      return count++ == countpage;
+    });
+  }
+
 
 
 }

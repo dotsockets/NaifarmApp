@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
+import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/models/AddressModel.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
@@ -23,135 +28,257 @@ class CartAaddressView extends StatefulWidget {
 }
 
 class _CartAaddressViewState extends State<CartAaddressView> {
-  List<CartModel> _data_aar = List<CartModel>();
-
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   int select = 0;
+  bool onUpdate = false;
+  CartBloc bloc;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _data_aar.addAll(CartViewModel().getMyCart());
+  void _init() {
+    if (null == bloc) {
+      bloc = CartBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+      });
+
+      bloc.onSuccess.stream.listen((event) {
+        onUpdate = true;
+        //  cartReq = event;
+      });
+      Usermanager()
+          .getUser()
+          .then((value) => bloc.AddressesList(token: value.token));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _init();
     return SafeArea(
-      top: false,
-      child: Scaffold(
-        key: _scaffoldKey,
-        backgroundColor:
-            _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-        appBar: AppToobar(title: LocaleKeys.setting_account_title_address.tr(),header_type: Header_Type.barNormal,icon: "",),
-        body: SingleChildScrollView(
-          child: Column(
+        top: false,
+        child: Scaffold(
+            backgroundColor: Colors.grey.shade300,
+            key: _scaffoldKey,
+            appBar: AppToobar(
+              title: LocaleKeys.setting_account_title_address.tr(),
+              header_type: Header_Type.barNormal,
+              icon: "",
+              onClick: ()=> Navigator.pop(context, onUpdate),
+            ),
+            body: Container(
+              child: StreamBuilder(
+                  stream: bloc.AddressList.stream,
+                  builder: (context, snapshot) {
+                    var item = (snapshot.data as AddressesListRespone);
+                    if (snapshot.hasData && item.data!=null) {
+
+                      return SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Column(
+                              children: item.data
+                                  .asMap()
+                                  .map((index, value) {
+                                    return MapEntry(index,
+                                        _BuildCard(item: value, index: index));
+                                  })
+                                  .values
+                                  .toList(),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            _buildBtnAddProduct(),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return SizedBox();
+                    }
+                  }),
+            )));
+  }
+
+  Widget _BuildCard({AddressesData item, int index}) {
+    return GestureDetector(
+      child: Dismissible(
+        child: Container(
+          margin: EdgeInsets.only(top: index == 0 ? 0 : 10),
+          padding: EdgeInsets.only(top: 10, bottom: 10),
+          color: Colors.white,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                Column(
-                  children: CartViewModel().getAddressCart().asMap().map((index, value){
-                        return MapEntry(index, _BuildCard(item: CartViewModel().getAddressCart()[index],index: index));
-                  }).values.toList(),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: item.select
+                      ? SvgPicture.asset(
+                          'assets/images/svg/checkmark.svg',
+                          width: 25,
+                          height: 25,
+                          color: ThemeColor.primaryColor(),
+                        )
+                      : SvgPicture.asset(
+                          'assets/images/svg/uncheckmark.svg',
+                          width: 25,
+                          height: 25,
+                          color: Colors.black.withOpacity(0.5),
+                        ),
                 ),
-              SizedBox(height: 30,),
-              _buildBtnAddProduct(),
+              ),
+              Expanded(
+                flex: 8,
+                child: Container(
+                  padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            item.addressTitle,
+                            style: FunctionHelper.FontTheme(
+                                fontWeight: FontWeight.bold,
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                height: 1.6,
+                                color: ThemeColor.primaryColor()),
+                          ),
+                          Row(
+                            children: [
+                              item.select
+                                  ? Text(LocaleKeys.address_default.tr(),
+                                      style: FunctionHelper.FontTheme(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: SizeUtil.titleFontSize().sp,
+                                          color: ThemeColor.ColorSale()))
+                                  : SizedBox(),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.grey.shade500,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        item.phone,
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            height: 1.5),
+                      ),
+                      Text(
+                        item.addressLine1,
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            height: 1.5),
+                      ),
+                      Text(
+                        item.zipCode,
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            height: 1.5),
+                      ),
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
-        )
-      ),
-    );
-  }
-
-  Widget _BuildCard({AddressModel item,int index}){
-    return Container(
-      margin: EdgeInsets.only(top: index==0?0:10),
-      padding: EdgeInsets.only(top: 10,bottom: 10),
-      color: Colors.white,
-        child: Row(
-         crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: InkWell(
-                  child: select==index
-                      ? SvgPicture.asset(
-                    'assets/images/svg/checkmark.svg',
-                    width: 25,
-                    height: 25,
-                    color: ThemeColor.primaryColor(),
-                  )
-                      : SvgPicture.asset(
-                    'assets/images/svg/uncheckmark.svg',
-                    width: 25,
-                    height: 25,
-                    color: Colors.black.withOpacity(0.5),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      select = select!=index ? index : 0;
-                    });
-                  },
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 8,
-              child: Container(
-                padding: EdgeInsets.only(left: 10,right: 10,bottom: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Text(item.Name,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp,height: 1.6,color: ThemeColor.primaryColor()),),
-                  Row(
-                         children: [
-                           select==index?Text(LocaleKeys.address_default.tr(),style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())):SizedBox(),
-                           SizedBox(width: 5,),
-                           Icon(Icons.arrow_forward_ios,color: Colors.grey.shade500,)
-                         ],
-                       ),
-
-                     ],
-                   ),
-                    SizedBox(height: 5,),
-                    Text(item.phone,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),),
-                    Text(item.address,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),),
-                    Text(item.provice,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),),
-                    Text(item.zipcode,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),),
-                  ],
-                ),
-              ),
-            )
-          ],
         ),
-    );
-  }
-
-  Widget _buildBtnAddProduct(){
-    return Container(
-
-      child: FlatButton(
-        color: ThemeColor.secondaryColor(),
-        textColor: Colors.white,
-        padding: EdgeInsets.only(left: 100,right: 100,top: 20,bottom: 20),
-        splashColor: Colors.white.withOpacity(0.3),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40.0),
+        background: Container(
+          padding: EdgeInsets.only(right: 30),
+          alignment: Alignment.centerRight,
+          color: ThemeColor.ColorSale(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Lottie.asset('assets/json/delete.json',
+                  height: 30, width: 30, repeat: true),
+              Text(
+                LocaleKeys.cart_del.tr(),
+                style: FunctionHelper.FontTheme(
+                    color: Colors.white,
+                    fontSize: SizeUtil.titleFontSize().sp,
+                    fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
         ),
-        onPressed: () {
-          AppRoute.SettingAddAddress(context);
+        key: Key("${item.id}"),
+        onDismissed: (direction) {
+          onUpdate = true;
+          Usermanager().getUser().then((value) => bloc.DeleteAddress(id: item.id.toString(),token: value.token));
         },
-        child: Text(
-          LocaleKeys.add_address_btn.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+      ),
+      onLongPress: () async {
+        var result = await AppRoute.AddressEdit(context, item);
+        if (result != null) {
+          onUpdate = true;
+          Usermanager()
+              .getUser()
+              .then((value) => bloc.AddressesList(token: value.token));
+        }
+      },
+      onTap: (){
+        for(var i=0;i<bloc.AddressList.value.data.length;i++){
+          if(bloc.AddressList.value.data[i].id == item.id){
+            bloc.AddressList.value.data[i].select = true;
+          }else{
+            bloc.AddressList.value.data[i].select = false;
+          }
+        }
+        bloc.AddressList.add(bloc.AddressList.value);
+        Usermanager().getUser().then((value) =>     bloc.UpdateAddress(data: AddressCreaterequest(countryId: 1,id: item.id,cityId: item.cityId,phone: item.phone,addressLine1: item.addressLine1,
+            addressLine2: "",addressTitle: item.addressTitle,stateId: item.stateId,zipCode: item.zipCode,addressType: bloc.AddressList.value.data[index].select?"Primary":"Shipping"),token: value.token));
+        Navigator.pop(context, true);
+      },
+    );
+  }
+
+  Widget _buildBtnAddProduct() {
+    return Center(
+      child: Container(
+        child: FlatButton(
+          color: ThemeColor.secondaryColor(),
+          textColor: Colors.white,
+          padding: EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
+          splashColor: Colors.white.withOpacity(0.3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+          onPressed: () async {
+            final result = await AppRoute.SettingAddAddress(context);
+            if (result) {
+              onUpdate = true;
+              Usermanager()
+                  .getUser()
+                  .then((value) => bloc.AddressesList(token: value.token));
+            }
+          },
+          child: Text(
+            LocaleKeys.add_address_btn.tr(),
+            style: FunctionHelper.FontTheme(
+                fontSize: SizeUtil.titleFontSize().sp,
+                fontWeight: FontWeight.w500),
+          ),
         ),
       ),
     );
   }
-
-
 }

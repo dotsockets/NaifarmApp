@@ -40,11 +40,6 @@ class _AddressAddViewState extends State<AddressAddView> {
 
   AddressBloc bloc;
 
-  List<String> listAddrDeli = [
-    "1",
-    "2",
-    "3",
-  ];
 
   //bool checkError = false;
   @override

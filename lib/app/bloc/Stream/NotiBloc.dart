@@ -29,5 +29,19 @@ class NotiBloc{
 
   }
 
+  MarkAsReadNotifications({String token}) async{
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.MarkAsReadNotifications(token: token)).listen((respone) {
+      if(respone.http_call_back.status==200){
+       onSuccess.add(respone.respone);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+
+  }
+
+
 
 }

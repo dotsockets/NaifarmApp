@@ -43,7 +43,9 @@ class _MeViewState extends State<MeView> with RouteAware {
   StreamController<bool> controller = new StreamController<bool>();
 
   void _init() {
+    ISLogin();
     if (null == bloc) {
+
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         // if(event){
@@ -69,10 +71,8 @@ class _MeViewState extends State<MeView> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context));
   }
 
-  @override
-  void didPopNext() {
-    setState(() => {ISLogin()});
-  }
+
+
 
   void ISLogin() async => IsLogin = await Usermanager().isLogin();
 
@@ -94,7 +94,7 @@ class _MeViewState extends State<MeView> with RouteAware {
             });
             return Scaffold(
                 key: _scaffoldKey,
-                backgroundColor: Colors.grey.shade200,
+                backgroundColor: Colors.grey.shade300,
                 body: StreamBuilder(
                   stream: bloc.customerInfoRespone.stream,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -114,8 +114,10 @@ class _MeViewState extends State<MeView> with RouteAware {
                                       context, IsLogin,
                                       item: info.customerInfoRespone);
                                   if (result != null && result) {
+                                    ISLogin();
                                     Usermanager().getUser().then((value) =>
                                         bloc.loadMyProfile(token: value.token));
+                                    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
                                   }
                                 },
                               ),
@@ -125,21 +127,9 @@ class _MeViewState extends State<MeView> with RouteAware {
                                 child: Container(
                                     margin: EdgeInsets.only(
                                         right: 2.5.w, top: 2.0.w),
-                                    child: BlocBuilder<CustomerCountBloc,
-                                        CustomerCountState>(
-                                      builder: (_, count) {
-                                        if (count is CustomerCountLoaded) {
-                                          return BuildIconShop(
-                                            size: 7.0.w,
-                                            notification: count.countLoaded.notification.unreadCustomer,
-                                          );
-                                        } else {
-                                          return BuildIconShop(
-                                            size: 7.0.w,
-                                            notification: 0,
-                                          );
-                                        }
-                                      },
+                                    child: BuildIconShop(
+                                      size: 7.0.w,
+                                      notification: 0,
                                     )),
                                 onTap: () {
                                   AppRoute.MyCart(context, true);
@@ -216,7 +206,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                           SliverList(
                             delegate: SliverChildListDelegate(<Widget>[
                               Container(
-                                height: IsLogin ? 730 : 530,
+                                height: IsLogin ? 730 : 350,
                                 color: Colors.white,
                                 child: DefaultTabController(
                                   length: 2,

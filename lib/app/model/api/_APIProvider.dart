@@ -1662,6 +1662,31 @@ class _APIProvider implements APIProvider {
     }
   }
 
+  @override
+  Future<ApiResult> MarkAsReadNotifications({String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      // "inventoryId":inventoryId,
+      // "productId":productId
+    };
+    try {
+      final _result = await _dio.request<dynamic>('/v1/notifications/markAsRead',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
 
 
 

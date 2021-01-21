@@ -160,7 +160,7 @@ class ProductLandscape extends StatelessWidget {
     if(image.length!=0){
       Random random = new Random();
       int randomNumber = random.nextInt(image.length); // from
-        return "${Env.value.baseUrl}/storage/images/${image[randomNumber].path}";
+        return "${Env.value.baseUrl}/storage/images/${image[0].path}";
     }else{
       return "";
     }

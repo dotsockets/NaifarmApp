@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
@@ -84,7 +85,6 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
 
   void _init(){
 
-
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.ProductItem.add(widget.productItem);
@@ -143,7 +143,9 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                       controller: scrollController,
                       child: Column(
                         children: [
-                          AppToobar(header_type: Header_Type.barNoBackground),
+                          AppToobar(header_type: Header_Type.barNoBackground,onClick: (){
+                            Navigator.of(context).pop();
+                          },),
                           StreamBuilder(
                               stream: bloc.onError.stream,
                               builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -239,14 +241,8 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                 children: [
                   BuildChoosesize(IndexType1: IndexTypes1,IndexType2: IndexTypes2,onclick1: (int index)=>setState(() =>IndexTypes1 = index),onclick2: (int index)=>setState(() =>IndexTypes2 = index)),
                   _Divider(),
-                  InkWell(
-                    child: ShopOwn(shopItem: item.shop,shopRespone:
-                    MyShopRespone(id: item.shopId)),
-                    onTap: (){
-                      var item = (snapshot.data as ProductDetailObjectCombine).shopRespone;
-                      AppRoute.ShopMain(context: context,myShopRespone: MyShopRespone(id: item.id,name: item.name,image: item.image,updatedAt: item.updatedAt));
-                    },
-                  ),
+                  ShopOwn(shopItem: item.shop,shopRespone:
+                  MyShopRespone(id: item.shopId)),
                   _Divider(),
                   ProductDetail(productItem: item),
                   _Divider(),

@@ -1,5 +1,7 @@
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+
+import 'ShippingsRespone.dart';
 class CartResponse {
   List<CartData> data;
   String total;
@@ -59,6 +61,9 @@ class CartData {
   List<CartItems> items;
   PaymentMethod paymentMethod;
   Coupon coupon;
+  String note;
+  int carrierId;
+  ShippingRates shippingRates;
 
 
   CartData(
@@ -88,14 +93,14 @@ class CartData {
         this.shop,
         this.items,
         this.paymentMethod,
-        this.coupon});
+        this.coupon,this.note,this.carrierId,this.shippingRates});
 
   CartData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     shopId = json['shopId'];
     shipTo = json['shipTo'];
-    shippingZoneId = json['shippingZoneId'];
-    shippingRateId = json['shippingRateId'];
+    shippingZoneId = json['shippingZoneId']!=null?json['shippingRateId']:0;
+    shippingRateId = json['shippingRateId']!=null?json['shippingRateId']:0;
     packagingId = json['packagingId'];
     itemCount = json['itemCount'];
     quantity = json['quantity'];
@@ -105,8 +110,8 @@ class CartData {
     shipping = json['shipping'];
     packaging = json['packaging'];
     handling = json['handling'];
-    taxes = json['taxes'];
     taxRate = json['taxRate'];
+    taxes = json['taxes'];
     grandTotal = json['grandTotal'];
     billingAddress = json['billingAddress'];
     shippingAddress = json['shippingAddress'];
@@ -126,6 +131,8 @@ class CartData {
         : null;
     coupon =
     json['coupon'] != null ? new Coupon.fromJson(json['coupon']) : null;
+    note = json['note']!=null?json['note']:"note...";
+    carrierId = json['carrierId']!=null?json['carrierId']:0;
   }
 
   Map<String, dynamic> toJson() {

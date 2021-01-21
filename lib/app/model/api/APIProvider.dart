@@ -284,6 +284,11 @@ abstract class APIProvider{
 
   @GET("/v1/shop/1/shippings")
   Future<ApiResult> GetShippings({int shopId});
+
+  @POST("/v1/notifications/markAsRead")
+  Future<ApiResult> MarkAsReadNotifications({String token});
+
+
 }
 
 
