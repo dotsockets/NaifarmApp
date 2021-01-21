@@ -42,7 +42,7 @@ class MyNewProductView extends StatefulWidget {
 class _MyNewProductViewState extends State<MyNewProductView> {
 
   TextEditingController nameProductController = TextEditingController();
-  TextEditingController detailtController = TextEditingController();
+  TextEditingController detailController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController offerPriceController = TextEditingController();
@@ -153,7 +153,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                      SizedBox(height: 15,),
                                      BuildEditText(
                                        head: LocaleKeys.my_product_detail.tr()+" * ",EnableMaxLength: true,maxLength: 5000,
-                                       hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailtController,inputType: TextInputType.text,onChanged: (String char){
+                                       hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailController,inputType: TextInputType.text,onChanged: (String char){
                                        if(char.isNotEmpty){
                                          bloc.uploadProductStorage.value.productMyShopRequest.description = char;
                                          bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
@@ -234,7 +234,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
 
   bool CheckEnable(){
     var item = bloc.uploadProductStorage.value.productMyShopRequest;
-    if(item.name!="" && item.category!=0 && item.description!="" && item.stockQuantity!=0 && item.salePrice!=0){
+    if(item.name!="" && item.category!=0 && item.description!="" && item.stockQuantity!=0 && item.salePrice!=0&& detailController.text.length!=0){
       return true;
     }else{
       return false;
@@ -465,8 +465,8 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     nameProductController.text = productMyShopRequest.name;
     nameProductController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.name!=null?productMyShopRequest.name.length:0));
 
-    detailtController.text = productMyShopRequest.description;
-    detailtController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.description!=null?productMyShopRequest.description.length:0));
+    detailController.text = productMyShopRequest.description;
+    detailController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.description!=null?productMyShopRequest.description.length:0));
 
     amountController.text = productMyShopRequest.stockQuantity.toString();
     amountController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.stockQuantity!=null?productMyShopRequest.stockQuantity.toString().length:0));

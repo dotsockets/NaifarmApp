@@ -175,9 +175,19 @@ class ProductLandscape extends StatelessWidget {
           SizedBox(height: 1.0.h),
           Text(" "+item.name+" ",
               overflow: TextOverflow.ellipsis,maxLines: 1,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),),
-          SizedBox(height: 0.8.h),
-          Text("฿${item.salePrice}",maxLines: 1,
-              overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+          SizedBox(height: 1.0.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              item.offerPrice!=null?Text("${item.salePrice}",style: FunctionHelper.FontTheme(
+                color: Colors.grey,
+                  fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
+              SizedBox(width: item.offerPrice!=null?1.0.w:0),
+              Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
+                  overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+            ],
+          ),
           Container(
             padding: EdgeInsets.all(0.8.h),
             child: Container(

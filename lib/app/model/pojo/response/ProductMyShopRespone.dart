@@ -432,13 +432,15 @@ class Shop {
   Attributes state;
   String updatedAt;
   List<Image> image;
+  int countProduct;
 
-  Shop({this.id, this.name, this.slug, this.state, this.updatedAt, this.image});
+  Shop({this.id, this.name, this.slug, this.state, this.updatedAt, this.image,this.countProduct});
 
   Shop.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     slug = json['slug'];
+    countProduct = json['countProduct'];
     state =
     json['state'] != null ? new Attributes.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
@@ -455,6 +457,7 @@ class Shop {
     data['id'] = this.id;
     data['name'] = this.name;
     data['slug'] = this.slug;
+    data['countProduct'] = this.countProduct;
     if (this.state != null) {
       data['state'] = this.state.toJson();
     }

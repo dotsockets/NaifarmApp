@@ -14,11 +14,10 @@ import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
-import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/ui/Shopmynear/ShopMyNearView.dart';
 import 'package:naifarm/app/ui/category/detail/CategoryDetailView.dart';
 import 'package:naifarm/app/ui/category/detail/CategorySubDetailView.dart';
@@ -161,8 +160,8 @@ class AppRoute{
     }
 
   }
-  static ProductDetailShop(BuildContext context,int productId){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ProductDetailShopView(productId:productId)));
+  static ProductDetailShop(BuildContext context,{String productImage,ProductMyShop productItem}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ProductDetailShopView(productImage: productImage,productItem: productItem,)));
   }
   static MyNewProduct(BuildContext context,{IsActive isActive}){
 

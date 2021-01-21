@@ -337,7 +337,6 @@ class UploadProductBloc {
         .listen((respone) {
       onLoad.add(false);
       if (respone.http_call_back.status == 200) {
-       onLoad.add(false);
        onSuccess.add((respone.respone as ProductMyShopRespone));
       } else {
         onError.add(respone.http_call_back.result.error.message);

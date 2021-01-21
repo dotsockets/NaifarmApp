@@ -159,9 +159,21 @@ class ProductVertical extends StatelessWidget {
         children: [
           Text(item.name,maxLines: 1,
           overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:   SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
-          SizedBox(height: 10,),
-          Text("฿${item.salePrice}",style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize:  SizeUtil.priceFontSize().sp),),
-          SizedBox(height: 8,),
+          SizedBox(height: 1.0.h,),
+          Row(
+
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              item.offerPrice!=null?Text("${item.salePrice}",style: FunctionHelper.FontTheme(
+                  color: Colors.grey,
+                  fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
+              SizedBox(width: item.offerPrice!=null?1.0.w:0),
+              Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
+                overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+            ],
+          ),
+
+          SizedBox(height: 1.0.h,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

@@ -212,15 +212,22 @@ class _ProductGridState extends State<ProductGrid> {
                 fontSize: SizeUtil.titleSmallFontSize().sp,
                 fontWeight: FontWeight.w500)),
         SizedBox(
-          height: 10,
+          height: 1.0.h,
         ),
-        Text(
-          "฿${item.salePrice}",
-          style: FunctionHelper.FontTheme(
-              color: ThemeColor.ColorSale(), fontSize: SizeUtil.titleSmallFontSize().sp),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            item.offerPrice!=null?Text("${item.salePrice}",style: FunctionHelper.FontTheme(
+                color: Colors.grey,
+                fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
+            SizedBox(width: item.offerPrice!=null?1.0.w:0),
+            Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
+              overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+          ],
         ),
         SizedBox(
-          height: 8,
+          height: 1.0.h,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

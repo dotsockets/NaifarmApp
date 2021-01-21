@@ -8,7 +8,7 @@ class Skeleton{
     borderRadius: BorderRadius.only(bottomRight: Radius.circular(30),bottomLeft: Radius.circular(30)),
     child: Container(
       width: MediaQuery.of(context).size.width,
-      height: 300,
+      height: 29.0.h,
       color: Colors.white,
       child: SkeletonLoader(
         builder: Container(
@@ -18,7 +18,7 @@ class Skeleton{
             child: Container(
               width: MediaQuery.of(context).size.width,
               color: Colors.grey.shade200,
-              height: 200,
+              height: 23.0.h,
             ),
           ),
         ),
