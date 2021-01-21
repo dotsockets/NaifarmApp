@@ -1,24 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:localstorage/localstorage.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
-import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
-import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
-import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/SplashLoginView.dart';
-import 'package:naifarm/app/ui/splash/ConnectErrorView.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:sizer/sizer.dart';
 import 'package:sizer/sizer.dart';
 
 class SplashView extends StatefulWidget {
@@ -68,8 +61,6 @@ class _SplashViewState extends State<SplashView>
       bloc.ZipHomeObject.stream.listen((event) {
         startTimer();
       });
-
-
     }
 
   }
@@ -78,10 +69,11 @@ class _SplashViewState extends State<SplashView>
   Widget build(BuildContext context) {
     _init();
     ScreenUtil.init(context);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Container(
+    return SafeArea(
+      child: Scaffold(
+
+        backgroundColor: Colors.white,
+        body: Container(
           child: Stack(
             fit: StackFit.expand,
             children: <Widget>[

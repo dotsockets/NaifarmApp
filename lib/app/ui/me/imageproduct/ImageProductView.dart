@@ -351,9 +351,8 @@ class _ImageProductViewState extends State<ImageProductView> {
       ),
       onPressed: () {
         if(widget.isActive == IsActive.NewProduct || widget.isActive == IsActive.ReplacemenView){
-          AppRoute.MyNewProduct(context,isActive: widget.isActive);
+          isEnable ?AppRoute.MyNewProduct(context,isActive: widget.isActive):print("");
         }else{
-
           NaiFarmLocalStorage.SaveProductStorage(UploadProductStorage(onSelectItem: bloc.GetSelectItem(),productMyShopRequest: bloc.ProductDetail));
           Navigator.pop(context, true);
         }

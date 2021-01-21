@@ -15,6 +15,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -111,8 +112,7 @@ class _MyProductViewState extends State<MyProductView> {
                                 Text(
                                   LocaleKeys.cart_empty.tr(),
                                   style: FunctionHelper.FontTheme(
-                                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
-                                )
+                                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),)
                               ],
                             ),
                           );
@@ -161,23 +161,24 @@ class _MyProductViewState extends State<MyProductView> {
 
   Widget _BuildProduct(
       {ProductMyShop item,int index}) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 8),
-      color: Colors.white,
+    return InkWell(
+      onTap: (){
+        AppRoute.ProductDetailShop(context,productImage: "myproduct_${index}", productItem: item);
+
+      },
       child: Container(
-        margin: EdgeInsets.only(left: 10, right: 10),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    InkWell(
-                      onTap: (){
-                        AppRoute.ProductDetailShop(context, item.id);
-                      },
-                      child: Container(
+        margin: EdgeInsets.only(bottom: 8),
+        color: Colors.white,
+        child: Container(
+          margin: EdgeInsets.only(left: 10, right: 10),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Stack(
+                    children: [
+                      Container(
                         padding: EdgeInsets.all(1),
                         margin: EdgeInsets.only(right: 10,bottom: 10,top: 10),
                         decoration: BoxDecoration(
@@ -205,173 +206,173 @@ class _MyProductViewState extends State<MyProductView> {
                           ),
                         ),
                       ),
-                    ),
-                    Visibility(
-                      child: Container(
-                        margin: EdgeInsets.only(left: 2.5.w,top: 4.5.w),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(1.0.w),
-                          child: Container(
-                            padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
-                            color: ThemeColor.ColorSale(),
-                            child: Text("${item.discountPercent}%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
-                          ),
-                        ),
-                      ),
-                      visible: item.discountPercent>0?true:false,
-                    )
-                  ],
-                ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(left: 10,right: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          item.name,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          "฿${item.salePrice}",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.priceFontSize().sp,
+                      Visibility(
+                        child: Container(
+                          margin: EdgeInsets.only(left: 2.5.w,top: 4.5.w),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(1.0.w),
+                            child: Container(
+                              padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
                               color: ThemeColor.ColorSale(),
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(LocaleKeys.my_product_amount.tr()+" ${item.stockQuantity}",
-                                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp)),
-                              ),
-                              SizedBox(width: 10,),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment.topRight,
-                                  child: Text(
-                                    "${LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr()}",
-                                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp),
-                                  ),
-                                ),
-                              )
-                            ],
+                              child: Text("${item.discountPercent}%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
+                            ),
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(child: Text(LocaleKeys.my_product_like.tr()+" 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp)),),
-                                SizedBox(width: 10,),
-                                Expanded(child: Align(alignment: Alignment.topRight,child: Text(LocaleKeys.my_product_visit.tr()+" 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp),))
-                                )
-                              ]),
-                        ),
-                      ],
-                    ),
+                        visible: item.discountPercent>0?true:false,
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 15),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey.withOpacity(0.4)),
-                borderRadius: BorderRadius.circular(10),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 10,right: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            item.name,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w600),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.priceFontSize().sp,
+                                color: ThemeColor.ColorSale(),
+                                fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(LocaleKeys.my_product_amount.tr()+" ${item.stockQuantity}",
+                                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp)),
+                                ),
+                                SizedBox(width: 10,),
+                                Expanded(
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      "${LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr()}",
+                                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(child: Text(LocaleKeys.my_product_like.tr()+" 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp)),),
+                                  SizedBox(width: 10,),
+                                  Expanded(child: Align(alignment: Alignment.topLeft,child: Text(LocaleKeys.my_product_visit.tr()+" 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp),))
+                                  )
+                                ]),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               ),
-              child: Container(
-                margin: EdgeInsets.only(left: 20),
-                child: Row(
-                  children: [
-                   Expanded(
-                     flex: 2,
-                     child:  Text(
-                       item.active==1?LocaleKeys.my_product_sell.tr():LocaleKeys.my_product_break.tr(),
-                       style: FunctionHelper.FontTheme(
-                           fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w600),
-                     ),
-                   ),
-                    Container(height: 50,color: Colors.grey.shade300,),
-                    Expanded(
-                      flex: 1,
-                      child: FlutterSwitch(
-                        height: 9.0.w,
-                        toggleSize: 7.0.w,
-                        activeColor: Colors.grey.shade200,
-                        inactiveColor: Colors.grey.shade200,
-                        toggleColor: item.active==1?ThemeColor.primaryColor():Colors.grey.shade400,
-                        value: item.active==1?true:false,
-                        onToggle: (val) {
-                         bloc.ProductMyShop.value.data[index].active = val?1:0;
-                         bloc.ProductMyShop.add(bloc.ProductMyShop.value);
-                          Usermanager().getUser().then((value) =>  bloc.UpdateProductMyShop(shopRequest: ProductMyShopRequest(
-                              name: item.name,active: bloc.ProductMyShop.value.data[index].active),token: value.token,productId: item.id));
-                        },
-                      ),
-                    ),
-                    SizedBox(width: 20,),
-                    Container(width: 1,height: 50,color: Colors.grey.shade300,),
-                    Expanded(
-                       child: InkWell(
-                         child: Container(
-                           child: SvgPicture.asset(
-                             'assets/images/svg/Edit.svg',
-                             width: 6.0.w,
-                             height: 6.0.w,
-                             color: ThemeColor.ColorSale(),
-                           ),
-                         ),
-                       onTap: () async {
-                         var product = ProductMyShopRequest(name: item.name,salePrice: item.salePrice,stockQuantity: item.stockQuantity,offerPrice: item.offerPrice,active: item.active);
-                         var onSelectItem = List<OnSelectItem>();
-                         for(var value in item.image){
-                           onSelectItem.add(OnSelectItem(onEdit: false,url: value.path));
-                         }
-                         var result = await  AppRoute.EditProduct(context, item.id,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
-                          if(result){
-                            Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
-                          }
-                       },
-                       ),
-                    ),
-                    Container(width: 1,height: 50,color: Colors.grey.shade300,),
-                    Expanded(
-                      child: InkWell(
-                        child: SvgPicture.asset(
-                          'assets/images/svg/trash.svg',
-                          width: 6.0.w,
-                          height: 6.0.w,
-                          color: ThemeColor.ColorSale(),
-                        ),
-                        onTap: (){
-                          FunctionHelper.ConfirmDialog(context,message: LocaleKeys.dialog_message_del_product.tr(),onClick: (){
-                            bloc.ProductMyShop.value.data.removeAt(index);
-                            bloc.ProductMyShop.add(bloc.ProductMyShop.value);
-                            Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(ProductId: item.id,token: value.token));
-                            Navigator.of(context).pop();
-                          },);
-                          },
-                      ),
-                    ),
-                  ],
+              Container(
+                margin: EdgeInsets.only(bottom: 15),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.withOpacity(0.4)),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ),
-            )
-          ],
+                child: Container(
+                  margin: EdgeInsets.only(left: 20),
+                  child: Row(
+                    children: [
+                     Expanded(
+                       flex: 2,
+                       child:  Text(
+                         item.active==1?LocaleKeys.my_product_sell.tr():LocaleKeys.my_product_break.tr(),
+                         style: FunctionHelper.FontTheme(
+                             fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w600),
+                       ),
+                     ),
+                      Container(height: 50,color: Colors.grey.shade300,),
+                      Expanded(
+                        flex: 1,
+                        child: FlutterSwitch(
+                          height: 9.0.w,
+                          toggleSize: 7.0.w,
+                          activeColor: Colors.grey.shade200,
+                          inactiveColor: Colors.grey.shade200,
+                          toggleColor: item.active==1?ThemeColor.primaryColor():Colors.grey.shade400,
+                          value: item.active==1?true:false,
+                          onToggle: (val) {
+                           bloc.ProductMyShop.value.data[index].active = val?1:0;
+                           bloc.ProductMyShop.add(bloc.ProductMyShop.value);
+                            Usermanager().getUser().then((value) =>  bloc.UpdateProductMyShop(shopRequest: ProductMyShopRequest(
+                                name: item.name,active: bloc.ProductMyShop.value.data[index].active),token: value.token,productId: item.id));
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 20,),
+                      Container(width: 1,height: 50,color: Colors.grey.shade300,),
+                      Expanded(
+                         child: InkWell(
+                           child: Container(
+                             child: SvgPicture.asset(
+                               'assets/images/svg/Edit.svg',
+                               width: 6.0.w,
+                               height: 6.0.w,
+                               color: ThemeColor.ColorSale(),
+                             ),
+                           ),
+                         onTap: () async {
+                           var product = ProductMyShopRequest(name: item.name,salePrice: item.salePrice,stockQuantity: item.stockQuantity,offerPrice: item.offerPrice,active: item.active);
+                           var onSelectItem = List<OnSelectItem>();
+                           for(var value in item.image){
+                             onSelectItem.add(OnSelectItem(onEdit: false,url: value.path));
+                           }
+                           var result = await  AppRoute.EditProduct(context, item.id,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
+                            if(result){
+                              Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
+                            }
+                         },
+                         ),
+                      ),
+                      Container(width: 1,height: 50,color: Colors.grey.shade300,),
+                      Expanded(
+                        child: InkWell(
+                          child: SvgPicture.asset(
+                            'assets/images/svg/trash.svg',
+                            width: 6.0.w,
+                            height: 6.0.w,
+                            color: ThemeColor.ColorSale(),
+                          ),
+                          onTap: (){
+                            FunctionHelper.ConfirmDialog(context,message: LocaleKeys.dialog_message_del_product.tr(),onClick: (){
+                              bloc.ProductMyShop.value.data.removeAt(index);
+                              bloc.ProductMyShop.add(bloc.ProductMyShop.value);
+                              Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(ProductId: item.id,token: value.token));
+                              Navigator.of(context).pop();
+                            },onCancel: (){Navigator.of(context).pop();});
+                            },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

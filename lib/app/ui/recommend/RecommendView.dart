@@ -35,10 +35,10 @@ import 'widget/SearchHot.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
-
 class RecommendView extends StatefulWidget {
   final Size size;
   final double paddingBottom;
+
   const RecommendView({Key key, this.size, this.paddingBottom})
       : super(key: key);
 
@@ -51,19 +51,14 @@ class _RecommendViewState extends State<RecommendView> {
   int _categoryselectedIndex = 0;
   ProductBloc bloc;
 
-
-
-  void _init(){
-    if(null == bloc) {
+  void _init() {
+    if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      NaiFarmLocalStorage.getHomeDataCache().then((value){
+      NaiFarmLocalStorage.getHomeDataCache().then((value) {
         bloc.ZipHomeObject.add(value);
       });
-
-
-     // bloc.loadHomeData();
+      // bloc.loadHomeData();
     }
-
   }
 
   @override
@@ -71,9 +66,9 @@ class _RecommendViewState extends State<RecommendView> {
     _init();
     return CustomRefreshIndicator(
         controller: _indicatorController,
-        onRefresh: () => Future.delayed(const Duration(seconds: 2)),
+        onRefresh: () => _refreshProducts(),
         loadingToIdleDuration: const Duration(seconds: 1),
-        armedToLoadingDuration: const Duration(seconds: 1),
+        armedToLoadingDuration: const Duration(seconds: 2),
         draggingToIdleDuration: const Duration(seconds: 1),
         leadingGlowVisible: false,
         trailingGlowVisible: false,
@@ -91,14 +86,14 @@ class _RecommendViewState extends State<RecommendView> {
                 children: <Widget>[
                   if (!controller.isIdle)
                     Positioned(
-                      top: 60 * controller.value,
+                      top: 25 * controller.value,
                       child: SpinKitThreeBounce(
                         color: ThemeColor.primaryColor(),
                         size: 30,
                       ),
                     ),
                   Transform.translate(
-                    offset: Offset(0, 130.0 * controller.value),
+                    offset: Offset(0, 50.0 * controller.value),
                     child: child,
                   ),
                 ],
@@ -129,23 +124,29 @@ class _RecommendViewState extends State<RecommendView> {
                         // ),
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
-                          builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if(snapshot.hasData ) {
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
                               return CategoryMenu(
-                                featuredRespone: (snapshot.data as HomeObjectCombine).featuredRespone,
+                                featuredRespone:
+                                    (snapshot.data as HomeObjectCombine)
+                                        .featuredRespone,
                                 selectedIndex: _categoryselectedIndex,
                                 onTap: (int val) {
-                                  var data = (snapshot.data as HomeObjectCombine).featuredRespone.data[val];
-                                  AppRoute.CategoryDetail(context,data.id , title: data.name);
+                                  var data =
+                                      (snapshot.data as HomeObjectCombine)
+                                          .featuredRespone
+                                          .data[val];
+                                  AppRoute.CategoryDetail(context, data.id,
+                                      title: data.name);
                                   // setState(() {
                                   //   _categoryselectedIndex = val;
                                   //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
                                   // });
-                                //  Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-
+                                  //  Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
                                 },
                               );
-                            }else{
+                            } else {
                               return SizedBox();
                             }
                           },
@@ -154,19 +155,24 @@ class _RecommendViewState extends State<RecommendView> {
                     ),
                     content: Column(
                       children: [
-
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
-                          builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if(snapshot.hasData ) {
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
                               return Column(
                                 children: [
                                   BannerSlide(),
-                                  RecommendMenu(homeObjectCombine:(snapshot.data as HomeObjectCombine)),
-                                  FlashSale(flashsaleRespone: (snapshot.data as HomeObjectCombine).flashsaleRespone)
+                                  RecommendMenu(
+                                      homeObjectCombine:
+                                          (snapshot.data as HomeObjectCombine)),
+                                  FlashSale(
+                                      flashsaleRespone:
+                                          (snapshot.data as HomeObjectCombine)
+                                              .flashsaleRespone)
                                 ],
                               );
-                            }else{
+                            } else {
                               return SizedBox();
                             }
                           },
@@ -174,46 +180,68 @@ class _RecommendViewState extends State<RecommendView> {
                         SizedBox(height: 2.0.h),
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
-                          builder: (BuildContext context, AsyncSnapshot snapshot) {
-                              if(snapshot.hasData ) {
-                                return ProductLandscape(
-                                  productRespone: (snapshot.data as HomeObjectCombine).productRespone,
-                                    titleInto: LocaleKeys.recommend_best_seller.tr(),
-                                    producViewModel: ProductViewModel().getBestSaller(),
-                                    IconInto: 'assets/images/svg/product_hot.svg',
-                                    onSelectMore: () {
-                                      AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_best_seller.tr(),installData: (snapshot.data as HomeObjectCombine).productRespone);
-                                    },
-                                    onTapItem: (ProductData item,int index) {
-                                      AppRoute.ProductDetail(context,
-                                          productImage: "product_hot_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
-                                    },
-                                    tagHero: "product_hot");
-                              }else{
-                                return SizedBox();
-                              }
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              return ProductLandscape(
+                                  productRespone:
+                                      (snapshot.data as HomeObjectCombine)
+                                          .productRespone,
+                                  titleInto:
+                                      LocaleKeys.recommend_best_seller.tr(),
+                                  producViewModel:
+                                      ProductViewModel().getBestSaller(),
+                                  IconInto: 'assets/images/svg/product_hot.svg',
+                                  onSelectMore: () {
+                                    AppRoute.ProductMore(
+                                        context: context,
+                                        barTxt: LocaleKeys.recommend_best_seller
+                                            .tr(),
+                                        installData:
+                                            (snapshot.data as HomeObjectCombine)
+                                                .productRespone);
+                                  },
+                                  onTapItem: (ProductData item, int index) {
+                                    AppRoute.ProductDetail(context,
+                                        productImage: "product_hot_${index}",
+                                        productItem:
+                                            ProductBloc.ConvertDataToProduct(
+                                                data: item));
+                                  },
+                                  tagHero: "product_hot");
+                            } else {
+                              return SizedBox();
+                            }
                           },
                         ),
                         SizedBox(height: 2.0.h),
                         _BannerAds(),
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
-                          builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if(snapshot.hasData ) {
-                              return  ProductVertical(
-                                productRespone:  (snapshot.data as HomeObjectCombine).martket,
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              return ProductVertical(
+                                  productRespone:
+                                      (snapshot.data as HomeObjectCombine)
+                                          .martket,
                                   titleInto: LocaleKeys.recommend_market.tr(),
                                   IconInto: 'assets/images/svg/menu_market.svg',
                                   onSelectMore: () {
-                                     AppRoute.ShopMain(context: context,myShopRespone: MyShopRespone(id: 1));
+                                    AppRoute.ShopMain(
+                                        context: context,
+                                        myShopRespone: MyShopRespone(id: 1));
                                   },
-                                  onTapItem: (ProductData item,int index) {
+                                  onTapItem: (ProductData item, int index) {
                                     AppRoute.ProductDetail(context,
-                                        productImage: "market_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
+                                        productImage: "market_${index}",
+                                        productItem:
+                                            ProductBloc.ConvertDataToProduct(
+                                                data: item));
                                   },
                                   borderRadius: false,
                                   tagHero: "market");
-                            }else{
+                            } else {
                               return SizedBox();
                             }
                           },
@@ -221,10 +249,14 @@ class _RecommendViewState extends State<RecommendView> {
                         SizedBox(height: 2.0.h),
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
-                          builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if(snapshot.hasData ) {
-                              return CategoryTab(categoryGroupRespone: (snapshot.data as HomeObjectCombine).categoryGroupRespone);
-                            }else{
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              return CategoryTab(
+                                  categoryGroupRespone:
+                                      (snapshot.data as HomeObjectCombine)
+                                          .categoryGroupRespone);
+                            } else {
                               return SizedBox();
                             }
                           },
@@ -232,10 +264,15 @@ class _RecommendViewState extends State<RecommendView> {
                         SizedBox(height: 2.0.h),
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
-                          builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if(snapshot.hasData ) {
-                              return  SearchHot(productRespone: (snapshot.data as HomeObjectCombine).trendingRespone,onSelectChang: () {});
-                            }else{
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              return SearchHot(
+                                  productRespone:
+                                      (snapshot.data as HomeObjectCombine)
+                                          .trendingRespone,
+                                  onSelectChang: () {});
+                            } else {
                               return SizedBox();
                             }
                           },
@@ -243,22 +280,36 @@ class _RecommendViewState extends State<RecommendView> {
                         SizedBox(height: 2.0.h),
                         StreamBuilder(
                           stream: bloc.ZipHomeObject.stream,
-                          builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if(snapshot.hasData ) {
-                              return  ProductVertical(
-                                productRespone: (snapshot.data as HomeObjectCombine).trendingRespone,
-                                  titleInto: LocaleKeys.recommend_product_for_you.tr(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              return ProductVertical(
+                                  productRespone:
+                                      (snapshot.data as HomeObjectCombine)
+                                          .trendingRespone,
+                                  titleInto:
+                                      LocaleKeys.recommend_product_for_you.tr(),
                                   IconInto: 'assets/images/svg/foryou.svg',
                                   onSelectMore: () {
-                                    AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_product_for_you.tr(),installData: (snapshot.data as HomeObjectCombine).trendingRespone);
+                                    AppRoute.ProductMore(
+                                        context: context,
+                                        barTxt: LocaleKeys
+                                            .recommend_product_for_you
+                                            .tr(),
+                                        installData:
+                                            (snapshot.data as HomeObjectCombine)
+                                                .trendingRespone);
                                   },
-                                  onTapItem: (ProductData item,int index) {
+                                  onTapItem: (ProductData item, int index) {
                                     AppRoute.ProductDetail(context,
-                                        productImage: "foryou_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
+                                        productImage: "foryou_${index}",
+                                        productItem:
+                                            ProductBloc.ConvertDataToProduct(
+                                                data: item));
                                   },
                                   borderRadius: false,
                                   tagHero: "foryou");
-                            }else{
+                            } else {
                               return SizedBox();
                             }
                           },
@@ -270,8 +321,6 @@ class _RecommendViewState extends State<RecommendView> {
               ),
             )));
   }
-
-
 
   _BannerAds() {
     return Container(
@@ -292,4 +341,11 @@ class _RecommendViewState extends State<RecommendView> {
       ),
     );
   }
-}
+
+  _refreshProducts() {
+
+  }
+
+  }
+
+

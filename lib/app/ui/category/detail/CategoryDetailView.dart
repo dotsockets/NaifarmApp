@@ -2,34 +2,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
-import 'package:naifarm/app/model/core/FunctionHelper.dart';
-import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryObjectCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:naifarm/app/models/MenuModel.dart';
-import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
-import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BannerSlide.dart';
 import 'package:naifarm/utility/widgets/CategoryMenu.dart';
-import 'package:naifarm/utility/widgets/ProductGrid.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/ProductVertical.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:skeleton_loader/skeleton_loader.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:sizer/sizer.dart';
 
 class CategoryDetailView extends StatefulWidget {
   final int index;
@@ -95,7 +83,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                           selectedIndex:_categoryselectedIndex,
                           onTap: (int val) {
                             var data = (snapshot.data as CategoryObjectCombin).supGroup.data[val];
-                             AppRoute.CategorySubDetail(context, data.id,title:data.name );
+                             AppRoute.CategorySubDetail(context, data.id,title:data.name);
 
                             // setState(() {
                             //   _categoryselectedIndex = val;
@@ -169,7 +157,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                           productRespone: (snapshot.data as CategoryObjectCombin).goupProduct,
                           IconInto: 'assets/images/svg/product_hot.svg',
                           onSelectMore: () {
-                            AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr());
+                            AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),installData: (snapshot.data as CategoryObjectCombin).goupProduct);
                           },
                           onTapItem: (ProductData item,int index) {
                             AppRoute.ProductDetail(context,

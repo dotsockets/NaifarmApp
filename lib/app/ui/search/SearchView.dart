@@ -107,8 +107,9 @@ class _SearchViewState extends State<SearchView> {
                                             productItem: ProducItemRespone(
                                                 id: item.productId,
                                                 shopId: item.shopId,
-                                                shop: ShopItem(id: item.shopId),name: item.inventories[0].title,
-                                                salePrice: item.inventories[0].salePrice,offerPrice: item.inventories[0].salePrice,saleCount: item.saleCount,
+                                                shop: ShopItem(id: item.shopId),
+                                                name: item.inventories[0].title,
+                                                salePrice: item.inventories[0].salePrice,offerPrice: item.inventories[0].offerPrice,saleCount: item.saleCount,
                                             image: item.image));
                                       },
                                     ),
@@ -125,7 +126,7 @@ class _SearchViewState extends State<SearchView> {
                   InkWell(
                     child: Container(
                       color: Colors.white,
-                      padding: EdgeInsets.only(top: 0, bottom: 10),
+                      padding: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h),
                       width: MediaQuery.of(context).size.width,
                       child: Center(
                         child: StreamBuilder(

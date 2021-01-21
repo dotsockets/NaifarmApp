@@ -134,7 +134,7 @@ class _EditProductViewState extends State<EditProductView> {
                                   children: [
                                     BuildEditText(
                                       head: LocaleKeys.my_product_name.tr()+" * ",EnableMaxLength: true,
-                                      hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 10,controller: nameProductController,inputType: TextInputType.text,onChanged: (String char){
+                                      hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 120,controller: nameProductController,inputType: TextInputType.text,onChanged: (String char){
                                       if(char.isNotEmpty){
                                         bloc.uploadProductStorage.value.productMyShopRequest.name  = char;
                                         bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
