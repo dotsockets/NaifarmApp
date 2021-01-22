@@ -16,10 +16,9 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/utility/widgets/FlashSaleBar.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
 
+import 'ProductLandscape.dart';
 
 class FlashSale extends StatefulWidget {
   final FlashsaleRespone flashsaleRespone;
@@ -65,7 +64,7 @@ class _FlashSaleState extends State<FlashSale> {
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: FlashSaleBar(timeFlash: widget.flashsaleRespone.data[0].end,),
+          child: _flashSaleText(),
         )
       ],
     );
@@ -112,11 +111,11 @@ class _FlashSaleState extends State<FlashSale> {
                 children: [
                   _ProductImage(
                       item:
-                          widget.flashsaleRespone.data[0].items[index].product,
+                      widget.flashsaleRespone.data[0].items[index].product,
                       index: index),
                   _intoProduct(
                       item:
-                          widget.flashsaleRespone.data[0].items[index].product,
+                      widget.flashsaleRespone.data[0].items[index].product,
                       index: index)
                 ],
               ),
@@ -216,12 +215,12 @@ class _FlashSaleState extends State<FlashSale> {
                 children: [
                   item.offerPrice != null
                       ? Text("${item.salePrice}",
-                          style: FunctionHelper.FontTheme(
-                              color: Colors.grey,
-                              fontSize: SizeUtil.priceFontSize().sp - 2,
-                              decoration: TextDecoration.lineThrough))
+                      style: FunctionHelper.FontTheme(
+                          color: Colors.grey,
+                          fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough))
                       : SizedBox(),
-                  SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
+                  SizedBox(width: item.offerPrice!=null?1.0.w:0),
+
                   Text(
                     item.offerPrice != null
                         ? "฿${item.offerPrice}"
@@ -271,4 +270,77 @@ class _FlashSaleState extends State<FlashSale> {
     );
   }
 
+  Widget _flashSaleText() {
+    return Container(
+      margin: EdgeInsets.only(top: 2.0.h),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Container(
+          padding: EdgeInsets.only(
+              right: 2.0.w, left: 2.0.w, top: 2.0.w, bottom: 2.0.w),
+          color: ThemeColor.ColorSale(),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SvgPicture.asset(
+                'assets/images/svg/flash_sale.svg',
+                width: 5.0.w,
+                height: 5.0.h,
+              ),
+              Text("Fla",
+                  style: GoogleFonts.kanit(
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      color: Colors.white)),
+              SizedBox(width: 1.0.h),
+              SvgPicture.asset('assets/images/svg/flash.svg',
+                  width: 5.0.w, height: 5.0.h),
+              SizedBox(width: 1.0.h),
+              Text("h Sale",
+                  style: GoogleFonts.kanit(
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      color: Colors.white)),
+              SizedBox(width: 1.0.h),
+              _buildCountDown()
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  CountdownFormatted _buildCountDown() => CountdownFormatted(
+    duration: Duration(
+      seconds: FunctionHelper.flashSaleTime(
+          timeFlash: "2021-01-23 10:00:00"),
+    ),
+    onFinish: null,
+    builder: (BuildContext context, String remaining) {
+      final showTime = (String text) => ClipRRect(
+        borderRadius: BorderRadius.circular(10.0),
+        child: Container(
+          color: Colors.black,
+          padding: EdgeInsets.only(
+              left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
+          alignment: Alignment.center,
+          margin: EdgeInsets.symmetric(horizontal: 3),
+          child: Text(
+            text,
+            style: FunctionHelper.FontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
+      List<String> time = remaining.split(':').toList();
+      return Row(
+        children: [
+          showTime(time[0]),
+          showTime(time[1]),
+          showTime(time[2]),
+        ],
+      ); // 01:00:00
+    },
+  );
 }

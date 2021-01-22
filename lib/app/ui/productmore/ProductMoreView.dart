@@ -9,7 +9,7 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ProductGrid.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 
-class ProductMoreView extends StatelessWidget {
+class ProductMoreView extends StatefulWidget {
   final String barTxt ;
   final List<ProductModel> productList;
   final ProductRespone installData;
@@ -20,17 +20,23 @@ class ProductMoreView extends StatelessWidget {
 
 
   @override
+  _ProductMoreViewState createState() => _ProductMoreViewState();
+}
+
+class _ProductMoreViewState extends State<ProductMoreView> {
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
       child: Scaffold(
         appBar: AppToobar(title:
-        barTxt,header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
+        widget.barTxt,header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
         body: SingleChildScrollView(
             child: Container(
               child: ProductGrid(titleInto: "",
-                  api_link: api_link,
-                  productRespone: installData,
+                  api_link: widget.api_link,
+                  productRespone: widget.installData,
                   IconInto: '',
                   onTapItem: (ProductData item,int index) {
                     AppRoute.ProductDetail(context,

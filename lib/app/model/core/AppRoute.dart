@@ -220,13 +220,8 @@ class AppRoute{
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => SplashLoginView()), (Route<dynamic> route) => false);
   }
 
-  static Home(BuildContext context, {callback=true}){
-    if(callback){
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeView()), (Route<dynamic> route) => false);
-    }else{
-      Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: HomeView()));
-
-    }
+  static Home(BuildContext context, ){
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeView()), (Route<dynamic> route) => route.isFirst);
 
   }
 

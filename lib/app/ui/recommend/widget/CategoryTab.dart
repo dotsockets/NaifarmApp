@@ -31,7 +31,7 @@ class CategoryTab extends StatelessWidget {
       child: Column(
         children: [
           _header_bar(),
-          categoryGroupRespone.data!=null?_flashProduct(context):SizedBox()
+          categoryGroupRespone!=null?_flashProduct(context):SizedBox()
         ],
       ),
     );

@@ -24,6 +24,7 @@ class ProductLandscape extends StatelessWidget {
   final Function() onSelectMore;
   final Function(ProductData,int) onTapItem;
   final String IconInto;
+  final List<ProductModel> producViewModel;
   final String tagHero;
   final bool showIcon;
   final bool showPriceSale;
@@ -31,7 +32,7 @@ class ProductLandscape extends StatelessWidget {
   final bool showSeeMore;
 
 
-  ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true, this.productRespone,this.showSeeMore=true}) : super(key: key);
+  ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true, this.productRespone,this.showSeeMore=true}) : super(key: key);
 
 
   @override
@@ -45,7 +46,7 @@ class ProductLandscape extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _header_bar(),
-            productRespone.data!=null?_flashProduct():SizedBox()
+            productRespone!=null?_flashProduct():SizedBox()
           ],
         ),
       ),

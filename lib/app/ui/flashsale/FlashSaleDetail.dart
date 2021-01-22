@@ -1,5 +1,6 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:countdown_flutter/countdown_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,11 +74,11 @@ class _FlashSaleViewState extends State<FlashSaleView> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(topRight:  Radius.circular(40),topLeft: Radius.circular(40),
-                            bottomLeft: Radius.circular( 40),bottomRight: Radius.circular(40)
+                            bottomLeft: Radius.circular( widget.instalData.data.length !=0?0:40),bottomRight: Radius.circular(widget.instalData.data.length !=0?0:40)
                         ),
                         border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
                     ),
-                    child:   widget.instalData.data == null?
+                    child:   widget.instalData.data.length ==0?
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height:50.0.h,
@@ -110,7 +111,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: FlashSaleBar(timeFlash:  widget.instalData.data!=null?widget.instalData.data[0].end:"${DateTime.now().toString()}"),
+                    child: FlashSaleBar(timeFlash:  widget.instalData.data[0].end,),
                   )
                 ],
               ),

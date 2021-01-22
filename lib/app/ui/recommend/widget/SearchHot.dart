@@ -29,7 +29,7 @@ class SearchHot extends StatelessWidget {
       child: Column(
         children: [
           _header_bar(),
-          productRespone.data!=null?CustomGridView(
+          productRespone!=null?CustomGridView(
             tagHero: "search_",
             productRespone: productRespone,lengthRow: 2,
               onTapItem: (ProductData item,int index) { AppRoute.ProductDetail(context,

@@ -10,12 +10,17 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
-class ProductDetail extends StatelessWidget {
+class ProductDetail extends StatefulWidget {
   final ProducItemRespone productItem;
 
-   ProductDetail({Key key, this.productItem}) : super(key: key);
+  const ProductDetail({Key key, this.productItem}) : super(key: key);
 
 
+  @override
+  _ProductDetailState createState() => _ProductDetailState();
+}
+
+class _ProductDetailState extends State<ProductDetail> {
   GlobalKey _keyRed = GlobalKey();
 
   int lineInto = 7;
@@ -25,25 +30,20 @@ class ProductDetail extends StatelessWidget {
     final RenderBox renderBoxRed = _keyRed.currentContext.findRenderObject();
     final sizeRed = renderBoxRed.size;
 
-    // setState(() {
-    //   IntoLine = (sizeRed / 22).height.toInt();
-    // });
+    setState(() {
+      IntoLine = (sizeRed / 22).height.toInt();
+    });
   }
-  //
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((_) => _getSizes());
-  // }
 
-  init(BuildContext context){
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _getSizes());
   }
 
   @override
   Widget build(BuildContext context) {
-    init(context);
     return Container(
       padding: EdgeInsets.only(bottom: 20),
       child: Column(
@@ -101,7 +101,7 @@ class ProductDetail extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${productItem!=null&&productItem.inventories!=null?productItem.inventories[0].stockQuantity:0} ชิ้น",
+                      "${widget.productItem!=null&&widget.productItem.inventories!=null?widget.productItem.inventories[0].stockQuantity:0} ชิ้น",
                       style: FunctionHelper.FontTheme( fontWeight: FontWeight.w500,
                           color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
@@ -138,7 +138,7 @@ class ProductDetail extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 8),
                 child: Text(
-                  productItem!=null&&productItem.description!=null?FunctionHelper.replaceText(text: productItem.description,pattern: "\n"):"-",
+                  widget.productItem!=null&&widget.productItem.description!=null?FunctionHelper.replaceText(text: widget.productItem.description,pattern: "\n"):"-",
                   style: FunctionHelper.FontTheme(height: 1.6,fontSize: SizeUtil.titleSmallFontSize().sp),
                   maxLines: lineInto,
                   key: _keyRed,
@@ -176,10 +176,10 @@ class ProductDetail extends StatelessWidget {
                                   fontSize: SizeUtil.titleSmallFontSize().sp),
                             ))),
                         onTap: () {
-                          // setState(() {
-                          //   lineInto = 100;
-                          //   IntoLine = 0;
-                          // });
+                          setState(() {
+                            lineInto = 100;
+                            IntoLine = 0;
+                          });
                         },
                       ))
                   : SizedBox(),
