@@ -98,10 +98,11 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                         selectedIndex: snapshot.data,
                         onTap: (index) {
                           Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+                          NaiFarmLocalStorage.saveNowPage(index);
                           if(index==2){
                             Usermanager().isLogin().then((value) async {
                               if(!value){
-                                NaiFarmLocalStorage.saveNowPage(index);
+
                                 final result = await  AppRoute.Login(context,IsCallBack: true);
                               }else{
 
@@ -117,6 +118,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                           }else{
                             _selectedIndex.add(index);
                           }
+
 
                         },
                       ),

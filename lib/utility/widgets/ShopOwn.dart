@@ -20,8 +20,9 @@ import 'ProductLandscape.dart';
 class ShopOwn extends StatelessWidget {
   final ShopItem shopItem;
   final MyShopRespone shopRespone;
+  final bool showBtn;
 
-  const ShopOwn({Key key, this.shopItem,this.shopRespone}) : super(key: key);
+  const ShopOwn({Key key, this.shopItem,this.shopRespone, this.showBtn=true}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -82,7 +83,7 @@ class ShopOwn extends StatelessWidget {
                    ],
                  ),
                ),
-                Container(
+               showBtn? Container(
 
                   child: FlatButton(
                     color: ThemeColor.primaryColor(),
@@ -100,7 +101,7 @@ class ShopOwn extends StatelessWidget {
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
                     ),
                   ),
-                )
+                ):SizedBox()
               ],
             ),
           ),

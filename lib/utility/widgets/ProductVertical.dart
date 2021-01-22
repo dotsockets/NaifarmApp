@@ -38,9 +38,9 @@ class ProductVertical extends StatelessWidget {
         child: Column(
           children: [
             _header_bar(),
-            Column(
+            productRespone!=null?Column(
               children: List.generate(productRespone.data.length, (index) => _buildCardProduct(context,item: productRespone.data[index],index: index)),
-            )
+            ):SizedBox()
           ],
         ),
       ),

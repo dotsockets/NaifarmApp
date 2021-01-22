@@ -111,11 +111,11 @@ class _FlashSaleState extends State<FlashSale> {
                 children: [
                   _ProductImage(
                       item:
-                          widget.flashsaleRespone.data[0].items[index].product,
+                      widget.flashsaleRespone.data[0].items[index].product,
                       index: index),
                   _intoProduct(
                       item:
-                          widget.flashsaleRespone.data[0].items[index].product,
+                      widget.flashsaleRespone.data[0].items[index].product,
                       index: index)
                 ],
               ),
@@ -309,38 +309,38 @@ class _FlashSaleState extends State<FlashSale> {
   }
 
   CountdownFormatted _buildCountDown() => CountdownFormatted(
-        duration: Duration(
-          seconds: FunctionHelper.flashSaleTime(
-              timeFlash: widget.flashsaleRespone.data[0].end),
+    duration: Duration(
+      seconds: FunctionHelper.flashSaleTime(
+          timeFlash: "2021-01-23 10:00:00"),
+    ),
+    onFinish: null,
+    builder: (BuildContext context, String remaining) {
+      final showTime = (String text) => ClipRRect(
+        borderRadius: BorderRadius.circular(10.0),
+        child: Container(
+          color: Colors.black,
+          padding: EdgeInsets.only(
+              left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
+          alignment: Alignment.center,
+          margin: EdgeInsets.symmetric(horizontal: 3),
+          child: Text(
+            text,
+            style: FunctionHelper.FontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
         ),
-        onFinish: null,
-        builder: (BuildContext context, String remaining) {
-          final showTime = (String text) => ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: Container(
-                  color: Colors.black,
-                  padding: EdgeInsets.only(
-                      left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 3),
-                  child: Text(
-                    text,
-                    style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              );
-          List<String> time = remaining.split(':').toList();
-          return Row(
-            children: [
-              showTime(time[0]),
-              showTime(time[1]),
-              showTime(time[2]),
-            ],
-          ); // 01:00:00
-        },
       );
+      List<String> time = remaining.split(':').toList();
+      return Row(
+        children: [
+          showTime(time[0]),
+          showTime(time[1]),
+          showTime(time[2]),
+        ],
+      ); // 01:00:00
+    },
+  );
 }

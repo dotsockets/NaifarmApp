@@ -66,7 +66,7 @@ class ProductBloc{
   }
 
 
-  loadHomeData({String token})async{
+  loadHomeData({String token,bool callback=false})async{
     StreamSubscription subscription = Observable.combineLatest7(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage()) // สไลด์ภาพ
         , Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular("1",10)), // สินค้าขายดี
         Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup()), // หมวดหมู่ทั่วไป
@@ -89,7 +89,10 @@ class ProductBloc{
             trendingRespone: _trending,martket: _martket,flashsaleRespone: _flashsale);
 
         }).listen((event) {
-
+          if(callback){
+            onSuccess.add(true);
+          }
+     // onSuccess.add(true);
             NaiFarmLocalStorage.saveHomeData(event).then((value) => ZipHomeObject.add(event));
 
     });

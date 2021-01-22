@@ -46,7 +46,7 @@ class ProductLandscape extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _header_bar(),
-            _flashProduct()
+            productRespone!=null?_flashProduct():SizedBox()
           ],
         ),
       ),

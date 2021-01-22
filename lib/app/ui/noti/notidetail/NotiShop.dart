@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
@@ -31,12 +32,18 @@ class NotiShop extends StatefulWidget {
 class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<NotiShop>{
   NotiBloc bloc;
   init(){
+    NaiFarmLocalStorage.getNowPage().then((value) {
+      if(value==2){
+        Usermanager().getUser().then((value) => bloc.GetNotificationByGroup(group: "shop",page: 1,limit: 20,sort: "notification.createdAt:desc",token: value.token));
+
+      }
+    });
     if(bloc==null){
       bloc = NotiBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
         FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
       });
-      Usermanager().getUser().then((value) => bloc.GetNotificationByGroup(group: "shop",page: 1,limit: 20,sort: "notification.createdAt:desc",token: value.token));
+
     }
   }
   @override

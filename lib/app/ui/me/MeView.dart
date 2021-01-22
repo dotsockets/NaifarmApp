@@ -84,14 +84,14 @@ class _MeViewState extends State<MeView> with RouteAware {
       child: SafeArea(
         child: Builder(
           builder: (context) {
-            final _scr = PrimaryScrollController.of(context);
-            _scr.addListener(() {
-              if (_scr.position.pixels > 100) {
-                controller.add(false);
-              } else {
-                controller.add(true);
-              }
-            });
+            // final _scr = PrimaryScrollController.of(context);
+            // _scr.addListener(() {
+            //   if (_scr.position.pixels > 100) {
+            //     controller.add(false);
+            //   } else {
+            //     controller.add(true);
+            //   }
+            // });
             return Scaffold(
                 key: _scaffoldKey,
                 backgroundColor: Colors.grey.shade300,
@@ -101,7 +101,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                     if (snapshot.hasData) {
                       var info = (snapshot.data as ProfileObjectCombine);
                       return CustomScrollView(
-                        controller: _scr,
+                       // controller: _scr,
                         slivers: [
                           SliverAppBar(
                             leading: Container(
@@ -123,18 +123,13 @@ class _MeViewState extends State<MeView> with RouteAware {
                               ),
                             ),
                             actions: [
-                              GestureDetector(
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        right: 2.5.w, top: 2.0.w),
-                                    child: BuildIconShop(
-                                      size: 7.0.w,
-                                      notification: 0,
-                                    )),
-                                onTap: () {
-                                  AppRoute.MyCart(context, true);
-                                },
-                              ),
+                              Container(
+                                  margin: EdgeInsets.only(
+                                      right: 2.5.w, top: 2.0.w),
+                                  child: BuildIconShop(
+                                    size: 7.0.w,
+                                    notification: 0,
+                                  )),
                             ],
                             expandedHeight:
                                 ScreenUtil().setHeight(IsLogin ? 450 : 400),

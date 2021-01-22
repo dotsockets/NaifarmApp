@@ -29,11 +29,11 @@ class SearchHot extends StatelessWidget {
       child: Column(
         children: [
           _header_bar(),
-          CustomGridView(
+          productRespone!=null?CustomGridView(
             tagHero: "search_",
             productRespone: productRespone,lengthRow: 2,
               onTapItem: (ProductData item,int index) { AppRoute.ProductDetail(context,
-                 productImage: "search_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));})
+                 productImage: "search_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));}):SizedBox()
         ],
       ),
     );

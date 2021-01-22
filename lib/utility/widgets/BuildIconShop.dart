@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:sizer/sizer.dart';
 
 class BuildIconShop extends StatelessWidget {
@@ -17,7 +18,14 @@ class BuildIconShop extends StatelessWidget {
           IconButton(
             iconSize: size,
             onPressed: (){
-              AppRoute.MyCart(context,BtnBack);
+              Usermanager().getUser().then((value){
+                if(value.token!=null){
+                  AppRoute.MyCart(context,BtnBack);
+                }else{
+                  AppRoute.Login(context, IsCallBack: true);
+                }
+              });
+
             },
             icon: Icon(Icons.shopping_cart_outlined,),
             color: Colors.white,

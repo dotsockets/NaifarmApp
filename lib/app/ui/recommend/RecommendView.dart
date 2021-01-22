@@ -54,6 +54,11 @@ class _RecommendViewState extends State<RecommendView> {
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
+      bloc.onSuccess.stream.listen((event) {
+        NaiFarmLocalStorage.getHomeDataCache().then((value) {
+          bloc.ZipHomeObject.add(value);
+        });
+      });
       NaiFarmLocalStorage.getHomeDataCache().then((value) {
         bloc.ZipHomeObject.add(value);
       });
@@ -68,7 +73,7 @@ class _RecommendViewState extends State<RecommendView> {
         controller: _indicatorController,
         onRefresh: () => _refreshProducts(),
         loadingToIdleDuration: const Duration(seconds: 1),
-        armedToLoadingDuration: const Duration(seconds: 2),
+        armedToLoadingDuration: const Duration(seconds: 1),
         draggingToIdleDuration: const Duration(seconds: 1),
         leadingGlowVisible: false,
         trailingGlowVisible: false,
@@ -166,10 +171,7 @@ class _RecommendViewState extends State<RecommendView> {
                                   RecommendMenu(
                                       homeObjectCombine:
                                           (snapshot.data as HomeObjectCombine)),
-                                  FlashSale(
-                                      flashsaleRespone:
-                                          (snapshot.data as HomeObjectCombine)
-                                              .flashsaleRespone)
+                                  FlashSale(flashsaleRespone: (snapshot.data as HomeObjectCombine).flashsaleRespone)
                                 ],
                               );
                             } else {
@@ -343,6 +345,7 @@ class _RecommendViewState extends State<RecommendView> {
   }
 
   _refreshProducts() {
+    bloc.loadHomeData(callback: true);
 
   }
 

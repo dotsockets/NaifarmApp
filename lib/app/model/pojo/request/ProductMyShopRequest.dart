@@ -40,7 +40,7 @@ class ProductMyShopRequest {
     packaging = json['packaging'];
     description = json['description'];
     slug = json['slug'];
-    offerPrice = json['offerPrice'];
+    offerPrice = json['offerPrice']!=null?json['offerPrice']:0;
     offerStart = json['offerStart'];
     offerEnd = json['offerEnd'];
     if (json['attributes'] != null) {

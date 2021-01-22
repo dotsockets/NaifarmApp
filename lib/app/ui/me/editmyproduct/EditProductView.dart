@@ -470,7 +470,7 @@ class _EditProductViewState extends State<EditProductView> {
     priceController.text = productMyShopRequest.salePrice.toString();
     priceController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.salePrice!=null?productMyShopRequest.salePrice.toString().length:0));
 
-    offerPriceController.text = productMyShopRequest.offerPrice.toString();
+    offerPriceController.text = productMyShopRequest.offerPrice!=null?productMyShopRequest.offerPrice.toString():'0';
     offerPriceController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.offerPrice!=null?productMyShopRequest.offerPrice.toString().length:0));
   }
 }

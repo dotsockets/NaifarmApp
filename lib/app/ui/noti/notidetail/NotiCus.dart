@@ -34,6 +34,15 @@ class NotiCus extends StatefulWidget {
 class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<NotiCus>{
   NotiBloc bloc;
   init(){
+    NaiFarmLocalStorage.getNowPage().then((value) {
+     if(value==2){
+       Usermanager().getUser().then((value){
+         bloc.GetNotificationByGroup(group: "customer",page: 1,limit: 20,sort: "notification.createdAt:desc",token: value.token);
+       });
+
+     }
+    });
+
     if(bloc==null){
       bloc = NotiBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
@@ -45,9 +54,6 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
 
 
 
-      Usermanager().getUser().then((value){
-        bloc.GetNotificationByGroup(group: "customer",page: 1,limit: 20,sort: "notification.createdAt:desc",token: value.token);
-      });
 
     }
 

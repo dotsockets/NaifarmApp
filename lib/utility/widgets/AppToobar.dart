@@ -126,25 +126,9 @@ class AppToobar extends PreferredSize {
               : SizedBox(),
           Container(
             margin: EdgeInsets.only(right: 10),
-            child: BlocBuilder<CustomerCountBloc, CustomerCountState>(
-              builder: (_, count) {
-                if (count is CustomerCountLoaded) {
-                  return BuildIconShop(
-                    size: 7.0.w,
-                    notification: count.countLoaded.notification.unreadCustomer,
-                  );
-                } else if(count is CustomerCountLoading){
-                  return BuildIconShop(
-                    notification: 1,
-                    size: 3.0.h,
-                  );
-                }else {
-                  return BuildIconShop(
-                    size: 7.0.w,
-                    notification: 0,
-                  );
-                }
-              },
+            child:  BuildIconShop(
+              size: 7.0.w,
+              notification: 0,
             ),
 
           )
