@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:countdown_flutter/countdown_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,24 +20,11 @@ import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
 
 
-class FlashSale extends StatefulWidget {
+class FlashSale extends StatelessWidget {
   final FlashsaleRespone flashsaleRespone;
 
   FlashSale({Key key, this.flashsaleRespone}) : super(key: key);
 
-  @override
-  _FlashSaleState createState() => _FlashSaleState();
-}
-
-class _FlashSaleState extends State<FlashSale> {
-  bool OnFlashSale = false;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    OnFlashSale = widget.flashsaleRespone.total > 0 ? true : false;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +45,13 @@ class _FlashSaleState extends State<FlashSale> {
             children: [
               SizedBox(height: 6.0.h),
               Center(child: _textSale(context: context)),
-              OnFlashSale ? _flashProduct(context) : SizedBox()
+              flashsaleRespone.data!=null ? _flashProduct(context) : SizedBox()
             ],
           ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: FlashSaleBar(timeFlash: widget.flashsaleRespone.data[0].end,),
+          child: FlashSaleBar(timeFlash: flashsaleRespone.data!=null?flashsaleRespone.data[0].end:"${DateTime.now().toString()}"),
         )
       ],
     );
@@ -92,7 +78,7 @@ class _FlashSaleState extends State<FlashSale> {
         ),
       ),
       onTap: () {
-        AppRoute.FlashSaleAll(context, instalData: widget.flashsaleRespone);
+        AppRoute.FlashSaleAll(context, instalData: flashsaleRespone);
       },
     );
   }
@@ -102,8 +88,8 @@ class _FlashSaleState extends State<FlashSale> {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: List.generate(
-            widget.flashsaleRespone.data.length != 0
-                ? widget.flashsaleRespone.data[0].items.length
+            flashsaleRespone.data.length != 0
+                ? flashsaleRespone.data[0].items.length
                 : 0, (index) {
           return InkWell(
             child: Container(
@@ -112,11 +98,11 @@ class _FlashSaleState extends State<FlashSale> {
                 children: [
                   _ProductImage(
                       item:
-                          widget.flashsaleRespone.data[0].items[index].product,
+                          flashsaleRespone.data[0].items[index].product,
                       index: index),
                   _intoProduct(
                       item:
-                          widget.flashsaleRespone.data[0].items[index].product,
+                          flashsaleRespone.data[0].items[index].product,
                       index: index)
                 ],
               ),
@@ -125,8 +111,7 @@ class _FlashSaleState extends State<FlashSale> {
               AppRoute.ProductDetail(context,
                   productImage: "productImage_${index}",
                   productItem: ProductBloc.ConvertDataToProduct(
-                      data: widget
-                          .flashsaleRespone.data[0].items[index].product));
+                      data: flashsaleRespone.data[0].items[index].product));
             },
           );
         }),

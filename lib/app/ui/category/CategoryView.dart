@@ -18,19 +18,11 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:sizer/sizer.dart';
 
-class CategoryView extends StatefulWidget {
-
-
-  @override
-  _CategoryViewState createState() => _CategoryViewState();
-}
-
-class _CategoryViewState extends State<CategoryView> {
-
+class CategoryView extends StatelessWidget {
 
   ProductBloc bloc;
 
-  void _init(){
+  void _init(BuildContext context){
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       NaiFarmLocalStorage.getHomeDataCache().then((value){
@@ -42,7 +34,7 @@ class _CategoryViewState extends State<CategoryView> {
   }
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return Scaffold(
       appBar:  AppToobar(header_type: Header_Type.barHome,isEnable_Search: true,),
 

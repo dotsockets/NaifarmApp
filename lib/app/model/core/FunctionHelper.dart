@@ -325,29 +325,33 @@ class FunctionHelper {
                 Row(
                   children: [
                     Expanded(
-                        child: GestureDetector(
-                          child: Padding(
-                            padding: EdgeInsets.all(15),
-                            child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  LocaleKeys.cancel_btn.tr(),
-                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale()),
-                                )),
-                          ),
-                            onTap: () => onCancel())),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: GestureDetector(
+                            child: Padding(
+                              padding: EdgeInsets.all(15),
+                              child: Text(
+                                LocaleKeys.cancel_btn.tr(),
+                                  textAlign: TextAlign.center,
+                                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale()),
+                              ),
+                            ),
+                              onTap: () => onCancel()),
+                        )),
                     Container(
                       width: 1,
                       height:50,
                       color: Colors.grey.shade300,
                     ),
                     Expanded(
-                        child: GestureDetector(
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: Text(LocaleKeys.ok_btn.tr(),
-                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor()))),
-                            onTap: () => onClick()))
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: GestureDetector(
+                            child: Text(LocaleKeys.ok_btn.tr(),
+        textAlign: TextAlign.center,
+                                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor())),
+                              onTap: () => onClick()),
+                        ))
                   ],
                 )
               ],

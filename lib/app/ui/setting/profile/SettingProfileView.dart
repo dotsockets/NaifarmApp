@@ -157,7 +157,10 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                           title: LocaleKeys.setting_account_title_delete_account.tr(),
                           onClick: () {
                             FunctionHelper.ConfirmDialog(context,message: LocaleKeys.dialog_message_del_account.tr(),onCancel: (){
-                            },);
+                              Navigator.pop(context, true);
+                            },onClick: (){
+                              Navigator.pop(context, true);
+                            });
                           },
                         ),
                         widget.IsLogin? _BuildButton():SizedBox()

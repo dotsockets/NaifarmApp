@@ -253,7 +253,6 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                         return  ProductLandscape(
                           productRespone:snapshot.data,
                           titleInto: LocaleKeys.recommend_you_like.tr(),
-                          producViewModel: ProductViewModel().getBestSaller(),
                           IconInto: 'assets/images/svg/like.svg',
                           onSelectMore: () {
 
