@@ -7,7 +7,7 @@ import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
-import 'package:naifarm/utility/widgets/FlashSale.dart';
+import 'package:naifarm/utility/widgets/FlashSaleBar.dart';
 import 'package:naifarm/utility/widgets/ProductGrid.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:easy_localization/easy_localization.dart';
