@@ -126,13 +126,14 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
       stream: bloc.Flashsale.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if(snapshot.hasData){
+          product_data.clear();
             product_data.addAll((snapshot.data as FlashsaleRespone).data[0].items);
 
           return Column(
             children: [
               for (int i = 0; i < product_data.length; i += 2)
                 Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(left: 7, right: 7),
                   margin: EdgeInsets.only(bottom: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

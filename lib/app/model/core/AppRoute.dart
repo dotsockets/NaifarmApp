@@ -21,7 +21,7 @@ import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/ui/Shopmynear/ShopMyNearView.dart';
 import 'package:naifarm/app/ui/category/detail/CategoryDetailView.dart';
 import 'package:naifarm/app/ui/category/detail/CategorySubDetailView.dart';
-import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
+import 'package:naifarm/app/ui/flashsale/FlashSaleDetail.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/app/ui/login/SplashLoginView.dart';
