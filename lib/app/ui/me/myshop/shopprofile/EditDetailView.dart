@@ -8,6 +8,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:sizer/sizer.dart';
 
 class EditDetailView extends StatefulWidget {
 
@@ -47,10 +48,9 @@ class _EditDetailViewState extends State<EditDetailView> {
           child: Column(
             children: [
               _Form(),
-              SizedBox(height: 30,),
+              SizedBox(height: 3.0.h,),
               FlatButton(
-                minWidth: 250,
-                height: 50,
+                minWidth: 50.0.w,
                 color: _input1.text!=""?ThemeColor.secondaryColor():Colors.grey.shade400,
                 textColor: Colors.white,
                 splashColor: Colors.white.withOpacity(0.3),
@@ -74,7 +74,7 @@ class _EditDetailViewState extends State<EditDetailView> {
       padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),
       child: Column(
         children: [
-          BuildEditText(head: "รายละเอียดร้านค้า",hint: "ระบุรายละเอียร้านค้า",inputType: TextInputType.text,BorderOpacity: 0.2,maxLength: 20,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
+          BuildEditText(head: "รายละเอียดร้านค้า",hint: "ระบุรายละเอียร้านค้า",inputType: TextInputType.text,BorderOpacity: 0.2,maxLine: 8,maxLength: 2000,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
             setState(() {
               widget.itemInfo.description = char;
             });

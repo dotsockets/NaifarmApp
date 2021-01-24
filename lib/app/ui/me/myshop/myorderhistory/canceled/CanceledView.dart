@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
+import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -12,6 +13,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -91,6 +93,7 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
     );
   }
 
+
   Widget _BuildCard({OrderData item, BuildContext context, int index}) {
     return InkWell(
       child: Container(
@@ -103,38 +106,46 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
         ),
       ),
       onTap: () {
-        AppRoute.ProductDetail(context, productImage: "history_${index}");
+        // AppRoute.ProductDetail(context, productImage: "history_${index}");
+        AppRoute.OrderDetail(context,item.orderStatusId,orderData: item);
       },
     );
   }
 
-  Widget _ProductItem({OrderItems item,int index}){
-    return   Row(
+  Widget _ProductItem({OrderItems item,int shopId, int index}) {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Hero(
-          tag: "history_${index}",
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black.withOpacity(0.1))),
-            child: CachedNetworkImage(
-              width: 22.0.w,
-              height: 22.0.w,
-              placeholder: (context, url) => Container(
-                color: Colors.white,
-                child:
-                Lottie.asset(Env.value.loadingAnimaion, height: 30),
+        InkWell(
+          child: Hero(
+            tag: "history_paid_${item.orderId}${item.inventoryId}${index}",
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black.withOpacity(0.1))),
+              child: CachedNetworkImage(
+                width: 22.0.w,
+                height: 22.0.w,
+                placeholder: (context, url) => Container(
+                  color: Colors.white,
+                  child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                ),
+                fit: BoxFit.cover,
+                imageUrl:
+                "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : ''}",
+                errorWidget: (context, url, error) => Container(
+                    height: 30,
+                    child: Icon(
+                      Icons.error,
+                      size: 30,
+                    )),
               ),
-              fit: BoxFit.cover,
-              imageUrl: "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty?item.inventory.product.image[0].path:''}",
-              errorWidget: (context, url, error) => Container(
-                  height: 30,
-                  child: Icon(
-                    Icons.error,
-                    size: 30,
-                  )),
             ),
           ),
+          onTap: (){
+            var product = item.inventory.product;
+            product.shop = ProductShop(id: shopId);
+            AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
+          },
         ),
         SizedBox(width: 2.0.w),
         Expanded(
@@ -153,18 +164,20 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
                   Text("x ${item.quantity}",
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
-                          color: Colors.black)) ,
+                          color: Colors.black)),
                   Row(
                     children: [
                       item.inventory.product.discountPercent != 0
-                          ? Text("฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
+                          ? Text(
+                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
                           style: FunctionHelper.FontTheme(
                               color: Colors.black.withOpacity(0.5),
                               fontSize: SizeUtil.titleFontSize().sp,
                               decoration: TextDecoration.lineThrough))
                           : SizedBox(),
                       SizedBox(width: 3.0.w),
-                      Text("฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
+                      Text(
+                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: ThemeColor.ColorSale()))
@@ -173,7 +186,7 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
                 ],
               ),
               Divider(
-                color: Colors.black.withOpacity(0.4),
+                color: Colors.black.withOpacity(0.3),
               )
             ],
           ),
@@ -229,7 +242,7 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
                     child: _IntroShipment(address: item.shippingAddress),
                   ),
                   Container(margin: EdgeInsets.only(left: 30),
-                      child: Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,size: 20,))
+                      child: Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400, size: 4.0.w,))
                 ],
               ),
               Divider(
@@ -247,7 +260,7 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
                           color: Colors.black.withOpacity(0.6)),
                     ),
                   ),
-                  _BuildButtonBayItem(btnTxt: "Contact seller")
+                  _BuildButtonBayItem(btnTxt: "Contact seller",item: item)
                 ],
               )
             ],
@@ -270,14 +283,14 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
                 ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   child: CachedNetworkImage(
-                    width: 35,
-                    height: 35,
+                    width: 7.0.w,
+                    height: 7.0.w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child: Lottie.asset(
                         Env.value.loadingAnimaion,
-                        width: 35,
-                        height: 35,
+                        width: 7.0.w,
+                        height: 7.0.w,
                       ),
                     ),
                     fit: BoxFit.cover,
@@ -285,8 +298,8 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
                     "${Env.value.baseUrl}/storage/images/${item.shop.image.isNotEmpty ? item.shop.image[0].path : ''}",
                     errorWidget: (context, url, error) => Container(
                         color: Colors.grey.shade400,
-                        width: 35,
-                        height: 35,
+                        width: 7.0.w,
+                        height: 7.0.w,
                         child: Icon(
                           Icons.person,
                           size: 30,
@@ -320,9 +333,8 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
   }
 
 
-  Widget _BuildButtonBayItem({String btnTxt}) {
+  Widget _BuildButtonBayItem({String btnTxt,OrderData item}) {
     return FlatButton(
-      height: 40,
       color: ThemeColor.ColorSale(),
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),
@@ -330,7 +342,7 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () {
-
+        AppRoute.OrderDetail(context,item.orderStatusId,orderData: item);
 
       },
       child: Text(

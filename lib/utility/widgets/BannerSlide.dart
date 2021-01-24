@@ -14,31 +14,33 @@ class BannerSlide extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 28.0.h,
-      width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(top: 2.0.w,bottom: 2.0.w),
-      decoration: new BoxDecoration(
-          color: ThemeColor.primaryColor(),
-          borderRadius: new BorderRadius.only(
-            bottomLeft: const Radius.circular(30.0),
-            bottomRight: const Radius.circular(30.0)
-          )
-      ),
-      child: CarouselSlider(
-        options: CarouselOptions(
-          viewportFraction: 0.945,
-          autoPlay: true,
-          autoPlayInterval: Duration(seconds: 7),
-          onPageChanged: (index, reason) {
-            // setState(() {
-            //   _current = index;
-            // });
-          },
-        ),
-        items: _imgList
-            .map(
-              (item) => Container(
+    return Column(
+      children: [
+        Container(
+          height: 28.0.h,
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.only(top: 0,bottom: 2.0.w),
+          decoration: new BoxDecoration(
+              color: ThemeColor.primaryColor(),
+              borderRadius: new BorderRadius.only(
+                  bottomLeft: const Radius.circular(30.0),
+                  bottomRight: const Radius.circular(30.0)
+              )
+          ),
+          child: CarouselSlider(
+            options: CarouselOptions(
+              viewportFraction: 0.945,
+              autoPlay: true,
+              autoPlayInterval: Duration(seconds: 7),
+              onPageChanged: (index, reason) {
+                // setState(() {
+                //   _current = index;
+                // });
+              },
+            ),
+            items: _imgList
+                .map(
+                  (item) => Container(
                 margin: EdgeInsets.only(left: 1.0.h,right: 1.0.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -60,9 +62,11 @@ class BannerSlide extends StatelessWidget {
                   ],
                 ),
               ),
+            )
+                .toList(),
+          ),
         )
-            .toList(),
-      ),
+      ],
     );
   }
 }

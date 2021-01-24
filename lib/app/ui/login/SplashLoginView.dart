@@ -6,6 +6,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
@@ -58,7 +59,7 @@ class SplashLoginView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "NaiFarm",
+              Env.value.appName,
               style: FunctionHelper.FontTheme(
                   color: Colors.white,
                   fontSize: SizeUtil.appNameFontSize().sp,
@@ -115,11 +116,11 @@ class SplashLoginView extends StatelessWidget {
                 Column(
                   children: [
                     InkWell(child: Text(LocaleKeys.splashLogin_skip.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp)),onTap: (){
-                      FunctionHelper.showDialogProcess(context);
+                     // FunctionHelper.showDialogProcess(context);
                       AppRoute.Home(context);
                     },),
                     Container(
-                      width: ScreenUtil().setWidth(100),
+                      width: 6.0.w,
                       color: Colors.white,
                       height: 2,
                     )

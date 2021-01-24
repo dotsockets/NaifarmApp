@@ -131,14 +131,14 @@ class _MyshopViewState extends State<MyshopView> {
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
             title: LocaleKeys.me_title_history_shop.tr(),
-            iconSize: 8.0.w,
+            iconSize:7.0.w,
             onClick: () => AppRoute.MyShophistory(context,0,orderType: "myshop/orders"),
           ),
           widget.IsLogin ? _BuildDivider() : SizedBox(),
           widget.IsLogin
               ? ListMenuItem(
             icon: 'assets/images/svg/like_2.svg',
-            iconSize: 8.0.w,
+            iconSize:7.0.w,
             title: LocaleKeys.me_title_wallet.tr(),
             Message: "300 บาท",
             onClick: () => AppRoute.WithdrawMoney(context),
@@ -147,7 +147,7 @@ class _MyshopViewState extends State<MyshopView> {
           widget.IsLogin ? _BuildDivider() : SizedBox(),
           widget.IsLogin
               ? ListMenuItem(
-            iconSize: 8.0.w,
+            iconSize:7.0.w,
             icon: 'assets/images/svg/editprofile.svg',
             title: LocaleKeys.me_title_my_product.tr(),
             onClick: () {
@@ -158,7 +158,7 @@ class _MyshopViewState extends State<MyshopView> {
           widget.IsLogin ? _BuildDivider() : SizedBox(),
           widget.IsLogin
               ? ListMenuItem(
-            iconSize: 8.0.w,
+            iconSize:7.0.w,
             icon: 'assets/images/svg/delivery.svg',
             title: LocaleKeys.me_title_shipping.tr(),
             onClick: () {
@@ -168,7 +168,7 @@ class _MyshopViewState extends State<MyshopView> {
               : SizedBox(),
           _BuildDivider(),
           ListMenuItem(
-              iconSize: 8.0.w,
+              iconSize:7.0.w,
               icon: 'assets/images/svg/money.svg',
               title: LocaleKeys.me_title_payment.tr(),
               onClick: () {
@@ -176,7 +176,7 @@ class _MyshopViewState extends State<MyshopView> {
               }),
           _BuildDivider(),
           ListMenuItem(
-            iconSize: 8.0.w,
+            iconSize:6.5.w,
             icon: 'assets/images/svg/help.svg',
             title: LocaleKeys.me_title_help.tr(),
             onClick: () {
@@ -185,6 +185,7 @@ class _MyshopViewState extends State<MyshopView> {
           ),
           _BuildDivider(num: 10),
           ListMenuItem(
+            iconSize:7.0.w,
             icon: 'assets/images/svg/work.svg',
             title: "ตั้งค่าข้อมูลร้านค้า",
             IsPhoto: "${widget.myShopRespone.image.isNotEmpty ?"${Env.value.baseUrl}/storage/images/${widget.myShopRespone.image[0].path}":''}",
@@ -199,7 +200,7 @@ class _MyshopViewState extends State<MyshopView> {
               }
             },
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 3.5.h),
           _buildBtnAddProduct(context)
         ],
       ),
@@ -208,7 +209,7 @@ class _MyshopViewState extends State<MyshopView> {
 
   Widget _buildTabMenu(BuildContext context,CustomerCountRespone count) {
     return Container(
-      padding: EdgeInsets.all(5.0.w),
+      padding: EdgeInsets.all(3.0.w),
       color: Colors.grey.shade300,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -244,10 +245,10 @@ class _MyshopViewState extends State<MyshopView> {
 
   Widget _buildBtnAddProduct(BuildContext context) {
     return Container(
+      width: 40.0.w,
       child: FlatButton(
         color: ThemeColor.secondaryColor(),
         textColor: Colors.white,
-        padding: EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
         splashColor: Colors.white.withOpacity(0.3),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(40.0),

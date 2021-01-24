@@ -50,48 +50,49 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
       backgroundColor: Colors.grey.shade300,
       appBar: AppToobar(
         title: LocaleKeys.my_profile_phone.tr(), header_type: Header_Type.barNormal,),
-      body: Column(
-        children: [
-          Container(padding:EdgeInsets.all(15), child: Text(LocaleKeys.message_phone_edit.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),),),
-          Container(
-            color: Colors.white,
-            child: Container(
-              padding:EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(LocaleKeys.edit_phone_old_phone.tr()+" xxxxxx${widget.customerInfoRespone.phone.substring(6,widget.customerInfoRespone.phone.length)}",
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp)),
-                  SizedBox(height: 15,),
-                  BuildEditText(
-                      head: LocaleKeys.edit_phone_title.tr(),
-                      hint: LocaleKeys.edit_phone_hint.tr(),maxLength: 10,controller: PhoneController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
-                    setState(() {});
-                    }),
-                  SizedBox(height: 20,),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(padding:EdgeInsets.all(15), child: Text(LocaleKeys.message_phone_edit.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),),),
+            Container(
+              color: Colors.white,
+              child: Container(
+                padding:EdgeInsets.all(5.0.w),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(LocaleKeys.edit_phone_old_phone.tr()+" xxxxxx${widget.customerInfoRespone.phone.substring(6,widget.customerInfoRespone.phone.length)}",
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleFontSize().sp)),
+                    SizedBox(height: 15,),
+                    BuildEditText(
+                        head: LocaleKeys.edit_phone_title.tr(),
+                        hint: LocaleKeys.edit_phone_hint.tr(),maxLength: 10,controller: PhoneController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
+                      setState(() {});
+                      }),
+                    SizedBox(height: 20,),
 
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 20,),
-          FlatButton(
-            minWidth: 250,
-            height: 50,
-            color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
-            textColor: Colors.white,
-            splashColor: Colors.white.withOpacity(0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
-            ),
-            onPressed: ()=>FormCheck()?verify():SizedBox(),
-            child: Text(LocaleKeys.continue_btn.tr(),
-              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-            ),
-          )
-        ],
+            SizedBox(height: 20,),
+            FlatButton(
+              minWidth: 50.0.w,
+              color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
+              textColor: Colors.white,
+              splashColor: Colors.white.withOpacity(0.3),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+              onPressed: ()=>FormCheck()?verify():SizedBox(),
+              child: Text(LocaleKeys.continue_btn.tr(),
+                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

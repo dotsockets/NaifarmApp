@@ -1,6 +1,7 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,12 +9,21 @@ import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 import 'BuildIconShop.dart';
+import 'CategoryMenu.dart';
 
-enum Header_Type { barHome, barNoBackground, barNormal, barcartShop, barMap }
+enum Header_Type {
+  barHome,
+  barNoBackground,
+  barNormal,
+  barcartShop,
+  barMap
+}
 
 class AppToobar extends PreferredSize {
   final Header_Type header_type;
@@ -46,7 +56,7 @@ class AppToobar extends PreferredSize {
   Widget build(BuildContext context) {
     if (header_type == Header_Type.barHome) {
       return BarHome(context);
-    } else if (header_type == Header_Type.barcartShop) {
+    }  else if (header_type == Header_Type.barcartShop) {
       return BarCartShop(context);
     } else if (header_type == Header_Type.barNoBackground) {
       return barNoSearchNoTitle(context);
@@ -60,33 +70,35 @@ class AppToobar extends PreferredSize {
   Widget BarNormal(BuildContext context) {
     return Container(
       child: AppBar(
-        leading: Visibility(
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-            onPressed: () =>
-                onClick == null ? Navigator.of(context).pop() : onClick(),
-          ),
-          visible: showBackBtn,
-        ),
+        leading: showBackBtn?IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white,size: 4.5.w,),
+          onPressed: () =>
+              onClick == null ? Navigator.of(context).pop() : onClick(),
+        ):SizedBox(),
         actions: [
-          GestureDetector(
+          InkWell(
             child: Container(
-              margin: EdgeInsets.only(right: 10),
+              margin: EdgeInsets.only(right: 4.0.w,left: 4.0.w),
               child: icon != ""
                   ? SvgPicture.asset(
                       icon,
                       color: Colors.white,
-                      width: 30,
-                      height: 30,
+                      width: 7.5.w,
+                      height: 7.5.w,
                     )
                   : Container(
-                      padding: EdgeInsets.only(right: 10),
                       child: SizedBox(
-                        width: 30,
+                        width: 8.0.w,
                       )),
             ),
-            onTap: () {
-              AppRoute.SearchHome(context);
+            onTap: (){
+              Usermanager().getUser().then((value) {
+                if (value.token != null) {
+                  AppRoute.MyCart(context, true);
+                } else {
+                  AppRoute.Login(context);
+                }
+              });
             },
           ),
         ],
@@ -97,7 +109,7 @@ class AppToobar extends PreferredSize {
             style: FunctionHelper.FontTheme(
                 color: Colors.black,
                 fontSize: SizeUtil.titleFontSize().sp,
-                fontWeight: FontWeight.normal),
+                fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -108,34 +120,23 @@ class AppToobar extends PreferredSize {
     return Container(
       child: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white,size: 5.0.w,),
           onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
-          isEnable_Search
-              ? Container(
-                  margin: EdgeInsets.only(bottom: 5, right: 5),
-                  child: GestureDetector(
-                    child: SvgPicture.asset('assets/images/svg/search.svg',
-                        color: Colors.white),
-                    onTap: () {
-                      onClick();
-                    },
-                  ),
-                )
-              : SizedBox(),
-          Container(
-            margin: EdgeInsets.only(right: 10),
-            child:  BuildIconShop(
-              size: 7.0.w,
-              notification: 0,
-            ),
 
+          Center(
+            child: Container(
+              margin: EdgeInsets.only(right: 1.0.w),
+              child: BuildIconShop(
+                size: 6.0.w,
+                notification: 0,
+              ),
+            ),
           )
         ],
         backgroundColor: ThemeColor.primaryColor(),
         title: Container(
-          padding: EdgeInsets.only(left: 30),
           child: Center(
             child: Text(
               title,
@@ -158,7 +159,7 @@ class AppToobar extends PreferredSize {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
-              child: SvgPicture.asset('assets/images/svg/back_black.svg'),
+              child: SvgPicture.asset('assets/images/svg/back_black.svg',width: 7.0.w,height: 7.0.w,),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -232,7 +233,6 @@ class AppToobar extends PreferredSize {
           right: 0.3.w),
       color: ThemeColor.primaryColor(),
       child: SafeArea(
-        bottom: false,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -253,7 +253,7 @@ class AppToobar extends PreferredSize {
             _buildSearch(isEnable_Search ? false : true, context),
             BuildIconShop(
               notification: 0,
-              size: 3.0.h,
+              size: 6.5.w,
             )
           ],
         ),
@@ -279,12 +279,12 @@ class AppToobar extends PreferredSize {
 
     return Expanded(
         child: Container(
-      height: 4.6.h,
+      height: 5.0.h,
       decoration: new BoxDecoration(
           color: Colors.white,
           borderRadius: new BorderRadius.all(Radius.circular(40.0))),
       child: Container(
-          padding: EdgeInsets.only(left: 5, right: 11, bottom: 1),
+          padding: EdgeInsets.only(left: 5, right: 11,bottom: 1),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -292,19 +292,17 @@ class AppToobar extends PreferredSize {
                 child: SvgPicture.asset(
                   'assets/images/svg/search.svg',
                   color: Colors.black,
-                  width: 7.0.w,
-                  height: 7.0.w,
+                  width: 5.0.w,
+                  height: 5.0.w,
                 ),
                 visible: isEnable_Search,
               ),
               Expanded(
                   child: InkWell(
                 child: isEnable_Search
-                    ? SizedBox(
-                        height: 40,
-                      )
+                    ? SizedBox()
                     : Container(
-                        padding: EdgeInsets.only(left: 15, bottom: 4),
+                        padding: EdgeInsets.only(left: 10),
                         child: TextField(
                           style: FunctionHelper.FontTheme(
                               color: Colors.black,
@@ -333,39 +331,7 @@ class AppToobar extends PreferredSize {
                 height: 5.0.w,
               )
             ],
-          )
-
-          /* InkWell(
-          child: TextField(
-            enabled: isEditable,
-            decoration: InputDecoration(
-              focusedBorder: border,
-              enabledBorder: border,
-              isDense: true,
-            // hintText: "search",
-              hintStyle: TextStyle(
-                fontSize: SizeUtil.titleFontSize().sp,
-                color: Colors.black,
-              ),
-              prefixIcon: Visibility(
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: SvgPicture.asset('assets/images/svg/search.svg',color: Colors.black),
-                ),
-                visible: isEnable_Search,
-              ),
-              prefixIconConstraints: sizeIcon,
-              suffixIcon: Padding(
-                padding: const EdgeInsets.only(top: 4,bottom: 4,right: 10),
-                child: SvgPicture.asset('assets/images/svg/search_photo.svg',color: Color(ColorUtils.hexToInt('#c7bfbf'))),
-              ),
-              suffixIconConstraints: sizeIcon,
-              filled: true
-            ),
-          ),
-          onTap: (){AppRoute.SearchHome(context);},
-        ),*/
-          ),
+          )),
     ));
   }
 

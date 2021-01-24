@@ -46,11 +46,12 @@ class _AddressViewState extends State<AddressView> {
 
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
+      Usermanager()
+          .getUser()
+          .then((value) => bloc.AddressesList(token: value.token));
     }
 
-    Usermanager()
-        .getUser()
-        .then((value) => bloc.AddressesList(token: value.token));
+
 
   }
 
@@ -127,8 +128,11 @@ class _AddressViewState extends State<AddressView> {
                               onTap: () async {
                                 var result = await   AppRoute.AddressEdit(context, item[key]);
                                 if(result!=null)
-                                  if(result)
-                                    setState(() {});
+                                  if(result){
+                                    Usermanager()
+                                        .getUser()
+                                        .then((value) => bloc.AddressesList(token: value.token));
+                                  }
 
                               },
                             ));
@@ -169,7 +173,7 @@ class _AddressViewState extends State<AddressView> {
       color: Colors.white,
       width: MediaQuery.of(context).size.width,
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(5.0.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -196,16 +200,16 @@ class _AddressViewState extends State<AddressView> {
                     Icon(
                       Icons.arrow_forward_ios,
                       color: Colors.grey.shade400,
+                      size: 5.0.w,
                     )
                   ],
                 ),
               ],
             ),
             SizedBox(
-              height: 10,
+              height: 8,
             ),
             Container(
-              width: 200,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -226,19 +230,26 @@ class _AddressViewState extends State<AddressView> {
 
   Widget _BuildButton() {
     return Container(
-      margin: EdgeInsets.only(top: 20, bottom: 20),
+      margin: EdgeInsets.only(top: 2.0.h),
       child: Center(
         child: FlatButton(
+          minWidth: 50.0.w,
           color: ThemeColor.ColorSale(),
           textColor: Colors.white,
-          padding: EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
           splashColor: Colors.white.withOpacity(0.3),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40.0),
           ),
           onPressed: () async {
             var result = await AppRoute.SettingAddAddress(context);
-            if (result != null) if (result) setState(() {});
+
+            if (result != null) {
+              if (result){
+                Usermanager()
+                    .getUser()
+                    .then((value) => bloc.AddressesList(token: value.token));
+              }
+            }
           },
           child: Text(
             LocaleKeys.add_address_btn.tr(),

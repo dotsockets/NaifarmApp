@@ -20,13 +20,7 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
-  List<String> searchList = [
-    "น้ำตาลปีบ",
-    "น้ำปลาหวาน",
-    "กุ้งฝอย",
-    "ผักกาด",
-    "พริก"
-  ];
+
   List<String> listClone = List<String>();
   bool checkSeemore = false;
   TextEditingController txtController = TextEditingController();
@@ -42,11 +36,7 @@ class _SearchViewState extends State<SearchView> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    listClone.addAll(searchList);
-  }
+
 
   @override
   Widget build(BuildContext context) {

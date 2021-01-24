@@ -85,7 +85,7 @@ import 'package:sizer/sizer.dart';
       backgroundColor: Colors.grey.shade200,
       appBar: AppToobar(title: LocaleKeys.edit_password_set.tr(),header_type: Header_Type.barNormal,),
       body: Container(
-        child: Container(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               _Form(),

@@ -217,7 +217,7 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
         Text(
           "฿${item.salePrice}",
           style: FunctionHelper.FontTheme(
-              color: ThemeColor.ColorSale(), fontSize: SizeUtil.titleSmallFontSize().sp),
+              color: ThemeColor.ColorSale(), fontSize: SizeUtil.priceFontSize().sp),
         ),
         SizedBox(
           height: 8,
@@ -267,16 +267,16 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                         border: Border.all(
-                            color: Colors.black.withOpacity(0.2), width: 1),
+                            color: Colors.black.withOpacity(0.1), width: 1),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child:  ClipRRect(
                       borderRadius: BorderRadius.circular(1.0.h),
                       child: CachedNetworkImage(
-                        width: 120,
-                        height: 130,
+                        width: 28.0.w,
+                        height: 28.0.w,
                         placeholder: (context, url) => Container(
-                          width: 120,
-                          height: 130,
+                          width: 28.0.w,
+                          height: 28.0.w,
                           color: Colors.white,
                           child:
                           Lottie.asset(Env.value.loadingAnimaion, height: 30),
@@ -284,8 +284,8 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
                         fit: BoxFit.cover,
                         imageUrl: ProductLandscape.CovertUrlImage(item.image),
                         errorWidget: (context, url, error) => Container(
-                            width: 120,
-                            height: 120,
+                            width: 28.0.w,
+                            height: 28.0.w,
                             child: Icon(
                               Icons.error,
                               size: 30,
@@ -297,20 +297,19 @@ class _ProductGridFlashSaleViewState extends State<ProductGridFlashSaleView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 7, left: 8),
-                      decoration: BoxDecoration(
-                          color: ThemeColor.ColorSale(),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      padding: EdgeInsets.only(
-                          left: 10, right: 10, top: 5, bottom: 5),
-                      child: Text(
-                        "50%",
-                        style: GoogleFonts.sarabun(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: SizeUtil.titleSmallFontSize().sp),
+                    Visibility(
+                      child: Container(
+                        margin: EdgeInsets.all(1.5.w),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(1.0.w),
+                          child: Container(
+                            padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
+                            color: ThemeColor.ColorSale(),
+                            child: Text("${item.discountPercent}%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
+                          ),
+                        ),
                       ),
+                      visible: item.discountPercent>0?true:false,
                     ),
                     widget.isLike
                         ? Container(

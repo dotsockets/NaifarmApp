@@ -46,7 +46,13 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
       bloc.onError.stream.listen((event) {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
-
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
       Usermanager().getUser().then((value) =>
           bloc.GetMyWishlists(token: value.token));
     }
@@ -119,11 +125,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                 );
               }
             } else {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [Skeleton.LoaderGridV(context)],
-                ),
-              );
+              return SizedBox();
             }
           },
         ),

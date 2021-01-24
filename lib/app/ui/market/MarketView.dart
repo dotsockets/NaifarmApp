@@ -8,6 +8,7 @@ import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
@@ -104,15 +105,7 @@ class _MarketViewState extends State<MarketView> {
                   children: [
                     AppToobar(title: LocaleKeys.market_toobar.tr(),header_type:  Header_Type.barcartShop,isEnable_Search: true,
                       onClick: (){AppRoute.SearchHome(context);},),
-                    CategoryMenu(
-                      //selectedIndex: _categoryselectedIndex,
-                      selectedIndex: 0,
-                      menuViewModel: _menuViewModel,onTap: (int val){
-                      setState(() {
-                        _categoryselectedIndex = val;
-                        _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
-                      });
-                    },),
+
                   ],
                 ),
                 content: Column(

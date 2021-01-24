@@ -91,7 +91,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           body: ListView(
             children: [
               _BuildBar(context),
-              _BuildHeader(context),
               StreamBuilder(
                   stream: phoneError.stream,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -196,20 +195,26 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         ));
   }
 
-  Widget _BuildBar(BuildContext context) {
+  Widget _BuildBar(BuildContext context){
     return Container(
-      padding: EdgeInsets.only(left: 20, top: 20),
-      color: ThemeColor.primaryColor(),
+      decoration: BoxDecoration(
+        color: ThemeColor.primaryColor(),
+        borderRadius: BorderRadius.only(bottomRight:  Radius.circular(40),bottomLeft: Radius.circular(40)),
+      ),
       width: MediaQuery.of(context).size.width,
-      child: Row(
+      child:Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          InkWell(
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
+          GestureDetector(
+            child: Container(
+              margin: EdgeInsets.only(left: 2.0.w,top: 2.0.w),
+              child: IconButton(
+                icon: Icon(Icons.arrow_back_ios,color: Colors.white,size: 4.5.w,),
+              ),
             ),
-            onTap: () => Navigator.of(context).pop(),
-          )
+            onTap: ()=>Navigator.pop(context, false),
+          ),
+          _BuildHeader(context),
         ],
       ),
     );

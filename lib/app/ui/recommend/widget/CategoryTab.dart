@@ -98,15 +98,17 @@ class CategoryTab extends StatelessWidget {
         child: Column(
           children: [
             CachedNetworkImage(
-              width: 20.0.w,
-              height: 20.0.w,
+              width: 18.0.w,
+              height: 18.0.w,
               placeholder: (context, url) => Container(
                 color: Colors.white,
-                child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                child: Lottie.asset(Env.value.loadingAnimaion, width: 18.0.w,
+                  height: 18.0.w,),
               ),
               fit: BoxFit.cover,
               imageUrl: "https://dev2-test.naifarm.com/category-icon/${item.icon}.png",
-              errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
+              errorWidget: (context, url, error) => Container( width: 18.0.w,
+                height: 18.0.w,child: Icon(Icons.error,size: 30,)),
             ),
             SizedBox(height: 2.0.h),
             Text(item.name,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),),

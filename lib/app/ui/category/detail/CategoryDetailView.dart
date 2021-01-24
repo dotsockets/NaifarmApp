@@ -6,7 +6,10 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryObjectCombin.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -18,11 +21,15 @@ import 'package:naifarm/utility/widgets/ProductVertical.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
+
+import 'CategoryHeader.dart';
 
 class CategoryDetailView extends StatefulWidget {
   final int index;
   final String title;
-  CategoryDetailView({Key key, this.index, this.title}) : super(key: key);
+  final HomeObjectCombine snapshot;
+  CategoryDetailView({Key key, this.index, this.title, this.snapshot}) : super(key: key);
   @override
   _CategoryDetailViewState createState() => _CategoryDetailViewState();
 }
@@ -40,19 +47,19 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
   }
 
   void _init(){
-    if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      // bloc.onLoad.stream.listen((event) {
-      //   if(event){
-      //         FunctionHelper.showDialogProcess(context);
-      //       }else{
-      //         Navigator.of(context).pop();
-      //       }
-      // });
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+              FunctionHelper.showDialogProcess(context);
+            }else{
+              Navigator.of(context).pop();
+            }
+      });
       bloc.loadCategoryPage(GroupId: widget.index);
-    }
+
 
   }
+
 
 
 
@@ -62,37 +69,20 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
     return SafeArea(
       top: false,
       child: Scaffold(
+        backgroundColor: Colors.grey.shade300,
         body: SingleChildScrollView(
           child: Container(
             color: Colors.grey.shade300,
             child: StickyHeader(
               header: Column(
                 children: [
-                  AppToobar(
-                    title: widget.title,
-                    header_type: Header_Type.barcartShop,
-                    isEnable_Search: true,
-                    onClick: ()=>AppRoute.SearchHome(context),
-                  ),
                   StreamBuilder(
                     stream: bloc.ZipCategoryObject.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if(snapshot.hasData) {
-                        return CategoryMenu(
-                          featuredRespone: (snapshot.data as CategoryObjectCombin).supGroup,
-                          selectedIndex:_categoryselectedIndex,
-                          onTap: (int val) {
-                            var data = (snapshot.data as CategoryObjectCombin).supGroup.data[val];
-                             AppRoute.CategorySubDetail(context, data.id,title:data.name);
-
-                            // setState(() {
-                            //   _categoryselectedIndex = val;
-                            //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
-                            // });
-                          },
-                        );
+                        return CategoryHeader(title: widget.title,snapshot: (snapshot.data as CategoryObjectCombin));
                       }else{
-                        return SizedBox();
+                        return CategoryHeader(title: widget.title);
                       }
                     },
                   ),
@@ -109,31 +99,22 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
               ),
               content: Column(
                 children: [
-                  StreamBuilder(
-                    stream: bloc.ZipCategoryObject.stream,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if(snapshot.hasData) {
-                        return BannerSlide();
-                      }else{
-                        return Skeleton.LoaderSlider(context);
-                      }
-                    },
-                  ),
-                  SizedBox(height: 15),
+
+                  SizedBox(height: 1.2.h),
                   StreamBuilder(
                     stream: bloc.ZipCategoryObject.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if(snapshot.hasData ) {
                         return ProductLandscape(
-                            showSeeMore: false,
+                            showSeeMore: true,
                             productRespone: (snapshot.data as CategoryObjectCombin).goupProduct,
                             titleInto: LocaleKeys.tab_bar_recommend.tr(),
                             //  showBorder: true,
                             IconInto: 'assets/images/svg/like.svg',
-                            //  api_link: 'products',
-                            /* onSelectMore: () {
-                                  AppRoute.ProductMore(context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),productList:ProductViewModel().getMarketRecommend());
-                                },*/
+                             // api_link: 'products',
+                             onSelectMore: () {
+                                  AppRoute.ProductMore(context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),api_link: 'products/types/trending');
+                                },
                             onTapItem: (ProductData item,int index) {
                               AppRoute.ProductDetail(context,
                                   productImage: "recommend_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
@@ -145,9 +126,27 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                       }
                     },
                   ),
-                  SizedBox(height: 10),
-                  _BannerAds(),
-                  SizedBox(height: 10),
+                  SizedBox(height: 1.2.h),
+                  StreamBuilder(
+                    stream: bloc.TrendingGroup.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if(snapshot.hasData) {
+                        return Column(
+                          children: [
+                            _BannerAds(),
+                            SizedBox(height: 1.2.h),
+                          ],
+                        );
+                      }else{
+                        return Column(
+                          children: [
+                            _BannerAds(),
+                            SizedBox(height: 1.2.h),
+                          ],
+                        );
+                      }
+                    },
+                  ),
                   StreamBuilder(
                     stream: bloc.ZipCategoryObject.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {

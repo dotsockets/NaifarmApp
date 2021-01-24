@@ -38,10 +38,11 @@ class ListMenuItem extends StatelessWidget {
     return InkWell(
       child: Container(
           color: Colors.white,
-          padding: EdgeInsets.only(right: 2.0.w, left: 3.5.w, top: 1.5.h, bottom: 1.5.h),
+          padding: EdgeInsets.only(right: 2.0.w, left: 3.5.w, top: 2.0.h, bottom: 2.0.h),
           child: Row(
             children: [
               Expanded(
+                flex: 2,
                 child: Row(
                   children: [
                     Visibility(
@@ -82,6 +83,8 @@ class ListMenuItem extends StatelessWidget {
                       visible: icon != "" ? true : false,
                     ),
                     Text(title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: fontWeight,
@@ -89,17 +92,12 @@ class ListMenuItem extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
+              IsSwitch!=null?Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  IsSwitch==null?Text(Message,
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleSmallFontSize().sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey.withOpacity(opacityMessage))):
                   FlutterSwitch(
-                    height: 30,
-                    width: 50,
+                    width: 13.0.w,
+                    height: 5.0.h,
                     toggleSize: 20,
                     activeColor: Colors.grey.shade200,
                     inactiveColor: Colors.grey.shade200,
@@ -111,13 +109,51 @@ class ListMenuItem extends StatelessWidget {
                     },
                   ),
                   SizedBox(
-                    width: 10,
+                    width: 1.0.w,
                   ),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey.withOpacity(0.7),
+                    size: 4.0.w,
                   )
                 ],
+              ):Expanded(
+                flex: 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: IsSwitch==null?Text(Message.replaceAll(new RegExp(r"\s+"), ""),
+                          maxLines: 1,
+                          textAlign: TextAlign.end,
+                          overflow: TextOverflow.ellipsis,
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleSmallFontSize().sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey.withOpacity(opacityMessage))):
+                      FlutterSwitch(
+                        width: 20,
+                        toggleSize: 20,
+                        activeColor: Colors.grey.shade200,
+                        inactiveColor: Colors.grey.shade200,
+                        toggleColor:
+                        SelectSwitch ? ThemeColor.primaryColor() : Colors.grey.shade400,
+                        value: SelectSwitch ? true : false,
+                        onToggle: (val) {
+                          IsSwitch(val);
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: 1.0.w,
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.grey.withOpacity(0.7),
+                      size: 4.0.w,
+                    )
+                  ],
+                ),
               )
             ],
           )),

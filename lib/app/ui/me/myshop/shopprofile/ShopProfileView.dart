@@ -24,6 +24,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
+import 'package:sizer/sizer.dart';
 
 import 'EditProviceView.dart';
 
@@ -53,11 +54,11 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
     if(null == bloc){
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        if(event){
-          FunctionHelper.showDialogProcess(context);
-        }else{
-          Navigator.of(context).pop();
-        }
+        // if(event){
+        //   FunctionHelper.showDialogProcess(context);
+        // }else{
+        //   Navigator.of(context).pop();
+        // }
       });
       bloc.onError.stream.listen((event) {
        // Navigator.of(context).pop();
@@ -89,6 +90,23 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
 
   }
 
+  void OnSave(){
+    if(onUpdate){
+      Usermanager().getUser().then((value) =>  bloc.MyShopUpdate(data: MyShopRequest(
+          name: itemInfo.name,
+          description: itemInfo.description,
+          slug: itemInfo.slug,
+          legalName: itemInfo.legalName,
+          externalUrl: itemInfo.externalUrl,
+          stateId: itemInfo.state!=null?itemInfo.state.id:0,
+          active: isSelect?1:0
+      ),access_token: value.token));
+      // Navigator.of(context).pop();
+    }else{
+      Navigator.pop(context,onImageUpdate);
+    }
+  }
+
 
 
   @override
@@ -96,225 +114,216 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
 
 
     _init();
-    return Container(
-      color: ThemeColor.primaryColor(),
-      child: SafeArea(
-        bottom: false,
-        child: Scaffold(
-            key: _scaffoldKey,
-            backgroundColor: Colors.grey.shade200,
-            body: CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  leading: Container(
-                    margin: EdgeInsets.only(left: 15),
-                    child: GestureDetector(
-                      child: Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,size: 30
+    return WillPopScope(
+      onWillPop: ()async{
+        OnSave();
+        return true;
+      },
+      child: Container(
+        color: ThemeColor.primaryColor(),
+        child: SafeArea(
+          bottom: false,
+          child: Scaffold(
+              key: _scaffoldKey,
+              backgroundColor: Colors.grey.shade200,
+              body: CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    leading: Container(
+                      margin: EdgeInsets.only(left: 10),
+                      child: IconButton(
+                        icon: Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.white,size: 4.5.w
+                        ),
+                        onPressed: (){
+                          OnSave();
+                        },
                       ),
-                      onTap: (){
-
-                        if(onUpdate){
-                           Usermanager().getUser().then((value) =>  bloc.MyShopUpdate(data: MyShopRequest(
-                             name: itemInfo.name,
-                             description: itemInfo.description,
-                             slug: itemInfo.slug,
-                             legalName: itemInfo.legalName,
-                             externalUrl: itemInfo.externalUrl,
-                             stateId: itemInfo.state!=null?itemInfo.state.id:0,
-                             active: isSelect?1:0
-                           ),access_token: value.token));
-                          // Navigator.of(context).pop();
-                        }else{
-                          Navigator.pop(context,onImageUpdate);
-                        }
-
-
-
-                      },
                     ),
-                  ),
-                  expandedHeight: 220,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Container(
-                      color: ThemeColor.primaryColor(),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 20,),
-                          Text("แก้ไขร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
-                          SizedBox(height: 20,),
-                          ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(60)),
-                            child: fileImage==null?CachedNetworkImage(
-                              width: 80,
-                              height: 80,
-                              placeholder: (context, url) => Container(
-                                width: 80,height: 80,
-                                color: Colors.white,
-                                child: Lottie.asset(Env.value.loadingAnimaion,
-                                    height: 30),
-                              ),
-                              fit: BoxFit.cover,
-                              imageUrl:itemInfo!=null?itemInfo.image!=null?"${Env.value.baseUrl}/storage/images/${itemInfo.image.isNotEmpty?itemInfo.image[0].path:''}":'':'',
-                              errorWidget: (context, url, error) => Container(
-                                  color: Colors.white,
-                                  width: 80,
-                                  height: 80,
-                                  child: Icon(
-                                    Icons.error,
-                                    size: 30,
-                                  )),
-                            ):Stack(
-                              children: [
-                                Container(
-                                  width: 80,
-                                  height: 80,
+                    expandedHeight: 220,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: Container(
+                        color: ThemeColor.primaryColor(),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 20,),
+                            Text("แก้ไขร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
+                            SizedBox(height: 4.0.h,),
+                            ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(60)),
+                              child: fileImage==null?CachedNetworkImage(
+                                width: 20.0.w,
+                                height: 20.0.w,
+                                placeholder: (context, url) => Container(
+                                  width: 20.0.w,
+                                  height: 20.0.w,
                                   color: Colors.white,
                                   child: Lottie.asset(Env.value.loadingAnimaion,
                                       height: 30),
                                 ),
-                                Image.file(fileImage,width: 80, height: 80,fit: BoxFit.cover,),
+                                fit: BoxFit.cover,
+                                imageUrl:itemInfo!=null?itemInfo.image!=null?"${Env.value.baseUrl}/storage/images/${itemInfo.image.isNotEmpty?itemInfo.image[0].path:''}":'':'',
+                                errorWidget: (context, url, error) => Container(
+                                    color: Colors.white,
+                                    width: 20.0.w,
+                                    height: 20.0.w,
+                                    child: Icon(
+                                      Icons.person,
+                                      size: 30,
+                                      color: Colors.grey.shade300,
+                                    )),
+                              ):Stack(
+                                children: [
+                                  Container(
+                                    width: 20.0.w,
+                                    height: 20.0.w,
+                                    color: Colors.white,
+                                    child: Lottie.asset(Env.value.loadingAnimaion,
+                                        height: 30),
+                                  ),
+                                  Image.file(fileImage,width: 80, height: 80,fit: BoxFit.cover,),
 
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 15),
-                          InkWell(
-                            child: Container(
-                              padding: EdgeInsets.only(right: 15,left: 15,bottom: 5,top: 5),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                                  color: ThemeColor.ColorSale()
+                                ],
                               ),
-                              child: Text(LocaleKeys.edit_img_btn.tr(),
-                                  style: FunctionHelper.FontTheme(
-                                      color: Colors.white,
-                                      fontSize:  SizeUtil.detailSmallFontSize(),
-                                      fontWeight: FontWeight.bold)),
                             ),
-                            onTap: (){
-                              captureImage(ImageSource.gallery);
-                            },
-                          ),
-                        ],
+                            SizedBox(height: 15),
+                            InkWell(
+                              child: Container(
+                                padding: EdgeInsets.only(right: 15,left: 15,bottom: 5,top: 5),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                                    color: ThemeColor.ColorSale()
+                                ),
+                                child: Text(LocaleKeys.edit_img_btn.tr(),
+                                    style: FunctionHelper.FontTheme(
+                                        color: Colors.white,
+                                        fontSize:  SizeUtil.detailSmallFontSize(),
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                              onTap: (){
+                                captureImage(ImageSource.gallery);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SliverList(
-                  delegate: SliverChildListDelegate(<Widget>[
-                    Container(
-                      height: 700,
-                      child: Column(
-                        children: [
+                  SliverList(
+                    delegate: SliverChildListDelegate(<Widget>[
+                      Container(
+                        height: 50.0.h,
+                        child: Column(
+                          children: [
 
-                          ListMenuItem(
-                            opacityMessage: 0.5,
-                            icon: '',
-                            Message: itemInfo.name!=null?itemInfo.name:'',
-                            title: "ชื่อร้านค้า",
-                            onClick: () async {
-                              final result = await AppRoute.EditNameShop(context,itemInfo: itemInfo);
-                              if(result!=null){
-                                onUpdate = true;
-                                setState(()=>itemInfo = result);
-                              }
-                            },
-                          ),
-                          _buildLine(),
-                          ListMenuItem(
-                            opacityMessage: 0.5,
-                            icon: '',
-                            Message: itemInfo.legalName!=null?itemInfo.legalName.length>20?'${itemInfo.legalName.substring(0,20)}...':itemInfo.legalName:'',
-                            title: "ชื่อเป็นทางการ",
-                            onClick: () async {
-                             final result = await AppRoute.OfficialName(context,itemInfo: itemInfo);
-                             if(result!=null){
-                               onUpdate = true;
-                                setState(()=>itemInfo = result);
-                             }
-                            },
-                          ),
-                          _buildLine(),
-                          ListMenuItem(
-                            opacityMessage: 0.5,
-                            icon: '',
-                            Message: itemInfo.slug!=null?itemInfo.slug:'',
-                            title: "Slug ร้านค้า",
-                            onClick: () async{
-                              final result = await AppRoute.EditSlug(context,itemInfo: itemInfo);
-                              if(result!=null){
-                                onUpdate = true;
-                                setState(()=>itemInfo = result);
-                              }
-                            },
-                          ),
-                          _buildLine(),
-                          ListMenuItem(
-                            opacityMessage: 0.5,
-                            icon: '',
-                            Message: itemInfo.description!=null?itemInfo.description:'',
-                            title: "รายละเอียด",
-                            onClick: () async {
-                              final result = await AppRoute.EditDetail(context,itemInfo: itemInfo);
-                              if(result!=null){
-                                onUpdate = true;
-                                setState(()=>itemInfo = result);
-                              }
-                            },
-                          ),
-                          _buildLine(),
-                          ListMenuItem(
-                            opacityMessage: 0.5,
-                            icon: '',
-                            Message: itemInfo.externalUrl!=null?itemInfo.externalUrl:'',
-                            title: "ลิงค์ภายนอก",
-                            onClick: () async {
-                              final result = await AppRoute.EditExtrlUrl(context,itemInfo: itemInfo);
-                              if(result!=null){
-                                onUpdate = true;
-                                setState(()=>itemInfo = result);
-                              }
-                            },
-                          ),
-                          _buildLine(),
-                          ListMenuItem(
-                            opacityMessage: 0.5,
-                            icon: '',
-                            Message: itemInfo!=null?itemInfo.state!=null?itemInfo.state.name:'':'',
-                            title: "จังหวัด",
-                            onClick: () async {
-                              final result = await AppRoute.EditProvice(context,itemInfo: itemInfo);
+                            ListMenuItem(
+                              opacityMessage: 0.5,
+                              icon: '',
+                              Message: itemInfo.name!=null?itemInfo.name:'',
+                              title: "ชื่อร้านค้า",
+                              onClick: () async {
+                                final result = await AppRoute.EditNameShop(context,itemInfo: itemInfo);
+                                if(result!=null){
+                                  onUpdate = true;
+                                  setState(()=>itemInfo = result);
+                                }
+                              },
+                            ),
+                            _buildLine(),
+                            ListMenuItem(
+                              opacityMessage: 0.5,
+                              icon: '',
+                              Message: itemInfo.legalName!=null?itemInfo.legalName.length>20?'${itemInfo.legalName.substring(0,20)}...':itemInfo.legalName:'',
+                              title: "ชื่อเป็นทางการ",
+                              onClick: () async {
+                               final result = await AppRoute.OfficialName(context,itemInfo: itemInfo);
+                               if(result!=null){
+                                 onUpdate = true;
+                                  setState(()=>itemInfo = result);
+                               }
+                              },
+                            ),
+                            _buildLine(),
+                            ListMenuItem(
+                              opacityMessage: 0.5,
+                              icon: '',
+                              Message: itemInfo.slug!=null?itemInfo.slug:'',
+                              title: "Slug ร้านค้า",
+                              onClick: () async{
+                                final result = await AppRoute.EditSlug(context,itemInfo: itemInfo);
+                                if(result!=null){
+                                  onUpdate = true;
+                                  setState(()=>itemInfo = result);
+                                }
+                              },
+                            ),
+                            _buildLine(),
+                            ListMenuItem(
+                              opacityMessage: 0.5,
+                              icon: '',
+                              Message: itemInfo.description!=null?itemInfo.description:'',
+                              title: "รายละเอียด",
+                              onClick: () async {
+                                final result = await AppRoute.EditDetail(context,itemInfo: itemInfo);
+                                if(result!=null){
+                                  onUpdate = true;
+                                  setState(()=>itemInfo = result);
+                                }
+                              },
+                            ),
+                            _buildLine(),
+                            ListMenuItem(
+                              opacityMessage: 0.5,
+                              icon: '',
+                              Message: itemInfo.externalUrl!=null?itemInfo.externalUrl:'',
+                              title: "ลิงค์ภายนอก",
+                              onClick: () async {
+                                final result = await AppRoute.EditExtrlUrl(context,itemInfo: itemInfo);
+                                if(result!=null){
+                                  onUpdate = true;
+                                  setState(()=>itemInfo = result);
+                                }
+                              },
+                            ),
+                            _buildLine(),
+                            ListMenuItem(
+                              opacityMessage: 0.5,
+                              icon: '',
+                              Message: itemInfo!=null?itemInfo.state!=null?itemInfo.state.name:'':'',
+                              title: "จังหวัด",
+                              onClick: () async {
+                                final result = await AppRoute.EditProvice(context,itemInfo: itemInfo);
 
-                              if(result!=null){
+                                if(result!=null){
+                                  onUpdate = true;
+                                  setState(()=>itemInfo = result);
+                                }
+                              },
+                            ),
+                            _buildLine(num: 10),
+                            ListMenuItem(
+                              opacityMessage: 0.5,
+                              icon: '',
+                              SelectSwitch: isSelect,
+                              IsSwitch: (bool select){
                                 onUpdate = true;
-                                setState(()=>itemInfo = result);
-                              }
-                            },
-                          ),
-                          _buildLine(num: 10),
-                          ListMenuItem(
-                            opacityMessage: 0.5,
-                            icon: '',
-                            SelectSwitch: isSelect,
-                            IsSwitch: (bool select){
-                              onUpdate = true;
-                              setState(()=> isSelect = select);
-                            },
-                            title: "สถานะร้านค้า",
-                            onClick: () {
-                              AppRoute.EditpasswordStep1(context);
-                            },
-                          ),
-                        ],
-                      ),
-                    )
-                  ]),
-                )
-              ],
-            )),
+                                setState(()=> isSelect = select);
+                              },
+                              title: "สถานะร้านค้า",
+                              onClick: () {
+                                AppRoute.EditpasswordStep1(context);
+                              },
+                            ),
+                          ],
+                        ),
+                      )
+                    ]),
+                  )
+                ],
+              )),
+        ),
       ),
     );
   }

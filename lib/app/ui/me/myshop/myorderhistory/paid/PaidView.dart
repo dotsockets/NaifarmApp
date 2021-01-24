@@ -54,27 +54,8 @@ class _PaidViewState extends State<PaidView>
     init();
     return Container(
       color: Colors.white,
-      margin: EdgeInsets.only(top: 2.0.w),
-      // child: BlocBuilder<OrderBloc, OrdersState>(
-      //   builder: (_, state) {
-      //     if (state is OrdersLoaded) {
-      //       return Column(
-      //           children: state.orderRespone
-      //               .data
-      //               .asMap()
-      //               .map((key, value) => MapEntry(
-      //                   key,
-      //                   _BuildCard(
-      //                       item: value, index: key, context: context)))
-      //               .values
-      //               .toList());
-      //     } else if (state is OrdersLoading) {
-      //       return SizedBox();
-      //     } else {
-      //       return SizedBox();
-      //     }
-      //   },
-      // ),
+      margin: EdgeInsets.only(top: 1.0.h),
+
       child:  StreamBuilder(
           stream: bloc.feedList,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -135,7 +116,7 @@ class _PaidViewState extends State<PaidView>
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        AppRoute.OrderDetail(context,1,orderData: item);
+        AppRoute.OrderDetail(context,item.orderStatusId,orderData: item);
       },
     );
   }
@@ -145,31 +126,36 @@ class _PaidViewState extends State<PaidView>
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black.withOpacity(0.1))),
-            child: CachedNetworkImage(
-              width: 22.0.w,
-              height: 22.0.w,
-              placeholder: (context, url) => Container(
-                color: Colors.white,
-                child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+          child: Hero(
+            tag: "history_paid_${item.orderId}${item.inventoryId}${index}",
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black.withOpacity(0.1))),
+              child: CachedNetworkImage(
+                width: 22.0.w,
+                height: 22.0.w,
+                placeholder: (context, url) => Container(
+                  color: Colors.white,
+                  child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                ),
+                fit: BoxFit.cover,
+                imageUrl:
+                    "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : ''}",
+                errorWidget: (context, url, error) => Container(
+                    height: 30,
+                    child: Icon(
+                      Icons.error,
+                      size: 30,
+                    )),
               ),
-              fit: BoxFit.cover,
-              imageUrl:
-                  "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : ''}",
-              errorWidget: (context, url, error) => Container(
-                  height: 30,
-                  child: Icon(
-                    Icons.error,
-                    size: 30,
-                  )),
             ),
           ),
           onTap: (){
             var product = item.inventory.product;
+            product.salePrice = item.inventory.salePrice;
+            product.saleCount = item.inventory.product.saleCount;
             product.shop = ProductShop(id: shopId);
-            AppRoute.ProductDetail(context, productImage: "history_${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
+            AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
           },
         ),
         SizedBox(width: 2.0.w),
@@ -211,7 +197,7 @@ class _PaidViewState extends State<PaidView>
                 ],
               ),
               Divider(
-                color: Colors.black.withOpacity(0.4),
+                color: Colors.black.withOpacity(0.3),
               )
             ],
           ),
@@ -279,7 +265,7 @@ class _PaidViewState extends State<PaidView>
                       child: Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.grey.shade400,
-                        size: 20,
+                        size: 4.0.w,
                       ))
                 ],
               ),
@@ -291,7 +277,7 @@ class _PaidViewState extends State<PaidView>
                 children: [
                   Text(
                     LocaleKeys.history_order_time.tr() +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
+                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
@@ -319,14 +305,14 @@ class _PaidViewState extends State<PaidView>
                 ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   child: CachedNetworkImage(
-                    width: 35,
-                    height: 35,
+                    width: 7.0.w,
+                    height: 7.0.w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child: Lottie.asset(
                         Env.value.loadingAnimaion,
-                        width: 35,
-                        height: 35,
+                        width: 7.0.w,
+                        height: 7.0.w,
                       ),
                     ),
                     fit: BoxFit.cover,
@@ -334,8 +320,8 @@ class _PaidViewState extends State<PaidView>
                         "${Env.value.baseUrl}/storage/images/${item.shop.image.isNotEmpty ? item.shop.image[0].path : ''}",
                     errorWidget: (context, url, error) => Container(
                         color: Colors.grey.shade400,
-                        width: 35,
-                        height: 35,
+                        width: 7.0.w,
+                        height: 7.0.w,
                         child: Icon(
                           Icons.person,
                           size: 30,
@@ -370,7 +356,6 @@ class _PaidViewState extends State<PaidView>
 
   Widget _BuildButtonBayItem({String btnTxt}) {
     return FlatButton(
-      height: 40,
       color: ThemeColor.ColorSale(),
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),

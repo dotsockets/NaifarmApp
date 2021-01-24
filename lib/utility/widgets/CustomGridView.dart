@@ -16,6 +16,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class CustomGridView extends StatelessWidget {
   final int lengthRow;
@@ -96,7 +97,7 @@ class CustomGridView extends StatelessWidget {
               width: MediaQuery.of(context).size.width/4,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     item.name,
@@ -115,6 +116,26 @@ class CustomGridView extends StatelessWidget {
                         color: Colors.black,
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal),
+                  ),
+                  SizedBox(height: 0.5.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SmoothStarRating(
+                          allowHalfRating: false,
+                          onRated: (v) {},
+                          starCount: 5,
+                          rating: item.rating.toDouble(),
+                          size: 3.0.w,
+                          isReadOnly: true,
+                          filledIconData: Icons.star,
+                          halfFilledIconData: Icons.star_half_outlined,
+                          color: Colors.amber,
+                          borderColor: Colors.amber,
+                          spacing: 0.0),
+                      SizedBox(width: 1.0.w,),
+                      Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
+                    ],
                   ),
                 ],
               ),

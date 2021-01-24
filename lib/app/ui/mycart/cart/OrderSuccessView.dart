@@ -107,8 +107,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
          mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 40.0.w,
-            height: 60,
+            width: 45.0.w,
             padding: EdgeInsets.all(10),
             child: FlatButton(
               color: ThemeColor.ColorSale(),
@@ -130,8 +129,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
             ),
           ),
           Container(
-            width: 40.0.w,
-            height: 60,
+            width: 45.0.w,
             padding: EdgeInsets.all(10),
             child: FlatButton(
               color: ThemeColor.secondaryColor(),

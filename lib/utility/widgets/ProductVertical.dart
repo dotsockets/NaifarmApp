@@ -14,6 +14,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import 'ProductLandscape.dart';
 
@@ -96,21 +97,24 @@ class ProductVertical extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.black.withOpacity(0.2), width: 1),
+                                color: Colors.black.withOpacity(0.1), width: 1),
                             borderRadius: BorderRadius.all(Radius.circular(10))),
                         child: Hero(
                           tag: "${tagHero}_${index}",
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(1.0.h),
                             child: CachedNetworkImage(
-                              height: 130,
+                              width: 25.0.w,
+                              height: 25.0.w,
                               placeholder: (context, url) => Container(
                                 color: Colors.white,
-                                child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                                child: Lottie.asset(Env.value.loadingAnimaion,  width: 25.0.w,
+                                  height: 25.0.w,),
                               ),
                               fit: BoxFit.cover,
                               imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                              errorWidget: (context, url, error) => Container(height: 130,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                              errorWidget: (context, url, error) => Container(  width: 25.0.w,
+                                  height: 25.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                             ),
                           ),
                         ),
@@ -132,7 +136,7 @@ class ProductVertical extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: 10,),
+                SizedBox(width: 15,),
                 Expanded(
                   flex: 3,
                   child: _buildInfoProduct(item: item),
@@ -140,7 +144,7 @@ class ProductVertical extends StatelessWidget {
               ],
             ),
             SizedBox(height: 10,),
-            productRespone.data.length!=index?Divider(color: Colors.black.withOpacity(0.5)):SizedBox(height: 30,),
+            productRespone.data.length!=index?Divider(color: Colors.black.withOpacity(0.3)):SizedBox(height: 30,),
             SizedBox(height: 10,),
           ],
         ),
@@ -183,10 +187,22 @@ class ProductVertical extends StatelessWidget {
                   Text(LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_item.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize:  SizeUtil.detailSmallFontSize().sp),),
                   SizedBox(height: 5),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.location_pin,color: Color(ColorUtils.hexToInt("#666666")),size: 3.5.w,),
-                      SizedBox(width: 0.3.w,),
-                      Text('เชียงใหม่',style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize:  SizeUtil.detailFontSize().sp),)
+                      SmoothStarRating(
+                          allowHalfRating: false,
+                          onRated: (v) {},
+                          starCount: 5,
+                          rating: item.rating.toDouble(),
+                          size: 4.0.w,
+                          isReadOnly: true,
+                          filledIconData: Icons.star,
+                          halfFilledIconData: Icons.star_half_outlined,
+                          color: Colors.amber,
+                          borderColor: Colors.amber,
+                          spacing: 0.0),
+                      SizedBox(width: 1.0.w,),
+                      Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
                     ],
                   )
                 ],

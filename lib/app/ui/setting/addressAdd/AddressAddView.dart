@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/bloc/Stream/AddressBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -42,17 +41,7 @@ class _AddressAddViewState extends State<AddressAddView> {
 
 
   //bool checkError = false;
-  @override
-  void initState() {
-    super.initState();
-    KeyboardVisibilityNotification().addNewListener(
-      onChange: (bool visible) {
-        setState(() {
-          checkKeyBoard = visible;
-        });
-      },
-    );
-  }
+
 
   void _init() {
     if (null == bloc) {
@@ -152,6 +141,9 @@ class _AddressAddViewState extends State<AddressAddView> {
               controller: phoneController,
               onChanged: (String x) => _checkError(),
               inputType: TextInputType.number),
+          SizedBox(
+            height: 0.9.h,
+          ),
           _buildError(errorTxt: errorPhoneTxt),
           SizedBox(
             height: 15,
@@ -254,6 +246,7 @@ class _AddressAddViewState extends State<AddressAddView> {
 
   Widget _buildError({String errorTxt}) {
     return Container(
+      padding: EdgeInsets.only(left: 1.0.w),
       child: Visibility(
         child: Text(
           errorTxt,
@@ -303,13 +296,13 @@ class _AddressAddViewState extends State<AddressAddView> {
         color: Colors.grey.shade300,
         child: Container(
             width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.all(15),
+            margin: EdgeInsets.all(2.0.w),
             child: _buildButtonItem(btnTxt: LocaleKeys.confirm_btn.tr())));
   }
 
   Widget _buildButtonItem({String btnTxt}) {
     return FlatButton(
-      padding: EdgeInsets.only(top: 15, bottom: 15),
+      minWidth: 50.0.w,
       color: check ? ThemeColor.secondaryColor() : Colors.grey.shade400,
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),
@@ -317,19 +310,21 @@ class _AddressAddViewState extends State<AddressAddView> {
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () {
-        Usermanager().getUser().then((value) => bloc.CreateAddress(
-            addressCreaterequest: AddressCreaterequest(
-                cityId: citySelect,
-                phone: phoneController.text,
-                addressLine1: detailAddrController.text,
-                addressLine2: "",
-                addressTitle: nameController.text,
-                countryId: 1,
-                stateId: proviceSelect,
-                zipCode: postController.text,
-                addressType: isSelect ? "Primary" : "Shipping"),
-            token: value.token))
-        ;
+        if(check){
+          Usermanager().getUser().then((value) => bloc.CreateAddress(
+              addressCreaterequest: AddressCreaterequest(
+                  cityId: citySelect,
+                  phone: phoneController.text,
+                  addressLine1: detailAddrController.text,
+                  addressLine2: "",
+                  addressTitle: nameController.text,
+                  countryId: 1,
+                  stateId: proviceSelect,
+                  zipCode: postController.text,
+                  addressType: isSelect ? "Primary" : "Shipping"),
+              token: value.token));
+        }
+
 
       },
       child: Text(
@@ -385,8 +380,7 @@ class _AddressAddViewState extends State<AddressAddView> {
                 fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.only(top: 10),
+            margin: EdgeInsets.only(top: 1.0.h),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.black.withOpacity(0.5))),

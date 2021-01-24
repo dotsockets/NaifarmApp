@@ -46,28 +46,25 @@ class _Setting_EditProdile_BioViewState extends State<Setting_EditProdile_BioVie
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppToobar(title: LocaleKeys.my_profile_about_me.tr(),header_type: Header_Type.barNormal,),
-      body: Container(
-        child: Container(
-          child: Column(
-            children: [
-              _Form(),
-              SizedBox(height: 30,),
-              FlatButton(
-                minWidth: 250,
-                height: 50,
-                color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
-                textColor: Colors.white,
-                splashColor: Colors.white.withOpacity(0.3),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                onPressed: ()=>FormCheck()?Navigator.pop(context, widget.customerInfoRespone):SizedBox(),
-                child: Text(LocaleKeys.save_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-                ),
-              )
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _Form(),
+            SizedBox(height: 4.0.h,),
+            FlatButton(
+              minWidth: 50.0.w,
+              color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
+              textColor: Colors.white,
+              splashColor: Colors.white.withOpacity(0.3),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+              onPressed: ()=>FormCheck()?Navigator.pop(context, widget.customerInfoRespone):SizedBox(),
+              child: Text(LocaleKeys.save_btn.tr(),
+                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+              ),
+            )
+          ],
         ),
       ),
     );

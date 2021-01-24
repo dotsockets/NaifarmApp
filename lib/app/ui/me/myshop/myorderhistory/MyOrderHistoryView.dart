@@ -55,13 +55,13 @@ class MyOrderHistoryView extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: 50,
+                  height: 7.0.h,
                   child: Container(
                     color: Colors.white,
                     child: TabBar(
                       indicator: MD2Indicator(
                         indicatorSize: MD2IndicatorSize.tiny,
-                        indicatorHeight: 5.0,
+                        indicatorHeight: 0.8.h,
                         indicatorColor: ThemeColor.ColorSale(),
                       ),
                       isScrollable: true,
@@ -119,15 +119,15 @@ class MyOrderHistoryView extends StatelessWidget {
               style: FunctionHelper.FontTheme(
                   fontSize: SizeUtil.titleSmallFontSize().sp)),
           SizedBox(
-            width: 10,
+            width: 2.0.w,
           ),
           message
               ? ClipRRect(
                   borderRadius: BorderRadius.circular(9.0),
                   child: Container(
                     alignment: Alignment.center,
-                    width: 10,
-                    height: 10,
+                    width: 2.0.w,
+                    height: 2.0.w,
                     color: ThemeColor.ColorSale(),
                   ),
                 )

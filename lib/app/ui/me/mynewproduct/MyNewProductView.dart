@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -119,96 +118,96 @@ class _MyNewProductViewState extends State<MyNewProductView> {
             children: [
               Container(
                   child: AppToobar(
-                    title: LocaleKeys.my_product_data.tr(),
-                    icon: "",
-                    header_type: Header_Type.barNormal)),
+                      title: LocaleKeys.my_product_data.tr(),
+                      icon: "",
+                      header_type: Header_Type.barNormal)),
               StreamBuilder(
-                stream: bloc.uploadProductStorage.stream,
+                  stream: bloc.uploadProductStorage.stream,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
-                     if(snapshot.hasData){
-                       return  Expanded(
-                         child: SingleChildScrollView(
-                           child: Column(
-                             children: [
-                               Container(
-                                 padding: EdgeInsets.only(right: 20,top: 20,left: 20),
-                                 color: Colors.white,
-                                 child: Column(
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   children: [
-                                     BuildEditText(
-                                       head: LocaleKeys.my_product_name.tr()+" * ",EnableMaxLength: true,
-                                       hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 10,controller: nameProductController,inputType: TextInputType.text,onChanged: (String char){
-                                        if(char.isNotEmpty){
-                                          bloc.uploadProductStorage.value.productMyShopRequest.name  = char;
-                                          bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-                                        }
+                    if(snapshot.hasData){
+                      return  Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(right: 20,top: 20,left: 20),
+                                color: Colors.white,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    BuildEditText(
+                                      head: LocaleKeys.my_product_name.tr()+" * ",EnableMaxLength: true,
+                                      hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 10,controller: nameProductController,inputType: TextInputType.text,onChanged: (String char){
+                                      if(char.isNotEmpty){
+                                        bloc.uploadProductStorage.value.productMyShopRequest.name  = char;
+                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                      }
 
-                                     },),
-                                     SizedBox(height: 15,),
-                                     _BuildDropdown (
-                                         head: LocaleKeys.my_product_category.tr()+" *",
-                                         seletText: LocaleKeys.my_product_category.tr(),
-                                         hint: LocaleKeys.select.tr()+LocaleKeys.my_product_category.tr()),
-                                     SizedBox(height: 15,),
-                                     BuildEditText(
-                                       head: LocaleKeys.my_product_detail.tr()+" * ",EnableMaxLength: true,maxLength: 5000,
-                                       hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailController,inputType: TextInputType.text,onChanged: (String char){
-                                       if(char.isNotEmpty){
-                                         bloc.uploadProductStorage.value.productMyShopRequest.description = char;
-                                         bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-                                       }
+                                    },),
+                                    SizedBox(height: 15,),
+                                    _BuildDropdown (
+                                        head: LocaleKeys.my_product_category.tr()+" *",
+                                        seletText: LocaleKeys.my_product_category.tr(),
+                                        hint: LocaleKeys.select.tr()+LocaleKeys.my_product_category.tr()),
+                                    SizedBox(height: 15,),
+                                    BuildEditText(
+                                      head: LocaleKeys.my_product_detail.tr()+" * ",EnableMaxLength: true,maxLength: 5000,
+                                      hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailController,inputType: TextInputType.text,onChanged: (String char){
+                                      if(char.isNotEmpty){
+                                        bloc.uploadProductStorage.value.productMyShopRequest.description = char;
+                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                      }
 
-                                     },),
-                                     SizedBox(height: 15,),
+                                    },),
+                                    SizedBox(height: 15,),
 
-                                     BuildEditText(head: LocaleKeys.my_product_amount.tr()+" *", hint: "0",inputType: TextInputType.number,controller: amountController,onChanged: (String char){
-                                       if(char.isNotEmpty){
-                                         bloc.uploadProductStorage.value.productMyShopRequest.stockQuantity = int.parse(char);
-                                         bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-                                       }
+                                    BuildEditText(head: LocaleKeys.my_product_amount.tr()+" *", hint: "0",inputType: TextInputType.number,controller: amountController,onChanged: (String char){
+                                      if(char.isNotEmpty){
+                                        bloc.uploadProductStorage.value.productMyShopRequest.stockQuantity = int.parse(char);
+                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                      }
 
-                                     },),
-                                     SizedBox(height: 15,),
-                                     BuildEditText(
-                                       head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController,onChanged: (String char){
-                                       if(char.isNotEmpty){
+                                    },),
+                                    SizedBox(height: 15,),
+                                    BuildEditText(
+                                      head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController,onChanged: (String char){
+                                      if(char.isNotEmpty){
 
-                                            bloc.uploadProductStorage.value.productMyShopRequest.salePrice = int.parse(char);
-                                            bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-
-
-                                       }
+                                        bloc.uploadProductStorage.value.productMyShopRequest.salePrice = int.parse(char);
+                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
 
 
-                                     },),
-                                     SizedBox(
-                                       height: 20,
-                                     ),
-                                     BuildEditText(
-                                       head: "ราคาโปรโมชั่น"+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: offerPriceController,onChanged: (String char){
-                                       if(char.isNotEmpty){
-                                         bloc.uploadProductStorage.value.productMyShopRequest.offerPrice = int.parse(char);
-                                         bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-                                       }
+                                      }
 
-                                     },),
 
-                                   ],
-                                 ),
-                               ),
-                               _BuildDeliveryTab(),
-                               Divider(height: 10,),
-                               _BuildImageTab(),
-                               Divider(height: 10,),
-                               _BuildAtivceTab(),
-                             ],
-                           ),
-                         ),
-                       );
-                     }else{
-                       return SizedBox();
-                     }
+                                    },),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    BuildEditText(
+                                      head: "ราคาโปรโมชั่น"+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: offerPriceController,onChanged: (String char){
+                                      if(char.isNotEmpty){
+                                        bloc.uploadProductStorage.value.productMyShopRequest.offerPrice = int.parse(char);
+                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                      }
+
+                                    },),
+
+                                  ],
+                                ),
+                              ),
+                              _BuildDeliveryTab(),
+                              Divider(height: 10,),
+                              _BuildImageTab(),
+                              Divider(height: 10,),
+                              _BuildAtivceTab(),
+                            ],
+                          ),
+                        ),
+                      );
+                    }else{
+                      return SizedBox();
+                    }
                   }
               ),
               StreamBuilder(
@@ -267,21 +266,21 @@ class _MyNewProductViewState extends State<MyNewProductView> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: Colors.black.withOpacity(0.3))),
-              child: InkWell(
-                child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(seletText,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),),
-                        Icon(Icons.keyboard_arrow_down)
-                      ],
-                    )
-                ),
-                onTap: (){
-                  _showMyDialog();
-                },
+            child: InkWell(
+              child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(seletText,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),),
+                      Icon(Icons.keyboard_arrow_down)
+                    ],
+                  )
               ),
+              onTap: (){
+                _showMyDialog();
+              },
+            ),
           ),
 
         ],
@@ -291,7 +290,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   Widget _BuildDeliveryTab() {
     return InkWell(
       child: Container(
-        padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(20),
           color: Colors.white,
           child: Container(
               child: Row(
@@ -358,7 +357,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                     toggleSize: 20,
                     activeColor: bloc.uploadProductStorage.value.productMyShopRequest.active==1?ThemeColor.primaryColor():Colors.grey.shade200,
                     inactiveColor: Colors.grey.shade200,
-                   // toggleColor: item.active ? ThemeColor.primaryColor() : Colors.grey.shade400,
+                    // toggleColor: item.active ? ThemeColor.primaryColor() : Colors.grey.shade400,
                     value:bloc.uploadProductStorage.value.productMyShopRequest.active==1?true:false,
                     onToggle: (val) {
                       //IsSwitch(val);
@@ -398,28 +397,28 @@ class _MyNewProductViewState extends State<MyNewProductView> {
 
   Widget _BuildButtonItem({String btnTxt,int index ,bool enable}) {
     return FlatButton(
-     height: 50,
-        color: enable?ThemeColor.secondaryColor():Colors.grey.shade400,
-        textColor: Colors.white,
-        splashColor: Colors.white.withOpacity(0.3),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40.0),
-        ),
-        onPressed: () {
-         // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
-          if(enable){
-            Usermanager().getUser().then((value) {
-              bloc.AddProductMyShop(shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,token: value.token);
-            });
+      height: 50,
+      color: enable?ThemeColor.secondaryColor():Colors.grey.shade400,
+      textColor: Colors.white,
+      splashColor: Colors.white.withOpacity(0.3),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(40.0),
+      ),
+      onPressed: () {
+        // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
+        if(enable){
+          Usermanager().getUser().then((value) {
+            bloc.AddProductMyShop(shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,token: value.token);
+          });
 
-          }
+        }
 
-        },
-        child: Text(
-          btnTxt,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
-        ),
-      );
+      },
+      child: Text(
+        btnTxt,
+        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
+      ),
+    );
 
   }
 

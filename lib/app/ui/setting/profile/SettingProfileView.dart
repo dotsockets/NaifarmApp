@@ -157,7 +157,10 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                           title: LocaleKeys.setting_account_title_delete_account.tr(),
                           onClick: () {
                             FunctionHelper.ConfirmDialog(context,message: LocaleKeys.dialog_message_del_account.tr(),onCancel: (){
-                            },);
+                              Navigator.of(context).pop();
+                            },onClick: (){
+                              Navigator.of(context).pop();
+                            });
                           },
                         ),
                         widget.IsLogin? _BuildButton():SizedBox()
@@ -191,18 +194,17 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
   }
 
   Widget _BuildButton() {
-    return Container(
-        padding: EdgeInsets.only(left: 15.0.w, right: 15.0.w),
-        color: Colors.grey.shade300,
-        child: Container(
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.all(15),
-            child: _BuildButtonItem(btnTxt: LocaleKeys.logout_btn.tr())));
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(top: 3.0.h,bottom: 3.0.h),
+        width: 50.0.w,
+          color: Colors.grey.shade300,
+          child: _BuildButtonItem(btnTxt: LocaleKeys.logout_btn.tr())),
+    );
   }
 
   Widget _BuildButtonItem({String btnTxt}) {
     return FlatButton(
-      padding: EdgeInsets.only(top: 15, bottom: 15),
       color: ThemeColor.ColorSale(),
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),

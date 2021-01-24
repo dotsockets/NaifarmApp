@@ -100,8 +100,10 @@ class ProductBloc{
   }
 
   loadProductPopular(String page)async{
+    onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular(page,10)).listen((respone) {
+      onLoad.add(false);
       if(respone.http_call_back.status==200){
         ProductPopular.add((respone.respone as ProductRespone));
       }
@@ -111,8 +113,10 @@ class ProductBloc{
   }
 
   GetMyWishlists({String token}){
+    onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.GetMyWishlists(token: token)).listen((respone) {
+      onLoad.add(false);
       if(respone.http_call_back.status==200){
 
         Wishlists.add((respone.respone as WishlistsRespone));
@@ -297,6 +301,7 @@ class ProductBloc{
 
 
   loadCategoryPage({int GroupId}){
+    onLoad.add(true);
     StreamSubscription subscription = Observable.combineLatest5(
         Observable.fromFuture(_application.appStoreAPIRepository.CategorySubgroup(GroupId: GroupId)),
         Observable.fromFuture(_application.appStoreAPIRepository.categoryGroupId(GroupId: GroupId,limit: 5,page: "1")),
@@ -312,6 +317,7 @@ class ProductBloc{
       return CategoryObjectCombin(supGroup: (_supgroup as CategoryGroupRespone),goupProduct: (_groupproduct as ProductRespone),recommend: (recommend as ProductRespone),banner: (_banner as BannersRespone),hotProduct: (_hotproduct as ProductRespone));
 
     }).listen((event) {
+      onLoad.add(false);
       ZipCategoryObject.add(event);
     });
     _compositeSubscription.add(subscription);

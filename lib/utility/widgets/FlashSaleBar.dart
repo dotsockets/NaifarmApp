@@ -52,8 +52,8 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
             children: [
               SvgPicture.asset(
                 'assets/images/svg/flash_sale.svg',
-                width: 5.0.w,
-                height: 5.0.h,
+                width: 4.0.w,
+                height: 4.0.h,
               ),
               Text("Fla",
                   style: GoogleFonts.kanit(
@@ -61,7 +61,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
                       color: Colors.white)),
               SizedBox(width: 1.0.h),
               SvgPicture.asset('assets/images/svg/flash.svg',
-                  width: 5.0.w, height: 5.0.h),
+                  width: 4.0.w, height: 4.0.h),
               SizedBox(width: 1.0.h),
               Text("h Sale",
                   style: GoogleFonts.kanit(
@@ -86,7 +86,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
         onFinish: null,
         builder: (BuildContext context, String remaining) {
           final showTime = (String text) => ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(9.0),
                 child: Container(
                   color: Colors.black,
                   padding: EdgeInsets.only(

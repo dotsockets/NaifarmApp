@@ -76,7 +76,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
       backgroundColor: Colors.grey.shade200,
       appBar: AppToobar(title: LocaleKeys.my_profile_username.tr(),header_type: Header_Type.barNormal,),
       body: Container(
-        child: Container(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               _Form(),

@@ -109,7 +109,7 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
       backgroundColor: Colors.grey.shade200,
       appBar: AppToobar(title: LocaleKeys.edit_password_set.tr(),header_type: Header_Type.barNormal,),
       body: Container(
-        child: Container(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               StreamBuilder(
@@ -121,8 +121,7 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
                           _Form(),
                           SizedBox(height: 4.0.h,),
                           FlatButton(
-                            minWidth: 250,
-                            height: 7.0.h,
+                            minWidth: 60.0.w,
                             color: snapshot.data?ThemeColor.secondaryColor():Colors.grey.shade400,
                             textColor: Colors.white,
                             splashColor: Colors.white.withOpacity(0.3),

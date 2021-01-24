@@ -77,17 +77,17 @@ class _EditProductViewState extends State<EditProductView> {
       });
       bloc.onSuccess.stream.listen((event)  {
         onUpdate = true;
-         if(event is bool){
-           var item = bloc.uploadProductStorage.value.productMyShopRequest;
-           var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
-           Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
-               token: value.token));
+        if(event is bool){
+          var item = bloc.uploadProductStorage.value.productMyShopRequest;
+          var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
+          Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
+              token: value.token));
           // Navigator.pop(context, true);
         }else if(event is ProductMyShopRespone){
-           Navigator.pop(context, onUpdate);
-         }else if(event is IsActive){
-           Navigator.pop(context, true);
-         }
+          Navigator.pop(context, onUpdate);
+        }else if(event is IsActive){
+          Navigator.pop(context, true);
+        }
       });
       NaiFarmLocalStorage.getAllCategoriesCache().then((value){
         bloc.categoriesAllRespone = value;
@@ -470,7 +470,7 @@ class _EditProductViewState extends State<EditProductView> {
     priceController.text = productMyShopRequest.salePrice.toString();
     priceController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.salePrice!=null?productMyShopRequest.salePrice.toString().length:0));
 
-    offerPriceController.text = productMyShopRequest.offerPrice!=null?productMyShopRequest.offerPrice.toString():'0';
+    offerPriceController.text = productMyShopRequest.offerPrice.toString();
     offerPriceController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.offerPrice!=null?productMyShopRequest.offerPrice.toString().length:0));
   }
 }

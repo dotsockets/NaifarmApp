@@ -8,6 +8,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:sizer/sizer.dart';
 
 class EditSlugView extends StatefulWidget {
 
@@ -47,10 +48,9 @@ class _EditSlugViewState extends State<EditSlugView> {
           child: Column(
             children: [
               _Form(),
-              SizedBox(height: 30,),
+              SizedBox(height: 3.0.h,),
               FlatButton(
-                minWidth: 250,
-                height: 50,
+                minWidth: 50.0.w,
                 color: _input1.text!=""?ThemeColor.secondaryColor():Colors.grey.shade400,
                 textColor: Colors.white,
                 splashColor: Colors.white.withOpacity(0.3),

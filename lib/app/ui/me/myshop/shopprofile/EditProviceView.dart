@@ -10,6 +10,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class EditProviceView extends StatefulWidget {
   final MyShopRespone itemInfo;
@@ -78,10 +79,9 @@ class _EditProviceViewState extends State<EditProviceView> {
         child: Column(
           children: [
             _Form(),
-            SizedBox(height: 30,),
+            SizedBox(height: 3.0.h,),
             FlatButton(
-              minWidth: 250,
-              height: 50,
+              minWidth: 50.0.w,
               color: _input1.text!=""?ThemeColor.secondaryColor():Colors.grey.shade400,
               textColor: Colors.white,
               splashColor: Colors.white.withOpacity(0.3),
@@ -105,33 +105,28 @@ class _EditProviceViewState extends State<EditProviceView> {
     );
   }
   Widget _Form(){
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),
-      child: Column(
-        children: [
-          StreamBuilder(
-            stream: bloc.provice.stream,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if(snapshot.hasData) {
+    return StreamBuilder(
+      stream: bloc.provice.stream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if(snapshot.hasData) {
 
-                return _BuildDropdown(
-                    initialItem: loopIndex((snapshot.data as StatesRespone).data,proviceSelect),
-                    head: LocaleKeys.select.tr() +
-                        LocaleKeys.address_province.tr() + " * ",
-                    hint: loopString((snapshot.data as StatesRespone).data,proviceSelect),item: (snapshot.data as StatesRespone).data,
-                    onSelect: (int index){
-                      setState(()=> proviceSelect = (snapshot.data as StatesRespone).data[index].id);
+          return Container(
+            color: Colors.white,
+            padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),
+            child: _BuildDropdown(
+                initialItem: loopIndex((snapshot.data as StatesRespone).data,proviceSelect),
+                head: LocaleKeys.select.tr() +
+                    LocaleKeys.address_province.tr() + " * ",
+                hint: loopString((snapshot.data as StatesRespone).data,proviceSelect),item: (snapshot.data as StatesRespone).data,
+                onSelect: (int index){
+                  setState(()=> proviceSelect = (snapshot.data as StatesRespone).data[index].id);
 
-                    });
-              }else{
-                return SizedBox();
-              }
-            },
-          ),
-
-        ],
-      ),
+                }),
+          );
+        }else{
+          return SizedBox();
+        }
+      },
     );
   }
 
@@ -177,8 +172,7 @@ class _EditProviceViewState extends State<EditProviceView> {
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
           ),
           Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.only(top: 10),
+            margin: EdgeInsets.only(top: 1.5.h),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.black.withOpacity(0.5))),

@@ -44,7 +44,8 @@ class _CategoryViewState extends State<CategoryView> {
   Widget build(BuildContext context) {
     _init();
     return Scaffold(
-      appBar:  AppToobar(header_type: Header_Type.barHome,isEnable_Search: true,),
+
+      appBar:  AppToobar(showBackBtn: false,header_type: Header_Type.barNormal,icon: 'assets/images/svg/cart_top.svg',title:"Product Type"),
 
       backgroundColor: Colors.white,
     body: SingleChildScrollView(
@@ -138,8 +139,8 @@ class _CategoryViewState extends State<CategoryView> {
                 child: Container(
                   padding: EdgeInsets.all(5),
                   child: CachedNetworkImage(
-                    width: 14.0.w,
-                    height: 14.0.w,
+                    width: 12.0.w,
+                    height: 12.0.w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
@@ -153,7 +154,7 @@ class _CategoryViewState extends State<CategoryView> {
               ),
             ),
             SizedBox(height: 1.0.h),
-            Container(width: 180.w,height: 70.h,child: Text(item.name,maxLines: 2,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),))
+            Container(height: 4.5.h,width: 180.w,child: Text(item.name,maxLines: 2,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),))
           ],
         ),
       ),

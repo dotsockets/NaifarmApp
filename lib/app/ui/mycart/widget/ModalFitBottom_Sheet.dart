@@ -37,7 +37,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
             Column(
               children: discountModel.detail.asMap().map((key, value) => MapEntry(key, _BuildCard(item: discountModel.detail[key]))).values.toList(),
             ),
-            SizedBox(height: 70),
+            SizedBox(height: 5.0.h),
           ],
         ),
       ),
@@ -57,8 +57,8 @@ class ModalFitBottom_Sheet extends StatelessWidget {
                 !item.isDelivery?ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(60)),
                   child: CachedNetworkImage(
-                    width: 60,
-                    height: 60,
+                    width: 10.0.w,
+                    height: 10.0.w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
@@ -66,13 +66,14 @@ class ModalFitBottom_Sheet extends StatelessWidget {
                     fit: BoxFit.cover,
                     imageUrl:item.ShopImage,
                     errorWidget: (context, url, error) => Container(
-                        height: 30,
+                        width: 10.0.w,
+                        height: 10.0.w,
                         child: Icon(
                           Icons.error,
-                          size: 30,
+                          size: 1.0.w,
                         )),
                   ),
-                ):SvgPicture.asset('assets/images/svg/delivery.svg', width: 45, height: 45),
+                ):SvgPicture.asset('assets/images/svg/delivery.svg', width: 10.0.w, height: 10.0.w),
                 SizedBox(width: 20,),
                 Expanded(
                   flex: 3,
@@ -109,7 +110,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
                     Text(LocaleKeys.cart_add_more.tr(),style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp, fontWeight: FontWeight.w500,color: ThemeColor.ColorSale()),),
                     SizedBox(width: 5,),
-                    Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
+                    Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,size: 5.0.w,)
                   ],
                 )
               ],
@@ -122,6 +123,8 @@ class ModalFitBottom_Sheet extends StatelessWidget {
 
   Widget _buildButton({bool isUse,BuildContext context}) {
     return Container(
+      width: 20.0.w,
+      height: 5.5.h,
       child: FlatButton(
         color: isUse?Colors.white:ThemeColor.primaryColor(),
         textColor: isUse?Colors.black.withOpacity(0.5):Colors.white,

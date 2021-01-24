@@ -42,7 +42,7 @@ class Reviewscore extends StatelessWidget {
         margin: EdgeInsets.all(10),
         child: Row(
           children: [
-           SvgPicture.asset('assets/images/svg/star.svg',width: 35,height: 35,),
+           SvgPicture.asset('assets/images/svg/star.svg',width:  6.0.w,height:  6.0.w,),
             SizedBox(width: 5),
             Text(LocaleKeys.my_product_review_score.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
           ],
@@ -86,7 +86,7 @@ class Reviewscore extends StatelessWidget {
                         onRated: (v) {},
                         starCount: 5,
                         rating: item.reviewRate,
-                        size: 25.0,
+                        size: 5.0.w,
                         isReadOnly: true,
                         filledIconData: Icons.star,
                         halfFilledIconData: Icons.star_half_outlined,

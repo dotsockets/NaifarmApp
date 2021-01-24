@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -23,17 +22,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
   TextEditingController longProductController = TextEditingController();
   TextEditingController heightProductController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    KeyboardVisibilityNotification().addNewListener(
-      onChange: (bool visible) {
-        setState(() {
-          checkKeyBoard= visible;
-        });
-      },
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {

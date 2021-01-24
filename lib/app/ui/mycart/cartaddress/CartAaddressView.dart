@@ -38,11 +38,11 @@ class _CartAaddressViewState extends State<CartAaddressView> {
     if (null == bloc) {
       bloc = CartBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        if (event) {
-          FunctionHelper.showDialogProcess(context);
-        } else {
-          Navigator.of(context).pop();
-        }
+        // if (event) {
+        //   FunctionHelper.showDialogProcess(context);
+        // } else {
+        //   Navigator.of(context).pop();
+        // }
       });
       bloc.onError.stream.listen((event) {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
@@ -52,58 +52,66 @@ class _CartAaddressViewState extends State<CartAaddressView> {
         onUpdate = true;
         //  cartReq = event;
       });
+
       Usermanager()
           .getUser()
           .then((value) => bloc.AddressesList(token: value.token));
+
     }
   }
 
   @override
   Widget build(BuildContext context) {
     _init();
-    return SafeArea(
-        top: false,
-        child: Scaffold(
-            backgroundColor: Colors.grey.shade300,
-            key: _scaffoldKey,
-            appBar: AppToobar(
-              title: LocaleKeys.setting_account_title_address.tr(),
-              header_type: Header_Type.barNormal,
-              icon: "",
-              onClick: ()=> Navigator.pop(context, onUpdate),
-            ),
-            body: Container(
-              child: StreamBuilder(
-                  stream: bloc.AddressList.stream,
-                  builder: (context, snapshot) {
-                    var item = (snapshot.data as AddressesListRespone);
-                    if (snapshot.hasData && item.data!=null) {
+    return WillPopScope(
+        onWillPop: ()async{
+          Navigator.pop(context, onUpdate);
+          return true;
+        },
+      child: SafeArea(
+          top: false,
+          child: Scaffold(
+              backgroundColor: Colors.grey.shade300,
+              key: _scaffoldKey,
+              appBar: AppToobar(
+                title: LocaleKeys.setting_account_title_address.tr(),
+                header_type: Header_Type.barNormal,
+                icon: "",
+                onClick: ()=> Navigator.pop(context, onUpdate),
+              ),
+              body: Container(
+                child: StreamBuilder(
+                    stream: bloc.AddressList.stream,
+                    builder: (context, snapshot) {
+                      var item = (snapshot.data as AddressesListRespone);
+                      if (snapshot.hasData && item.data!=null) {
 
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Column(
-                              children: item.data
-                                  .asMap()
-                                  .map((index, value) {
-                                    return MapEntry(index,
-                                        _BuildCard(item: value, index: index));
-                                  })
-                                  .values
-                                  .toList(),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            _buildBtnAddProduct(),
-                          ],
-                        ),
-                      );
-                    } else {
-                      return SizedBox();
-                    }
-                  }),
-            )));
+                        return SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Column(
+                                children: item.data
+                                    .asMap()
+                                    .map((index, value) {
+                                      return MapEntry(index,
+                                          _BuildCard(item: value, index: index));
+                                    })
+                                    .values
+                                    .toList(),
+                              ),
+                              SizedBox(
+                                height: 2.0.h,
+                              ),
+                              _buildBtnAddProduct(),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return SizedBox();
+                      }
+                    }),
+              ))),
+    );
   }
 
   Widget _BuildCard({AddressesData item, int index}) {
@@ -168,6 +176,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                               Icon(
                                 Icons.arrow_forward_ios,
                                 color: Colors.grey.shade500,
+                                size: 5.0.w,
                               )
                             ],
                           ),
@@ -254,10 +263,10 @@ class _CartAaddressViewState extends State<CartAaddressView> {
   Widget _buildBtnAddProduct() {
     return Center(
       child: Container(
+        width: 50.0.w,
         child: FlatButton(
           color: ThemeColor.secondaryColor(),
           textColor: Colors.white,
-          padding: EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
           splashColor: Colors.white.withOpacity(0.3),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40.0),

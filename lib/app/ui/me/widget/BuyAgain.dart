@@ -55,7 +55,7 @@ class BuyAgain extends StatelessWidget {
           children: [
             Row(
               children: [
-                SvgPicture.asset(IconInto,width: 30,height: 30,),
+                SvgPicture.asset(IconInto,width: 6.5.w,height: 6.5.w,),
                 SizedBox(width: 8),
                 Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
               ],
@@ -82,7 +82,7 @@ class BuyAgain extends StatelessWidget {
         children: List.generate(productRespone.data.length, (index){
           return GestureDetector(
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(2.0.w),
               child: Column(
                 children: [
                   _ProductImage(item: productRespone.data[index],index: index),
@@ -104,7 +104,7 @@ class BuyAgain extends StatelessWidget {
       borderRadius: BorderRadius.circular(10.0),
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(width: 2,color: Colors.grey.shade200)
+            border: Border.all(width: 1,color: Colors.grey.shade200)
         ),
         child: Stack(
           children: [

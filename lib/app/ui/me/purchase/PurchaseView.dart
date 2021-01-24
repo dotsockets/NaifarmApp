@@ -46,6 +46,7 @@ class _PurchaseViewState extends State<PurchaseView> {
   Widget build(BuildContext context) {
     init();
     return Container(
+      color: Colors.grey.shade300,
       child: Column(
         children: [
           widget.IsLogin?BlocBuilder<CustomerCountBloc, CustomerCountState>(
@@ -63,7 +64,7 @@ class _PurchaseViewState extends State<PurchaseView> {
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
             title: LocaleKeys.me_title_history.tr(),
-            iconSize: 8.0.w,
+            iconSize: 7.0.w,
             onClick: () => AppRoute.MyShophistory(context,0,orderType: "order"),
           ),
           _BuildDivider(),
@@ -74,7 +75,7 @@ class _PurchaseViewState extends State<PurchaseView> {
                     icon: 'assets/images/svg/like_2.svg',
                     title: LocaleKeys.me_title_likes.tr(),
                     Message: "${count.countLoaded.like} รายการ",
-                    iconSize: 8.0.w,
+                    iconSize: 7.0.w,
                     onClick: () {
                       AppRoute.Wishlists(context:context);
                     });
@@ -83,7 +84,7 @@ class _PurchaseViewState extends State<PurchaseView> {
                     icon: 'assets/images/svg/like_2.svg',
                     title: LocaleKeys.me_title_likes.tr(),
                     Message: "${count.countLoaded!=null?count.countLoaded.like:0} รายการ",
-                    iconSize: 8.0.w,
+                    iconSize: 7.0.w,
                     onClick: () {
                       AppRoute.Wishlists(context:context);
                     });
@@ -92,7 +93,7 @@ class _PurchaseViewState extends State<PurchaseView> {
                     icon: 'assets/images/svg/like_2.svg',
                     title: LocaleKeys.me_title_likes.tr(),
                     Message: "${0} รายการ",
-                    iconSize: 8.0.w,
+                    iconSize:7.0.w,
                     onClick: () {
                       AppRoute.Wishlists(context:context);
                     });
@@ -127,7 +128,7 @@ class _PurchaseViewState extends State<PurchaseView> {
         ): SizedBox(),
           widget.IsLogin ? _BuildDivider() : SizedBox(),
           ListMenuItem(
-            iconSize: 8.0.w,
+            iconSize:7.0.w,
               icon: 'assets/images/svg/editprofile.svg', title: LocaleKeys.me_title_setting.tr(),onClick: () async {
             final result = await AppRoute.SettingProfile(context,widget.IsLogin,item: widget.item);
             if(result!=null && result){
@@ -137,7 +138,7 @@ class _PurchaseViewState extends State<PurchaseView> {
               },),
           _BuildDivider(),
           ListMenuItem(
-            iconSize: 8.0.w,
+            iconSize:6.5.w,
             icon: 'assets/images/svg/help.svg',
             title: LocaleKeys.me_title_help.tr(),
             onClick: () {
@@ -151,7 +152,7 @@ class _PurchaseViewState extends State<PurchaseView> {
 
   Widget _buildTabMenu(BuildContext context,CustomerCountRespone count) {
     return Container(
-      padding: EdgeInsets.all(5.0.w),
+      padding: EdgeInsets.all(3.0.w),
       color: Colors.grey.shade300,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -19,6 +19,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/FlashSaleBar.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 
 class FlashSale extends StatefulWidget {
@@ -59,6 +60,7 @@ class _FlashSaleState extends State<FlashSale> {
             children: [
               SizedBox(height: 6.0.h),
               Center(child: _textSale(context: context)),
+              SizedBox(height: 2.0.h),
               OnFlashSale ? _flashProduct(context) : SizedBox()
             ],
           ),
@@ -80,7 +82,7 @@ class _FlashSaleState extends State<FlashSale> {
           children: [
             Text(
               LocaleKeys.recommend_select_all.tr(),
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,
                   fontSize: SizeUtil.titleFontSize().sp),
             ),
             SvgPicture.asset(
@@ -139,7 +141,7 @@ class _FlashSaleState extends State<FlashSale> {
       borderRadius: BorderRadius.circular(1.0.h),
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(width: 2, color: Colors.grey.shade200)),
+            border: Border.all(width: 2, color: Colors.grey.shade100)),
         child: Stack(
           children: [
             Hero(
@@ -147,16 +149,16 @@ class _FlashSaleState extends State<FlashSale> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(0.5.h),
                 child: CachedNetworkImage(
-                  width: 30.0.w,
-                  height: 30.0.w,
+                  width: 28.0.w,
+                  height: 28.0.w,
                   placeholder: (context, url) => Container(
                     color: Colors.white,
-                    child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                    child: Lottie.asset(Env.value.loadingAnimaion, height: 28),
                   ),
                   fit: BoxFit.cover,
                   imageUrl: ProductLandscape.CovertUrlImage(item.image),
                   errorWidget: (context, url, error) => Container(
-                      height: 30,
+                      height: 28,
                       child: Icon(
                         Icons.error,
                         size: SizeUtil.titleSmallFontSize().sp,
@@ -235,6 +237,25 @@ class _FlashSaleState extends State<FlashSale> {
                   ),
                 ],
               )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SmoothStarRating(
+                  allowHalfRating: false,
+                  onRated: (v) {},
+                  starCount: 5,
+                  rating: item.rating.toDouble(),
+                  size: 4.0.w,
+                  isReadOnly: true,
+                  filledIconData: Icons.star,
+                  halfFilledIconData: Icons.star_half_outlined,
+                  color: Colors.amber,
+                  borderColor: Colors.amber,
+                  spacing: 0.0),
+              SizedBox(width: 1.0.w,),
+              Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
+            ],
+          ),
           Stack(
             children: [
               Container(

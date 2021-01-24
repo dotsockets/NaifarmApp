@@ -17,6 +17,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ProductLandscape extends StatelessWidget {
 
@@ -124,15 +125,15 @@ class ProductLandscape extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(0.5.h),
                 child: CachedNetworkImage(
-                  width: 30.0.w,
-                  height: 30.0.w,
+                  width: 28.0.w,
+                  height: 28.0.w,
                   placeholder: (context, url) => Container(
                     color: Colors.white,
-                    child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                    child: Lottie.asset(Env.value.loadingAnimaion,height: 28),
                   ),
                   fit: BoxFit.cover,
                   imageUrl: CovertUrlImage(item.image),
-                  errorWidget: (context, url, error) => Container(width: 30.0.w,height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                  errorWidget: (context, url, error) => Container(width: 28.0.w,height: 28.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                 ),
               ),
             ),
@@ -169,7 +170,6 @@ class ProductLandscape extends StatelessWidget {
   Widget _intoProduct({ProductData item}){
     return Container(
       width: 30.0.w,
-      height: 30.0.w,
       child: Column(
         children: [
           SizedBox(height: 1.0.h),
@@ -186,6 +186,26 @@ class ProductLandscape extends StatelessWidget {
               SizedBox(width: item.offerPrice!=null?1.0.w:0),
               Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
                   overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+            ],
+          ),
+          SizedBox(height: 1.0.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SmoothStarRating(
+                  allowHalfRating: false,
+                  onRated: (v) {},
+                  starCount: 5,
+                  rating: item.rating.toDouble(),
+                  size: 4.0.w,
+                  isReadOnly: true,
+                  filledIconData: Icons.star,
+                  halfFilledIconData: Icons.star_half_outlined,
+                  color: Colors.amber,
+                  borderColor: Colors.amber,
+                  spacing: 0.0),
+              SizedBox(width: 1.0.w,),
+              Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
             ],
           ),
           Container(

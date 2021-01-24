@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/bloc/Stream/AddressBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -46,19 +45,12 @@ class _AddressEditViewState extends State<AddressEditView> {
 
   AddressBloc bloc;
 
-  List<String> listAddrDeli = ["1","2","3",];
 
   //bool checkError = false;
   @override
   void initState() {
     super.initState();
-    KeyboardVisibilityNotification().addNewListener(
-      onChange: (bool visible) {
-        setState(() {
-          checkKeyBoard = visible;
-        });
-      },
-    );
+
     nameController.text = widget.item.addressTitle;
     phoneController.text = widget.item.phone;
     detailAddrController.text = widget.item.addressLine1;
@@ -278,7 +270,7 @@ class _AddressEditViewState extends State<AddressEditView> {
 
   Widget _buildSwitch({String head}) {
     return Container(
-      padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+      padding: EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 3.0.w, bottom: 3.0.w),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -288,8 +280,8 @@ class _AddressEditViewState extends State<AddressEditView> {
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
           FlutterSwitch(
-            height: 30,
-            width: 50,
+            height: 4.0.h,
+            width: 14.0.w,
             toggleSize: 20,
             activeColor: Colors.grey.shade200,
             inactiveColor: Colors.grey.shade200,
@@ -309,32 +301,33 @@ class _AddressEditViewState extends State<AddressEditView> {
 
   Widget _buildButton() {
     return Container(
-        padding: EdgeInsets.only(left: 50, right: 50),
+        width: 60.0.w,
         color: Colors.grey.shade300,
         child: Container(
             width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.all(15),
+            margin: EdgeInsets.all(1.5.w),
             child: _buildButtonItem(btnTxt: LocaleKeys.confirm_btn.tr())));
   }
 
   Widget _buildButtonItem({String btnTxt}) {
-    return FlatButton(
-      padding: EdgeInsets.only(top: 15, bottom: 15),
-      color:check? ThemeColor.secondaryColor()
-          : Colors.grey.shade400,
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
-      ),
-      onPressed: () {
+    return Container(
+      child: FlatButton(
+        color:check? ThemeColor.secondaryColor()
+            : Colors.grey.shade400,
+        textColor: Colors.white,
+        splashColor: Colors.white.withOpacity(0.3),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(40.0),
+        ),
+        onPressed: () {
 
-        Usermanager().getUser().then((value) =>     bloc.UpdateAddress(data: AddressCreaterequest(countryId: 1,id: widget.item.id,cityId: citySelect,phone: phoneController.text,addressLine1: detailAddrController.text,
-            addressLine2: "",addressTitle: nameController.text,stateId: proviceSelect,zipCode: postController.text,addressType: isSelect?"Primary":"Shipping"),token: value.token));
-      },
-      child: Text(
-        btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+          Usermanager().getUser().then((value) =>     bloc.UpdateAddress(data: AddressCreaterequest(countryId: 1,id: widget.item.id,cityId: citySelect,phone: phoneController.text,addressLine1: detailAddrController.text,
+              addressLine2: "",addressTitle: nameController.text,stateId: proviceSelect,zipCode: postController.text,addressType: isSelect?"Primary":"Shipping"),token: value.token));
+        },
+        child: Text(
+          btnTxt,
+          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+        ),
       ),
     );
   }
@@ -375,8 +368,7 @@ class _AddressEditViewState extends State<AddressEditView> {
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.only(top: 10),
+            margin: EdgeInsets.only(top: 1.0.h),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.black.withOpacity(0.5))),

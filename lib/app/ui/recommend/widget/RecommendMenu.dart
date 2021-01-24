@@ -76,17 +76,17 @@ class RecommendMenu extends StatelessWidget {
   Widget getMessageRead({ int index,int notification}){
     if(index==3 && notification>0){
       return Positioned(
-        right: 0,
-        top: 0,
+        right: 2,
+        top: 2,
         child: Container(
-          padding: EdgeInsets.all(1.0.h),
+          padding: EdgeInsets.all(0.8.h),
           decoration: BoxDecoration(
             color: ThemeColor.ColorSale(),
             borderRadius: BorderRadius.circular(10),
           ),
           constraints: BoxConstraints(
-            minWidth: 1.0.w,
-            minHeight: 1.0.h,
+            minWidth: 0.5.w,
+            minHeight: 0.5.h,
           ),
         ),
       );
@@ -103,7 +103,7 @@ class RecommendMenu extends StatelessWidget {
             children: [
               Container(
                 padding: EdgeInsets.all(1.0.w),
-                child: SvgPicture.asset(item.icon,width: 13.0.w,height: 14.0.w,),
+                child: SvgPicture.asset(item.icon,width: 11.0.w,height: 11.0.w,),
               ),
               getMessageRead(notification: notification,index: index)
             ],

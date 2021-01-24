@@ -107,7 +107,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                     child: GestureDetector(
                       child: Icon(
                           Icons.arrow_back_ios,
-                          color: Colors.white,size: 30
+                          color: Colors.white,size: 5.0.w
                       ),
                       onTap: (){
                         if(onUpdate){
@@ -118,7 +118,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                       },
                     ),
                   ),
-                  expandedHeight: 220,
+                  expandedHeight: 35.0.h,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Container(
                       color: ThemeColor.primaryColor(),
@@ -189,7 +189,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                 SliverList(
                   delegate: SliverChildListDelegate(<Widget>[
                     Container(
-                      height: 700,
+                      height: 50.0.h,
                       child: Column(
                         children: [
 

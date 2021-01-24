@@ -12,7 +12,6 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
@@ -39,7 +38,7 @@ class ProductDetailView extends StatefulWidget {
   final String productImage;
   ProducItemRespone productItem;
 
-   ProductDetailView({Key key, this.productImage, this.productItem}) : super(key: key);
+  ProductDetailView({Key key, this.productImage, this.productItem}) : super(key: key);
 
   @override
   _ProductDetailViewState createState() => _ProductDetailViewState();
@@ -48,12 +47,12 @@ class ProductDetailView extends StatefulWidget {
 class _ProductDetailViewState extends State<ProductDetailView>  with TickerProviderStateMixin{
   ScrollController scrollController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-   int IndexTypes1=1;
-   int IndexTypes2=1;
-  ProductBloc bloc;
+  int IndexTypes1=1;
+  int IndexTypes2=1;
   MyShopRespone shop;
-   AnimationController _controller;
-   Animation<double> _animation;
+  AnimationController _controller;
+  Animation<double> _animation;
+  ProductBloc bloc;
   StreamController<bool> checkScrollControl = new StreamController<bool>();
 
   @override
@@ -74,7 +73,7 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
 
     scrollController.addListener(() {
       if(scrollController.offset == scrollController.position.maxScrollExtent){
-       checkScrollControl.add(false);
+        checkScrollControl.add(false);
       }else{
         checkScrollControl.add(true);
       }
@@ -85,25 +84,26 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
 
   void _init(){
 
+
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.ProductItem.add(widget.productItem);
-     bloc.onError.stream.listen((event) {
-       checkScrollControl.add(false);
-       FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
-     });
+      bloc.onError.stream.listen((event) {
+        checkScrollControl.add(false);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+      });
 
-     bloc.onLoad.stream.listen((event) {
-       if (event) {
-         //  FunctionHelper.SuccessDialog(context,message: "555");
-         FunctionHelper.showDialogProcess(context);
-       } else {
-         Navigator.of(context).pop();
-       }
-     });
-     bloc.onSuccess.stream.listen((event) {
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          //  FunctionHelper.SuccessDialog(context,message: "555");
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onSuccess.stream.listen((event) {
 
-     });
+      });
 
       Usermanager().getUser().then((value){
         bloc.GetWishlistsByProduct(productID: widget.productItem.id,token: value.token);
@@ -117,16 +117,16 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
   }
 
 
-   @override
-   void dispose() {
-     _controller.dispose();
-     super.dispose();
-   }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
 
 
 
-   @override
+  @override
   Widget build(BuildContext context) {
     _init();
     return Scaffold(
@@ -143,9 +143,7 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                       controller: scrollController,
                       child: Column(
                         children: [
-                          AppToobar(header_type: Header_Type.barNoBackground,onClick: (){
-                            Navigator.of(context).pop();
-                          },),
+                          AppToobar(header_type: Header_Type.barNoBackground),
                           StreamBuilder(
                               stream: bloc.onError.stream,
                               builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -179,39 +177,36 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                     StreamBuilder<Object>(
                         stream: checkScrollControl.stream,
                         builder: (context, snapshot) {
-                          if(snapshot.hasData){
-                            return Positioned(
-                              bottom: 0.0,
-                              right: 0.0,
-                              left: 0.0,
-                              child: Container(
-                                color: Colors.white,
-                                child: StreamBuilder(
-                                  stream: bloc.Wishlists.stream,
-                                  builder: (BuildContext context,AsyncSnapshot snapshot){
-                                    if(snapshot.hasData){
-                                      if((snapshot.data as WishlistsRespone).total>0){
-                                        return  FadeTransition(
-                                          ///Providing our animation to opacity property
-                                          opacity: _animation,
-                                          child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
-                                        );
-                                      }else{
-                                        return  FadeTransition(
-                                          opacity: _animation,
-                                          child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
-                                        );
-                                      }
-
+                          return snapshot.data?Positioned(
+                            bottom: 0.0,
+                            right: 0.0,
+                            left: 0.0,
+                            child: Container(
+                              color: Colors.white,
+                              child: StreamBuilder(
+                                stream: bloc.Wishlists.stream,
+                                builder: (BuildContext context,AsyncSnapshot snapshot){
+                                  if(snapshot.hasData){
+                                    if((snapshot.data as WishlistsRespone).total>0){
+                                      return  FadeTransition(
+                                        ///Providing our animation to opacity property
+                                        opacity: _animation,
+                                        child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
+                                      );
                                     }else{
-                                      return SizedBox();
+                                      return  FadeTransition(
+                                        opacity: _animation,
+                                        child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
+                                      );
                                     }
-                                  },
-                                ),
+
+                                  }else{
+                                    return SizedBox();
+                                  }
+                                },
                               ),
-                            );
-                          }
-                          return SizedBox();
+                            ),
+                          ):SizedBox();
                         })
                   ],
                 ),
@@ -241,8 +236,14 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                 children: [
                   BuildChoosesize(IndexType1: IndexTypes1,IndexType2: IndexTypes2,onclick1: (int index)=>setState(() =>IndexTypes1 = index),onclick2: (int index)=>setState(() =>IndexTypes2 = index)),
                   _Divider(),
-                  ShopOwn(shopItem: item.shop,shopRespone:
-                  MyShopRespone(id: item.shopId)),
+                  InkWell(
+                    child: ShopOwn(shopItem: item.shop,shopRespone:
+                    MyShopRespone(id: item.shopId)),
+                    onTap: (){
+                      var item = (snapshot.data as ProductDetailObjectCombine).shopRespone;
+                      AppRoute.ShopMain(context: context,myShopRespone: MyShopRespone(id: item.id,name: item.name,image: item.image,updatedAt: item.updatedAt));
+                    },
+                  ),
                   _Divider(),
                   ProductDetail(productItem: item),
                   _Divider(),
@@ -286,75 +287,75 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
   Widget _BuildFooterTotal({WishlistsRespone item}) {
     return Container(
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0),bottom: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0))
+          border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0),bottom: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0))
       ),
-        child: Row(
-          children: [
-            Expanded(child: GestureDetector(
-              child: SvgPicture.asset(
-                'assets/images/svg/share.svg',
-                width: 8.0.w,
-                height: 8.0.w,
-              ),
-              onTap: (){
-
-              },
-            )),
-            Container(
-              color: Colors.grey.withOpacity(0.4),
-              height: 8.0.h,
-              width: 1,
+      child: Row(
+        children: [
+          Expanded(child: GestureDetector(
+            child: SvgPicture.asset(
+              'assets/images/svg/share.svg',
+              width: 8.0.w,
+              height: 8.0.w,
             ),
-            Expanded(child: GestureDetector(
-              child: SvgPicture.asset(
-                item.total>0?'assets/images/svg/like_line.svg':'assets/images/svg/like_line_null.svg',
-                width: 8.0.w,
-                height: 8.0.w,
-                color: ThemeColor.ColorSale(),
-              ),
-              onTap: (){
-                if(item.total>0){
-                  int id = item.data[0].id;
-                  item.data = [];
-                  item.total = 0;
-                  bloc.Wishlists.add(item);
-                  Usermanager().getUser().then((value) => bloc.DELETEWishlists(WishId:id,token: value.token));
-                }else{
-                  Usermanager().getUser().then((value) => bloc.AddWishlists(productId: widget.productItem.id,inventoryId: bloc.ProductItem.value.inventories[0].id,token: value.token));
-                  item.data = [];
-                  item.total = 1;
-                  bloc.Wishlists.add(item);
-                }
-              },
-            )),
-            Expanded(
-                flex: 2,
-                child: InkWell(
-                  onTap:(){
-                    if(bloc.ProductItem.value.inventories[0].stockQuantity>0){
-                      List<Items> items = new List<Items>();
-                      items.add(Items(inventoryId: bloc.ProductItem.value.inventories[0].id,quantity: 1));
-                      Usermanager().getUser().then((value) => bloc.AddCartlists(cartRequest: CartRequest(
-                        shopId: widget.productItem.shop.id,
-                        items:items,
-                      ),token: value.token));
-                    }else{
-                      FunctionHelper.FailDialog(context,message: "ไม่สามารถทำรายการได้เนื่องจากไม่มีสินค้าในร้านในขณะนี้ กรุณาติดต่อกับทางร้าน");
-                    }
+            onTap: (){
 
-                  },
-                  child: Container(
-                      alignment: Alignment.center,
-                      height: 8.0.h,
-                      color: ThemeColor.ColorSale(),
-                      child: Text(LocaleKeys.buy_product_btn.tr(),
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white))),
-                ))
-          ],
-        ),
+            },
+          )),
+          Container(
+            color: Colors.grey.withOpacity(0.4),
+            height: 8.0.h,
+            width: 1,
+          ),
+          Expanded(child: GestureDetector(
+            child: SvgPicture.asset(
+              item.total>0?'assets/images/svg/like_line.svg':'assets/images/svg/like_line_null.svg',
+              width: 8.0.w,
+              height: 8.0.w,
+              color: ThemeColor.ColorSale(),
+            ),
+            onTap: (){
+              if(item.total>0){
+                int id = item.data[0].id;
+                item.data = [];
+                item.total = 0;
+                bloc.Wishlists.add(item);
+                Usermanager().getUser().then((value) => bloc.DELETEWishlists(WishId:id,token: value.token));
+              }else{
+                Usermanager().getUser().then((value) => bloc.AddWishlists(productId: widget.productItem.id,inventoryId: bloc.ProductItem.value.inventories[0].id,token: value.token));
+                item.data = [];
+                item.total = 1;
+                bloc.Wishlists.add(item);
+              }
+            },
+          )),
+          Expanded(
+              flex: 2,
+              child: InkWell(
+                onTap:(){
+                  if(bloc.ProductItem.value.inventories[0].stockQuantity>0){
+                    List<Items> items = new List<Items>();
+                    items.add(Items(inventoryId: bloc.ProductItem.value.inventories[0].id,quantity: 1));
+                    Usermanager().getUser().then((value) => bloc.AddCartlists(cartRequest: CartRequest(
+                      shopId: widget.productItem.shop.id,
+                      items:items,
+                    ),token: value.token));
+                  }else{
+                    FunctionHelper.FailDialog(context,message: "ไม่สามารถทำรายการได้เนื่องจากไม่มีสินค้าในร้านในขณะนี้ กรุณาติดต่อกับทางร้าน");
+                  }
+
+                },
+                child: Container(
+                    alignment: Alignment.center,
+                    height: 8.0.h,
+                    color: ThemeColor.ColorSale(),
+                    child: Text(LocaleKeys.buy_product_btn.tr(),
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white))),
+              ))
+        ],
+      ),
     );
   }
 

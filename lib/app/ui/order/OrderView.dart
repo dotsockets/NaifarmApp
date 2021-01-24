@@ -96,15 +96,15 @@ class _OrderViewState extends State<OrderView> {
 
   Widget _HeaderStatusText({OrderData orderData}){
       return Container(
-        width: 320,
-        height: 60,
+        width: 70.0.w,
+        height: 8.0.h,
         margin: EdgeInsets.only(top: 20),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: Container(
             padding: EdgeInsets.only(right: 13,left: 10,top: 5,bottom: 5),
             color: ThemeColor.primaryColor(),
-            child: Center(child: Text(orderData.orderStatusName,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.white),)),
+            child: Center(child: Text(orderData.orderStatusName,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.white),)),
           ),
         ),
       );
@@ -128,7 +128,7 @@ class _OrderViewState extends State<OrderView> {
                 SizedBox(height: 30,),
                 Text("Order ${orderData.orderNumber}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
                 SizedBox(height: 3),
-                Text("กรุณาชำระเงินภายใน ${DateFormat('dd-MM-yyyy').format(DateTime.parse(orderData.paymentAt!=null?orderData.paymentAt:DateTime.now().toString()))} มิฉะนั้นระบบจะยกเลิกคำสั่งซื้อโดยอัตโนมัติ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5)),)
+                Text("กรุณาชำระเงินภายใน ${DateFormat('dd-MM-yyyy').format(DateTime.parse(orderData.requirePaymentAt!=null?orderData.requirePaymentAt:DateTime.now().toString()))} มิฉะนั้นระบบจะยกเลิกคำสั่งซื้อโดยอัตโนมัติ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5)),)
               ]
           ),
         ),
@@ -230,7 +230,7 @@ class _OrderViewState extends State<OrderView> {
                     children: [
                       Text(LocaleKeys.order_detail_go_shop.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                       SizedBox(width: 10,),
-                      Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
+                      Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,size: 4.0.w,)
                     ],
                   ),
                 ],
@@ -424,27 +424,28 @@ class _OrderViewState extends State<OrderView> {
   }
 
   Widget _ButtonActive({BuildContext context,OrderData orderData}){
+    
+      return Center(
+        child: Container(
+          padding: EdgeInsets.all(1.0.w),
+          child: Center(
+            child: FlatButton(
+              minWidth: 50.0.w,
+              color:  ThemeColor.ColorSale() ,
+              textColor: Colors.white,
+              splashColor: Colors.white.withOpacity(0.3),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+              onPressed: () {
 
-      return Container(
-        margin: EdgeInsets.only(bottom: 10,top: 10),
-        child: Center(
-          child: FlatButton(
-            minWidth: 50.0.w,
-            height: 50,
-            color:  ThemeColor.ColorSale() ,
-            textColor: Colors.white,
-            splashColor: Colors.white.withOpacity(0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
-            ),
-            onPressed: () {
 
-
-            },
-            child: Text(
-              "Cancel order",
-              style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+              },
+              child: Text(
+                "Cancel order",
+                style: FunctionHelper.FontTheme(
+                    fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+              ),
             ),
           ),
         ),

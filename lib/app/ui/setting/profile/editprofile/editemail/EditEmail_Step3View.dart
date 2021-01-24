@@ -108,96 +108,97 @@ class _EditEmail_Step3ViewState extends State<EditEmail_Step3View> {
               });
         },
       ),
-      body: Column(
-        children: [
-          Container(
-            color: Colors.white,
-            child: Container(
-              padding: EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              color: Colors.white,
+              child: Container(
+                padding: EdgeInsets.all(20),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
 
-                  BuildEditText(
-                      head: "อีเมลใหม่",
-                      hint: "ระบุอีเมลใหม่",
-                      maxLength: 10,
-                      controller: PhoneController,
-                      inputType: TextInputType.phone,
-                      readOnly: true,
-                      BorderOpacity: 0.2,
-                      onChanged: (String char) {
-                        setState(() {});
-                      }),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text("กรุณาเปิดอีเมล ${widget.emailnew} เพื่อรับ OTP",style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleSmallFontSize().sp,
-                fontWeight: FontWeight.w500),),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  BuildEditText(
-                      head: "ยืนยัน OTP [Ref : tedf]",
-                      hint: "กรอก OTP",
-                      maxLength: 6,
-                      controller: OtpController,
-                      inputType: TextInputType.phone,
-                      BorderOpacity: 0.2,
-                      onError: onErrorOtp,
-                      onChanged: (String char) {
-                        setState(() {});
-                      }),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    child: InkWell(
-                      child: Row(
-                        children: [
-                          SvgPicture.asset('assets/images/svg/change.svg'),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "ขอรหัสยืนยันใหม่อีกครั้ง",
-                            style: FunctionHelper.FontTheme(
-                                fontSize:SizeUtil.titleSmallFontSize().sp),
-                          )
-                        ],
-                      ),
-                      onTap: () {
-                        setState(() {});
-                      },
+                    BuildEditText(
+                        head: "อีเมลใหม่",
+                        hint: "ระบุอีเมลใหม่",
+                        maxLength: 10,
+                        controller: PhoneController,
+                        inputType: TextInputType.phone,
+                        readOnly: true,
+                        BorderOpacity: 0.2,
+                        onChanged: (String char) {
+                          setState(() {});
+                        }),
+                    SizedBox(
+                      height: 20,
                     ),
-                  )
-                ],
+                    Text("กรุณาเปิดอีเมล ${widget.emailnew} เพื่อรับ OTP",style: FunctionHelper.FontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                  fontWeight: FontWeight.w500),),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    BuildEditText(
+                        head: "ยืนยัน OTP [Ref : tedf]",
+                        hint: "กรอก OTP",
+                        maxLength: 6,
+                        controller: OtpController,
+                        inputType: TextInputType.phone,
+                        BorderOpacity: 0.2,
+                        onError: onErrorOtp,
+                        onChanged: (String char) {
+                          setState(() {});
+                        }),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      child: InkWell(
+                        child: Row(
+                          children: [
+                            SvgPicture.asset('assets/images/svg/change.svg'),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "ขอรหัสยืนยันใหม่อีกครั้ง",
+                              style: FunctionHelper.FontTheme(
+                                  fontSize:SizeUtil.titleSmallFontSize().sp),
+                            )
+                          ],
+                        ),
+                        onTap: () {
+                          setState(() {});
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          FlatButton(
-            minWidth: 250,
-            height: 50,
-            color: FormCheck() ? ThemeColor.ColorSale() : Colors.grey.shade400,
-            textColor: Colors.white,
-            splashColor: Colors.white.withOpacity(0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
+            SizedBox(
+              height: 20,
             ),
-            onPressed: () => FormCheck() ? verify() : SizedBox(),
-            child: Text(
-              FormCheck() ? "ยืนยัน" : "ดำเนินการต่อ",
-              style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleFontSize().sp,
-                  fontWeight: FontWeight.w500),
-            ),
-          )
-        ],
+            FlatButton(
+              minWidth: 50.0.w,
+              color: FormCheck() ? ThemeColor.ColorSale() : Colors.grey.shade400,
+              textColor: Colors.white,
+              splashColor: Colors.white.withOpacity(0.3),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+              onPressed: () => FormCheck() ? verify() : SizedBox(),
+              child: Text(
+                FormCheck() ? "ยืนยัน" : "ดำเนินการต่อ",
+                style: FunctionHelper.FontTheme(
+                    fontSize: SizeUtil.titleFontSize().sp,
+                    fontWeight: FontWeight.w500),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

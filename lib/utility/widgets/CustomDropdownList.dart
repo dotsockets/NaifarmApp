@@ -26,16 +26,17 @@ class _CustomDropdownListState extends State<CustomDropdownList> {
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        padding: EdgeInsets.all(5),
+        padding: EdgeInsets.all(2.2.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(widget.txtSelect,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),),
-            Icon(Icons.keyboard_arrow_down)
+            Icon(Icons.keyboard_arrow_down,size: 5.0.w,)
           ],
         )
       ),
       onTap: (){
+        FocusScope.of(context).unfocus();
         Platform.isAndroid?FunctionHelper.DropDownAndroid(context,widget.dataList,onTap:(int index){
           widget.onSelect(index);
         }):FunctionHelper.DropDownIOS(context,widget.dataList,onTap:(int index){

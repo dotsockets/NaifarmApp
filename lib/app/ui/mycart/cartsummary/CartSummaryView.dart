@@ -147,35 +147,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
   }
 
   Widget _ItemCart({CartData item, int index}) {
-    return Dismissible(
-      background: Container(
-        padding: EdgeInsets.only(right: 30),
-        alignment: Alignment.centerRight,
-        color: ThemeColor.ColorSale(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Lottie.asset('assets/json/delete.json',
-                height: 30, width: 30, repeat: true),
-            Text(
-              LocaleKeys.cart_del.tr(),
-              style: FunctionHelper.FontTheme(
-                  color: Colors.white,
-                  fontSize: SizeUtil.titleSmallFontSize().sp,
-                  fontWeight: FontWeight.bold),
-            )
-          ],
-        ),
-      ),
-      key: Key("${item.id}"),
-      child: _BuildCard(item: item, index: index),
-      //_CardCart(item: _data_aar[index], index: index),
-      onDismissed: (direction) {
-        // setState(() {
-        //   _data_aar.removeAt(index);
-        // });
-      },
-    );
+    return _BuildCard(item: item, index: index);
   }
 
   Widget _BuildCard({CartData item, int index}) {
@@ -344,7 +316,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
           icon: 'assets/images/svg/sale_cart.svg',
           title: LocaleKeys.cart_discount_from.tr() + " Naifarm",
           Message: "",
-          iconSize: 35,
+          iconSize: 8.0.w,
           fontWeight: FontWeight.w500,
           onClick: () {
             showMaterialModalBottomSheet(
@@ -363,8 +335,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
           children: [
             SvgPicture.asset(
               'assets/images/svg/delivery.svg',
-              width: 30,
-              height: 30,
+              width: 7.0.w,
+              height: 7.0.w,
             ),
             SizedBox(
               width: 10,
@@ -412,7 +384,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                             SizedBox(width: 8),
                             Icon(
                               Icons.arrow_forward_ios,
-                              color: Colors.grey.shade500,
+                              color: Colors.grey.withOpacity(0.7),
                               size: 4.0.w,
                             )
                           ],
@@ -435,7 +407,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         ),
         Divider(color: Colors.grey),
         SizedBox(
-          height: 5,
+          height: 1.5.h,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -448,7 +420,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               children: [
                 Icon(
                   Icons.arrow_forward_ios,
-                  color: Colors.grey.shade500,
+                  color: Colors.grey.withOpacity(0.7),
                   size: 4.0.w,
                 )
               ],
@@ -456,11 +428,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
           ],
         ),
         SizedBox(
-          height: 5,
+          height: 2.0.h,
         ),
         StreamBuilder(
             stream: bloc.CartList.stream,
-            initialData: 0,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 var value = (snapshot.data as  CartResponse).data;
@@ -518,7 +489,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
     return Container(
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.only(left: 0, right: 0, bottom: 10),
+        padding: const EdgeInsets.only(left: 0, right: 6, bottom: 10),
         child: Column(
           children: [
             StreamBuilder(
@@ -540,7 +511,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           title: LocaleKeys.select.tr() +
                               LocaleKeys.me_title_payment.tr(),
                           Message: data.name,
-                          iconSize: 35,
+                          iconSize:7.0.w,
                           fontWeight: FontWeight.w500,
                           onClick: () async {
                             final result = await AppRoute.CartBank(context,
@@ -559,7 +530,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           title: LocaleKeys.select.tr() +
                               LocaleKeys.me_title_payment.tr(),
                           Message: "Please select",
-                          iconSize: 35,
+                          iconSize: 7.0.w,
                           fontWeight: FontWeight.w500,
                           onClick: () async {
                             final result = await AppRoute.CartBank(context,
@@ -706,7 +677,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                 child: Text(
                                     "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
                                     style: FunctionHelper.FontTheme(
-                                        fontSize: SizeUtil.priceFontSize().sp,
+                                        fontSize: SizeUtil.titleFontSize().sp,
                                         fontWeight: FontWeight.bold,
                                         color: ThemeColor.ColorSale()))));
                       } else {
@@ -717,7 +688,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 Expanded(
                     flex: 2,
                     child: Container(
-                      height: 55,
+                      height: 7.0.h,
                       color: bloc.CheckListOut()?ThemeColor.ColorSale():Colors.grey.shade300,
                       child: FlatButton(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -748,12 +719,12 @@ class _CartSummaryViewState extends State<CartSummaryView> {
   }
 
   Widget _BoxAddAddress() {
-    return Container(
-      padding: EdgeInsets.all(15),
-      child: Column(
-        children: [
-          InkWell(
-            child: Row(
+    return InkWell(
+      child: Container(
+        padding: EdgeInsets.all(15),
+        child: Column(
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -769,55 +740,55 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 )
               ],
             ),
-            onTap: () async {
-              final result = await AppRoute.CartAaddres(context);
-              if (result) {
-                Usermanager()
-                    .getUser()
-                    .then((value) => bloc.AddressesList(token: value.token));
-              }
-            },
-          ),
-          StreamBuilder(
-              stream: bloc.AddressList.stream,
-              builder: (context, snapshot) {
-                var item = (snapshot.data as AddressesListRespone);
-                if (snapshot.hasData && item.data!=null) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                      ),
-                      Text(item.data[0].addressTitle,
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              fontWeight: FontWeight.w500,
-                              color: ThemeColor.primaryColor())),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(item.data[0].phone,
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black)),
-                      Text(item.data[0].addressLine1,
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black)),
-                    ],
-                  );
-                } else {
-                  return SizedBox();
-                }
-              })
-        ],
+            StreamBuilder(
+                stream: bloc.AddressList.stream,
+                builder: (context, snapshot) {
+                  var item = (snapshot.data as AddressesListRespone);
+                  if (snapshot.hasData && item.data!=null) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Divider(
+                          color: Colors.grey,
+                        ),
+                        Text(item.data[0].addressTitle,
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.w500,
+                                color: ThemeColor.primaryColor())),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(item.data[0].phone,
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black)),
+                        Text(item.data[0].addressLine1,
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black)),
+                      ],
+                    );
+                  } else {
+                    return SizedBox();
+                  }
+                })
+          ],
+        ),
       ),
+      onTap: () async {
+        final result = await AppRoute.CartAaddres(context);
+        if (result) {
+          Usermanager()
+              .getUser()
+              .then((value) => bloc.AddressesList(token: value.token));
+        }
+      },
     );
   }
 
@@ -830,78 +801,80 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         return GestureDetector(
           child: Dialog(
             child: Container(
-              padding: EdgeInsets.all(25),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _OwnShop(item: item),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 0, right: 0, bottom: 10, top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                              "คำสั่งซื้อทั้งหมด ${item.quantity} " +
-                                  LocaleKeys.cart_item.tr(),
-                              style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  color: Colors.black)),
-                          Text(
-                              "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
-                              style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: ThemeColor.ColorSale())),
-                        ],
+              padding: EdgeInsets.all(5.0.w),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _OwnShop(item: item),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 0, right: 0, bottom: 10, top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                "คำสั่งซื้อทั้งหมด ${item.quantity} " +
+                                    LocaleKeys.cart_item.tr(),
+                                style: FunctionHelper.FontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    color: Colors.black)),
+                            Text(
+                                "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
+                                style: FunctionHelper.FontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: ThemeColor.ColorSale())),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  BuildEditText(
-                    hint: "note...",
-                    initialValue: item.note,
-                    maxLine: 3,
-                    inputType: TextInputType.text,
-                    BorderOpacity: 0.2,
-                    borderRadius: 2,
-                    onChanged: (String char) {
-                      commnet_user = char;
-                    },
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                      margin: EdgeInsets.all(5),
-                      width: 40.0.w,
-                      height: 40,
-                      child: FlatButton(
-                        height: 50,
-                        color: ThemeColor.ColorSale(),
-                        textColor: Colors.white,
-                        splashColor: Colors.white.withOpacity(0.3),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0),
-                        ),
-                        onPressed: () async {
-                          bloc.CartList.value.data[index].note = commnet_user;
-                          bloc.CartList.add(bloc.CartList.value);
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          "Leave a message",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ))
-                ],
+                    BuildEditText(
+                      hint: "note...",
+                      initialValue: item.note,
+                      maxLine: 3,
+                      inputType: TextInputType.text,
+                      BorderOpacity: 0.2,
+                      borderRadius: 2,
+                      onChanged: (String char) {
+                        commnet_user = char;
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                        margin: EdgeInsets.all(5),
+                        width: 40.0.w,
+                        height: 5.0.h,
+                        child: FlatButton(
+                          height: 50,
+                          color: ThemeColor.ColorSale(),
+                          textColor: Colors.white,
+                          splashColor: Colors.white.withOpacity(0.3),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                          onPressed: () async {
+                            bloc.CartList.value.data[index].note = commnet_user;
+                            bloc.CartList.add(bloc.CartList.value);
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Leave a message",
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ))
+                  ],
+                ),
               ),
             ),
           ),

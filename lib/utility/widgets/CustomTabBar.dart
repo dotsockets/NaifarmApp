@@ -46,7 +46,7 @@ class CustomTabBar extends StatelessWidget {
           return MapEntry(
             index,
             Tab(
-              iconMargin: EdgeInsets.all(0),
+              iconMargin: EdgeInsets.all(0.5.w),
               icon: SizedBox(),
               child: Column(
                 children: [
@@ -105,7 +105,7 @@ class CustomTabBar extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.all(1.0.w),
-            child: SvgPicture.asset(path_icon,color: color),
+            child: SvgPicture.asset(path_icon,color: color,width: 5.0.w,height: 5.0.w,),
           ),
           getMessageRead(index: index,notification: notification)
         ],
@@ -116,7 +116,7 @@ class CustomTabBar extends StatelessWidget {
   Widget getMessageRead({ int index,int notification}){
     if(index==2 && notification>0){
       return Positioned(
-        right: 0,
+        right: 3,
         top: 0,
         child: Container(
           padding: EdgeInsets.all(1.0.w),
@@ -125,8 +125,8 @@ class CustomTabBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           constraints: BoxConstraints(
-            minWidth: 3.0.w,
-            minHeight: 3.0.w,
+            minWidth: 2.5.w,
+            minHeight: 2.5.w,
           ),
         ),
       );

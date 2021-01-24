@@ -70,7 +70,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
                 children: [
 
                   Container(
-                    margin: EdgeInsets.only(top: 50),
+                    margin: EdgeInsets.only(top: 5.0.h),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(topRight:  Radius.circular(40),topLeft: Radius.circular(40),
@@ -92,7 +92,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
                     ) :
                     Column(
                       children: [
-                        SizedBox(height: 50),
+                        SizedBox(height: 5.0.h),
 
                         ProductGridFlashSaleView(
                           flashsaleProduct: widget.instalData,

@@ -74,7 +74,6 @@ class _RegisterViewState extends State<RegisterView> {
           body: ListView(
             children: [
               _BuildBar(context),
-              _BuildHeader(context),
               _BuildContent(context)
 
             ],
@@ -147,7 +146,7 @@ class _RegisterViewState extends State<RegisterView> {
                ,onTap: (){AppRoute.SettingRules(context);},
               ),
               Text(" "+LocaleKeys.and.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.7,fontWeight: FontWeight.w500),),
-              InkWell(child: Text(LocaleKeys.regis_policy.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
+              InkWell(child: Text(" "+LocaleKeys.regis_policy.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
               ,onTap: (){AppRoute.SettingPolicy(context);},
               ),
               Text(" "+LocaleKeys.withh.tr()+" NaiFarm",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.7,fontWeight: FontWeight.w500),),
@@ -177,17 +176,28 @@ class _RegisterViewState extends State<RegisterView> {
 
   Widget _BuildBar(BuildContext context){
     return Container(
-      padding: EdgeInsets.only(left: 20,top: 20),
-      color: ThemeColor.primaryColor(),
+      decoration: BoxDecoration(
+        color: ThemeColor.primaryColor(),
+        borderRadius: BorderRadius.only(bottomRight:  Radius.circular(40),bottomLeft: Radius.circular(40)),
+      ),
       width: MediaQuery.of(context).size.width,
-      child: Row(
+      child:Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          InkWell(child: Icon(Icons.arrow_back_ios,color: Colors.white,),onTap: ()=>Navigator.of(context).pop(),)
+          GestureDetector(
+            child: Container(
+              margin: EdgeInsets.only(left: 2.0.w,top: 2.0.w),
+              child: IconButton(
+                icon: Icon(Icons.arrow_back_ios,color: Colors.white,size: 4.5.w,),
+              ),
+            ),
+            onTap: ()=>Navigator.pop(context, false),
+          ),
+          _BuildHeader(context),
         ],
       ),
     );
   }
-
   void _validate() {
     if(PhoneController.text.isEmpty){
       FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_phone_empty.tr(),context: context);

@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
+import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -12,6 +13,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -90,6 +92,7 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
     );
   }
 
+
   Widget _BuildCard({OrderData item, BuildContext context, int index}) {
     return InkWell(
       child: Container(
@@ -102,38 +105,46 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
         ),
       ),
       onTap: () {
-        AppRoute.ProductDetail(context, productImage: "history_${index}");
+        // AppRoute.ProductDetail(context, productImage: "history_${index}");
+        AppRoute.OrderDetail(context,item.orderStatusId,orderData: item);
       },
     );
   }
 
-  Widget _ProductItem({OrderItems item,int index}){
-    return   Row(
+  Widget _ProductItem({OrderItems item,int shopId, int index}) {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Hero(
-          tag: "history_${index}",
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black.withOpacity(0.1))),
-            child: CachedNetworkImage(
-              width: 22.0.w,
-              height: 22.0.w,
-              placeholder: (context, url) => Container(
-                color: Colors.white,
-                child:
-                Lottie.asset(Env.value.loadingAnimaion, height: 30),
+        InkWell(
+          child: Hero(
+            tag: "history_paid_${item.orderId}${item.inventoryId}${index}",
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black.withOpacity(0.1))),
+              child: CachedNetworkImage(
+                width: 22.0.w,
+                height: 22.0.w,
+                placeholder: (context, url) => Container(
+                  color: Colors.white,
+                  child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                ),
+                fit: BoxFit.cover,
+                imageUrl:
+                "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : ''}",
+                errorWidget: (context, url, error) => Container(
+                    height: 30,
+                    child: Icon(
+                      Icons.error,
+                      size: 30,
+                    )),
               ),
-              fit: BoxFit.cover,
-              imageUrl: "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty?item.inventory.product.image[0].path:''}",
-              errorWidget: (context, url, error) => Container(
-                  height: 30,
-                  child: Icon(
-                    Icons.error,
-                    size: 30,
-                  )),
             ),
           ),
+          onTap: (){
+            var product = item.inventory.product;
+            product.shop = ProductShop(id: shopId);
+            AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
+          },
         ),
         SizedBox(width: 2.0.w),
         Expanded(
@@ -152,18 +163,20 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
                   Text("x ${item.quantity}",
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
-                          color: Colors.black)) ,
+                          color: Colors.black)),
                   Row(
                     children: [
                       item.inventory.product.discountPercent != 0
-                          ? Text("฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
+                          ? Text(
+                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
                           style: FunctionHelper.FontTheme(
                               color: Colors.black.withOpacity(0.5),
                               fontSize: SizeUtil.titleFontSize().sp,
                               decoration: TextDecoration.lineThrough))
                           : SizedBox(),
                       SizedBox(width: 3.0.w),
-                      Text("฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
+                      Text(
+                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: ThemeColor.ColorSale()))
@@ -172,7 +185,7 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
                 ],
               ),
               Divider(
-                color: Colors.black.withOpacity(0.4),
+                color: Colors.black.withOpacity(0.3),
               )
             ],
           ),
@@ -180,6 +193,7 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
       ],
     );
   }
+
 
   Widget _ProductDetail({OrderData item, int index}) {
     return Container(
@@ -228,7 +242,7 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
                     child: _IntroShipment(address: item.shippingAddress),
                   ),
                   Container(margin: EdgeInsets.only(left: 30),
-                      child: Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,size: 20,))
+                      child: Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400, size: 4.0.w,))
                 ],
               ),
               Divider(
@@ -269,14 +283,14 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
                 ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   child: CachedNetworkImage(
-                    width: 35,
-                    height: 35,
+                    width: 7.0.w,
+                    height: 7.0.w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child: Lottie.asset(
                         Env.value.loadingAnimaion,
-                        width: 35,
-                        height: 35,
+                        width: 7.0.w,
+                        height: 7.0.w,
                       ),
                     ),
                     fit: BoxFit.cover,
@@ -284,8 +298,8 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
                     "${Env.value.baseUrl}/storage/images/${item.shop.image.isNotEmpty ? item.shop.image[0].path : ''}",
                     errorWidget: (context, url, error) => Container(
                         color: Colors.grey.shade400,
-                        width: 35,
-                        height: 35,
+                        width: 7.0.w,
+                        height: 7.0.w,
                         child: Icon(
                           Icons.person,
                           size: 30,
@@ -321,7 +335,6 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
 
   Widget _BuildButtonBayItem({String btnTxt}) {
     return FlatButton(
-      height: 40,
       color: ThemeColor.ColorSale(),
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),

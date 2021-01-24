@@ -18,11 +18,13 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
+import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildIconShop.dart';
 import 'package:naifarm/utility/widgets/MD2Indicator.dart';
+import 'package:rxdart/subjects.dart';
 import 'myshop/MyshopView.dart';
 import 'purchase/PurchaseView.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -37,15 +39,14 @@ class _MeViewState extends State<MeView> with RouteAware {
   bool IsLogin = true;
 
   MemberBloc bloc;
+  final _reload = BehaviorSubject<bool>();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   StreamController<bool> controller = new StreamController<bool>();
 
   void _init() {
-    ISLogin();
     if (null == bloc) {
-
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         // if(event){
@@ -63,6 +64,13 @@ class _MeViewState extends State<MeView> with RouteAware {
           .getUser()
           .then((value) => bloc.loadMyProfile(token: value.token));
     }
+    Usermanager().getUser().then((value) {
+      if (value.token != null) {
+        _reload.add(true);
+      } else {
+        _reload.add(false);
+      }
+    });
   }
 
   @override
@@ -70,11 +78,6 @@ class _MeViewState extends State<MeView> with RouteAware {
     super.didChangeDependencies();
     routeObserver.subscribe(this, ModalRoute.of(context));
   }
-
-
-
-
-  void ISLogin() async => IsLogin = await Usermanager().isLogin();
 
   @override
   Widget build(BuildContext context) {
@@ -96,206 +99,249 @@ class _MeViewState extends State<MeView> with RouteAware {
                 key: _scaffoldKey,
                 backgroundColor: Colors.grey.shade300,
                 body: StreamBuilder(
-                  stream: bloc.customerInfoRespone.stream,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.hasData) {
-                      var info = (snapshot.data as ProfileObjectCombine);
-                      return CustomScrollView(
-                       // controller: _scr,
-                        slivers: [
-                          SliverAppBar(
-                            leading: Container(
-                              margin: EdgeInsets.only(left: 5.0.w),
-                              child: GestureDetector(
-                                child: Icon(Icons.settings,
-                                    color: Colors.white, size: 7.0.w),
-                                onTap: () async {
-                                  final result = await AppRoute.SettingProfile(
-                                      context, IsLogin,
-                                      item: info.customerInfoRespone);
-                                  if (result != null && result) {
-                                    ISLogin();
-                                    Usermanager().getUser().then((value) =>
-                                        bloc.loadMyProfile(token: value.token));
-                                    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-                                  }
-                                },
-                              ),
-                            ),
-                            actions: [
-                              Container(
-                                  margin: EdgeInsets.only(
-                                      right: 2.5.w, top: 2.0.w),
-                                  child: BuildIconShop(
-                                    size: 7.0.w,
-                                    notification: 0,
-                                  )),
-                            ],
-                            expandedHeight:
-                                ScreenUtil().setHeight(IsLogin ? 450 : 400),
-                            flexibleSpace: FlexibleSpaceBar(
-                              background: Container(
-                                color: ThemeColor.primaryColor(),
-                                child: IsLogin
-                                    ? Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(60)),
-                                            child: CachedNetworkImage(
-                                              width: 10.0.h,
-                                              height: 10.0.h,
-                                              placeholder: (context, url) =>
-                                                  Container(
-                                                width: 10.0.h,
-                                                height: 10.0.h,
-                                                color: Colors.white,
-                                                child: Lottie.asset(
-                                                    Env.value.loadingAnimaion,
-                                                    height: 30),
-                                              ),
-                                              fit: BoxFit.cover,
-                                              imageUrl: info
-                                                          .customerInfoRespone !=
-                                                      null
-                                                  ? info.customerInfoRespone
-                                                              .image.length >
-                                                          0
-                                                      ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
-                                                      : ''
-                                                  : '',
-                                              errorWidget: (context, url,
-                                                      error) =>
-                                                  Container(
-                                                      color:
-                                                          Colors.grey.shade300,
-                                                      width: 10.0.h,
-                                                      height: 10.0.h,
-                                                      child: Icon(
-                                                        Icons.person,
-                                                        size: 50,
-                                                        color: Colors.white,
-                                                      )),
+                    stream: _reload.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.hasData) {
+                        return snapshot.data
+                            ? StreamBuilder(
+                                stream: bloc.customerInfoRespone.stream,
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.hasData) {
+                                    var info =
+                                        (snapshot.data as ProfileObjectCombine);
+                                    return CustomScrollView(
+                                      // controller: _scr,
+                                      slivers: [
+                                        SliverAppBar(
+                                          leading: Container(
+                                            margin: EdgeInsets.only(
+                                                left: 1.0.w, top: 2.0.h),
+                                            child: GestureDetector(
+                                              child: Icon(Icons.settings,
+                                                  color: Colors.white,
+                                                  size: 6.0.w),
+                                              onTap: () async {
+                                                final result = await AppRoute
+                                                    .SettingProfile(
+                                                        context, IsLogin,
+                                                        item: info
+                                                            .customerInfoRespone);
+                                                if (result != null && result) {
+                                                   setState(() {
+
+                                                   });
+                                                }
+                                              },
                                             ),
                                           ),
-                                          SizedBox(height: 2.0.h),
-                                          Text(
-                                              info.customerInfoRespone != null
-                                                  ? info
-                                                      .customerInfoRespone.name
-                                                  : "ฟาร์มมาร์เก็ต",
-                                              style: FunctionHelper.FontTheme(
-                                                  color: Colors.white,
-                                                  fontSize:
-                                                      SizeUtil.titleFontSize()
-                                                          .sp,
-                                                  fontWeight: FontWeight.bold))
-                                        ],
-                                      )
-                                    : _FormLogin(),
-                              ),
-                            ),
-                          ),
-                          SliverList(
-                            delegate: SliverChildListDelegate(<Widget>[
-                              Container(
-                                height: IsLogin ? 730 : 350,
-                                color: Colors.white,
-                                child: DefaultTabController(
-                                  length: 2,
-                                  child: Container(
-                                    child: Column(
-                                      children: <Widget>[
-                                        // BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
-                                        //   builder: (_, count) {
-                                        //     return Center(
-                                        //       child: Text('${count.like}', style: Theme.of(context).textTheme.headline1),
-                                        //     );
-                                        //   },
-                                        // ),
-                                        SizedBox(
-                                          height: 50,
-                                          child: Container(
-                                            // color: ThemeColor.psrimaryColor(context),
-                                            child: TabBar(
-                                              indicatorColor:
-                                                  ThemeColor.ColorSale(),
-                                              /* indicator: MD2Indicator(
+                                          actions: [
+                                            Container(
+                                                margin: EdgeInsets.only(
+                                                    right: 2.5.w, top: 2.0.w),
+                                                child: BuildIconShop(
+                                                  size: 6.0.w,
+                                                  notification: 0,
+                                                )),
+                                          ],
+                                          expandedHeight: 32.0.h,
+                                          flexibleSpace: FlexibleSpaceBar(
+                                            background: Container(
+                                              color: ThemeColor.primaryColor(),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 3.0.h,
+                                                  ),
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                60)),
+                                                    child: CachedNetworkImage(
+                                                      width: 12.0.h,
+                                                      height: 12.0.h,
+                                                      placeholder:
+                                                          (context, url) =>
+                                                              Container(
+                                                        width: 12.0.h,
+                                                        height: 12.0.h,
+                                                        color: Colors.white,
+                                                        child: Lottie.asset(
+                                                            Env.value
+                                                                .loadingAnimaion,
+                                                            height: 30),
+                                                      ),
+                                                      fit: BoxFit.cover,
+                                                      imageUrl: info
+                                                                  .customerInfoRespone !=
+                                                              null
+                                                          ? info.customerInfoRespone
+                                                                      .image.length >
+                                                                  0
+                                                              ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
+                                                              : ''
+                                                          : '',
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Container(
+                                                              color: Colors.grey
+                                                                  .shade300,
+                                                              width: 10.0.h,
+                                                              height: 10.0.h,
+                                                              child: Icon(
+                                                                Icons.person,
+                                                                size: 50,
+                                                                color: Colors
+                                                                    .white,
+                                                              )),
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 2.0.h),
+                                                  Text(
+                                                      info.customerInfoRespone !=
+                                                              null
+                                                          ? info
+                                                              .customerInfoRespone
+                                                              .name
+                                                          : "ฟาร์มมาร์เก็ต",
+                                                      style: FunctionHelper
+                                                          .FontTheme(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: SizeUtil
+                                                                      .titleFontSize()
+                                                                  .sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold))
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SliverList(
+                                          delegate:
+                                              SliverChildListDelegate(<Widget>[
+                                            Container(
+                                              height: 100.0.h,
+                                              color: Colors.white,
+                                              child: DefaultTabController(
+                                                length: 2,
+                                                child: Container(
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      // BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
+                                                      //   builder: (_, count) {
+                                                      //     return Center(
+                                                      //       child: Text('${count.like}', style: Theme.of(context).textTheme.headline1),
+                                                      //     );
+                                                      //   },
+                                                      // ),
+                                                      SizedBox(
+                                                        height: 7.0.h,
+                                                        child: Container(
+                                                          // color: ThemeColor.psrimaryColor(context),
+                                                          child: TabBar(
+                                                            indicatorColor:
+                                                                ThemeColor
+                                                                    .ColorSale(),
+                                                            /* indicator: MD2Indicator(
                                   indicatorSize: MD2IndicatorSize.tiny,
                                   indicatorHeight: 5.0,
                                   indicatorColor: ThemeColor.ColorSale(),
                                 ),*/
-                                              isScrollable: false,
-                                              tabs: [
-                                                _tabbar(
-                                                    title: LocaleKeys.me_tab_buy
-                                                        .tr(),
-                                                    message: false),
-                                                _tabbar(
-                                                    title: LocaleKeys
-                                                        .me_tab_shop
-                                                        .tr(),
-                                                    message: false)
-                                              ],
-                                            ),
-                                          ),
-                                        ),
+                                                            isScrollable: false,
+                                                            tabs: [
+                                                              _tabbar(
+                                                                  title: LocaleKeys
+                                                                      .me_tab_buy
+                                                                      .tr(),
+                                                                  message:
+                                                                      false),
+                                                              _tabbar(
+                                                                  title: LocaleKeys
+                                                                      .me_tab_shop
+                                                                      .tr(),
+                                                                  message:
+                                                                      false)
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
 
-                                        // create widgets for each tab bar here
-                                        Expanded(
-                                          child: TabBarView(
-                                            children: [
-                                              PurchaseView(
-                                                IsLogin: IsLogin,
-                                                item: info.customerInfoRespone,
-                                                onStatus: (bool status) {
-                                                  if (status) {
-                                                    Usermanager()
-                                                        .getUser()
-                                                        .then((value) =>
-                                                            bloc.loadMyProfile(
-                                                                token: value
-                                                                    .token));
-                                                  }
-                                                },
+                                                      // create widgets for each tab bar here
+                                                      Expanded(
+                                                        child: TabBarView(
+                                                          children: [
+                                                            PurchaseView(
+                                                              IsLogin: IsLogin,
+                                                              item: info
+                                                                  .customerInfoRespone,
+                                                              onStatus: (bool
+                                                                  status) {
+                                                                if (status) {
+                                                                  Usermanager()
+                                                                      .getUser()
+                                                                      .then((value) =>
+                                                                          bloc.loadMyProfile(
+                                                                              token: value.token));
+                                                                }
+                                                              },
+                                                            ),
+                                                            MyshopView(
+                                                              IsLogin: IsLogin,
+                                                              scaffoldKey:
+                                                                  _scaffoldKey,
+                                                              customerInfoRespone:
+                                                                  info.customerInfoRespone,
+                                                              myShopRespone: info
+                                                                  .myShopRespone,
+                                                              onStatus: (bool
+                                                                  status) {
+                                                                if (status) {
+                                                                  Usermanager()
+                                                                      .getUser()
+                                                                      .then((value) =>
+                                                                          bloc.loadMyProfile(
+                                                                              token: value.token));
+                                                                }
+                                                              },
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
-                                              MyshopView(
-                                                IsLogin: IsLogin,
-                                                scaffoldKey: _scaffoldKey,
-                                                customerInfoRespone:
-                                                    info.customerInfoRespone,
-                                                myShopRespone:
-                                                    info.myShopRespone,
-                                                onStatus: (bool status) {
-                                                  if (status) {
-                                                    Usermanager()
-                                                        .getUser()
-                                                        .then((value) =>
-                                                            bloc.loadMyProfile(
-                                                                token: value
-                                                                    .token));
-                                                  }
-                                                },
-                                              )
-                                            ],
-                                          ),
-                                        ),
+                                            )
+                                          ]),
+                                        )
                                       ],
-                                    ),
-                                  ),
-                                ),
+                                    );
+                                  } else {
+                                    return SizedBox();
+                                  }
+                                },
                               )
-                            ]),
-                          )
-                        ],
-                      );
-                    } else {
-                      return SizedBox();
-                    }
-                  },
-                ));
+                            : LoginView(
+                                IsHeader: false,
+                                homeCallBack: (bool fix) {
+                                  Usermanager().getUser().then((value) =>
+                                      context
+                                          .read<CustomerCountBloc>()
+                                          .loadCustomerCount(
+                                              token: value.token));
+                                  _reload.add(true);
+                                },
+                              );
+                      } else {
+                        return SizedBox();
+                      }
+                    }));
           },
         ),
       ),
@@ -314,8 +360,7 @@ class _MeViewState extends State<MeView> with RouteAware {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               FlatButton(
-                minWidth: 160,
-                height: 50,
+                minWidth: 40.0.w,
                 color: ThemeColor.ColorSale(),
                 textColor: Colors.white,
                 splashColor: Colors.white.withOpacity(0.3),
@@ -331,7 +376,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                     //     (value){
                     //       bloc.loadMyProfile(token: value.token);
                     //     });
-                  }else{
+                  } else {
                     NaiFarmLocalStorage.saveNowPage(0);
                   }
                 },
@@ -346,8 +391,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                 width: 20,
               ),
               FlatButton(
-                minWidth: 160,
-                height: 50,
+                minWidth: 40.0.w,
                 color: ThemeColor.secondaryColor(),
                 textColor: Colors.white,
                 splashColor: Colors.white.withOpacity(0.3),

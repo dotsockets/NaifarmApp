@@ -50,6 +50,9 @@ class AppComponentState extends State<AppComponent> {
   @override
   Widget build(BuildContext context) {
 
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: ThemeColor.primaryColor()
+    ));
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
 //flutter pub run easy_localization:generate
 // flutter pub run easy_localization:generate -f keys -o locale_keys.g.dart

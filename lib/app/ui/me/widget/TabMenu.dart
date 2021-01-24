@@ -31,8 +31,8 @@ class TabMenu extends StatelessWidget {
                   Container(padding: EdgeInsets.all(5),child: SvgPicture.asset(icon,width: 13.0.w,height: 13.0.w,)),
                   notification > 0
                       ? Positioned(
-                    right: 1,
-                    top: 2,
+                    right: 2,
+                    top: 3,
                     child: Container(
                       padding: EdgeInsets.all(1.0.w),
                       decoration: BoxDecoration(
@@ -40,8 +40,8 @@ class TabMenu extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       constraints: BoxConstraints(
-                        minWidth: 15,
-                        minHeight: 15,
+                        minWidth: 2.8.w,
+                        minHeight: 2.8.w,
                       ),
                     ),
                   )

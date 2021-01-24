@@ -24,26 +24,12 @@ class _ProductDetailState extends State<ProductDetail> {
   GlobalKey _keyRed = GlobalKey();
 
   int lineInto = 7;
-  int IntoLine = 0;
 
-  _getSizes() {
-    final RenderBox renderBoxRed = _keyRed.currentContext.findRenderObject();
-    final sizeRed = renderBoxRed.size;
-
-    setState(() {
-      IntoLine = (sizeRed / 22).height.toInt();
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _getSizes());
-  }
 
   @override
   Widget build(BuildContext context) {
+
+
     return Container(
       padding: EdgeInsets.only(bottom: 20),
       child: Column(
@@ -144,7 +130,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   key: _keyRed,
                 ),
               ),
-              IntoLine >= 6
+              lineInto < 100
                   ? Positioned(
                       bottom: 0,
                       child: Container(
@@ -161,7 +147,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                     )
                   : SizedBox(),
-              IntoLine >= 6
+              lineInto < 100
                   ? Positioned(
                       bottom: 0,
                       child: GestureDetector(
@@ -178,7 +164,6 @@ class _ProductDetailState extends State<ProductDetail> {
                         onTap: () {
                           setState(() {
                             lineInto = 100;
-                            IntoLine = 0;
                           });
                         },
                       ))

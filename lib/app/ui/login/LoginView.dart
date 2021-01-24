@@ -21,8 +21,10 @@ import 'package:sizer/sizer.dart';
 class LoginView extends StatefulWidget {
   final bool IsCallBack;
   final HomeObjectCombine item;
+  final bool IsHeader;
+  final Function(bool) homeCallBack;
 
-  const LoginView({Key key, this.IsCallBack=false, this.item}) : super(key: key);
+  const LoginView({Key key, this.IsCallBack=false, this.item, this.IsHeader=true, this.homeCallBack}) : super(key: key);
 
   @override
   _LoginViewState createState() => _LoginViewState();
@@ -66,7 +68,12 @@ class _LoginViewState extends State<LoginView> {
         // }else{
         //   AppRoute.Home(context,item: widget.item);
         // }
-        AppRoute.Home(context);
+        if(widget.IsHeader){
+          AppRoute.Home(context);
+        }else{
+          widget.homeCallBack(true);
+        }
+
 
 
       });
@@ -84,12 +91,13 @@ class _LoginViewState extends State<LoginView> {
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.white,
-          body: ListView(
-            children: [
-              _BuildBar(context),
-              _BuildHeader(context),
-              _BuildContent(context)
-            ],
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                _BuildBar(context),
+                _BuildContent(context)
+              ],
+            ),
           ),
         ),
       ),
@@ -200,12 +208,24 @@ class _LoginViewState extends State<LoginView> {
 
   Widget _BuildBar(BuildContext context){
     return Container(
-      padding: EdgeInsets.only(left: 20,top: 20),
-      color: ThemeColor.primaryColor(),
+      decoration: BoxDecoration(
+        color: ThemeColor.primaryColor(),
+        borderRadius: BorderRadius.only(bottomRight:  Radius.circular(40),bottomLeft: Radius.circular(40)),
+      ),
       width: MediaQuery.of(context).size.width,
-      child: Row(
+      child:Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          InkWell(child: Icon(Icons.arrow_back_ios,color: Colors.white,),onTap: ()=>Navigator.pop(context, false),)
+          widget.IsHeader?GestureDetector(
+            child: Container(
+              margin: EdgeInsets.only(left: 2.0.w,top: 2.0.w),
+              child: IconButton(
+                icon: Icon(Icons.arrow_back_ios,color: Colors.white,size: 4.5.w,),
+              ),
+            ),
+            onTap: ()=>Navigator.pop(context, false),
+          ):SizedBox(height: 4.0.h,),
+          _BuildHeader(context),
         ],
       ),
     );
@@ -213,6 +233,7 @@ class _LoginViewState extends State<LoginView> {
 
 
   void _validate() {
+    FocusScope.of(context).unfocus();
     RegExp nameRegExp = RegExp('[a-zA-Z]');
     // var stats_form = _form.currentState.validate();
     if(_username.text.isEmpty || _password.text.isEmpty){

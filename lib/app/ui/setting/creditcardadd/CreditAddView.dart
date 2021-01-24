@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -29,17 +28,7 @@ class _CreditAddViewState extends State<CreditAddView> {
   String errorNameTxt = "",errorDetailTxt = "",errorExTxt = "",errorCvvTxt = "";
 
 
-  @override
-  void initState() {
-    super.initState();
-    KeyboardVisibilityNotification().addNewListener(
-      onChange: (bool visible) {
-        setState(() {
-          checkKeyBoard = visible;
-        });
-      },
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {

@@ -271,7 +271,7 @@ class AppRoute{
 
 
   static Register_Name_Otp(BuildContext context,String phone,String password){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_Name_OtpView(phone: phone,password: password)));
+    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: Register_Name_OtpView(phone: phone,password: password)));
   }
 
   static Register_FB(BuildContext context,String email){

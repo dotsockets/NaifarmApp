@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryObjectCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -42,6 +43,13 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
   void _init(){
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
       bloc.GetProductCategoryGroupId(GroupId: widget.index);
       bloc.loadProductPopular("1");
     }
@@ -56,6 +64,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
     return SafeArea(
       top: false,
       child: Scaffold(
+        backgroundColor: Colors.grey.shade300,
         body: SingleChildScrollView(
           child: Container(
             color: Colors.grey.shade300,
@@ -93,11 +102,25 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                                       productImage: "recommend_sub_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                                 },
                                 tagHero: 'recommend_sub'),
-                            _BannerAds(),
                           ],
                         );
                       }else{
                         return Skeleton.LoaderLandscape(context);
+                      }
+                    },
+                  ),
+                  SizedBox(height: 1.0.h),
+                  StreamBuilder(
+                    stream: bloc.TrendingGroup.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if(snapshot.hasData) {
+                        return Column(
+                          children: [
+                            _BannerAds(),
+                          ],
+                        );
+                      }else{
+                        return SizedBox();
                       }
                     },
                   ),

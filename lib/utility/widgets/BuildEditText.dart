@@ -52,7 +52,7 @@ class _BuildEditTextState extends State<BuildEditText> {
           ),
 
           Container(
-            margin: EdgeInsets.only(top: 10),
+            margin: EdgeInsets.only(top: 1.0.h),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(widget.borderRadius),
                 border: Border.all(color: widget.controller!=null && widget.inputType == TextInputType.text ?widget.controller.text.length<widget.maxLength?Colors.black.withOpacity(widget.BorderOpacity):Colors.redAccent:Colors.black.withOpacity(widget.BorderOpacity))),
@@ -64,13 +64,14 @@ class _BuildEditTextState extends State<BuildEditText> {
               initialValue: widget.initialValue,
               readOnly: widget.readOnly,
               inputFormatters: [
-                widget.inputType == TextInputType.number?FilteringTextInputFormatter.digitsOnly:FilteringTextInputFormatter.deny(' ')
+                widget.inputType == TextInputType.number?FilteringTextInputFormatter.digitsOnly:FilteringTextInputFormatter.singleLineFormatter
               ],
               decoration: InputDecoration(
+                isDense: true, // important line
                 hintStyle: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.grey),
                 hintText: widget.hint,
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.all(15),
+                contentPadding: EdgeInsets.all(2.5.h),// control your hint
               ),
               style: FunctionHelper.FontTheme(fontSize:SizeUtil.titleFontSize().sp),
               onChanged: (String char){
@@ -89,7 +90,7 @@ class _BuildEditTextState extends State<BuildEditText> {
             ),
           ),
           widget.onError!=""? SizedBox(height: 10,):SizedBox(),
-          widget.onError!=""?Text(widget.onError,style: FunctionHelper.FontTheme(color: Colors.grey.shade700),):SizedBox()
+          widget.onError!=""?Text(widget.onError,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.grey.shade700),):SizedBox()
         ],
       ),
     );

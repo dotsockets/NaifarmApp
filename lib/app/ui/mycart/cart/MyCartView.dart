@@ -61,11 +61,13 @@ class _MyCartViewState extends State<MyCartView> {
       bloc.onSuccess.stream.listen((event) {
         //  cartReq = event;
       });
+
+      Usermanager().getUser().then((value) =>
+          bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList));
     }
 
 
-    Usermanager().getUser().then((value) =>
-        bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList));
+
   }
 
   @override
@@ -144,7 +146,7 @@ class _MyCartViewState extends State<MyCartView> {
           icon: 'assets/images/svg/sale_cart.svg',
           title: LocaleKeys.cart_discount_from.tr(),
           Message: LocaleKeys.cart_select_discount.tr(),
-          iconSize: 35,
+          iconSize: 8.0.w,
           fontWeight: FontWeight.w500,
           onClick: () {
             showMaterialModalBottomSheet(

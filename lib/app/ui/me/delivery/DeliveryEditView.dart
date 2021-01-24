@@ -82,8 +82,8 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(10),
-                child: Text("${widget.carriersData.name}"),
+                padding: EdgeInsets.all(2.0.w),
+                child: Text("${widget.carriersData.name}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w600)),
               ),
               Container(
                 padding: EdgeInsets.all(15),
@@ -106,7 +106,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
 
                     }),
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 1.0.w,),
               IsHave?Center(
                 child: Container(
                   padding: EdgeInsets.only(right: 10,left: 10),
@@ -114,16 +114,15 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                     children: [
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.all(4.0.w),
                           child: BuildItem(),
                         ),
                       ),
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.all(4.0.w),
                           child: FlatButton(
-                            minWidth: 200,
-                            height: 50,
+                            minWidth: 50.0.w,
                             color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
                             textColor: Colors.white,
                             disabledColor: Colors.grey,
@@ -138,7 +137,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40.0),
                             ),
-                            child: Text("ยกเลิกการใช้งาน",
+                            child: Text("Cancel use",
                               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                             ),
                           ),
@@ -160,8 +159,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
   }
 
   Widget BuildItem()=> FlatButton(
-    minWidth: 200,
-    height: 50,
+    minWidth: 50.0.w,
     color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
     textColor: Colors.white,
     disabledColor: Colors.grey,
@@ -182,7 +180,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(40.0),
     ),
-    child: Text("ดำเนินการต่อ",
+    child: Text("Continue",
       style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
     ),
   );

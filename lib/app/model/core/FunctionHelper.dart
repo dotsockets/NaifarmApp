@@ -165,34 +165,32 @@ class FunctionHelper {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(dataList.length, (index) {
-                  return Column(
-                    children: [
-                      GestureDetector(
-                        child: Container(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.only(
-                                right: 20,
-                                left: 20,
-                                bottom: 20,
-                                top: index == 0 ? 15 : 10),
-                            child: Text(
-                              dataList[index],
-                              style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
-                            ),
+                  return InkWell(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.only(
+                              right: 20,
+                              left: 20,
+                              bottom: 20,
+                              top: index == 0 ? 15 : 10),
+                          child: Text(
+                            dataList[index],
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
                           ),
                         ),
-                        onTap: (){
-                          onTap(index);
-                          Navigator.pop(context);
-                        },
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(right: 10,left: 10),
-                        child: Divider(height: 1,color: Colors.grey.withOpacity(0.5),),
-                      )
-                    ],
+                        Container(
+                          padding: EdgeInsets.only(right: 10,left: 10),
+                          child: Divider(height: 1,color: Colors.grey.withOpacity(0.5),),
+                        )
+                      ],
+                    ),
+                    onTap: (){
+                      onTap(index);
+                      Navigator.pop(context);
+                    },
                   );
                 }),
               ),
@@ -328,12 +326,11 @@ class FunctionHelper {
                         child: GestureDetector(
                           child: Padding(
                             padding: EdgeInsets.all(15),
-                            child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  LocaleKeys.cancel_btn.tr(),
-                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale()),
-                                )),
+                            child: Text(
+                              LocaleKeys.cancel_btn.tr(),
+                              textAlign: TextAlign.center,
+                              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale()),
+                            ),
                           ),
                             onTap: () => onCancel())),
                     Container(
@@ -343,10 +340,9 @@ class FunctionHelper {
                     ),
                     Expanded(
                         child: GestureDetector(
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: Text(LocaleKeys.ok_btn.tr(),
-                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor()))),
+                          child: Text(LocaleKeys.ok_btn.tr(),
+                              textAlign: TextAlign.center,
+                              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor())),
                             onTap: () => onClick()))
                   ],
                 )
@@ -510,7 +506,7 @@ class FunctionHelper {
 
   static TextStyle FontTheme({FontWeight fontWeight,double fontSize,Color color,double height,double letterSpacing,Color  backgroundColor,List<Shadow> shadows,
   double wordSpacing,TextBaseline textBaseline,Paint foreground,Paint background,TextDecoration decoration}){
-    return GoogleFonts.sarabun(fontWeight: fontWeight,fontSize: fontSize,color: color,height: height,letterSpacing: letterSpacing,backgroundColor: backgroundColor,
+    return GoogleFonts.baiJamjuree(fontWeight: fontWeight,fontSize: fontSize,color: color,height: height,letterSpacing: letterSpacing,backgroundColor: backgroundColor,
     shadows: shadows,wordSpacing: wordSpacing,textBaseline: textBaseline,foreground: foreground,background: background,decoration: decoration);
   }
 

@@ -72,17 +72,43 @@ class Skeleton{
   static LoaderLandscape(BuildContext context)=>Container(
     color: Colors.white,
 
-    child: SkeletonGridLoader(
+    child: SkeletonLoader(
       builder: Container(
+        padding: EdgeInsets.only(bottom: 5.0.h),
         width: MediaQuery.of(context).size.width,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(15)),
               child: Container(
-                width: 100,
-                height: 100,
+                width: 20.0.w,
+                height: 20.0.w,
+                color: Colors.grey.shade300,
+              ),
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              child: Container(
+                width: 20.0.w,
+                height: 20.0.w,
+                color: Colors.grey.shade300,
+              ),
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              child: Container(
+                width: 20.0.w,
+                height: 20.0.w,
+                color: Colors.grey.shade300,
+              ),
+            ),
+
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              child: Container(
+                width: 20.0.w,
+                height: 20.0.w,
                 color: Colors.grey.shade300,
               ),
             ),
@@ -90,8 +116,7 @@ class Skeleton{
           ],
         ),
       ),
-      items: 3,
-      itemsPerRow: 3,
+      items: 1,
       period: Duration(seconds: 2),
       highlightColor: Colors.grey,
 
@@ -152,32 +177,32 @@ class Skeleton{
                 ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                   child: Container(
-                    width: 100,
-                    height: 100,
+                    width: 20.0.w,
+                    height: 20.0.w,
                     color: Colors.grey.shade300,
                   ),
                 ),
-                SizedBox(width: 1.0.h),
+                SizedBox(width: 4.0.w),
                 Expanded(
                   flex: 3,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                        width: 20.0.w,
-                        height: 10,
-                        color: Colors.white,
-                      ),
-                      SizedBox(height: 1.0.h),
-                      Container(
-                        width: 25.0.w,
-                        height: 12,
-                        color: Colors.white,
-                      ),
-                      SizedBox(height: 1.0.h),
-                      Container(
                         width: 30.0.w,
-                        height: 12,
+                        height: 1.5.h,
+                        color: Colors.white,
+                      ),
+                      SizedBox(height: 1.5.h),
+                      Container(
+                        width: 35.0.w,
+                        height: 1.5.h,
+                        color: Colors.white,
+                      ),
+                      SizedBox(height: 1.5.h),
+                      Container(
+                        width: 40.0.w,
+                        height: 1.5.h,
                         color: Colors.white,
                       ),
                     ],
@@ -188,8 +213,8 @@ class Skeleton{
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                       child: Container(
-                        width: 20,
-                        height: 25,
+                        width: 5.0.w,
+                        height: 3.0.h,
                         color: Colors.grey.shade300,
                       ),
                     )
