@@ -44,6 +44,12 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "audioplayers",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.17.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
       "name": "basic_utils",
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/basic_utils-2.6.3",
       "packageUri": "lib/",
@@ -200,8 +206,14 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "custom_dropdown",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/custom_dropdown-0.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
       "name": "custom_refresh_indicator",
-      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/custom_refresh_indicator-0.8.0+1",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/custom_refresh_indicator-0.9.0",
       "packageUri": "lib/",
       "languageVersion": "2.2"
     },
@@ -216,6 +228,12 @@
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/dio-3.0.9",
       "packageUri": "lib/",
       "languageVersion": "2.4"
+    },
+    {
+      "name": "dotted_border",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/dotted_border-1.0.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
     },
     {
       "name": "easy_localization",
@@ -234,6 +252,12 @@
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/fake_async-1.2.0-nullsafety.2",
       "packageUri": "lib/",
       "languageVersion": "2.10"
+    },
+    {
+      "name": "fdottedline",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/fdottedline-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
     },
     {
       "name": "ffi",
@@ -261,13 +285,31 @@
     },
     {
       "name": "flutter_bloc",
-      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/flutter_bloc-6.0.6",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/flutter_bloc-6.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.6"
     },
     {
       "name": "flutter_cache_manager",
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/flutter_cache_manager-1.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "flutter_countdown_timer",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/flutter_countdown_timer-1.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "flutter_datetime_picker",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/flutter_datetime_picker-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "flutter_device_type",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/flutter_device_type-0.3.0",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -290,6 +332,18 @@
       "languageVersion": "2.2"
     },
     {
+      "name": "flutter_plugin_android_lifecycle",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.11",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "flutter_screenutil",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/flutter_screenutil-3.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
       "name": "flutter_spinkit",
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-4.1.2+1",
       "packageUri": "lib/",
@@ -300,6 +354,12 @@
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/flutter_svg-0.19.1",
       "packageUri": "lib/",
       "languageVersion": "2.2"
+    },
+    {
+      "name": "flutter_switch",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/flutter_switch-0.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
     },
     {
       "name": "flutter_test",
@@ -326,6 +386,24 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "geocoder",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/geocoder-0.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "geolocator",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/geolocator-6.1.13",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "geolocator_platform_interface",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/geolocator_platform_interface-1.0.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
       "name": "glob",
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/glob-1.2.0",
       "packageUri": "lib/",
@@ -334,6 +412,18 @@
     {
       "name": "google_fonts",
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/google_fonts-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.3"
+    },
+    {
+      "name": "google_maps_flutter",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.0.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "google_maps_flutter_platform_interface",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-1.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.3"
     },
@@ -368,6 +458,18 @@
       "languageVersion": "2.3"
     },
     {
+      "name": "image_picker",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/image_picker-0.6.7+17",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "image_picker_platform_interface",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/image_picker_platform_interface-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.5"
+    },
+    {
       "name": "intl",
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/intl-0.16.1",
       "packageUri": "lib/",
@@ -390,6 +492,36 @@
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/json_annotation-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.6"
+    },
+    {
+      "name": "keyboard_visibility",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/keyboard_visibility-0.5.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "localstorage",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/localstorage-3.0.6+9",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "location",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/location-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "location_platform_interface",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/location_platform_interface-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.4"
+    },
+    {
+      "name": "location_web",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/location_web-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
     },
     {
       "name": "logger",
@@ -428,6 +560,18 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "modal_bottom_sheet",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/modal_bottom_sheet-1.0.1-dev",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "multi_image_picker",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/multi_image_picker-4.7.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "nested",
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/nested-0.0.4",
       "packageUri": "lib/",
@@ -444,6 +588,12 @@
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/node_io-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.2"
+    },
+    {
+      "name": "nuts_activity_indicator",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/nuts_activity_indicator-0.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
     },
     {
       "name": "package_config",
@@ -510,6 +660,18 @@
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/pedantic-1.9.2",
       "packageUri": "lib/",
       "languageVersion": "2.1"
+    },
+    {
+      "name": "permission_handler",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/permission_handler-5.0.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "permission_handler_platform_interface",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/permission_handler_platform_interface-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
     },
     {
       "name": "petitparser",
@@ -584,22 +746,10 @@
       "languageVersion": "2.0"
     },
     {
-      "name": "responsive_builder",
-      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/responsive_builder-0.3.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.1"
-    },
-    {
       "name": "retrofit",
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/retrofit-1.3.4+1",
       "packageUri": "lib/",
       "languageVersion": "2.6"
-    },
-    {
-      "name": "retrofit_generator",
-      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/retrofit_generator-1.4.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.7"
     },
     {
       "name": "rxdart",
@@ -656,6 +806,24 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "shimmer",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/shimmer-1.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "1.20"
+    },
+    {
+      "name": "sizer",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/sizer-1.1.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "skeleton_loader",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/skeleton_loader-1.0.2+2",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/dotsocket/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -664,12 +832,6 @@
     {
       "name": "smooth_star_rating",
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/smooth_star_rating-1.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.7"
-    },
-    {
-      "name": "source_gen",
-      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/source_gen-0.9.7+1",
       "packageUri": "lib/",
       "languageVersion": "2.7"
     },
@@ -740,16 +902,16 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "timeline_tile",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/timeline_tile-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
       "name": "timing",
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/timing-0.1.1+2",
       "packageUri": "lib/",
       "languageVersion": "2.2"
-    },
-    {
-      "name": "tuple",
-      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/tuple-1.0.3",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
     },
     {
       "name": "typed_data",
@@ -768,6 +930,18 @@
       "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.0-nullsafety.4",
       "packageUri": "lib/",
       "languageVersion": "2.10"
+    },
+    {
+      "name": "vibration",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/vibration-1.7.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "vibration_web",
+      "rootUri": "file:///Users/dotsocket/.pub-cache/hosted/pub.dartlang.org/vibration_web-1.6.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
     },
     {
       "name": "watcher",
@@ -812,7 +986,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-11-04T08:53:23.687321Z",
+  "generated": "2021-01-27T05:42:25.145424Z",
   "generator": "pub",
   "generatorVersion": "2.11.0-260.0.dev"
 }

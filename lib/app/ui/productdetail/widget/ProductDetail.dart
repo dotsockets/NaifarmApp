@@ -130,7 +130,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   key: _keyRed,
                 ),
               ),
-              lineInto < 100
+              widget.productItem.description.length > 300 && lineInto < 100
                   ? Positioned(
                       bottom: 0,
                       child: Container(
@@ -147,7 +147,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                     )
                   : SizedBox(),
-              lineInto < 100
+              widget.productItem.description.length > 300 && lineInto < 100
                   ? Positioned(
                       bottom: 0,
                       child: GestureDetector(

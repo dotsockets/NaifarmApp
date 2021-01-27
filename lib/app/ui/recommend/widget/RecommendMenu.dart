@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -121,6 +122,7 @@ class RecommendMenu extends StatelessWidget {
         case  "SpecialproductsView" : AppRoute.ProductMore(installData: homeObjectCombine.trendingRespone,api_link: "products/types/popular",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr());
         break;
         case  "NotiView" :  {
+          NaiFarmLocalStorage.saveNowPage(2);
           AppRoute.MyNoti(context,true);
           Usermanager().getUser().then((value){
             bloc.MarkAsReadNotifications(token: value.token);

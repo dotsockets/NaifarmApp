@@ -30,7 +30,7 @@ class AppToobar extends PreferredSize {
   final String title;
   final Function onClick;
   final String icon;
-  final isEnable_Search;
+  final bool isEnable_Search;
   final String locationTxt;
   final String hint;
   final Function(String) onSearch;
@@ -94,7 +94,7 @@ class AppToobar extends PreferredSize {
             onTap: (){
               Usermanager().getUser().then((value) {
                 if (value.token != null) {
-                  AppRoute.MyCart(context, true);
+                  AppRoute.SearchHome(context);
                 } else {
                   AppRoute.Login(context);
                 }
@@ -129,8 +129,7 @@ class AppToobar extends PreferredSize {
             child: Container(
               margin: EdgeInsets.only(right: 1.0.w),
               child: BuildIconShop(
-                size: 6.0.w,
-                notification: 0,
+                size: 6.0.w
               ),
             ),
           )
@@ -161,7 +160,8 @@ class AppToobar extends PreferredSize {
             GestureDetector(
               child: SvgPicture.asset('assets/images/svg/back_black.svg',width: 7.0.w,height: 7.0.w,),
               onTap: () {
-                Navigator.pop(context);
+                onClick == null ? Navigator.of(context).pop() : onClick();
+
               },
             ),
             Container(
@@ -171,7 +171,6 @@ class AppToobar extends PreferredSize {
                   color: ThemeColor.primaryColor(),
                   borderRadius: BorderRadius.all(Radius.circular(40))),
               child: BuildIconShop(
-                notification: 0,
                 size: 3.0.h,
               ),
             )
@@ -252,7 +251,6 @@ class AppToobar extends PreferredSize {
             ),
             _buildSearch(isEnable_Search ? false : true, context),
             BuildIconShop(
-              notification: 0,
               size: 6.5.w,
             )
           ],

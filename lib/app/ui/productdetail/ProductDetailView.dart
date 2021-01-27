@@ -12,18 +12,22 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductDetailObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/ProductObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
+import 'package:naifarm/app/ui/splash/ConnectErrorView.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:naifarm/utility/widgets/ConnectErrorPage.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'widget/BuildChoosesize.dart';
@@ -38,61 +42,81 @@ class ProductDetailView extends StatefulWidget {
   final String productImage;
   ProducItemRespone productItem;
 
-  ProductDetailView({Key key, this.productImage, this.productItem}) : super(key: key);
+  ProductDetailView({Key key, this.productImage, this.productItem})
+      : super(key: key);
 
   @override
   _ProductDetailViewState createState() => _ProductDetailViewState();
 }
 
-class _ProductDetailViewState extends State<ProductDetailView>  with TickerProviderStateMixin{
+class _ProductDetailViewState extends State<ProductDetailView>
+    with TickerProviderStateMixin {
   ScrollController scrollController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  int IndexTypes1=1;
-  int IndexTypes2=1;
+  int IndexTypes1 = 1;
+  int IndexTypes2 = 1;
   MyShopRespone shop;
   AnimationController _controller;
   Animation<double> _animation;
   ProductBloc bloc;
   StreamController<bool> checkScrollControl = new StreamController<bool>();
 
+  int SubFixId = 0;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    checkScrollControl.add(true);
+
     scrollController = ScrollController();
     _controller = AnimationController(
         duration: const Duration(milliseconds: 2500),
         vsync: this,
         value: 0,
         lowerBound: 0,
-        upperBound: 1
-    );
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn);
+        upperBound: 1);
+    _animation =
+        CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn);
     _controller.forward();
 
     scrollController.addListener(() {
-      if(scrollController.offset == scrollController.position.maxScrollExtent){
+      if (scrollController.offset ==
+          scrollController.position.maxScrollExtent) {
         checkScrollControl.add(false);
-      }else{
+      } else {
         checkScrollControl.add(true);
       }
     });
-
   }
 
+  void _init() {
+    if (null == bloc) {
+      checkScrollControl.add(false);
+      NaiFarmLocalStorage.getNowPage().then((value) {
+        value = value + 1;
+        SubFixId = value;
+        NaiFarmLocalStorage.saveNowPage(value);
+      });
 
-  void _init(){
-
-
-    if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.ProductItem.add(widget.productItem);
       bloc.onError.stream.listen((event) {
-        checkScrollControl.add(false);
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        checkScrollControl.add(true);
+        if(event!=null){
+          if(event.error.status==406){
+            FunctionHelper.AlertDialogShop(context,title: "Error",message: event.error.message);
+          }else{
+            FunctionHelper.SnackBarShow(
+                scaffoldKey: _scaffoldKey, message: event.error.message);
+          }
+          
+        }
+
       });
 
+      bloc.ZipProductDetail.stream.listen((event) {
+        checkScrollControl.add(true);
+      });
       bloc.onLoad.stream.listen((event) {
         if (event) {
           //  FunctionHelper.SuccessDialog(context,message: "555");
@@ -101,30 +125,23 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
           Navigator.of(context).pop();
         }
       });
-      bloc.onSuccess.stream.listen((event) {
+      bloc.onSuccess.stream.listen((event) {});
 
+      Usermanager().getUser().then((value) {
+        bloc.loadProductsPage(id:  widget.productItem.id,token: value.token);
+        // bloc.GetWishlistsByProduct(
+        //     productID: widget.productItem.id, token: value.token);
+        // bloc.loadProductsById(id: widget.productItem.id, token: value.token);
+        // bloc.loadProductTrending("1");
       });
-
-      Usermanager().getUser().then((value){
-        bloc.GetWishlistsByProduct(productID: widget.productItem.id,token: value.token);
-        bloc.loadProductsById(id: widget.productItem.id,token: value.token);
-        bloc.loadProductTrending("1");
-      });
-
-
     }
-
   }
-
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +151,7 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
       body: Container(
         color: Colors.white,
         child: SafeArea(
-          child:  Column(
+          child:Column(
             children: [
               Expanded(
                 child: Stack(
@@ -143,37 +160,44 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                       controller: scrollController,
                       child: Column(
                         children: [
-                          AppToobar(header_type: Header_Type.barNoBackground),
-                          StreamBuilder(
-                              stream: bloc.onError.stream,
-                              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                                if(!snapshot.hasData) {
-                                  return Content;
-                                }else{
-                                  return Center(
-                                    child: Container(
-                                      margin: EdgeInsets.only(top: 15.0.h),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Lottie.asset('assets/json/boxorder.json',
-                                              height: 70.0.w, width: 70.0.w, repeat: false),
-                                          Text(
-                                            LocaleKeys.cart_empty.tr(),
-                                            style: FunctionHelper.FontTheme(
-                                                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                          AppToobar(
+                            header_type: Header_Type.barNoBackground,
+                            onClick: () {
+                              NaiFarmLocalStorage.getNowPage().then((value) {
+                                if (value > 0) {
+                                  value = value - 1;
                                 }
+                                NaiFarmLocalStorage.saveNowPage(value)
+                                    .then((value) => Navigator.of(context).pop());
+                              });
+                            },
+                          ),
+                          StreamBuilder(
+                            stream: bloc.onError.stream,
+                            builder: (BuildContext context, AsyncSnapshot snapshot) {
+                              if (snapshot.hasData && (snapshot.data as Result).error.status!=406) {
+                                widget.productItem = ProducItemRespone(id: widget.productItem.id);
+                                return Column(
+                                  children: [
+                                    SizedBox(height: 10.0.h,),
+                                    ConnectErrorPage(
+                                        result: snapshot.data,
+                                        show_full: false,
+                                        callback: () {
+                                          Usermanager().getUser().then((value) {
+                                            bloc.loadProductsPage(id:  widget.productItem.id,token: value.token);
+                                          });
+                                        })
+                                  ],
+                                );
+                              } else {
+                                return  _content;
                               }
+                            },
                           ),
                         ],
                       ),
                     ),
-
                     StreamBuilder<Object>(
                         stream: checkScrollControl.stream,
                         builder: (context, snapshot) {
@@ -184,19 +208,19 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                             child: Container(
                               color: Colors.white,
                               child: StreamBuilder(
-                                stream: bloc.Wishlists.stream,
+                                stream: bloc.ZipProductDetail.stream,
                                 builder: (BuildContext context,AsyncSnapshot snapshot){
-                                  if(snapshot.hasData){
-                                    if((snapshot.data as WishlistsRespone).total>0){
+                                  if(snapshot.hasData && (snapshot.data as ProductObjectCombine).wishlistsRespone!=null){
+                                    if((snapshot.data as ProductObjectCombine).wishlistsRespone.total>0){
                                       return  FadeTransition(
                                         ///Providing our animation to opacity property
                                         opacity: _animation,
-                                        child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
+                                        child: _BuildFooterTotal(item: (snapshot.data as ProductObjectCombine).wishlistsRespone),
                                       );
                                     }else{
                                       return  FadeTransition(
                                         opacity: _animation,
-                                        child: _BuildFooterTotal(item: (snapshot.data as WishlistsRespone)),
+                                        child: _BuildFooterTotal(item: (snapshot.data as ProductObjectCombine).wishlistsRespone),
                                       );
                                     }
 
@@ -210,61 +234,86 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                         })
                   ],
                 ),
-
-              ),
-
-
+              )
             ],
-          ),
+          )
         ),
       ),
     );
   }
 
-
-  Widget get Content => Column(
+  Widget get _content =>  Column(
     children: [
-      Hero(tag: widget.productImage, child: ProductSlide(imgList: widget.productItem.image)),
-      ProductInto(data: widget.productItem),
-      _Divider(),
+     widget.productItem.image!=null?Hero(tag: widget.productImage, child: ProductSlide(imgList: widget.productItem.image)):SizedBox(),
+      widget.productItem.image!=null?ProductInto(data: widget.productItem):SizedBox(),
+      widget.productItem.image!=null?_Divider():SizedBox(),
       StreamBuilder(
-          stream: bloc.ProductItem.stream,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if(snapshot.hasData) {
-              var item = (snapshot.data as ProducItemRespone);
-              return  Column(
+          stream: bloc.ZipProductDetail.stream,
+          builder:
+              (BuildContext context, AsyncSnapshot snapshot) {
+                var item = (snapshot.data as ProductObjectCombine);
+            if (snapshot.hasData && item.producItemRespone!=null) {
+
+
+              return Column(
                 children: [
-                  BuildChoosesize(IndexType1: IndexTypes1,IndexType2: IndexTypes2,onclick1: (int index)=>setState(() =>IndexTypes1 = index),onclick2: (int index)=>setState(() =>IndexTypes2 = index)),
+                  BuildChoosesize(
+                      IndexType1: IndexTypes1,
+                      IndexType2: IndexTypes2,
+                      onclick1: (int index) =>
+                          setState(() => IndexTypes1 = index),
+                      onclick2: (int index) => setState(
+                              () => IndexTypes2 = index)),
                   _Divider(),
                   InkWell(
-                    child: ShopOwn(shopItem: item.shop,shopRespone:
-                    MyShopRespone(id: item.shopId)),
-                    onTap: (){
-                      var item = (snapshot.data as ProductDetailObjectCombine).shopRespone;
-                      AppRoute.ShopMain(context: context,myShopRespone: MyShopRespone(id: item.id,name: item.name,image: item.image,updatedAt: item.updatedAt));
+                    child: ShopOwn(
+                        shopItem: item.producItemRespone.shop,
+                        shopRespone:
+                        MyShopRespone(id: item.producItemRespone.shopId)),
+                    onTap: () {
+                      AppRoute.ShopMain(
+                          context: context,
+                          myShopRespone: MyShopRespone(
+                              id: item.producItemRespone.shop.id,
+                              name: item.producItemRespone.name,
+                              image: item.producItemRespone.shop.image,
+                              updatedAt: item.producItemRespone.shop.updatedAt));
                     },
                   ),
                   _Divider(),
-                  ProductDetail(productItem: item),
+                  ProductDetail(productItem: item.producItemRespone),
                   _Divider(),
                   StreamBuilder(
                     stream: bloc.TrendingGroup.stream,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if(snapshot.hasData ) {
-                        return  ProductLandscape(
-                          productRespone:snapshot.data,
-                          titleInto: LocaleKeys.recommend_you_like.tr(),
-                          producViewModel: ProductViewModel().getBestSaller(),
-                          IconInto: 'assets/images/svg/like.svg',
-                          onSelectMore: () {
+                    builder: (BuildContext context,AsyncSnapshot snapshot){
+                      if(snapshot.hasData && (snapshot.data as ProductRespone)!=null){
+                        if((snapshot.data as ProductRespone).total>0){
+                          return ProductLandscape(
+                            productRespone: (snapshot.data as ProductRespone),
+                            titleInto: LocaleKeys
+                                .recommend_you_like
+                                .tr(),
+                            producViewModel: ProductViewModel()
+                                .getBestSaller(),
+                            IconInto:
+                            'assets/images/svg/like.svg',
+                            onSelectMore: () {},
+                            onTapItem:
+                                (ProductData item, int index) {
+                              AppRoute.ProductDetail(context,
+                                  productImage:
+                                  "product_detail_${item.id}${SubFixId}",
+                                  productItem: ProductBloc
+                                      .ConvertDataToProduct(
+                                      data: item));
+                            },
+                            tagHero: "product_detail",
+                            SubFixId: SubFixId,
+                          );
+                        }else{
+                          return  SizedBox();
+                        }
 
-                          },
-                          onTapItem: (ProductData item,int index) {
-                            AppRoute.ProductDetail(context,
-                                productImage: "product_like_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
-                          },
-                          tagHero: "product_like",
-                        );
                       }else{
                         return SizedBox();
                       }
@@ -274,54 +323,65 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
                   Reviewscore()
                 ],
               );
-            }else{
-              return SizedBox();
+            } else {
+              return Column(
+                children: [
+                  SizedBox(height: 30.0.h,),
+                  CircularProgressIndicator()
+                ],
+              );
             }
-          }
-      )
+          })
     ],
   );
 
-
-
   Widget _BuildFooterTotal({WishlistsRespone item}) {
     return Container(
+      height: 7.0.h,
       decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0),bottom: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0))
-      ),
+          border: Border(
+              top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0),
+              bottom:
+                  BorderSide(color: Colors.grey.withOpacity(0.4), width: 0))),
       child: Row(
         children: [
-          Expanded(child: GestureDetector(
+          Expanded(
+              child: GestureDetector(
             child: SvgPicture.asset(
               'assets/images/svg/share.svg',
               width: 8.0.w,
               height: 8.0.w,
             ),
-            onTap: (){
-
-            },
+            onTap: () {},
           )),
           Container(
             color: Colors.grey.withOpacity(0.4),
             height: 8.0.h,
             width: 1,
           ),
-          Expanded(child: GestureDetector(
+          Expanded(
+              child: GestureDetector(
             child: SvgPicture.asset(
-              item.total>0?'assets/images/svg/like_line.svg':'assets/images/svg/like_line_null.svg',
+              item.total > 0
+                  ? 'assets/images/svg/like_line.svg'
+                  : 'assets/images/svg/like_line_null.svg',
               width: 8.0.w,
               height: 8.0.w,
               color: ThemeColor.ColorSale(),
             ),
-            onTap: (){
-              if(item.total>0){
+            onTap: () {
+              if (item.total > 0) {
                 int id = item.data[0].id;
                 item.data = [];
                 item.total = 0;
                 bloc.Wishlists.add(item);
-                Usermanager().getUser().then((value) => bloc.DELETEWishlists(WishId:id,token: value.token));
-              }else{
-                Usermanager().getUser().then((value) => bloc.AddWishlists(productId: widget.productItem.id,inventoryId: bloc.ProductItem.value.inventories[0].id,token: value.token));
+                Usermanager().getUser().then((value) =>
+                    bloc.DELETEWishlists(WishId: id, token: value.token));
+              } else {
+                Usermanager().getUser().then((value) => bloc.AddWishlists(
+                    productId: widget.productItem.id,
+                    inventoryId: bloc.ZipProductDetail.value.producItemRespone.inventories[0].id,
+                    token: value.token));
                 item.data = [];
                 item.total = 1;
                 bloc.Wishlists.add(item);
@@ -331,18 +391,21 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
           Expanded(
               flex: 2,
               child: InkWell(
-                onTap:(){
-                  if(bloc.ProductItem.value.inventories[0].stockQuantity>0){
+                onTap: () {
+                 // if (bloc.ZipProductDetail.value.producItemRespone.inventories[0].stockQuantity > 0) {
                     List<Items> items = new List<Items>();
-                    items.add(Items(inventoryId: bloc.ProductItem.value.inventories[0].id,quantity: 1));
-                    Usermanager().getUser().then((value) => bloc.AddCartlists(cartRequest: CartRequest(
-                      shopId: widget.productItem.shop.id,
-                      items:items,
-                    ),token: value.token));
-                  }else{
-                    FunctionHelper.FailDialog(context,message: "ไม่สามารถทำรายการได้เนื่องจากไม่มีสินค้าในร้านในขณะนี้ กรุณาติดต่อกับทางร้าน");
-                  }
-
+                    items.add(Items(
+                        inventoryId: bloc.ZipProductDetail.value.producItemRespone.inventories[0].id,
+                        quantity: 1));
+                    Usermanager().getUser().then((value) => bloc.AddCartlists(
+                        cartRequest: CartRequest(
+                          shopId: widget.productItem.shop.id,
+                          items: items,
+                        ),
+                        token: value.token));
+                  // } else {
+                  // 
+                  // }
                 },
                 child: Container(
                     alignment: Alignment.center,
@@ -359,14 +422,10 @@ class _ProductDetailViewState extends State<ProductDetailView>  with TickerProvi
     );
   }
 
-
-
   Widget _Divider() {
     return Container(
       color: Colors.black.withOpacity(0.2),
       height: 2.0.w,
     );
   }
-
-
 }

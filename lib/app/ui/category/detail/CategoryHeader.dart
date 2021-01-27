@@ -25,36 +25,33 @@ class CategoryHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-          left: 0,
-          right: 0.3.w),
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Column(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                InkWell(
-                  child: Container(
-                    margin: EdgeInsets.only(left: 5.0.w,right: 1.8.w),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                        size: 5.0.w,
+            Container(
+              padding: EdgeInsets.only(left: 2.8.w,right: 1.8.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    child: Container(
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                          size: 5.0.w,
+                        ),
                       ),
                     ),
+                    onTap: ()=> Navigator.pop(context, true),
                   ),
-                  onTap: ()=> Navigator.pop(context, true),
-                ),
-                Expanded(
-                    child: Center(child:    Text(title,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),)),
-                BuildIconShop(
-                  notification: 0,
-                  size: 6.8.w,
-                )
-              ],
+                  Center(child:    Text(title,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),),
+                  BuildIconShop(
+                    size: 6.8.w,
+                  )
+                ],
+              ),
             ),
             SizedBox(height: 0.7.h,),
             snapshot!=null?CategoryMenu(

@@ -10,6 +10,7 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -31,9 +32,9 @@ class ProductLandscape extends StatelessWidget {
   final bool showPriceSale;
   final ProductRespone productRespone;
   final bool showSeeMore;
+final int SubFixId;
 
-
-  ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true, this.productRespone,this.showSeeMore=true}) : super(key: key);
+  ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true, this.productRespone,this.showSeeMore=true, this.SubFixId}) : super(key: key);
 
 
   @override
@@ -112,6 +113,7 @@ class ProductLandscape extends StatelessWidget {
 
   Widget _ProductImage({ProductData item,int index}){
 
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(1.0.h),
       child: Container(
@@ -121,7 +123,7 @@ class ProductLandscape extends StatelessWidget {
         child: Stack(
           children: [
             Hero(
-              tag: "${tagHero}_${index}",
+              tag: "${tagHero}_${item.id}${SubFixId}",
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(0.5.h),
                 child: CachedNetworkImage(

@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/app/ui/noti/notidetail/NotiCus.dart';
@@ -59,7 +60,6 @@ class _NotiViewState extends State<NotiView>
     }
     Usermanager().getUser().then((value) {
       if (value.token != null) {
-        bloc.MarkAsReadNotifications(token: value.token);
         _reload.add(true);
       } else {
         _reload.add(false);
@@ -99,6 +99,10 @@ class _NotiViewState extends State<NotiView>
                                       icon: 'assets/images/svg/cart_top.svg',
                                       title: LocaleKeys.recommend_notification
                                           .tr(),
+                                      onClick: (){
+                                        NaiFarmLocalStorage.saveNowPage(0);
+                                        Navigator.of(context).pop();
+                                      },
                                     ),
                                     SizedBox(
                                       height: 0.5.h,
@@ -182,10 +186,11 @@ class _NotiViewState extends State<NotiView>
                         : LoginView(
                             IsHeader: false,
                             homeCallBack: (bool fix) {
-                              Usermanager().getUser().then((value) => context
-                                  .read<CustomerCountBloc>()
-                                  .loadCustomerCount(token: value.token));
-                              _reload.add(true);
+                              Usermanager().getUser().then((value){
+                                bloc.MarkAsReadNotifications(token: value.token);
+                                context.read<CustomerCountBloc>().loadCustomerCount(token: value.token);
+                                _reload.add(true);
+                              });
                             },
                           );
                   } else {

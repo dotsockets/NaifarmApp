@@ -4,13 +4,16 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
 class ConnectErrorView extends StatefulWidget {
-  final String text_error;
+  final Result result;
+  final bool show_full;
+  final Function callback;
 
-  const ConnectErrorView({Key key, this.text_error}) : super(key: key);
+  const ConnectErrorView({Key key, this.result, this.show_full, this.callback}) : super(key: key);
   @override
   _ConnectErrorViewState createState() => _ConnectErrorViewState();
 }
@@ -30,24 +33,24 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   SizedBox(height: 30,),
-                  Column(
+                  widget.show_full?Column(
                     children: [
                       Text("NaiFarm",style: FunctionHelper.FontTheme(fontSize: 20,fontWeight: FontWeight.bold),),
                       Text("Application",style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),),
                     ],
-                  )
+                  ):SizedBox()
                 ],
               ),
               new Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Column(
+                  widget.show_full?Column(
                     children: [
                       Text("NaiFarm",style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.bold),),
                       Text("Version 0.0.1",style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.bold),)
                     ],
-                  )
+                  ):SizedBox()
                 ],
               ),
               new Column(
@@ -56,7 +59,7 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                   Lottie.asset('assets/json/servererror.json',
                       height: 70.0.w, width: 70.0.w, repeat: true),
                   SizedBox(height: 30,),
-                  Text(widget.text_error,style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),),
+                  Text(widget.result.error.message,style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),),
                   Text('Sorry, it is not currently available."',style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),),
                   SizedBox(height: 30,),
                   FlatButton(
@@ -68,7 +71,12 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                       borderRadius: BorderRadius.circular(40.0),
                     ),
                     onPressed: () {
-                      AppRoute.Splash(context: context);
+                      if(widget.show_full){
+                        AppRoute.Splash(context: context);
+                      }else{
+                        widget.callback();
+                      }
+
                     },
                     child: Text(
                       "Connect again",

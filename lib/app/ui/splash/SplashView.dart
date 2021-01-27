@@ -50,7 +50,7 @@ class _SplashViewState extends State<SplashView>
       Usermanager().getUser().then((value) =>  bloc.loadCustomerCount(token: value.token));
       bloc.onError.stream.listen((event) {
         Future.delayed(const Duration(milliseconds: 1000), () {
-          AppRoute.ConnectError(context: context,text_error: event);
+          AppRoute.ConnectError(context: context,result: event,show_full: true);
         });
 
       });

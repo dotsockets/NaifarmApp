@@ -60,17 +60,26 @@ class _MeViewState extends State<MeView> with RouteAware {
         // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
 
-      Usermanager()
-          .getUser()
-          .then((value) => bloc.loadMyProfile(token: value.token));
+     _reload.stream.listen((event) {
+       Usermanager().getUser().then((value) =>
+           context
+               .read<CustomerCountBloc>()
+               .loadCustomerCount(
+               token: value.token));
+         Usermanager().getUser().then((value) => bloc.loadMyProfile(token: value.token));
+
+     });
+
+      Usermanager().getUser().then((value) {
+        if (value.token != null) {
+          _reload.add(true);
+        } else {
+          _reload.add(false);
+        }
+      });
+
     }
-    Usermanager().getUser().then((value) {
-      if (value.token != null) {
-        _reload.add(true);
-      } else {
-        _reload.add(false);
-      }
-    });
+
   }
 
   @override
@@ -110,17 +119,20 @@ class _MeViewState extends State<MeView> with RouteAware {
                                   if (snapshot.hasData) {
                                     var info =
                                         (snapshot.data as ProfileObjectCombine);
+
                                     return CustomScrollView(
                                       // controller: _scr,
                                       slivers: [
                                         SliverAppBar(
                                           leading: Container(
                                             margin: EdgeInsets.only(
-                                                left: 1.0.w, top: 2.0.h),
+                                                left: 1.0.w),
                                             child: GestureDetector(
-                                              child: Icon(Icons.settings,
-                                                  color: Colors.white,
-                                                  size: 6.0.w),
+                                              child: IconButton(
+                                                icon: Icon(Icons.settings,
+                                                    color: Colors.white,
+                                                    size: 6.0.w),
+                                              ),
                                               onTap: () async {
                                                 final result = await AppRoute
                                                     .SettingProfile(
@@ -128,9 +140,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                                                         item: info
                                                             .customerInfoRespone);
                                                 if (result != null && result) {
-                                                   setState(() {
-
-                                                   });
+                                                  _reload.add(true);
                                                 }
                                               },
                                             ),
@@ -138,13 +148,12 @@ class _MeViewState extends State<MeView> with RouteAware {
                                           actions: [
                                             Container(
                                                 margin: EdgeInsets.only(
-                                                    right: 2.5.w, top: 2.0.w),
-                                                child: BuildIconShop(
+                                                    right: 2.0.w, top: 1.0.w),
+                                                child:  BuildIconShop(
                                                   size: 6.0.w,
-                                                  notification: 0,
                                                 )),
                                           ],
-                                          expandedHeight: 32.0.h,
+                                          expandedHeight: 200,
                                           flexibleSpace: FlexibleSpaceBar(
                                             background: Container(
                                               color: ThemeColor.primaryColor(),
@@ -161,13 +170,13 @@ class _MeViewState extends State<MeView> with RouteAware {
                                                             Radius.circular(
                                                                 60)),
                                                     child: CachedNetworkImage(
-                                                      width: 12.0.h,
-                                                      height: 12.0.h,
+                                                      width: 20.0.w,
+                                                      height: 20.0.w,
                                                       placeholder:
                                                           (context, url) =>
                                                               Container(
-                                                        width: 12.0.h,
-                                                        height: 12.0.h,
+                                                                width: 20.0.w,
+                                                                height: 20.0.w,
                                                         color: Colors.white,
                                                         child: Lottie.asset(
                                                             Env.value
@@ -189,11 +198,11 @@ class _MeViewState extends State<MeView> with RouteAware {
                                                           Container(
                                                               color: Colors.grey
                                                                   .shade300,
-                                                              width: 10.0.h,
-                                                              height: 10.0.h,
+                                                              width: 20.0.w,
+                                                              height: 20.0.w,
                                                               child: Icon(
                                                                 Icons.person,
-                                                                size: 50,
+                                                                size: 10.0.w,
                                                                 color: Colors
                                                                     .white,
                                                               )),
@@ -226,7 +235,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                                           delegate:
                                               SliverChildListDelegate(<Widget>[
                                             Container(
-                                              height: 100.0.h,
+                                              height: 180.0.w,
                                               color: Colors.white,
                                               child: DefaultTabController(
                                                 length: 2,
@@ -330,11 +339,6 @@ class _MeViewState extends State<MeView> with RouteAware {
                             : LoginView(
                                 IsHeader: false,
                                 homeCallBack: (bool fix) {
-                                  Usermanager().getUser().then((value) =>
-                                      context
-                                          .read<CustomerCountBloc>()
-                                          .loadCustomerCount(
-                                              token: value.token));
                                   _reload.add(true);
                                 },
                               );

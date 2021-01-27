@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -155,7 +157,10 @@ class _LoginViewState extends State<LoginView> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0),
                 ),
-                onPressed: ()=>bloc.LoginFacebook(),
+                onPressed: (){
+                  //bloc.LoginFacebook();
+                  FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+                },
                 child: Text(LocaleKeys.facebook_login_btn.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                 ),

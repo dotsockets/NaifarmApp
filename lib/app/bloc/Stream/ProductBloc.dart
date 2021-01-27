@@ -17,11 +17,12 @@ import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductDetailObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 import 'package:rxdart/rxdart.dart';
@@ -32,7 +33,7 @@ class ProductBloc{
   CompositeSubscription _compositeSubscription = CompositeSubscription();
 
   final onLoad = BehaviorSubject<bool>();
-  final onError = BehaviorSubject<String>();
+  final onError = BehaviorSubject<Result>();
   final onSuccess = BehaviorSubject<Object>();
 
   final ProductPopular = BehaviorSubject<ProductRespone>();
@@ -49,7 +50,7 @@ class ProductBloc{
   final Wishlists = BehaviorSubject<WishlistsRespone>();
 
 
-  final ZipProductDetail = BehaviorSubject<ProductDetailObjectCombine>();
+  final ZipProductDetail = BehaviorSubject<ProductObjectCombine>();
 
   final ZipMarketProfile = BehaviorSubject<MarketObjectCombine>();
 
@@ -59,6 +60,7 @@ class ProductBloc{
 
   final ZipShopObject = BehaviorSubject<ZipShopObjectCombin>();
 
+
   ProductBloc(this._application);
 
   void dispose() {
@@ -67,14 +69,15 @@ class ProductBloc{
 
 
   loadHomeData({String token,bool callback=false})async{
-    StreamSubscription subscription = Observable.combineLatest7(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage()) // สไลด์ภาพ
+    StreamSubscription subscription = Observable.combineLatest8(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage()) // สไลด์ภาพ
         , Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular("1",10)), // สินค้าขายดี
         Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup()), // หมวดหมู่ทั่วไป
         Observable.fromFuture(_application.appStoreAPIRepository.getCategoriesFeatured()), // หมวดหมู่แนะนำ
-        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)), // สินค้าแนะนำ
+        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",6)), // สินค้าแนะนำ
         Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(ShopId: 1,page: "1",limit: 5)), // สินค้าของ NaiFarm
-        Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: "1",limit: 5)), // สiFarmShop
-            (a, b,c,d,e,f,g){
+        Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: "1",limit: 5)), //  Flashsale
+        Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(page: "1",limit: 6,link: "products/types/random")), // สินค้าสำหรับคุน
+            (a, b,c,d,e,f,g,h){
             final _slider = (a as ApiResult).respone;
             final _product  =(b as ApiResult).respone;
             final _category =(c as ApiResult).respone;
@@ -82,11 +85,12 @@ class ProductBloc{
             final _trending =(e as ApiResult).respone;
             final _martket =(f as ApiResult).respone;
             final _flashsale =(g as ApiResult).respone;
+            final product_foryou =(h as ApiResult).respone;
 
 
             return HomeObjectCombine(sliderRespone: _slider,
                 productRespone: _product, categoryGroupRespone: _category,featuredRespone: _featured,
-            trendingRespone: _trending,martket: _martket,flashsaleRespone: _flashsale);
+            trendingRespone: _trending,martket: _martket,flashsaleRespone: _flashsale,product_foryou: product_foryou);
 
         }).listen((event) {
           if(callback){
@@ -130,16 +134,16 @@ class ProductBloc{
 
 
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
 
     });
     _compositeSubscription.add(subscription);
   }
 
-  loadProductTrending(String page)async{
+  loadProductTrending({String page,int limit=10})async{
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending(page,10)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending(page,limit)).listen((respone) {
       if(respone.http_call_back.status==200){
         TrendingGroup.add(respone.respone);
       }
@@ -157,6 +161,19 @@ class ProductBloc{
     });
     _compositeSubscription.add(subscription);
   }
+
+  loadSearchMyshop({String page, String query, int shopId, int limit})async{
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.getSearchMyshop(shopId: shopId,page: page,query: query,limit: limit)).listen((respone) {
+      if(respone.http_call_back.status==200){
+        SearchProduct.add((respone.respone as SearchRespone));
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+
+
 
   loadCategoryGroup(){
     StreamSubscription subscription =
@@ -222,7 +239,7 @@ class ProductBloc{
       if(respone.http_call_back.status==200){
        onSuccess.add(true);
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
 
 
@@ -237,7 +254,7 @@ class ProductBloc{
         GetMyWishlists(token: token);
         onSuccess.add(true);
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
 
     });
@@ -245,24 +262,55 @@ class ProductBloc{
   }
 
 
+  loadProductsPage({int id,String token}){
+  //  onLoad.add(true);
+    onError.add(null);
+    StreamSubscription subscription = Observable.combineLatest2(
+        Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetWishlistsByProduct(productID: id,token: token)),(a, b){
+      final producItemRespone = (a as ApiResult).respone;
+      final wishlistsRespone  =(b as ApiResult).respone;
 
-  loadProductsById({int id,String token}){
+      if((a as ApiResult).http_call_back.status==200){
 
+        return ProductObjectCombine(producItemRespone: producItemRespone,wishlistsRespone: wishlistsRespone);
 
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)).listen((respone) {
-      if(respone.http_call_back.status==200){
-       // GetMyWishlists(token: token);
-        ProductItem.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back.result.error.message);
-      }
+        }else{
 
+          onError.add((a as ApiResult).http_call_back.result);
+          return ProductObjectCombine();
+
+        }
+
+    }).listen((event) {
+     // onLoad.add(false);
+      GetProductCategoryGroupId(GroupId: event.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id,limit: 10);
+      ZipProductDetail.add(event);
     });
     _compositeSubscription.add(subscription);
-
-
   }
+
+
+
+
+  // loadProductsById({int id,String token}){
+  //   onError.add(null);
+  //
+  //   StreamSubscription subscription =
+  //   Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)).listen((respone) {
+  //
+  //     if(respone.http_call_back.status==200){
+  //      // GetMyWishlists(token: token);
+  //       ProductItem.add(respone.respone);
+  //     }else{
+  //       onError.add(respone.http_call_back.result);
+  //     }
+  //
+  //   });
+  //   _compositeSubscription.add(subscription);
+  //
+  //
+  // }
 
   ShopById({int shopid,String token}){
     StreamSubscription subscription =
@@ -271,7 +319,7 @@ class ProductBloc{
         GetMyWishlists(token: token);
         onSuccess.add(true);
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
 
     });
@@ -280,7 +328,7 @@ class ProductBloc{
 
 
   loadShop({int shopid,String token}){
-
+    onError.add(null);
     StreamSubscription subscription = Observable.combineLatest3(
         Observable.fromFuture(_application.appStoreAPIRepository.getProductTypeShop(type:"popular" ,shopId: shopid,limit: 10,page: "1",token: token)),
         Observable.fromFuture(_application.appStoreAPIRepository.getProductTypeShop(type:"trending" ,shopId: shopid,limit: 10,page: "1",token: token)),
@@ -288,7 +336,16 @@ class ProductBloc{
       final productmyshop = (a as ApiResult).respone;
       final productrecommend  =(b as ApiResult).respone;
       final shopRespone  =(c as ApiResult).respone;
-      return ZipShopObjectCombin(productmyshop: productmyshop,productrecommend: productrecommend,shopRespone: shopRespone);
+
+      if((c as ApiResult).http_call_back.status==200){
+
+        return ZipShopObjectCombin(productmyshop: productmyshop,productrecommend: productrecommend,shopRespone: shopRespone);
+      }else{
+        onError.add((c as ApiResult).http_call_back.result);
+        return ZipShopObjectCombin();
+
+      }
+
 
     }).listen((event) {
       ZipShopObject.add(event);
@@ -324,12 +381,12 @@ class ProductBloc{
   }
 
 
-  GetProductCategoryGroupId({int GroupId}){
-    Observable.fromFuture(_application.appStoreAPIRepository.categoryGroupId(GroupId: GroupId,limit: 5,page: "1")).listen((respone) {
+  GetProductCategoryGroupId({int GroupId,int limit=5,String page="1"}){
+    Observable.fromFuture(_application.appStoreAPIRepository.categoryGroupId(GroupId: GroupId,limit: limit,page: page)).listen((respone) {
       if(respone.http_call_back.status==200 || respone.http_call_back.result.error.status==401){
         TrendingGroup.add((respone.respone as ProductRespone));
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
     });
   }
@@ -357,7 +414,7 @@ class ProductBloc{
       if(respone.http_call_back.status==200 || respone.http_call_back.result.error.status==401){
         onSuccess.add(true);
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
     });
   }
@@ -372,13 +429,30 @@ class ProductBloc{
         onLoad.add(false);
         onSuccess.add((respone.respone as CartResponse));
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result);
       }
 
     });
     _compositeSubscription.add(subscription);
   }
 
+
+  DELETEProductMyShop({int ProductId, String token}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application
+        .appStoreAPIRepository
+        .DELETEProductMyShop(ProductId: ProductId, token: token))
+        .listen((respone) {
+      if (respone.http_call_back.status == 200) {
+        onLoad.add(false);
+        onSuccess.add(respone.respone);
+      } else {
+        onError.add(respone.http_call_back.result);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
 
   static ProducItemRespone ConvertDataToProduct({ProductData data}){
 

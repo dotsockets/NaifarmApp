@@ -59,6 +59,14 @@ class Hits {
   List<Shop> shop;
   List<Categories> categories;
   List<ProductImage> image;
+  int minPrice;
+  int maxPrice;
+  int salePrice;
+  int offerPrice;
+  int discountPercent;
+  int rating;
+  int reviewCount;
+  int hasVariant;
 
   Hits(
       {this.productId,
@@ -70,7 +78,15 @@ class Hits {
         this.inventories,
         this.shop,
         this.categories,
-        this.image});
+        this.image,
+        this.minPrice,
+        this.maxPrice,
+        this.salePrice,
+        this.offerPrice,
+        this.discountPercent,
+        this.rating,
+        this.reviewCount,
+        this.hasVariant});
 
   Hits.fromJson(Map<String, dynamic> json) {
     productId = json['productId'];
@@ -103,6 +119,14 @@ class Hits {
         image.add(new ProductImage.fromJson(v));
       });
     }
+    minPrice = json['minPrice'];
+    maxPrice = json['maxPrice'];
+    salePrice = json['salePrice'];
+    offerPrice = json['offerPrice'];
+    discountPercent = json['discountPercent'];
+    rating = json['rating'];
+    reviewCount = json['reviewCount'];
+    hasVariant = json['hasVariant'];
   }
 
   Map<String, dynamic> toJson() {
@@ -125,6 +149,14 @@ class Hits {
     if (this.image != null) {
       data['image'] = this.image.map((v) => v.toJson()).toList();
     }
+    data['minPrice'] = this.minPrice;
+    data['maxPrice'] = this.maxPrice;
+    data['salePrice'] = this.salePrice;
+    data['offerPrice'] = this.offerPrice;
+    data['discountPercent'] = this.discountPercent;
+    data['rating'] = this.rating;
+    data['reviewCount'] = this.reviewCount;
+    data['hasVariant'] = this.hasVariant;
     return data;
   }
 }

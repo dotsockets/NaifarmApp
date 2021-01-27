@@ -49,41 +49,44 @@ class ProductVertical extends StatelessWidget {
   }
 
 
-  Container _header_bar() => Container(
-      child: Container(
-        margin: EdgeInsets.all(1.5.h),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-               // Image.asset(IconI=nto,width: 50,height: 50,),
-                SvgPicture.asset(IconInto,width: IconSize,height: IconSize,),
-                SizedBox(width: 2.0.w),
-                Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
-              ],
-            ),
-            InkWell(
-              child: Row(
-                children: [
-                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
-                  SizedBox(width: 2.0.w),
-                  SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
 
-                ],
-              ),
-              onTap: (){
-                onSelectMore();
-              },
-            )
+  Container _header_bar() => Container(
+    margin: EdgeInsets.all(1.5.h),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+           // Image.asset(IconI=nto,width: 50,height: 50,),
+            SvgPicture.asset(IconInto,width: IconSize,height: IconSize,),
+            SizedBox(width: 2.0.w),
+            Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
           ],
         ),
-      )
+        InkWell(
+          child: Row(
+            children: [
+              Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
+              SizedBox(width: 2.0.w),
+              SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
+
+            ],
+          ),
+          onTap: (){
+            onSelectMore();
+          },
+        )
+      ],
+    ),
   );
 
   _buildCardProduct(BuildContext context,{ProductData item,int index}){
-    return GestureDetector(
+    return InkWell(
+      onTap: (){
+        onTapItem(item,index);
+      },
       child: Container(
+        width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.only(left: 2.0.w,right: 2.0.w),
         child: Column(
           children: [
@@ -149,10 +152,6 @@ class ProductVertical extends StatelessWidget {
           ],
         ),
       ),
-      onTap: (){
-
-        onTapItem(item,index);
-      },
     );
   }
 

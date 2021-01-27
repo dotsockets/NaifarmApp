@@ -150,7 +150,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                           children: [
                             SizedBox(height: 20,),
                             Text("แก้ไขร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
-                            SizedBox(height: 4.0.h,),
+                            SizedBox(height: 30,),
                             ClipRRect(
                               borderRadius: BorderRadius.all(Radius.circular(60)),
                               child: fileImage==null?CachedNetworkImage(
@@ -214,7 +214,6 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                   SliverList(
                     delegate: SliverChildListDelegate(<Widget>[
                       Container(
-                        height: 50.0.h,
                         child: Column(
                           children: [
 

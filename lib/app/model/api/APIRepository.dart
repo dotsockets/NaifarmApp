@@ -331,6 +331,10 @@ class APIRepository{
     return _apiProvider.MarkAsReadNotifications(token: token);
   }
 
+  Future<ApiResult> getSearchMyshop({String page, String query, int shopId, int limit}){
+    return _apiProvider.getSearchMyshop(page: page,query: query,shopId: shopId,limit: limit);
+  }
+
 
 
 

@@ -8,22 +8,22 @@ class SizeUtil {
     return Device.get().isPhone ? 20 : 80;
   }
   static double priceFontSize() {
-    return Device.get().isPhone ? 13 : 70;
+    return Device.get().isPhone ? 14 : 70;
   }
 
   static double titleFontSize() {
-    return Device.get().isPhone ? 9 : 50;
+    return Device.get().isPhone ? 11 : 50;
   }
 
   static double titleSmallFontSize() {
-    return Device.get().isPhone ? 9 : 40;
+    return Device.get().isPhone ? 10 : 40;
   }
 
   static double detailFontSize() {
-    return Device.get().isPhone ? 8 : 30;
+    return Device.get().isPhone ? 9 : 30;
   }
 
   static double detailSmallFontSize() {
-    return Device.get().isPhone ? 8 : 20;
+    return Device.get().isPhone ? 9 : 20;
   }
 }

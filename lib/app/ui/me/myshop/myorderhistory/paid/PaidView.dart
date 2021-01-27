@@ -160,14 +160,19 @@ class _PaidViewState extends State<PaidView>
         ),
         SizedBox(width: 2.0.w),
         Expanded(
+          flex: 4,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 3.0.w),
-              Text(item.inventory.title,
-                  style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      fontWeight: FontWeight.w500)),
+              Container(
+                child: Text(item.inventory.title,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: FunctionHelper.FontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w600)),
+              ),
               SizedBox(height: 6.0.w),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -201,6 +206,10 @@ class _PaidViewState extends State<PaidView>
               )
             ],
           ),
+        ),
+        Expanded(
+          flex: 1,
+          child: SizedBox(),
         )
       ],
     );

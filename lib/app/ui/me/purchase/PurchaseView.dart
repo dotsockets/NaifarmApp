@@ -36,7 +36,7 @@ class _PurchaseViewState extends State<PurchaseView> {
     if(bloc==null){
       bloc = ProductBloc(AppProvider.getApplication(context));
       NaiFarmLocalStorage.getHomeDataCache().then((value){
-        bloc.ProductPopular.add(value.trendingRespone);
+        bloc.ProductPopular.add(value.product_foryou);
       });
     }
   }
@@ -101,25 +101,27 @@ class _PurchaseViewState extends State<PurchaseView> {
 
             },
           ),
-          _BuildDivider(),
           widget.IsLogin?StreamBuilder(
             stream: bloc.ProductPopular.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if(snapshot.hasData && (snapshot.data as ProductRespone).data.length>0){
-                return Container(
-                  child: BuyAgain(
-                    productRespone: (snapshot.data as ProductRespone),
-                      titleInto: LocaleKeys.me_title_again.tr(),
-                      IconInto: 'assets/images/svg/foryou.svg',
-                      onSelectMore: () {
-                        AppRoute.ProductMore(context: context,barTxt: LocaleKeys.me_title_again.tr(),installData: (snapshot.data as ProductRespone));
+                return Column(
+                  children: [
+                    _BuildDivider(),
+                    BuyAgain(
+                        productRespone: (snapshot.data as ProductRespone),
+                        titleInto: LocaleKeys.me_title_again.tr(),
+                        IconInto: 'assets/images/svg/foryou.svg',
+                        onSelectMore: () {
+                          AppRoute.ProductMore(context: context,barTxt: LocaleKeys.me_title_again.tr(),installData: (snapshot.data as ProductRespone));
 
-                      },
-                      onTapItem: (ProductData item,int index) {
-                        AppRoute.ProductDetail(context,
-                            productImage: "payagin_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
-                      },
-                      tagHero: "payagin"),
+                        },
+                        onTapItem: (ProductData item,int index) {
+                          AppRoute.ProductDetail(context,
+                              productImage: "payagin_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
+                        },
+                        tagHero: "payagin")
+                  ],
                 );
               }else{
                 return SizedBox();

@@ -46,7 +46,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
 
 
     if(bloc==null){
-      Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+      //Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
       _menuViewModel = MenuViewModel().getTabBarMenus();
       bloc = NotiBloc(AppProvider.getApplication(context));
       NaiFarmLocalStorage.getNowPage().then((value){
@@ -116,6 +116,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                         menuViewModel: _menuViewModel,
                         selectedIndex: snapshot.data,
                         onTap: (index) {
+
                           Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
                           NaiFarmLocalStorage.saveNowPage(index);
 

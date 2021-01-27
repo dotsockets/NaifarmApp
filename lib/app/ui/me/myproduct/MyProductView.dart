@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -68,10 +69,22 @@ class _MyProductViewState extends State<MyProductView> {
         child: Scaffold(
           backgroundColor: Colors.white,
           key: _scaffoldKey,
-          appBar: AppToobar(
-            title: LocaleKeys.me_title_my_product.tr(),
-            icon: "",
-            header_type: Header_Type.barNormal,
+          appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: Colors.white, //change your color here
+            ),
+            backgroundColor: ThemeColor.primaryColor(),
+            title: Text(LocaleKeys.me_title_my_product.tr()),
+            centerTitle: true,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.search,size: 30,color: Colors.white,),
+                onPressed: ()=> AppRoute.SearchMyProductView(context: context),
+              ),
+              IconButton(
+                icon: Icon(FontAwesome.ellipsis_v,size: 30,color: Colors.white,),
+              )
+            ],
           ),
           body: Container(
             child: Column(

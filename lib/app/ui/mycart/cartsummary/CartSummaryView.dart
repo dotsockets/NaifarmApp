@@ -767,7 +767,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black)),
-                        Text(item.data[0].addressLine1,
+                        Text("${item.data[0].addressLine1} ${item.data[0].zipCode}",
                             style: FunctionHelper.FontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w500,

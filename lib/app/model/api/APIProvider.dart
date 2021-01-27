@@ -288,6 +288,9 @@ abstract class APIProvider{
   @POST("/v1/notifications/markAsRead")
   Future<ApiResult> MarkAsReadNotifications({String token});
 
+  @GET("/v1/search/products?q=%E0%B8%99%E0%B9%89%E0%B8%B3&limit=10&page=1&shopId=3")
+  Future<ApiResult> getSearchMyshop({String page, String query,int shopId,int limit});
+
 
 }
 

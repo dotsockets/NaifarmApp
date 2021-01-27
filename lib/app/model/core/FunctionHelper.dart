@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -387,7 +387,7 @@ class FunctionHelper {
   }
 
   static FailDialog(BuildContext context, {Function() onClick,String message}) {
-    showDialog<bool>(
+    showDialog(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
@@ -415,6 +415,40 @@ class FunctionHelper {
     ).then((value){
       onClick();
     });
+  }
+
+
+  static AlertDialogShop(BuildContext context, {String title,String message}){
+    showDialog(
+        context: context,
+        builder: (BuildContext context) =>  Platform.isIOS?CupertinoAlertDialog(
+            title: Text(title,
+              style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
+            ) ,
+            content: Text(message,
+              style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
+            ) ,
+            actions: [
+              CupertinoDialogAction(isDefaultAction: true, child: new Text("Close"),onPressed: (){
+                Navigator.of(context).pop();
+              },),
+            ]): AlertDialog(
+          title:Text(title,
+            style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
+          ),
+          content: Text(message,
+            style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
+          ),
+          actions: [
+            // okButton,
+            FlatButton(
+              child: Text("Close"),
+              onPressed:  () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        ));
   }
 
 
@@ -494,7 +528,7 @@ class FunctionHelper {
       }
 
       timeAgo = timeValue>0?timeValue.toString()+' '+timeUnit:timeUnit;
-      timeAgo += timeValue > 1 ? 's' : '';
+      timeAgo += timeValue > 1 ? '' : '';
 
       return 'เข้าใช้งานเมื่อ '+timeAgo + ' ก่อน';
     }else{

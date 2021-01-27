@@ -18,6 +18,7 @@ import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/ui/Shopmynear/ShopMyNearView.dart';
 import 'package:naifarm/app/ui/category/detail/CategoryDetailView.dart';
 import 'package:naifarm/app/ui/category/detail/CategorySubDetailView.dart';
@@ -33,6 +34,7 @@ import 'package:naifarm/app/ui/me/editmyproduct/EditImageProductView.dart';
 import 'package:naifarm/app/ui/me/editmyproduct/EditProductView.dart';
 import 'package:naifarm/app/ui/me/imageproduct/ImageProductView.dart';
 import 'package:naifarm/app/ui/me/mynewproduct/MyNewProductView.dart';
+import 'package:naifarm/app/ui/me/mynewproduct/SearchMyProduct.dart';
 import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
 import 'package:naifarm/app/ui/me/myproduct/productDetailShop/ProductDetailShop.dart';
 import 'package:naifarm/app/ui/me/myproductaddtype/ProductAddTypeView.dart';
@@ -112,7 +114,7 @@ class AppRoute{
   }
 
   static  FlashSaleAll(BuildContext context,{FlashsaleRespone instalData}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeft, child: FlashSaleView(instalData: instalData,)));
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FlashSaleView(instalData: instalData,)));
   }
 
   static  MyCart(BuildContext context,bool btnBack){
@@ -428,8 +430,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:WishlistsView()));
   }
 
-  static ConnectError({BuildContext context,String text_error}){
-    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ConnectErrorView(text_error: text_error,)));
+  static ConnectError({BuildContext context,Result result,bool show_full,Function callback}){
+    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ConnectErrorView(result: result,show_full: show_full,callback: callback,)));
   }
 
   static Splash({BuildContext context}){
@@ -456,6 +458,12 @@ class AppRoute{
     });
   }
 
+
+  static SearchMyProductView({BuildContext context}){
+
+  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:SearchMyProduct()));
+
+  }
 
 
 }

@@ -97,7 +97,6 @@ class ListMenuItem extends StatelessWidget {
                 children: [
                   FlutterSwitch(
                     width: 13.0.w,
-                    height: 5.0.h,
                     toggleSize: 20,
                     activeColor: Colors.grey.shade200,
                     inactiveColor: Colors.grey.shade200,
@@ -123,7 +122,7 @@ class ListMenuItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Expanded(
-                      child: IsSwitch==null?Text(Message.replaceAll(new RegExp(r"\s+"), ""),
+                      child: IsSwitch==null?Text(Message,
                           maxLines: 1,
                           textAlign: TextAlign.end,
                           overflow: TextOverflow.ellipsis,

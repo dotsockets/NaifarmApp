@@ -118,7 +118,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                       },
                     ),
                   ),
-                  expandedHeight: 35.0.h,
+                  expandedHeight: 220,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Container(
                       color: ThemeColor.primaryColor(),
@@ -127,7 +127,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                         children: [
                           SizedBox(height: 20,),
                           Text(LocaleKeys.my_profile_title.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 30,),
                           ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(60)),
                             child: fileImage==null?CachedNetworkImage(
@@ -189,7 +189,6 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                 SliverList(
                   delegate: SliverChildListDelegate(<Widget>[
                     Container(
-                      height: 50.0.h,
                       child: Column(
                         children: [
 

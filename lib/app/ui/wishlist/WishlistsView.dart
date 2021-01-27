@@ -44,15 +44,15 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
       });
-      bloc.onLoad.stream.listen((event) {
-        if (event) {
-          FunctionHelper.showDialogProcess(context);
-        } else {
-          Navigator.of(context).pop();
-        }
-      });
+      // bloc.onLoad.stream.listen((event) {
+      //   if (event) {
+      //     FunctionHelper.showDialogProcess(context);
+      //   } else {
+      //     Navigator.of(context).pop();
+      //   }
+      // });
       Usermanager().getUser().then((value) =>
           bloc.GetMyWishlists(token: value.token));
     }
@@ -125,7 +125,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                 );
               }
             } else {
-              return SizedBox();
+              return Center(child: CircularProgressIndicator());
             }
           },
         ),

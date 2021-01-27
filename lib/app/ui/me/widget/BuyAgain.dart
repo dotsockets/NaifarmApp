@@ -38,6 +38,7 @@ class BuyAgain extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         color: Colors.white,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _header_bar(),
             _flashProduct()
