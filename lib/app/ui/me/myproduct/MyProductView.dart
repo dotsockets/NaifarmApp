@@ -74,7 +74,12 @@ class _MyProductViewState extends State<MyProductView> {
               color: Colors.white, //change your color here
             ),
             backgroundColor: ThemeColor.primaryColor(),
-            title: Text(LocaleKeys.me_title_my_product.tr()),
+            title:Text(
+              LocaleKeys.me_title_my_product.tr(),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: FunctionHelper.FontTheme(fontWeight: FontWeight.w600),
+          ),
             centerTitle: true,
             actions: [
               IconButton(
