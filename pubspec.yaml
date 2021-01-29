@@ -81,6 +81,7 @@ dependencies:
   flutter_bloc: ^6.1.1
   multi_image_picker: ^4.7.10
   audioplayers: ^0.17.2
+  full_screen_image: ^1.0.2
   
 
 

@@ -30,18 +30,25 @@ class Shop extends StatelessWidget {
               productRespone: productRespone.productmyshop,
               titleInto: LocaleKeys.recommend_best_seller.tr(),
               IconInto: 'assets/images/svg/product_hot.svg',
-              onSelectMore: () {},
+              SubFixId: 1,
+              onSelectMore: () {
+                AppRoute.ProductMore(api_link: "products/types/popular?shopId=${productRespone.shopRespone.id}",limit: 10,context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),installData: productRespone.productmyshop);
+
+              },
               onTapItem: (ProductData item,int index) {
                 AppRoute.ProductDetail(context,
-                    productImage: "shop_product_hot_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item) );
+                    productImage: "shop_product_hot_${item.id}1",productItem: ProductBloc.ConvertDataToProduct(data: item) );
               },
               tagHero: "shop_product_hot"),
           SizedBox(height: 15),
           ProductGrid(titleInto: LocaleKeys.tab_bar_recommend.tr(),
+              EnableHeader: true,
+              showSeeMore: true,
               productRespone: productRespone.productrecommend,
               IconInto: 'assets/images/svg/like.svg',
               api_link: "products",
               onSelectMore: () {
+                AppRoute.ProductMore(api_link: "products/types/trending?shopId=${productRespone.shopRespone.id}",limit: 10,context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),installData: productRespone.productrecommend);
 
               },
               onTapItem: (ProductData item,int index) {

@@ -25,7 +25,6 @@ class ProductInto extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          SizedBox(height: 1.0.h),
           Center(
               child: Container(
                 width: 80.0.w,

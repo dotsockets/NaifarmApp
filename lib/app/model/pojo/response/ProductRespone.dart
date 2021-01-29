@@ -18,7 +18,7 @@ class ProductRespone {
     }
     total = json['total'];
     page = json['page'];
-    limit = json['limit'];
+    limit = json['limit'] is int?json['limit'].toString():json['limit'];
   }
 
   Map<String, dynamic> toJson() {

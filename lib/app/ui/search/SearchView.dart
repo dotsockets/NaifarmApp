@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
@@ -79,8 +81,7 @@ class _SearchViewState extends State<SearchView> {
                                     children: [
                                       GestureDetector(
                                         child: Container(
-                                          padding: EdgeInsets.only(
-                                              left: 10, top: 10, bottom: 10),
+                                          padding: EdgeInsets.all(20),
                                           child: Text(
                                               (snapshot.data as SearchRespone)
                                                   .hits[index]
@@ -118,7 +119,7 @@ class _SearchViewState extends State<SearchView> {
                     InkWell(
                       child: Container(
                         color: Colors.white,
-                        padding: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h),
+                        padding: EdgeInsets.all(20),
                         width: MediaQuery.of(context).size.width,
                         child: Center(
                           child: StreamBuilder(
@@ -159,18 +160,31 @@ class _SearchViewState extends State<SearchView> {
                             page: "1", query: SearchText, limit: limit);
                       },
                     ),
-                    SizedBox(
-                      height: 10,
+                    Container(
+                      color: Colors.grey.shade200,
+                      height: 6,
                     ),
                     StreamBuilder(
                       stream: bloc.TrendingGroup.stream,
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.hasData) {
-                          return SearchHot(
-                              productRespone: snapshot.data,
-                              onSelectChang: () {});
+                          if((snapshot.data as ProductRespone).data.isNotEmpty){
+                            return SearchHot(
+                                productRespone: snapshot.data,
+                                onSelectChang: () {});
+                          }else{
+                            return SizedBox();
+                          }
+
                         } else {
-                          return SizedBox();
+                          return  Column(
+                            children: [
+                              SizedBox(height: 40,),
+                              Platform.isAndroid
+                                  ? CircularProgressIndicator()
+                                  : CupertinoActivityIndicator()
+                            ],
+                          );
                         }
                       },
                     ),
@@ -187,7 +201,7 @@ class _SearchViewState extends State<SearchView> {
   Widget _BuildLine() {
     return Container(
       height: 2,
-      color: Colors.grey.shade50,
+      color: Colors.grey.shade100,
     );
   }
 

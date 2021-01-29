@@ -113,7 +113,7 @@ class _PurchaseViewState extends State<PurchaseView> {
                         titleInto: LocaleKeys.me_title_again.tr(),
                         IconInto: 'assets/images/svg/foryou.svg',
                         onSelectMore: () {
-                          AppRoute.ProductMore(context: context,barTxt: LocaleKeys.me_title_again.tr(),installData: (snapshot.data as ProductRespone));
+                          AppRoute.ProductMore(api_link: "products/types/random",limit: 6,context: context,barTxt: LocaleKeys.me_title_again.tr(),installData: (snapshot.data as ProductRespone));
 
                         },
                         onTapItem: (ProductData item,int index) {

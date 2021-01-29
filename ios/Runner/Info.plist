@@ -54,14 +54,14 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1341448356015578</string>
+				<string>fb750052912471264</string>
 			</array>
 		</dict>
 	</array>
 	<key>FacebookAdvertiserIDCollectionEnabled</key>
 	<false/>
 	<key>FacebookAppID</key>
-	<string>1341448356015578</string>
+	<string>750052912471264</string>
 	<key>FacebookAutoInitEnabled</key>
 	<false/>
 	<key>FacebookAutoLogAppEventsEnabled</key>

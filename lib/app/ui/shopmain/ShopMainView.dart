@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -134,6 +136,7 @@ class _ShopMainViewState extends State<ShopMainView>
                               updatedAt: item.shopRespone.updatedAt,
                               state: item.shopRespone.state),
                           shopRespone: item.shopRespone,
+
                         )
                       ]),
                     ),
@@ -184,7 +187,9 @@ class _ShopMainViewState extends State<ShopMainView>
             ),
           );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: Platform.isAndroid
+              ? CircularProgressIndicator()
+              : CupertinoActivityIndicator());
         }
       });
 

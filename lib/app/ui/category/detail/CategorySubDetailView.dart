@@ -51,7 +51,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
         }
       });
       bloc.GetProductCategoryGroupId(GroupId: widget.index);
-      bloc.loadProductPopular("1");
+      bloc.loadMoreData(limit: 10,page: "1",link: "products/types/popular?categorySubGroupId=${widget.index}");
     }
 
   }
@@ -88,18 +88,20 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                         return Column(
                           children: [
                             ProductLandscape(
-                              showSeeMore: false,
+                              showSeeMore: true,
+                                SubFixId: 1,
                                 productRespone: snapshot.data,
                                 titleInto: LocaleKeys.tab_bar_recommend.tr(),
                               //  showBorder: true,
                                 IconInto: 'assets/images/svg/like.svg',
                               //  api_link: 'products',
-                               /* onSelectMore: () {
-                                  AppRoute.ProductMore(context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),productList:ProductViewModel().getMarketRecommend());
-                                },*/
+                                onSelectMore: () {
+                                   AppRoute.ProductMore(api_link: "products/types/trending?categorySubGroupId=${widget.index}",limit: 10
+                                   ,context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),installData: snapshot.data);
+                                },
                                 onTapItem: (ProductData item,int index) {
                                   AppRoute.ProductDetail(context,
-                                      productImage: "recommend_sub_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
+                                      productImage: "recommend_sub_${item.id}${1}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                                 },
                                 tagHero: 'recommend_sub'),
                           ],
@@ -111,7 +113,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                   ),
                   SizedBox(height: 1.0.h),
                   StreamBuilder(
-                    stream: bloc.TrendingGroup.stream,
+                    stream: bloc.MoreProduct.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if(snapshot.hasData) {
                         return Column(
@@ -126,7 +128,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                   ),
                   SizedBox(height: 1.0.h),
                   StreamBuilder(
-                    stream: bloc.TrendingGroup.stream,
+                    stream: bloc.MoreProduct.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if(snapshot.hasData) {
                         return ProductVertical(
@@ -134,15 +136,17 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                           productRespone: snapshot.data,
                           IconInto: 'assets/images/svg/product_hot.svg',
                           onSelectMore: () {
-                            AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr());
+                            AppRoute.ProductMore(api_link: "products/types/popular?categorySubGroupId=${widget.index}",limit: 10,
+                             installData: snapshot.data,
+                            context:context,barTxt:LocaleKeys.recommend_best_seller.tr());
                           },
                           onTapItem: (ProductData item,int index) {
                             AppRoute.ProductDetail(context,
-                                productImage: "sell_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
+                                productImage: "sell_sub_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                           },
                           borderRadius: false,
                           IconSize: 25,
-                          tagHero: "sell",
+                          tagHero: "sell_sub",
                         );
                       }else{
                         return Skeleton.LoaderListTite(context);

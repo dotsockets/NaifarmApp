@@ -107,19 +107,20 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                       if(snapshot.hasData ) {
                         return ProductLandscape(
                             showSeeMore: true,
+                            SubFixId: 1,
                             productRespone: (snapshot.data as CategoryObjectCombin).goupProduct,
                             titleInto: LocaleKeys.tab_bar_recommend.tr(),
                             //  showBorder: true,
                             IconInto: 'assets/images/svg/like.svg',
                              // api_link: 'products',
                              onSelectMore: () {
-                                  AppRoute.ProductMore(context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),api_link: 'products/types/trending');
+                                  AppRoute.ProductMore(installData: (snapshot.data as CategoryObjectCombin).goupProduct,limit: 10,context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),api_link: 'products/types/trending?categoryGroupId=${widget.index}');
                                 },
                             onTapItem: (ProductData item,int index) {
                               AppRoute.ProductDetail(context,
-                                  productImage: "recommend_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
+                                  productImage: "recommend_cate_${item.id}${1}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                             },
-                            tagHero: 'recommend');
+                            tagHero: 'recommend_cate');
                       }else{
 
                         return Skeleton.LoaderLandscape(context);
@@ -153,10 +154,10 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                       if(snapshot.hasData ) {
                         return ProductVertical(
                           titleInto: LocaleKeys.recommend_best_seller.tr(),
-                          productRespone: (snapshot.data as CategoryObjectCombin).goupProduct,
+                          productRespone: (snapshot.data as CategoryObjectCombin).hotProduct,
                           IconInto: 'assets/images/svg/product_hot.svg',
                           onSelectMore: () {
-                            AppRoute.ProductMore(context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),installData: (snapshot.data as CategoryObjectCombin).goupProduct);
+                            AppRoute.ProductMore(api_link: "products/types/popular?categoryGroupId=${widget.index}",limit: 10,context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),installData: (snapshot.data as CategoryObjectCombin).hotProduct);
                           },
                           onTapItem: (ProductData item,int index) {
                             AppRoute.ProductDetail(context,

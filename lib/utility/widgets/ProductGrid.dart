@@ -35,6 +35,7 @@ class ProductGrid extends StatefulWidget {
   final bool showBorder;
   ProductRespone productRespone;
   final String api_link;
+  final bool showSeeMore;
 
    ProductGrid(
       {Key key,
@@ -46,7 +47,7 @@ class ProductGrid extends StatefulWidget {
         this.tagHero,
         this.FlashSallLabel = false,
         this.isLike = false,
-        this.showBorder = false,this.productRespone, this.api_link})
+        this.showBorder = false,this.productRespone, this.api_link, this.showSeeMore})
       : super(key: key);
   @override
   _ProductGridState createState() => _ProductGridState();
@@ -57,6 +58,7 @@ class _ProductGridState extends State<ProductGrid> {
   ProductBloc bloc;
   List<ProductData> product_data = List<ProductData>();
   int page = 1;
+  ScrollController _scrollController = ScrollController();
 
   void _init(){
     if(null == bloc) {
@@ -80,6 +82,12 @@ class _ProductGridState extends State<ProductGrid> {
         bloc.loadMoreData(page: page.toString(),limit: 5,link: widget.api_link);
       }
     }
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        bloc.loadMoreData(page: page.toString(),limit: 5,link: widget.api_link);
+      }
+    });
 
   }
 
@@ -123,6 +131,19 @@ class _ProductGridState extends State<ProductGrid> {
                     fontWeight: FontWeight.bold)),
           ],
         ),
+        GestureDetector(
+            child: Visibility(
+              visible: widget.showSeeMore,
+              child: Row(
+                children: [
+                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
+                  SizedBox(width: 2.0.w),
+                  SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
+                ],
+              ),
+            ),
+            onTap: ()=>widget.onSelectMore()
+        )
       ],
     ),
   );
@@ -278,20 +299,21 @@ class _ProductGridState extends State<ProductGrid> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(1.0.h),
                       child: CachedNetworkImage(
-                        width: 120,
-                        height: 150,
+                        width: 30.0.w,
+                        height: 30.0.w,
                         placeholder: (context, url) => Container(
-                          width: 120,
-                          height: 150,
+                          width: 30.0.w,
+                          height: 30.0.w,
                           color: Colors.white,
                           child:
-                          Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                          Lottie.asset(Env.value.loadingAnimaion,    width: 30.0.w,
+                            height: 30.0.w,),
                         ),
                         fit: BoxFit.cover,
                         imageUrl: ProductLandscape.CovertUrlImage(item.image),
                         errorWidget: (context, url, error) => Container(
-                          width: 120,
-                            height: 150,
+                            width: 30.0.w,
+                            height: 30.0.w,
                             child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                       ),
                     ),

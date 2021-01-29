@@ -40,6 +40,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 60,
       margin: EdgeInsets.only(top: 2.0.h),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),

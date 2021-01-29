@@ -67,7 +67,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
             hint: LocaleKeys.search_product_title.tr(),
             onSearch: (String text) {
               SearchText = text;
-              bloc.loadProductSearch(page: "1", query: text, limit: limit);
+              bloc.loadSearchMyshop(shopId: 3,page: "1", query: text, limit: limit);
             },
           ),
           body: StreamBuilder(

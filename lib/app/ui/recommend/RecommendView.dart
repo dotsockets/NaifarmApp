@@ -202,6 +202,8 @@ class _RecommendViewState extends State<RecommendView> {
                                           'assets/images/svg/product_hot.svg',
                                       onSelectMore: () {
                                         AppRoute.ProductMore(
+                                          limit: 10,
+                                          api_link: "products/types/popular",
                                             context: context,
                                             barTxt: LocaleKeys
                                                 .recommend_best_seller
@@ -309,12 +311,14 @@ class _RecommendViewState extends State<RecommendView> {
                                       onSelectMore: () {
                                         AppRoute.ProductMore(
                                             context: context,
+                                            limit: 6,
+                                            api_link: "products/types/random",
                                             barTxt: LocaleKeys
                                                 .recommend_product_for_you
                                                 .tr(),
                                             installData: (snapshot.data
                                                     as HomeObjectCombine)
-                                                .trendingRespone);
+                                                .product_foryou);
                                       },
                                       onTapItem: (ProductData item, int index) {
                                         AppRoute.ProductDetail(context,

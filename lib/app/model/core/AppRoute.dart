@@ -99,6 +99,7 @@ import 'package:naifarm/app/ui/shopmynear/searchmap/SearchMapView.dart';
 import 'package:naifarm/app/ui/splash/ConnectErrorView.dart';
 import 'package:naifarm/app/ui/splash/SplashView.dart';
 import 'package:naifarm/app/ui/wishlist/WishlistsView.dart';
+import 'package:naifarm/utility/widgets/ImageFullScreen.dart';
 import 'package:page_transition/page_transition.dart';
 
 class AppRoute{
@@ -386,8 +387,8 @@ class AppRoute{
   static ForgotPassword(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ForgotPasswordView()));
   }
-  static ProductMore({BuildContext context,String barTxt,ProductRespone installData,String api_link}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductMoreView(barTxt:barTxt,installData: installData,api_link: api_link,)));
+  static ProductMore({BuildContext context,String barTxt,ProductRespone installData,String api_link,int limit}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductMoreView(barTxt:barTxt,installData: installData,api_link: api_link,limit: limit,)));
   }
 
   static Future<bool> AddressEdit(BuildContext context,AddressesData item) async {
@@ -464,6 +465,13 @@ class AppRoute{
   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:SearchMyProduct()));
 
   }
+
+  static ImageFullScreenView({BuildContext context,String image,String hero_tag}){
+
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ImageFullScreen(image: image,hero_tag: hero_tag,)));
+
+  }
+
 
 
 }

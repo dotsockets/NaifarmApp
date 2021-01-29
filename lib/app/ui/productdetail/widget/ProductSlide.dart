@@ -52,6 +52,7 @@ class _ProductSlideState extends State<ProductSlide> {
         children: [
           _buildBanner(),
           widget.imgList.isNotEmpty?_buildIndicator():SizedBox(),
+
         ],
       ),
     );
@@ -97,7 +98,7 @@ class _ProductSlideState extends State<ProductSlide> {
 
 
   Widget _buildIndicator() => Positioned(
-    bottom: 0,
+    bottom: 5,
   //  left: MediaQuery.of(context).size.width/2*0.86,
     child: Container(
       width: MediaQuery.of(context).size.width,

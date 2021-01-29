@@ -819,7 +819,7 @@ class _APIProvider implements APIProvider {
     final _data = <String, dynamic>{};
     try {
 
-      final _result = await _dio.request<dynamic>('/v1/products?limit=${limit}&page=${page}&categoryGroupId=${GroupId}',
+      final _result = await _dio.request<dynamic>('/v1/products/types/trending?limit=${limit}&page=${page}&categoryGroupId=${GroupId}',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',

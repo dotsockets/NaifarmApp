@@ -2,6 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:full_screen_image/full_screen_image.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -12,6 +13,7 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
+import 'package:naifarm/utility/widgets/ImageFullScreen.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
 import '../SizeUtil.dart';
@@ -21,6 +23,7 @@ class ShopOwn extends StatelessWidget {
   final ShopItem shopItem;
   final MyShopRespone shopRespone;
   final bool showBtn;
+
 
   const ShopOwn({Key key, this.shopItem,this.shopRespone, this.showBtn=true}) : super(key: key);
   @override
@@ -36,30 +39,35 @@ class ShopOwn extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: CachedNetworkImage(
-                    width: 15.0.w,
-                    height: 15.0.w,
-                    placeholder: (context, url) => Container(
-                      color: Colors.white,
-                      child:
-                      Lottie.asset(Env.value.loadingAnimaion,width: 30, height: 30),
+                GestureDetector(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(40),
+                    child: CachedNetworkImage(
+                      width: 15.0.w,
+                      height: 15.0.w,
+                      placeholder: (context, url) => Container(
+                        color: Colors.white,
+                        child:
+                        Lottie.asset(Env.value.loadingAnimaion,width: 30, height: 30),
+                      ),
+                      fit: BoxFit.cover,
+                      imageUrl: shopItem.image!=null?ProductLandscape.CovertUrlImage(shopItem.image):"",
+                      errorWidget: (context, url, error) => Container(
+                          width: 60,
+                          height: 60,
+                          child: CircleAvatar(
+                            backgroundColor: Color(0xffE6E6E6),
+                            radius: 30,
+                            child: Icon(
+                              Icons.shopping_bag_rounded,
+                              color: Color(0xffCCCCCC),
+                            ),
+                          )),
                     ),
-                    fit: BoxFit.cover,
-                    imageUrl: shopItem.image!=null?ProductLandscape.CovertUrlImage(shopItem.image):"",
-                    errorWidget: (context, url, error) => Container(
-                        width: 60,
-                        height: 60,
-                        child: CircleAvatar(
-                          backgroundColor: Color(0xffE6E6E6),
-                          radius: 30,
-                          child: Icon(
-                            Icons.shopping_bag_rounded,
-                            color: Color(0xffCCCCCC),
-                          ),
-                        )),
                   ),
+                  onTap: (){
+                    AppRoute.ImageFullScreenView(hero_tag: "image_profile_me${shopItem.id}",context: context,image: ProductLandscape.CovertUrlImage(shopItem.image));
+                  },
                 ),
                 SizedBox(width: 20),
                Expanded(

@@ -128,40 +128,48 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                           SizedBox(height: 20,),
                           Text(LocaleKeys.my_profile_title.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
                           SizedBox(height: 30,),
-                          ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(60)),
-                            child: fileImage==null?CachedNetworkImage(
-                              width: 80,
-                              height: 80,
-                              placeholder: (context, url) => Container(
-                                width: 80,height: 80,
-                                color: Colors.white,
-                                child: Lottie.asset(Env.value.loadingAnimaion,
-                                    height: 30),
-                              ),
-                              fit: BoxFit.cover,
-                                imageUrl:itemInfo!=null&&itemInfo.image.length!=0?"${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}":"",
-                              errorWidget: (context, url, error) => Container(
-                                  color: Colors.white,
-                                width: 80,
-                                  height: 80,
-                                  child: Icon(
-                                    Icons.error,
-                                    size: 30,
-                                  )),
-                            ):Stack(
-                              children: [
-                                Container(
+                          GestureDetector(
+                            child: Hero(
+                              tag: "image_profile_me",
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(60)),
+                                child: fileImage==null?CachedNetworkImage(
                                   width: 80,
                                   height: 80,
-                                  color: Colors.white,
-                                  child: Lottie.asset(Env.value.loadingAnimaion,
-                                      height: 30),
-                                ),
-                                Image.file(fileImage,width: 80, height: 80,fit: BoxFit.cover,),
+                                  placeholder: (context, url) => Container(
+                                    width: 80,height: 80,
+                                    color: Colors.white,
+                                    child: Lottie.asset(Env.value.loadingAnimaion,
+                                        height: 30),
+                                  ),
+                                  fit: BoxFit.cover,
+                                    imageUrl:itemInfo!=null&&itemInfo.image.length!=0?"${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}":"",
+                                  errorWidget: (context, url, error) => Container(
+                                      color: Colors.white,
+                                    width: 80,
+                                      height: 80,
+                                      child: Icon(
+                                        Icons.error,
+                                        size: 30,
+                                      )),
+                                ):Stack(
+                                  children: [
+                                    Container(
+                                      width: 80,
+                                      height: 80,
+                                      color: Colors.white,
+                                      child: Lottie.asset(Env.value.loadingAnimaion,
+                                          height: 30),
+                                    ),
+                                    Image.file(fileImage,width: 80, height: 80,fit: BoxFit.cover,),
 
-                              ],
+                                  ],
+                                ),
+                              ),
                             ),
+                              onTap: (){
+                                AppRoute.ImageFullScreenView(hero_tag: "image_profile_me",context: context,image:  itemInfo!=null&&itemInfo.image.length!=0?"${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}":"");
+                              }
                           ),
                           SizedBox(height: 15),
                           InkWell(

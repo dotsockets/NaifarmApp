@@ -60,6 +60,8 @@ class ProductBloc{
 
   final ZipShopObject = BehaviorSubject<ZipShopObjectCombin>();
 
+  List<ProductData> product_more = List<ProductData>();
+
 
   ProductBloc(this._application);
 
@@ -207,7 +209,9 @@ class ProductBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(page: page,link: link,limit: limit)).listen((respone) {
       if(respone.http_call_back.status==200){
-        MoreProduct.add((respone.respone as ProductRespone));
+        var item = (respone.respone as ProductRespone);
+        product_more.addAll(item.data);
+        MoreProduct.add(ProductRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
       }
     });
     _compositeSubscription.add(subscription);
@@ -359,19 +363,17 @@ class ProductBloc{
 
   loadCategoryPage({int GroupId}){
     onLoad.add(true);
-    StreamSubscription subscription = Observable.combineLatest5(
+    StreamSubscription subscription = Observable.combineLatest4(
         Observable.fromFuture(_application.appStoreAPIRepository.CategorySubgroup(GroupId: GroupId)),
-        Observable.fromFuture(_application.appStoreAPIRepository.categoryGroupId(GroupId: GroupId,limit: 5,page: "1")),
-        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)),
+        Observable.fromFuture(_application.appStoreAPIRepository.categoryGroupId(GroupId: GroupId,limit: 10,page: "1")),
         Observable.fromFuture(_application.appStoreAPIRepository.GetBanners(group: "home_middle")),
-        Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular("1",6)),(a, b,c,d,e){
+        Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(limit: 10,page: "1",link: "products/types/popular?categoryGroupId=${GroupId}")),(a, b,d,e){
       final _supgroup = (a as ApiResult).respone;
       final _groupproduct  =(b as ApiResult).respone;
-      final recommend  =(c as ApiResult).respone;
       final _banner  =(d as ApiResult).respone;
       final _hotproduct  =(e as ApiResult).respone;
 
-      return CategoryObjectCombin(supGroup: (_supgroup as CategoryGroupRespone),goupProduct: (_groupproduct as ProductRespone),recommend: (recommend as ProductRespone),banner: (_banner as BannersRespone),hotProduct: (_hotproduct as ProductRespone));
+      return CategoryObjectCombin(supGroup: (_supgroup as CategoryGroupRespone),goupProduct: (_groupproduct as ProductRespone),banner: (_banner as BannersRespone),hotProduct: (_hotproduct as ProductRespone));
 
     }).listen((event) {
       onLoad.add(false);
@@ -382,7 +384,7 @@ class ProductBloc{
 
 
   GetProductCategoryGroupId({int GroupId,int limit=5,String page="1"}){
-    Observable.fromFuture(_application.appStoreAPIRepository.categoryGroupId(GroupId: GroupId,limit: limit,page: page)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(link:  "products/types/trending?categorySubGroupId=${GroupId}",limit: limit,page: page)).listen((respone) {
       if(respone.http_call_back.status==200 || respone.http_call_back.result.error.status==401){
         TrendingGroup.add((respone.respone as ProductRespone));
       }else{

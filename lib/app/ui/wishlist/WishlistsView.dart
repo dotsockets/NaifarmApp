@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -125,7 +128,9 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                 );
               }
             } else {
-              return Center(child: CircularProgressIndicator());
+              return Center(child:  Platform.isAndroid
+                  ? CircularProgressIndicator()
+                  : CupertinoActivityIndicator(),);
             }
           },
         ),

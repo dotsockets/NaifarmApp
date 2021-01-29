@@ -113,16 +113,17 @@ class SplashLoginView extends StatelessWidget {
             Wrap(
               children: [
                 Text(LocaleKeys.splashLogin_skip_message.tr()+" ",style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize().sp)),
+                SizedBox(width: 8,),
                 Column(
                   children: [
-                    InkWell(child: Text(LocaleKeys.splashLogin_skip.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp)),onTap: (){
-                     // FunctionHelper.showDialogProcess(context);
-                      AppRoute.Home(context);
-                    },),
                     Container(
-                      width: 6.0.w,
-                      color: Colors.white,
-                      height: 2,
+                      child: InkWell(child: Text(LocaleKeys.splashLogin_skip.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp)),onTap: (){
+                        // FunctionHelper.showDialogProcess(context);
+                        AppRoute.Home(context);
+                      },),
+                      decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Colors.white, width: 2)),
+                      ),
                     )
                   ],
                 )

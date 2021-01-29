@@ -48,7 +48,7 @@ class CategoryHeader extends StatelessWidget {
                   ),
                   Center(child:    Text(title,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),),
                   BuildIconShop(
-                    size: 6.8.w,
+                    size: 6.0.w,
                   )
                 ],
               ),
