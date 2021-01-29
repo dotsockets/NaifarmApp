@@ -1,5 +1,8 @@
 
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/svg.dart';
@@ -70,7 +73,9 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
                         .toList()),
               );
             }  else if(snapshot.connectionState == ConnectionState.waiting){
-              return Center(child: CircularProgressIndicator(),);
+              return Center(child:  Platform.isAndroid
+                  ? CircularProgressIndicator()
+                  : CupertinoActivityIndicator(),);
             }else {
               return Center(
                 child: Container(

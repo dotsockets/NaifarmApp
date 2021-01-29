@@ -9,8 +9,7 @@ class OrderRequest {
   int packagingId;
   int taxId;
   int shipTo;
-  String shippingAddress;
-  String billingAddress;
+  int addressId;
   int carrierId;
   String email;
   String buyerNote;
@@ -27,8 +26,7 @@ class OrderRequest {
         this.packagingId,
         this.taxId,
         this.shipTo,
-        this.shippingAddress,
-        this.billingAddress,
+        this.addressId,
         this.carrierId,
         this.email,
         this.buyerNote,
@@ -45,8 +43,7 @@ class OrderRequest {
     packagingId = json['packagingId'];
     taxId = json['taxId'];
     shipTo = json['shipTo'];
-    shippingAddress = json['shippingAddress'];
-    billingAddress = json['billingAddress'];
+    addressId = json['addressId'];
     carrierId = json['carrierId'];
     email = json['email'];
     buyerNote = json['buyerNote'];
@@ -70,8 +67,7 @@ class OrderRequest {
     data['packagingId'] = this.packagingId;
     data['taxId'] = this.taxId;
     data['shipTo'] = this.shipTo;
-    data['shippingAddress'] = this.shippingAddress;
-    data['billingAddress'] = this.billingAddress;
+    data['addressId'] = this.addressId;
     data['carrierId'] = this.carrierId;
     data['email'] = this.email;
     data['buyerNote'] = this.buyerNote;

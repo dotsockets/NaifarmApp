@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -10,6 +12,7 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/ui/recommend/widget/SearchHot.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -26,15 +29,15 @@ class _SearchViewState extends State<SearchView> {
   List<String> listClone = List<String>();
   bool checkSeemore = false;
   TextEditingController txtController = TextEditingController();
-  int limit = 4;
   String SearchText = "";
   ProductBloc bloc;
+  bool showMore = false;
 
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.loadProductTrending(page: "1",limit: 6);
-      bloc.loadProductSearch(page: "1", query: SearchText, limit: limit);
+      bloc.loadProductTrending(page: "1",limit:  6);
+      bloc.loadProductSearch(page: "1", query: SearchText, limit: showMore?6:4);
     }
   }
 
@@ -82,15 +85,37 @@ class _SearchViewState extends State<SearchView> {
                                       GestureDetector(
                                         child: Container(
                                           padding: EdgeInsets.all(20),
-                                          child: Text(
-                                              (snapshot.data as SearchRespone)
-                                                  .hits[index]
-                                                  .name,
-                                              style: FunctionHelper.FontTheme(
-                                                  color: Colors.black,
-                                                  fontSize: SizeUtil
-                                                          .titleSmallFontSize()
-                                                      .sp)),
+                                          child: Row(
+                                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                             Expanded(child:  Text(
+                                                 (snapshot.data as SearchRespone)
+                                                     .hits[index]
+                                                     .name,
+                                                 style: FunctionHelper.FontTheme(
+                                                     color: Colors.black,
+                                                     fontSize: SizeUtil
+                                                         .titleSmallFontSize()
+                                                         .sp)),),
+                                              CachedNetworkImage(
+                                                width: 10.0.w,
+                                                height: 10.0.w,
+                                                placeholder: (context, url) => Container(
+                                                  width: 10.0.w,
+                                                  height: 10.0.w,
+                                                  color: Colors.white,
+                                                  child: Lottie.asset(Env.value.loadingAnimaion,   width: 10.0.w,
+                                  height: 10.0.w),
+                                                ),
+                                                fit: BoxFit.cover,
+                                                imageUrl: "${Env.value.baseUrl}/storage/images/${(snapshot.data as SearchRespone).hits[index].image.length!=0?(snapshot.data as SearchRespone).hits[index].image[0].path:""}",
+                                                errorWidget: (context, url, error) => Container(
+                                                    width: 10.0.w,
+                                                    height: 10.0.w,
+                                                    child: Image.network("https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com",fit: BoxFit.cover)),
+                                              )
+                                            ],
+                                          ),
                                           width: MediaQuery.of(context).size.width,
                                         ),
                                         onTap: () {
@@ -130,10 +155,10 @@ class _SearchViewState extends State<SearchView> {
                                 var item = (snapshot.data as SearchRespone);
                                 return Visibility(
                                   child: Text(
-                                      item.limit == 0
+                                      item.hits.length == 0
                                           ? LocaleKeys.search_product_not_found
                                               .tr()
-                                          : limit == 6
+                                          : showMore
                                               ? LocaleKeys.search_product_hide
                                                   .tr()
                                               : LocaleKeys.search_product_show
@@ -155,9 +180,12 @@ class _SearchViewState extends State<SearchView> {
                         // setState(() {
                         //   checkSeemore ? checkSeemore = false : checkSeemore = true;
                         // });
-                        limit = limit == 7 ? 4 : 7;
-                        bloc.loadProductSearch(
-                            page: "1", query: SearchText, limit: limit);
+                        if(bloc.SearchProduct.value.hits.length>0){
+                          showMore = !showMore;
+                          bloc.loadProductSearch(
+                              page: "1", query: SearchText, limit:  showMore?6:4);
+                        }
+
                       },
                     ),
                     Container(
@@ -213,6 +241,6 @@ class _SearchViewState extends State<SearchView> {
     //   }
     // }
     SearchText = text;
-    bloc.loadProductSearch(page: "1", query: SearchText, limit: limit);
+    bloc.loadProductSearch(page: "1", query: SearchText, limit:  showMore?6:4);
   }
 }

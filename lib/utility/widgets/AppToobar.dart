@@ -119,10 +119,10 @@ class AppToobar extends PreferredSize {
   Widget BarCartShop(BuildContext context) {
     return Container(
       child: AppBar(
-        leading: IconButton(
+        leading: showBackBtn?IconButton(
           icon: Icon(Icons.arrow_back_ios, color: Colors.white,size: 5.0.w,),
           onPressed: () => Navigator.of(context).pop(),
-        ),
+        ):SizedBox(),
         actions: [
 
           Center(
@@ -227,7 +227,7 @@ class AppToobar extends PreferredSize {
     return Container(
       padding: EdgeInsets.only(
           top: 0.5.h,
-          bottom: 0.5.h,
+          bottom: 0.4.h,
           left: isEnable_Search ? 15 : 10,
           right: 0.3.w),
       color: ThemeColor.primaryColor(),
@@ -282,7 +282,7 @@ class AppToobar extends PreferredSize {
           color: Colors.white,
           borderRadius: new BorderRadius.all(Radius.circular(40.0))),
       child: Container(
-          padding: EdgeInsets.only(left: 5, right: 11,bottom: 1),
+          padding: EdgeInsets.only(left: 5, right: 11,bottom: 3),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -300,7 +300,7 @@ class AppToobar extends PreferredSize {
                 child: isEnable_Search
                     ? SizedBox()
                     : Container(
-                        padding: EdgeInsets.only(left: 10),
+                        padding: EdgeInsets.only(left: 15,bottom: 2),
                         child: TextField(
                           style: FunctionHelper.FontTheme(
                               color: Colors.black,

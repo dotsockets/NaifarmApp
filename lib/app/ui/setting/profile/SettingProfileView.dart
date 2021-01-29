@@ -79,7 +79,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                           title: LocaleKeys.setting_account_title_profile.tr(),
                           onClick: () async {
                             final result = await AppRoute.EditProfile(context,item: widget.item);
-                                  if(result!=null){
+                                  if(result!=null && result){
                                      onImageUpdate = true;
                                    }
 

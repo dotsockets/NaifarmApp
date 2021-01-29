@@ -94,8 +94,8 @@ class _NotiViewState extends State<NotiView>
                                 SliverList(
                                   delegate: SliverChildListDelegate(<Widget>[
                                     AppToobar(
-                                      showBackBtn: widget.btnBack,
-                                      header_type: Header_Type.barNormal,
+                                      showBackBtn: false,
+                                      header_type: Header_Type.barcartShop,
                                       icon: 'assets/images/svg/cart_top.svg',
                                       title: LocaleKeys.recommend_notification
                                           .tr(),

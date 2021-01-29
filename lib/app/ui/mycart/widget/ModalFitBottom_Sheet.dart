@@ -124,7 +124,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
   Widget _buildButton({bool isUse,BuildContext context}) {
     return Container(
       width: 20.0.w,
-      height: 5.5.h,
+      height: 40,
       child: FlatButton(
         color: isUse?Colors.white:ThemeColor.primaryColor(),
         textColor: isUse?Colors.black.withOpacity(0.5):Colors.white,

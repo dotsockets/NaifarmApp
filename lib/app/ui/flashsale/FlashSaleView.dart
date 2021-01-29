@@ -266,17 +266,12 @@ class _FlashSaleState extends State<FlashSale> {
                     padding: EdgeInsets.only(
                         left: 3.0.w, right: 2.0.w, bottom: 1.0.w, top: 1.0.w),
                     color: ThemeColor.ColorSale(),
-                    child: Hero(
-                        tag: "productStatus_${index}",
-                        child: Text(
-                          item.saleCount.toString() +
-                              " " +
-                              LocaleKeys.my_product_sold_end.tr(),
-                          style: FunctionHelper.FontTheme(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: SizeUtil.detailSmallFontSize().sp),
-                        )),
+                    child: Text("${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():'0'} ${LocaleKeys.my_product_sold_end.tr()}" ,
+                      style: FunctionHelper.FontTheme(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: SizeUtil.detailSmallFontSize().sp),
+                    ),
                   ),
                 ),
               ),

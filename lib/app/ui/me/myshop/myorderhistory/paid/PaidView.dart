@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -54,7 +57,7 @@ class _PaidViewState extends State<PaidView>
     init();
     return Container(
       color: Colors.white,
-      margin: EdgeInsets.only(top: 1.0.h),
+      margin: EdgeInsets.only(top: 10),
 
       child:  StreamBuilder(
           stream: bloc.feedList,
@@ -79,7 +82,9 @@ class _PaidViewState extends State<PaidView>
                         .toList()),
               );
             } else if(snapshot.connectionState == ConnectionState.waiting){
-              return Center(child: CircularProgressIndicator(),);
+              return Center(child:  Platform.isAndroid
+                  ? CircularProgressIndicator()
+                  : CupertinoActivityIndicator(),);
             }else {
               return Center(
                 child: Container(

@@ -105,12 +105,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
     });
   }
 
-  void changePosition(double top, double left) {
-    setState(() {
-      topPosition = generateTopPosition(top);
-      leftPosition = generateLeftPosition(left);
-    });
-  }
+
 
   void _init() {
 
@@ -372,7 +367,15 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 producViewModel:
                                     ProductViewModel().getBestSaller(),
                                 IconInto: 'assets/images/svg/like.svg',
-                                onSelectMore: () {},
+                                onSelectMore: () {
+                                  AppRoute.ProductMore(
+                                      context: context,
+                                      api_link: "products/types/trending?categorySubGroupId=${item.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id}",
+                                      barTxt: LocaleKeys
+                                          .recommend_product_for_you
+                                          .tr(),
+                                      installData: (snapshot.data as ProductRespone));
+                                },
                                 onTapItem: (ProductData item, int index) {
                                   AppRoute.ProductDetail(context,
                                       productImage:

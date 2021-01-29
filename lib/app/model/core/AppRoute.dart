@@ -387,8 +387,8 @@ class AppRoute{
   static ForgotPassword(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ForgotPasswordView()));
   }
-  static ProductMore({BuildContext context,String barTxt,ProductRespone installData,String api_link,int limit}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductMoreView(barTxt:barTxt,installData: installData,api_link: api_link,limit: limit,)));
+  static ProductMore({BuildContext context,String barTxt,ProductRespone installData,String api_link}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductMoreView(barTxt:barTxt,installData: installData,api_link: api_link)));
   }
 
   static Future<bool> AddressEdit(BuildContext context,AddressesData item) async {

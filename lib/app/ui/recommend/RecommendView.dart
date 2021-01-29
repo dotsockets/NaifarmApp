@@ -55,6 +55,7 @@ class RecommendView extends StatefulWidget {
 
 class _RecommendViewState extends State<RecommendView> {
   final _indicatorController = IndicatorController();
+  static const _indicatorSize = 50.0;
   int _categoryselectedIndex = 0;
   ProductBloc bloc;
   final _selectedIndex = BehaviorSubject<int>();
@@ -75,7 +76,7 @@ class _RecommendViewState extends State<RecommendView> {
     }
   }
 
-  static const _indicatorSize = 50.0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +87,7 @@ class _RecommendViewState extends State<RecommendView> {
         armedToLoadingDuration: const Duration(seconds: 1),
         draggingToIdleDuration: const Duration(seconds: 1),
         completeStateDuration: const Duration(seconds: 1),
-        offsetToArmed: _indicatorSize,
+        offsetToArmed: 50.0,
         builder: (
           BuildContext context,
           Widget child,
@@ -202,7 +203,6 @@ class _RecommendViewState extends State<RecommendView> {
                                           'assets/images/svg/product_hot.svg',
                                       onSelectMore: () {
                                         AppRoute.ProductMore(
-                                          limit: 10,
                                           api_link: "products/types/popular",
                                             context: context,
                                             barTxt: LocaleKeys
@@ -311,7 +311,6 @@ class _RecommendViewState extends State<RecommendView> {
                                       onSelectMore: () {
                                         AppRoute.ProductMore(
                                             context: context,
-                                            limit: 6,
                                             api_link: "products/types/random",
                                             barTxt: LocaleKeys
                                                 .recommend_product_for_you

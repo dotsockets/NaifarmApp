@@ -44,11 +44,11 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        if(event){
-          FunctionHelper.showDialogProcess(context);
-        }else{
-          Navigator.of(context).pop();
-        }
+        // if(event){
+        //   FunctionHelper.showDialogProcess(context);
+        // }else{
+        //   Navigator.of(context).pop();
+        // }
       });
       bloc.GetProductCategoryGroupId(GroupId: widget.index);
       bloc.loadMoreData(limit: 10,page: "1",link: "products/types/popular?categorySubGroupId=${widget.index}");
@@ -96,7 +96,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                                 IconInto: 'assets/images/svg/like.svg',
                               //  api_link: 'products',
                                 onSelectMore: () {
-                                   AppRoute.ProductMore(api_link: "products/types/trending?categorySubGroupId=${widget.index}",limit: 10
+                                   AppRoute.ProductMore(api_link: "products/types/trending?categorySubGroupId=${widget.index}"
                                    ,context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),installData: snapshot.data);
                                 },
                                 onTapItem: (ProductData item,int index) {
@@ -136,7 +136,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                           productRespone: snapshot.data,
                           IconInto: 'assets/images/svg/product_hot.svg',
                           onSelectMore: () {
-                            AppRoute.ProductMore(api_link: "products/types/popular?categorySubGroupId=${widget.index}",limit: 10,
+                            AppRoute.ProductMore(api_link: "products/types/popular?categorySubGroupId=${widget.index}",
                              installData: snapshot.data,
                             context:context,barTxt:LocaleKeys.recommend_best_seller.tr());
                           },

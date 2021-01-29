@@ -49,11 +49,11 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
   void _init(){
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        if(event){
-              FunctionHelper.showDialogProcess(context);
-            }else{
-              Navigator.of(context).pop();
-            }
+        // if(event){
+        //       FunctionHelper.showDialogProcess(context);
+        //     }else{
+        //       Navigator.of(context).pop();
+        //     }
       });
       bloc.loadCategoryPage(GroupId: widget.index);
 
@@ -114,7 +114,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                             IconInto: 'assets/images/svg/like.svg',
                              // api_link: 'products',
                              onSelectMore: () {
-                                  AppRoute.ProductMore(installData: (snapshot.data as CategoryObjectCombin).goupProduct,limit: 10,context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),api_link: 'products/types/trending?categoryGroupId=${widget.index}');
+                                  AppRoute.ProductMore(installData: (snapshot.data as CategoryObjectCombin).goupProduct,context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),api_link: 'products/types/trending?categoryGroupId=${widget.index}');
                                 },
                             onTapItem: (ProductData item,int index) {
                               AppRoute.ProductDetail(context,
@@ -157,7 +157,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                           productRespone: (snapshot.data as CategoryObjectCombin).hotProduct,
                           IconInto: 'assets/images/svg/product_hot.svg',
                           onSelectMore: () {
-                            AppRoute.ProductMore(api_link: "products/types/popular?categoryGroupId=${widget.index}",limit: 10,context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),installData: (snapshot.data as CategoryObjectCombin).hotProduct);
+                            AppRoute.ProductMore(api_link: "products/types/popular?categoryGroupId=${widget.index}",context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),installData: (snapshot.data as CategoryObjectCombin).hotProduct);
                           },
                           onTapItem: (ProductData item,int index) {
                             AppRoute.ProductDetail(context,

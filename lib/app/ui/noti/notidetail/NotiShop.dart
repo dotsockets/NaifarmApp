@@ -184,7 +184,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(item.meta.status.toString(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+                            Text(item.meta.status!=null?item.meta.status.toString():"แจ้งเตือนคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
                             SizedBox(height: 0.5.h),
                             Wrap(
                               children: [

@@ -32,7 +32,7 @@ class Shop extends StatelessWidget {
               IconInto: 'assets/images/svg/product_hot.svg',
               SubFixId: 1,
               onSelectMore: () {
-                AppRoute.ProductMore(api_link: "products/types/popular?shopId=${productRespone.shopRespone.id}",limit: 10,context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),installData: productRespone.productmyshop);
+                AppRoute.ProductMore(api_link: "products/types/popular?shopId=${productRespone.shopRespone.id}",context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),installData: productRespone.productmyshop);
 
               },
               onTapItem: (ProductData item,int index) {
@@ -48,7 +48,7 @@ class Shop extends StatelessWidget {
               IconInto: 'assets/images/svg/like.svg',
               api_link: "products",
               onSelectMore: () {
-                AppRoute.ProductMore(api_link: "products/types/trending?shopId=${productRespone.shopRespone.id}",limit: 10,context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),installData: productRespone.productrecommend);
+                AppRoute.ProductMore(api_link: "products/types/trending?shopId=${productRespone.shopRespone.id}",context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),installData: productRespone.productrecommend);
 
               },
               onTapItem: (ProductData item,int index) {
