@@ -21,6 +21,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
 class SearchMyProduct extends StatefulWidget {
+  final int shopID;
+
+  const SearchMyProduct({Key key, this.shopID}) : super(key: key);
+
   @override
   _SearchMyProductState createState() => _SearchMyProductState();
 }
@@ -33,6 +37,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
   int limit = 4;
   String SearchText = "";
   ProductBloc bloc;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   void _init() {
     if (null == bloc) {
@@ -45,9 +50,13 @@ class _SearchMyProductState extends State<SearchMyProduct> {
         }
       });
       bloc.onSuccess.stream.listen((event) {
-        bloc.loadSearchMyshop(shopId: 3,page: "1", query: SearchText, limit: limit);
+        bloc.loadSearchMyshop(shopId: widget.shopID,page: "1", query: SearchText, limit: limit);
       });
-      bloc.loadSearchMyshop(shopId: 3,page: "1", query: SearchText, limit: limit);
+
+      bloc.onError.stream.listen((event) {
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event.error.message);
+      });
+      bloc.loadSearchMyshop(shopId: widget.shopID,page: "1", query: SearchText, limit: limit);
     }
   }
 
@@ -60,6 +69,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
       child: SafeArea(
         top: false,
         child: Scaffold(
+          key: _scaffoldKey,
           appBar: AppToobar(
             icon: "",
             isEnable_Search: false,
@@ -67,7 +77,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
             hint: LocaleKeys.search_product_title.tr(),
             onSearch: (String text) {
               SearchText = text;
-              bloc.loadProductSearch(page: "1", query: text, limit: limit);
+              bloc.loadSearchMyshop(shopId: widget.shopID,page: "1", query: text, limit: limit);
             },
           ),
           body: StreamBuilder(
@@ -82,11 +92,42 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                     ),
                   );
                 }else{
-                  return SizedBox();
+                  return/* Center(
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 15.0.h),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Lottie.asset('assets/json/boxorder.json',
+                              height: 70.0.w, width: 70.0.w, repeat: false),
+                          Text(
+                            LocaleKeys.cart_empty.tr(),
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  );*/
+                  Center(child: Text("ไม่พบรายการสินค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500,color: Colors.grey),));
                 }
 
               } else {
-                return Center(child: CircularProgressIndicator());
+                return StreamBuilder(
+                    stream: bloc.onError.stream,
+                    builder: (context, snapshot) {
+                      if(snapshot.hasData){
+                        return Center(
+                          child: Text(LocaleKeys.search_product_not_found.tr(),
+                              style: FunctionHelper.FontTheme(
+                                  fontSize: SizeUtil.titleFontSize().sp,color: Colors.grey,
+                                  fontWeight: FontWeight.w500)),
+                        );
+                      }else{
+                        return Center(child: CircularProgressIndicator());
+                      }
+                    }
+                );
               }
             },
           ),
@@ -105,7 +146,6 @@ class _SearchMyProductState extends State<SearchMyProduct> {
     return InkWell(
       onTap: (){
        AppRoute.ProductDetailShop(context,productImage: "myproduct_${index}", productItem: item);
-
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 8),
@@ -165,7 +205,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                   ),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.only(left: 10,right: 10),
+                      padding: EdgeInsets.only(left: 2.0.w,right: 2.0.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

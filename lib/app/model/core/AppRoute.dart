@@ -36,6 +36,10 @@ import 'package:naifarm/app/ui/me/imageproduct/ImageProductView.dart';
 import 'package:naifarm/app/ui/me/mynewproduct/MyNewProductView.dart';
 import 'package:naifarm/app/ui/me/mynewproduct/SearchMyProduct.dart';
 import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
+import 'package:naifarm/app/ui/me/myproduct/attribute/AttributeEditView.dart';
+import 'package:naifarm/app/ui/me/myproduct/attribute/AttributeView.dart';
+import 'package:naifarm/app/ui/me/myproduct/attribute/detail/AttributeDetailEditView.dart';
+import 'package:naifarm/app/ui/me/myproduct/attribute/detail/AttributeDetailView.dart';
 import 'package:naifarm/app/ui/me/myproduct/productDetailShop/ProductDetailShop.dart';
 import 'package:naifarm/app/ui/me/myproductaddtype/ProductAddTypeView.dart';
 import 'package:naifarm/app/ui/me/myproductsetprice/ProductSetPriceView.dart';
@@ -458,13 +462,24 @@ class AppRoute{
     });
   }
 
-
-  static SearchMyProductView({BuildContext context}){
-
-  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:SearchMyProduct()));
-
+  static SearchMyProductView({BuildContext context,int shopID}){
+  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:SearchMyProduct(shopID:shopID)));
   }
 
+  static Attribute({BuildContext context}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:AttributeView()));
+  }
+
+  static AttributeDetail({BuildContext context,int idAttr}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:AttributeDetailView(idAttr:idAttr)));
+  }
+  static AttributeEdit({BuildContext context,String nameAttr,int idAttr}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:AttributeEditView(nameAttr:nameAttr,idAttr:idAttr)));
+  }
+
+  static AttributeDetailEdit({BuildContext context,String value,int idAttr,String color,int vid}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:AttributeDetailEditView(idAttr:idAttr,value:value,color:color,vid:vid)));
+  }
 
 }
 

@@ -1708,6 +1708,205 @@ class _APIProvider implements APIProvider {
     }
   }
 
+  @override
+  Future<ApiResult> getMyShopAttribute(String token) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/myshop/attributes',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: MyShopAttributeRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> addMyShopAttribute({String name, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "name":name,
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/myshop/attributes',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: MyShopAttributeRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> deleteMyShopAttribute({int id, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+    };
+
+    try {
+      final _result = await _dio.request<dynamic>('/v1/myshop/attributes/${id}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'DELETE',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+
+      return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> getAttributeDetail(int id, String token) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/myshop/attributes/${id}/values',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: MyShopAttributeRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> updateAttribute(String name,int id, String token) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final data = <String, dynamic>{
+      "name":name,
+    };
+    try {
+      final _result = await _dio.request<dynamic>('/v1/myshop/attributes/${id}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: data);
+      return ApiResult(respone: MyShopAttributeRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+
+    }
+  }
+
+  @override
+  Future<ApiResult> addAttributeDetail({String value, String color, int id, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "value":value,
+      "color":color
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/myshop/attributes/${id}/values',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: MyShopAttributeRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> updateAttributeDetail({String value, String color, int id, int vid, String token}) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final data = <String, dynamic>{
+      "value":value,
+      "color":color
+    };
+    try {
+      final _result = await _dio.request<dynamic>('/v1/myshop/attributes/${id}/values/${vid}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: data);
+      return ApiResult(respone: MyShopAttributeRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+
+    }
+  }
+
+  @override
+  Future<ApiResult> deleteAttributeDetail({int id, String token, int vid}) async{
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+    };
+    try {
+      final _result = await _dio.request<dynamic>('/v1/myshop/attributes/${id}/values/${vid}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'DELETE',
+              headers: <String, dynamic>{
+                "token":token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+
+      return ApiResult(respone: true,http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
 
 
 

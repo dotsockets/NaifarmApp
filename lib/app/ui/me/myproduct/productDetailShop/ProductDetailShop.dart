@@ -111,16 +111,16 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                           InkWell(
                                             child: ShopOwn(
                                               shopItem: ShopItem(rating: widget.productItem.rating,
-                                                name: widget.productItem.shop.name,
-                                                id: widget.productItem.shop.id,
-                                                updatedAt: widget.productItem.shop.updatedAt,
-                                                slug: widget.productItem.shop.slug,
+                                                name: widget.productItem.shop!=null?widget.productItem.shop.name:"-",
+                                                id: widget.productItem.shop!=null?widget.productItem.shop.id:0,
+                                                updatedAt: widget.productItem.shop!=null?widget.productItem.shop.updatedAt:"",
+                                                slug: widget.productItem.shop!=null?widget.productItem.shop.slug:"-",
                                                 image: imgShopList(),state: DataStates(name:item.shop.state.name,id: item.shop.state.id),
                                                 countProduct: item.shop.countProduct
                                                 ,//state:  DataStates(id: widget.productItem.shop.state.id,name: widget.productItem.shop.state.name)
                                               ),
                                               shopRespone:
-                                              MyShopRespone(id: widget.productItem.shop.id),
+                                              MyShopRespone(id: widget.productItem.shop!=null?widget.productItem.shop.id:0),
                                             ),
                                             onTap: () {
                                               AppRoute.ShopMain(
@@ -138,7 +138,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                   productItem: ProducItemRespone(
                                                       shopId: item.shopId,
                                                       inventories: inventoryList(item: item),
-                                                      description: item.description)
+                                                      description: item.description!= null?item.description:"-")
                                               )
                                           )
                                         ],
@@ -169,13 +169,16 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
       child: Column(
         children: [
           Hero(tag: widget.productImage, child: ProductSlide(imgList:imgProductList())),
-          Text(widget.productItem.name,
-              style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleFontSize().sp,
-              )),
-          SizedBox(
-            height: 1.0.h,
+        Container(
+          width: 80.0.w,
+          child: Text(
+            widget.productItem.name,
+            textAlign: TextAlign.center,
+            style: FunctionHelper.FontTheme(
+                fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
           ),
+        )
+          ,SizedBox(height: 1.5.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -187,7 +190,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                           fontSize: SizeUtil.priceFontSize().sp-2,
                           decoration: TextDecoration.lineThrough))
                   : Text(""),
-              SizedBox(width: 1.0.w,),
+              SizedBox(width: widget.productItem.offerPrice!=null?1.0.w:0),
               Text(widget.productItem.offerPrice!=null?"฿ ${widget.productItem.offerPrice}":"฿ ${widget.productItem.salePrice}",
                   style: FunctionHelper.FontTheme(
                       fontSize: SizeUtil.priceFontSize().sp,
@@ -195,7 +198,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
             ],
           ),
           SizedBox(
-            height: 1.0.h,
+            height: 1.5.h,
           ),
           Text(
             "${LocaleKeys.my_product_sold.tr()} ${widget.productItem.saleCount != null ? widget.productItem.saleCount.toString() : '0'} ${LocaleKeys.cart_item.tr()}",
@@ -203,7 +206,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                 fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           SizedBox(
-            height: 1.0.h,
+            height: 2.0.h,
           ),
         ],
       ),
@@ -211,23 +214,33 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   }
   List imgProductList() {
     List<ProductImage> img = List<ProductImage>();
-    for (int i = 0; i < widget.productItem.image.length; i++)
-      img.add((ProductImage(name: widget.productItem.image[i].name, path: widget.productItem.image[i].path)));
+
+    if(widget.productItem.image!=null) {
+      for (int i = 0; i < widget.productItem.image.length; i++)
+        img.add(ProductImage(name: widget.productItem.image[i].name,
+            path: widget.productItem.image[i].path));
+    }else{
+      img.add(ProductImage(name: "", path: ""));
+    }
+
     return img;
   }
 
   List inventoryList({ProductMyShopRespone item}) {
     List<InventoriesProduct> inventory = List<InventoriesProduct>();
     for (int i = 0; i < item.inventories.length; i++)
-      inventory.add((InventoriesProduct(stockQuantity: item.inventories[i].stockQuantity)));
+      inventory.add(InventoriesProduct(stockQuantity: item.inventories[i].stockQuantity));
     return inventory;
   }
 
   List imgShopList() {
     List<ProductImage> img = List<ProductImage>();
+    if(widget.productItem.image!=null) {
     for (int i = 0; i < widget.productItem.image.length; i++)
-      img.add((ProductImage(name: widget.productItem.image[i].name, path: widget.productItem.image[i].path)));
-    return img;
+      img.add(ProductImage(name: widget.productItem.image[i].name, path: widget.productItem.image[i].path));
+    }else{
+      img.add(ProductImage(name: "", path: ""));
+    } return img;
   }
 
 

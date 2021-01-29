@@ -29,6 +29,7 @@ import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ImageUploadRespone.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopAttributeRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
@@ -161,6 +162,8 @@ abstract class APIProvider{
   @GET("/v1/myshop/shop")
   Future<ApiResult> FarmMarket();
 
+
+
   Future<ApiResult> MoreProduct({String page, int limit, String link});
 
   @GET("/v1/flashsale?limit=20&page=1")
@@ -291,7 +294,29 @@ abstract class APIProvider{
   @GET("/v1/search/products?q=%E0%B8%99%E0%B9%89%E0%B8%B3&limit=10&page=1&shopId=3")
   Future<ApiResult> getSearchMyshop({String page, String query,int shopId,int limit});
 
+  @GET("/v1/myshop/attributes")
+  Future<ApiResult> getMyShopAttribute(String token);
 
+  @POST("/v1/myshop/attributes")
+  Future<ApiResult> addMyShopAttribute({String name,String token});
+
+  @DELETE("/v1/myshop/attributes")
+  Future<ApiResult> deleteMyShopAttribute({int id,String token});
+
+  @GET("/v1/myshop/attributes/1/values")
+  Future<ApiResult> getAttributeDetail(int id,String token);
+
+  @PATCH("/v1/myshop/attributes")
+  Future<ApiResult> updateAttribute(String name,int id,String token);
+
+  @POST("/v1/myshop/attributes/1/values")
+  Future<ApiResult> addAttributeDetail({String value,String color,int id,String token});
+
+  @PATCH("/v1/myshop/attributes/1/values/1")
+  Future<ApiResult> updateAttributeDetail({String value,String color,int id,int vid,String token,});
+
+  @DELETE("/v1/myshop/attributes")
+  Future<ApiResult> deleteAttributeDetail({int id,String token,int vid});
 }
 
 
