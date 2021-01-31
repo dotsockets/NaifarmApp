@@ -335,7 +335,36 @@ class APIRepository{
     return _apiProvider.getSearchMyshop(page: page,query: query,shopId: shopId,limit: limit);
   }
 
+  Future<ApiResult> getMyShopAttribute({String token}){
+    return _apiProvider.getMyShopAttribute(token);
+  }
+  Future<ApiResult> addMyShopAttribute({String name, String token}){
+    return _apiProvider.addMyShopAttribute(name:name,token: token);
+  }
 
+  Future<ApiResult> deleteMyShopAttribute({int id, String token}){
+    return _apiProvider.deleteMyShopAttribute(id:id,token: token);
+  }
+
+  Future<ApiResult> getAttributeDetail({String token,int id}){
+    return _apiProvider.getAttributeDetail(id,token);
+  }
+
+  Future<ApiResult> updateAttribute({String name,String token,int id}){
+    return _apiProvider.updateAttribute(name,id,token);
+  }
+
+  Future<ApiResult> addAttributeDetail({String value,String color,int id,String token}){
+    return _apiProvider.addAttributeDetail(token: token,id: id,color: color,value: value);
+  }
+
+  Future<ApiResult> updateAttributeDetail({ String value,String color,int id,int vid,String token,}){
+    return _apiProvider.updateAttributeDetail(color: color,value: value,id: id,token: token,vid: vid);
+  }
+
+  Future<ApiResult> deleteAttributeDetail({int id,int vid, String token}){
+    return _apiProvider.deleteAttributeDetail(id:id,token: token,vid: vid);
+  }
 
 
 

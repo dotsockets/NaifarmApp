@@ -84,70 +84,119 @@ class _MyProductViewState extends State<MyProductView> {
             actions: [
               IconButton(
                 icon: Icon(Icons.search,size: 30,color: Colors.white,),
-                onPressed: ()=> AppRoute.SearchMyProductView(context: context),
+                onPressed: ()=> AppRoute.SearchMyProductView(context: context,shopID: bloc.ProductMyShop.value.data[0].shop.id),
               ),
               IconButton(
-                icon: Icon(FontAwesome.ellipsis_v,size: 30,color: Colors.white,),
+                icon: Icon(FontAwesome.ellipsis_v,size: 30,color: Colors.white,)
+                ,onPressed: (){ ButtonDialog(context,message: ["จัดการแอททริบิวต์"],onClick: (){
+                Navigator.of(context).pop();
+                AppRoute.Attribute(context: context);
+              });},
               )
             ],
           ),
-          body: Container(
-            child: Column(
-              children: [
-                  Expanded(
-                    child: StreamBuilder(
-                      stream: bloc.ProductMyShop.stream,
-                      builder: (BuildContext context,AsyncSnapshot snapshot){
-                        if(snapshot.hasData && (snapshot.data as ProductMyShopListRespone).data.length>0){
-                          var item = (snapshot.data as ProductMyShopListRespone);
-                          return Container(
-                            color: Colors.grey.shade300,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: List.generate(item.data.length, (index) =>
-                                    _BuildProduct(item: item.data[index],index: index),),
+          body: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 180.0.w,
+                  color: Colors.white,
+                  child: DefaultTabController(
+                    length: 4,
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 7.0.h,
+                            child: Container(
+                              child: TabBar(
+                                indicatorColor: ThemeColor.ColorSale(),
+                                isScrollable: false,
+                                tabs: [
+                                  _tab(
+                                      title: "ขายอยู่",
+                                      message:
+                                      false),
+                                  _tab(
+                                      title: "สินค้าหมด",
+                                      message:
+                                      false),
+                                  _tab(title:
+                                  "ถูกระงับ",message: false),
+                                  _tab(title: "ไม่แสดง",message: false)
+                                ],
                               ),
                             ),
-                          );
-                        }else if(snapshot.connectionState == ConnectionState.waiting){
-                          return Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                          ),
+                          // create widgets for each tab bar here
+                          Expanded(
+                            child: TabBarView(
                               children: [
-                                Skeleton.LoaderListTite(context)
+                                _BuildCard(),
+                               Center(child: Text("สินค้าหมด")),
+                                Center(child: Text("ถูกระงับ")),
+                                Center(child: Text("ไม่แสดง")),
                               ],
                             ),
-                          );
-                        }else{
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Lottie.asset('assets/json/boxorder.json',
-                                    height: 70.0.w, width: 70.0.w, repeat: false),
-                                Text(
-                                  LocaleKeys.cart_empty.tr(),
-                                  style: FunctionHelper.FontTheme(
-                                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),)
-                              ],
-                            ),
-                          );
-                        }
-                      },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                _BuildButton()
-              ],
-            ),
+                ),
+              ),
+              _BuildButton()
+            ],
           ),
         ),
       ),
     );
   }
 
-
+  Widget _BuildCard(){
+    return  StreamBuilder(
+      stream: bloc.ProductMyShop.stream,
+      builder: (BuildContext context,AsyncSnapshot snapshot){
+        if(snapshot.hasData && (snapshot.data as ProductMyShopListRespone).data.length>0){
+          var item = (snapshot.data as ProductMyShopListRespone);
+          return Container(
+            color: Colors.grey.shade300,
+            child: SingleChildScrollView(
+              child: Column(
+                children: List.generate(item.data.length, (index) =>
+                    _BuildProduct(item: item.data[index],index: index),),
+              ),
+            ),
+          );
+        }else if(snapshot.connectionState == ConnectionState.waiting){
+          return Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Skeleton.LoaderListTite(context)
+              ],
+            ),
+          );
+        }else{
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset('assets/json/boxorder.json',
+                    height: 70.0.w, width: 70.0.w, repeat: false),
+                Text(
+                  LocaleKeys.cart_empty.tr(),
+                  style: FunctionHelper.FontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),)
+              ],
+            ),
+          );
+        }
+      },
+    );
+  }
   Widget _BuildButton() {
     return Container(
      margin: EdgeInsets.all(10),
@@ -242,7 +291,7 @@ class _MyProductViewState extends State<MyProductView> {
                   ),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.only(left: 10,right: 10),
+                      padding: EdgeInsets.only(left: 2.0.w,right: 2.0.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -395,5 +444,55 @@ class _MyProductViewState extends State<MyProductView> {
       ),
     );
   }
-
+  Widget _tab({String title, bool message}) {
+    return Tab(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(title,
+              style: FunctionHelper.FontTheme(
+                  fontWeight: FontWeight.w500,
+                  fontSize: SizeUtil.titleSmallFontSize().sp,
+                  color: Colors.black)),
+          message
+              ? ClipRRect(
+            borderRadius: BorderRadius.circular(9.0),
+            child: Container(
+              alignment: Alignment.center,
+              width: 10,
+              height: 20,
+              color: ThemeColor.ColorSale(),
+            ),
+          ) : SizedBox()
+        ],
+      ),
+    );
+  }
+  Widget ButtonDialog(BuildContext context, {Function() onClick,List<String> message}) {
+    showDialog<bool>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: InkWell(
+            onTap: (){
+              onClick();
+            },
+            child: Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(message.length, (index) =>  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(message[index],
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.center,),
+                  ))
+                )
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

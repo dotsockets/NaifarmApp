@@ -116,7 +116,7 @@ class ShopOwn extends StatelessWidget {
           Container(color: Colors.white,height: 10,width: MediaQuery.of(context).size.width,),
           Container(
             color: Colors.white,
-            padding: EdgeInsets.only(left: 10, right: 20, bottom: 10, top: 10),
+            padding: EdgeInsets.only(left: 2.5.w, right:2.5.w, bottom: 10, top: 10),
             width: MediaQuery.of(context).size.width,
             child: Row(
               children: [

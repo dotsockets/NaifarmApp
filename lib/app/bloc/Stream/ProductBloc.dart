@@ -169,6 +169,8 @@ class ProductBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.getSearchMyshop(shopId: shopId,page: page,query: query,limit: limit)).listen((respone) {
       if(respone.http_call_back.status==200){
         SearchProduct.add((respone.respone as SearchRespone));
+      }else{
+        onError.add(respone.http_call_back.result);
       }
     });
     _compositeSubscription.add(subscription);

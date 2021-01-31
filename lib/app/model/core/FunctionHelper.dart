@@ -73,6 +73,7 @@ class FunctionHelper {
   static showDialogProcess(BuildContext context) {
     Platform.isAndroid
         ? showDialog(
+      barrierDismissible: false,
             context: context,
             builder: (context) => Center(
               child: Container(
@@ -354,7 +355,6 @@ class FunctionHelper {
     );
   }
 
-
   static SuccessDialog(BuildContext context, {Function() onClick,String message}) {
     showDialog<bool>(
       context: context,
@@ -450,6 +450,7 @@ class FunctionHelper {
           ],
         ));
   }
+
 
 
   static int flashSaleTime({String timeFlash}){

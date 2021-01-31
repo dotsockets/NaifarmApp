@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
+import 'package:naifarm/app/model/pojo/response/MyShopAttributeRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
@@ -28,11 +29,11 @@ class UploadProductBloc {
   final onSuccess = BehaviorSubject<Object>();
   final onChang = BehaviorSubject<Object>();
   final ProductMyShop = BehaviorSubject<ProductMyShopListRespone>();
+  final attributeMyShop = BehaviorSubject<MyShopAttributeRespone>();
   final uploadProductStorage = BehaviorSubject<UploadProductStorage>();
 
   CategoryCombin categoriesAllRespone = CategoryCombin();
   ProductMyShopRequest ProductDetail = ProductMyShopRequest();
-
   List<OnSelectItem> ItemImage = List<OnSelectItem>();
 
   int inventoriesId = 0;
@@ -390,6 +391,122 @@ class UploadProductBloc {
         buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
   }
 
+  GetAttributeMyShop({String token}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.getMyShopAttribute(token: token)).listen((respone) {
+      if (respone.http_call_back.status == 200) {
+        onLoad.add(false);
+        onSuccess.add(true);
+        attributeMyShop.add((respone.respone as MyShopAttributeRespone));
+      }else{
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+  AddAttributeMyShop({String name, String token}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.addMyShopAttribute(token: token,name: name)).listen((respone) async {
+      if (respone.http_call_back.status == 200) {
+       onLoad.add(false);
+       onSuccess.add(true);
+      }else {
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  DELETEAttributeMyShop({int id, String token}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.deleteMyShopAttribute(id: id, token: token)).listen((respone) {
+      if (respone.http_call_back.status == 200) {
+        onLoad.add(false);
+        GetAttributeMyShop(token: token);
+       // onSuccessDel.add(true);
+      }else {
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  GetAttributeDetail({String token,int id}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.getAttributeDetail(id: id,token: token)).listen((respone) {
+      if (respone.http_call_back.status == 200) {
+        onLoad.add(false);
+        attributeMyShop.add((respone.respone as MyShopAttributeRespone));
+      }else{
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  UpdateAttribute({String name,int id, String token}) async{
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.updateAttribute(id:id,name:name,token: token)).listen((respone) {
+      if(respone.http_call_back.status==200){
+        onLoad.add(false);
+        onSuccess.add(true);
+      }else{
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  AddAttributeDetail({String value,String color,int id,String token}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.addAttributeDetail(token: token,value: value,color: color,id: id)).listen((respone) async {
+      if (respone.http_call_back.status == 200) {
+        onLoad.add(false);
+        onSuccess.add(true);
+      }else {
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  UpdateAttributeDetail({String value, String color, int id, int vid, String token}) async{
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.updateAttributeDetail(value: value,id: id,color: color,vid: vid,token: token)).listen((respone) {
+      if(respone.http_call_back.status==200){
+        onLoad.add(false);
+        onSuccess.add(true);
+      }else{
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+  DELETEAttributeDetail({int id, String token,int vid}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.deleteAttributeDetail(id: id, token: token,vid: vid)).listen((respone) {
+      if (respone.http_call_back.status == 200) {
+        onLoad.add(false);
+        GetAttributeDetail(token: token,id: id);
+        //  onSuccessDel.add(true);
+      }else {
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
 // bool ValidateButton(){
 //   bool value = false;
 //   int i = 0;

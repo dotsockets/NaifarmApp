@@ -87,7 +87,7 @@ class _ProductSlideState extends State<ProductSlide> {
               ),
               fit: BoxFit.fill,
               imageUrl: item,
-              errorWidget: (context, url, error) => Container(height: 30,child: Icon(Icons.error,size: 30,)),
+              errorWidget: (context, url, error) => Image.network(Env.value.noItemUrl,fit: BoxFit.cover),
             ),
           ),
         )
