@@ -1,6 +1,8 @@
 
 import 'dart:async';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:rxdart/rxdart.dart';
@@ -29,11 +31,12 @@ class NotiBloc{
 
   }
 
-  MarkAsReadNotifications({String token}) async{
+  MarkAsReadNotifications({String token,BuildContext context}) async{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.MarkAsReadNotifications(token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
        onSuccess.add(respone.respone);
+       context.read<CustomerCountBloc>().loadCustomerCount(token: token);
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }

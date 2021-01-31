@@ -76,9 +76,9 @@ class ProductBloc{
         Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup()), // หมวดหมู่ทั่วไป
         Observable.fromFuture(_application.appStoreAPIRepository.getCategoriesFeatured()), // หมวดหมู่แนะนำ
         Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",6)), // สินค้าแนะนำ
-        Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(ShopId: 1,page: "1",limit: 5)), // สินค้าของ NaiFarm
+        Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(ShopId: 1,page: "1",limit: 10)), // สินค้าของ NaiFarm
         Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: "1",limit: 5)), //  Flashsale
-        Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(page: "1",limit: 6,link: "products/types/random")), // สินค้าสำหรับคุน
+        Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(page: "1",limit: 10,link: "products/types/random")), // สินค้าสำหรับคุน
             (a, b,c,d,e,f,g,h){
             final _slider = (a as ApiResult).respone;
             final _product  =(b as ApiResult).respone;
@@ -290,7 +290,9 @@ class ProductBloc{
 
     }).listen((event) {
      // onLoad.add(false);
-      GetProductCategoryGroupId(GroupId: event.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id,limit: 10);
+      if(event.producItemRespone!=null){
+        GetProductCategoryGroupId(GroupId: event.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id,limit: 10);
+      }
       ZipProductDetail.add(event);
     });
     _compositeSubscription.add(subscription);

@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,12 +13,7 @@ class TabMenu extends StatelessWidget {
   final int notification;
   final Function() onClick;
 
-  TabMenu(
-      {Key key,
-      this.icon,
-      this.title,
-      this.notification,
-      this.onClick})
+  TabMenu({Key key, this.icon, this.title, this.notification, this.onClick})
       : super(key: key);
 
   @override
@@ -28,24 +24,22 @@ class TabMenu extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Container(padding: EdgeInsets.all(5),child: SvgPicture.asset(icon,width: 13.0.w,height: 13.0.w,)),
-                  notification > 0
-                      ? Positioned(
-                    right: 2,
-                    top: 3,
-                    child: Container(
-                      padding: EdgeInsets.all(1.0.w),
-                      decoration: BoxDecoration(
-                        color: ThemeColor.ColorSale(),
-                        borderRadius: BorderRadius.circular(10),
+                  Badge( shape: BadgeShape.circle,
+                      position: BadgePosition.topEnd(top: 0, end: 0),
+                      animationDuration: Duration(milliseconds: 300),
+                      animationType: BadgeAnimationType.slide,
+                      showBadge: notification>0?true:false,
+                      badgeContent: Container(
+                        child: Text("${notification}",
+                            style: FunctionHelper.FontTheme(color: Colors.white,fontSize: (SizeUtil.titleSmallFontSize()-4).sp)),
                       ),
-                      constraints: BoxConstraints(
-                        minWidth: 2.8.w,
-                        minHeight: 2.8.w,
-                      ),
-                    ),
-                  )
-                      : SizedBox()
+                      child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: SvgPicture.asset(
+                            icon,
+                            width: 13.0.w,
+                            height: 13.0.w,
+                          ))),
                 ],
               ),
               SizedBox(height: 1.0.h),
@@ -57,6 +51,8 @@ class TabMenu extends StatelessWidget {
             ],
           ),
         ),
-        onTap: () {onClick();});
+        onTap: () {
+          onClick();
+        });
   }
 }

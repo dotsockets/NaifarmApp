@@ -78,16 +78,16 @@ class _MyProductViewState extends State<MyProductView> {
               LocaleKeys.me_title_my_product.tr(),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
-            style: FunctionHelper.FontTheme(fontWeight: FontWeight.w600),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w600),
           ),
             centerTitle: true,
             actions: [
               IconButton(
-                icon: Icon(Icons.search,size: 30,color: Colors.white,),
+                icon: Icon(Icons.search,size: 7.0.w,color: Colors.white,),
                 onPressed: ()=> AppRoute.SearchMyProductView(context: context,shopID: bloc.ProductMyShop.value.data[0].shop.id),
               ),
               IconButton(
-                icon: Icon(FontAwesome.ellipsis_v,size: 30,color: Colors.white,)
+                icon: Icon(FontAwesome.ellipsis_v,size: 7.0.w,color: Colors.white,)
                 ,onPressed: (){ ButtonDialog(context,message: ["จัดการแอททริบิวต์"],onClick: (){
                 Navigator.of(context).pop();
                 AppRoute.Attribute(context: context);
@@ -199,11 +199,9 @@ class _MyProductViewState extends State<MyProductView> {
   }
   Widget _BuildButton() {
     return Container(
-     margin: EdgeInsets.all(10),
+     margin: EdgeInsets.all(2.0.w),
         width: 50.0.w,
-        height: 50,
         child: FlatButton(
-          height: 50,
           color: ThemeColor.secondaryColor(),
           textColor: Colors.white,
           splashColor: Colors.white.withOpacity(0.3),
@@ -257,18 +255,18 @@ class _MyProductViewState extends State<MyProductView> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(1.0.h),
                             child: CachedNetworkImage(
-                              width: 40.0.w,
-                              height: 30.0.w,
+                              width: 30.0.w,
+                              height: 35.0.w,
                               placeholder: (context, url) => Container(
-                                width: 40.0.w,
-                                height: 30.0.w,
+                                width: 30.0.w,
+                                height: 35.0.w,
                                 color: Colors.white,
-                                child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                                child: Lottie.asset(Env.value.loadingAnimaion, width: 30.0.w,
+                                  height: 35.0.w,),
                               ),
-                              fit: BoxFit.cover,
                               imageUrl: item.image.isNotEmpty?"${Env.value.baseUrl}/storage/images/${item.image[0].path}":'',
-                              errorWidget: (context, url, error) => Container( width: 40.0.w,
-                                height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                              errorWidget: (context, url, error) => Container( width: 30.0.w,
+                                  height: 35.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                             ),
                           ),
                         ),

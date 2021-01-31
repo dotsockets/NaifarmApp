@@ -27,6 +27,7 @@ import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
 
 class FlashSaleView extends StatefulWidget {
@@ -56,6 +57,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
 
       if (ConvertProductData() != null) {
         bloc.product_more.addAll(ConvertProductData());
+      //  bloc.product_more.addAll(ConvertProductData());
         bloc.MoreProduct.add(ProductRespone(
             data: bloc.product_more,
             total: ConvertProductData().length,
@@ -95,68 +97,81 @@ class _FlashSaleViewState extends State<FlashSaleView> {
       top: false,
       child: Scaffold(
         backgroundColor:  Colors.grey.shade300,
-        appBar: AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
-        body: Stack(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 5.0.h),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(topRight:  Radius.circular(40),topLeft: Radius.circular(40),
-                      bottomLeft: Radius.circular( widget.instalData.data.length !=0?0:40),bottomRight: Radius.circular(widget.instalData.data.length !=0?0:40)
-                  ),
-                  border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
-              ),
-              child:   widget.instalData.data.length ==0?
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height:50.0.h,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("ไม่พบสินค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
-                  ],
-                ),
-              ) :
-              content,
-            ),
-
-            Align(
-              alignment: Alignment.topCenter,
-              child: FlashSaleBar(timeFlash:  widget.instalData.data[0].end,),
-            ),
-            StreamBuilder(
-                stream:position_scroll.stream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return snapshot.data?Container(
-                      margin: EdgeInsets.only(right: 5, bottom: 10),
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: MaterialButton(
-                          onPressed: () {
-                            _scrollController.animateTo(
-                                _scrollController.position.minScrollExtent,
-                                duration: Duration(milliseconds: 1000),
-                                curve: Curves.ease);
-                          },
-                          color: ThemeColor.primaryColor(),
-                          textColor: Colors.white,
-                          child: Icon(
-                            Icons.arrow_circle_up,
-                            size: 50,
-                            color: Colors.white,
-                          ),
-                          shape: CircleBorder(),
+       // appBar: AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
+        body: SingleChildScrollView(
+          child: StickyHeader(
+            header: AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
+            content: Container(
+              margin: EdgeInsets.only(top: 2.0.h),
+              child: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 6.0.h),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(topRight:  Radius.circular(50),topLeft: Radius.circular(50),
+                            bottomLeft: Radius.circular( widget.instalData.data.length !=0?0:40),bottomRight: Radius.circular(widget.instalData.data.length !=0?0:40)
                         ),
+                        border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
+                    ),
+                    child:   widget.instalData.data.length ==0?
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height:50.0.h,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("ไม่พบสินค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
+                        ],
                       ),
-                    ):SizedBox();
-                  } else {
-                    return SizedBox();
-                  }
-                })
-          ],
+                    ) :
+                    content,
+                  ),
+
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: FlashSaleBar(timeFlash:  widget.instalData.data[0].end,),
+                  ),
+                  StreamBuilder(
+                      stream:position_scroll.stream,
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          return snapshot.data?Container(
+                            margin: EdgeInsets.only(right: 5.0.w, bottom:  5.0.w),
+                            child: Align(
+                                alignment: Alignment.bottomRight,
+                                child: Container(
+                                  width: 13.0.w,
+                                  height: 13.0.w,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.black.withOpacity(0.4)
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_up_outlined,
+                                      size: 8.0.w,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: (){
+                                      _scrollController.animateTo(
+                                          _scrollController.position.minScrollExtent,
+                                          duration: Duration(milliseconds: 1000),
+                                          curve: Curves.ease);
+                                    },
+                                  ),
+                                )
+                            ),
+                          ):SizedBox();
+                        } else {
+                          return SizedBox();
+                        }
+                      })
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -164,7 +179,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
 
 
   Widget get content =>  Container(
-    margin: EdgeInsets.only(top: 50),
+    margin: EdgeInsets.only(top: 4.0.h),
       width: MediaQuery.of(context).size.width,
       child: StreamBuilder(
         stream: bloc.MoreProduct.stream,
@@ -174,6 +189,9 @@ class _FlashSaleViewState extends State<FlashSaleView> {
             var item = (snapshot.data as ProductRespone);
             step_page = true;
             return ListView.builder(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               controller: _scrollController,
               itemBuilder: (context, i) {
                 // if ( i+1==((item.data.length) / 2).round()) {
@@ -216,9 +234,9 @@ class _FlashSaleViewState extends State<FlashSaleView> {
                             mainAxisAlignment:
                             MainAxisAlignment.center,
                             children: [
-                              Platform.isAndroid
-                                  ? CircularProgressIndicator()
-                                  : CupertinoActivityIndicator(),
+                          Platform.isAndroid
+                          ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
+                                : CupertinoActivityIndicator(),
                               SizedBox(
                                 width: 10,
                               ),
@@ -274,7 +292,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
                     padding:
                     EdgeInsets.only(left: 15, right: 7, bottom: 3, top: 3),
                     color: ThemeColor.ColorSale(),
-                    child: Text("${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():'0'} ${LocaleKeys.my_product_sold_end.tr()}" ,
+                    child: Text("${item.saleCount!=null?item.saleCount.toString():'0'} ${LocaleKeys.my_product_sold_end.tr()}" ,
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize().sp,
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -307,7 +325,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
             Stack(
               children: [
                 Hero(
-                  tag: "flash_${item.id}",
+                  tag: "flash_${index}",
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
@@ -318,19 +336,19 @@ class _FlashSaleViewState extends State<FlashSaleView> {
                       borderRadius: BorderRadius.circular(1.0.h),
                       child: CachedNetworkImage(
                         width: 28.0.w,
-                        height: 28.0.w,
+                        height: 35.0.w,
                         placeholder: (context, url) => Container(
                           width: 28.0.w,
-                          height: 28.0.w,
+                          height: 35.0.w,
                           color: Colors.white,
                           child:
-                          Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                          Lottie.asset(Env.value.loadingAnimaion,   width: 28.0.w,
+                            height: 35.0.w,),
                         ),
-                        fit: BoxFit.cover,
                         imageUrl: ProductLandscape.CovertUrlImage(item.image),
                         errorWidget: (context, url, error) => Container(
                             width: 28.0.w,
-                            height: 28.0.w,
+                            height: 35.0.w,
                             child: Icon(
                               Icons.error,
                               size: 30,
@@ -368,8 +386,9 @@ class _FlashSaleViewState extends State<FlashSaleView> {
         ),
       ),
       onTap: (){
+
         AppRoute.ProductDetail(context,
-            productImage: "flash_${item.id}",
+            productImage: "flash_${index}",
             productItem: ProductBloc.ConvertDataToProduct(data: item));
       },
     );

@@ -2,10 +2,13 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:audioplayers/audio_cache.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,6 +28,7 @@ import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
+import 'package:naifarm/app/ui/productdetail/widget/HeaderDetail.dart';
 import 'package:naifarm/app/ui/splash/ConnectErrorView.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -34,6 +38,7 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ConnectErrorPage.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:vibration/vibration.dart';
 import 'widget/BuildChoosesize.dart';
 import 'widget/ProductDetail.dart';
 import 'widget/ProductInto.dart';
@@ -55,7 +60,7 @@ class ProductDetailView extends StatefulWidget {
 
 class _ProductDetailViewState extends State<ProductDetailView>
     with TickerProviderStateMixin {
-  ScrollController scrollController;
+  TrackingScrollController trackingScrollController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int IndexTypes1 = 1;
   int IndexTypes2 = 1;
@@ -66,25 +71,17 @@ class _ProductDetailViewState extends State<ProductDetailView>
   StreamController<bool> checkScrollControl = new StreamController<bool>();
   List<ProductImage> image_temp = List<ProductImage>();
   int SubFixId = 0;
-
-  double topPosition;
-  double leftPosition;
-
-  double generateTopPosition(double top) => Random().nextDouble() * top;
-
-  double generateLeftPosition(double left) => Random().nextDouble() * left;
+  bool IsLogin = true;
 
 
+  final _indicatorController = IndicatorController();
+  static const _indicatorSize = 50.0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    topPosition = generateTopPosition(30);
-    leftPosition = generateLeftPosition(30);
-
-    scrollController = ScrollController();
+    trackingScrollController = TrackingScrollController();
     _controller = AnimationController(
         duration: const Duration(milliseconds: 2500),
         vsync: this,
@@ -95,9 +92,9 @@ class _ProductDetailViewState extends State<ProductDetailView>
         CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn);
     _controller.forward();
 
-    scrollController.addListener(() {
-      if (scrollController.offset ==
-          scrollController.position.maxScrollExtent) {
+    trackingScrollController.addListener(() {
+      if (trackingScrollController.offset ==
+          trackingScrollController.position.maxScrollExtent) {
         checkScrollControl.add(false);
       } else {
         checkScrollControl.add(true);
@@ -108,7 +105,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
 
   void _init() {
-
+    ISLogin();
     if (null == bloc) {
       image_temp.addAll(widget.productItem.image);
       checkScrollControl.add(false);
@@ -156,34 +153,125 @@ class _ProductDetailViewState extends State<ProductDetailView>
     }
   }
 
+  void ISLogin() async => IsLogin = await Usermanager().isLogin();
+
   @override
   void dispose() {
     _controller.dispose();
+    trackingScrollController.dispose();
     super.dispose();
+  }
+
+  _refreshProducts() {
+    Usermanager().getUser().then((value) {
+      bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final appBar = AppBar(title: Text('AnimatedPositioned'));
-    final topPadding = MediaQuery.of(context).padding.top;
     _init();
     return Scaffold(
       key: _scaffoldKey,
       body: Container(
         color: Colors.white,
         child: SafeArea(
-            child: Column(
+            child: CustomRefreshIndicator(
+              controller: _indicatorController,
+              onRefresh: () => _refreshProducts(),
+              armedToLoadingDuration: const Duration(seconds: 1),
+              draggingToIdleDuration: const Duration(seconds: 1),
+              completeStateDuration: const Duration(seconds: 1),
+              offsetToArmed: 50.0,
+              builder: (
+                  BuildContext context,
+                  Widget child,
+                  IndicatorController controller,
+                  ) {
+                return Stack(
+                  children: <Widget>[
+                    AnimatedBuilder(
+                      animation: controller,
+                      builder: (BuildContext context, Widget _) {
+                        if (controller.state == IndicatorState.complete) {
+                          AudioCache().play("sound/Click.mp3");
+                          Vibration.vibrate(duration: 500);
+                        }
+                        return Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            margin: EdgeInsets.only(top: 2.0.h),
+                            width: 5.0.w,
+                            height: 5.0.w,
+                            child: Platform.isAndroid
+                                ? CircularProgressIndicator()
+                                : CupertinoActivityIndicator(),
+                          ),
+                        );
+                      },
+                    ),
+                    AnimatedBuilder(
+                      builder: (context, _) {
+                        return Transform.translate(
+                          offset: Offset(0.0, controller.value * _indicatorSize),
+                          child: child,
+                        );
+                      },
+                      animation: controller,
+                    ),
+                  ],
+                );
+              },
+              child: Container(
+                color: Colors.white,
+                child: Column(
           children: [
-            Expanded(
-              child: Stack(
-                children: [
-                  SingleChildScrollView(
-                    controller: scrollController,
-                    child: Column(
-                      children: [
-                        AppToobar(
-                          header_type: Header_Type.barNoBackground,
+                Expanded(
+                  child: Stack(
+                    children: [
+                      SingleChildScrollView(
+                        controller: trackingScrollController,
+                        child: Column(
+                          children: [
+                            StreamBuilder(
+                              stream: bloc.onError.stream,
+                              builder:
+                                  (BuildContext context, AsyncSnapshot snapshot) {
+                                if (snapshot.hasData &&
+                                    (snapshot.data as Result).error.status != 406) {
+
+                                  widget.productItem = ProducItemRespone(id: widget.productItem.id);
+                                  return Center(
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 10.0.h,
+                                        ),
+                                        ConnectErrorPage(
+                                            result: snapshot.data,
+                                            show_full: false,
+                                            callback: () {
+                                              Usermanager().getUser().then((value) {
+                                                bloc.loadProductsPage(
+                                                    id: widget.productItem.id,
+                                                    token: value.token);
+                                              });
+                                            })
+                                      ],
+                                    ),
+                                  );
+                                } else {
+                                  return _content;
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: HeaderDetail(
+                          title: widget.productItem.name,
+                          scrollController: trackingScrollController,
                           onClick: () {
                             NaiFarmLocalStorage.getNowPage().then((value) {
                               if (value > 0) {
@@ -194,99 +282,79 @@ class _ProductDetailViewState extends State<ProductDetailView>
                             });
                           },
                         ),
-                        StreamBuilder(
-                          stream: bloc.onError.stream,
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            if (snapshot.hasData &&
-                                (snapshot.data as Result).error.status != 406) {
+                      ),
+                      StreamBuilder<Object>(
+                          stream: checkScrollControl.stream,
+                          builder: (context, snapshot) {
+                           if(snapshot.hasData){
+                             return snapshot.data
+                                 ? Positioned(
+                               bottom: 0.0,
+                               right: 0.0,
+                               left: 0.0,
+                               child: Container(
+                                 decoration: BoxDecoration(
+                                   color: Colors.white,
+                                   boxShadow: [
+                                     BoxShadow(
+                                       color: Colors.grey.withOpacity(0.5),
+                                       spreadRadius: 1,
+                                       blurRadius: 1,
+                                       offset: Offset(5, 0), // changes position of shadow
+                                     ),
+                                   ],
+                                 ),
+                                 child: StreamBuilder(
+                                   stream: bloc.ZipProductDetail.stream,
+                                   builder: (BuildContext context,
+                                       AsyncSnapshot snapshot) {
+                                     if (snapshot.hasData &&
+                                         (snapshot.data
+                                         as ProductObjectCombine)
+                                             .wishlistsRespone !=
+                                             null) {
+                                       if ((snapshot.data
+                                       as ProductObjectCombine)
+                                           .wishlistsRespone
+                                           .total >
+                                           0) {
+                                         return FadeTransition(
+                                           ///Providing our animation to opacity property
+                                           opacity: _animation,
+                                           child: _BuildFooterTotal(
+                                               item: (snapshot.data
+                                               as ProductObjectCombine)
+                                                   .wishlistsRespone),
+                                         );
+                                       } else {
+                                         return FadeTransition(
+                                           opacity: _animation,
+                                           child: _BuildFooterTotal(
+                                               item: (snapshot.data
+                                               as ProductObjectCombine)
+                                                   .wishlistsRespone),
+                                         );
+                                       }
+                                     } else {
+                                       return IsLogin?SizedBox():_BuildFooterTotal_login();
+                                     }
+                                   },
+                                 ),
+                               ),
+                             )
+                                 : SizedBox();
+                           }else{
+                             return SizedBox();
+                           }
+                          }),
 
-                              widget.productItem = ProducItemRespone(id: widget.productItem.id);
-                              return Column(
-                                children: [
-                                  SizedBox(
-                                    height: 10.0.h,
-                                  ),
-                                  ConnectErrorPage(
-                                      result: snapshot.data,
-                                      show_full: false,
-                                      callback: () {
-                                        Usermanager().getUser().then((value) {
-                                          bloc.loadProductsPage(
-                                              id: widget.productItem.id,
-                                              token: value.token);
-                                        });
-                                      })
-                                ],
-                              );
-                            } else {
-                              return _content;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
+                    ],
                   ),
-                  StreamBuilder<Object>(
-                      stream: checkScrollControl.stream,
-                      builder: (context, snapshot) {
-                       if(snapshot.hasData){
-                         return snapshot.data
-                             ? Positioned(
-                           bottom: 0.0,
-                           right: 0.0,
-                           left: 0.0,
-                           child: Container(
-                             color: Colors.white,
-                             child: StreamBuilder(
-                               stream: bloc.ZipProductDetail.stream,
-                               builder: (BuildContext context,
-                                   AsyncSnapshot snapshot) {
-                                 if (snapshot.hasData &&
-                                     (snapshot.data
-                                     as ProductObjectCombine)
-                                         .wishlistsRespone !=
-                                         null) {
-                                   if ((snapshot.data
-                                   as ProductObjectCombine)
-                                       .wishlistsRespone
-                                       .total >
-                                       0) {
-                                     return FadeTransition(
-                                       ///Providing our animation to opacity property
-                                       opacity: _animation,
-                                       child: _BuildFooterTotal(
-                                           item: (snapshot.data
-                                           as ProductObjectCombine)
-                                               .wishlistsRespone),
-                                     );
-                                   } else {
-                                     return FadeTransition(
-                                       opacity: _animation,
-                                       child: _BuildFooterTotal(
-                                           item: (snapshot.data
-                                           as ProductObjectCombine)
-                                               .wishlistsRespone),
-                                     );
-                                   }
-                                 } else {
-                                   return SizedBox();
-                                 }
-                               },
-                             ),
-                           ),
-                         )
-                             : SizedBox();
-                       }else{
-                         return SizedBox();
-                       }
-                      }),
-
-                ],
-              ),
-            )
+                )
           ],
-        )),
+        ),
+              ),
+            )),
       ),
     );
   }
@@ -400,15 +468,17 @@ class _ProductDetailViewState extends State<ProductDetailView>
                     ],
                   );
                 } else {
-                  return Column(
-                    children: [
-                      SizedBox(
-                        height: 30.0.h,
-                      ),
-                      Platform.isAndroid
-                          ? CircularProgressIndicator()
-                          : CupertinoActivityIndicator(),
-                    ],
+                  return Center(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 30.0.h,
+                        ),
+                        Platform.isAndroid
+                            ? CircularProgressIndicator()
+                            : CupertinoActivityIndicator(),
+                      ],
+                    ),
                   );
                 }
               })
@@ -418,12 +488,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
   Widget _BuildFooterTotal({WishlistsRespone item}) {
 
     return Container(
-      height: 7.0.h,
+      height: 8.0.h,
       decoration: BoxDecoration(
           border: Border(
               top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0),
               bottom:
-                  BorderSide(color: Colors.grey.withOpacity(0.4), width: 0))),
+                  BorderSide(color: Colors.grey.withOpacity(0.4), width: 0)),
+        ),
       child: Row(
         children: [
           Expanded(
@@ -486,7 +557,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                       quantity: 1));
                   Usermanager().getUser().then((value) => bloc.AddCartlists(
                       cartRequest: CartRequest(
-                        shopId: widget.productItem.shop.id,
+                        shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
                         items: items,
                       ),
                       token: value.token));
@@ -506,6 +577,65 @@ class _ProductDetailViewState extends State<ProductDetailView>
       ),
     );
   }
+
+  Widget _BuildFooterTotal_login() {
+
+    return InkWell(
+      child: Container(
+        height: 8.0.h,
+        decoration: BoxDecoration(
+          border: Border(
+              top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0),
+              bottom:
+              BorderSide(color: Colors.grey.withOpacity(0.4), width: 0)),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+                child: SvgPicture.asset(
+                  'assets/images/svg/share.svg',
+                  width: 8.0.w,
+                  height: 8.0.w,
+                )),
+            Container(
+              color: Colors.grey.withOpacity(0.4),
+              height: 8.0.h,
+              width: 1,
+            ),
+            Expanded(
+                child: SvgPicture.asset('assets/images/svg/like_line_null.svg',
+                  width: 8.0.w,
+                  height: 8.0.w,
+                  color: ThemeColor.ColorSale(),
+                )),
+            Expanded(
+                flex: 2,
+                child: Container(
+                    alignment: Alignment.center,
+                    height: 8.0.h,
+                    color: ThemeColor.ColorSale(),
+                    child: Text(LocaleKeys.buy_product_btn.tr(),
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white))))
+          ],
+        ),
+      ),
+      onTap: (){
+        AppRoute.Login(context,IsHeader: true,homeCallBack: (bool value){
+          Usermanager().getUser().then((value) {
+            bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
+            // bloc.GetWishlistsByProduct(
+            //     productID: widget.productItem.id, token: value.token);
+            // bloc.loadProductsById(id: widget.productItem.id, token: value.token);
+            // bloc.loadProductTrending("1");
+          });
+        });
+      },
+    );
+  }
+
 
   Widget _Divider() {
     return Container(

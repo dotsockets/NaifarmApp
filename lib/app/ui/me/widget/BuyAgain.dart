@@ -110,7 +110,7 @@ class BuyAgain extends StatelessWidget {
         child: Stack(
           children: [
             Hero(
-              tag: "${tagHero}_${item.id}",
+              tag: "${tagHero}_${item.id}_bay",
               child: CachedNetworkImage(
                 width: 30.0.w,
                 height: 30.0.w,
@@ -120,7 +120,6 @@ class BuyAgain extends StatelessWidget {
                   color: Colors.white,
                   child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
                 ),
-                fit: BoxFit.cover,
                 imageUrl: ProductLandscape.CovertUrlImage(item.image),
                 errorWidget: (context, url, error) => Container(width: 30.0.w,height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
               ),

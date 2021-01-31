@@ -58,13 +58,20 @@ class _NotiViewState extends State<NotiView>
     if (bloc == null) {
       bloc = NotiBloc(AppProvider.getApplication(context));
     }
+
     Usermanager().getUser().then((value) {
       if (value.token != null) {
+        NaiFarmLocalStorage.getNowPage().then((data){
+          if(data == 2){
+            bloc.MarkAsReadNotifications(token: value.token,context: context);
+          }
+        });
         _reload.add(true);
       } else {
         _reload.add(false);
       }
     });
+
   }
 
   @override
@@ -94,7 +101,7 @@ class _NotiViewState extends State<NotiView>
                                 SliverList(
                                   delegate: SliverChildListDelegate(<Widget>[
                                     AppToobar(
-                                      showBackBtn: false,
+                                      showBackBtn: widget.btnBack,
                                       header_type: Header_Type.barcartShop,
                                       icon: 'assets/images/svg/cart_top.svg',
                                       title: LocaleKeys.recommend_notification
@@ -115,7 +122,7 @@ class _NotiViewState extends State<NotiView>
                               child: Column(
                                 children: [
                                   SizedBox(
-                                    height: 2.0.h,
+                                    height: 1.5.h,
                                   ),
                                   Container(
                                     width: 70.0.w,
@@ -188,7 +195,6 @@ class _NotiViewState extends State<NotiView>
                             homeCallBack: (bool fix) {
                               Usermanager().getUser().then((value){
                                 bloc.MarkAsReadNotifications(token: value.token);
-                                context.read<CustomerCountBloc>().loadCustomerCount(token: value.token);
                                 _reload.add(true);
                               });
                             },

@@ -47,7 +47,10 @@ class _MeViewState extends State<MeView> with RouteAware {
   StreamController<bool> controller = new StreamController<bool>();
 
   void _init() {
+    ISLogin();
+
     if (null == bloc) {
+      _reload.add(true);
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         // if(event){
@@ -71,15 +74,30 @@ class _MeViewState extends State<MeView> with RouteAware {
 
      });
 
-      Usermanager().getUser().then((value) {
-        if (value.token != null) {
-          _reload.add(true);
-        } else {
-          _reload.add(false);
-        }
-      });
+      // Usermanager().getUser().then((value) {
+      //   if (value.token != null) {
+      //     _reload.add(true);
+      //   } else {
+      //     _reload.add(false);
+      //   }
+      // });
 
     }
+
+    Usermanager().getUser().then((value) {
+      if (value.token != null) {
+        NaiFarmLocalStorage.getNowPage().then((data){
+          if(data == 3){
+
+              IsLogin = true;
+              _reload.add(true);
+
+
+          }
+        });
+
+      }
+    });
 
   }
 
@@ -107,336 +125,338 @@ class _MeViewState extends State<MeView> with RouteAware {
             //     controller.add(true);
             //   }
             // });
-            return Scaffold(
-                key: _scaffoldKey,
-                backgroundColor: Colors.grey.shade300,
-                body: StreamBuilder(
-                    stream: _reload.stream,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          child: StreamBuilder(
+          stream: _reload.stream,
+          builder: (BuildContext context,
+              AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return Scaffold(
+                  key: _scaffoldKey,
+                  backgroundColor: Colors.grey.shade300,
+                  body: IsLogin?StreamBuilder(
+                    stream: bloc.customerInfoRespone.stream,
+                    builder: (BuildContext context,
+                        AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
-                        return snapshot.data
-                            ? StreamBuilder(
-                                stream: bloc.customerInfoRespone.stream,
-                                builder: (BuildContext context,
-                                    AsyncSnapshot snapshot) {
-                                  if (snapshot.hasData) {
-                                    var info =
-                                        (snapshot.data as ProfileObjectCombine);
+                        var info =
+                        (snapshot.data as ProfileObjectCombine);
 
-                                    return CustomScrollView(
-                                      // controller: _scr,
-                                      slivers: [
-                                        SliverAppBar(
-                                          leading: Container(
-                                            margin: EdgeInsets.only(
-                                                left: 1.0.w),
-                                            child: GestureDetector(
-                                              child: IconButton(
-                                                icon: Icon(Icons.settings,
-                                                    color: Colors.white,
-                                                    size: 6.0.w),
-                                              ),
-                                              onTap: () async {
-                                                final result = await AppRoute
-                                                    .SettingProfile(
-                                                        context, IsLogin,
-                                                        item: info
-                                                            .customerInfoRespone);
-                                                if (result != null && result) {
-                                                  _reload.add(false);
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          actions: [
-                                            Container(
-                                                margin: EdgeInsets.only(
-                                                    right: 2.0.w, top: 1.0.w),
-                                                child:  BuildIconShop(
-                                                  size: 6.0.w,
-                                                )),
-                                          ],
-                                          expandedHeight: 200,
-                                          flexibleSpace: FlexibleSpaceBar(
-                                            background: Container(
-                                              color: ThemeColor.primaryColor(),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  SizedBox(
-                                                    height: 3.0.h,
-                                                  ),
-                                                  GestureDetector(
-                                                    child: Hero(
-                                                      tag: "image_profile_me",
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    60)),
-                                                        child: CachedNetworkImage(
-                                                          width: 20.0.w,
-                                                          height: 20.0.w,
-                                                          placeholder:
-                                                              (context, url) =>
-                                                                  Container(
-                                                                    width: 20.0.w,
-                                                                    height: 20.0.w,
-                                                            color: Colors.white,
-                                                            child: Lottie.asset(
-                                                                Env.value
-                                                                    .loadingAnimaion,
-                                                                height: 30),
-                                                          ),
-                                                          fit: BoxFit.cover,
-                                                          imageUrl: info
-                                                                      .customerInfoRespone !=
-                                                                  null
-                                                              ? info.customerInfoRespone
-                                                                          .image.length >
-                                                                      0
-                                                                  ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
-                                                                  : ''
-                                                              : '',
-                                                          errorWidget: (context,
-                                                                  url, error) =>
-                                                              Container(
-                                                                  color: Colors.grey
-                                                                      .shade300,
-                                                                  width: 20.0.w,
-                                                                  height: 20.0.w,
-                                                                  child: Icon(
-                                                                    Icons.person,
-                                                                    size: 10.0.w,
-                                                                    color: Colors
-                                                                        .white,
-                                                                  )),
-                                                        ),
-                                                      ),
+                        return CustomScrollView(
+                          // controller: _scr,
+                          slivers: [
+                            SliverAppBar(
+                              leading: Container(
+                                margin: EdgeInsets.only(
+                                    left: 1.0.w),
+                                child: GestureDetector(
+                                  child: IconButton(
+                                    icon: Icon(Icons.settings,
+                                        color: Colors.white,
+                                        size: 6.0.w),
+                                  ),
+                                  onTap: () async {
+                                    final result = await AppRoute
+                                        .SettingProfile(
+                                        context, IsLogin,
+                                        item: info
+                                            .customerInfoRespone);
+                                    if (result != null && result) {
+                                      _reload.add(true);
+                                      IsLogin = false;
+                                    }
+                                  },
+                                ),
+                              ),
+                              actions: [
+                                Container(
+                                    margin: EdgeInsets.only(
+                                        right: 2.0.w, left: 1.0.w,top: 1.0.w),
+                                    child:  BuildIconShop()),
+                              ],
+                              expandedHeight: 200,
+                              flexibleSpace: FlexibleSpaceBar(
+                                background: Container(
+                                  color: ThemeColor.primaryColor(),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: 3.0.h,
+                                      ),
+                                      GestureDetector(
+                                          child: Hero(
+                                            tag: "image_profile_me",
+                                            child: ClipRRect(
+                                              borderRadius:
+                                              BorderRadius.all(
+                                                  Radius.circular(
+                                                      60)),
+                                              child: CachedNetworkImage(
+                                                width: 20.0.w,
+                                                height: 20.0.w,
+                                                placeholder:
+                                                    (context, url) =>
+                                                    Container(
+                                                      width: 20.0.w,
+                                                      height: 20.0.w,
+                                                      color: Colors.white,
+                                                      child: Lottie.asset(
+                                                          Env.value
+                                                              .loadingAnimaion,
+                                                          height: 30),
                                                     ),
-                                                      onTap: (){
-                                                        AppRoute.ImageFullScreenView(hero_tag: "image_profile_me",context: context,image:  info
-                                                            .customerInfoRespone !=
-                                                            null
-                                                            ? info.customerInfoRespone
-                                                            .image.length >
-                                                            0
-                                                            ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
-                                                            : ''
-                                                            : '');
-                                                      }
-                                                  ),
-                                                  SizedBox(height: 2.0.h),
-                                                  Text(
-                                                      info.customerInfoRespone !=
-                                                              null
-                                                          ? info
-                                                              .customerInfoRespone
-                                                              .name
-                                                          : "ฟาร์มมาร์เก็ต",
-                                                      style: FunctionHelper
-                                                          .FontTheme(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: SizeUtil
-                                                                      .titleFontSize()
-                                                                  .sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold))
-                                                ],
+                                                fit: BoxFit.cover,
+                                                imageUrl: info
+                                                    .customerInfoRespone !=
+                                                    null
+                                                    ? info.customerInfoRespone
+                                                    .image.length >
+                                                    0
+                                                    ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
+                                                    : ''
+                                                    : '',
+                                                errorWidget: (context,
+                                                    url, error) =>
+                                                    Container(
+                                                        color: Colors.grey
+                                                            .shade300,
+                                                        width: 20.0.w,
+                                                        height: 20.0.w,
+                                                        child: Icon(
+                                                          Icons.person,
+                                                          size: 10.0.w,
+                                                          color: Colors
+                                                              .white,
+                                                        )),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        SliverList(
-                                          delegate:
-                                              SliverChildListDelegate(<Widget>[
-                                            Container(
-                                              height: 180.0.w,
-                                              color: Colors.white,
-                                              child: DefaultTabController(
-                                                length: 2,
-                                                child: Container(
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      // BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
-                                                      //   builder: (_, count) {
-                                                      //     return Center(
-                                                      //       child: Text('${count.like}', style: Theme.of(context).textTheme.headline1),
-                                                      //     );
-                                                      //   },
-                                                      // ),
-                                                      SizedBox(
-                                                        height: 7.0.h,
-                                                        child: Container(
-                                                          // color: ThemeColor.psrimaryColor(context),
-                                                          child: TabBar(
-                                                            indicatorColor:
-                                                                ThemeColor
-                                                                    .ColorSale(),
-                                                            /* indicator: MD2Indicator(
+                                          onTap: (){
+                                            AppRoute.ImageFullScreenView(hero_tag: "image_profile_me",context: context,image:  info
+                                                .customerInfoRespone !=
+                                                null
+                                                ? info.customerInfoRespone
+                                                .image.length >
+                                                0
+                                                ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
+                                                : ''
+                                                : '');
+                                          }
+                                      ),
+                                      SizedBox(height: 2.0.h),
+                                      Text(
+                                          info.customerInfoRespone !=
+                                              null
+                                              ? info
+                                              .customerInfoRespone
+                                              .name
+                                              : "ฟาร์มมาร์เก็ต",
+                                          style: FunctionHelper
+                                              .FontTheme(
+                                              color:
+                                              Colors.white,
+                                              fontSize: SizeUtil
+                                                  .titleFontSize()
+                                                  .sp,
+                                              fontWeight:
+                                              FontWeight
+                                                  .bold))
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SliverList(
+                              delegate:
+                              SliverChildListDelegate(<Widget>[
+                                Container(
+                                  height: 180.0.w,
+                                  color: Colors.white,
+                                  child: DefaultTabController(
+                                    length: 2,
+                                    child: Container(
+                                      child: Column(
+                                        children: <Widget>[
+                                          // BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
+                                          //   builder: (_, count) {
+                                          //     return Center(
+                                          //       child: Text('${count.like}', style: Theme.of(context).textTheme.headline1),
+                                          //     );
+                                          //   },
+                                          // ),
+                                          SizedBox(
+                                            height: 7.0.h,
+                                            child: Container(
+                                              // color: ThemeColor.psrimaryColor(context),
+                                              child: TabBar(
+                                                indicatorColor:
+                                                ThemeColor
+                                                    .ColorSale(),
+                                                /* indicator: MD2Indicator(
                                   indicatorSize: MD2IndicatorSize.tiny,
                                   indicatorHeight: 5.0,
                                   indicatorColor: ThemeColor.ColorSale(),
                                 ),*/
-                                                            isScrollable: false,
-                                                            tabs: [
-                                                              _tabbar(
-                                                                  title: LocaleKeys
-                                                                      .me_tab_buy
-                                                                      .tr(),
-                                                                  message:
-                                                                      false),
-                                                              _tabbar(
-                                                                  title: LocaleKeys
-                                                                      .me_tab_shop
-                                                                      .tr(),
-                                                                  message:
-                                                                      false)
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-
-                                                      // create widgets for each tab bar here
-                                                      Expanded(
-                                                        child: TabBarView(
-                                                          children: [
-                                                            PurchaseView(
-                                                              IsLogin: IsLogin,
-                                                              item: info
-                                                                  .customerInfoRespone,
-                                                              onStatus: (bool
-                                                                  status) {
-                                                                if (status) {
-                                                                  Usermanager()
-                                                                      .getUser()
-                                                                      .then((value) =>
-                                                                          bloc.loadMyProfile(
-                                                                              token: value.token));
-                                                                }
-                                                              },
-                                                            ),
-                                                            MyshopView(
-                                                              IsLogin: IsLogin,
-                                                              scaffoldKey:
-                                                                  _scaffoldKey,
-                                                              customerInfoRespone:
-                                                                  info.customerInfoRespone,
-                                                              myShopRespone: info
-                                                                  .myShopRespone,
-                                                              onStatus: (bool
-                                                                  status) {
-                                                                if (status) {
-                                                                  Usermanager()
-                                                                      .getUser()
-                                                                      .then((value) =>
-                                                                          bloc.loadMyProfile(
-                                                                              token: value.token));
-                                                                }
-                                                              },
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
+                                                isScrollable: false,
+                                                tabs: [
+                                                  _tabbar(
+                                                      title: LocaleKeys
+                                                          .me_tab_buy
+                                                          .tr(),
+                                                      message:
+                                                      false),
+                                                  _tabbar(
+                                                      title: LocaleKeys
+                                                          .me_tab_shop
+                                                          .tr(),
+                                                      message:
+                                                      false)
+                                                ],
                                               ),
-                                            )
-                                          ]),
-                                        )
-                                      ],
-                                    );
-                                  } else {
-                                    return SizedBox();
-                                  }
-                                },
-                              )
-                            : LoginView(
-                                IsHeader: false,
-                                homeCallBack: (bool fix) {
-                                  _reload.add(true);
-                                },
-                              );
+                                            ),
+                                          ),
+
+                                          // create widgets for each tab bar here
+                                          Expanded(
+                                            child: TabBarView(
+                                              children: [
+                                                PurchaseView(
+                                                  IsLogin: IsLogin,
+                                                  item: info
+                                                      .customerInfoRespone,
+                                                  onStatus: (bool
+                                                  status) {
+                                                    if (status) {
+                                                      Usermanager()
+                                                          .getUser()
+                                                          .then((value) =>
+                                                          bloc.loadMyProfile(
+                                                              token: value.token));
+                                                    }
+                                                  },
+                                                ),
+                                                MyshopView(
+                                                  IsLogin: IsLogin,
+                                                  scaffoldKey:
+                                                  _scaffoldKey,
+                                                  customerInfoRespone:
+                                                  info.customerInfoRespone,
+                                                  myShopRespone: info
+                                                      .myShopRespone,
+                                                  onStatus: (bool
+                                                  status) {
+                                                    if (status) {
+                                                      Usermanager()
+                                                          .getUser()
+                                                          .then((value) =>
+                                                          bloc.loadMyProfile(
+                                                              token: value.token));
+                                                    }
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ]),
+                            )
+                          ],
+                        );
                       } else {
                         return SizedBox();
                       }
-                    }));
+                    },
+                  ): LoginView(
+                    IsHeader: false,
+                    homeCallBack: (bool fix) {
+                      _reload.add(true);
+                      IsLogin = fix;
+                    },
+                  ));
+            }else{
+              return SizedBox();
+            }
+          }),
+        );
+
           },
         ),
       ),
     );
   }
 
-  Widget _FormLogin() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 30,
-        ),
-        Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FlatButton(
-                minWidth: 40.0.w,
-                color: ThemeColor.ColorSale(),
-                textColor: Colors.white,
-                splashColor: Colors.white.withOpacity(0.3),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                onPressed: () async {
-                  NaiFarmLocalStorage.saveNowPage(3);
-                  final result =
-                      await AppRoute.Login(context, IsCallBack: true);
-                  if (result) {
-                    // Usermanager().getUser().then(
-                    //     (value){
-                    //       bloc.loadMyProfile(token: value.token);
-                    //     });
-                  } else {
-                    NaiFarmLocalStorage.saveNowPage(0);
-                  }
-                },
-                child: Text(
-                  LocaleKeys.login_btn.tr(),
-                  style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      fontWeight: FontWeight.w500),
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              FlatButton(
-                minWidth: 40.0.w,
-                color: ThemeColor.secondaryColor(),
-                textColor: Colors.white,
-                splashColor: Colors.white.withOpacity(0.3),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                onPressed: () async {
-                  AppRoute.Register(context);
-                },
-                child: Text(
-                  LocaleKeys.register_btn.tr(),
-                  style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      fontWeight: FontWeight.w500),
-                ),
-              )
-            ],
-          ),
-        )
-      ],
-    );
-  }
+  // Widget _FormLogin() {
+  //   return Column(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       SizedBox(
+  //         height: 30,
+  //       ),
+  //       Container(
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             FlatButton(
+  //               minWidth: 40.0.w,
+  //               color: ThemeColor.ColorSale(),
+  //               textColor: Colors.white,
+  //               splashColor: Colors.white.withOpacity(0.3),
+  //               shape: RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.circular(40.0),
+  //               ),
+  //               onPressed: () async {
+  //                 NaiFarmLocalStorage.saveNowPage(3);
+  //                 final result =
+  //                     await AppRoute.Login(context, IsCallBack: true);
+  //                 if (result) {
+  //                   // Usermanager().getUser().then(
+  //                   //     (value){
+  //                   //       bloc.loadMyProfile(token: value.token);
+  //                   //     });
+  //                 } else {
+  //                   NaiFarmLocalStorage.saveNowPage(0);
+  //                 }
+  //               },
+  //               child: Text(
+  //                 LocaleKeys.login_btn.tr(),
+  //                 style: FunctionHelper.FontTheme(
+  //                     fontSize: SizeUtil.titleFontSize().sp,
+  //                     fontWeight: FontWeight.w500),
+  //               ),
+  //             ),
+  //             SizedBox(
+  //               width: 20,
+  //             ),
+  //             FlatButton(
+  //               minWidth: 40.0.w,
+  //               color: ThemeColor.secondaryColor(),
+  //               textColor: Colors.white,
+  //               splashColor: Colors.white.withOpacity(0.3),
+  //               shape: RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.circular(40.0),
+  //               ),
+  //               onPressed: () async {
+  //                 AppRoute.Register(context);
+  //               },
+  //               child: Text(
+  //                 LocaleKeys.register_btn.tr(),
+  //                 style: FunctionHelper.FontTheme(
+  //                     fontSize: SizeUtil.titleFontSize().sp,
+  //                     fontWeight: FontWeight.w500),
+  //               ),
+  //             )
+  //           ],
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
 
   Widget _tabbar({String title, bool message}) {
     return Tab(

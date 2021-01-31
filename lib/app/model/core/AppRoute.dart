@@ -232,9 +232,9 @@ class AppRoute{
 
   }
 
-  static Future<bool>  Login(BuildContext context,{bool IsCallBack,  HomeObjectCombine item}) async {
+  static Future<bool>  Login(BuildContext context,{bool IsCallBack,  HomeObjectCombine item,Function(bool) homeCallBack,bool IsHeader}) async {
 
-    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LoginView(IsCallBack: IsCallBack,item: item,)));
+    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: LoginView(IsCallBack: IsCallBack,item: item,homeCallBack: homeCallBack,IsHeader: IsHeader,)));
   }
 
   static SettingHelp(BuildContext context){

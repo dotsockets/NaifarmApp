@@ -88,27 +88,25 @@ class _ShopMainViewState extends State<ShopMainView>
   @override
   Widget build(BuildContext context) {
     _init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppToobar(
-            title: "ร้านค้า",
-            header_type: Header_Type.barNormal,
-            icon: 'assets/images/svg/search.svg',
-          ),
-          body: StreamBuilder(
-            stream: bloc.onError.stream,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if(snapshot.hasData){
-                return ConnectErrorView(result: snapshot.data ,show_full: false,callback: (){
-                  Usermanager().getUser().then((value) => bloc.loadShop(shopid: widget.myShopRespone.id, token: value.token));
-                });
-              }else{
-                return _content;
-              }
-            },
-          )),
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        bottom: false,
+        child: Scaffold(
+            backgroundColor: Colors.white,
+            body: StreamBuilder(
+              stream: bloc.onError.stream,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if(snapshot.hasData){
+                  return ConnectErrorView(result: snapshot.data ,show_full: false,callback: (){
+                    Usermanager().getUser().then((value) => bloc.loadShop(shopid: widget.myShopRespone.id, token: value.token));
+                  });
+                }else{
+                  return _content;
+                }
+              },
+            )),
+      ),
     );
   }
 
@@ -117,79 +115,95 @@ class _ShopMainViewState extends State<ShopMainView>
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         var item = (snapshot.data as ZipShopObjectCombin);
         if (snapshot.hasData && item.productmyshop != null) {
-          return Container(
-            color: Colors.grey.shade300,
-            child: DefaultTabController(
-              length: 3,
-              child: NestedScrollView(
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
-                  return [
-                    SliverList(
-                      delegate: SliverChildListDelegate(<Widget>[
-                        ShopOwn(
-                          showBtn: false,
-                          shopItem: ShopItem(
-                              name: item.shopRespone.name,
-                              id: item.shopRespone.id,
-                              image: item.shopRespone.image,
-                              updatedAt: item.shopRespone.updatedAt,
-                              state: item.shopRespone.state),
-                          shopRespone: item.shopRespone,
+          return SafeArea(
+            child: Container(
+              color: Colors.grey.shade300,
+              child: DefaultTabController(
+                length: 3,
+                child: NestedScrollView(
+                  headerSliverBuilder:
+                      (BuildContext context, bool innerBoxIsScrolled) {
+                    return [
+                      SliverList(
+                        delegate: SliverChildListDelegate(<Widget>[
+                          AppToobar(
+                            title: "ร้านค้า",
+                            header_type: Header_Type.barNormal,
+                            icon: 'assets/images/svg/search.svg',
+                          ),
+                          ShopOwn(
+                            showBtn: false,
+                            shopItem: ShopItem(
+                                name: item.shopRespone.name,
+                                id: item.shopRespone.id,
+                                image: item.shopRespone.image,
+                                updatedAt: item.shopRespone.updatedAt,
+                                state: item.shopRespone.state),
+                            shopRespone: item.shopRespone,
 
-                        )
-                      ]),
-                    ),
-                  ];
-                },
-                body: Column(
-                  children: <Widget>[
-                    Container(
-                      color: Colors.white,
-                      child: TabBar(
-                        indicator: MD2Indicator(
-                          indicatorSize: MD2IndicatorSize.tiny,
-                          indicatorHeight: 5.0,
-                          indicatorColor: ThemeColor.primaryColor(),
-                        ),
-                        controller: tabController,
-                        tabs: [
-                          _tabbar(
-                              title: LocaleKeys.shop_title.tr(),
-                              index: 0),
-                          _tabbar(
-                              title: LocaleKeys.shop_category.tr(),
-                              index: 1),
-                          _tabbar(
-                              title: LocaleKeys.shop_detail.tr(),
-                              index: 2),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        controller: tabController,
-                        children: [
-                          Shop(
-                              productRespone:
-                              (snapshot.data as ZipShopObjectCombin)),
-                          CaregoryShopView(),
-                          ShopDetailsView(
-                            zipShopObjectCombin:
-                            (snapshot.data as ZipShopObjectCombin),
                           )
-                        ],
+                        ]),
                       ),
-                    )
-                  ],
+                    ];
+                  },
+                  body: Column(
+                    children: <Widget>[
+                      Container(
+                        color: Colors.white,
+                        child: TabBar(
+                          indicator: MD2Indicator(
+                            indicatorSize: MD2IndicatorSize.tiny,
+                            indicatorHeight: 5.0,
+                            indicatorColor: ThemeColor.primaryColor(),
+                          ),
+                          controller: tabController,
+                          tabs: [
+                            _tabbar(
+                                title: LocaleKeys.shop_title.tr(),
+                                index: 0),
+                            _tabbar(
+                                title: LocaleKeys.shop_category.tr(),
+                                index: 1),
+                            _tabbar(
+                                title: LocaleKeys.shop_detail.tr(),
+                                index: 2),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: TabBarView(
+                          controller: tabController,
+                          children: [
+                            Shop(
+                                productRespone:
+                                (snapshot.data as ZipShopObjectCombin)),
+                            CaregoryShopView(),
+                            ShopDetailsView(
+                              zipShopObjectCombin:
+                              (snapshot.data as ZipShopObjectCombin),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
           );
         } else {
-          return Center(child: Platform.isAndroid
-              ? CircularProgressIndicator()
-              : CupertinoActivityIndicator());
+          return Column(
+            children: [
+              AppToobar(
+                title: "ร้านค้า",
+                header_type: Header_Type.barNormal,
+                icon: 'assets/images/svg/search.svg',
+              ),
+              Expanded(child: Center(child: Platform.isAndroid
+                  ? CircularProgressIndicator()
+                  : CupertinoActivityIndicator()),)
+            ],
+          );
         }
       });
 

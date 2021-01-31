@@ -96,8 +96,8 @@ class ListMenuItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   FlutterSwitch(
-                    width: 13.0.w,
-                    toggleSize: 20,
+                    width: 14.0.w,
+                    height: 5.0.h,
                     activeColor: Colors.grey.shade200,
                     inactiveColor: Colors.grey.shade200,
                     toggleColor:
@@ -131,8 +131,8 @@ class ListMenuItem extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                               color: Colors.grey.withOpacity(opacityMessage))):
                       FlutterSwitch(
-                        width: 20,
-                        toggleSize: 20,
+                        width: 14.0.w,
+                        height: 5.0.h,
                         activeColor: Colors.grey.shade200,
                         inactiveColor: Colors.grey.shade200,
                         toggleColor:

@@ -218,7 +218,7 @@ class _MyshopViewState extends State<MyshopView> {
               icon: 'assets/images/svg/status_delivery.svg',
               title: LocaleKeys.me_menu_ship.tr(),
               onClick: (){AppRoute.MyShophistory(context,1,orderType: "myshop/orders");},
-              notification: count.sellOrder.delivered),
+              notification: count.sellOrder.unpaid),
           TabMenu(
             icon: 'assets/images/svg/status_delivery.svg',
             title: "Sending",

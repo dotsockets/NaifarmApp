@@ -145,7 +145,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
   Widget _BuildProduct({ProductMyShop item,int index}) {
     return InkWell(
       onTap: (){
-       AppRoute.ProductDetailShop(context,productImage: "myproduct_${index}", productItem: item);
+       AppRoute.ProductDetailShop(context,productImage: "myproduct_search_${index}", productItem: item);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 8),
@@ -167,22 +167,22 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                 color: Colors.black.withOpacity(0.2), width: 1),
                             borderRadius: BorderRadius.all(Radius.circular(10))),
                         child: Hero(
-                          tag: "myproduct_${index}",
+                          tag: "myproduct_search_${index}",
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(1.0.h),
                             child: CachedNetworkImage(
-                              width: 40.0.w,
-                              height: 30.0.w,
+                              width: 30.0.w,
+                              height: 35.0.w,
                               placeholder: (context, url) => Container(
-                                width: 40.0.w,
-                                height: 30.0.w,
+                                width: 30.0.w,
+                                height: 35.0.w,
                                 color: Colors.white,
-                                child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                                child: Lottie.asset(Env.value.loadingAnimaion, width: 30.0.w,
+                                  height: 35.0.w,),
                               ),
-                              fit: BoxFit.cover,
                               imageUrl: item.image!=null?"${Env.value.baseUrl}/storage/images/${item.image.isNotEmpty?item.image[0].path:''}":'',
-                              errorWidget: (context, url, error) => Container( width: 40.0.w,
-                                  height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                              errorWidget: (context, url, error) => Container(  width: 30.0.w,
+                                  height: 35.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                             ),
                           ),
                         ),

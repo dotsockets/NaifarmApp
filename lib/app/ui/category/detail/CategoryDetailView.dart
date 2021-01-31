@@ -100,7 +100,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
               content: Column(
                 children: [
 
-                  SizedBox(height: 1.2.h),
+                  SizedBox(height: 1.5.h),
                   StreamBuilder(
                     stream: bloc.ZipCategoryObject.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -108,6 +108,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                         return ProductLandscape(
                             showSeeMore: true,
                             SubFixId: 1,
+                            IsborderRadius: true,
                             productRespone: (snapshot.data as CategoryObjectCombin).goupProduct,
                             titleInto: LocaleKeys.tab_bar_recommend.tr(),
                             //  showBorder: true,

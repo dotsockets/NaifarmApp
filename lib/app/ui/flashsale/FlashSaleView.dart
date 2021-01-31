@@ -47,20 +47,20 @@ class _FlashSaleState extends State<FlashSale> {
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(top: 5.0.h),
+          margin: EdgeInsets.only(top: 3.0.h),
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(5.0.h),
-                  topLeft: Radius.circular(5.0.h)),
+                  topRight: Radius.circular(10.0.w),
+                  topLeft: Radius.circular(10.0.w)),
               border: Border.all(
                   width: 3, color: Colors.white, style: BorderStyle.solid)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 6.0.h),
+              SizedBox(height: 8.0.h),
               Center(child: _textSale(context: context)),
-              SizedBox(height: 2.0.h),
+              SizedBox(height: 2.5.h),
               OnFlashSale ? _flashProduct(context) : SizedBox()
             ],
           ),
@@ -141,7 +141,9 @@ class _FlashSaleState extends State<FlashSale> {
       borderRadius: BorderRadius.circular(1.0.h),
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(width: 2, color: Colors.grey.shade100)),
+            border: Border.all(width: 1, color: Colors.grey.shade200),
+
+        ),
         child: Stack(
           children: [
             Hero(
@@ -150,15 +152,16 @@ class _FlashSaleState extends State<FlashSale> {
                 borderRadius: BorderRadius.circular(0.5.h),
                 child: CachedNetworkImage(
                   width: 28.0.w,
-                  height: 28.0.w,
+                  height: 35.0.w,
                   placeholder: (context, url) => Container(
                     color: Colors.white,
-                    child: Lottie.asset(Env.value.loadingAnimaion, height: 28),
+                    child: Lottie.asset(Env.value.loadingAnimaion,  width: 28.0.w,
+                      height: 35.0.w,),
                   ),
-                  fit: BoxFit.cover,
                   imageUrl: ProductLandscape.CovertUrlImage(item.image),
                   errorWidget: (context, url, error) => Container(
-                      height: 28,
+                      width: 28.0.w,
+                      height: 35.0.w,
                       child: Icon(
                         Icons.error,
                         size: SizeUtil.titleSmallFontSize().sp,
@@ -209,7 +212,7 @@ class _FlashSaleState extends State<FlashSale> {
                     fontWeight: FontWeight.bold,
                     fontSize: SizeUtil.titleSmallFontSize().sp),
               )),
-          SizedBox(height: 0.8.h),
+          SizedBox(height: 1.0.h),
           Hero(
               tag: "productPrice_${index}",
               child: Row(
@@ -220,7 +223,7 @@ class _FlashSaleState extends State<FlashSale> {
                       ? Text("${item.salePrice}",
                           style: FunctionHelper.FontTheme(
                               color: Colors.grey,
-                              fontSize: SizeUtil.priceFontSize().sp - 2,
+                              fontSize: SizeUtil.priceFontSize().sp,
                               decoration: TextDecoration.lineThrough))
                       : SizedBox(),
                   SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
@@ -237,6 +240,7 @@ class _FlashSaleState extends State<FlashSale> {
                   ),
                 ],
               )),
+          SizedBox(height: 1.0.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -266,7 +270,7 @@ class _FlashSaleState extends State<FlashSale> {
                     padding: EdgeInsets.only(
                         left: 3.0.w, right: 2.0.w, bottom: 1.0.w, top: 1.0.w),
                     color: ThemeColor.ColorSale(),
-                    child: Text("${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():'0'} ${LocaleKeys.my_product_sold_end.tr()}" ,
+                    child: Text("${item.saleCount!=null?item.saleCount.toString():'0'} ${LocaleKeys.my_product_sold_end.tr()}" ,
                       style: FunctionHelper.FontTheme(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

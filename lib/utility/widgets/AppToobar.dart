@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,82 +71,115 @@ class AppToobar extends PreferredSize {
 
   Widget BarNormal(BuildContext context) {
     return Container(
-      child: AppBar(
-        leading: showBackBtn?IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white,size: 4.5.w,),
-          onPressed: () =>
-              onClick == null ? Navigator.of(context).pop() : onClick(),
-        ):SizedBox(),
-        actions: [
-          InkWell(
-            child: Container(
-              margin: EdgeInsets.only(right: 4.0.w,left: 4.0.w),
-              child: icon != ""
-                  ? SvgPicture.asset(
-                      icon,
-                      color: Colors.white,
-                      width: 7.5.w,
-                      height: 7.5.w,
-                    )
-                  : Container(
-                      child: SizedBox(
-                        width: 8.0.w,
-                      )),
-            ),
-            onTap: (){
-              Usermanager().getUser().then((value) {
-                if (value.token != null) {
-                  AppRoute.SearchHome(context);
-                } else {
-                  AppRoute.Login(context);
-                }
-              });
-            },
+      padding: EdgeInsets.only(left: 0, right: 0.3.w),
+      decoration: new BoxDecoration(
+        color: ThemeColor.primaryColor(),
+        // borderRadius:  IsborderRadius?BorderRadius.only(
+        //   topRight: const Radius.circular(30.0),
+        //   topLeft: const Radius.circular(30.0),
+        // ):BorderRadius.all(Radius.circular(0.0)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 3,
+            blurRadius: 3,
+            offset: Offset(0, 1), // changes position of shadow
           ),
         ],
-        backgroundColor: ThemeColor.primaryColor(),
-        title: Center(
-          child: Text(
-            title,
-            style: FunctionHelper.FontTheme(
-                color: Colors.black,
-                fontSize: SizeUtil.titleFontSize().sp,
-                fontWeight: FontWeight.bold),
-          ),
+      ),
+
+      child: SafeArea(
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                showBackBtn?IconButton(
+                  icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
+                  onPressed: (){
+                    onClick == null ? Navigator.of(context).pop() : onClick();
+                  },
+                ):SizedBox(width: 10.0.w,height: 10.0.w,),
+                Expanded(
+                  child: Container(
+                    child: Center(
+                      child: Text(
+                        title,
+                        style: FunctionHelper.FontTheme(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: SizeUtil.titleFontSize().sp),
+                      ),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.search_rounded,color: Colors.white,),
+                  onPressed: (){
+                    Usermanager().getUser().then((value) {
+                    if (value.token != null) {
+                    AppRoute.SearchHome(context);
+                    } else {
+                    AppRoute.Login(context);
+                    }
+                    });
+                  },
+                )
+
+              ],
+            ),
+
+
+          ],
         ),
       ),
     );
   }
 
+
+
   Widget BarCartShop(BuildContext context) {
     return Container(
-      child: AppBar(
-        leading: showBackBtn?IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white,size: 5.0.w,),
-          onPressed: () => Navigator.of(context).pop(),
-        ):SizedBox(),
-        actions: [
+      padding: EdgeInsets.only(left: 0, right: 0.3.w),
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                showBackBtn?IconButton(
+                  icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
+                  onPressed: (){
+                    onClick == null ? Navigator.of(context).pop() : onClick();
+                  },
+                ):SizedBox(width: 10.0.w,height: 10.0.w,),
+                Expanded(
+                  child: Container(
+                    child: Center(
+                      child: Text(
+                        title,
+                        style: FunctionHelper.FontTheme(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: SizeUtil.titleFontSize().sp),
+                      ),
+                    ),
+                  ),
+                ),
+                BuildIconShop()
 
-          Center(
-            child: Container(
-              margin: EdgeInsets.only(right: 1.0.w),
-              child: BuildIconShop(
-                size: 6.0.w
-              ),
+              ],
             ),
-          )
-        ],
-        backgroundColor: ThemeColor.primaryColor(),
-        title: Container(
-          child: Center(
-            child: Text(
-              title,
-              style: FunctionHelper.FontTheme(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: SizeUtil.titleFontSize().sp),
-            ),
-          ),
+
+            // setState(() {
+            //   _categoryselectedIndex = val;
+            //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
+            // });
+            //  Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+
+
+          ],
         ),
       ),
     );
@@ -170,9 +205,7 @@ class AppToobar extends PreferredSize {
               decoration: BoxDecoration(
                   color: ThemeColor.primaryColor(),
                   borderRadius: BorderRadius.all(Radius.circular(40))),
-              child: BuildIconShop(
-                size: 3.0.h,
-              ),
+              child: BuildIconShop(),
             )
           ],
         ),
@@ -225,41 +258,41 @@ class AppToobar extends PreferredSize {
 
   Widget BarHome(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-          top: 0.5.h,
-          bottom: 0.4.h,
-          left: isEnable_Search ? 15 : 10,
-          right: 0.3.w),
+      height: 13.0.h,
+      padding: EdgeInsets.only(left: 0, right: 0.3.w),
       color: ThemeColor.primaryColor(),
       child: SafeArea(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
           children: [
-            Visibility(
-              child: Container(
-                child: GestureDetector(
-                  child: SvgPicture.asset(
-                    'assets/images/svg/back_black.svg',
-                    color: Colors.white,
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
+                  onPressed: (){
+                    onClick == null ? Navigator.of(context).pop() : onClick();
                   },
                 ),
-              ),
-              visible: isEnable_Search ? false : true,
+                _buildSearch(context),
+                BuildIconShop()
+
+              ],
             ),
-            _buildSearch(isEnable_Search ? false : true, context),
-            BuildIconShop(
-              size: 6.5.w,
-            )
+
+                // setState(() {
+                //   _categoryselectedIndex = val;
+                //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
+                // });
+                //  Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+
+
           ],
         ),
       ),
     );
   }
 
-  Expanded _buildSearch(bool isEditable, BuildContext context) {
+  Expanded _buildSearch(BuildContext context) {
     /* final border = OutlineInputBorder(
       borderSide: const BorderSide(
         color: Colors.transparent,
@@ -276,61 +309,61 @@ class AppToobar extends PreferredSize {
     );*/
 
     return Expanded(
-        child: Container(
-      height: 5.0.h,
-      decoration: new BoxDecoration(
-          color: Colors.white,
-          borderRadius: new BorderRadius.all(Radius.circular(40.0))),
       child: Container(
-          padding: EdgeInsets.only(left: 5, right: 11,bottom: 3),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Visibility(
-                child: SvgPicture.asset(
-                  'assets/images/svg/search.svg',
-                  color: Colors.black,
-                  width: 5.0.w,
-                  height: 5.0.w,
-                ),
-                visible: isEnable_Search,
+        height: 5.2.h,
+        decoration: new BoxDecoration(
+        color: Colors.white,
+        borderRadius: new BorderRadius.all(Radius.circular(40.0))),
+        child: Container(
+        padding: EdgeInsets.only(left: 1, right: 11),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Visibility(
+              child: SvgPicture.asset(
+                'assets/images/svg/search.svg',
+                color: Colors.black,
+                width: 4.0.w,
+                height: 4.0.w,
               ),
-              Expanded(
-                  child: InkWell(
-                child: isEnable_Search
-                    ? SizedBox()
-                    : Container(
-                        padding: EdgeInsets.only(left: 15,bottom: 2),
-                        child: TextField(
-                          style: FunctionHelper.FontTheme(
-                              color: Colors.black,
+              visible: isEnable_Search,
+            ),
+            Expanded(
+                child: InkWell(
+              child: isEnable_Search
+                  ? SizedBox()
+                  : Container(
+                      padding: EdgeInsets.only(left: 4.0.w,bottom: 0.3.h),
+                      child: TextField(
+                        style: FunctionHelper.FontTheme(
+                            color: Colors.black,
+                            fontSize: SizeUtil.titleSmallFontSize().sp),
+                        decoration: InputDecoration(
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          hintText: hint,
+                          hintStyle: FunctionHelper.FontTheme(
+                              color: Colors.grey,
                               fontSize: SizeUtil.titleSmallFontSize().sp),
-                          enabled: isEditable,
-                          decoration: InputDecoration(
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            hintText: hint,
-                            hintStyle: FunctionHelper.FontTheme(
-                                color: Colors.grey,
-                                fontSize: SizeUtil.titleSmallFontSize().sp),
-                          ),
-                          onChanged: (String s) =>
-                              onSearch != null ? onSearch(s) : null,
                         ),
+                        onChanged: (String s) =>
+                            onSearch != null ? onSearch(s) : null,
                       ),
-                onTap: () {
-                  AppRoute.SearchHome(context);
-                },
-              )),
-              SvgPicture.asset(
-                'assets/images/svg/search_photo.svg',
-                color: Color(ColorUtils.hexToInt('#c7bfbf')),
-                width: 5.0.w,
-                height: 5.0.w,
-              )
-            ],
-          )),
-    ));
+                    ),
+              onTap: () {
+                AppRoute.SearchHome(context);
+              },
+            )),
+            SvgPicture.asset(
+              'assets/images/svg/search_photo.svg',
+              color: Color(ColorUtils.hexToInt('#c7bfbf')),
+              width: 5.0.w,
+              height: 5.0.w,
+            )
+          ],
+        )),
+      ),
+    );
   }
 
   Expanded _buildSearchMap(BuildContext context) {

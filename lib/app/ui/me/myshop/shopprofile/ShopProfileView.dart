@@ -132,14 +132,12 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     leading: Container(
                       margin: EdgeInsets.only(left: 10),
                       child: IconButton(
-                        icon: Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,size: 4.5.w
-                        ),
+                        icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
                         onPressed: (){
                           OnSave();
+
                         },
-                      ),
+                      )
                     ),
                     expandedHeight: 220,
                     flexibleSpace: FlexibleSpaceBar(

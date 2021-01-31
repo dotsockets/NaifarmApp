@@ -85,7 +85,6 @@ class _ProductSlideState extends State<ProductSlide> {
 
                 child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
               ),
-              fit: BoxFit.fill,
               imageUrl: item,
               errorWidget: (context, url, error) => Image.network(Env.value.noItemUrl,fit: BoxFit.cover),
             ),

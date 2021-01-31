@@ -40,13 +40,11 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
       margin: EdgeInsets.only(top: 2.0.h),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Container(
-          padding: EdgeInsets.only(
-              right: 2.0.w, left: 2.0.w, top: 2.0.w, bottom: 2.0.w),
+          padding: EdgeInsets.all(2.5.w),
           color: ThemeColor.ColorSale(),
           child: Row(
             mainAxisSize: MainAxisSize.min,

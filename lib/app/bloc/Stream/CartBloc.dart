@@ -396,6 +396,8 @@ class CartBloc {
     CheckOut.add(true);
     check_note_update = false;
   }
+
+
 }
 
 enum CartActive { CartList, CartDelete, CartUpdate }

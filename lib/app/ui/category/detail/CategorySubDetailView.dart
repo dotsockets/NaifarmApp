@@ -80,7 +80,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
               ),
               content: Column(
                 children: [
-
+                  SizedBox(height: 1.2.h),
                   StreamBuilder(
                     stream: bloc.TrendingGroup.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {

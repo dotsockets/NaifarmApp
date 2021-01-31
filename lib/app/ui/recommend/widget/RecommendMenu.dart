@@ -115,18 +115,39 @@ class RecommendMenu extends StatelessWidget {
       ),
     onTap: () {
       switch(item.page){
-        case  "ShopMyNear" : AppRoute.ShopMyNear(context);
+        case  "ShopMyNear" :{
+    FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+
+        //  AppRoute.ShopMyNear(context);
+        }
         break;
         case  "MarketView" :  AppRoute.ShopMain(context: context,myShopRespone: MyShopRespone(id: 1));
         break;
         case  "SpecialproductsView" : AppRoute.ProductMore(installData: homeObjectCombine.productRespone,api_link: "products/types/popular",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr());
         break;
         case  "NotiView" :  {
-          NaiFarmLocalStorage.saveNowPage(2);
-          AppRoute.MyNoti(context,true);
-          Usermanager().getUser().then((value){
-            bloc.MarkAsReadNotifications(token: value.token);
+
+          Usermanager().isLogin().then((value) async {
+            if(!value){
+              final result = await  AppRoute.Login(context,IsCallBack: true,IsHeader: true);
+              if(result){
+                Usermanager().getUser().then((value) async {
+                  NaiFarmLocalStorage.saveNowPage(2).then((data){
+                    bloc.MarkAsReadNotifications(token: value.token);
+                    AppRoute.MyNoti(context,true);
+                  });
+                });
+              }
+            }else{
+              Usermanager().getUser().then((value) async {
+                NaiFarmLocalStorage.saveNowPage(2).then((data){
+                  AppRoute.MyNoti(context,true);
+                });
+              });
+            }
           });
+
+
         }
         break;
         case  "MyLikeView" : {

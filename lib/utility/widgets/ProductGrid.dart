@@ -299,21 +299,20 @@ class _ProductGridState extends State<ProductGrid> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(1.0.h),
                       child: CachedNetworkImage(
-                        width: 30.0.w,
-                        height: 30.0.w,
+                        width: 28.0.w,
+                        height: 35.0.w,
                         placeholder: (context, url) => Container(
-                          width: 30.0.w,
-                          height: 30.0.w,
+                          width: 28.0.w,
+                          height: 35.0.w,
                           color: Colors.white,
                           child:
-                          Lottie.asset(Env.value.loadingAnimaion,    width: 30.0.w,
-                            height: 30.0.w,),
+                          Lottie.asset(Env.value.loadingAnimaion,   width: 28.0.w,
+                            height: 35.0.w,),
                         ),
-                        fit: BoxFit.cover,
                         imageUrl: ProductLandscape.CovertUrlImage(item.image),
                         errorWidget: (context, url, error) => Container(
-                            width: 30.0.w,
-                            height: 30.0.w,
+                            width: 28.0.w,
+                            height: 35.0.w,
                             child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                       ),
                     ),

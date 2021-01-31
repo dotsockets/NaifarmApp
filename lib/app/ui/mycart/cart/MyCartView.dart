@@ -5,18 +5,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
+import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
-import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
-import 'package:naifarm/app/models/CartModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -40,13 +40,14 @@ class MyCartView extends StatefulWidget {
 class _MyCartViewState extends State<MyCartView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CartBloc bloc;
-
+  NotiBloc bloc_noti;
 //    CartRequest cartReq = CartRequest();
 
   void _init() {
-    if (null == bloc) {
+    if (null == bloc && bloc_noti == null) {
 
       bloc = CartBloc(AppProvider.getApplication(context));
+      bloc_noti = NotiBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);
@@ -62,8 +63,11 @@ class _MyCartViewState extends State<MyCartView> {
         //  cartReq = event;
       });
 
-      Usermanager().getUser().then((value) =>
-          bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList));
+      Usermanager().getUser().then((value){
+        bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList);
+        bloc_noti.MarkAsReadNotifications(token: value.token,);
+      });
+
     }
 
 

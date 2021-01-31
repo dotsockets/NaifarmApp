@@ -32,9 +32,10 @@ class ProductLandscape extends StatelessWidget {
   final bool showPriceSale;
   final ProductRespone productRespone;
   final bool showSeeMore;
+  final bool IsborderRadius;
 final int SubFixId;
 
-  ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true, this.productRespone,this.showSeeMore=true, this.SubFixId}) : super(key: key);
+  ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true, this.productRespone,this.showSeeMore=true, this.SubFixId, this.IsborderRadius=false}) : super(key: key);
 
 
   @override
@@ -42,11 +43,27 @@ final int SubFixId;
 
     return SingleChildScrollView(
       child: Container(
+
         width: MediaQuery.of(context).size.width,
-        color: Colors.white,
+        decoration: new BoxDecoration(
+          color: Colors.white,
+            borderRadius:  IsborderRadius?BorderRadius.only(
+              topRight: const Radius.circular(30.0),
+              topLeft: const Radius.circular(30.0),
+            ):BorderRadius.all(Radius.circular(0.0)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 3,
+              blurRadius: 4,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            IsborderRadius?SizedBox(height: 10,):SizedBox(),
             _header_bar(),
             productRespone!=null?_flashProduct():SizedBox()
           ],
@@ -118,7 +135,7 @@ final int SubFixId;
       borderRadius: BorderRadius.circular(1.0.h),
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(width: 2,color: Colors.grey.shade200)
+            border: Border.all(width: 1,color: Colors.grey.shade200)
         ),
         child: Stack(
           children: [
@@ -128,14 +145,15 @@ final int SubFixId;
                 borderRadius: BorderRadius.circular(0.5.h),
                 child: CachedNetworkImage(
                   width: 28.0.w,
-                  height: 28.0.w,
+                  height: 35.0.w,
                   placeholder: (context, url) => Container(
                     color: Colors.white,
-                    child: Lottie.asset(Env.value.loadingAnimaion,height: 28),
+                    child: Lottie.asset(Env.value.loadingAnimaion,  width: 28.0.w,
+                        height: 35.0.w,),
                   ),
-                  fit: BoxFit.cover,
                   imageUrl: CovertUrlImage(item.image),
-                  errorWidget: (context, url, error) => Container(width: 28.0.w,height: 28.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                  errorWidget: (context, url, error) => Container(  width: 28.0.w,
+                      height: 35.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                 ),
               ),
             ),

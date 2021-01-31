@@ -30,6 +30,7 @@ import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
 
 class WishlistsView extends StatefulWidget {
@@ -82,31 +83,33 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
       top: false,
       child: Scaffold(
         key: _scaffoldKey,
-        appBar: AppToobar(title: LocaleKeys.me_title_likes.tr(),
-          header_type: Header_Type.barNormal,
-          icon: 'assets/images/svg/search.svg',),
         body: StreamBuilder(
           stream: bloc.Wishlists.stream,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               if ((snapshot.data as WishlistsRespone).total > 0) {
                 return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ClipRRect(
-                        child: Container(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width,
-                            color: Colors.white,
-                            child: Column(
-                              children: [
-                                _buildCardProduct(context: context)
-                              ],
-                            )),
-                      )
-                    ],
+                  child: StickyHeader(
+                    header: AppToobar(title: LocaleKeys.me_title_likes.tr(),
+                      header_type: Header_Type.barNormal,
+                      icon: 'assets/images/svg/search.svg',),
+                    content: Column(
+                      children: [
+                        ClipRRect(
+                          child: Container(
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width,
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  _buildCardProduct(context: context)
+                                ],
+                              )),
+                        )
+                      ],
+                    ),
                   ),
                 );
               } else {
@@ -128,9 +131,16 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                 );
               }
             } else {
-              return Center(child:  Platform.isAndroid
-                  ? CircularProgressIndicator()
-                  : CupertinoActivityIndicator(),);
+              return Column(
+                children: [
+                  AppToobar(title: LocaleKeys.me_title_likes.tr(),
+                    header_type: Header_Type.barNormal,
+                    icon: 'assets/images/svg/search.svg',),
+                  Expanded(child: Center(child: Platform.isAndroid
+                      ? CircularProgressIndicator()
+                      : CupertinoActivityIndicator()),)
+                ],
+              );
             }
           },
         ),
@@ -247,28 +257,28 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                       .width,
                   decoration: BoxDecoration(
                       border: Border.all(
-                          color: Colors.black.withOpacity(0.2), width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                          color: Colors.black.withOpacity(0.1), width: 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Hero(
                     tag: "wishlist_${item.id}",
                     child: CachedNetworkImage(
-                      width: 120,
-                      height: 150,
+                      width: 28.0.w,
+                      height: 35.0.w,
                       placeholder: (context, url) =>
                           Container(
-                            width: 120,
-                            height: 150,
+                            width: 28.0.w,
+                            height: 35.0.w,
                             color: Colors.white,
                             child:
-                            Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                            Lottie.asset(Env.value.loadingAnimaion,    width: 28.0.w,
+                              height: 35.0.w,),
                           ),
-                      fit: BoxFit.cover,
                       imageUrl: ProductLandscape.CovertUrlImage(
                           item.product.image),
                       errorWidget: (context, url, error) =>
                           Container(
-                              width: 120,
-                              height: 150,
+                              width: 28.0.w,
+                              height: 35.0.w,
                               child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                     ),
                   ),

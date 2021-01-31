@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:basic_utils/basic_utils.dart';
 import 'package:dio/dio.dart';
@@ -178,9 +179,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: ThemeColor.primaryColor(),
-          borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(40),
-              bottomLeft: Radius.circular(40)),
+          borderRadius: BorderRadius.only(bottomRight:  Radius.circular(20.0.w),bottomLeft: Radius.circular(20.0.w)),
         ),
         child: Column(
           children: [
@@ -199,20 +198,20 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     return Container(
       decoration: BoxDecoration(
         color: ThemeColor.primaryColor(),
-        borderRadius: BorderRadius.only(bottomRight:  Radius.circular(40),bottomLeft: Radius.circular(40)),
+        borderRadius: BorderRadius.only(bottomRight:  Radius.circular(20.0.w),bottomLeft: Radius.circular(20.0.w)),
       ),
       width: MediaQuery.of(context).size.width,
       child:Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-            child: Container(
-              margin: EdgeInsets.only(left: 2.0.w,top: 2.0.w),
-              child: IconButton(
-                icon: Icon(Icons.arrow_back_ios,color: Colors.white,size: 4.5.w,),
-              ),
+          Container(
+            margin: EdgeInsets.only(left: 2.0.w,top: 2.0.w),
+            child: IconButton(
+              icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
+              onPressed: (){
+                Navigator.pop(context, false);
+              },
             ),
-            onTap: ()=>Navigator.pop(context, false),
           ),
           _BuildHeader(context),
         ],

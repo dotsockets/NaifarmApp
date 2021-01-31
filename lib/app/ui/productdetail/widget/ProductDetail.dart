@@ -119,7 +119,7 @@ class _ProductDetailState extends State<ProductDetail> {
           Divider(
             color: Colors.black.withOpacity(0.5),
           ),
-          Stack(
+          widget.productItem.description!=null?Stack(
             children: [
               Container(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 8),
@@ -169,7 +169,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ))
                   : SizedBox(),
             ],
-          )
+          ):SizedBox()
         ],
       ),
     );

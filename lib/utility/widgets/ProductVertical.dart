@@ -35,7 +35,21 @@ class ProductVertical extends StatelessWidget {
       borderRadius: BorderRadius.only(topLeft: Radius.circular(borderRadius?40:0),topRight:  Radius.circular(borderRadius?40:0)),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        color: Colors.white,
+        decoration: new BoxDecoration(
+          color: Colors.white,
+          // borderRadius:  IsborderRadius?BorderRadius.only(
+          //   topRight: const Radius.circular(30.0),
+          //   topLeft: const Radius.circular(30.0),
+          // ):BorderRadius.all(Radius.circular(0.0)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 3,
+              blurRadius: 4,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
         child: Column(
           children: [
             _header_bar(),
@@ -107,17 +121,16 @@ class ProductVertical extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(1.0.h),
                             child: CachedNetworkImage(
-                              width: 25.0.w,
-                              height: 25.0.w,
+                              width: 28.0.w,
+                              height: 35.0.w,
                               placeholder: (context, url) => Container(
                                 color: Colors.white,
-                                child: Lottie.asset(Env.value.loadingAnimaion,  width: 25.0.w,
-                                  height: 25.0.w,),
+                                child: Lottie.asset(Env.value.loadingAnimaion,   width: 28.0.w,
+                                  height: 35.0.w,),
                               ),
-                              fit: BoxFit.cover,
                               imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                              errorWidget: (context, url, error) => Container(  width: 25.0.w,
-                                  height: 25.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                              errorWidget: (context, url, error) => Container(    width: 28.0.w,
+                                  height: 35.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                             ),
                           ),
                         ),

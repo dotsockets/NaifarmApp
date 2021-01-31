@@ -1,9 +1,9 @@
+
 import 'package:audioplayers/audio_cache.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
@@ -97,9 +97,10 @@ class _RecommendViewState extends State<RecommendView> {
             children: <Widget>[
               AnimatedBuilder(
                 animation: controller,
-                builder: (BuildContext context, Widget _) {
+                builder: (BuildContext context, Widget _)  {
                  if (controller.state == IndicatorState.complete) {
                     AudioCache().play("sound/Click.mp3");
+
                     Vibration.vibrate(duration: 500);
                   }
                   return Stack(
@@ -174,6 +175,7 @@ class _RecommendViewState extends State<RecommendView> {
                                       RecommendMenu(
                                           homeObjectCombine: (snapshot.data
                                               as HomeObjectCombine)),
+                                      SizedBox(height: 1.0.h,),
                                       FlashSale(
                                           flashsaleRespone: (snapshot.data
                                                   as HomeObjectCombine)

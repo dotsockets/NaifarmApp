@@ -36,18 +36,20 @@ class _HomeHeaderState extends State<HomeHeader> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  margin: EdgeInsets.only(left: 3.0.w, right: 1.8.w),
-                  child: Icon(
+                IconButton(
+                  icon: Icon(
                     Icons.qr_code_scanner_sharp,
                     color: Colors.white,
                     size: 6.0.w,
                   ),
+        onPressed: (){
+          FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+        },
                 ),
                 Expanded(
-                    child: GestureDetector(
+                    child: InkWell(
                       child: Container(
-                  height: 5.0.h,
+                        height: 5.2.h,
                   decoration: new BoxDecoration(
                         color: Colors.white,
                         borderRadius:
@@ -75,7 +77,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                                       viewportFraction: 0.8,
                                       initialPage: 0,
                                       autoPlay: true,
-                                      autoPlayInterval: Duration(seconds: 4),
+                                      autoPlayInterval: Duration(seconds: 6),
                                       autoPlayAnimationDuration:
                                           Duration(milliseconds: 1200),
                                       autoPlayCurve: Curves.fastOutSlowIn,
@@ -90,7 +92,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                                                 style: FunctionHelper.FontTheme(
                                                     color: Colors.grey.shade400,
                                                     fontSize:
-                                                        SizeUtil.titleFontSize().sp,
+                                                        SizeUtil.titleSmallFontSize().sp,
                                                     fontWeight: FontWeight.w500),overflow: TextOverflow.ellipsis,),
                                           );
                                         },
@@ -111,9 +113,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                       AppRoute.SearchHome(context);
                     },)
                 ),
-                BuildIconShop(
-                  size: 6.5.w,
-                )
+                BuildIconShop()
 
               ],
             ),

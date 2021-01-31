@@ -8,7 +8,7 @@ class SizeUtil {
     return Device.get().isPhone ? 20 : 80;
   }
   static double priceFontSize() {
-    return Device.get().isPhone ? 14 : 70;
+    return Device.get().isPhone ? 13 : 70;
   }
 
   static double titleFontSize() {

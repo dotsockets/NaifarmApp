@@ -103,20 +103,17 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
               slivers: [
                 SliverAppBar(
                   leading: Container(
-                    margin: EdgeInsets.only(left: 15),
-                    child: GestureDetector(
-                      child: Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,size: 5.0.w
-                      ),
-                      onTap: (){
+                    margin: EdgeInsets.only(left: 10),
+                    child: IconButton(
+                      icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
+                      onPressed: (){
                         if(onUpdate){
                           Usermanager().getUser().then((value) =>  bloc.ModifyProfile(data: itemInfo,token: value.token,onload: false));
                         }
-                         Navigator.pop(context,onImageUpdate);
+                        Navigator.pop(context,onImageUpdate);
 
                       },
-                    ),
+                    )
                   ),
                   expandedHeight: 220,
                   flexibleSpace: FlexibleSpaceBar(

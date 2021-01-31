@@ -109,10 +109,10 @@ class SearchHot extends StatelessWidget {
         width: (MediaQuery.of(context).size.width/2),
         decoration: BoxDecoration(
             border: Border(
-                top: BorderSide(width: index<2?2:0, color: Colors.grey.shade200),
-                bottom: BorderSide(width: 2, color: Colors.grey.shade200),
-                right: BorderSide(width: 2, color: Colors.grey.shade200),
-                left: BorderSide(width: index == 0 ? 2 : 0, color: Colors.grey.shade200))),
+                top: BorderSide(width: index<2?1:0, color: Colors.grey.shade200),
+                bottom: BorderSide(width: 1, color: Colors.grey.shade200),
+                right: BorderSide(width: 1, color: Colors.grey.shade200),
+                left: BorderSide(width: index == 0 ? 1 : 0, color: Colors.grey.shade200))),
         child: Row(
           children: [
             Hero(
@@ -126,7 +126,6 @@ class SearchHot extends StatelessWidget {
                   color: Colors.white,
                   child: Lottie.asset(Env.value.loadingAnimaion, height: 20.0.w),
                 ),
-                fit: BoxFit.cover,
                 imageUrl: "${Env.value.baseUrl}/storage/images/${item.image.length!=0?item.image[0].path:""}",
                 errorWidget: (context, url, error) => Container(
                     width: 20.0.w,
