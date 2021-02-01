@@ -200,6 +200,7 @@ class _MyProductViewState extends State<MyProductView> {
     return Container(
      margin: EdgeInsets.all(2.0.w),
         width: 50.0.w,
+        height: 5.0.h,
         child: FlatButton(
           color: ThemeColor.secondaryColor(),
           textColor: Colors.white,

@@ -66,8 +66,8 @@ class _SearchMyProductState extends State<SearchMyProduct> {
   Widget build(BuildContext context) {
     _init();
     return Container(
+      color: ThemeColor.primaryColor(),
       child: SafeArea(
-        top: false,
         child: Scaffold(
           key: _scaffoldKey,
           appBar: AppToobar(

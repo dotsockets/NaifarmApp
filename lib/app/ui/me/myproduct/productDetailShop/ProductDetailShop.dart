@@ -70,92 +70,94 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar:  AppToobar(
-          title: LocaleKeys.me_title_my_product.tr(),
-          icon: "",
-          header_type: Header_Type.barNormal,
-        ),
-        body: Container(
-          color: Colors.grey.shade300,
-          child: Column(
-            children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Column(
-                            children: [
-                              _BuildTitle(),
-                              SizedBox(
-                                height: 1.0.h,
-                              ),
-                              SizedBox(
-                                height: 1.0.h,
-                              ),
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar:  AppToobar(
+            title: LocaleKeys.me_title_my_product.tr(),
+            icon: "",
+            header_type: Header_Type.barNormal,
+          ),
+          body: Container(
+            color: Colors.grey.shade300,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Stack(
+                    children: [
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Column(
+                              children: [
+                                _BuildTitle(),
+                                SizedBox(
+                                  height: 1.0.h,
+                                ),
+                                SizedBox(
+                                  height: 1.0.h,
+                                ),
 
-                              StreamBuilder(
-                                  stream: bloc.onSuccess.stream,
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot snapshot) {
-                                    if (snapshot.hasData) {
-                                      var item = (snapshot.data as ProductMyShopRespone);
-                                      return Column(
-                                        children: [
-                                          InkWell(
-                                            child: ShopOwn(
-                                              shopItem: ShopItem(rating: widget.productItem.rating,
-                                                name: widget.productItem.shop!=null?widget.productItem.shop.name:"-",
-                                                id: widget.productItem.shop!=null?widget.productItem.shop.id:0,
-                                                updatedAt: widget.productItem.shop!=null?widget.productItem.shop.updatedAt:"",
-                                                slug: widget.productItem.shop!=null?widget.productItem.shop.slug:"-",
-                                                image: imgShopList(item: item),state: DataStates(name:item.shop.state.name,id: item.shop.state.id),
-                                                countProduct: item.shop.countProduct
-                                                ,//state:  DataStates(id: widget.productItem.shop.state.id,name: widget.productItem.shop.state.name)
+                                StreamBuilder(
+                                    stream: bloc.onSuccess.stream,
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot snapshot) {
+                                      if (snapshot.hasData) {
+                                        var item = (snapshot.data as ProductMyShopRespone);
+                                        return Column(
+                                          children: [
+                                            InkWell(
+                                              child: ShopOwn(
+                                                shopItem: ShopItem(rating: widget.productItem.rating,
+                                                  name: widget.productItem.shop!=null?widget.productItem.shop.name:"-",
+                                                  id: widget.productItem.shop!=null?widget.productItem.shop.id:0,
+                                                  updatedAt: widget.productItem.shop!=null?widget.productItem.shop.updatedAt:"",
+                                                  slug: widget.productItem.shop!=null?widget.productItem.shop.slug:"-",
+                                                  image: imgShopList(item: item),state: DataStates(name:item.shop.state.name,id: item.shop.state.id),
+                                                  countProduct: item.shop.countProduct
+                                                  ,//state:  DataStates(id: widget.productItem.shop.state.id,name: widget.productItem.shop.state.name)
+                                                ),
+                                                shopRespone:
+                                                MyShopRespone(id: widget.productItem.shop!=null?widget.productItem.shop.id:0),
                                               ),
-                                              shopRespone:
-                                              MyShopRespone(id: widget.productItem.shop!=null?widget.productItem.shop.id:0),
+                                              onTap: () {
+                                                AppRoute.ShopMain(
+                                                    context: context,
+                                                    myShopRespone: MyShopRespone(
+                                                        id: widget.productItem.shop.id));
+                                              },
                                             ),
-                                            onTap: () {
-                                              AppRoute.ShopMain(
-                                                  context: context,
-                                                  myShopRespone: MyShopRespone(
-                                                      id: widget.productItem.shop.id));
-                                            },
-                                          ),
-                                          SizedBox(
-                                            height: 1.0.h,
-                                          ),
-                                          Container(
-                                              color: Colors.white,
-                                              child: ProductDetail(
-                                                  productItem: ProducItemRespone(
-                                                      shopId: item.shopId,
-                                                      inventories: inventoryList(item: item),
-                                                      description: item.description!= null?item.description:"-")
-                                              )
-                                          )
-                                        ],
-                                      );
-                                    } else {
-                                      return Text("");
-                                    }
-                                  }),
+                                            SizedBox(
+                                              height: 1.0.h,
+                                            ),
+                                            Container(
+                                                color: Colors.white,
+                                                child: ProductDetail(
+                                                    productItem: ProducItemRespone(
+                                                        shopId: item.shopId,
+                                                        inventories: inventoryList(item: item),
+                                                        description: item.description!= null?item.description:"-")
+                                                )
+                                            )
+                                          ],
+                                        );
+                                      } else {
+                                        return Text("");
+                                      }
+                                    }),
 
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
