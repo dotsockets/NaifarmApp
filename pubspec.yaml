@@ -81,7 +81,7 @@ dependencies:
   flutter_bloc: ^6.1.1
   multi_image_picker: ^4.7.10
   audioplayers: ^0.17.2
-  
+  flutter_slidable: ^0.5.7
 
 
 dev_dependencies:

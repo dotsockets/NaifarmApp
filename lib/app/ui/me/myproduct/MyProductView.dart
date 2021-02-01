@@ -231,7 +231,6 @@ class _MyProductViewState extends State<MyProductView> {
     return InkWell(
       onTap: (){
         AppRoute.ProductDetailShop(context,productImage: "myproduct_${index}", productItem: item);
-
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 8),
