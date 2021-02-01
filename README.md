@@ -11,7 +11,7 @@ A few resources to get you started if this is your first Flutter project:
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-flutter build apk --flavor development  -t lib/config/Main_development.dart
+flutter build apk   --build-name=0.0.1 --build-number=1 --flavor development  -t lib/config/Main_development.dart
 
 
 For help getting started with Flutter, view our

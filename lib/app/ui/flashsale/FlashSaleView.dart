@@ -61,7 +61,8 @@ class _FlashSaleState extends State<FlashSale> {
               SizedBox(height: 8.0.h),
               Center(child: _textSale(context: context)),
               SizedBox(height: 2.5.h),
-              OnFlashSale ? _flashProduct(context) : SizedBox()
+              OnFlashSale ? _flashProduct(context) : SizedBox(),
+              SizedBox(height: 2.5.h),
             ],
           ),
         ),
@@ -76,7 +77,6 @@ class _FlashSaleState extends State<FlashSale> {
   Widget _textSale({BuildContext context}) {
     return InkWell(
       child: Container(
-        margin: EdgeInsets.only(bottom: 1.0.h),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

@@ -44,51 +44,53 @@ class _OrderViewState extends State<OrderView> {
   @override
   Widget build(BuildContext context) {
     init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        backgroundColor: Colors.grey.shade200,
-        appBar: AppToobar(
-          title: LocaleKeys.order_detail_title.tr(),
-          header_type: Header_Type.barNormal,
-          icon: '',
-        ),
-        body: StreamBuilder(
-          stream: bloc.feedList,
-          builder: (BuildContext context,AsyncSnapshot snapshot){
-            if(snapshot.hasData){
-              var item = (snapshot.data as OrderData);
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.grey.shade200,
+          appBar: AppToobar(
+            title: LocaleKeys.order_detail_title.tr(),
+            header_type: Header_Type.barNormal,
+            icon: '',
+          ),
+          body: StreamBuilder(
+            stream: bloc.feedList,
+            builder: (BuildContext context,AsyncSnapshot snapshot){
+              if(snapshot.hasData){
+                var item = (snapshot.data as OrderData);
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _HeaderStatus(context: context,orderData: item),
-                          _labelText(title: LocaleKeys.order_detail_ship_addr.tr()),
-                          _addtess_recive(context: context,orderData: item),
-                          _labelText(title: LocaleKeys.order_detail_ship_data.tr()),
-                          item.shippingRate!=null?_Shipping_information(context: context,orderData: item):SizedBox(),
-                          SizedBox(height: 15,),
-                          item.shippingRate!=null?_Order_number_information(context: context,orderData: item,sumTotal: SumTotal(item.items),rate_delivery: item.shippingRate.rate):SizedBox(),
-                          _labelText(title: LocaleKeys.order_detail_payment.tr()),
-                          _payment_info(context: context,orderData: item),
-                          SizedBox(height: 15,),
-                          _Timeline_order(context: context,orderData: item)
-                        ],
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _HeaderStatus(context: context,orderData: item),
+                            _labelText(title: LocaleKeys.order_detail_ship_addr.tr()),
+                            _addtess_recive(context: context,orderData: item),
+                            _labelText(title: LocaleKeys.order_detail_ship_data.tr()),
+                            item.shippingRate!=null?_Shipping_information(context: context,orderData: item):SizedBox(),
+                            SizedBox(height: 15,),
+                            item.shippingRate!=null?_Order_number_information(context: context,orderData: item,sumTotal: SumTotal(item.items),rate_delivery: item.shippingRate.rate):SizedBox(),
+                            _labelText(title: LocaleKeys.order_detail_payment.tr()),
+                            _payment_info(context: context,orderData: item),
+                            SizedBox(height: 15,),
+                            _Timeline_order(context: context,orderData: item)
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  _ButtonActive(context: context,orderData: item),
-                ],
-              );
-            }else{
-              return SizedBox();
-            }
-          },
+                    _ButtonActive(context: context,orderData: item),
+                  ],
+                );
+              }else{
+                return SizedBox();
+              }
+            },
+          ),
         ),
       ),
     );
@@ -97,7 +99,7 @@ class _OrderViewState extends State<OrderView> {
   Widget _HeaderStatusText({OrderData orderData}){
       return Container(
         width: 70.0.w,
-        height: 8.0.h,
+        height: 6.0.h,
         margin: EdgeInsets.only(top: 20),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
@@ -427,10 +429,11 @@ class _OrderViewState extends State<OrderView> {
     
       return Center(
         child: Container(
-          padding: EdgeInsets.all(1.0.w),
+          padding: EdgeInsets.all(1.5.w),
           child: Center(
             child: FlatButton(
               minWidth: 50.0.w,
+              height: 5.0.h,
               color:  ThemeColor.ColorSale() ,
               textColor: Colors.white,
               splashColor: Colors.white.withOpacity(0.3),
