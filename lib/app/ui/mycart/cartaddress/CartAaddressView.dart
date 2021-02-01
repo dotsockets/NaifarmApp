@@ -68,49 +68,51 @@ class _CartAaddressViewState extends State<CartAaddressView> {
           Navigator.pop(context, onUpdate);
           return true;
         },
-      child: SafeArea(
-          top: false,
-          child: Scaffold(
-              backgroundColor: Colors.grey.shade300,
-              key: _scaffoldKey,
-              appBar: AppToobar(
-                title: LocaleKeys.setting_account_title_address.tr(),
-                header_type: Header_Type.barNormal,
-                icon: "",
-                onClick: ()=> Navigator.pop(context, onUpdate),
-              ),
-              body: Container(
-                child: StreamBuilder(
-                    stream: bloc.AddressList.stream,
-                    builder: (context, snapshot) {
-                      var item = (snapshot.data as AddressesListRespone);
-                      if (snapshot.hasData && item.data!=null) {
+      child: Container(
+        color: ThemeColor.primaryColor(),
+        child: SafeArea(
+            child: Scaffold(
+                backgroundColor: Colors.grey.shade300,
+                key: _scaffoldKey,
+                appBar: AppToobar(
+                  title: LocaleKeys.setting_account_title_address.tr(),
+                  header_type: Header_Type.barNormal,
+                  icon: "",
+                  onClick: ()=> Navigator.pop(context, onUpdate),
+                ),
+                body: Container(
+                  child: StreamBuilder(
+                      stream: bloc.AddressList.stream,
+                      builder: (context, snapshot) {
+                        var item = (snapshot.data as AddressesListRespone);
+                        if (snapshot.hasData && item.data!=null) {
 
-                        return SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Column(
-                                children: item.data
-                                    .asMap()
-                                    .map((index, value) {
-                                      return MapEntry(index,
-                                          _BuildCard(item: value, index: index));
-                                    })
-                                    .values
-                                    .toList(),
-                              ),
-                              SizedBox(
-                                height: 2.0.h,
-                              ),
-                              _buildBtnAddProduct(),
-                            ],
-                          ),
-                        );
-                      } else {
-                        return SizedBox();
-                      }
-                    }),
-              ))),
+                          return SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Column(
+                                  children: item.data
+                                      .asMap()
+                                      .map((index, value) {
+                                        return MapEntry(index,
+                                            _BuildCard(item: value, index: index));
+                                      })
+                                      .values
+                                      .toList(),
+                                ),
+                                SizedBox(
+                                  height: 2.0.h,
+                                ),
+                                _buildBtnAddProduct(),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      }),
+                ))),
+      ),
     );
   }
 

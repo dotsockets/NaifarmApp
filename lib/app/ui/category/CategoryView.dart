@@ -46,13 +46,11 @@ class _CategoryViewState extends State<CategoryView> {
     return Scaffold(
 
       backgroundColor: Colors.white,
+    appBar: AppToobar(showBackBtn: false,header_type: Header_Type.barcartShop,icon: 'assets/images/svg/cart_top.svg',title:"Product Type"),
     body: SingleChildScrollView(
-      child: StickyHeader(
-        header: AppToobar(showBackBtn: false,header_type: Header_Type.barcartShop,icon: 'assets/images/svg/cart_top.svg',title:"Product Type"),
-        content: Container(
-            color: Colors.white,
-            child: _content(context: context)
-        ),
+      child: Container(
+          color: Colors.white,
+          child: _content(context: context)
       ),
     ),
     );

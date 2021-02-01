@@ -119,13 +119,23 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Lottie.asset('assets/json/boxorder.json',
-                          height: 70.0.w, width: 70.0.w, repeat: false),
-                      Text(
-                        "ไม่พบข้อมูล",
-                        style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
-                      )
+                      AppToobar(title: LocaleKeys.me_title_likes.tr(),
+                        header_type: Header_Type.barNormal,
+                        icon: 'assets/images/svg/search.svg',),
+                     Expanded(
+                       child:  Column(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+                           Lottie.asset('assets/json/boxorder.json',
+                               height: 70.0.w, width: 70.0.w, repeat: false),
+                           Text(
+                             "ไม่พบข้อมูล",
+                             style: FunctionHelper.FontTheme(
+                                 fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
+                           )
+                         ],
+                       ),
+                     )
                     ],
                   ),
                 );

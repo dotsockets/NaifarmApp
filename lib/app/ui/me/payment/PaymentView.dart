@@ -44,41 +44,43 @@ class _PaymentViewState extends State<PaymentView> {
   @override
   Widget build(BuildContext context) {
     init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppToobar(title: LocaleKeys.me_title_payment.tr(),icon: "",header_type:  Header_Type.barNormal,),
-        body:  Container(
-          color: Colors.grey.shade300,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: AppToobar(title: LocaleKeys.me_title_payment.tr(),icon: "",header_type:  Header_Type.barNormal,),
+          body:  Container(
+            color: Colors.grey.shade300,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
 
-                StreamBuilder(
-                  stream: bloc.ZipPaymentObject.stream,
-                  builder: (BuildContext context,AsyncSnapshot snapshot){
-                    if(snapshot.hasData ){
-                      return Column(
-                        children: List.generate((snapshot.data as PaymentObjectCombine).paymentRespone.total, (index){
-                          return Column(
-                            children: [
-                              _BuildDelivery(nameDeli: (snapshot.data as PaymentObjectCombine).paymentRespone.data[index].name,item: (snapshot.data as PaymentObjectCombine).paymentRespone.data[index]),
-                              Container(height: 1,color: Colors.grey.shade300,),
-                            ],
-                          );
-                        }),
-                      );
-                    }else{
-                      return Skeleton.LoaderList(context);
-                    }
-                  },
-                ),
+                  StreamBuilder(
+                    stream: bloc.ZipPaymentObject.stream,
+                    builder: (BuildContext context,AsyncSnapshot snapshot){
+                      if(snapshot.hasData ){
+                        return Column(
+                          children: List.generate((snapshot.data as PaymentObjectCombine).paymentRespone.total, (index){
+                            return Column(
+                              children: [
+                                _BuildDelivery(nameDeli: (snapshot.data as PaymentObjectCombine).paymentRespone.data[index].name,item: (snapshot.data as PaymentObjectCombine).paymentRespone.data[index]),
+                                Container(height: 1,color: Colors.grey.shade300,),
+                              ],
+                            );
+                          }),
+                        );
+                      }else{
+                        return Skeleton.LoaderList(context);
+                      }
+                    },
+                  ),
 
-              ],
+                ],
+              ),
             ),
-          ),
 
+          ),
         ),
       ),
     );

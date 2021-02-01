@@ -8,6 +8,7 @@ import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
@@ -48,8 +49,8 @@ class _SearchViewState extends State<SearchView> {
   Widget build(BuildContext context) {
     _init();
     return Container(
+      color: ThemeColor.primaryColor(),
       child: SafeArea(
-        top: false,
         child: Scaffold(
           body: SingleChildScrollView(
             child: StickyHeader(

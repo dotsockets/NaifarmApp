@@ -217,7 +217,7 @@ class _RecommendViewState extends State<RecommendView> {
                                       onTapItem: (ProductData item, int index) {
                                         AppRoute.ProductDetail(context,
                                             productImage:
-                                                "product_hot_${index}",
+                                                "product_hot_${item.id}1",
                                             productItem: ProductBloc
                                                 .ConvertDataToProduct(
                                                     data: item));

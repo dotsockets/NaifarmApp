@@ -119,10 +119,10 @@ class ProductBloc{
   }
 
   GetMyWishlists({String token}){
-    onLoad.add(true);
+    //onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.GetMyWishlists(token: token)).listen((respone) {
-      onLoad.add(false);
+     // onLoad.add(false);
       if(respone.http_call_back.status==200){
 
         Wishlists.add((respone.respone as WishlistsRespone));
@@ -241,7 +241,7 @@ class ProductBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.DELETEWishlists(WishId: WishId,token: token)).listen((respone) {
      // Wishlists.add((respone.respone as WishlistsRespone));
-      GetMyWishlists(token: token);
+      //GetMyWishlists(token: token);
       if(respone.http_call_back.status==200){
        onSuccess.add(true);
       }else{
@@ -257,7 +257,7 @@ class ProductBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.AddWishlists(inventoryId: inventoryId,productId: productId,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
-        GetMyWishlists(token: token);
+        //GetMyWishlists(token: token);
         onSuccess.add(true);
       }else{
         onError.add(respone.http_call_back.result);

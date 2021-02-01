@@ -99,8 +99,8 @@ class _AddressEditViewState extends State<AddressEditView> {
   Widget build(BuildContext context) {
     _init();
     return Container(
+      color: ThemeColor.primaryColor(),
       child: SafeArea(
-        top: false,
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,

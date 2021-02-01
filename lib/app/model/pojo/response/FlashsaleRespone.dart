@@ -72,8 +72,7 @@ class FlashsaleItems {
   FlashsaleItems({this.product});
 
   FlashsaleItems.fromJson(Map<String, dynamic> json) {
-    product =
-    json['product'] != null ? new ProductData.fromJson(json['product']) : null;
+    product = json['product'] != null ? new ProductData.fromJson(json['product']) : null;
   }
 
   Map<String, dynamic> toJson() {

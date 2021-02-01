@@ -138,7 +138,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
 
   ProductMyShop CovertDataMyShop({Hits hits}){
     return ProductMyShop(name: hits.name,id: hits.productId,brand: hits.brand,discountPercent: hits.discountPercent,hasVariant: hits.hasVariant,image: hits.image,maxPrice: hits.maxPrice,
-    minPrice: hits.minPrice,offerPrice: hits.offerPrice,rating: hits.rating,reviewCount: hits.reviewCount,saleCount: hits.saleCount,salePrice: hits.inventories[0].salePrice);
+    minPrice: hits.minPrice,offerPrice: hits.offerPrice,rating: hits.rating,reviewCount: hits.reviewCount,saleCount: hits.saleCount,salePrice: hits.salePrice);
   }
 
 

@@ -56,7 +56,7 @@ class Hits {
   String name;
   int saleCount;
   List<Inventories> inventories;
-  List<Shop> shop;
+  Shop shop;
   List<Categories> categories;
   List<ProductImage> image;
   int minPrice;
@@ -101,12 +101,7 @@ class Hits {
         inventories.add(new Inventories.fromJson(v));
       });
     }
-    if (json['shop'] != null) {
-      shop = new List<Shop>();
-      json['shop'].forEach((v) {
-        shop.add(new Shop.fromJson(v));
-      });
-    }
+    shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
     if (json['categories'] != null) {
       categories = new List<Categories>();
       json['categories'].forEach((v) {
@@ -140,8 +135,9 @@ class Hits {
     if (this.inventories != null) {
       data['inventories'] = this.inventories.map((v) => v.toJson()).toList();
     }
+
     if (this.shop != null) {
-      data['shop'] = this.shop.map((v) => v.toJson()).toList();
+      data['shop'] = this.shop.toJson();
     }
     if (this.categories != null) {
       data['categories'] = this.categories.map((v) => v.toJson()).toList();

@@ -88,50 +88,49 @@ class AppToobar extends PreferredSize {
         ],
       ),
 
-      child: SafeArea(
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                showBackBtn?IconButton(
-                  icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
-                  onPressed: (){
-                    onClick == null ? Navigator.of(context).pop() : onClick();
-                  },
-                ):SizedBox(width: 10.0.w,height: 10.0.w,),
-                Expanded(
-                  child: Container(
-                    child: Center(
-                      child: Text(
-                        title,
-                        style: FunctionHelper.FontTheme(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: SizeUtil.titleFontSize().sp),
-                      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              showBackBtn?IconButton(
+                icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
+                onPressed: (){
+                  onClick == null ? Navigator.of(context).pop() : onClick();
+                },
+              ):SizedBox(width: 10.0.w,height: 10.0.w,),
+              Expanded(
+                child: Container(
+                  child: Center(
+                    child: Text(
+                      title,
+                      style: FunctionHelper.FontTheme(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: SizeUtil.titleFontSize().sp),
                     ),
                   ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.search_rounded,color: Colors.white,),
-                  onPressed: (){
-                    Usermanager().getUser().then((value) {
-                    if (value.token != null) {
-                    AppRoute.SearchHome(context);
-                    } else {
-                    AppRoute.Login(context);
-                    }
-                    });
-                  },
-                )
+              ),
+              IconButton(
+                icon: Icon(Icons.search_rounded,color: Colors.white,),
+                onPressed: (){
+                  Usermanager().getUser().then((value) {
+                  if (value.token != null) {
+                  AppRoute.SearchHome(context);
+                  } else {
+                  AppRoute.Login(context);
+                  }
+                  });
+                },
+              )
 
-              ],
-            ),
+            ],
+          ),
 
 
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -258,7 +257,7 @@ class AppToobar extends PreferredSize {
 
   Widget BarHome(BuildContext context) {
     return Container(
-      height: 13.0.h,
+      height: 7.0.h,
       padding: EdgeInsets.only(left: 0, right: 0.3.w),
       color: ThemeColor.primaryColor(),
       child: SafeArea(

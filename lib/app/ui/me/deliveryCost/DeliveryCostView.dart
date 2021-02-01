@@ -26,45 +26,47 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        body: Container(
-          color: Colors.grey.shade300,
-          child: Column(
-            children: [
-              Container(
-                  child: AppToobar(
-                    title: LocaleKeys.my_product_delivery_price.tr(),
-                    icon: "",
-                    header_type: Header_Type.barNormal,
-                  )),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _BuildEditText(head: LocaleKeys.my_product_weight.tr()+" (kg)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_weight.tr(),controller: weightProductController),
-                      _BuildSpace(),
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          body: Container(
+            color: Colors.grey.shade300,
+            child: Column(
+              children: [
+                Container(
+                    child: AppToobar(
+                      title: LocaleKeys.my_product_delivery_price.tr(),
+                      icon: "",
+                      header_type: Header_Type.barNormal,
+                    )),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _BuildEditText(head: LocaleKeys.my_product_weight.tr()+" (kg)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_weight.tr(),controller: weightProductController),
+                        _BuildSpace(),
 
-                      _BuildHeadText(head: LocaleKeys.my_product_size_product.tr()),
-                      _BuildEditText(head: LocaleKeys.my_product_width.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_width.tr(),controller: widthProductController),
-                      _BuildEditText(head: LocaleKeys.my_product_long.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_long.tr(),controller: longProductController),
-                      _BuildEditText(head: LocaleKeys.my_product_height.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_height.tr(),controller: heightProductController),
-                      _BuildSpace(),
+                        _BuildHeadText(head: LocaleKeys.my_product_size_product.tr()),
+                        _BuildEditText(head: LocaleKeys.my_product_width.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_width.tr(),controller: widthProductController),
+                        _BuildEditText(head: LocaleKeys.my_product_long.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_long.tr(),controller: longProductController),
+                        _BuildEditText(head: LocaleKeys.my_product_height.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_height.tr(),controller: heightProductController),
+                        _BuildSpace(),
 
-                      _BuildHeadText(head: LocaleKeys.my_product_delivery_price_each.tr()),
-                      _BuildSwitchDelivery(head: "Kerry",index: 1,onClick: ()=>setState(()=> isSelect1 = isSelect1?false:true)),
-                      _BuildSwitchDelivery(head: "J&T Express",index: 2,onClick: ()=>setState(()=> isSelect2 = isSelect2?false:true)),
-                    ],
+                        _BuildHeadText(head: LocaleKeys.my_product_delivery_price_each.tr()),
+                        _BuildSwitchDelivery(head: "Kerry",index: 1,onClick: ()=>setState(()=> isSelect1 = isSelect1?false:true)),
+                        _BuildSwitchDelivery(head: "J&T Express",index: 2,onClick: ()=>setState(()=> isSelect2 = isSelect2?false:true)),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Visibility(
-                visible: checkKeyBoard?false:true,
-                child:  _BuildButton(),
-              )
-            ],
+                Visibility(
+                  visible: checkKeyBoard?false:true,
+                  child:  _BuildButton(),
+                )
+              ],
+            ),
           ),
         ),
       ),

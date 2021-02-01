@@ -47,28 +47,33 @@ class _Setting_EditProfile_NameViewState extends State<Setting_EditProfile_NameV
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(title: LocaleKeys.my_profile_name.tr(),header_type: Header_Type.barNormal,),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _Form(),
-            SizedBox(height: 4.0.h,),
-            FlatButton(
-              minWidth: 50.0.w,
-              color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
-              textColor: Colors.white,
-              splashColor: Colors.white.withOpacity(0.3),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40.0),
-              ),
-              onPressed: ()=>FormCheck()?Navigator.pop(context, widget.customerInfoRespone):SizedBox(),
-              child: Text(LocaleKeys.save_btn.tr(),
-                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-              ),
-            )
-          ],
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.grey.shade200,
+          appBar: AppToobar(title: LocaleKeys.my_profile_name.tr(),header_type: Header_Type.barNormal,),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                _Form(),
+                SizedBox(height: 4.0.h,),
+                FlatButton(
+                  minWidth: 50.0.w,
+                  color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
+                  textColor: Colors.white,
+                  splashColor: Colors.white.withOpacity(0.3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
+                  onPressed: ()=>FormCheck()?Navigator.pop(context, widget.customerInfoRespone):SizedBox(),
+                  child: Text(LocaleKeys.save_btn.tr(),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

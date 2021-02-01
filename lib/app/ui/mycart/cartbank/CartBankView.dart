@@ -50,56 +50,58 @@ class _CartBankViewState extends State<CartBankView> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-          key: _scaffoldKey,
-          backgroundColor: Colors.grey.shade200,
-          appBar: AppToobar(
-              title: LocaleKeys.select.tr() + LocaleKeys.me_title_payment.tr(),
-              header_type: Header_Type.barNormal,
-              onClick: () => Navigator.pop(context, null)),
-          body: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.all(2.0.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Payment",
-                      style: FunctionHelper.FontTheme(
-                          color: Colors.black,
-                          fontSize: SizeUtil.titleSmallFontSize().sp,
-                          fontWeight: FontWeight.bold)),
-                  SizedBox(height: 8),
-                  StreamBuilder(
-                      stream: bloc.PaymentList.stream,
-                      builder: (context, snapshot) {
-                        var item = (snapshot.data as PaymentRespone);
-                        if (snapshot.hasData && item.data != null) {
-                          return Column(
-                            children: item.data
-                                .asMap()
-                                .map((index, value) {
-                                  return MapEntry(
-                                      index,
-                                      _buildCardBank(
-                                          item: value, index: index));
-                                })
-                                .values
-                                .toList(),
-                          );
-                        } else {
-                          return SizedBox();
-                        }
-                      }),
-                  SizedBox(
-                    height: 1.0.h,
-                  ),
-                  _buildAddBtn(),
-                ],
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+            key: _scaffoldKey,
+            backgroundColor: Colors.grey.shade200,
+            appBar: AppToobar(
+                title: LocaleKeys.select.tr() + LocaleKeys.me_title_payment.tr(),
+                header_type: Header_Type.barNormal,
+                onClick: () => Navigator.pop(context, null)),
+            body: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(2.0.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Payment",
+                        style: FunctionHelper.FontTheme(
+                            color: Colors.black,
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            fontWeight: FontWeight.bold)),
+                    SizedBox(height: 8),
+                    StreamBuilder(
+                        stream: bloc.PaymentList.stream,
+                        builder: (context, snapshot) {
+                          var item = (snapshot.data as PaymentRespone);
+                          if (snapshot.hasData && item.data != null) {
+                            return Column(
+                              children: item.data
+                                  .asMap()
+                                  .map((index, value) {
+                                    return MapEntry(
+                                        index,
+                                        _buildCardBank(
+                                            item: value, index: index));
+                                  })
+                                  .values
+                                  .toList(),
+                            );
+                          } else {
+                            return SizedBox();
+                          }
+                        }),
+                    SizedBox(
+                      height: 1.0.h,
+                    ),
+                    _buildAddBtn(),
+                  ],
+                ),
               ),
-            ),
-          )),
+            )),
+      ),
     );
   }
 

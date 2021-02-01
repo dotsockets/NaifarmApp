@@ -40,65 +40,67 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
   @override
   Widget build(BuildContext context) {
     init();
-    return SafeArea(
-        top: false,
-        child: Scaffold(
-            backgroundColor: Colors.grey.shade300,
-            key: _scaffoldKey,
-            appBar: AppToobar(
-              title: "The order is complete",
-              header_type: Header_Type.barNormal,
-              icon: "",onClick: ()=> AppRoute.PoppageCount(context: context,countpage: 3),
-            ),
-            body: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(20),
-                  width: MediaQuery.of(context).size.width,
-                  color: ThemeColor.primaryColor(),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(height: 10,),
-                      Text("Order details",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: 16.0.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black)),
-                      SizedBox(height: 10,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset('assets/images/svg/checkmark.svg',color: Colors.white,width: 25,height: 25,),
-                          SizedBox(width: 10,),
-                          Text("The order is complete.",
-                              style: FunctionHelper.FontTheme(
-                                  fontSize: 16.0.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white)),
-                        ],
-                      ),
-                      SizedBox(height: 10,),
-                      Text("Payment amount ฿${NumberFormat("#,##0.00", "en_US").format(int.parse(widget.payment_total))}",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: 17.0.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black)),
-                      SizedBox(height: 10,), // Wed Jan 27 2021 22:28:51 GMT+0700
-                      Text("You have placed an order and must pay by the date ${DateFormat.yMMMMEEEEd().format(DateTime.now())}  ${DateFormat.jms().format(DateTime.now())}",
-                          textAlign: TextAlign.center,
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black)),
-                    ],
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+          child: Scaffold(
+              backgroundColor: Colors.grey.shade300,
+              key: _scaffoldKey,
+              appBar: AppToobar(
+                title: "The order is complete",
+                header_type: Header_Type.barNormal,
+                icon: "",onClick: ()=> AppRoute.PoppageCount(context: context,countpage: 3),
+              ),
+              body: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    width: MediaQuery.of(context).size.width,
+                    color: ThemeColor.primaryColor(),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(height: 10,),
+                        Text("Order details",
+                            style: FunctionHelper.FontTheme(
+                                fontSize: 16.0.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black)),
+                        SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset('assets/images/svg/checkmark.svg',color: Colors.white,width: 25,height: 25,),
+                            SizedBox(width: 10,),
+                            Text("The order is complete.",
+                                style: FunctionHelper.FontTheme(
+                                    fontSize: 16.0.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
+                          ],
+                        ),
+                        SizedBox(height: 10,),
+                        Text("Payment amount ฿${NumberFormat("#,##0.00", "en_US").format(int.parse(widget.payment_total))}",
+                            style: FunctionHelper.FontTheme(
+                                fontSize: 17.0.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black)),
+                        SizedBox(height: 10,), // Wed Jan 27 2021 22:28:51 GMT+0700
+                        Text("You have placed an order and must pay by the date ${DateFormat.yMMMMEEEEd().format(DateTime.now())}  ${DateFormat.jms().format(DateTime.now())}",
+                            textAlign: TextAlign.center,
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black)),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: 10,),
-                _buildBtnAddProduct()
-              ],
-            )
-        ));
+                  SizedBox(height: 10,),
+                  _buildBtnAddProduct()
+                ],
+              )
+          )),
+    );
   }
 
   Widget _buildBtnAddProduct() {

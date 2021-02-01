@@ -35,7 +35,7 @@ class ProductLandscape extends StatelessWidget {
   final bool IsborderRadius;
 final int SubFixId;
 
-  ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true, this.productRespone,this.showSeeMore=true, this.SubFixId, this.IsborderRadius=false}) : super(key: key);
+  ProductLandscape({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.producViewModel, this.IconInto, this.tagHero,this.showIcon = true,this.showPriceSale=true, this.productRespone,this.showSeeMore=true, this.SubFixId=1, this.IsborderRadius=false}) : super(key: key);
 
 
   @override

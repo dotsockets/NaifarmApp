@@ -110,7 +110,7 @@ class BuyAgain extends StatelessWidget {
         child: Stack(
           children: [
             Hero(
-              tag: "${tagHero}_${item.id}_bay",
+              tag: "${tagHero}_${item.id}",
               child: CachedNetworkImage(
                 width: 30.0.w,
                 height: 30.0.w,

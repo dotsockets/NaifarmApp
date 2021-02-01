@@ -39,45 +39,47 @@ class _DeliveryViewState extends State<DeliveryView> {
   @override
   Widget build(BuildContext context) {
     init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        appBar: AppToobar(title: LocaleKeys.shipping_toobar.tr(),icon: "",header_type:  Header_Type.barNormal,),
-        body:  Container(
-          color: Colors.grey.shade300,
-          child: ListView(
-              children: [
-                StreamBuilder(
-                  stream: bloc.ZipShppingOject.stream,
-                  builder: (BuildContext context,AsyncSnapshot snapshot){
-                    if(snapshot.hasData){
-                      var item = (snapshot.data as ShppingOjectCombine);
-                      return Column(
-                        children: List.generate(item.carriersRespone.total, (index){
-                          return GestureDetector(
-                            child: Column(
-                              children: [
-                                _BuildDelivery(nameDeli: item.carriersRespone.data[index].name,item: item.carriersRespone.data[index]),
-                                Container(height: 1,color: Colors.grey.shade300,),
-                              ],
-                            ),
-                            onTap: () async {
-                              var result = await AppRoute.DeliveryEdit(context,shppingMyShopRespone: item.shppingMyShopRespone,carriersDat: item.carriersRespone.data[index]);
-                                if(result){
-                                  Usermanager().getUser().then((value) => bloc.loadShppingPage(token: value.token));
-                                }
-                              },
-                          );
-                        }),
-                      );
-                    }else{
-                      return Skeleton.LoaderList(context);
-                    }
-                  },
-                )
-              ],
-            ),
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppToobar(title: LocaleKeys.shipping_toobar.tr(),icon: "",header_type:  Header_Type.barNormal,),
+          body:  Container(
+            color: Colors.grey.shade300,
+            child: ListView(
+                children: [
+                  StreamBuilder(
+                    stream: bloc.ZipShppingOject.stream,
+                    builder: (BuildContext context,AsyncSnapshot snapshot){
+                      if(snapshot.hasData){
+                        var item = (snapshot.data as ShppingOjectCombine);
+                        return Column(
+                          children: List.generate(item.carriersRespone.total, (index){
+                            return GestureDetector(
+                              child: Column(
+                                children: [
+                                  _BuildDelivery(nameDeli: item.carriersRespone.data[index].name,item: item.carriersRespone.data[index]),
+                                  Container(height: 1,color: Colors.grey.shade300,),
+                                ],
+                              ),
+                              onTap: () async {
+                                var result = await AppRoute.DeliveryEdit(context,shppingMyShopRespone: item.shppingMyShopRespone,carriersDat: item.carriersRespone.data[index]);
+                                  if(result){
+                                    Usermanager().getUser().then((value) => bloc.loadShppingPage(token: value.token));
+                                  }
+                                },
+                            );
+                          }),
+                        );
+                      }else{
+                        return Skeleton.LoaderList(context);
+                      }
+                    },
+                  )
+                ],
+              ),
 
+          ),
         ),
       ),
     );

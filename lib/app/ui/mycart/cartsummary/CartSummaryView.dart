@@ -84,65 +84,67 @@ class _CartSummaryViewState extends State<CartSummaryView> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-          key: _scaffoldKey,
-          backgroundColor:
-              _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-          appBar: AppToobar(
-            title: LocaleKeys.cart_place_order.tr(),
-            header_type: Header_Type.barNormal,
-            icon: "",
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                  child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _BoxAddAddress(),
-                    Container(
-                      height: 10,
-                      color: Colors.grey.shade300,
-                    ),
-                    StreamBuilder(
-                        stream: bloc.CartList.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            var item = (snapshot.data as CartResponse).data;
-                            return Column(
-                              children: item
-                                  .asMap()
-                                  .map((key, value) => MapEntry(
-                                      key, _ItemCart(item: value, index: key)))
-                                  .values
-                                  .toList(),
-                            );
-                          } else {
-                            return SizedBox();
-                          }
-                        }),
-                    _Buildcoupon(),
-                    Container(
-                      height: 10,
-                      color: Colors.grey.shade300,
-                    ),
-                    _Payment_method()
-                  ],
-                ),
-              )),
-              StreamBuilder(
-                  stream: bloc.CheckOut.stream,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return  _BuildFooterTotal();
-                    } else {
-                      return SizedBox();
-                    }
-                  }),
-            ],
-          )),
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+            key: _scaffoldKey,
+            backgroundColor:
+                _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
+            appBar: AppToobar(
+              title: LocaleKeys.cart_place_order.tr(),
+              header_type: Header_Type.barNormal,
+              icon: "",
+            ),
+            body: Column(
+              children: [
+                Expanded(
+                    child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      _BoxAddAddress(),
+                      Container(
+                        height: 10,
+                        color: Colors.grey.shade300,
+                      ),
+                      StreamBuilder(
+                          stream: bloc.CartList.stream,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              var item = (snapshot.data as CartResponse).data;
+                              return Column(
+                                children: item
+                                    .asMap()
+                                    .map((key, value) => MapEntry(
+                                        key, _ItemCart(item: value, index: key)))
+                                    .values
+                                    .toList(),
+                              );
+                            } else {
+                              return SizedBox();
+                            }
+                          }),
+                      _Buildcoupon(),
+                      Container(
+                        height: 10,
+                        color: Colors.grey.shade300,
+                      ),
+                      _Payment_method()
+                    ],
+                  ),
+                )),
+                StreamBuilder(
+                    stream: bloc.CheckOut.stream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return  _BuildFooterTotal();
+                      } else {
+                        return SizedBox();
+                      }
+                    }),
+              ],
+            )),
+      ),
     );
   }
 

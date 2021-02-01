@@ -77,68 +77,70 @@ class _MyCartViewState extends State<MyCartView> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-          key: _scaffoldKey,
-          backgroundColor: Colors.white,
-          //_data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-          appBar: AppToobar(
-            title: LocaleKeys.cart_toobar.tr(),
-            icon: "",
-            showBackBtn: widget.btnBack,
-            header_type: Header_Type.barNormal,
-          ),
-          body: StreamBuilder(
-              stream: bloc.CartList.stream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  var item = (snapshot.data as CartResponse).data;
-                  if (item.isNotEmpty) {
-                    return Column(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            color: Colors.grey.shade300,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: List.generate(item.length, (index) {
-                                  return _CardCart(
-                                      item: item[index], index: index);
-                                }),
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+            key: _scaffoldKey,
+            backgroundColor: Colors.white,
+            //_data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
+            appBar: AppToobar(
+              title: LocaleKeys.cart_toobar.tr(),
+              icon: "",
+              showBackBtn: widget.btnBack,
+              header_type: Header_Type.barNormal,
+            ),
+            body: StreamBuilder(
+                stream: bloc.CartList.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    var item = (snapshot.data as CartResponse).data;
+                    if (item.isNotEmpty) {
+                      return Column(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              color: Colors.grey.shade300,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: List.generate(item.length, (index) {
+                                    return _CardCart(
+                                        item: item[index], index: index);
+                                  }),
+                                ),
                               ),
                             ),
                           ),
+                          _BuildDiscountCode(),
+                          _BuildFooterTotal(
+                              cartResponse: (snapshot.data as CartResponse)),
+                        ],
+                      );
+                    } else {
+                      return Center(
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 15.0.h),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Lottie.asset('assets/json/boxorder.json',
+                                  height: 70.0.w, width: 70.0.w, repeat: false),
+                              Text(
+                                LocaleKeys.cart_empty.tr(),
+                                style: FunctionHelper.FontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
                         ),
-                        _BuildDiscountCode(),
-                        _BuildFooterTotal(
-                            cartResponse: (snapshot.data as CartResponse)),
-                      ],
-                    );
+                      );
+                    }
                   } else {
-                    return Center(
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: 15.0.h),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Lottie.asset('assets/json/boxorder.json',
-                                height: 70.0.w, width: 70.0.w, repeat: false),
-                            Text(
-                              LocaleKeys.cart_empty.tr(),
-                              style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
+                    return SizedBox();
                   }
-                } else {
-                  return SizedBox();
-                }
-              })),
+                })),
+      ),
     );
   }
 

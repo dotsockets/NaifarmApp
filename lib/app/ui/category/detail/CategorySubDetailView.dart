@@ -89,7 +89,6 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                           children: [
                             ProductLandscape(
                               showSeeMore: true,
-                                SubFixId: 1,
                                 productRespone: snapshot.data,
                                 titleInto: LocaleKeys.tab_bar_recommend.tr(),
                               //  showBorder: true,

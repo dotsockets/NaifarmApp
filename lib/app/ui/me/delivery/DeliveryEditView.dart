@@ -66,92 +66,94 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
   @override
   Widget build(BuildContext context) {
     init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppToobar(
-          title: "แก้ไขการส่งสินค้า",
-          icon: "",
-          header_type: Header_Type.barNormal,
-        ),
-        body: Container(
-          color: Colors.grey.shade300,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(2.0.w),
-                child: Text("${widget.carriersData.name}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w600)),
-              ),
-              Container(
-                padding: EdgeInsets.all(15),
-                color: Colors.white,
-                child: BuildEditText(
-                    head: "ค่าขนส่ง",
-                    hint: "ระบุค่าขนส่ง",
-                    maxLength: 10,
-                    controller: RateController,
-                    onError: onError,
-                    inputType: TextInputType.text,
-                    IsPassword: false,
-                    BorderOpacity: 0.2,
-                    onChanged: (String char) {
-                      RegExp _numeric = RegExp(r'^-?[0-9]+$');
-                      if(!_numeric.hasMatch(RateController.text))
-                        RateController.text = "";
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: AppToobar(
+            title: "แก้ไขการส่งสินค้า",
+            icon: "",
+            header_type: Header_Type.barNormal,
+          ),
+          body: Container(
+            color: Colors.grey.shade300,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(2.0.w),
+                  child: Text("${widget.carriersData.name}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w600)),
+                ),
+                Container(
+                  padding: EdgeInsets.all(15),
+                  color: Colors.white,
+                  child: BuildEditText(
+                      head: "ค่าขนส่ง",
+                      hint: "ระบุค่าขนส่ง",
+                      maxLength: 10,
+                      controller: RateController,
+                      onError: onError,
+                      inputType: TextInputType.text,
+                      IsPassword: false,
+                      BorderOpacity: 0.2,
+                      onChanged: (String char) {
+                        RegExp _numeric = RegExp(r'^-?[0-9]+$');
+                        if(!_numeric.hasMatch(RateController.text))
+                          RateController.text = "";
 
-                      setState(() {});
+                        setState(() {});
 
-                    }),
-              ),
-              SizedBox(height: 1.0.w,),
-              IsHave?Center(
-                child: Container(
-                  padding: EdgeInsets.only(right: 10,left: 10),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(4.0.w),
-                          child: BuildItem(),
+                      }),
+                ),
+                SizedBox(height: 1.0.w,),
+                IsHave?Center(
+                  child: Container(
+                    padding: EdgeInsets.only(right: 10,left: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.all(4.0.w),
+                            child: BuildItem(),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(4.0.w),
-                          child: FlatButton(
-                            minWidth: 50.0.w,
-                            color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
-                            textColor: Colors.white,
-                            disabledColor: Colors.grey,
-                            disabledTextColor: Colors.black,
-                            padding: EdgeInsets.all(8.0),
-                            splashColor: Colors.grey.shade500,
-                            onPressed: () {
-                              if(FormCheck()){
-                                Usermanager().getUser().then((value) => bloc.DELETEShoppingMyShop(ratesId: rates.id,token: value.token));
-                              }
-                            },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40.0),
-                            ),
-                            child: Text("Cancel use",
-                              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.all(4.0.w),
+                            child: FlatButton(
+                              minWidth: 50.0.w,
+                              color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
+                              textColor: Colors.white,
+                              disabledColor: Colors.grey,
+                              disabledTextColor: Colors.black,
+                              padding: EdgeInsets.all(8.0),
+                              splashColor: Colors.grey.shade500,
+                              onPressed: () {
+                                if(FormCheck()){
+                                  Usermanager().getUser().then((value) => bloc.DELETEShoppingMyShop(ratesId: rates.id,token: value.token));
+                                }
+                              },
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40.0),
+                              ),
+                              child: Text("Cancel use",
+                                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ):SizedBox(),
-              SizedBox(height: 20,),
-              IsHave==false?Center(
-                child: BuildItem()):SizedBox()
+                ):SizedBox(),
+                SizedBox(height: 20,),
+                IsHave==false?Center(
+                  child: BuildItem()):SizedBox()
 
-            ],
+              ],
+            ),
           ),
         ),
       ),

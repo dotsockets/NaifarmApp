@@ -91,8 +91,12 @@ class _ShopMainViewState extends State<ShopMainView>
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
-        bottom: false,
         child: Scaffold(
+          appBar: AppToobar(
+            title: "ร้านค้า",
+            header_type: Header_Type.barNormal,
+            icon: 'assets/images/svg/search.svg',
+          ),
             backgroundColor: Colors.white,
             body: StreamBuilder(
               stream: bloc.onError.stream,
@@ -126,11 +130,6 @@ class _ShopMainViewState extends State<ShopMainView>
                     return [
                       SliverList(
                         delegate: SliverChildListDelegate(<Widget>[
-                          AppToobar(
-                            title: "ร้านค้า",
-                            header_type: Header_Type.barNormal,
-                            icon: 'assets/images/svg/search.svg',
-                          ),
                           ShopOwn(
                             showBtn: false,
                             shopItem: ShopItem(
@@ -194,11 +193,7 @@ class _ShopMainViewState extends State<ShopMainView>
         } else {
           return Column(
             children: [
-              AppToobar(
-                title: "ร้านค้า",
-                header_type: Header_Type.barNormal,
-                icon: 'assets/images/svg/search.svg',
-              ),
+
               Expanded(child: Center(child: Platform.isAndroid
                   ? CircularProgressIndicator()
                   : CupertinoActivityIndicator()),)

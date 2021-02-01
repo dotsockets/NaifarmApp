@@ -107,8 +107,7 @@ class _HeaderDetailState extends State<HeaderDetail> {
     @override
     Widget build(BuildContext context) {
       return Container(
-        height: 10.0.h,
-
+        height: 8.0.h,
         decoration: BoxDecoration(
           color: _backgroundColor,
 

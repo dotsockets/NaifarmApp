@@ -48,60 +48,65 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      appBar: AppToobar(
-        title: LocaleKeys.edit_email_toobar.tr(), header_type: Header_Type.barNormal,onClick: (){
-        FunctionHelper.ConfirmDialog(context,
-            message: LocaleKeys.dialog_message_mail_change_cancel.tr(),
-            onClick: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-            }, onCancel: () {
-              Navigator.of(context).pop();
-            });
-      },),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-          Container(
-              color: Colors.white,
-              child: Container(
-                padding:EdgeInsets.all(5.0.w),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(LocaleKeys.edit_email_old.tr()+" ${widget.customerInfoRespone.email}",
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(height: 15,),
-                    BuildEditText(
-                        head: LocaleKeys.edit_email_new.tr(),
-                        hint:   LocaleKeys.set_default.tr()+LocaleKeys.edit_email_new.tr(),maxLength: 10,controller: EmailController,onError: onError,inputType: TextInputType.emailAddress,BorderOpacity: 0.2,onChanged: (String char){
-                      setState(() {});
-                    }),
-                    SizedBox(height: 20,),
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.grey.shade300,
+          appBar: AppToobar(
+            title: LocaleKeys.edit_email_toobar.tr(), header_type: Header_Type.barNormal,onClick: (){
+            FunctionHelper.ConfirmDialog(context,
+                message: LocaleKeys.dialog_message_mail_change_cancel.tr(),
+                onClick: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                }, onCancel: () {
+                  Navigator.of(context).pop();
+                });
+          },),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+              Container(
+                  color: Colors.white,
+                  child: Container(
+                    padding:EdgeInsets.all(5.0.w),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(LocaleKeys.edit_email_old.tr()+" ${widget.customerInfoRespone.email}",
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(height: 15,),
+                        BuildEditText(
+                            head: LocaleKeys.edit_email_new.tr(),
+                            hint:   LocaleKeys.set_default.tr()+LocaleKeys.edit_email_new.tr(),maxLength: 10,controller: EmailController,onError: onError,inputType: TextInputType.emailAddress,BorderOpacity: 0.2,onChanged: (String char){
+                          setState(() {});
+                        }),
+                        SizedBox(height: 20,),
 
-                  ],
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(height: 20,),
+                FlatButton(
+                  minWidth: 50.0.w,
+                  color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
+                  textColor: Colors.white,
+                  splashColor: Colors.white.withOpacity(0.3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
+                  onPressed: ()=>FormCheck()?verify():SizedBox(),
+                  child: Text( LocaleKeys.continue_btn.tr(),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                  ),
+                )
+              ],
             ),
-            SizedBox(height: 20,),
-            FlatButton(
-              minWidth: 50.0.w,
-              color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
-              textColor: Colors.white,
-              splashColor: Colors.white.withOpacity(0.3),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40.0),
-              ),
-              onPressed: ()=>FormCheck()?verify():SizedBox(),
-              child: Text( LocaleKeys.continue_btn.tr(),
-                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );

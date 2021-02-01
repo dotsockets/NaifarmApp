@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -23,8 +24,8 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: ThemeColor.primaryColor(),
       child: SafeArea(
-        top: false,
         child: Scaffold(
           appBar: AppToobar(
             title: LocaleKeys.setting_rule_toobar.tr(),

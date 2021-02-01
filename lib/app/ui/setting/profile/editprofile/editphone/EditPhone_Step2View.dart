@@ -99,112 +99,117 @@ class _EditPhone_Step2ViewState extends State<EditPhone_Step2View> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      appBar: AppToobar(
-        title: LocaleKeys.my_profile_phone.tr(),
-        header_type: Header_Type.barNormal,
-        onClick: () {
-          FunctionHelper.ConfirmDialog(context,
-              message: LocaleKeys.dialog_message_phone_edit_cancel.tr(),
-              onClick: () {
-            Navigator.of(context).pop();
-            Navigator.of(context).pop();
-          }, onCancel: () {
-            Navigator.of(context).pop();
-          });
-        },
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(5.0.w),
-              child: Text(
-                LocaleKeys.message_phone_edit.tr(),
-                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
-              ),
-            ),
-            Container(
-              color: Colors.white,
-              child: Container(
-                padding: EdgeInsets.all(20),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BuildEditText(
-                        head: "${LocaleKeys.edit_phone_title.tr()}",
-                        hint: LocaleKeys.edit_phone_hint.tr(),
-                        maxLength: 10,
-                        controller: PhoneController,
-                        inputType: TextInputType.phone,
-                        readOnly: true,
-                        BorderOpacity: 0.2,
-                        onChanged: (String char) {
-                          setState(() {});
-                        }),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BuildEditText(
-                        head: otpRespone!=null?"${LocaleKeys.edit_phone_confirm_otp.tr()} [Ref : ${otpRespone.refCode}]":"${LocaleKeys.edit_phone_confirm_otp.tr()} ",
-                        hint: "OTP",
-                        maxLength: 6,
-                        controller: OtpController,
-                        inputType: TextInputType.phone,
-                        BorderOpacity: 0.2,
-                        onError: onErrorOtp,
-                        onChanged: (String char) {
-                          setState(() {});
-                        }),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      child: InkWell(
-                        child: Row(
-                          children: [
-                            SvgPicture.asset('assets/images/svg/change.svg'),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              LocaleKeys.edit_phone_otp_again.tr(),
-                              style: FunctionHelper.FontTheme(
-                                  fontSize:SizeUtil.titleSmallFontSize().sp),
-                            )
-                          ],
-                        ),
-                        onTap: () {
-                          setState(() {});
-                        },
-                      ),
-                    )
-                  ],
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.grey.shade300,
+          appBar: AppToobar(
+            title: LocaleKeys.my_profile_phone.tr(),
+            header_type: Header_Type.barNormal,
+            onClick: () {
+              FunctionHelper.ConfirmDialog(context,
+                  message: LocaleKeys.dialog_message_phone_edit_cancel.tr(),
+                  onClick: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              }, onCancel: () {
+                Navigator.of(context).pop();
+              });
+            },
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(5.0.w),
+                  child: Text(
+                    LocaleKeys.message_phone_edit.tr(),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
+                  ),
                 ),
-              ),
+                Container(
+                  color: Colors.white,
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BuildEditText(
+                            head: "${LocaleKeys.edit_phone_title.tr()}",
+                            hint: LocaleKeys.edit_phone_hint.tr(),
+                            maxLength: 10,
+                            controller: PhoneController,
+                            inputType: TextInputType.phone,
+                            readOnly: true,
+                            BorderOpacity: 0.2,
+                            onChanged: (String char) {
+                              setState(() {});
+                            }),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BuildEditText(
+                            head: otpRespone!=null?"${LocaleKeys.edit_phone_confirm_otp.tr()} [Ref : ${otpRespone.refCode}]":"${LocaleKeys.edit_phone_confirm_otp.tr()} ",
+                            hint: "OTP",
+                            maxLength: 6,
+                            controller: OtpController,
+                            inputType: TextInputType.phone,
+                            BorderOpacity: 0.2,
+                            onError: onErrorOtp,
+                            onChanged: (String char) {
+                              setState(() {});
+                            }),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          child: InkWell(
+                            child: Row(
+                              children: [
+                                SvgPicture.asset('assets/images/svg/change.svg'),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  LocaleKeys.edit_phone_otp_again.tr(),
+                                  style: FunctionHelper.FontTheme(
+                                      fontSize:SizeUtil.titleSmallFontSize().sp),
+                                )
+                              ],
+                            ),
+                            onTap: () {
+                              setState(() {});
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                FlatButton(
+                  minWidth: 50.0.w,
+                  color: FormCheck() ? ThemeColor.ColorSale() : Colors.grey.shade400,
+                  textColor: Colors.white,
+                  splashColor: Colors.white.withOpacity(0.3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
+                  onPressed: () => FormCheck() ? bloc.OTPVerify(phone: otpRespone.phone,ref: otpRespone.refCode,code: OtpController.text): SizedBox(),
+                  child: Text(
+                    FormCheck() ? LocaleKeys.confirm_btn.tr() : LocaleKeys.continue_btn.tr(),
+                    style: FunctionHelper.FontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w500),
+                  ),
+                )
+              ],
             ),
-            SizedBox(
-              height: 20,
-            ),
-            FlatButton(
-              minWidth: 50.0.w,
-              color: FormCheck() ? ThemeColor.ColorSale() : Colors.grey.shade400,
-              textColor: Colors.white,
-              splashColor: Colors.white.withOpacity(0.3),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40.0),
-              ),
-              onPressed: () => FormCheck() ? bloc.OTPVerify(phone: otpRespone.phone,ref: otpRespone.refCode,code: OtpController.text): SizedBox(),
-              child: Text(
-                FormCheck() ? LocaleKeys.confirm_btn.tr() : LocaleKeys.continue_btn.tr(),
-                style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleFontSize().sp,
-                    fontWeight: FontWeight.w500),
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );

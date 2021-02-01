@@ -185,7 +185,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                                       SizedBox(
                                         height: 3.0.h,
                                       ),
-                                      GestureDetector(
+                                      InkWell(
                                           child: Hero(
                                             tag: "image_profile_me",
                                             child: ClipRRect(

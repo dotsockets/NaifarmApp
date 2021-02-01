@@ -86,64 +86,69 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Colors.grey.shade300,
-      appBar: AppToobar(
-        title: LocaleKeys.my_profile_email.tr(), header_type: Header_Type.barNormal,),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(padding:EdgeInsets.all(2.0.w), child: Text(LocaleKeys.message_mail_edit.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),),),
-            Container(
-              color: Colors.white,
-              child: Container(
-                padding:EdgeInsets.all(5.0.w),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BuildEditText(
-                        head: LocaleKeys.my_profile_password.tr(),
-                        hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),maxLength: 10,controller: PassController,onError: onError,inputType: TextInputType.text,IsPassword: true,BorderOpacity: 0.2,onChanged: (String char){
-                      setState(() {});
-                    }),
-                    SizedBox(height: 1.0.h,),
-                    Column(
-
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: Colors.grey.shade300,
+          appBar: AppToobar(
+            title: LocaleKeys.my_profile_email.tr(), header_type: Header_Type.barNormal,),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(padding:EdgeInsets.all(2.0.w), child: Text(LocaleKeys.message_mail_edit.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),),),
+                Container(
+                  color: Colors.white,
+                  child: Container(
+                    padding:EdgeInsets.all(5.0.w),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        BuildEditText(
+                            head: LocaleKeys.my_profile_password.tr(),
+                            hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),maxLength: 10,controller: PassController,onError: onError,inputType: TextInputType.text,IsPassword: true,BorderOpacity: 0.2,onChanged: (String char){
+                          setState(() {});
+                        }),
+                        SizedBox(height: 1.0.h,),
+                        Column(
+
+                          children: [
+                            SizedBox(height: 3,),
+                            Text(LocaleKeys.forgot_pass_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp)),
+                            SizedBox(height: 2,),
+                            Container(
+                              width: ScreenUtil().setWidth(250),
+                              color: Colors.grey.shade500,
+                              height: 1,
+                            )
+                          ],
+                        ),
                         SizedBox(height: 3,),
-                        Text(LocaleKeys.forgot_pass_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp)),
-                        SizedBox(height: 2,),
-                        Container(
-                          width: ScreenUtil().setWidth(250),
-                          color: Colors.grey.shade500,
-                          height: 1,
-                        )
+                        Text(LocaleKeys.message_forgot_mail.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp))
+
                       ],
                     ),
-                    SizedBox(height: 3,),
-                    Text(LocaleKeys.message_forgot_mail.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp))
-
-                  ],
+                  ),
                 ),
-              ),
+                SizedBox(height: 20,),
+                FlatButton(
+                  minWidth: 50.0.w,
+                  color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
+                  textColor: Colors.white,
+                  splashColor: Colors.white.withOpacity(0.3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
+                  onPressed: ()=>FormCheck()?verify():SizedBox(),
+                  child: Text(LocaleKeys.continue_btn.tr(),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                  ),
+                )
+              ],
             ),
-            SizedBox(height: 20,),
-            FlatButton(
-              minWidth: 50.0.w,
-              color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
-              textColor: Colors.white,
-              splashColor: Colors.white.withOpacity(0.3),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40.0),
-              ),
-              onPressed: ()=>FormCheck()?verify():SizedBox(),
-              child: Text(LocaleKeys.continue_btn.tr(),
-                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );

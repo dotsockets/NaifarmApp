@@ -29,8 +29,8 @@ class _NotiSettingViewState extends State<NotiSettingView> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: ThemeColor.primaryColor(),
       child: SafeArea(
-        top: false,
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(

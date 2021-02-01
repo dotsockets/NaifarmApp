@@ -33,7 +33,6 @@ class MyProductView extends StatefulWidget {
 }
 
 class _MyProductViewState extends State<MyProductView> {
-  int status = 999;
   List<ProductModel> listProducts = ProductViewModel().getMyProducts();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 

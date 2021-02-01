@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
@@ -21,8 +22,8 @@ class _HelpViewState extends State<HelpView> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: ThemeColor.primaryColor(),
       child: SafeArea(
-        top: false,
         child: Scaffold(
           appBar: AppToobar(
             title: LocaleKeys.setting_account_title_help.tr(),

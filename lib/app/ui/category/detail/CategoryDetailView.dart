@@ -107,7 +107,6 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                       if(snapshot.hasData ) {
                         return ProductLandscape(
                             showSeeMore: true,
-                            SubFixId: 1,
                             IsborderRadius: true,
                             productRespone: (snapshot.data as CategoryObjectCombin).goupProduct,
                             titleInto: LocaleKeys.tab_bar_recommend.tr(),

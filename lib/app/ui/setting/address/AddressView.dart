@@ -59,9 +59,8 @@ class _AddressViewState extends State<AddressView> {
   Widget build(BuildContext context) {
     _init();
     return Container(
-      color: Colors.grey.shade300,
+      color: ThemeColor.primaryColor(),
       child: SafeArea(
-        top: false,
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           key: _scaffoldKey,

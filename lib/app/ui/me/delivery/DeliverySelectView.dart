@@ -49,56 +49,58 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-          key: _scaffoldKey,
-          backgroundColor:Colors.grey.shade200,
-          appBar: AppToobar(
-              title: "Choose a shipping method",
-              header_type: Header_Type.barNormal),
-          body: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.all(2.0.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 8),
-                  StreamBuilder(
-                      stream: bloc.Shippings.stream,
-                      builder: (context, snapshot) {
-                        var item = (snapshot.data as ShippingsRespone);
-                        if (snapshot.hasData) {
-                          return Column(
-                            children: item.data[0].rates
-                                .asMap()
-                                .map((index, value) {
-                              return MapEntry(
-                                  index,
-                                  _buildCardBank(
-                                      item:
-                                      value,
-                                      index: index));
-                            })
-                                .values
-                                .toList(),
-                          );
-                        }else{
-                          return SizedBox();
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+            key: _scaffoldKey,
+            backgroundColor:Colors.grey.shade200,
+            appBar: AppToobar(
+                title: "Choose a shipping method",
+                header_type: Header_Type.barNormal),
+            body: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(2.0.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 8),
+                    StreamBuilder(
+                        stream: bloc.Shippings.stream,
+                        builder: (context, snapshot) {
+                          var item = (snapshot.data as ShippingsRespone);
+                          if (snapshot.hasData) {
+                            return Column(
+                              children: item.data[0].rates
+                                  .asMap()
+                                  .map((index, value) {
+                                return MapEntry(
+                                    index,
+                                    _buildCardBank(
+                                        item:
+                                        value,
+                                        index: index));
+                              })
+                                  .values
+                                  .toList(),
+                            );
+                          }else{
+                            return SizedBox();
+                          }
                         }
-                      }
-                  ),
-                  SizedBox(
-                    height: 1.0.h,
-                  ),
-                  _buildAddBtn(
-                      txtBtn: LocaleKeys.add.tr() + LocaleKeys.card_title.tr(),
-                      indexBtn: 0),
-                ],
-              ),
-            ),)
-      )
-      ,
+                    ),
+                    SizedBox(
+                      height: 1.0.h,
+                    ),
+                    _buildAddBtn(
+                        txtBtn: LocaleKeys.add.tr() + LocaleKeys.card_title.tr(),
+                        indexBtn: 0),
+                  ],
+                ),
+              ),)
+        )
+        ,
+      ),
     );
   }
 
