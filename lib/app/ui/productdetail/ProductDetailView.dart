@@ -124,7 +124,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
           if (event.error.status == 406) {
             FunctionHelper.AlertDialogShop(context,
                 title: "Error", message: event.error.message);
-          } else {
+          }else if(event.error.status == 0 || event.error.status >= 500){
+            Future.delayed(const Duration(milliseconds: 500), () {
+              FunctionHelper.AlertDialogRetry(context,
+                  title: "Error", message: event.error.message,callBack: ()=> _refreshProducts());
+            });
+
+          }else {
             FunctionHelper.SnackBarShow(
                 scaffoldKey: _scaffoldKey, message: event.error.message);
           }
@@ -147,13 +153,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
       });
 
-      Usermanager().getUser().then((value) {
-        bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
-        // bloc.GetWishlistsByProduct(
-        //     productID: widget.productItem.id, token: value.token);
-        // bloc.loadProductsById(id: widget.productItem.id, token: value.token);
-        // bloc.loadProductTrending("1");
-      });
+      _refreshProducts();
     }
   }
 
@@ -239,38 +239,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                               controller: trackingScrollController,
                               child: Column(
                                 children: [
-                                  StreamBuilder(
-                                    stream: bloc.onError.stream,
-                                    builder:
-                                        (BuildContext context, AsyncSnapshot snapshot) {
-                                      if (snapshot.hasData &&
-                                          (snapshot.data as Result).error.status != 406) {
-
-                                        widget.productItem = ProducItemRespone(id: widget.productItem.id);
-                                        return Center(
-                                          child: Column(
-                                            children: [
-                                              SizedBox(
-                                                height: 10.0.h,
-                                              ),
-                                              ConnectErrorPage(
-                                                  result: snapshot.data,
-                                                  show_full: false,
-                                                  callback: () {
-                                                    Usermanager().getUser().then((value) {
-                                                      bloc.loadProductsPage(
-                                                          id: widget.productItem.id,
-                                                          token: value.token);
-                                                    });
-                                                  })
-                                            ],
-                                          ),
-                                        );
-                                      } else {
-                                        return _content;
-                                      }
-                                    },
-                                  ),
+                                  _content,
                                 ],
                               ),
                             ),

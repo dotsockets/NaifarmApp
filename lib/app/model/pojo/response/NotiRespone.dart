@@ -15,8 +15,8 @@ class NotiRespone {
       });
     }
     total = json['total'];
-    page = json['page'];
-    limit = json['limit'];
+    page = json['page'] is int?json['page'].toString():json['page'];
+    limit = json['limit'] is int?json['limit'].toString():json['limit'];
   }
 
   Map<String, dynamic> toJson() {

@@ -26,14 +26,7 @@ class CategoryMenu extends StatelessWidget {
                 bottomRight: const Radius.circular(40.0),
                 bottomLeft: const Radius.circular(40.0),
               ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 3,
-                blurRadius: 4,
-                offset: Offset(0, 3), // changes position of shadow
-              ),
-            ],
+
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

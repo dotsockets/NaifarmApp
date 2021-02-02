@@ -25,15 +25,21 @@ class ServerError{
         if(error.response.statusCode==406 || error.response.statusCode==400){
           return ApiResult(http_call_back: ThrowIfNoSuccess.fromJson(error.response.data));
         }else{
-          message = "Received invalid status code: ${error.response.statusCode} ${error.response.statusMessage}";
+          message = "Received invalid status code:";
         }
         break;
       case DioErrorType.SEND_TIMEOUT:
         message = "Receive timeout in send request";
         break;
     }
+    if(error.response!=null){
+      return ApiResult(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: error.response.statusCode,message:  message))));
 
-    return ApiResult(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: error.response.statusCode,message:  message))));
+    }else{
+      return ApiResult(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: 000,message:  message))));
+    }
+
+
   }
 
 }

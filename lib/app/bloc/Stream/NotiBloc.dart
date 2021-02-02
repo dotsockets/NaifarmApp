@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/NotificationCombine.dart';
@@ -17,6 +19,8 @@ class NotiBloc{
   final onSuccess = BehaviorSubject<Object>();
   Stream<Object> get feedList => onSuccess.stream;
 
+  List<NotiData> product_more = List<NotiData>();
+
   NotiBloc(this._application);
 
 //NotificationCombine
@@ -26,7 +30,10 @@ class NotiBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.GetNotificationByGroup(group: group,limit: limit,page: page,sort: sort ,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
-        onSuccess.add((respone.respone as NotiRespone));
+       // onSuccess.add((respone.respone as NotiRespone));
+        var item = (respone.respone as NotiRespone);
+        product_more.addAll(item.data);
+        onSuccess.add(NotiRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -71,6 +78,37 @@ class NotiBloc{
     });
     _compositeSubscription.add(subscription);
 
+  }
+
+  refreshProducts({int page,int limit ,String group}){
+    Usermanager().getUser().then((value) {
+      if (value.token != null) {
+        NaiFarmLocalStorage.getNowPage().then((data){
+          if(data==2){
+
+            GetNotification(group: group,page: page,limit: limit,sort: "notification.createdAt:desc",token: value.token);
+          }
+        });
+
+      }
+    });
+  }
+
+
+  String ConvertStatusText({String type,Meta meta}){
+    if(type=="App\\Notifications\\Order\\OrderCreated"){
+      return meta.status;
+    }else{
+      return "แจ้งเตือน คำสั่งซื้อใหม่";
+    }
+  }
+
+  String ConvertStatusSubText({String type,Meta meta}){
+    if(type=="App\\Notifications\\Order\\OrderCreated"){
+      return "รายการ ${meta.order}";
+    }else{
+      return "แจ้งเตือน คำสั่งซื้อใหม่";
+    }
   }
 
 

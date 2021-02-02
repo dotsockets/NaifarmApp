@@ -63,7 +63,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       });
 
       bloc.onSuccess.stream.listen((event) {
-         AppRoute.OrderSuccess(context: context,payment_total: bloc.total_payment.value.toString());
+         AppRoute.OrderSuccess(context: context,payment_total: bloc.total_payment.value.toString(),orderData: event);
       });
       bloc.AddressList.stream.listen((event) {
         bloc.CheckOut.add(true);

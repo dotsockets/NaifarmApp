@@ -49,6 +49,7 @@ class _NotiViewState extends State<NotiView>
   TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   NotiBloc bloc;
+  ScrollController _scrollController = ScrollController();
   final _reload = BehaviorSubject<bool>();
   bool fixload = true;
   @override
@@ -75,8 +76,6 @@ class _NotiViewState extends State<NotiView>
       }
     });
 
-
-
   }
 
   @override
@@ -100,6 +99,7 @@ class _NotiViewState extends State<NotiView>
                   if (snapshot.hasData) {
                     return snapshot.data
                         ? NestedScrollView(
+                      controller: _scrollController,
                             headerSliverBuilder: (BuildContext context,
                                 bool innerBoxIsScrolled) {
                               return [
@@ -181,11 +181,39 @@ class _NotiViewState extends State<NotiView>
                                           // first tab bar view widget
                                           NotiCus(
                                             scaffoldKey: _scaffoldKey,
+                                            onScrollDown: (double scroll){
+                                              if(scroll>20){
+                                                _scrollController.animateTo(
+                                                    _scrollController.position.maxScrollExtent,
+                                                    duration: Duration(milliseconds: 30),
+                                                    curve: Curves.ease);
+                                              }else  if(scroll<20){
+                                                _scrollController.animateTo(
+                                                    _scrollController.position.minScrollExtent,
+                                                    duration: Duration(milliseconds: 30),
+                                                    curve: Curves.ease);
+                                              }
+
+                                            },
                                           ),
 
                                           // second tab bar view widget
                                           NotiShop(
                                             scaffoldKey: _scaffoldKey,
+                                            onScrollDown: (double scroll){
+                                              if(scroll>20){
+                                                _scrollController.animateTo(
+                                                    _scrollController.position.maxScrollExtent,
+                                                    duration: Duration(milliseconds: 30),
+                                                    curve: Curves.ease);
+                                              }else  if(scroll<20){
+                                                _scrollController.animateTo(
+                                                    _scrollController.position.minScrollExtent,
+                                                    duration: Duration(milliseconds: 30),
+                                                    curve: Curves.ease);
+                                              }
+
+                                            },
                                           ),
                                         ],
                                       )

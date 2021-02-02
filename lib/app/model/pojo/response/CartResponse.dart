@@ -508,13 +508,13 @@ class CartProduct {
   String updatedAt;
   List<ProductImage> image;
   int hasVariant;
-  Null minPrice;
-  Null maxPrice;
-  Null salePrice;
-  Null offerPrice;
+  int minPrice;
+  int maxPrice;
+  int salePrice;
+  int offerPrice;
   int discountPercent;
   int rating;
-  int reviewCount;
+  double reviewCount;
   int stockQuantity;
 
   CartProduct(

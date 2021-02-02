@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -21,8 +22,9 @@ import 'package:sizer/sizer.dart';
 class OrderSuccessView extends StatefulWidget {
 
   final String payment_total;
+  final OrderData orderData;
 
-  const OrderSuccessView({Key key, this.payment_total}) : super(key: key);
+  const OrderSuccessView({Key key, this.payment_total, this.orderData}) : super(key: key);
   @override
   _OrderSuccessViewState createState() => _OrderSuccessViewState();
 }
@@ -54,19 +56,19 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
               body: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(30),
                     width: MediaQuery.of(context).size.width,
                     color: ThemeColor.primaryColor(),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(height: 10,),
-                        Text("Order details",
-                            style: FunctionHelper.FontTheme(
-                                fontSize: 16.0.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black)),
-                        SizedBox(height: 10,),
+                     //   SizedBox(height: 10,),
+                        // Text("Order details",
+                        //     style: FunctionHelper.FontTheme(
+                        //         fontSize: 16.0.sp,
+                        //         fontWeight: FontWeight.bold,
+                        //         color: Colors.black)),
+                        SizedBox(height: 1.0.h,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -74,7 +76,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                             SizedBox(width: 10,),
                             Text("The order is complete.",
                                 style: FunctionHelper.FontTheme(
-                                    fontSize: 16.0.sp,
+                                    fontSize: (SizeUtil.titleFontSize()+2).sp,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white)),
                           ],
@@ -82,11 +84,11 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                         SizedBox(height: 10,),
                         Text("Payment amount ฿${NumberFormat("#,##0.00", "en_US").format(int.parse(widget.payment_total))}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: 17.0.sp,
+                                fontSize: (SizeUtil.titleFontSize()+2).sp,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black)),
                         SizedBox(height: 10,), // Wed Jan 27 2021 22:28:51 GMT+0700
-                        Text("You have placed an order and must pay by the date ${DateFormat.yMMMMEEEEd().format(DateTime.now())}  ${DateFormat.jms().format(DateTime.now())}",
+                        Text("You have placed an order and must pay by the date ${DateFormat.yMMMMEEEEd().format(DateTime.parse(widget.orderData.requirePaymentAt))}  ${DateFormat.jms().format(DateTime.parse(widget.orderData.requirePaymentAt))}",
                             textAlign: TextAlign.center,
                             style: FunctionHelper.FontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
@@ -110,6 +112,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
         children: [
           Container(
             width: 45.0.w,
+            height: 7.0.h,
             padding: EdgeInsets.all(10),
             child: FlatButton(
               color: ThemeColor.ColorSale(),
@@ -132,6 +135,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
           ),
           Container(
             width: 45.0.w,
+            height: 7.0.h,
             padding: EdgeInsets.all(10),
             child: FlatButton(
               color: ThemeColor.secondaryColor(),

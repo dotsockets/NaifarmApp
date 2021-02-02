@@ -1,7 +1,9 @@
 
 import 'dart:io';
 
+import 'package:audioplayers/audio_cache.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,18 +25,29 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import 'package:vibration/vibration.dart';
 //'assets/images/svg/cart_top.svg'
 class NotiShop extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool btnBack;
   final NotiRespone notiRespone;
-  const NotiShop({Key key, this.btnBack=false, this.scaffoldKey, this.notiRespone}) : super(key: key);
+  final Function(double) onScrollDown;
+  const NotiShop({Key key, this.btnBack=false, this.scaffoldKey, this.notiRespone, this.onScrollDown}) : super(key: key);
   @override
   _NotiShopState createState() => _NotiShopState();
 }
 
 class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<NotiShop>{
   NotiBloc bloc;
+  int limit = 10;
+  int page = 1;
+  bool step_page = false;
+  ScrollController _scrollController = ScrollController();
+
+  final _indicatorController = IndicatorController();
+  static const _indicatorSize = 50.0;
+
+
   init(){
     if(bloc==null){
       bloc = NotiBloc(AppProvider.getApplication(context));
@@ -46,24 +59,25 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       });
 
       //  bloc.onSuccess.add(widget.notiRespone);
-
-      Usermanager().getUser().then((value) {
-        if (value.token != null) {
-          NaiFarmLocalStorage.getNowPage().then((page){
-            if(page==2){
-              bloc.GetNotification(group: "shop",page: 1,limit: 10,sort: "notification.createdAt:desc",token: value.token);
-            }
-          });
-
-        }
-      });
-
-
+      bloc.refreshProducts(group: "shop",limit: limit,page: page);
     }
+    _scrollController.addListener(() {
+      widget.onScrollDown(_scrollController.position.pixels);
 
-
+      if (_scrollController.position.maxScrollExtent -
+          _scrollController.position.pixels <= 200) {
+        if (step_page) {
+          step_page = false;
+          page++;
+          bloc.refreshProducts(group: "shop",limit: limit,page: page);
+        }
+      }
+    });
 
   }
+
+
+
   @override
   Widget build(BuildContext context) {
     init();
@@ -73,25 +87,105 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var item = (snapshot.data as NotiRespone);
           if(snapshot.hasData && item.data.isNotEmpty){
-            return SingleChildScrollView(
-              child: Container(
-                color: Colors.white,
-                child: Column(
+            step_page = item.data.length != item.total?true:false;
+            return CustomRefreshIndicator(
+              controller: _indicatorController,
+              onRefresh: ()async{
+                page = 1;
+                bloc.product_more.clear();
+                bloc.refreshProducts(group: "shop",limit: limit,page: page);
+              },
+              armedToLoadingDuration: const Duration(seconds: 1),
+              draggingToIdleDuration: const Duration(seconds: 1),
+              completeStateDuration: const Duration(seconds: 1),
+              offsetToArmed: 50.0,
+              builder: (
+                  BuildContext context,
+                  Widget child,
+                  IndicatorController controller,
+                  ) {
+                return Stack(
+                  children: <Widget>[
+                    AnimatedBuilder(
+                      animation: controller,
+                      builder: (BuildContext context, Widget _) {
+                        if (controller.state == IndicatorState.complete) {
+                          AudioCache().play("sound/Click.mp3");
+                          Vibration.vibrate(duration: 500);
+                        }
+                        return Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            margin: EdgeInsets.only(top: 2.0.h),
+                            width: 5.0.w,
+                            height: 5.0.w,
+                            child: Platform.isAndroid
+                                ? CircularProgressIndicator()
+                                : CupertinoActivityIndicator(),
+                          ),
+                        );
+                      },
+                    ),
+                    AnimatedBuilder(
+                      builder: (context, _) {
+                        return Transform.translate(
+                          offset: Offset(0.0, controller.value * _indicatorSize),
+                          child: child,
+                        );
+                      },
+                      animation: controller,
+                    ),
+                  ],
+                );
+              },
+              child: SingleChildScrollView(
 
-                  children: item.data
-                      .asMap()
-                      .map((index, value) {
-                    return MapEntry(
-                        index,
-                        Column(
-                          children: [
-                            _BuildCardNoti(
-                                item: value,context: context,index: index),
-                          ],
-                        ));
-                  })
-                      .values
-                      .toList(),
+                controller: _scrollController,
+                child: Container(
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      Column(
+
+                        children: item.data
+                            .asMap()
+                            .map((index, value) {
+                          return MapEntry(
+                              index,
+                              Column(
+                                children: [
+                                  _BuildCardNoti(
+                                      item: value,context: context,index: index),
+                                ],
+                              ));
+                        })
+                            .values
+                            .toList(),
+                      ),
+                      if (item.data.length != item.total )
+                        Container(
+                          padding: EdgeInsets.all(20),
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.center,
+                            children: [
+                              Platform.isAndroid
+                                  ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
+                                  : CupertinoActivityIndicator(),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text("Loading",
+                                  style: FunctionHelper.FontTheme(
+                                      color: Colors.grey,
+                                      fontSize:
+                                      SizeUtil.priceFontSize()
+                                          .sp))
+                            ],
+                          ),
+                        )
+                    ],
+                  ),
                 ),
               ),
             );
@@ -156,7 +250,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
           decoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.grey.shade200, width: 1)),
           ),
-          padding: EdgeInsets.only(top: index==0?1.0.h:2.0.h,right: 1.0.w,left: 1.0.w,bottom: 2.0.h),
+          padding: EdgeInsets.only(top: index==0?0.0.h:2.0.h,right: 10,left: 10,bottom: 2.0.h),
           child: Column(
             children: [
               Row(
@@ -193,12 +287,12 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(ConvertStatusText(type: item.type,meta: item.meta),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+                            Text(bloc.ConvertStatusText(type: item.type,meta: item.meta),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
                             SizedBox(height: 0.5.h),
                             Wrap(
                               children: [
                                 Text("คุณได้ทำรายการสั่งซื้อสินค้า หมายเลขคำสั่งซื้อ  ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                               // Text(ConvertStatusSubText(type: item.type,meta: item.meta),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                                Text(bloc.ConvertStatusSubText(type: item.type,meta: item.meta),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
 
                               ],
                             )
@@ -206,7 +300,6 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                           ],
                         ),
                       )),
-                  SizedBox(width: 1.0.w,),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.black.withOpacity(0.4),
@@ -222,24 +315,14 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
     ),
   );
 
-  String ConvertStatusText({String type,Meta meta}){
-    if(type=="App\\Notifications\\Order\\OrderCreated"){
-      return meta.status;
-    }else{
-      return "แจ้งเตือน คำสั่งซื้อใหม่";
-    }
-  }
 
-  String ConvertStatusSubText({String type,Meta meta}){
-    if(type=="App\\Notifications\\Order\\OrderCreated"){
-      return "รายการ ${meta.order}";
-    }else{
-      return "แจ้งเตือน คำสั่งซื้อใหม่";
-    }
-  }
+
 
   @override
   bool get wantKeepAlive => true;
+
+
+
 }
 
 

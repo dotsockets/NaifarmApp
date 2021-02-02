@@ -75,7 +75,7 @@ class Product {
   List<ProductImage> image;
   int discountPercent;
   int rating;
-  int reviewCount;
+  double reviewCount;
 
   Product(
       {this.id,

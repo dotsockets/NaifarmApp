@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -444,6 +445,52 @@ class FunctionHelper {
             FlatButton(
               child: Text("Close"),
               onPressed:  () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        ));
+  }
+
+  static AlertDialogRetry(BuildContext context, {String title,String message,Function() callBack}){
+    showDialog(
+      barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) =>  Platform.isIOS?CupertinoAlertDialog(
+            title: Text(title,
+              style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
+            ) ,
+            content: Text(message,
+              style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
+            ) ,
+            actions: [
+              CupertinoDialogAction(isDefaultAction: true, child: new Text("Back"),onPressed: (){
+                AppRoute.PoppageCount(context: context,countpage: 2);
+              },),
+
+              CupertinoDialogAction(isDefaultAction: true, child: new Text("Try again "),onPressed: (){
+                callBack();
+                Navigator.of(context).pop();
+              },),
+            ]): AlertDialog(
+          title:Text(title,
+            style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
+          ),
+          content: Text(message,
+            style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
+          ),
+          actions: [
+            // okButton,
+            FlatButton(
+              child: Text("Back"),
+              onPressed:  () {
+                AppRoute.PoppageCount(context: context,countpage: 2);
+              },
+            ),
+            FlatButton(
+              child: Text("Try again "),
+              onPressed:  () {
+                callBack();
                 Navigator.of(context).pop();
               },
             )

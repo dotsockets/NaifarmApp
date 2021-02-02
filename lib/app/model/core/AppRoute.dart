@@ -451,9 +451,9 @@ class AppRoute{
     return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:DeliverySelectView(shopId: shopId,)));
   }
 
-  static OrderSuccess({BuildContext context,String payment_total}){
+  static OrderSuccess({BuildContext context,String payment_total,OrderData orderData}){
 
-    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:OrderSuccessView(payment_total: payment_total,)));
+    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:OrderSuccessView(payment_total: payment_total,orderData: orderData,)));
   }
 
   static PoppageCount({BuildContext context,int countpage}){

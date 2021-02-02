@@ -78,14 +78,7 @@ class AppToobar extends PreferredSize {
         //   topRight: const Radius.circular(30.0),
         //   topLeft: const Radius.circular(30.0),
         // ):BorderRadius.all(Radius.circular(0.0)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 3,
-            blurRadius: 3,
-            offset: Offset(0, 1), // changes position of shadow
-          ),
-        ],
+
       ),
 
       child: Column(

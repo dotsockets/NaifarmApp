@@ -26,7 +26,7 @@ class ProducItemRespone {
   List<ProductImage> image;
   int discountPercent;
   int rating;
-  int reviewCount;
+  double reviewCount;
 
   ProducItemRespone(
       {this.id,
