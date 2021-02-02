@@ -115,7 +115,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                   id: widget.productItem.shop!=null?widget.productItem.shop.id:0,
                                                   updatedAt: widget.productItem.shop!=null?widget.productItem.shop.updatedAt:"",
                                                   slug: widget.productItem.shop!=null?widget.productItem.shop.slug:"-",
-                                                  image: imgShopList(item: item),state: DataStates(name:item.shop.state.name,id: item.shop.state.id),
+                                                  image: imgShopList(item: item),state: DataStates(name:item.shop.state!=null?item.shop.state.name:"ไม่ถูกต้อง",id:item.shop.state!=null? item.shop.state.id:0),
                                                   countProduct: item.shop.countProduct
                                                   ,//state:  DataStates(id: widget.productItem.shop.state.id,name: widget.productItem.shop.state.name)
                                                 ),
@@ -235,8 +235,9 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
 
   List imgShopList({ProductMyShopRespone item}) {
     List<ProductImage> img = List<ProductImage>();
-    if(item.shop.image!=null) {
-    for (int i = 0; i < item.image.length; i++)
+
+    if(item.shop.image!=null||item.shop.image.length!=0) {
+    for (int i = 0; i < item.shop.image.length; i++)
       img.add(ProductImage(name: item.shop.image[i].name, path: item.shop.image[i].path));
     }else{
       img.add(ProductImage(name: "", path: ""));

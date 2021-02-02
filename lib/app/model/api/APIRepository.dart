@@ -231,8 +231,8 @@ class APIRepository{
     return _apiProvider.EditShoppingMyShop(shopRequest: shopRequest,token: token,rateID: rateID);
   }
 
-  Future<ApiResult> GetProductMyShop({String page, int limit,String token}){
-    return _apiProvider.GetProductMyShop(page: page,limit: limit,token: token);
+  Future<ApiResult> GetProductMyShop({String page, int limit,String token,String filter}){
+    return _apiProvider.GetProductMyShop(page: page,limit: limit,token: token,filter: filter);
   }
 
   Future<ApiResult> GetWishlistsByProduct({int productID,String token}){

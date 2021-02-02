@@ -39,8 +39,7 @@ class PaidView extends StatefulWidget {
   _PaidViewState createState() => _PaidViewState();
 }
 
-class _PaidViewState extends State<PaidView>
-    with AutomaticKeepAliveClientMixin<PaidView> {
+class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<PaidView> {
   OrdersBloc bloc;
 
   init() {

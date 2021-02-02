@@ -161,6 +161,7 @@ class AppRoute{
   }
   static MyProduct(BuildContext context,{bool pushEvent=false}){
     if(pushEvent){
+    //  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
       Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
     }else{
       Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
@@ -195,6 +196,7 @@ class AppRoute{
 
   static Future<bool> ImageProduct(BuildContext context,{IsActive isactive})async{
     if(isactive== IsActive.ReplacemenView){
+
       return await  Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ImageProductView(isActive: isactive,)));
     }else{
       return await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ImageProductView(isActive: isactive,)));
@@ -456,7 +458,7 @@ class AppRoute{
     Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:OrderSuccessView(payment_total: payment_total,orderData: orderData,)));
   }
 
-  static PoppageCount({BuildContext context,int countpage}){
+  static PoppageCount({BuildContext context,int countpage,bool callback}){
     int count = 0;
     Navigator.popUntil(context, (route) {
       return count++ == countpage;
