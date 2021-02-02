@@ -167,6 +167,7 @@ abstract class  LocaleKeys {
   static const cart_total_payment = 'cart.total_payment';
   static const cart_sub_total = 'cart.sub_total';
   static const cart_item = 'cart.item';
+  static const cart_piece = 'cart.piece';
   static const cart_quantity = 'cart.quantity';
   static const cart_delivery_free = 'cart.delivery_free';
   static const cart_free = 'cart.free';

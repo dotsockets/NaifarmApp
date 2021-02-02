@@ -192,6 +192,7 @@
     "total_payment" : "Total Payment",
     "sub_total": "Order Subtotal",
     "item": "Item",
+    "piece": "Item",
     "quantity": "Quantity",
     "delivery_free": "฿40 off shipping with min spend of ฿0 ",
     "free": "Free ",

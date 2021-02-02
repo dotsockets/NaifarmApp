@@ -202,7 +202,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
             height: 1.5.h,
           ),
           Text(
-            "${LocaleKeys.my_product_sold.tr()} ${widget.productItem.saleCount != null ? widget.productItem.saleCount.toString() : '0'} ${LocaleKeys.cart_item.tr()}",
+            "${LocaleKeys.my_product_sold.tr()} ${widget.productItem.saleCount != null ? widget.productItem.saleCount.toString() : '0'} ${LocaleKeys.cart_piece.tr()}",
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleSmallFontSize().sp),
           ),

@@ -326,7 +326,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                   borderColor: Colors.black,
                   spacing: 0.0),
             ),
-            Text("${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():'0' } ${ LocaleKeys.cart_item.tr()}",
+            Text("${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():'0' } ${ LocaleKeys.cart_piece.tr()}",
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.detailSmallFontSize().sp,
                     color: Colors.black,

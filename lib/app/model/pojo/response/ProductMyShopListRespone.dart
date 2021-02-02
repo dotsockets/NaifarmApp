@@ -4,8 +4,8 @@ import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 class ProductMyShopListRespone {
   List<ProductMyShop> data;
   int total;
-  int page;
-  int limit;
+  String page;
+  String limit;
 
   ProductMyShopListRespone({this.data, this.total, this.page, this.limit});
 
