@@ -1089,7 +1089,7 @@ class _APIProvider implements APIProvider {
     final _data = <String, dynamic>{};
     try {
 
-      final _result = await _dio.request<dynamic>('/v1/myshop/products?sort=product.createdAt:desc',
+      final _result = await _dio.request<dynamic>('/v1/myshop/products?limit=${limit}&page=${page}',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
@@ -1906,9 +1906,4 @@ class _APIProvider implements APIProvider {
       return ServerError.DioErrorExpction(e);
     }
   }
-
-
-
-
-
 }

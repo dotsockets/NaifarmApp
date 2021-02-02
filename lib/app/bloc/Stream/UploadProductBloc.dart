@@ -15,6 +15,7 @@ import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopAttributeRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:path_provider/path_provider.dart';
@@ -28,13 +29,14 @@ class UploadProductBloc {
   final onError = BehaviorSubject<Object>();
   final onSuccess = BehaviorSubject<Object>();
   final onChang = BehaviorSubject<Object>();
-  final ProductMyShop = BehaviorSubject<ProductMyShopListRespone>();
+  final ProductMyShopRes = BehaviorSubject<ProductMyShopListRespone>();
   final attributeMyShop = BehaviorSubject<MyShopAttributeRespone>();
   final uploadProductStorage = BehaviorSubject<UploadProductStorage>();
 
   CategoryCombin categoriesAllRespone = CategoryCombin();
   ProductMyShopRequest ProductDetail = ProductMyShopRequest();
   List<OnSelectItem> ItemImage = List<OnSelectItem>();
+  List<ProductMyShop> product_more = List<ProductMyShop>();
 
   int inventoriesId = 0;
   var checkloop = 0;
@@ -187,7 +189,6 @@ class UploadProductBloc {
          if(isActive == IsActive.UpdateProduct){
            onSuccess.add(true);
          }
-
       } else {
         onLoad.add(false);
         onError.add(respone.http_call_back.result.error.message);
@@ -224,7 +225,9 @@ class UploadProductBloc {
             .GetProductMyShop(page: page, limit: limit, token: token))
         .listen((respone) {
       if (respone.http_call_back.status == 200) {
-        ProductMyShop.add((respone.respone as ProductMyShopListRespone));
+        var item = (respone.respone as ProductMyShopListRespone);
+        product_more.addAll(item.data);
+        ProductMyShopRes.add(ProductMyShopListRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
       }
     });
     _compositeSubscription.add(subscription);

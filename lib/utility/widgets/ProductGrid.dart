@@ -16,6 +16,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
 
@@ -58,8 +59,10 @@ class _ProductGridState extends State<ProductGrid> {
   ProductBloc bloc;
   List<ProductData> product_data = List<ProductData>();
   int page = 1;
+  int limit = 10;
   ScrollController _scrollController = ScrollController();
-
+  bool step_page = false;
+  final position_scroll = BehaviorSubject<bool>();
   void _init(){
     if(null == bloc) {
 
@@ -84,8 +87,23 @@ class _ProductGridState extends State<ProductGrid> {
     }
 
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        bloc.loadMoreData(page: page.toString(),limit: 5,link: widget.api_link);
+      if (_scrollController.position.maxScrollExtent -
+          _scrollController.position.pixels <=
+          200) {
+        if (step_page) {
+          step_page = false;
+          page++;
+          bloc.loadMoreData(
+              page: page.toString(),
+              limit: limit,
+              link: widget.api_link);
+        }
+      }
+
+      if (_scrollController.position.pixels > 500) {
+        position_scroll.add(true);
+      } else {
+        position_scroll.add(false);
       }
     });
 
@@ -204,7 +222,7 @@ class _ProductGridState extends State<ProductGrid> {
                     EdgeInsets.only(left: 15, right: 7, bottom: 3, top: 3),
                     color: ThemeColor.ColorSale(),
                     child: Text(
-                      LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
+                      LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_piece.tr(),
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize().sp,
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),

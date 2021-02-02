@@ -151,7 +151,7 @@ class SearchHot extends StatelessWidget {
                   ),
                   SizedBox(height: 0.5.h),
                   Text(
-                    LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_item.tr(),
+                    LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_piece.tr(),
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.FontTheme(
                         color: Colors.black,

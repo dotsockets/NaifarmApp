@@ -6,11 +6,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
+import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
+import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/config/Env.dart';
@@ -36,27 +39,28 @@ class _SearchMyProductState extends State<SearchMyProduct> {
   TextEditingController txtController = TextEditingController();
   int limit = 4;
   String SearchText = "";
-  ProductBloc bloc;
+  ProductBloc blocProduct;
+  UploadProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   void _init() {
-    if (null == bloc) {
-      bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.onLoad.stream.listen((event) {
+    if (null == blocProduct) {
+      blocProduct = ProductBloc(AppProvider.getApplication(context));
+      blocProduct.onLoad.stream.listen((event) {
         if(event){
           FunctionHelper.showDialogProcess(context);
         }else{
           Navigator.of(context).pop();
         }
       });
-      bloc.onSuccess.stream.listen((event) {
-        bloc.loadSearchMyshop(shopId: widget.shopID,page: "1", query: SearchText, limit: limit);
+      blocProduct.onSuccess.stream.listen((event) {
+        blocProduct.loadSearchMyshop(shopId: widget.shopID,page: "1", query: SearchText, limit: limit);
       });
 
-      bloc.onError.stream.listen((event) {
+      blocProduct.onError.stream.listen((event) {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event.error.message);
       });
-      bloc.loadSearchMyshop(shopId: widget.shopID,page: "1", query: SearchText, limit: limit);
+      blocProduct.loadSearchMyshop(shopId: widget.shopID,page: "1", query: SearchText, limit: limit);
     }
   }
 
@@ -77,11 +81,11 @@ class _SearchMyProductState extends State<SearchMyProduct> {
             hint: LocaleKeys.search_product_title.tr(),
             onSearch: (String text) {
               SearchText = text;
-              bloc.loadSearchMyshop(shopId: widget.shopID,page: "1", query: text, limit: limit);
+              blocProduct.loadSearchMyshop(shopId: widget.shopID,page: "1", query: text, limit: limit);
             },
           ),
           body: StreamBuilder(
-            stream: bloc.SearchProduct.stream,
+            stream: blocProduct.SearchProduct.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               var item = (snapshot.data as SearchRespone);
               if (snapshot.hasData) {
@@ -114,7 +118,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
 
               } else {
                 return StreamBuilder(
-                    stream: bloc.onError.stream,
+                    stream: blocProduct.onError.stream,
                     builder: (context, snapshot) {
                       if(snapshot.hasData){
                         return Center(
@@ -137,7 +141,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
   }
 
   ProductMyShop CovertDataMyShop({Hits hits}){
-    return ProductMyShop(name: hits.name,id: hits.productId,brand: hits.brand,discountPercent: hits.discountPercent,hasVariant: hits.hasVariant,image: hits.image,maxPrice: hits.maxPrice,
+    return ProductMyShop(name: hits.name,active:1,id: hits.productId,brand: hits.brand,discountPercent: hits.discountPercent,hasVariant: hits.hasVariant,image: hits.image,maxPrice: hits.maxPrice,
     minPrice: hits.minPrice,offerPrice: hits.offerPrice,rating: hits.rating,reviewCount: hits.reviewCount,saleCount: hits.saleCount,salePrice: hits.salePrice);
   }
 
@@ -297,10 +301,9 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                           toggleColor: item.active==1?ThemeColor.primaryColor():Colors.grey.shade400,
                           value: item.active==1?true:false,
                           onToggle: (val) {
-                            // bloc.ProductMyShop.value.data[index].active = val?1:0;
-                            // bloc.ProductMyShop.add(bloc.ProductMyShop.value);
-                            // Usermanager().getUser().then((value) =>  bloc.UpdateProductMyShop(shopRequest: ProductMyShopRequest(
-                            //     name: item.name,active: bloc.ProductMyShop.value.data[index].active),token: value.token,productId: item.id));
+
+
+
                           },
                         ),
                       ),
@@ -317,15 +320,15 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             ),
                           ),
                           onTap: () async {
-                            // var product = ProductMyShopRequest(name: item.name,salePrice: item.salePrice,stockQuantity: item.stockQuantity,offerPrice: item.offerPrice,active: item.active);
-                            // var onSelectItem = List<OnSelectItem>();
-                            // for(var value in item.image){
-                            //   onSelectItem.add(OnSelectItem(onEdit: false,url: value.path));
-                            // }
-                            // var result = await  AppRoute.EditProduct(context, item.id,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
-                            // if(result){
-                            //   Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
-                            // }
+                            var product = ProductMyShopRequest(name: item.name,salePrice: item.salePrice,stockQuantity: item.stockQuantity,offerPrice: item.offerPrice,active: item.active);
+                            var onSelectItem = List<OnSelectItem>();
+                            for(var value in item.image){
+                              onSelectItem.add(OnSelectItem(onEdit: false,url: value.path));
+                            }
+                            var result = await  AppRoute.EditProduct(context, item.id,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
+                            if(result){
+                              Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
+                            }
                           },
                         ),
                       ),
@@ -342,8 +345,9 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             FunctionHelper.ConfirmDialog(context,message: LocaleKeys.dialog_message_del_product.tr(),onClick: (){
                               // bloc.ProductMyShop.value.data.removeAt(index);
                               // bloc.ProductMyShop.add(bloc.ProductMyShop.value);
-                               Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(ProductId: item.id,token: value.token));
+                               Usermanager().getUser().then((value) => blocProduct.DELETEProductMyShop(ProductId: item.id,token: value.token));
                                Navigator.of(context).pop();
+
                             },onCancel: (){Navigator.of(context).pop();});
                           },
                         ),

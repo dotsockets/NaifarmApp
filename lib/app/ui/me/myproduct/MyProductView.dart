@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
+import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -25,6 +28,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 
 class MyProductView extends StatefulWidget {
@@ -32,30 +36,55 @@ class MyProductView extends StatefulWidget {
   _MyProductViewState createState() => _MyProductViewState();
 }
 
-class _MyProductViewState extends State<MyProductView> {
+class _MyProductViewState extends State<MyProductView>  with RouteAware{
   List<ProductModel> listProducts = ProductViewModel().getMyProducts();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-
+  ScrollController _scrollController = ScrollController();
   UploadProductBloc bloc;
+  int limit = 5;
+  int page = 1;
+  bool step_page = false;
 
   init(){
      if(bloc==null){
        bloc=UploadProductBloc(AppProvider.getApplication(context));
        bloc.onSuccess.stream.listen((event)  {
           if(event is bool){
-            bloc.ProductMyShop.add(bloc.ProductMyShop.value);
+            bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
          }
        });
        bloc.onError.stream.listen((event) {
          FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
          Future.delayed(const Duration(milliseconds: 1000), () {
-           Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
+           Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: page.toString(),limit: 5,token: value.token));
          });
 
        });
-       Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
+       Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: page.toString(),limit: 5,token: value.token));
      }
+     _scrollController.addListener(() {
+       if (_scrollController.position.maxScrollExtent -
+           _scrollController.position.pixels <= 200) {
+
+         if (step_page) {
+           step_page = false;
+           page++;
+           Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: page.toString(),limit: 5,token: value.token));
+         }
+       }
+     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void didPopNext() {
+    Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: page.toString(),limit: 5,token: value.token));
   }
 
 
@@ -83,7 +112,7 @@ class _MyProductViewState extends State<MyProductView> {
             actions: [
               IconButton(
                 icon: Icon(Icons.search,size: 7.0.w,color: Colors.white,),
-                onPressed: ()=> AppRoute.SearchMyProductView(context: context,shopID: bloc.ProductMyShop.value.data[0].shop.id),
+                onPressed: ()=> AppRoute.SearchMyProductView(context: context,shopID: bloc.ProductMyShopRes.value.data[0].shop.id),
               ),
               IconButton(
                 icon: Icon(FontAwesome.ellipsis_v,size: 7.0.w,color: Colors.white,)
@@ -104,7 +133,7 @@ class _MyProductViewState extends State<MyProductView> {
                     length: 4,
                     child: Container(
                       child: Column(
-                        children: <Widget>[
+                        children: [
                           SizedBox(
                             height: 7.0.h,
                             child: Container(
@@ -138,6 +167,7 @@ class _MyProductViewState extends State<MyProductView> {
                               ],
                             ),
                           ),
+
                         ],
                       ),
                     ),
@@ -154,16 +184,46 @@ class _MyProductViewState extends State<MyProductView> {
 
   Widget _BuildCard(){
     return  StreamBuilder(
-      stream: bloc.ProductMyShop.stream,
+      stream: bloc.ProductMyShopRes.stream,
       builder: (BuildContext context,AsyncSnapshot snapshot){
+        step_page = true;
         if(snapshot.hasData && (snapshot.data as ProductMyShopListRespone).data.length>0){
+          step_page = true;
           var item = (snapshot.data as ProductMyShopListRespone);
           return Container(
             color: Colors.grey.shade300,
             child: SingleChildScrollView(
+              controller: _scrollController,
               child: Column(
-                children: List.generate(item.data.length, (index) =>
-                    _BuildProduct(item: item.data[index],index: index),),
+                children: [
+                  Column(
+                    children: List.generate(item.data.length, (index) =>
+                        _BuildProduct(item: item.data[index],index: index),),
+
+                  ),
+                  if (item.data.length != item.total && item.data.length >= limit)
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment:
+                        MainAxisAlignment.center,
+                        children: [
+                          Platform.isAndroid
+                              ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
+                              : CupertinoActivityIndicator(),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Loading",
+                              style: FunctionHelper.FontTheme(
+                                  color: Colors.grey,
+                                  fontSize:
+                                  SizeUtil.priceFontSize()
+                                      .sp))
+                        ],
+                      ),
+                    )
+                ],
               ),
             ),
           );
@@ -317,6 +377,7 @@ class _MyProductViewState extends State<MyProductView> {
                               children: [
                                 Expanded(
                                   child: Text(LocaleKeys.my_product_amount.tr()+" ${item.stockQuantity}",
+
                                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp)),
                                 ),
                                 SizedBox(width: 10,),
@@ -324,7 +385,7 @@ class _MyProductViewState extends State<MyProductView> {
                                   child: Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      "${LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr()}",
+                                      "${LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_piece.tr()}",
                                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp),
                                     ),
                                   ),
@@ -380,10 +441,10 @@ class _MyProductViewState extends State<MyProductView> {
                           toggleColor: item.active==1?ThemeColor.primaryColor():Colors.grey.shade400,
                           value: item.active==1?true:false,
                           onToggle: (val) {
-                           bloc.ProductMyShop.value.data[index].active = val?1:0;
-                           bloc.ProductMyShop.add(bloc.ProductMyShop.value);
+                           bloc.ProductMyShopRes.value.data[index].active = val?1:0;
+                           bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
                             Usermanager().getUser().then((value) =>  bloc.UpdateProductMyShop(shopRequest: ProductMyShopRequest(
-                                name: item.name,active: bloc.ProductMyShop.value.data[index].active),token: value.token,productId: item.id));
+                                name: item.name,active: bloc.ProductMyShopRes.value.data[index].active),token: value.token,productId: item.id));
                           },
                         ),
                       ),
@@ -423,8 +484,8 @@ class _MyProductViewState extends State<MyProductView> {
                           ),
                           onTap: (){
                             FunctionHelper.ConfirmDialog(context,message: LocaleKeys.dialog_message_del_product.tr(),onClick: (){
-                              bloc.ProductMyShop.value.data.removeAt(index);
-                              bloc.ProductMyShop.add(bloc.ProductMyShop.value);
+                              bloc.ProductMyShopRes.value.data.removeAt(index);
+                              bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
                               Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(ProductId: item.id,token: value.token));
                               Navigator.of(context).pop();
                             },onCancel: (){Navigator.of(context).pop();});
