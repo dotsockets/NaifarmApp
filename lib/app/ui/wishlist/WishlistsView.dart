@@ -79,80 +79,82 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
   @override
   Widget build(BuildContext context) {
     _init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        key: _scaffoldKey,
-        body: StreamBuilder(
-          stream: bloc.Wishlists.stream,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              if ((snapshot.data as WishlistsRespone).total > 0) {
-                return SingleChildScrollView(
-                  child: StickyHeader(
-                    header: AppToobar(title: LocaleKeys.me_title_likes.tr(),
-                      header_type: Header_Type.barNormal,
-                      icon: 'assets/images/svg/search.svg',),
-                    content: Column(
-                      children: [
-                        ClipRRect(
-                          child: Container(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  _buildCardProduct(context: context)
-                                ],
-                              )),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              } else {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(bottom: 15.0.h),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppToobar(title: LocaleKeys.me_title_likes.tr(),
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          body: StreamBuilder(
+            stream: bloc.Wishlists.stream,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                if ((snapshot.data as WishlistsRespone).total > 0) {
+                  return SingleChildScrollView(
+                    child: StickyHeader(
+                      header: AppToobar(title: LocaleKeys.me_title_likes.tr(),
                         header_type: Header_Type.barNormal,
                         icon: 'assets/images/svg/search.svg',),
-                     Expanded(
-                       child:  Column(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         children: [
-                           Lottie.asset('assets/json/boxorder.json',
-                               height: 70.0.w, width: 70.0.w, repeat: false),
-                           Text(
-                             "ไม่พบข้อมูล",
-                             style: FunctionHelper.FontTheme(
-                                 fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
-                           )
-                         ],
-                       ),
-                     )
-                    ],
-                  ),
+                      content: Column(
+                        children: [
+                          ClipRRect(
+                            child: Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    _buildCardProduct(context: context)
+                                  ],
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                } else {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.only(bottom: 15.0.h),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AppToobar(title: LocaleKeys.me_title_likes.tr(),
+                          header_type: Header_Type.barNormal,
+                          icon: 'assets/images/svg/search.svg',),
+                       Expanded(
+                         child:  Column(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           children: [
+                             Lottie.asset('assets/json/boxorder.json',
+                                 height: 70.0.w, width: 70.0.w, repeat: false),
+                             Text(
+                               "ไม่พบข้อมูล",
+                               style: FunctionHelper.FontTheme(
+                                   fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
+                             )
+                           ],
+                         ),
+                       )
+                      ],
+                    ),
+                  );
+                }
+              } else {
+                return Column(
+                  children: [
+                    AppToobar(title: LocaleKeys.me_title_likes.tr(),
+                      header_type: Header_Type.barNormal,
+                      icon: 'assets/images/svg/search.svg',),
+                    Expanded(child: Center(child: Platform.isAndroid
+                        ? CircularProgressIndicator()
+                        : CupertinoActivityIndicator()),)
+                  ],
                 );
               }
-            } else {
-              return Column(
-                children: [
-                  AppToobar(title: LocaleKeys.me_title_likes.tr(),
-                    header_type: Header_Type.barNormal,
-                    icon: 'assets/images/svg/search.svg',),
-                  Expanded(child: Center(child: Platform.isAndroid
-                      ? CircularProgressIndicator()
-                      : CupertinoActivityIndicator()),)
-                ],
-              );
-            }
-          },
+            },
+          ),
         ),
       ),
     );

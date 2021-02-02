@@ -116,485 +116,488 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Colors.white,
-      appBar: AppToobar(title: LocaleKeys.regis_otp_title.tr(),header_type: Header_Type.barNormal,),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(height: 4.0.h,),
-                    Text(LocaleKeys.regis_otp_message.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black),),
-                    SizedBox(height: 2.0.h,),
-                    Text(widget.phoneNumber,style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize().sp,color: Colors.black)),
-                    SizedBox(height: 2.0.h,),
-                    Text(LocaleKeys.edit_phone_confirm_otp.tr()+" [Ref : ${widget.refCode}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500)),
-                    SizedBox(height: 4.0.h,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 13.0.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey.shade300, //                   <--- border color
-                              width: 1.0,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 5,
-                                blurRadius: 5,
-                                offset: Offset(0, 0), // changes position of shadow
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: Colors.white,
+          appBar: AppToobar(title: LocaleKeys.regis_otp_title.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,),
+          body: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 4.0.h,),
+                      Text(LocaleKeys.regis_otp_message.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black),),
+                      SizedBox(height: 2.0.h,),
+                      Text(widget.phoneNumber,style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize().sp,color: Colors.black)),
+                      SizedBox(height: 2.0.h,),
+                      Text(LocaleKeys.edit_phone_confirm_otp.tr()+" [Ref : ${widget.refCode}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500)),
+                      SizedBox(height: 4.0.h,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 13.0.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey.shade300, //                   <--- border color
+                                width: 1.0,
                               ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            controller: _input1,
-                            cursorColor: ThemeColor.secondaryColor(),
-                            keyboardType: TextInputType.number,
-                            maxLength: 1,
-                            cursorHeight: 35,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            validator: ValidationBuilder()
-                                .required()
-                                .minLength(10)
-                                .maxLength(30)
-                                .build(),
-                            decoration: InputDecoration(
-                                hintStyle: TextStyle(
-                                    color: Colors.black.withOpacity(0.2)),
-                                contentPadding:
-                                EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  spreadRadius: 5,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 0), // changes position of shadow
                                 ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                border: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                helperStyle: TextStyle(
-                                  color: Colors.transparent,
-                                  fontSize: 0,
-                                ),
+                              ],
                             ),
-                            style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
-                            onChanged: (text) {
-                              _CheckForm();
-                              if (text.isNotEmpty) {
-                                FocusScope.of(context).nextFocus();
-                              } else {
-                                FocusScope.of(context).unfocus();
-                              }
-                            },
-                            onTap: () {
-                              //_navigateToTransferfromPage(context);
-                            },
-                          ),
-                        ),
-                        SizedBox(width: 3.0.w),
-                        Container(
-                          width: 13.0.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey.shade300, //                   <--- border color
-                              width: 1.0,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 5,
-                                blurRadius: 5,
-                                offset: Offset(0, 0), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            controller: _input2,
-                            cursorColor: ThemeColor.secondaryColor(),
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            validator: ValidationBuilder()
-                                .required()
-                                .minLength(10)
-                                .maxLength(30)
-                                .build(),
-                            maxLength: 1,
-                            cursorHeight: 35,
-                            decoration: InputDecoration(
-                                hintText: '',
-                                hintStyle: TextStyle(
-                                    color: Colors.black.withOpacity(0.2)),
-                                contentPadding:
-                                EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                border: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                helperStyle: TextStyle(
-                                  color: Colors.transparent,
-                                  fontSize: 0,
-                                )),
-                            style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
-                            onChanged: (text) {
-                              _CheckForm();
-                              if (text.isNotEmpty) {
-                                FocusScope.of(context).nextFocus();
-                              } else {
-                                FocusScope.of(context).previousFocus();
-                              }
-                            },
-                            onTap: () {
-                              //_navigateToTransferfromPage(context);
-                            },
-                          ),
-                        ),
-                        SizedBox(width: 3.0.w),
-                        Container(
-                          width: 13.0.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey.shade300, //                   <--- border color
-                              width: 1.0,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 5,
-                                blurRadius: 5,
-                                offset: Offset(0, 0), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            controller: _input3,
-                            cursorColor: ThemeColor.secondaryColor(),
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            validator: ValidationBuilder()
-                                .required()
-                                .minLength(10)
-                                .maxLength(30)
-                                .build(),
-                            maxLength: 1,
-                            cursorHeight: 35,
-                            decoration: InputDecoration(
-                                hintText: '',
-                                hintStyle: TextStyle(
-                                    color: Colors.black.withOpacity(0.2)),
-                                contentPadding:
-                                EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                border: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                helperStyle: TextStyle(
-                                  color: Colors.transparent,
-                                  fontSize: 0,
-                                )),
-                            style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
-                            onChanged: (text) {
-                              _CheckForm();
-                              if (text.isNotEmpty) {
-                                FocusScope.of(context).nextFocus();
-                              } else {
-                                FocusScope.of(context).previousFocus();
-                              }
-                            },
-                            onTap: () {
-                              //_navigateToTransferfromPage(context);
-                            },
-                          ),
-                        ),
-                        SizedBox(width: 3.0.w),
-                        Container(
-                          width: 13.0.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey.shade300, //                   <--- border color
-                              width: 1.0,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 5,
-                                blurRadius: 5,
-                                offset: Offset(0, 0), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            controller: _input4,
-                            cursorColor: ThemeColor.secondaryColor(),
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            validator: ValidationBuilder()
-                                .required()
-                                .minLength(10)
-                                .maxLength(30)
-                                .build(),
-                            maxLength: 1,
-                            cursorHeight: 35,
-                            decoration: InputDecoration(
-                                hintText: '',
-                                hintStyle: TextStyle(
-                                    color: Colors.black.withOpacity(0.2)),
-                                contentPadding:
-                                EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                border: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                helperStyle: TextStyle(
-                                  color: Colors.transparent,
-                                  fontSize: 0,
-                                )),
-                            style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
-                            onChanged: (text) {
-                              _CheckForm();
-                              if (text.isNotEmpty) {
-                                FocusScope.of(context).nextFocus();
-                              } else {
-                                FocusScope.of(context).previousFocus();
-                              }
-                            },
-                            onTap: () {
-                              //_navigateToTransferfromPage(context);
-                            },
-                          ),
-                        ),
-                        SizedBox(width: 3.0.w),
-                        Container(
-                          width: 13.0.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey.shade300, //                   <--- border color
-                              width: 1.0,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 5,
-                                blurRadius: 5,
-                                offset: Offset(0, 0), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            controller: _input5,
-                            cursorColor: ThemeColor.secondaryColor(),
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            validator: ValidationBuilder()
-                                .required()
-                                .minLength(10)
-                                .maxLength(30)
-                                .build(),
-                            maxLength: 1,
-                            cursorHeight: 35,
-                            decoration: InputDecoration(
-                                hintText: '',
-                                hintStyle: TextStyle(
-                                    color: Colors.black.withOpacity(0.2)),
-                                contentPadding:
-                                EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                border: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                helperStyle: TextStyle(
-                                  color: Colors.transparent,
-                                  fontSize: 0,
-                                )),
-                            style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
-                            onChanged: (text) {
-                              _CheckForm();
-                              if (text.isNotEmpty) {
-                                FocusScope.of(context).nextFocus();
-                              } else {
-                                FocusScope.of(context).previousFocus();
-                              }
-                            },
-                            onTap: () {
-                              //_navigateToTransferfromPage(context);
-                            },
-                          ),
-                        ),
-                        SizedBox(width: 3.0.w),
-                        Container(
-                          width: 13.0.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey.shade300, //                   <--- border color
-                              width: 1.0,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 5,
-                                blurRadius: 5,
-                                offset: Offset(0, 0), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            controller: _input6,
-                            cursorColor: ThemeColor.secondaryColor(),
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            validator: ValidationBuilder()
-                                .required()
-                                .minLength(10)
-                                .maxLength(30)
-                                .build(),
-                            maxLength: 1,
-                            cursorHeight: 35,
-                            decoration: InputDecoration(
-                                hintText: '',
-                                hintStyle: TextStyle(
-                                    color: Colors.black.withOpacity(0.2)),
-                                contentPadding:
-                                EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                border: UnderlineInputBorder(
-                                  borderSide:
-                                  BorderSide(color: Colors.transparent),
-                                ),
-                                helperStyle: TextStyle(
-                                  color: Colors.transparent,
-                                  fontSize: 0,
-                                )),
-                            style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
-                            onChanged: (text) {
-                              _CheckForm();
-                              if (text.isNotEmpty) {
-
-                                verify.onPressed();
-                                FocusScope.of(context).nextFocus();
-                              } else {
-                                FocusScope.of(context).previousFocus();
-                              }
-
-                            },
-                            onTap: () {
-                              //_navigateToTransferfromPage(context);
-                            },
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 3.0.h,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        endTimes?Text(LocaleKeys.regis_otp_please_wait.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox(),
-                        CountdownTimer(
-                          endTime: endTime,
-                          widgetBuilder: (_, CurrentRemainingTime time) {
-                            if (time != null) {
-                              return Text(
-                                  '${FunctionHelper.ConverTime(time: time.sec != null ? time.sec.toString() : "0")}',
-                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: ThemeColor.ColorSale()));
-                            } else {
-                              return Container(
-                                child:InkWell(
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset('assets/images/svg/change.svg'),
-                                      SizedBox(width: 10,),
-                                      Text(LocaleKeys.edit_phone_otp_again.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),)
-                                    ],
+                            child: TextFormField(
+                              controller: _input1,
+                              cursorColor: ThemeColor.secondaryColor(),
+                              keyboardType: TextInputType.number,
+                              maxLength: 1,
+                              cursorHeight: 35,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              validator: ValidationBuilder()
+                                  .required()
+                                  .minLength(10)
+                                  .maxLength(30)
+                                  .build(),
+                              decoration: InputDecoration(
+                                  hintStyle: TextStyle(
+                                      color: Colors.black.withOpacity(0.2)),
+                                  contentPadding:
+                                  EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
                                   ),
-                                  onTap: (){
-                                    RequestOTPNEW();
-                                  },
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  border: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  helperStyle: TextStyle(
+                                    color: Colors.transparent,
+                                    fontSize: 0,
+                                  ),
+                              ),
+                              style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
+                              onChanged: (text) {
+                                _CheckForm();
+                                if (text.isNotEmpty) {
+                                  FocusScope.of(context).nextFocus();
+                                } else {
+                                  FocusScope.of(context).unfocus();
+                                }
+                              },
+                              onTap: () {
+                                //_navigateToTransferfromPage(context);
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 3.0.w),
+                          Container(
+                            width: 13.0.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey.shade300, //                   <--- border color
+                                width: 1.0,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  spreadRadius: 5,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 0), // changes position of shadow
                                 ),
-                              );
-                            }
-                          },
+                              ],
+                            ),
+                            child: TextFormField(
+                              controller: _input2,
+                              cursorColor: ThemeColor.secondaryColor(),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              validator: ValidationBuilder()
+                                  .required()
+                                  .minLength(10)
+                                  .maxLength(30)
+                                  .build(),
+                              maxLength: 1,
+                              cursorHeight: 35,
+                              decoration: InputDecoration(
+                                  hintText: '',
+                                  hintStyle: TextStyle(
+                                      color: Colors.black.withOpacity(0.2)),
+                                  contentPadding:
+                                  EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  border: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  helperStyle: TextStyle(
+                                    color: Colors.transparent,
+                                    fontSize: 0,
+                                  )),
+                              style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
+                              onChanged: (text) {
+                                _CheckForm();
+                                if (text.isNotEmpty) {
+                                  FocusScope.of(context).nextFocus();
+                                } else {
+                                  FocusScope.of(context).previousFocus();
+                                }
+                              },
+                              onTap: () {
+                                //_navigateToTransferfromPage(context);
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 3.0.w),
+                          Container(
+                            width: 13.0.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey.shade300, //                   <--- border color
+                                width: 1.0,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  spreadRadius: 5,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 0), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: TextFormField(
+                              controller: _input3,
+                              cursorColor: ThemeColor.secondaryColor(),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              validator: ValidationBuilder()
+                                  .required()
+                                  .minLength(10)
+                                  .maxLength(30)
+                                  .build(),
+                              maxLength: 1,
+                              cursorHeight: 35,
+                              decoration: InputDecoration(
+                                  hintText: '',
+                                  hintStyle: TextStyle(
+                                      color: Colors.black.withOpacity(0.2)),
+                                  contentPadding:
+                                  EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  border: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  helperStyle: TextStyle(
+                                    color: Colors.transparent,
+                                    fontSize: 0,
+                                  )),
+                              style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
+                              onChanged: (text) {
+                                _CheckForm();
+                                if (text.isNotEmpty) {
+                                  FocusScope.of(context).nextFocus();
+                                } else {
+                                  FocusScope.of(context).previousFocus();
+                                }
+                              },
+                              onTap: () {
+                                //_navigateToTransferfromPage(context);
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 3.0.w),
+                          Container(
+                            width: 13.0.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey.shade300, //                   <--- border color
+                                width: 1.0,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  spreadRadius: 5,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 0), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: TextFormField(
+                              controller: _input4,
+                              cursorColor: ThemeColor.secondaryColor(),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              validator: ValidationBuilder()
+                                  .required()
+                                  .minLength(10)
+                                  .maxLength(30)
+                                  .build(),
+                              maxLength: 1,
+                              cursorHeight: 35,
+                              decoration: InputDecoration(
+                                  hintText: '',
+                                  hintStyle: TextStyle(
+                                      color: Colors.black.withOpacity(0.2)),
+                                  contentPadding:
+                                  EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  border: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  helperStyle: TextStyle(
+                                    color: Colors.transparent,
+                                    fontSize: 0,
+                                  )),
+                              style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
+                              onChanged: (text) {
+                                _CheckForm();
+                                if (text.isNotEmpty) {
+                                  FocusScope.of(context).nextFocus();
+                                } else {
+                                  FocusScope.of(context).previousFocus();
+                                }
+                              },
+                              onTap: () {
+                                //_navigateToTransferfromPage(context);
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 3.0.w),
+                          Container(
+                            width: 13.0.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey.shade300, //                   <--- border color
+                                width: 1.0,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  spreadRadius: 5,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 0), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: TextFormField(
+                              controller: _input5,
+                              cursorColor: ThemeColor.secondaryColor(),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              validator: ValidationBuilder()
+                                  .required()
+                                  .minLength(10)
+                                  .maxLength(30)
+                                  .build(),
+                              maxLength: 1,
+                              cursorHeight: 35,
+                              decoration: InputDecoration(
+                                  hintText: '',
+                                  hintStyle: TextStyle(
+                                      color: Colors.black.withOpacity(0.2)),
+                                  contentPadding:
+                                  EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  border: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  helperStyle: TextStyle(
+                                    color: Colors.transparent,
+                                    fontSize: 0,
+                                  )),
+                              style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
+                              onChanged: (text) {
+                                _CheckForm();
+                                if (text.isNotEmpty) {
+                                  FocusScope.of(context).nextFocus();
+                                } else {
+                                  FocusScope.of(context).previousFocus();
+                                }
+                              },
+                              onTap: () {
+                                //_navigateToTransferfromPage(context);
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 3.0.w),
+                          Container(
+                            width: 13.0.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey.shade300, //                   <--- border color
+                                width: 1.0,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  spreadRadius: 5,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 0), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: TextFormField(
+                              controller: _input6,
+                              cursorColor: ThemeColor.secondaryColor(),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              validator: ValidationBuilder()
+                                  .required()
+                                  .minLength(10)
+                                  .maxLength(30)
+                                  .build(),
+                              maxLength: 1,
+                              cursorHeight: 35,
+                              decoration: InputDecoration(
+                                  hintText: '',
+                                  hintStyle: TextStyle(
+                                      color: Colors.black.withOpacity(0.2)),
+                                  contentPadding:
+                                  EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  border: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                  ),
+                                  helperStyle: TextStyle(
+                                    color: Colors.transparent,
+                                    fontSize: 0,
+                                  )),
+                              style: GoogleFonts.kanit(fontSize: SizeUtil.appNameFontSize().sp),
+                              onChanged: (text) {
+                                _CheckForm();
+                                if (text.isNotEmpty) {
 
-                          onEnd: () {
-                            setState(() {
-                              endTimes = false;
-                            });
-                            // Navigator.pop(context,false);
-                          },
-                        ),
-                        endTimes?Text("  "+LocaleKeys.regis_otp_before_tab.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox()
-                      ],
-                    )
+                                  verify.onPressed();
+                                  FocusScope.of(context).nextFocus();
+                                } else {
+                                  FocusScope.of(context).previousFocus();
+                                }
 
-                  ],
+                              },
+                              onTap: () {
+                                //_navigateToTransferfromPage(context);
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 3.0.h,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          endTimes?Text(LocaleKeys.regis_otp_please_wait.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox(),
+                          CountdownTimer(
+                            endTime: endTime,
+                            widgetBuilder: (_, CurrentRemainingTime time) {
+                              if (time != null) {
+                                return Text(
+                                    '${FunctionHelper.ConverTime(time: time.sec != null ? time.sec.toString() : "0")}',
+                                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: ThemeColor.ColorSale()));
+                              } else {
+                                return Container(
+                                  child:InkWell(
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset('assets/images/svg/change.svg'),
+                                        SizedBox(width: 10,),
+                                        Text(LocaleKeys.edit_phone_otp_again.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),)
+                                      ],
+                                    ),
+                                    onTap: (){
+                                      RequestOTPNEW();
+                                    },
+                                  ),
+                                );
+                              }
+                            },
+
+                            onEnd: () {
+                              setState(() {
+                                endTimes = false;
+                              });
+                              // Navigator.pop(context,false);
+                            },
+                          ),
+                          endTimes?Text("  "+LocaleKeys.regis_otp_before_tab.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox()
+                        ],
+                      )
+
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(right: 20.0.w,left: 20.0.w,bottom: 2.0.h,top: 2.0.h),
-              color: Colors.grey.shade300,
-              child:  _verifyBtn(),
-            )
-          ],
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(right: 20.0.w,left: 20.0.w,bottom: 2.0.h,top: 2.0.h),
+                color: Colors.grey.shade300,
+                child:  _verifyBtn(),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -632,6 +635,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
   Widget _verifyBtn() {
     return FlatButton(
      minWidth: 50.0.w,
+      height: 5.0.h,
       color: SuccessForm?ThemeColor.secondaryColor():Colors.grey.shade400,
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),

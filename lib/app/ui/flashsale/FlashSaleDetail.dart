@@ -97,80 +97,78 @@ class _FlashSaleViewState extends State<FlashSaleView> {
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
+          appBar: AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
           backgroundColor:  Colors.grey.shade300,
          // appBar: AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
           body: SingleChildScrollView(
-            child: StickyHeader(
-              header: AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
-              content: Container(
-                margin: EdgeInsets.only(top: 2.0.h),
-                child: Stack(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 6.0.h),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(topRight:  Radius.circular(50),topLeft: Radius.circular(50),
-                              bottomLeft: Radius.circular( widget.instalData.data.length !=0?0:40),bottomRight: Radius.circular(widget.instalData.data.length !=0?0:40)
-                          ),
-                          border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
-                      ),
-                      child:   widget.instalData.data.length ==0?
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height:50.0.h,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("ไม่พบสินค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
-                          ],
+            child: Container(
+              margin: EdgeInsets.only(top: 2.0.h),
+              child: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 6.0.h),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(topRight:  Radius.circular(50),topLeft: Radius.circular(50),
+                            bottomLeft: Radius.circular( widget.instalData.data.length !=0?0:40),bottomRight: Radius.circular(widget.instalData.data.length !=0?0:40)
                         ),
-                      ) :
-                      content,
+                        border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
                     ),
+                    child:   widget.instalData.data.length ==0?
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height:50.0.h,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("ไม่พบสินค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ) :
+                    content,
+                  ),
 
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: FlashSaleBar(timeFlash:  widget.instalData.data[0].end,),
-                    ),
-                    StreamBuilder(
-                        stream:position_scroll.stream,
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.hasData) {
-                            return snapshot.data?Container(
-                              margin: EdgeInsets.only(right: 5.0.w, bottom:  5.0.w),
-                              child: Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: Container(
-                                    width: 13.0.w,
-                                    height: 13.0.w,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.black.withOpacity(0.4)
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: FlashSaleBar(timeFlash:  widget.instalData.data[0].end,),
+                  ),
+                  StreamBuilder(
+                      stream:position_scroll.stream,
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          return snapshot.data?Container(
+                            margin: EdgeInsets.only(right: 5.0.w, bottom:  5.0.w),
+                            child: Align(
+                                alignment: Alignment.bottomRight,
+                                child: Container(
+                                  width: 13.0.w,
+                                  height: 13.0.w,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.black.withOpacity(0.4)
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_up_outlined,
+                                      size: 8.0.w,
+                                      color: Colors.white,
                                     ),
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.keyboard_arrow_up_outlined,
-                                        size: 8.0.w,
-                                        color: Colors.white,
-                                      ),
-                                      onPressed: (){
-                                        _scrollController.animateTo(
-                                            _scrollController.position.minScrollExtent,
-                                            duration: Duration(milliseconds: 1000),
-                                            curve: Curves.ease);
-                                      },
-                                    ),
-                                  )
-                              ),
-                            ):SizedBox();
-                          } else {
-                            return SizedBox();
-                          }
-                        })
-                  ],
-                ),
+                                    onPressed: (){
+                                      _scrollController.animateTo(
+                                          _scrollController.position.minScrollExtent,
+                                          duration: Duration(milliseconds: 1000),
+                                          curve: Curves.ease);
+                                    },
+                                  ),
+                                )
+                            ),
+                          ):SizedBox();
+                        } else {
+                          return SizedBox();
+                        }
+                      })
+                ],
               ),
             ),
           ),

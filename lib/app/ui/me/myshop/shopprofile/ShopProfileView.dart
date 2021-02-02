@@ -79,7 +79,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
         }
 
        if(onUpdate || onImageUpdate){
-         Navigator.pop(context,true);
+       //  Navigator.pop(context,true);
        }
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
@@ -101,7 +101,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
           stateId: itemInfo.state!=null?itemInfo.state.id:0,
           active: isSelect?1:0
       ),access_token: value.token));
-      // Navigator.of(context).pop();
+      Navigator.pop(context,true);
     }else{
       Navigator.pop(context,onImageUpdate);
     }

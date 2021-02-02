@@ -92,30 +92,35 @@ class _Register_FBViewState extends State<Register_FBView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(title: "กำหนดรหัสผ่าน",header_type: Header_Type.barNormal,),
-      body: Container(
-        child: Container(
-          child: Column(
-            children: [
-              _Form(),
-              SizedBox(height: 4.0.h,),
-              FlatButton(
-                minWidth: 250,
-                height: 7.0.h,
-                color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
-                textColor: Colors.white,
-                splashColor: Colors.white.withOpacity(0.3),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                onPressed: ()=>FormCheck()?verify():SizedBox(),
-                child: Text("ถัดไป",
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-                ),
-              )
-            ],
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.grey.shade200,
+          appBar: AppToobar(title: "กำหนดรหัสผ่าน",header_type: Header_Type.barNormal,isEnable_Search: false,),
+          body: Container(
+            child: Container(
+              child: Column(
+                children: [
+                  _Form(),
+                  SizedBox(height: 4.0.h,),
+                  FlatButton(
+                    minWidth: 250,
+                    height: 7.0.h,
+                    color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
+                    textColor: Colors.white,
+                    splashColor: Colors.white.withOpacity(0.3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    onPressed: ()=>FormCheck()?verify():SizedBox(),
+                    child: Text("ถัดไป",
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
       ),

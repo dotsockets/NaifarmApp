@@ -47,7 +47,7 @@ class _FlashSaleState extends State<FlashSale> {
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(top: 3.0.h),
+          margin: EdgeInsets.only(top: 5.0.h),
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -58,7 +58,7 @@ class _FlashSaleState extends State<FlashSale> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 8.0.h),
+              SizedBox(height: 6.5.h),
               Center(child: _textSale(context: context)),
               SizedBox(height: 2.5.h),
               OnFlashSale ? _flashProduct(context) : SizedBox(),

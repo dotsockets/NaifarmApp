@@ -71,31 +71,36 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(title: LocaleKeys.my_profile_username.tr(),header_type: Header_Type.barNormal,),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _Form(),
-              SizedBox(height: 4.0.h,),
-              FlatButton(
-                minWidth: 250,
-                height: 7.0.h,
-                color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
-                textColor: Colors.white,
-                splashColor: Colors.white.withOpacity(0.3),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                onPressed: ()=>verify(),
-                child: Text(LocaleKeys.next_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-                ),
-              )
-            ],
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: Colors.grey.shade200,
+          appBar: AppToobar(title: LocaleKeys.my_profile_username.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,),
+          body: Container(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _Form(),
+                  SizedBox(height: 4.0.h,),
+                  FlatButton(
+                    minWidth: 250,
+                    height: 7.0.h,
+                    color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
+                    textColor: Colors.white,
+                    splashColor: Colors.white.withOpacity(0.3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    onPressed: ()=>verify(),
+                    child: Text(LocaleKeys.next_btn.tr(),
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
       ),

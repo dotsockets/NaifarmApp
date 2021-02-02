@@ -104,48 +104,54 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
   @override
   Widget build(BuildContext context) {
     init();
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(title: LocaleKeys.edit_password_set.tr(),header_type: Header_Type.barNormal,),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              StreamBuilder(
-                  stream: onCheck.stream,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if(snapshot.hasData){
-                      return Column(
-                        children: [
-                          _Form(),
-                          SizedBox(height: 4.0.h,),
-                          FlatButton(
-                            minWidth: 60.0.w,
-                            color: snapshot.data?ThemeColor.secondaryColor():Colors.grey.shade400,
-                            textColor: Colors.white,
-                            splashColor: Colors.white.withOpacity(0.3),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40.0),
-                            ),
-                            onPressed: (){
-                              if(snapshot.data){
-                                bloc.ForgotPassword(password: _input2.text,phone: widget.phone,ref: widget.ref,code: widget.code);
-                              }
-                            },
-                            child: Text(LocaleKeys.continue_btn.tr(),
-                              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-                            ),
-                          )
-                        ],
-                      );
-                    }else{
-                      return SizedBox();
-                    }
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: Colors.grey.shade200,
+          appBar: AppToobar(title: LocaleKeys.edit_password_set.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,),
+          body: Container(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  StreamBuilder(
+                      stream: onCheck.stream,
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if(snapshot.hasData){
+                          return Column(
+                            children: [
+                              _Form(),
+                              SizedBox(height: 4.0.h,),
+                              FlatButton(
+                                height: 5.0.h,
+                                minWidth: 60.0.w,
+                                color: snapshot.data?ThemeColor.secondaryColor():Colors.grey.shade400,
+                                textColor: Colors.white,
+                                splashColor: Colors.white.withOpacity(0.3),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(40.0),
+                                ),
+                                onPressed: (){
+                                  if(snapshot.data){
+                                    bloc.ForgotPassword(password: _input2.text,phone: widget.phone,ref: widget.ref,code: widget.code);
+                                  }
+                                },
+                                child: Text(LocaleKeys.continue_btn.tr(),
+                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                                ),
+                              )
+                            ],
+                          );
+                        }else{
+                          return SizedBox();
+                        }
 
 
-                  })
-            ],
+                      })
+                ],
+              ),
+            ),
           ),
         ),
       ),

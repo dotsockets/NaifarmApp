@@ -1,5 +1,8 @@
 
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,7 +27,8 @@ import 'package:sizer/sizer.dart';
 class NotiShop extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool btnBack;
-  const NotiShop({Key key, this.btnBack=false, this.scaffoldKey}) : super(key: key);
+  final NotiRespone notiRespone;
+  const NotiShop({Key key, this.btnBack=false, this.scaffoldKey, this.notiRespone}) : super(key: key);
   @override
   _NotiShopState createState() => _NotiShopState();
 }
@@ -32,19 +36,33 @@ class NotiShop extends StatefulWidget {
 class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<NotiShop>{
   NotiBloc bloc;
   init(){
-    NaiFarmLocalStorage.getNowPage().then((value) {
-      if(value==2){
-        Usermanager().getUser().then((value) => bloc.GetNotificationByGroup(group: "shop",page: 1,limit: 20,sort: "notification.createdAt:desc",token: value.token));
-
-      }
-    });
     if(bloc==null){
       bloc = NotiBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
+        //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
       });
 
+      //  bloc.onSuccess.add(widget.notiRespone);
+
+      Usermanager().getUser().then((value) {
+        if (value.token != null) {
+          NaiFarmLocalStorage.getNowPage().then((page){
+            if(page==2){
+              bloc.GetNotification(group: "shop",page: 1,limit: 10,sort: "notification.createdAt:desc",token: value.token);
+            }
+          });
+
+        }
+      });
+
+
     }
+
+
+
   }
   @override
   Widget build(BuildContext context) {
@@ -78,21 +96,12 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
               ),
             );
           }else{
-            return Center(
-              child: Container(
-                margin: EdgeInsets.only(bottom: 15.0.h),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Lottie.asset('assets/json/boxorder.json',
-                        height: 70.0.w, width: 70.0.w, repeat: false),
-                    Text(
-                      LocaleKeys.cart_empty.tr(),
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
+            return Container(
+              margin: EdgeInsets.only(bottom: 15.0.h),
+              child: Center(
+                child:  Platform.isAndroid
+                    ? CircularProgressIndicator()
+                    : CupertinoActivityIndicator(),
               ),
             );
           }
@@ -147,7 +156,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
           decoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.grey.shade200, width: 1)),
           ),
-          padding: EdgeInsets.only(top: 2.0.h,right: 10,left: 10,bottom: 2.0.h),
+          padding: EdgeInsets.only(top: index==0?1.0.h:2.0.h,right: 1.0.w,left: 1.0.w,bottom: 2.0.h),
           child: Column(
             children: [
               Row(
@@ -184,12 +193,12 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(item.meta.status!=null?item.meta.status.toString():"แจ้งเตือนคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+                            Text(ConvertStatusText(type: item.type,meta: item.meta),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
                             SizedBox(height: 0.5.h),
                             Wrap(
                               children: [
                                 Text("คุณได้ทำรายการสั่งซื้อสินค้า หมายเลขคำสั่งซื้อ  ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                                Text("${item.meta.order}  ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                               // Text(ConvertStatusSubText(type: item.type,meta: item.meta),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
 
                               ],
                             )
@@ -197,6 +206,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                           ],
                         ),
                       )),
+                  SizedBox(width: 1.0.w,),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.black.withOpacity(0.4),
@@ -211,6 +221,22 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       ),
     ),
   );
+
+  String ConvertStatusText({String type,Meta meta}){
+    if(type=="App\\Notifications\\Order\\OrderCreated"){
+      return meta.status;
+    }else{
+      return "แจ้งเตือน คำสั่งซื้อใหม่";
+    }
+  }
+
+  String ConvertStatusSubText({String type,Meta meta}){
+    if(type=="App\\Notifications\\Order\\OrderCreated"){
+      return "รายการ ${meta.order}";
+    }else{
+      return "แจ้งเตือน คำสั่งซื้อใหม่";
+    }
+  }
 
   @override
   bool get wantKeepAlive => true;

@@ -44,7 +44,7 @@ class AppToobar extends PreferredSize {
       Key key,
       this.header_type,
       this.title = "",
-      this.isEnable_Search = false,
+      this.isEnable_Search = true,
       this.showBackBtn = true,
       this.locationTxt = "",
       this.hint = "",
@@ -113,18 +113,12 @@ class AppToobar extends PreferredSize {
                   ),
                 ),
               ),
-              IconButton(
+              isEnable_Search?IconButton(
                 icon: Icon(Icons.search_rounded,color: Colors.white,),
                 onPressed: (){
-                  Usermanager().getUser().then((value) {
-                  if (value.token != null) {
                   AppRoute.SearchHome(context);
-                  } else {
-                  AppRoute.Login(context);
-                  }
-                  });
                 },
-              )
+              ):SizedBox(width: 10.0.w,height: 10.0.w,)
 
             ],
           ),

@@ -91,29 +91,32 @@ class NotiData {
 }
 
 class Meta {
-  int id;
-  String order;
+  String user;
+  String name;
   String status;
+  String id;
+  String order;
+  String customer;
 
-  Meta({this.id, this.order, this.status});
+  Meta({this.user, this.name, this.status, this.id, this.order, this.customer});
 
   Meta.fromJson(Map<String, dynamic> json) {
-    if(json['id'] is String){
-      id = int.parse(json['id']);
-    }else{
-      id = json['id'];
-    }
-
-    order = json['order'];
+    user = json['user'];
+    name = json['name'];
     status = json['status'];
+    id = json['id'];
+    order = json['order'];
+    customer = json['customer'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['user'] = this.user;
+    data['name'] = this.name;
+    data['status'] = this.status;
     data['id'] = this.id;
     data['order'] = this.order;
-    data['status'] = this.status;
+    data['customer'] = this.customer;
     return data;
   }
 }
-

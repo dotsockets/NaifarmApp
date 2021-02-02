@@ -1,5 +1,8 @@
 
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,7 +29,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class NotiCus extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool btnBack;
-  const NotiCus({Key key, this.btnBack=false, this.scaffoldKey}) : super(key: key);
+  final NotiRespone notiRespone;
+  const NotiCus({Key key, this.btnBack=false, this.scaffoldKey, this.notiRespone}) : super(key: key);
   @override
   _NotiCusState createState() => _NotiCusState();
 }
@@ -34,30 +38,27 @@ class NotiCus extends StatefulWidget {
 class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<NotiCus>{
   NotiBloc bloc;
   init(){
-    NaiFarmLocalStorage.getNowPage().then((value) {
-     if(value==2){
-       Usermanager().getUser().then((value){
-         bloc.GetNotificationByGroup(group: "customer",page: 1,limit: 20,sort: "notification.createdAt:desc",token: value.token);
-       });
-
-     }
-    });
-
     if(bloc==null){
       bloc = NotiBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
+        //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-       // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+        // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
       });
 
-
-
-
+    //  bloc.onSuccess.add(widget.notiRespone);
     }
+    Usermanager().getUser().then((value) {
+      if (value.token != null) {
+        NaiFarmLocalStorage.getNowPage().then((page){
+          if(page==2){
+            bloc.GetNotification(group: "customer",page: 1,limit: 10,sort: "notification.createdAt:desc",token: value.token);
+          }
+        });
 
-
+      }
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -91,21 +92,12 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
               ),
             );
           }else{
-            return Center(
-              child: Container(
-                margin: EdgeInsets.only(bottom: 15.0.h),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Lottie.asset('assets/json/boxorder.json',
-                        height: 70.0.w, width: 70.0.w, repeat: false),
-                    Text(
-                      LocaleKeys.cart_empty.tr(),
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
+            return Container(
+              margin: EdgeInsets.only(bottom: 15.0.h),
+              child: Center(
+                child:  Platform.isAndroid
+                    ? CircularProgressIndicator()
+                    : CupertinoActivityIndicator(),
               ),
             );
           }
@@ -147,12 +139,12 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
       key: Key(
           "${item.id}"),
       onDismissed: (direction) {
-          if (direction == DismissDirection.endToStart ||
-          direction == DismissDirection.startToEnd) {
-            var item = (bloc.onSuccess.value as NotiRespone);
-            item.data.removeAt(index);
-            bloc.onSuccess.add(item);
-          }
+        if (direction == DismissDirection.endToStart ||
+            direction == DismissDirection.startToEnd) {
+          var item = (bloc.onSuccess.value as NotiRespone);
+          item.data.removeAt(index);
+          bloc.onSuccess.add(item);
+        }
 
 
       },
@@ -160,7 +152,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
           decoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.grey.shade200, width: 1)),
           ),
-          padding: EdgeInsets.only(top: 2.0.h,right: 10,left: 10,bottom: 2.0.h),
+          padding: EdgeInsets.only(top: index==0?0.0.h:2.0.h,right: 10,left: 10,bottom: 2.0.h),
           child: Column(
             children: [
               Row(
@@ -178,7 +170,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                       placeholder: (context, url) => Container(
                         color: Colors.white,
                         child: Lottie.asset(Env.value.loadingAnimaion,  width: 7.0.w,
-                          height: 7.0.w),
+                            height: 7.0.w),
                       ),
                       fit: BoxFit.cover,
                       imageUrl: "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
@@ -197,12 +189,12 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(item.meta.status,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+                            Text(ConvertStatusText(type: item.type,meta: item.meta),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
                             SizedBox(height: 0.5.h),
                             Wrap(
                               children: [
                                 Text("คุณได้ทำรายการสั่งซื้อสินค้า หมายเลขคำสั่งซื้อ  ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                                Text("${item.meta.order}  ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                                Text(ConvertStatusSubText(type: item.type,meta: item.meta),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
 
                               ],
                             )
@@ -224,6 +216,22 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
       ),
     ),
   );
+
+  String ConvertStatusText({String type,Meta meta}){
+    if(type=="App\\Notifications\\Order\\OrderCreated"){
+      return meta.status;
+    }else{
+      return "แจ้งเตือน คำสั่งซื้อใหม่";
+    }
+  }
+
+  String ConvertStatusSubText({String type,Meta meta}){
+    if(type=="App\\Notifications\\Order\\OrderCreated"){
+      return "รายการ ${meta.order}";
+    }else{
+      return "แจ้งเตือน คำสั่งซื้อใหม่";
+    }
+  }
 
   @override
   bool get wantKeepAlive => true;

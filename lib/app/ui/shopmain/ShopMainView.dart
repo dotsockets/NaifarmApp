@@ -102,9 +102,11 @@ class _ShopMainViewState extends State<ShopMainView>
               stream: bloc.onError.stream,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if(snapshot.hasData){
-                  return ConnectErrorView(result: snapshot.data ,show_full: false,callback: (){
-                    Usermanager().getUser().then((value) => bloc.loadShop(shopid: widget.myShopRespone.id, token: value.token));
-                  });
+                  return Center(
+                    child: ConnectErrorView(result: snapshot.data ,show_full: false,callback: (){
+                      Usermanager().getUser().then((value) => bloc.loadShop(shopid: widget.myShopRespone.id, token: value.token));
+                    }),
+                  );
                 }else{
                   return _content;
                 }

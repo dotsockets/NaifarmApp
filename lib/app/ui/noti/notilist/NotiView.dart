@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +14,8 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
+import 'package:naifarm/app/model/pojo/response/NotificationCombine.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/app/ui/noti/notidetail/NotiCus.dart';
@@ -45,7 +50,7 @@ class _NotiViewState extends State<NotiView>
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   NotiBloc bloc;
   final _reload = BehaviorSubject<bool>();
-
+  bool fixload = true;
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
@@ -57,20 +62,20 @@ class _NotiViewState extends State<NotiView>
 
     if (bloc == null) {
       bloc = NotiBloc(AppProvider.getApplication(context));
-    }
 
+    }
     Usermanager().getUser().then((value) {
       if (value.token != null) {
         NaiFarmLocalStorage.getNowPage().then((data){
           if(data == 2){
+            _reload.add(true);
             bloc.MarkAsReadNotifications(token: value.token,context: context);
           }
         });
-        _reload.add(true);
-      } else {
-        _reload.add(false);
       }
     });
+
+
 
   }
 
@@ -125,8 +130,8 @@ class _NotiViewState extends State<NotiView>
                                     height: 1.5.h,
                                   ),
                                   Container(
-                                    width: 70.0.w,
-                                    height: 6.0.h,
+                                    width: 80.0.w,
+                                    height: 5.0.h,
                                     decoration: BoxDecoration(
                                       color: Colors.grey[300],
                                       borderRadius: BorderRadius.circular(
@@ -183,7 +188,7 @@ class _NotiViewState extends State<NotiView>
                                             scaffoldKey: _scaffoldKey,
                                           ),
                                         ],
-                                      ),
+                                      )
                                     ),
                                   ),
                                 ],

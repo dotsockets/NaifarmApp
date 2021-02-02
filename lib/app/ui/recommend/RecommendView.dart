@@ -45,8 +45,8 @@ import 'package:sizer/sizer.dart';
 class RecommendView extends StatefulWidget {
   final Size size;
   final double paddingBottom;
-
-  const RecommendView({Key key, this.size, this.paddingBottom})
+  final Function(int) onClick;
+  const RecommendView({Key key, this.size, this.paddingBottom, this.onClick})
       : super(key: key);
 
   @override
@@ -174,7 +174,10 @@ class _RecommendViewState extends State<RecommendView> {
                                       BannerSlide(),
                                       RecommendMenu(
                                           homeObjectCombine: (snapshot.data
-                                              as HomeObjectCombine)),
+                                              as HomeObjectCombine),
+                                      onClick: (int index){
+                                        widget.onClick(index);
+                                      },),
                                       SizedBox(height: 1.0.h,),
                                       FlashSale(
                                           flashsaleRespone: (snapshot.data

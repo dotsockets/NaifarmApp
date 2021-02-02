@@ -24,10 +24,11 @@ import 'package:sizer/sizer.dart';
 class RecommendMenu extends StatelessWidget {
 
   final HomeObjectCombine homeObjectCombine;
+  final Function(int) onClick;
 
   final List<MenuModel> _menuViewModel = MenuViewModel().getRecommendmenu();
 
-   RecommendMenu({Key key, this.homeObjectCombine}) : super(key: key);
+   RecommendMenu({Key key, this.homeObjectCombine, this.onClick}) : super(key: key);
   NotiBloc bloc;
 
   init(BuildContext context){
@@ -126,26 +127,25 @@ class RecommendMenu extends StatelessWidget {
         case  "SpecialproductsView" : AppRoute.ProductMore(installData: homeObjectCombine.productRespone,api_link: "products/types/popular",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr());
         break;
         case  "NotiView" :  {
-
-          Usermanager().isLogin().then((value) async {
-            if(!value){
-              final result = await  AppRoute.Login(context,IsCallBack: true,IsHeader: true);
-              if(result){
-                Usermanager().getUser().then((value) async {
-                  NaiFarmLocalStorage.saveNowPage(2).then((data){
-                    bloc.MarkAsReadNotifications(token: value.token);
-                    AppRoute.MyNoti(context,true);
-                  });
-                });
-              }
-            }else{
-              Usermanager().getUser().then((value) async {
-                NaiFarmLocalStorage.saveNowPage(2).then((data){
-                  AppRoute.MyNoti(context,true);
-                });
-              });
-            }
-          });
+          onClick(2);
+          // Usermanager().isLogin().then((value) async {
+          //   if(!value){
+          //     final result = await  AppRoute.Login(context,IsCallBack: true,IsHeader: true);
+          //     if(result){
+          //       Usermanager().getUser().then((value) async {
+          //         NaiFarmLocalStorage.saveNowPage(2).then((data){
+          //           AppRoute.MyNoti(context,true);
+          //         });
+          //       });
+          //     }
+          //   }else{
+          //     Usermanager().getUser().then((value) async {
+          //       NaiFarmLocalStorage.saveNowPage(2).then((data){
+          //         AppRoute.MyNoti(context,true);
+          //       });
+          //     });
+          //   }
+          // });
 
 
         }

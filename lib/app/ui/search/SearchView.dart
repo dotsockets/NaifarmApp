@@ -125,8 +125,8 @@ class _SearchViewState extends State<SearchView> {
                                           id: item.productId,
                                           shopId: item.shopId,
                                           shop: ShopItem(id: item.shopId),
-                                          name: item.inventories[0].title,
-                                          salePrice: item.inventories[0].salePrice,offerPrice: item.inventories[0].offerPrice,saleCount: item.saleCount,
+                                          name: item.name,
+                                          salePrice: item.salePrice,offerPrice: item.offerPrice,saleCount: item.saleCount,
                                           image: item.image,));
                                   },
                                 ),

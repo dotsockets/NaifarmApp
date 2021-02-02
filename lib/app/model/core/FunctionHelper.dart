@@ -500,15 +500,19 @@ class FunctionHelper {
       final hour = int.parse(timestamp.substring(11, 13));
       final minute = int.parse(timestamp.substring(14, 16));
 
-      final DateTime videoDate = DateTime(year, month, day, hour, minute);
-      final int diffInHours = DateTime.now().difference(videoDate).inHours;
+      final DateTime nowoDate = DateTime(year, month, day, hour, minute);
+      final int diffInHours = DateTime.now().difference(nowoDate).inHours;
+      final int diffInMuntes = DateTime.now().difference(nowoDate).inMinutes;
 
       String timeAgo = '';
       String timeUnit = '';
       int timeValue = 0;
-
-      if (diffInHours < 1) {
-        final diffInMinutes = DateTime.now().difference(videoDate).inMinutes;
+      if(diffInMuntes < 1){
+        final diffInMinutes = DateTime.now().difference(nowoDate).inMinutes;
+        timeValue = diffInMinutes;
+        timeUnit = 'ไม่กี่วินาที';
+      }else if (diffInHours < 1) {
+        final diffInMinutes = DateTime.now().difference(nowoDate).inMinutes;
         timeValue = diffInMinutes;
         timeUnit = 'นาที';
       } else if (diffInHours < 24) {

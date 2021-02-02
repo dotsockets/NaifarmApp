@@ -122,7 +122,7 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
       children: [
         InkWell(
           child: Hero(
-            tag: "history_paid_${item.orderId}${item.inventoryId}${index}",
+            tag: "history_success_${item.orderId}${item.inventoryId}${index}",
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -148,7 +148,7 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
           onTap: (){
             var product = item.inventory.product;
             product.shop = ProductShop(id: shopId);
-            AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
+            AppRoute.ProductDetail(context, productImage: "history_success_${item.orderId}${item.inventoryId}${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
           },
         ),
         SizedBox(width: 2.0.w),

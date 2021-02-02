@@ -84,7 +84,12 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                 return IndexedStack(
                   index: snapshot.data,
                   children: [
-                    RecommendView(size: MediaQuery.of(context).size,paddingBottom: MediaQuery.of(context).padding.bottom),
+                    RecommendView(size: MediaQuery.of(context).size,paddingBottom: MediaQuery.of(context).padding.bottom,onClick: (int index){
+                      if(index==2){
+                        NaiFarmLocalStorage.saveNowPage(index);
+                        _selectedIndex.add(index);
+                      }
+                    }),
                     CategoryView(),
                     //MyCartView(BtnBack: false,),
                     NotiView(),
@@ -117,7 +122,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                         selectedIndex: snapshot.data,
                         onTap: (index) {
 
-                          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+                         // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
                           NaiFarmLocalStorage.saveNowPage(index);
 
                             _selectedIndex.add(index);
