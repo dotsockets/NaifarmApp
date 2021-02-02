@@ -68,9 +68,8 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
   Widget build(BuildContext context) {
     init();
     return Container(
+      color: ThemeColor.primaryColor(),
       child: SafeArea(
-
-        top: false,
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
