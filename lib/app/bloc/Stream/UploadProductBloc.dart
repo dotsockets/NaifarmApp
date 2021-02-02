@@ -185,6 +185,7 @@ class UploadProductBloc {
             _application.appStoreAPIRepository.UpdateProductMyShop(
                 shopRequest: shopRequest, productId: productId, token: token))
         .listen((respone) {
+      onLoad.add(false);
       if (respone.http_call_back.status == 200) {
          if(isActive == IsActive.UpdateProduct){
            onSuccess.add(true);
@@ -219,11 +220,8 @@ class UploadProductBloc {
     _compositeSubscription.add(subscription);
   }
 
-  GetProductMyShop({String page, int limit, String token}) {
-    StreamSubscription subscription = Observable.fromFuture(_application
-            .appStoreAPIRepository
-            .GetProductMyShop(page: page, limit: limit, token: token))
-        .listen((respone) {
+  GetProductMyShop({String page, int limit, String token,String filter}) {
+    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.GetProductMyShop(page: page, limit: limit, token: token,filter: filter)).listen((respone) {
       if (respone.http_call_back.status == 200) {
         var item = (respone.respone as ProductMyShopListRespone);
         product_more.addAll(item.data);

@@ -41,6 +41,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
     if(bloc==null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
       Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.orderType,statusId: 3,limit: 20,page: 1,token: value.token));
+
     }
 
   }

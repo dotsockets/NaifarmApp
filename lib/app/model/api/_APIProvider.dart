@@ -1083,13 +1083,13 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetProductMyShop({String page, int limit,String token}) async {
+  Future<ApiResult> GetProductMyShop({String page, int limit,String token,String filter}) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     try {
 
-      final _result = await _dio.request<dynamic>('/v1/myshop/products?limit=${limit}&page=${page}',
+      final _result = await _dio.request<dynamic>('/v1/myshop/products?limit=${limit}&page=${page}&filter=${filter}',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',

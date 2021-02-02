@@ -215,7 +215,7 @@ abstract class APIProvider{
   Future<ApiResult> EditShoppingMyShop({ShppingMyShopRequest shopRequest,int rateID, String token});
 
   @GET("/v1/myshop/products")
-  Future<ApiResult> GetProductMyShop({String page, int limit,String token});
+  Future<ApiResult> GetProductMyShop({String page, int limit,String token,String filter});
 
   @POST("/v1/myshop/products")
   Future<ApiResult> AddProductMyShop({ProductMyShopRequest shopRequest,String token});

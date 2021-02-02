@@ -84,7 +84,7 @@ class ShopOwn extends StatelessWidget {
                              fontSize: SizeUtil.titleSmallFontSize().sp,
                              color: Colors.black.withOpacity(0.8))),
                      SizedBox(height: 2),
-                     Text("${shopItem.state!=null?"จังหวัด ${shopItem.state.name}":'จังหวัดไม่ถูกต้อง'}",
+                     Text("${shopItem.state!=null?"จังหวัด${shopItem.state.name}":'จังหวัดไม่ถูกต้อง'}",
                          style: FunctionHelper.FontTheme(
                              fontSize: SizeUtil.titleSmallFontSize().sp,
                              color: Colors.black.withOpacity(0.8),height: 1.5)),
@@ -92,7 +92,6 @@ class ShopOwn extends StatelessWidget {
                  ),
                ),
                showBtn? Container(
-
                   child: FlatButton(
                     color: ThemeColor.primaryColor(),
                     textColor: Colors.white,

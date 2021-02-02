@@ -78,15 +78,19 @@ class _EditProductViewState extends State<EditProductView> {
       bloc.onSuccess.stream.listen((event)  {
         onUpdate = true;
         if(event is bool){
-          var item = bloc.uploadProductStorage.value.productMyShopRequest;
-          var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
-          Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
-              token: value.token));
-          // Navigator.pop(context, true);
+        //  var item = bloc.uploadProductStorage.value.productMyShopRequest;
+        //  var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
+        //  Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
+       //       token: value.token));
+
+         // AppRoute.MyProduct(context,pushEvent: true);
+         Navigator.pop(context,event);
+        // Navigator.pop(context,event);
+         // AppRoute.PoppageCount(context: context,countpage: 2);
         }else if(event is ProductMyShopRespone){
-          Navigator.pop(context, onUpdate);
+         // Navigator.pop(context, onUpdate);
         }else if(event is IsActive){
-          Navigator.pop(context, true);
+        //  Navigator.pop(context, true);
         }
       });
       NaiFarmLocalStorage.getAllCategoriesCache().then((value){
