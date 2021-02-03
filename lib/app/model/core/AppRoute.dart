@@ -159,21 +159,24 @@ class AppRoute{
   static PaymentMe(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: PaymentView()));
   }
-  static MyProduct(BuildContext context,{bool pushEvent=false}){
+  static MyProduct(BuildContext context,int shopId,{bool pushEvent=false,int countPage=1}){
     if(pushEvent){
     //  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
-      Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
+    // Navigator.pop(context);
+      PoppageCount(context: context,countpage: countPage);
+      Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView(shopId:shopId)));
+      // Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView(shopId:shopId)));
     }else{
-      Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
+      Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView(shopId:shopId)));
     }
 
   }
   static ProductDetailShop(BuildContext context,{String productImage,ProductMyShop productItem}){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ProductDetailShopView(productImage: productImage,productItem: productItem,)));
   }
-  static MyNewProduct(BuildContext context,{IsActive isActive}){
+  static MyNewProduct(BuildContext context,int shopId,{IsActive isActive}){
 
-    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyNewProductView()));
+    Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyNewProductView(shopId: shopId,)));
   }
 
 
@@ -190,8 +193,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: DeliveryCostView()));
   }
 
-  static Future<bool> EditProduct(BuildContext context,int index,{UploadProductStorage uploadProductStorage}) async {
-    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProductView(ProductId: index,uploadProductStorage: uploadProductStorage,)));
+  static Future<bool> EditProduct(BuildContext context,int index,int popPage,{UploadProductStorage uploadProductStorage}) async {
+    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProductView(ProductId: index,uploadProductStorage: uploadProductStorage,popPage: popPage,)));
   }
 
   static Future<bool> ImageProduct(BuildContext context,{IsActive isactive})async{

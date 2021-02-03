@@ -52,10 +52,10 @@ class _SoldOutState extends State<SoldOut> with AutomaticKeepAliveClientMixin<So
 
       bloc.onError.stream.listen((event) {
         Future.delayed(const Duration(milliseconds: 1000), () {
-          Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: page.toString(),limit: 5,token: value.token,filter:"sold_out"));
+          _reloadData();
         });
       });
-      Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: page.toString(),limit: 5,token: value.token,filter:"sold_out"));
+      _reloadData();
     }
 
 
@@ -65,7 +65,7 @@ class _SoldOutState extends State<SoldOut> with AutomaticKeepAliveClientMixin<So
         if (step_page) {
           step_page = false;
           page++;
-          Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: page.toString(),limit: 5,token: value.token,filter:"sold_out"));
+          _reloadData();
         }
       }
     });
@@ -142,7 +142,7 @@ class _SoldOutState extends State<SoldOut> with AutomaticKeepAliveClientMixin<So
       {ProductMyShop item,int index}) {
     return InkWell(
       onTap: (){
-        AppRoute.ProductDetailShop(context,productImage: "myproduct_${index}", productItem: item);},
+        AppRoute.ProductDetailShop(context,productImage: "myproduct_${index}_2", productItem: item);},
       child: Container(
         margin: EdgeInsets.only(bottom: 8),
         color: Colors.white,
@@ -163,7 +163,7 @@ class _SoldOutState extends State<SoldOut> with AutomaticKeepAliveClientMixin<So
                                 color: Colors.black.withOpacity(0.2), width: 1),
                             borderRadius: BorderRadius.all(Radius.circular(10))),
                         child: Hero(
-                          tag: "myproduct_${index}",
+                          tag: "myproduct_${index}_2",
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(1.0.h),
                             child: CachedNetworkImage(
@@ -319,9 +319,11 @@ class _SoldOutState extends State<SoldOut> with AutomaticKeepAliveClientMixin<So
                             for(var value in item.image){
                               onSelectItem.add(OnSelectItem(onEdit: false,url: value.path));
                             }
-                            var result = await  AppRoute.EditProduct(context, item.id,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
+                            var result = await  AppRoute.EditProduct(context, item.id,2,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
                             if(result){
-                              Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
+                              page = 1;
+                              bloc.product_more.clear();
+                              _reloadData();
                             }
                           },
                         ),
@@ -382,6 +384,10 @@ class _SoldOutState extends State<SoldOut> with AutomaticKeepAliveClientMixin<So
         );
       },
     );
+  }
+
+  _reloadData(){
+    Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: page.toString(),limit: 5,token: value.token,filter:"sold_out"));
   }
 
   @override

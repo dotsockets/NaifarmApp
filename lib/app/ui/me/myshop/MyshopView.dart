@@ -151,7 +151,7 @@ class _MyshopViewState extends State<MyshopView> {
             icon: 'assets/images/svg/editprofile.svg',
             title: LocaleKeys.me_title_my_product.tr(),
             onClick: () {
-              AppRoute.MyProduct(context);
+              AppRoute.MyProduct(context,widget.myShopRespone.id);
             },
           )
               : SizedBox(),

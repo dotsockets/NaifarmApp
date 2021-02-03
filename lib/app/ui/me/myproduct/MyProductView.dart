@@ -36,6 +36,10 @@ import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 
 class MyProductView extends StatefulWidget {
+  final int shopId;
+
+  const MyProductView({Key key, this.shopId}) : super(key: key);
+
   @override
   _MyProductViewState createState() => _MyProductViewState();
 }
@@ -67,7 +71,6 @@ class _MyProductViewState extends State<MyProductView> {
        });
 */
      }
-     _reloadData();
   }
 
 
@@ -95,7 +98,8 @@ class _MyProductViewState extends State<MyProductView> {
             actions: [
               IconButton(
                 icon: Icon(Icons.search,size: 7.0.w,color: Colors.white,),
-                onPressed: ()=> AppRoute.SearchMyProductView(context: context,shopID: bloc.ProductMyShopRes.value.data[0].shop.id),
+                onPressed: (){
+                  AppRoute.SearchMyProductView(context: context,shopID: widget.shopId);},
               ),
               IconButton(
                 icon: Icon(FontAwesome.ellipsis_v,size: 7.0.w,color: Colors.white,)
@@ -185,7 +189,6 @@ class _MyProductViewState extends State<MyProductView> {
             if(result){
               Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
             }
-
           },
           child: Text(
             LocaleKeys.add_product_btn.tr(),
@@ -246,7 +249,5 @@ class _MyProductViewState extends State<MyProductView> {
       },
     );
   }
-  _reloadData(){
-    Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: page.toString(),limit: 5,token: value.token));
-  }
+
 }

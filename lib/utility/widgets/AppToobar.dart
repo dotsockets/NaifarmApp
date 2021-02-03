@@ -261,7 +261,6 @@ class AppToobar extends PreferredSize {
                 ),
                 _buildSearch(context),
                 BuildIconShop()
-
               ],
             ),
 
@@ -270,7 +269,6 @@ class AppToobar extends PreferredSize {
                 //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
                 // });
                 //  Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-
 
           ],
         ),
@@ -337,7 +335,7 @@ class AppToobar extends PreferredSize {
                       ),
                     ),
               onTap: () {
-                AppRoute.SearchHome(context);
+                //AppRoute.SearchHome(context);
               },
             )),
             SvgPicture.asset(
