@@ -48,7 +48,7 @@ class ProductMyShop {
   List<ProductImage> image;
   int discountPercent;
   int rating;
-  int reviewCount;
+  double reviewCount;
   int stockQuantity;
   int active;
 

@@ -65,7 +65,7 @@ class Hits {
   int offerPrice;
   int discountPercent;
   int rating;
-  int reviewCount;
+  double reviewCount;
   int hasVariant;
 
   Hits(

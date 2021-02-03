@@ -60,7 +60,7 @@ class _NotiViewState extends State<NotiView>
   }
 
   init() {
-
+    ISLogin();
     if (bloc == null) {
       bloc = NotiBloc(AppProvider.getApplication(context));
 
@@ -78,6 +78,9 @@ class _NotiViewState extends State<NotiView>
 
   }
 
+  void ISLogin() async => IsLogin = await Usermanager().isLogin();
+
+
   @override
   void dispose() {
     super.dispose();
@@ -93,12 +96,11 @@ class _NotiViewState extends State<NotiView>
         child: Scaffold(
             key: _scaffoldKey,
             backgroundColor: Colors.white,
-            body: StreamBuilder(
+            body: IsLogin?StreamBuilder(
                 stream: _reload.stream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    return snapshot.data
-                        ? NestedScrollView(
+                    return  NestedScrollView(
                       controller: _scrollController,
                             headerSliverBuilder: (BuildContext context,
                                 bool innerBoxIsScrolled) {
@@ -222,20 +224,19 @@ class _NotiViewState extends State<NotiView>
                                 ],
                               ),
                             ),
-                          )
-                        : LoginView(
-                            IsHeader: false,
-                            homeCallBack: (bool fix) {
-                              Usermanager().getUser().then((value){
-                                bloc.MarkAsReadNotifications(token: value.token);
-                                _reload.add(true);
-                              });
-                            },
                           );
                   } else {
                     return SizedBox();
                   }
-                })),
+                }): LoginView(
+              IsHeader: false,
+              homeCallBack: (bool fix) {
+                Usermanager().getUser().then((value){
+                  bloc.MarkAsReadNotifications(token: value.token);
+                  _reload.add(true);
+                });
+              },
+            )),
       ),
     );
   }

@@ -329,11 +329,10 @@ class _MeViewState extends State<MeView> with RouteAware {
                                                   onStatus: (bool
                                                   status) {
                                                     if (status) {
-                                                      Usermanager()
-                                                          .getUser()
-                                                          .then((value) =>
-                                                          bloc.loadMyProfile(
-                                                              token: value.token));
+                                                      if (status) {
+                                                        _reload.add(true);
+                                                        IsLogin = false;
+                                                      }
                                                     }
                                                   },
                                                 ),

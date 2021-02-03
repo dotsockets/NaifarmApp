@@ -33,6 +33,8 @@ class _HeaderDetailState extends State<HeaderDetail> {
 
   final _opacityMax = 0.01;
 
+
+
   @override
   void initState() {
     _backgroundColor = Colors.transparent;
@@ -45,8 +47,14 @@ class _HeaderDetailState extends State<HeaderDetail> {
     _opacity_icon = 0.0;
 
     widget.scrollController.addListener(_onScroll);
+
     super.initState();
+
   }
+
+
+
+
 
   _onScroll() {
     final scrollOffset = widget.scrollController.offset;
@@ -101,11 +109,14 @@ class _HeaderDetailState extends State<HeaderDetail> {
 
 
     });
+
+
   }
 
 
     @override
     Widget build(BuildContext context) {
+
       return Container(
         height: 8.0.h,
         decoration: BoxDecoration(
@@ -174,6 +185,7 @@ Expanded(
                   child: Container(
                     color: _backgroundColorSearch,
                     child: BuildIconShop(
+
                       iconColor: _colorIcon),
                   ),
                 ),

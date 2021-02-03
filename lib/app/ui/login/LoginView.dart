@@ -22,11 +22,10 @@ import 'package:sizer/sizer.dart';
 
 class LoginView extends StatefulWidget {
   final bool IsCallBack;
-  final HomeObjectCombine item;
   final bool IsHeader;
   final Function(bool) homeCallBack;
 
-  const LoginView({Key key, this.IsCallBack=false, this.item, this.IsHeader=true, this.homeCallBack}) : super(key: key);
+  const LoginView({Key key, this.IsCallBack=false, this.IsHeader=true, this.homeCallBack}) : super(key: key);
 
   @override
   _LoginViewState createState() => _LoginViewState();
