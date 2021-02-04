@@ -273,24 +273,13 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                         border: Border.all(
                             color: Colors.black.withOpacity(0.2), width: 1),
                         borderRadius: BorderRadius.all(Radius.circular(6))),
-                    child: CachedNetworkImage(
-                      width: 7.0.w,
-                      height: 7.0.w,
-                      placeholder: (context, url) => Container(
-                        color: Colors.white,
-                        child: Lottie.asset(Env.value.loadingAnimaion,  width: 7.0.w,
-                            height: 7.0.w),
-                      ),
-                      fit: BoxFit.cover,
-                      imageUrl: "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
-                      errorWidget: (context, url, error) => Container(
-                          width: 7.0.w,
-                          height: 7.0.w,
-                          child: Icon(
-                            Icons.error,
-                            size: 30,
-                          )),
-                    ),
+                    child: Container(
+                        width: 7.0.w,
+                        height: 7.0.w,
+                        child: Icon(
+                          Icons.notifications_none,
+                          size: 30,
+                        )),
                   ),
                   Expanded(
                       child: Container(
@@ -318,7 +307,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("อัพเดทข้อมูลร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text("แจ้งเตือน อัพเดทข้อมูลร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
           Wrap(
             children: [
@@ -334,13 +323,14 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${item.meta.status}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text("แจ้งเตือน ${item.meta.status}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
           Wrap(
             children: [
-              Text("สถานะ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+             Text("สถานะ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
               Text("${item.meta.status} ",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.normal,color: Colors.black)),
-
+            // Html(data: "สถานะ <span>${item.meta.status} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ <b style='color:#006100'>${item.meta.order}</b></span> ",
+             // ),
             ],
           )
 
@@ -350,17 +340,17 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("คำสั่งซื้อใหม่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
-        //  SizedBox(height: 0.5.h),
-          Html(data: "<span>${item.meta.customer} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ <b style='color:#006100'>${item.meta.order}</b></span> ",
-             ),
-          // Wrap(
-          //   children: [
-          //     Text("${item.meta.customer} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-          //     Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-          //
-          //   ],
-          // )
+          Text("แจ้งเตือน คำสั่งซื้อใหม่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          SizedBox(height: 0.5.h),
+        //   Html(data: "<span>${item.meta.customer} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ <b style='color:#006100'>${item.meta.order}</b></span> ",
+        //      ),
+          Wrap(
+            children: [
+              Text("${item.meta.customer} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+              Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+
+            ],
+          )
 
         ],
       );

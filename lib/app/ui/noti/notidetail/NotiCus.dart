@@ -274,24 +274,13 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                         border: Border.all(
                             color: Colors.black.withOpacity(0.2), width: 1),
                         borderRadius: BorderRadius.all(Radius.circular(6))),
-                    child: CachedNetworkImage(
-                      width: 7.0.w,
-                      height: 7.0.w,
-                      placeholder: (context, url) => Container(
-                        color: Colors.white,
-                        child: Lottie.asset(Env.value.loadingAnimaion,  width: 7.0.w,
-                            height: 7.0.w),
-                      ),
-                      fit: BoxFit.cover,
-                      imageUrl: "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
-                      errorWidget: (context, url, error) => Container(
-                          width: 7.0.w,
-                          height: 7.0.w,
-                          child: Icon(
-                            Icons.error,
-                            size: 30,
-                          )),
-                    ),
+                    child:  Container(
+                        width: 7.0.w,
+                        height: 7.0.w,
+                        child: Icon(
+                          Icons.shopping_bag_outlined,
+                          size: 30,
+                        )),
                   ),
                   Expanded(
                       child: Container(
