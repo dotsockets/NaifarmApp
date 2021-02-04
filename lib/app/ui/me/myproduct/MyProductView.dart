@@ -118,6 +118,7 @@ class _MyProductViewState extends State<MyProductView> {
                   color: Colors.white,
                   child: DefaultTabController(
                     length: 4,
+
                     child: Container(
                       child: Column(
                         children: [
