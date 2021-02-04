@@ -275,8 +275,6 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                             color: Colors.black.withOpacity(0.2), width: 1),
                         borderRadius: BorderRadius.all(Radius.circular(6))),
                     child:  Container(
-                        width: 7.0.w,
-                        height: 7.0.w,
                         child: Icon(
                           Icons.shopping_bag_outlined,
                           size: 30,

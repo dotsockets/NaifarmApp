@@ -274,12 +274,11 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                             color: Colors.black.withOpacity(0.2), width: 1),
                         borderRadius: BorderRadius.all(Radius.circular(6))),
                     child: Container(
-                        width: 7.0.w,
-                        height: 7.0.w,
                         child: Icon(
                           Icons.notifications_none,
                           size: 30,
-                        )),
+                        )
+                    ),
                   ),
                   Expanded(
                       child: Container(
