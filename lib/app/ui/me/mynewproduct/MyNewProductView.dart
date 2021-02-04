@@ -76,7 +76,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
 
         }else if(event is bool){
           NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Product_Upload).then((value){
-            AppRoute.MyProduct(context,widget.shopId,pushEvent: true,countPage: 1);
+            AppRoute.MyProduct(context,widget.shopId,pushEvent: true,countPage: 1,indexTab: bloc.uploadProductStorage.value.productMyShopRequest.active==0?3:0);
           });
         }
       });
@@ -395,6 +395,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
       onPressed: () {
         // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
         if(enable){
+
           Usermanager().getUser().then((value) {
             bloc.AddProductMyShop(shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,token: value.token);
           });

@@ -37,8 +37,9 @@ import 'package:sizer/sizer.dart';
 
 class MyProductView extends StatefulWidget {
   final int shopId;
+  final int indexTab;
 
-  const MyProductView({Key key, this.shopId}) : super(key: key);
+  const MyProductView({Key key, this.shopId,this.indexTab}) : super(key: key);
 
   @override
   _MyProductViewState createState() => _MyProductViewState();
@@ -118,6 +119,7 @@ class _MyProductViewState extends State<MyProductView> {
                   color: Colors.white,
                   child: DefaultTabController(
                     length: 4,
+                    initialIndex: widget.indexTab,
                     child: Container(
                       child: Column(
                         children: [
@@ -148,11 +150,10 @@ class _MyProductViewState extends State<MyProductView> {
                             child:
                             TabBarView(
                               children: [
-                                Available(),
-                               SoldOut(),
-                                Banned(),
-                                InActive(),
-
+                                Available(shopId: widget.shopId,),
+                               SoldOut(shopId: widget.shopId),
+                                Banned(shopId: widget.shopId),
+                                InActive(shopId: widget.shopId),
                               ],
                             ),
                           ),
