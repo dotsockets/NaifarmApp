@@ -30,8 +30,9 @@ class EditProductView extends StatefulWidget {
   final UploadProductStorage uploadProductStorage;
   final int popPage;
   final int shopId;
+  final int indexTab;
 
-  const EditProductView({Key key, this.ProductId, this.uploadProductStorage,this.popPage,this.shopId}) : super(key: key);
+  const EditProductView({Key key, this.ProductId, this.uploadProductStorage,this.popPage,this.shopId,this.indexTab}) : super(key: key);
   @override
   _EditProductViewState createState() => _EditProductViewState();
 }
@@ -85,7 +86,7 @@ class _EditProductViewState extends State<EditProductView> {
           Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
               token: value.token));
 
-          AppRoute.MyProduct(context,18,pushEvent: true,countPage: widget.popPage);
+          AppRoute.MyProduct(context,widget.shopId,pushEvent: true,countPage: widget.popPage,indexTab: widget.indexTab);
         // Navigator.pop(context,event);
          // AppRoute.PoppageCount(context: context,countpage: 2);
         }else if(event is ProductMyShopRespone){

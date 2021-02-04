@@ -325,7 +325,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             for(var value in item.image){
                               onSelectItem.add(OnSelectItem(onEdit: false,url: value.path));
                             }
-                            var result = await AppRoute.EditProduct(context, item.id,3,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
+                            var result = await AppRoute.EditProduct(context, item.id,3,widget.shopID,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
                             if(result){
                              // Navigator.pop(context,true);
                               _reloadData();

@@ -159,15 +159,15 @@ class AppRoute{
   static PaymentMe(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: PaymentView()));
   }
-  static MyProduct(BuildContext context,int shopId,{bool pushEvent=false,int countPage=1}){
+  static MyProduct(BuildContext context,int shopId,{bool pushEvent=false,int countPage=1,int indexTab=0}){
     if(pushEvent){
     //  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
     // Navigator.pop(context);
       PoppageCount(context: context,countpage: countPage);
-      Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView(shopId:shopId)));
+      Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView(shopId:shopId,indexTab: indexTab,)));
       // Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView(shopId:shopId)));
     }else{
-      Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView(shopId:shopId)));
+      Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView(shopId:shopId,indexTab: indexTab,)));
     }
 
   }
@@ -193,8 +193,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: DeliveryCostView()));
   }
 
-  static Future<bool> EditProduct(BuildContext context,int index,int popPage,{UploadProductStorage uploadProductStorage}) async {
-    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProductView(ProductId: index,uploadProductStorage: uploadProductStorage,popPage: popPage,)));
+  static Future<bool> EditProduct(BuildContext context,int index,int popPage,int shopId,{UploadProductStorage uploadProductStorage,int indexTab=0}) async {
+    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProductView(indexTab:indexTab,ProductId: index,uploadProductStorage: uploadProductStorage,popPage: popPage,shopId: shopId,)));
   }
 
   static Future<bool> ImageProduct(BuildContext context,{IsActive isactive})async{

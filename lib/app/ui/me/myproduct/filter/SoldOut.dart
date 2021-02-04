@@ -27,7 +27,9 @@ import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:sizer/sizer.dart';
 
 class SoldOut extends StatefulWidget {
+  final int shopId;
 
+  const SoldOut({Key key, this.shopId}) : super(key: key);
   @override
   _SoldOutState createState() => _SoldOutState();
 }
@@ -39,6 +41,8 @@ class _SoldOutState extends State<SoldOut> with AutomaticKeepAliveClientMixin<So
   int limit = 5;
   int page = 1;
   bool step_page = false;
+  int count = 0;
+
 
   init(){
 
@@ -92,7 +96,7 @@ class _SoldOutState extends State<SoldOut> with AutomaticKeepAliveClientMixin<So
                     children: List.generate(item.data.length, (index) =>
                         _BuildProduct(item: item.data[index],index: index),),
                   ),
-                  if (item.data.length != item.total && item.data.length >= limit)
+                  if (item.data.length != item.total-count)
                     Container(
                       padding: EdgeInsets.all(20),
                       child: Row(
@@ -319,7 +323,7 @@ class _SoldOutState extends State<SoldOut> with AutomaticKeepAliveClientMixin<So
                             for(var value in item.image){
                               onSelectItem.add(OnSelectItem(onEdit: false,url: value.path));
                             }
-                            var result = await  AppRoute.EditProduct(context, item.id,2,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
+                            var result = await  AppRoute.EditProduct(context, item.id,2,widget.shopId,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem),indexTab: 1);
                             if(result){
                               page = 1;
                               bloc.product_more.clear();
@@ -341,6 +345,7 @@ class _SoldOutState extends State<SoldOut> with AutomaticKeepAliveClientMixin<So
                             FunctionHelper.ConfirmDialog(context,message: LocaleKeys.dialog_message_del_product.tr(),onClick: (){
                               bloc.ProductMyShopRes.value.data.removeAt(index);
                               bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
+                              count++;
                               Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(ProductId: item.id,token: value.token));
                               Navigator.of(context).pop();
                             },onCancel: (){Navigator.of(context).pop();});
