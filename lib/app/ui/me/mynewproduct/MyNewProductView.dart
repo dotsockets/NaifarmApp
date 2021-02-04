@@ -1,15 +1,7 @@
-import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
-import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
-import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
-import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
-import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -24,15 +16,14 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
-import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:naifarm/utility/widgets/OrderTypeDropdownList.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:regexed_validator/regexed_validator.dart';
 import 'package:sizer/sizer.dart';
 
 class MyNewProductView extends StatefulWidget {
 
+  final int shopId;
 
+  const MyNewProductView({Key key, this.shopId}) : super(key: key);
 
   @override
   _MyNewProductViewState createState() => _MyNewProductViewState();
@@ -85,7 +76,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
 
         }else if(event is bool){
           NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Product_Upload).then((value){
-            AppRoute.MyProduct(context,pushEvent: true);
+            AppRoute.MyProduct(context,widget.shopId,pushEvent: true,countPage: 1);
           });
         }
       });
@@ -168,17 +159,14 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                           bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
                                         }
 
-                                      },),
-                                      SizedBox(height: 15,),
-                                      BuildEditText(
-                                        head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController,onChanged: (String char){
-                                        if(char.isNotEmpty){
-
-                                          bloc.uploadProductStorage.value.productMyShopRequest.salePrice = int.parse(char);
-                                          bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-
-
-                                        }
+                                    },),
+                                    SizedBox(height: 15,),
+                                    BuildEditText(
+                                      head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController,onChanged: (String char){
+                                      if(char.isNotEmpty){
+                                        bloc.uploadProductStorage.value.productMyShopRequest.salePrice = int.parse(char);
+                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                      }
 
 
                                       },),

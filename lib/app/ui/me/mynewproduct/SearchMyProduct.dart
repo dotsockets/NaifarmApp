@@ -42,8 +42,10 @@ class _SearchMyProductState extends State<SearchMyProduct> {
   ProductBloc blocProduct;
   UploadProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  bool checkPop = false;
 
   void _init() {
+
     if (null == blocProduct) {
       blocProduct = ProductBloc(AppProvider.getApplication(context));
       blocProduct.onLoad.stream.listen((event) {
@@ -302,8 +304,6 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                           value: item.active==1?true:false,
                           onToggle: (val) {
 
-
-
                           },
                         ),
                       ),
@@ -325,9 +325,11 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             for(var value in item.image){
                               onSelectItem.add(OnSelectItem(onEdit: false,url: value.path));
                             }
-                            var result = await  AppRoute.EditProduct(context, item.id,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
+                            var result = await AppRoute.EditProduct(context, item.id,3,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem));
                             if(result){
-                              Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
+                             // Navigator.pop(context,true);
+                              _reloadData();
+
                             }
                           },
                         ),
@@ -361,5 +363,8 @@ class _SearchMyProductState extends State<SearchMyProduct> {
         ),
       ),
     );
+  }
+  _reloadData(){
+    blocProduct.loadSearchMyshop(shopId: widget.shopID,page: "1", query: SearchText, limit: limit);
   }
 }

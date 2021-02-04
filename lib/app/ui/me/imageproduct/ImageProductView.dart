@@ -25,8 +25,8 @@ import 'package:sizer/sizer.dart';
 class ImageProductView extends StatefulWidget {
 
   final IsActive isActive;
-
-  const ImageProductView({Key key, this.isActive}) : super(key: key);
+  final int shopId;
+  const ImageProductView({Key key, this.isActive,this.shopId}) : super(key: key);
 
   @override
   _ImageProductViewState createState() => _ImageProductViewState();
@@ -353,7 +353,7 @@ class _ImageProductViewState extends State<ImageProductView> {
       ),
       onPressed: () {
         if(widget.isActive == IsActive.NewProduct || widget.isActive == IsActive.ReplacemenView){
-          isEnable ?AppRoute.MyNewProduct(context,isActive: widget.isActive):print("");
+          isEnable ?AppRoute.MyNewProduct(context,widget.shopId,isActive: widget.isActive):print("");
         }else{
           NaiFarmLocalStorage.SaveProductStorage(UploadProductStorage(onSelectItem: bloc.GetSelectItem(),productMyShopRequest: bloc.ProductDetail));
           Navigator.pop(context, true);

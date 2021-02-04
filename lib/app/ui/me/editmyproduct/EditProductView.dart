@@ -28,8 +28,10 @@ import 'package:sizer/sizer.dart';
 class EditProductView extends StatefulWidget {
   final int ProductId ;
   final UploadProductStorage uploadProductStorage;
+  final int popPage;
+  final int shopId;
 
-  const EditProductView({Key key, this.ProductId, this.uploadProductStorage}) : super(key: key);
+  const EditProductView({Key key, this.ProductId, this.uploadProductStorage,this.popPage,this.shopId}) : super(key: key);
   @override
   _EditProductViewState createState() => _EditProductViewState();
 }
@@ -78,13 +80,12 @@ class _EditProductViewState extends State<EditProductView> {
       bloc.onSuccess.stream.listen((event)  {
         onUpdate = true;
         if(event is bool){
-        //  var item = bloc.uploadProductStorage.value.productMyShopRequest;
-        //  var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
-        //  Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
-       //       token: value.token));
+          var item = bloc.uploadProductStorage.value.productMyShopRequest;
+          var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
+          Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
+              token: value.token));
 
-         // AppRoute.MyProduct(context,pushEvent: true);
-         Navigator.pop(context,event);
+          AppRoute.MyProduct(context,18,pushEvent: true,countPage: widget.popPage);
         // Navigator.pop(context,event);
          // AppRoute.PoppageCount(context: context,countpage: 2);
         }else if(event is ProductMyShopRespone){
@@ -410,7 +411,8 @@ class _EditProductViewState extends State<EditProductView> {
       ),
       onPressed: () {
         // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
-        if(enable){
+
+        if(enable){  FocusScope.of(context).unfocus();
           Usermanager().getUser().then((value) {
             bloc.onLoad.add(true);
             bloc.UpdateProductMyShop(isActive: IsActive.UpdateProduct,shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,productId: widget.ProductId,token: value.token);
