@@ -402,6 +402,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                         child: ShopOwn(
                             shopItem: item.producItemRespone.shop,
                             shopRespone: MyShopRespone(
+                              countProduct: item.producItemRespone.shop.countProduct,
                                 id: item.producItemRespone.shopId)),
                         onTap: () {
                           AppRoute.ShopMain(
@@ -409,6 +410,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                               myShopRespone: MyShopRespone(
                                   id: item.producItemRespone.shop.id,
                                   name: item.producItemRespone.name,
+                                  countProduct: item.producItemRespone.shop.countProduct,
                                   image: item.producItemRespone.shop.image,
                                   updatedAt:
                                       item.producItemRespone.shop.updatedAt));

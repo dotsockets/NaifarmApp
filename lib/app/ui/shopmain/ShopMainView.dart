@@ -46,6 +46,7 @@ class _ShopMainViewState extends State<ShopMainView>
   ProductBloc bloc;
 
   void _init() {
+
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.ZipShopObject.add(
@@ -135,6 +136,7 @@ class _ShopMainViewState extends State<ShopMainView>
                           ShopOwn(
                             showBtn: false,
                             shopItem: ShopItem(
+                              countProduct: widget.myShopRespone.countProduct,
                                 name: item.shopRespone.name,
                                 id: item.shopRespone.id,
                                 image: item.shopRespone.image,
