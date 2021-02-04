@@ -308,15 +308,18 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
         children: [
           Text("คำสั่งซื้อใหม่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
-          Wrap(
-            children: [
-              Text("อัพเดทข้อมูลร้านค้า ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-              Text("${item.meta.name} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-              Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-
-            ],
-          )
-
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text: "อัพเดทข้อมูลร้านค้า ",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                new TextSpan(text: "${item.meta.name} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+              new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+              ],
+            ),
+          ),
         ],
       );
     }else if(item.type=="App\\Notifications\\Shop\\ShopIsLive"){
@@ -325,15 +328,20 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
         children: [
           Text("อัพเดทข้อมูลร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
-          Wrap(
-            children: [
-              Text("อัพเดทข้อมูลร้านค้า ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-              Text("${item.meta.name} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-              Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text: "อัพเดทข้อมูลร้านค้า ",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                new TextSpan(text: "${item.meta.name} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                new TextSpan(text: "${item.meta.order}",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
 
-            ],
+              ],
+            ),
           )
-
         ],
       );
     }else if(item.type=="App\\Notifications\\Order\\OrderCreated"){
@@ -342,13 +350,22 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
         children: [
           Text("คำสั่งซื้อใหม่ ${item.meta.status}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
-          Wrap(
-            children: [
-              Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-              Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-              Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
-            ],
-          )
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text: "คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                new TextSpan(text: " และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)))
+              ],
+            ),
+          ),
+           // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+           // Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+           // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
 
         ],
       );

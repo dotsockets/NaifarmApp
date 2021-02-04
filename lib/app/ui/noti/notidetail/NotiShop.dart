@@ -308,13 +308,25 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
         children: [
           Text("แจ้งเตือน อัพเดทข้อมูลร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
-          Wrap(
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text: "อัพเดทข้อมูลร้านค้า ",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                new TextSpan(text: "${item.meta.name}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+               new TextSpan(text: " สำเร็จ ",style:FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+              ],
+            ),
+          ),
+        /*  Wrap(
             children: [
               Text("อัพเดทข้อมูลร้านค้า ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
              Text("${item.meta.name}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
               Text(" สำเร็จ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
             ],
-          )
+          )*/
 
         ],
       );
@@ -324,14 +336,25 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
         children: [
           Text("แจ้งเตือน ${item.meta.status}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
-          Wrap(
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text: "สถานะ ",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                new TextSpan(text: "${item.meta.status} ",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                 ],
+            ),
+          ),
+         /* Wrap(
             children: [
              Text("สถานะ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
               Text("${item.meta.status} ",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.normal,color: Colors.black)),
             // Html(data: "สถานะ <span>${item.meta.status} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ <b style='color:#006100'>${item.meta.order}</b></span> ",
              // ),
             ],
-          )
+          )*/
 
         ],
       );
@@ -339,17 +362,26 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
           Text("แจ้งเตือน คำสั่งซื้อใหม่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
         //   Html(data: "<span>${item.meta.customer} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ <b style='color:#006100'>${item.meta.order}</b></span> ",
         //      ),
-          Wrap(
-            children: [
-              Text("${item.meta.customer} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-              Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text: "${item.meta.customer} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor()))
+              ],
+            ),
+          ),
 
-            ],
-          )
+
+        //  Text("${item.meta.customer} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+        //  Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor()))
 
         ],
       );
