@@ -207,16 +207,34 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  loadMoreData({String page, int limit, String link}){
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(page: page,link: link,limit: limit)).listen((respone) {
-      if(respone.http_call_back.status==200){
-        var item = (respone.respone as ProductRespone);
-        product_more.addAll(item.data);
-        MoreProduct.add(ProductRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
-      }
-    });
-    _compositeSubscription.add(subscription);
+  loadMoreData({String page, int limit, String link,int type_more=0}){
+    if(type_more==1){
+      StreamSubscription subscription =
+      Observable.fromFuture(_application.appStoreAPIRepository.getSearch(query: "&categoryGroupId=${link}",limit: limit,page: page)).listen((respone) {
+        if(respone.http_call_back.status==200 ){
+          var item = (respone.respone as SearchRespone);
+          product_more.addAll(ConvertSearchData(item: item).data);
+          MoreProduct.add(ConvertSearchData(item: item));
+
+        }else{
+          onError.add(respone.http_call_back.result);
+        }
+      });
+      _compositeSubscription.add(subscription);
+   // https://stg-api-test.naifarm.com/v1/products/types/popular?limit=10&page=1
+    }else{
+      StreamSubscription subscription =
+      Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(page: page,link: link,limit: limit)).listen((respone) {
+        if(respone.http_call_back.status==200){
+          var item = (respone.respone as ProductRespone);
+
+          product_more.addAll(item.data);
+          MoreProduct.add(ProductRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
+        }
+      });
+      _compositeSubscription.add(subscription);
+    }
+
   }
 
   loadFlashsaleData({String page, int limit, String link}){
@@ -291,7 +309,7 @@ class ProductBloc{
     }).listen((event) {
      // onLoad.add(false);
       if(event.producItemRespone!=null){
-        GetProductCategoryGroupId(GroupId: event.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id,limit: 10);
+        GetSearchCategoryGroupId(GroupId: event.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id,limit: 10);
       }
       ZipProductDetail.add(event);
     });
@@ -387,6 +405,17 @@ class ProductBloc{
   }
 
 
+  GetSearchCategoryGroupId({int GroupId,int limit=5,String page="1"}){
+    Observable.fromFuture(_application.appStoreAPIRepository.getSearch(query: "&categoryGroupId=${GroupId}",limit: limit,page: page)).listen((respone) {
+      if(respone.http_call_back.status==200 || respone.http_call_back.result.error.status==401){
+        SearchProduct.add((respone.respone as SearchRespone));
+      }else{
+        onError.add(respone.http_call_back.result);
+      }
+    });
+  }
+
+
   GetProductCategoryGroupId({int GroupId,int limit=5,String page="1"}){
     Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(link:  "products/types/trending?categorySubGroupId=${GroupId}",limit: limit,page: page)).listen((respone) {
       if(respone.http_call_back.status==200 || respone.http_call_back.result.error.status==401){
@@ -396,6 +425,7 @@ class ProductBloc{
       }
     });
   }
+
 
 
   GetCategoriesAll(){
@@ -468,6 +498,14 @@ class ProductBloc{
   }
 
 
+  ProductRespone ConvertSearchData({SearchRespone item}){
+    List<ProductData> data =  List<ProductData>();
+    for(var value in item.hits){
+      data.add(ProductData(id: value.productId,brand: value.brand,name: value.name,saleCount: value.saleCount,salePrice: value.salePrice,image: value.image,discountPercent: value.discountPercent,rating: value.rating,offerPrice: value.offerPrice,minPrice: value.minPrice,maxPrice: value.maxPrice,
+          shop: ProductShop(id: value.shopId,name: value.shop.name,slug: value.shop.slug)));
+    }
+    return ProductRespone(data: data);
+  }
 
 
 

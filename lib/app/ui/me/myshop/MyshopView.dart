@@ -246,6 +246,7 @@ class _MyshopViewState extends State<MyshopView> {
   Widget _buildBtnAddProduct(BuildContext context) {
     return Container(
       width: 40.0.w,
+      height: 5.0.h,
       child: FlatButton(
         color: ThemeColor.secondaryColor(),
         textColor: Colors.white,
@@ -267,7 +268,6 @@ class _MyshopViewState extends State<MyshopView> {
 
   Widget _buildButton() {
     return Container(
-        padding: EdgeInsets.only(left: 50, right: 50),
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(15),
@@ -276,7 +276,6 @@ class _MyshopViewState extends State<MyshopView> {
 
   Widget _buildButtonItem({String btnTxt}) {
     return FlatButton(
-      padding: EdgeInsets.only(top: 15, bottom: 15),
       color:!check? ThemeColor.ColorSale()
           : Colors.grey.shade400,
       textColor: Colors.white,

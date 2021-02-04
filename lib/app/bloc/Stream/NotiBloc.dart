@@ -95,21 +95,6 @@ class NotiBloc{
   }
 
 
-  String ConvertStatusText({String type,Meta meta}){
-    if(type=="App\\Notifications\\Order\\OrderCreated"){
-      return meta.status;
-    }else{
-      return "แจ้งเตือน คำสั่งซื้อใหม่";
-    }
-  }
-
-  String ConvertStatusSubText({String type,Meta meta}){
-    if(type=="App\\Notifications\\Order\\OrderCreated"){
-      return "รายการ ${meta.order}";
-    }else{
-      return "แจ้งเตือน คำสั่งซื้อใหม่";
-    }
-  }
 
 
 

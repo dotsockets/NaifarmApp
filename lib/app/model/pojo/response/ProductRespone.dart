@@ -4,7 +4,7 @@ import 'dart:io';
 class ProductRespone {
   List<ProductData> data;
   int total;
-  String page;
+  int page;
   String limit;
 
   ProductRespone({this.data, this.total, this.page, this.limit});
@@ -17,7 +17,7 @@ class ProductRespone {
       });
     }
     total = json['total'];
-    page = json['page'];
+    page = json['page'] is String?int.parse(json['page']):json['page'];
     limit = json['limit'] is int?json['limit'].toString():json['limit'];
   }
 

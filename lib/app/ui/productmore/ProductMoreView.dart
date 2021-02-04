@@ -33,13 +33,14 @@ class ProductMoreView extends StatefulWidget {
   final List<ProductModel> productList;
   final ProductRespone installData;
   final String api_link;
+  final int type_more;
 
   ProductMoreView(
       {Key key,
       this.barTxt,
       this.productList,
       this.installData,
-      this.api_link})
+      this.api_link, this.type_more})
       : super(key: key);
 
   @override
@@ -62,11 +63,9 @@ class _ProductMoreViewState extends State<ProductMoreView> {
       if (widget.installData != null) {
        // bloc.product_more.addAll(widget.installData.data);
         bloc.MoreProduct.add(widget.installData);
-        bloc.loadMoreData(
-            page: page.toString(), limit: 10, link: widget.api_link);
+        bloc.loadMoreData(page: page.toString(), limit: 10, link: widget.api_link,type_more: widget.type_more);
       } else {
-        bloc.loadMoreData(
-            page: page.toString(), limit: limit, link: widget.api_link);
+        bloc.loadMoreData(page: page.toString(), limit: limit, link: widget.api_link,type_more: widget.type_more);
       }
     }
 
@@ -80,7 +79,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
           bloc.loadMoreData(
               page: page.toString(),
               limit: limit,
-              link: widget.api_link);
+              link: widget.api_link,type_more: widget.type_more);
         }
       }
 
@@ -190,7 +189,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                      }else{
                        return Center(
                          child: Container(
-                           margin: EdgeInsets.only(bottom: 15.0.h),
+                           margin: EdgeInsets.only(top: 15.0.h),
                            child: Column(
                              mainAxisAlignment: MainAxisAlignment.center,
                              children: [

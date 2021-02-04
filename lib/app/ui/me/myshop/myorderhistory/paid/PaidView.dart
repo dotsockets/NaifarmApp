@@ -120,7 +120,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        AppRoute.OrderDetail(context,item.orderStatusId,orderData: item);
+        AppRoute.OrderDetail(context,orderData: item);
       },
     );
   }

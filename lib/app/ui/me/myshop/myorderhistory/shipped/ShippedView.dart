@@ -114,7 +114,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        AppRoute.OrderDetail(context,item.orderStatusId,orderData: item);
+        AppRoute.OrderDetail(context,orderData: item);
       },
     );
   }

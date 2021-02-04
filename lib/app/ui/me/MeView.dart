@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -379,7 +380,14 @@ class _MeViewState extends State<MeView> with RouteAware {
                     },
                   ));
             }else{
-              return SizedBox();
+              return Container(
+                margin: EdgeInsets.only(top: 2.0.h),
+                width: 5.0.w,
+                height: 5.0.w,
+                child: Platform.isAndroid
+                    ? CircularProgressIndicator()
+                    : CupertinoActivityIndicator(),
+              );
             }
           }),
         );

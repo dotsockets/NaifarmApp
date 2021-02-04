@@ -80,9 +80,9 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                     stream: bloc.ZipCategoryObject.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if(snapshot.hasData) {
-                        return CategoryHeader(title: widget.title,snapshot: (snapshot.data as CategoryObjectCombin));
+                        return CategoryHeader(title: widget.title,snapshot: (snapshot.data as CategoryObjectCombin),moreSize: false,);
                       }else{
-                        return CategoryHeader(title: widget.title);
+                        return CategoryHeader(title: widget.title,moreSize: false,);
                       }
                     },
                   ),

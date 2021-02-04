@@ -12,13 +12,14 @@ class CategoryMenu extends StatelessWidget {
   final int selectedIndex;
   final Function(CategoryGroupData) onTap;
   final CategoryGroupRespone featuredRespone;
+  final bool moreSize;
 
-  const CategoryMenu({Key key, this.selectedIndex, this.onTap, this.featuredRespone}) : super(key: key);
+  const CategoryMenu({Key key, this.selectedIndex, this.onTap, this.featuredRespone, this.moreSize=true}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     if(featuredRespone.data!=null && featuredRespone.data.isNotEmpty){
       return Container(
-          padding: EdgeInsets.only(left: 1.0.w,top: 0.5.h,bottom: 1.0.h),
+          padding: EdgeInsets.only(left: 1.0.w,top: 1.0.h,bottom: moreSize?1.0.h:0.0),
           width: MediaQuery.of(context).size.width,
           decoration: new BoxDecoration(
               color: ThemeColor.primaryColor(),
@@ -64,7 +65,6 @@ class CategoryMenu extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 6,)
             ],
           )
       );

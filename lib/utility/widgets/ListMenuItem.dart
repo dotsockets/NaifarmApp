@@ -108,12 +108,7 @@ class ListMenuItem extends StatelessWidget {
                     },
                   ),
                   SizedBox(
-                    width: 1.0.w,
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.grey.withOpacity(0.7),
-                    size: 4.0.w,
+                    width: 1.5.w,
                   )
                 ],
               ):Expanded(
@@ -122,26 +117,14 @@ class ListMenuItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Expanded(
-                      child: IsSwitch==null?Text(Message,
+                      child: Text(Message,
                           maxLines: 1,
                           textAlign: TextAlign.end,
                           overflow: TextOverflow.ellipsis,
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleSmallFontSize().sp,
                               fontWeight: FontWeight.w500,
-                              color: Colors.grey.withOpacity(opacityMessage))):
-                      FlutterSwitch(
-                        width: 14.0.w,
-                        height: 4.0.h,
-                        activeColor: Colors.grey.shade200,
-                        inactiveColor: Colors.grey.shade200,
-                        toggleColor:
-                        SelectSwitch ? ThemeColor.primaryColor() : Colors.grey.shade400,
-                        value: SelectSwitch ? true : false,
-                        onToggle: (val) {
-                          IsSwitch(val);
-                        },
-                      ),
+                              color: Colors.grey.withOpacity(opacityMessage)))
                     ),
                     SizedBox(
                       width: 1.0.w,

@@ -135,8 +135,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiDetailView(notiImage: notiImage,notiTitle: notiTitle,)));
   }
 
-  static  OrderDetail(BuildContext context,int  Status_Sell,{OrderData orderData}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView( Status_Sell: Status_Sell,orderData: orderData,)));
+  static  OrderDetail(BuildContext context,{OrderData orderData}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView(orderData: orderData,)));
   }
 
   static  CartSummary(BuildContext context,CartResponse item){
@@ -393,8 +393,8 @@ class AppRoute{
   static ForgotPassword(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ForgotPasswordView()));
   }
-  static ProductMore({BuildContext context,String barTxt,ProductRespone installData,String api_link}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductMoreView(barTxt:barTxt,installData: installData,api_link: api_link)));
+  static ProductMore({BuildContext context,String barTxt,ProductRespone installData,String api_link,int type_more}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ProductMoreView(type_more: type_more,barTxt:barTxt,installData: installData,api_link: api_link)));
   }
 
   static Future<bool> AddressEdit(BuildContext context,AddressesData item) async {

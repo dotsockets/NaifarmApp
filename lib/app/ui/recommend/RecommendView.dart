@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:audioplayers/audio_cache.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
@@ -81,6 +83,17 @@ class _RecommendViewState extends State<RecommendView> {
   @override
   Widget build(BuildContext context) {
     _init();
+    return Platform.isAndroid?AndroidRefreshIndicator():IOSRefreshIndicator();
+  }
+
+  Widget AndroidRefreshIndicator(){
+    return RefreshIndicator(
+      onRefresh: _refreshProducts,
+      child: Content_Main,
+    );
+  }
+
+  Widget IOSRefreshIndicator(){
     return CustomRefreshIndicator(
         controller: _indicatorController,
         onRefresh: () => _refreshProducts(),
@@ -89,16 +102,16 @@ class _RecommendViewState extends State<RecommendView> {
         completeStateDuration: const Duration(seconds: 1),
         offsetToArmed: 50.0,
         builder: (
-          BuildContext context,
-          Widget child,
-          IndicatorController controller,
-        ) {
+            BuildContext context,
+            Widget child,
+            IndicatorController controller,
+            ) {
           return Stack(
             children: <Widget>[
               AnimatedBuilder(
                 animation: controller,
                 builder: (BuildContext context, Widget _)  {
-                 if (controller.state == IndicatorState.complete) {
+                  if (controller.state == IndicatorState.complete) {
                     AudioCache().play("sound/Click.mp3");
 
                     Vibration.vibrate(duration: 500);
@@ -129,226 +142,226 @@ class _RecommendViewState extends State<RecommendView> {
             ],
           );
         },
-        child: Scaffold(
-          body: StreamBuilder(
-            stream: _selectedIndex.stream,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              return IndexedStack(
-                index: snapshot.data,
-                children: [
-                  SingleChildScrollView(
-                    child: Container(
-                      color: Colors.grey.shade300,
-                      child: StickyHeader(
-                        header: Column(
-                          children: [
-                            StreamBuilder(
-                              stream: bloc.ZipHomeObject.stream,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.hasData) {
-                                  return HomeHeader(
-                                      snapshot:
-                                          (snapshot.data as HomeObjectCombine),
-                                      onTap: (CategoryGroupData val) {
-                                        AppRoute.CategoryDetail(context, val.id,
-                                            title: val.name);
-                                      });
-                                } else {
-                                  return HomeHeader(
-                                      snapshot: HomeObjectCombine());
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                        content: Column(
-                          children: [
-                            StreamBuilder(
-                              stream: bloc.ZipHomeObject.stream,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.hasData) {
-                                  return Column(
-                                    children: [
-                                      BannerSlide(),
-                                      RecommendMenu(
-                                          homeObjectCombine: (snapshot.data
-                                              as HomeObjectCombine),
-                                      onClick: (int index){
-                                        widget.onClick(index);
-                                      },),
-                                      SizedBox(height: 1.0.h,),
-                                      FlashSale(
-                                          flashsaleRespone: (snapshot.data
-                                                  as HomeObjectCombine)
-                                              .flashsaleRespone)
-                                    ],
-                                  );
-                                } else {
-                                  return SizedBox();
-                                }
-                              },
-                            ),
-                            SizedBox(height: 1.5.h),
-                            StreamBuilder(
-                              stream: bloc.ZipHomeObject.stream,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.hasData) {
-                                  return ProductLandscape(
-                                      productRespone:
-                                          (snapshot.data as HomeObjectCombine)
-                                              .productRespone,
-                                      titleInto:
-                                          LocaleKeys.recommend_best_seller.tr(),
-                                      producViewModel:
-                                          ProductViewModel().getBestSaller(),
-                                      IconInto:
-                                          'assets/images/svg/product_hot.svg',
-                                      onSelectMore: () {
-                                        AppRoute.ProductMore(
-                                          api_link: "products/types/popular",
-                                            context: context,
-                                            barTxt: LocaleKeys
-                                                .recommend_best_seller
-                                                .tr(),
-                                            installData: (snapshot.data
-                                                    as HomeObjectCombine)
-                                                .productRespone);
-                                      },
-                                      onTapItem: (ProductData item, int index) {
-                                        AppRoute.ProductDetail(context,
-                                            productImage:
-                                                "product_hot_${item.id}1",
-                                            productItem: ProductBloc
-                                                .ConvertDataToProduct(
-                                                    data: item));
-                                      },
-                                      tagHero: "product_hot");
-                                } else {
-                                  return SizedBox();
-                                }
-                              },
-                            ),
-                            SizedBox(height: 1.5.h),
-                            _BannerAds(),
-                            SizedBox(height: 1.5.h),
-                            StreamBuilder(
-                              stream: bloc.ZipHomeObject.stream,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.hasData) {
-                                  return ProductVertical(
-                                      productRespone:
-                                          (snapshot.data as HomeObjectCombine)
-                                              .martket,
-                                      titleInto:
-                                          LocaleKeys.recommend_market.tr(),
-                                      IconInto:
-                                          'assets/images/svg/menu_market.svg',
-                                      onSelectMore: () {
-                                        AppRoute.ShopMain(
-                                            context: context,
-                                            myShopRespone:
-                                                MyShopRespone(id: 1));
-                                      },
-                                      onTapItem: (ProductData item, int index) {
-                                        AppRoute.ProductDetail(context,
-                                            productImage: "market_${index}",
-                                            productItem: ProductBloc
-                                                .ConvertDataToProduct(
-                                                    data: item));
-                                      },
-                                      borderRadius: false,
-                                      tagHero: "market");
-                                } else {
-                                  return SizedBox();
-                                }
-                              },
-                            ),
-                            SizedBox(height: 2.0.h),
-                            StreamBuilder(
-                              stream: bloc.ZipHomeObject.stream,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.hasData) {
-                                  return CategoryTab(
-                                      categoryGroupRespone:
-                                          (snapshot.data as HomeObjectCombine)
-                                              .categoryGroupRespone);
-                                } else {
-                                  return SizedBox();
-                                }
-                              },
-                            ),
-                            SizedBox(height: 2.0.h),
-                            StreamBuilder(
-                              stream: bloc.ZipHomeObject.stream,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.hasData) {
-                                  return SearchHot(
-                                      tagHero: "searchHot",
-                                      productRespone:
-                                          (snapshot.data as HomeObjectCombine)
-                                              .trendingRespone,
-                                      onSelectChang: () {});
-                                } else {
-                                  return SizedBox();
-                                }
-                              },
-                            ),
-                            SizedBox(height: 2.0.h),
-                            StreamBuilder(
-                              stream: bloc.ZipHomeObject.stream,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.hasData) {
-                                  return ProductVertical(
-                                      productRespone:
-                                          (snapshot.data as HomeObjectCombine)
-                                              .product_foryou,
-                                      titleInto: LocaleKeys
-                                          .recommend_product_for_you
-                                          .tr(),
-                                      IconInto: 'assets/images/svg/foryou.svg',
-                                      onSelectMore: () {
-                                        AppRoute.ProductMore(
-                                            context: context,
-                                            api_link: "products/types/random",
-                                            barTxt: LocaleKeys
-                                                .recommend_product_for_you
-                                                .tr(),
-                                            installData: (snapshot.data
-                                                    as HomeObjectCombine)
-                                                .product_foryou);
-                                      },
-                                      onTapItem: (ProductData item, int index) {
-                                        AppRoute.ProductDetail(context,
-                                            productImage: "foryou_${index}",
-                                            productItem: ProductBloc
-                                                .ConvertDataToProduct(
-                                                    data: item));
-                                      },
-                                      borderRadius: false,
-                                      tagHero: "foryou");
-                                } else {
-                                  return SizedBox();
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              );
-            },
-          ),
-        ));
+        child: Content_Main
+    );
   }
+
+  Widget get Content_Main => Scaffold(
+    body: StreamBuilder(
+      stream: _selectedIndex.stream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return IndexedStack(
+          index: snapshot.data,
+          children: [
+            SingleChildScrollView(
+              child: Container(
+                color: Colors.grey.shade300,
+                child: StickyHeader(
+                  header: Column(
+                    children: [
+                      StreamBuilder(
+                        stream: bloc.ZipHomeObject.stream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            return HomeHeader(
+                                snapshot:
+                                (snapshot.data as HomeObjectCombine),
+                                onTap: (CategoryGroupData val) {
+                                  AppRoute.CategoryDetail(context, val.id,
+                                      title: val.name);
+                                });
+                          } else {
+                            return HomeHeader(
+                                snapshot: HomeObjectCombine());
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  content: Column(
+                    children: [
+                      StreamBuilder(
+                        stream: bloc.ZipHomeObject.stream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            return Column(
+                              children: [
+                                BannerSlide(),
+                                RecommendMenu(
+                                  homeObjectCombine: (snapshot.data
+                                  as HomeObjectCombine),
+                                  onClick: (int index){
+                                    widget.onClick(index);
+                                  },),
+                                SizedBox(height: 1.0.h,),
+                                FlashSale(
+                                    flashsaleRespone: (snapshot.data
+                                    as HomeObjectCombine)
+                                        .flashsaleRespone)
+                              ],
+                            );
+                          } else {
+                            return SizedBox();
+                          }
+                        },
+                      ),
+                      SizedBox(height: 1.5.h),
+                      StreamBuilder(
+                        stream: bloc.ZipHomeObject.stream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            return ProductLandscape(
+                                productRespone:
+                                (snapshot.data as HomeObjectCombine)
+                                    .productRespone,
+                                titleInto:
+                                LocaleKeys.recommend_best_seller.tr(),
+                                producViewModel:
+                                ProductViewModel().getBestSaller(),
+                                IconInto:
+                                'assets/images/svg/product_hot.svg',
+                                onSelectMore: () {
+                                  AppRoute.ProductMore(
+                                      api_link: "products/types/popular",
+                                      context: context,
+                                      barTxt: LocaleKeys
+                                          .recommend_best_seller
+                                          .tr(),
+                                      installData: (snapshot.data
+                                      as HomeObjectCombine)
+                                          .productRespone);
+                                },
+                                onTapItem: (ProductData item, int index) {
+                                  AppRoute.ProductDetail(context,
+                                      productImage:
+                                      "product_hot_${item.id}1",
+                                      productItem: ProductBloc
+                                          .ConvertDataToProduct(
+                                          data: item));
+                                },
+                                tagHero: "product_hot");
+                          } else {
+                            return SizedBox();
+                          }
+                        },
+                      ),
+                      SizedBox(height: 1.5.h),
+                      _BannerAds(),
+                      SizedBox(height: 1.5.h),
+                      StreamBuilder(
+                        stream: bloc.ZipHomeObject.stream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            return ProductVertical(
+                                productRespone:
+                                (snapshot.data as HomeObjectCombine)
+                                    .martket,
+                                titleInto:
+                                LocaleKeys.recommend_market.tr(),
+                                IconInto:
+                                'assets/images/svg/menu_market.svg',
+                                onSelectMore: () {
+                                  AppRoute.ShopMain(
+                                      context: context,
+                                      myShopRespone:
+                                      MyShopRespone(id: 1));
+                                },
+                                onTapItem: (ProductData item, int index) {
+                                  AppRoute.ProductDetail(context,
+                                      productImage: "market_${index}",
+                                      productItem: ProductBloc
+                                          .ConvertDataToProduct(
+                                          data: item));
+                                },
+                                borderRadius: false,
+                                tagHero: "market");
+                          } else {
+                            return SizedBox();
+                          }
+                        },
+                      ),
+                      SizedBox(height: 2.0.h),
+                      StreamBuilder(
+                        stream: bloc.ZipHomeObject.stream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            return CategoryTab(
+                                categoryGroupRespone:
+                                (snapshot.data as HomeObjectCombine)
+                                    .categoryGroupRespone);
+                          } else {
+                            return SizedBox();
+                          }
+                        },
+                      ),
+                      SizedBox(height: 2.0.h),
+                      StreamBuilder(
+                        stream: bloc.ZipHomeObject.stream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            return SearchHot(
+                                tagHero: "searchHot",
+                                productRespone:
+                                (snapshot.data as HomeObjectCombine)
+                                    .trendingRespone,
+                                onSelectChang: () {});
+                          } else {
+                            return SizedBox();
+                          }
+                        },
+                      ),
+                      SizedBox(height: 2.0.h),
+                      StreamBuilder(
+                        stream: bloc.ZipHomeObject.stream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            return ProductVertical(
+                                productRespone:
+                                (snapshot.data as HomeObjectCombine)
+                                    .product_foryou,
+                                titleInto: LocaleKeys
+                                    .recommend_product_for_you
+                                    .tr(),
+                                IconInto: 'assets/images/svg/foryou.svg',
+                                onSelectMore: () {
+                                  AppRoute.ProductMore(
+                                      context: context,
+                                      api_link: "products/types/random",
+                                      barTxt: LocaleKeys
+                                          .recommend_product_for_you
+                                          .tr());
+                                },
+                                onTapItem: (ProductData item, int index) {
+                                  AppRoute.ProductDetail(context,
+                                      productImage: "foryou_${index}",
+                                      productItem: ProductBloc
+                                          .ConvertDataToProduct(
+                                          data: item));
+                                },
+                                borderRadius: false,
+                                tagHero: "foryou");
+                          } else {
+                            return SizedBox();
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        );
+      },
+    ),
+  );
 
   _BannerAds() {
     return Container(
@@ -370,7 +383,13 @@ class _RecommendViewState extends State<RecommendView> {
     );
   }
 
-  _refreshProducts() {
+
+  Future<Null>  _refreshProducts() async{
+    if(Platform.isAndroid){
+      await Future.delayed(Duration(seconds: 2));
+      AudioCache().play("sound/Click.mp3");
+      Vibration.vibrate(duration: 500);
+    }
     bloc.loadHomeData(callback: true);
   }
 }

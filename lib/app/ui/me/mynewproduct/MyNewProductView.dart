@@ -108,123 +108,125 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   @override
   Widget build(BuildContext context) {
     init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        key: _scaffoldKey,
-        body: Container(
-          color: Colors.grey.shade300,
-          child: Column(
-            children: [
-              Container(
-                  child: AppToobar(
-                      title: LocaleKeys.my_product_data.tr(),
-                      icon: "",
-                      header_type: Header_Type.barNormal)),
-              StreamBuilder(
-                  stream: bloc.uploadProductStorage.stream,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if(snapshot.hasData){
-                      return  Expanded(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(right: 20,top: 20,left: 20),
-                                color: Colors.white,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    BuildEditText(
-                                      head: LocaleKeys.my_product_name.tr()+" * ",EnableMaxLength: true,
-                                      hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 10,controller: nameProductController,inputType: TextInputType.text,onChanged: (String char){
-                                      if(char.isNotEmpty){
-                                        bloc.uploadProductStorage.value.productMyShopRequest.name  = char;
-                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-                                      }
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          body: Container(
+            color: Colors.grey.shade300,
+            child: Column(
+              children: [
+                Container(
+                    child: AppToobar(
+                        title: LocaleKeys.my_product_data.tr(),
+                        icon: "",
+                        header_type: Header_Type.barNormal)),
+                StreamBuilder(
+                    stream: bloc.uploadProductStorage.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if(snapshot.hasData){
+                        return  Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(right: 20,top: 20,left: 20),
+                                  color: Colors.white,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      BuildEditText(
+                                        head: LocaleKeys.my_product_name.tr()+" * ",EnableMaxLength: true,
+                                        hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 10,controller: nameProductController,inputType: TextInputType.text,onChanged: (String char){
+                                        if(char.isNotEmpty){
+                                          bloc.uploadProductStorage.value.productMyShopRequest.name  = char;
+                                          bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                        }
 
-                                    },),
-                                    SizedBox(height: 15,),
-                                    _BuildDropdown (
-                                        head: LocaleKeys.my_product_category.tr()+" *",
-                                        seletText: LocaleKeys.my_product_category.tr(),
-                                        hint: LocaleKeys.select.tr()+LocaleKeys.my_product_category.tr()),
-                                    SizedBox(height: 15,),
-                                    BuildEditText(
-                                      head: LocaleKeys.my_product_detail.tr()+" * ",EnableMaxLength: true,maxLength: 5000,
-                                      hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailController,inputType: TextInputType.text,onChanged: (String char){
-                                      if(char.isNotEmpty){
-                                        bloc.uploadProductStorage.value.productMyShopRequest.description = char;
-                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-                                      }
+                                      },),
+                                      SizedBox(height: 15,),
+                                      _BuildDropdown (
+                                          head: LocaleKeys.my_product_category.tr()+" *",
+                                          seletText: LocaleKeys.my_product_category.tr(),
+                                          hint: LocaleKeys.select.tr()+LocaleKeys.my_product_category.tr()),
+                                      SizedBox(height: 15,),
+                                      BuildEditText(
+                                        head: LocaleKeys.my_product_detail.tr()+" * ",EnableMaxLength: true,maxLength: 5000,
+                                        hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailController,inputType: TextInputType.text,onChanged: (String char){
+                                        if(char.isNotEmpty){
+                                          bloc.uploadProductStorage.value.productMyShopRequest.description = char;
+                                          bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                        }
 
-                                    },),
-                                    SizedBox(height: 15,),
+                                      },),
+                                      SizedBox(height: 15,),
 
-                                    BuildEditText(head: LocaleKeys.my_product_amount.tr()+" *", hint: "0",inputType: TextInputType.number,controller: amountController,onChanged: (String char){
-                                      if(char.isNotEmpty){
-                                        bloc.uploadProductStorage.value.productMyShopRequest.stockQuantity = int.parse(char);
-                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-                                      }
+                                      BuildEditText(head: LocaleKeys.my_product_amount.tr()+" *", hint: "0",inputType: TextInputType.number,controller: amountController,onChanged: (String char){
+                                        if(char.isNotEmpty){
+                                          bloc.uploadProductStorage.value.productMyShopRequest.stockQuantity = int.parse(char);
+                                          bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                        }
 
-                                    },),
-                                    SizedBox(height: 15,),
-                                    BuildEditText(
-                                      head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController,onChanged: (String char){
-                                      if(char.isNotEmpty){
+                                      },),
+                                      SizedBox(height: 15,),
+                                      BuildEditText(
+                                        head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController,onChanged: (String char){
+                                        if(char.isNotEmpty){
 
-                                        bloc.uploadProductStorage.value.productMyShopRequest.salePrice = int.parse(char);
-                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-
-
-                                      }
+                                          bloc.uploadProductStorage.value.productMyShopRequest.salePrice = int.parse(char);
+                                          bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
 
 
-                                    },),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    BuildEditText(
-                                      head: "ราคาโปรโมชั่น"+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: offerPriceController,onChanged: (String char){
-                                      if(char.isNotEmpty){
-                                        bloc.uploadProductStorage.value.productMyShopRequest.offerPrice = int.parse(char);
-                                        bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-                                      }
+                                        }
 
-                                    },),
 
-                                  ],
+                                      },),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      BuildEditText(
+                                        head: "ราคาโปรโมชั่น"+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: offerPriceController,onChanged: (String char){
+                                        if(char.isNotEmpty){
+                                          bloc.uploadProductStorage.value.productMyShopRequest.offerPrice = int.parse(char);
+                                          bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                                        }
+
+                                      },),
+
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              _BuildDeliveryTab(),
-                              Divider(height: 10,),
-                              _BuildImageTab(),
-                              Divider(height: 10,),
-                              _BuildAtivceTab(),
-                            ],
+                                _BuildDeliveryTab(),
+                                Divider(height: 10,),
+                                _BuildImageTab(),
+                                Divider(height: 10,),
+                                _BuildAtivceTab(),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    }else{
-                      return SizedBox();
+                        );
+                      }else{
+                        return SizedBox();
+                      }
                     }
-                  }
-              ),
-              StreamBuilder(
-                  stream: bloc.uploadProductStorage.stream,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if(snapshot.hasData){
-                      return Visibility(
-                        visible: checkKeyBoard?false:true,
-                        child:  _BuildButton(enable: CheckEnable()),
-                      );
-                    }else{
-                      return SizedBox();
+                ),
+                StreamBuilder(
+                    stream: bloc.uploadProductStorage.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if(snapshot.hasData){
+                        return Visibility(
+                          visible: checkKeyBoard?false:true,
+                          child:  _BuildButton(enable: CheckEnable()),
+                        );
+                      }else{
+                        return SizedBox();
+                      }
                     }
-                  }
-              ),
+                ),
 
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,5 +1,7 @@
 
 
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +24,7 @@ import 'package:sizer/sizer.dart';
 
 class OrderView extends StatefulWidget {
   final OrderData orderData;
-  final int  Status_Sell;
-  OrderView({Key key,this.Status_Sell, this.orderData}) : super(key: key);
+  OrderView({Key key, this.orderData}) : super(key: key);
   @override
   _OrderViewState createState() => _OrderViewState();
 }
@@ -35,7 +36,10 @@ class _OrderViewState extends State<OrderView> {
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      bloc.onSuccess.add(widget.orderData);
+      if(widget.orderData.orderStatusName!=null){
+        bloc.onSuccess.add(widget.orderData);
+      }
+
     }
     Usermanager().getUser().then((value) => bloc.GetOrderById(id: widget.orderData.id, token: value.token));
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
@@ -48,7 +52,7 @@ class _OrderViewState extends State<OrderView> {
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.grey.shade200,
+          backgroundColor: Colors.white,
           appBar: AppToobar(
             title: LocaleKeys.order_detail_title.tr(),
             header_type: Header_Type.barNormal,
@@ -59,35 +63,45 @@ class _OrderViewState extends State<OrderView> {
             builder: (BuildContext context,AsyncSnapshot snapshot){
               if(snapshot.hasData){
                 var item = (snapshot.data as OrderData);
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _HeaderStatus(context: context,orderData: item),
-                            _labelText(title: LocaleKeys.order_detail_ship_addr.tr()),
-                            _addtess_recive(context: context,orderData: item),
-                            _labelText(title: LocaleKeys.order_detail_ship_data.tr()),
-                            item.shippingRate!=null?_Shipping_information(context: context,orderData: item):SizedBox(),
-                            SizedBox(height: 15,),
-                            item.shippingRate!=null?_Order_number_information(context: context,orderData: item,sumTotal: SumTotal(item.items),rate_delivery: item.shippingRate.rate):SizedBox(),
-                            _labelText(title: LocaleKeys.order_detail_payment.tr()),
-                            _payment_info(context: context,orderData: item),
-                            SizedBox(height: 15,),
-                            _Timeline_order(context: context,orderData: item)
-                          ],
+                if(snapshot.data!=null) {
+                  return Container(
+                    color: Colors.grey.shade200,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _HeaderStatus(context: context,orderData: item),
+                                _labelText(title: LocaleKeys.order_detail_ship_addr.tr()),
+                                _addtess_recive(context: context,orderData: item),
+                                _labelText(title: LocaleKeys.order_detail_ship_data.tr()),
+                                item.shippingRate!=null?_Shipping_information(context: context,orderData: item):SizedBox(),
+                                SizedBox(height: 15,),
+                                item.shippingRate!=null?_Order_number_information(context: context,orderData: item,sumTotal: SumTotal(item.items),rate_delivery: item.shippingRate.rate):SizedBox(),
+                                _labelText(title: LocaleKeys.order_detail_payment.tr()),
+                                _payment_info(context: context,orderData: item),
+                                SizedBox(height: 15,),
+                                _Timeline_order(context: context,orderData: item)
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
+                        _ButtonActive(context: context,orderData: item),
+                      ],
                     ),
-                    _ButtonActive(context: context,orderData: item),
-                  ],
-                );
+                  );
+                }else{
+                  return Container(color: Colors.white,child: SizedBox());
+                }
               }else{
-                return SizedBox();
+                return Container(color: Colors.white,child: Center(
+                  child: Platform.isAndroid
+                      ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
+                      : CupertinoActivityIndicator(),
+                ));
               }
             },
           ),

@@ -27,6 +27,7 @@ import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
@@ -109,7 +110,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 700));
-    animation = Tween<Offset>(begin: Offset(0, 0), end: Offset(100, -80.0.h)).animate(CurvedAnimation(      // เพิ่ม Curve
+    animation = Tween<Offset>(begin: Offset(0, 0), end: Offset(20.0.w, -85.0.h)).animate(CurvedAnimation(      // เพิ่ม Curve
         parent: animationController,          // เพิ่ม Curve
         curve: Curves.linear))
       ..addListener(() {
@@ -178,7 +179,9 @@ class _ProductDetailViewState extends State<ProductDetailView>
       
       });
 
-      _refreshProducts();
+      Usermanager().getUser().then((value) {
+        bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
+      });
     }
   }
 
@@ -191,152 +194,161 @@ class _ProductDetailViewState extends State<ProductDetailView>
     super.dispose();
   }
 
-  _refreshProducts() {
-    Usermanager().getUser().then((value) {
-      bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
     _init();
-    return Scaffold(
-      key: _scaffoldKey,
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: ThemeColor.primaryColor()
-    ),
-          child: SafeArea(
-              child: CustomRefreshIndicator(
-                controller: _indicatorController,
-                onRefresh: () => _refreshProducts(),
-                armedToLoadingDuration: const Duration(seconds: 1),
-                draggingToIdleDuration: const Duration(seconds: 1),
-                completeStateDuration: const Duration(seconds: 1),
-                offsetToArmed: 50.0,
-                builder: (
-                    BuildContext context,
-                    Widget child,
-                    IndicatorController controller,
-                    ) {
-                  return Stack(
-                    children: <Widget>[
-                      AnimatedBuilder(
-                        animation: controller,
-                        builder: (BuildContext context, Widget _) {
-                          if (controller.state == IndicatorState.complete) {
-                            AudioCache().play("sound/Click.mp3");
-                            Vibration.vibrate(duration: 500);
-                          }
-                          return Align(
-                            alignment: Alignment.topCenter,
-                            child: Container(
-                              margin: EdgeInsets.only(top: 2.0.h),
-                              width: 5.0.w,
-                              height: 5.0.w,
-                              child: Platform.isAndroid
-                                  ? CircularProgressIndicator()
-                                  : CupertinoActivityIndicator(),
-                            ),
-                          );
-                        },
-                      ),
-                      AnimatedBuilder(
-                        builder: (context, _) {
-                          return Transform.translate(
-                            offset: Offset(0.0, controller.value * _indicatorSize),
-                            child: child,
-                          );
-                        },
-                        animation: controller,
-                      ),
-                    ],
-                  );
-                },
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Stack(
-                          children: [
-                            SingleChildScrollView(
-                              controller: trackingScrollController,
-                              child: Column(
-                                children: [
-                                  _content,
-                                ],
-                              ),
-                            ),
-                            Container(
-                              child: HeaderDetail(
-                                title: widget.productItem.name,
-                                scrollController: trackingScrollController,
-                                onClick: () {
-                                  NaiFarmLocalStorage.getNowPage().then((value) {
-                                    if (value > 0) {
-                                      value = value - 1;
-                                    }
-                                    NaiFarmLocalStorage.saveNowPage(value)
-                                        .then((value) => Navigator.of(context).pop());
-                                  });
-                                },
-                              ),
-                            ),
-                            StreamBuilder<Object>(
-                                stream: checkScrollControl.stream,
-                                builder: (context, snapshot) {
-                                  if(snapshot.hasData){
-                                    return snapshot.data
-                                        ? Positioned(
-                                      bottom: 0.0,
-                                      right: 0.0,
-                                      left: 0.0,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey.withOpacity(0.5),
-                                              spreadRadius: 1,
-                                              blurRadius: 1,
-                                              offset: Offset(5, 0), // changes position of shadow
-                                            ),
-                                          ],
-                                        ),
-                                        child: StreamBuilder(
-                                          stream: bloc.Wishlists.stream,
-                                          builder: (BuildContext context,
-                                              AsyncSnapshot snapshot) {
-                                            if (snapshot.hasData && (snapshot.data as WishlistsRespone) != null) {
-                                              if ((snapshot.data as WishlistsRespone).total > 0) {
-                                                return _BuildFooterTotal(item: snapshot.data);
-                                              } else {
-                                                return _BuildFooterTotal(item: snapshot.data);
-                                              }
-                                            } else {
-                                              return _BuildFooterTotal(item: WishlistsRespone());
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                    )
-                                        : SizedBox();
-                                  }else{
-                                    return SizedBox();
-                                  }
-                                }),
+    return Platform.isAndroid?AndroidRefreshIndicator():Container(color: Colors.white,child: SafeArea(child: IOSRefreshIndicator(),));
+  }
 
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              )),
-        )
+
+  Widget AndroidRefreshIndicator(){
+    return RefreshIndicator(
+      onRefresh: _refreshProducts,
+      child: Content_Main,
     );
   }
+
+  Widget IOSRefreshIndicator(){
+    return CustomRefreshIndicator(
+        controller: _indicatorController,
+        onRefresh: () => _refreshProducts(),
+        armedToLoadingDuration: const Duration(seconds: 1),
+        draggingToIdleDuration: const Duration(seconds: 1),
+        completeStateDuration: const Duration(seconds: 1),
+        offsetToArmed: 50.0,
+        builder: (
+            BuildContext context,
+            Widget child,
+            IndicatorController controller,
+            ) {
+          return Stack(
+            children: <Widget>[
+              AnimatedBuilder(
+                animation: controller,
+                builder: (BuildContext context, Widget _)  {
+                  if (controller.state == IndicatorState.complete) {
+                    AudioCache().play("sound/Click.mp3");
+
+                    Vibration.vibrate(duration: 500);
+                  }
+                  return Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 2.0.h),
+                      width: 5.0.w,
+                      height: 5.0.w,
+                      child: CupertinoActivityIndicator(),
+                    ),
+                  );
+                },
+              ),
+              AnimatedBuilder(
+                builder: (context, _) {
+                  return Transform.translate(
+                    offset: Offset(0.0, controller.value * _indicatorSize),
+                    child: child,
+                  );
+                },
+                animation: controller,
+              ),
+            ],
+          );
+        },
+        child: Content_Main
+    );
+  }
+
+  Widget get Content_Main => Scaffold(
+      key: _scaffoldKey,
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.dark.copyWith(
+            statusBarColor: ThemeColor.primaryColor()
+        ),
+        child: SafeArea(
+            child: Container(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        SingleChildScrollView(
+                          controller: trackingScrollController,
+                          child: Column(
+                            children: [
+                              _content,
+                            ],
+                          ),
+                        ),
+                        Container(
+                          child: HeaderDetail(
+                            title: widget.productItem.name,
+                            scrollController: trackingScrollController,
+                            onClick: () {
+                              NaiFarmLocalStorage.getNowPage().then((value) {
+                                if (value > 0) {
+                                  value = value - 1;
+                                }
+                                NaiFarmLocalStorage.saveNowPage(value)
+                                    .then((value) => Navigator.of(context).pop());
+                              });
+                            },
+                          ),
+                        ),
+                        StreamBuilder<Object>(
+                            stream: checkScrollControl.stream,
+                            builder: (context, snapshot) {
+                              if(snapshot.hasData){
+                                return snapshot.data
+                                    ? Positioned(
+                                  bottom: 0.0,
+                                  right: 0.0,
+                                  left: 0.0,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 1,
+                                          offset: Offset(5, 0), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: StreamBuilder(
+                                      stream: bloc.Wishlists.stream,
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot snapshot) {
+                                        if (snapshot.hasData && (snapshot.data as WishlistsRespone) != null) {
+                                          if ((snapshot.data as WishlistsRespone).total > 0) {
+                                            return _BuildFooterTotal(item: snapshot.data);
+                                          } else {
+                                            return _BuildFooterTotal(item: snapshot.data);
+                                          }
+                                        } else {
+                                          return _BuildFooterTotal(item: WishlistsRespone());
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                )
+                                    : SizedBox();
+                              }else{
+                                return SizedBox();
+                              }
+                            }),
+
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )),
+      )
+  );
 
   Widget get _content => Column(
         children: [
@@ -406,16 +418,16 @@ class _ProductDetailViewState extends State<ProductDetailView>
                       ProductDetail(productItem: item.producItemRespone),
                       _Divider(),
                       StreamBuilder(
-                        stream: bloc.TrendingGroup.stream,
+                        stream: bloc.SearchProduct.stream,
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
                           if (snapshot.hasData &&
-                              (snapshot.data as ProductRespone) != null) {
-                            if ((snapshot.data as ProductRespone).total > 0) {
+                              (snapshot.data as SearchRespone) != null) {
+                            if ((snapshot.data as SearchRespone).hits.length > 0) {
                               return ProductLandscape(
                                 SubFixId: SubFixId,
                                 productRespone:
-                                    (snapshot.data as ProductRespone),
+                                bloc.ConvertSearchData(item: snapshot.data as SearchRespone),
                                 titleInto: LocaleKeys.recommend_you_like.tr(),
                                 producViewModel:
                                     ProductViewModel().getBestSaller(),
@@ -423,11 +435,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 onSelectMore: () {
                                   AppRoute.ProductMore(
                                       context: context,
-                                      api_link: "products/types/trending?categorySubGroupId=${item.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id}",
+                                      api_link: "products/types/popular?categoryGroupId=${item.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id}",
                                       barTxt: LocaleKeys
                                           .recommend_product_for_you
-                                          .tr(),
-                                      installData: (snapshot.data as ProductRespone));
+                                          .tr());
                                 },
                                 onTapItem: (ProductData item, int index) {
                                   AppRoute.ProductDetail(context,
@@ -647,5 +658,16 @@ class _ProductDetailViewState extends State<ProductDetailView>
       color: Colors.black.withOpacity(0.2),
       height: 2.0.w,
     );
+  }
+
+  Future<Null>  _refreshProducts() async{
+    if(Platform.isAndroid){
+      await Future.delayed(Duration(seconds: 2));
+      AudioCache().play("sound/Click.mp3");
+      Vibration.vibrate(duration: 500);
+    }
+    Usermanager().getUser().then((value) {
+      bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
+    });
   }
 }

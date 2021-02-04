@@ -18,6 +18,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
+import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
 import 'package:naifarm/config/Env.dart';
@@ -90,107 +91,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
           var item = (snapshot.data as NotiRespone);
           if(snapshot.hasData && item.data.isNotEmpty){
             step_page = item.data.length != item.total?true:false;
-            return CustomRefreshIndicator(
-              controller: _indicatorController,
-              onRefresh: ()async{
-                page = 1;
-                bloc.product_more.clear();
-                bloc.refreshProducts(group: "shop",limit: limit,page: page);
-              },
-              armedToLoadingDuration: const Duration(seconds: 1),
-              draggingToIdleDuration: const Duration(seconds: 1),
-              completeStateDuration: const Duration(seconds: 1),
-              offsetToArmed: 50.0,
-              builder: (
-                  BuildContext context,
-                  Widget child,
-                  IndicatorController controller,
-                  ) {
-                return Stack(
-                  children: <Widget>[
-                    AnimatedBuilder(
-                      animation: controller,
-                      builder: (BuildContext context, Widget _) {
-                        if (controller.state == IndicatorState.complete) {
-                          AudioCache().play("sound/Click.mp3");
-                          Vibration.vibrate(duration: 500);
-                        }
-                        return Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            margin: EdgeInsets.only(top: 2.0.h),
-                            width: 5.0.w,
-                            height: 5.0.w,
-                            child: Platform.isAndroid
-                                ? CircularProgressIndicator()
-                                : CupertinoActivityIndicator(),
-                          ),
-                        );
-                      },
-                    ),
-                    AnimatedBuilder(
-                      builder: (context, _) {
-                        return Transform.translate(
-                          offset: Offset(0.0, controller.value * _indicatorSize),
-                          child: child,
-                        );
-                      },
-                      animation: controller,
-                    ),
-                  ],
-                );
-              },
-              child: SingleChildScrollView(
-
-                controller: _scrollController,
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      Column(
-
-                        children: item.data
-                            .asMap()
-                            .map((index, value) {
-                          return MapEntry(
-                              index,
-                              Column(
-                                children: [
-                                  _BuildCardNoti(
-                                      item: value,context: context,index: index),
-                                ],
-                              ));
-                        })
-                            .values
-                            .toList(),
-                      ),
-                      if (item.data.length != item.total )
-                        Container(
-                          padding: EdgeInsets.all(20),
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
-                            children: [
-                              Platform.isAndroid
-                                  ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
-                                  : CupertinoActivityIndicator(),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text("Loading",
-                                  style: FunctionHelper.FontTheme(
-                                      color: Colors.grey,
-                                      fontSize:
-                                      SizeUtil.priceFontSize()
-                                          .sp))
-                            ],
-                          ),
-                        )
-                    ],
-                  ),
-                ),
-              ),
-            );
+            return Platform.isAndroid?AndroidRefreshIndicator(item: item):IOSRefreshIndicator(item: item);
           }else{
             return Container(
               margin: EdgeInsets.only(bottom: 15.0.h),
@@ -206,13 +107,122 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
     );
   }
 
+  Widget AndroidRefreshIndicator({NotiRespone item}){
+    return RefreshIndicator(
+      onRefresh: _refreshProducts,
+      child: Content_Main(item: item),
+    );
+  }
+
+  Widget IOSRefreshIndicator({NotiRespone item}){
+    return CustomRefreshIndicator(
+      controller: _indicatorController,
+      onRefresh: ()=>_refreshProducts(),
+      armedToLoadingDuration: const Duration(seconds: 1),
+      draggingToIdleDuration: const Duration(seconds: 1),
+      completeStateDuration: const Duration(seconds: 1),
+      offsetToArmed: 50.0,
+      builder: (
+          BuildContext context,
+          Widget child,
+          IndicatorController controller,
+          ) {
+        return Stack(
+          children: <Widget>[
+            AnimatedBuilder(
+              animation: controller,
+              builder: (BuildContext context, Widget _) {
+                if (controller.state == IndicatorState.complete) {
+                  AudioCache().play("sound/Click.mp3");
+                  Vibration.vibrate(duration: 500);
+                }
+                return Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 2.0.h),
+                    width: 5.0.w,
+                    height: 5.0.w,
+                    child: Platform.isAndroid
+                        ? CircularProgressIndicator()
+                        : CupertinoActivityIndicator(),
+                  ),
+                );
+              },
+            ),
+            AnimatedBuilder(
+              builder: (context, _) {
+                return Transform.translate(
+                  offset: Offset(0.0, controller.value * _indicatorSize),
+                  child: child,
+                );
+              },
+              animation: controller,
+            ),
+          ],
+        );
+      },
+      child: Content_Main(item: item),
+    );
+  }
+
+  Widget  Content_Main({NotiRespone item}) => SingleChildScrollView(
+
+    controller: _scrollController,
+    child: Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          Column(
+
+            children: item.data
+                .asMap()
+                .map((index, value) {
+              return MapEntry(
+                  index,
+                  Column(
+                    children: [
+                      _BuildCardNoti(
+                          item: value,context: context,index: index),
+                    ],
+                  ));
+            })
+                .values
+                .toList(),
+          ),
+          if (item.data.length != item.total )
+            Container(
+              padding: EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment:
+                MainAxisAlignment.center,
+                children: [
+                  Platform.isAndroid
+                      ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
+                      : CupertinoActivityIndicator(),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("Loading",
+                      style: FunctionHelper.FontTheme(
+                          color: Colors.grey,
+                          fontSize:
+                          SizeUtil.priceFontSize()
+                              .sp))
+                ],
+              ),
+            )
+        ],
+      ),
+    ),
+  );
+
   GestureDetector _BuildCardNoti({NotiData item,BuildContext context,int index}) => GestureDetector(
     onTap: (){
       // if(item.Status_Sell==1)
       //   AppRoute.NotiDetail(context,"notiitem_${index}","notititle_${index}");
       // else
       //   item.Status_Sell!=2?AppRoute.OrderDetail(context,item.Status_Sell):print("press 2");
-
+        AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)));
     },
     child: Dismissible(
       background: Container(
@@ -286,21 +296,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                   Expanded(
                       child: Container(
                         padding: EdgeInsets.only(left: 10,right: 5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(bloc.ConvertStatusText(type: item.type,meta: item.meta),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
-                            SizedBox(height: 0.5.h),
-                            Wrap(
-                              children: [
-                                Text("คุณได้ทำรายการสั่งซื้อสินค้า หมายเลขคำสั่งซื้อ  ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                                Text(bloc.ConvertStatusSubText(type: item.type,meta: item.meta),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-
-                              ],
-                            )
-
-                          ],
-                        ),
+                        child: ConvertStatus(item: item),
                       )),
                   Icon(
                     Icons.arrow_forward_ios,
@@ -318,7 +314,73 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
   );
 
 
+  Widget ConvertStatus({NotiData item}){
+    if(item.type=="App\\Notifications\\Shop\\ShopUpdated"){
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("คำสั่งซื้อใหม่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          Wrap(
+            children: [
+              Text("อัพเดทข้อมูลร้านค้า ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+              Text("${item.meta.name} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+              Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
 
+            ],
+          )
+
+        ],
+      );
+    }else if(item.type=="App\\Notifications\\Shop\\ShopIsLive"){
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("อัพเดทข้อมูลร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          Wrap(
+            children: [
+              Text("อัพเดทข้อมูลร้านค้า ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+              Text("${item.meta.name} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+              Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+
+            ],
+          )
+
+        ],
+      );
+    }else if(item.type=="App\\Notifications\\Order\\OrderCreated"){
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("คำสั่งซื้อใหม่ ${item.meta.status}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          Wrap(
+            children: [
+              Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+              Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+              Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
+            ],
+          )
+
+        ],
+      );
+    }else{
+      return SizedBox();
+    }
+
+  }
+
+  Future<Null>  _refreshProducts() async{
+    if(Platform.isAndroid){
+      await Future.delayed(Duration(seconds: 2));
+      AudioCache().play("sound/Click.mp3");
+      Vibration.vibrate(duration: 500);
+    }
+    page = 1;
+    bloc.product_more.clear();
+    bloc.refreshProducts(group: "customer",limit: limit,page: page);
+  }
 
   @override
   bool get wantKeepAlive => true;

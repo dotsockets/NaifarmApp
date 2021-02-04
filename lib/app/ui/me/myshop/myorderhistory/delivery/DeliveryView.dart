@@ -112,7 +112,7 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        AppRoute.OrderDetail(context,item.orderStatusId,orderData: item);
+        AppRoute.OrderDetail(context,orderData: item);
       },
     );
   }

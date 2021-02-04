@@ -20,13 +20,15 @@ class CategoryHeader extends StatelessWidget {
   final CategoryObjectCombin snapshot;
   final Function(CategoryGroupData) onTap;
   final String title;
+  final bool moreSize;
 
-  const CategoryHeader({Key key, this.snapshot, this.onTap, this.title}) : super(key: key);
+  const CategoryHeader({Key key, this.snapshot, this.onTap, this.title, this.moreSize}) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(bottom: 3.0.h),
       decoration: new BoxDecoration(
           color: ThemeColor.primaryColor(),
           borderRadius: new BorderRadius.only(
@@ -83,6 +85,7 @@ class CategoryHeader extends StatelessWidget {
               ),
             ),
             snapshot!=null?CategoryMenu(
+              moreSize: moreSize,
               featuredRespone: snapshot.supGroup,
               onTap: (CategoryGroupData val){
                 AppRoute.CategorySubDetail(context, val.id,title:val.name);

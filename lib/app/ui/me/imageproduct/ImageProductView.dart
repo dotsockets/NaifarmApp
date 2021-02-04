@@ -69,54 +69,56 @@ class _ImageProductViewState extends State<ImageProductView> {
   Widget build(BuildContext context) {
     init();
 
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppToobar(
-          title: LocaleKeys.my_product_image.tr(),
-          icon: "",
-          header_type: Header_Type.barNormal,
-          onClick: ()=> Navigator.pop(context, false),
-        ),
-        body: Container(
-          width: MediaQuery.of(context).size.width,
-          color: Colors.white,
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(LocaleKeys.my_product_image_guide.tr(),
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              fontWeight: FontWeight.w500)),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Container(
-                          margin: EdgeInsets.only(left: 10, right: 10),
-                          child: _buildGrid())
-                    ],
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: AppToobar(
+            title: LocaleKeys.my_product_image.tr(),
+            icon: "",
+            header_type: Header_Type.barNormal,
+            onClick: ()=> Navigator.pop(context, false),
+          ),
+          body: Container(
+            width: MediaQuery.of(context).size.width,
+            color: Colors.white,
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(LocaleKeys.my_product_image_guide.tr(),
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.w500)),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(left: 10, right: 10),
+                            child: _buildGrid())
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              StreamBuilder(
-                stream: bloc.onChang.stream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    var item = (snapshot.data as List<OnSelectItem>);
-                    return _buildButton(item: item);
-                  } else {
-                    return SizedBox();
-                  }
-                },
-              )
-            ],
+                StreamBuilder(
+                  stream: bloc.onChang.stream,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      var item = (snapshot.data as List<OnSelectItem>);
+                      return _buildButton(item: item);
+                    } else {
+                      return SizedBox();
+                    }
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),

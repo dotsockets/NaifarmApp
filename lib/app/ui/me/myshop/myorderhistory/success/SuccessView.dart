@@ -111,7 +111,7 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        AppRoute.OrderDetail(context,item.orderStatusId,orderData: item);
+        AppRoute.OrderDetail(context,orderData: item);
       },
     );
   }

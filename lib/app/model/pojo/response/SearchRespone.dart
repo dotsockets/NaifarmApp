@@ -120,7 +120,8 @@ class Hits {
     offerPrice = json['offerPrice'];
     discountPercent = json['discountPercent'];
     rating = json['rating'];
-    reviewCount = json['reviewCount'];
+    reviewCount = json['reviewCount'] is int?json['reviewCount'].toDouble():json['reviewCount'];
+
     hasVariant = json['hasVariant'];
   }
 

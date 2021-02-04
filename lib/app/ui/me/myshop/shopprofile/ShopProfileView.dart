@@ -40,7 +40,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   MyShopRespone itemInfo = MyShopRespone();
   bool onUpdate = false;
-  bool isSelect = false;
+  bool isSelect = true;
   File fileImage;
   bool onImageUpdate = false;
 
@@ -310,7 +310,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                               },
                               title: "สถานะร้านค้า",
                               onClick: () {
-                                AppRoute.EditpasswordStep1(context);
+                               // AppRoute.EditpasswordStep1(context);
                               },
                             ),
                           ],

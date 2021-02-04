@@ -112,7 +112,7 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        AppRoute.OrderDetail(context,item.orderStatusId,orderData: item);
+        AppRoute.OrderDetail(context,orderData: item);
       },
     );
   }
@@ -347,7 +347,7 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () {
-        AppRoute.OrderDetail(context,item.orderStatusId,orderData: item);
+        AppRoute.OrderDetail(context,orderData: item);
 
       },
       child: Text(

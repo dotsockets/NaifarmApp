@@ -84,15 +84,31 @@ class _SearchViewState extends State<SearchView> {
                                     child: Row(
                                       //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Expanded(child:  Text(
-                                            (snapshot.data as SearchRespone)
-                                                .hits[key]
-                                                .name,
-                                            style: FunctionHelper.FontTheme(
-                                                color: Colors.black,
-                                                fontSize: SizeUtil
-                                                    .titleSmallFontSize()
-                                                    .sp)),),
+                                        Expanded(child:  Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                (snapshot.data as SearchRespone)
+                                                    .hits[key]
+                                                    .name,
+                                                style: FunctionHelper.FontTheme(
+                                                  fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: SizeUtil
+                                                        .titleSmallFontSize()
+                                                        .sp)),
+                                            Text(
+                                                (snapshot.data as SearchRespone)
+                                                    .hits[key]
+                                                    .categories[0].name,
+                                                style: FunctionHelper.FontTheme(
+                                                    color: Colors.black,
+                                                    fontSize: SizeUtil
+                                                        .titleSmallFontSize()
+                                                        .sp))
+
+                                          ],
+                                        ),),
                                         Hero(
                                           tag:"search_${(snapshot.data as SearchRespone).hits[key].productId}",
                                           child: CachedNetworkImage(
