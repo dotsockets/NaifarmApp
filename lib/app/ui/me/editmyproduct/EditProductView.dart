@@ -28,11 +28,11 @@ import 'package:sizer/sizer.dart';
 class EditProductView extends StatefulWidget {
   final int ProductId ;
   final UploadProductStorage uploadProductStorage;
-  final int popPage;
+
   final int shopId;
   final int indexTab;
 
-  const EditProductView({Key key, this.ProductId, this.uploadProductStorage,this.popPage,this.shopId,this.indexTab}) : super(key: key);
+  const EditProductView({Key key, this.ProductId, this.uploadProductStorage,this.shopId,this.indexTab}) : super(key: key);
   @override
   _EditProductViewState createState() => _EditProductViewState();
 }
@@ -75,7 +75,7 @@ class _EditProductViewState extends State<EditProductView> {
           Navigator.of(context).pop();
         }
       });
-      bloc.onError.stream.listen((event) {
+     bloc.onError.stream.listen((event) {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event)  {
@@ -86,7 +86,7 @@ class _EditProductViewState extends State<EditProductView> {
           Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
               token: value.token));
 
-          AppRoute.MyProduct(context,widget.shopId,pushEvent: true,countPage: widget.popPage,indexTab: widget.indexTab);
+          AppRoute.MyProduct(context,widget.shopId,pushEvent: true,indexTab: widget.indexTab,countPage: 2);
         // Navigator.pop(context,event);
          // AppRoute.PoppageCount(context: context,countpage: 2);
         }else if(event is ProductMyShopRespone){

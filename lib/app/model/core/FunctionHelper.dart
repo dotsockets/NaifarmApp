@@ -509,18 +509,16 @@ class FunctionHelper {
     final minute = int.parse(timeFlash.substring(14, 16));
     final second = int.parse(timeFlash.substring(17, 19));
 
-    final timeData = DateTime(year, month, day, hour, minute,second);
-    final currentTime = DateTime.now();
-    final diff_sc = timeData.difference(currentTime).inSeconds;
-  /*
-    final diff_day = timeData.difference(currentTime).inDays;
-    int monthResult = 0,dayResult = 0;
-      if (diff_day>30){
-       // monthResult = (diff_day/30).floor();
-        dayResult = diff_day-((diff_day/30).floor()*30);
-      }
- */
-    return diff_sc;
+    DateTime timeData = DateTime(year, month, day, hour, minute,second);
+
+    DateTime currentTime = DateTime.now();
+    int difTimeSc = timeData.difference(currentTime).inSeconds;
+print(timeFlash);
+    if(difTimeSc>86400){
+      difTimeSc = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+1, 03, 06,38).difference(DateTime.now()).inSeconds;
+    }
+
+    return difTimeSc;
   }
 
   static String replaceText({String text,String pattern}){

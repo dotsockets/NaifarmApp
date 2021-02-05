@@ -324,7 +324,20 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
+  getInfoRules({String slug}) async{
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.getInformationRules(slug)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        onSuccess.add(respone.respone);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
 
+    });
+    _compositeSubscription.add(subscription);
+  }
 }
 
 enum RequestOtp{

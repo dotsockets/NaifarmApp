@@ -124,7 +124,6 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
 
                          // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
                           NaiFarmLocalStorage.saveNowPage(index);
-
                             _selectedIndex.add(index);
 
 

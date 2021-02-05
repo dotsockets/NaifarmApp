@@ -194,8 +194,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: DeliveryCostView()));
   }
 
-  static Future<bool> EditProduct(BuildContext context,int index,int popPage,int shopId,{UploadProductStorage uploadProductStorage,int indexTab=0}) async {
-    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProductView(indexTab:indexTab,ProductId: index,uploadProductStorage: uploadProductStorage,popPage: popPage,shopId: shopId,)));
+  static Future<bool> EditProduct(BuildContext context,int index,int shopId,{UploadProductStorage uploadProductStorage,int indexTab=0}) async {
+    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProductView(indexTab:indexTab,ProductId: index,uploadProductStorage: uploadProductStorage,shopId: shopId,)));
   }
 
   static Future<bool> ImageProduct(BuildContext context,{IsActive isactive})async{

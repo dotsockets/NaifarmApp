@@ -369,6 +369,10 @@ class APIRepository{
     return _apiProvider.GetCategoryByShop(CategoryId:CategoryId,token: token);
   }
 
+  Future<ApiResult> getInformationRules(String slug){
+    return _apiProvider.getInformationRules(slug);
+  }
+
 
 
 //  Observable<List<AppContent>> getTop100FreeApp(){

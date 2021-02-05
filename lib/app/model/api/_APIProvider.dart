@@ -1994,5 +1994,28 @@ class _APIProvider implements APIProvider {
       return ServerError.DioErrorExpction(e);
     }
   }
+
+  @override
+  Future<ApiResult> getInformationRules(String slug) async {
+    const _extra = <String, dynamic>{ };
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+    };
+    try {
+
+      final _result = await _dio.request<dynamic>('/v1/page?slug=${slug}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: InformationRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
 }
 

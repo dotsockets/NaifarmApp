@@ -76,7 +76,6 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
   }
 
 
-
   CountdownFormatted _buildCountDown() => CountdownFormatted(
         duration: Duration(
           seconds: FunctionHelper.flashSaleTime(
@@ -103,6 +102,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
                 ),
               );
           List<String> time = remaining.split(':').toList();
+         // time[0] = time[0]-24;
           return Row(
             children: [
               time.length ==1||time.length<1 ? Row(
@@ -117,8 +117,10 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
                 ],
               ) : SizedBox(),
               time.length==1&&time[0]=="00"?showTime("00"):Row(
-                  children: List.generate(time.length, (index) {
+        //  children:[ showTime((24-int.parse(time[0])).toString())]
+           children: List.generate(time.length, (index) {
                 return showTime(time[index]);
+
               }))
             ],
           );

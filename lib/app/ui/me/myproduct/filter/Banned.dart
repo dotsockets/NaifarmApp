@@ -28,35 +28,47 @@ import 'package:sizer/sizer.dart';
 
 class Banned extends StatefulWidget {
   final int shopId;
+  final GlobalKey<ScaffoldState>  scaffoldKey;
 
-  const Banned({Key key, this.shopId}) : super(key: key);
+  const Banned({Key key, this.shopId, this.scaffoldKey}) : super(key: key);
   @override
   _BannedState createState() => _BannedState();
 }
 
-class _BannedState extends State<Banned>  with AutomaticKeepAliveClientMixin<Banned>{
+class _BannedState extends State<Banned> {
 
   ScrollController _scrollController = ScrollController();
   UploadProductBloc bloc;
   int limit = 5;
   int page = 1;
   bool step_page = false;
-  int count = 0;
+ // int count = 0;
   init(){
 
     if(bloc==null){
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.onSuccess.stream.listen((event)  {
+        _reloadFirstPage();
         if(event is bool){
-          bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
+         // bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
+
         }
       });
 
       bloc.onError.stream.listen((event) {
-        Future.delayed(const Duration(milliseconds: 1000), () {
-         _reloadData();
-        });
+        FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event);
+        _reloadFirstPage();
       });
+
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+
+        }
+      });
+
       _reloadData();
     }
 
@@ -95,7 +107,7 @@ class _BannedState extends State<Banned>  with AutomaticKeepAliveClientMixin<Ban
                         _BuildProduct(item: item.data[index],index: index),),
                   ),
                   //if (item.data.length != item.total && item.data.length >= limit)
-                  if (item.data.length != item.total-count)
+                  if (item.data.length != item.total)
                   Container(
                       padding: EdgeInsets.all(20),
                       child: Row(
@@ -299,8 +311,12 @@ class _BannedState extends State<Banned>  with AutomaticKeepAliveClientMixin<Ban
                           onToggle: (val) {
                             bloc.ProductMyShopRes.value.data[index].active = val?1:0;
                             bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
+                           // bloc.ProductMyShopRes.value.data.removeAt(index);
+                          //  bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
+                            //count++;
+
                             Usermanager().getUser().then((value) =>  bloc.UpdateProductMyShop(shopRequest: ProductMyShopRequest(
-                                name: item.name,active: bloc.ProductMyShopRes.value.data[index].active),token: value.token,productId: item.id));
+                                name: item.name,active: val?1:0),token: value.token,productId: item.id));
                           },
                         ),
                       ),
@@ -322,11 +338,9 @@ class _BannedState extends State<Banned>  with AutomaticKeepAliveClientMixin<Ban
                             for(var value in item.image){
                               onSelectItem.add(OnSelectItem(onEdit: false,url: value.path));
                             }
-                            var result = await  AppRoute.EditProduct(context, item.id,2,widget.shopId,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem),indexTab: 2);
+                            var result = await  AppRoute.EditProduct(context, item.id,widget.shopId,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem),indexTab: 2);
                             if(result){
-                              page = 1;
-                              bloc.product_more.clear();
-                              _reloadData();
+                              _reloadFirstPage();
                             }
                           },
                         ),
@@ -344,7 +358,7 @@ class _BannedState extends State<Banned>  with AutomaticKeepAliveClientMixin<Ban
                             FunctionHelper.ConfirmDialog(context,message: LocaleKeys.dialog_message_del_product.tr(),onClick: (){
                               bloc.ProductMyShopRes.value.data.removeAt(index);
                               bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
-                              count++;
+                            //  count++;
                               Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(ProductId: item.id,token: value.token));
                               Navigator.of(context).pop();
                             },onCancel: (){Navigator.of(context).pop();});
@@ -394,6 +408,12 @@ class _BannedState extends State<Banned>  with AutomaticKeepAliveClientMixin<Ban
     Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: page.toString(),limit: 5,token: value.token,filter:"banned"));
   }
 
-  @override
-  bool get wantKeepAlive => true;
+  _reloadFirstPage(){
+    bloc.product_more.clear();
+    page = 1;
+    _reloadData();
+  }
+
+  /*@override
+  bool get wantKeepAlive => true;*/
 }
