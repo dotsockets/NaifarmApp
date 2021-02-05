@@ -55,6 +55,7 @@ import 'package:naifarm/app/ui/me/myshop/shopprofile/OfficialNameView.dart';
 import 'package:naifarm/app/ui/me/myshop/withdrawmoney/WithdrawMoneyView.dart';
 import 'package:naifarm/app/ui/me/myshop/withdrawmoney/moneyout/MoneyOutView.dart';
 import 'package:naifarm/app/ui/me/payment/PaymentView.dart';
+import 'package:naifarm/app/ui/me/payment/TransferPayMent.dart';
 import 'package:naifarm/app/ui/mycart/cart/MyCartView.dart';
 import 'package:naifarm/app/ui/mycart/cart/OrderSuccessView.dart';
 import 'package:naifarm/app/ui/mycart/cartaddress/CartAaddressView.dart';
@@ -145,8 +146,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CartSummaryView(item:item)));
   }
 
-  static Future<bool>  CartAaddres(BuildContext context) async {
-    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CartAaddressView()));
+  static Future<AddressesListRespone>  CartAaddres(BuildContext context,{AddressesData install_select}) async {
+    return await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CartAaddressView(install_select: install_select,)));
   }
 
   static Future<PaymentRespone>  CartBank(BuildContext context,{PaymentRespone paymentRespone}) async {
@@ -452,8 +453,8 @@ class AppRoute{
     return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:EditImageProductView(ProductId: ProductId,uploadProductStorage: uploadProductStorage,)));
   }
 
-  static Future<ShippingRates>  DeliverySelect({BuildContext context,int shopId})async{
-    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:DeliverySelectView(shopId: shopId,)));
+  static Future<ShippingRates>  DeliverySelect({BuildContext context,int shopId,int select_id})async{
+    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:DeliverySelectView(shopId: shopId,select_id: select_id,)));
   }
 
   static OrderSuccess({BuildContext context,String payment_total,OrderData orderData}){
@@ -490,6 +491,12 @@ class AppRoute{
   static ImageFullScreenView({BuildContext context,String image,String hero_tag}){
 
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ImageFullScreen(image: image,hero_tag: hero_tag,)));
+
+  }
+
+  static TransferPayMentView({BuildContext context}){
+
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:TransferPayMent()));
 
   }
 

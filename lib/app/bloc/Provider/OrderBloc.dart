@@ -15,7 +15,7 @@ class OrderBloc extends Cubit<OrdersState> {
   OrderBloc(this._application) : super(OrdersInitial());
 
 
-   loadOrder({int page=1,int limit=20,int statusId,String token}) async{
+   loadOrder({int page=1,int limit=20,String statusId,String token}) async{
     emit(OrdersLoading());
     Observable.fromFuture(_application.appStoreAPIRepository.GetOrder(page: page,limit: limit,statusId: statusId,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){

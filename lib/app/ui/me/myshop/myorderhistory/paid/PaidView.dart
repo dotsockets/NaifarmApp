@@ -46,7 +46,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       Usermanager().getUser().then((value) =>
-          bloc.loadOrder(orderType: widget.orderType,statusId: 1, limit: 20, page: 1, token: value.token));
+          bloc.loadOrder(orderType: widget.orderType,statusId: "1", limit: 20, page: 1, token: value.token));
     }
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
@@ -94,7 +94,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
                       Lottie.asset('assets/json/boxorder.json',
                           height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
-                        LocaleKeys.cart_empty.tr(),
+                        "No data found at this time",
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
                       )
@@ -164,7 +164,6 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
         ),
         SizedBox(width: 2.0.w),
         Expanded(
-          flex: 4,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -210,10 +209,6 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
               )
             ],
           ),
-        ),
-        Expanded(
-          flex: 1,
-          child: SizedBox(),
         )
       ],
     );
@@ -248,12 +243,15 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
                   Row(
                     children: [
                       Text(
-                          LocaleKeys.history_order_price.tr() +
-                              " : " +
-                              "${NumberFormat("#,##0.00", "en_US").format(SumTotal(item.items))}",
+                          LocaleKeys.history_order_price.tr() ,
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: Colors.black)),
+                      Text(" : " +
+                              "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              color: ThemeColor.ColorSale())),
                       // Text(
                       //     "฿${item.inventory.salePrice * item.quantity}.00",
                       //     style: FunctionHelper.FontTheme(
@@ -267,21 +265,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
               Divider(
                 color: Colors.grey.shade400,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: _IntroShipment(address: item.shippingAddress),
-                  ),
-                  Container(
-                      margin: EdgeInsets.only(left: 30),
-                      child: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.grey.shade400,
-                        size: 4.0.w,
-                      ))
-                ],
-              ),
+              _IntroShipment(address: item.shippingAddress),
               Divider(
                 color: Colors.grey.shade400,
               ),
@@ -375,7 +359,9 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40.0),
       ),
-      onPressed: () {},
+      onPressed: () {
+        AppRoute.TransferPayMentView(context: context);
+      },
       child: Text(
         btnTxt,
         style: FunctionHelper.FontTheme(
@@ -396,11 +382,21 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
             height: 4.0.h,
           ),
           SizedBox(width: 2.0.w),
-          Text(address,
-              overflow: TextOverflow.ellipsis,
-              style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleSmallFontSize().sp,
-                  color: ThemeColor.secondaryColor())),
+          Expanded(
+            child: Text(address,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: FunctionHelper.FontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    color: ThemeColor.secondaryColor())),
+          ),
+          Container(
+              margin: EdgeInsets.only(left: 30),
+              child: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.grey.shade400,
+                size: 4.0.w,
+              ))
         ],
       ),
     );

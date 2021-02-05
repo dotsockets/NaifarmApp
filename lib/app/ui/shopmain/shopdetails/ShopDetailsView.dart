@@ -21,9 +21,7 @@ class ShopDetailsView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(zipShopObjectCombin.shopRespone.description
-              ,style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.7),height: 2),),
-              Text("line : @monruangsay",style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.7),height: 2),),
-              Text("ig : monruangsay",style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.7),height: 2),)
+              ,style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.7),height: 2),)
             ],
           ),
         ),

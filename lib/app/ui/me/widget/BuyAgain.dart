@@ -112,16 +112,16 @@ class BuyAgain extends StatelessWidget {
             Hero(
               tag: "${tagHero}_${item.id}",
               child: CachedNetworkImage(
-                width: 30.0.w,
-                height: 30.0.w,
+                width: 28.0.w,
+                height: 28.0.w,
                 placeholder: (context, url) => Container(
-                  width: 30.0.w,
-                  height: 30.0.w,
+                  width: 28.0.w,
+                  height: 28.0.w,
                   color: Colors.white,
-                  child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                  child: Lottie.asset(Env.value.loadingAnimaion,height: 28),
                 ),
                 imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                errorWidget: (context, url, error) => Container(width: 30.0.w,height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                errorWidget: (context, url, error) => Container(width: 28.0.w,height: 28.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
               ),
             ),
             Visibility(

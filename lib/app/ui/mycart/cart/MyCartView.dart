@@ -1,8 +1,13 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:audioplayers/audio_cache.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +16,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
 import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
+import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -26,6 +32,7 @@ import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
+import 'package:vibration/vibration.dart';
 import '../widget/ModalFitBottom_Sheet.dart';
 
 class MyCartView extends StatefulWidget {
@@ -37,11 +44,15 @@ class MyCartView extends StatefulWidget {
   _MyCartViewState createState() => _MyCartViewState();
 }
 
-class _MyCartViewState extends State<MyCartView> {
+class _MyCartViewState extends State<MyCartView>  with RouteAware{
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CartBloc bloc;
   NotiBloc bloc_noti;
 //    CartRequest cartReq = CartRequest();
+
+
+  final _indicatorController = IndicatorController();
+  static const _indicatorSize = 50.0;
 
   void _init() {
     if (null == bloc && bloc_noti == null) {
@@ -65,7 +76,6 @@ class _MyCartViewState extends State<MyCartView> {
 
       Usermanager().getUser().then((value){
         bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList);
-        bloc_noti.MarkAsReadNotifications(token: value.token,);
       });
 
     }
@@ -73,6 +83,20 @@ class _MyCartViewState extends State<MyCartView> {
 
 
   }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void didPopNext() {
+    Usermanager().getUser().then((value){
+      bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList);
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -88,63 +112,130 @@ class _MyCartViewState extends State<MyCartView> {
               title: LocaleKeys.cart_toobar.tr(),
               icon: "",
               showBackBtn: widget.btnBack,
+              isEnable_Search: false,
               header_type: Header_Type.barNormal,
             ),
-            body: StreamBuilder(
-                stream: bloc.CartList.stream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    var item = (snapshot.data as CartResponse).data;
-                    if (item.isNotEmpty) {
-                      return Column(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              color: Colors.grey.shade300,
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: List.generate(item.length, (index) {
-                                    return _CardCart(
-                                        item: item[index], index: index);
-                                  }),
-                                ),
-                              ),
+            body: Container(
+              color: Colors.grey.shade300,
+              child: StreamBuilder(
+                  stream: bloc.CartList.stream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      var item = (snapshot.data as CartResponse).data;
+                      if (item.isNotEmpty) {
+                        return Column(
+                          children: [
+                            Expanded(
+                              child: Platform.isAndroid?AndroidRefreshIndicator(item: item):SafeArea(child: IOSRefreshIndicator(item: item),),
+                            ),
+                            //_BuildDiscountCode(),
+                            _BuildFooterTotal(
+                                cartResponse: (snapshot.data as CartResponse)),
+                          ],
+                        );
+                      } else {
+                        return Center(
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 15.0.h),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Lottie.asset('assets/json/boxorder.json',
+                                    height: 70.0.w, width: 70.0.w, repeat: false),
+                                Text(
+                                  LocaleKeys.cart_empty.tr(),
+                                  style: FunctionHelper.FontTheme(
+                                      fontSize: SizeUtil.titleFontSize().sp,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
                             ),
                           ),
-                          _BuildDiscountCode(),
-                          _BuildFooterTotal(
-                              cartResponse: (snapshot.data as CartResponse)),
-                        ],
-                      );
+                        );
+                      }
                     } else {
-                      return Center(
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 15.0.h),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Lottie.asset('assets/json/boxorder.json',
-                                  height: 70.0.w, width: 70.0.w, repeat: false),
-                              Text(
-                                LocaleKeys.cart_empty.tr(),
-                                style: FunctionHelper.FontTheme(
-                                    fontSize: SizeUtil.titleFontSize().sp,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
+                      return SizedBox();
                     }
-                  } else {
-                    return SizedBox();
-                  }
-                })),
+                  }),
+            )),
       ),
     );
   }
 
-  Widget _BuildDiscountCode() {
+  Widget AndroidRefreshIndicator({List<CartData> item}){
+    return RefreshIndicator(
+      onRefresh: _refreshProducts,
+      child: Content_Main(item: item),
+    );
+  }
+
+  Widget IOSRefreshIndicator({List<CartData> item}){
+    return CustomRefreshIndicator(
+        controller: _indicatorController,
+        onRefresh: () => _refreshProducts(),
+        armedToLoadingDuration: const Duration(seconds: 1),
+        draggingToIdleDuration: const Duration(seconds: 1),
+        completeStateDuration: const Duration(seconds: 1),
+        offsetToArmed: 50.0,
+        builder: (
+            BuildContext context,
+            Widget child,
+            IndicatorController controller,
+            ) {
+          return Stack(
+            children: <Widget>[
+              AnimatedBuilder(
+                animation: controller,
+                builder: (BuildContext context, Widget _)  {
+                  if (controller.state == IndicatorState.complete) {
+                  }
+                  return Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 2.0.h),
+                      width: 5.0.w,
+                      height: 5.0.w,
+                      child: CupertinoActivityIndicator(),
+                    ),
+                  );
+                },
+              ),
+              AnimatedBuilder(
+                builder: (context, _) {
+                  return Transform.translate(
+                    offset: Offset(0.0, controller.value * _indicatorSize),
+                    child: child,
+                  );
+                },
+                animation: controller,
+              ),
+            ],
+          );
+        },
+        child: Content_Main(item: item)
+    );
+  }
+
+  Widget  Content_Main({List<CartData> item}){
+    return SingleChildScrollView(
+      child: Column(
+        children: List.generate(item.length, (index) {
+          return Column(
+            children: [
+              _CardCart(
+                  item: item[index], index: index),
+              Container(
+                color: Colors.grey.shade300,
+                height: 2.0.w,
+              )
+            ],
+          );
+        }),
+      ),
+    );
+  }
+
+      Widget _BuildDiscountCode() {
     return Container(
         color: Colors.white,
         padding: EdgeInsets.only(right: 5, left: 0),
@@ -167,9 +258,8 @@ class _MyCartViewState extends State<MyCartView> {
     return Column(
       children: [
         _BuildCard(item: item, index: index),
-        _IntroShipment(),
+     //   _IntroShipment(),
         //  item.ProductDicount==0?_Buildcoupon():SizedBox(),
-        SizedBox(height: 1.0.h),
       ],
     );
   }
@@ -188,67 +278,57 @@ class _MyCartViewState extends State<MyCartView> {
                       _OwnShop(item: item.shop),
                       Column(
                         children: List.generate(item.items.length, (indexItem) {
-                          return Dismissible(
-                            background: Container(
-                              padding: EdgeInsets.only(right: 5.0.w),
-                              alignment: Alignment.centerRight,
-                              color: ThemeColor.ColorSale(),
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border(bottom: BorderSide(color: Colors.grey.withOpacity(0.5), width: 1)),
+                            ),
+
+                            child: Slidable(
+                              actionPane: SlidableDrawerActionPane(),
+                              actionExtentRatio: 0.25,
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Lottie.asset('assets/json/delete.json',
-                                      height: 4.0.h,
-                                      width: 4.0.h,
-                                      repeat: true),
-                                  Text(
-                                    LocaleKeys.cart_del.tr(),
-                                    style: FunctionHelper.FontTheme(
-                                        color: Colors.white,
-                                        fontSize: SizeUtil.titleFontSize().sp,
-                                        fontWeight: FontWeight.bold),
-                                  )
+                                  Container(
+                                    padding: EdgeInsets.only(top: 1.0.h,bottom: 1.0.h),
+                                    child: _ProductDetail(
+                                        item: item,
+                                        indexShop: index,
+                                        indexShopItem: indexItem),
+                                  ),
                                 ],
                               ),
-                            ),
-                            key: Key(
-                                "${bloc.CartList.value.data[index].items[indexItem].inventory.id}"),
-                            child: Column(
-                              children: [
-                                _ProductDetail(
-                                    item: item,
-                                    indexShop: index,
-                                    indexShopItem: indexItem),
-                                item.items.length > 1 &&
-                                        item.items.length - 1 != indexItem
-                                    ? Divider(
-                                        height: 10,
-                                        color: Colors.grey.shade300,
+                              secondaryActions: <Widget>[
+                                IconSlideAction(
+                                  color: Colors.red,
+                                  iconWidget: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Lottie.asset('assets/json/delete.json',
+                                          height: 4.0.h,
+                                          width: 4.0.h,
+                                          repeat: true),
+                                      Text(
+                                        LocaleKeys.cart_del.tr(),
+                                        style: FunctionHelper.FontTheme(
+                                            color: Colors.white,
+                                            fontSize: SizeUtil.titleFontSize().sp,
+                                            fontWeight: FontWeight.bold),
                                       )
-                                    : SizedBox(),
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    Usermanager().getUser().then((value) =>
+                                        bloc.DeleteCart(
+                                            cartid: item.id,
+                                            inventoryId:
+                                            item.items[indexItem].inventory.id,
+                                            token: value.token));
+                                  },
+                                )
+
                               ],
                             ),
-                            onDismissed: (direction) {
-                              if (direction == DismissDirection.endToStart ||
-                                  direction == DismissDirection.startToEnd) {
-                                //  bloc.deleteData.add(item);
-                                // print("dsfdsfdsf ${item.items[indexItem].inventory.id} dsfds ${item.items[indexItem].inventory.title} --- "+indexItem.toString()+"***"+index.toString());
-                                // for(var item in bloc.deleteData) {
-
-                                Usermanager().getUser().then((value) =>
-                                    bloc.DeleteCart(
-                                        cartid: item.id,
-                                        inventoryId:
-                                            item.items[indexItem].inventory.id,
-                                        token: value.token));
-                                // }
-                                //  item.items.removeAt(index);
-                                //  bloc.deleteData[index].items.removeAt(indexItem);
-                                //   bloc.deleteData.add(bloc.deleteData[index]);
-
-                                //  bloc.CartList.value.data[index].items.removeAt(indexItem);
-                                //  bloc.CartList.add(CartResponse(data:bloc.deleteData));
-                              }
-                            },
                           );
                         }),
                       )
@@ -258,9 +338,7 @@ class _MyCartViewState extends State<MyCartView> {
               )
             ],
           ),
-          Divider(
-            color: Colors.black.withOpacity(0.3),
-          )
+
         ],
       ),
     );
@@ -312,23 +390,22 @@ class _MyCartViewState extends State<MyCartView> {
     return InkWell(
       child: Row(
         children: [
-          Expanded(
-            flex: 1,
+          Container(
+            margin: EdgeInsets.all(3.0.w),
             child: item.items[indexShopItem].select
                 ? SvgPicture.asset(
-                    'assets/images/svg/checkmark.svg',
-                    width: 6.0.w,
-                    height: 6.0.w,
-                  )
+              'assets/images/svg/checkmark.svg',
+              width: 6.0.w,
+              height: 6.0.w,
+            )
                 : SvgPicture.asset(
-                    'assets/images/svg/uncheckmark.svg',
-                    width: 6.0.w,
-                    height: 6.0.w,
-                    color: Colors.black.withOpacity(0.5),
-                  ),
+              'assets/images/svg/uncheckmark.svg',
+              width: 6.0.w,
+              height: 6.0.w,
+              color: Colors.black.withOpacity(0.5),
+            ),
           ),
           Expanded(
-            flex: 8,
             child: Column(
               children: [
                 Row(
@@ -370,7 +447,7 @@ class _MyCartViewState extends State<MyCartView> {
                           width: MediaQuery.of(context).size.width / 1.6,
                           child: Text(
                               item.items[indexShopItem].inventory.product.name,
-                              maxLines: 1,
+                              maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp,
@@ -537,12 +614,12 @@ class _MyCartViewState extends State<MyCartView> {
         children: [
           Container(color: Colors.black.withOpacity(0.1), height: 1),
           Container(
-            padding: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h),
+            padding: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h,right: 0.5.h),
             child: InkWell(
               child: Row(
                 children: [
                   Expanded(
-                      flex: 6,
+                      flex: 5,
                       child: Container(
                         padding: EdgeInsets.only(left: 5.0.w),
                         child: Row(
@@ -713,5 +790,16 @@ class _MyCartViewState extends State<MyCartView> {
             : bloc.CartList.value.data[i].items[j].select = false;
       bloc.CartList.add(bloc.CartList.value);
     }
+  }
+
+  Future<Null>  _refreshProducts() async{
+
+      await Future.delayed(Duration(seconds: 1));
+      AudioCache().play("sound/Click.mp3");
+      Vibration.vibrate(duration: 500);
+
+    Usermanager().getUser().then((value){
+      bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList);
+    });
   }
 }

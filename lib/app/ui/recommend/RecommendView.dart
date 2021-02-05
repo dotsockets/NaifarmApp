@@ -299,23 +299,23 @@ class _RecommendViewState extends State<RecommendView> {
                           }
                         },
                       ),
-                      SizedBox(height: 2.0.h),
-                      StreamBuilder(
-                        stream: bloc.ZipHomeObject.stream,
-                        builder: (BuildContext context,
-                            AsyncSnapshot snapshot) {
-                          if (snapshot.hasData) {
-                            return SearchHot(
-                                tagHero: "searchHot",
-                                productRespone:
-                                (snapshot.data as HomeObjectCombine)
-                                    .trendingRespone,
-                                onSelectChang: () {});
-                          } else {
-                            return SizedBox();
-                          }
-                        },
-                      ),
+                      // SizedBox(height: 2.0.h),
+                      // StreamBuilder(
+                      //   stream: bloc.ZipHomeObject.stream,
+                      //   builder: (BuildContext context,
+                      //       AsyncSnapshot snapshot) {
+                      //     if (snapshot.hasData) {
+                      //       return SearchHot(
+                      //           tagHero: "searchHot",
+                      //           productRespone:
+                      //           (snapshot.data as HomeObjectCombine)
+                      //               .trendingRespone,
+                      //           onSelectChang: () {});
+                      //     } else {
+                      //       return SizedBox();
+                      //     }
+                      //   },
+                      // ),
                       SizedBox(height: 2.0.h),
                       StreamBuilder(
                         stream: bloc.ZipHomeObject.stream,
@@ -327,26 +327,26 @@ class _RecommendViewState extends State<RecommendView> {
                                 (snapshot.data as HomeObjectCombine)
                                     .product_foryou,
                                 titleInto: LocaleKeys
-                                    .recommend_product_for_you
+                                    .tab_bar_recommend
                                     .tr(),
-                                IconInto: 'assets/images/svg/foryou.svg',
+                                IconInto: 'assets/images/svg/like.svg',
                                 onSelectMore: () {
                                   AppRoute.ProductMore(
                                       context: context,
-                                      api_link: "products/types/random",
+                                      api_link: "products/types/trending",
                                       barTxt: LocaleKeys
                                           .recommend_product_for_you
                                           .tr());
                                 },
                                 onTapItem: (ProductData item, int index) {
                                   AppRoute.ProductDetail(context,
-                                      productImage: "foryou_${index}",
+                                      productImage: "recommend_${index}",
                                       productItem: ProductBloc
                                           .ConvertDataToProduct(
                                           data: item));
                                 },
                                 borderRadius: false,
-                                tagHero: "foryou");
+                                tagHero: "recommend");
                           } else {
                             return SizedBox();
                           }
@@ -390,6 +390,6 @@ class _RecommendViewState extends State<RecommendView> {
       AudioCache().play("sound/Click.mp3");
       Vibration.vibrate(duration: 500);
     }
-    bloc.loadHomeData(callback: true);
+    bloc.loadHomeData(context: context,callback: true);
   }
 }

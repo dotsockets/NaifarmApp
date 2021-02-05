@@ -76,7 +76,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
 
       Usermanager()
           .getUser()
-          .then((value) => bloc.AddressesList(token: value.token));
+          .then((value) => bloc.AddressesList(token: value.token,type: true));
       bloc.GetPaymentList();
     }
   }
@@ -94,6 +94,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
             appBar: AppToobar(
               title: LocaleKeys.cart_place_order.tr(),
               header_type: Header_Type.barNormal,
+              isEnable_Search: false,
               icon: "",
             ),
             body: Column(
@@ -281,17 +282,26 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                               color: Colors.black)),
                       Row(
                         children: [
-                          item.inventory.product.discountPercent != 0
+                          //   item.ProductDicount != 0 ?
+                          item.inventory.offerPrice !=
+                              null
                               ? Text(
-                                  "฿${item.inventory.product.discountPercent}",
-                                  style: FunctionHelper.FontTheme(
-                                      fontSize: SizeUtil.titleFontSize().sp,
-                                      decoration: TextDecoration.lineThrough))
-                              : SizedBox(),
-                          SizedBox(width: 8),
-                          Text("฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
+                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.offerPrice)}",
                               style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  fontSize: SizeUtil.priceFontSize().sp,
+                                  decoration: TextDecoration.lineThrough))
+                              : SizedBox(),
+                          //: SizedBox(),
+                          SizedBox(
+                              width: item.inventory
+                                  .offerPrice !=
+                                  null
+                                  ? 2.0.w
+                                  : 0),
+                          Text(
+                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
+                              style: FunctionHelper.FontTheme(
+                                  fontSize: SizeUtil.priceFontSize().sp,
                                   color: ThemeColor.ColorSale()))
                         ],
                       )
@@ -363,7 +373,12 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 return new Text('Awaiting result...');
               default:
                   if (snapshot.hasError)
-                    return new Text('Can not be used');
+                    return Container(
+                      padding: EdgeInsets.all(2.0.w),
+                      width: MediaQuery.of(context).size.width,
+                      color: ThemeColor.Warning(),
+                      child: Text('ร้านนี้ไม่ได้ตั้งค่าการขนส่ง',style: FunctionHelper.FontTheme(  fontSize: SizeUtil.titleSmallFontSize().sp,color: Color(ColorUtils.hexToInt("#84643b"))),),
+                    );
                   else
                    bloc.sumTotalPayment(snapshot: snapshot.data,index: index); //
                   return InkWell(
@@ -395,7 +410,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                     ),
                     onTap: () async {
                       bloc.check_note_update = true;
-                      final result = await AppRoute.DeliverySelect(context: context,shopId: item.shopId);
+                      final result = await AppRoute.DeliverySelect(context: context,shopId: item.shopId,select_id: snapshot.data.id);
                     if(result!=null){
                         bloc.CartList.value.data[index].shippingRateId = (result as ShippingRates).id;
                         bloc.CartList.value.data[index].carrierId = (result as ShippingRates).carrierId;
@@ -407,27 +422,38 @@ class _CartSummaryViewState extends State<CartSummaryView> {
             }
           },
         ),
+        SizedBox(
+          height: 1.0.h,
+        ),
         Divider(color: Colors.grey),
         SizedBox(
-          height: 1.5.h,
+          height: 1.0.h,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Discount coupons from the store",
-                style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleFontSize().sp,
-                    color: Colors.black)),
-            Row(
-              children: [
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.grey.withOpacity(0.7),
-                  size: 4.0.w,
-                )
-              ],
-            ),
-          ],
+        InkWell(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Discount coupons from the store",
+                  style: FunctionHelper.FontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp,
+                      color: Colors.black)),
+              Row(
+                children: [
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.grey.withOpacity(0.7),
+                    size: 4.0.w,
+                  )
+                ],
+              ),
+            ],
+          ),
+          onTap: (){
+            showMaterialModalBottomSheet(
+                context: context,
+                builder: (context) => ModalFitBottom_Sheet(
+                    discountModel: CartViewModel().getDiscountFormShop()));
+          },
         ),
         SizedBox(
           height: 2.0.h,
@@ -460,6 +486,9 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 return SizedBox();
               }
             }),
+        SizedBox(
+          height: 1.0.h,
+        ),
         Container(
           color: Colors.white,
           child: Padding(
@@ -748,33 +777,37 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                   var item = (snapshot.data as AddressesListRespone);
                   if (snapshot.hasData && item.data!=null) {
                     return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Divider(
-                          color: Colors.grey,
-                        ),
-                        Text(item.data[0].addressTitle,
-                            style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp,
-                                fontWeight: FontWeight.w500,
-                                color: ThemeColor.primaryColor())),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(item.data[0].phone,
-                            style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black)),
-                        Text("${item.data[0].addressLine1} ${item.data[0].zipCode}",
-                            style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black)),
-                      ],
+                      children: item.data.asMap().map((key, value) => MapEntry(key,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Divider(
+                                color: Colors.grey,
+                              ),
+                              Text(value.addressTitle,
+                                  style: FunctionHelper.FontTheme(
+                                      fontSize: SizeUtil.titleFontSize().sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: ThemeColor.primaryColor())),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(value.phone,
+                                  style: FunctionHelper.FontTheme(
+                                      fontSize: SizeUtil.titleFontSize().sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black)),
+                              Text("${value.addressLine1} ${value.zipCode}",
+                                  style: FunctionHelper.FontTheme(
+                                      fontSize: SizeUtil.titleFontSize().sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black)),
+                            ],
+                          )
+                      )).values.toList(),
                     );
                   } else {
                     return SizedBox();
@@ -784,11 +817,13 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         ),
       ),
       onTap: () async {
-        final result = await AppRoute.CartAaddres(context);
-        if (result) {
-          Usermanager()
-              .getUser()
-              .then((value) => bloc.AddressesList(token: value.token));
+        final result = await AppRoute.CartAaddres(context,install_select: bloc.AddressList.value.data.isNotEmpty?bloc.AddressList.value.data[0]:null);
+        if (result is AddressesListRespone) {
+          //bloc.AddressList.add(AddressesListRespone());
+          bloc.AddressList.add((result as AddressesListRespone));
+          // Usermanager()
+          //     .getUser()
+          //     .then((value) => bloc.AddressesList(token: value.token,type: true));
         }
       },
     );

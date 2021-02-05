@@ -55,7 +55,7 @@ class _SplashViewState extends State<SplashView>
 
       });
       bloc.onSuccess.stream.listen((event) {
-        Usermanager().getUser().then((value) =>  bloc.loadHomeData(token: value.token));
+        Usermanager().getUser().then((value) =>  bloc.loadHomeData(context: context,token: value.token));
         bloc.GetCategoriesAll();
       });
       bloc.ZipHomeObject.stream.listen((event) {

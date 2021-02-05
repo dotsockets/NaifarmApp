@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -24,26 +25,47 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
       emit(CustomerCountLoading(value));
     });
 
-    Observable.fromFuture(_application.appStoreAPIRepository.GetCustomerCount(token: token)).listen((respone) {
-      if(respone.http_call_back.status==200){
-        var item =(respone.respone as CustomerCountRespone);
+    Observable.combineLatest2(
+        Observable.fromFuture(_application.appStoreAPIRepository.GetCustomerCount(token: token)),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetCartlists(token: token)),(a, b){
+      final CustomerCount= (a as ApiResult).respone;
+      final CartCout  =(b as ApiResult).respone;
+      var item = (CustomerCount as CustomerCountRespone);
+      var cart_item = (CartCout as CartResponse);
+      return ApiResult(respone: CustomerCountRespone(CartCount: CountCartItem(item: cart_item),buyOrder: item.buyOrder,like: item.like,notification: item.notification,sellOrder: item.sellOrder,watingReview: item.watingReview,
+      ),http_call_back: (a as ApiResult).http_call_back);
+
+    }).listen((event) {
+      if(event.http_call_back.status==200){
+        var item =(event.respone as CustomerCountRespone);
         if(item.notification.unreadCustomer+item.notification.unreadShop>0 || item.buyOrder.cancel>0 || item.buyOrder.confirm>0 || item.buyOrder.delivered>0
-        || item.buyOrder.failed>0 || item.buyOrder.refund>0 || item.buyOrder.toBeRecieve>0 || item.buyOrder.unpaid>0 || item.buyOrder.fulfill>0
-        || item.sellOrder.unpaid>0 || item.sellOrder.refund>0 || item.sellOrder.failed>0 || item.sellOrder.delivered >0 || item.sellOrder.confirm>0
+            || item.buyOrder.failed>0 || item.buyOrder.refund>0 || item.buyOrder.toBeRecieve>0 || item.buyOrder.unpaid>0 || item.buyOrder.fulfill>0
+            || item.sellOrder.unpaid>0 || item.sellOrder.refund>0 || item.sellOrder.failed>0 || item.sellOrder.delivered >0 || item.sellOrder.confirm>0
             || item.sellOrder.shipping>0 || item.sellOrder.cancel>0 || item.like>0 || item.watingReview> 0 ){
           NaiFarmLocalStorage.saveCustomer_cuse(item);
-      }else{
+        }else{
           NaiFarmLocalStorage.saveCustomer_cuse(null);
         }
 
-        emit(CustomerCountLoaded((respone.respone as CustomerCountRespone)));
+        emit(CustomerCountLoaded((event.respone as CustomerCountRespone)));
       }else{
         NaiFarmLocalStorage.saveCustomer_cuse(null);
-        emit(CustomerCountError(respone.http_call_back.result.error.message));
+        emit(CustomerCountError(event.http_call_back.result.error.message));
       }
     });
+
+
+  }
+
+  int CountCartItem({CartResponse item}){
+    int count = 0;
+    for(var value in item.data){
+      count+=value.items.length;
+    }
+    return count;
   }
 }
+
 
 
 @immutable

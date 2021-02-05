@@ -1,6 +1,8 @@
 
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
@@ -26,6 +28,7 @@ import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductBloc{
   final AppNaiFarmApplication _application;
@@ -70,7 +73,7 @@ class ProductBloc{
   }
 
 
-  loadHomeData({String token,bool callback=false})async{
+  loadHomeData({BuildContext context,String token,bool callback=false})async{
     StreamSubscription subscription = Observable.combineLatest8(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage()) // สไลด์ภาพ
         , Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular("1",10)), // สินค้าขายดี
         Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup()), // หมวดหมู่ทั่วไป
@@ -78,7 +81,7 @@ class ProductBloc{
         Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",6)), // สินค้าแนะนำ
         Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(ShopId: 1,page: "1",limit: 10)), // สินค้าของ NaiFarm
         Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: "1",limit: 5)), //  Flashsale
-        Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(page: "1",limit: 10,link: "products/types/random")), // สินค้าสำหรับคุน
+        Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(page: "1",limit: 10,link: "products/types/trending")), // สินค้าสำหรับคุน
             (a, b,c,d,e,f,g,h){
             final _slider = (a as ApiResult).respone;
             final _product  =(b as ApiResult).respone;
@@ -95,6 +98,7 @@ class ProductBloc{
             trendingRespone: _trending,martket: _martket,flashsaleRespone: _flashsale,product_foryou: product_foryou);
 
         }).listen((event) {
+             Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
           if(callback){
             onSuccess.add(true);
           }
@@ -355,17 +359,18 @@ class ProductBloc{
 
   loadShop({int shopid,String token}){
     onError.add(null);
-    StreamSubscription subscription = Observable.combineLatest3(
+    StreamSubscription subscription = Observable.combineLatest4(
         Observable.fromFuture(_application.appStoreAPIRepository.getProductTypeShop(type:"popular" ,shopId: shopid,limit: 10,page: "1",token: token)),
         Observable.fromFuture(_application.appStoreAPIRepository.getProductTypeShop(type:"trending" ,shopId: shopid,limit: 10,page: "1",token: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository.ShopById(id: shopid)),(a, b,c){
+        Observable.fromFuture(_application.appStoreAPIRepository.ShopById(id: shopid)),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetCategoryByShop(token: token,CategoryId: shopid)),(a, b,c,d){
       final productmyshop = (a as ApiResult).respone;
       final productrecommend  =(b as ApiResult).respone;
       final shopRespone  =(c as ApiResult).respone;
+      final categoryRespone  =(d as ApiResult).respone;
 
       if((c as ApiResult).http_call_back.status==200){
-
-        return ZipShopObjectCombin(productmyshop: productmyshop,productrecommend: productrecommend,shopRespone: shopRespone);
+        return ZipShopObjectCombin(productmyshop: productmyshop,productrecommend: productrecommend,shopRespone: shopRespone,categoryGroupRespone: categoryRespone);
       }else{
         onError.add((c as ApiResult).http_call_back.result);
         return ZipShopObjectCombin();
@@ -457,11 +462,12 @@ class ProductBloc{
 
 //CategoryCombin
 
-  AddCartlists({CartRequest cartRequest,String token}){
+  AddCartlists({BuildContext context,CartRequest cartRequest,String token}){
     onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.AddCartlists(cartRequest: cartRequest,token: token)).listen((respone) {
       if(respone.http_call_back.status==200||respone.http_call_back.status==201){
+        Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
         onLoad.add(false);
         onSuccess.add((respone.respone as CartResponse));
       }else{

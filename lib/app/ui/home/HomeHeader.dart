@@ -36,16 +36,17 @@ class _HomeHeaderState extends State<HomeHeader> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.qr_code_scanner_sharp,
-                    color: Colors.white,
-                    size: 6.0.w,
-                  ),
-        onPressed: (){
-          FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
-        },
-                ),
+        //         IconButton(
+        //           icon: Icon(
+        //             Icons.qr_code_scanner_sharp,
+        //             color: Colors.white,
+        //             size: 6.0.w,
+        //           ),
+        // onPressed: (){
+        //   FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+        // },
+        //         ),
+                SizedBox(width: 6.0.w,height: 6.0.w,),
                 Expanded(
                     child: InkWell(
                       child: Container(

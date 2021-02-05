@@ -6,6 +6,7 @@ import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 enum EnvType { DEVELOPMENT, STAGING, PRODUCTION }
 enum DeviceType { PHONE, TABLET }
@@ -34,6 +35,7 @@ class Env {
     var application = AppNaiFarmApplication();
     await application.onCreate();
     Bloc.observer = NaiFarmBlocObserver();
+    timeago.setLocaleMessages('th', timeago.ThMessages());
     runApp(EasyLocalization(
         supportedLocales: [Locale('en', 'US'), Locale('th', 'TH')],
         path: 'resources/langs', // <-- change patch to your

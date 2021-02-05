@@ -4,13 +4,14 @@ class CustomerCountRespone {
   Notification notification;
   BuyOrder buyOrder;
   SellOrder sellOrder;
+  int CartCount;
 
   CustomerCountRespone(
       {this.like=0,
         this.watingReview=0,
         this.notification,
         this.buyOrder,
-        this.sellOrder});
+        this.sellOrder,this.CartCount});
 
   CustomerCountRespone.fromJson(Map<String, dynamic> json) {
     like = json['like'];
@@ -24,6 +25,7 @@ class CustomerCountRespone {
     sellOrder = json['sellOrder'] != null
         ? new SellOrder.fromJson(json['sellOrder'])
         : null;
+    CartCount = json['CartCount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +41,7 @@ class CustomerCountRespone {
     if (this.sellOrder != null) {
       data['sellOrder'] = this.sellOrder.toJson();
     }
+    data['CartCount'] = this.CartCount;
     return data;
   }
 }

@@ -56,24 +56,24 @@ class _ProductDetailState extends State<ProductDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "จำนวนสินค้า",
-                      style: FunctionHelper.FontTheme(
-
-                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
                       LocaleKeys.my_product_amount.tr(),
                       style: FunctionHelper.FontTheme(
 
                           color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
-                    SizedBox(height: 2),
-                    Text(
-                      LocaleKeys.my_product_delivery_addr.tr(),
-                      style: FunctionHelper.FontTheme(
-                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
-                    ),
+                  //  SizedBox(height: 2),
+                    // Text(
+                    //   LocaleKeys.my_product_amount.tr(),
+                    //   style: FunctionHelper.FontTheme(
+                    //
+                    //       color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
+                    // ),
+                    // SizedBox(height: 2),
+                    // Text(
+                    //   LocaleKeys.my_product_delivery_addr.tr(),
+                    //   style: FunctionHelper.FontTheme(
+                    //       color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
+                    // ),
                     SizedBox(height: 2),
                     Text(
                       LocaleKeys.my_product_delivery_from.tr(),
@@ -91,22 +91,22 @@ class _ProductDetailState extends State<ProductDetail> {
                       style: FunctionHelper.FontTheme( fontWeight: FontWeight.w500,
                           color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
+                    // SizedBox(height: 2),
+                    // Text(
+                    //   "409 กิโลกรัม",
+                    //   style: FunctionHelper.FontTheme( fontWeight: FontWeight.w500,
+                    //       color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
+                    // ),
+                    // SizedBox(height: 2),
+                    // Text(
+                    //   "ทั่วประเทศ",
+                    //   style: FunctionHelper.FontTheme(
+                    //     fontWeight: FontWeight.w500,
+                    //       color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
+                    // ),
                     SizedBox(height: 2),
                     Text(
-                      "409 กิโลกรัม",
-                      style: FunctionHelper.FontTheme( fontWeight: FontWeight.w500,
-                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      "ทั่วประเทศ",
-                      style: FunctionHelper.FontTheme(
-                        fontWeight: FontWeight.w500,
-                          color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      "อำเภอฝาง, จังหวัดเชียงราย",
+                      "${widget.productItem.shop.state.name}",
                       style: FunctionHelper.FontTheme(
                         fontWeight: FontWeight.w500,
                           color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),

@@ -39,7 +39,7 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
   init() {
     if(bloc==null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.orderType,statusId: 2,limit: 20,page: 1,token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.orderType,statusId: "7",limit: 20,page: 1,token: value.token));
     }
 
   }
@@ -85,7 +85,7 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
                       Lottie.asset('assets/json/boxorder.json',
                           height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
-                        LocaleKeys.cart_empty.tr(),
+                        "No data found at this time",
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
                       )
@@ -123,7 +123,7 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
       children: [
         InkWell(
           child: Hero(
-            tag: "history_refund_${item.orderId}${item.inventoryId}${index}",
+            tag: "history_paid_${item.orderId}${item.inventoryId}${index}",
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -148,8 +148,10 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
           ),
           onTap: (){
             var product = item.inventory.product;
+            product.salePrice = item.inventory.salePrice;
+            product.saleCount = item.inventory.product.saleCount;
             product.shop = ProductShop(id: shopId);
-            AppRoute.ProductDetail(context, productImage: "history_refund_${item.orderId}${item.inventoryId}${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
+            AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
           },
         ),
         SizedBox(width: 2.0.w),
@@ -158,10 +160,14 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 3.0.w),
-              Text(item.inventory.title,
-                  style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      fontWeight: FontWeight.w500)),
+              Container(
+                child: Text(item.inventory.title,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: FunctionHelper.FontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w600)),
+              ),
               SizedBox(height: 6.0.w),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -207,7 +213,12 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
       child: Column(
         children: [
           Column(
-            children: item.items.asMap().map((key, value) => MapEntry(key,_ProductItem(item: item.items[key],index: key))).values.toList(),
+            children: item.items
+                .asMap()
+                .map((key, value) => MapEntry(
+                key, _ProductItem(item: item.items[key],shopId: item.shop.id, index: key)))
+                .values
+                .toList(),
           ),
           SizedBox(height: 3.0.w),
           Column(
@@ -223,10 +234,16 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
                           color: Colors.black)),
                   Row(
                     children: [
-                      Text(LocaleKeys.history_order_price.tr() + " : " +"${NumberFormat("#,##0.00", "en_US").format(SumTotal(item.items))}",
+                      Text(
+                          LocaleKeys.history_order_price.tr() ,
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: Colors.black)),
+                      Text(" : " +
+                          "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              color: ThemeColor.ColorSale())),
                       // Text(
                       //     "฿${item.inventory.salePrice * item.quantity}.00",
                       //     style: FunctionHelper.FontTheme(
@@ -240,32 +257,22 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
               Divider(
                 color: Colors.grey.shade400,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: _IntroShipment(address: item.shippingAddress),
-                  ),
-                  Container(margin: EdgeInsets.only(left: 30),
-                      child: Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400, size: 4.0.w,))
-                ],
-              ),
+               _IntroShipment(address: item.shippingAddress),
+
               Divider(
                 color: Colors.grey.shade400,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 200,
-                    child: Text(
-                      "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการขนส่งภายในวันที่  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleSmallFontSize().sp,
-                          color: Colors.black.withOpacity(0.6)),
-                    ),
+                  Text(
+                    LocaleKeys.history_order_time.tr() +
+                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
+                    style: FunctionHelper.FontTheme(
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        color: Colors.black.withOpacity(0.6)),
                   ),
-                  _BuildButtonBayItem(btnTxt: "Contact seller")
+                  _BuildButtonBayItem(btnTxt: "Payment")
                 ],
               )
             ],
@@ -369,9 +376,21 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
             height: 4.0.h,
           ),
           SizedBox(width: 2.0.w),
-          Text(address,overflow: TextOverflow.ellipsis,
-              style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor())),
+          Expanded(
+            child: Text(address,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: FunctionHelper.FontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    color: ThemeColor.secondaryColor())),
+          ),
+          Container(
+              margin: EdgeInsets.only(left: 30),
+              child: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.grey.shade400,
+                size: 4.0.w,
+              ))
         ],
       ),
     );

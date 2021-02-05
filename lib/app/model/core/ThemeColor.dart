@@ -15,6 +15,11 @@ class ThemeColor{
     return Color(ColorUtils.hexToInt('#e94b35'));
   }
 
+  static Color Warning(){
+    return Color(ColorUtils.hexToInt('#fff3e3'));
+  }
+
+
   static Color primaryColor(){
 
     return Color(ColorUtils.hexToInt("#79af66"));

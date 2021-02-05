@@ -374,7 +374,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                 new TextSpan(
                     text: "${item.meta.customer} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์",
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor()))
+                new TextSpan(text: " ${item.meta.order}",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor()))
               ],
             ),
           ),

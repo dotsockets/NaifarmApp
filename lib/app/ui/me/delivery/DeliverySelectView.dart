@@ -25,8 +25,9 @@ import 'package:sizer/sizer.dart';
 
 class DeliverySelectView extends StatefulWidget {
   final int shopId;
+   int select_id;
 
-  const DeliverySelectView({Key key, this.shopId}) : super(key: key);
+   DeliverySelectView({Key key, this.shopId, this.select_id}) : super(key: key);
   @override
   _DeliverySelectViewState createState() => _DeliverySelectViewState();
 }
@@ -112,72 +113,88 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: InkWell(
-                        child: item.select?
-                        SvgPicture.asset(
-                          'assets/images/svg/checkmark.svg',
-                          width: 8.0.w,
-                          height: 8.0.w,
-                          color: ThemeColor.primaryColor(),
-                        )
-                            : SvgPicture.asset(
-                          'assets/images/svg/uncheckmark.svg',
-                          width: 8.0.w,
-                          height: 8.0.w,
-                          color: Colors.black.withOpacity(0.5),
-                        ),
-                        onTap: () {
-                          // setState(() {
-                          //   select = select != index ? index : 0;
-                          // });
-                          for (var i = 0; i < bloc.Shippings.value.data[0].rates.length; i++) {
-                            if (bloc.Shippings.value.data[0].rates[i].id == item.id) {
-                              bloc.Shippings.value.data[0].rates[i].select = true;
-                            } else {
-                              bloc.Shippings.value.data[0].rates[i].select = false;
-                            }
-                          }
+            child: InkWell(
+              onTap: (){
+                widget.select_id=0;
+                for (var i = 0; i < bloc.Shippings.value.data[0].rates.length; i++) {
+                  if (bloc.Shippings.value.data[0].rates[i].id == item.id) {
+                    bloc.Shippings.value.data[0].rates[i].select = true;
+                  } else {
+                    bloc.Shippings.value.data[0].rates[i].select = false;
+                  }
+                }
 
-                          bloc.Shippings.add(bloc.Shippings.value);
-                        },
+                bloc.Shippings.add(bloc.Shippings.value);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: StatusSelect(select: item.select,id: item.id),
                       ),
-                    ),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(item.carrier.name,
-                            style: FunctionHelper.FontTheme(fontSize: SizeUtil
-                                .titleFontSize()
-                                .sp)),
-                        SizedBox(height: 5,),
-                        Text("จะได้รับภายใน ${item.deliveryTakes}",
-                            style: FunctionHelper.FontTheme(fontSize: SizeUtil
-                                .titleFontSize()
-                                .sp)),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-                  child: Text("฿${NumberFormat("#,##0.00", "en_US").format(item.rate)}",
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil
-                          .titleFontSize()
-                          .sp,color: ThemeColor.ColorSale())),
-                )
-              ],
+                      SizedBox(width: 5,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(item.carrier.name,
+                              style: FunctionHelper.FontTheme(fontSize: SizeUtil
+                                  .titleFontSize()
+                                  .sp)),
+                          SizedBox(height: 5,),
+                          Text("จะได้รับภายใน ${item.deliveryTakes!=null?item.deliveryTakes:''}",
+                              style: FunctionHelper.FontTheme(fontSize: SizeUtil
+                                  .titleFontSize()
+                                  .sp)),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Container(
+                    child: Text("฿${NumberFormat("#,##0.00", "en_US").format(item.rate)}",
+                        style: FunctionHelper.FontTheme(fontSize: SizeUtil
+                            .titleFontSize()
+                            .sp,color: ThemeColor.ColorSale())),
+                  )
+                ],
+              ),
             )),
         SizedBox(height: 1.5.h,)
       ],
     );
+  }
+
+  Widget StatusSelect({bool select,int id}){
+    if(widget.select_id>0){
+        return widget.select_id==id?SvgPicture.asset(
+          'assets/images/svg/checkmark.svg',
+          width: 8.0.w,
+          height: 8.0.w,
+          color: ThemeColor.primaryColor(),
+        )
+            : SvgPicture.asset(
+          'assets/images/svg/uncheckmark.svg',
+          width: 8.0.w,
+          height: 8.0.w,
+          color: Colors.black.withOpacity(0.5),
+        );
+    }else{
+      return select?SvgPicture.asset(
+        'assets/images/svg/checkmark.svg',
+        width: 8.0.w,
+        height: 8.0.w,
+        color: ThemeColor.primaryColor(),
+      )
+          : SvgPicture.asset(
+        'assets/images/svg/uncheckmark.svg',
+        width: 8.0.w,
+        height: 8.0.w,
+        color: Colors.black.withOpacity(0.5),
+      );
+    }
   }
 
   Widget _buildAddBtn({String txtBtn, int indexBtn}) {

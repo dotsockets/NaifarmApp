@@ -95,7 +95,7 @@ class _ShopMainViewState extends State<ShopMainView>
         child: Scaffold(
           appBar: AppToobar(
             title: "ร้านค้า",
-            header_type: Header_Type.barNormal,
+            header_type: Header_Type.barcartShop,
             icon: 'assets/images/svg/search.svg',
           ),
             backgroundColor: Colors.white,
@@ -136,7 +136,7 @@ class _ShopMainViewState extends State<ShopMainView>
                           ShopOwn(
                             showBtn: false,
                             shopItem: ShopItem(
-                              countProduct: widget.myShopRespone.countProduct,
+                              countProduct: item.productmyshop.total,
                                 name: item.shopRespone.name,
                                 id: item.shopRespone.id,
                                 image: item.shopRespone.image,
@@ -180,7 +180,7 @@ class _ShopMainViewState extends State<ShopMainView>
                             Shop(
                                 productRespone:
                                 (snapshot.data as ZipShopObjectCombin)),
-                            CaregoryShopView(),
+                            CaregoryShopView(ShopId: widget.myShopRespone.id,categoryGroupRespone: (snapshot.data as ZipShopObjectCombin).categoryGroupRespone),
                             ShopDetailsView(
                               zipShopObjectCombin:
                               (snapshot.data as ZipShopObjectCombin),

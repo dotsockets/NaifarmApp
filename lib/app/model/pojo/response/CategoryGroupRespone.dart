@@ -33,6 +33,7 @@ class CategoryGroupData {
   String description;
   String icon;
   int order;
+  int countProduct;
   List<SliderImage> image;
 
   CategoryGroupData(
@@ -42,6 +43,7 @@ class CategoryGroupData {
         this.description,
         this.icon,
         this.order,
+        this.countProduct,
         this.image});
 
   CategoryGroupData.fromJson(Map<String, dynamic> json) {
@@ -51,6 +53,7 @@ class CategoryGroupData {
     description = json['description'];
     icon = json['icon'];
     order = json['order'];
+    countProduct = json['countProduct'];
     if (json['image'] != null) {
       image = new List<SliderImage>();
       json['image'].forEach((v) {
@@ -67,6 +70,8 @@ class CategoryGroupData {
     data['description'] = this.description;
     data['icon'] = this.icon;
     data['order'] = this.order;
+    data['countProduct'] = this.countProduct;
+
     if (this.image != null) {
       data['image'] = this.image.map((v) => v.toJson()).toList();
     }

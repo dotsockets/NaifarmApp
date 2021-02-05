@@ -37,8 +37,8 @@ class TabMenu extends StatelessWidget {
                           padding: EdgeInsets.all(5),
                           child: SvgPicture.asset(
                             icon,
-                            width: 13.0.w,
-                            height: 13.0.w,
+                            width: notification>=10?13.0.w:15.0.w,
+                            height: notification>=10?13.0.w:15.0.w,
                           ))),
                 ],
               ),

@@ -44,7 +44,7 @@ class MyOrderHistoryView extends StatelessWidget {
             backgroundColor: Colors.grey.shade300,
             appBar: AppToobar(
               title: LocaleKeys.me_title_history_shop.tr(),
-              header_type: Header_Type.barNormal,
+              header_type: Header_Type.barcartShop,
               icon: '',onClick: (){
                 if(callback){
                   AppRoute.PoppageCount(context: context,countpage: 4);

@@ -49,6 +49,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
               backgroundColor: Colors.grey.shade300,
               key: _scaffoldKey,
               appBar: AppToobar(
+                isEnable_Search: false,
                 title: "The order is complete",
                 header_type: Header_Type.barNormal,
                 icon: "",onClick: ()=> AppRoute.PoppageCount(context: context,countpage: 3),
@@ -145,7 +146,8 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                 borderRadius: BorderRadius.circular(40.0),
               ),
               onPressed: () async {
-                AppRoute.MyShophistory(context, 0,orderType: "order",callback: true);
+                AppRoute.PoppageCount(context: context,countpage: 2);
+                AppRoute.OrderDetail(context,orderData: widget.orderData);
               },
               child: Text(
                 "Order details",

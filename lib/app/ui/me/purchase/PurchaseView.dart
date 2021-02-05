@@ -101,33 +101,33 @@ class _PurchaseViewState extends State<PurchaseView> {
 
             },
           ),
-          widget.IsLogin?StreamBuilder(
-            stream: bloc.ProductPopular.stream,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if(snapshot.hasData && (snapshot.data as ProductRespone).data.length>0){
-                return Column(
-                  children: [
-                    _BuildDivider(),
-                    BuyAgain(
-                        productRespone: (snapshot.data as ProductRespone),
-                        titleInto: LocaleKeys.me_title_again.tr(),
-                        IconInto: 'assets/images/svg/foryou.svg',
-                        onSelectMore: () {
-                          AppRoute.ProductMore(api_link: "products/types/random",context: context,barTxt: LocaleKeys.me_title_again.tr());
-
-                        },
-                        onTapItem: (ProductData item,int index) {
-                          AppRoute.ProductDetail(context,
-                              productImage: "payagin_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
-                        },
-                        tagHero: "payagin")
-                  ],
-                );
-              }else{
-                return SizedBox();
-              }
-            }
-        ): SizedBox(),
+        //   widget.IsLogin?StreamBuilder(
+        //     stream: bloc.ProductPopular.stream,
+        //     builder: (BuildContext context, AsyncSnapshot snapshot) {
+        //       if(snapshot.hasData && (snapshot.data as ProductRespone).data.length>0){
+        //         return Column(
+        //           children: [
+        //             _BuildDivider(),
+        //             BuyAgain(
+        //                 productRespone: (snapshot.data as ProductRespone),
+        //                 titleInto: LocaleKeys.me_title_again.tr(),
+        //                 IconInto: 'assets/images/svg/foryou.svg',
+        //                 onSelectMore: () {
+        //                   AppRoute.ProductMore(api_link: "products/types/random",context: context,barTxt: LocaleKeys.me_title_again.tr());
+        //
+        //                 },
+        //                 onTapItem: (ProductData item,int index) {
+        //                   AppRoute.ProductDetail(context,
+        //                       productImage: "payagin_${item.id}",productItem: ProductBloc.ConvertDataToProduct(data: item));
+        //                 },
+        //                 tagHero: "payagin")
+        //           ],
+        //         );
+        //       }else{
+        //         return SizedBox();
+        //       }
+        //     }
+        // ): SizedBox(),
           widget.IsLogin ? _BuildDivider() : SizedBox(),
           ListMenuItem(
             iconSize:7.0.w,

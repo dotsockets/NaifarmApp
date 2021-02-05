@@ -18,6 +18,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
 import '../SizeUtil.dart';
 import 'ProductLandscape.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class ShopOwn extends StatelessWidget {
   final ShopItem shopItem;
@@ -79,7 +80,7 @@ class ShopOwn extends StatelessWidget {
                          style: FunctionHelper.FontTheme(
                              fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
                      SizedBox(height: 5),
-                     Text("${FunctionHelper.TimeAgo(shopItem.updatedAt)} ",
+                     Text("Active ${timeago.format(DateTime.parse(shopItem.updatedAt),locale: 'th')} ",
                          style: FunctionHelper.FontTheme(
                              fontSize: SizeUtil.titleSmallFontSize().sp,
                              color: Colors.black.withOpacity(0.8))),
@@ -141,7 +142,7 @@ class ShopOwn extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("${shopItem.rating!=null?shopItem.rating:'0'}",
+                          Text("${shopItem.rating!=null?shopItem.rating:'0.0'}",
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.priceFontSize().sp,
                                   color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
@@ -150,7 +151,7 @@ class ShopOwn extends StatelessWidget {
                               allowHalfRating: false,
                               onRated: (v) {},
                               starCount: 5,
-                              rating: shopItem.rating!=null?shopItem.rating.toDouble():0,
+                              rating: shopItem.rating!=null?shopItem.rating.toDouble():0.0,
                               size: 18.0,
                               isReadOnly: true,
                               filledIconData: Icons.star,
@@ -166,19 +167,19 @@ class ShopOwn extends StatelessWidget {
                     ],
                   ),
                 ),
-
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      Text("3",
-                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
-                      SizedBox(height: 5,),
-                      Text(LocaleKeys.shop_follower.tr(),
-                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
-                    ],
-                  ),
-                )
+                Expanded(child: SizedBox(height: 5,width: 5,),),
+                // Expanded(
+                //   flex: 1,
+                //   child: Column(
+                //     children: [
+                //       Text("3",
+                //           style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
+                //       SizedBox(height: 5,),
+                //       Text(LocaleKeys.shop_follower.tr(),
+                //           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
+                //     ],
+                //   ),
+                // )
               ],
             ),
           ),

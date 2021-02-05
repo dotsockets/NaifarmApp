@@ -134,16 +134,16 @@ class _MyshopViewState extends State<MyshopView> {
             iconSize:7.0.w,
             onClick: () => AppRoute.MyShophistory(context,0,orderType: "myshop/orders"),
           ),
-          widget.IsLogin ? _BuildDivider() : SizedBox(),
-          widget.IsLogin
-              ? ListMenuItem(
-            icon: 'assets/images/svg/like_2.svg',
-            iconSize:7.0.w,
-            title: LocaleKeys.me_title_wallet.tr(),
-            Message: "300 บาท",
-            onClick: () => AppRoute.WithdrawMoney(context),
-          )
-              : SizedBox(),
+        //  widget.IsLogin ? _BuildDivider() : SizedBox(),
+          // widget.IsLogin
+          //     ? ListMenuItem(
+          //   icon: 'assets/images/svg/like_2.svg',
+          //   iconSize:7.0.w,
+          //   title: LocaleKeys.me_title_wallet.tr(),
+          //   Message: "300 บาท",
+          //   onClick: () => AppRoute.WithdrawMoney(context),
+          // )
+          //     : SizedBox(),
           widget.IsLogin ? _BuildDivider() : SizedBox(),
           widget.IsLogin
               ? ListMenuItem(

@@ -123,6 +123,7 @@ class _AddressAddViewState extends State<AddressAddView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BuildEditText(
+              maxLength: 100,
               head: LocaleKeys.my_profile_fullname.tr(),
               EnableMaxLength: false,
               hint: LocaleKeys.set_default.tr() +
@@ -134,6 +135,7 @@ class _AddressAddViewState extends State<AddressAddView> {
             height: 15,
           ),
           BuildEditText(
+              maxLength: 10,
               head: LocaleKeys.my_profile_phoneNum.tr(),
               EnableMaxLength: false,
               hint: LocaleKeys.set_default.tr() +
@@ -219,6 +221,7 @@ class _AddressAddViewState extends State<AddressAddView> {
             height: 15,
           ),
           BuildEditText(
+              maxLength: 100,
               head: LocaleKeys.address_detail.tr(),
               EnableMaxLength: false,
               hint:

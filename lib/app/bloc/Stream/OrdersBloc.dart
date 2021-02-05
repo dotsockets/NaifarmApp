@@ -16,7 +16,7 @@ class OrdersBloc{
   OrdersBloc(this._application);
 
 
-  loadOrder({String orderType,int page=1,int limit=20,int statusId,String token}) async{
+  loadOrder({String orderType,int page=1,int limit=20,String statusId,String token}) async{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.GetOrder(orderType: orderType,page: page,limit: limit,statusId: statusId,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){

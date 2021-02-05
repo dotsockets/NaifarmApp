@@ -280,9 +280,8 @@ class _AddressEditViewState extends State<AddressEditView> {
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
           FlutterSwitch(
-            height: 4.0.h,
-            width: 14.0.w,
-            toggleSize: 20,
+            height: 3.5.h,
+            width: 13.0.w,
             activeColor: Colors.grey.shade200,
             inactiveColor: Colors.grey.shade200,
             toggleColor:
@@ -302,6 +301,7 @@ class _AddressEditViewState extends State<AddressEditView> {
   Widget _buildButton() {
     return Container(
         width: 60.0.w,
+        padding: EdgeInsets.all(1.0.h),
         color: Colors.grey.shade300,
         child: Container(
             width: MediaQuery.of(context).size.width,
@@ -311,6 +311,7 @@ class _AddressEditViewState extends State<AddressEditView> {
 
   Widget _buildButtonItem({String btnTxt}) {
     return Container(
+      height: 5.0.h,
       child: FlatButton(
         color:check? ThemeColor.secondaryColor()
             : Colors.grey.shade400,

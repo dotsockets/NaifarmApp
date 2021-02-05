@@ -302,7 +302,7 @@ class APIRepository{
     return _apiProvider.DeleteImageProduct(imageableType: imageableType,imageableId: imageableId,path: path,token: token);
   }
 
-  Future<ApiResult> GetOrder({String orderType,int page=1,int limit=20,int statusId,String token}){
+  Future<ApiResult> GetOrder({String orderType,int page=1,int limit=20,String statusId,String token}){
     return _apiProvider.GetOrder(orderType: orderType,page: page,limit: limit,statusId: statusId,token: token);
   }
 
@@ -365,7 +365,9 @@ class APIRepository{
   Future<ApiResult> deleteAttributeDetail({int id,int vid, String token}){
     return _apiProvider.deleteAttributeDetail(id:id,token: token,vid: vid);
   }
-
+  Future<ApiResult> GetCategoryByShop({int CategoryId, String token}){
+    return _apiProvider.GetCategoryByShop(CategoryId:CategoryId,token: token);
+  }
 
 
 

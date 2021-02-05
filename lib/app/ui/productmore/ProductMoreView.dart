@@ -102,7 +102,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
         child: Scaffold(
           appBar: AppToobar(
             title: widget.barTxt,
-            header_type: Header_Type.barNormal,
+            header_type: Header_Type.barcartShop,
             icon: 'assets/images/svg/search.svg',
           ),
           backgroundColor: Colors.white,

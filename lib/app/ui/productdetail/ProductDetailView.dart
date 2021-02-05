@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
@@ -14,6 +14,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -174,6 +175,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
       });
       bloc.onSuccess.stream.listen((event) {
         if(event is CartResponse){
+          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
           animationController.forward();
         }
       
@@ -555,6 +557,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                              .inventories[0].id,
                          quantity: 1));
                      Usermanager().getUser().then((value) => bloc.AddCartlists(
+                       context: context,
                          cartRequest: CartRequest(
                            shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
                            items: items,
@@ -571,7 +574,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                       Transform.translate(
                         offset:  animation.value,
                         child: Container(
-                          child: Image.network("${Env.value.baseUrl}/storage/images/${widget.productItem.image[0].path}"),
+                          child: Image.network("${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty?widget.productItem.image[0].path:''}"),
                           width: 10.0.w,
                           height: 10.0.w,
                         ),
@@ -596,63 +599,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
 
 
-  Widget _BuildFooterTotal_login() {
 
-    return InkWell(
-      child: Container(
-        height: 8.0.h,
-        decoration: BoxDecoration(
-          border: Border(
-              top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0),
-              bottom:
-              BorderSide(color: Colors.grey.withOpacity(0.4), width: 0)),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-                child: SvgPicture.asset(
-                  'assets/images/svg/share.svg',
-                  width: 8.0.w,
-                  height: 8.0.w,
-                )),
-            Container(
-              color: Colors.grey.withOpacity(0.4),
-              height: 8.0.h,
-              width: 1,
-            ),
-            Expanded(
-                child: SvgPicture.asset('assets/images/svg/like_line_null.svg',
-                  width: 8.0.w,
-                  height: 8.0.w,
-                  color: ThemeColor.ColorSale(),
-                )),
-            Expanded(
-                flex: 2,
-                child: Container(
-                    alignment: Alignment.center,
-                    height: 8.0.h,
-                    color: ThemeColor.ColorSale(),
-                    child: Text(LocaleKeys.buy_product_btn.tr(),
-                        style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize().sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white))))
-          ],
-        ),
-      ),
-      onTap: (){
-        AppRoute.Login(context,IsHeader: true,homeCallBack: (bool value){
-          Usermanager().getUser().then((value) {
-            bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
-            // bloc.GetWishlistsByProduct(
-            //     productID: widget.productItem.id, token: value.token);
-            // bloc.loadProductsById(id: widget.productItem.id, token: value.token);
-            // bloc.loadProductTrending("1");
-          });
-        });
-      },
-    );
-  }
 
 
   Widget _Divider() {

@@ -267,7 +267,7 @@ abstract class APIProvider{
   Future<ApiResult> DeleteImageProduct({String imageableId,String imageableType,String path,String token});
 
   @GET("/v1/order?limit=20&page=1&sort=orders.createdAt:desc&orderStatusId=1")
-  Future<ApiResult> GetOrder({String orderType,int page,int limit,int statusId,String token});
+  Future<ApiResult> GetOrder({String orderType,int page,int limit,String statusId,String token});
 
   @GET("/v1/order")
   Future<ApiResult> GetOrderById({int id,String token});
@@ -317,6 +317,10 @@ abstract class APIProvider{
 
   @DELETE("/v1/myshop/attributes")
   Future<ApiResult> deleteAttributeDetail({int id,String token,int vid});
+
+  @GET("/v1/order")
+  Future<ApiResult> GetCategoryByShop({int CategoryId,String token});
+
 }
 
 

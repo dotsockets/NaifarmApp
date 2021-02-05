@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/request/OrderRequest.dart';
@@ -12,6 +15,7 @@ import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartBloc {
   final AppNaiFarmApplication _application;
@@ -63,12 +67,13 @@ class CartBloc {
     _compositeSubscription.add(subscription);
   }
 
-  DeleteCart({int cartid, int inventoryId, String token}) async {
+  DeleteCart({BuildContext context,int cartid, int inventoryId, String token}) async {
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
             .DeleteCart(inventoryid: inventoryId, cartid: cartid, token: token))
         .listen((respone) {
       if (respone.http_call_back.status == 200) {
+        Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
         GetCartlists(token: token, cartActive: CartActive.CartDelete);
         // CartList.add(CartResponse(data: CartList.value.data));
       } else {
@@ -149,62 +154,50 @@ class CartBloc {
     _compositeSubscription.add(subscription);
   }
 
-  AddressesList({String token}) async {
-    // onLoad.add(true);
+  AddressesList({String token,bool type=false}) async {
+    onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.AddressesList(token: token))
         .listen((respone) {
-      //  onLoad.add(false);
+       onLoad.add(false);
       if (respone.http_call_back.status == 200) {
-        final data = List<AddressesData>();
-
-        if ((respone.respone as AddressesListRespone).data.length == 1) {
-          if ((respone.respone as AddressesListRespone).data[0].addressType ==
-              null) {
-            var temp = (respone.respone as AddressesListRespone).data[0];
-            UpdateAddress(
-                data: AddressCreaterequest(
-                    countryId: 1,
-                    id: temp.id,
-                    cityId: temp.cityId,
-                    phone: temp.phone,
-                    addressLine1: temp.addressLine1,
-                    addressLine2: "",
-                    addressTitle: temp.addressTitle,
-                    stateId: temp.stateId,
-                    zipCode: temp.zipCode,
-                    addressType: "Primary"),
-                token: token);
+        List<AddressesData> data = List<AddressesData>();
+      if(type){
+        if ((respone.respone as AddressesListRespone).data.isNotEmpty) {
+          for (var i = 0; i < (respone.respone as AddressesListRespone).data.length; i++){
+            if ((respone.respone as AddressesListRespone).data[i].addressType ==
+                "Primary") {
+              (respone.respone as AddressesListRespone).data[i].select = true;
+              data.add((respone.respone as AddressesListRespone).data[i]);
+              break;
+            }
           }
-          (respone.respone as AddressesListRespone).data[0].select = true;
-          (respone.respone as AddressesListRespone).data[0].addressType =
-              "Primary";
-          data.add((respone.respone as AddressesListRespone).data[0]);
-        } else {
-          for (var i = 0;
-              i < (respone.respone as AddressesListRespone).data.length;
-              i++)
+        }
+      }else{
+        if ((respone.respone as AddressesListRespone).data.isNotEmpty) {
+          for (var i = 0; i < (respone.respone as AddressesListRespone).data.length; i++){
             if ((respone.respone as AddressesListRespone).data[i].addressType ==
                 "Primary") {
               (respone.respone as AddressesListRespone).data[i].select = true;
               data.add((respone.respone as AddressesListRespone).data[i]);
             }
-
-          for (var i = 0;
-              i < (respone.respone as AddressesListRespone).data.length;
-              i++)
+          }
+          for (var i = 0; i < (respone.respone as AddressesListRespone).data.length; i++){
             if ((respone.respone as AddressesListRespone).data[i].addressType !=
                 "Primary") {
               (respone.respone as AddressesListRespone).data[i].select = false;
               data.add((respone.respone as AddressesListRespone).data[i]);
             }
+          }
         }
 
+      }
         AddressList.add(AddressesListRespone(
             data: data,
-            total: (respone.respone as AddressesListRespone).total,
+            total: data.length,
             http_call_back:
-                (respone.respone as AddressesListRespone).http_call_back));
+            (respone.respone as AddressesListRespone).http_call_back));
+
       } else {
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -363,8 +356,7 @@ class CartBloc {
 
   bool CheckListOut() {
     bool check = true;
-
-    if (AddressList.value.total == 0 || PaymentList.value.total == 0) {
+    if (AddressList.value.total==0 || PaymentList.value.total == 0) {
       check = false;
     }
 

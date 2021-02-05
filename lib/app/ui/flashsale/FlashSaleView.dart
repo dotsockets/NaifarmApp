@@ -152,16 +152,16 @@ class _FlashSaleState extends State<FlashSale> {
                 borderRadius: BorderRadius.circular(0.5.h),
                 child: CachedNetworkImage(
                   width: 28.0.w,
-                  height: 35.0.w,
+                  height: 28.0.w,
                   placeholder: (context, url) => Container(
                     color: Colors.white,
                     child: Lottie.asset(Env.value.loadingAnimaion,  width: 28.0.w,
-                      height: 35.0.w,),
+                      height: 28.0.w,),
                   ),
                   imageUrl: ProductLandscape.CovertUrlImage(item.image),
                   errorWidget: (context, url, error) => Container(
                       width: 28.0.w,
-                      height: 35.0.w,
+                      height: 28.0.w,
                       child: Icon(
                         Icons.error,
                         size: SizeUtil.titleSmallFontSize().sp,
