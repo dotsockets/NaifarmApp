@@ -30,15 +30,18 @@ class TabMenu extends StatelessWidget {
                       animationType: BadgeAnimationType.slide,
                       showBadge: notification>0?true:false,
                       badgeContent: Container(
-                        child: Text("${notification}",
-                            style: FunctionHelper.FontTheme(color: Colors.white,fontSize: (SizeUtil.titleSmallFontSize()-4).sp)),
+                        padding: EdgeInsets.all(notification<10?0.7.w:0),
+                        child: Center(
+                          child: Text("${notification}",
+                              style: FunctionHelper.FontTheme(color: Colors.white,fontSize: (SizeUtil.titleSmallFontSize()-4).sp)),
+                        ),
                       ),
                       child: Container(
                           padding: EdgeInsets.all(5),
                           child: SvgPicture.asset(
                             icon,
-                            width: notification>=10?13.0.w:15.0.w,
-                            height: notification>=10?13.0.w:15.0.w,
+                            width: 13.0.w,
+                            height: 13.0.w,
                           ))),
                 ],
               ),

@@ -40,6 +40,7 @@ class BuildIconShop extends StatelessWidget {
         animationType: BadgeAnimationType.slide,
       showBadge: notification>0?true:false,
       badgeContent: Container(
+        padding: EdgeInsets.all(notification<10?0.7:0),
         child: Container(
           margin: EdgeInsets.only(bottom: 0.5.w),
           child: Text("${notification}",
