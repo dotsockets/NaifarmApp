@@ -366,6 +366,10 @@ class APIRepository{
     return _apiProvider.deleteAttributeDetail(id:id,token: token,vid: vid);
   }
 
+  Future<ApiResult> getInformationRules(String slug){
+    return _apiProvider.getInformationRules(slug);
+  }
+
 
 
 

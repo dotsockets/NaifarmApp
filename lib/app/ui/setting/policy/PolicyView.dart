@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/pojo/response/InformationResponce.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -15,14 +18,31 @@ class PolicyView extends StatefulWidget {
 }
 
 class _PolicyViewState extends State<PolicyView> {
+  MemberBloc bloc;
 
   @override
   void initState() {
     super.initState();
   }
 
+  void _init() {
+    if (null == bloc) {
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.getInfoRules(slug: "privacy-policy");
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    _init();
     return Container(
       child: SafeArea(
         top: false,
@@ -32,16 +52,26 @@ class _PolicyViewState extends State<PolicyView> {
             icon: "",
             header_type: Header_Type.barNormal,
           ),
-          body: Container(
-            padding: EdgeInsets.all(20),
-            color: Colors.white,
-            child: Column(
-              children: [
-                _buildTxt(txt: "ห้ามใช้ชื่อ Blognone ในชื่อแอพ เพื่อป้องกันความสับสน ในข้อความอธิบายแอพ ยังคงสามารถระบุได้ว่าเป็นแอพสำหรับอ่านข่าวจาก Blognone"),
-                _buildTxt(txt: "ห้ามใช้โลโก้ Blognone ทั้งเวอร์ชั่นเก่าและใหม่ ไม่ว่าจะเป็นส่วนหนึ่งของโลโก้แอพ หรือส่วนใดๆ ในแอพ ไม่ว่าจะเป็นการดัดแปลงมีภาพหรือชื่อบริษัทประกอบหรือไม่ก็ตามทุกข่าวต้องมีลิงก์กลับมายังเว็บไซต์ ตัวข่าวต้องมีลิงก์กลับมายังเนื้อข่าวโดยตรง สามารถกดได้อย่างชัดเจนว่าอ่านข่าวจากเว็บไซต์ การแชร์เนื้อหา (หากมีปุ่มแชร์) จะต้องเป็นการแชร์ URL ของข่าวนั้นๆ"),
-                _buildTxt(txt: "ในกรณีที่มีความเปลี่ยนแปลงเว็บ ผู้พัฒนาต้องแก้ไขตามโดยเร็ว ในกรณีช้าที่สุดไม่เกิน 1 เดือน เช่นกรณี Blognone อัพเกรดใหญ่ Drupal ครั้งล่าสุด หากนักพัฒนาไม่สามารถพัฒนาได้ทัน จะต้องถอนแอพนั้นออกจากหน้าร้าน หรือถอนคำบรรยายว่าใช้อ่านข่าว Blognone ออกไป"),
-              ],
-            ),
+          body: StreamBuilder(
+            stream: bloc.onSuccess.stream,
+            builder: (context, snapshot) {
+              var data = (snapshot.data as InformationRespone);
+              if(snapshot.hasData){
+              return SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      _buildTxt(txt: data.content),
+                      ],
+                  ),
+                ),
+              );}
+              else{
+                return SizedBox();
+              }
+            }
           ),
         ),
       ),

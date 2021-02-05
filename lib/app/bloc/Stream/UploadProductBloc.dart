@@ -180,13 +180,15 @@ class UploadProductBloc {
 
   UpdateProductMyShop(
       {ProductMyShopRequest shopRequest, int productId, String token,IsActive isActive}) {
-    //onLoad.add(true);
+
+    onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.UpdateProductMyShop(
                 shopRequest: shopRequest, productId: productId, token: token))
         .listen((respone) {
-      onLoad.add(false);
       if (respone.http_call_back.status == 200) {
+        onSuccess.add(true);
+        onLoad.add(false);
          if(isActive == IsActive.UpdateProduct){
            onSuccess.add(true);
          }

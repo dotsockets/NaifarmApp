@@ -28,6 +28,7 @@ import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ImageUploadRespone.dart';
+import 'package:naifarm/app/model/pojo/response/InformationResponce.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopAttributeRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
@@ -317,6 +318,9 @@ abstract class APIProvider{
 
   @DELETE("/v1/myshop/attributes")
   Future<ApiResult> deleteAttributeDetail({int id,String token,int vid});
+
+  @GET("/v1/page?slug=terms-of-use-customer")
+  Future<ApiResult> getInformationRules(String slug);
 }
 
 

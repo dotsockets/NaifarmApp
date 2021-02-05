@@ -150,10 +150,10 @@ class _MyProductViewState extends State<MyProductView> {
                             child:
                             TabBarView(
                               children: [
-                                Available(shopId: widget.shopId,),
-                               SoldOut(shopId: widget.shopId),
-                                Banned(shopId: widget.shopId),
-                                InActive(shopId: widget.shopId),
+                                Available(shopId: widget.shopId,scaffoldKey: _scaffoldKey,),
+                               SoldOut(shopId: widget.shopId,scaffoldKey: _scaffoldKey),
+                                Banned(shopId: widget.shopId,scaffoldKey: _scaffoldKey),
+                                InActive(shopId: widget.shopId,scaffoldKey: _scaffoldKey),
                               ],
                             ),
                           ),
