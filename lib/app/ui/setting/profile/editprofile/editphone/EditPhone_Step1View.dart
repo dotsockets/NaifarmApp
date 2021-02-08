@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -23,10 +26,10 @@ class EditPhone_Step1View extends StatefulWidget {
 
 class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
   TextEditingController PhoneController = TextEditingController();
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String onError="";
 
-
+  MemberBloc bloc;
   bool FormCheck(){
     if(PhoneController.text.isEmpty){
       return false;
@@ -42,17 +45,47 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
     PhoneController.text = "";
   }
 
+  void _init() {
+    if (null == bloc) {
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: (event as OTPRespone).refCode,requestOtp: RequestOtp.ChangPassword);
+        // if(event is ForgotRespone){
+        //  setState(()=>_forgotRespone = (event as ForgotRespone));
+        // }else if(event is RegisterRespone){
+        //   FunctionHelper.SuccessDialog(context,message: "ตั้งรหัสผ่านสำเร็จ",onClick: (){
+        //     Navigator.of(context).pop();
+        //     Navigator.of(context).pop();
+        //   });
+        // }
+      });
+    }
+  }
+
 
 
   @override
   Widget build(BuildContext context) {
+    _init();
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
+          key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: LocaleKeys.my_profile_phone.tr(), header_type: Header_Type.barNormal,),
+            title: LocaleKeys.my_profile_phone.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,),
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -83,6 +116,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
                 SizedBox(height: 20,),
                 FlatButton(
                   minWidth: 50.0.w,
+                  height: 5.0.h,
                   color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
                   textColor: Colors.white,
                   splashColor: Colors.white.withOpacity(0.3),
@@ -113,10 +147,11 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
     //});
 
     if(validator.phone(PhoneController.text)){
-      final result = await AppRoute.EditPhoneStep2(context,widget.customerInfoRespone,PhoneController.text);
-      if(result!=null){
-        Navigator.pop(context, widget.customerInfoRespone);
-      }
+      bloc.OTPRequest(numberphone: PhoneController.text);
+      // final result = await AppRoute.EditPhoneStep2(context,widget.customerInfoRespone,PhoneController.text);
+      // if(result!=null){
+      //   Navigator.pop(context, widget.customerInfoRespone);
+      // }
     }else{
       setState(() {
         onError = "ไม่เบอร์ไม่ถูกต้อง";

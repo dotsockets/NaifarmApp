@@ -25,7 +25,7 @@ class ImageFullScreen extends StatelessWidget {
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child:
-                      Lottie.asset(Env.value.loadingAnimaion,width: 30, height: 30),
+                      Lottie.asset('assets/json/loading.json',width: 30, height: 30),
                     ),
                     fit: BoxFit.cover,
                     imageUrl: image,

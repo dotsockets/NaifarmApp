@@ -52,12 +52,12 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                 isEnable_Search: false,
                 title: "The order is complete",
                 header_type: Header_Type.barNormal,
-                icon: "",onClick: ()=> AppRoute.PoppageCount(context: context,countpage: 3),
+                icon: "",onClick: ()=> AppRoute.PoppageCount(context: context,countpage: 2),
               ),
               body: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(30),
+                    padding: EdgeInsets.only(bottom: 6.0.w,right: 3.0.w,left: 3.0.w,top: 2.4.w),
                     width: MediaQuery.of(context).size.width,
                     color: ThemeColor.primaryColor(),
                     child: Column(
@@ -69,7 +69,6 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                         //         fontSize: 16.0.sp,
                         //         fontWeight: FontWeight.bold,
                         //         color: Colors.black)),
-                        SizedBox(height: 1.0.h,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -82,14 +81,14 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                                     color: Colors.white)),
                           ],
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: 1.5.h,),
                         Text("Payment amount ฿${NumberFormat("#,##0.00", "en_US").format(int.parse(widget.payment_total))}",
                             style: FunctionHelper.FontTheme(
                                 fontSize: (SizeUtil.titleFontSize()+2).sp,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black)),
-                        SizedBox(height: 10,), // Wed Jan 27 2021 22:28:51 GMT+0700
-                        Text("You have placed an order and must pay by the date ${DateFormat.yMMMMEEEEd().format(DateTime.parse(widget.orderData.requirePaymentAt))}  ${DateFormat.jms().format(DateTime.parse(widget.orderData.requirePaymentAt))}",
+                        SizedBox(height: 1.0.h,), // Wed Jan 27 2021 22:28:51 GMT+0700  //${DateFormat.jms().format(DateTime.parse(widget.orderData.requirePaymentAt)
+                        Text("You have placed an order and must pay by the date ${DateFormat.yMMMMEEEEd().format(DateTime.parse(widget.orderData.requirePaymentAt))}",
                             textAlign: TextAlign.center,
                             style: FunctionHelper.FontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,

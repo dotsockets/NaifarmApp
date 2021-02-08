@@ -51,7 +51,7 @@ class BannerSlide extends StatelessWidget {
                         placeholder: (context, url) => Container(
                           width: MediaQuery.of(context).size.width,
                           color: Colors.white,
-                          child: Lottie.asset(Env.value.loadingAnimaion,height: 23.0.h),
+                          child: Lottie.asset('assets/json/loading.json',height: 23.0.h),
                         ),
                         fit: BoxFit.cover,
                         imageUrl: item,

@@ -93,7 +93,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: LocaleKeys.my_profile_email.tr(), header_type: Header_Type.barNormal,),
+            title: LocaleKeys.my_profile_email.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,),
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -108,25 +108,25 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                       children: [
                         BuildEditText(
                             head: LocaleKeys.my_profile_password.tr(),
-                            hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),maxLength: 10,controller: PassController,onError: onError,inputType: TextInputType.text,IsPassword: true,BorderOpacity: 0.2,onChanged: (String char){
+                            hint: LocaleKeys.my_profile_password.tr(),maxLength: 40,controller: PassController,onError: onError,inputType: TextInputType.text,IsPassword: true,BorderOpacity: 0.2,onChanged: (String char){
                           setState(() {});
                         }),
                         SizedBox(height: 1.0.h,),
-                        Column(
-
-                          children: [
-                            SizedBox(height: 3,),
-                            Text(LocaleKeys.forgot_pass_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp)),
-                            SizedBox(height: 2,),
-                            Container(
-                              width: ScreenUtil().setWidth(250),
-                              color: Colors.grey.shade500,
-                              height: 1,
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 3,),
-                        Text(LocaleKeys.message_forgot_mail.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp))
+                        // Column(
+                        //
+                        //   children: [
+                        //     SizedBox(height: 3,),
+                        //     Text(LocaleKeys.forgot_pass_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp)),
+                        //     SizedBox(height: 2,),
+                        //     Container(
+                        //       width: ScreenUtil().setWidth(250),
+                        //       color: Colors.grey.shade500,
+                        //       height: 1,
+                        //     )
+                        //   ],
+                        // ),
+                        // SizedBox(height: 3,),
+                        // Text(LocaleKeys.message_forgot_mail.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp))
 
                       ],
                     ),
@@ -135,6 +135,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                 SizedBox(height: 20,),
                 FlatButton(
                   minWidth: 50.0.w,
+                  height: 5.0.h,
                   color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
                   textColor: Colors.white,
                   splashColor: Colors.white.withOpacity(0.3),

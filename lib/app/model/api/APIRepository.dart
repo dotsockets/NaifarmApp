@@ -373,6 +373,18 @@ class APIRepository{
     return _apiProvider.getInformationRules(slug);
   }
 
+  Future<ApiResult> requestChangEmail({String email, String token}){
+    return _apiProvider.requestChangEmail(email: email,token: token);
+  }
+
+  Future<ApiResult> updateinventories({int productsId, int inventoriesId,int shippingWeight, String token}){
+    return _apiProvider.updateinventories(productsId: productsId,inventoriesId: inventoriesId,shippingWeight: shippingWeight,token: token);
+  }
+
+  Future<ApiResult> MarkPaid({int OrderId, String token}){
+    return _apiProvider.MarkPaid(orderId: OrderId,token: token);
+  }
+
 
 
 //  Observable<List<AppContent>> getTop100FreeApp(){

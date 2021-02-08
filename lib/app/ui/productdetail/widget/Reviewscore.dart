@@ -70,7 +70,7 @@ class Reviewscore extends StatelessWidget {
                             height: 30,
                             placeholder: (context, url) => Container(
                               color: Colors.white,
-                              child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                              child: Lottie.asset('assets/json/loading.json',height: 30),
                             ),
                             fit: BoxFit.cover,
                             imageUrl: item.reviewProfile,
@@ -107,7 +107,7 @@ class Reviewscore extends StatelessWidget {
                             height: 70,
                             placeholder: (context, url) => Container(
                               color: Colors.white,
-                              child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                              child: Lottie.asset('assets/json/loading.json',height: 30),
                             ),
                             fit: BoxFit.cover,
                             imageUrl: item.imageReview[index],

@@ -77,6 +77,7 @@ class _ImageProductViewState extends State<ImageProductView> {
           appBar: AppToobar(
             title: LocaleKeys.my_product_image.tr(),
             icon: "",
+            isEnable_Search: false,
             header_type: Header_Type.barNormal,
             onClick: ()=> Navigator.pop(context, false),
           ),

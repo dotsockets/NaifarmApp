@@ -67,7 +67,7 @@ class NotiDetailView extends StatelessWidget {
                       height: 35,
                       placeholder: (context, url) => Container(
                         color: Colors.white,
-                        child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                        child: Lottie.asset('assets/json/loading.json', height: 30),
                       ),
                       fit: BoxFit.cover,
                       imageUrl: item.ImageShop,

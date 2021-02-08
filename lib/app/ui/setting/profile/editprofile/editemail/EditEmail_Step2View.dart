@@ -1,8 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -25,9 +28,11 @@ class EditEmail_Step2View extends StatefulWidget {
 
 class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
   TextEditingController EmailController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   String onError="";
-
+  MemberBloc bloc;
+  bool onDialog = false;
 
   bool FormCheck(){
     if(EmailController.text.isEmpty){
@@ -46,15 +51,45 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
 
 
 
+
+  void _init() {
+    if (null == bloc) {
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        onDialog = true;
+        FunctionHelper.SuccessDialog(context,message: "Please confirm Email in your mailbox ",onClick: (){
+          if(onDialog){
+            Navigator.of(context).pop();
+          }
+
+        });
+      });
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    _init();
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
+          key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: LocaleKeys.edit_email_toobar.tr(), header_type: Header_Type.barNormal,onClick: (){
+            title: LocaleKeys.edit_email_toobar.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,onClick: (){
             FunctionHelper.ConfirmDialog(context,
                 message: LocaleKeys.dialog_message_mail_change_cancel.tr(),
                 onClick: () {
@@ -93,6 +128,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
                 SizedBox(height: 20,),
                 FlatButton(
                   minWidth: 50.0.w,
+                  height: 5.0.h,
                   color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
                   textColor: Colors.white,
                   splashColor: Colors.white.withOpacity(0.3),
@@ -123,7 +159,8 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
     //});
 
     if(validator.email(EmailController.text)){
-      AppRoute.EditEmail_Step3(context,EmailController.text,widget.customerInfoRespone);
+      // AppRoute.EditEmail_Step3(context,EmailController.text,widget.customerInfoRespone);
+      Usermanager().getUser().then((value) => bloc.requestChangEmail(email: EmailController.text,token: value.token));
     }else{
       setState(() {
         onError = "Email ไม่ถูกต้อง";

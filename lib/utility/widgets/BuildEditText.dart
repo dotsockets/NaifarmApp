@@ -71,7 +71,7 @@ class _BuildEditTextState extends State<BuildEditText> {
                 hintStyle: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.grey),
                 hintText: widget.hint,
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.all(2.5.h),// control your hint
+                contentPadding: EdgeInsets.all(2.0.h),// control your hint
               ),
               style: FunctionHelper.FontTheme(fontSize:SizeUtil.titleFontSize().sp),
               onChanged: (String char){

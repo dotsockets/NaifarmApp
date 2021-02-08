@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -18,6 +19,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/config/Env.dart';
@@ -66,13 +68,8 @@ class _MeViewState extends State<MeView> with RouteAware {
       });
 
      _reload.stream.listen((event) {
-       Usermanager().getUser().then((value) =>
-           context
-               .read<CustomerCountBloc>()
-               .loadCustomerCount(
-               token: value.token));
-         Usermanager().getUser().then((value) => bloc.loadMyProfile(token: value.token));
-
+       Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+         //Usermanager().getUser().then((value) => bloc.loadMyProfile(token: value.token));
      });
 
       // Usermanager().getUser().then((value) {
@@ -135,242 +132,16 @@ class _MeViewState extends State<MeView> with RouteAware {
               return Scaffold(
                   key: _scaffoldKey,
                   backgroundColor: Colors.grey.shade300,
-                  body: IsLogin?StreamBuilder(
-                    stream: bloc.customerInfoRespone.stream,
-                    builder: (BuildContext context,
-                        AsyncSnapshot snapshot) {
-                      if (snapshot.hasData) {
-                        var info =
-                        (snapshot.data as ProfileObjectCombine);
-
-                        return CustomScrollView(
-                          // controller: _scr,
-                          slivers: [
-                            SliverAppBar(
-                              leading: Container(
-                                margin: EdgeInsets.only(
-                                    left: 1.0.w),
-                                child: GestureDetector(
-                                  child: IconButton(
-                                    icon: Icon(Icons.settings,
-                                        color: Colors.white,
-                                        size: 6.0.w),
-                                  ),
-                                  onTap: () async {
-                                    final result = await AppRoute
-                                        .SettingProfile(
-                                        context, IsLogin,
-                                        item: info
-                                            .customerInfoRespone);
-                                    if (result != null && result) {
-                                      _reload.add(true);
-                                      IsLogin = false;
-                                    }
-                                  },
-                                ),
-                              ),
-                              actions: [
-                                Container(
-                                    margin: EdgeInsets.only(
-                                        right: 2.0.w, left: 1.0.w,top: 1.0.w),
-                                    child:  BuildIconShop()),
-                              ],
-                              expandedHeight: 200,
-                              flexibleSpace: FlexibleSpaceBar(
-                                background: Container(
-                                  color: ThemeColor.primaryColor(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: 3.0.h,
-                                      ),
-                                      InkWell(
-                                          child: Hero(
-                                            tag: "image_profile_me",
-                                            child: ClipRRect(
-                                              borderRadius:
-                                              BorderRadius.all(
-                                                  Radius.circular(
-                                                      60)),
-                                              child: CachedNetworkImage(
-                                                width: 20.0.w,
-                                                height: 20.0.w,
-                                                placeholder:
-                                                    (context, url) =>
-                                                    Container(
-                                                      width: 20.0.w,
-                                                      height: 20.0.w,
-                                                      color: Colors.white,
-                                                      child: Lottie.asset(
-                                                          Env.value
-                                                              .loadingAnimaion,
-                                                          height: 30),
-                                                    ),
-                                                fit: BoxFit.cover,
-                                                imageUrl: info
-                                                    .customerInfoRespone !=
-                                                    null
-                                                    ? info.customerInfoRespone
-                                                    .image.length >
-                                                    0
-                                                    ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
-                                                    : ''
-                                                    : '',
-                                                errorWidget: (context,
-                                                    url, error) =>
-                                                    Container(
-                                                        color: Colors.grey
-                                                            .shade300,
-                                                        width: 20.0.w,
-                                                        height: 20.0.w,
-                                                        child: Icon(
-                                                          Icons.person,
-                                                          size: 10.0.w,
-                                                          color: Colors
-                                                              .white,
-                                                        )),
-                                              ),
-                                            ),
-                                          ),
-                                          onTap: (){
-                                            AppRoute.ImageFullScreenView(hero_tag: "image_profile_me",context: context,image:  info
-                                                .customerInfoRespone !=
-                                                null
-                                                ? info.customerInfoRespone
-                                                .image.length >
-                                                0
-                                                ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
-                                                : ''
-                                                : '');
-                                          }
-                                      ),
-                                      SizedBox(height: 2.0.h),
-                                      Text(
-                                          info.customerInfoRespone !=
-                                              null
-                                              ? info
-                                              .customerInfoRespone
-                                              .name
-                                              : "ฟาร์มมาร์เก็ต",
-                                          style: FunctionHelper
-                                              .FontTheme(
-                                              color:
-                                              Colors.white,
-                                              fontSize: SizeUtil
-                                                  .titleFontSize()
-                                                  .sp,
-                                              fontWeight:
-                                              FontWeight
-                                                  .bold))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SliverList(
-                              delegate:
-                              SliverChildListDelegate(<Widget>[
-                                Container(
-                                  height: 180.0.w,
-                                  color: Colors.white,
-                                  child: DefaultTabController(
-                                    length: 2,
-                                    child: Container(
-                                      child: Column(
-                                        children: <Widget>[
-                                          // BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
-                                          //   builder: (_, count) {
-                                          //     return Center(
-                                          //       child: Text('${count.like}', style: Theme.of(context).textTheme.headline1),
-                                          //     );
-                                          //   },
-                                          // ),
-                                          SizedBox(
-                                            height: 7.0.h,
-                                            child: Container(
-                                              // color: ThemeColor.psrimaryColor(context),
-                                              child: TabBar(
-                                                indicatorColor:
-                                                ThemeColor
-                                                    .ColorSale(),
-                                                /* indicator: MD2Indicator(
-                                  indicatorSize: MD2IndicatorSize.tiny,
-                                  indicatorHeight: 5.0,
-                                  indicatorColor: ThemeColor.ColorSale(),
-                                ),*/
-                                                isScrollable: false,
-                                                tabs: [
-                                                  _tabbar(
-                                                      title: LocaleKeys
-                                                          .me_tab_buy
-                                                          .tr(),
-                                                      message:
-                                                      false),
-                                                  _tabbar(
-                                                      title: LocaleKeys
-                                                          .me_tab_shop
-                                                          .tr(),
-                                                      message:
-                                                      false)
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-
-                                          // create widgets for each tab bar here
-                                          Expanded(
-                                            child: TabBarView(
-                                              children: [
-                                                PurchaseView(
-                                                  IsLogin: IsLogin,
-                                                  item: info
-                                                      .customerInfoRespone,
-                                                  onStatus: (bool
-                                                  status) {
-                                                    if (status) {
-                                                      if (status) {
-                                                        _reload.add(true);
-                                                        IsLogin = false;
-                                                      }
-                                                    }
-                                                  },
-                                                ),
-                                                MyshopView(
-                                                  IsLogin: IsLogin,
-                                                  scaffoldKey:
-                                                  _scaffoldKey,
-                                                  customerInfoRespone:
-                                                  info.customerInfoRespone,
-                                                  myShopRespone: info
-                                                      .myShopRespone,
-                                                  onStatus: (bool
-                                                  status) {
-                                                    if (status) {
-                                                      Usermanager()
-                                                          .getUser()
-                                                          .then((value) =>
-                                                          bloc.loadMyProfile(
-                                                              token: value.token));
-                                                    }
-                                                  },
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ]),
-                            )
-                          ],
-                        );
-                      } else {
-                        return SizedBox();
+                  body: IsLogin?BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+                    builder: (_, item) {
+                      if(item is InfoCustomerLoaded){
+                        return  _ContentMe(info: item.profileObjectCombine);
+                      }else if(item is InfoCustomerLoading){
+                        return  _ContentMe(info: item.profileObjectCombine);
+                      }else{
+                        return  SizedBox();
                       }
+
                     },
                   ): LoginView(
                     IsHeader: false,
@@ -395,6 +166,233 @@ class _MeViewState extends State<MeView> with RouteAware {
           },
         ),
       ),
+    );
+  }
+
+  Widget _ContentMe({ProfileObjectCombine info}){
+    return CustomScrollView(
+      // controller: _scr,
+      slivers: [
+        SliverAppBar(
+          leading: Container(
+            margin: EdgeInsets.only(
+                left: 1.0.w),
+            child: GestureDetector(
+              child: IconButton(
+                icon: Icon(Icons.settings,
+                    color: Colors.white,
+                    size: 6.0.w),
+              ),
+              onTap: () async {
+                final result = await AppRoute
+                    .SettingProfile(
+                    context, IsLogin,
+                    item: info
+                        .customerInfoRespone);
+                if (result != null && result) {
+                  _reload.add(true);
+                  IsLogin = false;
+                }
+              },
+            ),
+          ),
+          actions: [
+            Container(
+                margin: EdgeInsets.only(
+                    right: 2.0.w, left: 1.0.w,top: 1.0.w),
+                child:  BuildIconShop()),
+          ],
+          expandedHeight: 200,
+          flexibleSpace: FlexibleSpaceBar(
+            background: Container(
+              color: ThemeColor.primaryColor(),
+              child: Column(
+                mainAxisAlignment:
+                MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 3.0.h,
+                  ),
+                  InkWell(
+                      child: Hero(
+                        tag: "image_profile_me",
+                        child: ClipRRect(
+                          borderRadius:
+                          BorderRadius.all(
+                              Radius.circular(
+                                  60)),
+                          child: CachedNetworkImage(
+                            width: 20.0.w,
+                            height: 20.0.w,
+                            placeholder:
+                                (context, url) =>
+                                Container(
+                                  width: 20.0.w,
+                                  height: 20.0.w,
+                                  color: Colors.white,
+                                  child: Lottie.asset(
+                                      'assets/json/loading.json',
+                                      height: 30),
+                                ),
+                            fit: BoxFit.cover,
+                            imageUrl: info
+                                .customerInfoRespone !=
+                                null
+                                ? info.customerInfoRespone
+                                .image.length >
+                                0
+                                ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
+                                : ''
+                                : '',
+                            errorWidget: (context,
+                                url, error) =>
+                                Container(
+                                    color: Colors.grey
+                                        .shade300,
+                                    width: 20.0.w,
+                                    height: 20.0.w,
+                                    child: Icon(
+                                      Icons.person,
+                                      size: 10.0.w,
+                                      color: Colors
+                                          .white,
+                                    )),
+                          ),
+                        ),
+                      ),
+                      onTap: (){
+                        AppRoute.ImageFullScreenView(hero_tag: "image_profile_me",context: context,image:  info
+                            .customerInfoRespone !=
+                            null
+                            ? info.customerInfoRespone
+                            .image.length >
+                            0
+                            ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
+                            : ''
+                            : '');
+                      }
+                  ),
+                  SizedBox(height: 2.0.h),
+                  Text(
+                      info.customerInfoRespone !=
+                          null
+                          ? info
+                          .customerInfoRespone
+                          .name
+                          : "ฟาร์มมาร์เก็ต",
+                      style: FunctionHelper
+                          .FontTheme(
+                          color:
+                          Colors.white,
+                          fontSize: SizeUtil
+                              .titleFontSize()
+                              .sp,
+                          fontWeight:
+                          FontWeight
+                              .bold))
+                ],
+              ),
+            ),
+          ),
+        ),
+        SliverList(
+          delegate:
+          SliverChildListDelegate(<Widget>[
+            Container(
+              height: 180.0.w,
+              color: Colors.white,
+              child: DefaultTabController(
+                length: 2,
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      // BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
+                      //   builder: (_, count) {
+                      //     return Center(
+                      //       child: Text('${count.like}', style: Theme.of(context).textTheme.headline1),
+                      //     );
+                      //   },
+                      // ),
+                      SizedBox(
+                        height: 7.0.h,
+                        child: Container(
+                          // color: ThemeColor.psrimaryColor(context),
+                          child: TabBar(
+                            indicatorColor:
+                            ThemeColor
+                                .ColorSale(),
+                            /* indicator: MD2Indicator(
+                                  indicatorSize: MD2IndicatorSize.tiny,
+                                  indicatorHeight: 5.0,
+                                  indicatorColor: ThemeColor.ColorSale(),
+                                ),*/
+                            isScrollable: false,
+                            tabs: [
+                              _tabbar(
+                                  title: LocaleKeys
+                                      .me_tab_buy
+                                      .tr(),
+                                  message:
+                                  false),
+                              _tabbar(
+                                  title: LocaleKeys
+                                      .me_tab_shop
+                                      .tr(),
+                                  message:
+                                  false)
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      // create widgets for each tab bar here
+                      Expanded(
+                        child: TabBarView(
+                          children: [
+                            PurchaseView(
+                              IsLogin: IsLogin,
+                              item: info
+                                  .customerInfoRespone,
+                              onStatus: (bool
+                              status) {
+                                if (status) {
+                                  if (status) {
+                                    _reload.add(true);
+                                    IsLogin = false;
+                                  }
+                                }
+                              },
+                            ),
+                            MyshopView(
+                              IsLogin: IsLogin,
+                              scaffoldKey:
+                              _scaffoldKey,
+                              customerInfoRespone:
+                              info.customerInfoRespone,
+                              myShopRespone: info
+                                  .myShopRespone,
+                              onStatus: (bool
+                              status) {
+                                if (status) {
+                                  Usermanager()
+                                      .getUser()
+                                      .then((value) =>
+                                      bloc.loadMyProfile(
+                                          token: value.token));
+                                }
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ]),
+        )
+      ],
     );
   }
 

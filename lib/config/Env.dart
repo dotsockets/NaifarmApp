@@ -2,6 +2,7 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/NaiFarmBlocObserver.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -16,9 +17,8 @@ class Env {
 
   String appName;
   String baseUrl;
-
+  String baseUrlWeb;
   EnvType environmentType = EnvType.DEVELOPMENT;
-  String loadingAnimaion = 'assets/json/loading.json';
   String noItemUrl;
 
   // Database Config
@@ -40,10 +40,18 @@ class Env {
         supportedLocales: [Locale('en', 'US'), Locale('th', 'TH')],
         path: 'resources/langs', // <-- change patch to your
         fallbackLocale: Locale('en', 'US'),
-        child: BlocProvider(
-          create: (_) => CustomerCountBloc(application),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => CustomerCountBloc(application),
+            ),
+            BlocProvider(
+              create: (_) => InfoCustomerBloc(application),
+            )
+          ],
           child: AppComponent(application),
-        )),
+        )
+      ),
     );
   }
 }

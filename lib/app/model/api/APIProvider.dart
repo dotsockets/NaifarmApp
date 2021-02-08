@@ -325,7 +325,20 @@ abstract class APIProvider{
 
   @GET("/v1/page?slug=terms-of-use-customer")
   Future<ApiResult> getInformationRules(String slug);
+
+  @GET("/v1/customers/request-change-email")
+  Future<ApiResult> requestChangEmail({String email,String token});
+
+
+  @PATCH("/v1/myshop/products/231/inventories/231")
+  Future<ApiResult> updateinventories({int productsId,int inventoriesId,int shippingWeight,String token});
+
+  @PATCH("/v1/order/220/mark-paid")
+  Future<ApiResult> MarkPaid({int orderId,String token});
+
 }
+
+
 
 
 

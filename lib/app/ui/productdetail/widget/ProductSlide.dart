@@ -65,7 +65,7 @@ class _ProductSlideState extends State<ProductSlide> {
       padding: EdgeInsets.only(top: 3,bottom: 30),
       child: CarouselSlider(
         options: CarouselOptions(
-          height: 300,
+          height: 40.0.h,
           viewportFraction: 0.999,
           autoPlay: true,
           enableInfiniteScroll: widget.imgList.length>1?true:false,
@@ -83,9 +83,10 @@ class _ProductSlideState extends State<ProductSlide> {
               placeholder: (context, url) => Container(
                 width: MediaQuery.of(context).size.width,
 
-                child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                child: Lottie.asset('assets/json/loading.json',height: 30),
               ),
               imageUrl: item,
+              fit: BoxFit.contain,
               errorWidget: (context, url, error) => Image.network(Env.value.noItemUrl,fit: BoxFit.cover),
             ),
           ),

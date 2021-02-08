@@ -23,11 +23,12 @@ import 'package:sizer/sizer.dart';
 import 'canceled/CanceledView.dart';
 import 'delivery/DeliveryView.dart';
 
-class MyOrderHistoryView extends StatelessWidget {
+class ShopOrderHistoryView extends StatelessWidget {
   final int index;
   final bool callback ;
 
-  MyOrderHistoryView({Key key, this.index, this.callback}) : super(key: key);
+
+   ShopOrderHistoryView({Key key, this.index,this.callback}) : super(key: key);
 
   int tab_count = 6;
 
@@ -45,11 +46,11 @@ class MyOrderHistoryView extends StatelessWidget {
               title: LocaleKeys.me_title_history_shop.tr(),
               header_type: Header_Type.barcartShop,
               icon: '',onClick: (){
-                if(callback){
-                  AppRoute.PoppageCount(context: context,countpage: 4);
-                }else{
-                  AppRoute.PoppageCount(context: context,countpage: 1);
-                }
+              if(callback){
+                AppRoute.PoppageCount(context: context,countpage: 4);
+              }else{
+                AppRoute.PoppageCount(context: context,countpage: 1);
+              }
             },
             ),
             body: Container(
@@ -68,7 +69,7 @@ class MyOrderHistoryView extends StatelessWidget {
                         isScrollable: true,
                         tabs: [
                           _tabbar(
-                              title: LocaleKeys.me_menu_pay.tr(), message: false),
+                              title: "Waiting for payment ", message: false),
                           _tabbar(
                               title: LocaleKeys.me_menu_ship.tr(), message: true),
                           _tabbar(
@@ -92,12 +93,12 @@ class MyOrderHistoryView extends StatelessWidget {
                   Expanded(
                     child:TabBarView(
                       children: [
-                        PaidView(orderType: "order",),
-                        ShippedView(orderType: "order",),
-                        DeliveryView(orderType: "order",),
+                        PaidView(orderType: "myshop/orders",typeView: "shop",),
+                        ShippedView(orderType: "myshop/orders",typeView: "shop"),
+                        DeliveryView(orderType: "myshop/orders",),
                         SuccessView(orderType: "order/waiting-review",),
-                        CanceledView(orderType: "order",),
-                        RefundView(orderType: "order",)
+                        CanceledView(orderType: "myshop/orders"),
+                        RefundView(orderType: "myshop/orders")
                       ],
                     ),
                   ),
@@ -122,14 +123,14 @@ class MyOrderHistoryView extends StatelessWidget {
           ),
           message
               ? ClipRRect(
-                  borderRadius: BorderRadius.circular(9.0),
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 2.0.w,
-                    height: 2.0.w,
-                    color: ThemeColor.ColorSale(),
-                  ),
-                )
+            borderRadius: BorderRadius.circular(9.0),
+            child: Container(
+              alignment: Alignment.center,
+              width: 2.0.w,
+              height: 2.0.w,
+              color: ThemeColor.ColorSale(),
+            ),
+          )
               : SizedBox()
         ],
       ),

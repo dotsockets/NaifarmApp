@@ -99,8 +99,8 @@ class _RegisterViewState extends State<RegisterView> {
           Padding(
             padding: const EdgeInsets.only(right: 15,left: 15),
             child: FlatButton(
-              minWidth: MediaQuery.of(context).size.width,
-              height: 7.0.h,
+              minWidth: 80.0.w,
+              height: 6.5.h,
               color: ThemeColor.secondaryColor(),
               textColor: Colors.white,
               splashColor: Colors.white.withOpacity(0.3),
@@ -113,7 +113,7 @@ class _RegisterViewState extends State<RegisterView> {
               ),
             ),
           ),
-          SizedBox(height: 3.5.h,),
+          SizedBox(height: 2.0.h,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -122,12 +122,12 @@ class _RegisterViewState extends State<RegisterView> {
               Expanded(flex: 3,child: Container(margin: EdgeInsets.only(right: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
             ],
           ),
-          SizedBox(height: 3.5.h,),
+          SizedBox(height: 2.0.h,),
           Padding(
             padding: const EdgeInsets.only(right: 15,left: 15),
             child: FlatButton(
-              minWidth: MediaQuery.of(context).size.width,
-              height: 7.0.h,
+              minWidth: 80.0.w,
+              height: 6.5.h,
               color: Color(ColorUtils.hexToInt("#1f4dbf")),
               textColor: Colors.white,
               splashColor: Colors.white.withOpacity(0.3),

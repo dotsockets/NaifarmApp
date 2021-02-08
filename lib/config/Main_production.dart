@@ -10,6 +10,7 @@ class Production extends Env {
   EnvType environmentType = EnvType.PRODUCTION;
   final String appName = "NaiFarm";
   final String baseUrl = 'https://stg-api-test.naifarm.com';
+  final String baseUrlWeb = 'https://dev2-test.naifarm.com';
   final String dbName = 'Naifarm.db';
   final String noItemUrl = "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com";
 }

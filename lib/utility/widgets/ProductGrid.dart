@@ -198,13 +198,19 @@ class _ProductGridState extends State<ProductGrid> {
     return Container(
       child: Column(
         children: [
-          SizedBox(height: 8),
-          Text(
-            item.name,
-            style: FunctionHelper.FontTheme(
-                color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),
+          SizedBox(height: 1.0.h),
+          Container(
+            height: 4.0.h,
+            child: Text(
+              item.name,
+              maxLines: 2,
+              style: FunctionHelper.FontTheme(
+                  color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),
+            ),
           ),
-          SizedBox(height: 5),
+          SizedBox(
+            height: 0.8.h,
+          ),
           Text(
             "฿${item.salePrice}",
             style: FunctionHelper.FontTheme(
@@ -244,12 +250,17 @@ class _ProductGridState extends State<ProductGrid> {
   Widget _intoProduct({ProductData item, int index}) {
     return Column(
       children: [
-        Text(item.name,maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: FunctionHelper.FontTheme(
-                color: Colors.black,
-                fontSize: SizeUtil.titleSmallFontSize().sp,
-                fontWeight: FontWeight.w500)),
+        SizedBox(height: 0.5.h),
+        Container(
+          height: 4.0.h,
+          child: Text(item.name,maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: FunctionHelper.FontTheme(
+                  color: Colors.black,
+                  fontSize: SizeUtil.titleSmallFontSize().sp,
+                  fontWeight: FontWeight.w500)),
+        ),
         SizedBox(
           height: 1.0.h,
         ),
@@ -286,7 +297,7 @@ class _ProductGridState extends State<ProductGrid> {
                   borderColor: Colors.black,
                   spacing: 0.0),
             ),
-            Text(LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_item.tr(),
+            Text("${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():'0'} ${LocaleKeys.cart_item.tr()}",
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.detailSmallFontSize().sp,
                     color: Colors.black,
@@ -324,7 +335,7 @@ class _ProductGridState extends State<ProductGrid> {
                           height: 35.0.w,
                           color: Colors.white,
                           child:
-                          Lottie.asset(Env.value.loadingAnimaion,   width: 28.0.w,
+                          Lottie.asset('assets/json/loading.json',   width: 28.0.w,
                             height: 35.0.w,),
                         ),
                         imageUrl: ProductLandscape.CovertUrlImage(item.image),
@@ -374,9 +385,7 @@ class _ProductGridState extends State<ProductGrid> {
             SizedBox(
               height: 10,
             ),
-            widget.FlashSallLabel
-                ? _FlashintoProduct(item: item, index: index)
-                : _intoProduct(item: item, index: index)
+            _intoProduct(item: item, index: index)
           ],
         ),
       ),

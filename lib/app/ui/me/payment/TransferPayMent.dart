@@ -1,8 +1,15 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -10,6 +17,9 @@ import 'package:sizer/sizer.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class TransferPayMent extends StatefulWidget {
+  final OrderData orderData;
+
+  const TransferPayMent({Key key, this.orderData}) : super(key: key);
   @override
   _TransferPayMentState createState() => _TransferPayMentState();
 }
@@ -17,9 +27,44 @@ class TransferPayMent extends StatefulWidget {
 class _TransferPayMentState extends State<TransferPayMent> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  File fileImage;
+
+  bool onDialog = false;
+  OrdersBloc bloc;
+
+  init(BuildContext context) {
+    if (bloc == null) {
+      bloc = OrdersBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.AlertDialogShop(context,
+            title: "Error", message: event);
+      //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        onDialog = true;
+        FunctionHelper.SuccessDialog(context,message: "Successfully uploaded",onClick: (){
+          if(onDialog){
+            Navigator.of(context).pop();
+          }
+
+        });
+        Navigator.pop(context,true);
+      });
+    }
+    // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
+  }
 
   @override
   Widget build(BuildContext context) {
+    init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -183,7 +228,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 borderRadius: BorderRadius.circular(40.0),
               ),
               onPressed: () {
-                AppRoute.TransferPayMentView(context: context);
+                captureImage(ImageSource.gallery);
               },
               child: Text(
                 "มีหลักฐานการชำระเงิน อัพโหลดเลย",
@@ -257,5 +302,19 @@ class _TransferPayMentState extends State<TransferPayMent> {
         ],
       ),
     );
+  }
+
+  Future captureImage(ImageSource imageSource) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: imageSource);
+
+
+      if (pickedFile != null) {
+        fileImage = File(pickedFile.path);
+        Usermanager().getUser().then((value) => bloc.UploadImage(context: context,imageFile: fileImage,imageableType: "order",imageableId: widget.orderData.id,token: value.token));
+      } else {
+        print('No image selected.');
+      }
+
   }
 }

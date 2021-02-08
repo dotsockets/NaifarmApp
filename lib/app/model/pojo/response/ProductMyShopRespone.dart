@@ -1,3 +1,5 @@
+import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
+
 class ProductMyShopRespone {
   int id;
   int shopId;
@@ -146,6 +148,7 @@ class Inventories {
   String preorderMsg;
   String preorderStart;
   String preorderEnd;
+  int shippingWeight;
   int freeShipping;
   int minOrderQuantity;
   String linkedItems;
@@ -176,6 +179,7 @@ class Inventories {
         this.preorderMsg,
         this.preorderStart,
         this.preorderEnd,
+        this.shippingWeight,
         this.freeShipping,
         this.minOrderQuantity,
         this.linkedItems,
@@ -206,6 +210,7 @@ class Inventories {
     preorderMsg = json['preorderMsg'];
     preorderStart = json['preorderStart'];
     preorderEnd = json['preorderEnd'];
+    shippingWeight = json['shippingWeight'];
     freeShipping = json['freeShipping'];
     minOrderQuantity = json['minOrderQuantity'];
     linkedItems = json['linkedItems'];
@@ -253,6 +258,7 @@ class Inventories {
     data['preorderMsg'] = this.preorderMsg;
     data['preorderStart'] = this.preorderStart;
     data['preorderEnd'] = this.preorderEnd;
+    data['shippingWeight'] = this.shippingWeight;
     data['freeShipping'] = this.freeShipping;
     data['minOrderQuantity'] = this.minOrderQuantity;
     data['linkedItems'] = this.linkedItems;
@@ -429,7 +435,7 @@ class Shop {
   int id;
   String name;
   String slug;
-  Attributes state;
+  DataStates state;
   String updatedAt;
   List<Image> image;
   int countProduct;
@@ -442,7 +448,7 @@ class Shop {
     slug = json['slug'];
     countProduct = json['countProduct'];
     state =
-    json['state'] != null ? new Attributes.fromJson(json['state']) : null;
+    json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
       image = new List<Image>();

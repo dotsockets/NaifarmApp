@@ -43,7 +43,11 @@ import 'package:naifarm/app/ui/me/myproduct/attribute/detail/AttributeDetailView
 import 'package:naifarm/app/ui/me/myproduct/productDetailShop/ProductDetailShop.dart';
 import 'package:naifarm/app/ui/me/myproductaddtype/ProductAddTypeView.dart';
 import 'package:naifarm/app/ui/me/myproductsetprice/ProductSetPriceView.dart';
+import 'package:naifarm/app/ui/me/myshop/myorderhistory/ConfirmPaymentView.dart';
+import 'package:naifarm/app/ui/me/myshop/myorderhistory/DeliveryDropoffView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/MyOrderHistoryView.dart';
+import 'package:naifarm/app/ui/me/myshop/myorderhistory/ShippingOrderView.dart';
+import 'package:naifarm/app/ui/me/myshop/myorderhistory/ShopOrderHistoryView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/review/ReviewView.dart';
 import 'package:naifarm/app/ui/me/myshop/shopprofile/EditDetailView.dart';
 import 'package:naifarm/app/ui/me/myshop/shopprofile/EditExtrlUrlView.dart';
@@ -92,11 +96,9 @@ import 'package:naifarm/app/ui/setting/profile/editprofile/Setting_EditProdile_B
 import 'package:naifarm/app/ui/setting/profile/editprofile/Setting_EditProfile_NameView.dart';
 import 'package:naifarm/app/ui/setting/profile/editprofile/editemail/EditEmail_Step1View.dart';
 import 'package:naifarm/app/ui/setting/profile/editprofile/editemail/EditEmail_Step2View.dart';
-import 'package:naifarm/app/ui/setting/profile/editprofile/editemail/EditEmail_Step3View.dart';
 import 'package:naifarm/app/ui/setting/profile/editprofile/editpassword/EditpasswordStep1View.dart';
 import 'package:naifarm/app/ui/setting/profile/editprofile/editpassword/EditpasswordStep2View.dart';
 import 'package:naifarm/app/ui/setting/profile/editprofile/editphone/EditPhone_Step1View.dart';
-import 'package:naifarm/app/ui/setting/profile/editprofile/editphone/EditPhone_Step2View.dart';
 import 'package:naifarm/app/ui/setting/rulesOfUse/RuleOfUseView.dart';
 import 'package:naifarm/app/ui/shopmain/ShopMainView.dart';
 import 'package:naifarm/app/ui/shopmain/followers/FollowersView.dart';
@@ -190,8 +192,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FollowersView()));
   }
 
-  static DeliveryCost(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: DeliveryCostView()));
+  static Future<int>  DeliveryCost(BuildContext context,{UploadProductStorage uploadProductStorage,int productsId}) async {
+    return await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: DeliveryCostView(uploadProductStorage: uploadProductStorage,productsId: productsId,)));
   }
 
   static Future<bool> EditProduct(BuildContext context,int index,int shopId,{UploadProductStorage uploadProductStorage,int indexTab=0}) async {
@@ -211,8 +213,13 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: WithdrawMoneyView()));
   }
 
-  static MyShophistory(BuildContext context,int index,{String orderType,bool callback=false}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyOrderHistoryView(orderType:orderType,index: index,callback: callback,)));
+  static MyShophistory(BuildContext context,int index,{bool callback=false}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyOrderHistoryView(index: index,callback: callback,)));
+
+  }
+
+  static ShopOrderHistory(BuildContext context,int index,{bool callback=false}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: ShopOrderHistoryView(index: index,callback: callback,)));
 
   }
 
@@ -303,8 +310,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiSettingView()));
   }
 
-  static Future<bool> EditProfile(BuildContext context,{ CustomerInfoRespone item}) async {
-    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProfileVIew(item: item,)));
+  static Future<bool> EditProfile(BuildContext context) async {
+    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: EditProfileVIew()));
   }
 
   static Future<CustomerInfoRespone> Setting_EditProfile_Name(BuildContext context,CustomerInfoRespone customerInfoRespone) async {
@@ -320,12 +327,7 @@ class AppRoute{
         type: PageTransitionType.fade,
         child: EditPhone_Step1View(customerInfoRespone: customerInfoRespone)));
   }
-  static Future<CustomerInfoRespone> EditPhoneStep2(BuildContext context,CustomerInfoRespone customerInfoRespone,String PhoneNew) async {
-    return  await  Navigator.push(context, PageTransition(
-        duration: Duration(milliseconds: 300),
-        type: PageTransitionType.fade,
-        child: EditPhone_Step2View(PhoneNew: PhoneNew,customerInfoRespone: customerInfoRespone,)));
-  }
+
   static SettingBankAdd(BuildContext context){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: BankAddView()));
   }
@@ -345,12 +347,7 @@ class AppRoute{
         type: PageTransitionType.fade,
         child: EditEmail_Step2View(customerInfoRespone: customerInfoRespone,)));
   }
-  static Future<CustomerInfoRespone> EditEmail_Step3(BuildContext context,String emailnew,CustomerInfoRespone customerInfoRespone) async {
-    return  await Navigator.pushReplacement(context, PageTransition(
-        duration: Duration(milliseconds: 300),
-        type: PageTransitionType.fade,
-        child: EditEmail_Step3View(emailnew: emailnew,customerInfoRespone: customerInfoRespone,)));
-  }
+
 
   static EditpasswordStep1(BuildContext context) {
     Navigator.push(context, PageTransition(
@@ -494,9 +491,27 @@ class AppRoute{
 
   }
 
-  static TransferPayMentView({BuildContext context}){
+  static TransferPayMentView({BuildContext context,OrderData orderData}){
 
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:TransferPayMent()));
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:TransferPayMent(orderData: orderData,)));
+
+  }
+
+  static Future<bool>  ConfirmPayment({BuildContext context,OrderData orderData}) async {
+
+    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ConfirmPaymentView(orderData: orderData,)));
+
+  }
+
+  static Future<bool>  ShippingOrder({BuildContext context,OrderData orderData}) async {
+
+    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ShippingOrderView(orderData: orderData,)));
+
+  }
+
+  static Future<bool>  DeliveryDropoff({BuildContext context}) async {
+
+    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:DeliveryDropoffView()));
 
   }
 

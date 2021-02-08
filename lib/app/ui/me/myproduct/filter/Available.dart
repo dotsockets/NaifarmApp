@@ -198,7 +198,7 @@ class _AvailableState extends State<Available> {
                                 height: 35.0.w,
                                 color: Colors.white,
                                 child: Lottie.asset(
-                                  Env.value.loadingAnimaion,
+                                  'assets/json/loading.json',
                                   width: 30.0.w,
                                   height: 35.0.w,
                                 ),

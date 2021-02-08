@@ -77,6 +77,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                                       aspectRatio: 16/9,
                                       viewportFraction: 0.8,
                                       initialPage: 0,
+                                      scrollPhysics: NeverScrollableScrollPhysics(),
                                       autoPlay: true,
                                       autoPlayInterval: Duration(seconds: 6),
                                       autoPlayAnimationDuration:
@@ -119,12 +120,13 @@ class _HomeHeaderState extends State<HomeHeader> {
               ],
             ),
             SizedBox(
-              height: 0.7.h,
+              height: 1.0.h,
             ),
             widget.snapshot != null
                 ? CategoryMenu(
                     featuredRespone: widget.snapshot.featuredRespone,
                     selectedIndex: 0,
+                    moreSize: false,
                     onTap: (CategoryGroupData val) {
                       widget.onTap(val);
                       // setState(() {

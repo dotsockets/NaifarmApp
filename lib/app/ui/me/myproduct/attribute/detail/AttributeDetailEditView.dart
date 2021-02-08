@@ -74,6 +74,7 @@ class _AttributeDetailEditViewState extends State<AttributeDetailEditView> {
           appBar: AppToobar(
             title: "เพิ่มรายการแอททริบิวต์",
             icon: "",
+            isEnable_Search: false,
             header_type: Header_Type.barNormal,
           ),
           body: Column(
@@ -118,6 +119,7 @@ class _AttributeDetailEditViewState extends State<AttributeDetailEditView> {
       child: Center(
         child: FlatButton(
           minWidth: 50.0.w,
+          height: 5.0.h,
           color: check?ThemeColor.secondaryColor():Colors.grey,
           textColor: Colors.white,
           splashColor: Colors.white.withOpacity(0.3),

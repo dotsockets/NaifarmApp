@@ -8,7 +8,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -368,7 +370,7 @@ class _RecommendViewState extends State<RecommendView> {
       child: CachedNetworkImage(
         placeholder: (context, url) => Container(
           color: Colors.white,
-          child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+          child: Lottie.asset('assets/json/loading.json', height: 30),
         ),
         fit: BoxFit.cover,
         imageUrl:
@@ -390,6 +392,7 @@ class _RecommendViewState extends State<RecommendView> {
       AudioCache().play("sound/Click.mp3");
       Vibration.vibrate(duration: 500);
     }
+    Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
     bloc.loadHomeData(context: context,callback: true);
   }
 }

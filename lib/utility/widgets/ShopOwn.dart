@@ -29,6 +29,7 @@ class ShopOwn extends StatelessWidget {
   const ShopOwn({Key key, this.shopItem,this.shopRespone, this.showBtn=true}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Column(
@@ -49,7 +50,7 @@ class ShopOwn extends StatelessWidget {
                       placeholder: (context, url) => Container(
                         color: Colors.white,
                         child:
-                        Lottie.asset(Env.value.loadingAnimaion,width: 30, height: 30),
+                        Lottie.asset('assets/json/loading.json',width: 30, height: 30),
                       ),
                       fit: BoxFit.cover,
                       imageUrl: shopItem.image!=null?ProductLandscape.CovertUrlImage(shopItem.image):"",
@@ -71,45 +72,25 @@ class ShopOwn extends StatelessWidget {
                   },
                 ),
                 SizedBox(width: 20),
-               Expanded(
-                 flex: 4,
-                 child:  Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: [
-                     Text(shopItem.name!=null?shopItem.name:"Nifarm Shop",
-                         style: FunctionHelper.FontTheme(
-                             fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
-                     SizedBox(height: 5),
-                     Text("Active ${timeago.format(DateTime.parse(shopItem.updatedAt),locale: 'th')} ",
-                         style: FunctionHelper.FontTheme(
-                             fontSize: SizeUtil.titleSmallFontSize().sp,
-                             color: Colors.black.withOpacity(0.8))),
-                     SizedBox(height: 2),
-                     Text("${shopItem.state!=null?"จังหวัด${shopItem.state.name}":'จังหวัดไม่ถูกต้อง'}",
-                         style: FunctionHelper.FontTheme(
-                             fontSize: SizeUtil.titleSmallFontSize().sp,
-                             color: Colors.black.withOpacity(0.8),height: 1.5)),
-                   ],
-                 ),
+               Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   Text(shopItem.name!=null?shopItem.name:"Nifarm Shop",
+                       style: FunctionHelper.FontTheme(
+                           fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
+                   SizedBox(height: 5),
+                   Text("Active ${timeago.format(DateTime.parse(DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(shopItem.updatedAt))),locale: 'th')} ",
+                       style: FunctionHelper.FontTheme(
+                           fontSize: SizeUtil.titleSmallFontSize().sp,
+                           color: Colors.black.withOpacity(0.8))),
+                   SizedBox(height: 2),
+                   Text("${shopItem.state!=null?"จังหวัด${shopItem.state.name}":'จังหวัดไม่ถูกต้อง'}",
+                       style: FunctionHelper.FontTheme(
+                           fontSize: SizeUtil.titleSmallFontSize().sp,
+                           color: Colors.black.withOpacity(0.8),height: 1.5)),
+                 ],
                ),
-               showBtn? Container(
-                  child: FlatButton(
-                    color: ThemeColor.primaryColor(),
-                    textColor: Colors.white,
-                    padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                    splashColor: Colors.white.withOpacity(0.3),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    onPressed: () {
-                      AppRoute.ShopMain(context: context,myShopRespone: shopRespone);
-                    },
-                    child: Text(
-                      LocaleKeys.shop_title.tr(),
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ):SizedBox()
+
               ],
             ),
           ),
@@ -167,7 +148,27 @@ class ShopOwn extends StatelessWidget {
                     ],
                   ),
                 ),
-                Expanded(child: SizedBox(height: 5,width: 5,),),
+                Expanded(child: showBtn? Container(
+                  child: FlatButton(
+                    minWidth: 20.0.w,
+                    height: 4.0.h,
+                    color: ThemeColor.primaryColor(),
+                    textColor: Colors.white,
+                    padding: EdgeInsets.only(left: 1.5.w,right: 1.5.w,top: 1.5.w,bottom: 1.5.w),
+                    splashColor: Colors.white.withOpacity(0.3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    onPressed: () {
+                      AppRoute.ShopMain(context: context,myShopRespone: shopRespone);
+                    },
+                    child: Text(
+                      LocaleKeys.shop_title.tr(),
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ):SizedBox(width: 5.0.w,height: 5.0.w,))
+
                 // Expanded(
                 //   flex: 1,
                 //   child: Column(

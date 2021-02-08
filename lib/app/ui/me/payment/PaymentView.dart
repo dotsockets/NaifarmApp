@@ -49,7 +49,7 @@ class _PaymentViewState extends State<PaymentView> {
       child: SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
-          appBar: AppToobar(title: LocaleKeys.me_title_payment.tr(),icon: "",header_type:  Header_Type.barNormal,),
+          appBar: AppToobar(title: LocaleKeys.me_title_payment.tr(),icon: "",header_type:  Header_Type.barNormal,isEnable_Search: false,),
           body:  Container(
             color: Colors.grey.shade300,
             child: SingleChildScrollView(

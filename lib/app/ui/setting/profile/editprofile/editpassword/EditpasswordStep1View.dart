@@ -50,12 +50,12 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-
-        if((event as VerifyRespone).success){
-          AppRoute.EditpasswordStep2(context,PassController.text);
+        AppRoute.EditpasswordStep2(context,PassController.text);
+       // if((event as VerifyRespone).success){
+         // AppRoute.EditpasswordStep2(context,PassController.text);
 
           //AppRoute.EditEmail_Step2(context,widget.customerInfoRespone);
-        }
+        //}
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
 
@@ -84,7 +84,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: LocaleKeys.my_profile_change_password.tr(), header_type: Header_Type.barNormal,),
+            title: LocaleKeys.my_profile_change_password.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,),
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -100,7 +100,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                       children: [
                         BuildEditText(
                             head: LocaleKeys.edit_password_old.tr(),
-                            hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),maxLength: 10,controller: PassController,onError: onError,IsPassword: true,inputType: TextInputType.text,BorderOpacity: 0.2,onChanged: (String char){
+                            hint: LocaleKeys.my_profile_password.tr(),maxLength: 10,controller: PassController,onError: onError,IsPassword: true,inputType: TextInputType.text,BorderOpacity: 0.2,onChanged: (String char){
                           setState(() {});
                         }),
                         SizedBox(height: 20,),
@@ -128,6 +128,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                 SizedBox(height: 20,),
                 FlatButton(
                   minWidth: 50.0.w,
+                  height: 5.0.h,
                   color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
                   textColor: Colors.white,
                   splashColor: Colors.white.withOpacity(0.3),

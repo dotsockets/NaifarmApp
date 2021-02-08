@@ -1,8 +1,10 @@
 
 import 'dart:async';
 import 'dart:io';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
@@ -217,12 +219,13 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
-  ModifyProfile({CustomerInfoRespone data ,String token,bool onload}) async{
+  ModifyProfile({BuildContext context,CustomerInfoRespone data ,String token,bool onload}) async{
     onload?onLoad.add(true):null;
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.ModifyProfile(data: data,token: token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
+        context.read<InfoCustomerBloc>().loadCustomInfo(token:token);
         onSuccess.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);
@@ -294,12 +297,13 @@ class MemberBloc{
   }
 
 
-  MyShopUpdate({MyShopRequest data, String access_token}) async{
+  MyShopUpdate({BuildContext context,MyShopRequest data, String access_token}) async{
     onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.MyShopUpdate(data: data,access_token: access_token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
+        context.read<InfoCustomerBloc>().loadCustomInfo(token:access_token);
         onSuccess.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);
@@ -309,12 +313,13 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
-  UploadImage({File imageFile,String imageableType, int imageableId, String token}) async{
+  UploadImage({BuildContext context,File imageFile,String imageableType, int imageableId, String token}) async{
     onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.UploadImage(imageFile: imageFile,imageableType: imageableType,imageableId: imageableId,token: token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200 || respone.http_call_back.status==201){
+        context.read<InfoCustomerBloc>().loadCustomInfo(token:token);
         onSuccess.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);
@@ -338,9 +343,25 @@ class MemberBloc{
     });
     _compositeSubscription.add(subscription);
   }
+
+  requestChangEmail({String email, String token}) async{
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.requestChangEmail(email: email,token: token)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        onSuccess.add(respone.respone);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
 }
 
 enum RequestOtp{
   Register,
-  Forgotpassword
+  Forgotpassword,
+  ChangPassword
 }

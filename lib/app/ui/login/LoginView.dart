@@ -1,9 +1,10 @@
 
 import 'dart:io';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -64,6 +65,7 @@ class _LoginViewState extends State<LoginView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
+        Usermanager().getUser().then((value) => context.read<InfoCustomerBloc>().loadCustomInfo(token: value.token));
         // if(widget.IsCallBack){
         //   NaiFarmLocalStorage.saveNowPage(3).then((value) =>  AppRoute.Home(context,item: widget.item));
         // }else{
@@ -101,6 +103,7 @@ class _LoginViewState extends State<LoginView> {
           key: _scaffoldKey,
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
             child: Column(
               children: [
                 _BuildBar(context),
@@ -125,13 +128,20 @@ class _LoginViewState extends State<LoginView> {
             BuildEditText(head: LocaleKeys.my_profile_phone.tr()+"/"+LocaleKeys.my_profile_email.tr(), hint: LocaleKeys.my_profile_phone.tr()+"/"+LocaleKeys.my_profile_email.tr(),inputType: TextInputType.text,controller: _username,BorderOpacity: 0.3,borderRadius: 7,),
             SizedBox(height: 2.0.h,),
             BuildEditText(head: LocaleKeys.my_profile_password.tr(), hint: LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,controller: _password,BorderOpacity: 0.3,IsPassword: true,borderRadius: 7),
-            SizedBox(height: 4.0.h,),
+            SizedBox(height: 1.0.h,),
+            Align(
+              alignment: Alignment.topRight,
+              child: InkWell(child: Text(LocaleKeys.login_forgot_password.tr(),style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize().sp,decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500)),onTap: (){
+                AppRoute.ForgotPassword(context);
+              },),
+            ),
+            SizedBox(height: 3.0.h,),
             Padding(
               padding: const EdgeInsets.only(right: 15,left: 15),
               child: FlatButton(
-                minWidth: MediaQuery.of(context).size.width,
-                height: 7.0.h,
-                color: ThemeColor.secondaryColor(),
+                minWidth: 80.0.w,
+                height: 6.5.h,
+                color: ThemeColor.ColorSale(),
                 textColor: Colors.white,
                 splashColor: Colors.white.withOpacity(0.3),
                 shape: RoundedRectangleBorder(
@@ -143,7 +153,27 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
             ),
-            SizedBox(height: 3.5.h,),
+            SizedBox(height: 2.5.h,),
+            Padding(
+              padding: const EdgeInsets.only(right: 15,left: 15),
+              child: FlatButton(
+                minWidth: 80.0.w,
+                height: 6.5.h,
+                color: ThemeColor.secondaryColor(),
+                textColor: Colors.white,
+                splashColor: Colors.white.withOpacity(0.3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+                onPressed: () {
+                  AppRoute.Register(context);
+                },
+                child: Text(LocaleKeys.register_btn.tr(),
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
+            SizedBox(height: 2.0.h,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -152,12 +182,12 @@ class _LoginViewState extends State<LoginView> {
                 Expanded(flex: 3,child: Container(margin: EdgeInsets.only(right: 30),color: Colors.black.withOpacity(0.2),height: 1,),),
               ],
             ),
-            SizedBox(height: 3.5.h,),
+            SizedBox(height: 2.0.h,),
             Padding(
               padding: const EdgeInsets.only(right: 15,left: 15),
               child: FlatButton(
-                minWidth: MediaQuery.of(context).size.width,
-                height: 7.0.h,
+                minWidth: 80.0.w,
+                height: 6.5.h,
                 color: Color(ColorUtils.hexToInt("#1f4dbf")),
                 textColor: Colors.white,
                 splashColor: Colors.white.withOpacity(0.3),
@@ -176,25 +206,15 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(height: 3.0.h,),
             Wrap(
               children: [
-                Text(LocaleKeys.login_not_member.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.7,fontWeight: FontWeight.w500),),
-                Column(
-                  children: [
-                    InkWell(child: Text(LocaleKeys.register_btn.tr(),style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize().sp,decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500)),onTap: (){
-                      AppRoute.Register(context);
-                    },),
-
-                  ],
-                )
-              ],
-            ),
-
-            Column(
-              children: [
-                SizedBox(height: 1.0.h,),
-                InkWell(child: Text(LocaleKeys.login_forgot_password.tr(),style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),fontSize: SizeUtil.titleSmallFontSize().sp,decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500)),onTap: (){
-                  AppRoute.ForgotPassword(context);
-                },),
-
+                Text(LocaleKeys.regis_agree.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.7,fontWeight: FontWeight.w500),),
+                InkWell(child: Text(LocaleKeys.regis_rule.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
+                  ,onTap: (){AppRoute.SettingRules(context);},
+                ),
+                Text(" "+LocaleKeys.and.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.7,fontWeight: FontWeight.w500),),
+                InkWell(child: Text(" "+LocaleKeys.regis_policy.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
+                  ,onTap: (){AppRoute.SettingPolicy(context);},
+                ),
+                Text(" "+LocaleKeys.withh.tr()+" NaiFarm",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.7,fontWeight: FontWeight.w500),),
               ],
             )
           ],
@@ -236,7 +256,7 @@ class _LoginViewState extends State<LoginView> {
                 Navigator.pop(context, false);
               },
             ),
-          ):SizedBox(height: 4.0.h,),
+          ):SizedBox(height: 1.5.h,),
           _BuildHeader(context),
         ],
       ),

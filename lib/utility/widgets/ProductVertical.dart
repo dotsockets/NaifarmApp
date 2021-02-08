@@ -113,8 +113,7 @@ class ProductVertical extends StatelessWidget {
                       Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.black.withOpacity(0.1), width: 1),
+                            border: Border.all(width: 1, color: Colors.grey.shade400),
                             borderRadius: BorderRadius.all(Radius.circular(10))),
                         child: Hero(
                           tag: "${tagHero}_${index}",
@@ -125,7 +124,7 @@ class ProductVertical extends StatelessWidget {
                               height: 35.0.w,
                               placeholder: (context, url) => Container(
                                 color: Colors.white,
-                                child: Lottie.asset(Env.value.loadingAnimaion,   width: 28.0.w,
+                                child: Lottie.asset('assets/json/loading.json',   width: 28.0.w,
                                   height: 35.0.w,),
                               ),
                               imageUrl: ProductLandscape.CovertUrlImage(item.image),
@@ -173,9 +172,15 @@ class ProductVertical extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(item.name,maxLines: 1,
-          overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:   SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
-          SizedBox(height: 1.0.h,),
+          Container(
+            height: 4.0.h,
+            child: Text(item.name,maxLines: 2,
+                textAlign: TextAlign.start,
+            overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:   SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
+          ),
+          SizedBox(
+            height: 0.8.h,
+          ),
           Row(
 
             crossAxisAlignment: CrossAxisAlignment.end,

@@ -118,7 +118,7 @@ class _SearchViewState extends State<SearchView> {
                                               width: 13.0.w,
                                               height: 15.0.w,
                                               color: Colors.white,
-                                              child: Lottie.asset(Env.value.loadingAnimaion,   width: 13.0.w,
+                                              child: Lottie.asset('assets/json/loading.json',   width: 13.0.w,
                                                 height: 13.5.w,),
                                             ),
                                             imageUrl: "${Env.value.baseUrl}/storage/images/${(snapshot.data as SearchRespone).hits[key].image.length!=0?(snapshot.data as SearchRespone).hits[key].image[0].path:""}",

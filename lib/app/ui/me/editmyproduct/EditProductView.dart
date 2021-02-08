@@ -122,6 +122,7 @@ class _EditProductViewState extends State<EditProductView> {
                     child: AppToobar(
                       title: LocaleKeys.my_product_data.tr(),
                       icon: "",
+                      isEnable_Search: false,
                       header_type: Header_Type.barNormal,onClick: (){
                       Navigator.pop(context, onUpdate);
                     },)),
@@ -309,7 +310,7 @@ class _EditProductViewState extends State<EditProductView> {
                 ],
               ))),
       onTap: (){
-        AppRoute.DeliveryCost(context);
+        AppRoute.DeliveryCost(context,uploadProductStorage: bloc.uploadProductStorage.value,productsId: widget.ProductId);
       },
     );
   }
@@ -390,10 +391,6 @@ class _EditProductViewState extends State<EditProductView> {
           Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(token: value.token,ProductId: widget.ProductId));
         }
 
-
-        for(var item in bloc.uploadProductStorage.value.onSelectItem){
-          print("wefcewfc ${item}");
-        }
       },
     );
   }
@@ -479,7 +476,7 @@ class _EditProductViewState extends State<EditProductView> {
     priceController.text = productMyShopRequest.salePrice.toString();
     priceController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.salePrice!=null?productMyShopRequest.salePrice.toString().length:0));
 
-    offerPriceController.text = productMyShopRequest.offerPrice.toString();
+    offerPriceController.text = productMyShopRequest.offerPrice!=null?productMyShopRequest.offerPrice.toString():0;
     offerPriceController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.offerPrice!=null?productMyShopRequest.offerPrice.toString().length:0));
   }
 }

@@ -26,8 +26,9 @@ import 'package:sizer/sizer.dart';
 
 class ShippedView extends StatefulWidget {
   final String orderType;
+  final String typeView;
 
-  const ShippedView({Key key, this.orderType}) : super(key: key);
+  const ShippedView({Key key, this.orderType, this.typeView}) : super(key: key);
   @override
   _ShippedViewState createState() => _ShippedViewState();
 }
@@ -50,7 +51,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
   Widget build(BuildContext context) {
     init();
     return Container(
-      color: Colors.white,
+      color: Colors.grey.shade300,
       margin: EdgeInsets.only(top: 2.0.w),
       child: StreamBuilder(
           stream: bloc.feedList,
@@ -134,7 +135,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
                 height: 22.0.w,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
-                  child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                  child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
@@ -222,39 +223,22 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
                 .values
                 .toList(),
           ),
-          SizedBox(height: 3.0.w),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 1.5.w),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("x ${item.quantity}",
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          color: Colors.black)),
-                  Row(
-                    children: [
-                      Text(
-                          LocaleKeys.history_order_price.tr() ,
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              color: Colors.black)),
-                      Text(" : " +
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale())),
-                      // Text(
-                      //     "฿${item.inventory.salePrice * item.quantity}.00",
-                      //     style: FunctionHelper.FontTheme(
-                      //         fontSize: SizeUtil.titleFontSize().sp,
-                      //         color: ThemeColor.ColorSale())),
-                      SizedBox(width: 2.0.w),
+              Align(
+                alignment: Alignment.centerRight,
+                child: RichText(
+                  text: new TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                      new TextSpan(
+                          text: LocaleKeys.history_order_price.tr(),
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                      new TextSpan(text: " : " +
+                          "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
                     ],
                   ),
-                ],
+                ),
               ),
               Divider(
                 color: Colors.grey.shade400,
@@ -274,7 +258,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
                   ),
-                  _BuildButtonBayItem(btnTxt: "Payment")
+                  _BuildButtonBayItem(btnTxt: widget.typeView=="shop"?"Shipping":"Contact seller",orderData: item)
                 ],
               )
             ],
@@ -302,7 +286,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child: Lottie.asset(
-                        Env.value.loadingAnimaion,
+                        'assets/json/loading.json',
                         width: 7.0.w,
                         height: 7.0.w,
                       ),
@@ -346,7 +330,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
     );
   }
 
-  Widget _BuildButtonBayItem({String btnTxt}) {
+  Widget _BuildButtonBayItem({String btnTxt,OrderData orderData}) {
     return FlatButton(
       color: ThemeColor.ColorSale(),
       textColor: Colors.white,
@@ -354,7 +338,16 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40.0),
       ),
-      onPressed: () {
+      onPressed: () async {
+        if(widget.typeView=="shop"){
+          final result = await AppRoute.ShippingOrder(context: context,orderData: orderData);
+          if(result){
+            Usermanager().getUser().then((value) =>
+                bloc.loadOrder(orderType: widget.orderType,statusId: "1", limit: 20, page: 1, token: value.token));
+          }
+        }else{
+          //AppRoute.TransferPayMentView(context: context);
+        }
 
 
       },

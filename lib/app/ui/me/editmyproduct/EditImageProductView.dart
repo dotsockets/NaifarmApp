@@ -295,7 +295,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
                             width: 40.0.w,
                             height: 40.0.w,
                             color: Colors.white,
-                            child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                            child: Lottie.asset('assets/json/loading.json',height: 30),
                           ),
                           fit: BoxFit.cover,
                           imageUrl: item.url.isNotEmpty?"${Env.value.baseUrl}/storage/images/${item.url}":'',

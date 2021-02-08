@@ -13,7 +13,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:like_button/like_button.dart';
 import 'package:lottie/lottie.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -38,10 +40,9 @@ import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:naifarm/utility/widgets/ConnectErrorPage.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:share/share.dart';
 import 'package:vibration/vibration.dart';
 import 'widget/BuildChoosesize.dart';
 import 'widget/ProductDetail.dart';
@@ -73,7 +74,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
   Animation<double> _animation;
   ProductBloc bloc;
   StreamController<bool> checkScrollControl = new StreamController<bool>();
-  List<ProductImage> image_temp = List<ProductImage>();
   int SubFixId = 0;
   bool IsLogin = true;
 
@@ -132,7 +132,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
   void _init() {
     ISLogin();
     if (null == bloc) {
-      image_temp.addAll(widget.productItem.image);
       checkScrollControl.add(false);
       NaiFarmLocalStorage.getNowPage().then((value) {
         value = value + 1;
@@ -177,8 +176,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
         if(event is CartResponse){
           Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
           animationController.forward();
+        }else if(event is bool){
+          Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
         }
-      
+
       });
 
       Usermanager().getUser().then((value) {
@@ -324,6 +325,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                       stream: bloc.Wishlists.stream,
                                       builder: (BuildContext context,
                                           AsyncSnapshot snapshot) {
+
                                         if (snapshot.hasData && (snapshot.data as WishlistsRespone) != null) {
                                           if ((snapshot.data as WishlistsRespone).total > 0) {
                                             return _BuildFooterTotal(item: snapshot.data);
@@ -353,134 +355,134 @@ class _ProductDetailViewState extends State<ProductDetailView>
   );
 
   Widget get _content => Column(
-        children: [
-          StreamBuilder(
-              stream: bloc.ZipProductDetail.stream,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                var item = (snapshot.data as ProductObjectCombine);
-                if (snapshot.hasData && item.producItemRespone != null) {
-                  return  Stack(
-                    children: [
+    children: [
+      StreamBuilder(
+          stream: bloc.ZipProductDetail.stream,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            var item = (snapshot.data as ProductObjectCombine);
+            if (snapshot.hasData && item.producItemRespone != null) {
+              return  Stack(
+                children: [
 
-                      FullScreenWidget(
-                        backgroundIsTransparent: true,
-                        child: Center(
-                          child: Hero(
-                            tag: widget.productImage,
-                            child: ProductSlide(imgList: image_temp.isNotEmpty?image_temp:widget.productItem.image),
-                          ),
-                        ),
-                      )
-                    ],
-                  );
-                }else{
-                  return  widget.productItem.image != null
-                      ? Hero(
-                      tag: widget.productImage,
-                      child: ProductSlide(imgList: widget.productItem.image))
-                      : SizedBox();
-                }
-              }),
-          widget.productItem.image != null
-              ? ProductInto(data: widget.productItem)
-              : SizedBox(),
-          widget.productItem.image != null ? _Divider() : SizedBox(),
-          StreamBuilder(
-              stream: bloc.ZipProductDetail.stream,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                var item = (snapshot.data as ProductObjectCombine);
-                if (snapshot.hasData && item.producItemRespone != null) {
-                  return Column(
-                    children: [
-                      BuildChoosesize(
-                          IndexType1: IndexTypes1,
-                          IndexType2: IndexTypes2,
-                          onclick1: (int index) =>
-                              setState(() => IndexTypes1 = index),
-                          onclick2: (int index) =>
-                              setState(() => IndexTypes2 = index)),
-                      _Divider(),
-                      InkWell(
-                        child: ShopOwn(
-                            shopItem: item.producItemRespone.shop,
-                            shopRespone: MyShopRespone(
+                  FullScreenWidget(
+                    backgroundIsTransparent: true,
+                    child: Center(
+                      child: Hero(
+                        tag: widget.productImage,
+                        child: ProductSlide(imgList:item.producItemRespone.image),
+                      ),
+                    ),
+                  )
+                ],
+              );
+            }else{
+              return  widget.productItem.image != null
+                  ? Hero(
+                  tag: widget.productImage,
+                  child: ProductSlide(imgList: widget.productItem.image))
+                  : SizedBox();
+            }
+          }),
+      widget.productItem.image != null
+          ? ProductInto(data: widget.productItem)
+          : SizedBox(),
+      widget.productItem.image != null ? _Divider() : SizedBox(),
+      StreamBuilder(
+          stream: bloc.ZipProductDetail.stream,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            var item = (snapshot.data as ProductObjectCombine);
+            if (snapshot.hasData && item.producItemRespone != null) {
+              return Column(
+                children: [
+                  // BuildChoosesize(
+                  //     IndexType1: IndexTypes1,
+                  //     IndexType2: IndexTypes2,
+                  //     onclick1: (int index) =>
+                  //         setState(() => IndexTypes1 = index),
+                  //     onclick2: (int index) =>
+                  //         setState(() => IndexTypes2 = index)),
+                  // _Divider(),
+                  InkWell(
+                    child: ShopOwn(
+                        shopItem: item.producItemRespone.shop,
+                        shopRespone: MyShopRespone(
+                            countProduct: item.producItemRespone.shop.countProduct,
+                            id: item.producItemRespone.shopId)),
+                    onTap: () {
+                      AppRoute.ShopMain(
+                          context: context,
+                          myShopRespone: MyShopRespone(
+                              id: item.producItemRespone.shop.id,
+                              name: item.producItemRespone.name,
                               countProduct: item.producItemRespone.shop.countProduct,
-                                id: item.producItemRespone.shopId)),
-                        onTap: () {
-                          AppRoute.ShopMain(
-                              context: context,
-                              myShopRespone: MyShopRespone(
-                                  id: item.producItemRespone.shop.id,
-                                  name: item.producItemRespone.name,
-                                  countProduct: item.producItemRespone.shop.countProduct,
-                                  image: item.producItemRespone.shop.image,
-                                  updatedAt:
-                                      item.producItemRespone.shop.updatedAt));
-                        },
-                      ),
-                      _Divider(),
-                      ProductDetail(productItem: item.producItemRespone),
-                      _Divider(),
-                      StreamBuilder(
-                        stream: bloc.SearchProduct.stream,
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.hasData &&
-                              (snapshot.data as SearchRespone) != null) {
-                            if ((snapshot.data as SearchRespone).hits.length > 0) {
-                              return ProductLandscape(
-                                SubFixId: SubFixId,
-                                productRespone:
-                                bloc.ConvertSearchData(item: snapshot.data as SearchRespone),
-                                titleInto: LocaleKeys.recommend_you_like.tr(),
-                                producViewModel:
-                                    ProductViewModel().getBestSaller(),
-                                IconInto: 'assets/images/svg/like.svg',
-                                onSelectMore: () {
-                                  AppRoute.ProductMore(
-                                      context: context,
-                                      api_link: "products/types/popular?categoryGroupId=${item.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id}",
-                                      barTxt: LocaleKeys
-                                          .recommend_product_for_you
-                                          .tr());
-                                },
-                                onTapItem: (ProductData item, int index) {
-                                  AppRoute.ProductDetail(context,
-                                      productImage:
-                                          "product_detail_${item.id}${SubFixId}",
-                                      productItem:
-                                          ProductBloc.ConvertDataToProduct(
-                                              data: item));
-                                },
-                                tagHero: "product_detail",
-                              );
-                            } else {
-                              return SizedBox();
-                            }
-                          } else {
-                            return SizedBox();
-                          }
-                        },
-                      ),
-                      _Divider(),
-                      Reviewscore()
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      SizedBox(
-                        height: 10.0.h,
-                      ),
-                      Platform.isAndroid
-                          ? CircularProgressIndicator()
-                          : CupertinoActivityIndicator(),
-                    ],
-                  );
-                }
-              })
-        ],
-      );
+                              image: item.producItemRespone.shop.image,
+                              updatedAt:
+                              item.producItemRespone.shop.updatedAt));
+                    },
+                  ),
+                  _Divider(),
+                  ProductDetail(productItem: item.producItemRespone),
+                  _Divider(),
+                  StreamBuilder(
+                    stream: bloc.SearchProduct.stream,
+                    builder:
+                        (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.hasData &&
+                          (snapshot.data as SearchRespone) != null) {
+                        if ((snapshot.data as SearchRespone).hits.length > 0) {
+                          return ProductLandscape(
+                            SubFixId: SubFixId,
+                            productRespone:
+                            bloc.ConvertSearchData(item: snapshot.data as SearchRespone),
+                            titleInto: LocaleKeys.recommend_you_like.tr(),
+                            producViewModel:
+                            ProductViewModel().getBestSaller(),
+                            IconInto: 'assets/images/svg/like.svg',
+                            onSelectMore: () {
+                              AppRoute.ProductMore(
+                                  context: context,
+                                  api_link: "products/types/popular?categoryGroupId=${item.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id}",
+                                  barTxt: LocaleKeys
+                                      .recommend_product_for_you
+                                      .tr());
+                            },
+                            onTapItem: (ProductData item, int index) {
+                              AppRoute.ProductDetail(context,
+                                  productImage:
+                                  "product_detail_${item.id}${SubFixId}",
+                                  productItem:
+                                  ProductBloc.ConvertDataToProduct(
+                                      data: item));
+                            },
+                            tagHero: "product_detail",
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      } else {
+                        return SizedBox();
+                      }
+                    },
+                  ),
+                  _Divider(),
+                  //  Reviewscore()
+                ],
+              );
+            } else {
+              return Column(
+                children: [
+                  SizedBox(
+                    height: 10.0.h,
+                  ),
+                  Platform.isAndroid
+                      ? CircularProgressIndicator()
+                      : CupertinoActivityIndicator(),
+                ],
+              );
+            }
+          })
+    ],
+  );
 
   Widget _BuildFooterTotal({WishlistsRespone item}) {
 
@@ -489,107 +491,97 @@ class _ProductDetailViewState extends State<ProductDetailView>
       child: Container(
         height: 8.0.h,
         decoration: BoxDecoration(
-            border: Border(
-                top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0),
-                bottom:
-                    BorderSide(color: Colors.grey.withOpacity(0.4), width: 0)),
-          ),
+          border: Border(
+              top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0),
+              bottom:
+              BorderSide(color: Colors.grey.withOpacity(0.4), width: 0)),
+        ),
         child: Row(
           children: [
             Expanded(
                 child: InkWell(
-              child: SvgPicture.asset(
-                'assets/images/svg/share.svg',
-                width: 8.0.w,
-                height: 8.0.w,
-              ),
-              onTap: () {
-
-
-                FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
-              },
-            )),
+                  child: SvgPicture.asset(
+                    'assets/images/svg/share.svg',
+                    width: 8.0.w,
+                    height: 8.0.w,
+                  ),
+                  onTap: () {
+                    Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
+                    // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+                  },
+                )),
             Container(
               color: Colors.grey.withOpacity(0.4),
               height: 8.0.h,
               width: 1,
             ),
             Expanded(
-                child: GestureDetector(
-              child: SvgPicture.asset(
-                item.total > 0
-                    ? 'assets/images/svg/like_line.svg'
-                    : 'assets/images/svg/like_line_null.svg',
-                width: 8.0.w,
-                height: 8.0.w,
-                color: ThemeColor.ColorSale(),
-              ),
-              onTap: () {
-                if (item.total > 0) {
-                  int id = item.data[0].id;
-                  item.data = [];
-                  item.total = 0;
-                  bloc.Wishlists.add(item);
-                  Usermanager().getUser().then((value) =>
-                      bloc.DELETEWishlists(WishId: id, token: value.token));
-                } else {
-                  Usermanager().getUser().then((value) => bloc.AddWishlists(
-                      productId: widget.productItem.id,
-                      inventoryId: bloc.ZipProductDetail.value.producItemRespone
-                          .inventories[0].id,
-                      token: value.token));
-                  item.data = [];
-                  item.total = 1;
-                  bloc.Wishlists.add(item);
-                }
-              },
-            )),
+                child: LikeButton(
+                  size: 10.0.w,
+                  isLiked: item.total>0?true:false,
+                  circleColor: const CircleColor(
+                      start: Color(0xffF03A13), end: Color(0xffE6593A)),
+                  bubblesColor: const BubblesColor(
+                    dotPrimaryColor: Color(0xffF03A13),
+                    dotSecondaryColor: Color(0xffE6593A),
+                  ),
+                  likeBuilder: (bool isLiked) {
+                    return Icon(
+                      isLiked?Icons.favorite:Icons.favorite_border,
+                      color: isLiked ? ThemeColor.ColorSale() : Colors.grey.withOpacity(0.5),
+                      size: 8.0.w,
+                    );
+                  },
+                  likeCountAnimationType: LikeCountAnimationType.part,
+                  likeCountPadding:  EdgeInsets.all(1.0.w),
+                  onTap: (bool like)=>onLikeButtonTapped(item.total>0?true:false),
+                )),
             Expanded(
                 flex: 2,
                 child: InkWell(
-                  onTap: () {
-                   if(IsLogin){
+                    onTap: () {
+                      if(IsLogin){
 
 
-                     List<Items> items = new List<Items>();
-                     items.add(Items(
-                         inventoryId: bloc.ZipProductDetail.value.producItemRespone
-                             .inventories[0].id,
-                         quantity: 1));
-                     Usermanager().getUser().then((value) => bloc.AddCartlists(
-                       context: context,
-                         cartRequest: CartRequest(
-                           shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
-                           items: items,
-                         ),
-                         token: value.token));
-                   }else{
-                     AppRoute.Login(context,IsHeader: true,homeCallBack: (bool fix){});
-                   }
+                        List<Items> items = new List<Items>();
+                        items.add(Items(
+                            inventoryId: bloc.ZipProductDetail.value.producItemRespone
+                                .inventories[0].id,
+                            quantity: 1));
+                        Usermanager().getUser().then((value) => bloc.AddCartlists(
+                            context: context,
+                            cartRequest: CartRequest(
+                              shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
+                              items: items,
+                            ),
+                            token: value.token));
+                      }else{
+                        AppRoute.Login(context,IsHeader: true,homeCallBack: (bool fix){});
+                      }
 
 
-                  },
-                  child: Stack(
-                    children: [
-                      Transform.translate(
-                        offset:  animation.value,
-                        child: Container(
-                          child: Image.network("${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty?widget.productItem.image[0].path:''}"),
-                          width: 10.0.w,
-                          height: 10.0.w,
+                    },
+                    child: Stack(
+                      children: [
+                        Transform.translate(
+                          offset:  animation.value,
+                          child: Container(
+                            child: Image.network("${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty?widget.productItem.image[0].path:''}"),
+                            width: 10.0.w,
+                            height: 10.0.w,
+                          ),
                         ),
-                      ),
-                      Container(
-                          alignment: Alignment.center,
-                          height: 8.0.h,
-                          color: ThemeColor.ColorSale(),
-                          child: Text(LocaleKeys.buy_product_btn.tr(),
-                              style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white)))
-                    ],
-                  )
+                        Container(
+                            alignment: Alignment.center,
+                            height: 8.0.h,
+                            color: ThemeColor.ColorSale(),
+                            child: Text(LocaleKeys.buy_product_btn.tr(),
+                                style: FunctionHelper.FontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)))
+                      ],
+                    )
                 ))
           ],
         ),
@@ -618,5 +610,32 @@ class _ProductDetailViewState extends State<ProductDetailView>
     Usermanager().getUser().then((value) {
       bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
     });
+  }
+
+  Future<bool> onLikeButtonTapped(bool isLiked) async {
+    var item =  bloc.Wishlists.value;
+    if(bloc.Wishlists.value.data!=null){
+
+      if (item.total > 0) {
+        int id = item.data[0].id;
+        item.data = [];
+        item.total = 0;
+        bloc.Wishlists.add(item);
+        Usermanager().getUser().then((value) =>
+            bloc.DELETEWishlists(WishId: id, token: value.token));
+      } else {
+        Usermanager().getUser().then((value) => bloc.AddWishlists(
+            productId: widget.productItem.id,
+            inventoryId: bloc.ZipProductDetail.value.producItemRespone
+                .inventories[0].id,
+            token: value.token));
+        item.data = [];
+        item.total = 1;
+        bloc.Wishlists.add(item);
+      }
+    }
+
+
+    return !isLiked;
   }
 }

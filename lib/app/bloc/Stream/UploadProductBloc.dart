@@ -317,12 +317,14 @@ class UploadProductBloc {
         }
         inventoriesId = item.inventories[0].id;
         uploadProductStorage.value.productMyShopRequest = ProductMyShopRequest(
+            inventoriesid : item.inventories[0].id,
             name: item.name,
             salePrice: item.salePrice,
             stockQuantity: item.inventories[0].stockQuantity,
             offerPrice: item.offerPrice,
             active: uploadProductStorage.value.productMyShopRequest.active,
             category: item.categories[0].category.id,
+            weight: item.inventories[0].shippingWeight,
             description: item.description);
         uploadProductStorage.add(uploadProductStorage.value);
       } else {
@@ -510,6 +512,24 @@ class UploadProductBloc {
     });
     _compositeSubscription.add(subscription);
   }
+
+  updateinventories({int productsId, int inventoriesId,int shippingWeight, String token}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.updateinventories(productsId: productsId,inventoriesId: inventoriesId,shippingWeight: shippingWeight,token: token)).listen((respone) {
+      if (respone.http_call_back.status == 200) {
+        onLoad.add(false);
+        onSuccess.add(true);
+      //  GetAttributeDetail(token: token,id: id);
+        //  onSuccessDel.add(true);
+      }else {
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+
 // bool ValidateButton(){
 //   bool value = false;
 //   int i = 0;

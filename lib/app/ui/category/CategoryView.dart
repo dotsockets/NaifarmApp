@@ -142,7 +142,7 @@ class _CategoryViewState extends State<CategoryView> {
                     height: 12.0.w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
-                      child: Lottie.asset(Env.value.loadingAnimaion,height: 30),
+                      child: Lottie.asset('assets/json/loading.json',height: 30),
                     ),
                     fit: BoxFit.cover,
                     imageUrl: "https://dev2-test.naifarm.com/category-icon/${item.icon}.png",

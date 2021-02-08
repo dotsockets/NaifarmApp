@@ -118,7 +118,7 @@ class BuyAgain extends StatelessWidget {
                   width: 28.0.w,
                   height: 28.0.w,
                   color: Colors.white,
-                  child: Lottie.asset(Env.value.loadingAnimaion,height: 28),
+                  child: Lottie.asset('assets/json/loading.json',height: 28),
                 ),
                 imageUrl: ProductLandscape.CovertUrlImage(item.image),
                 errorWidget: (context, url, error) => Container(width: 28.0.w,height: 28.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),

@@ -771,12 +771,6 @@ class _APIProvider implements APIProvider {
     String fileName = imageFile.path
         .split('/')
         .last;
-    FormData _data = FormData.fromMap({
-      "file": await MultipartFile.fromFile(
-        imageFile.path,
-        filename: fileName,
-      ),
-    });
     FormData formData = FormData.fromMap({
       "file": await MultipartFile.fromFile(imageFile.path, filename: fileName),
     });
@@ -1916,8 +1910,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> updateAttributeDetail(
-      {String value, String color, int id, int vid, String token}) async {
+  Future<ApiResult> updateAttributeDetail({String value, String color, int id, int vid, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final data = <String, dynamic>{
@@ -2014,6 +2007,84 @@ class _APIProvider implements APIProvider {
           data: _data);
       return ApiResult(respone: InformationRespone.fromJson(_result.data),http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     }on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> requestChangEmail({String email, String token}) async{
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "email":email
+    };
+    try {
+      final _result = await _dio.request<dynamic>(
+          '/v1/customers/request-change-email',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token": token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: true,
+          http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> updateinventories({int productsId, int inventoriesId,int shippingWeight, String token}) async{
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final data = <String, dynamic>{
+      "shippingWeight": shippingWeight
+    };
+    try {
+      final _result = await _dio.request<dynamic>(
+          '/v1/myshop/products/${productsId}/inventories/${inventoriesId}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token": token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: data);
+      return ApiResult(respone: ProductMyShopRespone.fromJson(_result.data),
+          http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> MarkPaid({int orderId, String token}) async{
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final data = <String, dynamic>{
+      "orderId": orderId
+    };
+    try {
+      final _result = await _dio.request<dynamic>(
+          '/v1/order/${orderId}/mark-paid',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token": token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: data);
+      return ApiResult(respone: OrderRespone.fromJson(_result.data),
+          http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
       return ServerError.DioErrorExpction(e);
     }
   }

@@ -266,13 +266,18 @@ class _ProductMoreViewState extends State<ProductMoreView> {
   Widget _intoProduct({ProductData item, int index}) {
     return Column(
       children: [
-        Text(item.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: FunctionHelper.FontTheme(
-                color: Colors.black,
-                fontSize: SizeUtil.titleSmallFontSize().sp,
-                fontWeight: FontWeight.w500)),
+        SizedBox(height: 1.0.h),
+        Container(
+          height: 4.0.h,
+          child: Text(item.name,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: FunctionHelper.FontTheme(
+                  color: Colors.black,
+                  fontSize: SizeUtil.titleSmallFontSize().sp,
+                  fontWeight: FontWeight.w500)),
+        ),
         SizedBox(
           height: 1.0.h,
         ),
@@ -345,8 +350,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Colors.black.withOpacity(0.2), width: 1),
+                      border: Border.all(width: 1, color: Colors.grey.shade400),
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Hero(
                     tag: "loadmore_${item.id}${index}",
@@ -359,7 +363,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                           width: 30.0.w,
                           height: 30.0.w,
                           color: Colors.white,
-                          child: Lottie.asset(Env.value.loadingAnimaion,   width: 30.0.w,
+                          child: Lottie.asset('assets/json/loading.json',   width: 30.0.w,
                             height: 30.0.w,),
                         ),
                         imageUrl: ProductLandscape.CovertUrlImage(item.image),

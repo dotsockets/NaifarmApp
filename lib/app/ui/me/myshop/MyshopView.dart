@@ -132,7 +132,7 @@ class _MyshopViewState extends State<MyshopView> {
             icon: 'assets/images/svg/latest.svg',
             title: LocaleKeys.me_title_history_shop.tr(),
             iconSize:7.0.w,
-            onClick: () => AppRoute.MyShophistory(context,0,orderType: "myshop/orders"),
+            onClick: () => AppRoute.MyShophistory(context,0),
           ),
         //  widget.IsLogin ? _BuildDivider() : SizedBox(),
           // widget.IsLogin
@@ -217,25 +217,25 @@ class _MyshopViewState extends State<MyshopView> {
           TabMenu(
               icon: 'assets/images/svg/status_delivery.svg',
               title: LocaleKeys.me_menu_ship.tr(),
-              onClick: (){AppRoute.MyShophistory(context,1,orderType: "myshop/orders");},
+              onClick: (){AppRoute.ShopOrderHistory(context,1);},
               notification: count.sellOrder.unpaid),
           TabMenu(
             icon: 'assets/images/svg/status_delivery.svg',
             title: "Sending",
-         onClick: (){AppRoute.MyShophistory(context,2,orderType: "myshop/orders");
+         onClick: (){AppRoute.ShopOrderHistory(context,2);
          },
             notification: count.sellOrder.shipping,
           ),
           TabMenu(
             icon: 'assets/images/svg/status_cancel.svg',
             title: LocaleKeys.me_menu_cancel_product.tr(),
-            onClick: (){AppRoute.MyShophistory(context,4,orderType: "myshop/orders");},
+            onClick: (){AppRoute.ShopOrderHistory(context,4);},
             notification: count.sellOrder.cancel,
           ),
           TabMenu(
             icon: 'assets/images/svg/status_restore.svg',
             title: LocaleKeys.me_menu_refund_product.tr(),
-            onClick: (){AppRoute.MyShophistory(context,5,orderType: "myshop/orders");},
+            onClick: (){AppRoute.ShopOrderHistory(context,5);},
             notification: count.sellOrder.refund,
           )
         ],

@@ -87,6 +87,7 @@ class _AddressAddViewState extends State<AddressAddView> {
           appBar: AppToobar(
             title: LocaleKeys.address_add_toobar.tr(),
             icon: "",
+            isEnable_Search: false,
             header_type: Header_Type.barNormal,
           ),
           body: Container(

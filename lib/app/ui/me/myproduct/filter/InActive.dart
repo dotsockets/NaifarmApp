@@ -188,7 +188,7 @@ class _InActiveState extends State<InActive> {
                                 width: 30.0.w,
                                 height: 35.0.w,
                                 color: Colors.white,
-                                child: Lottie.asset(Env.value.loadingAnimaion, width: 30.0.w,
+                                child: Lottie.asset('assets/json/loading.json', width: 30.0.w,
                                   height: 35.0.w,),
                               ),
                               imageUrl: item.image.isNotEmpty?"${Env.value.baseUrl}/storage/images/${item.image[0].path}":'',

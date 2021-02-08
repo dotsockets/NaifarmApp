@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -14,6 +16,7 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingProfileView extends StatefulWidget {
 
@@ -61,8 +64,9 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
             title: LocaleKeys.setting_account_toobar.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
+            isEnable_Search: false,
             onClick: (){
-              Navigator.pop(context,onImageUpdate);
+              Navigator.pop(context);
             },
           ),
           body: Column(
@@ -78,7 +82,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                           icon: '',
                           title: LocaleKeys.setting_account_title_profile.tr(),
                           onClick: () async {
-                            final result = await AppRoute.EditProfile(context,item: widget.item);
+                            final result = await AppRoute.EditProfile(context);
                                   if(result!=null && result){
                                      onImageUpdate = true;
                                    }
@@ -213,7 +217,16 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () {
-        Usermanager().logout().then((value) =>  Navigator.pop(context,true));
+        Usermanager().logout().then((value){
+          Usermanager().getUser().then((value){
+            context.read<CustomerCountBloc>().loadCustomerCount(token: value.token);
+            Navigator.pop(context,true);
+          });
+        });
+
+
+
+
       },
       child: Text(
         btnTxt,

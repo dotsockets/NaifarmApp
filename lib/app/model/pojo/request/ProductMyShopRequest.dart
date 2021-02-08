@@ -1,5 +1,6 @@
 
 class ProductMyShopRequest {
+  int inventoriesid;
   String name;
   int category;
   int stockQuantity;
@@ -16,12 +17,12 @@ class ProductMyShopRequest {
   int active;
 
   ProductMyShopRequest(
-      {this.name,
+      {this.inventoriesid,this.name,
         this.category=0,
         this.stockQuantity=0,
         this.salePrice=0,
         this.sendArea,
-        this.weight,
+        this.weight=0,
         this.packaging,
         this.description,
         this.slug,
@@ -31,6 +32,7 @@ class ProductMyShopRequest {
         this.attributes,this.active=0});
 
   ProductMyShopRequest.fromJson(Map<String, dynamic> json) {
+    inventoriesid = json['inventoriesid'];
     name = json['name'];
     category = json['category'];
     stockQuantity = json['stockQuantity'];
@@ -54,6 +56,7 @@ class ProductMyShopRequest {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['inventoriesid'] = this.inventoriesid;
     data['name'] = this.name;
     data['category'] = this.category;
     data['stockQuantity'] = this.stockQuantity;

@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
-import 'package:naifarm/app/bloc/Provider/OrderBloc.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -33,8 +33,9 @@ import 'package:provider/provider.dart';
 
 class PaidView extends StatefulWidget {
   final String orderType;
+  final String typeView;
 
-  const PaidView({Key key, this.orderType}) : super(key: key);
+  const PaidView({Key key, this.orderType, this.typeView}) : super(key: key);
   @override
   _PaidViewState createState() => _PaidViewState();
 }
@@ -140,7 +141,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
                 height: 22.0.w,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
-                  child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                  child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
@@ -228,39 +229,22 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
                 .values
                 .toList(),
           ),
-          SizedBox(height: 3.0.w),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 1.5.w),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("x ${item.quantity}",
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          color: Colors.black)),
-                  Row(
-                    children: [
-                      Text(
-                          LocaleKeys.history_order_price.tr() ,
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              color: Colors.black)),
-                      Text(" : " +
-                              "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale())),
-                      // Text(
-                      //     "฿${item.inventory.salePrice * item.quantity}.00",
-                      //     style: FunctionHelper.FontTheme(
-                      //         fontSize: SizeUtil.titleFontSize().sp,
-                      //         color: ThemeColor.ColorSale())),
-                      SizedBox(width: 2.0.w),
+              Align(
+                alignment: Alignment.centerRight,
+                child: RichText(
+                  text: new TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                      new TextSpan(
+                          text: LocaleKeys.history_order_price.tr(),
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                      new TextSpan(text: " : " +
+                          "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
                     ],
                   ),
-                ],
+                ),
               ),
               Divider(
                 color: Colors.grey.shade400,
@@ -279,7 +263,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
                   ),
-                  _BuildButtonBayItem(btnTxt: "Payment")
+                  _BuildButtonBayItem(btnTxt: widget.typeView=="shop"?"Confirm payment":"Payment",item: item)
                 ],
               )
             ],
@@ -307,7 +291,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child: Lottie.asset(
-                        Env.value.loadingAnimaion,
+                        'assets/json/loading.json',
                         width: 7.0.w,
                         height: 7.0.w,
                       ),
@@ -351,7 +335,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
     );
   }
 
-  Widget _BuildButtonBayItem({String btnTxt}) {
+  Widget _BuildButtonBayItem({String btnTxt,OrderData item}) {
     return FlatButton(
       color: ThemeColor.ColorSale(),
       textColor: Colors.white,
@@ -359,8 +343,17 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40.0),
       ),
-      onPressed: () {
-        AppRoute.TransferPayMentView(context: context);
+      onPressed: () async {
+        if(widget.typeView=="shop"){
+          final result = await AppRoute.ConfirmPayment(context: context,orderData: item);
+          if(result){
+            Usermanager().getUser().then((value) =>
+                bloc.loadOrder(orderType: widget.orderType,statusId: "1", limit: 20, page: 1, token: value.token));
+          }
+        }else{
+          AppRoute.TransferPayMentView(context: context,orderData: item);
+        }
+
       },
       child: Text(
         btnTxt,

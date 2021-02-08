@@ -135,7 +135,7 @@ final int SubFixId;
       borderRadius: BorderRadius.circular(1.0.h),
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(width: 1,color: Colors.grey.shade200)
+          border: Border.all(width: 1, color: Colors.grey.shade400),
         ),
         child: Stack(
           children: [
@@ -144,16 +144,16 @@ final int SubFixId;
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(0.5.h),
                 child: CachedNetworkImage(
-                  width: 28.0.w,
-                  height: 28.0.w,
+                  width: 30.0.w,
+                  height: 30.0.w,
                   placeholder: (context, url) => Container(
                     color: Colors.white,
-                    child: Lottie.asset(Env.value.loadingAnimaion,  width: 28.0.w,
-                        height: 28.0.w,),
+                    child: Lottie.asset('assets/json/loading.json',   width: 30.0.w,
+                      height: 30.0.w,),
                   ),
                   imageUrl: CovertUrlImage(item.image),
-                  errorWidget: (context, url, error) => Container(  width: 28.0.w,
-                      height: 28.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                  errorWidget: (context, url, error) => Container(   width: 30.0.w,
+                      height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                 ),
               ),
             ),
@@ -193,9 +193,15 @@ final int SubFixId;
       child: Column(
         children: [
           SizedBox(height: 1.0.h),
-          Text(" "+item.name+" ",
-              overflow: TextOverflow.ellipsis,maxLines: 1,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),),
-          SizedBox(height: 1.0.h),
+          Container(
+            height: 4.0.h,
+            child: Text(" "+item.name+" ",
+              textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,maxLines: 2,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),),
+          ),
+          SizedBox(
+            height: 0.8.h,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,

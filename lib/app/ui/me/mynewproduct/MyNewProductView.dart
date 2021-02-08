@@ -293,8 +293,11 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                   )
                 ],
               ))),
-      onTap: (){
-        AppRoute.DeliveryCost(context);
+      onTap: () async {
+        final result = await AppRoute.DeliveryCost(context,uploadProductStorage: bloc.uploadProductStorage.value,productsId: 0);
+        if(result>0){
+           bloc.uploadProductStorage.value.productMyShopRequest.weight = result;
+        }
       },
     );
   }
@@ -331,36 +334,31 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   }
 
   Widget _BuildAtivceTab() {
-    return InkWell(
-      child: Container(
-          color: Colors.white,
-          padding: EdgeInsets.only(left: 5,right: 5),
-          child: Container(
-              margin: EdgeInsets.all(15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Open sales", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
-                  FlutterSwitch(
-                    height: 30,
-                    width: 50,
-                    toggleSize: 20,
-                    activeColor: bloc.uploadProductStorage.value.productMyShopRequest.active==1?ThemeColor.primaryColor():Colors.grey.shade200,
-                    inactiveColor: Colors.grey.shade200,
-                    // toggleColor: item.active ? ThemeColor.primaryColor() : Colors.grey.shade400,
-                    value:bloc.uploadProductStorage.value.productMyShopRequest.active==1?true:false,
-                    onToggle: (val) {
-                      //IsSwitch(val);
-                      bloc.uploadProductStorage.value.productMyShopRequest.active = val?1:0;
-                      bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-                    },
-                  )
-                ],
-              ))),
-      onTap: (){
-        AppRoute.DeliveryCost(context);
-      },
-    );
+    return Container(
+        color: Colors.white,
+        padding: EdgeInsets.only(left: 5,right: 5),
+        child: Container(
+            margin: EdgeInsets.all(15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Open sales", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+                FlutterSwitch(
+                  height: 30,
+                  width: 50,
+                  toggleSize: 20,
+                  activeColor: bloc.uploadProductStorage.value.productMyShopRequest.active==1?ThemeColor.primaryColor():Colors.grey.shade200,
+                  inactiveColor: Colors.grey.shade200,
+                  // toggleColor: item.active ? ThemeColor.primaryColor() : Colors.grey.shade400,
+                  value:bloc.uploadProductStorage.value.productMyShopRequest.active==1?true:false,
+                  onToggle: (val) {
+                    //IsSwitch(val);
+                    bloc.uploadProductStorage.value.productMyShopRequest.active = val?1:0;
+                    bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                  },
+                )
+              ],
+            )));
   }
 
   Widget _BuildButton({bool enable}) {

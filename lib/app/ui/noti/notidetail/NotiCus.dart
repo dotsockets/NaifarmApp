@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -34,8 +35,7 @@ class NotiCus extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool btnBack;
   final NotiRespone notiRespone;
-  final Function(double) onScrollDown;
-  const NotiCus({Key key, this.btnBack=false, this.scaffoldKey, this.notiRespone, this.onScrollDown}) : super(key: key);
+  const NotiCus({Key key, this.btnBack=false, this.scaffoldKey, this.notiRespone}) : super(key: key);
   @override
   _NotiCusState createState() => _NotiCusState();
 }
@@ -65,7 +65,6 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
       bloc.refreshProducts(group: "customer",limit: limit,page: page);
     }
     _scrollController.addListener(() {
-      widget.onScrollDown(_scrollController.position.pixels);
 
       if (_scrollController.position.maxScrollExtent -
           _scrollController.position.pixels <= 200) {
@@ -172,6 +171,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
       color: Colors.white,
       child: Column(
         children: [
+          SizedBox(height: 2.0.h,),
           Column(
 
             children: item.data
@@ -216,90 +216,90 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
     ),
   );
 
-  GestureDetector _BuildCardNoti({NotiData item,BuildContext context,int index}) => GestureDetector(
-    onTap: (){
-      // if(item.Status_Sell==1)
-      //   AppRoute.NotiDetail(context,"notiitem_${index}","notititle_${index}");
-      // else
-      //   item.Status_Sell!=2?AppRoute.OrderDetail(context,item.Status_Sell):print("press 2");
-        AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)));
-    },
-    child: Dismissible(
-      background: Container(
-        padding: EdgeInsets.only(right: 5.0.w),
-        alignment: Alignment.centerRight,
-        color: ThemeColor.ColorSale(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Lottie.asset('assets/json/delete.json',
-                height: 4.0.h,
-                width: 4.0.h,
-                repeat: true),
-            Text(
-              LocaleKeys.cart_del.tr(),
-              style: FunctionHelper.FontTheme(
-                  color: Colors.white,
-                  fontSize: SizeUtil.titleFontSize().sp,
-                  fontWeight: FontWeight.bold),
-            )
-          ],
-        ),
-      ),
-      key: Key(
-          "${item.id}"),
-      onDismissed: (direction) {
-        if (direction == DismissDirection.endToStart ||
-            direction == DismissDirection.startToEnd) {
-          var item = (bloc.onSuccess.value as NotiRespone);
-          item.data.removeAt(index);
-          bloc.onSuccess.add(item);
-        }
-
-
-      },
-      child: Container(
-          decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey.shade200, width: 1)),
-          ),
-          padding: EdgeInsets.only(top: index==0?0.0.h:2.0.h,right: 10,left: 10,bottom: 2.0.h),
-          child: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+  Container _BuildCardNoti({NotiData item,BuildContext context,int index}) => Container(
+    padding: EdgeInsets.only(
+        left: 3.0.w, right: 3.0.w),
+    child: GestureDetector(
+        onTap: (){
+          // if(item.Status_Sell==1)
+          //   AppRoute.NotiDetail(context,"notiitem_${index}","notititle_${index}");
+          // else
+          if(item.type=="App\\Notifications\\Order\\OrderCreated"){
+            AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)));
+          }
+        },
+        child: Slidable(
+          actionPane: SlidableDrawerActionPane(),
+          actionExtentRatio: 0.25,
+          child: Container(
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey.shade200, width: 1)),
+              ),
+              padding: EdgeInsets.only(top: index==0?0.0.h:2.0.h,right: 10,left: 10,bottom: 2.0.h),
+              child: Column(
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.black.withOpacity(0.2), width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(6))),
-                    child:  Container(
-                        child: Icon(
-                          Icons.shopping_bag_outlined,
-                          size: 30,
-                        )),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.black.withOpacity(0.2), width: 1),
+                            borderRadius: BorderRadius.all(Radius.circular(6))),
+                        child:  Container(
+                            child: Icon(
+                              Icons.shopping_bag_outlined,
+                              size: 30,
+                            )),
+                      ),
+                      Expanded(
+                          child: Container(
+                            padding: EdgeInsets.only(left: 10,right: 5),
+                            child: ConvertStatus(item: item),
+                          )),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.black.withOpacity(0.4),
+                        size: 4.0.w,
+                      )
+                    ],
                   ),
-                  Expanded(
-                      child: Container(
-                        padding: EdgeInsets.only(left: 10,right: 5),
-                        child: ConvertStatus(item: item),
-                      )),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.black.withOpacity(0.4),
-                    size: 4.0.w,
+                  SizedBox(height: 5,),
+
+                ],
+              )
+          ),
+          secondaryActions: <Widget>[
+            IconSlideAction(
+              color: Colors.red,
+              iconWidget: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.asset('assets/json/delete.json',
+                      height: 4.0.h,
+                      width: 4.0.h,
+                      repeat: true),
+                  Text(
+                    LocaleKeys.cart_del.tr(),
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.white,
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.bold),
                   )
                 ],
               ),
-              SizedBox(height: 5,),
+              onTap: () {
+                var item = (bloc.onSuccess.value as NotiRespone);
+                item.data.removeAt(index);
+                bloc.onSuccess.add(item);
+              },
+            )
 
-            ],
-          )
-      ),
+          ],
+        )
     ),
   );
-
 
   Widget ConvertStatus({NotiData item}){
     if(item.type=="App\\Notifications\\Shop\\ShopUpdated"){
@@ -366,6 +366,31 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
            // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
            // Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
            // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
+
+        ],
+      );
+    }else if(item.type=="App\\Notifications\\Order\\OrderBeenPaid"){
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("คำสั่งซื้อใหม่ ${item.meta.status}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text: "คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                new TextSpan(text: " และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)))
+              ],
+            ),
+          ),
+          // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+          // Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+          // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
 
         ],
       );

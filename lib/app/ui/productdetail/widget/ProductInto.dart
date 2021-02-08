@@ -55,7 +55,7 @@ class ProductInto extends StatelessWidget {
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           SizedBox(height: 15),
-          _IntroShipment()
+         // _IntroShipment()
         ],
       ),
     );

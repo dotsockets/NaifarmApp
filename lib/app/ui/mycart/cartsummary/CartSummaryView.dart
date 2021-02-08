@@ -210,7 +210,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               width: 7.0.w,
               height: 7.0.w,
               color: Colors.white,
-              child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+              child: Lottie.asset('assets/json/loading.json', height: 30),
             ),
             fit: BoxFit.cover,
             imageUrl: ProductLandscape.CovertUrlImage(item.shop.image),
@@ -250,7 +250,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 height: 22.0.w,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
-                  child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                  child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
                 fit: BoxFit.cover,
                 imageUrl: ProductLandscape.CovertUrlImage(

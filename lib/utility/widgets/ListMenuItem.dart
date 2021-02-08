@@ -57,7 +57,7 @@ class ListMenuItem extends StatelessWidget {
                           height: iconSize,
                           placeholder: (context, url) => Container(
                             color: Colors.white,
-                            child: Lottie.asset(Env.value.loadingAnimaion,
+                            child: Lottie.asset('assets/json/loading.json',
                                 height: iconSize),
                           ),
                           fit: BoxFit.cover,

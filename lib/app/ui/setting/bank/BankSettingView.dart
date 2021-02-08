@@ -36,6 +36,7 @@ class _BankSettingViewState extends State<BankSettingView> {
           appBar: AppToobar(
             title: LocaleKeys.setting_account_title_bank.tr(),
             icon: "",
+            isEnable_Search: false,
             header_type: Header_Type.barNormal,
           ),
           body: Container(
@@ -91,7 +92,7 @@ class _BankSettingViewState extends State<BankSettingView> {
             placeholder: (context, url) => Container(
               color: Colors.white,
               child:
-              Lottie.asset(Env.value.loadingAnimaion, height: 30),
+              Lottie.asset('assets/json/loading.json', height: 30),
             ),
             fit: BoxFit.cover,
             imageUrl: item.BackIcon,

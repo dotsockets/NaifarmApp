@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -40,7 +41,6 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     _init();
@@ -49,43 +49,43 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
       child: SafeArea(
         child: Scaffold(
           appBar: AppToobar(
-            title: LocaleKeys.setting_rule_toobar.tr(),
+            title: LocaleKeys.setting_account_title_policy.tr(),
             icon: "",
+            isEnable_Search: false,
             header_type: Header_Type.barNormal,
           ),
           body: StreamBuilder(
-            stream: bloc.onSuccess.stream,
-            builder: (context, snapshot) {
-              var data = (snapshot.data as InformationRespone);
-              if(snapshot.hasData) {
-                return SingleChildScrollView(
-                  child: Container(
-                      padding: EdgeInsets.all(10),
+              stream: bloc.onSuccess.stream,
+              builder: (context, snapshot) {
+                var data = (snapshot.data as InformationRespone);
+                if(snapshot.hasData){
+                  return SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.all(20),
                       color: Colors.white,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildTxt(txt: data.content),
                         ],
-                      )
-                  ),
-                );
-              }else{
-                return SizedBox();
+                      ),
+                    ),
+                  );}
+                else{
+                  return SizedBox();
+                }
               }
-            }
           ),
         ),
       ),
     );
   }
-
   Widget _buildTxt({String txt}) {
-    return Text(
-      txt,
-      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+    return HtmlWidget(
+      txt,textStyle: FunctionHelper.FontTheme(
+        fontSize: SizeUtil.titleFontSize().sp,
+        color: Colors.black),
+      webView: true,
     );
 
   }
-
 }

@@ -11,6 +11,7 @@ class Development extends Env {
   final String appName = "NaiFarm Dev";
  // final String baseUrl = 'https://api.dev.website.org';
   final String baseUrl = 'https://stg-api-test.naifarm.com';
+  final String baseUrlWeb = 'https://dev2-test.naifarm.com';
   final String dbName = 'Naifarm-Dev.db';
   final String noItemUrl = "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com";
 }

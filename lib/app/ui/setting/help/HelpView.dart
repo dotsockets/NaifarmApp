@@ -28,6 +28,7 @@ class _HelpViewState extends State<HelpView> {
           appBar: AppToobar(
             title: LocaleKeys.setting_account_title_help.tr(),
             icon: "",
+            isEnable_Search: false,
             header_type: Header_Type.barNormal,
           ),
           body: Container(

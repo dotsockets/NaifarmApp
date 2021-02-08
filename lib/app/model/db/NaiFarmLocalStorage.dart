@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
 
 class NaiFarmLocalStorage{
   static LocalStorage storage;
@@ -17,6 +18,8 @@ class NaiFarmLocalStorage{
   static String NaiFarm_Product_Upload = "product_upload";
   static String NaiFarm_NowPage = "NowPage";
   static String NaiFarm_Cus = "Customer_cus";
+  static String NaiFarm_Info = "Customer_Info";
+
 
   static Future<void> saveHomeData(HomeObjectCombine data) async {
     storage =  LocalStorage(NaiFarm_Storage);
@@ -39,6 +42,22 @@ class NaiFarmLocalStorage{
       return null;
     }
     CustomerCountRespone value = CustomerCountRespone.fromJson(data);
+    return value;
+  }
+
+  static Future<void> saveCustomer_Info(ProfileObjectCombine profileObjectCombine) async {
+    storage =  LocalStorage(NaiFarm_Storage);
+    await storage.ready;
+    storage.setItem(NaiFarm_Info, profileObjectCombine);
+  }
+
+  static Future<ProfileObjectCombine> getCustomer_Info() async {
+    storage =  LocalStorage(NaiFarm_Storage);
+    Map<String, dynamic> data = storage.getItem(NaiFarm_Info);
+    if (data == null) {
+      return null;
+    }
+    ProfileObjectCombine value = ProfileObjectCombine.fromJson(data);
     return value;
   }
 

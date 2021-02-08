@@ -27,6 +27,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/utility/widgets/MD2Indicator.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
@@ -49,7 +50,6 @@ class _NotiViewState extends State<NotiView>
   TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   NotiBloc bloc;
-  ScrollController _scrollController = ScrollController();
   final _reload = BehaviorSubject<bool>();
   bool fixload = true;
   @override
@@ -101,7 +101,6 @@ class _NotiViewState extends State<NotiView>
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     return  NestedScrollView(
-                      controller: _scrollController,
                             headerSliverBuilder: (BuildContext context,
                                 bool innerBoxIsScrolled) {
                               return [
@@ -125,104 +124,53 @@ class _NotiViewState extends State<NotiView>
                                 ),
                               ];
                             },
-                            body: Container(
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 1.5.h,
-                                  ),
-                                  Container(
-                                    width: 80.0.w,
-                                    height: 5.0.h,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[300],
-                                      borderRadius: BorderRadius.circular(
-                                        25.0,
-                                      ),
+                            body: Column(
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  color: Colors.white,
+                                  child: TabBar(
+                                    controller: _tabController,
+                                    indicator: MD2Indicator(
+                                      indicatorSize: MD2IndicatorSize.normal,
+                                      indicatorHeight: 0.5.h,
+                                      indicatorColor: ThemeColor.ColorSale(),
                                     ),
-                                    child: TabBar(
-                                      controller: _tabController,
-                                      // give the indicator a decoration (color and border radius)
-                                      indicator: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                          25.0,
-                                        ),
-                                        color: ThemeColor.primaryColor(),
+                                    tabs: [
+                                      // first tab [you can add an icon using the icon property]
+                                      Tab(
+                                        text: 'Buyer notification',
                                       ),
-                                      labelColor: Colors.white,
-                                      labelStyle: FunctionHelper.FontTheme(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize:
-                                              SizeUtil.titleFontSize().sp),
-                                      unselectedLabelColor: Colors.black,
-                                      tabs: [
-                                        // first tab [you can add an icon using the icon property]
-                                        Tab(
-                                          text: 'Buyer notification',
+
+                                      // second tab [you can add an icon using the icon property]
+                                      Tab(
+                                        text: 'Alert seller',
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // tab bar view here
+
+                                Expanded(
+                                  child: Container(
+                                    color: Colors.white,
+                                    child: TabBarView(
+                                      controller: _tabController,
+                                      children: [
+                                        // first tab bar view widget
+                                        NotiCus(
+                                          scaffoldKey: _scaffoldKey,
                                         ),
 
-                                        // second tab [you can add an icon using the icon property]
-                                        Tab(
-                                          text: 'Alert seller',
+                                        // second tab bar view widget
+                                        NotiShop(
+                                          scaffoldKey: _scaffoldKey,
                                         ),
                                       ],
-                                    ),
+                                    )
                                   ),
-                                  // tab bar view here
-                                  SizedBox(
-                                    height: 2.0.h,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.only(
-                                          left: 3.0.w, right: 3.0.w),
-                                      color: Colors.white,
-                                      child: TabBarView(
-                                        controller: _tabController,
-                                        children: [
-                                          // first tab bar view widget
-                                          NotiCus(
-                                            scaffoldKey: _scaffoldKey,
-                                            onScrollDown: (double scroll){
-                                              if(scroll>20){
-                                                _scrollController.animateTo(
-                                                    _scrollController.position.maxScrollExtent,
-                                                    duration: Duration(milliseconds: 30),
-                                                    curve: Curves.ease);
-                                              }else  if(scroll<20){
-                                                _scrollController.animateTo(
-                                                    _scrollController.position.minScrollExtent,
-                                                    duration: Duration(milliseconds: 30),
-                                                    curve: Curves.ease);
-                                              }
-
-                                            },
-                                          ),
-
-                                          // second tab bar view widget
-                                          NotiShop(
-                                            scaffoldKey: _scaffoldKey,
-                                            onScrollDown: (double scroll){
-                                              if(scroll>20){
-                                                _scrollController.animateTo(
-                                                    _scrollController.position.maxScrollExtent,
-                                                    duration: Duration(milliseconds: 30),
-                                                    curve: Curves.ease);
-                                              }else  if(scroll<20){
-                                                _scrollController.animateTo(
-                                                    _scrollController.position.minScrollExtent,
-                                                    duration: Duration(milliseconds: 30),
-                                                    curve: Curves.ease);
-                                              }
-
-                                            },
-                                          ),
-                                        ],
-                                      )
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           );
                   } else {

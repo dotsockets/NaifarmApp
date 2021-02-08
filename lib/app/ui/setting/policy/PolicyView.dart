@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/InformationResponce.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -44,12 +46,13 @@ class _PolicyViewState extends State<PolicyView> {
   Widget build(BuildContext context) {
     _init();
     return Container(
+      color: ThemeColor.primaryColor(),
       child: SafeArea(
-        top: false,
         child: Scaffold(
           appBar: AppToobar(
             title: LocaleKeys.setting_account_title_policy.tr(),
             icon: "",
+            isEnable_Search: false,
             header_type: Header_Type.barNormal,
           ),
           body: StreamBuilder(
@@ -78,9 +81,11 @@ class _PolicyViewState extends State<PolicyView> {
     );
   }
   Widget _buildTxt({String txt}) {
-    return Text(
-      txt,
-      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+    return HtmlWidget(
+      txt,textStyle: FunctionHelper.FontTheme(
+        fontSize: SizeUtil.titleFontSize().sp,
+        color: Colors.black),
+      webView: true,
     );
 
   }

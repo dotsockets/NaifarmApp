@@ -76,7 +76,7 @@ class ReviewView extends StatelessWidget {
                         height: 25,
                         placeholder: (context, url) => Container(
                           color: Colors.white,
-                          child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                          child: Lottie.asset('assets/json/loading.json', height: 30),
                         ),
                         fit: BoxFit.cover,
                         imageUrl: item.ProfiletImage,
@@ -113,7 +113,7 @@ class ReviewView extends StatelessWidget {
                     height: 22.0.w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
-                      child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                      child: Lottie.asset('assets/json/loading.json', height: 30),
                     ),
                     fit: BoxFit.contain,
                     imageUrl: item.product_image,

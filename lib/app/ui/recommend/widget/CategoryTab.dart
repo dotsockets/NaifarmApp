@@ -102,7 +102,7 @@ class CategoryTab extends StatelessWidget {
               height: 18.0.w,
               placeholder: (context, url) => Container(
                 color: Colors.white,
-                child: Lottie.asset(Env.value.loadingAnimaion, width: 18.0.w,
+                child: Lottie.asset('assets/json/loading.json', width: 18.0.w,
                   height: 18.0.w,),
               ),
               fit: BoxFit.cover,

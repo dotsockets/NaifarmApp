@@ -76,6 +76,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
           appBar: AppToobar(
             title: "จัดการแอททริบิวต์",
             icon: "",
+            isEnable_Search: false,
             header_type: Header_Type.barNormal,
           ),
           body: SingleChildScrollView(
@@ -221,6 +222,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
       child: Center(
         child: FlatButton(
           minWidth: 50.0.w,
+          height: 5.0.h,
           color: ThemeColor.secondaryColor(),
           textColor: Colors.white,
           splashColor: Colors.white.withOpacity(0.3),

@@ -78,6 +78,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
           appBar: AppToobar(
             title: "รายการแอททริบิวต์",
             icon: "",
+            isEnable_Search: false,
             header_type: Header_Type.barNormal,
           ),
           body: SingleChildScrollView(
@@ -221,6 +222,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
       child: Center(
         child: FlatButton(
           minWidth: 50.0.w,
+          height: 5.0.h,
           color: ThemeColor.secondaryColor(),
           textColor: Colors.white,
           splashColor: Colors.white.withOpacity(0.3),

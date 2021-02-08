@@ -43,7 +43,7 @@ class _DeliveryViewState extends State<DeliveryView> {
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
-          appBar: AppToobar(title: LocaleKeys.shipping_toobar.tr(),icon: "",header_type:  Header_Type.barNormal,),
+          appBar: AppToobar(title: LocaleKeys.shipping_toobar.tr(),icon: "",header_type:  Header_Type.barNormal,isEnable_Search: false,),
           body:  Container(
             color: Colors.grey.shade300,
             child: ListView(

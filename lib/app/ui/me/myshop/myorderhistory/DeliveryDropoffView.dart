@@ -1,0 +1,192 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:naifarm/utility/widgets/ListMenuItem.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:sizer/sizer.dart';
+
+class DeliveryDropoffView extends StatelessWidget {
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+
+  OrdersBloc bloc;
+
+
+  init(BuildContext context) {
+    if (bloc == null) {
+      bloc = OrdersBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        Navigator.pop(context,true);
+      });
+    }
+    // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
+  }
+  @override
+  Widget build(BuildContext context) {
+    init(context);
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: Colors.grey.shade200,
+          appBar: AppToobar(
+            title: "Drop Off Information ",
+            header_type: Header_Type.barcartShop,
+            isEnable_Search: false,
+            icon: '',
+            onClick: (){
+              Navigator.pop(context,false);
+            },
+          ),
+          body: Container(
+            child: Column(
+              children: [
+                Expanded(child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    genQR(context),
+                    SizedBox(height: 1.0.h,),
+                    ItemInfoNearby(),
+                    SizedBox(height: 1.0.h,),
+                    ItemInfoDelivery()
+                  ],
+                )),
+                _ButtonActive(context: context)
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget genQR(BuildContext context){
+    return Container(
+      padding: EdgeInsets.all(3.0.h),
+      width: MediaQuery.of(context).size.width,
+      color: Colors.white,
+      child: Column(
+        children: [
+          Text(
+            "คุณสามารถนำ QR Code ด้านล่างไปสแกนที่สาขา ที่เคาน์เตอร์",
+            textAlign: TextAlign.center,
+            style: FunctionHelper.FontTheme(
+                color: Colors.black,
+                fontSize: SizeUtil.titleFontSize().sp),
+          ),
+          SizedBox(height: 2.0.h,),
+          QrImage(
+            data: "642345790",
+            version: QrVersions.auto,
+            size: 200.0,
+          ),
+          SizedBox(height: 2.0.h,),
+          Text(
+            "642345790",
+            style: FunctionHelper.FontTheme(
+                color: Colors.black,
+                fontSize: SizeUtil.titleFontSize().sp),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget ItemInfoNearby(){
+    return  Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
+      ),
+      padding: EdgeInsets.all(1.0.w),
+      child: ListMenuItem(
+        fontWeight: FontWeight.normal,
+        icon: "",
+        title: "See a branch near you",
+        Message: "Branch 1, Mueang Chiang Mai District ",
+      ),
+    );
+  }
+
+  Widget ItemInfoDelivery(){
+    return  Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
+      ),
+      padding: EdgeInsets.all(1.0.w),
+      child: ListTile(title: Text(
+        "Delivery address ",
+        style: FunctionHelper.FontTheme(
+            color: Colors.black,
+            fontSize: SizeUtil.titleFontSize().sp),
+      ) ,subtitle: Text(
+        "39 Srichandorn Road, Chang Khlan Subdistrict, Mueang District, Chiang Mai 50100 ",
+        style: FunctionHelper.FontTheme(
+            color: Colors.grey.shade500,
+            fontSize: SizeUtil.titleFontSize().sp),
+      )),
+    );
+  }
+
+  Widget _ButtonActive({BuildContext context}){
+
+    return Center(
+      child: Container(
+        color: Colors.white,
+        padding: EdgeInsets.all(2.0.w),
+        child: Center(
+          child: FlatButton(
+            minWidth: 50.0.w,
+            height: 5.0.h,
+            color:  ThemeColor.ColorSale() ,
+            textColor: Colors.white,
+            splashColor: Colors.white.withOpacity(0.3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+            onPressed: () {
+              FunctionHelper.ConfirmDialog(context,message: "สำคัญ! คุณสามารถทำการ Drop Off พัสดุของคุณได้ที่ สาขาใกล้บ้านคุณ",onCancel: (){
+                Navigator.of(context).pop();
+              },onClick: (){
+
+              });
+
+
+            },
+            child: Text(
+              "Confirm ",
+              style: FunctionHelper.FontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+            ),
+          ),
+        ),
+      ),
+    );
+
+
+  }
+
+}

@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:like_button/like_button.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
@@ -43,7 +44,7 @@ class WishlistsView extends StatefulWidget {
 class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
   ProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  bool islike = true;
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
@@ -57,6 +58,12 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
       //     Navigator.of(context).pop();
       //   }
       // });
+      bloc.onSuccess.stream.listen((event) {
+        if(event is bool){
+          Usermanager().getUser().then((value) =>
+              bloc.GetMyWishlists(token: value.token));
+        }
+      });
       Usermanager().getUser().then((value) =>
           bloc.GetMyWishlists(token: value.token));
     }
@@ -196,16 +203,20 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
   Widget _intoProduct({DataWishlists item, int index}) {
     return Column(
       children: [
-        Text(item.product.name, maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: FunctionHelper.FontTheme(
-                color: Colors.black,
-                fontSize: SizeUtil
-                    .titleSmallFontSize()
-                    .sp,
-                fontWeight: FontWeight.w500)),
+        Container(
+          height: 4.0.h,
+          child: Text(item.product.name, maxLines: 2,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: FunctionHelper.FontTheme(
+                  color: Colors.black,
+                  fontSize: SizeUtil
+                      .titleSmallFontSize()
+                      .sp,
+                  fontWeight: FontWeight.w500)),
+        ),
         SizedBox(
-          height: 10,
+          height: 0.8.h,
         ),
         Text(
           "฿${item.product.salePrice}",
@@ -235,13 +246,9 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                   borderColor: Colors.black,
                   spacing: 0.0),
             ),
-            Text(LocaleKeys.my_product_sold.tr() + " " +
-                item.product.hasVariant.toString() + " " +
-                LocaleKeys.cart_item.tr(),
+            Text("${LocaleKeys.my_product_sold.tr()} ${item.product.saleCount!=null?item.product.saleCount.toString():'0'} ${LocaleKeys.cart_item.tr()}",
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil
-                        .detailSmallFontSize()
-                        .sp,
+                    fontSize: SizeUtil.detailSmallFontSize().sp,
                     color: Colors.black,
                     fontWeight: FontWeight.w500))
           ],
@@ -269,28 +276,28 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                       .width,
                   decoration: BoxDecoration(
                       border: Border.all(
-                          color: Colors.black.withOpacity(0.1), width: 1),
+                          color: Colors.black.withOpacity(0.3), width: 1),
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Hero(
                     tag: "wishlist_${item.id}",
                     child: CachedNetworkImage(
-                      width: 28.0.w,
-                      height: 35.0.w,
+                      width: 30.0.w,
+                      height: 30.0.w,
                       placeholder: (context, url) =>
                           Container(
-                            width: 28.0.w,
-                            height: 35.0.w,
+                            width: 30.0.w,
+                            height: 30.0.w,
                             color: Colors.white,
                             child:
-                            Lottie.asset(Env.value.loadingAnimaion,    width: 28.0.w,
-                              height: 35.0.w,),
+                            Lottie.asset('assets/json/loading.json',    width: 30.0.w,
+                              height: 30.0.w,),
                           ),
                       imageUrl: ProductLandscape.CovertUrlImage(
                           item.product.image),
                       errorWidget: (context, url, error) =>
                           Container(
-                              width: 28.0.w,
-                              height: 35.0.w,
+                              width: 30.0.w,
+                              height: 30.0.w,
                               child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                     ),
                   ),
@@ -318,23 +325,26 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                       ),
                       visible: item.product.discountPercent>0?true:false,
                     ),
-                    // GestureDetector(
-                    //   child: Container(
-                    //       margin: EdgeInsets.only(right: 8, top: 7),
-                    //       child: SvgPicture.asset(
-                    //         'assets/images/svg/like_line.svg',
-                    //         width: 35,
-                    //         height: 35,
-                    //         color: ThemeColor.ColorSale(),
-                    //       )),
-                    //   onTap: () {
-                    //     Usermanager().getUser().then((value){
-                    //       bloc.DELETEWishlists(WishId: item.id, token: value.token);
-                    //       Usermanager().getUser().then((value) =>
-                    //           bloc.GetMyWishlists(token: value.token));
-                    //     });
-                    //   },
-                    // )
+                    LikeButton(
+                      size: 10.0.w,
+                      isLiked: true,
+                      circleColor: const CircleColor(
+                          start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                      bubblesColor: const BubblesColor(
+                        dotPrimaryColor: Color(0xff33b5e5),
+                        dotSecondaryColor: Color(0xff0099cc),
+                      ),
+                      likeBuilder: (bool isLiked) {
+                        return Icon(
+                          isLiked?Icons.favorite:Icons.favorite_border,
+                          color: isLiked ? ThemeColor.ColorSale() : Colors.grey.withOpacity(0.5),
+                          size: 8.0.w,
+                        );
+                      },
+                      likeCountAnimationType: LikeCountAnimationType.part,
+                      likeCountPadding:  EdgeInsets.all(1.0.w),
+                      onTap: (bool like)=>onLikeButtonTapped(like,item.id),
+                    )
                   ],
                 )
               ],
@@ -355,6 +365,15 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
       },
     );
   }
+  Future<bool> onLikeButtonTapped(bool isLiked,int id) async {
+    Usermanager().getUser().then((value){
+      bloc.DELETEWishlists(WishId: id, token: value.token);
+    });
+
+    return !isLiked;
+  }
 
   int Check(int i) => i != bloc.Wishlists.value.total - 1 ? 2 : 1;
 }
+
+

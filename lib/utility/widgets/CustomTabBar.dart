@@ -1,10 +1,12 @@
 
 
+import 'package:badges/badges.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -101,15 +103,26 @@ class CustomTabBar extends StatelessWidget {
   Stack _buildIcon({String path_icon, Color color, int index,int notification}) => Stack(
     overflow: Overflow.visible,
     children: [
-      Stack(
-        children: [
-          Container(
+      Badge(
+          shape: BadgeShape.circle,
+          position: BadgePosition.topEnd(top: -1.5.w, end: -1.0.w),
+          animationDuration: Duration(milliseconds: 300),
+          animationType: BadgeAnimationType.slide,
+          showBadge: index==2?notification>0?true:false:false,
+          badgeContent: Container(
+            padding: EdgeInsets.all(notification<10?0.7:0),
+            child: Container(
+              margin: EdgeInsets.only(bottom: 0.5.w),
+              child: Text("${notification}",
+                  style: FunctionHelper.FontTheme(color: Colors.white,fontSize: (SizeUtil.titleSmallFontSize()-3).sp)),
+            ),
+          ),
+          child: Container(
             padding: EdgeInsets.all(1.0.w),
             child: SvgPicture.asset(path_icon,color: color,width: 5.0.w,height: 5.0.w,),
-          ),
-          getMessageRead(index: index,notification: notification)
-        ],
+          )
       )
+
     ],
   );
 

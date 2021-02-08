@@ -71,35 +71,41 @@ class _EditProviceViewState extends State<EditProviceView> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(title: "แก้ไขรายละเอียดร้านค้า",header_type: Header_Type.barNormal,),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: [
-            _Form(),
-            SizedBox(height: 3.0.h,),
-            FlatButton(
-              minWidth: 50.0.w,
-              color: _input1.text!=""?ThemeColor.secondaryColor():Colors.grey.shade400,
-              textColor: Colors.white,
-              splashColor: Colors.white.withOpacity(0.3),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40.0),
-              ),
-              onPressed: (){
-                if(bloc.provice.value!=null){
-                  widget.itemInfo.state = bloc.provice.value.data[loopIndex(bloc.provice.value.data,proviceSelect)];
-                }
-                Navigator.pop(context, widget.itemInfo);
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.grey.shade200,
+          appBar: AppToobar(isEnable_Search: false,title: "แก้ไขรายละเอียดร้านค้า",header_type: Header_Type.barNormal,),
+          body: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                _Form(),
+                SizedBox(height: 3.0.h,),
+                FlatButton(
+                  minWidth: 50.0.w,
+                  height: 5.0.h,
+                  color: _input1.text!=""?ThemeColor.secondaryColor():Colors.grey.shade400,
+                  textColor: Colors.white,
+                  splashColor: Colors.white.withOpacity(0.3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
+                  onPressed: (){
+                    if(bloc.provice.value!=null){
+                      widget.itemInfo.state = bloc.provice.value.data[loopIndex(bloc.provice.value.data,proviceSelect)];
+                    }
+                    Navigator.pop(context, widget.itemInfo);
 
-              },
-              child: Text(LocaleKeys.save_btn.tr(),
-                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
-              ),
-            )
-          ],
+                  },
+                  child: Text(LocaleKeys.save_btn.tr(),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -169,7 +175,7 @@ class _EditProviceViewState extends State<EditProviceView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize()),
+            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           Container(
             margin: EdgeInsets.only(top: 1.5.h),

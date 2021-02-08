@@ -52,7 +52,7 @@ class _Setting_EditProfile_NameViewState extends State<Setting_EditProfile_NameV
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
-          appBar: AppToobar(title: LocaleKeys.my_profile_name.tr(),header_type: Header_Type.barNormal,),
+          appBar: AppToobar(title: LocaleKeys.my_profile_name.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,),
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -60,6 +60,7 @@ class _Setting_EditProfile_NameViewState extends State<Setting_EditProfile_NameV
                 SizedBox(height: 4.0.h,),
                 FlatButton(
                   minWidth: 50.0.w,
+                  height: 5.0.h,
                   color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
                   textColor: Colors.white,
                   splashColor: Colors.white.withOpacity(0.3),

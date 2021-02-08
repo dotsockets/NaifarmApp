@@ -183,7 +183,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                 width: 30.0.w,
                                 height: 35.0.w,
                                 color: Colors.white,
-                                child: Lottie.asset(Env.value.loadingAnimaion, width: 30.0.w,
+                                child: Lottie.asset('assets/json/loading.json', width: 30.0.w,
                                   height: 35.0.w,),
                               ),
                               imageUrl: item.image!=null?"${Env.value.baseUrl}/storage/images/${item.image.isNotEmpty?item.image[0].path:''}":'',

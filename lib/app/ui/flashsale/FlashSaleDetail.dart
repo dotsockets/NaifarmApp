@@ -97,7 +97,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
-          appBar: AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
+          appBar: AppToobar(title: "Flash Sale",header_type:  Header_Type.barcartShop,icon: 'assets/images/svg/search.svg',),
           backgroundColor:  Colors.grey.shade300,
          // appBar: AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
           body: SingleChildScrollView(
@@ -267,15 +267,23 @@ class _FlashSaleViewState extends State<FlashSaleView> {
     return Container(
       child: Column(
         children: [
-          SizedBox(height: 8),
-          Text(
-            " "+item.name+" ",
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: FunctionHelper.FontTheme(
-                color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),
+          SizedBox(height: 1.0.h),
+          Container(
+            height: 4.0.h,
+            child: Text(
+              item.name,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              style: FunctionHelper.FontTheme(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: SizeUtil.titleSmallFontSize().sp),
+            ),
           ),
-          SizedBox(height: 5),
+          SizedBox(
+            height: 0.8.h,
+          ),
           Text(
             "฿${item.salePrice}",
             style: FunctionHelper.FontTheme(
@@ -329,8 +337,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.black.withOpacity(0.1), width: 1),
+                        border: Border.all(width: 1, color: Colors.grey.shade400),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child:  ClipRRect(
                       borderRadius: BorderRadius.circular(1.0.h),
@@ -342,7 +349,7 @@ class _FlashSaleViewState extends State<FlashSaleView> {
                           height: 35.0.w,
                           color: Colors.white,
                           child:
-                          Lottie.asset(Env.value.loadingAnimaion,   width: 28.0.w,
+                          Lottie.asset('assets/json/loading.json',   width: 28.0.w,
                             height: 35.0.w,),
                         ),
                         imageUrl: ProductLandscape.CovertUrlImage(item.image),

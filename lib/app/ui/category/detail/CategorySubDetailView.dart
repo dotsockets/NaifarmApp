@@ -64,97 +64,91 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
     return SafeArea(
       top: false,
       child: Scaffold(
+        appBar:  AppToobar(
+          title: widget.title,
+          header_type: Header_Type.barcartShop,
+          isEnable_Search: true,
+        ),
         backgroundColor: Colors.grey.shade300,
         body: SingleChildScrollView(
           child: Container(
             color: Colors.grey.shade300,
-            child: StickyHeader(
-              header: Column(
-                children: [
-                  AppToobar(
-                    title: widget.title,
-                    header_type: Header_Type.barcartShop,
-                    isEnable_Search: true,
-                  ),
-                ],
-              ),
-              content: Column(
-                children: [
-                  SizedBox(height: 1.2.h),
-                  StreamBuilder(
-                    stream: bloc.TrendingGroup.stream,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if(snapshot.hasData) {
-                        return Column(
-                          children: [
-                            ProductLandscape(
+            child: Column(
+              children: [
+                SizedBox(height: 1.2.h),
+                StreamBuilder(
+                  stream: bloc.TrendingGroup.stream,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if(snapshot.hasData) {
+                      return Column(
+                        children: [
+                          ProductLandscape(
                               showSeeMore: true,
-                                productRespone: snapshot.data,
-                                titleInto: LocaleKeys.tab_bar_recommend.tr(),
+                              productRespone: snapshot.data,
+                              titleInto: LocaleKeys.tab_bar_recommend.tr(),
                               //  showBorder: true,
-                                IconInto: 'assets/images/svg/like.svg',
+                              IconInto: 'assets/images/svg/like.svg',
                               //  api_link: 'products',
-                                onSelectMore: () {
-                                   AppRoute.ProductMore(api_link: "products/types/trending?categorySubGroupId=${widget.index}"
-                                   ,context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),installData: snapshot.data);
-                                },
-                                onTapItem: (ProductData item,int index) {
-                                  AppRoute.ProductDetail(context,
-                                      productImage: "recommend_sub_${item.id}${1}",productItem: ProductBloc.ConvertDataToProduct(data: item));
-                                },
-                                tagHero: 'recommend_sub'),
-                          ],
-                        );
-                      }else{
-                        return Skeleton.LoaderLandscape(context);
-                      }
-                    },
-                  ),
-                  SizedBox(height: 1.0.h),
-                  StreamBuilder(
-                    stream: bloc.MoreProduct.stream,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if(snapshot.hasData) {
-                        return Column(
-                          children: [
-                            _BannerAds(),
-                          ],
-                        );
-                      }else{
-                        return SizedBox();
-                      }
-                    },
-                  ),
-                  SizedBox(height: 1.0.h),
-                  StreamBuilder(
-                    stream: bloc.MoreProduct.stream,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if(snapshot.hasData) {
-                        return ProductVertical(
-                          titleInto: LocaleKeys.recommend_best_seller.tr(),
-                          productRespone: snapshot.data,
-                          IconInto: 'assets/images/svg/product_hot.svg',
-                          onSelectMore: () {
-                            AppRoute.ProductMore(api_link: "products/types/popular?categorySubGroupId=${widget.index}",
-                             installData: snapshot.data,
-                            context:context,barTxt:LocaleKeys.recommend_best_seller.tr());
-                          },
-                          onTapItem: (ProductData item,int index) {
-                            AppRoute.ProductDetail(context,
-                                productImage: "sell_sub_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
-                          },
-                          borderRadius: false,
-                          IconSize: 25,
-                          tagHero: "sell_sub",
-                        );
-                      }else{
-                        return Skeleton.LoaderListTite(context);
-                      }
-                    },
-                  )
+                              onSelectMore: () {
+                                AppRoute.ProductMore(api_link: "products/types/trending?categorySubGroupId=${widget.index}"
+                                    ,context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),installData: snapshot.data);
+                              },
+                              onTapItem: (ProductData item,int index) {
+                                AppRoute.ProductDetail(context,
+                                    productImage: "recommend_sub_${item.id}${1}",productItem: ProductBloc.ConvertDataToProduct(data: item));
+                              },
+                              tagHero: 'recommend_sub'),
+                        ],
+                      );
+                    }else{
+                      return Skeleton.LoaderLandscape(context);
+                    }
+                  },
+                ),
+                SizedBox(height: 1.0.h),
+                StreamBuilder(
+                  stream: bloc.MoreProduct.stream,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if(snapshot.hasData) {
+                      return Column(
+                        children: [
+                          _BannerAds(),
+                        ],
+                      );
+                    }else{
+                      return SizedBox();
+                    }
+                  },
+                ),
+                SizedBox(height: 1.0.h),
+                StreamBuilder(
+                  stream: bloc.MoreProduct.stream,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if(snapshot.hasData) {
+                      return ProductVertical(
+                        titleInto: LocaleKeys.recommend_best_seller.tr(),
+                        productRespone: snapshot.data,
+                        IconInto: 'assets/images/svg/product_hot.svg',
+                        onSelectMore: () {
+                          AppRoute.ProductMore(api_link: "products/types/popular?categorySubGroupId=${widget.index}",
+                              installData: snapshot.data,
+                              context:context,barTxt:LocaleKeys.recommend_best_seller.tr());
+                        },
+                        onTapItem: (ProductData item,int index) {
+                          AppRoute.ProductDetail(context,
+                              productImage: "sell_sub_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
+                        },
+                        borderRadius: false,
+                        IconSize: 25,
+                        tagHero: "sell_sub",
+                      );
+                    }else{
+                      return Skeleton.LoaderListTite(context);
+                    }
+                  },
+                )
 
-                ],
-              ),
+              ],
             ),
           ),
         ),
@@ -167,7 +161,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
       child: CachedNetworkImage(
         placeholder: (context, url) => Container(
           color: Colors.white,
-          child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+          child: Lottie.asset('assets/json/loading.json', height: 30),
         ),
         fit: BoxFit.cover,
         imageUrl:

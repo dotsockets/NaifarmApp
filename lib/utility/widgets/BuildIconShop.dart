@@ -35,12 +35,12 @@ class BuildIconShop extends StatelessWidget {
   Widget ItemIcon({BuildContext context,int notification}){
     return   Badge(
         shape: BadgeShape.circle,
-        position: BadgePosition.topEnd(top: 0, end: 5),
+        position: BadgePosition.topEnd(top: -0.5.w, end: 5),
         animationDuration: Duration(milliseconds: 300),
         animationType: BadgeAnimationType.slide,
       showBadge: notification>0?true:false,
       badgeContent: Container(
-        padding: EdgeInsets.all(notification<10?0.7:0),
+        padding: EdgeInsets.all(notification<10?0.6.w:0),
         child: Container(
           margin: EdgeInsets.only(bottom: 0.5.w),
           child: Text("${notification}",

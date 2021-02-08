@@ -147,6 +147,37 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
+  GetMyWishlistsById({String token,int productId}){
+    //onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.GetMyWishlists(token: token)).listen((respone) {
+      // onLoad.add(false);
+      if(respone.http_call_back.status==200){
+
+        for(var item in (respone.respone as WishlistsRespone).data){
+          if(item.productId==productId){
+            Wishlists.add((respone.respone as WishlistsRespone));
+            break;
+          }
+        }
+
+        // NaiFarmLocalStorage.getHomeDataCache().then((value1){
+        //   value1.wishlistsRespone = (respone.respone as WishlistsRespone);
+        //   NaiFarmLocalStorage.saveHomeData(value1).then((value2) {
+        //     Wishlists.add(value1.wishlistsRespone);
+        //   });
+        //
+        // });
+
+
+      }else{
+        onError.add(respone.http_call_back.result);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
   loadProductTrending({String page,int limit=10})async{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending(page,limit)).listen((respone) {
@@ -263,8 +294,9 @@ class ProductBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.DELETEWishlists(WishId: WishId,token: token)).listen((respone) {
      // Wishlists.add((respone.respone as WishlistsRespone));
-      //GetMyWishlists(token: token);
+
       if(respone.http_call_back.status==200){
+       // GetMyWishlists(token: token);
        onSuccess.add(true);
       }else{
         onError.add(respone.http_call_back.result);
@@ -279,7 +311,7 @@ class ProductBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.AddWishlists(inventoryId: inventoryId,productId: productId,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
-        //GetMyWishlists(token: token);
+       // GetMyWishlists(token: token);
         onSuccess.add(true);
       }else{
         onError.add(respone.http_call_back.result);

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -13,6 +14,8 @@ import 'package:naifarm/app/ui/login/SplashLoginView.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashView extends StatefulWidget {
 
@@ -55,12 +58,16 @@ class _SplashViewState extends State<SplashView>
 
       });
       bloc.onSuccess.stream.listen((event) {
-        Usermanager().getUser().then((value) =>  bloc.loadHomeData(context: context,token: value.token));
-        bloc.GetCategoriesAll();
+        Usermanager().getUser().then((value){
+          bloc.loadHomeData(context: context,token: value.token);
+          context.read<InfoCustomerBloc>().loadCustomInfo(token: value.token);
+          bloc.GetCategoriesAll();
+        });
       });
       bloc.ZipHomeObject.stream.listen((event) {
         startTimer();
       });
+
     }
 
   }

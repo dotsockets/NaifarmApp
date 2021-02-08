@@ -71,10 +71,9 @@ class Skeleton{
   );
   static LoaderLandscape(BuildContext context)=>Container(
     color: Colors.white,
-
     child: SkeletonLoader(
       builder: Container(
-        padding: EdgeInsets.only(bottom: 5.0.h),
+        padding: EdgeInsets.only(bottom: 2.0.h,top: 2.0.h),
         width: MediaQuery.of(context).size.width,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

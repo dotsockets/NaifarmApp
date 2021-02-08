@@ -65,7 +65,7 @@ class _PurchaseViewState extends State<PurchaseView> {
             icon: 'assets/images/svg/latest.svg',
             title: LocaleKeys.me_title_history.tr(),
             iconSize: 7.0.w,
-            onClick: () => AppRoute.MyShophistory(context,0,orderType: "order"),
+            onClick: () => AppRoute.MyShophistory(context,0),
           ),
           _BuildDivider(),
           BlocBuilder<CustomerCountBloc, CustomerCountState>(
@@ -162,23 +162,23 @@ class _PurchaseViewState extends State<PurchaseView> {
           TabMenu(
               icon: 'assets/images/svg/status_pay.svg',
               title: LocaleKeys.me_menu_pay.tr(),
-              onClick: (){AppRoute.MyShophistory(context,0,orderType: "order");},
+              onClick: (){AppRoute.MyShophistory(context,0);},
               notification: count.buyOrder.unpaid),
           TabMenu(
             icon: 'assets/images/svg/status_delivery.svg',
             title: LocaleKeys.me_menu_ship.tr(),
-            onClick: (){AppRoute.MyShophistory(context,1,orderType: "order");},
+            onClick: (){AppRoute.MyShophistory(context,1);},
             notification: count.buyOrder.confirm,
           ),
           TabMenu(
               icon: 'assets/images/svg/status_pickup.svg',
               title: LocaleKeys.me_menu_receive_shop.tr(),
-              onClick: (){AppRoute.MyShophistory(context,3,orderType: "order");},
+              onClick: (){AppRoute.MyShophistory(context,3);},
               notification: count.buyOrder.toBeRecieve),
           TabMenu(
               icon: 'assets/images/svg/status_star.svg',
               title: LocaleKeys.me_menu_rate.tr(),
-              onClick: (){AppRoute.MyShophistory(context,3,orderType: "order");},
+              onClick: (){AppRoute.MyShophistory(context,3);},
               notification: count.watingReview)
         ],
       ),

@@ -226,7 +226,7 @@ class _OrderViewState extends State<OrderView> {
                           placeholder: (context, url) => Container(
                             color: Colors.white,
                             child:
-                            Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                            Lottie.asset('assets/json/loading.json', height: 30),
                           ),
                           fit: BoxFit.cover,
                           imageUrl: "${Env.value.baseUrl}/storage/images/${orderData.shop.image.isNotEmpty ? orderData.shop.image[0].path : ''}",
@@ -313,7 +313,7 @@ class _OrderViewState extends State<OrderView> {
               width: 22.0.w,
               height: 22.0.w,
               color: Colors.white,
-              child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+              child: Lottie.asset('assets/json/loading.json', height: 30),
             ),
             fit: BoxFit.cover,
             imageUrl: "${Env.value.baseUrl}/storage/images/${orderItems.inventory.product.image.isNotEmpty?orderItems.inventory.product.image[0].path : ''}",
@@ -374,7 +374,7 @@ class _OrderViewState extends State<OrderView> {
           //   placeholder: (context, url) => Container(
           //     color: Colors.white,
           //     child:
-          //     Lottie.asset(Env.value.loadingAnimaion, height: 30),
+          //     Lottie.asset('assets/json/loading.json', height: 30),
           //   ),
           //   fit: BoxFit.cover,
           //   imageUrl: "https://img.utdstc.com/icons/scb-easy-android.png:225",

@@ -36,6 +36,7 @@ class _NotiSettingViewState extends State<NotiSettingView> {
           appBar: AppToobar(
             title: LocaleKeys.setting_account_title_noti.tr(),
             icon: "",
+            isEnable_Search: false,
             header_type: Header_Type.barNormal,
           ),
           body: Container(

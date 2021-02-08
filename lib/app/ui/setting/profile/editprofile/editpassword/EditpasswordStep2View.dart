@@ -11,6 +11,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 import 'package:easy_localization/easy_localization.dart';
 class EditpasswordStep2View extends StatefulWidget {
@@ -23,19 +24,14 @@ class EditpasswordStep2View extends StatefulWidget {
 }
 
 class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
-  TextEditingController passController = TextEditingController();
+  TextEditingController _input1 = new TextEditingController();
+  TextEditingController _input2 = new TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   MemberBloc bloc;
-  String onError="";
+  String onError1 ="" ,onError2="";
+  final onCheck = BehaviorSubject<bool>();
+  bool onDialog = false;
 
-
-  bool FormCheck(){
-    if(passController.text.isEmpty){
-      return false;
-    }else{
-      return true;
-    }
-  }
 
   void _init(){
     if(null == bloc){
@@ -52,25 +48,58 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
+        onDialog = true;
+        FunctionHelper.SuccessDialog(context,message: "Please confirm Email in your mailbox ",onClick: (){
+          if(onDialog){
+            Navigator.of(context).pop();
+          }
 
-        FunctionHelper.SuccessDialog(context,message:  LocaleKeys.dialog_message_password_success.tr(),onClick: (){
-          Navigator.of(context).pop();
-          Navigator.of(context).pop();
         });
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
 
-
+      verify();
 
     }
 
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    passController.text = "";
+  bool FormCheck(){
+    if(_input1.text.isEmpty || _input2.text.isEmpty){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+
+  void verify(){
+    if(_input1.text.length<8 || _input1.text.length>12){
+      onError1 = LocaleKeys.message_error_password_length.tr();
+      onCheck.add(false);
+    }else{
+      onCheck.add(false);
+      onError1 = "";
+    }
+
+    if(_input2.text.length<8 || _input2.text.length>12){
+      onError2 = LocaleKeys.message_error_password_length.tr();
+      onCheck.add(false);
+    }else{
+      onCheck.add(false);
+      onError2 = "";
+    }
+
+    if(onError1=="" && onError2==""){
+      if(_input2.text!=_input1.text){
+        onError1 = "";
+        onError2 = LocaleKeys.message_error_password_not_match.tr();
+        onCheck.add(false);
+      }else{
+        onCheck.add(true);
+      }
+
+    }
   }
 
 
@@ -85,12 +114,11 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: LocaleKeys.my_profile_change_password.tr(), header_type: Header_Type.barNormal,onClick: (){
+            title: LocaleKeys.my_profile_change_password.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,onClick: (){
             FunctionHelper.ConfirmDialog(context,
                 message: LocaleKeys.dialog_message_phone_edit_cancel.tr(),
                 onClick: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
+                  AppRoute.PoppageCount(context: context,countpage: 2);
                 }, onCancel: () {
                   Navigator.of(context).pop();
                 });
@@ -98,43 +126,76 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                  color: Colors.white,
-                  child: Container(
-                    padding:EdgeInsets.all(5.0.w),
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text( LocaleKeys.edit_password_confirm_new.tr(),
-                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(height: 15,),
-                        BuildEditText(
-                            head: LocaleKeys.edit_password_new.tr(),
-                            hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),maxLength: 10,controller: passController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
-                          setState(() {});
-                        }),
-                        SizedBox(height: 20,),
+                StreamBuilder(
+                    stream: onCheck.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if(snapshot.hasData){
+                        return  Container(
+                          color: Colors.white,
+                          child: Container(
+                            padding:EdgeInsets.all(5.0.w),
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Text( LocaleKeys.edit_password_confirm_new.tr(),
+                                //   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
+                                // ),
+                                // SizedBox(height: 15,),
+                                BuildEditText(head: "New "+LocaleKeys.my_profile_password.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input1,onError: onError1,onChanged: (String char){
+                                  verify();
+                                },),
+                                SizedBox(height: 3.0.h,),
 
-                      ],
-                    ),
-                  ),
-                ),
+                                BuildEditText(head: LocaleKeys.confirm_btn.tr()+" New "+LocaleKeys.my_profile_password.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input2,onError: onError2,onChanged: (String char){
+                                  verify();
+                                },),
+                                SizedBox(height: 1.0.h,),
+                                // Center(
+                                //   child: Text("ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป",
+                                //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500)),
+                                // ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }else{
+                        return SizedBox();
+                      }
+
+
+                    }),
                 SizedBox(height: 20,),
-                FlatButton(
-                  minWidth: 50.0.w,
-                  color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
-                  textColor: Colors.white,
-                  splashColor: Colors.white.withOpacity(0.3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  onPressed: ()=>FormCheck()?verify():SizedBox(),
-                  child: Text(LocaleKeys.continue_btn.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-                  ),
-                )
+                StreamBuilder(
+                    stream: onCheck.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if(snapshot.hasData){
+                        return   FlatButton(
+                          minWidth: 50.0.w,
+                          height: 5.0.h,
+                          color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
+                          textColor: Colors.white,
+                          splashColor: Colors.white.withOpacity(0.3),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                          onPressed: (){
+                            if(FormCheck()){
+                              Usermanager().getUser().then((value) => bloc.ModifyPassword(data: ModifyPasswordrequest(password: _input1.text,oldPassword: widget.passwordOld,checkPassword: _input2.text),token: value.token));
+
+                            }
+                          },
+                          child: Text(LocaleKeys.continue_btn.tr(),
+                            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                          ),
+                        );
+                      }else{
+                        return SizedBox();
+                      }
+
+
+                    })
+
               ],
             ),
           ),
@@ -143,26 +204,5 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
     );
   }
 
-  void verify(){
-    // FunctionHelper.showDialogProcess(context);
-    // Usermanager().Savelogin(user: User(id: "1",fullname: "John Mayer",username: "ApisitKaewsasan@gmail.com",email: "ApisitKaewsasan@gmail.com",phone: "0932971160",
-    //     imageurl:  "https://freshairboutique.files.wordpress.com/2015/05/28438-long-red-head-girl.jpg")).then((value){
-    //   Navigator.of(context).pop();
-    // _navigateToProfilePage(context);
-    // AppRoute.Home(context);
 
-    //});
-
-    if(passController.text.length>=8 && passController.text.length<=12){
-      //AppRoute.EditEmail_Step3(context,EmailController.text);
-      Usermanager().getUser().then((value) => bloc.ModifyPassword(data: ModifyPasswordrequest(password: passController.text,oldPassword: widget.passwordOld,checkPassword: passController.text),token: value.token));
-
-    }else{
-      setState(() {
-        onError =  LocaleKeys.message_error_password_length.tr();
-      });
-    }
-
-
-  }
 }

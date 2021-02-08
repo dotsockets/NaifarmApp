@@ -78,6 +78,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
           appBar:  AppToobar(
             title: LocaleKeys.me_title_my_product.tr(),
             icon: "",
+            isEnable_Search: false,
             header_type: Header_Type.barNormal,
           ),
           body: Container(
@@ -138,6 +139,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                     productItem: ProducItemRespone(
                                                         shopId: item.shopId,
                                                         inventories: inventoryList(item: item),
+                                                        shop: ShopItem(id: item.shop.id,state: item.shop.state),
                                                         description: item.description!= null?item.description:"-")
                                                 )
                                             )

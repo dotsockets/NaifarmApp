@@ -124,7 +124,7 @@ class SearchHot extends StatelessWidget {
                   width: 20.0.w,
                   height: 20.0.w,
                   color: Colors.white,
-                  child: Lottie.asset(Env.value.loadingAnimaion, height: 20.0.w),
+                  child: Lottie.asset('assets/json/loading.json', height: 20.0.w),
                 ),
                 imageUrl: "${Env.value.baseUrl}/storage/images/${item.image.length!=0?item.image[0].path:""}",
                 errorWidget: (context, url, error) => Container(

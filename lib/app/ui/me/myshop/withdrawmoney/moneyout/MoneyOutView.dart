@@ -84,7 +84,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child:
-                          Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                          Lottie.asset('assets/json/loading.json', height: 30),
                     ),
                     fit: BoxFit.cover,
                     imageUrl:

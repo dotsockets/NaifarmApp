@@ -132,7 +132,7 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
                 height: 22.0.w,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
-                  child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+                  child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
@@ -220,39 +220,22 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
                 .values
                 .toList(),
           ),
-          SizedBox(height: 3.0.w),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 1.5.w),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("x ${item.quantity}",
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          color: Colors.black)),
-                  Row(
-                    children: [
-                      Text(
-                          LocaleKeys.history_order_price.tr() ,
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              color: Colors.black)),
-                      Text(" : " +
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale())),
-                      // Text(
-                      //     "฿${item.inventory.salePrice * item.quantity}.00",
-                      //     style: FunctionHelper.FontTheme(
-                      //         fontSize: SizeUtil.titleFontSize().sp,
-                      //         color: ThemeColor.ColorSale())),
-                      SizedBox(width: 2.0.w),
+              Align(
+                alignment: Alignment.centerRight,
+                child: RichText(
+                  text: new TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                      new TextSpan(
+                          text: LocaleKeys.history_order_price.tr(),
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                      new TextSpan(text: " : " +
+                          "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
                     ],
                   ),
-                ],
+                ),
               ),
               Divider(
                 color: Colors.grey.shade400,
@@ -300,7 +283,7 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child: Lottie.asset(
-                        Env.value.loadingAnimaion,
+                        'assets/json/loading.json',
                         width: 7.0.w,
                         height: 7.0.w,
                       ),

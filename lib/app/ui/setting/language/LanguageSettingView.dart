@@ -33,6 +33,7 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
           appBar: AppToobar(
             title: LocaleKeys.setting_language_toobar.tr(),
             icon: "",
+            isEnable_Search: false,
             header_type: Header_Type.barNormal,
           ),
           body: Column(

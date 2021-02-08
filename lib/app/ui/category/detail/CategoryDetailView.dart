@@ -7,6 +7,7 @@ import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryObjectCombin.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
@@ -66,40 +67,50 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        backgroundColor: Colors.grey.shade300,
-        body: SingleChildScrollView(
-          child: Container(
-            color: Colors.grey.shade300,
-            child: StickyHeader(
-              header: Column(
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          appBar:  AppToobar(
+            title: widget.title,
+            header_type: Header_Type.barcartShop,
+            isEnable_Search: true,
+          ),
+          backgroundColor: Colors.grey.shade300,
+          body: SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
+            child: Container(
+              color: Colors.grey.shade300,
+              child: Column(
                 children: [
                   StreamBuilder(
                     stream: bloc.ZipCategoryObject.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if(snapshot.hasData) {
-                        return CategoryHeader(title: widget.title,snapshot: (snapshot.data as CategoryObjectCombin),moreSize: false,);
+                        return CategoryMenu(
+                          featuredRespone: (snapshot.data as CategoryObjectCombin).supGroup,
+                          onTap: (CategoryGroupData val){
+                            AppRoute.CategorySubDetail(context, val.id,title:val.name);
+                          },
+                          moreSize: true,
+                        );
                       }else{
-                        return CategoryHeader(title: widget.title,moreSize: false,);
+                        return Container(
+                          padding: EdgeInsets.only(left: 1.0.w,bottom:3.0.h),
+                          width: MediaQuery.of(context).size.width,
+                          decoration: new BoxDecoration(
+                            color: ThemeColor.primaryColor(),
+                            borderRadius: new BorderRadius.only(
+                              bottomRight: const Radius.circular(50.0),
+                              bottomLeft: const Radius.circular(50.0),
+                            ),
+
+                          ),
+                          child: SizedBox(width: 2.5.h,height: 2.0.h,),
+                        );
                       }
                     },
                   ),
-                  // CategoryMenu(
-                  //   selectedIndex: _categoryselectedIndex,
-                  //   menuViewModel: _menuViewModel,
-                  //   onTap: (int val) {
-                  //     setState(() {
-                  //       _categoryselectedIndex = val;
-                  //     });
-                  //   },
-                  // ),
-                ],
-              ),
-              content: Column(
-                children: [
-
                   SizedBox(height: 1.5.h),
                   StreamBuilder(
                     stream: bloc.ZipCategoryObject.stream,
@@ -112,10 +123,10 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                             titleInto: LocaleKeys.tab_bar_recommend.tr(),
                             //  showBorder: true,
                             IconInto: 'assets/images/svg/like.svg',
-                             // api_link: 'products',
-                             onSelectMore: () {
-                                  AppRoute.ProductMore(installData: (snapshot.data as CategoryObjectCombin).goupProduct,context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),api_link: 'products/types/trending?categoryGroupId=${widget.index}');
-                                },
+                            // api_link: 'products',
+                            onSelectMore: () {
+                              AppRoute.ProductMore(installData: (snapshot.data as CategoryObjectCombin).goupProduct,context:context,barTxt:LocaleKeys.tab_bar_recommend.tr(),api_link: 'products/types/trending?categoryGroupId=${widget.index}');
+                            },
                             onTapItem: (ProductData item,int index) {
                               AppRoute.ProductDetail(context,
                                   productImage: "recommend_cate_${item.id}${1}",productItem: ProductBloc.ConvertDataToProduct(data: item));
@@ -187,7 +198,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
     return Container(
       child: CachedNetworkImage(
         placeholder: (context, url) => Container(
-          child: Lottie.asset(Env.value.loadingAnimaion, height: 30),
+          child: Lottie.asset('assets/json/loading.json', height: 30),
         ),
         fit: BoxFit.cover,
         imageUrl:

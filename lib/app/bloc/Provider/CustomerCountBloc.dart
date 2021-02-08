@@ -32,8 +32,13 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
       final CartCout  =(b as ApiResult).respone;
       var item = (CustomerCount as CustomerCountRespone);
       var cart_item = (CartCout as CartResponse);
-      return ApiResult(respone: CustomerCountRespone(CartCount: CountCartItem(item: cart_item),buyOrder: item.buyOrder,like: item.like,notification: item.notification,sellOrder: item.sellOrder,watingReview: item.watingReview,
-      ),http_call_back: (a as ApiResult).http_call_back);
+      if((a as ApiResult).http_call_back.status==200){
+        return ApiResult(respone: CustomerCountRespone(CartCount: CountCartItem(item: cart_item),buyOrder: item.buyOrder,like: item.like,notification: item.notification,sellOrder: item.sellOrder,watingReview: item.watingReview,
+        ),http_call_back: (a as ApiResult).http_call_back);
+      }else{
+        return ApiResult(respone: item,http_call_back: (a as ApiResult).http_call_back);
+      }
+
 
     }).listen((event) {
       if(event.http_call_back.status==200){
@@ -59,6 +64,7 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
 
   int CountCartItem({CartResponse item}){
     int count = 0;
+
     for(var value in item.data){
       count+=value.items.length;
     }

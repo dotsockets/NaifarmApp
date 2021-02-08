@@ -40,29 +40,35 @@ class _EditSlugViewState extends State<EditSlugView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppToobar(title: "แก้ไข Slug ร้านค้า",header_type: Header_Type.barNormal,),
-      body: Container(
-        child: Container(
-          child: Column(
-            children: [
-              _Form(),
-              SizedBox(height: 3.0.h,),
-              FlatButton(
-                minWidth: 50.0.w,
-                color: _input1.text!=""?ThemeColor.secondaryColor():Colors.grey.shade400,
-                textColor: Colors.white,
-                splashColor: Colors.white.withOpacity(0.3),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                onPressed: ()=>FormCheck()?Navigator.pop(context, widget.itemInfo):SizedBox(),
-                child: Text(LocaleKeys.save_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
-                ),
-              )
-            ],
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.grey.shade200,
+          appBar: AppToobar(isEnable_Search: false,title: "แก้ไข Slug ร้านค้า",header_type: Header_Type.barNormal,),
+          body: Container(
+            child: Container(
+              child: Column(
+                children: [
+                  _Form(),
+                  SizedBox(height: 3.0.h,),
+                  FlatButton(
+                    minWidth: 50.0.w,
+                    height: 5.0.h,
+                    color: _input1.text!=""?ThemeColor.secondaryColor():Colors.grey.shade400,
+                    textColor: Colors.white,
+                    splashColor: Colors.white.withOpacity(0.3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    onPressed: ()=>FormCheck()?Navigator.pop(context, widget.itemInfo):SizedBox(),
+                    child: Text(LocaleKeys.save_btn.tr(),
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
       ),
