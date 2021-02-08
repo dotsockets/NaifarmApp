@@ -65,7 +65,7 @@ class _LoginViewState extends State<LoginView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        Usermanager().getUser().then((value) => context.read<InfoCustomerBloc>().loadCustomInfo(token: value.token));
+
         // if(widget.IsCallBack){
         //   NaiFarmLocalStorage.saveNowPage(3).then((value) =>  AppRoute.Home(context,item: widget.item));
         // }else{
@@ -275,7 +275,7 @@ class _LoginViewState extends State<LoginView> {
   }else if(!validator.email(_username.text) && nameRegExp.hasMatch(_username.text)){
       FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_mail_invalid.tr());
     }else{
-        bloc.CustomerLogin(loginRequest: LoginRequest(username: validator.email(_username.text)?_username.text:"",phone: !validator.email(_username.text)?_username.text:"",password:_password.text));
+        bloc.CustomerLogin(context: context,loginRequest: LoginRequest(username: validator.email(_username.text)?_username.text:"",phone: !validator.email(_username.text)?_username.text:"",password:_password.text));
     }
   }
 

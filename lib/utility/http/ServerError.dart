@@ -25,7 +25,7 @@ class ServerError{
         if(error.response.statusCode==406 || error.response.statusCode==400){
           return ApiResult(http_call_back: ThrowIfNoSuccess.fromJson(error.response.data));
         }else{
-          message = "Received invalid status code:";
+          message = "Received invalid status code: ${error.response.statusCode}";
         }
         break;
       case DioErrorType.SEND_TIMEOUT:

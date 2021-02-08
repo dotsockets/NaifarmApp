@@ -138,8 +138,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiDetailView(notiImage: notiImage,notiTitle: notiTitle,)));
   }
 
-  static  OrderDetail(BuildContext context,{OrderData orderData}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView(orderData: orderData,)));
+  static  OrderDetail(BuildContext context,{OrderData orderData,String orderType}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView(orderData: orderData,orderType: orderType,)));
   }
 
   static  CartSummary(BuildContext context,CartResponse item){

@@ -224,8 +224,9 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
           // if(item.Status_Sell==1)
           //   AppRoute.NotiDetail(context,"notiitem_${index}","notititle_${index}");
           // else
-          if(item.type=="App\\Notifications\\Order\\OrderCreated"){
-            AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)));
+
+          if(CheckIsOrder(text: item.type)){
+            AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)),orderType: "myshop/orders");
           }
         },
         child: Slidable(
@@ -258,11 +259,11 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                             padding: EdgeInsets.only(left: 10,right: 5),
                             child: ConvertStatus(item: item),
                           )),
-                      Icon(
+                      CheckIsOrder(text: item.type)?Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.black.withOpacity(0.4),
                         size: 4.0.w,
-                      )
+                      ):SizedBox()
                     ],
                   ),
                   SizedBox(height: 5,),
@@ -414,7 +415,15 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
   @override
   bool get wantKeepAlive => true;
 
+  bool CheckIsOrder({String text}){
+    if(text=="App\\Notifications\\Order\\OrderCreated"){
+      return true;
+    }else  if(text=="App\\Notifications\\Order\\OrderBeenPaid"){
+       return true;
+    }else {
+      return false;
+    }
 
-
+  }
 }
 

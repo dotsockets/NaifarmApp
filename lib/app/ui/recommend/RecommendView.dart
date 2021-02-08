@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -392,7 +393,11 @@ class _RecommendViewState extends State<RecommendView> {
       AudioCache().play("sound/Click.mp3");
       Vibration.vibrate(duration: 500);
     }
+    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
     Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
-    bloc.loadHomeData(context: context,callback: true);
+    Future.delayed(const Duration(milliseconds: 2000), () {
+      bloc.loadHomeData(context: context,callback: true);
+    });
+
   }
 }

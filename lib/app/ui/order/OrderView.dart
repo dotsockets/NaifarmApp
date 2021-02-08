@@ -24,7 +24,8 @@ import 'package:sizer/sizer.dart';
 
 class OrderView extends StatefulWidget {
   final OrderData orderData;
-  OrderView({Key key, this.orderData}) : super(key: key);
+  final String orderType;
+  OrderView({Key key, this.orderData, this.orderType}) : super(key: key);
   @override
   _OrderViewState createState() => _OrderViewState();
 }
@@ -41,7 +42,7 @@ class _OrderViewState extends State<OrderView> {
       }
 
     }
-    Usermanager().getUser().then((value) => bloc.GetOrderById(id: widget.orderData.id, token: value.token));
+    Usermanager().getUser().then((value) => bloc.GetOrderById(orderType: widget.orderType,id: widget.orderData.id, token: value.token));
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
 

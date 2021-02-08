@@ -50,7 +50,7 @@ class CartBloc {
     _compositeSubscription.clear();
   }
 
-  GetCartlists({String token, CartActive cartActive}) {
+  GetCartlists({BuildContext context,String token, CartActive cartActive}) {
     if (cartActive == CartActive.CartList) onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.GetCartlists(token: token))
@@ -58,6 +58,7 @@ class CartBloc {
       //  var item = (respone.respone as CartRequest);
       if (respone.http_call_back.status == 200) {
         //   onSuccess.add(item);
+
         if (cartActive == CartActive.CartList) onLoad.add(false);
         CartList.add(respone.respone);
       } else {
@@ -73,7 +74,7 @@ class CartBloc {
             .DeleteCart(inventoryid: inventoryId, cartid: cartid, token: token))
         .listen((respone) {
       if (respone.http_call_back.status == 200) {
-        Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+
         GetCartlists(token: token, cartActive: CartActive.CartDelete);
         // CartList.add(CartResponse(data: CartList.value.data));
       } else {

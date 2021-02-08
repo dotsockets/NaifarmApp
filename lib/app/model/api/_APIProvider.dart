@@ -1584,12 +1584,12 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetOrderById({int id, String token}) async {
+  Future<ApiResult> GetOrderById({int id,String orderType, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     try {
-      final _result = await _dio.request<dynamic>('/v1/order/${id}',
+      final _result = await _dio.request<dynamic>('/v1/${orderType}/${id}',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',

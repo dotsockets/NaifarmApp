@@ -73,6 +73,9 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
       bloc.onSuccess.stream.listen((event) {
         //  cartReq = event;
       });
+      bloc.CartList.stream.listen((event) {
+        Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+      });
 
       Usermanager().getUser().then((value){
         bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList);
@@ -93,7 +96,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
   @override
   void didPopNext() {
     Usermanager().getUser().then((value){
-      bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList);
+      bloc.GetCartlists(context: context,token: value.token, cartActive: CartActive.CartList);
     });
   }
 
@@ -799,7 +802,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
       Vibration.vibrate(duration: 500);
 
     Usermanager().getUser().then((value){
-      bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList);
+      bloc.GetCartlists(context: context,token: value.token, cartActive: CartActive.CartList);
     });
   }
 }

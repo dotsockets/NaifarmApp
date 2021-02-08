@@ -43,17 +43,18 @@ class MemberBloc{
   }
 
 
-  CustomerLogin({LoginRequest loginRequest}) async{
+  CustomerLogin({BuildContext context,LoginRequest loginRequest}) async{
      onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.CustomersLogin(loginRequest: LoginRequest(username: loginRequest.username,phone: loginRequest.phone,password: loginRequest.password))).listen((respone) {
 
       var item = (respone.respone as LoginRespone);
       if(respone.http_call_back.status==200){
-        Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email)).then((value){
-          onLoad.add(false);
-          onSuccess.add(item);
-
+        Usermanager().getUser().then((value) => context.read<InfoCustomerBloc>().loadCustomInfo(token: item.token)).then((value){
+          Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email)).then((value){
+            onLoad.add(false);
+            onSuccess.add(item);
+          });
         });
       }else{
         onLoad.add(false);

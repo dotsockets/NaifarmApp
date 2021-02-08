@@ -54,6 +54,8 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
     // TODO: implement initState
     super.initState();
     verify = _verifyBtn();
+    
+
   }
 
   void _validate() {
@@ -119,6 +121,15 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       });
     }
 
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if(widget.refCode==null){
+        FunctionHelper.AlertDialogRetry(context,title: "Error Otp",message: "The transaction was incorrect. ",callBack: (){
+          RequestOTPNEW();
+        });
+      }
+    });
+
+
   }
 
   @override
@@ -141,7 +152,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                     SizedBox(height: 2.0.h,),
                     Text(widget.phoneNumber,style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize().sp,color: Colors.black)),
                     SizedBox(height: 2.0.h,),
-                    Text(LocaleKeys.edit_phone_confirm_otp.tr()+" [Ref : ${widget.refCode}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500)),
+                    Text(LocaleKeys.edit_phone_confirm_otp.tr()+" [Ref : ${widget.refCode!=null?widget.refCode:""}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500)),
                     SizedBox(height: 4.0.h,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -538,7 +549,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                               _CheckForm();
                               if (text.isNotEmpty) {
 
-                                verify.onPressed();
+                               // verify.onPressed();
                                 FocusScope.of(context).nextFocus();
                               } else {
                                 FocusScope.of(context).previousFocus();
@@ -553,46 +564,74 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                       ],
                     ),
                     SizedBox(height: 3.0.h,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Column(
                       children: [
-                        endTimes?Text(LocaleKeys.regis_otp_please_wait.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox(),
-                        CountdownTimer(
-                          endTime: endTime,
-                          widgetBuilder: (_, CurrentRemainingTime time) {
-                            if (time != null) {
-                              return Text(
-                                  '${FunctionHelper.ConverTime(time: time.sec != null ? time.sec.toString() : "0")}',
-                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: ThemeColor.ColorSale()));
-                            } else {
-                              return Container(
-                                child:InkWell(
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset('assets/images/svg/change.svg'),
-                                      SizedBox(width: 10,),
-                                      Text(LocaleKeys.edit_phone_otp_again.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),)
-                                    ],
-                                  ),
-                                  onTap: (){
-                                    RequestOTPNEW();
-                                  },
-                                ),
-                              );
-                            }
-                          },
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                          //  endTimes?Text(LocaleKeys.regis_otp_please_wait.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox(),
+                            CountdownTimer(
+                              endTime: endTime,
+                              widgetBuilder: (_, CurrentRemainingTime time) {
+                                if (time != null) {
+                                  return RichText(
+                                    text: new TextSpan(
+                                      children: <TextSpan>[
+                                        new TextSpan(
+                                            text: LocaleKeys.regis_otp_please_wait.tr()+"  ",
+                                            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                                        new TextSpan(text: '${FunctionHelper.ConverTime(time: time.sec != null ? time.sec.toString() : "0")}',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.ColorSale())),
+                                      ],
+                                    ),
+                                  );
+                                } else {
+                                  // return Container(
+                                  //   child:InkWell(
+                                  //     child: Row(
+                                  //       children: [
+                                  //         SvgPicture.asset('assets/images/svg/change.svg'),
+                                  //         SizedBox(width: 10,),
+                                  //         Text(LocaleKeys.edit_phone_otp_again.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),)
+                                  //       ],
+                                  //     ),
+                                  //     onTap: (){
+                                  //       RequestOTPNEW();
+                                  //     },
+                                  //   ),
+                                  // );
+                                  return SizedBox();
+                                }
+                              },
 
-                          onEnd: () {
-                            setState(() {
-                              endTimes = false;
-                            });
-                            // Navigator.pop(context,false);
-                          },
+                              onEnd: () {
+                                setState(() {
+                                  endTimes = false;
+                                });
+                                // Navigator.pop(context,false);
+                              },
+                            ),
+                            endTimes?Text("  "+LocaleKeys.regis_otp_before_tab.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox()
+                          ],
                         ),
-                        endTimes?Text("  "+LocaleKeys.regis_otp_before_tab.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox()
+                        Container(
+                          child:InkWell(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset('assets/images/svg/change.svg'),
+                                SizedBox(width: 10,),
+                                Text(LocaleKeys.edit_phone_otp_again.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),)
+                              ],
+                            ),
+                            onTap: (){
+                              RequestOTPNEW();
+                            },
+                          ),
+                        )
                       ],
-                    ),
-                    SizedBox(height: 3.0.h,),
+                    )
+                    ,
+                    SizedBox(height: 1.0.h,),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.only(right: 20.0.w,left: 20.0.w,bottom: 2.0.h,top: 2.0.h),
@@ -651,10 +690,13 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       onPressed: () {
         //  AppRoute.ImageProduct(context);
         // Navigator.pop(context, false);
+        if(SuccessForm){
+
+
         bloc.OTPVerify(phone: widget.phoneNumber,code: "${_input1.text}${_input2.text}${_input3.text}${_input4.text}${_input5.text}${_input6.text}",ref: widget.refCode);
         // SuccessForm?AppRoute.Register_set_Password(context):SizedBox();
 
-
+        }
 
       },
       child: Text(LocaleKeys.continue_btn.tr(),

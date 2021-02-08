@@ -162,7 +162,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
       bloc.ZipProductDetail.stream.listen((event) {
         checkScrollControl.add(true);
-        bloc.Wishlists.add(event.wishlistsRespone);
+       // bloc.Wishlists.add(event.wishlistsRespone);
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -384,7 +384,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
             }
           }),
       widget.productItem.image != null
-          ? ProductInto(data: widget.productItem)
+          ? ProductInto(data: widget.productItem,scaffoldKey: _scaffoldKey,)
           : SizedBox(),
       widget.productItem.image != null ? _Divider() : SizedBox(),
       StreamBuilder(
@@ -498,44 +498,44 @@ class _ProductDetailViewState extends State<ProductDetailView>
         ),
         child: Row(
           children: [
-            Expanded(
-                child: InkWell(
-                  child: SvgPicture.asset(
-                    'assets/images/svg/share.svg',
-                    width: 8.0.w,
-                    height: 8.0.w,
-                  ),
-                  onTap: () {
-                    Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
-                    // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
-                  },
-                )),
-            Container(
-              color: Colors.grey.withOpacity(0.4),
-              height: 8.0.h,
-              width: 1,
-            ),
-            Expanded(
-                child: LikeButton(
-                  size: 10.0.w,
-                  isLiked: item.total>0?true:false,
-                  circleColor: const CircleColor(
-                      start: Color(0xffF03A13), end: Color(0xffE6593A)),
-                  bubblesColor: const BubblesColor(
-                    dotPrimaryColor: Color(0xffF03A13),
-                    dotSecondaryColor: Color(0xffE6593A),
-                  ),
-                  likeBuilder: (bool isLiked) {
-                    return Icon(
-                      isLiked?Icons.favorite:Icons.favorite_border,
-                      color: isLiked ? ThemeColor.ColorSale() : Colors.grey.withOpacity(0.5),
-                      size: 8.0.w,
-                    );
-                  },
-                  likeCountAnimationType: LikeCountAnimationType.part,
-                  likeCountPadding:  EdgeInsets.all(1.0.w),
-                  onTap: (bool like)=>onLikeButtonTapped(item.total>0?true:false),
-                )),
+            // Expanded(
+            //     child: InkWell(
+            //       child: SvgPicture.asset(
+            //         'assets/images/svg/share.svg',
+            //         width: 8.0.w,
+            //         height: 8.0.w,
+            //       ),
+            //       onTap: () {
+            //         Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
+            //         // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+            //       },
+            //     )),
+            // Container(
+            //   color: Colors.grey.withOpacity(0.4),
+            //   height: 8.0.h,
+            //   width: 1,
+            // ),
+            // Expanded(
+            //     child: LikeButton(
+            //       size: 10.0.w,
+            //       isLiked: item.total>0?true:false,
+            //       circleColor: const CircleColor(
+            //           start: Color(0xffF03A13), end: Color(0xffE6593A)),
+            //       bubblesColor: const BubblesColor(
+            //         dotPrimaryColor: Color(0xffF03A13),
+            //         dotSecondaryColor: Color(0xffE6593A),
+            //       ),
+            //       likeBuilder: (bool isLiked) {
+            //         return Icon(
+            //           isLiked?Icons.favorite:Icons.favorite_border,
+            //           color: isLiked ? ThemeColor.ColorSale() : Colors.grey.withOpacity(0.5),
+            //           size: 8.0.w,
+            //         );
+            //       },
+            //       likeCountAnimationType: LikeCountAnimationType.part,
+            //       likeCountPadding:  EdgeInsets.all(1.0.w),
+            //       onTap: (bool like)=>onLikeButtonTapped(item.total>0?true:false),
+            //     )),
             Expanded(
                 flex: 2,
                 child: InkWell(

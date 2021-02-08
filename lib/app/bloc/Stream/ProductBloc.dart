@@ -66,7 +66,9 @@ class ProductBloc{
   List<ProductData> product_more = List<ProductData>();
 
 
-  ProductBloc(this._application);
+  ProductBloc(this._application){
+    Wishlists.add(WishlistsRespone());
+  }
 
   void dispose() {
     _compositeSubscription.clear();
@@ -98,7 +100,7 @@ class ProductBloc{
             trendingRespone: _trending,martket: _martket,flashsaleRespone: _flashsale,product_foryou: product_foryou);
 
         }).listen((event) {
-             Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+
           if(callback){
             onSuccess.add(true);
           }
@@ -149,6 +151,7 @@ class ProductBloc{
 
   GetMyWishlistsById({String token,int productId}){
     //onLoad.add(true);
+
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.GetMyWishlists(token: token)).listen((respone) {
       // onLoad.add(false);
@@ -323,34 +326,53 @@ class ProductBloc{
 
 
   loadProductsPage({int id,String token}){
-  //  onLoad.add(true);
+    //  onLoad.add(true);
     onError.add(null);
-    StreamSubscription subscription = Observable.combineLatest2(
-        Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)),
-        Observable.fromFuture(_application.appStoreAPIRepository.GetWishlistsByProduct(productID: id,token: token)),(a, b){
-      final producItemRespone = (a as ApiResult).respone;
-      final wishlistsRespone  =(b as ApiResult).respone;
-
-      if((a as ApiResult).http_call_back.status==200){
-
-        return ProductObjectCombine(producItemRespone: producItemRespone,wishlistsRespone: wishlistsRespone);
-
-        }else{
-
-          onError.add((a as ApiResult).http_call_back.result);
-          return ProductObjectCombine();
-
+    Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)).listen((event) {
+      if(event.http_call_back.status==200){
+        var item = (event.respone as ProducItemRespone);
+        if(item!=null){
+          GetSearchCategoryGroupId(GroupId: item.categories[0].category.categorySubGroup.categoryGroup.id,limit: 10);
         }
-
-    }).listen((event) {
-     // onLoad.add(false);
-      if(event.producItemRespone!=null){
-        GetSearchCategoryGroupId(GroupId: event.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id,limit: 10);
+        ZipProductDetail.add(ProductObjectCombine(producItemRespone: item));
+      }else{
+        onError.add(event.http_call_back.result);
       }
-      ZipProductDetail.add(event);
     });
-    _compositeSubscription.add(subscription);
+
+
   }
+
+
+  // loadProductsPage({int id,String token}){
+  // //  onLoad.add(true);
+  //   onError.add(null);
+  //   StreamSubscription subscription = Observable.combineLatest2(
+  //       Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)),
+  //       Observable.fromFuture(_application.appStoreAPIRepository.GetWishlistsByProduct(productID: id,token: token)),(a, b){
+  //     final producItemRespone = (a as ApiResult).respone;
+  //     final wishlistsRespone  =(b as ApiResult).respone;
+  //
+  //     if((a as ApiResult).http_call_back.status==200){
+  //
+  //       return ProductObjectCombine(producItemRespone: producItemRespone,wishlistsRespone: wishlistsRespone);
+  //
+  //       }else{
+  //
+  //         onError.add((a as ApiResult).http_call_back.result);
+  //         return ProductObjectCombine();
+  //
+  //       }
+  //
+  //   }).listen((event) {
+  //    // onLoad.add(false);
+  //     if(event.producItemRespone!=null){
+  //       GetSearchCategoryGroupId(GroupId: event.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id,limit: 10);
+  //     }
+  //     ZipProductDetail.add(event);
+  //   });
+  //   _compositeSubscription.add(subscription);
+  // }
 
 
 

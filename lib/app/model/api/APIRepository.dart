@@ -306,8 +306,8 @@ class APIRepository{
     return _apiProvider.GetOrder(orderType: orderType,page: page,limit: limit,statusId: statusId,token: token);
   }
 
-  Future<ApiResult> GetOrderById({int id,String token}){
-    return _apiProvider.GetOrderById(id: id,token: token);
+  Future<ApiResult> GetOrderById({int id,String orderType,String token}){
+    return _apiProvider.GetOrderById(id: id,orderType: orderType,token: token);
   }
 
 

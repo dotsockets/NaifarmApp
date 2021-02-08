@@ -42,7 +42,7 @@ class MyOrderHistoryView extends StatelessWidget {
           child: Scaffold(
             backgroundColor: Colors.grey.shade300,
             appBar: AppToobar(
-              title: LocaleKeys.me_title_history_shop.tr(),
+              title: "Purchase history",
               header_type: Header_Type.barcartShop,
               icon: '',onClick: (){
                 if(callback){

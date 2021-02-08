@@ -271,7 +271,7 @@ abstract class APIProvider{
   Future<ApiResult> GetOrder({String orderType,int page,int limit,String statusId,String token});
 
   @GET("/v1/order")
-  Future<ApiResult> GetOrderById({int id,String token});
+  Future<ApiResult> GetOrderById({int id,String orderType,String token});
 
   @GET("/v1/products/types/trending?shopId=1&limit=10&page=1")
   Future<ApiResult> getProductTypeShop({String type,int shopId,String page,int limit,String token});

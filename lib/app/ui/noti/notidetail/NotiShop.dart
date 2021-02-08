@@ -251,8 +251,8 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
           // else
           //   item.Status_Sell!=2?AppRoute.OrderDetail(context,item.Status_Sell):print("press 2");
          // AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)));
-            if(item.type=="App\\Notifications\\Order\\MerchantOrderCreatedNotification"){
-              AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)));
+            if(CheckIsOrder(text: item.type)){
+              AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)),orderType: "myshop/orders");
             }
         },
         child: Slidable(
@@ -285,11 +285,11 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                             padding: EdgeInsets.only(left: 10,right: 5),
                             child: ConvertStatus(item: item),
                           )),
-                      Icon(
+                      CheckIsOrder(text: item.type)?Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.black.withOpacity(0.4),
                         size: 4.0.w,
-                      )
+                      ):SizedBox()
                     ],
                   ),
                   SizedBox(height: 5,),
@@ -434,6 +434,13 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
   bool get wantKeepAlive => true;
 
 
+  bool CheckIsOrder({String text}){
+    if(text=="App\\Notifications\\Order\\MerchantOrderCreatedNotification"){
+      return true;
+    }else {
+      return false;
+    }
+  }
 
 }
 

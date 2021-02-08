@@ -5,60 +5,188 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:like_button/like_button.dart';
+import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:share/share.dart';
 import 'package:sizer/sizer.dart';
 
 class ProductInto extends StatelessWidget {
   final ProducItemRespone data;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+   ProductInto({Key key, this.data, this.scaffoldKey}) : super(key: key);
+  ProductBloc bloc;
 
-  const ProductInto({Key key, this.data}) : super(key: key);
+  void _init(BuildContext context) {
+    if (null == bloc) {
 
+
+      bloc = ProductBloc(AppProvider.getApplication(context));
+      //bloc.ProductItem.add(widget.productItem);
+      bloc.onError.stream.listen((event) {
+        //checkScrollControl.add(true);
+        if (event != null) {
+          if (event.error.status == 406) {
+            FunctionHelper.AlertDialogShop(context,
+                title: "Error", message: event.error.message);
+          }else if(event.error.status == 0 || event.error.status >= 500){
+
+          }else {
+            FunctionHelper.SnackBarShow(scaffoldKey: scaffoldKey, message: event.error.message);
+          }
+        }
+      });
+
+
+      bloc.onSuccess.stream.listen((event) {
+        if(event is CartResponse){
+
+        }else if(event is bool){
+         // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: data.id));
+        }
+
+      });
+
+      Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: data.id));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    _init(context);
     return Container(
-      child: Column(
-        children: [
-          Center(
-              child: Container(
-                width: 80.0.w,
-                child: Text(
-                  data.name.toString(),
-                  textAlign: TextAlign.center,
-                  style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
+      width: MediaQuery.of(context).size.width,
+      child: Container(
+        padding: EdgeInsets.only(left: 3.0.w,right: 1.0.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              data.name.toString(),
+              textAlign: TextAlign.center,
+              style: FunctionHelper.FontTheme(
+                  fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
+            ),
+            SizedBox(height: 10),
+            RichText(
+              text: new TextSpan(
+                style: DefaultTextStyle.of(context).style,
+                children: <TextSpan>[
+                  new TextSpan(
+                      text: "${data.offerPrice!=null?data.salePrice:''}",
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                  new TextSpan(text:data.offerPrice!=null?"฿${data.offerPrice}":"฿${data.salePrice}",style: FunctionHelper.FontTheme(
+    fontSize: SizeUtil.priceFontSize().sp, color: ThemeColor.ColorSale())),
+                ],
+              ),
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(child: Text(
+                  "${data.saleCount!=null? data.saleCount.toString():'0'} ${LocaleKeys.my_product_sold_end.tr()}",
+                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+                ),),
+                InkWell(
+                  child: SvgPicture.asset(
+                    'assets/images/svg/share.svg',
+                    width: 8.0.w,
+                    height: 8.0.w,
+                  ),
+                  onTap: () {
+                    Share.share('${Env.value.baseUrlWeb}/${data.name}-i.${data.id}');
+                    // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+                  },
                 ),
-              )),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              data.offerPrice!=null?Text("${data.salePrice}",
-                  style: FunctionHelper.FontTheme(color: Colors.grey,
-                      fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
-              SizedBox(width: data.offerPrice!=null?1.0.w:0),
-              Text(data.offerPrice!=null?"฿${data.offerPrice}":"฿${data.salePrice}",
-                  style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.priceFontSize().sp, color: ThemeColor.ColorSale()))
-            ],
-          ),
-          SizedBox(height: 10),
-          Text(
-          "${data.saleCount!=null? data.saleCount.toString():'0'} ${LocaleKeys.my_product_sold_end.tr()}",
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
-          ),
-          SizedBox(height: 15),
-         // _IntroShipment()
-        ],
+                SizedBox(width: 1.0.h,),
+                StreamBuilder(
+                  stream: bloc.Wishlists.stream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot snapshot) {
+
+                    if (snapshot.hasData && (snapshot.data as WishlistsRespone) != null) {
+                      if ((snapshot.data as WishlistsRespone).total > 0) {
+                        return LikeContent(item: snapshot.data);
+                      } else {
+                        return LikeContent(item: snapshot.data);
+                      }
+                    } else {
+                      return LikeContent(item: WishlistsRespone());
+                    }
+                  },
+                ),
+
+              ],
+            ),
+            SizedBox(height: 15),
+           // _IntroShipment()
+          ],
+        ),
       ),
     );
+  }
+
+  Widget LikeContent({WishlistsRespone item}){
+    return LikeButton(
+      size: 10.0.w,
+      isLiked: item.total>0?true:false,
+      circleColor: const CircleColor(
+          start: Color(0xffF03A13), end: Color(0xffE6593A)),
+      bubblesColor: const BubblesColor(
+        dotPrimaryColor: Color(0xffF03A13),
+        dotSecondaryColor: Color(0xffE6593A),
+      ),
+      likeBuilder: (bool isLiked) {
+        return Icon(
+          isLiked?Icons.favorite:Icons.favorite_border,
+          color: isLiked ? ThemeColor.ColorSale() : Colors.grey.withOpacity(0.5),
+          size: 8.0.w,
+        );
+      },
+      likeCountAnimationType: LikeCountAnimationType.part,
+      likeCountPadding:  EdgeInsets.all(1.0.w),
+      onTap: (bool like)=>onLikeButtonTapped(item.total>0?true:false),
+    );
+  }
+
+  Future<bool> onLikeButtonTapped(bool isLiked) async {
+
+    var item =  bloc.Wishlists.value;
+    if(bloc.Wishlists.value.data!=null){
+
+      if (item.total > 0) {
+        int id = item.data[0].id;
+        item.data = [];
+        item.total = 0;
+        bloc.Wishlists.add(item);
+        Usermanager().getUser().then((value) =>
+            bloc.DELETEWishlists(WishId: id, token: value.token));
+      } else {
+        print("efcewc 1");
+        Usermanager().getUser().then((value) => bloc.AddWishlists(
+            productId: data.id,
+            inventoryId: data
+                .inventories[0].id,
+            token: value.token));
+        item.data = [];
+        item.total = 1;
+        bloc.Wishlists.add(item);
+      }
+    }
+
+
+    return !isLiked;
   }
 
   Widget _IntroShipment() {

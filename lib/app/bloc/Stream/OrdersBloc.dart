@@ -32,9 +32,9 @@ class OrdersBloc{
   }
 
 
-  GetOrderById({int id, String token}){
+  GetOrderById({int id,String orderType, String token}){
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.GetOrderById(id: id,token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.GetOrderById(id: id,orderType:orderType ,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
         onSuccess.add((respone.respone as OrderData));
       }else{

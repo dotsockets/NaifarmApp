@@ -132,7 +132,7 @@ class _MyshopViewState extends State<MyshopView> {
             icon: 'assets/images/svg/latest.svg',
             title: LocaleKeys.me_title_history_shop.tr(),
             iconSize:7.0.w,
-            onClick: () => AppRoute.MyShophistory(context,0),
+            onClick: () => AppRoute.ShopOrderHistory(context,0),
           ),
         //  widget.IsLogin ? _BuildDivider() : SizedBox(),
           // widget.IsLogin
