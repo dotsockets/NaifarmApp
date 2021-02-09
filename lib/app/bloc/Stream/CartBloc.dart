@@ -60,7 +60,8 @@ class CartBloc {
         //   onSuccess.add(item);
 
         if (cartActive == CartActive.CartList) onLoad.add(false);
-        CartList.add(respone.respone);
+        var item = (respone.respone as CartResponse);
+        CartList.add(CartResponse(data: item.data,total: item.total,selectAll: false));
       } else {
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -74,7 +75,7 @@ class CartBloc {
             .DeleteCart(inventoryid: inventoryId, cartid: cartid, token: token))
         .listen((respone) {
       if (respone.http_call_back.status == 200) {
-
+        onSuccess.add(true);
         GetCartlists(token: token, cartActive: CartActive.CartDelete);
         // CartList.add(CartResponse(data: CartList.value.data));
       } else {

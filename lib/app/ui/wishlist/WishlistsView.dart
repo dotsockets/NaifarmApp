@@ -204,7 +204,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
     return Column(
       children: [
         Container(
-          height: 4.0.h,
+          height: 4.5.h,
           child: Text(item.product.name, maxLines: 2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,

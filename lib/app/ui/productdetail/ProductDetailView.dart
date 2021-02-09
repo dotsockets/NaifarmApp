@@ -111,7 +111,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 700));
-    animation = Tween<Offset>(begin: Offset(0, 0), end: Offset(20.0.w, -85.0.h)).animate(CurvedAnimation(      // เพิ่ม Curve
+    animation = Tween<Offset>(begin: Offset(0, 0), end: Offset(45.0.w, -80.0.h)).animate(CurvedAnimation(      // เพิ่ม Curve
         parent: animationController,          // เพิ่ม Curve
         curve: Curves.linear))
       ..addListener(() {
@@ -177,7 +177,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
           Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
           animationController.forward();
         }else if(event is bool){
-          Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
+         // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
         }
 
       });
@@ -383,10 +383,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   : SizedBox();
             }
           }),
-      widget.productItem.image != null
-          ? ProductInto(data: widget.productItem,scaffoldKey: _scaffoldKey,)
-          : SizedBox(),
-      widget.productItem.image != null ? _Divider() : SizedBox(),
       StreamBuilder(
           stream: bloc.ZipProductDetail.stream,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -394,6 +390,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
             if (snapshot.hasData && item.producItemRespone != null) {
               return Column(
                 children: [
+                  widget.productItem.image != null
+                      ? ProductInto(data: item.producItemRespone,scaffoldKey: _scaffoldKey,)
+                      : SizedBox(),
+                  widget.productItem.image != null ? _Divider() : SizedBox(),
                   // BuildChoosesize(
                   //     IndexType1: IndexTypes1,
                   //     IndexType2: IndexTypes2,
@@ -498,47 +498,59 @@ class _ProductDetailViewState extends State<ProductDetailView>
         ),
         child: Row(
           children: [
-            // Expanded(
-            //     child: InkWell(
-            //       child: SvgPicture.asset(
-            //         'assets/images/svg/share.svg',
-            //         width: 8.0.w,
-            //         height: 8.0.w,
-            //       ),
-            //       onTap: () {
-            //         Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
-            //         // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
-            //       },
-            //     )),
-            // Container(
-            //   color: Colors.grey.withOpacity(0.4),
-            //   height: 8.0.h,
-            //   width: 1,
-            // ),
-            // Expanded(
-            //     child: LikeButton(
-            //       size: 10.0.w,
-            //       isLiked: item.total>0?true:false,
-            //       circleColor: const CircleColor(
-            //           start: Color(0xffF03A13), end: Color(0xffE6593A)),
-            //       bubblesColor: const BubblesColor(
-            //         dotPrimaryColor: Color(0xffF03A13),
-            //         dotSecondaryColor: Color(0xffE6593A),
-            //       ),
-            //       likeBuilder: (bool isLiked) {
-            //         return Icon(
-            //           isLiked?Icons.favorite:Icons.favorite_border,
-            //           color: isLiked ? ThemeColor.ColorSale() : Colors.grey.withOpacity(0.5),
-            //           size: 8.0.w,
-            //         );
-            //       },
-            //       likeCountAnimationType: LikeCountAnimationType.part,
-            //       likeCountPadding:  EdgeInsets.all(1.0.w),
-            //       onTap: (bool like)=>onLikeButtonTapped(item.total>0?true:false),
-            //     )),
             Expanded(
-                flex: 2,
                 child: InkWell(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset('assets/images/svg/message.svg',color: ThemeColor.primaryColor(),width: 6.0.w,height: 6.0.w,),
+                      SizedBox(height: 1.0),
+                      Text(
+                        "Chat",
+                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  onTap: () {
+                    FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+                   // Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
+                    // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+                  },
+                )),
+            Container(
+              color: Colors.grey.withOpacity(0.4),
+              height: 8.0.h,
+              width: 1,
+            ),
+            Expanded(
+                child: Center(
+                  child: InkWell(
+                    child: Stack(
+                      children: [
+                        Transform.translate(
+                          offset:  animation.value,
+                          child: Container(
+                            child: Image.network("${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty?widget.productItem.image[0].path:''}"),
+                            width: 10.0.w,
+                            height: 10.0.w,
+                          ),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.shopping_cart_outlined,color: ThemeColor.primaryColor(),size: 7.0.w,),
+                              SizedBox(height: 1.0),
+                              Text(
+                                "Add to Cart ",
+                                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                     onTap: () {
                       if(IsLogin){
 
@@ -558,30 +570,29 @@ class _ProductDetailViewState extends State<ProductDetailView>
                       }else{
                         AppRoute.Login(context,IsHeader: true,homeCallBack: (bool fix){});
                       }
-
+                    },
+                  ),
+                )),
+            Expanded(
+                flex: 2,
+                child: InkWell(
+                    onTap: () {
+                      if(IsLogin){
+                        FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+                      }else{
+                        AppRoute.Login(context,IsHeader: true,homeCallBack: (bool fix){});
+                      }
 
                     },
-                    child: Stack(
-                      children: [
-                        Transform.translate(
-                          offset:  animation.value,
-                          child: Container(
-                            child: Image.network("${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty?widget.productItem.image[0].path:''}"),
-                            width: 10.0.w,
-                            height: 10.0.w,
-                          ),
-                        ),
-                        Container(
-                            alignment: Alignment.center,
-                            height: 8.0.h,
-                            color: ThemeColor.ColorSale(),
-                            child: Text(LocaleKeys.buy_product_btn.tr(),
-                                style: FunctionHelper.FontTheme(
-                                    fontSize: SizeUtil.titleFontSize().sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white)))
-                      ],
-                    )
+                    child: Container(
+                        alignment: Alignment.center,
+                        height: 8.0.h,
+                        color: ThemeColor.ColorSale(),
+                        child: Text(LocaleKeys.buy_product_btn.tr(),
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)))
                 ))
           ],
         ),

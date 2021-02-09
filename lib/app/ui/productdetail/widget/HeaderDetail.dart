@@ -180,14 +180,21 @@ Expanded(
           fontWeight: FontWeight.bold,
           color: _colorTitle)),
 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Container(
-                    color: _backgroundColorSearch,
-                    child: BuildIconShop(
-
-                      iconColor: _colorIcon),
-                  ),
+                Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Container(
+                        color: _backgroundColorSearch,
+                        child: SizedBox(width: 12.0.w,height: 12.0.w,),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 0.3.h,left: 0.1.h),
+                      child: BuildIconShop(
+                          iconColor: _colorIcon),
+                    )
+                  ],
                 ),
                 SizedBox(width: 2.0.w,),
                 ClipRRect(

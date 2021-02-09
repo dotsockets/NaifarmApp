@@ -58,7 +58,7 @@ class ProductInto extends StatelessWidget {
 
       });
 
-      Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: data.id));
+      Usermanager().getUser().then((value) => bloc.GetWishlistsByProduct(token: value.token,productID: data.id));
     }
   }
 
@@ -79,23 +79,22 @@ class ProductInto extends StatelessWidget {
                   fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 10),
-            RichText(
-              text: new TextSpan(
-                style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
-                  new TextSpan(
-                      text: "${data.offerPrice!=null?data.salePrice:''}",
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                  new TextSpan(text:data.offerPrice!=null?"฿${data.offerPrice}":"฿${data.salePrice}",style: FunctionHelper.FontTheme(
-    fontSize: SizeUtil.priceFontSize().sp, color: ThemeColor.ColorSale())),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            data.offerPrice!=null?Text("฿${data.salePrice}",style: FunctionHelper.FontTheme(
+                color: Colors.grey,
+                fontSize: SizeUtil.priceFontSize().sp, decoration: TextDecoration.lineThrough)):SizedBox(),
+            SizedBox(width: data.offerPrice!=null?1.0.w:0),
+            Text(data.offerPrice!=null?"฿${data.offerPrice}":"฿${data.salePrice}",maxLines: 1,
+              overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+          ],
+        ),
             Row(
               children: [
                 Expanded(child: Text(
-                  "${data.saleCount!=null? data.saleCount.toString():'0'} ${LocaleKeys.my_product_sold_end.tr()}",
+                  "${LocaleKeys.my_product_sold_end.tr()} ${data.saleCount!=null? data.saleCount.toString():'0'} ${LocaleKeys.cart_item.tr()}",
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
                 ),),
                 InkWell(
@@ -156,14 +155,12 @@ class ProductInto extends StatelessWidget {
       },
       likeCountAnimationType: LikeCountAnimationType.part,
       likeCountPadding:  EdgeInsets.all(1.0.w),
-      onTap: (bool like)=>onLikeButtonTapped(item.total>0?true:false),
+      onTap: (bool like)=>onLikeButtonTapped(item.total>0?true:false,item),
     );
   }
 
-  Future<bool> onLikeButtonTapped(bool isLiked) async {
+  Future<bool> onLikeButtonTapped(bool isLiked,WishlistsRespone item) async {
 
-    var item =  bloc.Wishlists.value;
-    if(bloc.Wishlists.value.data!=null){
 
       if (item.total > 0) {
         int id = item.data[0].id;
@@ -173,7 +170,7 @@ class ProductInto extends StatelessWidget {
         Usermanager().getUser().then((value) =>
             bloc.DELETEWishlists(WishId: id, token: value.token));
       } else {
-        print("efcewc 1");
+
         Usermanager().getUser().then((value) => bloc.AddWishlists(
             productId: data.id,
             inventoryId: data
@@ -183,7 +180,7 @@ class ProductInto extends StatelessWidget {
         item.total = 1;
         bloc.Wishlists.add(item);
       }
-    }
+
 
 
     return !isLiked;

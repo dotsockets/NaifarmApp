@@ -143,7 +143,7 @@ class _AddressAddViewState extends State<AddressAddView> {
                   LocaleKeys.my_profile_phoneNum.tr(),
               controller: phoneController,
               onChanged: (String x) => _checkError(),
-              inputType: TextInputType.number),
+              inputType: TextInputType.phone),
           SizedBox(
             height: 0.9.h,
           ),

@@ -5,9 +5,9 @@ import 'ShippingsRespone.dart';
 class CartResponse {
   List<CartData> data;
   String total;
-  bool selectAll =false;
+  bool selectAll;
 
-  CartResponse({this.data, this.total,this.selectAll= false});
+  CartResponse({this.data, this.total,this.selectAll});
 
   CartResponse.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {

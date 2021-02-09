@@ -66,9 +66,7 @@ class ProductBloc{
   List<ProductData> product_more = List<ProductData>();
 
 
-  ProductBloc(this._application){
-    Wishlists.add(WishlistsRespone());
-  }
+  ProductBloc(this._application);
 
   void dispose() {
     _compositeSubscription.clear();
@@ -149,37 +147,7 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  GetMyWishlistsById({String token,int productId}){
-    //onLoad.add(true);
 
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.GetMyWishlists(token: token)).listen((respone) {
-      // onLoad.add(false);
-      if(respone.http_call_back.status==200){
-
-        for(var item in (respone.respone as WishlistsRespone).data){
-          if(item.productId==productId){
-            Wishlists.add((respone.respone as WishlistsRespone));
-            break;
-          }
-        }
-
-        // NaiFarmLocalStorage.getHomeDataCache().then((value1){
-        //   value1.wishlistsRespone = (respone.respone as WishlistsRespone);
-        //   NaiFarmLocalStorage.saveHomeData(value1).then((value2) {
-        //     Wishlists.add(value1.wishlistsRespone);
-        //   });
-        //
-        // });
-
-
-      }else{
-        onError.add(respone.http_call_back.result);
-      }
-
-    });
-    _compositeSubscription.add(subscription);
-  }
 
   loadProductTrending({String page,int limit=10})async{
     StreamSubscription subscription =
@@ -300,7 +268,8 @@ class ProductBloc{
 
       if(respone.http_call_back.status==200){
        // GetMyWishlists(token: token);
-       onSuccess.add(true);
+        Wishlists.add(WishlistsRespone(total: 0));
+     //  onSuccess.add(true);
       }else{
         onError.add(respone.http_call_back.result);
       }
@@ -314,8 +283,18 @@ class ProductBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.AddWishlists(inventoryId: inventoryId,productId: productId,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
-       // GetMyWishlists(token: token);
-        onSuccess.add(true);
+       // GetMyWishlists(token: token); GetWishlistsByProduct
+        var item = (respone.respone as DataWishlists);
+        if(item!=null){
+          List<DataWishlists> data =  List<DataWishlists>();
+          data.add(item);
+          Wishlists.add(WishlistsRespone(data: data,total: 1));
+        }else{
+          List<DataWishlists> data =  List<DataWishlists>();
+          Wishlists.add(WishlistsRespone(data: data,total: 0));
+        }
+
+      //  onSuccess.add(true);
       }else{
         onError.add(respone.http_call_back.result);
       }

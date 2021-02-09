@@ -194,65 +194,14 @@ class _ProductGridState extends State<ProductGrid> {
     ),
   );
 
-  Widget _FlashintoProduct({ProductData item, int index}) {
-    return Container(
-      child: Column(
-        children: [
-          SizedBox(height: 1.0.h),
-          Container(
-            height: 4.0.h,
-            child: Text(
-              item.name,
-              maxLines: 2,
-              style: FunctionHelper.FontTheme(
-                  color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),
-            ),
-          ),
-          SizedBox(
-            height: 0.8.h,
-          ),
-          Text(
-            "฿${item.salePrice}",
-            style: FunctionHelper.FontTheme(
-                color: ThemeColor.ColorSale(), fontWeight: FontWeight.bold,fontSize: SizeUtil.priceFontSize().sp),
-          ),
-          SizedBox(height: 5),
-          Stack(
-            children: [
-              Container(
-                padding: EdgeInsets.all(5),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Container(
-                    padding:
-                    EdgeInsets.only(left: 15, right: 7, bottom: 3, top: 3),
-                    color: ThemeColor.ColorSale(),
-                    child: Text(
-                      LocaleKeys.my_product_sold.tr()+item.hasVariant.toString()+" "+LocaleKeys.cart_piece.tr(),
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize().sp,
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ),
-              SvgPicture.asset(
-                'assets/images/svg/flash.svg',
-                width: 45,
-                height: 40,
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
+
 
   Widget _intoProduct({ProductData item, int index}) {
     return Column(
       children: [
         SizedBox(height: 0.5.h),
         Container(
-          height: 4.0.h,
+          height: 4.5.h,
           child: Text(item.name,maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

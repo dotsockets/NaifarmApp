@@ -149,12 +149,55 @@ class BuyAgain extends StatelessWidget {
       width: 30.0.w,
       child: Column(
         children: [
-          SizedBox(height: 8),
-          Text(item.name,maxLines: 1,
-            overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
-          SizedBox(height: 5),
-          Text("฿${item.salePrice}",style: FunctionHelper.FontTheme(fontSize:SizeUtil.priceFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500),),
-
+          SizedBox(height: 1.0.h),
+          Container(
+            height: 4.5.h,
+            child: Text(" "+item.name+" ",
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,maxLines: 2,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),),
+          ),
+          SizedBox(
+            height: 0.8.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              item.offerPrice!=null?Text("${item.salePrice}",style: FunctionHelper.FontTheme(
+                  color: Colors.grey,
+                  fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
+              SizedBox(width: item.offerPrice!=null?1.0.w:0),
+              Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
+                overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+            ],
+          ),
+          // SizedBox(height: 1.0.h),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     SmoothStarRating(
+          //         allowHalfRating: false,
+          //         onRated: (v) {},
+          //         starCount: 5,
+          //         rating: item.rating.toDouble(),
+          //         size: 4.0.w,
+          //         isReadOnly: true,
+          //         filledIconData: Icons.star,
+          //         halfFilledIconData: Icons.star_half_outlined,
+          //         color: Colors.amber,
+          //         borderColor: Colors.amber,
+          //         spacing: 0.0),
+          //     SizedBox(width: 1.0.w,),
+          //     Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
+          //   ],
+          // ),
+          Container(
+            padding: EdgeInsets.all(0.8.h),
+            child: Container(
+              padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
+              child:  Text(LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_piece.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize().sp),),
+            ),
+          )
         ],
       ),
     );
