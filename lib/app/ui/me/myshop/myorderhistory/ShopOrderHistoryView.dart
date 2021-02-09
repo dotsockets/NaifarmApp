@@ -69,7 +69,7 @@ class ShopOrderHistoryView extends StatelessWidget {
                         isScrollable: true,
                         tabs: [
                           _tabbar(
-                              title: "Waiting for payment ", message: false),
+                              title: LocaleKeys.me_menu_wait_pay.tr(), message: false),
                           _tabbar(
                               title: LocaleKeys.me_menu_ship.tr(), message: true),
                           _tabbar(

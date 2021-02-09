@@ -185,20 +185,22 @@ class _AddressViewState extends State<AddressView> {
                         item.phone,
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
+                            color: Colors.grey,
                             height: 1.5),
                       ),
                       Text(
                         item.addressLine1,
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
+                            color: Colors.grey,
                             height: 1.5),
                       ),
-                      Text(
+                   /*   Text(
                         item.zipCode,
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             height: 1.5),
-                      ),
+                      ),*/
                     ],
                   ),
                 ),

@@ -172,8 +172,8 @@ class _PurchaseViewState extends State<PurchaseView> {
           ),
           TabMenu(
               icon: 'assets/images/svg/status_pickup.svg',
-              title: LocaleKeys.me_menu_receive_shop.tr(),
-              onClick: (){AppRoute.MyShophistory(context,3);},
+              title: "ที่ต้องได้รับ",
+              onClick: (){AppRoute.MyShophistory(context,2);},
               notification: count.buyOrder.toBeRecieve),
           TabMenu(
               icon: 'assets/images/svg/status_star.svg',

@@ -75,6 +75,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
             title: "แก้ไขการส่งสินค้า",
             icon: "",
             header_type: Header_Type.barNormal,
+            isEnable_Search: false,
           ),
           body: Container(
             color: Colors.grey.shade300,
@@ -110,18 +111,18 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                 SizedBox(height: 1.0.w,),
                 IsHave?Center(
                   child: Container(
-                    padding: EdgeInsets.only(right: 10,left: 10),
+                    padding: EdgeInsets.only(right: 1.0.w,left: 1.0.w),
                     child: Row(
                       children: [
                         Expanded(
                           child: Container(
-                            padding: EdgeInsets.all(4.0.w),
+                            padding: EdgeInsets.only(right:3.0.w,left: 3.0.w,top:4.0.w,bottom: 4.0.w),
                             child: BuildItem(),
                           ),
                         ),
                         Expanded(
                           child: Container(
-                            padding: EdgeInsets.all(4.0.w),
+                            padding: EdgeInsets.only(right:3.0.w,left: 3.0.w,top:4.0.w,bottom: 4.0.w),
                             child: FlatButton(
                               minWidth: 50.0.w,
                               color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
@@ -138,7 +139,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40.0),
                               ),
-                              child: Text("Cancel use",
+                              child: Text("ยกเลิกการเชื่อมการขนส่ง",
                                 style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                               ),
                             ),
@@ -162,7 +163,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
 
   Widget BuildItem()=> FlatButton(
     minWidth: 50.0.w,
-    color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
+    color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
     textColor: Colors.white,
     disabledColor: Colors.grey,
     disabledTextColor: Colors.black,
@@ -182,7 +183,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(40.0),
     ),
-    child: Text("Continue",
+    child: Text(LocaleKeys.continue_btn.tr(),
       style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
     ),
   );

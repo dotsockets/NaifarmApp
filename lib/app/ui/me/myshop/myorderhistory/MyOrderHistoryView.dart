@@ -42,7 +42,7 @@ class MyOrderHistoryView extends StatelessWidget {
           child: Scaffold(
             backgroundColor: Colors.grey.shade300,
             appBar: AppToobar(
-              title: "Purchase history",
+              title: LocaleKeys.me_title_history.tr(),
               header_type: Header_Type.barcartShop,
               icon: '',onClick: (){
                 if(callback){
@@ -72,10 +72,10 @@ class MyOrderHistoryView extends StatelessWidget {
                           _tabbar(
                               title: LocaleKeys.me_menu_ship.tr(), message: true),
                           _tabbar(
-                              title: LocaleKeys.me_menu_receive_shop.tr(),
+                              title: "ที่ต้องได้รับ",
                               message: true),
                           _tabbar(
-                              title: LocaleKeys.me_menu_complete_shop.tr(),
+                              title: "จัดส่งสำเร็จ",
                               message: false),
                           _tabbar(
                               title: LocaleKeys.me_menu_cancel.tr(),
@@ -92,8 +92,8 @@ class MyOrderHistoryView extends StatelessWidget {
                   Expanded(
                     child:TabBarView(
                       children: [
-                        PaidView(orderType: "order",),
-                        ShippedView(orderType: "order",),
+                        PaidView(orderType: "order",typeView: "purchase",),
+                        ShippedView(orderType: "order",typeView: "purchase"),
                         DeliveryView(orderType: "order",),
                         SuccessView(orderType: "order/waiting-review",),
                         CanceledView(orderType: "order",),

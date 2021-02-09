@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -38,6 +39,10 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController _username = new TextEditingController();
   TextEditingController _password = new TextEditingController();
   MemberBloc bloc;
+  bool checkError = true;
+  String errorMail = "";
+  String errorPass = "";
+
 
   @override
   void initState() {
@@ -62,7 +67,9 @@ class _LoginViewState extends State<LoginView> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+        FunctionHelper.AlertDialogShop(context,
+            title: "Error", message:event);
+      //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
 
@@ -125,9 +132,9 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(height: 4.0.h,),
             Text(LocaleKeys.login_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp+2,fontWeight: FontWeight.w500),),
             SizedBox(height: 3.0.h,),
-            BuildEditText(head: LocaleKeys.my_profile_phone.tr()+"/"+LocaleKeys.my_profile_email.tr(), hint: LocaleKeys.my_profile_phone.tr()+"/"+LocaleKeys.my_profile_email.tr(),inputType: TextInputType.text,controller: _username,BorderOpacity: 0.3,borderRadius: 7,),
+            BuildEditText(head: LocaleKeys.my_profile_phone.tr()+"/"+LocaleKeys.my_profile_email.tr(), hint: LocaleKeys.my_profile_phone.tr()+"/"+LocaleKeys.my_profile_email.tr(),inputType: TextInputType.text,controller: _username,BorderOpacity: 0.3,borderRadius: 7,onChanged: (String x) => _checkError(),),
             SizedBox(height: 2.0.h,),
-            BuildEditText(head: LocaleKeys.my_profile_password.tr(), hint: LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,controller: _password,BorderOpacity: 0.3,IsPassword: true,borderRadius: 7),
+            BuildEditText(head: LocaleKeys.my_profile_password.tr(), hint: LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,controller: _password,BorderOpacity: 0.3,IsPassword: true,borderRadius: 7,onChanged: (String x) => _checkError()),
             SizedBox(height: 1.0.h,),
             Align(
               alignment: Alignment.topRight,
@@ -141,7 +148,7 @@ class _LoginViewState extends State<LoginView> {
               child: FlatButton(
                 minWidth: 80.0.w,
                 height: 6.5.h,
-                color: ThemeColor.ColorSale(),
+                color: checkError?ThemeColor.ColorSale():Colors.grey.shade300,
                 textColor: Colors.white,
                 splashColor: Colors.white.withOpacity(0.3),
                 shape: RoundedRectangleBorder(
@@ -198,8 +205,18 @@ class _LoginViewState extends State<LoginView> {
                   bloc.LoginFacebook();
                  // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                 },
-                child: Text(LocaleKeys.facebook_login_btn.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/images/svg/facebook.svg',
+                      width: 2.0.w,
+                      height: 2.0.h,
+                    ),   SizedBox(width: 2.0.w,),
+                    Text("Continue with Facebook",
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -210,8 +227,8 @@ class _LoginViewState extends State<LoginView> {
                 InkWell(child: Text(LocaleKeys.regis_rule.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
                   ,onTap: (){AppRoute.SettingRules(context);},
                 ),
-                Text(" "+LocaleKeys.and.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.7,fontWeight: FontWeight.w500),),
-                InkWell(child: Text(" "+LocaleKeys.regis_policy.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
+                Text(" "+LocaleKeys.and.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.7,fontWeight: FontWeight.w500),),
+                InkWell(child: Text(LocaleKeys.regis_policy.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: ThemeColor.secondaryColor(),decoration: TextDecoration.underline,height: 1.7,fontWeight: FontWeight.w500),)
                   ,onTap: (){AppRoute.SettingPolicy(context);},
                 ),
                 Text(" "+LocaleKeys.withh.tr()+" NaiFarm",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.7,fontWeight: FontWeight.w500),),
@@ -263,18 +280,37 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
+  void _checkError() {
+    if(_username.text.isEmpty || _password.text.isEmpty){
+      checkError = false;
+    }else if(_password.text.length<8){
+      checkError = false;
+    }
+      else{
+      checkError = true;
+    }
+    setState(() {});
+  }
+
+
+
 
   void _validate() {
     FocusScope.of(context).unfocus();
     RegExp nameRegExp = RegExp('[a-zA-Z]');
     // var stats_form = _form.currentState.validate();
     if(_username.text.isEmpty || _password.text.isEmpty){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_userpass_empty.tr(),context: context);
+     // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_userpass_empty.tr(),context: context);
     }else if(!nameRegExp.hasMatch(_username.text) && _username.text.length<10 || !nameRegExp.hasMatch(_username.text) && _username.text.length>10){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_phone_invalid.tr(),context: context);
+     // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_phone_invalid.tr(),context: context);
+      FunctionHelper.AlertDialogShop(context,
+          title: "Error", message: LocaleKeys.message_error_phone_invalid.tr());
   }else if(!validator.email(_username.text) && nameRegExp.hasMatch(_username.text)){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_mail_invalid.tr());
+    //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_mail_invalid.tr());
+      FunctionHelper.AlertDialogShop(context,
+          title: "Error", message:LocaleKeys.message_error_mail_invalid.tr());
     }else{
+      if(checkError)
         bloc.CustomerLogin(context: context,loginRequest: LoginRequest(username: validator.email(_username.text)?_username.text:"",phone: !validator.email(_username.text)?_username.text:"",password:_password.text));
     }
   }

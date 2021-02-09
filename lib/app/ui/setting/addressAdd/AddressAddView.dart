@@ -301,13 +301,13 @@ class _AddressAddViewState extends State<AddressAddView> {
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(2.0.w),
-            child: _buildButtonItem(btnTxt: LocaleKeys.confirm_btn.tr())));
+            child: _buildButtonItem(btnTxt: LocaleKeys.continue_btn.tr())));
   }
 
   Widget _buildButtonItem({String btnTxt}) {
     return FlatButton(
       minWidth: 50.0.w,
-      color: check ? ThemeColor.secondaryColor() : Colors.grey.shade400,
+      color: check ? ThemeColor.ColorSale() : Colors.grey.shade400,
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),
       shape: RoundedRectangleBorder(

@@ -191,7 +191,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 hintStyle: TextStyle(
                                     color: Colors.black.withOpacity(0.2)),
                                 contentPadding:
-                                EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
+                                EdgeInsets.fromLTRB(10.0, 7.0, 10.0, 0.0),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide:
                                   BorderSide(color: Colors.transparent),
@@ -259,7 +259,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 hintStyle: TextStyle(
                                     color: Colors.black.withOpacity(0.2)),
                                 contentPadding:
-                                EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
+                                EdgeInsets.fromLTRB(10.0, 7.0, 10.0, 0.0),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide:
                                   BorderSide(color: Colors.transparent),
@@ -326,7 +326,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 hintStyle: TextStyle(
                                     color: Colors.black.withOpacity(0.2)),
                                 contentPadding:
-                                EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
+                                EdgeInsets.fromLTRB(10.0, 7.0, 10.0, 0.0),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide:
                                   BorderSide(color: Colors.transparent),
@@ -393,7 +393,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 hintStyle: TextStyle(
                                     color: Colors.black.withOpacity(0.2)),
                                 contentPadding:
-                                EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
+                                EdgeInsets.fromLTRB(10.0, 7.0, 10.0, 0.0),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide:
                                   BorderSide(color: Colors.transparent),
@@ -460,7 +460,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 hintStyle: TextStyle(
                                     color: Colors.black.withOpacity(0.2)),
                                 contentPadding:
-                                EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
+                                EdgeInsets.fromLTRB(10.0, 7.0, 10.0, 0.0),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide:
                                   BorderSide(color: Colors.transparent),
@@ -527,7 +527,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 hintStyle: TextStyle(
                                     color: Colors.black.withOpacity(0.2)),
                                 contentPadding:
-                                EdgeInsets.fromLTRB(13.0, 7.0, 13.0, 0.0),
+                                EdgeInsets.fromLTRB(10.0, 7.0, 10.0, 0.0),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide:
                                   BorderSide(color: Colors.transparent),
