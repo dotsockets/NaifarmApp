@@ -307,14 +307,14 @@ class _AddressEditViewState extends State<AddressEditView> {
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(1.5.w),
-            child: _buildButtonItem(btnTxt: LocaleKeys.confirm_btn.tr())));
+            child: _buildButtonItem(btnTxt: LocaleKeys.continue_btn.tr())));
   }
 
   Widget _buildButtonItem({String btnTxt}) {
     return Container(
       height: 5.0.h,
       child: FlatButton(
-        color:check? ThemeColor.secondaryColor()
+        color:check? ThemeColor.ColorSale()
             : Colors.grey.shade400,
         textColor: Colors.white,
         splashColor: Colors.white.withOpacity(0.3),
@@ -323,7 +323,7 @@ class _AddressEditViewState extends State<AddressEditView> {
         ),
         onPressed: () {
 
-          Usermanager().getUser().then((value) =>     bloc.UpdateAddress(data: AddressCreaterequest(countryId: 1,id: widget.item.id,cityId: citySelect,phone: phoneController.text,addressLine1: detailAddrController.text,
+          Usermanager().getUser().then((value) =>  bloc.UpdateAddress(data: AddressCreaterequest(countryId: 1,id: widget.item.id,cityId: citySelect,phone: phoneController.text,addressLine1: detailAddrController.text,
               addressLine2: "",addressTitle: nameController.text,stateId: proviceSelect,zipCode: postController.text,addressType: isSelect?"Primary":"Shipping"),token: value.token));
         },
         child: Text(

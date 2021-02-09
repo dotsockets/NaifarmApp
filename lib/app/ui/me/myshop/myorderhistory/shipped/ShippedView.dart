@@ -252,7 +252,8 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    LocaleKeys.history_order_time.tr() +
+                    widget.typeView=="purchase"? "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการ\nขนส่งภายในวันที่" +
+                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -276,7 +277,10 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
+            widget.typeView=="shop"?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
+                style: FunctionHelper.FontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.w500)),):Row(
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(20)),

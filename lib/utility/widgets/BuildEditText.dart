@@ -82,9 +82,7 @@ class _BuildEditTextState extends State<BuildEditText> {
                 // });
               },
               validator: (value) {
-                if (value.isEmpty) {
-                  print("-------");
-                }
+                if (value.isEmpty) {}
                 return null;
               },
             ),

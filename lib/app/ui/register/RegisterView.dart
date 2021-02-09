@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -32,6 +33,8 @@ class _RegisterViewState extends State<RegisterView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   MemberBloc bloc;
+  bool checkError = true;
+  String errorTxt = "";
 
   @override
   void initState() {
@@ -42,6 +45,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   void _init(){
     if(null == bloc){
+
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if(event){
@@ -52,10 +56,19 @@ class _RegisterViewState extends State<RegisterView> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+        //if (event.error.status == 406) {
+          FunctionHelper.AlertDialogShop(context,
+              title: "Error", message: event);
+        //}
+        //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: (event as OTPRespone).refCode,requestOtp: RequestOtp.Register);
+      });
+      bloc.checkPhone.stream.listen((event) {
+        if(event){
+          bloc.OTPRequest(numberphone: PhoneController.text);
+       }
       });
     }
 
@@ -64,7 +77,6 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     _init();
-
 
     return Container(
       color: ThemeColor.primaryColor(),
@@ -77,7 +89,6 @@ class _RegisterViewState extends State<RegisterView> {
             children: [
               _BuildBar(context),
               _BuildContent(context)
-
             ],
           ),
         ),
@@ -90,25 +101,29 @@ class _RegisterViewState extends State<RegisterView> {
     return Container(
       padding: EdgeInsets.all(20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+
         children: [
           SizedBox(height: 4.0.h,),
-          Text(LocaleKeys.register_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp+2,fontWeight: FontWeight.w500),),
+          Center(child: Text(LocaleKeys.register_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp+2,fontWeight: FontWeight.w500),)),
           SizedBox(height: 4.0.h,),
-          BuildEditText(head: LocaleKeys.my_profile_phone.tr()+" *", hint: LocaleKeys.my_profile_phone.tr(),inputType: TextInputType.number,controller: PhoneController,BorderOpacity: 0.3,),
-          SizedBox(height: 4.0.h,),
+          BuildEditText(head: LocaleKeys.my_profile_phone.tr()+" *", hint: LocaleKeys.my_profile_phone.tr(),inputType: TextInputType.number,controller: PhoneController,BorderOpacity: 0.3,onChanged: (String x)=> _checkError(),),
+          SizedBox(height: 1.0.h,),
+          Text(errorTxt,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500,color: Colors.grey),),
+          SizedBox(height: 3.0.h,),
           Padding(
             padding: const EdgeInsets.only(right: 15,left: 15),
             child: FlatButton(
               minWidth: 80.0.w,
               height: 6.5.h,
-              color: ThemeColor.secondaryColor(),
+              color: checkError?ThemeColor.secondaryColor():Colors.grey.shade300,
               textColor: Colors.white,
               splashColor: Colors.white.withOpacity(0.3),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40.0),
               ),
               onPressed: ()=>_validate(),
-              child: Text(LocaleKeys.confirm_btn.tr(),
+              child: Text(LocaleKeys.continue_btn.tr(),
                 style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
               ),
             ),
@@ -135,8 +150,21 @@ class _RegisterViewState extends State<RegisterView> {
                 borderRadius: BorderRadius.circular(40.0),
               ),
               onPressed: ()=>bloc.LoginFacebook(),
-              child: Text(LocaleKeys.facebook_regis_btn.tr(),
-                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+              child: //Text(LocaleKeys.facebook_regis_btn.tr(),
+                //style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/svg/facebook.svg',
+                    width: 2.0.w,
+                    height: 2.0.h,
+                  ),
+                  SizedBox(width: 2.0.w,),
+                  Text("Continue with Facebook",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+            ),
+                ],
               ),
             ),
           ),
@@ -200,17 +228,30 @@ class _RegisterViewState extends State<RegisterView> {
       ),
     );
   }
-  void _validate() {
-    if(PhoneController.text.isEmpty){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_phone_empty.tr(),context: context);
-    }else if(PhoneController.text.length!=10){
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_phone_invalid.tr());
-    }else{
-      bloc.OTPRequest(numberphone: PhoneController.text);
-
+  void _checkError() {
+    if (PhoneController.text.isEmpty) {
+      /*FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,
+          message: LocaleKeys.message_error_phone_empty.tr(),
+          context: context);*/
+      errorTxt=  LocaleKeys.message_error_phone_empty.tr();
+      checkError = false;
+    } else if (PhoneController.text.length != 10) {
+    /*  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,
+          message: LocaleKeys.message_error_phone_invalid.tr());*/
+      errorTxt = LocaleKeys.message_error_phone_invalid.tr();
+      checkError = false;
+    } else {
+      checkError = true;
+      errorTxt = "";
     }
+    setState(() {});
   }
 
+  void _validate() {
+    if (PhoneController.text.isNotEmpty && PhoneController.text.length == 10) {
+      bloc.checkPhoneNumber(phone: PhoneController.text);
+    }
+  }
 
 
 

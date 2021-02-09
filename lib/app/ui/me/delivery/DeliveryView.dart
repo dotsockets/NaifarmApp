@@ -95,7 +95,7 @@ Widget _BuildDelivery({String nameDeli,CarriersData item}){
           children: [Text(nameDeli,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w600)),
             Row(
               children: [
-                Text(item.active?"ใช้งาน":"",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.red.shade600,fontWeight: FontWeight.w600)),
+                Text(item.active?"เลือกใช้":"",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.red.shade600,fontWeight: FontWeight.w600)),
                 SizedBox(width: 10,),
                 Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,size: 4.3.w,)
               ],

@@ -159,7 +159,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 ),
                 onPressed: () => _validate(),
                 child: Text(
-                  LocaleKeys.my_profile_request_change_password.tr(),
+                  LocaleKeys.continue_btn.tr(),
                   style: FunctionHelper.FontTheme(
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.w500),

@@ -385,6 +385,9 @@ class APIRepository{
     return _apiProvider.MarkPaid(orderId: OrderId,token: token);
   }
 
+  Future<ApiResult> checkPhone({String phone}){
+    return _apiProvider.checkPhone(phone: phone);
+  }
 
 
 //  Observable<List<AppContent>> getTop100FreeApp(){

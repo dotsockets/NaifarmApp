@@ -34,6 +34,7 @@ class MemberBloc{
 
   final TextOn = BehaviorSubject<String>();
 
+  final checkPhone = BehaviorSubject<bool>();
   Stream<Object> get feedList => onSuccess.stream;
 
   MemberBloc(this._application);
@@ -359,6 +360,22 @@ class MemberBloc{
     });
     _compositeSubscription.add(subscription);
   }
+
+  checkPhoneNumber({String phone}) async{
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.checkPhone(phone: phone)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        checkPhone.add(respone.respone);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
 }
 
 enum RequestOtp{

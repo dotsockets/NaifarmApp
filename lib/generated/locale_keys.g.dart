@@ -30,6 +30,7 @@ abstract class  LocaleKeys {
   static const me_menu_complete_shop = 'me.menu_complete_shop';
   static const me_menu_cancel = 'me.menu_cancel';
   static const me_menu_refund = 'me.menu_refund';
+  static const me_menu_wait_pay = 'me.menu_wait_pay';
   static const me_title_history = 'me.title_history';
   static const me_title_history_shop = 'me.title_history_shop';
   static const me_title_likes = 'me.title_likes';

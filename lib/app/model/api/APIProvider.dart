@@ -336,6 +336,8 @@ abstract class APIProvider{
   @PATCH("/v1/order/220/mark-paid")
   Future<ApiResult> MarkPaid({int orderId,String token});
 
+  @POST("/v1/customers/check-phone")
+  Future<ApiResult> checkPhone({String phone});
 }
 
 
