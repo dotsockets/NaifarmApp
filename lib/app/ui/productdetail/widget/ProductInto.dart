@@ -148,8 +148,8 @@ class ProductInto extends StatelessWidget {
       ),
       likeBuilder: (bool isLiked) {
         return Icon(
-          isLiked?Icons.favorite:Icons.favorite_border,
-          color: isLiked ? ThemeColor.ColorSale() : Colors.grey.withOpacity(0.5),
+          isLiked?Icons.favorite:Icons.favorite_outline_sharp,
+          color: isLiked ? ThemeColor.ColorSale() : Colors.black.withOpacity(0.55),
           size: 8.0.w,
         );
       },

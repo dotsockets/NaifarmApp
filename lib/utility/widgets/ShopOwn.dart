@@ -123,7 +123,7 @@ class ShopOwn extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("${shopItem.rating!=null?shopItem.rating:'0.0'}",
+                          Text("${shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating:'0.0'}",
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.priceFontSize().sp,
                                   color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
@@ -132,7 +132,7 @@ class ShopOwn extends StatelessWidget {
                               allowHalfRating: false,
                               onRated: (v) {},
                               starCount: 5,
-                              rating: shopItem.rating!=null?shopItem.rating.toDouble():0.0,
+                              rating: shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():0.0,
                               size: 18.0,
                               isReadOnly: true,
                               filledIconData: Icons.star,

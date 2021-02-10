@@ -38,7 +38,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
   UploadProductBloc bloc;
 
   init(){
-    weightProductController.text = widget.uploadProductStorage.productMyShopRequest.weight.toString();
+    weightProductController.text = widget.uploadProductStorage.productMyShopRequest.weight!=null?widget.uploadProductStorage.productMyShopRequest.weight.toString():"0";
     if(bloc==null){
       CheckForm();
       bloc = UploadProductBloc(AppProvider.getApplication(context));
