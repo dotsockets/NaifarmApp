@@ -54,9 +54,9 @@ class _PurchaseViewState extends State<PurchaseView> {
               if(count is CustomerCountLoaded){
                 return  _buildTabMenu(context,count.countLoaded);
               }else if(count is CustomerCountLoading){
-                return _buildTabMenu(context,count.countLoaded!=null?count.countLoaded:CustomerCountRespone(buyOrder: BuyOrder(unpaid: 0,toBeRecieve: 0,cancel: 0,confirm: 0,delivered: 0,failed: 0,fulfill: 0,refund: 0)));
+                return _buildTabMenu(context,count.countLoaded!=null?count.countLoaded:CustomerCountRespone(buyOrder: BuyOrder(unpaid: 0,toBeRecieve: 0,cancel: 0,confirm: 0,delivered: 0,failed: 0,refund: 0)));
               }else{
-                return  _buildTabMenu(context,CustomerCountRespone(buyOrder: BuyOrder(unpaid: 0,toBeRecieve: 0,cancel: 0,confirm: 0,delivered: 0,failed: 0,fulfill: 0,refund: 0)));
+                return  _buildTabMenu(context,CustomerCountRespone(buyOrder: BuyOrder(unpaid: 0,toBeRecieve: 0,cancel: 0,confirm: 0,delivered: 0,failed: 0,refund: 0)));
               }
 
             },

@@ -117,22 +117,26 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
               header_type: Header_Type.barNormal,
             ),
             body: Container(
-              color: Colors.grey.shade300,
+              color: Colors.white,
               child: StreamBuilder(
                   stream: bloc.CartList.stream,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       var item = (snapshot.data as CartResponse).data;
                       if (item.isNotEmpty) {
-                        return Column(
-                          children: [
-                            Expanded(
-                              child: Platform.isAndroid?AndroidRefreshIndicator(item: item):SafeArea(child: IOSRefreshIndicator(item: item),),
-                            ),
-                            //_BuildDiscountCode(),
-                            _BuildFooterTotal(
-                                cartResponse: (snapshot.data as CartResponse),selectall: (snapshot.data as CartResponse).selectAll?false:true),
-                          ],
+
+                        return Container(
+                          color: Colors.grey.shade300,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Platform.isAndroid?AndroidRefreshIndicator(item: item):SafeArea(child: IOSRefreshIndicator(item: item),),
+                              ),
+                              //_BuildDiscountCode(),
+                              _BuildFooterTotal(
+                                  cartResponse: (snapshot.data as CartResponse),selectall: (snapshot.data as CartResponse).selectAll?false:true),
+                            ],
+                          ),
                         );
                       } else {
                         return Center(

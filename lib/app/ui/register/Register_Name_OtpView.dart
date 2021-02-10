@@ -140,7 +140,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
     }
 
     if(onError1=="" && onError2==""){
-      bloc.CustomersRegister(registerRequest: RegisterRequest(name: _input1.text,email: _input2.text,
+      bloc.CustomersRegister(context: context,registerRequest: RegisterRequest(name: _input1.text,email: _input2.text,
           password: widget.password,phone: widget.phone,agree: 0));
     }
 

@@ -53,13 +53,19 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
     super.initState();
   }
 
-  void _init(){
+  void _init(BuildContext context){
     if(null == bloc){
       bloc = MemberBloc(AppProvider.getApplication(context));
 
       NaiFarmLocalStorage.getCustomer_Info().then((value){
-        itemInfo = value.myShopRespone;
+
+         setState(() {
+           itemInfo = value.myShopRespone;
+           isSelect = value.myShopRespone.active==1?true:false;
+
+         });
       });
+
       bloc.onLoad.stream.listen((event) {
         // if(event){
         //   FunctionHelper.showDialogProcess(context);
@@ -73,15 +79,15 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
+
+        // Future.delayed(const Duration(milliseconds: 1000), () {
+        //   Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
+        // });
+
         if(event is ImageUploadRespone){
           setState(() {
             onImageUpdate = true;
             itemInfo.image[0].path = (event as ImageUploadRespone).path;
-          });
-        }else{
-          setState(() {
-            itemInfo = event;
-            isSelect = itemInfo.active==1?true:false;
           });
         }
 
@@ -91,13 +97,13 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
 
-     // Usermanager().getUser().then((value) => bloc.getMyShopInfo(token: value.token));
+     // Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
 
     }
 
   }
 
-  void OnSave(){
+  void OnSave({MyShopRespone itemInfo}){
     if(onUpdate || onImageUpdate){
       Usermanager().getUser().then((value) =>  bloc.MyShopUpdate(context: context,data: MyShopRequest(
           name: itemInfo.name,
@@ -118,9 +124,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-
-
-    _init();
+    _init(context);
     return WillPopScope(
       onWillPop: ()async{
         OnSave();
@@ -160,7 +164,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
               child: IconButton(
                 icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
                 onPressed: (){
-                  OnSave();
+                  OnSave(itemInfo: itemInfo);
 
                 },
               )
@@ -335,6 +339,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     SelectSwitch: isSelect,
                     IsSwitch: (bool select){
                       onUpdate = true;
+                      itemInfo.active = select?1:0;
                       setState(()=> isSelect = select);
                     },
                     title: "สถานะร้านค้า",

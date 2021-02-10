@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -42,7 +43,7 @@ class _MyshopViewState extends State<MyshopView> {
 
   TextEditingController nameshopController = TextEditingController();
   TextEditingController slugshopController = TextEditingController();
-  bool check = true;
+  bool check = false;
 
   void _init(){
     if(null == bloc){
@@ -56,10 +57,19 @@ class _MyshopViewState extends State<MyshopView> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
+        FunctionHelper.AlertDialogShop(context,message: event,title: "Error Create");
+       // FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-          setState(() {});
+        // Future.delayed(
+        //     const Duration(milliseconds: 1000), () {
+        //
+        // });
+        Usermanager().getUser().then((value) =>
+            context
+                .read<InfoCustomerBloc>()
+                .loadCustomInfo(
+                token: value.token));
       });
     }
 
@@ -70,11 +80,28 @@ class _MyshopViewState extends State<MyshopView> {
   Widget build(BuildContext context) {
     _init();
 
-    if(widget.customerInfoRespone!=null && widget.customerInfoRespone.shop!=null || bloc.onSuccess.value!=null){
-      return _BuildMyShop(context);
-    }else{
-      return _BuildRegisterMyshop(context);
-    }
+
+      return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+        builder: (_, item) {
+          if(item is InfoCustomerLoaded){
+            if(item.profileObjectCombine.myShopRespone!=null){
+              return _BuildMyShop(context,item: item.profileObjectCombine.myShopRespone);
+            }else{
+              return _BuildRegisterMyshop(context);
+            }
+
+          }else if(item is InfoCustomerLoading){
+
+            return _BuildMyShop(context,item: MyShopRespone(name: "กำลังโหลด",active: 0));
+          }else{
+            return  SizedBox();
+          }
+
+        },
+      );
+
+
+
 
   }
 
@@ -83,27 +110,39 @@ class _MyshopViewState extends State<MyshopView> {
       color: Colors.grey.shade300,
       child: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(20),
           color: Colors.white,
           child: Column(
             children: [
-              BuildEditText(
-                  head: LocaleKeys.shop_name.tr(),
-                  EnableMaxLength: false,
-                  hint: LocaleKeys.set_default.tr()+LocaleKeys.shop_name.tr(),
-                  controller: nameshopController,
-                  onChanged: (String x)=>_checkError(),
-                  inputType: TextInputType.text),
-              SizedBox(height: 20,),
-              BuildEditText(
-                  head: LocaleKeys.shop_detail.tr(),
-                  EnableMaxLength: false,
-                  hint: LocaleKeys.set_default.tr()+LocaleKeys.shop_detail.tr(),
-                  controller: slugshopController,
-                  onChanged: (String x)=>_checkError(),
-                  inputType: TextInputType.text),
-              SizedBox(height: 10,),
-              _buildButton()
+              Container(
+                padding: EdgeInsets.all(3.0.w),
+                color: Colors.grey.shade300,
+                child: Text("You can open a shop By filling in the information below to open your own shop ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black),),
+              ),
+             SizedBox(height: 0.5.h,),
+             Container(
+               padding: EdgeInsets.all(5.0.w),
+               child: Column(
+                 children: [
+                   BuildEditText(
+                       head: LocaleKeys.shop_name.tr(),
+                       EnableMaxLength: false,
+                       hint: LocaleKeys.set_default.tr()+LocaleKeys.shop_name.tr(),
+                       controller: nameshopController,
+                       onChanged: (String x)=>_checkError(),
+                       inputType: TextInputType.text),
+                   SizedBox(height: 20,),
+                   BuildEditText(
+                       head: LocaleKeys.shop_detail.tr(),
+                       EnableMaxLength: false,
+                       hint: LocaleKeys.set_default.tr()+LocaleKeys.shop_detail.tr(),
+                       controller: slugshopController,
+                       onChanged: (String x)=>_checkError(),
+                       inputType: TextInputType.text),
+                   SizedBox(height: 10,),
+                   _buildButton()
+                 ],
+               ),
+             )
             ],
           ),
         ),
@@ -111,7 +150,7 @@ class _MyshopViewState extends State<MyshopView> {
     );
   }
 
-  Widget _BuildMyShop(BuildContext context){
+  Widget _BuildMyShop(BuildContext context,{MyShopRespone item}){
     return Container(
       color: Colors.grey.shade200,
       child: Column(
@@ -188,8 +227,8 @@ class _MyshopViewState extends State<MyshopView> {
             iconSize:7.0.w,
             icon: 'assets/images/svg/work.svg',
             title: "ตั้งค่าข้อมูลร้านค้า",
-            IsPhoto: "${widget.myShopRespone.image.isNotEmpty ?"${Env.value.baseUrl}/storage/images/${widget.myShopRespone.image[0].path}":''}",
-            Message: widget.myShopRespone.name,
+            IsPhoto: "${item!=null?item.image!=null ?item.image.isNotEmpty?"${Env.value.baseUrl}/storage/images/${item.image[0].path}":'':'':''}",
+            Message: item.name,
             onClick: () async {
 
               final result = await AppRoute.ShopProfile(context);
@@ -245,8 +284,8 @@ class _MyshopViewState extends State<MyshopView> {
 
   Widget _buildBtnAddProduct(BuildContext context) {
     return Container(
-      width: 40.0.w,
-      height: 5.0.h,
+      width: 60.0.w,
+      height: 5.5.h,
       child: FlatButton(
         color: ThemeColor.secondaryColor(),
         textColor: Colors.white,
@@ -268,15 +307,15 @@ class _MyshopViewState extends State<MyshopView> {
 
   Widget _buildButton() {
     return Container(
-        child: Container(
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.all(15),
-            child: _buildButtonItem(btnTxt: LocaleKeys.continue_btn.tr())));
+        width: 60.0.w,
+        height: 5.5.h,
+        margin: EdgeInsets.all(15),
+        child: _buildButtonItem(btnTxt: LocaleKeys.continue_btn.tr()));
   }
 
   Widget _buildButtonItem({String btnTxt}) {
     return FlatButton(
-      color:!check? ThemeColor.ColorSale()
+      color:check? ThemeColor.ColorSale()
           : Colors.grey.shade400,
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),
@@ -284,8 +323,10 @@ class _MyshopViewState extends State<MyshopView> {
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () {
+          if(check){
+            Usermanager().getUser().then((value) => bloc.CreateMyShop(name: nameshopController.text,slug: slugshopController.text,description: slugshopController.text,token: value.token));
 
-           Usermanager().getUser().then((value) => bloc.CreateMyShop(name: nameshopController.text,slug: slugshopController.text,description: slugshopController.text,token: value.token));
+          }
       },
       child: Text(
         btnTxt,
@@ -303,10 +344,10 @@ class _MyshopViewState extends State<MyshopView> {
 
   void _checkError() {
     //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "ไม่ถูกต้อง",context: context);
-    check = true;
+    check = false;
 
     if(nameshopController.text!="" && slugshopController.text!=""){
-      check = false;
+      check = true;
     }
     setState(() {});
   }

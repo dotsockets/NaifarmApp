@@ -95,7 +95,10 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
     if(null == bloc){
       bloc = MemberBloc(AppProvider.getApplication(context));
       NaiFarmLocalStorage.getCustomer_Info().then((value){
-        itemInfo = value.customerInfoRespone;
+        if(value.customerInfoRespone!=null){
+          itemInfo = value.customerInfoRespone;
+        }
+
         itemInfo.phone = widget.phoneNumber;
       });
       bloc.onLoad.stream.listen((event) {

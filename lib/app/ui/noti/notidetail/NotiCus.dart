@@ -84,13 +84,36 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
   Widget build(BuildContext context) {
     init();
     return Container(
+
       child: StreamBuilder(
         stream: bloc.feedList,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var item = (snapshot.data as NotiRespone);
-          if(snapshot.hasData && item.data.isNotEmpty){
+          if(snapshot.hasData){
             step_page = item.data.length != item.total?true:false;
-            return Platform.isAndroid?AndroidRefreshIndicator(item: item):IOSRefreshIndicator(item: item);
+            if(item.data.isNotEmpty){
+              return Platform.isAndroid?AndroidRefreshIndicator(item: item):IOSRefreshIndicator(item: item);
+            }else{
+              return Center(
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 15.0.h),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset('assets/json/boxorder.json',
+                          height: 70.0.w, width: 70.0.w, repeat: false),
+                      Text(
+                        LocaleKeys.message_error_mail_empty.tr(),
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }
+
           }else{
             return Container(
               margin: EdgeInsets.only(bottom: 15.0.h),

@@ -69,7 +69,6 @@ class BuyOrder {
   int unpaid;
   int failed;
   int confirm;
-  int fulfill;
   int toBeRecieve;
   int delivered;
   int refund;
@@ -79,7 +78,6 @@ class BuyOrder {
       {this.unpaid,
         this.failed,
         this.confirm,
-        this.fulfill,
         this.toBeRecieve,
         this.delivered,
         this.refund,
@@ -89,7 +87,6 @@ class BuyOrder {
     unpaid = json['unpaid'];
     failed = json['failed'];
     confirm = json['confirm'];
-    fulfill = json['fulfill'];
     toBeRecieve = json['toBeRecieve'];
     delivered = json['delivered'];
     refund = json['refund'];
@@ -101,7 +98,6 @@ class BuyOrder {
     data['unpaid'] = this.unpaid;
     data['failed'] = this.failed;
     data['confirm'] = this.confirm;
-    data['fulfill'] = this.fulfill;
     data['toBeRecieve'] = this.toBeRecieve;
     data['delivered'] = this.delivered;
     data['refund'] = this.refund;

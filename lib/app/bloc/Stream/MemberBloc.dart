@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
@@ -51,11 +52,11 @@ class MemberBloc{
 
       var item = (respone.respone as LoginRespone);
       if(respone.http_call_back.status==200){
-        Usermanager().getUser().then((value) => context.read<InfoCustomerBloc>().loadCustomInfo(token: item.token)).then((value){
-          Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email)).then((value){
-            onLoad.add(false);
-            onSuccess.add(item);
-          });
+        context.read<CustomerCountBloc>().loadCustomerCount(token: item.token);
+        context.read<InfoCustomerBloc>().loadCustomInfo(token: item.token);
+        Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email)).then((value){
+          onLoad.add(false);
+          onSuccess.add(item);
         });
       }else{
         onLoad.add(false);
@@ -137,7 +138,7 @@ class MemberBloc{
   }
 
 
-  CustomersRegister({RegisterRequest registerRequest}) async{
+  CustomersRegister({BuildContext context,RegisterRequest registerRequest}) async{
     onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.CustomersRegister(registerRequest: registerRequest)).listen((respone) {
@@ -146,7 +147,7 @@ class MemberBloc{
 
         Usermanager().SavePhone(phone: registerRequest.phone).then((value){
           onLoad.add(false);
-          CustomerLogin(loginRequest: LoginRequest(username: registerRequest.email,password: registerRequest.password));
+          CustomerLogin(context: context,loginRequest: LoginRequest(username: registerRequest.email,password: registerRequest.password));
         });
       }else{
         onLoad.add(false);
@@ -305,7 +306,7 @@ class MemberBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.MyShopUpdate(data: data,access_token: access_token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
-        context.read<InfoCustomerBloc>().loadCustomInfo(token:access_token);
+     //  context.read<InfoCustomerBloc>().loadCustomInfo(token:access_token);
         onSuccess.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);
@@ -321,7 +322,6 @@ class MemberBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.UploadImage(imageFile: imageFile,imageableType: imageableType,imageableId: imageableId,token: token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200 || respone.http_call_back.status==201){
-        context.read<InfoCustomerBloc>().loadCustomInfo(token:token);
         onSuccess.add(respone.respone);
       }else{
         onError.add(respone.http_call_back.result.error.message);

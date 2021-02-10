@@ -59,7 +59,7 @@ class _Setting_EditProfile_NameViewState extends State<Setting_EditProfile_NameV
                 _Form(),
                 SizedBox(height: 4.0.h,),
                 FlatButton(
-                  minWidth: 50.0.w,
+                  minWidth: 60.0.w,
                   height: 5.0.h,
                   color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
                   textColor: Colors.white,
@@ -86,7 +86,9 @@ class _Setting_EditProfile_NameViewState extends State<Setting_EditProfile_NameV
       child: Column(
         children: [
           BuildEditText(head: LocaleKeys.my_profile_username.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_username.tr(),inputType: TextInputType.text,BorderOpacity: 0.2,maxLength: 20,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
-            widget.customerInfoRespone.name = char;
+           setState(() {
+             widget.customerInfoRespone.name = char;
+           });
           },),
 
         ],

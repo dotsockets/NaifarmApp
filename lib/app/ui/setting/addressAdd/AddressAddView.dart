@@ -296,7 +296,7 @@ class _AddressAddViewState extends State<AddressAddView> {
 
   Widget _buildButton() {
     return Container(
-        padding: EdgeInsets.only(left: 50, right: 50),
+        padding: EdgeInsets.only(left: 50, right: 50,bottom: 1.0.h),
         color: Colors.grey.shade300,
         child: Container(
             width: MediaQuery.of(context).size.width,
@@ -307,6 +307,7 @@ class _AddressAddViewState extends State<AddressAddView> {
   Widget _buildButtonItem({String btnTxt}) {
     return FlatButton(
       minWidth: 50.0.w,
+      height: 5.0.h,
       color: check ? ThemeColor.ColorSale() : Colors.grey.shade400,
       textColor: Colors.white,
       splashColor: Colors.white.withOpacity(0.3),

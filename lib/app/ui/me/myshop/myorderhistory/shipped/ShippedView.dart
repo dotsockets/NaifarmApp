@@ -51,7 +51,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
   Widget build(BuildContext context) {
     init();
     return Container(
-      color: Colors.grey.shade300,
+      color: Colors.white,
       margin: EdgeInsets.only(top: 2.0.w),
       child: StreamBuilder(
           stream: bloc.feedList,

@@ -282,7 +282,11 @@ class FunctionHelper {
     DatePicker.showDatePicker(context,
         theme: DatePickerTheme(
           containerHeight: 210.0,
+          itemStyle: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black),
         ),
+        onChanged: (DateTime dateTime){
+          Vibration.vibrate(duration: 500);
+        },
         showTitleActions: true,
         minTime: DateTime(1900, 1, 1),
         maxTime: DateTime.now(), onConfirm: (date) {
@@ -419,8 +423,9 @@ class FunctionHelper {
   }
 
 
-  static AlertDialogShop(BuildContext context, {String title,String message}){
+  static AlertDialogShop(BuildContext context, {String title,String message,bool showbtn=true,bool barrierDismissible=true}){
     showDialog(
+      barrierDismissible: barrierDismissible,
         context: context,
         builder: (BuildContext context) =>  Platform.isIOS?CupertinoAlertDialog(
             title: Text(title,
@@ -430,9 +435,9 @@ class FunctionHelper {
               style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
             ) ,
             actions: [
-              CupertinoDialogAction(isDefaultAction: true, child: new Text("Close"),onPressed: (){
+              showbtn?CupertinoDialogAction(isDefaultAction: true, child: new Text("Close"),onPressed: (){
                 Navigator.of(context).pop();
-              },),
+              },):SizedBox(),
             ]): AlertDialog(
           title:Text(title,
             style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
@@ -442,12 +447,12 @@ class FunctionHelper {
           ),
           actions: [
             // okButton,
-            FlatButton(
+            showbtn?FlatButton(
               child: Text("Close"),
               onPressed:  () {
                 Navigator.of(context).pop();
               },
-            )
+            ):SizedBox()
           ],
         ));
   }

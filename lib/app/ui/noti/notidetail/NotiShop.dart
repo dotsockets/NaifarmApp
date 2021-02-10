@@ -88,9 +88,31 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
         stream: bloc.feedList,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var item = (snapshot.data as NotiRespone);
-          if(snapshot.hasData && item.data.isNotEmpty){
+          if(snapshot.hasData){
             step_page = item.data.length != item.total?true:false;
-            return Platform.isAndroid?AndroidRefreshIndicator(item: item):IOSRefreshIndicator(item: item);
+            if(item.data.isNotEmpty){
+              return Platform.isAndroid?AndroidRefreshIndicator(item: item):IOSRefreshIndicator(item: item);
+            }else{
+              return Center(
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 15.0.h),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset('assets/json/boxorder.json',
+                          height: 70.0.w, width: 70.0.w, repeat: false),
+                      Text(
+                        LocaleKeys.message_error_mail_empty.tr(),
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }
+
           }else{
             return Container(
               margin: EdgeInsets.only(bottom: 15.0.h),
@@ -420,6 +442,15 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
           Text("แจ้งเตือน: สินค้าหมด",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
           Text("จำนวนสินค้าหมด", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+        ],
+      );
+    }else if(item.type=="App\\Notifications\\Shop\\ShopCreated"){
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("แจ้งเตือน: เปิดร้านใหม่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          Text("${item.meta.name} ได้ทำการเปิดร้านใหม่", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
         ],
       );
     }else{

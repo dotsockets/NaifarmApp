@@ -64,6 +64,14 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
       });
       bloc.onSuccess.stream.listen((event) {
         if(event is ImageUploadRespone){
+          Future.delayed(
+              const Duration(milliseconds: 1000), () {
+            Usermanager().getUser().then((value) =>
+                context
+                    .read<InfoCustomerBloc>()
+                    .loadCustomInfo(
+                    token: value.token));
+          });
           setState(() {
             onImageUpdate = true;
             itemInfo.image[0].path = (event as ImageUploadRespone).path;
@@ -154,13 +162,16 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                             fit: BoxFit.cover,
                             imageUrl:itemInfo!=null&&itemInfo.image.length!=0?"${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}":"",
                             errorWidget: (context, url, error) => Container(
-                                color: Colors.white,
-                                width: 80,
-                                height: 80,
+                                color: Colors.grey
+                                    .shade300,
+                                width: 20.0.w,
+                                height: 20.0.w,
                                 child: Icon(
-                                  Icons.error,
-                                  size: 30,
-                                )),
+                                  Icons.person,
+                                  size: 10.0.w,
+                                  color: Colors
+                                      .white,
+                                ))
                           ):Stack(
                             children: [
                               Container(

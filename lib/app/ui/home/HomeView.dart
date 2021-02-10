@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -37,8 +39,10 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
   List<MenuModel> _menuViewModel;
   bool IsLogin = true;
   final _selectedIndex = BehaviorSubject<int>();
-
+  bool _isDialogShowing = false;
   NotiBloc bloc;
+  Connectivity _connectivity = Connectivity();
+   StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
 
   init(){
@@ -56,6 +60,22 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
     }
 
   }
+
+  @override
+  void initState() {
+    super.initState();
+   // initConnectivity();
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+  }
+
+  @override
+  void dispose() {
+    _connectivitySubscription.cancel();
+    super.dispose();
+  }
+
+
 
 
   @override
@@ -138,6 +158,49 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
       ),
     );
   }
+
+  //
+  // // Platform messages are asynchronous, so we initialize in an async method.
+  // Future<void> initConnectivity() async {
+  //   ConnectivityResult result = ConnectivityResult.none;
+  //   // Platform messages may fail, so we use a try/catch PlatformException.
+  //   try {
+  //     result = await _connectivity.checkConnectivity();
+  //   } on PlatformException catch (e) {
+  //     print(e.toString());
+  //   }
+  //
+  //   // If the widget was removed from the tree while the asynchronous platform
+  //   // message was in flight, we want to discard the reply rather than calling
+  //   // setState to update our non-existent appearance.
+  //   if (!mounted) {
+  //     return Future.value(null);
+  //   }
+  //
+  //   return _updateConnectionStatus(result);
+  // }
+
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    switch (result) {
+      case ConnectivityResult.mobile:
+      case ConnectivityResult.wifi:
+        if(_isDialogShowing){
+          _isDialogShowing = false;
+          AppRoute.PoppageCount(context: context,countpage: 1);
+        }
+        break;
+      case ConnectivityResult.none:
+        _isDialogShowing = true;
+      FunctionHelper.AlertDialogShop(context,title: "Error Network",message: "The Internet contract has crashed Please try again...!",showbtn: false,barrierDismissible: false);
+      //  setState(() => _connectionStatus = result.toString());
+        break;
+      default:
+        print('Failed to get connectivity.');
+       // FunctionHelper.AlertDialogShop(context,title: "Error",message: 'Failed to get connectivity.');
+        break;
+    }
+  }
+
 
 
 }

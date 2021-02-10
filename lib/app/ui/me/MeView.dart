@@ -46,12 +46,11 @@ class _MeViewState extends State<MeView> with RouteAware {
   final _reload = BehaviorSubject<bool>();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  ProfileObjectCombine infoshop;
   StreamController<bool> controller = new StreamController<bool>();
 
   void _init() {
     ISLogin();
-
     if (null == bloc) {
       _reload.add(true);
       bloc = MemberBloc(AppProvider.getApplication(context));
@@ -67,10 +66,12 @@ class _MeViewState extends State<MeView> with RouteAware {
         // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
 
-     _reload.stream.listen((event) {
-       Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-         //Usermanager().getUser().then((value) => bloc.loadMyProfile(token: value.token));
-     });
+      _reload.stream.listen((event) {
+        // Usermanager().getUser().then((value) => context
+        //     .read<CustomerCountBloc>()
+        //     .loadCustomerCount(token: value.token));
+        //Usermanager().getUser().then((value) => bloc.loadMyProfile(token: value.token));
+      });
 
       // Usermanager().getUser().then((value) {
       //   if (value.token != null) {
@@ -82,21 +83,20 @@ class _MeViewState extends State<MeView> with RouteAware {
 
     }
 
-    Usermanager().getUser().then((value) {
-      if (value.token != null) {
-        NaiFarmLocalStorage.getNowPage().then((data){
-          if(data == 3){
-
-              IsLogin = true;
-              _reload.add(true);
-
-
-          }
-        });
-
-      }
+    NaiFarmLocalStorage.getCustomer_Info().then((value){
+      infoshop = value;
     });
 
+    Usermanager().getUser().then((value) {
+      if (value.token != null) {
+        NaiFarmLocalStorage.getNowPage().then((data) {
+          if (data == 3) {
+            IsLogin = true;
+            _reload.add(true);
+          }
+        });
+      }
+    });
   }
 
   void ISLogin() async => IsLogin = await Usermanager().isLogin();
@@ -123,72 +123,54 @@ class _MeViewState extends State<MeView> with RouteAware {
             //     controller.add(true);
             //   }
             // });
-        return Container(
-          child: StreamBuilder(
-          stream: _reload.stream,
-          builder: (BuildContext context,
-              AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              return Scaffold(
-                  key: _scaffoldKey,
-                  backgroundColor: Colors.grey.shade300,
-                  body: IsLogin?BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
-                    builder: (_, item) {
-                      if(item is InfoCustomerLoaded){
-                        return  _ContentMe(info: item.profileObjectCombine);
-                      }else if(item is InfoCustomerLoading){
-                        return  _ContentMe(info: item.profileObjectCombine);
-                      }else{
-                        return  SizedBox();
-                      }
-
-                    },
-                  ): LoginView(
-                    IsHeader: false,
-                    homeCallBack: (bool fix) {
-                      _reload.add(true);
-                      IsLogin = fix;
-                    },
-                  ));
-            }else{
-              return Container(
-                margin: EdgeInsets.only(top: 2.0.h),
-                width: 5.0.w,
-                height: 5.0.w,
-                child: Platform.isAndroid
-                    ? CircularProgressIndicator()
-                    : CupertinoActivityIndicator(),
-              );
-            }
-          }),
-        );
-
+            return Container(
+              child: StreamBuilder(
+                  stream: _reload.stream,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Scaffold(
+                          key: _scaffoldKey,
+                          backgroundColor: Colors.grey.shade300,
+                          body: IsLogin
+                              ? _ContentMe()
+                              : LoginView(
+                                  IsHeader: false,
+                                  homeCallBack: (bool fix) {
+                                    _reload.add(true);
+                                    IsLogin = fix;
+                                  },
+                                ));
+                    } else {
+                      return Container(
+                        margin: EdgeInsets.only(top: 2.0.h),
+                        width: 5.0.w,
+                        height: 5.0.w,
+                        child: Platform.isAndroid
+                            ? CircularProgressIndicator()
+                            : CupertinoActivityIndicator(),
+                      );
+                    }
+                  }),
+            );
           },
         ),
       ),
     );
   }
 
-  Widget _ContentMe({ProfileObjectCombine info}){
+  Widget _ContentMe() {
     return CustomScrollView(
       // controller: _scr,
       slivers: [
         SliverAppBar(
           leading: Container(
-            margin: EdgeInsets.only(
-                left: 1.0.w),
+            margin: EdgeInsets.only(left: 1.0.w),
             child: GestureDetector(
               child: IconButton(
-                icon: Icon(Icons.settings,
-                    color: Colors.white,
-                    size: 6.0.w),
+                icon: Icon(Icons.settings, color: Colors.white, size: 6.0.w),
               ),
               onTap: () async {
-                final result = await AppRoute
-                    .SettingProfile(
-                    context, IsLogin,
-                    item: info
-                        .customerInfoRespone);
+                final result = await AppRoute.SettingProfile(context, IsLogin);
                 if (result != null && result) {
                   _reload.add(true);
                   IsLogin = false;
@@ -198,106 +180,29 @@ class _MeViewState extends State<MeView> with RouteAware {
           ),
           actions: [
             Container(
-                margin: EdgeInsets.only(
-                    right: 2.0.w, left: 1.0.w,top: 1.0.w),
-                child:  BuildIconShop()),
+                margin: EdgeInsets.only(right: 2.0.w, left: 1.0.w, top: 1.0.w),
+                child: BuildIconShop()),
           ],
           expandedHeight: 200,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
               color: ThemeColor.primaryColor(),
-              child: Column(
-                mainAxisAlignment:
-                MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 3.0.h,
-                  ),
-                  InkWell(
-                      child: Hero(
-                        tag: "image_profile_me",
-                        child: ClipRRect(
-                          borderRadius:
-                          BorderRadius.all(
-                              Radius.circular(
-                                  60)),
-                          child: CachedNetworkImage(
-                            width: 20.0.w,
-                            height: 20.0.w,
-                            placeholder:
-                                (context, url) =>
-                                Container(
-                                  width: 20.0.w,
-                                  height: 20.0.w,
-                                  color: Colors.white,
-                                  child: Lottie.asset(
-                                      'assets/json/loading.json',
-                                      height: 30),
-                                ),
-                            fit: BoxFit.cover,
-                            imageUrl: info
-                                .customerInfoRespone !=
-                                null
-                                ? info.customerInfoRespone
-                                .image.length >
-                                0
-                                ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
-                                : ''
-                                : '',
-                            errorWidget: (context,
-                                url, error) =>
-                                Container(
-                                    color: Colors.grey
-                                        .shade300,
-                                    width: 20.0.w,
-                                    height: 20.0.w,
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 10.0.w,
-                                      color: Colors
-                                          .white,
-                                    )),
-                          ),
-                        ),
-                      ),
-                      onTap: (){
-                        AppRoute.ImageFullScreenView(hero_tag: "image_profile_me",context: context,image:  info
-                            .customerInfoRespone !=
-                            null
-                            ? info.customerInfoRespone
-                            .image.length >
-                            0
-                            ? "${Env.value.baseUrl}/storage/images/${info.customerInfoRespone.image[0].path}"
-                            : ''
-                            : '');
-                      }
-                  ),
-                  SizedBox(height: 2.0.h),
-                  Text(
-                      info.customerInfoRespone !=
-                          null
-                          ? info
-                          .customerInfoRespone
-                          .name
-                          : "ฟาร์มมาร์เก็ต",
-                      style: FunctionHelper
-                          .FontTheme(
-                          color:
-                          Colors.white,
-                          fontSize: SizeUtil
-                              .titleFontSize()
-                              .sp,
-                          fontWeight:
-                          FontWeight
-                              .bold))
-                ],
+              child: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+                builder: (_, item) {
+                  if (item is InfoCustomerLoaded) {
+                    return ImageHeader(info: item.profileObjectCombine.customerInfoRespone);
+                  } else if (item is InfoCustomerLoading) {
+                    return ImageHeader(info: item.profileObjectCombine.customerInfoRespone);
+                  } else {
+                    return SizedBox();
+                  }
+                },
               ),
             ),
           ),
         ),
         SliverList(
-          delegate:
-          SliverChildListDelegate(<Widget>[
+          delegate: SliverChildListDelegate(<Widget>[
             Container(
               height: 180.0.w,
               color: Colors.white,
@@ -318,9 +223,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                         child: Container(
                           // color: ThemeColor.psrimaryColor(context),
                           child: TabBar(
-                            indicatorColor:
-                            ThemeColor
-                                .ColorSale(),
+                            indicatorColor: ThemeColor.ColorSale(),
                             /* indicator: MD2Indicator(
                                   indicatorSize: MD2IndicatorSize.tiny,
                                   indicatorHeight: 5.0,
@@ -329,17 +232,11 @@ class _MeViewState extends State<MeView> with RouteAware {
                             isScrollable: false,
                             tabs: [
                               _tabbar(
-                                  title: LocaleKeys
-                                      .me_tab_buy
-                                      .tr(),
-                                  message:
-                                  false),
+                                  title: LocaleKeys.me_tab_buy.tr(),
+                                  message: false),
                               _tabbar(
-                                  title: LocaleKeys
-                                      .me_tab_shop
-                                      .tr(),
-                                  message:
-                                  false)
+                                  title: LocaleKeys.me_tab_shop.tr(),
+                                  message: false)
                             ],
                           ),
                         ),
@@ -351,10 +248,8 @@ class _MeViewState extends State<MeView> with RouteAware {
                           children: [
                             PurchaseView(
                               IsLogin: IsLogin,
-                              item: info
-                                  .customerInfoRespone,
-                              onStatus: (bool
-                              status) {
+                              item: infoshop.customerInfoRespone,
+                              onStatus: (bool status) {
                                 if (status) {
                                   if (status) {
                                     _reload.add(true);
@@ -365,20 +260,24 @@ class _MeViewState extends State<MeView> with RouteAware {
                             ),
                             MyshopView(
                               IsLogin: IsLogin,
-                              scaffoldKey:
-                              _scaffoldKey,
-                              customerInfoRespone:
-                              info.customerInfoRespone,
-                              myShopRespone: info
-                                  .myShopRespone,
-                              onStatus: (bool
-                              status) {
+                              scaffoldKey: _scaffoldKey,
+                              customerInfoRespone: infoshop.customerInfoRespone,
+                              myShopRespone: infoshop.myShopRespone,
+                              onStatus: (bool status) {
                                 if (status) {
-                                  Usermanager()
-                                      .getUser()
-                                      .then((value) =>
-                                      bloc.loadMyProfile(
-                                          token: value.token));
+                                  Future.delayed(
+                                      const Duration(milliseconds: 500), () {
+                                    Usermanager().getUser().then((value) =>
+                                        context
+                                            .read<InfoCustomerBloc>()
+                                            .loadCustomInfo(
+                                                token: value.token));
+                                  });
+                                  // Usermanager()
+                                  //     .getUser()
+                                  //     .then((value) =>
+                                  //     bloc.loadMyProfile(
+                                  //         token: value.token));
                                 }
                               },
                             )
@@ -392,6 +291,92 @@ class _MeViewState extends State<MeView> with RouteAware {
             )
           ]),
         )
+      ],
+    );
+  }
+
+  Widget ImageHeader({CustomerInfoRespone info}){
+    return Column(
+      mainAxisAlignment:
+      MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 3.0.h,
+        ),
+        InkWell(
+            child: Hero(
+              tag: "image_profile_me",
+              child: ClipRRect(
+                borderRadius:
+                BorderRadius.all(
+                    Radius.circular(
+                        60)),
+                child: CachedNetworkImage(
+                  width: 20.0.w,
+                  height: 20.0.w,
+                  placeholder:
+                      (context, url) =>
+                      Container(
+                        width: 20.0.w,
+                        height: 20.0.w,
+                        color: Colors.white,
+                        child: Lottie.asset(
+                            'assets/json/loading.json',
+                            height: 30),
+                      ),
+                  fit: BoxFit.cover,
+                  imageUrl: info !=
+                      null
+                      ? info
+                      .image.length >
+                      0
+                      ? "${Env.value.baseUrl}/storage/images/${info.image[0].path}"
+                      : ''
+                      : '',
+                  errorWidget: (context,
+                      url, error) =>
+                      Container(
+                          color: Colors.grey
+                              .shade300,
+                          width: 20.0.w,
+                          height: 20.0.w,
+                          child: Icon(
+                            Icons.person,
+                            size: 10.0.w,
+                            color: Colors
+                                .white,
+                          )),
+                ),
+              ),
+            ),
+            onTap: (){
+              AppRoute.ImageFullScreenView(hero_tag: "image_profile_me",context: context,image:  info !=
+                  null
+                  ? info
+                  .image.length >
+                  0
+                  ? "${Env.value.baseUrl}/storage/images/${info.image[0].path}"
+                  : ''
+                  : '');
+            }
+        ),
+        SizedBox(height: 2.0.h),
+        Text(
+            info !=
+                null
+                ? info
+                .name
+                : "ฟาร์มมาร์เก็ต",
+            style: FunctionHelper
+                .FontTheme(
+                color:
+                Colors.white,
+                fontSize: SizeUtil
+                    .titleFontSize()
+                    .sp,
+                fontWeight:
+                FontWeight
+                    .bold))
       ],
     );
   }

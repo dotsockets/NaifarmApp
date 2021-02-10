@@ -31,6 +31,10 @@ class Env {
   }
 
   void _init() async {
+
+
+
+
     WidgetsFlutterBinding.ensureInitialized();
     var application = AppNaiFarmApplication();
     await application.onCreate();

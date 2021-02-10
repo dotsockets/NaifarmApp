@@ -55,7 +55,7 @@ class _Setting_EditProdile_BioViewState extends State<Setting_EditProdile_BioVie
                 _Form(),
                 SizedBox(height: 4.0.h,),
                 FlatButton(
-                  minWidth: 50.0.w,
+                  minWidth: 60.0.w,
                   height: 5.0.h,
                   color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
                   textColor: Colors.white,
@@ -82,7 +82,9 @@ class _Setting_EditProdile_BioViewState extends State<Setting_EditProdile_BioVie
       child: Column(
         children: [
           BuildEditText(head: LocaleKeys.my_profile_about_me.tr(),hint: LocaleKeys.set_message.tr(),inputType: TextInputType.text,maxLine: 5,BorderOpacity: 0.2,maxLength: 20,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
-            widget.customerInfoRespone.description = char;
+            setState(() {
+              widget.customerInfoRespone.description = char;
+            });
           },),
 
         ],

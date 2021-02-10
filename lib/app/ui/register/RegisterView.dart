@@ -114,7 +114,7 @@ class _RegisterViewState extends State<RegisterView> {
           Padding(
             padding: const EdgeInsets.only(right: 15,left: 15),
             child: FlatButton(
-              minWidth: 80.0.w,
+              minWidth: 85.0.w,
               height: 6.5.h,
               color: checkError?ThemeColor.secondaryColor():Colors.grey.shade300,
               textColor: Colors.white,
