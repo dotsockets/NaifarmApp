@@ -252,7 +252,7 @@ class _AddressViewState extends State<AddressView> {
                     width: 5.0.h,
                     repeat: true),
                 Text(
-                  LocaleKeys.cart_del.tr(),
+                  LocaleKeys.cart_edit.tr(),
                   style: FunctionHelper.FontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,

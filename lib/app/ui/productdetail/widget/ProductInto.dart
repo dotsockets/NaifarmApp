@@ -94,7 +94,7 @@ class ProductInto extends StatelessWidget {
             Row(
               children: [
                 Expanded(child: Text(
-                  "${LocaleKeys.my_product_sold_end.tr()} ${data.saleCount!=null? data.saleCount.toString():'0'} ${LocaleKeys.cart_item.tr()}",
+                  "${LocaleKeys.my_product_sold_end.tr()} ${data.saleCount!=null? data.saleCount.toString():'0'} ${LocaleKeys.cart_piece.tr()}",
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
                 ),),
                 InkWell(

@@ -35,12 +35,26 @@ class RefundView extends StatefulWidget {
 class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMixin<RefundView> {
 
   OrdersBloc bloc;
+  ScrollController _scrollController = ScrollController();
+  int page = 1;
+  bool step_page = false;
 
   init() {
     if(bloc==null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
       Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "7",limit: 20,page: 1,token: value.token));
     }
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent -
+          _scrollController.position.pixels <= 200) {
+        if (step_page) {
+          step_page = false;
+          page++;
+          _reloadData();
+        }
+      }
+    });
 
   }
 
@@ -55,18 +69,45 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
           stream: bloc.feedList,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData && (snapshot.data as OrderRespone).data.length>0) {
+              step_page = true;
               return SingleChildScrollView(
+                controller: _scrollController,
                 child: Column(
-                    children: (snapshot.data as OrderRespone)
-                        .data
-                        .asMap()
-                        .map((key, value) => MapEntry(
-                        key,
-                        Column(
+                  children: [
+                    Column(
+                        children: (snapshot.data as OrderRespone)
+                            .data
+                            .asMap()
+                            .map((key, value) => MapEntry(
+                            key,
+                            Column(
+                              children: [
+                                _BuildCard(
+                                    item: value, index: key, context: context),
+                                Container(height: 10,color: Colors.grey.shade300,)
+                              ],
+                            )))
+                            .values
+                            .toList()),
+                    if ((snapshot.data as OrderRespone).data.length != (snapshot.data as OrderRespone).total)
+                      Container(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            _BuildCard(
-                                item: value, index: key, context: context),
-                            Container(height: 10,color: Colors.grey.shade300,)
+                            Platform.isAndroid
+                                ? SizedBox(
+                                width: 5.0.w,
+                                height: 5.0.w,
+                                child: CircularProgressIndicator())
+                                : CupertinoActivityIndicator(),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text("Loading",
+                                style: FunctionHelper.FontTheme(
+                                    color: Colors.grey,
+                                    fontSize: SizeUtil.priceFontSize().sp))
                           ],
                         )
                     ))
@@ -87,7 +128,7 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
                       Lottie.asset('assets/json/boxorder.json',
                           height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
-                        "No data found at this time",
+                        LocaleKeys.search_product_not_found.tr(),
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
                       )
@@ -396,6 +437,10 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
       sum += item.inventory.salePrice;
     }
     return sum;
+  }
+
+  _reloadData() {
+    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.orderType,statusId: "7",limit: 10,page: page,token: value.token));
   }
 
   @override

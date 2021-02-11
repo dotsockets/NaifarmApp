@@ -173,6 +173,7 @@ abstract class  LocaleKeys {
   static const cart_delivery_free = 'cart.delivery_free';
   static const cart_free = 'cart.free';
   static const cart_del = 'cart.del';
+  static const cart_edit = 'cart.edit';
   static const cart_empty = 'cart.empty';
   static const cart_discount = 'cart.discount';
   static const cart_check_out = 'cart.check_out';

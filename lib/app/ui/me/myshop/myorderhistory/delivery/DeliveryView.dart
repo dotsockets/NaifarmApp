@@ -35,13 +35,26 @@ class DeliveryView extends StatefulWidget {
 class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveClientMixin<DeliveryView>{
 
   OrdersBloc bloc;
+  ScrollController _scrollController = ScrollController();
+  int page = 1;
+  bool step_page = false;
+
 
   init() {
     if(bloc==null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
       Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: '4,5',limit: 20,page: 1,token: value.token));
     }
-
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent -
+          _scrollController.position.pixels <= 200) {
+        if (step_page) {
+          step_page = false;
+          page++;
+          _reloadData();
+        }
+      }
+    });
   }
 
   @override
@@ -55,18 +68,45 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
           stream: bloc.feedList,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData && (snapshot.data as OrderRespone).data.length>0) {
+              step_page = true;
               return SingleChildScrollView(
+                controller: _scrollController,
                 child: Column(
-                    children: (snapshot.data as OrderRespone)
-                        .data
-                        .asMap()
-                        .map((key, value) => MapEntry(
-                        key,
-                        Column(
+                  children: [
+                    Column(
+                        children: (snapshot.data as OrderRespone)
+                            .data
+                            .asMap()
+                            .map((key, value) => MapEntry(
+                            key,
+                            Column(
+                              children: [
+                                _BuildCard(
+                                    item: value, index: key, context: context),
+                                Container(height: 10,color: Colors.grey.shade300,)
+                              ],
+                            )))
+                            .values
+                            .toList()),
+                    if ((snapshot.data as OrderRespone).data.length != (snapshot.data as OrderRespone).total)
+                      Container(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            _BuildCard(
-                                item: value, index: key, context: context),
-                            Container(height: 10,color: Colors.grey.shade300,)
+                            Platform.isAndroid
+                                ? SizedBox(
+                                width: 5.0.w,
+                                height: 5.0.w,
+                                child: CircularProgressIndicator())
+                                : CupertinoActivityIndicator(),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text("Loading",
+                                style: FunctionHelper.FontTheme(
+                                    color: Colors.grey,
+                                    fontSize: SizeUtil.priceFontSize().sp))
                           ],
                         )
                     ))

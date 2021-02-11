@@ -184,13 +184,16 @@ Expanded(
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(30),
-                      child: Container(
-                        color: _backgroundColorSearch,
-                        child: SizedBox(width: 12.0.w,height: 12.0.w,),
+                      child: Expanded(
+                        child: Container(
+                          color: _backgroundColorSearch,
+                          child: IconButton(
+                            icon: Icon(Icons.add, color: Colors.transparent,),),
+                        ),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 0.3.h,left: 0.1.h),
+                      //margin: EdgeInsets.only(top: 0.3.h,left: 0.1.h),
                       child: BuildIconShop(
                           iconColor: _colorIcon),
                     )

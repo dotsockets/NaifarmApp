@@ -131,48 +131,47 @@ final int SubFixId;
   Widget _ProductImage({ProductData item,int index}){
 
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(1.0.h),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(width: 1, color: Colors.grey.shade400),
-        ),
-        child: Stack(
-          children: [
-            Hero(
-              tag: "${tagHero}_${item.id}${SubFixId}",
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(width: 1, color: Colors.grey.shade400),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+
+      ),
+      child: Stack(
+        children: [
+          Hero(
+            tag: "${tagHero}_${item.id}${SubFixId}",
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(1.3.h),
+              child: CachedNetworkImage(
+                width: 30.0.w,
+                height: 30.0.w,
+                placeholder: (context, url) => Container(
+                  color: Colors.white,
+                  child: Lottie.asset('assets/json/loading.json',   width: 30.0.w,
+                    height: 30.0.w,),
+                ),
+                imageUrl: CovertUrlImage(item.image),
+                errorWidget: (context, url, error) => Container(   width: 30.0.w,
+                    height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+              ),
+            ),
+          ),
+          Visibility(
+            child: Container(
+              margin: EdgeInsets.all(1.5.w),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(0.5.h),
-                child: CachedNetworkImage(
-                  width: 30.0.w,
-                  height: 30.0.w,
-                  placeholder: (context, url) => Container(
-                    color: Colors.white,
-                    child: Lottie.asset('assets/json/loading.json',   width: 30.0.w,
-                      height: 30.0.w,),
-                  ),
-                  imageUrl: CovertUrlImage(item.image),
-                  errorWidget: (context, url, error) => Container(   width: 30.0.w,
-                      height: 30.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                borderRadius: BorderRadius.circular(1.0.w),
+                child: Container(
+                  padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
+                  color: ThemeColor.ColorSale(),
+                  child: Text("${item.discountPercent}%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
                 ),
               ),
             ),
-            Visibility(
-              child: Container(
-                margin: EdgeInsets.all(1.5.w),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(1.0.w),
-                  child: Container(
-                    padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
-                    color: ThemeColor.ColorSale(),
-                    child: Text("${item.discountPercent}%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
-                  ),
-                ),
-              ),
-              visible: item.discountPercent>0?true:false,
-            )
-          ],
-        ),
+            visible: item.discountPercent>0?true:false,
+          )
+        ],
       ),
     );
   }

@@ -118,7 +118,7 @@ class ProductVertical extends StatelessWidget {
                         child: Hero(
                           tag: "${tagHero}_${index}",
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(1.0.h),
+                            borderRadius: BorderRadius.circular(1.3.h),
                             child: CachedNetworkImage(
                               width: 28.0.w,
                               height: 35.0.w,

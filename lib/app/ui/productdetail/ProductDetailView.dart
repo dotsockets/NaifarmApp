@@ -544,6 +544,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                         ),
                         Container(
                           color: Colors.white,
+                          width: MediaQuery.of(context).size.width,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
