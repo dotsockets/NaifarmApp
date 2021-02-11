@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -28,30 +27,38 @@ class DeliveryView extends StatefulWidget {
   final OrderViewType typeView;
 
   const DeliveryView({Key key, this.typeView}) : super(key: key);
+
   @override
   _DeliveryViewState createState() => _DeliveryViewState();
 }
 
-class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveClientMixin<DeliveryView>{
-
+class _DeliveryViewState extends State<DeliveryView>
+    with AutomaticKeepAliveClientMixin<DeliveryView> {
   OrdersBloc bloc;
   ScrollController _scrollController = ScrollController();
   int page = 1;
+  int limit = 10;
   bool step_page = false;
 
-
   init() {
-    if(bloc==null){
+    if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: '4,5',limit: 20,page: 1,token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadOrder(
+          orderType:
+              widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+          statusId: '4,5',
+          limit: limit,
+          page: 1,
+          token: value.token));
     }
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
-          _scrollController.position.pixels <= 200) {
+              _scrollController.position.pixels <=
+          200) {
         if (step_page) {
           step_page = false;
           page++;
-          _reloadData();
+           _reloadData();
         }
       }
     });
@@ -63,32 +70,37 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
     return Container(
       color: Colors.white,
       margin: EdgeInsets.only(top: 10),
-
-      child:  StreamBuilder(
+      child: StreamBuilder(
           stream: bloc.feedList,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData && (snapshot.data as OrderRespone).data.length>0) {
+            if (snapshot.hasData &&
+                (snapshot.data as OrderRespone).data.length > 0) {
               step_page = true;
               return SingleChildScrollView(
-                controller: _scrollController,
-                child: Column(
-                  children: [
+                  controller: _scrollController,
+                  child: Column(children: [
                     Column(
                         children: (snapshot.data as OrderRespone)
                             .data
                             .asMap()
                             .map((key, value) => MapEntry(
-                            key,
-                            Column(
-                              children: [
-                                _BuildCard(
-                                    item: value, index: key, context: context),
-                                Container(height: 10,color: Colors.grey.shade300,)
-                              ],
-                            )))
+                                key,
+                                Column(
+                                  children: [
+                                    _BuildCard(
+                                        item: value,
+                                        index: key,
+                                        context: context),
+                                    Container(
+                                      height: 10,
+                                      color: Colors.grey.shade300,
+                                    )
+                                  ],
+                                )))
                             .values
                             .toList()),
-                    if ((snapshot.data as OrderRespone).data.length != (snapshot.data as OrderRespone).total)
+                    if ((snapshot.data as OrderRespone).data.length !=
+                        (snapshot.data as OrderRespone).total)
                       Container(
                         padding: EdgeInsets.all(20),
                         child: Row(
@@ -96,9 +108,9 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
                           children: [
                             Platform.isAndroid
                                 ? SizedBox(
-                                width: 5.0.w,
-                                height: 5.0.w,
-                                child: CircularProgressIndicator())
+                                    width: 5.0.w,
+                                    height: 5.0.w,
+                                    child: CircularProgressIndicator())
                                 : CupertinoActivityIndicator(),
                             SizedBox(
                               width: 10,
@@ -108,16 +120,16 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
                                     color: Colors.grey,
                                     fontSize: SizeUtil.priceFontSize().sp))
                           ],
-                        )
-                    ))
-                        .values
-                        .toList()),
+                        ),
+                      ),
+                  ]));
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: Platform.isAndroid
+                    ? CircularProgressIndicator()
+                    : CupertinoActivityIndicator(),
               );
-            } else if(snapshot.connectionState == ConnectionState.waiting){
-              return Center(child:  Platform.isAndroid
-                  ? CircularProgressIndicator()
-                  : CupertinoActivityIndicator(),);
-            }else {
+            } else {
               return Center(
                 child: Container(
                   margin: EdgeInsets.only(bottom: 15.0.h),
@@ -129,7 +141,8 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
                       Text(
                         "No data found at this time",
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
@@ -147,18 +160,18 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
           children: [
             _OwnShop(item: item),
             _ProductDetail(item: item, index: index),
-
           ],
         ),
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        AppRoute.OrderDetail(context,orderData: item,typeView: widget.typeView);
+        AppRoute.OrderDetail(context,
+            orderData: item, typeView: widget.typeView);
       },
     );
   }
 
-  Widget _ProductItem({OrderItems item,int shopId, int index}) {
+  Widget _ProductItem({OrderItems item, int shopId, int index}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -177,7 +190,7 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
-                "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : ''}",
+                    "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : ''}",
                 errorWidget: (context, url, error) => Container(
                     height: 30,
                     child: Icon(
@@ -187,11 +200,14 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
               ),
             ),
           ),
-          onTap: (){
+          onTap: () {
             ProductData product = ProductData();
             product = item.inventory.product;
             product.shop = ProductShop(id: shopId);
-            AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
+            AppRoute.ProductDetail(context,
+                productImage:
+                    "history_paid_${item.orderId}${item.inventoryId}${index}",
+                productItem: ProductBloc.ConvertDataToProduct(data: product));
           },
         ),
         SizedBox(width: 2.0.w),
@@ -220,11 +236,11 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
                     children: [
                       item.inventory.product.discountPercent != 0
                           ? Text(
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
-                          style: FunctionHelper.FontTheme(
-                              color: Colors.black.withOpacity(0.5),
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              decoration: TextDecoration.lineThrough))
+                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
+                              style: FunctionHelper.FontTheme(
+                                  color: Colors.black.withOpacity(0.5),
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  decoration: TextDecoration.lineThrough))
                           : SizedBox(),
                       SizedBox(width: 3.0.w),
                       Text(
@@ -256,7 +272,11 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
             children: item.items
                 .asMap()
                 .map((key, value) => MapEntry(
-                key, _ProductItem(item: item.items[key],shopId: item.shop.id, index: key)))
+                    key,
+                    _ProductItem(
+                        item: item.items[key],
+                        shopId: item.shop.id,
+                        index: key)))
                 .values
                 .toList(),
           ),
@@ -270,9 +290,16 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
                     children: <TextSpan>[
                       new TextSpan(
                           text: LocaleKeys.history_order_price.tr(),
-                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                      new TextSpan(text: " : " +
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black)),
+                      new TextSpan(
+                          text: " : " +
+                              "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              color: ThemeColor.ColorSale())),
                     ],
                   ),
                 ),
@@ -288,14 +315,20 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.typeView=="purchase"? "ชำระเงินภายใน" +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
+                    widget.typeView == "purchase"
+                        ? "ชำระเงินภายใน" +
+                            "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
+                        : LocaleKeys.history_order_time.tr() +
+                            "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
                   ),
-                  _BuildButtonBayItem(btnTxt: widget.typeView=="shop"?"Confirm payment":"Payment",item: item)
+                  _BuildButtonBayItem(
+                      btnTxt: widget.typeView == "shop"
+                          ? "Confirm payment"
+                          : "Payment",
+                      item: item)
                 ],
               )
             ],
@@ -313,47 +346,51 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            widget.typeView=="shop"?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
-                style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
-                    fontWeight: FontWeight.w500)),):Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  child: CachedNetworkImage(
-                    width: 7.0.w,
-                    height: 7.0.w,
-                    placeholder: (context, url) => Container(
-                      color: Colors.white,
-                      child: Lottie.asset(
-                        'assets/json/loading.json',
-                        width: 7.0.w,
-                        height: 7.0.w,
+            widget.typeView == "shop"
+                ? Container(
+                    child: Text("เลขคำสั่งซื้อ " + item.orderNumber,
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            fontWeight: FontWeight.w500)),
+                  )
+                : Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        child: CachedNetworkImage(
+                          width: 7.0.w,
+                          height: 7.0.w,
+                          placeholder: (context, url) => Container(
+                            color: Colors.white,
+                            child: Lottie.asset(
+                              'assets/json/loading.json',
+                              width: 7.0.w,
+                              height: 7.0.w,
+                            ),
+                          ),
+                          fit: BoxFit.cover,
+                          imageUrl:
+                              "${Env.value.baseUrl}/storage/images/${item.shop.image.isNotEmpty ? item.shop.image[0].path : ''}",
+                          errorWidget: (context, url, error) => Container(
+                              color: Colors.grey.shade400,
+                              width: 7.0.w,
+                              height: 7.0.w,
+                              child: Icon(
+                                Icons.person,
+                                size: 30,
+                                color: Colors.white,
+                              )),
+                        ),
                       ),
-                    ),
-                    fit: BoxFit.cover,
-                    imageUrl:
-                    "${Env.value.baseUrl}/storage/images/${item.shop.image.isNotEmpty ? item.shop.image[0].path : ''}",
-                    errorWidget: (context, url, error) => Container(
-                        color: Colors.grey.shade400,
-                        width: 7.0.w,
-                        height: 7.0.w,
-                        child: Icon(
-                          Icons.person,
-                          size: 30,
-                          color: Colors.white,
-                        )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(item.shop.name,
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleSmallFontSize().sp,
+                              fontWeight: FontWeight.bold))
+                    ],
                   ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(item.shop.name,
-                    style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        fontWeight: FontWeight.bold))
-              ],
-            ),
             Text(
               item.orderStatusName,
               style: FunctionHelper.FontTheme(
@@ -363,14 +400,15 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
             )
           ],
         ),
-        onTap: (){
-          AppRoute.ShopMain(context: context,myShopRespone: MyShopRespone(id: item.shop.id));
+        onTap: () {
+          AppRoute.ShopMain(
+              context: context, myShopRespone: MyShopRespone(id: item.shop.id));
         },
       ),
     );
   }
 
-  Widget _BuildButtonBayItem({String btnTxt,OrderData item}) {
+  Widget _BuildButtonBayItem({String btnTxt, OrderData item}) {
     return FlatButton(
       color: ThemeColor.ColorSale(),
       textColor: Colors.white,
@@ -379,16 +417,22 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () async {
-        if(widget.typeView=="shop"){
-          final result = await AppRoute.ConfirmPayment(context: context,orderData: item);
-          if(result){
-            Usermanager().getUser().then((value) =>
-                bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: 20, page: 1, token: value.token));
+        if (widget.typeView == "shop") {
+          final result =
+              await AppRoute.ConfirmPayment(context: context, orderData: item);
+          if (result) {
+            Usermanager().getUser().then((value) => bloc.loadOrder(
+                orderType: widget.typeView == OrderViewType.Shop
+                    ? "myshop/orders"
+                    : "order",
+                statusId: "1",
+                limit: 20,
+                page: 1,
+                token: value.token));
           }
-        }else{
-          AppRoute.TransferPayMentView(context: context,orderData: item);
+        } else {
+          AppRoute.TransferPayMentView(context: context, orderData: item);
         }
-
       },
       child: Text(
         btnTxt,
@@ -436,6 +480,10 @@ class _DeliveryViewState extends State<DeliveryView>  with AutomaticKeepAliveCli
       sum += item.inventory.salePrice;
     }
     return sum;
+  }
+
+  _reloadData() {
+    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: '4,5',limit: limit,page: page,token: value.token));
   }
 
   @override

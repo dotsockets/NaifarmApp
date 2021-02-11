@@ -36,12 +36,13 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
   OrdersBloc bloc;
   ScrollController _scrollController = ScrollController();
   int page = 1;
+  int limit = 10;
   bool step_page = false;
 
   init() {
     if(bloc==null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "6",limit: 20,page: 1,token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "6",limit: limit,page: 1,token: value.token));
     }
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
@@ -106,11 +107,9 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
                                     color: Colors.grey,
                                     fontSize: SizeUtil.priceFontSize().sp))
                           ],
-                        )
-                    ))
-                        .values
-                        .toList()),
-              );
+                        ),
+                      ),
+                  ]));
             } else if(snapshot.connectionState == ConnectionState.waiting){
               return Center(child:  Platform.isAndroid
                   ? CircularProgressIndicator()
@@ -435,7 +434,7 @@ class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClient
     return sum;
   }
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.orderType,statusId: "6",limit: 10,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "6",limit: limit,page: page,token: value.token));
   }
   @override
   bool get wantKeepAlive => true;

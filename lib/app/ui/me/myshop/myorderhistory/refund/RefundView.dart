@@ -38,11 +38,12 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
   ScrollController _scrollController = ScrollController();
   int page = 1;
   bool step_page = false;
+  int limit = 10;
 
   init() {
     if(bloc==null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "7",limit: 20,page: 1,token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "7",limit: 10,page: 1,token: value.token));
     }
 
     _scrollController.addListener(() {
@@ -109,11 +110,9 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
                                     color: Colors.grey,
                                     fontSize: SizeUtil.priceFontSize().sp))
                           ],
-                        )
-                    ))
-                        .values
-                        .toList()),
-              );
+                        ),
+                      ),
+                  ]));
             } else if(snapshot.connectionState == ConnectionState.waiting){
               return Center(child:  Platform.isAndroid
                   ? CircularProgressIndicator()
@@ -440,9 +439,8 @@ class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMi
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.orderType,statusId: "7",limit: 10,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "7",limit: 10,page: page,token: value.token));
   }
-
   @override
   bool get wantKeepAlive => true;
 }

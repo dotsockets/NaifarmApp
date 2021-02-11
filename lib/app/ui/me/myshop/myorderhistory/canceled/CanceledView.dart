@@ -37,13 +37,14 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
   OrdersBloc bloc;
   ScrollController _scrollController = ScrollController();
   int page = 1;
+  int limit = 10;
   bool step_page = false;
 
 
   init() {
     if(bloc==null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(orderType:widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "8",limit: 20,page: 1,token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadOrder(orderType:widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "8",limit: limit,page: 1,token: value.token));
     }
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
@@ -108,10 +109,10 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
                                     color: Colors.grey,
                                     fontSize: SizeUtil.priceFontSize().sp))
                           ],
-                        )
-                    ))
-                        .values
-                        .toList()),
+                        ),
+                      )
+                  ],
+                ),
               );
             } else if(snapshot.connectionState == ConnectionState.waiting){
               return Center(child:  Platform.isAndroid
@@ -439,7 +440,7 @@ class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClie
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.orderType,statusId: "8",limit: 10,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "8",limit: limit,page: page,token: value.token));
   }
   @override
   bool get wantKeepAlive => true;

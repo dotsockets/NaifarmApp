@@ -41,7 +41,7 @@ class OrderData {
   int packagingId;
   int itemCount;
   int quantity;
-  int shippingWeight;
+  double shippingWeight;
   int total;
   int discount;
   int shipping;
