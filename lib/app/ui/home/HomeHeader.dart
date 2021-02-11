@@ -31,6 +31,7 @@ class _HomeHeaderState extends State<HomeHeader> {
       padding: EdgeInsets.only(left: 0, right: 0.3.w),
       color: ThemeColor.primaryColor(),
       child: SafeArea(
+        bottom: false,
         child: Column(
           children: [
             Row(

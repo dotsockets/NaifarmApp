@@ -60,14 +60,17 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
-          appBar: AppToobar(
-            title: LocaleKeys.setting_account_toobar.tr(),
-            icon: "",
-            header_type: Header_Type.barNormal,
-            isEnable_Search: false,
-            onClick: (){
-              Navigator.pop(context);
-            },
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.setting_account_toobar.tr(),
+              icon: "",
+              header_type: Header_Type.barNormal,
+              isEnable_Search: false,
+              onClick: (){
+                Navigator.pop(context);
+              },
+            ),
           ),
           body: Column(
             children: [

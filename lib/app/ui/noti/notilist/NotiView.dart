@@ -90,102 +90,89 @@ class _NotiViewState extends State<NotiView>
   @override
   Widget build(BuildContext context) {
     init();
-    return Container(
-      color: ThemeColor.primaryColor(),
-      child: SafeArea(
-        child: Scaffold(
-            key: _scaffoldKey,
-            backgroundColor: Colors.white,
-            body: IsLogin?StreamBuilder(
-                stream: _reload.stream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return  NestedScrollView(
-                            headerSliverBuilder: (BuildContext context,
-                                bool innerBoxIsScrolled) {
-                              return [
-                                SliverList(
-                                  delegate: SliverChildListDelegate(<Widget>[
-                                    AppToobar(
-                                      showBackBtn: widget.btnBack,
-                                      header_type: Header_Type.barcartShop,
-                                      icon: 'assets/images/svg/cart_top.svg',
-                                      title: LocaleKeys.recommend_notification
-                                          .tr(),
-                                      onClick: (){
-                                        NaiFarmLocalStorage.saveNowPage(0);
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                    SizedBox(
-                                      height: 0.5.h,
-                                    ),
-                                  ]),
-                                ),
-                              ];
-                            },
-                            body: Column(
+    return SafeArea(
+      bottom: false,
+      child: Scaffold(
+          key: _scaffoldKey,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              showBackBtn: widget.btnBack,
+              header_type: Header_Type.barcartShop,
+              icon: 'assets/images/svg/cart_top.svg',
+              title: LocaleKeys.recommend_notification
+                  .tr(),
+              onClick: (){
+                NaiFarmLocalStorage.saveNowPage(0);
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+          backgroundColor: Colors.white,
+          body: IsLogin?StreamBuilder(
+              stream: _reload.stream,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        color: Colors.white,
+                        child: TabBar(
+                          controller: _tabController,
+                          indicator: MD2Indicator(
+                            indicatorSize: MD2IndicatorSize.normal,
+                            indicatorHeight: 0.5.h,
+                            indicatorColor: ThemeColor.ColorSale(),
+                          ),
+                          tabs: [
+                            // first tab [you can add an icon using the icon property]
+                            Tab(
+                              child: Text('Buyer notification',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
+                            ),
+
+                            // second tab [you can add an icon using the icon property]
+                            Tab(
+                              child: Text('Seller notification',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // tab bar view here
+
+                      Expanded(
+                        child: Container(
+                            color: Colors.transparent,
+                            child: TabBarView(
+                              controller: _tabController,
                               children: [
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  color: Colors.white,
-                                  child: TabBar(
-                                    controller: _tabController,
-                                    indicator: MD2Indicator(
-                                      indicatorSize: MD2IndicatorSize.normal,
-                                      indicatorHeight: 0.5.h,
-                                      indicatorColor: ThemeColor.ColorSale(),
-                                    ),
-                                    tabs: [
-                                      // first tab [you can add an icon using the icon property]
-                                      Tab(
-                                        text: 'Buyer notification',
-                                      ),
-
-                                      // second tab [you can add an icon using the icon property]
-                                      Tab(
-                                        text: 'Alert seller',
-                                      ),
-                                    ],
-                                  ),
+                                // first tab bar view widget
+                                NotiCus(
+                                  scaffoldKey: _scaffoldKey,
                                 ),
-                                // tab bar view here
 
-                                Expanded(
-                                  child: Container(
-                                    color: Colors.white,
-                                    child: TabBarView(
-                                      controller: _tabController,
-                                      children: [
-                                        // first tab bar view widget
-                                        NotiCus(
-                                          scaffoldKey: _scaffoldKey,
-                                        ),
-
-                                        // second tab bar view widget
-                                        NotiShop(
-                                          scaffoldKey: _scaffoldKey,
-                                        ),
-                                      ],
-                                    )
-                                  ),
+                                // second tab bar view widget
+                                NotiShop(
+                                  scaffoldKey: _scaffoldKey,
                                 ),
                               ],
-                            ),
-                          );
-                  } else {
-                    return SizedBox();
-                  }
-                }): LoginView(
-              IsHeader: false,
-              homeCallBack: (bool fix) {
-                Usermanager().getUser().then((value){
-                  bloc.MarkAsReadNotifications(token: value.token);
-                  _reload.add(true);
-                });
-              },
-            )),
-      ),
+                            )
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return SizedBox();
+                }
+              }): LoginView(
+            IsHeader: false,
+            homeCallBack: (bool fix) {
+              Usermanager().getUser().then((value){
+                bloc.MarkAsReadNotifications(token: value.token);
+                _reload.add(true);
+              });
+            },
+          )),
     );
   }
 }

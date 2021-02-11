@@ -100,10 +100,13 @@ class _ProductMoreViewState extends State<ProductMoreView> {
       color:  ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
-          appBar: AppToobar(
-            title: widget.barTxt,
-            header_type: Header_Type.barcartShop,
-            icon: 'assets/images/svg/search.svg',
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: widget.barTxt,
+              header_type: Header_Type.barcartShop,
+              icon: 'assets/images/svg/search.svg',
+            ),
           ),
           backgroundColor: Colors.white,
           body: Stack(

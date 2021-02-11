@@ -37,10 +37,13 @@ class _CreditAddViewState extends State<CreditAddView> {
         top: false,
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
-          appBar: AppToobar(
-            title:  LocaleKeys.card_add_toobar.tr(),
-            icon: "",
-            header_type: Header_Type.barNormal,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title:  LocaleKeys.card_add_toobar.tr(),
+              icon: "",
+              header_type: Header_Type.barNormal,
+            ),
           ),
           body: Container(
             child: Column(

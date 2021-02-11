@@ -56,10 +56,13 @@ class _CartBankViewState extends State<CartBankView> {
         child: Scaffold(
             key: _scaffoldKey,
             backgroundColor: Colors.grey.shade200,
-            appBar: AppToobar(
-                title: LocaleKeys.select.tr() + LocaleKeys.me_title_payment.tr(),
-                header_type: Header_Type.barNormal,
-                onClick: () => Navigator.pop(context, null)),
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(6.5.h),
+              child: AppToobar(
+                  title: LocaleKeys.select.tr() + LocaleKeys.me_title_payment.tr(),
+                  header_type: Header_Type.barNormal,
+                  onClick: () => Navigator.pop(context, null)),
+            ),
             body: SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.all(2.0.h),

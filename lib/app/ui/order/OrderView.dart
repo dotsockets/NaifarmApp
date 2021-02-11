@@ -54,10 +54,13 @@ class _OrderViewState extends State<OrderView> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppToobar(
-            title: LocaleKeys.order_detail_title.tr(),
-            header_type: Header_Type.barcartShop,
-            icon: '',
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.order_detail_title.tr(),
+              header_type: Header_Type.barcartShop,
+              icon: '',
+            ),
           ),
           body: StreamBuilder(
             stream: bloc.feedList,

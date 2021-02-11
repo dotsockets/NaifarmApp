@@ -93,10 +93,13 @@ class _ShopMainViewState extends State<ShopMainView>
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
-          appBar: AppToobar(
-            title: "ร้านค้า",
-            header_type: Header_Type.barcartShop,
-            icon: 'assets/images/svg/search.svg',
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: "ร้านค้า",
+              header_type: Header_Type.barcartShop,
+              icon: 'assets/images/svg/search.svg',
+            ),
           ),
             backgroundColor: Colors.white,
             body: StreamBuilder(

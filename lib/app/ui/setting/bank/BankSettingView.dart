@@ -33,11 +33,14 @@ class _BankSettingViewState extends State<BankSettingView> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
-          appBar: AppToobar(
-            title: LocaleKeys.setting_account_title_bank.tr(),
-            icon: "",
-            isEnable_Search: false,
-            header_type: Header_Type.barNormal,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.setting_account_title_bank.tr(),
+              icon: "",
+              isEnable_Search: false,
+              header_type: Header_Type.barNormal,
+            ),
           ),
           body: Container(
             padding: EdgeInsets.all(2.0.h),

@@ -28,43 +28,37 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
-
 class HomeView extends StatefulWidget {
-
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin {
+class _HomeViewState extends State<HomeView>
+    with SingleTickerProviderStateMixin {
   List<MenuModel> _menuViewModel;
   bool IsLogin = true;
   final _selectedIndex = BehaviorSubject<int>();
   bool _isDialogShowing = false;
   NotiBloc bloc;
   Connectivity _connectivity = Connectivity();
-   StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
-
-  init(){
-
-
-
-    if(bloc==null){
+  init() {
+    if (bloc == null) {
       //Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
       _menuViewModel = MenuViewModel().getTabBarMenus();
       bloc = NotiBloc(AppProvider.getApplication(context));
-      NaiFarmLocalStorage.getNowPage().then((value){
+      NaiFarmLocalStorage.getNowPage().then((value) {
         _selectedIndex.add(value);
         NaiFarmLocalStorage.saveNowPage(0);
       });
     }
-
   }
 
   @override
   void initState() {
     super.initState();
-   // initConnectivity();
+    // initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
@@ -75,22 +69,20 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
     super.dispose();
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     init();
 
     return WillPopScope(
-      onWillPop: ()async{
-        FunctionHelper.ConfirmDialog(context,message: "Do you want to exit an App",onClick: (){
+      onWillPop: () async {
+        FunctionHelper.ConfirmDialog(context,
+            message: "Do you want to exit an App", onClick: () {
           if (Platform.isAndroid) {
             SystemNavigator.pop();
           } else if (Platform.isIOS) {
             exit(0);
           }
-        },onCancel: (){
+        }, onCancel: () {
           Navigator.pop(context, true);
         });
         return false;
@@ -98,34 +90,40 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
       child: DefaultTabController(
           length: _menuViewModel.length,
           child: Scaffold(
-            body:  StreamBuilder(
-              stream: _selectedIndex.stream,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                return IndexedStack(
-                  index: snapshot.data,
-                  children: [
-                    RecommendView(size: MediaQuery.of(context).size,paddingBottom: MediaQuery.of(context).padding.bottom,onClick: (int index){
-                      if(index==2){
-                        NaiFarmLocalStorage.saveNowPage(index);
-                        _selectedIndex.add(index);
-                      }
-                    }),
-                    CategoryView(),
-                    //MyCartView(BtnBack: false,),
-                    NotiView(),
-                    MeView()
-                  ],
-                );
-
-              },
-            ),
+              //backgroundColor: Colors.transparent,
+              extendBody: true,
+              body: StreamBuilder(
+                stream: _selectedIndex.stream,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  return IndexedStack(
+                    index: snapshot.data,
+                    children: [
+                      RecommendView(
+                          size: MediaQuery.of(context).size,
+                          paddingBottom: MediaQuery.of(context).padding.bottom,
+                          onClick: (int index) {
+                            if (index == 2) {
+                              NaiFarmLocalStorage.saveNowPage(index);
+                              _selectedIndex.add(index);
+                            }
+                          }),
+                      CategoryView(),
+                      //MyCartView(BtnBack: false,),
+                      NotiView(),
+                      MeView()
+                    ],
+                  );
+                },
+              ),
               bottomNavigationBar: StreamBuilder(
                 stream: _selectedIndex.stream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return Container(
                     height: 10.0.h,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(topRight:  Radius.circular(40),topLeft:  Radius.circular(40)),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(40),
+                          topLeft: Radius.circular(40)),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
                           color: Colors.black26,
@@ -133,7 +131,6 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                           spreadRadius: 0.5,
                         ),
                       ],
-
                       color: ThemeColor.primaryColor(),
                     ),
                     child: SafeArea(
@@ -141,21 +138,15 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                         menuViewModel: _menuViewModel,
                         selectedIndex: snapshot.data,
                         onTap: (index) {
-
-                         // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+                          // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
                           NaiFarmLocalStorage.saveNowPage(index);
-                            _selectedIndex.add(index);
-
-
+                          _selectedIndex.add(index);
                         },
                       ),
                     ),
                   );
-
                 },
-              )
-          )
-      ),
+              ))),
     );
   }
 
@@ -184,23 +175,24 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
     switch (result) {
       case ConnectivityResult.mobile:
       case ConnectivityResult.wifi:
-        if(_isDialogShowing){
+        if (_isDialogShowing) {
           _isDialogShowing = false;
-          AppRoute.PoppageCount(context: context,countpage: 1);
+          AppRoute.PoppageCount(context: context, countpage: 1);
         }
         break;
       case ConnectivityResult.none:
         _isDialogShowing = true;
-      FunctionHelper.AlertDialogShop(context,title: "Error Network",message: "The Internet contract has crashed Please try again...!",showbtn: false,barrierDismissible: false);
-      //  setState(() => _connectionStatus = result.toString());
+        FunctionHelper.AlertDialogShop(context,
+            title: "Error Network",
+            message: "The Internet contract has crashed Please try again...!",
+            showbtn: false,
+            barrierDismissible: false);
+        //  setState(() => _connectionStatus = result.toString());
         break;
       default:
         print('Failed to get connectivity.');
-       // FunctionHelper.AlertDialogShop(context,title: "Error",message: 'Failed to get connectivity.');
+        // FunctionHelper.AlertDialogShop(context,title: "Error",message: 'Failed to get connectivity.');
         break;
     }
   }
-
-
-
 }

@@ -3,12 +3,8 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
-import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -16,17 +12,13 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:provider/provider.dart';
@@ -89,8 +81,34 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
                             key,
                               Column(
                                 children: [
-                                  _BuildCard(
-                                      item: value, index: key, context: context),
+                                  Stack(
+                                    children: [
+                                      _BuildCard(
+                                          item: value, index: key, context: context),
+                                      value.items[0].inventory == null?
+                                      Center(
+                                        child: Container(
+                                          color: Colors.white.withOpacity(0.7),
+                                          height: 35.0.h,
+                                          child: Center(
+                                            child: Container(
+                                              width: 30.0.w,
+                                              height: 5.0.h,
+                                              padding: EdgeInsets.all(2.0.w),
+                                              decoration: new BoxDecoration(
+                                                  color: Colors.black.withOpacity(0.5),
+                                                  borderRadius: new BorderRadius.all(Radius.circular(10.0.w))
+                                              ),
+                                              child: Center(
+                                                child: Text(LocaleKeys.search_product_not_found.tr(),
+                                                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.white)),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ):SizedBox()
+                                    ],
+                                  ),
                                   Container(height: 10,color: Colors.grey.shade300,),
 
                                 ],
@@ -163,8 +181,10 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        AppRoute.OrderDetail(context,orderData: item,typeView: widget.typeView);
-      },
+        if(item.items[0].inventory!=null) {
+          AppRoute.OrderDetail(
+              context, orderData: item, typeView: widget.typeView);
+        }},
     );
   }
 
@@ -189,10 +209,11 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
                 imageUrl:
                     "${Env.value.baseUrl}/storage/images/${item.inventory!=null ? item.inventory.product.image[0].path : ''}",
                 errorWidget: (context, url, error) => Container(
-                    height: 30,
+                    height: 22.0.w,
+                    width: 22.0.w,
                     child: Icon(
                       Icons.error,
-                      size: 30,
+                      size: 7.0.w,
                     )),
               ),
             ),
@@ -298,14 +319,14 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.typeView=="purchase"? "ชำระเงินภายใน" +
+                    widget.typeView==OrderViewType.Purchase? "ชำระเงินภายใน" +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
                   ),
-                  _BuildButtonBayItem(btnTxt: widget.typeView=="shop"?"Confirm payment":"Payment",item: item)
+                  _BuildButtonBayItem(btnTxt: widget.typeView==OrderViewType.Shop?"Confirm payment":"Payment",item: item)
                 ],
               )
             ],
@@ -323,7 +344,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            widget.typeView=="shop"?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
+            widget.typeView==OrderViewType.Shop?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500)),):Row(

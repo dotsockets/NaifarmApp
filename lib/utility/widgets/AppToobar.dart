@@ -139,7 +139,7 @@ class AppToobar extends PreferredSize {
                   onPressed: (){
                     onClick == null ? Navigator.of(context).pop() : onClick();
                   },
-                ):SizedBox(width: 10.0.w,height: 10.0.w,),
+                ):SizedBox(width: 12.0.w,height: 10.0.w,),
                 Expanded(
                   child: Container(
                     child: Center(

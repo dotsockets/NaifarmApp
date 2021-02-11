@@ -75,11 +75,14 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
-          appBar: AppToobar(
-            title: "รายการแอททริบิวต์",
-            icon: "",
-            isEnable_Search: false,
-            header_type: Header_Type.barNormal,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: "รายการแอททริบิวต์",
+              icon: "",
+              isEnable_Search: false,
+              header_type: Header_Type.barNormal,
+            ),
           ),
           body: SingleChildScrollView(
             child: StreamBuilder(
@@ -93,76 +96,76 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
                               Column(
                                 children: List.generate(
                                   item.data.length,
-                                  (index) => Slidable(
-                                    actionPane:
-                                    SlidableDrawerActionPane(),
-                                    actionExtentRatio: 0.25,
-                                    child: InkWell(
-                                      onTap: (){AppRoute.AttributeDetailEdit(context: context,idAttr: widget.idAttr,color:item.data[index].color,value:item.data[index].value,vid: item.data[index].id);},
-                                      child: Column(
-                                        children: [
-                                          _buildItem(
+                                  (index) => Column(
+                                    children: [
+                                      Slidable(
+                                        actionPane:
+                                        SlidableDrawerActionPane(),
+                                        actionExtentRatio: 0.25,
+                                        child: InkWell(
+                                          onTap: (){AppRoute.AttributeDetailEdit(context: context,idAttr: widget.idAttr,color:item.data[index].color,value:item.data[index].value,vid: item.data[index].id);},
+                                          child: _buildItem(
                                               txt: item.data[index].value,
                                               id: item.data[index].id),
-                                          index != item.data.length - 1
-                                              ? SizedBox(
-                                            height: 0.5.h,
-                                          )
-                                              : SizedBox()
+                                        ),
+                                        secondaryActions: <Widget>[
+                                          IconSlideAction(
+                                            color: ThemeColor.secondaryColor(),
+                                            iconWidget: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Lottie.asset('assets/json/edit.json',
+                                                    height: 4.5.h,
+                                                    width: 4.5.h,
+                                                    repeat: true),
+                                                Text(
+                                                  LocaleKeys.cart_edit.tr(),
+                                                  style: FunctionHelper.FontTheme(
+                                                      color: Colors.white,
+                                                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                                                      fontWeight: FontWeight.bold),
+                                                )
+                                              ],
+                                            ),
+                                            onTap: () {
+                                              AppRoute.AttributeDetailEdit(context: context,idAttr: widget.idAttr,color:item.data[index].color,value:item.data[index].value,vid: item.data[index].id);
+                                            },
+                                          ),
+                                          IconSlideAction(
+                                            color: ThemeColor.ColorSale(),
+                                            iconWidget: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  margin: EdgeInsets.only(top: 0.5.h),
+                                                  child: Lottie.asset('assets/json/delete.json',
+                                                      height: 3.0.h,
+                                                      width: 3.0.h,
+                                                      repeat: true),
+                                                ),
+                                                Container(
+                                                  margin: EdgeInsets.only(top: 0.5.h),
+                                                  child: Text(
+                                                    LocaleKeys.cart_del.tr(),
+                                                    style: FunctionHelper.FontTheme(
+                                                        color: Colors.white,
+                                                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                                                        fontWeight: FontWeight.bold),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            onTap: () {
+                                              Usermanager().getUser().then((value) => bloc.DELETEAttributeDetail(id: widget.idAttr, token: value.token,vid: item.data[index].id));
+                                            },
+                                          ),
                                         ],
                                       ),
-                                    ),
-                                    secondaryActions: <Widget>[
-                                      IconSlideAction(
-                                        color: ThemeColor.secondaryColor(),
-                                        iconWidget: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Lottie.asset('assets/json/edit.json',
-                                                height: 4.5.h,
-                                                width: 4.5.h,
-                                                repeat: true),
-                                            Text(
-                                              LocaleKeys.cart_edit.tr(),
-                                              style: FunctionHelper.FontTheme(
-                                                  color: Colors.white,
-                                                  fontSize: SizeUtil.titleSmallFontSize().sp,
-                                                  fontWeight: FontWeight.bold),
-                                            )
-                                          ],
-                                        ),
-                                        onTap: () {
-                                          AppRoute.AttributeDetailEdit(context: context,idAttr: widget.idAttr,color:item.data[index].color,value:item.data[index].value,vid: item.data[index].id);
-                                        },
-                                      ),
-                                      IconSlideAction(
-                                        color: ThemeColor.ColorSale(),
-                                        iconWidget: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.only(top: 0.5.h),
-                                              child: Lottie.asset('assets/json/delete.json',
-                                                  height: 3.0.h,
-                                                  width: 3.0.h,
-                                                  repeat: true),
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.only(top: 0.5.h),
-                                              child: Text(
-                                                LocaleKeys.cart_del.tr(),
-                                                style: FunctionHelper.FontTheme(
-                                                    color: Colors.white,
-                                                    fontSize: SizeUtil.titleSmallFontSize().sp,
-                                                    fontWeight: FontWeight.bold),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        onTap: () {
-                                          Usermanager().getUser().then((value) => bloc.DELETEAttributeDetail(id: widget.idAttr, token: value.token,vid: item.data[index].id));
-                                        },
-                                      ),
+                                      index != item.data.length - 1
+                                          ? SizedBox(
+                                        height: 0.5.h,
+                                      )
+                                          : SizedBox()
                                     ],
                                   )
                                 ),

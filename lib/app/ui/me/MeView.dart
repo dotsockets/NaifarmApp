@@ -113,6 +113,7 @@ class _MeViewState extends State<MeView> with RouteAware {
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
+        bottom: false,
         child: Builder(
           builder: (context) {
             // final _scr = PrimaryScrollController.of(context);

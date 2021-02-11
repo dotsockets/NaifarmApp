@@ -86,7 +86,8 @@ import 'package:sizer/sizer.dart';
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
-          appBar: AppToobar(title: LocaleKeys.edit_password_set.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,),
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(6.5.h),child: AppToobar(title: LocaleKeys.edit_password_set.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,)),
           body: Container(
             child: SingleChildScrollView(
               child: Column(

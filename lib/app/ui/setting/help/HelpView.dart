@@ -25,11 +25,14 @@ class _HelpViewState extends State<HelpView> {
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
-          appBar: AppToobar(
-            title: LocaleKeys.setting_account_title_help.tr(),
-            icon: "",
-            isEnable_Search: false,
-            header_type: Header_Type.barNormal,
+          appBar:PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.setting_account_title_help.tr(),
+              icon: "",
+              isEnable_Search: false,
+              header_type: Header_Type.barNormal,
+            ),
           ),
           body: Container(
             color: Colors.grey.shade300,

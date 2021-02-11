@@ -84,8 +84,11 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
-          appBar: AppToobar(
-            title: LocaleKeys.my_profile_phone.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.my_profile_phone.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,),
+          ),
           body: SingleChildScrollView(
             child: Column(
               children: [

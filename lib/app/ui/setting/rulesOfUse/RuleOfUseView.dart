@@ -48,11 +48,14 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
-          appBar: AppToobar(
-            title: LocaleKeys.setting_account_title_policy.tr(),
-            icon: "",
-            isEnable_Search: false,
-            header_type: Header_Type.barNormal,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.setting_account_title_policy.tr(),
+              icon: "",
+              isEnable_Search: false,
+              header_type: Header_Type.barNormal,
+            ),
           ),
           body: StreamBuilder(
               stream: bloc.onSuccess.stream,

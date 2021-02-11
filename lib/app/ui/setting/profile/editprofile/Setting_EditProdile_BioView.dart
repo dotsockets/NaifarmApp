@@ -48,7 +48,8 @@ class _Setting_EditProdile_BioViewState extends State<Setting_EditProdile_BioVie
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
-          appBar: AppToobar(title: LocaleKeys.my_profile_about_me.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,),
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(6.5.h),child: AppToobar(title: LocaleKeys.my_profile_about_me.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,)),
           body: SingleChildScrollView(
             child: Column(
               children: [

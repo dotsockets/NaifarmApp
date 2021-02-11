@@ -110,7 +110,8 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade200,
-          appBar: AppToobar(title: LocaleKeys.edit_password_set.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,),
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(6.5.h),child: AppToobar(title: LocaleKeys.edit_password_set.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,)),
           body: Container(
             child: SingleChildScrollView(
               child: Column(

@@ -83,8 +83,11 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
-          appBar: AppToobar(
-            title: LocaleKeys.my_profile_change_password.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.my_profile_change_password.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,),
+          ),
           body: SingleChildScrollView(
             child: Column(
               children: [

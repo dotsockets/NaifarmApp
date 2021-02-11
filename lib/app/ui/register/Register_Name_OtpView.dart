@@ -77,7 +77,8 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade200,
-          appBar: AppToobar(title: LocaleKeys.my_profile_username.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,),
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(6.5.h),child: AppToobar(title: LocaleKeys.my_profile_username.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,)),
           body: Container(
             child: SingleChildScrollView(
               child: Column(

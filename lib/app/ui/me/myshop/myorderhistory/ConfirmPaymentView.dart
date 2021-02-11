@@ -67,14 +67,17 @@ class ConfirmPaymentView extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
-          appBar: AppToobar(
-            title: "Confirm payment of order ",
-            header_type: Header_Type.barcartShop,
-            isEnable_Search: false,
-            icon: '',
-            onClick: () {
-              Navigator.pop(context, false);
-            },
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: "Confirm payment of order ",
+              header_type: Header_Type.barcartShop,
+              isEnable_Search: false,
+              icon: '',
+              onClick: () {
+                Navigator.pop(context, false);
+              },
+            ),
           ),
           body: StreamBuilder(
             stream: bloc.feedList,

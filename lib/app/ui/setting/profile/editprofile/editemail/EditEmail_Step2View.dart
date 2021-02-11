@@ -88,17 +88,20 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
-          appBar: AppToobar(
-            title: LocaleKeys.edit_email_toobar.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,onClick: (){
-            FunctionHelper.ConfirmDialog(context,
-                message: LocaleKeys.dialog_message_mail_change_cancel.tr(),
-                onClick: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
-                }, onCancel: () {
-                  Navigator.of(context).pop();
-                });
-          },),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.edit_email_toobar.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,onClick: (){
+              FunctionHelper.ConfirmDialog(context,
+                  message: LocaleKeys.dialog_message_mail_change_cancel.tr(),
+                  onClick: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  }, onCancel: () {
+                    Navigator.of(context).pop();
+                  });
+            },),
+          ),
           body: SingleChildScrollView(
             child: Column(
               children: [

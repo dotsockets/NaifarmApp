@@ -103,11 +103,14 @@ class _CartSummaryViewState extends State<CartSummaryView> {
             key: _scaffoldKey,
             backgroundColor:
                 _data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-            appBar: AppToobar(
-              title: LocaleKeys.cart_place_order.tr(),
-              header_type: Header_Type.barNormal,
-              isEnable_Search: false,
-              icon: "",
+            appBar:PreferredSize(
+              preferredSize: Size.fromHeight(6.5.h),
+              child: AppToobar(
+                title: LocaleKeys.cart_place_order.tr(),
+                header_type: Header_Type.barNormal,
+                isEnable_Search: false,
+                icon: "",
+              ),
             ),
             body: Column(
               children: [
