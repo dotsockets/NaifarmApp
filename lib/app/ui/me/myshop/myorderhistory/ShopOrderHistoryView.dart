@@ -44,16 +44,19 @@ class ShopOrderHistoryView extends StatelessWidget {
         child: SafeArea(
           child: Scaffold(
             backgroundColor: Colors.grey.shade300,
-            appBar: AppToobar(
-              title: LocaleKeys.me_title_history_shop.tr(),
-              header_type: Header_Type.barcartShop,
-              icon: '',onClick: (){
-              if(callback){
-                AppRoute.PoppageCount(context: context,countpage: 4);
-              }else{
-                AppRoute.PoppageCount(context: context,countpage: 1);
-              }
-            },
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(6.5.h),
+              child: AppToobar(
+                title: LocaleKeys.me_title_history_shop.tr(),
+                header_type: Header_Type.barcartShop,
+                icon: '',onClick: (){
+                if(callback){
+                  AppRoute.PoppageCount(context: context,countpage: 4);
+                }else{
+                  AppRoute.PoppageCount(context: context,countpage: 1);
+                }
+              },
+              ),
             ),
             body: Container(
               child: Column(

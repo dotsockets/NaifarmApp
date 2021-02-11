@@ -46,7 +46,8 @@ class _CategoryViewState extends State<CategoryView> {
     return Scaffold(
 
       backgroundColor: Colors.white,
-    appBar: AppToobar(showBackBtn: false,header_type: Header_Type.barcartShop,icon: 'assets/images/svg/cart_top.svg',title:"Product Type"),
+    appBar: PreferredSize(
+        preferredSize: Size.fromHeight(6.5.h),child: AppToobar(showBackBtn: false,header_type: Header_Type.barcartShop,icon: 'assets/images/svg/cart_top.svg',title:"Product Type")),
     body: SingleChildScrollView(
       child: Container(
           color: Colors.white,

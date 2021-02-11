@@ -75,11 +75,14 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
       child: SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
-          appBar:  AppToobar(
-            title: LocaleKeys.me_title_my_product.tr(),
-            icon: "",
-            isEnable_Search: false,
-            header_type: Header_Type.barNormal,
+          appBar:  PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.me_title_my_product.tr(),
+              icon: "",
+              isEnable_Search: false,
+              header_type: Header_Type.barNormal,
+            ),
           ),
           body: Container(
             color: Colors.grey.shade300,

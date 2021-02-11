@@ -129,12 +129,15 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
             key: _scaffoldKey,
             backgroundColor: Colors.white,
             //_data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
-            appBar: AppToobar(
-              title: LocaleKeys.cart_toobar.tr(),
-              icon: "",
-              showBackBtn: widget.btnBack,
-              isEnable_Search: false,
-              header_type: Header_Type.barNormal,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(6.5.h),
+              child: AppToobar(
+                title: LocaleKeys.cart_toobar.tr(),
+                icon: "",
+                showBackBtn: widget.btnBack,
+                isEnable_Search: false,
+                header_type: Header_Type.barNormal,
+              ),
             ),
             body: Container(
               color: Colors.white,

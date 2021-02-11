@@ -78,12 +78,15 @@ class _CartAaddressViewState extends State<CartAaddressView> {
             child: Scaffold(
                 backgroundColor: Colors.grey.shade300,
                 key: _scaffoldKey,
-                appBar: AppToobar(
-                  title: LocaleKeys.setting_account_title_address.tr(),
-                  header_type: Header_Type.barNormal,
-                  icon: "",
-                  isEnable_Search: false,
-                  onClick: ()=>check_call_back(),
+                appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(6.5.h),
+                  child: AppToobar(
+                    title: LocaleKeys.setting_account_title_address.tr(),
+                    header_type: Header_Type.barNormal,
+                    icon: "",
+                    isEnable_Search: false,
+                    onClick: ()=>check_call_back(),
+                  ),
                 ),
                 body: Container(
                   child: StreamBuilder(

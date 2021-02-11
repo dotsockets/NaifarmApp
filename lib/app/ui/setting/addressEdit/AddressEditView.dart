@@ -104,11 +104,14 @@ class _AddressEditViewState extends State<AddressEditView> {
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
-          appBar: AppToobar(
-            title: LocaleKeys.address_add_toobar.tr(),
-            icon: "",
-            isEnable_Search: false,
-            header_type: Header_Type.barNormal,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.address_add_toobar.tr(),
+              icon: "",
+              isEnable_Search: false,
+              header_type: Header_Type.barNormal,
+            ),
           ),
           body: Container(
             child: Column(

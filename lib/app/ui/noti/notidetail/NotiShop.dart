@@ -258,7 +258,8 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                               .sp))
                 ],
               ),
-            )
+            ),
+          SizedBox(height: 10.0.h,)
         ],
       ),
     ),

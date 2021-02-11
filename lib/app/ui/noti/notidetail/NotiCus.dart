@@ -234,7 +234,8 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                               .sp))
                 ],
               ),
-            )
+            ),
+          SizedBox(height: 10.0.h,)
         ],
       ),
     ),

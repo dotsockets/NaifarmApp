@@ -84,32 +84,35 @@ class _MyProductViewState extends State<MyProductView> {
         child: Scaffold(
           backgroundColor: Colors.white,
           key: _scaffoldKey,
-          appBar: AppBar(
-            iconTheme: IconThemeData(
-              color: Colors.white, //change your color here
-            ),
-            backgroundColor: ThemeColor.primaryColor(),
-            title:Text(
-              LocaleKeys.me_title_my_product.tr(),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w600),
-          ),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                icon: Icon(Icons.search,size: 7.0.w,color: Colors.white,),
-                onPressed: (){
-                  AppRoute.SearchMyProductView(context: context,shopID: widget.shopId);},
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppBar(
+              iconTheme: IconThemeData(
+                color: Colors.white, //change your color here
               ),
-              IconButton(
-                icon: Icon(FontAwesome.ellipsis_v,size: 7.0.w,color: Colors.white,)
-                ,onPressed: (){ ButtonDialog(context,message: ["จัดการแอททริบิวต์"],onClick: (){
-                Navigator.of(context).pop();
-                AppRoute.Attribute(context: context);
-              });},
-              )
-            ],
+              backgroundColor: ThemeColor.primaryColor(),
+              title:Text(
+                LocaleKeys.me_title_my_product.tr(),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w600),
+            ),
+              centerTitle: true,
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.search,size: 7.0.w,color: Colors.white,),
+                  onPressed: (){
+                    AppRoute.SearchMyProductView(context: context,shopID: widget.shopId);},
+                ),
+                IconButton(
+                  icon: Icon(FontAwesome.ellipsis_v,size: 7.0.w,color: Colors.white,)
+                  ,onPressed: (){ ButtonDialog(context,message: ["จัดการแอททริบิวต์"],onClick: (){
+                  Navigator.of(context).pop();
+                  AppRoute.Attribute(context: context);
+                });},
+                )
+              ],
+            ),
           ),
           body: Column(
             children: [

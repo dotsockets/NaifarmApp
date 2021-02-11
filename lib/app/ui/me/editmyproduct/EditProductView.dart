@@ -119,13 +119,16 @@ class _EditProductViewState extends State<EditProductView> {
             child: Column(
               children: [
                 Container(
-                    child: AppToobar(
-                      title: LocaleKeys.my_product_data.tr(),
-                      icon: "",
-                      isEnable_Search: false,
-                      header_type: Header_Type.barNormal,onClick: (){
-                      Navigator.pop(context, onUpdate);
-                    },)),
+                    child: PreferredSize(
+                      preferredSize: Size.fromHeight(6.5.h),
+                      child: AppToobar(
+                        title: LocaleKeys.my_product_data.tr(),
+                        icon: "",
+                        isEnable_Search: false,
+                        header_type: Header_Type.barNormal,onClick: (){
+                        Navigator.pop(context, onUpdate);
+                      },),
+                    )),
                 StreamBuilder(
                     stream: bloc.uploadProductStorage.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {

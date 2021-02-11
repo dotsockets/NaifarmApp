@@ -81,11 +81,14 @@ class _EditImageProductViewState extends State<EditImageProductView> {
       top: false,
       child: Scaffold(
         key: _scaffoldKey,
-        appBar: AppToobar(
-          title: LocaleKeys.my_product_image.tr(),
-          icon: "",
-          header_type: Header_Type.barNormal,
-          onClick: ()=>Navigator.pop(context, false),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(6.5.h),
+          child: AppToobar(
+            title: LocaleKeys.my_product_image.tr(),
+            icon: "",
+            header_type: Header_Type.barNormal,
+            onClick: ()=>Navigator.pop(context, false),
+          ),
         ),
         body: Container(
           width: MediaQuery.of(context).size.width,

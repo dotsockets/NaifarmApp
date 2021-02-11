@@ -144,7 +144,8 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.white,
-          appBar: AppToobar(title: LocaleKeys.regis_otp_title.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,),
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(6.5.h),child: AppToobar(title: LocaleKeys.regis_otp_title.tr(),header_type: Header_Type.barNormal,isEnable_Search: false,)),
           body: Column(
             children: [
               SingleChildScrollView(

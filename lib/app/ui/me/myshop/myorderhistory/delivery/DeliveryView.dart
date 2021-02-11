@@ -87,10 +87,36 @@ class _DeliveryViewState extends State<DeliveryView>
                                 key,
                                 Column(
                                   children: [
-                                    _BuildCard(
-                                        item: value,
-                                        index: key,
-                                        context: context),
+                                    Stack(
+                                      children: [
+                                        _BuildCard(
+                                            item: value,
+                                            index: key,
+                                            context: context),
+                                        value.items[0].inventory == null?
+                                        Center(
+                                          child: Container(
+                                            color: Colors.white.withOpacity(0.7),
+                                            height: 35.0.h,
+                                            child: Center(
+                                              child: Container(
+                                                width: 30.0.w,
+                                                height: 5.0.h,
+                                                padding: EdgeInsets.all(2.0.w),
+                                                decoration: new BoxDecoration(
+                                                    color: Colors.black.withOpacity(0.5),
+                                                    borderRadius: new BorderRadius.all(Radius.circular(10.0.w))
+                                                ),
+                                                child: Center(
+                                                  child: Text(LocaleKeys.search_product_not_found.tr(),
+                                                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.white)),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ):SizedBox()
+                                      ],
+                                    ),
                                     Container(
                                       height: 10,
                                       color: Colors.grey.shade300,
@@ -165,8 +191,8 @@ class _DeliveryViewState extends State<DeliveryView>
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        AppRoute.OrderDetail(context,
-            orderData: item, typeView: widget.typeView);
+        if(item.items[0].inventory!=null) {AppRoute.OrderDetail(context,
+            orderData: item, typeView: widget.typeView);}
       },
     );
   }
@@ -192,10 +218,11 @@ class _DeliveryViewState extends State<DeliveryView>
                 imageUrl:
                     "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : ''}",
                 errorWidget: (context, url, error) => Container(
-                    height: 30,
+                    height: 22.0.w,
+                    width: 22.0.w,
                     child: Icon(
                       Icons.error,
-                      size: 30,
+                      size: 7.0.w,
                     )),
               ),
             ),
@@ -315,7 +342,7 @@ class _DeliveryViewState extends State<DeliveryView>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.typeView == "purchase"
+                    widget.typeView == OrderViewType.Purchase
                         ? "ชำระเงินภายใน" +
                             "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
                         : LocaleKeys.history_order_time.tr() +
@@ -325,7 +352,7 @@ class _DeliveryViewState extends State<DeliveryView>
                         color: Colors.black.withOpacity(0.6)),
                   ),
                   _BuildButtonBayItem(
-                      btnTxt: widget.typeView == "shop"
+                      btnTxt: widget.typeView == OrderViewType.Shop
                           ? "Confirm payment"
                           : "Payment",
                       item: item)

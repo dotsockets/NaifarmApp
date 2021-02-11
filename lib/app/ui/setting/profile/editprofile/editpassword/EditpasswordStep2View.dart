@@ -113,16 +113,19 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
-          appBar: AppToobar(
-            title: LocaleKeys.my_profile_change_password.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,onClick: (){
-            FunctionHelper.ConfirmDialog(context,
-                message: LocaleKeys.dialog_message_phone_edit_cancel.tr(),
-                onClick: () {
-                  AppRoute.PoppageCount(context: context,countpage: 2);
-                }, onCancel: () {
-                  Navigator.of(context).pop();
-                });
-          },),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.my_profile_change_password.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,onClick: (){
+              FunctionHelper.ConfirmDialog(context,
+                  message: LocaleKeys.dialog_message_phone_edit_cancel.tr(),
+                  onClick: () {
+                    AppRoute.PoppageCount(context: context,countpage: 2);
+                  }, onCancel: () {
+                    Navigator.of(context).pop();
+                  });
+            },),
+          ),
           body: SingleChildScrollView(
             child: Column(
               children: [
