@@ -240,8 +240,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
   );
 
   Container _BuildCardNoti({NotiData item,BuildContext context,int index}) => Container(
-    padding: EdgeInsets.only(
-        left: 3.0.w, right: 3.0.w),
+
     child: GestureDetector(
         onTap: (){
           // if(item.Status_Sell==1)
@@ -317,6 +316,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                 var item = (bloc.onSuccess.value as NotiRespone);
                 item.data.removeAt(index);
                 bloc.onSuccess.add(item);
+
               },
             )
 

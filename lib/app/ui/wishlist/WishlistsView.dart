@@ -94,8 +94,10 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
           body: StreamBuilder(
             stream: bloc.Wishlists.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
+                var item = (snapshot.data as WishlistsRespone);
               if (snapshot.hasData) {
-                if ((snapshot.data as WishlistsRespone).total > 0) {
+              //  print(bloc.Wishlists.value.data.length.toString()+"***");
+                if (item.data.length > 0) {
                   return SingleChildScrollView(
                     child: StickyHeader(
                       header: AppToobar(title: LocaleKeys.me_title_likes.tr(),
@@ -112,7 +114,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                                 color: Colors.white,
                                 child: Column(
                                   children: [
-                                    _buildCardProduct(context: context)
+                                    _buildCardProduct(context: context,item: item)
                                   ],
                                 )),
                           )
@@ -137,7 +139,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                              Lottie.asset('assets/json/boxorder.json',
                                  height: 70.0.w, width: 70.0.w, repeat: false),
                              Text(
-                               "ไม่พบข้อมูล",
+                               LocaleKeys.search_product_not_found.tr(),
                                style: FunctionHelper.FontTheme(
                                    fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
                              )
@@ -169,18 +171,18 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
   }
 
 
-  Widget _buildCardProduct({BuildContext context}) {
+  Widget _buildCardProduct({BuildContext context,WishlistsRespone item}) {
     return Container(
       margin: EdgeInsets.only(top: 10),
-      child: ItemRow(context),
+      child: ItemRow(context,item),
     );
   }
 
-  Container ItemRow(BuildContext context) =>
+  Container ItemRow(BuildContext context,WishlistsRespone item) =>
       Container(
         child: Column(
           children: [
-            for (int i = 0; i < bloc.Wishlists.value.total; i += 2)
+            for (int i = 0; i < item.data.length; i += 2)
               Container(
                 padding: EdgeInsets.only(left: 10, right: 10),
                 margin: EdgeInsets.only(bottom: 20),
@@ -191,7 +193,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                           (index) =>
                           _buildProduct(
                               index: i + index,
-                              item: bloc.Wishlists.value.data[i + index],
+                              item: item.data[i+index],
                               context: context)),
                 ),
               )
@@ -289,7 +291,8 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                             height: 30.0.w,
                             color: Colors.white,
                             child:
-                            Lottie.asset('assets/json/loading.json',    width: 30.0.w,
+                            Lottie.asset('assets/json/loading.json',
+                              width: 30.0.w,
                               height: 30.0.w,),
                           ),
                       imageUrl: ProductLandscape.CovertUrlImage(
@@ -343,7 +346,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                       },
                       likeCountAnimationType: LikeCountAnimationType.part,
                       likeCountPadding:  EdgeInsets.all(1.0.w),
-                      onTap: (bool like)=>onLikeButtonTapped(like,item.id),
+                      onTap: (bool like)=>onLikeButtonTapped(like,item.id,index),
                     )
                   ],
                 )
@@ -365,15 +368,20 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
       },
     );
   }
-  Future<bool> onLikeButtonTapped(bool isLiked,int id) async {
+  Future<bool> onLikeButtonTapped(bool isLiked,int id,int index) async {
+    bloc.Wishlists.value.data.removeAt(index);
+    bloc.Wishlists.add(bloc.Wishlists.value);
+
     Usermanager().getUser().then((value){
       bloc.DELETEWishlists(WishId: id, token: value.token);
     });
 
+
+
     return !isLiked;
   }
 
-  int Check(int i) => i != bloc.Wishlists.value.total - 1 ? 2 : 1;
+  int Check(int i) => i != bloc.Wishlists.value.data.length - 1 ? 2 : 1;
 }
 
 

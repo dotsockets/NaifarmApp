@@ -145,16 +145,23 @@ class _AvailableState extends State<Available> {
             ),
           );
         } else {
-          return Container(
-              width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: Text(
-                  "ไม่พบรายการ",
-                  style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      fontWeight: FontWeight.bold),
-                ),
-              ));
+          return Center(
+            child: Container(
+              margin: EdgeInsets.only(bottom: 15.0.h),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.asset('assets/json/boxorder.json',
+                      height: 70.0.w, width: 70.0.w, repeat: false),
+                  Text(
+                    LocaleKeys.search_product_not_found.tr(),
+                    style: FunctionHelper.FontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            ),
+          );
         }
       },
     );

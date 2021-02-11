@@ -137,60 +137,58 @@ class _FlashSaleState extends State<FlashSale> {
   }
 
   Widget _ProductImage({ProductData item, int index}) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(1.0.h),
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.grey.shade400),
+    return Container(
 
-        ),
-        child: Stack(
-          children: [
-            Hero(
-              tag: "productImage_${index}",
+      decoration: BoxDecoration(
+          border: Border.all(width: 1, color: Colors.grey.shade400),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Stack(
+        children: [
+          Hero(
+            tag: "productImage_${index}",
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(1.3.h),
+              child: CachedNetworkImage(
+                width: 28.0.w,
+                height: 28.0.w,
+                placeholder: (context, url) => Container(
+                  color: Colors.white,
+                  child: Lottie.asset('assets/json/loading.json',  width: 28.0.w,
+                    height: 28.0.w,),
+                ),
+                imageUrl: ProductLandscape.CovertUrlImage(item.image),
+                errorWidget: (context, url, error) => Container(
+                    width: 28.0.w,
+                    height: 28.0.w,
+                    child: Icon(
+                      Icons.error,
+                      size: SizeUtil.titleSmallFontSize().sp,
+                    )),
+              ),
+            ),
+          ),
+          Visibility(
+            child: Container(
+              margin: EdgeInsets.all(1.5.w),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(0.5.h),
-                child: CachedNetworkImage(
-                  width: 28.0.w,
-                  height: 28.0.w,
-                  placeholder: (context, url) => Container(
-                    color: Colors.white,
-                    child: Lottie.asset('assets/json/loading.json',  width: 28.0.w,
-                      height: 28.0.w,),
+                borderRadius: BorderRadius.circular(1.0.w),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      right: 1.5.w, left: 1.5.w, top: 1.0.w, bottom: 1.0.w),
+                  color: ThemeColor.ColorSale(),
+                  child: Text(
+                    "${item.discountPercent}%",
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.white,
+                        fontSize: SizeUtil.titleSmallFontSize().sp),
                   ),
-                  imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                  errorWidget: (context, url, error) => Container(
-                      width: 28.0.w,
-                      height: 28.0.w,
-                      child: Icon(
-                        Icons.error,
-                        size: SizeUtil.titleSmallFontSize().sp,
-                      )),
                 ),
               ),
             ),
-            Visibility(
-              child: Container(
-                margin: EdgeInsets.all(1.5.w),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(1.0.w),
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        right: 1.5.w, left: 1.5.w, top: 1.0.w, bottom: 1.0.w),
-                    color: ThemeColor.ColorSale(),
-                    child: Text(
-                      "${item.discountPercent}%",
-                      style: FunctionHelper.FontTheme(
-                          color: Colors.white,
-                          fontSize: SizeUtil.titleSmallFontSize().sp),
-                    ),
-                  ),
-                ),
-              ),
-              visible: item.discountPercent > 0 ? true : false,
-            )
-          ],
-        ),
+            visible: item.discountPercent > 0 ? true : false,
+          )
+        ],
       ),
     );
   }

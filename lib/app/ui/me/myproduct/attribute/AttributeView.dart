@@ -109,15 +109,51 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                           ),
                                           secondaryActions: <Widget>[
                                             IconSlideAction(
-                                              color: ThemeColor.primaryColor(),
-                                              icon: Icons.edit,
+                                              color: ThemeColor.secondaryColor(),
+                                              iconWidget: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Lottie.asset('assets/json/edit.json',
+                                                      height: 4.5.h,
+                                                      width: 4.5.h,
+                                                      repeat: true),
+                                                  Text(
+                                                    LocaleKeys.cart_edit.tr(),
+                                                    style: FunctionHelper.FontTheme(
+                                                        color: Colors.white,
+                                                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                                                        fontWeight: FontWeight.bold),
+                                                  )
+                                                ],
+                                              ),
                                               onTap: () {
                                                 AppRoute.AttributeEdit(idAttr: item.data[index].id,context: context,nameAttr:item.data[index].name );
                                               },
                                             ),
                                             IconSlideAction(
-                                              color: Colors.red,
-                                              icon: Icons.delete,
+                                              color: ThemeColor.ColorSale(),
+                                              iconWidget: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    margin: EdgeInsets.only(top: 0.5.h),
+                                                    child: Lottie.asset('assets/json/delete.json',
+                                                        height: 3.0.h,
+                                                        width: 3.0.h,
+                                                        repeat: true),
+                                                  ),
+                                                  Container(
+                                                    margin: EdgeInsets.only(top: 0.5.h),
+                                                    child: Text(
+                                                      LocaleKeys.cart_del.tr(),
+                                                      style: FunctionHelper.FontTheme(
+                                                          color: Colors.white,
+                                                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                                                          fontWeight: FontWeight.bold),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                               onTap: () {
                                                 //bloc.attributeMyShop.value.data.removeAt(index);
                                                 //bloc.attributeMyShop.add(bloc.attributeMyShop.value);

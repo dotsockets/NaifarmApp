@@ -264,8 +264,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
   );
 
   Container _BuildCardNoti({NotiData item,BuildContext context,int index}) => Container(
-    padding: EdgeInsets.only(
-        left: 3.0.w, right: 3.0.w),
+
     child: GestureDetector(
         onTap: (){
           // if(item.Status_Sell==1)

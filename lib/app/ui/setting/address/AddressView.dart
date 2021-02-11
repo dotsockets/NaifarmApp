@@ -68,7 +68,7 @@ class _AddressViewState extends State<AddressView> {
         color: ThemeColor.primaryColor(),
         child: SafeArea(
             child: Scaffold(
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.grey.shade300,
                 key: _scaffoldKey,
                 appBar: AppToobar(
                   title: LocaleKeys.setting_account_title_address.tr(),
@@ -82,34 +82,31 @@ class _AddressViewState extends State<AddressView> {
                       stream: bloc.AddressList.stream,
                       builder: (context, snapshot) {
                         var item = (snapshot.data as AddressesListRespone);
-                        if (snapshot.hasData) {
+                        if (snapshot.hasData&&item.data!=null) {
                           if(item.data.isNotEmpty){
                             return SingleChildScrollView(
-                              child: Container(
-                                color: Colors.grey.shade300,
-                                child: Column(
-                                  children: [
-                                    Column(
-                                      children: item.data
-                                          .asMap()
-                                          .map((index, value) {
-                                        return MapEntry(index,
-                                            Column(
-                                              children: [
-                                                _BuildCard(item: value, index: index),
-                                                SizedBox(height: 1.0.h,)
-                                              ],
-                                            ));
-                                      })
-                                          .values
-                                          .toList(),
-                                    ),
-                                    SizedBox(
-                                      height: 2.0.h,
-                                    ),
-                                    _buildBtnAddProduct(),
-                                  ],
-                                ),
+                              child: Column(
+                                children: [
+                                  Column(
+                                    children: item.data
+                                        .asMap()
+                                        .map((index, value) {
+                                      return MapEntry(index,
+                                          Column(
+                                            children: [
+                                              _BuildCard(item: value, index: index),
+                                              SizedBox(height: 1.0.h,)
+                                            ],
+                                          ));
+                                    })
+                                        .values
+                                        .toList(),
+                                  ),
+                                  SizedBox(
+                                    height: 2.0.h,
+                                  ),
+                                  _buildBtnAddProduct(),
+                                ],
                               ),
                             );
                           }else{
@@ -245,7 +242,7 @@ class _AddressViewState extends State<AddressView> {
                     width: 5.0.h,
                     repeat: true),
                 Text(
-                  LocaleKeys.cart_del.tr(),
+                  LocaleKeys.cart_edit.tr(),
                   style: FunctionHelper.FontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,

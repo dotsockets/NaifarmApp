@@ -121,7 +121,7 @@ class OrderData {
     packagingId = json['packagingId'];
     itemCount = json['itemCount'];
     quantity = json['quantity'];
-    shippingWeight = json['shippingWeight']>0?json['shippingWeight']:0.0;
+    shippingWeight = json['shippingWeight']>0?json['shippingWeight']*1.0:0.0;
     total = json['total'];
     discount = json['discount'];
     shipping = json['shipping'];

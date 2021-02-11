@@ -14,6 +14,7 @@ class OrdersBloc{
   final onError = BehaviorSubject<Object>();
   final onSuccess = BehaviorSubject<Object>();
   Stream<Object> get feedList => onSuccess.stream;
+  List<OrderData> orderList = List<OrderData>();
 
   OrdersBloc(this._application);
 
@@ -22,7 +23,9 @@ class OrdersBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.GetOrder(orderType: orderType,page: page,limit: limit,statusId: statusId,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
-        onSuccess.add((respone.respone as OrderRespone));
+        var item = (respone.respone as OrderRespone);
+        orderList.addAll(item.data);
+        onSuccess.add(OrderRespone(data: orderList,total: item.total,limit: item.limit,page: item.page,));
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
