@@ -49,7 +49,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
       });
 
       bloc.onSuccess.stream.listen((event) {

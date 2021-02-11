@@ -23,6 +23,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/FlashSaleBar.dart';
+import 'package:naifarm/utility/widgets/LifecycleWatcherState.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -38,7 +39,7 @@ class FlashSaleView extends StatefulWidget {
   _FlashSaleViewState createState() => _FlashSaleViewState();
 }
 
-class _FlashSaleViewState extends State<FlashSaleView> {
+class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
 
 
   ProductBloc bloc;
@@ -55,17 +56,8 @@ class _FlashSaleViewState extends State<FlashSaleView> {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
 
-      if (ConvertProductData() != null) {
-        bloc.product_more.addAll(ConvertProductData());
-      //  bloc.product_more.addAll(ConvertProductData());
-        bloc.MoreProduct.add(ProductRespone(
-            data: bloc.product_more,
-            total: ConvertProductData().length,
-            limit: limit.toString()));
-      } else {
-        bloc.loadMoreData(
-            page: page.toString(), limit: limit, link: "flashsale");
-      }
+      bloc.loadFlashsaleData(
+          page: page.toString(), limit: limit);
     }
 
     _scrollController.addListener(() {
@@ -75,10 +67,8 @@ class _FlashSaleViewState extends State<FlashSaleView> {
         if (step_page && bloc.product_more.length != widget.instalData.total) {
           step_page = false;
           page++;
-          bloc.loadMoreData(
-              page: page.toString(),
-              limit: limit,
-              link: "flashsale");
+          bloc.loadFlashsaleData(
+              page: page.toString(), limit: limit);
         }
       }
 
@@ -114,18 +104,19 @@ class _FlashSaleViewState extends State<FlashSaleView> {
                         ),
                         border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
                     ),
-                    child:   widget.instalData.data.length ==0?
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height:50.0.h,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("ไม่พบสินค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                    ) :
+                    child:
+                    // widget.instalData.data.length ==0?
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width,
+                    //   height:50.0.h,
+                    //   child: Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.center,
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       Text("ไม่พบสินค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
+                    //     ],
+                    //   ),
+                    // ) :
                     content,
                   ),
 
@@ -182,82 +173,111 @@ class _FlashSaleViewState extends State<FlashSaleView> {
     margin: EdgeInsets.only(top: 4.0.h),
       width: MediaQuery.of(context).size.width,
       child: StreamBuilder(
-        stream: bloc.MoreProduct.stream,
+        stream: bloc.Flashsale.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           step_page = true;
-          if (snapshot.hasData) {
-            var item = (snapshot.data as ProductRespone);
+          if (snapshot.hasData && snapshot.data!=null) {
+            var item = (snapshot.data as FlashsaleRespone);
             step_page = true;
-            return ListView.builder(
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              controller: _scrollController,
-              itemBuilder: (context, i) {
-                // if ( i+1==((item.data.length) / 2).round()) {
-                //   return CupertinoActivityIndicator();
-                // }
+            if(item.data.isNotEmpty){
+              return ListView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                controller: _scrollController,
+                itemBuilder: (context, i) {
+                  // if ( i+1==((item.data.length) / 2).round()) {
+                  //   return CupertinoActivityIndicator();
+                  // }
 
-                return Container(
-                  child: Column(
-                    children: [
-                      item.data.length - (i) * 2 > 1
-                          ? Row(
-                        children: [
-                          Expanded(
-                              child: _buildProduct(
-                                  item: item.data[(i * 2)],
-                                  index: (i * 2),
-                                  context: context)),
-                          Expanded(
-                              child: _buildProduct(
-                                  item: item.data[(i * 2) + 1],
-                                  index: ((i * 2) + 1),
-                                  context: context))
-                        ],
-                      )
-                          : Row(
-                        children: [
-                          Expanded(
-                              child: _buildProduct(
-                                  item: item.data[(i * 2)],
-                                  index: (i * 2),
-                                  context: context)),
-                          Expanded(child: SizedBox()),
-                        ],
-                      ),
-                      if (item.data.length != item.total)
-                        i + 1 == ((item.data.length) / 2).round()
-                            ? Container(
-                          padding: EdgeInsets.all(20),
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
-                            children: [
-                          Platform.isAndroid
-                          ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
-                                : CupertinoActivityIndicator(),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text("Loading",
-                                  style: FunctionHelper.FontTheme(
-                                      color: Colors.grey,
-                                      fontSize:
-                                      SizeUtil.priceFontSize()
-                                          .sp))
-                            ],
-                          ),
+                  return Container(
+                    child: Column(
+                      children: [
+                        item.data[0].items.length - (i) * 2 > 1
+                            ? Row(
+                          children: [
+                            Expanded(
+                                child: _buildProduct(
+                                    item: item.data[0].items[(i * 2)].product,
+                                    index: (i * 2),
+                                    context: context)),
+                            Expanded(
+                                child: _buildProduct(
+                                    item: item.data[0].items[(i * 2) + 1].product,
+                                    index: ((i * 2) + 1),
+                                    context: context))
+                          ],
                         )
-                            : SizedBox()
+                            : Row(
+                          children: [
+                            Expanded(
+                                child: _buildProduct(
+                                    item: item.data[0].items[(i * 2)].product,
+                                    index: (i * 2),
+                                    context: context)),
+                            Expanded(child: SizedBox()),
+                          ],
+                        ),
+                        if (item.loadmore)
+                          i + 1 == ((item.data[0].items.length) / 2).round()
+                              ? Container(
+                            padding: EdgeInsets.all(20),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.center,
+                              children: [
+                                Platform.isAndroid
+                                    ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
+                                    : CupertinoActivityIndicator(),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text("Loading",
+                                    style: FunctionHelper.FontTheme(
+                                        color: Colors.grey,
+                                        fontSize:
+                                        SizeUtil.priceFontSize()
+                                            .sp))
+                              ],
+                            ),
+                          )
+                              : SizedBox()
+                      ],
+                    ),
+                  );
+                },
+                itemCount: ((item.data[0].items.length) / 2).round(),
+              );
+            }else{
+              return Center(
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 15.0.h),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset('assets/json/boxorder.json',
+                          height: 70.0.w, width: 70.0.w, repeat: false),
+                      Text(
+                        LocaleKeys.message_error_mail_empty.tr(),
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.bold),
+                      )
                     ],
                   ),
-                );
-              },
-              itemCount: ((item.data.length) / 2).round(),
-            );
+                ),
+              );
+            }
+
           } else {
-            return SizedBox();
+            return Center(
+              child: Container(
+                padding: EdgeInsets.only(top:15.0.h,bottom: 15.0.h),
+                child: Platform.isAndroid
+                    ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
+                    : CupertinoActivityIndicator(),
+              ),
+            );
           }
         },
       ));
@@ -407,6 +427,32 @@ class _FlashSaleViewState extends State<FlashSaleView> {
       data.add(item.product);
     }
     return data;
+  }
+
+  @override
+  void onDetached() {
+
+  }
+
+  @override
+  void onInactive() {
+
+  }
+
+  @override
+  void onPaused() {
+
+  }
+
+  @override
+  void onResumed() {
+    page=1;
+    step_page = false;
+    bloc.product_more.clear();
+    bloc.loadMoreData(
+        page: page.toString(),
+        limit: limit,
+        link: "flashsale");
   }
 
 

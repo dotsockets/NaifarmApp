@@ -32,10 +32,9 @@ import 'package:sizer/sizer.dart';
 import 'package:provider/provider.dart';
 
 class PaidView extends StatefulWidget {
-  final String orderType;
-  final String typeView;
+  final OrderViewType typeView;
 
-  const PaidView({Key key, this.orderType, this.typeView}) : super(key: key);
+  const PaidView({Key key, this.typeView}) : super(key: key);
   @override
   _PaidViewState createState() => _PaidViewState();
 }
@@ -47,7 +46,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       Usermanager().getUser().then((value) =>
-          bloc.loadOrder(orderType: widget.orderType,statusId: "1", limit: 20, page: 1, token: value.token));
+          bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: 20, page: 1, token: value.token));
     }
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
@@ -121,7 +120,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        AppRoute.OrderDetail(context,orderData: item);
+        AppRoute.OrderDetail(context,orderData: item,typeView: widget.typeView);
       },
     );
   }
@@ -156,9 +155,8 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
             ),
           ),
           onTap: (){
-            var product = item.inventory.product;
-            product.salePrice = item.inventory.salePrice;
-            product.saleCount = item.inventory.product.saleCount;
+            ProductData product = ProductData();
+            product = item.inventory.product;
             product.shop = ProductShop(id: shopId);
             AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
           },
@@ -348,11 +346,11 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () async {
-        if(widget.typeView=="shop"){
+        if(widget.typeView==OrderViewType.Shop){
           final result = await AppRoute.ConfirmPayment(context: context,orderData: item);
           if(result){
             Usermanager().getUser().then((value) =>
-                bloc.loadOrder(orderType: widget.orderType,statusId: "1", limit: 20, page: 1, token: value.token));
+                bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: 20, page: 1, token: value.token));
           }
         }else{
           AppRoute.TransferPayMentView(context: context,orderData: item);

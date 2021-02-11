@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +23,7 @@ class CartBloc {
   CompositeSubscription _compositeSubscription = CompositeSubscription();
 
   final onLoad = BehaviorSubject<bool>();
-  final onError = BehaviorSubject<String>();
+  final onError = BehaviorSubject<Result>();
   final onSuccess = BehaviorSubject<Object>();
   final CartList = BehaviorSubject<CartResponse>();
   final AddressList = BehaviorSubject<AddressesListRespone>();
@@ -63,7 +64,7 @@ class CartBloc {
         var item = (respone.respone as CartResponse);
         CartList.add(CartResponse(data: item.data,total: item.total,selectAll: false));
       } else {
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
     });
     _compositeSubscription.add(subscription);
@@ -81,7 +82,7 @@ class CartBloc {
         GetCartlists(token: token, cartActive: CartActive.CartDelete);
         // CartList.add(CartResponse(data: CartList.value.data));
       } else {
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
     });
     _compositeSubscription.add(subscription);
@@ -101,7 +102,7 @@ class CartBloc {
         CartList.add(CartList.value);
       } else {
         GetCartlists(token: token, cartActive: CartActive.CartDelete);
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
     });
     _compositeSubscription.add(subscription);
@@ -122,7 +123,7 @@ class CartBloc {
         // CartResponse(data: CartList.value.data);
         // CartList.add(CartList.value);
       } else {
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
     });
     _compositeSubscription.add(subscription);
@@ -203,7 +204,7 @@ class CartBloc {
             (respone.respone as AddressesListRespone).http_call_back));
 
       } else {
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
     });
     _compositeSubscription.add(subscription);
@@ -276,7 +277,7 @@ class CartBloc {
       if (respone.http_call_back.status == 200) {
         AddressesList(token: token);
       } else {
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
     });
     _compositeSubscription.add(subscription);
@@ -292,7 +293,7 @@ class CartBloc {
       if (respone.http_call_back.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
     });
     _compositeSubscription.add(subscription);
@@ -317,7 +318,7 @@ class CartBloc {
         // CartList.add(CartList.value);
       } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.result);
       }
     });
     _compositeSubscription.add(subscription);

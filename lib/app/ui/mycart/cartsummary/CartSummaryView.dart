@@ -59,7 +59,19 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        if (event.error.status > 400) {
+          FunctionHelper.AlertDialogRetry(context,
+              title: "Error", message: "The transaction cannot be performed, please contact the seller. ",callBack: (){
+                Usermanager().getUser().then((value){
+                  for(var item in bloc.CartList.value.data){
+                    bloc.CreateOrder(orderRequest: bloc.ConvertOrderData(cartData: item,email: value.email),token: value.token);
+                  }
+                });
+              });
+        }else{
+          FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
+        }
+       // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
 
       bloc.onSuccess.stream.listen((event) {

@@ -24,8 +24,8 @@ import 'package:sizer/sizer.dart';
 
 class OrderView extends StatefulWidget {
   final OrderData orderData;
-  final String orderType;
-  OrderView({Key key, this.orderData, this.orderType}) : super(key: key);
+  final OrderViewType typeView;
+  OrderView({Key key, this.orderData, this.typeView}) : super(key: key);
   @override
   _OrderViewState createState() => _OrderViewState();
 }
@@ -42,7 +42,7 @@ class _OrderViewState extends State<OrderView> {
       }
 
     }
-    Usermanager().getUser().then((value) => bloc.GetOrderById(orderType: widget.orderType,id: widget.orderData.id, token: value.token));
+    Usermanager().getUser().then((value) => bloc.GetOrderById(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",id: widget.orderData.id, token: value.token));
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
 
@@ -75,12 +75,12 @@ class _OrderViewState extends State<OrderView> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                _HeaderStatus(context: context,orderData: item),
+                                widget.typeView==OrderViewType.Purchase?_HeaderStatus(context: context,orderData: item):SizedBox(),
                                 _labelText(title: LocaleKeys.order_detail_ship_addr.tr()),
                                 _addtess_recive(context: context,orderData: item),
                                 _labelText(title: LocaleKeys.order_detail_ship_data.tr()),
-                                item.shippingRate!=null?_Shipping_information(context: context,orderData: item):SizedBox(),
-                                item.shippingRate!=null?SizedBox(height: 15,):SizedBox(),
+                                item.carrier!=null?_Shipping_information(context: context,orderData: item):SizedBox(),
+                                item.carrier!=null?SizedBox(height: 15,):SizedBox(),
                                 _Order_number_information(context: context,orderData: item,sumTotal: SumTotal(item.items),rate_delivery: item.shipping),
                                 _labelText(title: LocaleKeys.order_detail_payment.tr()),
                                 _payment_info(context: context,orderData: item),
@@ -90,7 +90,9 @@ class _OrderViewState extends State<OrderView> {
                             ),
                           ),
                         ),
-                        _ButtonActive(context: context,orderData: item),
+                        widget.typeView==OrderViewType.Shop && item.orderStatusId==1? _ButtonConfirmPay(context: context,orderData: item):SizedBox(),
+                        widget.typeView==OrderViewType.Shop && item.orderStatusId==3? _ButtonShipping(context: context,orderData: item):SizedBox(),
+
                       ],
                     ),
                   );
@@ -188,9 +190,9 @@ class _OrderViewState extends State<OrderView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(orderData.shippingRate.carrier!=null?orderData.shippingRate.carrier.name:'',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor(),fontWeight: FontWeight.bold,height: 1.5),),
+          Text(orderData.carrier!=null?orderData.carrier.name:'',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor(),fontWeight: FontWeight.bold,height: 1.5),),
           SizedBox(height: 1.0.w),
-          Text(orderData.shippingRate.name+" ${orderData.shippingRate.deliveryTakes}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+          Text(orderData.carrier.name+" ${orderData.carrier.name}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
          // SizedBox(height: 6),
         //  Text("${orderData.shippingRate.deliveryTakes} ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
         ],
@@ -446,34 +448,94 @@ class _OrderViewState extends State<OrderView> {
     );
   }
 
-  Widget _ButtonActive({BuildContext context,OrderData orderData}){
+  Widget _ButtonConfirmPay({BuildContext context,OrderData orderData}){
     
       return Center(
         child: Container(
           padding: EdgeInsets.all(1.5.w),
-          child: Center(
-            child: FlatButton(
-              minWidth: 50.0.w,
-              height: 5.0.h,
-              color:  ThemeColor.ColorSale() ,
-              textColor: Colors.white,
-              splashColor: Colors.white.withOpacity(0.3),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40.0),
-              ),
-              onPressed: () {
+          child: Row(
+            children: [
+              Expanded(child:
+              Padding(
+                padding: EdgeInsets.all(1.0.h),
+                child: FlatButton(
+                  height: 5.0.h,
+                  color:  ThemeColor.ColorSale() ,
+                  textColor: Colors.white,
+                  splashColor: Colors.white.withOpacity(0.3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
+                  onPressed: () {
 
 
-              },
-              child: Text(
-                "Cancel order",
-                style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
-              ),
-            ),
+                  },
+                  child: Text(
+                    "Cancel order",
+                    style: FunctionHelper.FontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              )),
+              Expanded(child:
+              Padding(
+                padding: EdgeInsets.all(1.0.h),
+                child: FlatButton(
+                  height: 5.0.h,
+                  color:  ThemeColor.secondaryColor() ,
+                  textColor: Colors.white,
+                  splashColor: Colors.white.withOpacity(0.3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
+                  onPressed: () {
+
+                    AppRoute.TransferPayMentView(context: context,orderData: orderData);
+                  },
+                  child: Text(
+                    "Confirm payment ",
+                    style: FunctionHelper.FontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              )),
+            ],
           ),
         ),
       );
+
+
+  }
+
+  Widget _ButtonShipping({BuildContext context,OrderData orderData}){
+
+    return Center(
+      child: Container(
+        padding: EdgeInsets.all(1.5.w),
+        child: Padding(
+          padding: EdgeInsets.all(1.0.h),
+          child: FlatButton(
+            minWidth: 60.0.w,
+            height: 5.0.h,
+            color:  ThemeColor.ColorSale() ,
+            textColor: Colors.white,
+            splashColor: Colors.white.withOpacity(0.3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+            onPressed: () {
+              AppRoute.ShippingOrder(context: context,orderData: orderData);
+
+            },
+            child: Text(
+              "Shipping",
+              style: FunctionHelper.FontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+            ),
+          ),
+        ),
+      ),
+    );
 
 
   }

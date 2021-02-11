@@ -37,6 +37,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BannerSlide.dart';
 import 'package:naifarm/utility/widgets/CategoryMenu.dart';
+import 'package:naifarm/utility/widgets/LifecycleWatcherState.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/ProductVertical.dart';
 import 'package:rxdart/subjects.dart';
@@ -58,7 +59,7 @@ class RecommendView extends StatefulWidget {
   _RecommendViewState createState() => _RecommendViewState();
 }
 
-class _RecommendViewState extends State<RecommendView> {
+class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
   int _categoryselectedIndex = 0;
@@ -399,5 +400,25 @@ class _RecommendViewState extends State<RecommendView> {
       bloc.loadHomeData(context: context,callback: true);
     });
 
+  }
+
+  @override
+  void onDetached() {
+  // print("wefc onDetached");
+  }
+
+  @override
+  void onInactive() {
+  //  print("wefc onInactive");
+  }
+
+  @override
+  void onPaused() {
+  //  print("wefc onPaused");
+  }
+
+  @override
+  void onResumed() {
+   // _refreshProducts();
   }
 }

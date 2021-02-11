@@ -153,6 +153,12 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   title: "Error", message: event.error.message,callBack: ()=> _refreshProducts());
             });
 
+          }else if(event.error.status == 404){
+            Future.delayed(const Duration(milliseconds: 500), () {
+              FunctionHelper.AlertDialogRetry(context,
+                  title: "Error", message: "No information found for this restaurant. Or the shop has closed ",callBack: ()=> _refreshProducts());
+            });
+
           }else {
             FunctionHelper.SnackBarShow(
                 scaffoldKey: _scaffoldKey, message: event.error.message);
@@ -174,9 +180,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
       });
       bloc.onSuccess.stream.listen((event) {
         if(event is CartResponse){
-          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+         // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
           animationController.forward();
         }else if(event is bool){
+          AppRoute.MyCart(context, true,cart_nowId: widget.productItem.id);
          // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
         }
 
@@ -578,7 +585,19 @@ class _ProductDetailViewState extends State<ProductDetailView>
                 child: InkWell(
                     onTap: () {
                       if(IsLogin){
-                        FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+                        List<Items> items = new List<Items>();
+                        items.add(Items(
+                            inventoryId: bloc.ZipProductDetail.value.producItemRespone
+                                .inventories[0].id,
+                            quantity: 1));
+                        Usermanager().getUser().then((value) => bloc.AddCartlists(addNow: true,
+                            context: context,
+                            cartRequest: CartRequest(
+                              shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
+                              items: items,
+                            ),
+                            token: value.token));
+
                       }else{
                         AppRoute.Login(context,IsHeader: true,homeCallBack: (bool fix){});
                       }

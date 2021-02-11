@@ -37,8 +37,8 @@ import '../widget/ModalFitBottom_Sheet.dart';
 
 class MyCartView extends StatefulWidget {
   final bool btnBack;
-
-  const MyCartView({Key key, this.btnBack = false}) : super(key: key);
+  int cart_nowId;
+   MyCartView({Key key, this.btnBack = false, this.cart_nowId}) : super(key: key);
 
   @override
   _MyCartViewState createState() => _MyCartViewState();
@@ -67,17 +67,37 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
       });
+      bloc.CartList.stream.listen((event) {
+        print("sefcesrwcf ${widget.cart_nowId}");
+        if(event is CartResponse){
 
+          if(widget.cart_nowId>0){
+
+            for(var item in event.data){
+              for(var value in item.items){
+                if(value.inventory.product.id==widget.cart_nowId){
+                  value.select = true;
+                  break;
+                }
+              }
+            }
+            widget.cart_nowId = 0;
+            bloc.CartList.add(bloc.CartList.value);
+          }
+
+        }
+      });
       bloc.onSuccess.stream.listen((event) {
         //  cartReq = event;
-        Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
       });
 
       Usermanager().getUser().then((value){
         bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList);
       });
+
+
 
     }
 

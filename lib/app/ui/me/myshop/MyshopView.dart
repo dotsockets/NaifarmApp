@@ -92,7 +92,7 @@ class _MyshopViewState extends State<MyshopView> {
 
           }else if(item is InfoCustomerLoading){
 
-            return _BuildMyShop(context,item: MyShopRespone(name: "กำลังโหลด",active: 0));
+            return _BuildMyShop(context,item: MyShopRespone(image: item.profileObjectCombine.myShopRespone.image,name: "กำลังโหลด",active: 0));
           }else{
             return  SizedBox();
           }
@@ -160,6 +160,7 @@ class _MyshopViewState extends State<MyshopView> {
               if(count is CustomerCountLoaded){
                 return  _buildTabMenu(context,count.countLoaded);
               }else if(count is CustomerCountLoading){
+
                 return _buildTabMenu(context,count.countLoaded!=null?count.countLoaded:CustomerCountRespone(sellOrder: SellOrder(unpaid: 0,shipping: 0,cancel: 0,confirm: 0,delivered: 0,failed: 0,refund: 0)));
               }else{
                 return  _buildTabMenu(context,CustomerCountRespone(sellOrder: SellOrder(unpaid: 0,shipping: 0,cancel: 0,confirm: 0,delivered: 0,failed: 0,refund: 0)));

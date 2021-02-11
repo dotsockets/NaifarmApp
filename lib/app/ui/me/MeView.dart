@@ -267,11 +267,8 @@ class _MeViewState extends State<MeView> with RouteAware {
                                 if (status) {
                                   Future.delayed(
                                       const Duration(milliseconds: 500), () {
-                                    Usermanager().getUser().then((value) =>
-                                        context
-                                            .read<InfoCustomerBloc>()
-                                            .loadCustomInfo(
-                                                token: value.token));
+                                    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+                                    Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
                                   });
                                   // Usermanager()
                                   //     .getUser()

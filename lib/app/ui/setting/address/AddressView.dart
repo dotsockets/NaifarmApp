@@ -41,7 +41,7 @@ class _AddressViewState extends State<AddressView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
       });
 
       bloc.onSuccess.stream.listen((event) {
@@ -68,7 +68,7 @@ class _AddressViewState extends State<AddressView> {
         color: ThemeColor.primaryColor(),
         child: SafeArea(
             child: Scaffold(
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.grey.shade300,
                 key: _scaffoldKey,
                 appBar: AppToobar(
                   title: LocaleKeys.setting_account_title_address.tr(),
@@ -78,15 +78,15 @@ class _AddressViewState extends State<AddressView> {
                   onClick: ()=>check_call_back(),
                 ),
                 body: Container(
+
                   child: StreamBuilder(
                       stream: bloc.AddressList.stream,
                       builder: (context, snapshot) {
                         var item = (snapshot.data as AddressesListRespone);
-                        if (snapshot.hasData) {
+                        if (snapshot.hasData && item.data!=null) {
                           if(item.data.isNotEmpty){
                             return SingleChildScrollView(
                               child: Container(
-                                color: Colors.grey.shade300,
                                 child: Column(
                                   children: [
                                     Column(
@@ -113,24 +113,31 @@ class _AddressViewState extends State<AddressView> {
                               ),
                             );
                           }else{
-                            return Center(
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 15.0.h),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Lottie.asset('assets/json/boxorder.json',
-                                        height: 70.0.w, width: 70.0.w, repeat: false),
-                                    Text(
-                                      LocaleKeys.message_error_mail_empty.tr(),
-                                      style: FunctionHelper.FontTheme(
-                                          fontSize: SizeUtil.titleFontSize().sp,
-                                          fontWeight: FontWeight.bold),
+                            return Container(
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  Expanded(child: Center(
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 15.0.h),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Lottie.asset('assets/json/boxorder.json',
+                                              height: 70.0.w, width: 70.0.w, repeat: false),
+                                          Text(
+                                            LocaleKeys.message_error_mail_empty.tr(),
+                                            style: FunctionHelper.FontTheme(
+                                                fontSize: SizeUtil.titleFontSize().sp,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(height: 3.0.h),
+                                          _buildBtnAddProduct(),
+                                        ],
+                                      ),
                                     ),
-                                    SizedBox(height: 3.0.h),
-                                    _buildBtnAddProduct(),
-                                  ],
-                                ),
+                                  ))
+                                ],
                               ),
                             );
                           }

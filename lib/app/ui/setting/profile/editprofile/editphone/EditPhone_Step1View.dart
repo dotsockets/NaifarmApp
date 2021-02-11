@@ -104,7 +104,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
                         SizedBox(height: 15,),
                         BuildEditText(
                             head: LocaleKeys.edit_phone_title.tr(),
-                            hint: LocaleKeys.edit_phone_hint.tr(),maxLength: 10,controller: PhoneController,onError: onError,inputType: TextInputType.phone,BorderOpacity: 0.2,onChanged: (String char){
+                            hint: LocaleKeys.edit_phone_hint.tr(),maxLength: 10,controller: PhoneController,onError: onError,inputType: TextInputType.number,BorderOpacity: 0.2,onChanged: (String char){
                           setState(() {});
                           }),
                         SizedBox(height: 20,),

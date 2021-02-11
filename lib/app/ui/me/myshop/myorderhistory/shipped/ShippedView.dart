@@ -25,10 +25,9 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
 class ShippedView extends StatefulWidget {
-  final String orderType;
-  final String typeView;
+  final OrderViewType typeView;
 
-  const ShippedView({Key key, this.orderType, this.typeView}) : super(key: key);
+  const ShippedView({Key key, this.typeView}) : super(key: key);
   @override
   _ShippedViewState createState() => _ShippedViewState();
 }
@@ -41,7 +40,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
   init() {
     if(bloc==null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.orderType,statusId: "3",limit: 20,page: 1,token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "3",limit: 20,page: 1,token: value.token));
 
     }
 
@@ -52,8 +51,9 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
     init();
     return Container(
       color: Colors.white,
-      margin: EdgeInsets.only(top: 2.0.w),
-      child: StreamBuilder(
+      margin: EdgeInsets.only(top: 10),
+
+      child:  StreamBuilder(
           stream: bloc.feedList,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData && (snapshot.data as OrderRespone).data.length>0) {
@@ -70,11 +70,12 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
                                 item: value, index: key, context: context),
                             Container(height: 10,color: Colors.grey.shade300,)
                           ],
-                        )))
+                        )
+                    ))
                         .values
                         .toList()),
               );
-            }  else if(snapshot.connectionState == ConnectionState.waiting){
+            } else if(snapshot.connectionState == ConnectionState.waiting){
               return Center(child:  Platform.isAndroid
                   ? CircularProgressIndicator()
                   : CupertinoActivityIndicator(),);
@@ -101,7 +102,6 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
     );
   }
 
-
   Widget _BuildCard({OrderData item, BuildContext context, int index}) {
     return InkWell(
       child: Container(
@@ -115,7 +115,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        AppRoute.OrderDetail(context,orderData: item);
+        AppRoute.OrderDetail(context,orderData: item,typeView: widget.typeView);
       },
     );
   }
@@ -150,9 +150,8 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
             ),
           ),
           onTap: (){
-            var product = item.inventory.product;
-            product.salePrice = item.inventory.salePrice;
-            product.saleCount = item.inventory.product.saleCount;
+            ProductData product = ProductData();
+            product = item.inventory.product;
             product.shop = ProductShop(id: shopId);
             AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
           },
@@ -244,7 +243,6 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
                 color: Colors.grey.shade400,
               ),
               _IntroShipment(address: item.shippingAddress),
-
               Divider(
                 color: Colors.grey.shade400,
               ),
@@ -252,14 +250,14 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.typeView=="purchase"? "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการ\nขนส่งภายในวันที่" +
+                    widget.typeView=="purchase"? "ชำระเงินภายใน" +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
                   ),
-                  _BuildButtonBayItem(btnTxt: widget.typeView=="shop"?"Shipping":"Contact seller",orderData: item)
+                  _BuildButtonBayItem(btnTxt: widget.typeView=="shop"?"Contact seller ":"Shipping",item: item)
                 ],
               )
             ],
@@ -334,7 +332,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
     );
   }
 
-  Widget _BuildButtonBayItem({String btnTxt,OrderData orderData}) {
+  Widget _BuildButtonBayItem({String btnTxt,OrderData item}) {
     return FlatButton(
       color: ThemeColor.ColorSale(),
       textColor: Colors.white,
@@ -343,24 +341,20 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () async {
-        if(widget.typeView=="shop"){
-          final result = await AppRoute.ShippingOrder(context: context,orderData: orderData);
-          if(result){
-            Usermanager().getUser().then((value) =>
-                bloc.loadOrder(orderType: widget.orderType,statusId: "1", limit: 20, page: 1, token: value.token));
-          }
+        if(widget.typeView==OrderViewType.Shop){
+          AppRoute.ShippingOrder(context: context,orderData: item);
         }else{
-          //AppRoute.TransferPayMentView(context: context);
+          AppRoute.TransferPayMentView(context: context,orderData: item);
         }
-
 
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(
+            fontSize: SizeUtil.titleSmallFontSize().sp,
+            fontWeight: FontWeight.w500),
       ),
     );
-
   }
 
   Widget _IntroShipment({String address}) {
@@ -394,9 +388,9 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
     );
   }
 
-  int SumTotal(List<OrderItems> items){
+  int SumTotal(List<OrderItems> items) {
     var sum = 0;
-    for(var item in items){
+    for (var item in items) {
       sum += item.inventory.salePrice;
     }
     return sum;

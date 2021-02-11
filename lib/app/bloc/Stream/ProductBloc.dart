@@ -243,11 +243,21 @@ class ProductBloc{
 
   }
 
-  loadFlashsaleData({String page, int limit, String link}){
+  loadFlashsaleData({String page, int limit}){
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: page,limit: limit)).listen((respone) {
       if(respone.http_call_back.status==200){
-        Flashsale.add((respone.respone as FlashsaleRespone));
+        var item = (respone.respone as FlashsaleRespone);
+        for(var value in item.data[0].items){
+          product_more.add(value.product);
+        }
+        List<FlashsaleItems> item_temp = List<FlashsaleItems>();
+        for(var value in product_more){
+          item_temp.add(FlashsaleItems(product: value));
+        }
+        List<FlashsaleData> data =  List<FlashsaleData>();
+        data.add(FlashsaleData(items: item_temp,id: item.data[0].id,end: item.data[0].end,start: item.data[0].start));
+        Flashsale.add(FlashsaleRespone(data: data,total: item.total,limit: item.limit,page: item.page,loadmore: item.data[0].items.length>limit?true:false));
       }
     });
     _compositeSubscription.add(subscription);
@@ -495,14 +505,19 @@ class ProductBloc{
 
 //CategoryCombin
 
-  AddCartlists({BuildContext context,CartRequest cartRequest,String token}){
+  AddCartlists({BuildContext context,CartRequest cartRequest,String token,bool addNow=false}){
     onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.AddCartlists(cartRequest: cartRequest,token: token)).listen((respone) {
       if(respone.http_call_back.status==200||respone.http_call_back.status==201){
         Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
         onLoad.add(false);
-        onSuccess.add((respone.respone as CartResponse));
+        if(addNow){
+          onSuccess.add(true);
+        }else{
+          onSuccess.add((respone.respone as CartResponse));
+        }
+
       }else{
         onLoad.add(false);
         onError.add(respone.http_call_back.result);

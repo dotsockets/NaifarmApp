@@ -146,7 +146,7 @@ class _LoginViewState extends State<LoginView> {
             Padding(
               padding: const EdgeInsets.only(right: 15,left: 15),
               child: FlatButton(
-                minWidth: 85.0.w,
+                minWidth: 80.0.w,
                 height: 6.5.h,
                 color: checkError?ThemeColor.ColorSale():Colors.grey.shade300,
                 textColor: Colors.white,
@@ -164,7 +164,7 @@ class _LoginViewState extends State<LoginView> {
             Padding(
               padding: const EdgeInsets.only(right: 15,left: 15),
               child: FlatButton(
-                minWidth: 85.0.w,
+                minWidth: 80.0.w,
                 height: 6.5.h,
                 color: ThemeColor.secondaryColor(),
                 textColor: Colors.white,
@@ -191,7 +191,7 @@ class _LoginViewState extends State<LoginView> {
             ),
             SizedBox(height: 2.0.h,),
             Padding(
-              padding: const EdgeInsets.only(right: 15,left: 15),
+              padding: const EdgeInsets.only(right: 28,left: 28),
               child: FlatButton(
                 minWidth: 80.0.w,
                 height: 6.5.h,

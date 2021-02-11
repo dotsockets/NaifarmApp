@@ -68,7 +68,7 @@ class DeliveryDropoffView extends StatelessWidget {
                   children: <Widget>[
                     genQR(context),
                     SizedBox(height: 1.0.h,),
-                    ItemInfoNearby(),
+                    ItemInfoNearby(context),
                     SizedBox(height: 1.0.h,),
                     ItemInfoDelivery()
                   ],
@@ -114,7 +114,7 @@ class DeliveryDropoffView extends StatelessWidget {
     );
   }
 
-  Widget ItemInfoNearby(){
+  Widget ItemInfoNearby(BuildContext context){
     return  Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -126,6 +126,9 @@ class DeliveryDropoffView extends StatelessWidget {
         icon: "",
         title: "See a branch near you",
         Message: "Branch 1, Mueang Chiang Mai District ",
+        onClick: (){
+          _showMyDialog(context);
+        },
       ),
     );
   }
@@ -186,6 +189,62 @@ class DeliveryDropoffView extends StatelessWidget {
       ),
     );
 
+
+  }
+
+  Future<void> _showMyDialog(BuildContext context) async {
+    showDialog<bool>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: InkWell(
+            onTap: (){
+             // onClick();
+            },
+            child: Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          color: ThemeColor.DialogprimaryColor(context),
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(20),
+                                width: MediaQuery.of(context).size.width,
+                                color: Colors.grey.shade300,
+                                child: Center(child: Text("สาขา 1 อำเภอเมือง เชัยงใหม่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),)),
+                              ),
+                              SingleChildScrollView(
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(20),
+                                        width: MediaQuery.of(context).size.width,
+                                        color: Colors.grey.shade300,
+                                        child: Center(child: Text("สาขา 1 อำเภอเมือง เชัยงใหม่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),)),
+                                      )
+                                    ]
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ]
+                )
+            ),
+          ),
+        );
+      },
+    );
 
   }
 

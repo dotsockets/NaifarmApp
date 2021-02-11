@@ -75,3 +75,5 @@ class OrdersBloc{
   }
 
 }
+
+enum OrderViewType { Shop,Purchase}

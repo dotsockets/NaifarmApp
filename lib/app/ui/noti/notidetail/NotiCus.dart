@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
+import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -249,7 +250,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
           // else
 
           if(CheckIsOrder(text: item.type)){
-            AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)),orderType: "myshop/orders");
+            AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)),typeView: OrderViewType.Purchase);
           }
         },
         child: Slidable(

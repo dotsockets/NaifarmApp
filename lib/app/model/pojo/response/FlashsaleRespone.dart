@@ -7,8 +7,9 @@ class FlashsaleRespone {
   int total;
   String page;
   String limit;
+  bool loadmore = true;
 
-  FlashsaleRespone({this.data, this.total, this.page, this.limit});
+  FlashsaleRespone({this.data, this.total, this.page, this.limit,this.loadmore});
 
   FlashsaleRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {

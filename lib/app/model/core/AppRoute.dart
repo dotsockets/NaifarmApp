@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
+import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
@@ -125,8 +126,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FlashSaleView(instalData: instalData,)));
   }
 
-  static  MyCart(BuildContext context,bool btnBack){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyCartView(btnBack: btnBack,)));
+  static  MyCart(BuildContext context,bool btnBack,{int cart_nowId=0}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyCartView(btnBack: btnBack,cart_nowId: cart_nowId,)));
   }
 
 
@@ -138,8 +139,8 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: NotiDetailView(notiImage: notiImage,notiTitle: notiTitle,)));
   }
 
-  static  OrderDetail(BuildContext context,{OrderData orderData,String orderType}){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView(orderData: orderData,orderType: orderType,)));
+  static  OrderDetail(BuildContext context,{OrderData orderData,OrderViewType typeView}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: OrderView(orderData: orderData,typeView: typeView,)));
   }
 
   static  CartSummary(BuildContext context,CartResponse item){
@@ -499,7 +500,7 @@ class AppRoute{
 
   static Future<bool>  ConfirmPayment({BuildContext context,OrderData orderData}) async {
 
-    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ConfirmPaymentView(orderData: orderData,)));
+    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ConfirmPaymentView(orderData: orderData,contextMain: context,)));
 
   }
 

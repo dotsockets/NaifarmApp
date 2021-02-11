@@ -15,6 +15,7 @@ import 'package:naifarm/app/ui/me/myshop/myorderhistory/paid/PaidView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/refund/RefundView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/shipped/ShippedView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/success/SuccessView.dart';
+import 'package:naifarm/app/ui/order/OrderView.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -26,6 +27,7 @@ import 'delivery/DeliveryView.dart';
 class ShopOrderHistoryView extends StatelessWidget {
   final int index;
   final bool callback ;
+
 
 
    ShopOrderHistoryView({Key key, this.index,this.callback}) : super(key: key);
@@ -93,12 +95,12 @@ class ShopOrderHistoryView extends StatelessWidget {
                   Expanded(
                     child:TabBarView(
                       children: [
-                        PaidView(orderType: "myshop/orders",typeView: "shop",),
-                        ShippedView(orderType: "myshop/orders",typeView: "shop"),
-                        DeliveryView(orderType: "myshop/orders",),
-                        SuccessView(orderType: "order/waiting-review",),
-                        CanceledView(orderType: "myshop/orders"),
-                        RefundView(orderType: "myshop/orders")
+                        PaidView(typeView: OrderViewType.Shop),
+                        ShippedView(typeView: OrderViewType.Shop),
+                        DeliveryView(typeView: OrderViewType.Shop),
+                        SuccessView(typeView: OrderViewType.Shop),
+                        CanceledView(typeView: OrderViewType.Shop),
+                        RefundView(typeView: OrderViewType.Shop)
                       ],
                     ),
                   ),

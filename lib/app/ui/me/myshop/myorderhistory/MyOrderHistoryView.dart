@@ -92,12 +92,12 @@ class MyOrderHistoryView extends StatelessWidget {
                   Expanded(
                     child:TabBarView(
                       children: [
-                        PaidView(orderType: "order",typeView: "purchase",),
-                        ShippedView(orderType: "order",typeView: "purchase"),
-                        DeliveryView(orderType: "order",),
-                        SuccessView(orderType: "order/waiting-review",),
-                        CanceledView(orderType: "order",),
-                        RefundView(orderType: "order",)
+                        PaidView(typeView: OrderViewType.Purchase,),
+                        ShippedView(typeView: OrderViewType.Purchase,),
+                        DeliveryView(typeView: OrderViewType.Purchase,),
+                        SuccessView(typeView: OrderViewType.Purchase,),
+                        CanceledView(typeView: OrderViewType.Purchase,),
+                        RefundView(typeView: OrderViewType.Purchase,)
                       ],
                     ),
                   ),

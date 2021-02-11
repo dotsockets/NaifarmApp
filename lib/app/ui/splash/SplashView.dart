@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -60,7 +61,8 @@ class _SplashViewState extends State<SplashView>
       bloc.onSuccess.stream.listen((event) {
         Usermanager().getUser().then((value){
           bloc.loadHomeData(context: context,token: value.token);
-          context.read<InfoCustomerBloc>().loadCustomInfo(token: value.token);
+          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+          Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
           bloc.GetCategoriesAll();
         });
       });
