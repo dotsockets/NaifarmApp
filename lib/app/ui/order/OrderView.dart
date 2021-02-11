@@ -468,6 +468,13 @@ class _OrderViewState extends State<OrderView> {
                   ),
                   onPressed: () {
 
+                    FunctionHelper.ConfirmDialog(context,message: "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",onCancel: (){
+                      Navigator.of(context).pop();
+                    },onClick: (){
+                      Navigator.of(context).pop();
+                      AppRoute.SellerCanceled(context: context,orderData: widget.orderData);
+                    });
+
 
                   },
                   child: Text(

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:audioplayers/audio_cache.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:basic_utils/basic_utils.dart';
@@ -29,12 +31,10 @@ import 'package:rxdart/subjects.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sticky_headers/sticky_headers.dart';
+import 'package:vibration/vibration.dart';
 
 
 class FlashSaleView extends StatefulWidget {
-  final FlashsaleRespone instalData;
-
-  FlashSaleView({Key key, this.instalData}) : super(key: key);
   @override
   _FlashSaleViewState createState() => _FlashSaleViewState();
 }
@@ -47,6 +47,9 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
   int limit = 10;
   ScrollController _scrollController = ScrollController();
   bool step_page = false;
+  final _indicatorController = IndicatorController();
+  static const _indicatorSize = 50.0;
+
 
   final position_scroll = BehaviorSubject<bool>();
 
@@ -56,6 +59,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
 
+
       bloc.loadFlashsaleData(
           page: page.toString(), limit: limit);
     }
@@ -64,12 +68,12 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
       if (_scrollController.position.maxScrollExtent -
           _scrollController.position.pixels <=
           200) {
-        if (step_page && bloc.product_more.length != widget.instalData.total) {
-          step_page = false;
-          page++;
-          bloc.loadFlashsaleData(
-              page: page.toString(), limit: limit);
-        }
+        // if (step_page) {
+        //   step_page = false;
+        //   page++;
+        //   bloc.loadFlashsaleData(
+        //       page: page.toString(), limit: limit);
+        // }
       }
 
       if (_scrollController.position.pixels > 500) {
@@ -90,197 +94,208 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
           appBar: AppToobar(title: "Flash Sale",header_type:  Header_Type.barcartShop,icon: 'assets/images/svg/search.svg',),
           backgroundColor:  Colors.grey.shade300,
          // appBar: AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
-          body: SingleChildScrollView(
-            child: Container(
-              margin: EdgeInsets.only(top: 2.0.h),
-              child: Stack(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 6.0.h),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(topRight:  Radius.circular(50),topLeft: Radius.circular(50),
-                            bottomLeft: Radius.circular( widget.instalData.data.length !=0?0:40),bottomRight: Radius.circular(widget.instalData.data.length !=0?0:40)
-                        ),
-                        border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
-                    ),
-                    child:
-                    // widget.instalData.data.length ==0?
-                    // Container(
-                    //   width: MediaQuery.of(context).size.width,
-                    //   height:50.0.h,
-                    //   child: Column(
-                    //     crossAxisAlignment: CrossAxisAlignment.center,
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       Text("ไม่พบสินค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
-                    //     ],
-                    //   ),
-                    // ) :
-                    content,
-                  ),
-
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: FlashSaleBar(timeFlash:  widget.instalData.data[0].end,),
-                  ),
-                  StreamBuilder(
-                      stream:position_scroll.stream,
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.hasData) {
-                          return snapshot.data?Container(
-                            margin: EdgeInsets.only(right: 5.0.w, bottom:  5.0.w),
-                            child: Align(
-                                alignment: Alignment.bottomRight,
-                                child: Container(
-                                  width: 13.0.w,
-                                  height: 13.0.w,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.black.withOpacity(0.4)
-                                  ),
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.keyboard_arrow_up_outlined,
-                                      size: 8.0.w,
-                                      color: Colors.white,
-                                    ),
-                                    onPressed: (){
-                                      _scrollController.animateTo(
-                                          _scrollController.position.minScrollExtent,
-                                          duration: Duration(milliseconds: 1000),
-                                          curve: Curves.ease);
-                                    },
-                                  ),
-                                )
-                            ),
-                          ):SizedBox();
-                        } else {
-                          return SizedBox();
-                        }
-                      })
-                ],
-              ),
-            ),
-          ),
+          body: Platform.isAndroid?AndroidRefreshIndicator():Container(color: Colors.grey.shade200,child: SafeArea(child: IOSRefreshIndicator(),)),
         ),
       ),
     );
   }
 
+  Widget AndroidRefreshIndicator(){
+    return RefreshIndicator(
+      onRefresh: _refreshProducts,
+      child: content,
+    );
+  }
 
-  Widget get content =>  Container(
-    margin: EdgeInsets.only(top: 4.0.h),
-      width: MediaQuery.of(context).size.width,
-      child: StreamBuilder(
-        stream: bloc.Flashsale.stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          step_page = true;
-          if (snapshot.hasData && snapshot.data!=null) {
-            var item = (snapshot.data as FlashsaleRespone);
-            step_page = true;
-            if(item.data.isNotEmpty){
-              return ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                controller: _scrollController,
-                itemBuilder: (context, i) {
-                  // if ( i+1==((item.data.length) / 2).round()) {
-                  //   return CupertinoActivityIndicator();
-                  // }
+  Widget IOSRefreshIndicator(){
+    return CustomRefreshIndicator(
+        controller: _indicatorController,
+        onRefresh: () => _refreshProducts(),
+        armedToLoadingDuration: const Duration(seconds: 1),
+        draggingToIdleDuration: const Duration(seconds: 1),
+        completeStateDuration: const Duration(seconds: 1),
+        offsetToArmed: 50.0,
+        builder: (
+            BuildContext context,
+            Widget child,
+            IndicatorController controller,
+            ) {
+          return Stack(
+            children: <Widget>[
+              AnimatedBuilder(
+                animation: controller,
+                builder: (BuildContext context, Widget _)  {
+                  if (controller.state == IndicatorState.complete) {
+                    AudioCache().play("sound/Click.mp3");
 
-                  return Container(
-                    child: Column(
-                      children: [
-                        item.data[0].items.length - (i) * 2 > 1
-                            ? Row(
-                          children: [
-                            Expanded(
-                                child: _buildProduct(
-                                    item: item.data[0].items[(i * 2)].product,
-                                    index: (i * 2),
-                                    context: context)),
-                            Expanded(
-                                child: _buildProduct(
-                                    item: item.data[0].items[(i * 2) + 1].product,
-                                    index: ((i * 2) + 1),
-                                    context: context))
-                          ],
-                        )
-                            : Row(
-                          children: [
-                            Expanded(
-                                child: _buildProduct(
-                                    item: item.data[0].items[(i * 2)].product,
-                                    index: (i * 2),
-                                    context: context)),
-                            Expanded(child: SizedBox()),
-                          ],
-                        ),
-                        if (item.loadmore)
-                          i + 1 == ((item.data[0].items.length) / 2).round()
-                              ? Container(
-                            padding: EdgeInsets.all(20),
-                            child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
-                              children: [
-                                Platform.isAndroid
-                                    ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
-                                    : CupertinoActivityIndicator(),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text("Loading",
-                                    style: FunctionHelper.FontTheme(
-                                        color: Colors.grey,
-                                        fontSize:
-                                        SizeUtil.priceFontSize()
-                                            .sp))
-                              ],
-                            ),
-                          )
-                              : SizedBox()
-                      ],
+                    Vibration.vibrate(duration: 500);
+                  }
+                  return Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 2.0.h),
+                      width: 5.0.w,
+                      height: 5.0.w,
+                      child: controller.state == IndicatorState.loading || controller.state == IndicatorState.dragging || controller.state == IndicatorState.armed || controller.state == IndicatorState.complete?CupertinoActivityIndicator():SizedBox(),
                     ),
                   );
                 },
-                itemCount: ((item.data[0].items.length) / 2).round(),
-              );
-            }else{
-              return Center(
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 15.0.h),
+              ),
+              AnimatedBuilder(
+                builder: (context, _) {
+                  return Transform.translate(
+                    offset: Offset(0.0, controller.value * _indicatorSize),
+                    child: child,
+                  );
+                },
+                animation: controller,
+              ),
+            ],
+          );
+        },
+        child: content
+    );
+  }
+
+
+
+
+  Widget get content =>  SingleChildScrollView(
+    child: Container(
+      margin: EdgeInsets.only(top: 1.0.h),
+        width: MediaQuery.of(context).size.width,
+        child: StreamBuilder(
+          stream: bloc.Flashsale.stream,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            step_page = true;
+            if (snapshot.hasData && snapshot.data!=null) {
+              var item = (snapshot.data as FlashsaleRespone);
+              step_page = true;
+              if(item.data.isNotEmpty){
+                return Stack(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 6.0.h),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(topRight:  Radius.circular(50),topLeft: Radius.circular(50),
+                              bottomLeft: Radius.circular( item.data.length !=0?0:40),bottomRight: Radius.circular(item.data.length !=0?0:40)
+                          ),
+                          border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
+                      ),
+                      child: Container(
+                        margin: EdgeInsets.only(top: 5.0.h),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          controller: _scrollController,
+                          itemBuilder: (context, i) {
+                            // if ( i+1==((item.data.length) / 2).round()) {
+                            //   return CupertinoActivityIndicator();
+                            // }
+
+                            return Container(
+                              child: Column(
+                                children: [
+                                  item.data[0].items.length - (i) * 2 > 1
+                                      ? Row(
+                                    children: [
+                                      Expanded(
+                                          child: _buildProduct(
+                                              item: item.data[0].items[(i * 2)].product,
+                                              index: (i * 2),
+                                              context: context)),
+                                      Expanded(
+                                          child: _buildProduct(
+                                              item: item.data[0].items[(i * 2) + 1].product,
+                                              index: ((i * 2) + 1),
+                                              context: context))
+                                    ],
+                                  )
+                                      : Row(
+                                    children: [
+                                      Expanded(
+                                          child: _buildProduct(
+                                              item: item.data[0].items[(i * 2)].product,
+                                              index: (i * 2),
+                                              context: context)),
+                                      Expanded(child: SizedBox()),
+                                    ],
+                                  ),
+                                  if (item.loadmore)
+                                    i + 1 == ((item.data[0].items.length) / 2).round()
+                                        ? Container(
+                                      padding: EdgeInsets.all(20),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: [
+                                          Platform.isAndroid
+                                              ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
+                                              : CupertinoActivityIndicator(),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text("Loading",
+                                              style: FunctionHelper.FontTheme(
+                                                  color: Colors.grey,
+                                                  fontSize:
+                                                  SizeUtil.priceFontSize()
+                                                      .sp))
+                                        ],
+                                      ),
+                                    )
+                                        : SizedBox()
+                                ],
+                              ),
+                            );
+                          },
+                          itemCount: ((item.data[0].items.length) / 2).round(),
+                        ),
+                      ),
+                    ),
+
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: FlashSaleBar(timeFlash:  item.data[0].end,),
+                    ),
+
+                  ],
+                );
+              }else{
+                return Container(
+                  padding: EdgeInsets.only(top: 12.0.h),
+                  color: Colors.white,
+                  height: MediaQuery.of(context).size.height,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Lottie.asset('assets/json/boxorder.json',
                           height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
-                        LocaleKeys.message_error_mail_empty.tr(),
+                        LocaleKeys.cart_empty.tr(),
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
+                );
+              }
+
+            } else {
+              return Center(
+                child: Container(
+                  padding: EdgeInsets.only(top:15.0.h,bottom: 15.0.h),
+                  child: Platform.isAndroid
+                      ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
+                      : CupertinoActivityIndicator(),
                 ),
               );
             }
-
-          } else {
-            return Center(
-              child: Container(
-                padding: EdgeInsets.only(top:15.0.h,bottom: 15.0.h),
-                child: Platform.isAndroid
-                    ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
-                    : CupertinoActivityIndicator(),
-              ),
-            );
-          }
-        },
-      ));
+          },
+        )),
+  );
 
 
   Widget _FlashintoProduct({ProductData item, int index}) {
@@ -320,7 +335,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                     padding:
                     EdgeInsets.only(left: 15, right: 7, bottom: 3, top: 3),
                     color: ThemeColor.ColorSale(),
-                    child: Text("${item.saleCount!=null?item.saleCount.toString():'0'} ${LocaleKeys.my_product_sold_end.tr()}" ,
+                    child: Text("${LocaleKeys.my_product_sold_end.tr()} ${item.saleCount!=null?item.saleCount.toString():'0'} ${LocaleKeys.cart_item.tr()}" ,
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailSmallFontSize().sp,
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -421,13 +436,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
     );
   }
 
-  List<ProductData> ConvertProductData(){
-    List<ProductData> data = List<ProductData>();
-    for(var item in widget.instalData.data[0].items){
-      data.add(item.product);
-    }
-    return data;
-  }
+
 
   @override
   void onDetached() {
@@ -446,13 +455,20 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
 
   @override
   void onResumed() {
+    _refreshProducts();
+  }
+
+  Future<Null>  _refreshProducts() async{
+    if(Platform.isAndroid){
+      await Future.delayed(Duration(seconds: 2));
+      AudioCache().play("sound/Click.mp3");
+      Vibration.vibrate(duration: 500);
+    }
     page=1;
-    step_page = false;
+    step_page = true;
     bloc.product_more.clear();
-    bloc.loadMoreData(
-        page: page.toString(),
-        limit: limit,
-        link: "flashsale");
+    bloc.loadFlashsaleData(
+        page: page.toString(), limit: limit);
   }
 
 

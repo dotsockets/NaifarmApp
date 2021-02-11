@@ -24,6 +24,7 @@ import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/category/detail/CategoryDetailView.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
@@ -192,7 +193,8 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                           if (snapshot.hasData) {
                             return Column(
                               children: [
-                                BannerSlide(),
+                                BannerSlide(image: ConvertSliderImage(sliderRespone: (snapshot.data
+                                as HomeObjectCombine).sliderRespone)),
                                 RecommendMenu(
                                   homeObjectCombine: (snapshot.data
                                   as HomeObjectCombine),
@@ -402,6 +404,17 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
 
   }
 
+  List<String> ConvertSliderImage({SliderRespone sliderRespone}){
+    List<String> image = List<String>();
+    if(sliderRespone.data.isNotEmpty){
+      for(var item in sliderRespone.data[0].image){
+        image.add(item.path);
+      }
+    }
+
+    return image;
+  }
+
   @override
   void onDetached() {
   // print("wefc onDetached");
@@ -419,6 +432,6 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
 
   @override
   void onResumed() {
-   // _refreshProducts();
+    _refreshProducts();
   }
 }

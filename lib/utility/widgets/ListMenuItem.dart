@@ -86,7 +86,7 @@ class ListMenuItem extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: fontWeight,
                             color: Colors.black)),
                   ],

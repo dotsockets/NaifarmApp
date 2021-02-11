@@ -122,7 +122,7 @@ class _HomeHeaderState extends State<HomeHeader> {
             SizedBox(
               height: 1.0.h,
             ),
-            widget.snapshot != null
+            widget.snapshot.featuredRespone != null
                 ? CategoryMenu(
                     featuredRespone: widget.snapshot.featuredRespone,
                     selectedIndex: 0,

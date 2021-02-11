@@ -9,9 +9,17 @@ import 'package:sizer/sizer.dart';
 
 
 class BannerSlide extends StatelessWidget {
+  final List<String> image;
+  BannerSlide({Key key, this.image}) : super(key: key);
+
   final List<String> _imgList = [
     'https://www.img.in.th/images/317d8380f24ff1950566bc4029933b62.jpg'
   ];
+
+  List<String> ConvertSliderImage(){
+    return image.isNotEmpty?image:_imgList;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,7 +46,7 @@ class BannerSlide extends StatelessWidget {
                 // });
               },
             ),
-            items: _imgList
+            items: ConvertSliderImage()
                 .map(
                   (item) => Container(
                 margin: EdgeInsets.only(left: 1.0.h,right: 1.0.h),
@@ -56,7 +64,7 @@ class BannerSlide extends StatelessWidget {
                         fit: BoxFit.cover,
                         imageUrl: item,
                         height: 25.0.h,
-                        errorWidget: (context, url, error) => Container(height: 23.0.h,child: Icon(Icons.error,size: 23.0.h,)),
+                        errorWidget: (context, url, error) => Container(color: Colors.white,height: 23.0.h,child: Icon(Icons.error,size: 5.0.h,)),
                       ),
                     ),
                   ],

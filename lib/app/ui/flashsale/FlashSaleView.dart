@@ -94,7 +94,7 @@ class _FlashSaleState extends State<FlashSale> {
         ),
       ),
       onTap: () {
-        AppRoute.FlashSaleAll(context, instalData: widget.flashsaleRespone);
+        AppRoute.FlashSaleAll(context);
       },
     );
   }

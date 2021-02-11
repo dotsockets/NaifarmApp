@@ -203,34 +203,74 @@ class DeliveryDropoffView extends StatelessWidget {
              // onClick();
             },
             child: Container(
-                padding: EdgeInsets.all(20),
                 child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(22.0),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           color: ThemeColor.DialogprimaryColor(context),
                           child: Column(
                             children: [
                               Container(
-                                padding: EdgeInsets.all(20),
                                 width: MediaQuery.of(context).size.width,
-                                color: Colors.grey.shade300,
-                                child: Center(child: Text("สาขา 1 อำเภอเมือง เชัยงใหม่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),)),
+                                decoration: BoxDecoration(
+                                  border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
+
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Center(child: Text("เลือกสาขาในการจัดส่ง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),)),
+                                ),
                               ),
                               SingleChildScrollView(
                                 child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        padding: EdgeInsets.all(20),
-                                        width: MediaQuery.of(context).size.width,
-                                        color: Colors.grey.shade300,
-                                        child: Center(child: Text("สาขา 1 อำเภอเมือง เชัยงใหม่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),)),
-                                      )
+                                      InkWell(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
+
+                                          ),
+                                          padding: const EdgeInsets.all(15.0),
+                                          width: MediaQuery.of(context).size.width,
+                                          child: Text("สาขา 1 อำเภอเมือง เชัยงใหม่",style: FunctionHelper.FontTheme(color: Colors.grey.shade700,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal),),
+                                        ),
+                                        onTap: (){
+                                          Navigator.pop(context, false);
+                                        },
+                                      ),
+                                      InkWell(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
+
+                                          ),
+                                          padding: const EdgeInsets.all(15.0),
+                                          width: MediaQuery.of(context).size.width,
+                                          child: Text("สาขา 1 อำเภอเมือง เชัยงใหม่",style: FunctionHelper.FontTheme(color: Colors.grey.shade700,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal),),
+                                        ),
+                                        onTap: (){
+                                          Navigator.pop(context, false);
+                                        },
+                                      ),
+                                      InkWell(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
+
+                                          ),
+                                          padding: const EdgeInsets.all(15.0),
+                                          width: MediaQuery.of(context).size.width,
+                                          child: Text("สาขา 1 อำเภอเมือง เชัยงใหม่",style: FunctionHelper.FontTheme(color: Colors.grey.shade700,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal),),
+                                        ),
+                                        onTap: (){
+                                          Navigator.pop(context, false);
+                                        },
+                                      ),
                                     ]
                                 ),
                               )

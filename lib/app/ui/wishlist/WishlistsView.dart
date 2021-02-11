@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:basic_utils/basic_utils.dart';
@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -60,8 +61,9 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
       // });
       bloc.onSuccess.stream.listen((event) {
         if(event is bool){
-          Usermanager().getUser().then((value) =>
-              bloc.GetMyWishlists(token: value.token));
+          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+          // Usermanager().getUser().then((value) =>
+          //     bloc.GetMyWishlists(token: value.token));
         }
       });
       Usermanager().getUser().then((value) =>

@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:like_button/like_button.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -20,6 +21,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:share/share.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 class ProductInto extends StatelessWidget {
@@ -49,13 +51,9 @@ class ProductInto extends StatelessWidget {
       });
 
 
-      bloc.onSuccess.stream.listen((event) {
-        if(event is CartResponse){
 
-        }else if(event is bool){
-         // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: data.id));
-        }
-
+      bloc.Wishlists.stream.listen((event) {
+        Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
       });
 
       Usermanager().getUser().then((value) => bloc.GetWishlistsByProduct(token: value.token,productID: data.id));
