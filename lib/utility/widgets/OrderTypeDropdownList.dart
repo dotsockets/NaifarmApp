@@ -80,17 +80,19 @@ class _OrderTypeDropdownListState extends State<OrderTypeDropdownList> with Sing
 
   Container ItemRow({CategoriesAllData item}) => Container(
     child: Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(20),
-          width: MediaQuery.of(context).size.width,
-          color: Colors.grey.shade300,
-          child: Center(child: Text("[${item.name} : ${item.categorySubGroups[0].name}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),)),
-        ),
-        Column(
-          children: item.categorySubGroups[0].category.asMap().entries.map((e) => SubItemRow(item: e.value,index: e.key)).toList(),
-        ),
-      ],
+      children: item.categorySubGroups.asMap().map((key, value) => MapEntry(key, Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(20),
+            width: MediaQuery.of(context).size.width,
+            color: Colors.grey.shade300,
+            child: Center(child: Text("[${item.name} : ${value.name}]",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),)),
+          ),
+          Column(
+            children: value.category.asMap().entries.map((e) => SubItemRow(item: e.value,index: e.key)).toList(),
+          ),
+        ],
+      ))).values.toList(),
     ),
   );
 
