@@ -125,49 +125,53 @@ class AppToobar extends PreferredSize {
 
 
   Widget BarCartShop(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 0, right: 0.3.w),
-      color: ThemeColor.primaryColor(),
-      child: SafeArea(
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+    return Wrap(
+      children: [
+        Container(
+          padding: EdgeInsets.only(left: 0, right: 0.3.w),
+          color: ThemeColor.primaryColor(),
+          child: SafeArea(
+            child: Column(
               children: [
-                showBackBtn?IconButton(
-                  icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
-                  onPressed: (){
-                    onClick == null ? Navigator.of(context).pop() : onClick();
-                  },
-                ):SizedBox(width: 12.0.w,height: 10.0.w,),
-                Expanded(
-                  child: Container(
-                    child: Center(
-                      child: Text(
-                        title,
-                        style: FunctionHelper.FontTheme(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: SizeUtil.titleFontSize().sp),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    showBackBtn?IconButton(
+                      icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
+                      onPressed: (){
+                        onClick == null ? Navigator.of(context).pop() : onClick();
+                      },
+                    ):SizedBox(width: 12.0.w,height: 10.0.w,),
+                    Expanded(
+                      child: Container(
+                        child: Center(
+                          child: Text(
+                            title,
+                            style: FunctionHelper.FontTheme(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: SizeUtil.titleFontSize().sp),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    BuildIconShop()
+
+                  ],
                 ),
-                BuildIconShop()
+
+                // setState(() {
+                //   _categoryselectedIndex = val;
+                //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
+                // });
+                //  Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+
 
               ],
             ),
-
-            // setState(() {
-            //   _categoryselectedIndex = val;
-            //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
-            // });
-            //  Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-
-
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
