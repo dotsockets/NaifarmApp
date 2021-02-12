@@ -173,7 +173,7 @@ class ProductVertical extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 4.5.h,
+            height: SizeUtil.titleFontSize().sp*2.5,
             child: Text(item.name,maxLines: 2,
                 textAlign: TextAlign.start,
             overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:   SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
