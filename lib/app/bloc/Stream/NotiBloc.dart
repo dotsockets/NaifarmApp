@@ -84,7 +84,7 @@ class NotiBloc{
     Usermanager().getUser().then((value) {
       if (value.token != null) {
         NaiFarmLocalStorage.getNowPage().then((data){
-          if(data==2){
+          if(data==0){
 
             GetNotification(group: group,page: page,limit: limit,sort: "notification.createdAt:desc",token: value.token);
           }

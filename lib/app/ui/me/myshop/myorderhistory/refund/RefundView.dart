@@ -32,7 +32,7 @@ class RefundView extends StatefulWidget {
   _RefundViewState createState() => _RefundViewState();
 }
 
-class _RefundViewState extends State<RefundView> with AutomaticKeepAliveClientMixin<RefundView> {
+class _RefundViewState extends State<RefundView>  {
 
   OrdersBloc bloc;
   ScrollController _scrollController = ScrollController();

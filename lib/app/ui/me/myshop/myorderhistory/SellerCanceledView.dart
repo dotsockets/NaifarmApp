@@ -24,8 +24,9 @@ import 'package:sizer/sizer.dart';
 
 class SellerCanceledView extends StatefulWidget {
   final OrderData orderData;
+  final OrderViewType typeView;
 
-  const SellerCanceledView({Key key, this.orderData}) : super(key: key);
+  const SellerCanceledView({Key key, this.orderData, this.typeView}) : super(key: key);
   @override
   _SellerCanceledViewState createState() => _SellerCanceledViewState();
 }
@@ -37,6 +38,10 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
   init(BuildContext context) {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
+
+      if(widget.orderData.grandTotal!=null){
+        bloc.OrderList.add(widget.orderData);
+      }
 
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -58,6 +63,9 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
         // Navigator.pop(context,true);
       });
 
+      Usermanager().getUser().then((value) => bloc.GetOrderById(
+          orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order", id: widget.orderData.id, token: value.token));
+
     }
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
@@ -70,56 +78,82 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
-          appBar: AppToobar(
-            title: "The seller canceled the order",
-            header_type: Header_Type.barcartShop,
-            isEnable_Search: false,
-            icon: '',
-            onClick: () {
-              Navigator.pop(context, false);
-            },
-          ),
-          body: Container(
-            child: Column(
-              children: [
-                Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: <Widget>[
-                          ItemInfo(
-                              PricecolorText: ThemeColor.ColorSale(),
-                              leading: "The amount to be refunded (Including shipping) ",
-                              trailing:
-                              "฿${NumberFormat("#,##0.00", "en_US").format(widget.orderData.grandTotal)}"),
-                          SizedBox(height: 1.0.h),
-                          ItemInfo(
-                              PricecolorText: Colors.grey.shade500,
-                              leading: "Stand by ",
-                              trailing:
-                              "Seller "),
-                          ItemInfo(
-                              PricecolorText: Colors.grey.shade500,
-                              leading: "Cancellation date ",
-                              trailing:
-                              "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(DateTime.now().toString()))} "),
-
-                          ListMenuItem(
-                            icon: "",
-                            fontWeight: FontWeight.normal,
-                            title: "Reason for cancellation ",
-                            Message: "Choose a reason ",
-                            onClick: (){
-                              _showMyDialog(context);
-                            },
-                          ),
-                          ItemFormDetail()
-
-                        ],
-                      ),
-                    )),
-                _ButtonActive(context: context, orderData: widget.orderData)
-              ],
+          appBar:PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: "The seller canceled the order",
+              header_type: Header_Type.barcartShop,
+              isEnable_Search: false,
+              icon: '',
+              onClick: () {
+                Navigator.pop(context, false);
+              },
             ),
+          ),
+          body: StreamBuilder(
+            stream: bloc.OrderList.stream,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                var item = (snapshot.data as OrderData);
+                if (snapshot.data != null) {
+                  return Container(
+                    child: Column(
+                      children: [
+                        Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: <Widget>[
+                                  ItemInfo(
+                                      PricecolorText: ThemeColor.ColorSale(),
+                                      leading: "The amount to be refunded (Including shipping) ",
+                                      trailing:
+                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"),
+                                  SizedBox(height: 1.0.h),
+                                  ItemInfo(
+                                      PricecolorText: Colors.grey.shade500,
+                                      leading: "Stand by ",
+                                      trailing:
+                                      "Seller "),
+                                  ItemInfo(
+                                      PricecolorText: Colors.grey.shade500,
+                                      leading: "Cancellation date ",
+                                      trailing:
+                                      "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(DateTime.now().toString()))} "),
+
+                                  ListMenuItem(
+                                    icon: "",
+                                    fontWeight: FontWeight.normal,
+                                    title: "Reason for cancellation ",
+                                    Message: "Choose a reason ",
+                                    onClick: (){
+                                      _showMyDialog(context);
+                                    },
+                                  ),
+                                  ItemFormDetail()
+
+                                ],
+                              ),
+                            )),
+                        _ButtonActive(context: context, orderData: item)
+                      ],
+                    ),
+                  );
+                } else {
+                  return Container(color: Colors.white, child: SizedBox());
+                }
+              } else {
+                return Container(
+                    color: Colors.white,
+                    child: Center(
+                      child: Platform.isAndroid
+                          ? SizedBox(
+                          width: 5.0.w,
+                          height: 5.0.w,
+                          child: CircularProgressIndicator())
+                          : CupertinoActivityIndicator(),
+                    ));
+              }
+            },
           ),
         ),
       ),

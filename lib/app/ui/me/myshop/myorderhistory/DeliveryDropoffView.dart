@@ -51,14 +51,17 @@ class DeliveryDropoffView extends StatelessWidget {
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade200,
-          appBar: AppToobar(
-            title: "Drop Off Information ",
-            header_type: Header_Type.barcartShop,
-            isEnable_Search: false,
-            icon: '',
-            onClick: (){
-              Navigator.pop(context,false);
-            },
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: "Drop Off Information ",
+              header_type: Header_Type.barcartShop,
+              isEnable_Search: false,
+              icon: '',
+              onClick: (){
+                Navigator.pop(context,false);
+              },
+            ),
           ),
           body: Container(
             child: Column(

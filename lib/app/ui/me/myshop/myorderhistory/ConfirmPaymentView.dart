@@ -29,11 +29,13 @@ class ConfirmPaymentView extends StatelessWidget {
   // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   OrdersBloc bloc;
+  bool onDialog = false;
+  bool onUpload = false;
 
   init(BuildContext context) {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      bloc.onSuccess.add(orderData);
+      bloc.OrderList.add(orderData);
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);
@@ -51,7 +53,15 @@ class ConfirmPaymentView extends StatelessWidget {
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        // Navigator.pop(context,true);
+       if(event is bool){
+         onDialog = true;
+         FunctionHelper.SuccessDialog(context,message: "Successfully confirmed information ",onClick: (){
+           if(onDialog){
+             Navigator.pop(context,onUpload);
+           }
+
+         });
+       }
       });
       Usermanager().getUser().then((value) => bloc.GetOrderById(
           orderType: "myshop/orders", id: orderData.id, token: value.token));
@@ -75,12 +85,12 @@ class ConfirmPaymentView extends StatelessWidget {
               isEnable_Search: false,
               icon: '',
               onClick: () {
-                Navigator.pop(context, false);
+                Navigator.pop(context, onUpload);
               },
             ),
           ),
           body: StreamBuilder(
-            stream: bloc.feedList,
+            stream: bloc.OrderList.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 var item = (snapshot.data as OrderData);
@@ -92,32 +102,32 @@ class ConfirmPaymentView extends StatelessWidget {
                             child: SingleChildScrollView(
                           child: Column(
                             children: <Widget>[
-                              ItemInfo(
+                              item.grandTotal!=null? ItemInfo(
                                   PricecolorText: ThemeColor.ColorSale(),
                                   leading: "All buyer payment ",
                                   trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"),
+                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"):SizedBox(),
                               SizedBox(height: 1.0.h),
-                              ItemInfo(
+                              item.total!=null? ItemInfo(
                                   PricecolorText: Colors.grey.shade400,
                                   leading: "Total product cost",
                                   trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}"),
-                              ItemInfo(
+                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}"):SizedBox(),
+                              item.shipping!=null?ItemInfo(
                                   PricecolorText: Colors.grey.shade400,
                                   leading: "Shipping cost",
                                   trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.shipping)}"),
-                              ItemInfo(
+                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.shipping)}"):SizedBox(),
+                              item.discount!=null?ItemInfo(
                                   PricecolorText: Colors.grey.shade400,
                                   leading: "Discount code",
                                   trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.discount)}"),
+                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.discount)}"):SizedBox(),
                               SizedBox(height: 1.0.h),
-                              ItemInfo(
+                              item.discount!=null?ItemInfo(
                                   PricecolorText: Colors.grey.shade400,
                                   leading: "Payment method",
-                                  trailing: "${item.paymentMethod.name}"),
+                                  trailing: "${item.paymentMethod.name}"):SizedBox(),
                               item.image!=null && item.image.length>0
                                   ? Container(
                                 color: Colors.white,
@@ -241,6 +251,7 @@ class ConfirmPaymentView extends StatelessWidget {
                 Navigator.of(context).pop();
               }, onClick: () {
                 Navigator.of(context).pop();
+                onUpload = true;
                 Usermanager().getUser().then((value) =>
                     bloc.MarkPaid(token: value.token, OrderId: orderData.id));
               });

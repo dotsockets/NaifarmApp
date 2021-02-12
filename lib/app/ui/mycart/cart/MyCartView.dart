@@ -866,8 +866,8 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
   Future<Null>  _refreshProducts() async{
 
       await Future.delayed(Duration(seconds: 1));
-      AudioCache().play("sound/Click.mp3");
-      Vibration.vibrate(duration: 500);
+      // AudioCache().play("sound/Click.mp3");
+      // Vibration.vibrate(duration: 500);
 
     Usermanager().getUser().then((value){
       bloc.GetCartlists(context: context,token: value.token, cartActive: CartActive.CartList);

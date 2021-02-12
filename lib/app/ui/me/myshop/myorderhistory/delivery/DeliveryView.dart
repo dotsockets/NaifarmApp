@@ -32,8 +32,7 @@ class DeliveryView extends StatefulWidget {
   _DeliveryViewState createState() => _DeliveryViewState();
 }
 
-class _DeliveryViewState extends State<DeliveryView>
-    with AutomaticKeepAliveClientMixin<DeliveryView> {
+class _DeliveryViewState extends State<DeliveryView> {
   OrdersBloc bloc;
   ScrollController _scrollController = ScrollController();
   int page = 1;

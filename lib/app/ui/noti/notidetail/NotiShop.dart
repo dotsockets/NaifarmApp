@@ -155,8 +155,8 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
               animation: controller,
               builder: (BuildContext context, Widget _) {
                 if (controller.state == IndicatorState.complete) {
-                  AudioCache().play("sound/Click.mp3");
-                  Vibration.vibrate(duration: 500);
+                  // AudioCache().play("sound/Click.mp3");
+                  // Vibration.vibrate(duration: 500);
                 }
                 return Align(
                   alignment: Alignment.topCenter,
@@ -463,8 +463,8 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
   Future<Null>  _refreshProducts() async{
     if(Platform.isAndroid){
       await Future.delayed(Duration(seconds: 2));
-      AudioCache().play("sound/Click.mp3");
-      Vibration.vibrate(duration: 500);
+      // AudioCache().play("sound/Click.mp3");
+      // Vibration.vibrate(duration: 500);
     }
     page = 1;
     bloc.product_more.clear();

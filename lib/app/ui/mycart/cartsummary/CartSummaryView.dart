@@ -142,7 +142,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           }),
                       _Buildcoupon(),
                       Container(
-                        height: 10,
+                        height: 1.0.h,
                         color: Colors.grey.shade300,
                       ),
                       _Payment_method()
@@ -535,7 +535,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
     return Container(
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.only(left: 0, right: 6, bottom: 10),
+        padding: const EdgeInsets.only(left: 0, right: 6, bottom: 0),
         child: Column(
           children: [
             StreamBuilder(
@@ -590,7 +590,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                   }
                 }),
             Divider(
-              color: Colors.grey.withOpacity(0.9),
+              color: Colors.grey.withOpacity(1),
             ),
             StreamBuilder(
                 stream: bloc.order_total_cost.stream,

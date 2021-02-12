@@ -61,6 +61,7 @@ class _CartBankViewState extends State<CartBankView> {
               child: AppToobar(
                   title: LocaleKeys.select.tr() + LocaleKeys.me_title_payment.tr(),
                   header_type: Header_Type.barNormal,
+                  isEnable_Search: false,
                   onClick: () => Navigator.pop(context, null)),
             ),
             body: SingleChildScrollView(

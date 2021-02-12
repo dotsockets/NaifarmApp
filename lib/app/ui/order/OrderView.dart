@@ -35,10 +35,11 @@ class _OrderViewState extends State<OrderView> {
   OrdersBloc bloc;
 
   init() {
+
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       if(widget.orderData.orderStatusName!=null){
-        bloc.onSuccess.add(widget.orderData);
+        bloc.OrderList.add(widget.orderData);
       }
 
     }
@@ -63,7 +64,7 @@ class _OrderViewState extends State<OrderView> {
             ),
           ),
           body: StreamBuilder(
-            stream: bloc.feedList,
+            stream: bloc.OrderList.stream,
             builder: (BuildContext context,AsyncSnapshot snapshot){
               if(snapshot.hasData){
                 var item = (snapshot.data as OrderData);
@@ -93,9 +94,12 @@ class _OrderViewState extends State<OrderView> {
                             ),
                           ),
                         ),
-                        widget.typeView==OrderViewType.Shop && item.orderStatusId==1? _ButtonConfirmPay(context: context,orderData: item):SizedBox(),
+                        widget.typeView==OrderViewType.Shop && item.orderStatusId==1? _ButtonConfirmPay(context: context,orderData: item,orderViewType: OrderViewType.Shop):SizedBox(),
                         widget.typeView==OrderViewType.Shop && item.orderStatusId==3? _ButtonShipping(context: context,orderData: item):SizedBox(),
 
+
+                        widget.typeView==OrderViewType.Purchase && item.orderStatusId==3? _ButtonCancel(context: context,orderData: item,orderViewType: OrderViewType.Purchase):SizedBox(),
+                        widget.typeView==OrderViewType.Purchase && item.orderStatusId==1? _ButtonCancel(context: context,orderData: item,orderViewType: OrderViewType.Purchase):SizedBox(),
                       ],
                     ),
                   );
@@ -451,7 +455,7 @@ class _OrderViewState extends State<OrderView> {
     );
   }
 
-  Widget _ButtonConfirmPay({BuildContext context,OrderData orderData}){
+  Widget _ButtonConfirmPay({BuildContext context,OrderData orderData,OrderViewType orderViewType}){
     
       return Center(
         child: Container(
@@ -475,7 +479,7 @@ class _OrderViewState extends State<OrderView> {
                       Navigator.of(context).pop();
                     },onClick: (){
                       Navigator.of(context).pop();
-                      AppRoute.SellerCanceled(context: context,orderData: widget.orderData);
+                      AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
                     });
 
 
@@ -500,7 +504,7 @@ class _OrderViewState extends State<OrderView> {
                   ),
                   onPressed: () {
 
-                    AppRoute.TransferPayMentView(context: context,orderData: orderData);
+                    AppRoute.ConfirmPayment(context: context,orderData: orderData);
                   },
                   child: Text(
                     "Confirm payment ",
@@ -513,6 +517,53 @@ class _OrderViewState extends State<OrderView> {
           ),
         ),
       );
+
+
+  }
+
+
+  Widget _ButtonCancel({BuildContext context,OrderData orderData,OrderViewType orderViewType}){
+
+    return Center(
+      child: Container(
+        padding: EdgeInsets.all(1.5.w),
+        child: Row(
+         mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(1.0.h),
+              child: FlatButton(
+                minWidth: 60.0.w,
+                height: 5.0.h,
+                color:  ThemeColor.ColorSale() ,
+                textColor: Colors.white,
+                splashColor: Colors.white.withOpacity(0.3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+                onPressed: () {
+
+                  FunctionHelper.ConfirmDialog(context,message: "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",onCancel: (){
+                    Navigator.of(context).pop();
+                  },onClick: (){
+                    Navigator.of(context).pop();
+                    AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
+                  });
+
+
+                },
+                child: Text(
+                  "Cancel order",
+                  style: FunctionHelper.FontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    );
 
 
   }

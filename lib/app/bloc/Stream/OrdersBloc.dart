@@ -13,6 +13,7 @@ class OrdersBloc{
   final onLoad = BehaviorSubject<bool>();
   final onError = BehaviorSubject<Object>();
   final onSuccess = BehaviorSubject<Object>();
+  final OrderList = BehaviorSubject<OrderData>();
   Stream<Object> get feedList => onSuccess.stream;
   List<OrderData> orderList = List<OrderData>();
 
@@ -39,7 +40,7 @@ class OrdersBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.GetOrderById(id: id,orderType:orderType ,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
-        onSuccess.add((respone.respone as OrderData));
+        OrderList.add((respone.respone as OrderData));
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -53,7 +54,7 @@ class OrdersBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.MarkPaid(OrderId: OrderId,token: token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
-        onSuccess.add((respone.respone as OrderRespone));
+        onSuccess.add(true);
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }

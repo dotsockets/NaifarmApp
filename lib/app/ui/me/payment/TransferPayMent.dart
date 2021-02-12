@@ -52,11 +52,11 @@ class _TransferPayMentState extends State<TransferPayMent> {
         onDialog = true;
         FunctionHelper.SuccessDialog(context,message: "Successfully uploaded",onClick: (){
           if(onDialog){
-            Navigator.of(context).pop();
+            Navigator.pop(context,true);
           }
 
         });
-        Navigator.pop(context,true);
+
       });
     }
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));

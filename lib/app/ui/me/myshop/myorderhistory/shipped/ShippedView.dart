@@ -32,7 +32,7 @@ class ShippedView extends StatefulWidget {
   _ShippedViewState createState() => _ShippedViewState();
 }
 
-class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClientMixin<ShippedView>{
+class _ShippedViewState extends State<ShippedView> {
 
 
   OrdersBloc bloc;
@@ -192,7 +192,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
       children: [
         InkWell(
           child: Hero(
-            tag: "history_paid_${item.orderId}${item.inventoryId}${index}",
+            tag: "history_paid_${item.orderId}${item.inventoryId}${index}2",
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -220,7 +220,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
             ProductData product = ProductData();
             product = item.inventory.product;
             product.shop = ProductShop(id: shopId);
-            AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
+            AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}2",productItem: ProductBloc.ConvertDataToProduct(data: product));
           },
         ),
         SizedBox(width: 2.0.w),
@@ -324,7 +324,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
                   ),
-                  _BuildButtonBayItem(btnTxt: widget.typeView=="shop"?"Contact seller ":"Shipping",item: item)
+                  _BuildButtonBayItem(btnTxt: widget.typeView==OrderViewType.Purchase?"Contact seller ":"Shipping",item: item)
                 ],
               )
             ],
@@ -342,7 +342,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            widget.typeView=="shop"?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
+            widget.typeView==OrderViewType.Shop?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500)),):Row(
@@ -411,7 +411,7 @@ class _ShippedViewState extends State<ShippedView>  with AutomaticKeepAliveClien
         if(widget.typeView==OrderViewType.Shop){
           AppRoute.ShippingOrder(context: context,orderData: item);
         }else{
-          AppRoute.TransferPayMentView(context: context,orderData: item);
+         // AppRoute.TransferPayMentView(context: context,orderData: item);
         }
 
       },

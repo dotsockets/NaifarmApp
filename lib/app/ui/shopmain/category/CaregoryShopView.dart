@@ -36,7 +36,10 @@ class CaregoryShopView extends StatelessWidget {
       child: Column(
           children: [
             Container(
-              padding: EdgeInsets.only(bottom: 10,top: 10,left: 20,right: 10),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey.shade300, width: 1)),
+              ),
+              padding: EdgeInsets.only(bottom: 4.0.w,top: 4.0.w,left: 4.0.w,right: 2.0.w),
               child:  Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -46,13 +49,12 @@ class CaregoryShopView extends StatelessWidget {
                     children: [
                       Text("${item.countProduct} "+LocaleKeys.shop_product_list.tr(),style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.detailFontSize().sp,color: Colors.black.withOpacity(0.5))),
                       SizedBox(width: 10),
-                      Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,)
+                      Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,size: 4.0.w,)
                     ],
                   )
                 ],
               ),
             ),
-            Divider(color: Colors.grey.shade500,)
           ],
       ),
       onTap: (){

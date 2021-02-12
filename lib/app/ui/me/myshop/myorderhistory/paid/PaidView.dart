@@ -31,7 +31,7 @@ class PaidView extends StatefulWidget {
   _PaidViewState createState() => _PaidViewState();
 }
 
-class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<PaidView> {
+class _PaidViewState extends State<PaidView>  {
   OrdersBloc bloc;
   ScrollController _scrollController = ScrollController();
   int page = 1;
@@ -194,7 +194,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
       children: [
         InkWell(
           child: Hero(
-            tag: "history_paid_${item.orderId}${item.inventoryId}${index}",
+            tag: "history_paid_${item.orderId}${item.inventoryId}${index}1",
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -222,7 +222,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
             ProductData product = ProductData();
             product = item.inventory.product;
             product.shop = ProductShop(id: shopId);
-            AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}",productItem: ProductBloc.ConvertDataToProduct(data: product));
+            AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}1",productItem: ProductBloc.ConvertDataToProduct(data: product));
           },
         ),
         SizedBox(width: 2.0.w),
@@ -412,6 +412,7 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
       onPressed: () async {
         if(widget.typeView==OrderViewType.Shop){
           final result = await AppRoute.ConfirmPayment(context: context,orderData: item);
+          print("asefcesfc ${result}");
           if(result){
             Usermanager().getUser().then((value) =>
                 bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: 20, page: 1, token: value.token));
@@ -473,6 +474,5 @@ class _PaidViewState extends State<PaidView> with AutomaticKeepAliveClientMixin<
     Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1",limit: limit,page: page,token: value.token));
   }
 
-  @override
-  bool get wantKeepAlive => true;
+
 }

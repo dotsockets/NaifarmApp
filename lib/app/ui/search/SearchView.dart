@@ -38,7 +38,7 @@ class _SearchViewState extends State<SearchView> {
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.loadProductTrending(page: "1",limit:  6);
+      bloc.loadMoreData(page: "1",limit:  6,link: "products/types/random");
       bloc.loadProductSearch(page: "1", query: SearchText, limit: showMore?6:4);
     }
   }
@@ -208,7 +208,7 @@ class _SearchViewState extends State<SearchView> {
                     height: 6,
                   ),
                   StreamBuilder(
-                    stream: bloc.TrendingGroup.stream,
+                    stream: bloc.MoreProduct.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         if((snapshot.data as ProductRespone).data.isNotEmpty){

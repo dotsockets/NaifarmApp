@@ -44,7 +44,7 @@ import 'package:naifarm/app/ui/me/myproduct/attribute/detail/AttributeDetailView
 import 'package:naifarm/app/ui/me/myproduct/productDetailShop/ProductDetailShop.dart';
 import 'package:naifarm/app/ui/me/myproductaddtype/ProductAddTypeView.dart';
 import 'package:naifarm/app/ui/me/myproductsetprice/ProductSetPriceView.dart';
-import 'package:naifarm/app/ui/me/myshop/SellerCanceledView.dart';
+import 'package:naifarm/app/ui/me/myshop/myorderhistory/SellerCanceledView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/ConfirmPaymentView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/DeliveryDropoffView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/MyOrderHistoryView.dart';
@@ -518,9 +518,9 @@ class AppRoute{
   }
 
 
-  static Future<bool>  SellerCanceled({BuildContext context,OrderData orderData}) async {
+  static Future<bool>  SellerCanceled({BuildContext context,OrderData orderData,OrderViewType typeView}) async {
 
-    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:SellerCanceledView(orderData: orderData,)));
+    return  await Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:SellerCanceledView(orderData: orderData,typeView: typeView,)));
 
   }
 

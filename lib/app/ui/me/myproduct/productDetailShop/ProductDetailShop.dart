@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:full_screen_image/full_screen_image.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -98,10 +99,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                               children: [
                                 _BuildTitle(),
                                 SizedBox(
-                                  height: 1.0.h,
-                                ),
-                                SizedBox(
-                                  height: 1.0.h,
+                                  height: 0.8.h,
                                 ),
 
                                 StreamBuilder(
@@ -134,7 +132,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                               },
                                             ),
                                             SizedBox(
-                                              height: 1.0.h,
+                                              height: 0.8.h,
                                             ),
                                             Container(
                                                 color: Colors.white,
@@ -174,7 +172,15 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
       color: Colors.white,
       child: Column(
         children: [
-          Hero(tag: widget.productImage, child: ProductSlide(imgList:imgProductList())),
+          FullScreenWidget(
+        backgroundIsTransparent: true,
+        child: Center(
+          child: Hero(
+            tag: widget.productImage,
+            child: ProductSlide(imgList:imgProductList()),
+          ),
+        ),
+      ),
         Container(
           width: 80.0.w,
           child: Text(

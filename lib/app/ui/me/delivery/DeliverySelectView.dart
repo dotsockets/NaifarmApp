@@ -57,6 +57,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
             key: _scaffoldKey,
             backgroundColor:Colors.grey.shade200,
             appBar: AppToobar(
+              isEnable_Search: false,
                 title: "Choose a shipping method",
                 header_type: Header_Type.barNormal),
             body: SingleChildScrollView(
@@ -72,30 +73,34 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
                           var item = (snapshot.data as ShippingsRespone);
                           if (snapshot.hasData) {
                             return Column(
-                              children: item.data[0].rates
-                                  .asMap()
-                                  .map((index, value) {
-                                return MapEntry(
-                                    index,
-                                    _buildCardBank(
-                                        item:
-                                        value,
-                                        index: index));
-                              })
-                                  .values
-                                  .toList(),
+                              children: [
+                                Column(
+                                  children: item.data[0].rates
+                                      .asMap()
+                                      .map((index, value) {
+                                    return MapEntry(
+                                        index,
+                                        _buildCardBank(
+                                            item:
+                                            value,
+                                            index: index));
+                                  })
+                                      .values
+                                      .toList(),
+                                ),
+                                SizedBox(
+                                  height: 1.0.h,
+                                ),
+                                _buildAddBtn(
+                                    txtBtn: LocaleKeys.add.tr() + LocaleKeys.card_title.tr(),
+                                    indexBtn: 0),
+                              ],
                             );
                           }else{
                             return SizedBox();
                           }
                         }
                     ),
-                    SizedBox(
-                      height: 1.0.h,
-                    ),
-                    _buildAddBtn(
-                        txtBtn: LocaleKeys.add.tr() + LocaleKeys.card_title.tr(),
-                        indexBtn: 0),
                   ],
                 ),
               ),)

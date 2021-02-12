@@ -32,7 +32,7 @@ class CanceledView extends StatefulWidget {
   _CanceledViewState createState() => _CanceledViewState();
 }
 
-class _CanceledViewState extends State<CanceledView> with AutomaticKeepAliveClientMixin<CanceledView>{
+class _CanceledViewState extends State<CanceledView>{
 
   OrdersBloc bloc;
   ScrollController _scrollController = ScrollController();

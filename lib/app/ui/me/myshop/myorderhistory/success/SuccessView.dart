@@ -32,7 +32,7 @@ class SuccessView extends StatefulWidget {
   _SuccessViewState createState() => _SuccessViewState();
 }
 
-class _SuccessViewState extends State<SuccessView> with AutomaticKeepAliveClientMixin<SuccessView>{
+class _SuccessViewState extends State<SuccessView> {
   OrdersBloc bloc;
   ScrollController _scrollController = ScrollController();
   int page = 1;

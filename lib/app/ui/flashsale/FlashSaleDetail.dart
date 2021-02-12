@@ -126,9 +126,9 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                 animation: controller,
                 builder: (BuildContext context, Widget _)  {
                   if (controller.state == IndicatorState.complete) {
-                    AudioCache().play("sound/Click.mp3");
-
-                    Vibration.vibrate(duration: 500);
+                    // AudioCache().play("sound/Click.mp3");
+                    //
+                    // Vibration.vibrate(duration: 500);
                   }
                   return Align(
                     alignment: Alignment.topCenter,
@@ -461,8 +461,8 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
   Future<Null>  _refreshProducts() async{
     if(Platform.isAndroid){
       await Future.delayed(Duration(seconds: 2));
-      AudioCache().play("sound/Click.mp3");
-      Vibration.vibrate(duration: 500);
+      // AudioCache().play("sound/Click.mp3");
+      // Vibration.vibrate(duration: 500);
     }
     page=1;
     step_page = true;

@@ -117,9 +117,9 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                 animation: controller,
                 builder: (BuildContext context, Widget _)  {
                   if (controller.state == IndicatorState.complete) {
-                    AudioCache().play("sound/Click.mp3");
-
-                    Vibration.vibrate(duration: 500);
+                    // AudioCache().play("sound/Click.mp3");
+                    //
+                    // Vibration.vibrate(duration: 500);
                   }
                   return Stack(
                     alignment: Alignment.bottomCenter,
@@ -393,8 +393,8 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   Future<Null>  _refreshProducts() async{
     if(Platform.isAndroid){
       await Future.delayed(Duration(seconds: 2));
-      AudioCache().play("sound/Click.mp3");
-      Vibration.vibrate(duration: 500);
+      // AudioCache().play("sound/Click.mp3");
+      // Vibration.vibrate(duration: 500);
     }
     Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
     Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
