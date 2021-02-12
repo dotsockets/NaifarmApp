@@ -96,7 +96,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                       maxLength: 10,
                       controller: RateController,
                       onError: onError,
-                      inputType: TextInputType.text,
+                      inputType: TextInputType.number,
                       IsPassword: false,
                       BorderOpacity: 0.2,
                       onChanged: (String char) {

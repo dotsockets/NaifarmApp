@@ -199,7 +199,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                                Lottie.asset('assets/json/boxorder.json',
                                    height: 70.0.w, width: 70.0.w, repeat: false),
                                Text(
-                                 LocaleKeys.cart_empty.tr(),
+                                 LocaleKeys.search_product_not_found.tr(),
                                  style: FunctionHelper.FontTheme(
                                      fontSize: SizeUtil.titleFontSize().sp,
                                      fontWeight: FontWeight.bold),
@@ -269,9 +269,9 @@ class _ProductMoreViewState extends State<ProductMoreView> {
   Widget _intoProduct({ProductData item, int index}) {
     return Column(
       children: [
-        SizedBox(height: 1.0.h),
+        SizedBox(height: 0.5.h),
         Container(
-          height: 4.0.h,
+          height: 4.5.h,
           child: Text(item.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

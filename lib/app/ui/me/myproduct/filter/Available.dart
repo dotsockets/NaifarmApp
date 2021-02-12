@@ -422,6 +422,7 @@ class _AvailableState extends State<Available> {
                             for (var value in item.image) {
                               onSelectItem.add(
                                   OnSelectItem(onEdit: false, url: value.path));
+
                             }
                             var result = await AppRoute.EditProduct(context, item.id, widget.shopId,
                                 uploadProductStorage: UploadProductStorage(

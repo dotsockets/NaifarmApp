@@ -177,7 +177,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(height: 20,),
-                  Text("แก้ไขร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.bold),),
+                  Text("แก้ไขร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
                   SizedBox(height: 30,),
                   InkWell(
                     child: ClipRRect(

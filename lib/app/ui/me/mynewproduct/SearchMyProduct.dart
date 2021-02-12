@@ -115,7 +115,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                       ),
                     ),
                   );*/
-                  Center(child: Text("ไม่พบรายการสินค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500,color: Colors.grey),));
+                  Center(child: Text(LocaleKeys.search_product_not_found.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500,color: Colors.grey),));
                 }
 
               } else {

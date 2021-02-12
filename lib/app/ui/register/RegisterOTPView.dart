@@ -617,7 +617,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                             endTimes?Text("  "+LocaleKeys.regis_otp_before_tab.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox()
                           ],
                         ),
-                        Container(
+                        !endTimes?Container(
                           child:InkWell(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -631,7 +631,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                               RequestOTPNEW();
                             },
                           ),
-                        )
+                        ):SizedBox()
                       ],
                     )
                     ,

@@ -79,7 +79,7 @@ class ShopOwn extends StatelessWidget {
                        style: FunctionHelper.FontTheme(
                            fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
                    SizedBox(height: 5),
-                   Text("Active ${timeago.format(DateTime.parse(DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(shopItem.updatedAt))),locale: 'th')} ",
+                   Text(shopItem.updatedAt!=null?"Active ${timeago.format(DateTime.parse(DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(shopItem.updatedAt))),locale: 'th')} ":"เวลาไม่ถูกต้อง",
                        style: FunctionHelper.FontTheme(
                            fontSize: SizeUtil.titleSmallFontSize().sp,
                            color: Colors.black.withOpacity(0.8))),
