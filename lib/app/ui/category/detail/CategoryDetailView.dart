@@ -71,10 +71,13 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
-          appBar:  AppToobar(
-            title: widget.title,
-            header_type: Header_Type.barcartShop,
-            isEnable_Search: true,
+          appBar:  PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: widget.title,
+              header_type: Header_Type.barcartShop,
+              isEnable_Search: true,
+            ),
           ),
           backgroundColor: Colors.grey.shade300,
           body: SingleChildScrollView(

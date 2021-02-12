@@ -357,8 +357,8 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                             return SizedBox();
                           }
                         },
-                      ),
-                    ],
+                      ),SizedBox(height: 6.0.h,)
+                    ]
                   ),
                 ),
               ),

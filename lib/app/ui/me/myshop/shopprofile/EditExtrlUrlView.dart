@@ -79,7 +79,7 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
       padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),
       child: Column(
         children: [
-          BuildEditText(head: "รายลิงค์ภายนอก",hint: "ระบุลิงค์ภายนอก",inputType: TextInputType.text,BorderOpacity: 0.2,maxLength: 20,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
+          BuildEditText(head: "ลิงค์ภายนอก",hint: "ระบุลิงค์ภายนอก",inputType: TextInputType.text,BorderOpacity: 0.2,maxLength: 20,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
             setState(() {
               widget.itemInfo.externalUrl = char;
             });

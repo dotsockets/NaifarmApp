@@ -306,12 +306,12 @@ class _ProductGridState extends State<ProductGrid> {
                             color: ThemeColor.ColorSale(),
                             borderRadius: BorderRadius.all(Radius.circular(7))),
                         padding: EdgeInsets.only(
-                            left: 10, right: 10, top: 5, bottom: 5),
+                            left: 1.5.w, right: 1.5.w, top: 1.0.w, bottom: 1.0.w),
                         child: Text(
-                          "50%",
+                          item.discountPercent.toString()+"%",
                           style: GoogleFonts.sarabun(
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w500,
                               fontSize: SizeUtil.titleSmallFontSize().sp),
                         ),
                       ),

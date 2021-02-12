@@ -164,7 +164,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                       Lottie.asset('assets/json/boxorder.json',
                           height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
-                        "No data found at this time",
+                        LocaleKeys.search_product_not_found.tr(),
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.bold),

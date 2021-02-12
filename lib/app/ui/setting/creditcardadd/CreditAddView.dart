@@ -34,7 +34,6 @@ class _CreditAddViewState extends State<CreditAddView> {
   Widget build(BuildContext context) {
     return Container(
       child: SafeArea(
-        top: false,
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: PreferredSize(
