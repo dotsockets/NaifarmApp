@@ -412,7 +412,7 @@ class _PaidViewState extends State<PaidView>  {
       onPressed: () async {
         if(widget.typeView==OrderViewType.Shop){
           final result = await AppRoute.ConfirmPayment(context: context,orderData: item);
-          print("asefcesfc ${result}");
+
           if(result){
             Usermanager().getUser().then((value) =>
                 bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: 20, page: 1, token: value.token));

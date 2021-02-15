@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:countdown_flutter/countdown_flutter.dart';
+//import 'package:countdown_flutter/countdown_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -75,57 +77,103 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
     );
   }
 
-
-  CountdownFormatted _buildCountDown() => CountdownFormatted(
-        duration: Duration(
-          seconds: FunctionHelper.flashSaleTime(
-              timeFlash: widget.timeFlash),
-        ),
-        onFinish: null,
-        builder: (BuildContext context, String remaining) {
+  CountdownTimer _buildCountDown()=> CountdownTimer(
+        endTime: FunctionHelper.flashSaleTime(timeFlash: widget.timeFlash),
+        widgetBuilder: (_, CurrentRemainingTime remaining) {
           final showTime = (String text) => ClipRRect(
-                borderRadius: BorderRadius.circular(9.0),
-                child: Container(
-                  color: Colors.black,
-                  padding: EdgeInsets.only(
-                      left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 3),
-                  child: Text(
-                    text,
-                    style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+            borderRadius: BorderRadius.circular(9.0),
+            child: Container(
+              color: Colors.black,
+              padding: EdgeInsets.only(
+                  left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(horizontal: 3),
+              child: Text(
+                text,
+                style: FunctionHelper.FontTheme(
+                  fontSize: SizeUtil.titleSmallFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-              );
-          List<String> time = remaining.split(':').toList();
-         // time[0] = time[0]-24;
-          return Row(
-            children: [
-              time.length ==1||time.length<1 ? Row(
-                children: [
-                  showTime("00"),
-                  showTime("00"),
-                ],
-              ) : SizedBox(),
-              time.length ==2? Row(
-                children: [
-                  showTime("00"),
-                ],
-              ) : SizedBox(),
-              time.length==1&&time[0]=="00"?showTime("00"):Row(
-        //  children:[ showTime((24-int.parse(time[0])).toString())]
-           children: List.generate(time.length, (index) {
-                return showTime(time[index]);
-
-              }))
-            ],
+              ),
+            ),
           );
+          if (remaining != null) {
+            //List<String> time = remaining.split(':').toList();
+            // time[0] = time[0]-24;
+            return Row(
+              children: [
+                showTime(remaining.hours.toString()),
+                showTime(remaining.min.toString()),
+                showTime(remaining.sec.toString()),
+              ],
+            );
+          }else{
+            return Row(
+              children: [
+                showTime("0"),
+                showTime("0"),
+                showTime("0"),
+              ],
+            );
+          }
 
-          // 01:00:00
         },
       );
+
+
+
+
+  // CountdownFormatted _buildCountDown() => CountdownFormatted(
+  //       duration: Duration(
+  //         seconds: FunctionHelper.flashSaleTime(
+  //             timeFlash: widget.timeFlash),
+  //       ),
+  //       onFinish: null,
+  //       builder: (BuildContext context, String remaining) {
+  //         final showTime = (String text) => ClipRRect(
+  //               borderRadius: BorderRadius.circular(9.0),
+  //               child: Container(
+  //                 color: Colors.black,
+  //                 padding: EdgeInsets.only(
+  //                     left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
+  //                 alignment: Alignment.center,
+  //                 margin: EdgeInsets.symmetric(horizontal: 3),
+  //                 child: Text(
+  //                   text,
+  //                   style: FunctionHelper.FontTheme(
+  //                     fontSize: SizeUtil.titleSmallFontSize().sp,
+  //                     fontWeight: FontWeight.bold,
+  //                     color: Colors.white,
+  //                   ),
+  //                 ),
+  //               ),
+  //             );
+  //         List<String> time = remaining.split(':').toList();
+  //        // time[0] = time[0]-24;
+  //         return Row(
+  //           children: [
+  //             time.length ==1||time.length<1 ? Row(
+  //               children: [
+  //                 showTime("00"),
+  //                 showTime("00"),
+  //               ],
+  //             ) : SizedBox(),
+  //             time.length ==2? Row(
+  //               children: [
+  //                 showTime("00"),
+  //               ],
+  //             ) : SizedBox(),
+  //             time.length==1&&time[0]=="00"?showTime("00"):Row(
+  //       //  children:[ showTime((24-int.parse(time[0])).toString())]
+  //          children: List.generate(time.length, (index) {
+  //               return showTime(time[index]);
+  //
+  //             }))
+  //           ],
+  //         );
+  //
+  //         // 01:00:00
+  //       },
+  //     );
 }

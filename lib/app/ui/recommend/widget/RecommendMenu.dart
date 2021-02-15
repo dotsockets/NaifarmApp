@@ -154,7 +154,7 @@ class RecommendMenu extends StatelessWidget {
 
           Usermanager().isLogin().then((value) async {
             if(!value){
-              final result = await  AppRoute.Login(context,IsCallBack: true);
+              final result = await  AppRoute.Login(context,IsCallBack: true,IsHeader: true);
               if(result){
                 AppRoute.Wishlists(context: context);
               }

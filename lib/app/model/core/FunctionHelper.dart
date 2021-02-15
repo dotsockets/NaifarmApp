@@ -520,9 +520,9 @@ class FunctionHelper {
     int difTimeSc = timeData.difference(currentTime).inSeconds;
 print(timeFlash);
     if(difTimeSc>86400){
-      difTimeSc = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+1, 03, 06,40).difference(DateTime.now()).inSeconds;
+      difTimeSc = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+1, 03, 06,40).millisecondsSinceEpoch;
     }
-
+  // DateTime.now().millisecondsSinceEpoch + 1000 * 30
     return difTimeSc;
   }
 

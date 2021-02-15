@@ -19,10 +19,9 @@ import 'package:sizer/sizer.dart';
 
 class PurchaseView extends StatefulWidget {
   final bool IsLogin;
-  final CustomerInfoRespone item;
   final Function(bool) onStatus;
 
-  const PurchaseView({Key key, this.IsLogin, this.item, this.onStatus}) : super(key: key);
+  const PurchaseView({Key key, this.IsLogin, this.onStatus}) : super(key: key);
 
   @override
   _PurchaseViewState createState() => _PurchaseViewState();
@@ -132,7 +131,7 @@ class _PurchaseViewState extends State<PurchaseView> {
           ListMenuItem(
             iconSize:7.0.w,
               icon: 'assets/images/svg/editprofile.svg', title: LocaleKeys.me_title_setting.tr(),onClick: () async {
-            final result = await AppRoute.SettingProfile(context,widget.IsLogin,item: widget.item);
+            final result = await AppRoute.SettingProfile(context,widget.IsLogin);
             if(result!=null && result){
               widget.onStatus(result);
             }

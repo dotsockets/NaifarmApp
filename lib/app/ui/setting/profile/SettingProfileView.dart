@@ -20,11 +20,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingProfileView extends StatefulWidget {
 
-  final CustomerInfoRespone item;
-  final MyShopRespone myShopRespone;
+
 
   final bool IsLogin;
-  const SettingProfileView({Key key, this.IsLogin, this.item, this.myShopRespone}) : super(key: key);
+  const SettingProfileView({Key key, this.IsLogin}) : super(key: key);
 
   @override
   _SettingProfileViewState createState() => _SettingProfileViewState();
@@ -60,17 +59,14 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(6.5.h),
-            child: AppToobar(
-              title: LocaleKeys.setting_account_toobar.tr(),
-              icon: "",
-              header_type: Header_Type.barNormal,
-              isEnable_Search: false,
-              onClick: (){
-                Navigator.pop(context);
-              },
-            ),
+          appBar: AppToobar(
+            title: LocaleKeys.setting_account_toobar.tr(),
+            icon: "",
+            header_type: Header_Type.barNormal,
+            isEnable_Search: false,
+            onClick: (){
+              Navigator.pop(context);
+            },
           ),
           body: Column(
             children: [

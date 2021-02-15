@@ -193,7 +193,7 @@ final int SubFixId;
         children: [
           SizedBox(height: 1.0.h),
           Container(
-            height: SizeUtil.titleSmallFontSize().sp*2.5,
+            height: SizeUtil.titleSmallFontSize().sp*2.7,
             child: Text(" "+item.name+" ",
               textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,maxLines: 2,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),),

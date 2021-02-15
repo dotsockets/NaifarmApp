@@ -249,7 +249,6 @@ class _MeViewState extends State<MeView> with RouteAware {
                           children: [
                             PurchaseView(
                               IsLogin: IsLogin,
-                              item: infoshop.customerInfoRespone,
                               onStatus: (bool status) {
                                 if (status) {
                                   if (status) {
@@ -262,8 +261,6 @@ class _MeViewState extends State<MeView> with RouteAware {
                             MyshopView(
                               IsLogin: IsLogin,
                               scaffoldKey: _scaffoldKey,
-                              customerInfoRespone: infoshop.customerInfoRespone,
-                              myShopRespone: infoshop.myShopRespone,
                               onStatus: (bool status) {
                                 if (status) {
                                   Future.delayed(

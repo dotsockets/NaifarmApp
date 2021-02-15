@@ -466,7 +466,7 @@ class _OrderViewState extends State<OrderView> {
               Padding(
                 padding: EdgeInsets.all(1.0.h),
                 child: FlatButton(
-                  height: 5.0.h,
+                  height: 6.0.h,
                   color:  ThemeColor.ColorSale() ,
                   textColor: Colors.white,
                   splashColor: Colors.white.withOpacity(0.3),
@@ -495,7 +495,7 @@ class _OrderViewState extends State<OrderView> {
               Padding(
                 padding: EdgeInsets.all(1.0.h),
                 child: FlatButton(
-                  height: 5.0.h,
+                  height: 6.0.h,
                   color:  ThemeColor.secondaryColor() ,
                   textColor: Colors.white,
                   splashColor: Colors.white.withOpacity(0.3),
@@ -534,7 +534,7 @@ class _OrderViewState extends State<OrderView> {
               padding: EdgeInsets.all(1.0.h),
               child: FlatButton(
                 minWidth: 60.0.w,
-                height: 5.0.h,
+                height: 6.0.h,
                 color:  ThemeColor.ColorSale() ,
                 textColor: Colors.white,
                 splashColor: Colors.white.withOpacity(0.3),
@@ -577,7 +577,7 @@ class _OrderViewState extends State<OrderView> {
           padding: EdgeInsets.all(1.0.h),
           child: FlatButton(
             minWidth: 60.0.w,
-            height: 5.0.h,
+            height: 6.0.h,
             color:  ThemeColor.ColorSale() ,
             textColor: Colors.white,
             splashColor: Colors.white.withOpacity(0.3),

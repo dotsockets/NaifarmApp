@@ -584,7 +584,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
           ),
           item.items[indexShopItem].inventory.stockQuantity==0?Container(
             color: Colors.white.withOpacity(0.7),
-            height: 14.0.h,
+            height: 12.0.h,
             child: Center(
               child: Container(
                 width: 25.0.w,

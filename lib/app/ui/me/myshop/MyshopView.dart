@@ -25,13 +25,11 @@ import 'package:sizer/sizer.dart';
 class MyshopView extends StatefulWidget {
 
   final bool IsLogin;
-  CustomerInfoRespone  customerInfoRespone;
-  final MyShopRespone myShopRespone;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final Function(bool) onStatus;
 
 
-  MyshopView({Key key, this.IsLogin,this.customerInfoRespone,this.scaffoldKey, this.myShopRespone, this.onStatus}) : super(key: key);
+  MyshopView({Key key, this.IsLogin,this.scaffoldKey, this.onStatus}) : super(key: key);
 
   @override
   _MyshopViewState createState() => _MyshopViewState();
@@ -191,7 +189,7 @@ class _MyshopViewState extends State<MyshopView> {
             icon: 'assets/images/svg/editprofile.svg',
             title: LocaleKeys.me_title_my_product.tr(),
             onClick: () {
-              AppRoute.MyProduct(context,widget.myShopRespone.id);
+              AppRoute.MyProduct(context,item.id);
             },
           )
               : SizedBox(),

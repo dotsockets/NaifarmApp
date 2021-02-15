@@ -70,55 +70,59 @@ class AppToobar extends PreferredSize {
   }
 
   Widget BarNormal(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 0, right: 0.3.w),
-      decoration: new BoxDecoration(
-        color: ThemeColor.primaryColor(),
-        // borderRadius:  IsborderRadius?BorderRadius.only(
-        //   topRight: const Radius.circular(30.0),
-        //   topLeft: const Radius.circular(30.0),
-        // ):BorderRadius.all(Radius.circular(0.0)),
+    return Wrap(
+      children: [
+        Container(
+          padding: EdgeInsets.only(left: 0, right: 0.3.w),
+          decoration: new BoxDecoration(
+            color: ThemeColor.primaryColor(),
+            // borderRadius:  IsborderRadius?BorderRadius.only(
+            //   topRight: const Radius.circular(30.0),
+            //   topLeft: const Radius.circular(30.0),
+            // ):BorderRadius.all(Radius.circular(0.0)),
 
-      ),
+          ),
 
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              showBackBtn?IconButton(
-                icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
-                onPressed: (){
-                  onClick == null ? Navigator.of(context).pop() : onClick();
-                },
-              ):SizedBox(width: 10.0.w,height: 10.0.w,),
-              Expanded(
-                child: Container(
-                  child: Center(
-                    child: Text(
-                      title,
-                      style: FunctionHelper.FontTheme(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: SizeUtil.titleFontSize().sp),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  showBackBtn?IconButton(
+                    icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
+                    onPressed: (){
+                      onClick == null ? Navigator.of(context).pop() : onClick();
+                    },
+                  ):SizedBox(width: 10.0.w,height: 10.0.w,),
+                  Expanded(
+                    child: Container(
+                      child: Center(
+                        child: Text(
+                          title,
+                          style: FunctionHelper.FontTheme(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: SizeUtil.titleFontSize().sp),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  isEnable_Search?IconButton(
+                    icon: Icon(Icons.search_rounded,color: Colors.white,),
+                    onPressed: (){
+                      AppRoute.SearchHome(context);
+                    },
+                  ):SizedBox(width: 10.0.w,height: 10.0.w,)
+
+                ],
               ),
-              isEnable_Search?IconButton(
-                icon: Icon(Icons.search_rounded,color: Colors.white,),
-                onPressed: (){
-                  AppRoute.SearchHome(context);
-                },
-              ):SizedBox(width: 10.0.w,height: 10.0.w,)
+
 
             ],
           ),
-
-
-        ],
-      ),
+        )
+      ],
     );
   }
 
@@ -247,26 +251,27 @@ class AppToobar extends PreferredSize {
   }
 
   Widget BarHome(BuildContext context) {
-    return Container(
-      height: 7.0.h,
-      padding: EdgeInsets.only(left: 0, right: 0.3.w),
-      color: ThemeColor.primaryColor(),
-      child: SafeArea(
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+    return Wrap(
+      children: [
+        Container(
+          padding: EdgeInsets.only(left: 0, right: 0.3.w),
+          color: ThemeColor.primaryColor(),
+          child: SafeArea(
+            child: Column(
               children: [
-                IconButton(
-                  icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
-                  onPressed: (){
-                    onClick == null ? Navigator.of(context).pop() : onClick();
-                  },
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
+                      onPressed: (){
+                        onClick == null ? Navigator.of(context).pop() : onClick();
+                      },
+                    ),
+                    _buildSearch(context),
+                    BuildIconShop()
+                  ],
                 ),
-                _buildSearch(context),
-                BuildIconShop()
-              ],
-            ),
 
                 // setState(() {
                 //   _categoryselectedIndex = val;
@@ -274,9 +279,11 @@ class AppToobar extends PreferredSize {
                 // });
                 //  Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
 
-          ],
-        ),
-      ),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 

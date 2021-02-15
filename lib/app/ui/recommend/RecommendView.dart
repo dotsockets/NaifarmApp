@@ -65,6 +65,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   static const _indicatorSize = 50.0;
   int _categoryselectedIndex = 0;
   ProductBloc bloc;
+  HomeObjectCombine temp_data;
   final _selectedIndex = BehaviorSubject<int>();
 
   void _init() {
@@ -77,6 +78,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
         });
       });
       NaiFarmLocalStorage.getHomeDataCache().then((value) {
+        temp_data = value;
         bloc.ZipHomeObject.add(value);
       });
       // bloc.loadHomeData();
@@ -357,7 +359,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                             return SizedBox();
                           }
                         },
-                      ),SizedBox(height: 6.0.h,)
+                      ),SizedBox(height: 10.0.h,)
                     ]
                   ),
                 ),

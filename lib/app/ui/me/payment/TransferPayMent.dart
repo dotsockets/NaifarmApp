@@ -231,7 +231,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 captureImage(ImageSource.gallery);
               },
               child: Text(
-                "มีหลักฐานการชำระเงิน อัพโหลดเลย",
+                widget.orderData.image.length==0?"มีหลักฐานการชำระเงิน อัพโหลดเลย":"อัพเดตหลักฐานการชำระ",
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500),
@@ -239,7 +239,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
             ),
           ),
           SizedBox(height: 1.5.h,),
-          Container(
+          widget.orderData.image.length==0?Container(
             width: 80.0.w,
             height: 5.0.h,
             child: FlatButton(
@@ -250,7 +250,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 borderRadius: BorderRadius.circular(40.0),
               ),
               onPressed: () {
-                AppRoute.TransferPayMentView(context: context);
+                Navigator.of(context).pop();
               },
               child: Text(
                 "ไม่มีมีหลักฐานการชำระเงิน และอัพโหลดที่หลัง",
@@ -259,7 +259,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                     fontWeight: FontWeight.w500),
               ),
             ),
-          )
+          ):SizedBox()
         ],
       ),
     );

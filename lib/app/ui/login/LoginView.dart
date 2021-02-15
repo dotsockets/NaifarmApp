@@ -243,10 +243,10 @@ class _LoginViewState extends State<LoginView> {
     return Container(
         padding: EdgeInsets.only(bottom: 4.0.h),
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          color: ThemeColor.primaryColor(),
-          borderRadius: BorderRadius.only(bottomRight:  Radius.circular(20.0.w),bottomLeft: Radius.circular(20.0.w)),
-        ),
+        // decoration: BoxDecoration(
+        //   color: ThemeColor.primaryColor(),
+        //   borderRadius: BorderRadius.only(bottomRight:  Radius.circular(20.0.w),bottomLeft: Radius.circular(20.0.w)),
+        // ),
         child: Column(
           children: [
             Text("NaiFarm",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.appNameFontSize().sp,fontWeight: FontWeight.w500),),
@@ -259,7 +259,7 @@ class _LoginViewState extends State<LoginView> {
     return Container(
       decoration: BoxDecoration(
         color: ThemeColor.primaryColor(),
-        borderRadius: BorderRadius.only(bottomRight:  Radius.circular(20.0.w),bottomLeft: Radius.circular(20.0.w)),
+        borderRadius: BorderRadius.only(bottomRight:  Radius.circular(15.0.w),bottomLeft: Radius.circular(15.0.w)),
       ),
       width: MediaQuery.of(context).size.width,
       child:Column(
