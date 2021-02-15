@@ -44,6 +44,13 @@ class _PaidViewState extends State<PaidView>  {
       Usermanager().getUser().then((value) =>
           bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: limit, page: 1, token: value.token));
     }
+    bloc.onLoad.stream.listen((event) {
+      if (event) {
+        FunctionHelper.showDialogProcess(context);
+      } else {
+        Navigator.of(context).pop();
+      }
+    });
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
@@ -414,8 +421,10 @@ class _PaidViewState extends State<PaidView>  {
           final result = await AppRoute.ConfirmPayment(context: context,orderData: item);
 
           if(result){
+            //bloc.onLoad.add(true);
+            bloc.orderList.clear();
             Usermanager().getUser().then((value) =>
-                bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: 20, page: 1, token: value.token));
+                bloc.loadOrder(load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: 20, page: 1, token: value.token));
           }
         }else{
           AppRoute.TransferPayMentView(context: context,orderData: item);

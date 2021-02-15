@@ -20,9 +20,11 @@ class OrdersBloc{
   OrdersBloc(this._application);
 
 
-  loadOrder({String orderType,int page=1,int limit=20,String statusId,String token}) async{
+  loadOrder({String orderType,int page=1,int limit=20,String statusId,String token,bool load=false}) async{
+    load?onLoad.add(true):null;
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.GetOrder(orderType: orderType,page: page,limit: limit,statusId: statusId,token: token)).listen((respone) {
+      load?onLoad.add(false):null;
       if(respone.http_call_back.status==200){
         var item = (respone.respone as OrderRespone);
         orderList.addAll(item.data);

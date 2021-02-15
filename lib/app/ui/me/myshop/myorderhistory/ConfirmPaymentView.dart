@@ -56,6 +56,7 @@ class ConfirmPaymentView extends StatelessWidget {
        if(event is bool){
          onDialog = true;
          FunctionHelper.SuccessDialog(context,message: "Successfully confirmed information ",onClick: (){
+           onUpload = true;
            if(onDialog){
              Navigator.pop(context,onUpload);
            }
