@@ -23,9 +23,9 @@ import 'package:sizer/sizer.dart';
 import 'ProductLandscape.dart';
 
 class FlashSaleBar extends StatefulWidget {
-  final String timeFlash;
+  final String flashTime;
 
-  FlashSaleBar({Key key, this.timeFlash}) : super(key: key);
+  FlashSaleBar({Key key, this.flashTime}) : super(key: key);
 
   @override
   _FlashSaleBarState createState() => _FlashSaleBarState();
@@ -78,7 +78,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
   }
 
   CountdownTimer _buildCountDown()=> CountdownTimer(
-        endTime: FunctionHelper.flashSaleTime(timeFlash: widget.timeFlash),
+        endTime: FunctionHelper.flashSaleTime(flashTime: widget.flashTime),
         widgetBuilder: (_, CurrentRemainingTime remaining) {
           final showTime = (String text) => ClipRRect(
             borderRadius: BorderRadius.circular(9.0),
@@ -101,11 +101,12 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
           if (remaining != null) {
             //List<String> time = remaining.split(':').toList();
             // time[0] = time[0]-24;
+
             return Row(
               children: [
-                showTime(remaining.hours.toString()),
-                showTime(remaining.min.toString()),
-                showTime(remaining.sec.toString()),
+                showTime(remaining.hours.toString().length==1?"0"+remaining.hours.toString():remaining.hours.toString()),
+                showTime(remaining.min != null?remaining.min.toString().length==1?"0"+remaining.min.toString():remaining.min.toString():"00"),
+                showTime(remaining.sec.toString().length==1?"0"+remaining.sec.toString():remaining.sec.toString()),
               ],
             );
           }else{

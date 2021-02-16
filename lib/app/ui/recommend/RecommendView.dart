@@ -235,9 +235,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                                   AppRoute.ProductMore(
                                       api_link: "products/types/popular",
                                       context: context,
-                                      barTxt: LocaleKeys
-                                          .recommend_best_seller
-                                          .tr(),
+                                      barTxt: LocaleKeys.recommend_best_seller.tr(),
                                       installData: (snapshot.data
                                       as HomeObjectCombine)
                                           .productRespone);
@@ -343,7 +341,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                                       context: context,
                                       api_link: "products/types/trending",
                                       barTxt: LocaleKeys
-                                          .recommend_product_for_you
+                                          .tab_bar_recommend
                                           .tr());
                                 },
                                 onTapItem: (ProductData item, int index) {

@@ -258,7 +258,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
 
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: FlashSaleBar(timeFlash:  item.data[0].end,),
+                      child: FlashSaleBar(flashTime:  item.data[0].end,),
                     ),
 
                   ],
@@ -273,7 +273,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                       Lottie.asset('assets/json/boxorder.json',
                           height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
-                        LocaleKeys.cart_empty.tr(),
+                        LocaleKeys.search_product_not_found.tr(),
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.bold),
@@ -304,7 +304,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
         children: [
           SizedBox(height: 1.0.h),
           Container(
-            height: 4.0.h,
+            height: SizeUtil.titleSmallFontSize().sp*2.7,
             child: Text(
               item.name,
               textAlign: TextAlign.center,

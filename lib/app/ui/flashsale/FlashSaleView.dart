@@ -67,7 +67,7 @@ class _FlashSaleState extends State<FlashSale> {
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: FlashSaleBar(timeFlash: widget.flashsaleRespone.data[0].end,),
+          child: FlashSaleBar(flashTime: widget.flashsaleRespone.data[0].end,),
         )
       ],
     );
@@ -199,7 +199,7 @@ class _FlashSaleState extends State<FlashSale> {
         children: [
           SizedBox(height: 1.0.h),
           Container(
-            height: 4.0.h,
+            height: SizeUtil.titleSmallFontSize().sp*2.7,
             child: Text(
               item.name,
               textAlign: TextAlign.center,

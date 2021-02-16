@@ -28,6 +28,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vibration/vibration.dart';
@@ -104,7 +105,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                       Lottie.asset('assets/json/boxorder.json',
                           height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
-                        LocaleKeys.message_error_mail_empty.tr(),
+                        LocaleKeys.search_product_not_found.tr(),
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.bold),
@@ -267,16 +268,25 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        padding: EdgeInsets.all(8),
+                        padding: EdgeInsets.all(1.0.w),
                         decoration: BoxDecoration(
                             border: Border.all(
                                 color: Colors.black.withOpacity(0.2), width: 1),
                             borderRadius: BorderRadius.all(Radius.circular(6))),
                         child:  Container(
-                            child: Icon(
-                              Icons.shopping_bag_outlined,
-                              size: 30,
-                            )),
+                            child: CachedNetworkImage(
+                              width: 12.0.w,
+                              height: 12.0.w,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => Container(
+                                color: Colors.white,
+                                child: Lottie.asset('assets/json/loading.json',   width: 12.0.w,
+                                  height: 12.0.w,),
+                              ),
+                              imageUrl: "${Env.value.baseUrl}/storage/images/${item.meta.image}",
+                              errorWidget: (context, url, error) => Container(   width: 12.0.w,
+                                  height: 12.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                            ),),
                       ),
                       Expanded(
                           child: Container(
@@ -290,7 +300,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                       ):SizedBox()
                     ],
                   ),
-                  SizedBox(height: 5,),
+
 
                 ],
               )
@@ -328,21 +338,24 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
   );
 
   Widget ConvertStatus({NotiData item}){
-    if(item.type=="App\\Notifications\\Shop\\ShopUpdated"){
+    if(item.type=="App\\Notifications\\Order\\OrderUpdated"){
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("คำสั่งซื้อใหม่",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text("ได้รับสินค้าแล้วหรือยัง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
           RichText(
             text: new TextSpan(
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "อัพเดทข้อมูลร้านค้า ",
+                    text: "กรุณาตรวจสอบสินค้าทั้งหมดที่คุณได้รับของคำสั่งซื้อ ",
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                new TextSpan(text: "${item.meta.name} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-              new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                 new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                new TextSpan(
+                    text: " ก่อนกดรับสินค้า เพื่อ Naifarm จะดำเนินการโอนเงินคืนสินค้าไปยังผู้ขาย ",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+
               ],
             ),
           ),
@@ -420,7 +433,37 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
 
         ],
       );
-    }else{
+    }else if(item.type=="App\\Notifications\\Order\\OrderFulfilled"){
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("คำสั่งซื้อถูกจัดส่งแล้ว ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text: "สินค้าทุกชิ้นในคำสั้งซื้อหมายเลข ",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+               //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                new TextSpan(
+                    text: " จัดส่งแล้วเมื่อ 19-06-2563 กรุณารอให้ผู้ซื้อตรวจอสบและยืนยันการรับสินค้าภายใน 3 วัน จากนั้น NaiFarm จะดำเนินการโอนเงินให้คุณ",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+
+              ],
+            ),
+          ),
+          // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+          // Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+          // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
+
+        ],
+      );
+    }
+    else{
       return SizedBox();
     }
 
