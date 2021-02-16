@@ -29,7 +29,15 @@ class _HomeHeaderState extends State<HomeHeader> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 0, right: 0.3.w),
-      color: ThemeColor.primaryColor(),
+
+      decoration: new BoxDecoration(
+
+          color: ThemeColor.primaryColor(),
+          borderRadius: new BorderRadius.only(
+             bottomRight: Radius.circular(widget.snapshot.sliderRespone.data.isNotEmpty?0.0:30.0),
+            bottomLeft:  Radius.circular(widget.snapshot.sliderRespone.data.isNotEmpty?0.0:30.0),
+          )
+      ),
       child: SafeArea(
         bottom: false,
         child: Column(
@@ -123,7 +131,7 @@ class _HomeHeaderState extends State<HomeHeader> {
             SizedBox(
               height: 1.0.h,
             ),
-            widget.snapshot.featuredRespone != null
+        /*    widget.snapshot.featuredRespone != null
                 ? CategoryMenu(
                     featuredRespone: widget.snapshot.featuredRespone,
                     selectedIndex: 0,
@@ -137,7 +145,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                       //  Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
                     },
                   )
-                : SizedBox()
+                : SizedBox()*/
           ],
         ),
       ),

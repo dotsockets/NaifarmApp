@@ -50,14 +50,14 @@ class CategoryTab extends StatelessWidget {
                 Text(LocaleKeys.recommend_category_product.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
               ],
             ),
-            Row(
+            /*Row(
               children: [
                 Text(LocaleKeys.recommend_change.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp)),
                 SizedBox(width: 2.0.w),
                 SvgPicture.asset('assets/images/svg/change.svg',width: 3.0.w,height: 3.0.h,),
 
               ],
-            )
+                  )*/
           ],
         ),
       )

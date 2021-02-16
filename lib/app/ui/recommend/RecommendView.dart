@@ -192,11 +192,11 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                         stream: bloc.ZipHomeObject.stream,
                         builder: (BuildContext context,
                             AsyncSnapshot snapshot) {
+                          var item = (snapshot.data as HomeObjectCombine);
                           if (snapshot.hasData) {
                             return Column(
                               children: [
-                                BannerSlide(image: ConvertSliderImage(sliderRespone: (snapshot.data
-                                as HomeObjectCombine).sliderRespone)),
+                                item.sliderRespone.data.isNotEmpty?BannerSlide(image: ConvertSliderImage(sliderRespone: item.sliderRespone)):SizedBox(),
                                 RecommendMenu(
                                   homeObjectCombine: (snapshot.data
                                   as HomeObjectCombine),
@@ -205,8 +205,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                                   },),
                                 SizedBox(height: 1.0.h,),
                                 FlashSale(
-                                    flashsaleRespone: (snapshot.data
-                                    as HomeObjectCombine)
+                                    flashsaleRespone: item
                                         .flashsaleRespone)
                               ],
                             );
@@ -336,6 +335,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                                     .tab_bar_recommend
                                     .tr(),
                                 IconInto: 'assets/images/svg/like.svg',
+                                IconSize: 6.0.w,
                                 onSelectMore: () {
                                   AppRoute.ProductMore(
                                       context: context,

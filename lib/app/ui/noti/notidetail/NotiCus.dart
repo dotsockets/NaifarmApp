@@ -395,10 +395,10 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
               children: <TextSpan>[
                 new TextSpan(
                     text: "คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
                 new TextSpan(text: " และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)))
+                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black.withOpacity(0.8)))
               ],
             ),
           ),
@@ -420,10 +420,10 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
               children: <TextSpan>[
                 new TextSpan(
                     text: "คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
                 new TextSpan(text: " และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)))
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black.withOpacity(0.8)))
               ],
             ),
           ),
@@ -445,13 +445,13 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
               children: <TextSpan>[
                 new TextSpan(
                     text: "สินค้าทุกชิ้นในคำสั้งซื้อหมายเลข ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
                 //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
                //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
-                    text: " จัดส่งแล้วเมื่อ 19-06-2563 กรุณารอให้ผู้ซื้อตรวจอสบและยืนยันการรับสินค้าภายใน 3 วัน จากนั้น NaiFarm จะดำเนินการโอนเงินให้คุณ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+                    text: " จัดส่งแล้วเมื่อ 19-06-2563 กรุณารอให้ผู้ซื้อตรวจสอบและยืนยันการรับสินค้าภายใน 3 วัน จากนั้น NaiFarm จะดำเนินการโอนเงินให้คุณ",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
 
               ],
             ),
