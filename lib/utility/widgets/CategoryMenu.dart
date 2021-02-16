@@ -19,7 +19,7 @@ class CategoryMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     if(featuredRespone.data!=null && featuredRespone.data.isNotEmpty){
       return Container(
-          padding: EdgeInsets.only(left: 1.0.w,bottom: moreSize?2.5.h:0.8.h),
+          padding: EdgeInsets.only(left: 1.0.w,bottom: moreSize?2.5.h:1.0.h),
           width: MediaQuery.of(context).size.width,
           decoration: new BoxDecoration(
               color: ThemeColor.primaryColor(),

@@ -271,7 +271,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
       children: [
         SizedBox(height: 0.5.h),
         Container(
-          height: 4.5.h,
+          height: SizeUtil.titleSmallFontSize().sp*2.7,
           child: Text(item.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

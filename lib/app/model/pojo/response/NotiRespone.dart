@@ -98,8 +98,9 @@ class Meta {
   String order;
   String customer;
   String requirePaymentAt;
+  String image;
 
-  Meta({this.user, this.name, this.status, this.id, this.order, this.customer});
+  Meta({this.user, this.name, this.status, this.id, this.order, this.customer,this.image});
 
   Meta.fromJson(Map<String, dynamic> json) {
     user = json['user'];
@@ -109,6 +110,7 @@ class Meta {
     order = json['order'];
     customer = json['customer'];
     requirePaymentAt = json['requirePaymentAt'];
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -120,6 +122,7 @@ class Meta {
     data['order'] = this.order;
     data['customer'] = this.customer;
     data['requirePaymentAt'] = this.requirePaymentAt;
+    data['image'] = this.image;
     return data;
   }
 }

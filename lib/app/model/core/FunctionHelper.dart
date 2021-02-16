@@ -505,20 +505,20 @@ class FunctionHelper {
 
 
 
-  static int flashSaleTime({String timeFlash}){
+  static int flashSaleTime({String flashTime}){
 
-    final year = int.parse(timeFlash.substring(0, 4));
-    final month = int.parse(timeFlash.substring(5, 7));
-    final day = int.parse(timeFlash.substring(8, 10));
-    final hour = int.parse(timeFlash.substring(11, 13));
-    final minute = int.parse(timeFlash.substring(14, 16));
-    final second = int.parse(timeFlash.substring(17, 19));
+    final year = int.parse(flashTime.substring(0, 4));
+    final month = int.parse(flashTime.substring(5, 7));
+    final day = int.parse(flashTime.substring(8, 10));
+    final hour = int.parse(flashTime.substring(11, 13));
+    final minute = int.parse(flashTime.substring(14, 16));
+    final second = int.parse(flashTime.substring(17, 19));
 
     DateTime timeData = DateTime(year, month, day, hour, minute,second);
 
     DateTime currentTime = DateTime.now();
     int difTimeSc = timeData.difference(currentTime).inSeconds;
-print(timeFlash);
+
     if(difTimeSc>86400){
       difTimeSc = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+1, 03, 06,40).millisecondsSinceEpoch;
     }

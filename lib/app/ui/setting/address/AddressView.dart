@@ -129,7 +129,7 @@ class _AddressViewState extends State<AddressView> {
                                           Lottie.asset('assets/json/boxorder.json',
                                               height: 70.0.w, width: 70.0.w, repeat: false),
                                           Text(
-                                            LocaleKeys.message_error_mail_empty.tr(),
+                                            LocaleKeys.search_product_not_found.tr(),
                                             style: FunctionHelper.FontTheme(
                                                 fontSize: SizeUtil.titleFontSize().sp,
                                                 fontWeight: FontWeight.bold),
