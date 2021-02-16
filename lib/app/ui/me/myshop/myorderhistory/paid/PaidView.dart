@@ -42,7 +42,7 @@ class _PaidViewState extends State<PaidView>  {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       Usermanager().getUser().then((value) =>
-          bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: limit, page: 1, token: value.token));
+          bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1",sort: "orders.createdAt:desc", limit: limit, page: 1, token: value.token));
     }
     bloc.onLoad.stream.listen((event) {
       if (event) {
@@ -195,7 +195,7 @@ class _PaidViewState extends State<PaidView>  {
           if(result){
             bloc.orderList.clear();
             Usermanager().getUser().then((value) =>
-                bloc.loadOrder(load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: limit, page: 1, token: value.token));
+                bloc.loadOrder(load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.createdAt:desc",statusId: "1", limit: limit, page: 1, token: value.token));
           }
         }},
     );
@@ -324,10 +324,10 @@ class _PaidViewState extends State<PaidView>  {
               Divider(
                 color: Colors.grey.shade400,
               ),
-              _IntroShipment(address: item.shippingAddress),
-              Divider(
+              widget.typeView == OrderViewType.Shop? _IntroShipment(address: item.shippingAddress):SizedBox(),
+              widget.typeView == OrderViewType.Shop?Divider(
                 color: Colors.grey.shade400,
-              ),
+              ):SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -430,7 +430,7 @@ class _PaidViewState extends State<PaidView>  {
             //bloc.onLoad.add(true);
             bloc.orderList.clear();
             Usermanager().getUser().then((value) =>
-                bloc.loadOrder(load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: 20, page: 1, token: value.token));
+                bloc.loadOrder(load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.createdAt:desc",statusId: "1", limit: 20, page: 1, token: value.token));
           }
         }else{
           AppRoute.TransferPayMentView(context: context,orderData: item);
@@ -486,7 +486,7 @@ class _PaidViewState extends State<PaidView>  {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1",limit: limit,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.createdAt:desc",statusId: "1",limit: limit,page: page,token: value.token));
   }
 
 

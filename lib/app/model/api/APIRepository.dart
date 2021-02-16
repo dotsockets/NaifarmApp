@@ -302,8 +302,8 @@ class APIRepository{
     return _apiProvider.DeleteImageProduct(imageableType: imageableType,imageableId: imageableId,path: path,token: token);
   }
 
-  Future<ApiResult> GetOrder({String orderType,int page=1,int limit=20,String statusId,String token}){
-    return _apiProvider.GetOrder(orderType: orderType,page: page,limit: limit,statusId: statusId,token: token);
+  Future<ApiResult> GetOrder({String orderType,int page=1,int limit=20,String statusId,String token,String sort}){
+    return _apiProvider.GetOrder(orderType: orderType,page: page,limit: limit,statusId: statusId,token: token,sort: sort);
   }
 
   Future<ApiResult> GetOrderById({int id,String orderType,String token}){

@@ -47,7 +47,7 @@ class _SuccessViewState extends State<SuccessView> {
     if(bloc==null && Product_bloc == null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
       Product_bloc = ProductBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "6",limit: limit,page: 1,token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "6",limit: limit,page: 1,token: value.token));
     }
 
     Product_bloc.onLoad.stream.listen((event) {
@@ -323,15 +323,15 @@ class _SuccessViewState extends State<SuccessView> {
               Divider(
                 color: Colors.grey.shade400,
               ),
-              _IntroShipment(address: item.shippingAddress),
-              Divider(
+              widget.typeView == OrderViewType.Shop? _IntroShipment(address: item.shippingAddress):SizedBox(),
+              widget.typeView == OrderViewType.Shop?Divider(
                 color: Colors.grey.shade400,
-              ),
+              ):SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.typeView==OrderViewType.Purchase? "Date of purchase " +
+                    widget.typeView==OrderViewType.Purchase? "วันที่ซื้อ " +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.FontTheme(
@@ -491,7 +491,7 @@ class _SuccessViewState extends State<SuccessView> {
     return sum;
   }
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "6",limit: limit,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "6",limit: limit,page: page,token: value.token));
   }
   @override
   bool get wantKeepAlive => true;

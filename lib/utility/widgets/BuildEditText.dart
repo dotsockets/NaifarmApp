@@ -33,10 +33,10 @@ class BuildEditText extends StatelessWidget {
     bool flag_temp = true;
     init(BuildContext context) {
       _passwordHide.add(true);
-      _passwordHide.stream.listen((event) {
-        flag_temp = true;
-        print("dsfdsf ${event}");
-      });
+      // _passwordHide.stream.listen((event) {
+      //   flag_temp = true;
+      //   print("dsfdsf ${event}");
+      // });
     }
 
     @override
@@ -80,59 +80,67 @@ class BuildEditText extends StatelessWidget {
                   stream: _passwordHide.stream,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return TextFormField(
-                        obscureText: IsPassword ? snapshot.data : IsPassword,
-                        keyboardType: inputType,
-                        maxLines: maxLine,
-                        controller: controller,
-                        initialValue: initialValue,
-                        readOnly: readOnly,
-                        inputFormatters: [
-                          inputType == TextInputType.number
-                              ? FilteringTextInputFormatter.digitsOnly
-                              : FilteringTextInputFormatter.singleLineFormatter
-                        ],
-                        decoration: InputDecoration(
-                            isDense: true,
-                            // important line
-                            hintStyle: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil
-                                    .titleFontSize()
-                                    .sp, color: Colors.grey),
-                            hintText: hint,
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.all(2.0.h),
-                            // control your hint
-                            suffixIcon: IsPassword
-                                ? InkWell(
-                                onTap: () {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Expanded(
+                              child: Padding(
+                                child: TextFormField(
+                                  obscureText: IsPassword ? snapshot.data : IsPassword,
+                                  keyboardType: inputType,
+                                  maxLines: maxLine,
+                                  controller: controller,
+                                  initialValue: initialValue,
+                                  readOnly: readOnly,
+                                  inputFormatters: [
+                                    inputType == TextInputType.number
+                                        ? FilteringTextInputFormatter.digitsOnly
+                                        : FilteringTextInputFormatter.singleLineFormatter
+                                  ],
+                                  decoration: InputDecoration(
+                                      isDense: true,
+                                      // important line
+                                      hintStyle: FunctionHelper.FontTheme(
+                                          fontSize: SizeUtil
+                                              .titleFontSize()
+                                              .sp, color: Colors.grey),
+                                      hintText: hint,
+                                      border: InputBorder.none,
+                                      contentPadding: EdgeInsets.all(2.0.h)),
+                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil
+                                      .titleFontSize()
+                                      .sp),
+                                  onChanged: (String char) {
+                                    onChanged != null ? onChanged(char) : null;
+                                    // setState(() {
+                                    //
+                                    // });
+                                  },
+                                  validator: (value) {
+                                    if (value.isEmpty) {}
+                                    return null;
+                                  },
+                                ),
+                                padding: EdgeInsets.only(right: 5.0.w),
+                              )),
+                          IsPassword
+                              ? InkWell(
+                              onTap: () {
 
-                                   FocusScope.of(context).unfocus();
-                                  //_passpordhide.add(!_passpordhide.value);
-                                  readOnly = !readOnly;
-                                },
-                                child: Container(padding: EdgeInsets.all(3.5.w),
-                                    child: snapshot.data
-                                        ? SvgPicture.asset(
-                                      'assets/images/svg/hind_pass.svg',
-                                      height: 3.0.w, color: Colors.grey,)
-                                        : SvgPicture.asset(
-                                      'assets/images/svg/show_pass.svg',
-                                      height: 3.0.w, color: Colors.grey,)))
-                                : SizedBox()),
-                        style: FunctionHelper.FontTheme(fontSize: SizeUtil
-                            .titleFontSize()
-                            .sp),
-                        onChanged: (String char) {
-                          onChanged != null ? onChanged(char) : null;
-                          // setState(() {
-                          //
-                          // });
-                        },
-                        validator: (value) {
-                          if (value.isEmpty) {}
-                          return null;
-                        },
+                               // FocusScope.of(context).unfocus();
+                                _passwordHide.add(!_passwordHide.value);
+                              //  readOnly = !readOnly;
+                              },
+                              child: Container(padding: EdgeInsets.all(3.5.w),
+                                  child: snapshot.data
+                                      ? SvgPicture.asset(
+                                    'assets/images/svg/hind_pass.svg',width: 3.0.w,
+                                    height: 3.0.w, color: Colors.grey,)
+                                      : SvgPicture.asset(
+                                    'assets/images/svg/show_pass.svg',
+                                    height: 5.0.w,width: 5.0.w, color: Colors.grey,))):SizedBox()
+                        ],
                       );
                     } else {
                       return SizedBox();

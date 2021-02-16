@@ -44,7 +44,7 @@ class _ShippedViewState extends State<ShippedView> {
   init() {
     if(bloc==null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "3",limit: limit,page: 1,token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "3",sort: "orders.updatedAt:desc",limit: limit,page: 1,token: value.token));
 
     }
     bloc.onLoad.stream.listen((event) {
@@ -316,22 +316,22 @@ class _ShippedViewState extends State<ShippedView> {
               Divider(
                 color: Colors.grey.shade400,
               ),
-              _IntroShipment(address: item.shippingAddress),
-              Divider(
+              widget.typeView == OrderViewType.Shop? _IntroShipment(address: item.shippingAddress):SizedBox(),
+              widget.typeView == OrderViewType.Shop?Divider(
                 color: Colors.grey.shade400,
-              ),
+              ):SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.typeView=="purchase"? "ชำระเงินภายใน" +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
-                    style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        color: Colors.black.withOpacity(0.6)),
-                  ),
-                  _BuildButtonBayItem(btnTxt: widget.typeView==OrderViewType.Purchase?"Contact seller ":"Shipping",item: item)
+                 Expanded(flex: 3,child:  Text(
+                   widget.typeView==OrderViewType.Purchase? "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการขนส่ง" +
+                       "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
+                       "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
+                   style: FunctionHelper.FontTheme(
+                       fontSize: SizeUtil.titleSmallFontSize().sp,
+                       color: Colors.black.withOpacity(0.6)),
+                 )),
+                 Expanded(flex: 3,child:  _BuildButtonBayItem(btnTxt: widget.typeView==OrderViewType.Purchase?"seller is preparing to ship":"Shipping",item: item)) // ผู้ขายกำลังเตรียมจัดส่งสินค้า for thai
                 ],
               )
             ],
@@ -420,7 +420,7 @@ class _ShippedViewState extends State<ShippedView> {
           final result = await AppRoute.AddtTrackingNumber(context: context,orderData: item);
           if(result){
             bloc.orderList.clear();
-            Usermanager().getUser().then((value) => bloc.loadOrder(load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "3",limit: limit,page: 1,token: value.token));
+            Usermanager().getUser().then((value) => bloc.loadOrder(load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "3",limit: limit,page: 1,token: value.token));
           }
         }else{
          // AppRoute.TransferPayMentView(context: context,orderData: item);
@@ -476,7 +476,7 @@ class _ShippedViewState extends State<ShippedView> {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "3",limit: limit,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "3",limit: limit,page: page,token: value.token));
   }
 
   @override

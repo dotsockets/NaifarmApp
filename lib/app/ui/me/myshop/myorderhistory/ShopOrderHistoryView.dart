@@ -32,7 +32,7 @@ class ShopOrderHistoryView extends StatelessWidget {
 
    ShopOrderHistoryView({Key key, this.index,this.callback}) : super(key: key);
 
-  int tab_count = 6;
+  int tab_count = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +86,9 @@ class ShopOrderHistoryView extends StatelessWidget {
                           _tabbar(
                               title: LocaleKeys.me_menu_cancel.tr(),
                               message: false),
-                          _tabbar(
-                              title: LocaleKeys.me_menu_refund.tr(),
-                              message: false),
+                          // _tabbar(
+                          //     title: LocaleKeys.me_menu_refund.tr(),
+                          //     message: false),
                         ],
                       ),
                     ),
@@ -103,7 +103,7 @@ class ShopOrderHistoryView extends StatelessWidget {
                         DeliveryView(typeView: OrderViewType.Shop),
                         SuccessView(typeView: OrderViewType.Shop),
                         CanceledView(typeView: OrderViewType.Shop),
-                        RefundView(typeView: OrderViewType.Shop)
+                       // RefundView(typeView: OrderViewType.Shop)
                       ],
                     ),
                   ),

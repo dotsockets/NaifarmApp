@@ -45,6 +45,7 @@ class _DeliveryViewState extends State<DeliveryView> {
       Usermanager().getUser().then((value) => bloc.loadOrder(
           orderType:
               widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+          sort: "orders.updatedAt:desc",
           statusId: '4,5',
           limit: limit,
           page: 1,
@@ -195,10 +196,24 @@ class _DeliveryViewState extends State<DeliveryView> {
           ],
         ),
       ),
-      onTap: () {
+      onTap: () async {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        if(item.items[0].inventory!=null) {AppRoute.OrderDetail(context,
-            orderData: item, typeView: widget.typeView);}
+        if(item.items[0].inventory!=null) {
+          final result = await AppRoute.OrderDetail(context,
+              orderData: item, typeView: widget.typeView);
+          if(result){
+            bloc.orderList.clear();
+            Usermanager().getUser().then((value) => bloc.loadOrder(load: true,
+                orderType:
+                widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",sort: "orders.updatedAt:desc",
+
+                statusId: '4,5',
+                limit: limit,
+                page: 1,
+                token: value.token));
+          }
+        }
+
       },
     );
   }
@@ -340,10 +355,10 @@ class _DeliveryViewState extends State<DeliveryView> {
               Divider(
                 color: Colors.grey.shade400,
               ),
-              _IntroShipment(address: item.shippingAddress),
-              Divider(
+              widget.typeView == OrderViewType.Shop? _IntroShipment(address: item.shippingAddress):SizedBox(),
+              widget.typeView == OrderViewType.Shop?Divider(
                 color: Colors.grey.shade400,
-              ),
+              ):SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -358,7 +373,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                         color: Colors.black.withOpacity(0.6)),
                   )),
                  SizedBox(width: 3.0.w,),
-                 Expanded(flex: 2,child:  widget.typeView == OrderViewType.Purchase? _BuildButtonBayItem(
+                 Expanded(flex: widget.typeView == OrderViewType.Shop?1:2,child:  widget.typeView == OrderViewType.Purchase? _BuildButtonBayItem(
                      btnTxt: "accept products",
                      item: item):SizedBox())
                 ],
@@ -471,7 +486,8 @@ class _DeliveryViewState extends State<DeliveryView> {
                 bloc.orderList.clear();
                 Usermanager().getUser().then((value) => bloc.loadOrder(load: true,
                     orderType:
-                    widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+                    widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",sort: "orders.updatedAt:desc",
+
                     statusId: '4,5',
                     limit: limit,
                     page: 1,
@@ -532,7 +548,7 @@ class _DeliveryViewState extends State<DeliveryView> {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: '4,5',limit: limit,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: '4,5',limit: limit,page: page,token: value.token));
   }
 
   @override

@@ -47,33 +47,41 @@ class _OrderViewState extends State<OrderView> {
         bloc.OrderList.add(widget.orderData);
       }
 
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.AlertDialogShop(context,message:event,showbtn: true,title: "Error Shipping" );
+        //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onSuccess.stream.listen((event) {
+        //onUpload = true;
+        Navigator.pop(context,true);
+      });
+
+
+      Product_bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      Product_bloc.onSuccess.stream.listen((event) {
+        //onUpload = true;
+        if(event is CartResponse){
+          AppRoute.MyCart(context, true);
+          // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
+        }
+      });
+
     }
-    bloc.onLoad.stream.listen((event) {
-      if (event) {
-        FunctionHelper.showDialogProcess(context);
-      } else {
-        Navigator.of(context).pop();
-      }
-    });
-    bloc.onSuccess.stream.listen((event) {
-      onUpload = true;
-    });
 
-
-    Product_bloc.onLoad.stream.listen((event) {
-      if (event) {
-        FunctionHelper.showDialogProcess(context);
-      } else {
-        Navigator.of(context).pop();
-      }
-    });
-    Product_bloc.onSuccess.stream.listen((event) {
-      //onUpload = true;
-      if(event is CartResponse){
-        AppRoute.MyCart(context, true);
-        // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
-      }
-    });
 
 
     Usermanager().getUser().then((value) => bloc.GetOrderById(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",id: widget.orderData.id, token: value.token));
@@ -115,7 +123,7 @@ class _OrderViewState extends State<OrderView> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                widget.typeView==OrderViewType.Purchase?_HeaderStatus(context: context,orderData: item):SizedBox(),
+                                widget.typeView==OrderViewType.Purchase &&  item.orderStatusId!=5 &&  item.orderStatusId!=6 &&  item.orderStatusId!=8?_HeaderStatus(context: context,orderData: item):SizedBox(),
                                 _labelText(title: LocaleKeys.order_detail_ship_addr.tr()),
                                 _addtess_recive(context: context,orderData: item),
                                 _labelText(title: LocaleKeys.order_detail_ship_data.tr()),
@@ -134,7 +142,7 @@ class _OrderViewState extends State<OrderView> {
                         widget.typeView==OrderViewType.Shop && item.orderStatusId==3? _ButtonShipping(context: context,orderData: item):SizedBox(),
 
 
-                        widget.typeView==OrderViewType.Purchase && item.orderStatusId==3? _ButtonCancel(context: context,orderData: item,orderViewType: OrderViewType.Purchase):SizedBox(),
+                       // widget.typeView==OrderViewType.Purchase && item.orderStatusId==3? _ButtonCancel(context: context,orderData: item,orderViewType: OrderViewType.Purchase):SizedBox(),
                         widget.typeView==OrderViewType.Purchase && item.orderStatusId==1? _ButtonCancel(context: context,orderData: item,orderViewType: OrderViewType.Purchase):SizedBox(),
 
                         widget.typeView==OrderViewType.Purchase && item.orderStatusId==5? _ButtonAcceptProducts(context: context,orderData: item):SizedBox(),
@@ -501,40 +509,41 @@ class _OrderViewState extends State<OrderView> {
         child: Container(
           padding: EdgeInsets.all(1.5.w),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(child:
+              // Expanded(child:
+              // Padding(
+              //   padding: EdgeInsets.all(1.0.h),
+              //   child: FlatButton(
+              //     height: 6.0.h,
+              //     color:  ThemeColor.ColorSale() ,
+              //     textColor: Colors.white,
+              //     splashColor: Colors.white.withOpacity(0.3),
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(40.0),
+              //     ),
+              //     onPressed: () {
+              //
+              //       FunctionHelper.ConfirmDialog(context,message: "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",onCancel: (){
+              //         Navigator.of(context).pop();
+              //       },onClick: (){
+              //         Navigator.of(context).pop();
+              //         AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
+              //       });
+              //
+              //
+              //     },
+              //     child: Text(
+              //       "Cancel order",
+              //       style: FunctionHelper.FontTheme(
+              //           fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+              //     ),
+              //   ),
+              // )),
               Padding(
                 padding: EdgeInsets.all(1.0.h),
                 child: FlatButton(
-                  height: 6.0.h,
-                  color:  ThemeColor.ColorSale() ,
-                  textColor: Colors.white,
-                  splashColor: Colors.white.withOpacity(0.3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  onPressed: () {
-
-                    FunctionHelper.ConfirmDialog(context,message: "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",onCancel: (){
-                      Navigator.of(context).pop();
-                    },onClick: (){
-                      Navigator.of(context).pop();
-                      AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
-                    });
-
-
-                  },
-                  child: Text(
-                    "Cancel order",
-                    style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
-                  ),
-                ),
-              )),
-              Expanded(child:
-              Padding(
-                padding: EdgeInsets.all(1.0.h),
-                child: FlatButton(
+                  minWidth: 60.0.w,
                   height: 6.0.h,
                   color:  ThemeColor.secondaryColor() ,
                   textColor: Colors.white,
@@ -552,7 +561,7 @@ class _OrderViewState extends State<OrderView> {
                         fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
                   ),
                 ),
-              )),
+              ),
             ],
           ),
         ),

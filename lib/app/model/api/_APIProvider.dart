@@ -1560,13 +1560,13 @@ class _APIProvider implements APIProvider {
 
   @override
   Future<ApiResult> GetOrder(
-      {String orderType, int page, int limit, String statusId, String token}) async {
+      {String orderType, int page, int limit, String statusId, String token,String sort}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     try {
       final _result = await _dio.request<dynamic>(
-          '/v1/${orderType}?limit=${limit}&page=${page}&sort=orders.createdAt:desc&orderStatusIds=${statusId}',
+          '/v1/${orderType}?limit=${limit}&page=${page}&sort=${sort}&orderStatusIds=${statusId}',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',

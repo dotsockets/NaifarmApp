@@ -44,7 +44,7 @@ class _CanceledViewState extends State<CanceledView>{
   init() {
     if(bloc==null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(orderType:widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "8",limit: limit,page: 1,token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadOrder(orderType:widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "8",limit: limit,page: 1,token: value.token));
     }
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
@@ -304,27 +304,27 @@ class _CanceledViewState extends State<CanceledView>{
                   ),
                 ),
               ),
-              Divider(
-                color: Colors.grey.shade400,
-              ),
-              _IntroShipment(address: item.shippingAddress),
-              Divider(
-                color: Colors.grey.shade400,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    widget.typeView=="purchase"? "ชำระเงินภายใน" +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
-                    style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        color: Colors.black.withOpacity(0.6)),
-                  ),
-                  _BuildButtonBayItem(btnTxt: widget.typeView=="shop"?"Confirm payment":"Payment",item: item)
-                ],
-              )
+              // Divider(
+              //   color: Colors.grey.shade400,
+              // ),
+              // _IntroShipment(address: item.shippingAddress),
+              // Divider(
+              //   color: Colors.grey.shade400,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text(
+              //       widget.typeView=="purchase"? "ชำระเงินภายใน" +
+              //           "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
+              //           "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
+              //       style: FunctionHelper.FontTheme(
+              //           fontSize: SizeUtil.titleSmallFontSize().sp,
+              //           color: Colors.black.withOpacity(0.6)),
+              //     ),
+              //     _BuildButtonBayItem(btnTxt: widget.typeView=="shop"?"Confirm payment":"Payment",item: item)
+              //   ],
+              // )
             ],
           ),
         ],
@@ -410,7 +410,7 @@ class _CanceledViewState extends State<CanceledView>{
           final result = await AppRoute.ConfirmPayment(context: context,orderData: item);
           if(result){
             Usermanager().getUser().then((value) =>
-                bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: 20, page: 1, token: value.token));
+                bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "1", limit: 20, page: 1, token: value.token));
           }
         }else{
           AppRoute.TransferPayMentView(context: context,orderData: item);
@@ -466,7 +466,7 @@ class _CanceledViewState extends State<CanceledView>{
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "8",limit: limit,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "8",limit: limit,page: page,token: value.token));
   }
   @override
   bool get wantKeepAlive => true;
