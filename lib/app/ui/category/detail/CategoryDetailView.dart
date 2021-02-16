@@ -139,7 +139,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                     },
                   ),
                   SizedBox(height: 1.2.h),
-                  StreamBuilder(
+                  /*StreamBuilder(
                     stream: bloc.TrendingGroup.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if(snapshot.hasData) {
@@ -158,7 +158,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                         );
                       }
                     },
-                  ),
+                  ),*/
                   StreamBuilder(
                     stream: bloc.ZipCategoryObject.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {

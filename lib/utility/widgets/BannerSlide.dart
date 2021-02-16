@@ -30,6 +30,7 @@ class BannerSlide extends StatelessWidget {
           padding: EdgeInsets.only(top: 0,bottom: 2.0.w),
           decoration: new BoxDecoration(
               color: ThemeColor.primaryColor(),
+
               borderRadius: new BorderRadius.only(
                   bottomLeft: const Radius.circular(30.0),
                   bottomRight: const Radius.circular(30.0)

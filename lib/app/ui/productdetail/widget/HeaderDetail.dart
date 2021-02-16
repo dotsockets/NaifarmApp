@@ -206,7 +206,7 @@ class _HeaderDetailState extends State<HeaderDetail> {
                               ],
                             ),
                             SizedBox(width: 2.0.w,),
-                            ClipRRect(
+                           /* ClipRRect(
                               borderRadius: BorderRadius.circular(30),
                               child: Container(
                                 color: _backgroundColorSearch,
@@ -217,7 +217,7 @@ class _HeaderDetailState extends State<HeaderDetail> {
                                   },
                                 ),
                               ),
-                            ),
+                            ),*/
 
 
                           ],

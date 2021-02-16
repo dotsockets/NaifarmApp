@@ -140,11 +140,11 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                               return SizedBox();
                             }
                           }),
-                      _Buildcoupon(),
-                      Container(
-                        height: 1.0.h,
-                        color: Colors.grey.shade300,
-                      ),
+                      //_Buildcoupon(),
+                     // Container(
+                       // height: 1.0.h,
+                       // color: Colors.grey.shade300,
+                     // ),
                       _Payment_method()
                     ],
                   ),
@@ -401,7 +401,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                            "${snapshot.data.carrier.name} [${snapshot.data.name}]",
+                            "${snapshot.data.carrier.name}",
+                           // "${snapshot.data.carrier.name} [${snapshot.data.name}]",
                             style: FunctionHelper.FontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 color: Colors.black)),
@@ -514,7 +515,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               children: [
                 Text(
                     "คำสั่งซื้อทั้งหมด ${item.itemCount} " +
-                        LocaleKeys.cart_item.tr(),
+                        LocaleKeys.cart_piece.tr(),
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         color: Colors.black)),
@@ -815,7 +816,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                       fontSize: SizeUtil.titleFontSize().sp,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black)),
-                              Text("${value.addressLine1} ${value.zipCode}",
+                              Text("${value.addressLine1}  ${value.zipCode}",
                                   style: FunctionHelper.FontTheme(
                                       fontSize: SizeUtil.titleFontSize().sp,
                                       fontWeight: FontWeight.w500,

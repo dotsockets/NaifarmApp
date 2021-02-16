@@ -196,11 +196,11 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                                   SizedBox(
                                     width: 5,
                                   ),
-                                  Icon(
+                                 /* Icon(
                                     Icons.arrow_forward_ios,
                                     color: Colors.grey.shade500,
                                     size: 5.0.w,
-                                  )
+                                  )*/
                                 ],
                               ),
                             ),

@@ -490,9 +490,9 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                               children: [
                                 //   item.ProductDicount != 0 ?
                                 item.items[indexShopItem].inventory.offerPrice !=
-                                    null
-                                    ? Text(
-                                    "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}",
+                                    null ?
+                                Text(
+                                    "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
                                     style: FunctionHelper.FontTheme(
                                         fontSize: SizeUtil.priceFontSize().sp,
                                         decoration: TextDecoration.lineThrough))
@@ -504,7 +504,12 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                                         null
                                         ? 2.0.w
                                         : 0),
-                                Text(
+                                item.items[indexShopItem].inventory.offerPrice !=
+                                    null?Text(
+                                    "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}",
+                                    style: FunctionHelper.FontTheme(
+                                        fontSize: SizeUtil.priceFontSize().sp,
+                                        color: ThemeColor.ColorSale())):Text(
                                     "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
                                     style: FunctionHelper.FontTheme(
                                         fontSize: SizeUtil.priceFontSize().sp,
@@ -610,7 +615,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
         if(item.items[indexShopItem].inventory.stockQuantity>0){
           bloc.CartList.value.data[indexShop].items[indexShopItem].select = !item.items[indexShopItem].select;
           bloc.CartList.add(bloc.CartList.value);
-          checkSelectAll();
+          checkSelect();
         }
 
       },
@@ -747,13 +752,13 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                     flex: 2,
                     child: Container(
                       height: 7.0.h,
-                      color: checkSelectAll()
+                      color: checkSelect()
                           ? ThemeColor.ColorSale()
                           : Colors.grey,
                       child: FlatButton(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         onPressed: () {
-                          if (checkSelectAll()) {
+                          if (checkSelect()) {
                             List<CartData> data = List<CartData>();
                             for(var i=0;i<cartResponse.data.length;i++){
                               List<CartItems> item = List<CartItems>();
@@ -801,6 +806,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
         if (cartResponse.data[i].items[j].select) {
           sum += cartResponse.data[i].items[j].quantity *
               cartResponse.data[i].items[j].unitPrice;
+            //  cartResponse.data[i].items[j].inventory.offerPrice!=null?cartResponse.data[i].items[j].inventory.offerPrice:cartResponse.data[i].items[j].inventory.salePrice;
         } else
           sum += 0;
 
@@ -818,7 +824,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
     return sum;
   }
 
-  bool checkSelectAll() {
+  bool checkSelect() {
     int count = 0, item = 0;
     for(var value in bloc.CartList.value.data){
       for(var value1 in value.items){
@@ -828,7 +834,6 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
           if(value1.inventory.stockQuantity>0){
             count += 1;
           }
-
 
       }
     }
@@ -862,7 +867,6 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
     }
     cartResponse.selectAll = selectall;
     bloc.CartList.add(cartResponse);
-
   }
 
   Future<Null>  _refreshProducts() async{

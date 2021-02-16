@@ -141,11 +141,11 @@ class MenuViewModel {
 
   List<MenuModel> getRecommendmenu() {
     return [
-      MenuModel(
+     /* MenuModel(
           icon: 'assets/images/svg/menu_near.svg',
           iconSelected: 'assets/images/svg/menu_near.svg',
           label: LocaleKeys.recommend_near_me.tr(),
-          page: "ShopMyNear"),
+          page: "ShopMyNear"),*/
       MenuModel(
           icon: 'assets/images/svg/menu_market.svg',
           iconSelected: 'assets/images/svg/menu_market.svg',

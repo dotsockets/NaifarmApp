@@ -449,9 +449,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
                               AppRoute.ProductMore(
                                   context: context,
                                   api_link: "products/types/popular?categoryGroupId=${item.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id}",
-                                  barTxt: LocaleKeys
-                                      .recommend_product_for_you
-                                      .tr());
+                                  barTxt: LocaleKeys.recommend_you_like.tr()
+                              );
                             },
                             onTapItem: (ProductData item, int index) {
                               AppRoute.ProductDetail(context,
@@ -510,19 +509,19 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset('assets/images/svg/message.svg',color: ThemeColor.primaryColor(),width: 6.0.w,height: 6.0.w,),
+                      SvgPicture.asset('assets/images/svg/message.svg',color:Colors.grey.shade300,width: 6.0.w,height: 6.0.w,),
                       SizedBox(height: 1.0),
                       Text(
                         "Chat",
-                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),
+                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold,color: Colors.grey.shade300),
                       )
                     ],
                   ),
-                  onTap: () {
+                 /* onTap: () {
                     FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                    // Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
                     // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
-                  },
+                  },*/
                 )),
             Container(
               color: Colors.grey.withOpacity(0.4),

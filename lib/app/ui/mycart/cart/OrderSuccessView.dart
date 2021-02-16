@@ -48,58 +48,69 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
           child: Scaffold(
               backgroundColor: Colors.grey.shade300,
               key: _scaffoldKey,
-              appBar: AppToobar(
-                isEnable_Search: false,
-                title: "The order is complete",
-                header_type: Header_Type.barNormal,
-                icon: "",onClick: ()=> AppRoute.PoppageCount(context: context,countpage: 2),
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(6.5.h),
+                child: AppToobar(
+                  isEnable_Search: false,
+                  title: "รายละเอียดการสั่งซื้อ",
+
+                  header_type: Header_Type.barNormal,
+                  icon: "",onClick: ()=> AppRoute.PoppageCount(context: context,countpage: 2),
+                ),
               ),
-              body: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(bottom: 6.0.w,right: 3.0.w,left: 3.0.w,top: 2.4.w),
-                    width: MediaQuery.of(context).size.width,
-                    color: ThemeColor.primaryColor(),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                     //   SizedBox(height: 10,),
-                        // Text("Order details",
-                        //     style: FunctionHelper.FontTheme(
-                        //         fontSize: 16.0.sp,
-                        //         fontWeight: FontWeight.bold,
-                        //         color: Colors.black)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset('assets/images/svg/checkmark.svg',color: Colors.white,width: 25,height: 25,),
-                            SizedBox(width: 10,),
-                            Text("The order is complete.",
-                                style: FunctionHelper.FontTheme(
-                                    fontSize: (SizeUtil.titleFontSize()+2).sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white)),
-                          ],
-                        ),
-                        SizedBox(height: 1.5.h,),
-                        Text("Payment amount ฿${NumberFormat("#,##0.00", "en_US").format(int.parse(widget.payment_total))}",
-                            style: FunctionHelper.FontTheme(
-                                fontSize: (SizeUtil.titleFontSize()+2).sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black)),
-                        SizedBox(height: 1.0.h,), // Wed Jan 27 2021 22:28:51 GMT+0700  //${DateFormat.jms().format(DateTime.parse(widget.orderData.requirePaymentAt)
-                        Text("You have placed an order and must pay by the date ${DateFormat.yMMMMEEEEd().format(DateTime.parse(widget.orderData.requirePaymentAt))}",
-                            textAlign: TextAlign.center,
-                            style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black)),
-                      ],
+              body: WillPopScope(
+                onWillPop: ()async{
+                  AppRoute.PoppageCount(context: context,countpage: 2);
+                      return false;
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(bottom: 2.0.h,right: 3.0.w,left: 3.0.w,top: 3.0.h),
+                      width: MediaQuery.of(context).size.width,
+                      color: ThemeColor.primaryColor(),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                       //   SizedBox(height: 10,),
+                          // Text("Order details",
+                          //     style: FunctionHelper.FontTheme(
+                          //         fontSize: 16.0.sp,
+                          //         fontWeight: FontWeight.bold,
+                          //         color: Colors.black)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset('assets/images/svg/checkmark.svg',color: Colors.white,width: 6.0.w,height: 6.0.w,),
+                              SizedBox(width: 2.0.w,),
+                              Text("คำสั่งซื้อเสร็จสมบูรณ์",
+                                  style: FunctionHelper.FontTheme(
+                                      fontSize: (SizeUtil.titleFontSize()+2).sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white)),
+                            ],
+                          ),
+                          SizedBox(height: 2.0.h,),
+                          Text("ยอดชำระเงิน ฿${NumberFormat("#,##0.00", "en_US").format(int.parse(widget.payment_total))}",
+                              style: FunctionHelper.FontTheme(
+                                  fontSize: (SizeUtil.titleFontSize()+1.0).sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)),
+                          SizedBox(height: 2.0.h,), // Wed Jan 27 2021 22:28:51 GMT+0700  //${DateFormat.jms().format(DateTime.parse(widget.orderData.requirePaymentAt)
+                          //Text("You have placed an order and must pay by the date ${DateFormat.yMMMMEEEEd().format(DateTime.parse(widget.orderData.requirePaymentAt))}",
+                           Text("คุณได้ทำรายการสั่งซื้อสินค้าและต้องชำระเงิน\nภายในวันที่ ${DateFormat('dd-MM-yyyy H:m').format(DateTime.parse(widget.orderData.requirePaymentAt))}",
+                              textAlign: TextAlign.center,
+                              style: FunctionHelper.FontTheme(
+                                  fontSize: SizeUtil.titleSmallFontSize().sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black)),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10,),
-                  _buildBtnAddProduct()
-                ],
+                    SizedBox(height: 1.0.h,),
+                    _buildBtnAddProduct()
+                  ],
+                ),
               )
           )),
     );
@@ -112,7 +123,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
         children: [
           Container(
             width: 45.0.w,
-            height: 7.0.h,
+            height: 8.0.h,
             padding: EdgeInsets.all(10),
             child: FlatButton(
               color: ThemeColor.ColorSale(),
@@ -135,7 +146,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
           ),
           Container(
             width: 45.0.w,
-            height: 7.0.h,
+            height: 8.0.h,
             padding: EdgeInsets.all(10),
             child: FlatButton(
               color: ThemeColor.secondaryColor(),

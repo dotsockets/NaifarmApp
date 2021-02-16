@@ -116,12 +116,12 @@ class RecommendMenu extends StatelessWidget {
       ),
     onTap: () {
       switch(item.page){
-        case  "ShopMyNear" :{
+       /* case  "ShopMyNear" :{
     FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
-
         //  AppRoute.ShopMyNear(context);
         }
         break;
+        */
         case  "MarketView" :  AppRoute.ShopMain(context: context,myShopRespone: MyShopRespone(id: 1));
         break;
         case  "SpecialproductsView" : AppRoute.ProductMore(api_link: "products/types/discount",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr());
