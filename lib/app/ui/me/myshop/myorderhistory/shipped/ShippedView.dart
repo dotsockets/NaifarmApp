@@ -47,6 +47,13 @@ class _ShippedViewState extends State<ShippedView> {
       Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "3",limit: limit,page: 1,token: value.token));
 
     }
+    bloc.onLoad.stream.listen((event) {
+      if (event) {
+        FunctionHelper.showDialogProcess(context);
+      } else {
+        Navigator.of(context).pop();
+      }
+    });
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
           _scrollController.position.pixels <= 200) {
@@ -409,7 +416,12 @@ class _ShippedViewState extends State<ShippedView> {
       ),
       onPressed: () async {
         if(widget.typeView==OrderViewType.Shop){
-          AppRoute.ShippingOrder(context: context,orderData: item);
+         // AppRoute.ShippingOrder(context: context,orderData: item);
+          final result = await AppRoute.AddtTrackingNumber(context: context,orderData: item);
+          if(result){
+            bloc.orderList.clear();
+            Usermanager().getUser().then((value) => bloc.loadOrder(load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "3",limit: limit,page: 1,token: value.token));
+          }
         }else{
          // AppRoute.TransferPayMentView(context: context,orderData: item);
         }

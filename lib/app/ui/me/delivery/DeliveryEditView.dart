@@ -125,6 +125,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                             padding: EdgeInsets.only(right:3.0.w,left: 3.0.w,top:4.0.w,bottom: 4.0.w),
                             child: FlatButton(
                               minWidth: 50.0.w,
+                              height: 6.0.h,
                               color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
                               textColor: Colors.white,
                               disabledColor: Colors.grey,
@@ -163,6 +164,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
 
   Widget BuildItem()=> FlatButton(
     minWidth: 50.0.w,
+    height: 6.0.h,
     color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
     textColor: Colors.white,
     disabledColor: Colors.grey,

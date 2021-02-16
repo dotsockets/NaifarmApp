@@ -9,11 +9,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
+import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/config/Env.dart';
@@ -33,16 +36,46 @@ class OrderView extends StatefulWidget {
 class _OrderViewState extends State<OrderView> {
 
   OrdersBloc bloc;
-
+  ProductBloc Product_bloc;
+  bool onUpload = false;
   init() {
 
-    if (bloc == null) {
+    if (bloc == null && Product_bloc ==null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
+      Product_bloc = ProductBloc(AppProvider.getApplication(context));
       if(widget.orderData.orderStatusName!=null){
         bloc.OrderList.add(widget.orderData);
       }
 
     }
+    bloc.onLoad.stream.listen((event) {
+      if (event) {
+        FunctionHelper.showDialogProcess(context);
+      } else {
+        Navigator.of(context).pop();
+      }
+    });
+    bloc.onSuccess.stream.listen((event) {
+      onUpload = true;
+    });
+
+
+    Product_bloc.onLoad.stream.listen((event) {
+      if (event) {
+        FunctionHelper.showDialogProcess(context);
+      } else {
+        Navigator.of(context).pop();
+      }
+    });
+    Product_bloc.onSuccess.stream.listen((event) {
+      //onUpload = true;
+      if(event is CartResponse){
+        AppRoute.MyCart(context, true);
+        // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
+      }
+    });
+
+
     Usermanager().getUser().then((value) => bloc.GetOrderById(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",id: widget.orderData.id, token: value.token));
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
@@ -61,6 +94,9 @@ class _OrderViewState extends State<OrderView> {
               title: LocaleKeys.order_detail_title.tr(),
               header_type: Header_Type.barcartShop,
               icon: '',
+              onClick: (){
+                Navigator.pop(context,onUpload);
+              },
             ),
           ),
           body: StreamBuilder(
@@ -100,6 +136,10 @@ class _OrderViewState extends State<OrderView> {
 
                         widget.typeView==OrderViewType.Purchase && item.orderStatusId==3? _ButtonCancel(context: context,orderData: item,orderViewType: OrderViewType.Purchase):SizedBox(),
                         widget.typeView==OrderViewType.Purchase && item.orderStatusId==1? _ButtonCancel(context: context,orderData: item,orderViewType: OrderViewType.Purchase):SizedBox(),
+
+                        widget.typeView==OrderViewType.Purchase && item.orderStatusId==5? _ButtonAcceptProducts(context: context,orderData: item):SizedBox(),
+                        widget.typeView==OrderViewType.Purchase && item.orderStatusId==6? _ButtonSuccess(context: context,item: item):SizedBox(),
+
                       ],
                     ),
                   );
@@ -547,7 +587,10 @@ class _OrderViewState extends State<OrderView> {
                     Navigator.of(context).pop();
                   },onClick: (){
                     Navigator.of(context).pop();
-                    AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
+                    //AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
+                    Usermanager().getUser().then((value){
+                      bloc.OrderCancel(token: value.token,OrderId: orderData.id);
+                    });
                   });
 
 
@@ -566,6 +609,132 @@ class _OrderViewState extends State<OrderView> {
     );
 
 
+  }
+
+  Widget _ButtonAcceptProducts({BuildContext context,OrderData orderData}){
+
+    return Center(
+      child: Container(
+        padding: EdgeInsets.all(1.5.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(1.0.h),
+              child: FlatButton(
+                minWidth: 60.0.w,
+                height: 6.0.h,
+                color:  ThemeColor.secondaryColor() ,
+                textColor: Colors.white,
+                splashColor: Colors.white.withOpacity(0.3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+                onPressed: () {
+
+                  FunctionHelper.ConfirmDialog(context,message: "Have you accepted and inspected the product successfully?  ",onCancel: (){
+                    Navigator.of(context).pop();
+                  },onClick: (){
+                    Navigator.of(context).pop();
+                    Usermanager().getUser().then((value){
+                      bloc.GoodsReceived(OrderId: orderData.id,token: value.token);
+                    });
+                  //  AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
+                  });
+
+
+                },
+                child: Text(
+                  "Accept Products ",
+                  style: FunctionHelper.FontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    );
+
+
+  }
+
+
+
+  Widget _ButtonSuccess({BuildContext context,OrderData item}) {
+
+    return Container(
+      height: 8.0.h,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+            top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0),
+            bottom:
+            BorderSide(color: Colors.grey.withOpacity(0.4), width: 0)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+              child: InkWell(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset('assets/images/svg/star_entry.svg',width: 8.0.w,height: 8.0.w,),
+                    SizedBox(width: 2.0.w),
+                    Text(
+                      "Review",
+                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+                onTap: () {
+                  AppRoute.Review(context);
+                 // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+                  // Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
+                  // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+
+                },
+              )),
+          Container(
+            color: Colors.grey.withOpacity(0.4),
+            height: 8.0.h,
+            width: 1,
+          ),
+          Expanded(
+              flex: 2,
+              child: InkWell(
+                  onTap: () {
+                    List<Items> items = new List<Items>();
+                    for(var value in bloc.OrderList.value.items){
+                      items.add(Items(
+                          inventoryId: value.inventoryId,
+                          quantity: value.quantity));
+                    }
+
+
+                    Usermanager().getUser().then((value) => Product_bloc.AddCartlists(
+                        context: context,
+                        cartRequest: CartRequest(
+                          shopId: bloc.OrderList.value.shop.id,
+                          items: items,
+                        ),
+                        token: value.token));
+
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      height: 8.0.h,
+                      color: ThemeColor.ColorSale(),
+                      child: Text("Buy again ",
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)))
+              ))
+        ],
+      ),
+    );
   }
 
   Widget _ButtonShipping({BuildContext context,OrderData orderData}){

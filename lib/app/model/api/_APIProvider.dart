@@ -2112,5 +2112,76 @@ class _APIProvider implements APIProvider {
       return ServerError.DioErrorExpction(e);
     }
   }
+
+  @override
+  Future<ApiResult> AddTracking({String trackingId, String token,int OrderId}) async{
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "trackingId": trackingId,
+    };
+    try {
+      final _result = await _dio.request<dynamic>('/v1/order/${OrderId}/fulfill',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token": token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: true,
+          http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> GoodsReceived({String token, int OrderId}) async{
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+      final _result = await _dio.request<dynamic>('/v1/order/${OrderId}/goods-received',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token": token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: OrderData.fromJson(_result.data),
+          http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> OrderCancel({String token, int OrderId}) async{
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+      final _result = await _dio.request<dynamic>('/v1/order/${OrderId}/cancel',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token": token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: OrderData.fromJson(_result.data),
+          http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
 }
 

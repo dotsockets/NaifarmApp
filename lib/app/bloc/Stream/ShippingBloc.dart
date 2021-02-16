@@ -1,7 +1,11 @@
 
 import 'dart:async';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRequest.dart';
@@ -30,7 +34,7 @@ class ShippingBloc{
     _compositeSubscription.clear();
   }
 
-  loadShppingPage({String token}){
+  loadShppingPage({BuildContext context,String token}){
 
     StreamSubscription subscription = Observable.combineLatest2(
         Observable.fromFuture(_application.appStoreAPIRepository.GetCarriersList()),
@@ -40,6 +44,7 @@ class ShippingBloc{
       return ShppingOjectCombine(carriersRespone: _shppinglist,shppingMyShopRespone: _shppingmyshop);
 
     }).listen((event) {
+
       for(var item in event.carriersRespone.data){
         for(var value in event.shppingMyShopRespone.data[0].rates){
 
@@ -52,6 +57,7 @@ class ShippingBloc{
         }
       }
     //  print();
+
       ZipShppingOject.add(event);
     });
     _compositeSubscription.add(subscription);

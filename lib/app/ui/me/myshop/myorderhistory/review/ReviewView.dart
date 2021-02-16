@@ -22,23 +22,29 @@ class ReviewView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      appBar: AppToobar(
-        title: LocaleKeys.review_btn.tr(),
-        header_type: Header_Type.barNormal,
-        icon: '',
-      ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
+    return Container(
+      color: ThemeColor.primaryColor(),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.grey.shade300,
+          appBar: AppToobar(
+            title: LocaleKeys.review_btn.tr(),
+            header_type: Header_Type.barNormal,
+            isEnable_Search: false,
+            icon: '',
+          ),
+          body: Container(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
 
-              _Header(item: ProductViewModel().getHistorySuccess()[0],index: 0,context: context),
-              SizedBox(height: 2.0.w,),
-              _BuildForm(context),
-              _buildBtnSend()
-            ],
+                  _Header(item: ProductViewModel().getHistorySuccess()[0],index: 0,context: context),
+                  SizedBox(height: 2.0.w,),
+                  _BuildForm(context),
+                  _buildBtnSend()
+                ],
+              ),
+            ),
           ),
         ),
       ),

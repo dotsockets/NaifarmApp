@@ -14,6 +14,8 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -39,11 +41,29 @@ class _SuccessViewState extends State<SuccessView> {
   int limit = 10;
   bool step_page = false;
 
+  ProductBloc Product_bloc;
+
   init() {
-    if(bloc==null){
+    if(bloc==null && Product_bloc == null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
+      Product_bloc = ProductBloc(AppProvider.getApplication(context));
       Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "6",limit: limit,page: 1,token: value.token));
     }
+
+    Product_bloc.onLoad.stream.listen((event) {
+      if (event) {
+        FunctionHelper.showDialogProcess(context);
+      } else {
+        Navigator.of(context).pop();
+      }
+    });
+    Product_bloc.onSuccess.stream.listen((event) {
+      //onUpload = true;
+      if(event is CartResponse){
+        AppRoute.MyCart(context, true);
+        // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
+      }
+    });
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
           _scrollController.position.pixels <= 200) {
@@ -311,14 +331,14 @@ class _SuccessViewState extends State<SuccessView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.typeView=="purchase"? "ชำระเงินภายใน" +
+                    widget.typeView==OrderViewType.Purchase? "Date of purchase " +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
                   ),
-                  _BuildButtonBayItem(btnTxt: widget.typeView=="shop"?"Confirm payment":"Payment",item: item)
+                  widget.typeView == OrderViewType.Purchase? _BuildButtonBayItem(btnTxt: "Buy again",item: item):SizedBox()
                 ],
               )
             ],
@@ -402,14 +422,24 @@ class _SuccessViewState extends State<SuccessView> {
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () async {
-        if(widget.typeView=="shop"){
-          final result = await AppRoute.ConfirmPayment(context: context,orderData: item);
-          if(result){
-            Usermanager().getUser().then((value) =>
-                bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1", limit: 20, page: 1, token: value.token));
+        if(widget.typeView==OrderViewType.Purchase){
+          List<Items> items = new List<Items>();
+          for(var value in item.items){
+            items.add(Items(
+                inventoryId: value.inventoryId,
+                quantity: value.quantity));
           }
+
+          Usermanager().getUser().then((value) => Product_bloc.AddCartlists(
+              context: context,
+              cartRequest: CartRequest(
+                shopId: item.shop.id,
+                items: items,
+              ),
+              token: value.token));
+
         }else{
-          AppRoute.TransferPayMentView(context: context,orderData: item);
+         // AppRoute.TransferPayMentView(context: context,orderData: item);
         }
 
       },

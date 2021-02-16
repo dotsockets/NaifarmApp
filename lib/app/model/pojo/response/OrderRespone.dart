@@ -56,7 +56,7 @@ class OrderData {
   String shippingAddressPhone;
   String shippingDate;
   String deliveryDate;
-  int trackingId;
+  String trackingId;
   int couponId;
   int carrierId;
   Carrier carrier;

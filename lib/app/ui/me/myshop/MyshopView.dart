@@ -12,11 +12,13 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/ui/me/widget/TabMenu.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:naifarm/utility/widgets/ExpandedSection.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
@@ -83,14 +85,14 @@ class _MyshopViewState extends State<MyshopView> {
         builder: (_, item) {
           if(item is InfoCustomerLoaded){
             if(item.profileObjectCombine.myShopRespone!=null){
-              return _BuildMyShop(context,item: item.profileObjectCombine.myShopRespone);
+              return _BuildMyShop(context,item: item.profileObjectCombine.myShopRespone,shpping: item.profileObjectCombine.shppingMyShopRespone);
             }else{
               return _BuildRegisterMyshop(context);
             }
 
           }else if(item is InfoCustomerLoading){
 
-            return _BuildMyShop(context,item: MyShopRespone(image: item.profileObjectCombine.myShopRespone.image,name: "กำลังโหลด",active: 0));
+            return _BuildMyShop(context,item: MyShopRespone(image: item.profileObjectCombine.myShopRespone.image,name: "กำลังโหลด",active: 0),shpping: item.profileObjectCombine.shppingMyShopRespone);
           }else{
             return  SizedBox();
           }
@@ -148,11 +150,38 @@ class _MyshopViewState extends State<MyshopView> {
     );
   }
 
-  Widget _BuildMyShop(BuildContext context,{MyShopRespone item}){
+  Widget _BuildMyShop(BuildContext context,{MyShopRespone item,ShppingMyShopRespone shpping}){
     return Container(
       color: Colors.grey.shade200,
       child: Column(
         children: [
+          SizedBox(height: 0.2.h,),
+        ExpandedSection(
+        expand: shpping.data[0].rates.length==0?true:false,
+        child: Container(
+          padding: EdgeInsets.all(2.0.w),
+          color: ThemeColor.Warning(),
+          child: Row(
+            children: [
+              Icon(Icons.error,color: ThemeColor.ColorSale(),),
+              SizedBox(width: 2.0.w,),
+              Expanded(child:
+              Text("Alway protect yourself by completing your transactions within Naifarm.",
+                  style: FunctionHelper.FontTheme(
+                      color: ThemeColor.ColorSale(),
+                      fontSize:
+                      SizeUtil.titleSmallFontSize()
+                          .sp))),
+              IconButton(icon: Icon(Icons.clear,color: Colors.black.withOpacity(0.3),), onPressed: (){
+                // setState(() {
+                //   warning = false;
+                // });
+              })
+            ],
+          ),
+        ),
+      ),
+
           BlocBuilder<CustomerCountBloc, CustomerCountState>(
             builder: (_, count) {
               if(count is CustomerCountLoaded){
@@ -189,7 +218,14 @@ class _MyshopViewState extends State<MyshopView> {
             icon: 'assets/images/svg/editprofile.svg',
             title: LocaleKeys.me_title_my_product.tr(),
             onClick: () {
-              AppRoute.MyProduct(context,item.id);
+              if(shpping.data[0].rates.length==0){
+                FunctionHelper.NaiFarmDialog(context: context,message: "Please complete the shop information. Before handling products ",onClick: (){
+                  Navigator.of(context).pop();
+                });
+              }else{
+                AppRoute.MyProduct(context,item.id);
+              }
+
             },
           )
               : SizedBox(),
@@ -239,7 +275,7 @@ class _MyshopViewState extends State<MyshopView> {
             },
           ),
           SizedBox(height: 3.5.h),
-          _buildBtnAddProduct(context)
+          _buildBtnAddProduct(context,shpping)
         ],
       ),
     );
@@ -281,7 +317,7 @@ class _MyshopViewState extends State<MyshopView> {
     );
   }
 
-  Widget _buildBtnAddProduct(BuildContext context) {
+  Widget _buildBtnAddProduct(BuildContext context,ShppingMyShopRespone shpping) {
     return Container(
       width: 60.0.w,
       height: 5.5.h,
@@ -293,7 +329,15 @@ class _MyshopViewState extends State<MyshopView> {
           borderRadius: BorderRadius.circular(40.0),
         ),
         onPressed: () {
-          AppRoute.ImageProduct(context,isactive: IsActive.NewProduct );
+          if(shpping.data[0].rates.length==0){
+            FunctionHelper.NaiFarmDialog(context: context,message: "Please complete the shop information. Before handling products ",onClick: (){
+              Navigator.of(context).pop();
+            });
+          }else{
+            AppRoute.ImageProduct(context,isactive: IsActive.NewProduct );
+          }
+
+
         },
         child: Text(
           LocaleKeys.add_product_btn.tr(),

@@ -55,7 +55,7 @@ class _BuildEditTextState extends State<BuildEditText> {
             margin: EdgeInsets.only(top: 1.0.h),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(widget.borderRadius),
-                border: Border.all(color: widget.controller!=null && widget.inputType == TextInputType.text ?widget.controller.text.length<widget.maxLength?Colors.black.withOpacity(widget.BorderOpacity):Colors.redAccent:Colors.black.withOpacity(widget.BorderOpacity))),
+                border: Border.all(color: widget.controller!=null && widget.inputType == TextInputType.text ?widget.controller.text.length>widget.maxLength ?Colors.red:Colors.black.withOpacity(widget.BorderOpacity):Colors.black.withOpacity(widget.BorderOpacity))),
             child: TextFormField(
               obscureText:widget.IsPassword,
               keyboardType: widget.inputType,
@@ -88,7 +88,7 @@ class _BuildEditTextState extends State<BuildEditText> {
             ),
           ),
           widget.onError!=""? SizedBox(height: 10,):SizedBox(),
-          widget.onError!=""?Text(widget.onError,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.grey.shade700),):SizedBox()
+          widget.onError!=""?Text(widget.onError,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.red),):SizedBox()
         ],
       ),
     );

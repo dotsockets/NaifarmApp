@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ShippingBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -15,6 +16,8 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:sizer/sizer.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DeliveryView extends StatefulWidget {
   @override
@@ -31,6 +34,9 @@ class _DeliveryViewState extends State<DeliveryView> {
       bloc = ShippingBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
 
+      });
+      bloc.ZipShppingOject.stream.listen((event) {
+        Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
       });
       Usermanager().getUser().then((value) => bloc.loadShppingPage(token: value.token));
     }
@@ -96,7 +102,7 @@ Widget _BuildDelivery({String nameDeli,CarriersData item}){
           children: [Text(nameDeli,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w600)),
             Row(
               children: [
-                Text(item.active?"เลือกใช้":"",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.red.shade600,fontWeight: FontWeight.w600)),
+                Text(item.active!=null?item.active?"เลือกใช้":"":"",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.red.shade600,fontWeight: FontWeight.w600)),
                 SizedBox(width: 10,),
                 Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,size: 4.3.w,)
               ],

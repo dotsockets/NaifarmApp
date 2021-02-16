@@ -338,6 +338,17 @@ abstract class APIProvider{
 
   @POST("/v1/customers/check-phone")
   Future<ApiResult> checkPhone({String phone});
+
+  @POST("/v1/order/298/fulfill")
+  Future<ApiResult> AddTracking({String trackingId, String token,int OrderId});
+
+  @PATCH("/v1/order/298/goods-received")
+  Future<ApiResult> GoodsReceived({String token,int OrderId});
+
+  @PATCH("/v1/order/298/cancel")
+  Future<ApiResult> OrderCancel({String token,int OrderId});
+
+
 }
 
 

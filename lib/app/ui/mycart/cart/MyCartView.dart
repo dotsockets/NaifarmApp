@@ -70,7 +70,6 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
       });
       bloc.CartList.stream.listen((event) {
-        print("sefcesrwcf ${widget.cart_nowId}");
         if(event is CartResponse){
 
           if(widget.cart_nowId>0){
@@ -91,6 +90,9 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
       });
       bloc.onSuccess.stream.listen((event) {
         //  cartReq = event;
+        if(event is bool){
+          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+        }
       });
 
       Usermanager().getUser().then((value){
@@ -584,7 +586,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
           ),
           item.items[indexShopItem].inventory.stockQuantity==0?Container(
             color: Colors.white.withOpacity(0.7),
-            height: 12.0.h,
+            height: 10.0.h,
             child: Center(
               child: Container(
                 width: 25.0.w,

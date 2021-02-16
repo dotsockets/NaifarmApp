@@ -389,6 +389,23 @@ class APIRepository{
     return _apiProvider.checkPhone(phone: phone);
   }
 
+  Future<ApiResult> AddTracking({String trackingId, String token,int OrderId}){
+    return _apiProvider.AddTracking(trackingId: trackingId,token:  token,OrderId: OrderId);
+  }
+
+  Future<ApiResult> GoodsReceived({ String token,int OrderId}){
+    return _apiProvider.GoodsReceived(token:  token,OrderId: OrderId);
+  }
+
+
+  Future<ApiResult> OrderCancel({ String token,int OrderId}){
+    return _apiProvider.OrderCancel(token:  token,OrderId: OrderId);
+  }
+
+
+
+
+
 
 //  Observable<List<AppContent>> getTop100FreeApp(){
 //    return Observable.fromFuture(_apiProvider.getTopFreeApp(TOP_100))

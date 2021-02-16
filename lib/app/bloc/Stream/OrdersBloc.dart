@@ -80,6 +80,51 @@ class OrdersBloc{
     _compositeSubscription.add(subscription);
   }
 
+  AddTracking({String trackingId, String token,int OrderId}){
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.AddTracking(trackingId: trackingId,token: token,OrderId: OrderId)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        onSuccess.add(true);
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  GoodsReceived({ String token,int OrderId}){
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.GoodsReceived(token: token,OrderId: OrderId)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        onSuccess.add(true);
+        OrderList.add((respone.respone as OrderData));
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  OrderCancel({ String token,int OrderId}){
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.OrderCancel(token: token,OrderId: OrderId)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        onSuccess.add(true);
+        OrderList.add((respone.respone as OrderData));
+      }else{
+        onError.add(respone.http_call_back.result.error.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
 }
+
+
 
 enum OrderViewType { Shop,Purchase}

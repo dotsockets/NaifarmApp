@@ -1,18 +1,21 @@
 
 import 'CustomerInfoRespone.dart';
 import 'MyShopRespone.dart';
+import 'ShppingMyShopRespone.dart';
 
 class ProfileObjectCombine{
    CustomerInfoRespone customerInfoRespone;
    MyShopRespone myShopRespone;
+    ShppingMyShopRespone shppingMyShopRespone;
 
-  ProfileObjectCombine({this.customerInfoRespone, this.myShopRespone});
+  ProfileObjectCombine({this.customerInfoRespone, this.myShopRespone,this.shppingMyShopRespone});
 
 
   ProfileObjectCombine.fromJson(Map<String, dynamic> json) {
 
     customerInfoRespone = json['customerInfoRespone'] != null ? new CustomerInfoRespone.fromJson(json['customerInfoRespone']) : null;
     myShopRespone = json['myShopRespone'] != null ? new MyShopRespone.fromJson(json['myShopRespone']) : null;
+    shppingMyShopRespone = json['shppingMyShopRespone'] != null ? new ShppingMyShopRespone.fromJson(json['shppingMyShopRespone']) : null;
 
   }
 
@@ -25,6 +28,10 @@ class ProfileObjectCombine{
 
     if (this.myShopRespone != null) {
       data['myShopRespone'] = this.myShopRespone.toJson();
+    }
+
+    if (this.shppingMyShopRespone != null) {
+      data['shppingMyShopRespone'] = this.shppingMyShopRespone.toJson();
     }
 
     return data;

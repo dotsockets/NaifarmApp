@@ -304,6 +304,47 @@ class FunctionHelper {
     ));
   }
 
+  static NaiFarmDialog({BuildContext context, Function() onClick,String message}) {
+    showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    padding: EdgeInsets.all(20),
+                    child: Center(
+                        child: Text(message,
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
+                          textAlign: TextAlign.center,
+                        ))),
+                Container(
+                  height: 1,
+                  color: Colors.grey.shade300,
+                ),
+                Row(
+                  children: [
+                    Expanded(child: Container(
+                      padding: EdgeInsets.all(1.5.h),
+                      child: GestureDetector(
+                          child: Text(LocaleKeys.ok_btn.tr(),
+                              textAlign: TextAlign.center,
+                              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor())),
+                          onTap: () => onClick()),
+                    ))
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   static ConfirmDialog(BuildContext context,
       {Function() onCancel, Function() onClick,String message}) {
     showDialog<bool>(

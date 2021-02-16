@@ -194,31 +194,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       color: Colors.white,
       child: Column(
         children: [
-          ExpandedSection(
-            expand: warning,
-            child: Container(
-              padding: EdgeInsets.all(2.0.w),
-              color: ThemeColor.Warning(),
-              child: Row(
-                children: [
-                  Icon(Icons.error,color: ThemeColor.ColorSale(),),
-                  SizedBox(width: 2.0.w,),
-                  Expanded(child:
-                  Text("Alway protect yourself by completing your transactions within Naifarm.",
-                      style: FunctionHelper.FontTheme(
-                          color: ThemeColor.ColorSale(),
-                          fontSize:
-                          SizeUtil.titleSmallFontSize()
-                              .sp))),
-                  IconButton(icon: Icon(Icons.clear,color: Colors.black.withOpacity(0.3),), onPressed: (){
-                    setState(() {
-                      warning = false;
-                    });
-                  })
-                ],
-              ),
-            ),
-          ),
+
           SizedBox(height: 1.5.h,),
           Column(
 

@@ -204,89 +204,104 @@ class _MeViewState extends State<MeView> with RouteAware {
         ),
         SliverList(
           delegate: SliverChildListDelegate(<Widget>[
-            Container(
-              height: 180.0.w,
-              color: Colors.white,
-              child: DefaultTabController(
-                length: 2,
+            BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+              builder: (_, item) {
+                if (item is InfoCustomerLoaded) {
+                  return BodyContent(wigitHight: item.profileObjectCombine.shppingMyShopRespone.data[0].rates.length==0?100.0.h:90.0.h);
+                } else if (item is InfoCustomerLoading) {
+                  return BodyContent(wigitHight: 80.0.h);
+                } else {
+                  return SizedBox();
+                }
+              },
+            )
+
+          ]),
+        )
+      ],
+    );
+  }
+
+  Widget BodyContent({double wigitHight}){
+    return Container(
+      height: wigitHight,
+      color: Colors.white,
+      child: DefaultTabController(
+        length: 2,
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              // BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
+              //   builder: (_, count) {
+              //     return Center(
+              //       child: Text('${count.like}', style: Theme.of(context).textTheme.headline1),
+              //     );
+              //   },
+              // ),
+              SizedBox(
+                height: 7.0.h,
                 child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      // BlocBuilder<CustomerCountBloc, CustomerCountRespone>(
-                      //   builder: (_, count) {
-                      //     return Center(
-                      //       child: Text('${count.like}', style: Theme.of(context).textTheme.headline1),
-                      //     );
-                      //   },
-                      // ),
-                      SizedBox(
-                        height: 7.0.h,
-                        child: Container(
-                          // color: ThemeColor.psrimaryColor(context),
-                          child: TabBar(
-                            indicatorColor: ThemeColor.ColorSale(),
-                            /* indicator: MD2Indicator(
+                  // color: ThemeColor.psrimaryColor(context),
+                  child: TabBar(
+                    indicatorColor: ThemeColor.ColorSale(),
+                    /* indicator: MD2Indicator(
                                   indicatorSize: MD2IndicatorSize.tiny,
                                   indicatorHeight: 5.0,
                                   indicatorColor: ThemeColor.ColorSale(),
                                 ),*/
-                            isScrollable: false,
-                            tabs: [
-                              _tabbar(
-                                  title: LocaleKeys.me_tab_buy.tr(),
-                                  message: false),
-                              _tabbar(
-                                  title: LocaleKeys.me_tab_shop.tr(),
-                                  message: false)
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      // create widgets for each tab bar here
-                      Expanded(
-                        child: TabBarView(
-                          children: [
-                            PurchaseView(
-                              IsLogin: IsLogin,
-                              onStatus: (bool status) {
-                                if (status) {
-                                  if (status) {
-                                    _reload.add(true);
-                                    IsLogin = false;
-                                  }
-                                }
-                              },
-                            ),
-                            MyshopView(
-                              IsLogin: IsLogin,
-                              scaffoldKey: _scaffoldKey,
-                              onStatus: (bool status) {
-                                if (status) {
-                                  Future.delayed(
-                                      const Duration(milliseconds: 500), () {
-                                    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-                                    Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
-                                  });
-                                  // Usermanager()
-                                  //     .getUser()
-                                  //     .then((value) =>
-                                  //     bloc.loadMyProfile(
-                                  //         token: value.token));
-                                }
-                              },
-                            )
-                          ],
-                        ),
-                      ),
+                    isScrollable: false,
+                    tabs: [
+                      _tabbar(
+                          title: LocaleKeys.me_tab_buy.tr(),
+                          message: false),
+                      _tabbar(
+                          title: LocaleKeys.me_tab_shop.tr(),
+                          message: false)
                     ],
                   ),
                 ),
               ),
-            )
-          ]),
-        )
-      ],
+
+              // create widgets for each tab bar here
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    PurchaseView(
+                      IsLogin: IsLogin,
+                      onStatus: (bool status) {
+                        if (status) {
+                          if (status) {
+                            _reload.add(true);
+                            IsLogin = false;
+                          }
+                        }
+                      },
+                    ),
+                    MyshopView(
+                      IsLogin: IsLogin,
+                      scaffoldKey: _scaffoldKey,
+                      onStatus: (bool status) {
+                        if (status) {
+                          Future.delayed(
+                              const Duration(milliseconds: 500), () {
+                            Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+                            Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
+                          });
+                          // Usermanager()
+                          //     .getUser()
+                          //     .then((value) =>
+                          //     bloc.loadMyProfile(
+                          //         token: value.token));
+                        }
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

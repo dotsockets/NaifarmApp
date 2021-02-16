@@ -50,6 +50,13 @@ class _DeliveryViewState extends State<DeliveryView> {
           page: 1,
           token: value.token));
     }
+    bloc.onLoad.stream.listen((event) {
+      if (event) {
+        FunctionHelper.showDialogProcess(context);
+      } else {
+        Navigator.of(context).pop();
+      }
+    });
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=
@@ -340,21 +347,20 @@ class _DeliveryViewState extends State<DeliveryView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  Expanded(flex: 3,child: Text(
                     widget.typeView == OrderViewType.Purchase
-                        ? "ชำระเงินภายใน" +
-                            "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
-                        : LocaleKeys.history_order_time.tr() +
-                            "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
+                        ? "ยืนยันการรับสินค้าภายในวันที่" +
+                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
+                        :"รอผู้ซื้อยืนยันการยอมรับสินค้าภายใน" +
+                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
-                  ),
-                  _BuildButtonBayItem(
-                      btnTxt: widget.typeView == OrderViewType.Shop
-                          ? "Confirm payment"
-                          : "Payment",
-                      item: item)
+                  )),
+                 SizedBox(width: 3.0.w,),
+                 Expanded(flex: 2,child:  widget.typeView == OrderViewType.Purchase? _BuildButtonBayItem(
+                     btnTxt: "accept products",
+                     item: item):SizedBox())
                 ],
               )
             ],
@@ -435,36 +441,53 @@ class _DeliveryViewState extends State<DeliveryView> {
   }
 
   Widget _BuildButtonBayItem({String btnTxt, OrderData item}) {
-    return FlatButton(
-      color: ThemeColor.ColorSale(),
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
-      ),
-      onPressed: () async {
-        if (widget.typeView == "shop") {
-          final result =
-              await AppRoute.ConfirmPayment(context: context, orderData: item);
-          if (result) {
-            Usermanager().getUser().then((value) => bloc.loadOrder(
-                orderType: widget.typeView == OrderViewType.Shop
-                    ? "myshop/orders"
-                    : "order",
-                statusId: "1",
-                limit: 20,
-                page: 1,
-                token: value.token));
+    return Container(
+      child: FlatButton(
+        color: ThemeColor.ColorSale(),
+        textColor: Colors.white,
+        splashColor: Colors.white.withOpacity(0.3),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(40.0),
+        ),
+        onPressed: () async {
+          if (widget.typeView == OrderViewType.Shop) {
+            // final result =
+            //     await AppRoute.ConfirmPayment(context: context, orderData: item);
+            // if (result) {
+            //   Usermanager().getUser().then((value) => bloc.loadOrder(
+            //       orderType: widget.typeView == OrderViewType.Shop
+            //           ? "myshop/orders"
+            //           : "order",
+            //       statusId: "1",
+            //       limit: 20,
+            //       page: 1,
+            //       token: value.token));
+           // }
+          } else {
+            if(item.items[0].inventory!=null) {
+              final result = await AppRoute.OrderDetail(context,
+                orderData: item, typeView: widget.typeView);
+              if(result){
+                bloc.orderList.clear();
+                Usermanager().getUser().then((value) => bloc.loadOrder(load: true,
+                    orderType:
+                    widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+                    statusId: '4,5',
+                    limit: limit,
+                    page: 1,
+                    token: value.token));
+              }
+            }
+
+
           }
-        } else {
-          AppRoute.TransferPayMentView(context: context, orderData: item);
-        }
-      },
-      child: Text(
-        btnTxt,
-        style: FunctionHelper.FontTheme(
-            fontSize: SizeUtil.titleSmallFontSize().sp,
-            fontWeight: FontWeight.w500),
+        },
+        child: Text(
+          btnTxt,
+          style: FunctionHelper.FontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp,
+              fontWeight: FontWeight.w500),
+        ),
       ),
     );
   }
