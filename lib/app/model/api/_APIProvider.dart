@@ -66,17 +66,17 @@ class _APIProvider implements APIProvider {
 
 
   @override
-  Future<ApiResult> CustomersLoginSocial(LoginRequest loginRequest) async {
+  Future<ApiResult> CustomersLoginSocial(LoginRequest loginRequest,String provider) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
-      "username": loginRequest.username,
-      "phone": loginRequest.phone,
-      "password": loginRequest.password
+      "email": loginRequest.email,
+      "accessToken": loginRequest.accessToken,
+      "name": loginRequest.name
     };
 
     try {
-      final _result = await _dio.request<dynamic>('/v1/customers/login-social',
+      final _result = await _dio.request<dynamic>('/v1/customers/login-social/${provider}',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',

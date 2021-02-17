@@ -55,12 +55,12 @@ class MemberBloc{
 
       var item = (respone.respone as LoginRespone);
       if(respone.http_call_back.status==200){
+
         context.read<CustomerCountBloc>().loadCustomerCount(token: item.token);
         context.read<InfoCustomerBloc>().loadCustomInfo(token: item.token);
-        Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email)).then((value){
-          onLoad.add(false);
-          onSuccess.add(item);
-        });
+        Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email));
+        onLoad.add(false);
+        onSuccess.add(item);
       }else{
         onLoad.add(false);
         onError.add(respone.http_call_back.result.error.message);
@@ -70,21 +70,24 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
-  CustomersLoginSocial({BuildContext context,Fb_Profile loginRequest}) async{
+  CustomersLoginSocial({BuildContext context,Fb_Profile loginRequest,String provider}) async{
     onLoad.add(true);
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.CustomersLoginSocial(loginRequest: LoginRequest(name: loginRequest.name,email: loginRequest.email,accessToken: loginRequest.token))).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.CustomersLoginSocial(loginRequest: LoginRequest(name: loginRequest.name,email: loginRequest.email,accessToken: loginRequest.token),provider: provider)).listen((respone) {
 
       var item = (respone.respone as LoginRespone);
       if(respone.http_call_back.status==200){
         context.read<CustomerCountBloc>().loadCustomerCount(token: item.token);
         context.read<InfoCustomerBloc>().loadCustomInfo(token: item.token);
         Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email)).then((value){
-          onLoad.add(false);
-          onSuccess.add(item);
+          Future.delayed(const Duration(milliseconds: 3000), () {
+            onLoad.add(false);
+            onSuccess.add(item);
+
+          });
+
         });
       }else{
-        onLoad.add(false);
         onError.add(respone.http_call_back.result.error.message);
       }
 
@@ -108,7 +111,7 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
-  getFBProfile({String accessToken}){
+  getFBProfile({BuildContext context,String accessToken}){
 
     onLoad.add(true);
     StreamSubscription subscription =
@@ -117,7 +120,9 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
         var item = (respone.respone as Fb_Profile);
         item.token = accessToken;
-        CheckEmail(fb_profile: item);
+
+        CustomersLoginSocial(context: context,loginRequest: item,provider: "facebook");
+        //CheckEmail(fb_profile: item);
         //onSuccess.add(true);
       }else{
         onLoad.add(false);
@@ -128,7 +133,7 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
-  LoginFacebook() async{
+  LoginFacebook({BuildContext context}) async{
     onLoad.add(true);
     final FacebookLogin facebookSignIn = new FacebookLogin();
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
@@ -137,7 +142,7 @@ class MemberBloc{
         onLoad.add(false);
         //  {"name":"Apisit Kaewsasan","first_name":"Apisit","last_name":"Kaewsasan","email":"apisitkaewsasan\u0040hotmail.com","id":"3899261036761384"}
         final FacebookAccessToken accessToken = result.accessToken;
-        getFBProfile(accessToken: accessToken.token);
+        getFBProfile(context: context,accessToken: accessToken.token);
         break;
       case FacebookLoginStatus.cancelledByUser:
         onLoad.add(false);

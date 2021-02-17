@@ -207,7 +207,12 @@ class _MeViewState extends State<MeView> with RouteAware {
             BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
               builder: (_, item) {
                 if (item is InfoCustomerLoaded) {
-                  return BodyContent(wigitHight: item.profileObjectCombine.shppingMyShopRespone.data[0].rates.length==0?100.0.h:90.0.h);
+                  if( item.profileObjectCombine.shppingMyShopRespone.data.isNotEmpty){
+                    return BodyContent(wigitHight: item.profileObjectCombine.shppingMyShopRespone.data[0].rates.length==0?100.0.h:90.0.h);
+                  }else{
+                    return BodyContent(wigitHight: 80.0.h);
+                  }
+
                 } else if (item is InfoCustomerLoading) {
                   return BodyContent(wigitHight: 80.0.h);
                 } else {

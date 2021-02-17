@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -16,6 +17,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/NotificationCombine.dart';
+import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/app/ui/noti/notidetail/NotiCus.dart';
@@ -52,17 +54,14 @@ class _NotiViewState extends State<NotiView>
   NotiBloc bloc;
   final _reload = BehaviorSubject<bool>();
   bool fixload = true;
-  @override
-  void initState() {
-    _tabController = TabController(length: 2, vsync: this);
-    super.initState();
 
-  }
 
   init() {
     ISLogin();
     if (bloc == null) {
       bloc = NotiBloc(AppProvider.getApplication(context));
+
+
 
     }
     Usermanager().getUser().then((value) {
@@ -70,11 +69,9 @@ class _NotiViewState extends State<NotiView>
         NaiFarmLocalStorage.getNowPage().then((data){
           if(data == 2){
             NaiFarmLocalStorage.saveNowPage(0);
-            _reload.add(true);
+            //_reload.add(true);
 
-              bloc.MarkAsReadNotifications(token: value.token,context: context);
-
-
+            bloc.MarkAsReadNotifications(token: value.token,context: context);
           }
         });
       }
@@ -94,91 +91,112 @@ class _NotiViewState extends State<NotiView>
   @override
   Widget build(BuildContext context) {
     init();
+    return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+      builder: (_, count) {
+        if(count is InfoCustomerLoaded){
+          if(count.profileObjectCombine.myShopRespone!=null){
+            return  DefaultTabController(length: 2,child: _content(profileObjectCombine: count.profileObjectCombine));
+          }else{
+            //_tabController = TabController(length: 1, vsync: this);
+            return  DefaultTabController(length: 1,child: _content(profileObjectCombine: count.profileObjectCombine));
+          }
+
+        }else{
+          return LoginView(
+            IsHeader: false,
+            homeCallBack: (bool fix) {
+
+              // Usermanager().getUser().then((value){
+              //
+              //   bloc.MarkAsReadNotifications(token: value.token);
+              //   //_reload.add(true);
+              // });
+            },
+          );
+        }
+
+      },
+    );
+  }
+
+  Widget _content({ProfileObjectCombine profileObjectCombine}){
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         bottom: false,
         child: Scaffold(
-            key: _scaffoldKey,
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(6.5.h),
-              child: AppToobar(
-                showBackBtn: widget.btnBack,
-                header_type: Header_Type.barcartShop,
-                icon: 'assets/images/svg/cart_top.svg',
-                title: LocaleKeys.recommend_notification
-                    .tr(),
-                onClick: (){
-                  NaiFarmLocalStorage.saveNowPage(0);
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
-            backgroundColor: Colors.white,
-            body: IsLogin?StreamBuilder(
-                stream: _reload.stream,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          color: Colors.white,
-                          child: TabBar(
-                            controller: _tabController,
-                            indicator: MD2Indicator(
-                              indicatorSize: MD2IndicatorSize.normal,
-                              indicatorHeight: 0.5.h,
-                              indicatorColor: ThemeColor.ColorSale(),
-                            ),
-                            tabs: [
-                              // first tab [you can add an icon using the icon property]
-                              Tab(
-                                child: Text('Buyer notification',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
-                              ),
-
-                              // second tab [you can add an icon using the icon property]
-                              Tab(
-                                child: Text('Seller notification',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
-                              ),
-                            ],
-                          ),
-                        ),
-                        // tab bar view here
-
-                        Expanded(
-                          child: Container(
-                              color: Colors.transparent,
-                              child: TabBarView(
-                                controller: _tabController,
-                                children: [
-                                  // first tab bar view widget
-                                  NotiCus(
-                                    scaffoldKey: _scaffoldKey,
-                                  ),
-
-                                  // second tab bar view widget
-                                  NotiShop(
-                                    scaffoldKey: _scaffoldKey,
-                                  ),
-                                ],
-                              )
-                          ),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return SizedBox();
-                  }
-                }): LoginView(
-              IsHeader: false,
-              homeCallBack: (bool fix) {
-                Usermanager().getUser().then((value){
-                  bloc.MarkAsReadNotifications(token: value.token);
-                  _reload.add(true);
-                });
+          key: _scaffoldKey,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              showBackBtn: widget.btnBack,
+              header_type: Header_Type.barcartShop,
+              icon: 'assets/images/svg/cart_top.svg',
+              title: LocaleKeys.recommend_notification
+                  .tr(),
+              onClick: (){
+                NaiFarmLocalStorage.saveNowPage(0);
+                Navigator.of(context).pop();
               },
-            )),
+            ),
+          ),
+          backgroundColor: Colors.white,
+          body: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: Colors.white,
+                child: TabBar(
+                  controller: _tabController,
+                  indicator: MD2Indicator(
+                    indicatorSize: MD2IndicatorSize.normal,
+                    indicatorHeight: 0.5.h,
+                    indicatorColor: ThemeColor.ColorSale(),
+                  ),
+                  tabs: profileObjectCombine.myShopRespone!=null?[
+                    // first tab [you can add an icon using the icon property]
+                    Tab(
+                      child: Text('Buyer notification',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
+                    ),
+
+                    // second tab [you can add an icon using the icon property]
+                    Tab(
+                      child: Text('Seller notification',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
+                    )
+                  ]:[
+                    Tab(
+                      child: Text('Buyer notification',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
+                    ),
+                  ],
+                ),
+              ),
+              // tab bar view here
+
+              Expanded(
+                child: Container(
+                    color: Colors.transparent,
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: profileObjectCombine.myShopRespone!=null?[
+                        // first tab bar view widget
+                        NotiCus(
+                          scaffoldKey: _scaffoldKey,
+                        ),
+
+                        NotiShop(
+                          scaffoldKey: _scaffoldKey,
+                        )
+                      ]:[
+                        NotiCus(
+                          scaffoldKey: _scaffoldKey,
+                        )
+                      ],
+                    )
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

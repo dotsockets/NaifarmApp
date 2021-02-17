@@ -54,8 +54,8 @@ class APIRepository{
   }
 
 
-  Future<ApiResult> CustomersLoginSocial({LoginRequest loginRequest}){
-    return _apiProvider.CustomersLoginSocial(loginRequest);
+  Future<ApiResult> CustomersLoginSocial({LoginRequest loginRequest,String provider}){
+    return _apiProvider.CustomersLoginSocial(loginRequest,provider);
   }
 
   Future<ApiResult> CustomersRegister({RegisterRequest registerRequest}){

@@ -76,7 +76,7 @@ abstract class APIProvider{
   Future<ApiResult> CustomersLogin(@Body() LoginRequest loginRequest);
 
   @POST("/v1/customers/login-social")
-  Future<ApiResult> CustomersLoginSocial(@Body() LoginRequest loginRequest);
+  Future<ApiResult> CustomersLoginSocial(@Body() LoginRequest loginRequest,String provider);
 
   @POST("/v1/customers/check-email")
   Future<ApiResult> CheckEmail({String email});

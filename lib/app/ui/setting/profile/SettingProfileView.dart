@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
@@ -218,6 +219,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
       onPressed: () {
         Usermanager().logout().then((value){
           Usermanager().getUser().then((value){
+            context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token);
             context.read<CustomerCountBloc>().loadCustomerCount(token: value.token);
             Navigator.pop(context,true);
           });

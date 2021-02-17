@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
@@ -56,23 +57,25 @@ class _LoginViewState extends State<LoginView> {
 
   }
 
-  void _init(){
+  void _init(BuildContext context){
     if(null == bloc){
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if(event){
           FunctionHelper.showDialogProcess(context);
         }else{
-          Navigator.of(context).pop();
+          AppRoute.PoppageCount(context: context,countpage: 1);
         }
       });
-      bloc.onError.stream.listen((event) {
+      bloc.onError.stream.listen((event) async {
         //Navigator.of(context).pop();
+        await FacebookLogin().logOut();
         FunctionHelper.AlertDialogShop(context,
             title: "Error", message:event);
       //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
+
 
         // if(widget.IsCallBack){
         //   NaiFarmLocalStorage.saveNowPage(3).then((value) =>  AppRoute.Home(context,item: widget.item));
@@ -80,18 +83,19 @@ class _LoginViewState extends State<LoginView> {
         //   AppRoute.Home(context,item: widget.item);
         // }
         if(event is Fb_Profile){
-           bloc.CustomersLoginSocial(context: context,loginRequest: event);
+           bloc.CustomersLoginSocial(context: context,loginRequest: event,provider: "facebook");
         }else{
           if(widget.IsHeader){
             if(widget.homeCallBack!=null){
               widget.homeCallBack(true);
+              bloc.onLoad.add(false);
               Navigator.of(context).pop();
             }else{
               AppRoute.Home(context);
             }
 
           }else{
-
+           // bloc.onLoad.add(false);
             widget.homeCallBack(true);
 
           }
@@ -103,7 +107,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -204,7 +208,7 @@ class _LoginViewState extends State<LoginView> {
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 onPressed: (){
-                  bloc.LoginFacebook();
+                  bloc.LoginFacebook(context: context);
                  // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                 },
                 child: Row(

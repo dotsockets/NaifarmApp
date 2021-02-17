@@ -64,8 +64,22 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
       });
 
     //  bloc.onSuccess.add(widget.notiRespone);
-      bloc.refreshProducts(group: "customer",limit: limit,page: page);
+
     }
+
+    Usermanager().getUser().then((value) {
+      if (value.token != null) {
+        NaiFarmLocalStorage.getNowPage().then((data){
+          if(data == 2){
+            NaiFarmLocalStorage.saveNowPage(0);
+            //_reload.add(true);
+            bloc.refreshProducts(group: "customer",limit: limit,page: page);
+
+          }
+        });
+      }
+    });
+
     _scrollController.addListener(() {
 
       if (_scrollController.position.maxScrollExtent -
