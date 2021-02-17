@@ -28,14 +28,14 @@ class _HomeHeaderState extends State<HomeHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 0, right: 0.3.w),
+      padding: EdgeInsets.only(left: 0, right: 0.3.w,bottom: 1.0.h),
 
       decoration: new BoxDecoration(
 
           color: ThemeColor.primaryColor(),
           borderRadius: new BorderRadius.only(
-             bottomRight: Radius.circular(widget.snapshot.sliderRespone.data.isNotEmpty?0.0:30.0),
-            bottomLeft:  Radius.circular(widget.snapshot.sliderRespone.data.isNotEmpty?0.0:30.0),
+             bottomRight: Radius.circular(widget.snapshot.sliderRespone.data.isNotEmpty?0.0:35.0),
+            bottomLeft:  Radius.circular(widget.snapshot.sliderRespone.data.isNotEmpty?0.0:35.0),
           )
       ),
       child: SafeArea(

@@ -14,11 +14,14 @@ import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:http/http.dart' as http;
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
+import 'dart:convert';
 
 class MemberBloc{
   final AppNaiFarmApplication _application;
@@ -67,6 +70,64 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
+  CustomersLoginSocial({BuildContext context,Fb_Profile loginRequest}) async{
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.CustomersLoginSocial(loginRequest: LoginRequest(name: loginRequest.name,email: loginRequest.email,accessToken: loginRequest.token))).listen((respone) {
+
+      var item = (respone.respone as LoginRespone);
+      if(respone.http_call_back.status==200){
+        context.read<CustomerCountBloc>().loadCustomerCount(token: item.token);
+        context.read<InfoCustomerBloc>().loadCustomInfo(token: item.token);
+        Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email)).then((value){
+          onLoad.add(false);
+          onSuccess.add(item);
+        });
+      }else{
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  CheckEmail({Fb_Profile fb_profile}) async{
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.CheckEmail(email: fb_profile.email)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+      onSuccess.add(fb_profile);
+      }else{
+
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  getFBProfile({String accessToken}){
+
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.getFBProfile(access_token: accessToken)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        var item = (respone.respone as Fb_Profile);
+        item.token = accessToken;
+        CheckEmail(fb_profile: item);
+        //onSuccess.add(true);
+      }else{
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result.error.message);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
   LoginFacebook() async{
     onLoad.add(true);
     final FacebookLogin facebookSignIn = new FacebookLogin();
@@ -74,28 +135,9 @@ class MemberBloc{
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
         onLoad.add(false);
+        //  {"name":"Apisit Kaewsasan","first_name":"Apisit","last_name":"Kaewsasan","email":"apisitkaewsasan\u0040hotmail.com","id":"3899261036761384"}
         final FacebookAccessToken accessToken = result.accessToken;
-        print("wcsf ${accessToken.token}");
-        onError.add("Not yet available");
-
-        // AppProvider.getApplication(context).appStoreAPIRepository.getFBProfile(access_token: accessToken.token).then((value){
-        //   Navigator.of(context).pop();
-        //   AppRoute.Register_FB(context,value.email);
-        // }).catchError((Object obj){
-        //   switch (obj.runtimeType) {
-        //     case DioError:
-        //     // Here's the sample to get the failed response error code and message
-        //       final res = (obj as DioError).response;
-        //       Logger().e("Got error : ${res.statusCode} -> ${res.statusMessage}");
-        //       break;
-        //     default:
-        //   }
-        // });
-        //get image  https://graph.facebook.com/2305752019445635/picture?type=large&width=720&height=720
-
-        // final graphResponse = await http.get(
-        //     'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
-        // final profile = JSON.decode(graphResponse.body);
+        getFBProfile(accessToken: accessToken.token);
         break;
       case FacebookLoginStatus.cancelledByUser:
         onLoad.add(false);

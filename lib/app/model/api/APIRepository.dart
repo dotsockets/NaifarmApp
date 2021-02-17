@@ -41,12 +41,21 @@ class APIRepository{
   APIRepository(this._apiProvider, this._dbAppStoreRepository);
 
 
-  Future<Fb_Profile> getFBProfile({String access_token}){
+  Future<ApiResult> getFBProfile({String access_token}){
     return _apiProvider.getProFileFacebook(access_token);
   }
 
   Future<ApiResult> CustomersLogin({LoginRequest loginRequest}){
     return _apiProvider.CustomersLogin(loginRequest);
+  }
+
+  Future<ApiResult> CheckEmail({String email}) {
+    return _apiProvider.CheckEmail(email: email);
+  }
+
+
+  Future<ApiResult> CustomersLoginSocial({LoginRequest loginRequest}){
+    return _apiProvider.CustomersLoginSocial(loginRequest);
   }
 
   Future<ApiResult> CustomersRegister({RegisterRequest registerRequest}){

@@ -76,10 +76,10 @@ class ShopOrderHistoryView extends StatelessWidget {
                           _tabbar(
                               title: LocaleKeys.me_menu_wait_pay.tr(), message: false),
                           _tabbar(
-                              title: LocaleKeys.me_menu_ship.tr(), message: true),
+                              title: LocaleKeys.me_menu_ship.tr(), message: false),
                           _tabbar(
                               title: LocaleKeys.me_menu_receive_shop.tr(),
-                              message: true),
+                              message: false),
                           _tabbar(
                               title: LocaleKeys.me_menu_complete_shop.tr(),
                               message: false),

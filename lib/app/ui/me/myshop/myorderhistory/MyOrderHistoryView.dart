@@ -73,12 +73,12 @@ class MyOrderHistoryView extends StatelessWidget {
                           _tabbar(
                               title: LocaleKeys.me_menu_pay.tr(), message: false),
                           _tabbar(
-                              title: LocaleKeys.me_menu_ship.tr(), message: true),
+                              title: LocaleKeys.me_menu_ship.tr(), message: false),
                           _tabbar(
-                              title: "ที่ต้องได้รับ",
-                              message: true),
+                              title: LocaleKeys.me_menu_receive_shop.tr(),
+                              message: false),
                           _tabbar(
-                              title: "จัดส่งสำเร็จ",
+                              title: LocaleKeys.me_menu_complete_shop.tr(),
                               message: false),
                           _tabbar(
                               title: LocaleKeys.me_menu_cancel.tr(),

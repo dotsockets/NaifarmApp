@@ -14,13 +14,14 @@ class _APIProvider implements APIProvider {
 
 
   @override
-  Future<Fb_Profile> getProFileFacebook(String access_token) async {
+  Future<ApiResult> getProFileFacebook(String access_token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       "fields": "name,first_name,last_name,email",
       "access_token": access_token
     };
     final _data = <String, dynamic>{};
+    try {
     final _result = await _dio.request<dynamic>('/me',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -29,9 +30,12 @@ class _APIProvider implements APIProvider {
             extra: _extra,
             baseUrl: "https://graph.facebook.com/v2.12"),
         data: _data);
-    var value = Fb_Profile.fromJson(jsonDecode(_result.data));
-
-    return value;
+  //  var value = Fb_Profile.fromJson(jsonDecode(_result.data));
+    return ApiResult(respone: Fb_Profile.fromJson(jsonDecode(_result.data)),
+        http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
   }
 
   @override
@@ -46,6 +50,33 @@ class _APIProvider implements APIProvider {
 
     try {
       final _result = await _dio.request<dynamic>('/v1/customers/login',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{},
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: LoginRespone.fromJson(_result.data),
+          http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+
+  @override
+  Future<ApiResult> CustomersLoginSocial(LoginRequest loginRequest) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "username": loginRequest.username,
+      "phone": loginRequest.phone,
+      "password": loginRequest.password
+    };
+
+    try {
+      final _result = await _dio.request<dynamic>('/v1/customers/login-social',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',
@@ -2178,6 +2209,30 @@ class _APIProvider implements APIProvider {
               baseUrl: baseUrl),
           data: _data);
       return ApiResult(respone: OrderData.fromJson(_result.data),
+          http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> CheckEmail({String email}) async{
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "email": email,
+    };
+    try {
+      final _result = await _dio.request<dynamic>('/v1/customers/check-email',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: true,
           http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.DioErrorExpction(e);

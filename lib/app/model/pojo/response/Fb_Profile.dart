@@ -5,15 +5,16 @@ class Fb_Profile {
   String lastName;
   String email;
   String id;
+  String token;
 
-  Fb_Profile({this.name, this.firstName, this.lastName, this.email, this.id});
+  Fb_Profile({this.name, this.firstName, this.lastName, this.email, this.id,this.token});
 
   Fb_Profile.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    firstName = json['first_name'];
-    lastName = json['last_name'];
-    email = json['email'];
-    id = json['id'];
+    name = json['name'].toString();
+    firstName = json['first_name'].toString();
+    lastName = json['last_name'].toString();
+    email = json['email'].toString();
+    id = json['id'].toString();
   }
 
   Map<String, dynamic> toJson() {

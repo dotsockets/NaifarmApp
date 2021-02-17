@@ -70,10 +70,16 @@ abstract class APIProvider{
 
 
   @GET("/tasks/{id}")
-  Future<Fb_Profile> getProFileFacebook(@Query("access_token") String access_token);
+  Future<ApiResult> getProFileFacebook(@Query("access_token") String access_token);
 
   @POST("/v1/customers/login")
   Future<ApiResult> CustomersLogin(@Body() LoginRequest loginRequest);
+
+  @POST("/v1/customers/login-social")
+  Future<ApiResult> CustomersLoginSocial(@Body() LoginRequest loginRequest);
+
+  @POST("/v1/customers/check-email")
+  Future<ApiResult> CheckEmail({String email});
 
   @POST("/v1/customers/register")
   Future<ApiResult> CustomersRegister(@Body() RegisterRequest registerRequest);

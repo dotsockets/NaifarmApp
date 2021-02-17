@@ -15,6 +15,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -78,22 +79,23 @@ class _LoginViewState extends State<LoginView> {
         // }else{
         //   AppRoute.Home(context,item: widget.item);
         // }
-        if(widget.IsHeader){
-          if(widget.homeCallBack!=null){
-            widget.homeCallBack(true);
-            Navigator.of(context).pop();
-          }else{
-            AppRoute.Home(context);
-          }
-
+        if(event is Fb_Profile){
+           bloc.CustomersLoginSocial(context: context,loginRequest: event);
         }else{
+          if(widget.IsHeader){
+            if(widget.homeCallBack!=null){
+              widget.homeCallBack(true);
+              Navigator.of(context).pop();
+            }else{
+              AppRoute.Home(context);
+            }
 
-          widget.homeCallBack(true);
+          }else{
 
+            widget.homeCallBack(true);
+
+          }
         }
-
-
-
       });
     }
 
