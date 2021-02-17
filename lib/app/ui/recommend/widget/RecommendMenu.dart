@@ -76,7 +76,7 @@ class RecommendMenu extends StatelessWidget {
 
 
   Widget getMessageRead({ int index,int notification}){
-    if(index==3 && notification>0){
+    if(index==2 && notification>0){
       return Positioned(
         right: 2,
         top: 2,
@@ -107,7 +107,7 @@ class RecommendMenu extends StatelessWidget {
                 padding: EdgeInsets.all(1.0.w),
                 child: SvgPicture.asset(item.icon,width: 11.0.w,height: 11.0.w,),
               ),
-              getMessageRead(notification: notification,index: index)
+              //getMessageRead(notification: notification,index: index)
             ],
           ),
           SizedBox(height: 0.1.h),

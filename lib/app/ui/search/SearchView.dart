@@ -207,7 +207,7 @@ class _SearchViewState extends State<SearchView> {
                     color: Colors.grey.shade200,
                     height: 6,
                   ),
-                  StreamBuilder(
+                  /*StreamBuilder(
                     stream: bloc.MoreProduct.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
@@ -230,7 +230,7 @@ class _SearchViewState extends State<SearchView> {
                         );
                       }
                     },
-                  ),
+                  ),*/
                 ],
               ),
             ),

@@ -47,24 +47,24 @@ class _NotiSettingViewState extends State<NotiSettingView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildTitleTxt(title: LocaleKeys.setting_noti_title_notification.tr()),
-                SizedBox(height: 1.0.h,),
-                _BuildSwitch(
+               // _buildTitleTxt(title: LocaleKeys.setting_noti_title_notification.tr()),
+               // SizedBox(height: 1.0.h,),
+               /* _BuildSwitch(
                     title: LocaleKeys.setting_noti_title_notification.tr(),
                     index: 0,
                     onClick: () =>
-                        setState(() => isSelectNoti = isSelectNoti ? false : true)),
-                SizedBox(height: 1.0.h,),
+                        setState(() => isSelectNoti = isSelectNoti ? false : true)),*/
+               // SizedBox(height: 1.0.h,),
                 _BuildSwitch(
                     title: LocaleKeys.setting_noti_title_update.tr(),
                     index: 1,
                     onClick: () =>
                         setState(() => isSelectUpdate = isSelectUpdate ? false : true)),
-                _BuildSwitch(
+               /* _BuildSwitch(
                     title: LocaleKeys.setting_noti_title_privacy.tr(),
                     index: 2,
                     onClick: () =>
-                        setState(() => isSelectPrivate = isSelectPrivate ? false : true)),
+                        setState(() => isSelectPrivate = isSelectPrivate ? false : true)),*/
                 _BuildSwitch(
                     title: LocaleKeys.setting_noti_title_sound.tr(),
                     index: 3,
@@ -91,9 +91,9 @@ class _NotiSettingViewState extends State<NotiSettingView> {
               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
             ),
             FlutterSwitch(
-              width: 15.0.w,
-              height: 4.0.h,
-              toggleSize: 3.0.h,
+              width: 15.5.w,
+              height: 4.3.h,
+              toggleSize: 3.5.h,
               activeColor: Colors.grey.shade200,
               inactiveColor: Colors.grey.shade200,
               toggleColor: index == 0 ? isSelectNoti ? ThemeColor.primaryColor() : Colors.black.withOpacity(0.3) :

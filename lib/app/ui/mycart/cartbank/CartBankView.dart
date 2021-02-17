@@ -66,16 +66,16 @@ class _CartBankViewState extends State<CartBankView> {
             ),
             body: SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.all(2.0.h),
+
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Payment",
+                    /*Text("Payment",
                         style: FunctionHelper.FontTheme(
                             color: Colors.black,
                             fontSize: SizeUtil.titleSmallFontSize().sp,
-                            fontWeight: FontWeight.bold)),
-                    SizedBox(height: 8),
+                            fontWeight: FontWeight.bold)),*/
+                    //SizedBox(height: 8),
                     StreamBuilder(
                         stream: bloc.PaymentList.stream,
                         builder: (context, snapshot) {
@@ -113,7 +113,7 @@ class _CartBankViewState extends State<CartBankView> {
     return Column(
       children: [
         Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(1.0.h),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -125,7 +125,7 @@ class _CartBankViewState extends State<CartBankView> {
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(1.0.h),
                         child: item.active
                             ? SvgPicture.asset(
                                 'assets/images/svg/checkmark.svg',
@@ -141,10 +141,9 @@ class _CartBankViewState extends State<CartBankView> {
                               ),
                       ),
                       SizedBox(
-                        width: 8,
+                        width: 1.0.w,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                         children: [
                           index == 0
                               ? SvgPicture.asset(
@@ -157,7 +156,7 @@ class _CartBankViewState extends State<CartBankView> {
                                   width: 8.0.w,
                                   height: 8.0.w,
                                 ),
-                          SizedBox(height: 10,),
+                          SizedBox(width: 2.0.w,),
                           Text(item.name,
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp)),
@@ -187,7 +186,7 @@ class _CartBankViewState extends State<CartBankView> {
               bloc.PaymentList.add(bloc.PaymentList.value);
             },)),
         SizedBox(
-          height: 1.5.h,
+          height: 1.0.h,
         )
       ],
     );
@@ -199,7 +198,7 @@ class _CartBankViewState extends State<CartBankView> {
         child: FlatButton(
           color: ThemeColor.secondaryColor(),
           textColor: Colors.white,
-          padding: EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
+          padding: EdgeInsets.only(left: 20.0.w, right: 20.0.w, top: 2.0.h, bottom: 2.0.h),
           splashColor: Colors.white.withOpacity(0.3),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40.0),

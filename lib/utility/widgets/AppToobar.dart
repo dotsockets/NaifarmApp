@@ -349,12 +349,12 @@ class AppToobar extends PreferredSize {
                 //AppRoute.SearchHome(context);
               },
             )),
-            SvgPicture.asset(
+           /* SvgPicture.asset(
               'assets/images/svg/search_photo.svg',
               color: Color(ColorUtils.hexToInt('#c7bfbf')),
               width: 5.0.w,
               height: 5.0.w,
-            )
+            )*/
           ],
         )),
       ),

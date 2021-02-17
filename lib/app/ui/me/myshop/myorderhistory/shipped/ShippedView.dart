@@ -326,12 +326,12 @@ class _ShippedViewState extends State<ShippedView> {
                  Expanded(flex: 3,child:  Text(
                    widget.typeView==OrderViewType.Purchase? "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการขนส่ง" +
                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
-                       "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
+                       "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
                    style: FunctionHelper.FontTheme(
                        fontSize: SizeUtil.titleSmallFontSize().sp,
                        color: Colors.black.withOpacity(0.6)),
                  )),
-                 Expanded(flex: 3,child:  _BuildButtonBayItem(btnTxt: widget.typeView==OrderViewType.Purchase?"seller is preparing to ship":"Shipping",item: item)) // ผู้ขายกำลังเตรียมจัดส่งสินค้า for thai
+                 Expanded(flex: 3,child:  _BuildButtonBayItem(btnTxt: widget.typeView==OrderViewType.Purchase?"seller is preparing to ship":"จัดส่งสินค้า",item: item)) // ผู้ขายกำลังเตรียมจัดส่งสินค้า for thai
                 ],
               )
             ],

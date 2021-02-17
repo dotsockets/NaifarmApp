@@ -16,12 +16,17 @@ import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
+import 'package:naifarm/app/ui/me/myproduct/filter/InActive.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+
+import 'filter/Available.dart';
+import 'filter/Banned.dart';
+import 'filter/SoldOut.dart';
 
 class SearchMyProduct extends StatefulWidget {
   final int shopID;
@@ -92,11 +97,55 @@ class _SearchMyProductState extends State<SearchMyProduct> {
               var item = (snapshot.data as SearchRespone);
               if (snapshot.hasData) {
                 if(item.hits.isNotEmpty){
-                  return SingleChildScrollView(
+                  return
+                    DefaultTabController(
+                      length: 4,
+                      child: Container(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 7.0.h,
+                              child: Container(
+                                child: TabBar(
+                                  indicatorColor: ThemeColor.ColorSale(),
+                                  isScrollable: false,
+                                  tabs: [
+                                    _tab(
+                                        title: "ขายอยู่",
+                                        message:
+                                        false),
+                                    _tab(
+                                        title: "สินค้าหมด",
+                                        message:
+                                        false),
+                                    _tab(title:
+                                    "ถูกระงับ",message: false),
+                                    _tab(title: "ไม่แสดง",message: false)
+                                  ],
+                                ),
+                              ),
+                            ),
+                            // create widgets for each tab bar here
+                            Expanded(
+                              child:
+                              TabBarView(
+                                children: [
+                                  Available(shopId: widget.shopID,scaffoldKey: _scaffoldKey,),
+                                  SoldOut(shopId: widget.shopID,scaffoldKey: _scaffoldKey),
+                                  Banned(shopId: widget.shopID,scaffoldKey: _scaffoldKey),
+                                  InActive(shopId: widget.shopID,scaffoldKey: _scaffoldKey),
+                                ],
+                              ),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    );/*SingleChildScrollView(
                     child: Column(
                       children: item.hits.asMap().map((key, value) => MapEntry(key, _BuildProduct(index: key,item: CovertDataMyShop(hits: value)))).values.toList(),
                     ),
-                  );
+                  );*/
                 }else{
                   return/* Center(
                     child: Container(
@@ -365,6 +414,30 @@ class _SearchMyProductState extends State<SearchMyProduct> {
             ],
           ),
         ),
+      ),
+    );
+  }
+  Widget _tab({String title, bool message}) {
+    return Tab(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(title,
+              style: FunctionHelper.FontTheme(
+                  fontWeight: FontWeight.w500,
+                  fontSize: SizeUtil.titleSmallFontSize().sp,
+                  color: Colors.black)),
+          message
+              ? ClipRRect(
+            borderRadius: BorderRadius.circular(9.0),
+            child: Container(
+              alignment: Alignment.center,
+              width: 10,
+              height: 20,
+              color: ThemeColor.ColorSale(),
+            ),
+          ) : SizedBox()
+        ],
       ),
     );
   }

@@ -312,9 +312,9 @@ class _SuccessViewState extends State<SuccessView> {
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       new TextSpan(
-                          text: LocaleKeys.history_order_price.tr(),
+                          text: LocaleKeys.history_order_price.tr()+" : ",
                           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                      new TextSpan(text: " : " +
+                      new TextSpan(text:
                           "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
                     ],
                   ),
@@ -330,14 +330,14 @@ class _SuccessViewState extends State<SuccessView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.typeView==OrderViewType.Purchase? "วันที่ซื้อ " +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
+                  widget.typeView==OrderViewType.Purchase?Text(
+                     LocaleKeys.history_order_time.tr() +
+                        " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
+                    //LocaleKeys.history_order_time.tr() + " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
-                  ),
+                  ):SizedBox(),
                   widget.typeView == OrderViewType.Purchase? _BuildButtonBayItem(btnTxt: "Buy again",item: item):SizedBox()
                 ],
               )
@@ -356,7 +356,7 @@ class _SuccessViewState extends State<SuccessView> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            widget.typeView=="shop"?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
+            widget.typeView == OrderViewType.Shop?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500)),):Row(

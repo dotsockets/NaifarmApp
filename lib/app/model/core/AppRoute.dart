@@ -35,7 +35,7 @@ import 'package:naifarm/app/ui/me/editmyproduct/EditImageProductView.dart';
 import 'package:naifarm/app/ui/me/editmyproduct/EditProductView.dart';
 import 'package:naifarm/app/ui/me/imageproduct/ImageProductView.dart';
 import 'package:naifarm/app/ui/me/mynewproduct/MyNewProductView.dart';
-import 'package:naifarm/app/ui/me/mynewproduct/SearchMyProduct.dart';
+import 'file:///C:/Users/Dot%20Socket03/Desktop/NaifarmApp/lib/app/ui/me/myproduct/SearchMyProduct.dart';
 import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
 import 'package:naifarm/app/ui/me/myproduct/attribute/AttributeEditView.dart';
 import 'package:naifarm/app/ui/me/myproduct/attribute/AttributeView.dart';
