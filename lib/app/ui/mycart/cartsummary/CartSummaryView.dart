@@ -299,9 +299,9 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         children: [
                           //   item.ProductDicount != 0 ?
                           item.inventory.offerPrice !=
-                              null
-                              ? Text(
-                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.offerPrice)}",
+                              null ?
+                          Text(
+                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.priceFontSize().sp,
                                   decoration: TextDecoration.lineThrough))
@@ -310,10 +310,13 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           SizedBox(
                               width: item.inventory
                                   .offerPrice !=
-                                  null
-                                  ? 2.0.w
-                                  : 0),
-                          Text(
+                                  null ? 2.0.w : 0),
+                          item.inventory.offerPrice !=
+                              null?Text(
+                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.offerPrice)}",
+                              style: FunctionHelper.FontTheme(
+                                  fontSize: SizeUtil.priceFontSize().sp,
+                                  color: ThemeColor.ColorSale())):Text(
                               "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.priceFontSize().sp,
@@ -366,7 +369,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               height: 7.0.w,
             ),
             SizedBox(
-              width: 10,
+              width: 1.0.w,
             ),
             Text(LocaleKeys.cart_shipping.tr() + LocaleKeys.by.tr(),
                 style: FunctionHelper.FontTheme(
@@ -408,13 +411,13 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                 color: Colors.black)),
                         Row(
                           children: [
-                            SizedBox(width: 8),
+                            SizedBox(width: 1.0.w),
                             Text(
                                 "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data.rate != null ? snapshot.data.rate : 0)}",
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     color: Colors.black)),
-                            SizedBox(width: 8),
+                            SizedBox(width: 1.0.w),
                             Icon(
                               Icons.arrow_forward_ios,
                               color: Colors.grey.withOpacity(0.7),
@@ -442,10 +445,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
           height: 1.0.h,
         ),
         Divider(color: Colors.grey),
-        SizedBox(
-          height: 1.0.h,
-        ),
-        InkWell(
+       // SizedBox(
+       //   height: 1.0.h,
+       // ),
+        /*InkWell(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -471,9 +474,9 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                     discountModel: CartViewModel().getDiscountFormShop()));
           },
         ),
-        SizedBox(
+       SizedBox(
           height: 2.0.h,
-        ),
+        ),*/
         StreamBuilder(
             stream: bloc.CartList.stream,
             builder: (context, snapshot) {
@@ -873,7 +876,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                                "คำสั่งซื้อทั้งหมด ${item.quantity} " +
+                                "คำสั่งซื้อทั้งหมด ${item.quantity} "+
                                     LocaleKeys.cart_item.tr(),
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,

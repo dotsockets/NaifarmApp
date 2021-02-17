@@ -205,7 +205,7 @@ class _HeaderDetailState extends State<HeaderDetail> {
                                 )
                               ],
                             ),
-                            SizedBox(width: 2.0.w,),
+                            //SizedBox(width: 2.0.w,),
                            /* ClipRRect(
                               borderRadius: BorderRadius.circular(30),
                               child: Container(

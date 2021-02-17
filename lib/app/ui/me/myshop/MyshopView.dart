@@ -291,12 +291,15 @@ class _MyshopViewState extends State<MyshopView> {
           TabMenu(
               icon: 'assets/images/svg/status_delivery.svg',
               title: LocaleKeys.me_menu_ship.tr(),
-              onClick: (){AppRoute.ShopOrderHistory(context,1);},
+              onClick: (){
+                AppRoute.ShopOrderHistory(context,1);
+              },
               notification: count.sellOrder.unpaid),
           TabMenu(
             icon: 'assets/images/svg/status_delivery.svg',
-            title: LocaleKeys.me_menu_receive_shop.tr(),
-         onClick: (){AppRoute.ShopOrderHistory(context,2);
+            title: LocaleKeys.me_menu_shipping.tr(),
+         onClick: (){
+              AppRoute.ShopOrderHistory(context,2);
          },
             notification: count.sellOrder.shipping,
           ),

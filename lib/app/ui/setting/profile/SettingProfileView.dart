@@ -98,13 +98,13 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                           },
                         ):SizedBox(),
                         widget.IsLogin?_buildLine():SizedBox(),
-                        widget.IsLogin?ListMenuItem(
+                       /* widget.IsLogin?ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_bank.tr(),
                           onClick: () {
                             AppRoute.SettingBank(context);
                           },
-                        ):SizedBox(),
+                        ):SizedBox(),*/
                         widget.IsLogin?_buildLine():SizedBox(),
                         _buildTitle(txt: LocaleKeys.setting_account_head_setting.tr()),
                         ListMenuItem(
@@ -155,8 +155,8 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                             AppRoute.SettingAbout(context);
                           },
                         ),
-                        _buildLine(),
-                        ListMenuItem(
+                        //_buildLine(),
+                        /*ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_delete_account.tr(),
                           onClick: () {
@@ -166,7 +166,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                               Navigator.of(context).pop();
                             });
                           },
-                        ),
+                        ),*/
                         widget.IsLogin? _BuildButton():SizedBox()
                       ],
                     ),

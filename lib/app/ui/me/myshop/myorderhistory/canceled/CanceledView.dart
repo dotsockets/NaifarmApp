@@ -304,27 +304,30 @@ class _CanceledViewState extends State<CanceledView>{
                   ),
                 ),
               ),
-              // Divider(
-              //   color: Colors.grey.shade400,
-              // ),
-              // _IntroShipment(address: item.shippingAddress),
-              // Divider(
-              //   color: Colors.grey.shade400,
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Text(
-              //       widget.typeView=="purchase"? "ชำระเงินภายใน" +
-              //           "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
-              //           "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
-              //       style: FunctionHelper.FontTheme(
-              //           fontSize: SizeUtil.titleSmallFontSize().sp,
-              //           color: Colors.black.withOpacity(0.6)),
-              //     ),
-              //     _BuildButtonBayItem(btnTxt: widget.typeView=="shop"?"Confirm payment":"Payment",item: item)
-              //   ],
-              // )
+             widget.typeView == OrderViewType.Shop? Column(
+                children: [
+                  Divider(
+                    color: Colors.grey.shade400,
+                  ),
+                  _IntroShipment(address: item.shippingAddress),
+                  Divider(
+                    color: Colors.grey.shade400,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "ยกเลิกโดย: ผู้ซื้อ\nเหตุผลการยกเลิก: สินค้าเสียหาย",
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            color: Colors.black.withOpacity(0.6)),
+                      ),
+                      _BuildButtonBayItem(btnTxt:"รายละเอียดคำขอยกเลิก",item: item)
+                    ],
+                  )
+                ],
+              ):SizedBox(),
+
             ],
           ),
         ],
@@ -340,7 +343,7 @@ class _CanceledViewState extends State<CanceledView>{
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            widget.typeView=="shop"?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
+            widget.typeView == OrderViewType.Shop?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500)),):Row(
@@ -406,12 +409,15 @@ class _CanceledViewState extends State<CanceledView>{
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () async {
-        if(widget.typeView=="shop"){
-          final result = await AppRoute.ConfirmPayment(context: context,orderData: item);
-          if(result){
-            Usermanager().getUser().then((value) =>
-                bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "1", limit: 20, page: 1, token: value.token));
-          }
+        if(widget.typeView==OrderViewType.Shop){
+         // final result = await AppRoute.ConfirmPayment(context: context,orderData: item);
+       //   if(result){
+       //     Usermanager().getUser().then((value) =>
+         //       bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "1", limit: 20, page: 1, token: value.token));
+        //  }
+           AppRoute.OrderDetail(context,
+              orderData: item, typeView: widget.typeView);
+
         }else{
           AppRoute.TransferPayMentView(context: context,orderData: item);
         }

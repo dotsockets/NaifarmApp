@@ -364,7 +364,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                 children: [
                   Expanded(flex: 3,child: Text(
                     widget.typeView == OrderViewType.Purchase
-                        ? "ยืนยันการรับสินค้าภายในวันที่" +
+                        ? "ยืนยันการรับสินค้า\nภายในวันที่" +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
                         :"รอผู้ซื้อยืนยันการยอมรับสินค้าภายใน" +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
@@ -393,7 +393,7 @@ class _DeliveryViewState extends State<DeliveryView> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            widget.typeView == "shop"
+            widget.typeView == OrderViewType.Shop
                 ? Container(
                     child: Text("เลขคำสั่งซื้อ " + item.orderNumber,
                         style: FunctionHelper.FontTheme(

@@ -754,7 +754,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                       height: 7.0.h,
                       color: checkSelect()
                           ? ThemeColor.ColorSale()
-                          : Colors.grey,
+                          : Colors.grey.shade300,
                       child: FlatButton(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         onPressed: () {
@@ -767,7 +767,10 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                               for(var j=0;j<cartResponse.data[i].items.length;j++){
                                   if(cartResponse.data[i].items[j].select){
                                     item.add(cartResponse.data[i].items[j]);
-                                    total_payment += (cartResponse.data[i].items[j].unitPrice*cartResponse.data[i].items[j].quantity);
+                                    int unitPrice = cartResponse.data[i].items[j].inventory.offerPrice==null?
+                                    cartResponse.data[i].items[j].inventory.salePrice:cartResponse.data[i].items[j].inventory.offerPrice;
+
+                                    total_payment +=cartResponse.data[i].items[j].quantity * unitPrice;
                                     count_item +=cartResponse.data[i].items[j].quantity;
                                   }
                               }
@@ -801,14 +804,16 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
 
   int SumTotalPrice({CartResponse cartResponse}) {
     int sum = 0;
+
     for (int i = 0; i < cartResponse.data.length; i++)
       for (int j = 0; j < cartResponse.data[i].items.length; j++)
         if (cartResponse.data[i].items[j].select) {
-          sum += cartResponse.data[i].items[j].quantity *
-              cartResponse.data[i].items[j].unitPrice;
-            //  cartResponse.data[i].items[j].inventory.offerPrice!=null?cartResponse.data[i].items[j].inventory.offerPrice:cartResponse.data[i].items[j].inventory.salePrice;
-        } else
-          sum += 0;
+          int unitPrice = cartResponse.data[i].items[j].inventory.offerPrice == null?
+          cartResponse.data[i].items[j].inventory.salePrice:cartResponse.data[i].items[j].inventory.offerPrice;
+
+           sum += cartResponse.data[i].items[j].quantity * unitPrice;
+            //  cartResponse.data[i].items[j].unitPrice;
+        } else sum += 0;
 
     return sum;
   }
@@ -837,9 +842,8 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
 
       }
     }
-
     count == item ? bloc.CartList.value.selectAll = true : bloc.CartList.value.selectAll = false;
-    if (count > 0)
+    if (item > 0)
       return true;
     else
       return false;
