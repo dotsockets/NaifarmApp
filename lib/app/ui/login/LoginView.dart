@@ -87,14 +87,16 @@ class _LoginViewState extends State<LoginView> {
         }else{
           if(widget.IsHeader){
             if(widget.homeCallBack!=null){
+
               widget.homeCallBack(true);
-              bloc.onLoad.add(false);
+              //bloc.onLoad.add(false);
               Navigator.of(context).pop();
             }else{
               AppRoute.Home(context);
             }
 
           }else{
+
            // bloc.onLoad.add(false);
             widget.homeCallBack(true);
 

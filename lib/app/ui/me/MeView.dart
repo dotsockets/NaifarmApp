@@ -193,7 +193,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                   if (item is InfoCustomerLoaded) {
                     return ImageHeader(info: item.profileObjectCombine.customerInfoRespone);
                   } else if (item is InfoCustomerLoading) {
-                    return ImageHeader(info: item.profileObjectCombine.customerInfoRespone);
+                    return ImageHeader();
                   } else {
                     return SizedBox();
                   }

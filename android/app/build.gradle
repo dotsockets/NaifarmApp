@@ -72,7 +72,7 @@ android {
         development{
             dimension "environment"
             resValue "string", "app_name", "Naifarm-dev"
-            resValue "string", "facebook_app_id", "750052912471264"
+            resValue "string", "facebook_app_id", "219341536017829"
             applicationIdSuffix ".dev"
         }
         staging{
