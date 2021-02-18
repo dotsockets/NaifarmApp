@@ -169,8 +169,6 @@ abstract class APIProvider{
   @GET("/v1/myshop/shop")
   Future<ApiResult> FarmMarket();
 
-
-
   Future<ApiResult> MoreProduct({String page, int limit, String link});
 
   @GET("/v1/flashsale?limit=20&page=1")
@@ -299,7 +297,7 @@ abstract class APIProvider{
   Future<ApiResult> MarkAsReadNotifications({String token});
 
   @GET("/v1/search/products?q=%E0%B8%99%E0%B9%89%E0%B8%B3&limit=10&page=1&shopId=3")
-  Future<ApiResult> getSearchMyshop({String page, String query,int shopId,int limit});
+  Future<ApiResult> getSearchProduct({String page, String query,int shopId,int limit});
 
   @GET("/v1/myshop/attributes")
   Future<ApiResult> getMyShopAttribute(String token);
@@ -335,7 +333,6 @@ abstract class APIProvider{
   @GET("/v1/customers/request-change-email")
   Future<ApiResult> requestChangEmail({String email,String token});
 
-
   @PATCH("/v1/myshop/products/231/inventories/231")
   Future<ApiResult> updateinventories({int productsId,int inventoriesId,int shippingWeight,String token});
 
@@ -354,6 +351,8 @@ abstract class APIProvider{
   @PATCH("/v1/order/298/cancel")
   Future<ApiResult> OrderCancel({String token,int OrderId});
 
+  @GET("/v1/myshop/search/products?limit=10&page=1&shopId=18&filter=available&q=%22%22")
+  Future<ApiResult> getSearchShop({String page, String query,int limit,int shopId,String filter,String token});
 
 }
 

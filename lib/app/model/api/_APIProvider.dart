@@ -1765,7 +1765,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getSearchMyshop(
+  Future<ApiResult> getSearchProduct(
       {String page, String query, int shopId, int limit}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -2238,5 +2238,31 @@ class _APIProvider implements APIProvider {
       return ServerError.DioErrorExpction(e);
     }
   }
+
+  @override
+  Future<ApiResult> getSearchShop({String page, String query, int limit, int shopId, String filter,String token}) async{
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+      final _result = await _dio.request<dynamic>(
+          '/v1/myshop/search/products?limit=${limit}&page=${page}&shopId=${shopId}&filter=${filter}&q=${query}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token": token
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: SearchRespone.fromJson(_result.data),
+          http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+
 }
 
