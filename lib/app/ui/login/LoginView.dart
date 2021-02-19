@@ -64,7 +64,7 @@ class _LoginViewState extends State<LoginView> {
         if(event){
           FunctionHelper.showDialogProcess(context);
         }else{
-          AppRoute.PoppageCount(context: context,countpage: 1);
+          Navigator.of(context).pop();
         }
       });
       bloc.onError.stream.listen((event) async {
@@ -82,25 +82,21 @@ class _LoginViewState extends State<LoginView> {
         // }else{
         //   AppRoute.Home(context,item: widget.item);
         // }
-        if(event is Fb_Profile){
-           bloc.CustomersLoginSocial(context: context,loginRequest: event,provider: "facebook");
-        }else{
-          if(widget.IsHeader){
-            if(widget.homeCallBack!=null){
+        if(widget.IsHeader){
+          if(widget.homeCallBack!=null){
 
-              widget.homeCallBack(true);
-              //bloc.onLoad.add(false);
-              Navigator.of(context).pop();
-            }else{
-              AppRoute.Home(context);
-            }
-
-          }else{
-
-           // bloc.onLoad.add(false);
             widget.homeCallBack(true);
-
+            //bloc.onLoad.add(false);
+            Navigator.of(context).pop();
+          }else{
+            AppRoute.Home(context);
           }
+
+        }else{
+
+          // bloc.onLoad.add(false);
+          widget.homeCallBack(true);
+
         }
       });
     }
@@ -210,7 +206,7 @@ class _LoginViewState extends State<LoginView> {
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 onPressed: (){
-                  bloc.LoginFacebook(context: context);
+                  bloc.LoginFacebook(context: context,isLoad: widget.homeCallBack!=null?false:true);
                  // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                 },
                 child: Row(

@@ -11,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -24,6 +25,7 @@ import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -71,8 +73,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
           //     bloc.GetMyWishlists(token: value.token));
         }
       });
-      Usermanager().getUser().then((value) =>
-          bloc.GetMyWishlists(token: value.token));
+
     }
   }
 
@@ -93,6 +94,32 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
   @override
   Widget build(BuildContext context) {
     _init();
+    return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+      builder: (_, count) {
+        if(count is InfoCustomerLoaded){
+          Usermanager().getUser().then((value) => bloc.GetMyWishlists(token: value.token));
+          return  _content();
+        }else{
+          return LoginView(
+            IsHeader: true,
+            homeCallBack: (bool fix) {
+              Navigator.of(context).pop();
+
+              // Usermanager().getUser().then((value){
+              //
+              //   bloc.MarkAsReadNotifications(token: value.token);
+              //   //_reload.add(true);
+              // });
+            },
+          );
+        }
+
+      },
+    );
+
+  }
+
+  Widget _content(){
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -101,9 +128,9 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
           body: StreamBuilder(
             stream: bloc.Wishlists.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
-                var item = (snapshot.data as WishlistsRespone);
+              var item = (snapshot.data as WishlistsRespone);
               if (snapshot.hasData) {
-              //  print(bloc.Wishlists.value.data.length.toString()+"***");
+                //  print(bloc.Wishlists.value.data.length.toString()+"***");
                 if (item.data.length > 0) {
                   return SingleChildScrollView(
                     child: StickyHeader(
@@ -139,20 +166,20 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                         AppToobar(title: LocaleKeys.me_title_likes.tr(),
                           header_type: Header_Type.barNormal,
                           icon: 'assets/images/svg/search.svg',),
-                       Expanded(
-                         child:  Column(
-                           mainAxisAlignment: MainAxisAlignment.center,
-                           children: [
-                             Lottie.asset('assets/json/boxorder.json',
-                                 height: 70.0.w, width: 70.0.w, repeat: false),
-                             Text(
-                               LocaleKeys.search_product_not_found.tr(),
-                               style: FunctionHelper.FontTheme(
-                                   fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
-                             )
-                           ],
-                         ),
-                       )
+                        Expanded(
+                          child:  Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Lottie.asset('assets/json/boxorder.json',
+                                  height: 70.0.w, width: 70.0.w, repeat: false),
+                              Text(
+                                LocaleKeys.search_product_not_found.tr(),
+                                style: FunctionHelper.FontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   );
@@ -174,7 +201,6 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
         ),
       ),
     );
-
   }
 
 
@@ -293,23 +319,23 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                     tag: "wishlist_${item.id}",
                     child: CachedNetworkImage(
                       width: 30.0.w,
-                      height: 30.0.w,
+                      height: 40.0.w,
                       placeholder: (context, url) =>
                           Container(
                             width: 30.0.w,
-                            height: 30.0.w,
+                            height: 40.0.w,
                             color: Colors.white,
                             child:
                             Lottie.asset('assets/json/loading.json',
                               width: 30.0.w,
-                              height: 30.0.w,),
+                              height: 40.0.w,),
                           ),
                       imageUrl: ProductLandscape.CovertUrlImage(
                           item.product.image),
                       errorWidget: (context, url, error) =>
                           Container(
                               width: 30.0.w,
-                              height: 30.0.w,
+                              height: 40.0.w,
                               child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                     ),
                   ),

@@ -76,6 +76,9 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
             icon: "",
             header_type: Header_Type.barNormal,
             isEnable_Search: false,
+            onClick: (){
+              Navigator.pop(context, false);
+            },
           ),
           body: Container(
             color: Colors.grey.shade300,

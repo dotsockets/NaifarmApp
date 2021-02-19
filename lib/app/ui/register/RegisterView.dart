@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -63,7 +64,12 @@ class _RegisterViewState extends State<RegisterView> {
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: (event as OTPRespone).refCode,requestOtp: RequestOtp.Register);
+        if(event is LoginRespone){
+          AppRoute.Home(context);
+        }else{
+          AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: (event as OTPRespone).refCode,requestOtp: RequestOtp.Register);
+        }
+
       });
       bloc.checkPhone.stream.listen((event) {
         if(event){
@@ -149,7 +155,7 @@ class _RegisterViewState extends State<RegisterView> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40.0),
               ),
-              onPressed: ()=>bloc.LoginFacebook(),
+              onPressed: ()=>bloc.LoginFacebook(context: context,isLoad: true),
               child: //Text(LocaleKeys.facebook_regis_btn.tr(),
                 //style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
               Row(

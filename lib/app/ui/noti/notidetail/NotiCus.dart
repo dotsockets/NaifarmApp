@@ -67,19 +67,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
 
     }
 
-    Usermanager().getUser().then((value) {
-      if (value.token != null) {
-        NaiFarmLocalStorage.getNowPage().then((data){
-          if(data == 2){
-            NaiFarmLocalStorage.saveNowPage(0);
-            //_reload.add(true);
-            bloc.refreshProducts(group: "customer",limit: limit,page: page);
-
-          }
-        });
-      }
-    });
-
+    bloc.refreshProducts(group: "customer",limit: limit,page: page);
     _scrollController.addListener(() {
 
       if (_scrollController.position.maxScrollExtent -
@@ -502,6 +490,8 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
       return true;
     }else  if(text=="App\\Notifications\\Order\\OrderBeenPaid"){
        return true;
+    }else  if(text=="App\\Notifications\\Order\\OrderFulfilled"){
+      return true;
     }else {
       return false;
     }

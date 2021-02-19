@@ -26,12 +26,11 @@ import 'package:sizer/sizer.dart';
 
 class MyshopView extends StatefulWidget {
 
-  final bool IsLogin;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final Function(bool) onStatus;
 
 
-  MyshopView({Key key, this.IsLogin,this.scaffoldKey, this.onStatus}) : super(key: key);
+  MyshopView({Key key,this.scaffoldKey, this.onStatus}) : super(key: key);
 
   @override
   _MyshopViewState createState() => _MyshopViewState();
@@ -211,9 +210,9 @@ class _MyshopViewState extends State<MyshopView> {
           //   onClick: () => AppRoute.WithdrawMoney(context),
           // )
           //     : SizedBox(),
-          widget.IsLogin ? _BuildDivider() : SizedBox(),
-          widget.IsLogin
-              ? ListMenuItem(
+         _BuildDivider(),
+
+              ListMenuItem(
             iconSize:7.0.w,
             icon: 'assets/images/svg/editprofile.svg',
             title: LocaleKeys.me_title_my_product.tr(),
@@ -227,19 +226,16 @@ class _MyshopViewState extends State<MyshopView> {
               }
 
             },
-          )
-              : SizedBox(),
-          widget.IsLogin ? _BuildDivider() : SizedBox(),
-          widget.IsLogin
-              ? ListMenuItem(
+          ),
+         _BuildDivider() ,
+          ListMenuItem(
             iconSize:7.0.w,
             icon: 'assets/images/svg/delivery.svg',
             title: LocaleKeys.me_title_shipping.tr(),
             onClick: () {
               AppRoute.DeliveryMe(context);
             },
-          )
-              : SizedBox(),
+          ),
           _BuildDivider(),
           ListMenuItem(
               iconSize:7.0.w,
@@ -294,7 +290,7 @@ class _MyshopViewState extends State<MyshopView> {
               onClick: (){
                 AppRoute.ShopOrderHistory(context,1);
               },
-              notification: count.sellOrder.unpaid),
+              notification: count.sellOrder.confirm),
           TabMenu(
             icon: 'assets/images/svg/status_delivery.svg',
             title: LocaleKeys.me_menu_shipping.tr(),

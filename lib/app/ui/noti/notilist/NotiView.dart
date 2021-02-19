@@ -47,7 +47,7 @@ class NotiView extends StatefulWidget {
 
 class _NotiViewState extends State<NotiView>
     with SingleTickerProviderStateMixin {
-  bool IsLogin = true;
+
 
   TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -57,7 +57,6 @@ class _NotiViewState extends State<NotiView>
 
 
   init() {
-    ISLogin();
     if (bloc == null) {
       bloc = NotiBloc(AppProvider.getApplication(context));
 
@@ -68,7 +67,7 @@ class _NotiViewState extends State<NotiView>
       if (value.token != null) {
         NaiFarmLocalStorage.getNowPage().then((data){
           if(data == 2){
-            NaiFarmLocalStorage.saveNowPage(0);
+            //NaiFarmLocalStorage.saveNowPage(0);
             //_reload.add(true);
 
             bloc.MarkAsReadNotifications(token: value.token,context: context);
@@ -79,13 +78,17 @@ class _NotiViewState extends State<NotiView>
 
   }
 
-  void ISLogin() async => IsLogin = await Usermanager().isLogin();
-
 
   @override
   void dispose() {
     super.dispose();
     _tabController.dispose();
+  }
+
+  void CustomReCount(){
+    Usermanager().getUser().then((value){
+      context.read<CustomerCountBloc>().loadCustomerCount(token: value.token);
+    });
   }
 
   @override
@@ -94,23 +97,26 @@ class _NotiViewState extends State<NotiView>
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
         if(count is InfoCustomerLoaded){
+          CustomReCount();
           if(count.profileObjectCombine.myShopRespone!=null){
             return  DefaultTabController(length: 2,child: _content(profileObjectCombine: count.profileObjectCombine));
+
           }else{
             //_tabController = TabController(length: 1, vsync: this);
             return  DefaultTabController(length: 1,child: _content(profileObjectCombine: count.profileObjectCombine));
           }
 
         }else{
+         // NaiFarmLocalStorage.saveNowPage(2);
           return LoginView(
             IsHeader: false,
             homeCallBack: (bool fix) {
+              Usermanager().getUser().then((value){
 
-              // Usermanager().getUser().then((value){
-              //
-              //   bloc.MarkAsReadNotifications(token: value.token);
-              //   //_reload.add(true);
-              // });
+                bloc.MarkAsReadNotifications(token: value.token);
+                //_reload.add(true);
+              });
+              Navigator.of(context).pop();
             },
           );
         }

@@ -18,7 +18,6 @@ class NotiBloc{
   final onError = BehaviorSubject<Object>();
   final onSuccess = BehaviorSubject<Object>();
   Stream<Object> get feedList => onSuccess.stream;
-
   List<NotiData> product_more = List<NotiData>();
 
   NotiBloc(this._application);
@@ -32,8 +31,12 @@ class NotiBloc{
       if(respone.http_call_back.status==200){
        // onSuccess.add((respone.respone as NotiRespone));
         var item = (respone.respone as NotiRespone);
-        product_more.addAll(item.data);
-        onSuccess.add(NotiRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
+        if(item.data!=null){
+          print("wefverfer ${item.data.length}");
+          product_more.addAll(item.data);
+          onSuccess.add(NotiRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
+        }
+
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -71,7 +74,7 @@ class NotiBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.MarkAsReadNotifications(token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
       // onSuccess.add(respone.respone);
-       context.read<CustomerCountBloc>().loadCustomerCount(token: token);
+
       }else{
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -81,13 +84,14 @@ class NotiBloc{
   }
 
   refreshProducts({int page,int limit ,String group}){
+
     Usermanager().getUser().then((value) {
       if (value.token != null) {
         NaiFarmLocalStorage.getNowPage().then((data){
-          if(data==0){
-
+          if(data==2){
             GetNotification(group: group,page: page,limit: limit,sort: "notification.createdAt:desc",token: value.token);
           }
+
         });
 
       }

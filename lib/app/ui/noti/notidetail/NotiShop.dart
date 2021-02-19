@@ -63,8 +63,11 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       });
 
       //  bloc.onSuccess.add(widget.notiRespone);
-      bloc.refreshProducts(group: "shop",limit: limit,page: page);
+
     }
+
+    bloc.refreshProducts(group: "shop",limit: limit,page: page);
+
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
           _scrollController.position.pixels <= 200) {

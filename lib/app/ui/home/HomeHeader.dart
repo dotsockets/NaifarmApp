@@ -34,8 +34,8 @@ class _HomeHeaderState extends State<HomeHeader> {
 
           color: ThemeColor.primaryColor(),
           borderRadius: new BorderRadius.only(
-             bottomRight: Radius.circular(widget.snapshot.sliderRespone.data.isNotEmpty?0.0:35.0),
-            bottomLeft:  Radius.circular(widget.snapshot.sliderRespone.data.isNotEmpty?0.0:35.0),
+             bottomRight: Radius.circular(widget.snapshot.sliderRespone!=null?widget.snapshot.sliderRespone.data.isNotEmpty?0.0:35.0:35.0),
+            bottomLeft:  Radius.circular(widget.snapshot.sliderRespone!=null?widget.snapshot.sliderRespone.data.isNotEmpty?0.0:35.0:35.0),
           )
       ),
       child: SafeArea(

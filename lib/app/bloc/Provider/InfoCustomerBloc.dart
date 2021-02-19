@@ -37,6 +37,8 @@ class InfoCustomerBloc extends Cubit<InfoCustomerState> {
         NaiFarmLocalStorage.saveCustomer_Info((respone.respone as ProfileObjectCombine)).then((value){
           emit(InfoCustomerLoaded((respone.respone as ProfileObjectCombine)));
         });
+      }else{
+        emit(InfoCustomerError(respone.http_call_back.result.error.message));
       }
     });
   }
@@ -79,15 +81,15 @@ class InfoCustomerLoaded extends InfoCustomerState {
   int get hashCode => profileObjectCombine.hashCode;
 }
 
-class OrdersError extends InfoCustomerState {
+class InfoCustomerError extends InfoCustomerState {
   final String message;
-  const OrdersError(this.message);
+  const InfoCustomerError(this.message);
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is OrdersError && o.message == message;
+    return o is InfoCustomerError && o.message == message;
   }
 
   @override

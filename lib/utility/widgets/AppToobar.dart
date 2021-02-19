@@ -254,7 +254,7 @@ class AppToobar extends PreferredSize {
     return Wrap(
       children: [
         Container(
-          padding: EdgeInsets.only(left: 0, right: 0.3.w),
+          padding: EdgeInsets.only(left: 0, right: 0.3.w,bottom: 1.5.h),
           color: ThemeColor.primaryColor(),
           child: SafeArea(
             child: Column(

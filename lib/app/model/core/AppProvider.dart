@@ -16,12 +16,12 @@ class AppProvider extends InheritedWidget {
   bool updateShouldNotify(_) => true;
 
   static AppProvider of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(AppProvider) as AppProvider);
+    return (context.dependOnInheritedWidgetOfExactType<AppProvider>() as AppProvider);
   }
 
 
   static AppNaiFarmApplication getApplication(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(AppProvider) as AppProvider).application;
+    return (context.dependOnInheritedWidgetOfExactType<AppProvider>() as AppProvider).application;
   }
 
 

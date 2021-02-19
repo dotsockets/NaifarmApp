@@ -127,7 +127,10 @@ class RecommendMenu extends StatelessWidget {
         case  "SpecialproductsView" : AppRoute.ProductMore(api_link: "products/types/discount",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr());
         break;
         case  "NotiView" :  {
-          onClick(2);
+    NaiFarmLocalStorage.saveNowPage(2).then((data){
+      onClick(2);
+            });
+
           // Usermanager().isLogin().then((value) async {
           //   if(!value){
           //     final result = await  AppRoute.Login(context,IsCallBack: true,IsHeader: true);
@@ -152,17 +155,17 @@ class RecommendMenu extends StatelessWidget {
         break;
         case  "MyLikeView" : {
 
-          Usermanager().isLogin().then((value) async {
-            if(!value){
-              final result = await  AppRoute.Login(context,IsCallBack: true,IsHeader: true);
-              if(result){
-                AppRoute.Wishlists(context: context);
-              }
-            }else{
-              AppRoute.Wishlists(context: context);
-            }
-          });
-
+          // Usermanager().isLogin().then((value) async {
+          //   if(!value){
+          //     final result = await  AppRoute.Login(context,IsCallBack: true,IsHeader: true);
+          //     if(result){
+          //       AppRoute.Wishlists(context: context);
+          //     }
+          //   }else{
+          //     AppRoute.Wishlists(context: context);
+          //   }
+          // });
+          AppRoute.Wishlists(context: context);
 
 
         }

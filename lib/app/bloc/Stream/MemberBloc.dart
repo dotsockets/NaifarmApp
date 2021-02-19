@@ -59,7 +59,7 @@ class MemberBloc{
         context.read<CustomerCountBloc>().loadCustomerCount(token: item.token);
         context.read<InfoCustomerBloc>().loadCustomInfo(token: item.token);
         Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email));
-        onLoad.add(false);
+       // onLoad.add(false);
         onSuccess.add(item);
       }else{
         onLoad.add(false);
@@ -70,8 +70,8 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
-  CustomersLoginSocial({BuildContext context,Fb_Profile loginRequest,String provider}) async{
-    onLoad.add(true);
+  CustomersLoginSocial({BuildContext context,Fb_Profile loginRequest,String provider,bool isLoad}) async{
+
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.CustomersLoginSocial(loginRequest: LoginRequest(name: loginRequest.name,email: loginRequest.email,accessToken: loginRequest.token),provider: provider)).listen((respone) {
 
@@ -79,15 +79,15 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
         context.read<CustomerCountBloc>().loadCustomerCount(token: item.token);
         context.read<InfoCustomerBloc>().loadCustomInfo(token: item.token);
+
         Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email)).then((value){
-          Future.delayed(const Duration(milliseconds: 3000), () {
+          if(isLoad){
             onLoad.add(false);
-            onSuccess.add(item);
-
-          });
-
+          }
+          onSuccess.add(item);
         });
       }else{
+        Usermanager().logout();
         onError.add(respone.http_call_back.result.error.message);
       }
 
@@ -111,20 +111,21 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
-  getFBProfile({BuildContext context,String accessToken}){
+  getFBProfile({BuildContext context,String accessToken,bool isLoad}){
 
     onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.getFBProfile(access_token: accessToken)).listen((respone) {
-      onLoad.add(false);
+     // onLoad.add(false);
       if(respone.http_call_back.status==200){
         var item = (respone.respone as Fb_Profile);
         item.token = accessToken;
 
-        CustomersLoginSocial(context: context,loginRequest: item,provider: "facebook");
+        CustomersLoginSocial(context: context,loginRequest: item,provider: "facebook",isLoad: isLoad);
         //CheckEmail(fb_profile: item);
         //onSuccess.add(true);
       }else{
+        Usermanager().logout();
         onLoad.add(false);
         onError.add(respone.http_call_back.result.error.message);
       }
@@ -133,23 +134,23 @@ class MemberBloc{
     _compositeSubscription.add(subscription);
   }
 
-  LoginFacebook({BuildContext context}) async{
-    onLoad.add(true);
+  LoginFacebook({BuildContext context,bool isLoad}) async{
+   // onLoad.add(true);
     final FacebookLogin facebookSignIn = new FacebookLogin();
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
-        onLoad.add(false);
+      //  onLoad.add(false);
         //  {"name":"Apisit Kaewsasan","first_name":"Apisit","last_name":"Kaewsasan","email":"apisitkaewsasan\u0040hotmail.com","id":"3899261036761384"}
         final FacebookAccessToken accessToken = result.accessToken;
-        getFBProfile(context: context,accessToken: accessToken.token);
+        getFBProfile(context: context,accessToken: accessToken.token,isLoad: isLoad);
         break;
       case FacebookLoginStatus.cancelledByUser:
-        onLoad.add(false);
+      //  onLoad.add(false);
         onError.add("Login cancelled by the user.");
         break;
       case FacebookLoginStatus.error:
-        onLoad.add(false);
+      //  onLoad.add(false);
         onError.add("Something went wrong with the login process.");
         break;
     }

@@ -18,10 +18,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
 class PurchaseView extends StatefulWidget {
-  final bool IsLogin;
   final Function(bool) onStatus;
 
-  const PurchaseView({Key key, this.IsLogin, this.onStatus}) : super(key: key);
+  const PurchaseView({Key key, this.onStatus}) : super(key: key);
 
   @override
   _PurchaseViewState createState() => _PurchaseViewState();
@@ -48,7 +47,7 @@ class _PurchaseViewState extends State<PurchaseView> {
       color: Colors.grey.shade300,
       child: Column(
         children: [
-          widget.IsLogin?BlocBuilder<CustomerCountBloc, CustomerCountState>(
+          BlocBuilder<CustomerCountBloc, CustomerCountState>(
             builder: (_, count) {
               if(count is CustomerCountLoaded){
                 return  _buildTabMenu(context,count.countLoaded);
@@ -59,7 +58,7 @@ class _PurchaseViewState extends State<PurchaseView> {
               }
 
             },
-          ):SizedBox(),
+          ),
           ListMenuItem(
             icon: 'assets/images/svg/latest.svg',
             title: LocaleKeys.me_title_history.tr(),
@@ -127,11 +126,11 @@ class _PurchaseViewState extends State<PurchaseView> {
         //       }
         //     }
         // ): SizedBox(),
-          widget.IsLogin ? _BuildDivider() : SizedBox(),
+          _BuildDivider(),
           ListMenuItem(
             iconSize:7.0.w,
               icon: 'assets/images/svg/editprofile.svg', title: LocaleKeys.me_title_setting.tr(),onClick: () async {
-            final result = await AppRoute.SettingProfile(context,widget.IsLogin);
+            final result = await AppRoute.SettingProfile(context);
             if(result!=null && result){
               widget.onStatus(result);
             }

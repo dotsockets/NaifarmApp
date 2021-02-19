@@ -40,19 +40,15 @@ class MeView extends StatefulWidget {
 }
 
 class _MeViewState extends State<MeView> with RouteAware {
-  bool IsLogin = true;
 
   MemberBloc bloc;
-  final _reload = BehaviorSubject<bool>();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  ProfileObjectCombine infoshop;
+
   StreamController<bool> controller = new StreamController<bool>();
 
   void _init() {
-    ISLogin();
     if (null == bloc) {
-      _reload.add(true);
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         // if(event){
@@ -66,12 +62,12 @@ class _MeViewState extends State<MeView> with RouteAware {
         // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
 
-      _reload.stream.listen((event) {
+      //_reload.stream.listen((event) {
         // Usermanager().getUser().then((value) => context
         //     .read<CustomerCountBloc>()
         //     .loadCustomerCount(token: value.token));
         //Usermanager().getUser().then((value) => bloc.loadMyProfile(token: value.token));
-      });
+     // });
 
       // Usermanager().getUser().then((value) {
       //   if (value.token != null) {
@@ -83,23 +79,18 @@ class _MeViewState extends State<MeView> with RouteAware {
 
     }
 
-    NaiFarmLocalStorage.getCustomer_Info().then((value){
-      infoshop = value;
-    });
 
-    Usermanager().getUser().then((value) {
-      if (value.token != null) {
-        NaiFarmLocalStorage.getNowPage().then((data) {
-          if (data == 3) {
-            IsLogin = true;
-            _reload.add(true);
-          }
-        });
-      }
-    });
+    //
+    // Usermanager().getUser().then((value) {
+    //   if (value.token != null) {
+    //     NaiFarmLocalStorage.getNowPage().then((data) {
+    //       if (data == 3) {
+    //       }
+    //     });
+    //   }
+    // });
   }
 
-  void ISLogin() async => IsLogin = await Usermanager().isLogin();
 
   @override
   void didChangeDependencies() {
@@ -110,52 +101,30 @@ class _MeViewState extends State<MeView> with RouteAware {
   @override
   Widget build(BuildContext context) {
     _init();
-    return Container(
-      color: ThemeColor.primaryColor(),
-      child: SafeArea(
-        bottom: false,
-        child: Builder(
-          builder: (context) {
-            // final _scr = PrimaryScrollController.of(context);
-            // _scr.addListener(() {
-            //   if (_scr.position.pixels > 100) {
-            //     controller.add(false);
-            //   } else {
-            //     controller.add(true);
-            //   }
-            // });
-            return Container(
-              child: StreamBuilder(
-                  stream: _reload.stream,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.hasData) {
-                      return Scaffold(
-                          key: _scaffoldKey,
-                          backgroundColor: Colors.grey.shade300,
-                          body: IsLogin
-                              ? _ContentMe()
-                              : LoginView(
-                                  IsHeader: false,
-                                  homeCallBack: (bool fix) {
-                                    _reload.add(true);
-                                    IsLogin = fix;
-                                  },
-                                ));
-                    } else {
-                      return Container(
-                        margin: EdgeInsets.only(top: 2.0.h),
-                        width: 5.0.w,
-                        height: 5.0.w,
-                        child: Platform.isAndroid
-                            ? CircularProgressIndicator()
-                            : CupertinoActivityIndicator(),
-                      );
-                    }
-                  }),
-            );
-          },
-        ),
-      ),
+    return  BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+      builder: (_, count) {
+        if(count is InfoCustomerLoaded || count is InfoCustomerLoading){
+          return  Scaffold(
+              key: _scaffoldKey,
+              backgroundColor: Colors.grey.shade300,
+              body: _ContentMe());
+        }else{
+          return LoginView(
+            IsHeader: false,
+            homeCallBack: (bool fix) {
+
+              Navigator.of(context).pop();
+
+              // Usermanager().getUser().then((value){
+              //
+              //   bloc.MarkAsReadNotifications(token: value.token);
+              //   //_reload.add(true);
+              // });
+            },
+          );
+        }
+
+      },
     );
   }
 
@@ -171,11 +140,11 @@ class _MeViewState extends State<MeView> with RouteAware {
                 icon: Icon(Icons.settings, color: Colors.white, size: 6.0.w),
               ),
               onTap: () async {
-                final result = await AppRoute.SettingProfile(context, IsLogin);
-                if (result != null && result) {
-                  _reload.add(true);
-                  IsLogin = false;
-                }
+                final result = await AppRoute.SettingProfile(context);
+                // if (result != null && result) {
+                //   _reload.add(true);
+                //   IsLogin = false;
+                // }
               },
             ),
           ),
@@ -272,18 +241,16 @@ class _MeViewState extends State<MeView> with RouteAware {
                 child: TabBarView(
                   children: [
                     PurchaseView(
-                      IsLogin: IsLogin,
                       onStatus: (bool status) {
                         if (status) {
                           if (status) {
-                            _reload.add(true);
-                            IsLogin = false;
+                            // _reload.add(true);
+                            // IsLogin = false;
                           }
                         }
                       },
                     ),
                     MyshopView(
-                      IsLogin: IsLogin,
                       scaffoldKey: _scaffoldKey,
                       onStatus: (bool status) {
                         if (status) {

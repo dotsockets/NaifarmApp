@@ -432,6 +432,11 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
 
   @override
   void onResumed() {
-    _refreshProducts();
+    NaiFarmLocalStorage.getNowPage().then((value){
+      if(value==0){
+        _refreshProducts();
+      }
+    });
+
   }
 }

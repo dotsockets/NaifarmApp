@@ -22,10 +22,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SettingProfileView extends StatefulWidget {
 
 
-
-  final bool IsLogin;
-  const SettingProfileView({Key key, this.IsLogin}) : super(key: key);
-
   @override
   _SettingProfileViewState createState() => _SettingProfileViewState();
 }
@@ -77,8 +73,8 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        widget.IsLogin?_buildTitle(txt: LocaleKeys.setting_account_head_profile.tr()):SizedBox(),
-                        widget.IsLogin?ListMenuItem(
+                        _buildTitle(txt: LocaleKeys.setting_account_head_profile.tr()),
+                        ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_profile.tr(),
                           onClick: () async {
@@ -88,16 +84,16 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                                    }
 
                           },
-                        ):SizedBox(),
-                        widget.IsLogin?_buildLine():SizedBox(),
-                        widget.IsLogin?ListMenuItem(
+                        ),
+                        _buildLine(),
+                        ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_address.tr(),
                           onClick: () {
                             AppRoute.SettingAddress(context);
                           },
-                        ):SizedBox(),
-                        widget.IsLogin?_buildLine():SizedBox(),
+                        ),
+                       _buildLine(),
                        /* widget.IsLogin?ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_bank.tr(),
@@ -105,7 +101,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                             AppRoute.SettingBank(context);
                           },
                         ):SizedBox(),*/
-                        widget.IsLogin?_buildLine():SizedBox(),
+                        _buildLine(),
                         _buildTitle(txt: LocaleKeys.setting_account_head_setting.tr()),
                         ListMenuItem(
                           icon: '',
@@ -167,7 +163,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                             });
                           },
                         ),*/
-                        widget.IsLogin? _BuildButton():SizedBox()
+                        _BuildButton()
                       ],
                     ),
                   ),
