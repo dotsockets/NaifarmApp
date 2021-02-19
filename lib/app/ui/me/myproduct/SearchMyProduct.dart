@@ -57,6 +57,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
 
  void _init() {
    _searchText.add("");
+   NaiFarmLocalStorage.saveNowPage(0);
    /*  if (null == blocProduct) {
       blocProduct = ProductBloc(AppProvider.getApplication(context));
       blocProduct.onLoad.stream.listen((event) {
@@ -106,6 +107,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
             //    if (item.hits.isNotEmpty) {
              //     return
                DefaultTabController(
+                    initialIndex: 0,
                     length: 4,
                     child: Container(
                       child: Column(
@@ -114,8 +116,9 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             height: 7.0.h,
                             child: Container(
                               child: TabBar(
-                                indicatorColor: ThemeColor.ColorSale(),
+                                indicatorColor:ThemeColor.ColorSale(),
                                 isScrollable: false,
+
                                 tabs: [
                                   _tab(title: "ขายอยู่", message: false),
                                   _tab(title: "สินค้าหมด", message: false),

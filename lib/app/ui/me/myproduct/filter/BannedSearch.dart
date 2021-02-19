@@ -49,20 +49,25 @@ class _BannedSearchState extends State<BannedSearch> {
   ProductBloc blocProduct;
 
   final _searchText = BehaviorSubject<String>();
+  int count = 0;
+
 
   void init() {
 
-
+    count=0;
       _searchText.add(widget.searchTxt);
 
 
-    _searchText.stream.listen((event) {
-      NaiFarmLocalStorage.getNowPage().then((value){
-        if(value == 2){
-          _searchData();
-        }
+      _searchText.stream.listen((event) {
+        NaiFarmLocalStorage.getNowPage().then((value) {
+          if (value == 2 && count == 0) {
+            _searchData();
+            count++;
+          }
+        });
       });
-    });
+
+
 
     if (null == blocProduct) {
       blocProduct = ProductBloc(AppProvider.getApplication(context));
@@ -74,14 +79,14 @@ class _BannedSearchState extends State<BannedSearch> {
         }
       });
       blocProduct.onSuccess.stream.listen((event) {
-       // _searchData();
+        _searchData();
       });
 
       blocProduct.onError.stream.listen((event) {
         FunctionHelper.SnackBarShow(
             scaffoldKey: _scaffoldKey, message: event.error.message);
       });
-      //_searchData();
+     // if(_searchText.value.length==0)_searchData();
     }
   }
 
@@ -110,9 +115,11 @@ class _BannedSearchState extends State<BannedSearch> {
           );
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [Skeleton.LoaderListTite(context)],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [Skeleton.LoaderListTite(context)],
+              ),
             ),
           );
         } else {
@@ -351,6 +358,7 @@ class _BannedSearchState extends State<BannedSearch> {
                            Colors.grey.shade400,
                           value: false,
                           onToggle: (val) {
+                            FocusScope.of(context).unfocus();
                             Usermanager().getUser().then((value) =>
                                 blocProduct.UpdateProductMyShop(
                                     shopRequest: ProductMyShopRequest(

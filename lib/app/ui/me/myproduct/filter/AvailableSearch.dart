@@ -47,25 +47,25 @@ class _AvailableSearchState extends State<AvailableSearch> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   ProductBloc blocProduct;
   final _searchText = BehaviorSubject<String>();
-
+  int count = 0;
 
   void init() {
+    count=0;
+    _searchText.add(widget.searchTxt);
 
-      _searchText.add(widget.searchTxt);
 
-    _searchText.stream.listen((event) {
-      print(event);
-      NaiFarmLocalStorage.getNowPage().then((value){
-        if(value == 0){
+      _searchText.stream.listen((event) {
+      NaiFarmLocalStorage.getNowPage().then((value) {
+        if (value == 0 && count==0) {
           _searchData();
+          count++;
         }
       });
-
     });
+
+
     if (null == blocProduct) {
       blocProduct = ProductBloc(AppProvider.getApplication(context));
-
-
 
       blocProduct.onLoad.stream.listen((event) {
         if (event) {
@@ -75,15 +75,16 @@ class _AvailableSearchState extends State<AvailableSearch> {
         }
       });
       blocProduct.onSuccess.stream.listen((event) {
-      //  _searchData();
+        _searchData();
       });
 
       blocProduct.onError.stream.listen((event) {
         FunctionHelper.SnackBarShow(
             scaffoldKey: _scaffoldKey, message: event.error.message);
       });
-      //_searchData();
+
     }
+
   }
 
   @override
@@ -98,7 +99,6 @@ class _AvailableSearchState extends State<AvailableSearch> {
           return Container(
             color: Colors.grey.shade300,
             child: SingleChildScrollView(
-
               child: Column(
             children: item.hits
                 .asMap()
@@ -111,9 +111,11 @@ class _AvailableSearchState extends State<AvailableSearch> {
           );
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [Skeleton.LoaderListTite(context)],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [Skeleton.LoaderListTite(context)],
+              ),
             ),
           );
         } else {
@@ -352,6 +354,7 @@ class _AvailableSearchState extends State<AvailableSearch> {
                               //: Colors.grey.shade400,
                           value: true,
                           onToggle: (val) {
+                            FocusScope.of(context).unfocus();
                             Usermanager().getUser().then((value) =>
                                 blocProduct.UpdateProductMyShop(
                                     shopRequest: ProductMyShopRequest(

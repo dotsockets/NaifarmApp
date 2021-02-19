@@ -79,8 +79,9 @@ class _MyProductViewState extends State<MyProductView> {
   Widget build(BuildContext context) {
     init();
     return Container(
+      color: ThemeColor.primaryColor(),
       child: SafeArea(
-        top: false,
+
         child: Scaffold(
           backgroundColor: Colors.white,
           key: _scaffoldKey,

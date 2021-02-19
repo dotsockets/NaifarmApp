@@ -302,6 +302,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
     return Container(
       child: Column(
         children: [
+
           SizedBox(height: 1.0.h),
           Container(
             height: SizeUtil.titleSmallFontSize().sp*2.7,
