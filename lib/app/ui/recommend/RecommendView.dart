@@ -253,8 +253,8 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                           }
                         },
                       ),
-                      SizedBox(height: 1.5.h),
-                      _BannerAds(),
+                     // SizedBox(height: 1.5.h),
+                     // _BannerAds(),
                       SizedBox(height: 1.5.h),
                       StreamBuilder(
                         stream: bloc.ZipHomeObject.stream,

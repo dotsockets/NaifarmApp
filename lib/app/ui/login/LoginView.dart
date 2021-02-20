@@ -87,7 +87,7 @@ class _LoginViewState extends State<LoginView> {
 
             widget.homeCallBack(true);
             //bloc.onLoad.add(false);
-            Navigator.of(context).pop();
+            AppRoute.PoppageCount(context: context,countpage: 2);
           }else{
             AppRoute.Home(context);
           }

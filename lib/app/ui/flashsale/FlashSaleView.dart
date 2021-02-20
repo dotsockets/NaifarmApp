@@ -240,25 +240,25 @@ class _FlashSaleState extends State<FlashSale> {
             ],
           ),
           SizedBox(height: 1.0.h),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     SmoothStarRating(
-          //         allowHalfRating: false,
-          //         onRated: (v) {},
-          //         starCount: 5,
-          //         rating: item.rating.toDouble(),
-          //         size: 4.0.w,
-          //         isReadOnly: true,
-          //         filledIconData: Icons.star,
-          //         halfFilledIconData: Icons.star_half_outlined,
-          //         color: Colors.amber,
-          //         borderColor: Colors.amber,
-          //         spacing: 0.0),
-          //     SizedBox(width: 1.0.w,),
-          //     Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
-          //   ],
-          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SmoothStarRating(
+                  allowHalfRating: false,
+                  onRated: (v) {},
+                  starCount: 5,
+                  rating: item.rating.toDouble(),
+                  size: 4.0.w,
+                  isReadOnly: true,
+                  filledIconData: Icons.star,
+                  halfFilledIconData: Icons.star_half_outlined,
+                  color: Colors.amber,
+                  borderColor: Colors.amber,
+                  spacing: 0.0),
+              SizedBox(width: 1.0.w,),
+              Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
+            ],
+          ),
           Stack(
             children: [
               Container(

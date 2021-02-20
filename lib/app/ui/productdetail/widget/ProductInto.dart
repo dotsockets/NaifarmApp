@@ -9,6 +9,7 @@ import 'package:like_button/like_button.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
@@ -29,11 +30,12 @@ class ProductInto extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
    ProductInto({Key key, this.data, this.scaffoldKey}) : super(key: key);
   ProductBloc bloc;
+  bool IsLogin = true;
 
   void _init(BuildContext context) {
     if (null == bloc) {
 
-
+      ISLogin();
       bloc = ProductBloc(AppProvider.getApplication(context));
       //bloc.ProductItem.add(widget.productItem);
       bloc.onError.stream.listen((event) {
@@ -59,6 +61,9 @@ class ProductInto extends StatelessWidget {
       Usermanager().getUser().then((value) => bloc.GetWishlistsByProduct(token: value.token,productID: data.id));
     }
   }
+
+  void ISLogin() async => IsLogin = await Usermanager().isLogin();
+
 
   @override
   Widget build(BuildContext context) {
@@ -113,13 +118,14 @@ class ProductInto extends StatelessWidget {
                       AsyncSnapshot snapshot) {
 
                     if (snapshot.hasData && (snapshot.data as WishlistsRespone) != null) {
+
                       if ((snapshot.data as WishlistsRespone).total > 0) {
-                        return LikeContent(item: snapshot.data);
+                        return LikeContent(item: snapshot.data,context: context);
                       } else {
-                        return LikeContent(item: snapshot.data);
+                        return IsLogin?LikeContent(item: snapshot.data,context: context):LikeContentNoLogin(context);
                       }
                     } else {
-                      return LikeContent(item: WishlistsRespone());
+                      return IsLogin?LikeContent(item: WishlistsRespone()):LikeContentNoLogin(context);
                     }
                   },
                 ),
@@ -133,8 +139,15 @@ class ProductInto extends StatelessWidget {
       ),
     );
   }
+  Widget LikeContentNoLogin(BuildContext context){
+    return InkWell(child: Container(margin: EdgeInsets.only(right: 2.0.w,left: 1.0.w),child: Icon(Icons.favorite_outline_sharp,size: 8.0.w,color: Colors.black.withOpacity(0.55),)),onTap: (){
+      AppRoute.Login(context,IsHeader: true,homeCallBack: (bool fix){
+        ISLogin();
+      });
+    },);
+  }
 
-  Widget LikeContent({WishlistsRespone item}){
+  Widget LikeContent({WishlistsRespone item,BuildContext context}){
     return LikeButton(
       size: 10.0.w,
       isLiked: item.total>0?true:false,
@@ -153,34 +166,30 @@ class ProductInto extends StatelessWidget {
       },
       likeCountAnimationType: LikeCountAnimationType.part,
       likeCountPadding:  EdgeInsets.all(1.0.w),
-      onTap: (bool like)=>onLikeButtonTapped(item.total>0?true:false,item),
+      onTap: (bool like)=>onLikeButtonTapped(item.total>0?true:false,item,context),
     );
   }
 
-  Future<bool> onLikeButtonTapped(bool isLiked,WishlistsRespone item) async {
+  Future<bool> onLikeButtonTapped(bool isLiked,WishlistsRespone item,BuildContext context) async {
 
+    if (item.total > 0) {
+      int id = item.data[0].id;
+      item.data = [];
+      item.total = 0;
+      bloc.Wishlists.add(item);
+      Usermanager().getUser().then((value) =>
+          bloc.DELETEWishlists(WishId: id, token: value.token));
+    } else {
 
-      if (item.total > 0) {
-        int id = item.data[0].id;
-        item.data = [];
-        item.total = 0;
-        bloc.Wishlists.add(item);
-        Usermanager().getUser().then((value) =>
-            bloc.DELETEWishlists(WishId: id, token: value.token));
-      } else {
-
-        Usermanager().getUser().then((value) => bloc.AddWishlists(
-            productId: data.id,
-            inventoryId: data
-                .inventories[0].id,
-            token: value.token));
-        item.data = [];
-        item.total = 1;
-        bloc.Wishlists.add(item);
-      }
-
-
-
+      Usermanager().getUser().then((value) => bloc.AddWishlists(
+          productId: data.id,
+          inventoryId: data
+              .inventories[0].id,
+          token: value.token));
+      item.data = [];
+      item.total = 1;
+      bloc.Wishlists.add(item);
+    }
     return !isLiked;
   }
 

@@ -199,15 +199,15 @@ class _AvailableState extends State<Available> {
                             borderRadius: BorderRadius.circular(1.0.h),
                             child: CachedNetworkImage(
                               width: 30.0.w,
-                              height: 35.0.w,
+                              height: 30.0.w,
                               placeholder: (context, url) => Container(
                                 width: 30.0.w,
-                                height: 35.0.w,
+                                height: 30.0.w,
                                 color: Colors.white,
                                 child: Lottie.asset(
                                   'assets/json/loading.json',
                                   width: 30.0.w,
-                                  height: 35.0.w,
+                                  height: 30.0.w,
                                 ),
                               ),
                               imageUrl: item.image.isNotEmpty
@@ -215,7 +215,7 @@ class _AvailableState extends State<Available> {
                                   : '',
                               errorWidget: (context, url, error) => Container(
                                   width: 30.0.w,
-                                  height: 35.0.w,
+                                  height: 30.0.w,
                                   child: Image.network(Env.value.noItemUrl,
                                       fit: BoxFit.cover)),
                             ),

@@ -42,7 +42,7 @@ class CartData {
   int packagingId;
   int itemCount;
   int quantity;
-  int shippingWeight;
+  double shippingWeight;
   int total;
   int discount;
   int shipping;
@@ -104,7 +104,7 @@ class CartData {
     packagingId = json['packagingId'];
     itemCount = json['itemCount'];
     quantity = json['quantity'];
-    shippingWeight = json['shippingWeight'] > 0?json['shippingWeight'] is int?json['shippingWeight']:int.parse(json['shippingWeight'].toString()):0;
+    shippingWeight = json['shippingWeight'] > 0?json['shippingWeight'] is int?double.parse(json['shippingWeight'].toString()):json['shippingWeight']:0;
     total = json['total'];
     discount = json['discount'];
     shipping = json['shipping'];

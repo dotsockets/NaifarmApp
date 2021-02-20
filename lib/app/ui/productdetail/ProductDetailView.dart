@@ -398,7 +398,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
               return Column(
                 children: [
                   widget.productItem.image != null
-                      ? ProductInto(data: item.producItemRespone,scaffoldKey: _scaffoldKey,)
+                      ? ProductInto(data: item.producItemRespone,scaffoldKey: _scaffoldKey)
                       : SizedBox(),
                   widget.productItem.image != null ? _Divider() : SizedBox(),
                   // BuildChoosesize(

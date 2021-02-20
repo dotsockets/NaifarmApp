@@ -7,3 +7,4 @@ BUNDLE_NAME=Naifarm
 FACEBOOK_APP_ID=219341536017829
 FACEBOOK_APP_ID_SCHEMES=fb219341536017829
 APP_SUFFIX=com.dotsocket.naifarm
+APP_SUFFIX_NOTI=com.dotsocket.naifarm.OneSignalNotificationServiceExtension

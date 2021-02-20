@@ -108,14 +108,14 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                     }
                   },
                 ),
-                SizedBox(height: 1.0.h),
+                //SizedBox(height: 1.0.h),
                 StreamBuilder(
                   stream: bloc.MoreProduct.stream,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if(snapshot.hasData) {
                       return Column(
                         children: [
-                          _BannerAds(),
+                         // _BannerAds(),
                         ],
                       );
                     }else{

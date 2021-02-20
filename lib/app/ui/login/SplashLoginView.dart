@@ -46,14 +46,14 @@ class SplashLoginView extends StatelessWidget {
 
   Widget _BuildHeader(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height-ScreenUtil().setHeight(200),
+      height: MediaQuery.of(context).size.height-12.0.h,
         padding: EdgeInsets.all(10),
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: ThemeColor.primaryColor(),
           borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(40),
-              bottomLeft: Radius.circular(40)),
+              bottomRight: Radius.circular(50),
+              bottomLeft: Radius.circular(50)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -141,8 +141,8 @@ class SplashLoginView extends StatelessWidget {
         decoration: BoxDecoration(
           color: ThemeColor.ColorSale(),
           borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(40),
-              bottomLeft: Radius.circular(40)),
+              bottomRight: Radius.circular(50),
+              bottomLeft: Radius.circular(50)),
         ),
         child: _BuildHeader(context));
   }
