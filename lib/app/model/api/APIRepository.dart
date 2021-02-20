@@ -340,8 +340,8 @@ class APIRepository{
     return _apiProvider.MarkAsReadNotifications(token: token);
   }
 
-  Future<ApiResult> getSearchMyshop({String page, String query, int shopId, int limit}){
-    return _apiProvider.getSearchMyshop(page: page,query: query,shopId: shopId,limit: limit);
+  Future<ApiResult> getSearchProduct({String page, String query, int shopId, int limit}){
+    return _apiProvider.getSearchProduct(page: page,query: query,shopId: shopId,limit: limit);
   }
 
   Future<ApiResult> getMyShopAttribute({String token}){
@@ -411,6 +411,9 @@ class APIRepository{
     return _apiProvider.OrderCancel(token:  token,OrderId: OrderId);
   }
 
+  Future<ApiResult> getSearchShop({ String page, String query,int limit,int shopId,String filter,String token}){
+    return _apiProvider.getSearchShop(filter: filter,shopId: shopId,page: page,limit: limit,query: query,token: token);
+  }
 
 
 

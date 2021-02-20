@@ -113,9 +113,9 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                             InkWell(
                                               child: ShopOwn(
                                                 shopItem: ShopItem(rating: widget.productItem.rating,
-                                                  name: widget.productItem.shop!=null?widget.productItem.shop.name:"-",
+                                                  name: item.shop.name!=null?item.shop.name:"-",
                                                   id: widget.productItem.shop!=null?widget.productItem.shop.id:0,
-                                                  updatedAt: widget.productItem.shop!=null?widget.productItem.shop.updatedAt:"",
+                                                  updatedAt: item.shop.updatedAt!=null?item.shop.updatedAt:"",
                                                   slug: widget.productItem.shop!=null?widget.productItem.shop.slug:"-",
                                                   image: imgShopList(item: item),state: DataStates(name:item.shop.state!=null?item.shop.state.name:"ไม่ถูกต้อง",id:item.shop.state!=null? item.shop.state.id:0),
                                                   countProduct: item.shop.countProduct

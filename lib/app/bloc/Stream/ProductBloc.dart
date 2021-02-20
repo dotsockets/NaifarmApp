@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
+import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/BannersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
@@ -29,6 +30,8 @@ import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'UploadProductBloc.dart';
 
 class ProductBloc{
   final AppNaiFarmApplication _application;
@@ -170,9 +173,9 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  loadSearchMyshop({String page, String query, int shopId, int limit})async{
+  loadSearchMyshop({String page, String query, int shopId, int limit,String filter,String token})async{
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getSearchMyshop(shopId: shopId,page: page,query: query,limit: limit)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.getSearchShop(shopId: shopId,page: page,query: query,limit: limit,filter: filter,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
         SearchProduct.add((respone.respone as SearchRespone));
       }else{
@@ -475,7 +478,27 @@ class ProductBloc{
     });
   }
 
+  UpdateProductMyShop(
+      {ProductMyShopRequest shopRequest, int productId, String token,IsActive isActive}) {
 
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(
+        _application.appStoreAPIRepository.UpdateProductMyShop(
+            shopRequest: shopRequest, productId: productId, token: token))
+        .listen((respone) {
+      if (respone.http_call_back.status == 200) {
+        onSuccess.add(true);
+        onLoad.add(false);
+        if(isActive == IsActive.UpdateProduct){
+          onSuccess.add(true);
+        }
+      } else {
+        onLoad.add(false);
+        onError.add(respone.http_call_back.result);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
 
   GetCategoriesAll(){
 
