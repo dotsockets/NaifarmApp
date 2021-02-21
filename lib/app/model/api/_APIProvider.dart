@@ -2246,7 +2246,7 @@ class _APIProvider implements APIProvider {
     final _data = <String, dynamic>{};
     try {
       final _result = await _dio.request<dynamic>(
-          '/v1/myshop/search/products?limit=${limit}&page=${page}&shopId=${shopId}&filter=${filter}&q=${query}',
+          '/v1/myshop/search/products?limit=${limit}&page=${page}&shopId=${shopId}&filter=${filter}&q=${query}&sort=product.createdAt',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',

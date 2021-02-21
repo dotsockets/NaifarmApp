@@ -77,7 +77,7 @@ class ProductInto extends StatelessWidget {
           children: [
             Text(
               data.name.toString(),
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.left,
               style: FunctionHelper.FontTheme(
                   fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
             ),

@@ -545,8 +545,29 @@ class FunctionHelper {
   }
 
 
+  // static int flashSaleTime({String flashTime}){
+  //
+  //   final year = int.parse(flashTime.substring(0, 4));
+  //   final month = int.parse(flashTime.substring(5, 7));
+  //   final day = int.parse(flashTime.substring(8, 10));
+  //   final hour = int.parse(flashTime.substring(11, 13));
+  //   final minute = int.parse(flashTime.substring(14, 16));
+  //   final second = int.parse(flashTime.substring(17, 19));
+  //
+  //   DateTime timeData = DateTime(year, month, day, hour, minute,second);
+  //
+  //   DateTime currentTime = DateTime.now();
+  //   int difTimeSc = timeData.difference(currentTime).inSeconds;
+  //
+  //   if(difTimeSc>86400){
+  //     difTimeSc = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+1, 03, 06,40).millisecondsSinceEpoch;
+  //   }
+  //   // DateTime.now().millisecondsSinceEpoch + 1000 * 30
+  //   return difTimeSc;
+  // }
 
-  static int flashSaleTime({String flashTime}){
+
+  static Duration flashSaleTime({String flashTime}){
 
     final year = int.parse(flashTime.substring(0, 4));
     final month = int.parse(flashTime.substring(5, 7));
@@ -558,13 +579,18 @@ class FunctionHelper {
     DateTime timeData = DateTime(year, month, day, hour, minute,second);
 
     DateTime currentTime = DateTime.now();
-    int difTimeSc = timeData.difference(currentTime).inSeconds;
+    //int difTimeSc = timeData.difference(currentTime).inSeconds;
+    Duration difTimeSc = timeData.difference(currentTime);
 
-    if(difTimeSc>86400){
-      difTimeSc = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+1, 03, 06,40).millisecondsSinceEpoch;
+    if(timeData.difference(currentTime).inSeconds>86400){
+      var item = Duration(hours: (24-DateTime.now().hour)+02,minutes: (60-DateTime.now().minute)+05,seconds: (60-DateTime.now().second)+39);
+    // item.millisecondsSinceEpoch
+      difTimeSc = item;
+
     }
-  // DateTime.now().millisecondsSinceEpoch + 1000 * 30
     return difTimeSc;
+  // DateTime.now().millisecondsSinceEpoch + 1000 * 30
+
   }
 
   static String replaceText({String text,String pattern}){

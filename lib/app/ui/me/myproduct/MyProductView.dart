@@ -81,7 +81,6 @@ class _MyProductViewState extends State<MyProductView> {
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
-
         child: Scaffold(
           backgroundColor: Colors.white,
           key: _scaffoldKey,
