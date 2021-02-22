@@ -380,10 +380,7 @@ class _AvailableState extends State<Available> {
                           onToggle: (val) {
                             bloc.ProductMyShopRes.value.data[index].active = val ? 1 : 0;
                             bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
-                            //   bloc.ProductMyShopRes.value.data.removeAt(index);
-                            //   bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
-                            //  print( bloc.ProductMyShopRes.value.data.length);
-                          //   count++;
+
                             Usermanager().getUser().then((value) =>
                                 bloc.UpdateProductMyShop(
                                     shopRequest: ProductMyShopRequest(
@@ -512,7 +509,7 @@ class _AvailableState extends State<Available> {
   _reloadData() {
     Usermanager().getUser().then((value) => bloc.GetProductMyShop(
         page: page.toString(),
-        limit: 5,
+        limit: limit,
         token: value.token,
         filter: "available"));
   }

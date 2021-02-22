@@ -33,41 +33,41 @@ import 'package:sizer/sizer.dart';
 
 class BannedSearch extends StatefulWidget {
   final int shopId;
-  final GlobalKey<ScaffoldState>  scaffoldKey;
+  final GlobalKey<ScaffoldState> scaffoldKey;
   final String searchTxt;
 
-  const BannedSearch({Key key, this.shopId, this.scaffoldKey,this.searchTxt}) : super(key: key);
+  const BannedSearch({Key key, this.shopId, this.scaffoldKey, this.searchTxt})
+      : super(key: key);
 
   @override
   _BannedSearchState createState() => _BannedSearchState();
 }
 
 class _BannedSearchState extends State<BannedSearch> {
-  int limit = 10;
+  int limit = 5;
   String searchText = "";
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   ProductBloc blocProduct;
+  ScrollController _scrollController = ScrollController();
+  int page = 1;
+  bool step_page = false;
 
   final _searchText = BehaviorSubject<String>();
   int count = 0;
 
-
   void init() {
+    count = 0;
+    _searchText.add(widget.searchTxt);
 
-    count=0;
-      _searchText.add(widget.searchTxt);
-
-
-      _searchText.stream.listen((event) {
-        NaiFarmLocalStorage.getNowPage().then((value) {
-          if (value == 2 && count == 0) {
-            _searchData();
-            count++;
-          }
-        });
+    _searchText.stream.listen((event) {
+      NaiFarmLocalStorage.getNowPage().then((value) {
+        if (value == 2 && count == 0) {
+          blocProduct.searchList.clear();
+          _searchData();
+          count++;
+        }
       });
-
-
+    });
 
     if (null == blocProduct) {
       blocProduct = ProductBloc(AppProvider.getApplication(context));
@@ -79,15 +79,26 @@ class _BannedSearchState extends State<BannedSearch> {
         }
       });
       blocProduct.onSuccess.stream.listen((event) {
-        _searchData();
+        _reloadFirstPage();
       });
 
       blocProduct.onError.stream.listen((event) {
         FunctionHelper.SnackBarShow(
             scaffoldKey: _scaffoldKey, message: event.error.message);
       });
-     // if(_searchText.value.length==0)_searchData();
+      // if(_searchText.value.length==0)_searchData();
     }
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent -
+              _scrollController.position.pixels <=
+          200) {
+        if (step_page) {
+          step_page = false;
+          page++;
+          _searchData();
+        }
+      }
+    });
   }
 
   @override
@@ -96,21 +107,53 @@ class _BannedSearchState extends State<BannedSearch> {
     return StreamBuilder(
       stream: blocProduct.SearchProduct.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-
-        if (snapshot.hasData&&(snapshot.data as SearchRespone).hits.length>0) {
+        step_page = true;
+        if (snapshot.hasData &&
+            (snapshot.data as SearchRespone).hits.length > 0) {
+          step_page = true;
           var item = (snapshot.data as SearchRespone);
           return Container(
             color: Colors.grey.shade300,
             child: SingleChildScrollView(
-
+              controller: _scrollController,
               child: Column(
-            children: item.hits
-                .asMap()
-                .map((key, value) => MapEntry(key,
-                _BuildProduct(index: key, item: CovertDataMyShop(hits: value))))
-                .values
-                .toList(),
-          ),
+                children: [
+                  Column(
+                    children: item.hits
+                        .asMap()
+                        .map((key, value) => MapEntry(
+                            key,
+                            _BuildProduct(
+                                index: key,
+                                item:
+                                    CovertDataMyShop(hits: value, index: key))))
+                        .values
+                        .toList(),
+                  ),
+                  if (item.hits.length != item.nbHits)
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Platform.isAndroid
+                              ? SizedBox(
+                                  width: 5.0.w,
+                                  height: 5.0.w,
+                                  child: CircularProgressIndicator())
+                              : CupertinoActivityIndicator(),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Loading",
+                              style: FunctionHelper.FontTheme(
+                                  color: Colors.grey,
+                                  fontSize: SizeUtil.priceFontSize().sp))
+                        ],
+                      ),
+                    )
+                ],
+              ),
             ),
           );
         } else if (snapshot.connectionState == ConnectionState.waiting) {
@@ -135,7 +178,8 @@ class _BannedSearchState extends State<BannedSearch> {
                     Text(
                       LocaleKeys.search_product_not_found.tr(),
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
@@ -172,7 +216,7 @@ class _BannedSearchState extends State<BannedSearch> {
                             border: Border.all(
                                 color: Colors.black.withOpacity(0.2), width: 1),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10))),
                         child: Hero(
                           tag: "myproduct_search_${index}",
                           child: ClipRRect(
@@ -265,7 +309,7 @@ class _BannedSearchState extends State<BannedSearch> {
                                           " ${item.stockQuantity != null ? item.stockQuantity : 0}",
                                       style: FunctionHelper.FontTheme(
                                           fontSize:
-                                          SizeUtil.detailFontSize().sp)),
+                                              SizeUtil.detailFontSize().sp)),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -277,7 +321,7 @@ class _BannedSearchState extends State<BannedSearch> {
                                       "${LocaleKeys.my_product_sold.tr() + " " + item.hasVariant.toString() + " " + LocaleKeys.cart_item.tr()}",
                                       style: FunctionHelper.FontTheme(
                                           fontSize:
-                                          SizeUtil.detailFontSize().sp),
+                                              SizeUtil.detailFontSize().sp),
                                     ),
                                   ),
                                 )
@@ -290,14 +334,14 @@ class _BannedSearchState extends State<BannedSearch> {
                           Container(
                             child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Text(
                                         LocaleKeys.my_product_like.tr() + " 10",
                                         style: FunctionHelper.FontTheme(
                                             fontSize:
-                                            SizeUtil.detailFontSize().sp)),
+                                                SizeUtil.detailFontSize().sp)),
                                   ),
                                   SizedBox(
                                     width: 10,
@@ -310,8 +354,8 @@ class _BannedSearchState extends State<BannedSearch> {
                                                 " 10",
                                             style: FunctionHelper.FontTheme(
                                                 fontSize:
-                                                SizeUtil.detailFontSize()
-                                                    .sp),
+                                                    SizeUtil.detailFontSize()
+                                                        .sp),
                                           )))
                                 ]),
                           ),
@@ -353,20 +397,22 @@ class _BannedSearchState extends State<BannedSearch> {
                           toggleSize: 7.0.w,
                           activeColor: Colors.grey.shade200,
                           inactiveColor: Colors.grey.shade200,
-                          toggleColor: //isSwitch?
-                          //ThemeColor.primaryColor(),
-                           Colors.grey.shade400,
-                          value: false,
+                          toggleColor: item.active == 1
+                              ? ThemeColor.primaryColor()
+                              : Colors.grey.shade400,
+                          value: item.active == 1 ? true : false,
                           onToggle: (val) {
                             FocusScope.of(context).unfocus();
+                            blocProduct.SearchProduct.value.hits[index].active =
+                                0;
+                            blocProduct.SearchProduct.add(
+                                blocProduct.SearchProduct.value);
                             Usermanager().getUser().then((value) =>
                                 blocProduct.UpdateProductMyShop(
                                     shopRequest: ProductMyShopRequest(
-                                      //   name: item.name, active: isSwitch ? 1 : 0),
                                         name: item.name, active: 0),
                                     token: value.token,
                                     productId: item.id));
-
                           },
                         ),
                       ),
@@ -433,20 +479,21 @@ class _BannedSearchState extends State<BannedSearch> {
                             FunctionHelper.ConfirmDialog(context,
                                 message: LocaleKeys.dialog_message_del_product
                                     .tr(), onClick: () {
-                                  // bloc.ProductMyShop.value.data.removeAt(index);
-                                  // bloc.ProductMyShop.add(bloc.ProductMyShop.value);
+                              // bloc.ProductMyShop.value.data.removeAt(index);
+                              // bloc.ProductMyShop.add(bloc.ProductMyShop.value);
 
-                                  blocProduct.SearchProduct.value.hits.removeAt(index);
-                                  blocProduct.SearchProduct.add(
-                                      blocProduct.SearchProduct.value);
+                              blocProduct.SearchProduct.value.hits
+                                  .removeAt(index);
+                              blocProduct.SearchProduct.add(
+                                  blocProduct.SearchProduct.value);
 
-                                  Usermanager().getUser().then((value) =>
-                                      blocProduct.DELETEProductMyShop(
-                                          ProductId: item.id, token: value.token));
-                                  Navigator.of(context).pop();
-                                }, onCancel: () {
-                                  Navigator.of(context).pop();
-                                });
+                              Usermanager().getUser().then((value) =>
+                                  blocProduct.DELETEProductMyShop(
+                                      ProductId: item.id, token: value.token));
+                              Navigator.of(context).pop();
+                            }, onCancel: () {
+                              Navigator.of(context).pop();
+                            });
                           },
                         ),
                       ),
@@ -460,10 +507,13 @@ class _BannedSearchState extends State<BannedSearch> {
       ),
     );
   }
-  ProductMyShop CovertDataMyShop({Hits hits}) {
+
+  ProductMyShop CovertDataMyShop({Hits hits, int index}) {
     return ProductMyShop(
         name: hits.name,
-        active: 1,
+        active: hits.active == null
+            ? 0
+            : blocProduct.SearchProduct.value.hits[index].active,
         id: hits.productId,
         brand: hits.brand,
         discountPercent: hits.discountPercent,
@@ -477,7 +527,6 @@ class _BannedSearchState extends State<BannedSearch> {
         saleCount: hits.saleCount,
         salePrice: hits.salePrice);
   }
-
 
   Widget ButtonDialog(BuildContext context,
       {Function() onClick, List<String> message}) {
@@ -511,14 +560,21 @@ class _BannedSearchState extends State<BannedSearch> {
       },
     );
   }
+
   _searchData() {
     Usermanager().getUser().then((value) => blocProduct.loadSearchMyshop(
         shopId: widget.shopId,
-        page: "1",
+        page: page.toString(),
         query: widget.searchTxt,
         limit: limit,
         filter: "banned",
         token: value.token));
+  }
+
+  _reloadFirstPage() {
+    blocProduct.searchList.clear();
+    page = 1;
+    _searchData();
   }
 
 /* @override

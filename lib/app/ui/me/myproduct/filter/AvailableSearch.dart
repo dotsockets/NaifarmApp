@@ -43,11 +43,14 @@ class AvailableSearch extends StatefulWidget {
 }
 
 class _AvailableSearchState extends State<AvailableSearch> {
-  int limit = 10;
+  int limit = 5;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   ProductBloc blocProduct;
   final _searchText = BehaviorSubject<String>();
   int count = 0;
+  ScrollController _scrollController = ScrollController();
+  int page = 1;
+  bool step_page = false;
 
   void init() {
     count=0;
@@ -57,6 +60,7 @@ class _AvailableSearchState extends State<AvailableSearch> {
       _searchText.stream.listen((event) {
       NaiFarmLocalStorage.getNowPage().then((value) {
         if (value == 0 && count==0) {
+          blocProduct.searchList.clear();
           _searchData();
           count++;
         }
@@ -75,7 +79,8 @@ class _AvailableSearchState extends State<AvailableSearch> {
         }
       });
       blocProduct.onSuccess.stream.listen((event) {
-        _searchData();
+        _reloadFirstPage();
+
       });
 
       blocProduct.onError.stream.listen((event) {
@@ -84,6 +89,17 @@ class _AvailableSearchState extends State<AvailableSearch> {
       });
 
     }
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent -
+          _scrollController.position.pixels <=
+          200) {
+        if (step_page) {
+          step_page = false;
+          page++;
+          _searchData();
+        }
+      }
+    });
 
   }
 
@@ -93,20 +109,49 @@ class _AvailableSearchState extends State<AvailableSearch> {
     return StreamBuilder(
       stream: blocProduct.SearchProduct.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-
+        step_page = true;
         if (snapshot.hasData&&(snapshot.data as SearchRespone).hits.length>0) {
+          step_page = true;
           var item = (snapshot.data as SearchRespone);
+
           return Container(
             color: Colors.grey.shade300,
             child: SingleChildScrollView(
+              controller: _scrollController,
               child: Column(
+                children: [
+                  Column(
             children: item.hits
-                .asMap()
-                .map((key, value) => MapEntry(key,
-                _BuildProduct(index: key, item: CovertDataMyShop(hits: value))))
-                .values
-                .toList(),
+                    .asMap()
+                    .map((key, value) => MapEntry(key,
+                    _BuildProduct(index: key, item: CovertDataMyShop(hits: value,index: key))))
+                    .values
+                    .toList(),
           ),
+                  if (item.hits.length != item.nbHits)
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Platform.isAndroid
+                              ? SizedBox(
+                              width: 5.0.w,
+                              height: 5.0.w,
+                              child: CircularProgressIndicator())
+                              : CupertinoActivityIndicator(),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Loading",
+                              style: FunctionHelper.FontTheme(
+                                  color: Colors.grey,
+                                  fontSize: SizeUtil.priceFontSize().sp))
+                        ],
+                      ),
+                    )
+                ],
+              ),
             ),
           );
         } else if (snapshot.connectionState == ConnectionState.waiting) {
@@ -349,16 +394,17 @@ class _AvailableSearchState extends State<AvailableSearch> {
                           toggleSize: 7.0.w,
                           activeColor: Colors.grey.shade200,
                           inactiveColor: Colors.grey.shade200,
-                          toggleColor: //isSwitch?
-                           ThemeColor.primaryColor(),
-                              //: Colors.grey.shade400,
-                          value: true,
+                          toggleColor: item.active == 1
+                              ? ThemeColor.primaryColor()
+                              : Colors.grey.shade400,
+                          value: item.active == 1 ? true : false,
                           onToggle: (val) {
                             FocusScope.of(context).unfocus();
+                            blocProduct.SearchProduct.value.hits[index].active = 0;
+                            blocProduct.SearchProduct.add(blocProduct.SearchProduct.value);
                             Usermanager().getUser().then((value) =>
                                 blocProduct.UpdateProductMyShop(
                                     shopRequest: ProductMyShopRequest(
-                                     //   name: item.name, active: isSwitch ? 1 : 0),
                                         name: item.name, active: 0),
                                     token: value.token,
                                     productId: item.id));
@@ -452,10 +498,10 @@ class _AvailableSearchState extends State<AvailableSearch> {
       ),
     );
   }
-  ProductMyShop CovertDataMyShop({Hits hits}) {
+  ProductMyShop CovertDataMyShop({Hits hits,int index}) {
     return ProductMyShop(
         name: hits.name,
-        active: 1,
+        active: hits.active==null?1:blocProduct.SearchProduct.value.hits[index].active,
         id: hits.productId,
         brand: hits.brand,
         discountPercent: hits.discountPercent,
@@ -506,13 +552,18 @@ class _AvailableSearchState extends State<AvailableSearch> {
   _searchData() {
     Usermanager().getUser().then((value) => blocProduct.loadSearchMyshop(
         shopId: widget.shopId,
-        page: "1",
+        page: page.toString(),
         query: widget.searchTxt,
         limit: limit,
         filter: "available",
         token: value.token));
   }
 
+  _reloadFirstPage(){
+    blocProduct.searchList.clear();
+    page = 1;
+    _searchData();
+  }
 /* @override
   bool get wantKeepAlive => true;*/
 }

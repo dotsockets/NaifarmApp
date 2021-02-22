@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductDetail.dart';
+import 'package:naifarm/app/ui/productdetail/widget/ProductInto.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductSlide.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -61,7 +63,9 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
           Navigator.pop(context);
         }
       });*/
-      bloc.onSuccess.stream.listen((event) {});
+      bloc.onSuccess.stream.listen((event) {
+
+      });
 
       Usermanager().getUser().then((value) => bloc.GetProductDetailShop(
           token: value.token, ProductId: widget.productItem.id));
@@ -98,10 +102,6 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                             Column(
                               children: [
                                 _BuildTitle(),
-                                SizedBox(
-                                  height: 0.8.h,
-                                ),
-
                                 StreamBuilder(
                                     stream: bloc.onSuccess.stream,
                                     builder: (BuildContext context,
@@ -110,6 +110,12 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                         var item = (snapshot.data as ProductMyShopRespone);
                                         return Column(
                                           children: [
+                                            Container(
+                                              color:Colors.white,
+                                              child: ProductInto(data: ProducItemRespone(name: item.name,salePrice: item.salePrice,offerPrice: item.offerPrice,
+                                              id: item.id,
+                                              ),scaffoldKey: _scaffoldKey),
+                                            ),
                                             InkWell(
                                               child: ShopOwn(
                                                 shopItem: ShopItem(rating: widget.productItem.rating,
@@ -147,7 +153,17 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                           ],
                                         );
                                       } else {
-                                        return Text("");
+                                          return Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 15.0.h,
+                                              ),
+                                              Platform.isAndroid
+                                                  ? CircularProgressIndicator()
+                                                  : CupertinoActivityIndicator(),
+                                            ],
+                                          );
+
                                       }
                                     }),
 
@@ -181,45 +197,6 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
           ),
         ),
       ),
-        Container(
-          width: 80.0.w,
-          child: Text(
-            widget.productItem.name,
-            textAlign: TextAlign.center,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
-          ),
-        )
-          ,SizedBox(height: 1.5.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-             widget.productItem.offerPrice != null
-                  ? Text("${widget.productItem.salePrice}",
-                      style: FunctionHelper.FontTheme(
-                          color: Colors.grey.shade300,
-                          fontSize: SizeUtil.priceFontSize().sp-2,
-                          decoration: TextDecoration.lineThrough))
-                  : Text(""),
-              SizedBox(width: widget.productItem.offerPrice!=null?1.0.w:0),
-              Text(widget.productItem.offerPrice!=null?"฿ ${widget.productItem.offerPrice}":"฿ ${widget.productItem.salePrice}",
-                  style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.priceFontSize().sp,
-                      color: ThemeColor.ColorSale())),
-            ],
-          ),
-          SizedBox(
-            height: 1.5.h,
-          ),
-          Text(
-            "${LocaleKeys.my_product_sold.tr()} ${widget.productItem.saleCount != null ? widget.productItem.saleCount.toString() : '0'} ${LocaleKeys.cart_piece.tr()}",
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp),
-          ),
-          SizedBox(
-            height: 2.0.h,
-          ),
         ],
       ),
     );

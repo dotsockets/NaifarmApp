@@ -67,6 +67,7 @@ class Hits {
   int rating;
   double reviewCount;
   int hasVariant;
+  int active;
 
   Hits(
       {this.productId,
@@ -86,7 +87,7 @@ class Hits {
         this.discountPercent,
         this.rating,
         this.reviewCount,
-        this.hasVariant});
+        this.hasVariant,this.active});
 
   Hits.fromJson(Map<String, dynamic> json) {
     productId = json['productId'];
@@ -123,6 +124,7 @@ class Hits {
     reviewCount = json['reviewCount'] is int?json['reviewCount'].toDouble():json['reviewCount'];
 
     hasVariant = json['hasVariant'];
+    active = json['active'];
   }
 
   Map<String, dynamic> toJson() {

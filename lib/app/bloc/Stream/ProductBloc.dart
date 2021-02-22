@@ -64,10 +64,11 @@ class ProductBloc{
 
   final ZipCategoryObject = BehaviorSubject<CategoryObjectCombin>();
 
+
   final ZipShopObject = BehaviorSubject<ZipShopObjectCombin>();
 
   List<ProductData> product_more = List<ProductData>();
-
+  List<Hits> searchList = List<Hits>();
 
   ProductBloc(this._application);
 
@@ -167,7 +168,7 @@ class ProductBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.getSearch(page: page,query: query,limit: limit)).listen((respone) {
       if(respone.http_call_back.status==200){
-        SearchProduct.add((respone.respone as SearchRespone));
+           SearchProduct.add((respone.respone as SearchRespone));
       }
     });
     _compositeSubscription.add(subscription);
@@ -177,7 +178,11 @@ class ProductBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.getSearchShop(shopId: shopId,page: page,query: query,limit: limit,filter: filter,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
-        SearchProduct.add((respone.respone as SearchRespone));
+        //SearchProduct.add((respone.respone as SearchRespone));
+        var item = (respone.respone as SearchRespone);
+        searchList.addAll(item.hits);
+        SearchProduct.add(SearchRespone(query: item.query,hits: searchList,limit: item.limit,exhaustiveNbHits: item.exhaustiveNbHits,nbHits: item.nbHits,offset: item.offset,processingTimeMs: item.processingTimeMs));
+
       }else{
         onError.add(respone.http_call_back.result);
       }
