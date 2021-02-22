@@ -20,7 +20,7 @@ class ProductMyShopRespone {
   List<Inventories> inventories;
   Shop shop;
   List<Categories> categories;
-  List<Image> image;
+  List<ImageProductShop> image;
   int discountPercent;
   int rating;
   double reviewCount;
@@ -81,9 +81,9 @@ class ProductMyShopRespone {
       });
     }
     if (json['image'] != null) {
-      image = new List<Image>();
+      image = new List<ImageProductShop>();
       json['image'].forEach((v) {
-        image.add(new Image.fromJson(v));
+        image.add(new ImageProductShop.fromJson(v));
       });
     }
     discountPercent = json['discountPercent'];
@@ -152,7 +152,7 @@ class Inventories {
   int freeShipping;
   int minOrderQuantity;
   String linkedItems;
-  List<Image> image;
+  List<ImageProductShop> image;
   List<Feedbacks> feedbacks;
   List<AttributesItem> attributes;
   int discountPercent;
@@ -215,9 +215,9 @@ class Inventories {
     minOrderQuantity = json['minOrderQuantity'];
     linkedItems = json['linkedItems'];
     if (json['image'] != null) {
-      image = new List<Image>();
+      image = new List<ImageProductShop>();
       json['image'].forEach((v) {
-        image.add(new Image.fromJson(v));
+        image.add(new ImageProductShop.fromJson(v));
       });
     }
     if (json['feedbacks'] != null) {
@@ -278,7 +278,7 @@ class Inventories {
   }
 }
 
-class Image {
+class ImageProductShop {
   int id;
   String path;
   String name;
@@ -289,7 +289,7 @@ class Image {
   int featured;
   int order;
 
-  Image(
+  ImageProductShop(
       {this.id,
         this.path,
         this.name,
@@ -300,7 +300,7 @@ class Image {
         this.featured,
         this.order});
 
-  Image.fromJson(Map<String, dynamic> json) {
+  ImageProductShop.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     path = json['path'];
     name = json['name'];
@@ -437,7 +437,7 @@ class Shop {
   String slug;
   DataStates state;
   String updatedAt;
-  List<Image> image;
+  List<ImageProductShop> image;
   int countProduct;
 
   Shop({this.id, this.name, this.slug, this.state, this.updatedAt, this.image,this.countProduct});
@@ -451,9 +451,9 @@ class Shop {
     json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = new List<Image>();
+      image = new List<ImageProductShop>();
       json['image'].forEach((v) {
-        image.add(new Image.fromJson(v));
+        image.add(new ImageProductShop.fromJson(v));
       });
     }
   }
