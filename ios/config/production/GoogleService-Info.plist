@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1023707996325-gb5tci5eoq8tqo30hkb35uv1haj7ebkq.apps.googleusercontent.com</string>
+	<string>536378613546-rr1ujuagdo9p3rgsv1jctjkql7m6hns2.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1023707996325-gb5tci5eoq8tqo30hkb35uv1haj7ebkq</string>
+	<string>com.googleusercontent.apps.536378613546-rr1ujuagdo9p3rgsv1jctjkql7m6hns2</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB2PSyICdaU7xcaBhBtTREXedHgq9Rf7hM</string>
+	<string>AIzaSyDKdA_WJ5y7CoHzB8an_U00QgvAY5gQR4s</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1023707996325</string>
+	<string>536378613546</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.dotsocket.naifarm.dev</string>
+	<string>com.dotsocket.naifarm.staging</string>
 	<key>PROJECT_ID</key>
-	<string>naifarm-dev</string>
+	<string>naifarm-staging</string>
 	<key>STORAGE_BUCKET</key>
-	<string>naifarm-dev.appspot.com</string>
+	<string>naifarm-staging.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1023707996325:ios:0feadad54c4a0911c52d4c</string>
+	<string>1:536378613546:ios:d6a9e4c6261b537b4b0853</string>
 </dict>
 </plist>

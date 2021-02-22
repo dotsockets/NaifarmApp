@@ -138,6 +138,7 @@ class MemberBloc{
    // onLoad.add(true);
     final FacebookLogin facebookSignIn = new FacebookLogin();
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+   // facebookSignIn.loginBehavior = FacebookLoginBehavior.webViewOnly;
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
       //  onLoad.add(false);

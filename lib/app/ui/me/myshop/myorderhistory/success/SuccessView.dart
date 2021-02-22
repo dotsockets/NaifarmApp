@@ -60,7 +60,7 @@ class _SuccessViewState extends State<SuccessView> {
     Product_bloc.onSuccess.stream.listen((event) {
       //onUpload = true;
       if(event is CartResponse){
-        AppRoute.MyCart(context, true);
+        AppRoute.MyCart(context, true,cart_nowId:  Product_bloc.BayNow);
         // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
       }
     });

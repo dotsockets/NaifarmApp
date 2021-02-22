@@ -4,7 +4,7 @@
 FLUTTER_TARGET=lib/config/Main_staging.dart
 ASSET_PREFIX=staging
 BUNDLE_NAME=Naifarm-stag
-FACEBOOK_APP_ID=750052912471264
-FACEBOOK_APP_ID_SCHEMES=fb750052912471264
-APP_SUFFIX=com.dotsocket.naifarm.stag
-APP_SUFFIX_NOTI=com.dotsocket.naifarm.stag.OneSignalNotificationServiceExtension
+FACEBOOK_APP_ID=219341536017829
+FACEBOOK_APP_ID_SCHEMES=fb219341536017829
+APP_SUFFIX=com.dotsocket.naifarm.staging
+APP_SUFFIX_NOTI=com.dotsocket.naifarm.staging.OneSignalNotificationServiceExtension

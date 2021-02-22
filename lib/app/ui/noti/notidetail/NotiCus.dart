@@ -464,6 +464,35 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
 
         ],
       );
+    }else if(item.type=="App\\Notifications\\Order\\OrderPaymentFailed"){
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("คำสั่งซื้อถูกยกเลิก ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text: "คำสั่งซื้อ  ",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+                //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                new TextSpan(
+                    text: " ถูกยกเลิกแล้ว เพราะไม่สามารถตรวจสอบการชำระเงินของคุณได้",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+
+              ],
+            ),
+          ),
+          // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+          // Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+          // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
+
+        ],
+      );
     }
     else{
       return SizedBox();
@@ -490,7 +519,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
       return true;
     }else  if(text=="App\\Notifications\\Order\\OrderBeenPaid"){
        return true;
-    }else  if(text=="App\\Notifications\\Order\\OrderFulfilled"){
+    }else  if(text=="App\\Notifications\\Order\\OrderFulfilled" || text=="App\\Notifications\\Order\\OrderPaymentFailed" || text== "App\\Notifications\\Order\\OrderUpdated"){
       return true;
     }else {
       return false;

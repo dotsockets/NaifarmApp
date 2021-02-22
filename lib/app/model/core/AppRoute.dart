@@ -128,7 +128,7 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FlashSaleView()));
   }
 
-  static  MyCart(BuildContext context,bool btnBack,{int cart_nowId=0}){
+  static  MyCart(BuildContext context,bool btnBack,{List<ProductData> cart_nowId}){
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyCartView(btnBack: btnBack,cart_nowId: cart_nowId,)));
   }
 

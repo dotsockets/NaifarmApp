@@ -24,6 +24,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -37,7 +38,7 @@ import '../widget/ModalFitBottom_Sheet.dart';
 
 class MyCartView extends StatefulWidget {
   final bool btnBack;
-  int cart_nowId;
+  List<ProductData> cart_nowId;
    MyCartView({Key key, this.btnBack = false, this.cart_nowId}) : super(key: key);
 
   @override
@@ -72,17 +73,20 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
       bloc.CartList.stream.listen((event) {
         if(event is CartResponse){
 
-          if(widget.cart_nowId>0){
+          if(widget.cart_nowId.isNotEmpty){
 
             for(var item in event.data){
               for(var value in item.items){
-                if(value.inventory.product.id==widget.cart_nowId){
-                  value.select = true;
-                  break;
+                for(var cart_select in widget.cart_nowId){
+                  if(value.inventory.id==cart_select.id){
+                    value.select = true;
+                  //  break;
+                  }
                 }
+
               }
             }
-            widget.cart_nowId = 0;
+            widget.cart_nowId = [];
             bloc.CartList.add(bloc.CartList.value);
           }
 

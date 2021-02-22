@@ -54,7 +54,7 @@ class ProductBloc{
   final ProductItem =  BehaviorSubject<ProducItemRespone>();
   final myShop = BehaviorSubject<MyShopRespone>();
   final Wishlists = BehaviorSubject<WishlistsRespone>();
-
+  final BayNow = List<ProductData>();
 
   final ZipProductDetail = BehaviorSubject<ProductObjectCombine>();
 
@@ -530,10 +530,15 @@ class ProductBloc{
 //CategoryCombin
 
   AddCartlists({BuildContext context,CartRequest cartRequest,String token,bool addNow=false}){
+    BayNow.clear();
     onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.AddCartlists(cartRequest: cartRequest,token: token)).listen((respone) {
       if(respone.http_call_back.status==200||respone.http_call_back.status==201){
+        for(var value in cartRequest.items ){
+          BayNow.add(ProductData(id: value.inventoryId));
+        }
+
         Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
         onLoad.add(false);
         if(addNow){

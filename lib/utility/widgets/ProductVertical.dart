@@ -5,8 +5,14 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -22,15 +28,48 @@ class ProductVertical extends StatelessWidget {
   final String titleInto;
   final Function() onSelectMore;
   final Function(ProductData,int) onTapItem;
+  final Function(ProductData,int) onTapBay;
   final String IconInto;
   final  bool borderRadius;
   final String tagHero;
   final double IconSize;
   final ProductRespone productRespone;
 
-  const ProductVertical({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.borderRadius, this.tagHero, this.IconSize=35,this.productRespone}) : super(key: key);
+   ProductVertical({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.borderRadius, this.tagHero, this.IconSize=35,this.productRespone, this.onTapBay}) : super(key: key);
+
+  ProductBloc Product_bloc;
+
+  init(BuildContext context) {
+    if (Product_bloc == null) {
+      Product_bloc = ProductBloc(AppProvider.getApplication(context));
+      Product_bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      Product_bloc.onError.stream.listen((event) {
+        if (event != null) {
+
+            FunctionHelper.AlertDialogShop(context,
+                title: "Error", message: event.error.message);
+
+        }
+      });
+      Product_bloc.onSuccess.stream.listen((event) {
+        //onUpload = true;
+        if (event is CartResponse) {
+          AppRoute.MyCart(context, true,cart_nowId: Product_bloc.BayNow);
+          // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    init(context);
     return ClipRRect(
       borderRadius: BorderRadius.only(topLeft: Radius.circular(borderRadius?40:0),topRight:  Radius.circular(borderRadius?40:0)),
       child: Container(
@@ -154,7 +193,7 @@ class ProductVertical extends StatelessWidget {
                 SizedBox(width: 15,),
                 Expanded(
                   flex: 3,
-                  child: _buildInfoProduct(item: item),
+                  child: _buildInfoProduct(item: item,context: context),
                 )
               ],
             ),
@@ -167,7 +206,7 @@ class ProductVertical extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoProduct({ProductData item}){
+  Widget _buildInfoProduct({ProductData item,BuildContext context}){
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -223,14 +262,33 @@ class ProductVertical extends StatelessWidget {
                   )
                 ],
               ),
-              Container(
-                margin: EdgeInsets.only(right: 2.0.w),
-                padding: EdgeInsets.only(right: 3.0.w,left: 3.0.w,top: 1.5.w,bottom: 1.5.w),
-                decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.all(Radius.circular(15))
+              InkWell(
+                child: Container(
+                  margin: EdgeInsets.only(right: 2.0.w),
+                  padding: EdgeInsets.only(right: 3.0.w,left: 3.0.w,top: 1.5.w,bottom: 1.5.w),
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.all(Radius.circular(15))
+                  ),
+                  child: Text(LocaleKeys.buy_now_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
                 ),
-                child: Text(LocaleKeys.buy_now_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
+                onTap: (){
+
+                  List<Items> items = new List<Items>();
+                  items.add(Items(
+                      inventoryId: item.id,
+                      quantity: 1));
+
+                  Usermanager().getUser().then((value) =>
+                      Product_bloc.AddCartlists(
+                        addNow: false,
+                          context: context,
+                          cartRequest: CartRequest(
+                            shopId: item.shop.id,
+                            items: items,
+                          ),
+                          token: value.token));
+                  },
               )
             ],
           )

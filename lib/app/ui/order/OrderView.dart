@@ -75,7 +75,7 @@ class _OrderViewState extends State<OrderView> {
       Product_bloc.onSuccess.stream.listen((event) {
         //onUpload = true;
         if(event is CartResponse){
-          AppRoute.MyCart(context, true);
+          AppRoute.MyCart(context, true,cart_nowId: Product_bloc.BayNow);
           // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
         }
       });
@@ -146,7 +146,7 @@ class _OrderViewState extends State<OrderView> {
                        // widget.typeView==OrderViewType.Purchase && item.orderStatusId==3? _ButtonCancel(context: context,orderData: item,orderViewType: OrderViewType.Purchase):SizedBox(),
                         widget.typeView==OrderViewType.Purchase && item.orderStatusId==1? _ButtonCancel(context: context,orderData: item,orderViewType: OrderViewType.Purchase):SizedBox(),
 
-                        widget.typeView==OrderViewType.Purchase && item.orderStatusId==5? _ButtonAcceptProducts(context: context,orderData: item):SizedBox(),
+                        widget.typeView==OrderViewType.Purchase && item.orderStatusId==5 || item.orderStatusId==4? _ButtonAcceptProducts(context: context,orderData: item):SizedBox(),
                         widget.typeView==OrderViewType.Purchase && item.orderStatusId==6? _ButtonSuccess(context: context,item: item):SizedBox(),
 
                       ],

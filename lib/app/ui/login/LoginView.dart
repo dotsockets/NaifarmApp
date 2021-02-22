@@ -205,8 +205,11 @@ class _LoginViewState extends State<LoginView> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0),
                 ),
-                onPressed: (){
-                  bloc.LoginFacebook(context: context,isLoad: widget.homeCallBack!=null?false:true);
+                onPressed: () async {
+                  await FacebookLogin().logOut().then((value){
+                    bloc.LoginFacebook(context: context,isLoad: widget.homeCallBack!=null?false:true);
+                  });
+
                  // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                 },
                 child: Row(
