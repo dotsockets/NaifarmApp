@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:get_version/get_version.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
@@ -32,6 +33,8 @@ class _SplashViewState extends State<SplashView>
   Animation<double> animation;
   ProductBloc bloc;
 
+  String platformVersion;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -48,6 +51,7 @@ class _SplashViewState extends State<SplashView>
 
 
   void _init(){
+    _VersionName();
     if(null == bloc) {
       NaiFarmLocalStorage.Clean(keyStore: NaiFarmLocalStorage.NaiFarm_Storage);
       bloc = ProductBloc(AppProvider.getApplication(context));
@@ -74,8 +78,16 @@ class _SplashViewState extends State<SplashView>
 
   }
 
+  void _VersionName() async {
+    try {
+      platformVersion = await GetVersion.projectVersion;
+    } on Exception {
+      platformVersion = '0.0.1';
+    }
+  }
+
   @override
-  Widget build(BuildContext context) {
+   build(BuildContext context)  {
     _init();
     ScreenUtil.init(context);
     return SafeArea(
@@ -95,7 +107,7 @@ class _SplashViewState extends State<SplashView>
                       child: Column(
                         children: [
                           Text("NaiFarm",style: GoogleFonts.kanit(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.w500),),
-                          Text("Version 0.0.1",style: GoogleFonts.kanit(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.w500),)
+                          Text("Version ${platformVersion}",style: GoogleFonts.kanit(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.w500),)
                         ],
                       ))
                 ],

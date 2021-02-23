@@ -331,7 +331,7 @@ class _SuccessViewState extends State<SuccessView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   widget.typeView==OrderViewType.Purchase?Text(
-                     LocaleKeys.history_order_time.tr() +
+                     "Date of purchase " +
                         " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
                     //LocaleKeys.history_order_time.tr() + " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.FontTheme(

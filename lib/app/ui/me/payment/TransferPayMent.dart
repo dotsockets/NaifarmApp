@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
@@ -152,7 +153,10 @@ class _TransferPayMentState extends State<TransferPayMent> {
                           ),
                         ),
                         onTap: (){
-                          FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "คัดลอกแล้ว");
+                          FlutterClipboard.copy('4680601709').then(( value ){
+                            FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "คัดลอกแล้ว");
+                          });
+
                         },
                       ),
                       SizedBox(width: 3.0.w,)

@@ -124,7 +124,7 @@ class _OrderViewState extends State<OrderView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 //widget.typeView==OrderViewType.Purchase &&  item.orderStatusId!=5 &&  item.orderStatusId!=6 &&  item.orderStatusId!=8?_HeaderStatus(context: context,orderData: item):SizedBox(),
-                                item.orderStatusId!=5 &&  item.orderStatusId!=6 &&  item.orderStatusId!=8?_HeaderStatus(context: context,orderData: item):SizedBox(),
+                                item.orderStatusId==1 ?_HeaderStatus(context: context,orderData: item):SizedBox(),
                                 _labelText(title: LocaleKeys.order_detail_ship_addr.tr()),
                                 _addtess_recive(context: context,orderData: item),
                                 _labelText(title: LocaleKeys.order_detail_ship_data.tr()),
@@ -200,10 +200,26 @@ class _OrderViewState extends State<OrderView> {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 30,),
-                Text("Order ${orderData.orderNumber}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
-                SizedBox(height: 3),
-                Text("กรุณาชำระเงินภายใน ${DateFormat('dd-MM-yyyy').format(DateTime.parse(orderData.requirePaymentAt!=null?orderData.requirePaymentAt:DateTime.now().toString()))} มิฉะนั้นระบบจะยกเลิกคำสั่งซื้อโดยอัตโนมัติ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5)),)
+                 SizedBox(height: 30,),
+                // Text("Order ${orderData.orderNumber}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
+                 //SizedBox(height: 3),
+                RichText(
+                  text: new TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                      new TextSpan(
+                          text: "กรุณาชำระเงินภายใน  ",
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+                      new TextSpan(text: "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.requirePaymentAt!=null?orderData.requirePaymentAt:DateTime.now().toString()))} ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5))),
+                      //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+                      //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                      new TextSpan(
+                          text: " มิฉะนั้นระบบจะยกเลิกคำสั่งซื้อโดยอัตโนมัติ",
+                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+
+                    ],
+                  ),
+                )
               ]
           ),
         ),
@@ -230,7 +246,9 @@ class _OrderViewState extends State<OrderView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(orderData.shippingAddress,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+            orderData.shippingAddressTitle!=null?Text(orderData.shippingAddressTitle,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor(),fontWeight: FontWeight.bold,height: 1.5),):SizedBox(),
+            orderData.shippingAddressPhone!=null?Text(orderData.shippingAddressPhone,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),):SizedBox(),
+            orderData.shippingAddress!=null?Text(orderData.shippingAddress,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),):SizedBox(),
              ],
         ),
     );
@@ -248,8 +266,10 @@ class _OrderViewState extends State<OrderView> {
         children: [
           Text(orderData.carrier!=null?orderData.carrier.name:'',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor(),fontWeight: FontWeight.bold,height: 1.5),),
           SizedBox(height: 1.0.w),
-          Text(orderData.carrier.name+" ${orderData.carrier.name}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
-         // SizedBox(height: 6),
+          Text(orderData.trackingId!=null?orderData.trackingId:'-',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
+          orderData.deliveryDate!=null?SizedBox(height: 1.0.w):SizedBox(),
+          orderData.deliveryDate!=null?Text("วันที่รับ ${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.deliveryDate.toString()))} ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.6),fontWeight: FontWeight.w500,height: 1.5),):SizedBox(),
+          // SizedBox(height: 6),
         //  Text("${orderData.shippingRate.deliveryTakes} ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),),
         ],
       ),
@@ -463,7 +483,7 @@ class _OrderViewState extends State<OrderView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(LocaleKeys.order_detail_order_num.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
-              Text(orderData.orderNumber,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color:ThemeColor.ColorSale(),fontWeight: FontWeight.bold,height: 1.5),),
+              Text(orderData.orderNumber!=null?orderData.orderNumber:'-',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color:ThemeColor.ColorSale(),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
           SizedBox(height: 13,),
@@ -471,7 +491,7 @@ class _OrderViewState extends State<OrderView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(LocaleKeys.order_detail_buy_time.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
-              Text("${DateFormat('dd-MM-yyyy HH:mm:ss').format(DateTime.parse(orderData.createdAt))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("${orderData.createdAt!=null?DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.createdAt)):'-'}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
           SizedBox(height: 13,),
@@ -479,7 +499,7 @@ class _OrderViewState extends State<OrderView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(LocaleKeys.order_detail_pay_time.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
-              Text("${orderData.paymentAt!=null?DateFormat('dd-MM-yyyy HH:mm:ss').format(DateTime.parse(orderData.paymentAt)):''}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("${orderData.paymentAt!=null?DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.paymentAt)):'-'}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
           SizedBox(height: 13,),
@@ -487,7 +507,7 @@ class _OrderViewState extends State<OrderView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(LocaleKeys.order_detail_ship_time.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
-              Text("${orderData.shippingDate!=null?DateFormat('dd-MM-yyyy HH:mm:ss').format(DateTime.parse(orderData.shippingDate)):''}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("${orderData.shippingDate!=null?DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.shippingDate)):'-'}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
           SizedBox(height: 13,),
@@ -495,7 +515,7 @@ class _OrderViewState extends State<OrderView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(LocaleKeys.order_detail_complete_time.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
-              Text("${orderData.deliveryDate!=null?DateFormat('dd-MM-yyyy HH:mm:ss').format(DateTime.parse(orderData.deliveryDate)):''}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
+              Text("${orderData.deliveryDate!=null?DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.deliveryDate)):'-'}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color:Colors.black.withOpacity(0.5),fontWeight: FontWeight.bold,height: 1.5),),
             ],
           ),
           SizedBox(height: 13,),

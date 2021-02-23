@@ -333,7 +333,7 @@ class _PaidViewState extends State<PaidView>  {
                 children: [
                   Text(
                     widget.typeView==OrderViewType.Purchase? "ชำระเงินภายใน" +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
+                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":"Date of purchase " +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,

@@ -14,6 +14,7 @@ export PATH="$PATH:/Users/dotsocket/flutter/bin:$PATH"
 
 flutter build apk   --build-name=0.0.1 --build-number=1 --flavor staging  -t lib/config/Main_staging.dart
 
+CICD -> https://codemagic.io
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
