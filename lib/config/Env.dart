@@ -18,6 +18,7 @@ class Env {
   String appName;
   String baseUrl;
   String baseUrlWeb;
+  String onesignal;
   EnvType environmentType = EnvType.DEVELOPMENT;
   String noItemUrl;
 

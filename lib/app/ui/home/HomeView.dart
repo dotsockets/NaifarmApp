@@ -23,6 +23,7 @@ import 'package:naifarm/app/ui/mycart/cart/MyCartView.dart';
 import 'package:naifarm/app/ui/noti/notilist/NotiView.dart';
 import 'package:naifarm/app/ui/recommend/RecommendView.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -76,7 +77,8 @@ class _HomeViewState extends State<HomeView>
     OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
     OneSignal.shared.init(
-        "YOUR_ONESIGNAL_APP_ID",
+       // Env().onesignal,
+      "",
         iOSSettings: {
           OSiOSSettings.autoPrompt: false,
           OSiOSSettings.inAppLaunchUrl: false
@@ -100,15 +102,20 @@ class _HomeViewState extends State<HomeView>
       // (ie. user taps Allow on the permission prompt in iOS)
     });
 
-    OneSignal.shared.setSubscriptionObserver((OSSubscriptionStateChanges changes) {
-      // will be called whenever the subscription changes
-      //(ie. user gets registered with OneSignal and gets a user ID)
+    OneSignal.shared.setSubscriptionObserver((OSSubscriptionStateChanges changes) async {
+      var status = await OneSignal.shared.getPermissionSubscriptionState();
+      if (status.subscriptionStatus.subscribed){
+        String onesignalUserId = status.subscriptionStatus.userId;
+        print('Player ID: ' + onesignalUserId);
+      }
     });
 
     OneSignal.shared.setEmailSubscriptionObserver((OSEmailSubscriptionStateChanges emailChanges) {
       // will be called whenever then user's email subscription changes
       // (ie. OneSignal.setEmail(email) is called and the user gets registered
     });
+
+
 
   }
 

@@ -1,0 +1,46 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs to AppTest Distribute"
+ lane :distribute_staging do
+     firebase_app_distribution(
+           app: "1:536378613546:android:62f9cb318b8c0cf04b0853",
+           groups: "tester",
+           #testers: "ApisitKaewsasan@gmail.com",
+           #release_notes: "Lots of amazing new features to test out!",
+           release_notes_file:"../release_notes.md",
+           firebase_cli_path: "./firebase-tools-macos",
+           apk_path: "../build/app/outputs/flutter-apk/app-staging-release.apk"
+         )
+   end
+
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+    gradle(task: "clean assembleRelease")
+    crashlytics
+  
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    gradle(task: "clean assembleRelease")
+    upload_to_play_store
+  end
+end
