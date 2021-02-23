@@ -31,7 +31,8 @@ class ProductDetailShopView extends StatefulWidget {
   final String productImage;
   ProductMyShop productItem;
 
-  ProductDetailShopView({Key key, this.productItem,this.productImage}) : super(key: key);
+  ProductDetailShopView({Key key, this.productItem, this.productImage})
+      : super(key: key);
 
   @override
   _ProductDetailShopViewState createState() => _ProductDetailShopViewState();
@@ -49,23 +50,20 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   }
 
   void _init() {
-
     if (null == bloc) {
-
       bloc = UploadProductBloc(AppProvider.getApplication(context));
+
       bloc.onError.stream.listen((event) {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
-     /* bloc.onLoad.stream.listen((event) {
+      /* bloc.onLoad.stream.listen((event) {
         if (event) {
             FunctionHelper.showDialogProcess(context);
         }else{
           Navigator.pop(context);
         }
       });*/
-      bloc.onSuccess.stream.listen((event) {
-
-      });
+      bloc.onSuccess.stream.listen((event) {});
 
       Usermanager().getUser().then((value) => bloc.GetProductDetailShop(
           token: value.token, ProductId: widget.productItem.id));
@@ -80,7 +78,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
       child: SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
-          appBar:  PreferredSize(
+          appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
               title: LocaleKeys.me_title_my_product.tr(),
@@ -101,40 +99,93 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                           children: [
                             Column(
                               children: [
-                                _BuildTitle(),
+                                StreamBuilder(
+                                    stream: bloc.productRes.stream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return _BuildTitle(img: (snapshot.data
+                                        as ProductMyShopRespone).image);
+                                      } else
+                                        return Hero(
+                                            tag: widget.productImage,
+                                            child: ProductSlide(imgList: widget.productItem.image));
+                                    }),
                                 StreamBuilder(
                                     stream: bloc.onSuccess.stream,
                                     builder: (BuildContext context,
                                         AsyncSnapshot snapshot) {
                                       if (snapshot.hasData) {
-                                        var item = (snapshot.data as ProductMyShopRespone);
+                                        var item = (snapshot.data
+                                            as ProductMyShopRespone);
                                         return Column(
                                           children: [
                                             Container(
-                                              color:Colors.white,
-                                              child: ProductInto(data: ProducItemRespone(name: item.name,salePrice: item.salePrice,offerPrice: item.offerPrice,
-                                              id: item.id,
-                                              ),scaffoldKey: _scaffoldKey),
+                                              color: Colors.white,
+                                              child: ProductInto(
+                                                showBtn: false,
+                                                  data: ProducItemRespone(
+                                                    name: item.name,
+                                                    salePrice: item.salePrice,
+                                                    offerPrice: item.offerPrice,
+                                                    id: item.id,
+                                                  ),
+                                                  scaffoldKey: _scaffoldKey),
                                             ),
                                             InkWell(
                                               child: ShopOwn(
-                                                shopItem: ShopItem(rating: widget.productItem.rating,
-                                                  name: item.shop.name!=null?item.shop.name:"-",
-                                                  id: widget.productItem.shop!=null?widget.productItem.shop.id:0,
-                                                  updatedAt: item.shop.updatedAt!=null?item.shop.updatedAt:"",
-                                                  slug: widget.productItem.shop!=null?widget.productItem.shop.slug:"-",
-                                                  image: imgShopList(item: item),state: DataStates(name:item.shop.state!=null?item.shop.state.name:"ไม่ถูกต้อง",id:item.shop.state!=null? item.shop.state.id:0),
-                                                  countProduct: item.shop.countProduct
-                                                  ,//state:  DataStates(id: widget.productItem.shop.state.id,name: widget.productItem.shop.state.name)
+                                                shopItem: ShopItem(
+                                                  rating:
+                                                      widget.productItem.rating,
+                                                  name: item.shop.name != null
+                                                      ? item.shop.name
+                                                      : "-",
+                                                  id: widget.productItem.shop !=
+                                                          null
+                                                      ? widget
+                                                          .productItem.shop.id
+                                                      : 0,
+                                                  updatedAt:
+                                                      item.shop.updatedAt !=
+                                                              null
+                                                          ? item.shop.updatedAt
+                                                          : "",
+                                                  slug:
+                                                      widget.productItem.shop !=
+                                                              null
+                                                          ? widget.productItem
+                                                              .shop.slug
+                                                          : "-",
+                                                  image:
+                                                      imgShopList(item: item),
+                                                  state: DataStates(
+                                                      name: item.shop.state !=
+                                                              null
+                                                          ? item.shop.state.name
+                                                          : "ไม่ถูกต้อง",
+                                                      id: item.shop.state !=
+                                                              null
+                                                          ? item.shop.state.id
+                                                          : 0),
+                                                  countProduct: item.shop
+                                                      .countProduct, //state:  DataStates(id: widget.productItem.shop.state.id,name: widget.productItem.shop.state.name)
                                                 ),
-                                                shopRespone:
-                                                MyShopRespone(id: widget.productItem.shop!=null?widget.productItem.shop.id:0),
+                                                shopRespone: MyShopRespone(
+                                                    id: widget.productItem
+                                                                .shop !=
+                                                            null
+                                                        ? widget
+                                                            .productItem.shop.id
+                                                        : 0),
                                               ),
                                               onTap: () {
                                                 AppRoute.ShopMain(
                                                     context: context,
-                                                    myShopRespone: MyShopRespone(
-                                                        id: widget.productItem.shop.id));
+                                                    myShopRespone:
+                                                        MyShopRespone(
+                                                            id: widget
+                                                                .productItem
+                                                                .shop
+                                                                .id));
                                               },
                                             ),
                                             SizedBox(
@@ -145,28 +196,34 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                 child: ProductDetail(
                                                     productItem: ProducItemRespone(
                                                         shopId: item.shopId,
-                                                        inventories: inventoryList(item: item),
-                                                        shop: ShopItem(id: item.shop.id,state: item.shop.state),
-                                                        description: item.description!= null?item.description:"-")
-                                                )
-                                            )
+                                                        inventories:
+                                                            inventoryList(
+                                                                item: item),
+                                                        shop: ShopItem(
+                                                            id: item.shop.id,
+                                                            state: item
+                                                                .shop.state),
+                                                        description:
+                                                            item.description !=
+                                                                    null
+                                                                ? item
+                                                                    .description
+                                                                : "-")))
                                           ],
                                         );
                                       } else {
-                                          return Column(
-                                            children: [
-                                              SizedBox(
-                                                height: 15.0.h,
-                                              ),
-                                              Platform.isAndroid
-                                                  ? CircularProgressIndicator()
-                                                  : CupertinoActivityIndicator(),
-                                            ],
-                                          );
-
+                                        return Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 15.0.h,
+                                            ),
+                                            Platform.isAndroid
+                                                ? CircularProgressIndicator()
+                                                : CupertinoActivityIndicator(),
+                                          ],
+                                        );
                                       }
                                     }),
-
                               ],
                             ),
                           ],
@@ -183,32 +240,36 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
     );
   }
 
-  Widget _BuildTitle() {
+  Widget _BuildTitle({List<ImageProductShop> img}) {
     return Container(
       color: Colors.white,
       child: Column(
         children: [
           FullScreenWidget(
-        backgroundIsTransparent: true,
-        child: Center(
-          child: Hero(
-            tag: widget.productImage,
-            child: ProductSlide(imgList:imgProductList()),
+            backgroundIsTransparent: true,
+            child: Center(
+              child: Hero(
+                tag: widget.productImage,
+                child: ProductSlide(imgList: imgProductList(imgRes: img)),
+              ),
+            ),
           ),
-        ),
-      ),
         ],
       ),
     );
   }
-  List imgProductList() {
+
+
+
+  List imgProductList({List<ImageProductShop> imgRes}) {
     List<ProductImage> img = List<ProductImage>();
 
-    if(widget.productItem.image!=null) {
-      for (int i = 0; i < widget.productItem.image.length; i++)
-        img.add(ProductImage(name: widget.productItem.image[i].name,
-            path: widget.productItem.image[i].path));
-    }else{
+    if (imgRes != null) {
+      for (int i = 0; i < imgRes.length; i++)
+        img.add(ProductImage(
+            name: imgRes[i].name,
+            path: imgRes[i].path));
+    } else {
       img.add(ProductImage(name: "", path: ""));
     }
     return img;
@@ -217,20 +278,21 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   List inventoryList({ProductMyShopRespone item}) {
     List<InventoriesProduct> inventory = List<InventoriesProduct>();
     for (int i = 0; i < item.inventories.length; i++)
-      inventory.add(InventoriesProduct(stockQuantity: item.inventories[i].stockQuantity));
+      inventory.add(
+          InventoriesProduct(stockQuantity: item.inventories[i].stockQuantity));
     return inventory;
   }
 
   List imgShopList({ProductMyShopRespone item}) {
     List<ProductImage> img = List<ProductImage>();
 
-    if(item.shop.image!=null||item.shop.image.length!=0) {
-    for (int i = 0; i < item.shop.image.length; i++)
-      img.add(ProductImage(name: item.shop.image[i].name, path: item.shop.image[i].path));
-    }else{
+    if (item.shop.image != null || item.shop.image.length != 0) {
+      for (int i = 0; i < item.shop.image.length; i++)
+        img.add(ProductImage(
+            name: item.shop.image[i].name, path: item.shop.image[i].path));
+    } else {
       img.add(ProductImage(name: "", path: ""));
-    } return img;
+    }
+    return img;
   }
-
-
 }

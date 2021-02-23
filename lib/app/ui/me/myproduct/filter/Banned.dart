@@ -420,7 +420,7 @@ class _BannedState extends State<Banned> {
   }
 
   _reloadFirstPage(){
-    bloc.product_more.clear();
+    bloc.productList.clear();
     page = 1;
     _reloadData();
   }

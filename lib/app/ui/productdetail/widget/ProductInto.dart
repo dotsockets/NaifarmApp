@@ -28,7 +28,8 @@ import 'package:sizer/sizer.dart';
 class ProductInto extends StatelessWidget {
   final ProducItemRespone data;
   final GlobalKey<ScaffoldState> scaffoldKey;
-   ProductInto({Key key, this.data, this.scaffoldKey}) : super(key: key);
+  final bool showBtn;
+   ProductInto({Key key, this.data, this.scaffoldKey,this.showBtn=true}) : super(key: key);
   ProductBloc bloc;
   bool IsLogin = true;
 
@@ -94,7 +95,7 @@ class ProductInto extends StatelessWidget {
               overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
           ],
         ),
-            Row(
+            showBtn?Row(
               children: [
                 Expanded(child: Text(
                   "${LocaleKeys.my_product_sold_end.tr()} ${data.saleCount!=null? data.saleCount.toString():'0'} ${LocaleKeys.cart_piece.tr()}",
@@ -131,7 +132,7 @@ class ProductInto extends StatelessWidget {
                 ),
 
               ],
-            ),
+            ):SizedBox(),
             SizedBox(height: 15),
            // _IntroShipment()
           ],

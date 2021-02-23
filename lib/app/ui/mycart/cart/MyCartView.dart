@@ -376,7 +376,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
 
   Widget _OwnShop({CartShop item}) {
     return Container(
-      padding: EdgeInsets.all(3.0.w),
+      padding: EdgeInsets.only(top:1.5.h,left: 3.0.w,right: 3.0.w,bottom: 0.5.h),
       child: Row(
         children: [
           ClipRRect(

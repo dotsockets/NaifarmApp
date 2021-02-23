@@ -180,7 +180,10 @@ class ProductBloc{
       if(respone.http_call_back.status==200){
         //SearchProduct.add((respone.respone as SearchRespone));
         var item = (respone.respone as SearchRespone);
-        searchList.addAll(item.hits);
+        if(page=="1") {
+          searchList.clear();
+          searchList.addAll(item.hits);
+        }else{searchList.addAll(item.hits);}
         SearchProduct.add(SearchRespone(query: item.query,hits: searchList,limit: item.limit,exhaustiveNbHits: item.exhaustiveNbHits,nbHits: item.nbHits,offset: item.offset,processingTimeMs: item.processingTimeMs));
 
       }else{
