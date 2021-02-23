@@ -91,11 +91,12 @@ class _SearchMyProductState extends State<SearchMyProduct> {
             icon: "",
             isEnable_Search: false,
             header_type: Header_Type.barHome,
+            onClick: (){
+              Navigator.pop(context,true);
+            },
             hint: LocaleKeys.search_product_title.tr(),
             onSearch: (String text) {
-               // searchText = text;
                 _searchText.add(text);
-                //_searchData();
             },
           ),
           body:
@@ -138,7 +139,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                               ),
                             ),
                           ),
-                          // create widgets for each tab bar here
+
                           StreamBuilder(
                             stream: _searchText.stream,
                             builder: (context, snapshot) {

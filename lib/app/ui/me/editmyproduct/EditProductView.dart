@@ -86,8 +86,8 @@ class _EditProductViewState extends State<EditProductView> {
           Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
               token: value.token));
 
-          AppRoute.MyProduct(context,widget.shopId,pushEvent: true,indexTab: widget.indexTab,countPage: 2);
-        // Navigator.pop(context,event);
+        //  AppRoute.MyProduct(context,widget.shopId,pushEvent: true,indexTab: widget.indexTab,countPage: 2);
+         Navigator.pop(context,event);
          // AppRoute.PoppageCount(context: context,countpage: 2);
         }else if(event is ProductMyShopRespone){
          // Navigator.pop(context, onUpdate);
@@ -180,13 +180,9 @@ class _EditProductViewState extends State<EditProductView> {
                                       BuildEditText(
                                         head: LocaleKeys.my_product_price.tr()+" * ("+LocaleKeys.my_product_baht.tr()+")", hint: "0",inputType: TextInputType.number,controller: priceController,onChanged: (String char){
                                         if(char.isNotEmpty){
-
                                           bloc.uploadProductStorage.value.productMyShopRequest.salePrice = int.parse(char);
                                           bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-
-
                                         }
-
 
                                       },),
                                       SizedBox(
@@ -197,9 +193,9 @@ class _EditProductViewState extends State<EditProductView> {
                                         if(char.isNotEmpty){
                                           bloc.uploadProductStorage.value.productMyShopRequest.offerPrice = int.parse(char);
                                           bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
-                                        }
-
-                                      },),
+                                          }
+                                        },
+                                      ),
 
                                     ],
                                   ),

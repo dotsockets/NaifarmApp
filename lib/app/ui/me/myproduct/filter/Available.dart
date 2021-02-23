@@ -417,8 +417,7 @@ class _AvailableState extends State<Available> {
                                 active: item.active);
                             var onSelectItem = List<OnSelectItem>();
                             for (var value in item.image) {
-                              onSelectItem.add(
-                                  OnSelectItem(onEdit: false, url: value.path));
+                              onSelectItem.add(OnSelectItem(onEdit: false, url: value.path));
                             }
                             var result = await AppRoute.EditProduct(context, item.id, widget.shopId,
                                 uploadProductStorage: UploadProductStorage(
@@ -515,7 +514,7 @@ class _AvailableState extends State<Available> {
   }
 
   _reloadFirstPage(){
-    bloc.product_more.clear();
+    bloc.productList.clear();
     page = 1;
     _reloadData();
   }

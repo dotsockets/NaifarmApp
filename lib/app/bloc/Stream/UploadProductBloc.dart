@@ -32,11 +32,13 @@ class UploadProductBloc {
   final ProductMyShopRes = BehaviorSubject<ProductMyShopListRespone>();
   final attributeMyShop = BehaviorSubject<MyShopAttributeRespone>();
   final uploadProductStorage = BehaviorSubject<UploadProductStorage>();
+  final productRes = BehaviorSubject<ProductMyShopRespone>();
 
   CategoryCombin categoriesAllRespone = CategoryCombin();
   ProductMyShopRequest ProductDetail = ProductMyShopRequest();
   List<OnSelectItem> ItemImage = List<OnSelectItem>();
-  List<ProductMyShop> product_more = List<ProductMyShop>();
+  List<ProductMyShop> productList = List<ProductMyShop>();
+  List<ImageProductShop> productImageList = List<ImageProductShop>();
 
   int inventoriesId = 0;
   var checkloop = 0;
@@ -226,8 +228,8 @@ class UploadProductBloc {
     StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.GetProductMyShop(page: page, limit: limit, token: token,filter: filter)).listen((respone) {
       if (respone.http_call_back.status == 200) {
         var item = (respone.respone as ProductMyShopListRespone);
-        product_more.addAll(item.data);
-        ProductMyShopRes.add(ProductMyShopListRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
+        productList.addAll(item.data);
+        ProductMyShopRes.add(ProductMyShopListRespone(data: productList,limit: item.limit,page: item.page,total: item.total));
       }
     });
     _compositeSubscription.add(subscription);
@@ -343,6 +345,9 @@ class UploadProductBloc {
         .listen((respone) {
       onLoad.add(false);
       if (respone.http_call_back.status == 200) {
+        productImageList.addAll((respone.respone as ProductMyShopRespone).image);
+        productRes.add(ProductMyShopRespone(image: productImageList));
+
        onSuccess.add((respone.respone as ProductMyShopRespone));
       } else {
         onError.add(respone.http_call_back.result.error.message);

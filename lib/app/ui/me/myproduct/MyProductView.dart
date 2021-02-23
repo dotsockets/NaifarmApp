@@ -101,12 +101,13 @@ class _MyProductViewState extends State<MyProductView> {
               actions: [
                 IconButton(
                   icon: Icon(Icons.search,size: 7.0.w,color: Colors.white,),
-                  onPressed: (){
-                    AppRoute.SearchMyProductView(context: context,shopID: widget.shopId);},
+                  onPressed: () {
+                   AppRoute.SearchMyProductView(context: context,shopID: widget.shopId);
+                  }
                 ),
                 IconButton(
                   icon: Icon(FontAwesome.ellipsis_v,size: 7.0.w,color: Colors.white,)
-                  ,onPressed: (){ ButtonDialog(context,message: ["จัดการแอททริบิวต์"],onClick: (){
+                  ,onPressed: (){ ButtonDialog(context,message: ["จัดการแอททริบิวต์"],onClick: () {
                   Navigator.of(context).pop();
                   AppRoute.Attribute(context: context);
                 });},
@@ -122,6 +123,7 @@ class _MyProductViewState extends State<MyProductView> {
                   color: Colors.white,
                   child: DefaultTabController(
                     length: 4,
+
                     initialIndex: widget.indexTab,
                     child: Container(
                       child: Column(
@@ -130,6 +132,7 @@ class _MyProductViewState extends State<MyProductView> {
                             height: 7.0.h,
                             child: Container(
                               child: TabBar(
+
                                 indicatorColor: ThemeColor.ColorSale(),
                                 isScrollable: false,
                                 tabs: [

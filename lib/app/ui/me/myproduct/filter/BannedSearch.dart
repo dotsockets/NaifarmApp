@@ -62,8 +62,8 @@ class _BannedSearchState extends State<BannedSearch> {
     _searchText.stream.listen((event) {
       NaiFarmLocalStorage.getNowPage().then((value) {
         if (value == 2 && count == 0) {
-          blocProduct.searchList.clear();
-          _searchData();
+
+          _reloadFirstPage();
           count++;
         }
       });
@@ -83,8 +83,10 @@ class _BannedSearchState extends State<BannedSearch> {
       });
 
       blocProduct.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(
-            scaffoldKey: _scaffoldKey, message: event.error.message);
+     //   FunctionHelper.SnackBarShow(
+      //      scaffoldKey: _scaffoldKey, message: event.error.message);
+        FunctionHelper.AlertDialogShop(context,
+            title: "Error", message: event.error.message);
       });
       // if(_searchText.value.length==0)_searchData();
     }
@@ -108,8 +110,7 @@ class _BannedSearchState extends State<BannedSearch> {
       stream: blocProduct.SearchProduct.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         step_page = true;
-        if (snapshot.hasData &&
-            (snapshot.data as SearchRespone).hits.length > 0) {
+        if (snapshot.hasData&&(snapshot.data as SearchRespone).nbHits!=0) {
           step_page = true;
           var item = (snapshot.data as SearchRespone);
           return Container(
@@ -451,7 +452,9 @@ class _BannedSearchState extends State<BannedSearch> {
                                 uploadProductStorage: UploadProductStorage(
                                     productMyShopRequest: product,
                                     onSelectItem: onSelectItem));
-
+                            if (result) {
+                              _reloadFirstPage();
+                            }
                             /*if(result){
                              // Navigator.pop(context,true);
                               _reloadData();
@@ -572,7 +575,7 @@ class _BannedSearchState extends State<BannedSearch> {
   }
 
   _reloadFirstPage() {
-    blocProduct.searchList.clear();
+//blocProduct.searchList.clear();
     page = 1;
     _searchData();
   }
