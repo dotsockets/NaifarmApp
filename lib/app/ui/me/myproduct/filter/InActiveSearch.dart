@@ -91,7 +91,7 @@ class _InActiveSearchState extends State<InActiveSearch> {
         FunctionHelper.AlertDialogShop(context,
             title: "Error", message: event.error.message);
       });
-     // if(_searchText.value.length==0)_searchData();
+      _reloadFirstPage();
     }
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
@@ -317,7 +317,7 @@ class _InActiveSearchState extends State<InActiveSearch> {
                                   child: Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      "${LocaleKeys.my_product_sold.tr() + " " + item.hasVariant.toString() + " " + LocaleKeys.cart_item.tr()}",
+                                      "${LocaleKeys.my_product_sold.tr() + " " + item.hasVariant.toString() + " " + LocaleKeys.cart_piece.tr()}",
                                       style: FunctionHelper.FontTheme(
                                           fontSize:
                                           SizeUtil.detailFontSize().sp),
@@ -337,7 +337,7 @@ class _InActiveSearchState extends State<InActiveSearch> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                        LocaleKeys.my_product_like.tr() + " 10",
+                                        LocaleKeys.my_product_like.tr() + " 0",
                                         style: FunctionHelper.FontTheme(
                                             fontSize:
                                             SizeUtil.detailFontSize().sp)),
@@ -348,13 +348,9 @@ class _InActiveSearchState extends State<InActiveSearch> {
                                   Expanded(
                                       child: Align(
                                           alignment: Alignment.topLeft,
-                                          child: Text(
-                                            LocaleKeys.my_product_visit.tr() +
-                                                " 10",
+                                          child: Text("ตัวเลือกสินค้า ไม่มี",
                                             style: FunctionHelper.FontTheme(
-                                                fontSize:
-                                                SizeUtil.detailFontSize()
-                                                    .sp),
+                                                fontSize: SizeUtil.detailFontSize().sp),
                                           )))
                                 ]),
                           ),

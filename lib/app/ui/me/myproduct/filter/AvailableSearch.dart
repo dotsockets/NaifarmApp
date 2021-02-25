@@ -93,7 +93,7 @@ class _AvailableSearchState extends State<AvailableSearch> {
             title: "Error", message: event.error.message);
 
       });
-
+      _reloadFirstPage();
     }
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
@@ -321,7 +321,7 @@ class _AvailableSearchState extends State<AvailableSearch> {
                                   child: Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      "${LocaleKeys.my_product_sold.tr() + " " + item.hasVariant.toString() + " " + LocaleKeys.cart_item.tr()}",
+                                      "${LocaleKeys.my_product_sold.tr() + " " + item.hasVariant.toString() + " " + LocaleKeys.cart_piece.tr()}",
                                       style: FunctionHelper.FontTheme(
                                           fontSize:
                                           SizeUtil.detailFontSize().sp),
@@ -341,7 +341,7 @@ class _AvailableSearchState extends State<AvailableSearch> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                        LocaleKeys.my_product_like.tr() + " 10",
+                                        LocaleKeys.my_product_like.tr() + " 0",
                                         style: FunctionHelper.FontTheme(
                                             fontSize:
                                             SizeUtil.detailFontSize().sp)),
@@ -353,12 +353,9 @@ class _AvailableSearchState extends State<AvailableSearch> {
                                       child: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            LocaleKeys.my_product_visit.tr() +
-                                                " 10",
+                                            "ตัวเลือกสินค้า" + " ไม่มี",
                                             style: FunctionHelper.FontTheme(
-                                                fontSize:
-                                                SizeUtil.detailFontSize()
-                                                    .sp),
+                                                fontSize: SizeUtil.detailFontSize().sp),
                                           )))
                                 ]),
                           ),

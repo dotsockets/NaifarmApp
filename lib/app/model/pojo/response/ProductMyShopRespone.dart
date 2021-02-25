@@ -148,7 +148,7 @@ class Inventories {
   String preorderMsg;
   String preorderStart;
   String preorderEnd;
-  int shippingWeight;
+  double shippingWeight;
   int freeShipping;
   int minOrderQuantity;
   String linkedItems;
@@ -210,7 +210,7 @@ class Inventories {
     preorderMsg = json['preorderMsg'];
     preorderStart = json['preorderStart'];
     preorderEnd = json['preorderEnd'];
-    shippingWeight = json['shippingWeight'];
+    shippingWeight = json['shippingWeight']!=null?json['shippingWeight']*1.0:0.0;
     freeShipping = json['freeShipping'];
     minOrderQuantity = json['minOrderQuantity'];
     linkedItems = json['linkedItems'];
@@ -439,14 +439,16 @@ class Shop {
   String updatedAt;
   List<ImageProductShop> image;
   int countProduct;
+  int rating;
 
-  Shop({this.id, this.name, this.slug, this.state, this.updatedAt, this.image,this.countProduct});
+  Shop({this.id, this.name, this.slug, this.state, this.updatedAt, this.image,this.countProduct,int rating});
 
   Shop.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     slug = json['slug'];
     countProduct = json['countProduct'];
+    rating = json['rating'];
     state =
     json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];

@@ -195,7 +195,7 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FollowersView()));
   }
 
-  static Future<int>  DeliveryCost(BuildContext context,{UploadProductStorage uploadProductStorage,int productsId}) async {
+  static Future<double>  DeliveryCost(BuildContext context,{UploadProductStorage uploadProductStorage,int productsId}) async {
     return await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: DeliveryCostView(uploadProductStorage: uploadProductStorage,productsId: productsId,)));
   }
 

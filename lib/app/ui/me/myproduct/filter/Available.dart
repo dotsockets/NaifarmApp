@@ -314,7 +314,7 @@ class _AvailableState extends State<Available> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                        LocaleKeys.my_product_like.tr() + " 10",
+                                        LocaleKeys.my_product_like.tr() + " 0",
                                         style: FunctionHelper.FontTheme(
                                             fontSize:
                                                 SizeUtil.detailFontSize().sp)),
@@ -326,8 +326,8 @@ class _AvailableState extends State<Available> {
                                       child: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            LocaleKeys.my_product_visit.tr() +
-                                                " 10",
+                                            "ตัวเลือกสินค้า" +
+                                                " ไม่มี",
                                             style: FunctionHelper.FontTheme(
                                                 fontSize:
                                                     SizeUtil.detailFontSize()
@@ -383,8 +383,7 @@ class _AvailableState extends State<Available> {
 
                             Usermanager().getUser().then((value) =>
                                 bloc.UpdateProductMyShop(
-                                    shopRequest: ProductMyShopRequest(
-                                        name: item.name, active: val ? 1 : 0),
+                                    shopRequest: ProductMyShopRequest(name: item.name, active: val ? 1:0),
                                     token: value.token,
                                     productId: item.id));
                           },

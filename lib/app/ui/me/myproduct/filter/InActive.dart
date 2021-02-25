@@ -279,9 +279,9 @@ class _InActiveState extends State<InActive> {
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(child: Text(LocaleKeys.my_product_like.tr()+" 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp)),),
+                                  Expanded(child: Text(LocaleKeys.my_product_like.tr()+" 0", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp)),),
                                   SizedBox(width: 10,),
-                                  Expanded(child: Align(alignment: Alignment.topLeft,child: Text(LocaleKeys.my_product_visit.tr()+" 10", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp),))
+                                  Expanded(child: Align(alignment: Alignment.topLeft,child: Text("ตัวเลือกสินค้า"+" ไม่มี", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp),))
                                   )
                                 ]),
                           ),

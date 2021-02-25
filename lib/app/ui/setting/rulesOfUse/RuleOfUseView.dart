@@ -51,7 +51,7 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: LocaleKeys.setting_account_title_policy.tr(),
+              title: LocaleKeys.setting_account_title_rule.tr(),
               icon: "",
               isEnable_Search: false,
               header_type: Header_Type.barNormal,

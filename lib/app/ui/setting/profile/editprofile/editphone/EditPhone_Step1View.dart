@@ -31,7 +31,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
 
   MemberBloc bloc;
   bool FormCheck(){
-    if(PhoneController.text.isEmpty){
+    if(PhoneController.text.isEmpty||PhoneController.text.length!=10){
       return false;
     }else{
       return true;
@@ -57,7 +57,9 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.AlertDialogShop(context,
+            title: "Error", message: event);
+        //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         AppRoute.RegisterOTP(context,phoneNumber: PhoneController.text,refCode: (event as OTPRespone).refCode,requestOtp: RequestOtp.ChangPassword);
@@ -69,6 +71,12 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
         //     Navigator.of(context).pop();
         //   });
         // }
+      });
+
+      bloc.checkPhone.stream.listen((event) {
+        if(event){
+          bloc.OTPRequest(numberphone: PhoneController.text);
+        }
       });
     }
   }
@@ -148,17 +156,19 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
     // AppRoute.Home(context);
 
     //});
+    if (PhoneController.text.isNotEmpty && PhoneController.text.length == 10) {
 
-    if(validator.phone(PhoneController.text)){
-      bloc.OTPRequest(numberphone: PhoneController.text);
+    }
+
+    if(validator.phone(PhoneController.text) && PhoneController.text.length == 10){
+      bloc.checkPhoneNumber(phone: PhoneController.text);
+      //bloc.OTPRequest(numberphone: PhoneController.text);
       // final result = await AppRoute.EditPhoneStep2(context,widget.customerInfoRespone,PhoneController.text);
       // if(result!=null){
       //   Navigator.pop(context, widget.customerInfoRespone);
       // }
     }else{
-      setState(() {
-        onError = "ไม่เบอร์ไม่ถูกต้อง";
-      });
+
     }
 
 
