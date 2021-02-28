@@ -12,7 +12,7 @@ A few resources to get you started if this is your first Flutter project:
   <td>
     <img src="https://www.img.in.th/images/a9bad8c38bbe90521869db0f2de9a2ba.png" width="100%"/>
   </td>
-   <td><img src="https://www.img.in.th/images/828acc3c26c81a890a572262e5c0ab7a.md.png" width="100%"/>
+   <td><img src="https://www.img.in.th/images/828acc3c26c81a890a572262e5c0ab7a.md.png" width="200px" height="300px"/>
       </td>
     <td><img src="https://www.img.in.th/images/3a9f57d3f8b3999c8da694a8e8e67ec1.png" width="100%"/>
       </td>
