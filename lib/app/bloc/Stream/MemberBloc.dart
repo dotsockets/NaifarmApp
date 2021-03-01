@@ -17,6 +17,7 @@ import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart' as http;
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
@@ -57,7 +58,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
 
         context.read<CustomerCountBloc>().loadCustomerCount(token: item.token);
-        context.read<InfoCustomerBloc>().loadCustomInfo(token: item.token);
+        context.read<InfoCustomerBloc>().loadCustomInfo(token: item.token,oneSignal: true);
         Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email));
        // onLoad.add(false);
         onSuccess.add(item);
@@ -78,7 +79,7 @@ class MemberBloc{
       var item = (respone.respone as LoginRespone);
       if(respone.http_call_back.status==200){
         context.read<CustomerCountBloc>().loadCustomerCount(token: item.token);
-        context.read<InfoCustomerBloc>().loadCustomInfo(token: item.token);
+        context.read<InfoCustomerBloc>().loadCustomInfo(token: item.token,oneSignal: true);
 
         Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email)).then((value){
           if(isLoad){

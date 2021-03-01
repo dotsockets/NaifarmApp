@@ -4,6 +4,7 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/User.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Usermanager{
@@ -15,6 +16,7 @@ class Usermanager{
   static final String NAME = "name";
   static final String EMAIL = "email";
   static final String IMAGEURL = "imageurl";
+
 
   SharedPreferences _prefs;
 
@@ -50,6 +52,12 @@ class Usermanager{
     await Future<void>.delayed(Duration(seconds: 1));
   }
 
+  Future<void> SaveShop({String phone}) async {
+    _prefs = await SharedPreferences.getInstance();
+    _prefs.setString(PHONE, phone);
+    await Future<void>.delayed(Duration(seconds: 1));
+  }
+
   Future<void> Updatelogin({String col,String val}) async {
     _prefs = await SharedPreferences.getInstance();
     _prefs.setString(col, val);
@@ -66,6 +74,12 @@ class Usermanager{
     _prefs.remove(IMAGEURL);
     _prefs.remove(IS_LOGIN);
     await FacebookLogin().logOut();
+
+    NaiFarmLocalStorage.getCustomer_Info().then((value) async {
+      await OneSignal.shared.deleteTag("shopID");
+      OneSignal.shared.removeExternalUserId();
+    });
+
 
    // return await Future<void>.delayed(Duration(seconds: 1));
   }

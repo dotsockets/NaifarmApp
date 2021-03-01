@@ -78,6 +78,7 @@ class ProductBloc{
 
 
   loadHomeData({BuildContext context,String token,bool callback=false})async{
+    onLoad.add(true);
     StreamSubscription subscription = Observable.combineLatest8(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage()) // สไลด์ภาพ
         , Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular("1",10)), // สินค้าขายดี
         Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup()), // หมวดหมู่ทั่วไป
@@ -102,7 +103,7 @@ class ProductBloc{
             trendingRespone: _trending,martket: _martket,flashsaleRespone: _flashsale,product_foryou: product_foryou);
 
         }).listen((event) {
-
+              onLoad.add(false);
           if(callback){
             onSuccess.add(true);
           }

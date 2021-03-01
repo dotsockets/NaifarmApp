@@ -532,41 +532,13 @@ class _OrderViewState extends State<OrderView> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Expanded(child:
-              // Padding(
-              //   padding: EdgeInsets.all(1.0.h),
-              //   child: FlatButton(
-              //     height: 6.0.h,
-              //     color:  ThemeColor.ColorSale() ,
-              //     textColor: Colors.white,
-              //     splashColor: Colors.white.withOpacity(0.3),
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(40.0),
-              //     ),
-              //     onPressed: () {
-              //
-              //       FunctionHelper.ConfirmDialog(context,message: "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",onCancel: (){
-              //         Navigator.of(context).pop();
-              //       },onClick: (){
-              //         Navigator.of(context).pop();
-              //         AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
-              //       });
-              //
-              //
-              //     },
-              //     child: Text(
-              //       "Cancel order",
-              //       style: FunctionHelper.FontTheme(
-              //           fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
-              //     ),
-              //   ),
-              // )),
+              Expanded(child:
               Padding(
                 padding: EdgeInsets.all(1.0.h),
                 child: FlatButton(
                   minWidth: 60.0.w,
                   height: 6.0.h,
-                  color:  ThemeColor.secondaryColor() ,
+                  color:  ThemeColor.ColorSale() ,
                   textColor: Colors.white,
                   splashColor: Colors.white.withOpacity(0.3),
                   shape: RoundedRectangleBorder(
@@ -574,12 +546,43 @@ class _OrderViewState extends State<OrderView> {
                   ),
                   onPressed: () {
 
-                    AppRoute.ConfirmPayment(context: context,orderData: orderData);
+                    FunctionHelper.ConfirmDialog(context,message: "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",onCancel: (){
+                      Navigator.of(context).pop();
+                    },onClick: (){
+                      Navigator.of(context).pop();
+                      AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
+                    });
+
+
                   },
                   child: Text(
-                    "Confirm payment ",
+                    "Cancel order",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              )),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(1.0.h),
+                  child: FlatButton(
+                    minWidth: 60.0.w,
+                    height: 6.0.h,
+                    color:  ThemeColor.secondaryColor() ,
+                    textColor: Colors.white,
+                    splashColor: Colors.white.withOpacity(0.3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    onPressed: () {
+
+                      AppRoute.ConfirmPayment(context: context,orderData: orderData);
+                    },
+                    child: Text(
+                      "Confirm payment ",
+                      style: FunctionHelper.FontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
               ),

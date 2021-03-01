@@ -12,7 +12,7 @@ A few resources to get you started if this is your first Flutter project:
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 export PATH="$PATH:/Users/dotsocket/flutter/bin:$PATH"
 
-flutter build apk   --build-name=0.0.1 --build-number=1 --flavor staging  -t lib/config/Main_staging.dart
+flutter build apk   --build-name=0.0.2 --build-number=1 --flavor staging  -t lib/config/Main_staging.dart
 
 CICD -> https://codemagic.io
 

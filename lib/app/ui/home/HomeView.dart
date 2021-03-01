@@ -24,6 +24,7 @@ import 'package:naifarm/app/ui/noti/notilist/NotiView.dart';
 import 'package:naifarm/app/ui/recommend/RecommendView.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -63,8 +64,11 @@ class _HomeViewState extends State<HomeView>
     // initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-    InitializeOneSignal();
+
+    OneSignalCall.OneSignalReceivedHandler();
   }
+
+
 
   @override
   void dispose() {
@@ -72,52 +76,6 @@ class _HomeViewState extends State<HomeView>
     super.dispose();
   }
 
-  Future<void> InitializeOneSignal() async {
-    //Remove this method to stop OneSignal Debugging
-    OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
-
-    OneSignal.shared.init(
-       // Env().onesignal,
-      "",
-        iOSSettings: {
-          OSiOSSettings.autoPrompt: false,
-          OSiOSSettings.inAppLaunchUrl: false
-        }
-    );
-    OneSignal.shared.setInFocusDisplayType(OSNotificationDisplayType.notification);
-
-// The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-    await OneSignal.shared.promptUserForPushNotificationPermission(fallbackToSettings: true);
-
-    OneSignal.shared.setNotificationReceivedHandler((OSNotification notification) {
-     print("notification : ${notification}");
-    });
-
-    OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) {
-      // will be called whenever a notification is opened/button pressed.
-    });
-
-    OneSignal.shared.setPermissionObserver((OSPermissionStateChanges changes) {
-      // will be called whenever the permission changes
-      // (ie. user taps Allow on the permission prompt in iOS)
-    });
-
-    OneSignal.shared.setSubscriptionObserver((OSSubscriptionStateChanges changes) async {
-      var status = await OneSignal.shared.getPermissionSubscriptionState();
-      if (status.subscriptionStatus.subscribed){
-        String onesignalUserId = status.subscriptionStatus.userId;
-        print('Player ID: ' + onesignalUserId);
-      }
-    });
-
-    OneSignal.shared.setEmailSubscriptionObserver((OSEmailSubscriptionStateChanges emailChanges) {
-      // will be called whenever then user's email subscription changes
-      // (ie. OneSignal.setEmail(email) is called and the user gets registered
-    });
-
-
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -227,7 +185,7 @@ class _HomeViewState extends State<HomeView>
       case ConnectivityResult.wifi:
         if (_isDialogShowing) {
           _isDialogShowing = false;
-          AppRoute.PoppageCount(context: context, countpage: 1);
+          Navigator.of(context).pop();
         }
         break;
       case ConnectivityResult.none:

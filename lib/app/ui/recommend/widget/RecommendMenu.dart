@@ -19,6 +19,7 @@ import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:sizer/sizer.dart';
 
 class RecommendMenu extends StatelessWidget {
@@ -114,7 +115,7 @@ class RecommendMenu extends StatelessWidget {
           Text(item.label,style: FunctionHelper.FontTheme(fontWeight: FontWeight.w500,fontSize: SizeUtil.detailFontSize().sp))
         ],
       ),
-    onTap: () {
+    onTap: () async {
       switch(item.page){
        /* case  "ShopMyNear" :{
     FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
@@ -166,7 +167,6 @@ class RecommendMenu extends StatelessWidget {
           //   }
           // });
           AppRoute.Wishlists(context: context);
-
 
         }
         break;

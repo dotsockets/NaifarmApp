@@ -278,7 +278,7 @@ class _MeViewState extends State<MeView> with RouteAware {
   }
 
   Widget ImageHeader({CustomerInfoRespone info}){
-    return Column(
+    return info!=null?Column(
       mainAxisAlignment:
       MainAxisAlignment.center,
       children: [
@@ -349,6 +349,45 @@ class _MeViewState extends State<MeView> with RouteAware {
                 ? info
                 .name
                 : "ฟาร์มมาร์เก็ต",
+            style: FunctionHelper
+                .FontTheme(
+                color:
+                Colors.white,
+                fontSize: SizeUtil
+                    .titleFontSize()
+                    .sp,
+                fontWeight:
+                FontWeight
+                    .bold))
+      ],
+    ):Column(
+      mainAxisAlignment:
+      MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 3.0.h,
+        ),
+        ClipRRect(
+          borderRadius:
+          BorderRadius.all(
+              Radius.circular(
+                  60)),
+          child: Container(
+            width: 20.0.w,
+            height: 20.0.w,
+            color: Colors.white,
+            child: Lottie.asset(
+                'assets/json/loading.json',
+                height: 30),
+          ),
+        ),
+        SizedBox(height: 2.0.h),
+        Text(
+            info !=
+                null
+                ? info
+                .name
+                : "กำลังโหลด",
             style: FunctionHelper
                 .FontTheme(
                 color:

@@ -215,7 +215,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
       onPressed: () {
         Usermanager().logout().then((value){
           Usermanager().getUser().then((value){
-            context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token);
+            context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token,oneSignal: false);
             context.read<CustomerCountBloc>().loadCustomerCount(token: value.token);
             Navigator.pop(context,true);
           });

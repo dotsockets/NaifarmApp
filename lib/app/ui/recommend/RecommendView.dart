@@ -15,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
@@ -63,7 +64,7 @@ class RecommendView extends StatefulWidget {
 class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
-  int _categoryselectedIndex = 0;
+  bool onReLoad = true;
   ProductBloc bloc;
   HomeObjectCombine temp_data;
   final _selectedIndex = BehaviorSubject<int>();
@@ -74,8 +75,16 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.onSuccess.stream.listen((event) {
         NaiFarmLocalStorage.getHomeDataCache().then((value) {
+          onReLoad = true;
           bloc.ZipHomeObject.add(value);
         });
+      });
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
       });
       NaiFarmLocalStorage.getHomeDataCache().then((value) {
         temp_data = value;
@@ -196,7 +205,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                           if (snapshot.hasData) {
                             return Column(
                               children: [
-                                item.sliderRespone.data.isNotEmpty?BannerSlide(image: ConvertSliderImage(sliderRespone: item.sliderRespone)):SizedBox(),
+                                item.sliderRespone!=null?item.sliderRespone.data.isNotEmpty?BannerSlide(image: ConvertSliderImage(sliderRespone: item.sliderRespone)):SizedBox():SizedBox(),
                                 RecommendMenu(
                                   homeObjectCombine: (snapshot.data
                                   as HomeObjectCombine),
@@ -204,9 +213,10 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                                     widget.onClick(index);
                                   },),
                                 SizedBox(height: 1.0.h,),
-                                FlashSale(
+                                item
+                                    .flashsaleRespone!=null?FlashSale(
                                     flashsaleRespone: item
-                                        .flashsaleRespone)
+                                        .flashsaleRespone):SizedBox()
                               ],
                             );
                           } else {
@@ -398,7 +408,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
     }
     Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
     Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
-    Future.delayed(const Duration(milliseconds: 2000), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       bloc.loadHomeData(context: context,callback: true);
     });
 
@@ -433,8 +443,9 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   @override
   void onResumed() {
     NaiFarmLocalStorage.getNowPage().then((value){
-      if(value==0){
-        _refreshProducts();
+      if(value==0 && onReLoad){
+       onReLoad = false;
+       _refreshProducts();
       }
     });
 

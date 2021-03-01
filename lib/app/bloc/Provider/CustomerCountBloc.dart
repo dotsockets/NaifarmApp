@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 
 
@@ -44,6 +45,7 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
     }).listen((event) {
       if(event.http_call_back.status==200){
         var item =(event.respone as CustomerCountRespone);
+
         if(item.notification.unreadCustomer+item.notification.unreadShop>0 || item.buyOrder.cancel>0 || item.buyOrder.confirm>0 || item.buyOrder.delivered>0
             || item.buyOrder.failed>0 || item.buyOrder.refund>0 || item.buyOrder.toBeRecieve>0 || item.buyOrder.unpaid>0
             || item.sellOrder.unpaid>0 || item.sellOrder.refund>0 || item.sellOrder.failed>0 || item.sellOrder.delivered >0 || item.sellOrder.confirm>0

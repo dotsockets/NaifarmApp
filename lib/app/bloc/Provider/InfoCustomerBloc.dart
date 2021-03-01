@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 
 class InfoCustomerBloc extends Cubit<InfoCustomerState> {
@@ -17,7 +18,7 @@ class InfoCustomerBloc extends Cubit<InfoCustomerState> {
   InfoCustomerBloc(this._application) : super(InfoCustomerInitial());
 
 
-   loadCustomInfo({String token}) async{
+   loadCustomInfo({String token,bool oneSignal=false}) async{
 
      NaiFarmLocalStorage.getCustomer_Info().then((value){
        emit(InfoCustomerLoading(value));
@@ -32,8 +33,13 @@ class InfoCustomerBloc extends Cubit<InfoCustomerState> {
       final _shipping  =(c as ApiResult).respone;
       return ApiResult(respone: ProfileObjectCombine(customerInfoRespone: _customInfo,myShopRespone: _myshopInfo,shppingMyShopRespone: _shipping),http_call_back: (a as ApiResult).http_call_back);
 
-    }).listen((respone) {
+    }).listen((respone) async {
       if(respone.http_call_back.status==200){
+        if(oneSignal){
+          OneSignal.shared.setExternalUserId((respone.respone as ProfileObjectCombine).customerInfoRespone.id.toString());
+          await OneSignal.shared.sendTag("shopID", "${(respone.respone as ProfileObjectCombine).myShopRespone.id}");
+        }
+
         NaiFarmLocalStorage.saveCustomer_Info((respone.respone as ProfileObjectCombine)).then((value){
           emit(InfoCustomerLoaded((respone.respone as ProfileObjectCombine)));
         });

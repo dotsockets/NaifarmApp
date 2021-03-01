@@ -45,11 +45,14 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  widget.show_full?Column(
-                    children: [
-                      Text("NaiFarm",style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.bold),),
-                      Text("Version 0.0.1",style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.bold),)
-                    ],
+                  widget.show_full?Container(
+                    margin: EdgeInsets.only(bottom: 1.0.h),
+                    child: Column(
+                      children: [
+                        Text("NaiFarm",style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.bold),),
+                        Text("Version 0.0.1",style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.bold),)
+                      ],
+                    ),
                   ):SizedBox()
                 ],
               ),

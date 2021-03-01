@@ -42,6 +42,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       margin: EdgeInsets.only(top: 2.0.h),
       child: ClipRRect(
@@ -82,72 +83,80 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
     );
   }
 
-  SlideCountdownClock _buildCountDown() =>
-      SlideCountdownClock(
-        duration: FunctionHelper.flashSaleTime(flashTime: widget.flashTime),
-        slideDirection: SlideDirection.Down,
-        separator: "",
-        shouldShowDays: false,
-        decoration:
-        BoxDecoration(
-            borderRadius: new BorderRadius.all(Radius.circular(1.0.w))
-        ,color: Colors.black, shape: BoxShape.rectangle),
-        textStyle: TextStyle(
-          fontSize: 20,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-        padding: EdgeInsets.all(2),
-        tightLabel: true,
-        onDone: () {
+  // SlideCountdownClock _buildCountDown(){
+  //
+  // return  SlideCountdownClock(
+  //   duration: FunctionHelper.flashSaleTime(flashTime: widget.flashTime),
+  //   slideDirection: SlideDirection.Down,
+  //   separator: "",
+  //   shouldShowDays: false,
+  //   decoration:
+  //   BoxDecoration(
+  //       borderRadius: new BorderRadius.all(Radius.circular(1.0.w))
+  //       ,color: Colors.black, shape: BoxShape.rectangle),
+  //   textStyle: TextStyle(
+  //     fontSize: SizeUtil.titleFontSize().sp,
+  //     color: Colors.white,
+  //     fontWeight: FontWeight.bold,
+  //   ),
+  //   padding: EdgeInsets.all(1.5.w),
+  //   tightLabel: true,
+  //   onDone: () {
+  //
+  //   },
+  // );
+  // }
+  //
 
-        },
-      );
+Widget _buildCountDown(){
+    return CountdownTimer(
+      endTime: FunctionHelper.flashSaleTime(flashTime: widget.flashTime),
+      widgetBuilder: (_, CurrentRemainingTime remaining) {
+        final showTime = (String text) => ClipRRect(
+          borderRadius: BorderRadius.circular(9.0),
+          child: Container(
+            color: Colors.black,
+            padding: EdgeInsets.only(
+                left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
+            alignment: Alignment.center,
+            margin: EdgeInsets.symmetric(horizontal: 3),
+            child: Text(
+              text,
+              style: FunctionHelper.FontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        );
+        if (remaining != null) {
+          //List<String> time = remaining.split(':').toList();
+          // time[0] = time[0]-24;
 
-// CountdownTimer _buildCountDown()=> CountdownTimer(
-//       endTime: FunctionHelper.flashSaleTime(flashTime: widget.flashTime),
-//       widgetBuilder: (_, CurrentRemainingTime remaining) {
-//         final showTime = (String text) => ClipRRect(
-//           borderRadius: BorderRadius.circular(9.0),
-//           child: Container(
-//             color: Colors.black,
-//             padding: EdgeInsets.only(
-//                 left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
-//             alignment: Alignment.center,
-//             margin: EdgeInsets.symmetric(horizontal: 3),
-//             child: Text(
-//               text,
-//               style: FunctionHelper.FontTheme(
-//                 fontSize: SizeUtil.titleSmallFontSize().sp,
-//                 fontWeight: FontWeight.bold,
-//                 color: Colors.white,
-//               ),
-//             ),
-//           ),
-//         );
-//         if (remaining != null) {
-//           //List<String> time = remaining.split(':').toList();
-//           // time[0] = time[0]-24;
-//
-//           return Row(
-//             children: [
-//               showTime(remaining.hours.toString().length==1?"0"+remaining.hours.toString():remaining.hours.toString()),
-//               showTime(remaining.min != null?remaining.min.toString().length==1?"0"+remaining.min.toString():remaining.min.toString():"00"),
-//               showTime(remaining.sec.toString().length==1?"0"+remaining.sec.toString():remaining.sec.toString()),
-//             ],
-//           );
-//         }else{
-//           return Row(
-//             children: [
-//               showTime("0"),
-//               showTime("0"),
-//               showTime("0"),
-//             ],
-//           );
-//         }
-//
-//       },
-//     );
+          return Row(
+            children: [
+              showTime(remaining.hours.toString().length==1?"0"+remaining.hours.toString():remaining.hours.toString()),
+              showTime(remaining.min != null?remaining.min.toString().length==1?"0"+remaining.min.toString():remaining.min.toString():"00"),
+              showTime(remaining.sec.toString().length==1?"0"+remaining.sec.toString():remaining.sec.toString()),
+            ],
+          );
+        }else{
+          return Row(
+            children: [
+              showTime("0"),
+              showTime("0"),
+              showTime("0"),
+            ],
+          );
+        }
+
+      },
+    );
+
+}
+
+
 
 
 // CountdownFormatted _buildCountDown() => CountdownFormatted(

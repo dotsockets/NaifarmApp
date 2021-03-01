@@ -92,6 +92,8 @@ dependencies:
   onesignal_flutter: ^2.6.2
   slide_countdown_clock: ^1.0.3
   get_version: ^0.2.2
+  device_info_plus: ^0.7.2
+
 
 dev_dependencies:
   flutter_test:

@@ -14,6 +14,7 @@ import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:sizer/sizer.dart';
 
@@ -29,7 +30,8 @@ class _CategoryViewState extends State<CategoryView> {
 
   ProductBloc bloc;
 
-  void _init(){
+  Future<void> _init() async {
+
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       NaiFarmLocalStorage.getHomeDataCache().then((value){

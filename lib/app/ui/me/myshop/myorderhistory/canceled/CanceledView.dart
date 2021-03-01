@@ -415,8 +415,8 @@ class _CanceledViewState extends State<CanceledView>{
        //     Usermanager().getUser().then((value) =>
          //       bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "1", limit: 20, page: 1, token: value.token));
         //  }
-           AppRoute.OrderDetail(context,
-              orderData: item, typeView: widget.typeView);
+           AppRoute.OrderCancle(context: context,
+              orderData: item);
 
         }else{
           AppRoute.TransferPayMentView(context: context,orderData: item);

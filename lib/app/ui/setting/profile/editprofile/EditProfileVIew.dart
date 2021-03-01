@@ -70,7 +70,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                 context
                     .read<InfoCustomerBloc>()
                     .loadCustomInfo(
-                    token: value.token));
+                    token: value.token,oneSignal: false));
           });
           setState(() {
             onImageUpdate = true;

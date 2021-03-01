@@ -150,7 +150,7 @@ class _FlashSaleState extends State<FlashSale> {
               borderRadius: BorderRadius.circular(1.3.h),
               child: CachedNetworkImage(
                 width: 28.0.w,
-                height: 28.0.w,
+                height: 30.0.w,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
                   child: Lottie.asset('assets/json/loading.json',  width: 28.0.w,

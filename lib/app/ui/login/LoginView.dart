@@ -1,5 +1,6 @@
 
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,6 +22,7 @@ import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:sizer/sizer.dart';
 
@@ -302,7 +304,7 @@ class _LoginViewState extends State<LoginView> {
 
 
 
-  void _validate() {
+  Future<void> _validate() async {
     FocusScope.of(context).unfocus();
     RegExp nameRegExp = RegExp('[a-zA-Z]');
     // var stats_form = _form.currentState.validate();
@@ -317,8 +319,18 @@ class _LoginViewState extends State<LoginView> {
       FunctionHelper.AlertDialogShop(context,
           title: "Error", message:LocaleKeys.message_error_mail_invalid.tr());
     }else{
-      if(checkError)
-        bloc.CustomerLogin(context: context,loginRequest: LoginRequest(username: validator.email(_username.text)?_username.text:"",phone: !validator.email(_username.text)?_username.text:"",password:_password.text));
+      if(checkError){
+        DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+       // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        var status = await OneSignal.shared.getPermissionSubscriptionState();
+        bloc.CustomerLogin(context: context,loginRequest: LoginRequest(username: validator.email(_username.text)?_username.text:"",phone: !validator.email(_username.text)?_username.text:"",password:_password.text,pushService: PushService(
+            deviceType: Platform.isIOS?0:1,
+            deviceModel:Platform.isIOS?(await deviceInfo.iosInfo as IosDeviceInfo).model:(await deviceInfo.androidInfo as AndroidDeviceInfo).model,
+          deviceOS: Platform.isIOS?(await deviceInfo.iosInfo as IosDeviceInfo).systemVersion.toString():(await deviceInfo.androidInfo as AndroidDeviceInfo).version.toString(),
+          identifier:status.subscriptionStatus.pushToken
+        )));
+      }
+
     }
   }
 

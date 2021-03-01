@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 enum EnvType { DEVELOPMENT, STAGING, PRODUCTION }
@@ -29,6 +30,7 @@ class Env {
   Env() {
     value = this;
     _init();
+    OneSignalCall.InitializeOneSignal();
   }
 
   void _init() async {

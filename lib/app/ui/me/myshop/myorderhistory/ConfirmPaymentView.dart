@@ -239,23 +239,26 @@ class ConfirmPaymentView extends StatelessWidget {
           child: FlatButton(
             minWidth: 50.0.w,
             height: 5.0.h,
-            color: ThemeColor.ColorSale(),
+            color: orderData.image!=null?orderData.image.isNotEmpty?ThemeColor.ColorSale():Colors.black.withOpacity(0.2):Colors.black.withOpacity(0.2),
             textColor: Colors.white,
             splashColor: Colors.white.withOpacity(0.3),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40.0),
             ),
             onPressed: () {
-              FunctionHelper.ConfirmDialog(context,
-                  message: "คุณต้องการยืนยันการชำระเงินคำสั่งซื้อสินค้านี้ ?",
-                  onCancel: () {
-                Navigator.of(context).pop();
-              }, onClick: () {
-                Navigator.of(context).pop();
-                onUpload = true;
-                Usermanager().getUser().then((value) =>
-                    bloc.MarkPaid(token: value.token, OrderId: orderData.id));
-              });
+              if(orderData.image.isNotEmpty){
+                FunctionHelper.ConfirmDialog(context,
+                    message: "คุณต้องการยืนยันการชำระเงินคำสั่งซื้อสินค้านี้ ?",
+                    onCancel: () {
+                      Navigator.of(context).pop();
+                    }, onClick: () {
+                      Navigator.of(context).pop();
+                      onUpload = true;
+                      Usermanager().getUser().then((value) =>
+                          bloc.MarkPaid(token: value.token, OrderId: orderData.id));
+                    });
+              }
+
             },
             child: Text(
               "Confirm ",
