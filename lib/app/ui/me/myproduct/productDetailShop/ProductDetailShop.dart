@@ -126,6 +126,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                   data: ProducItemRespone(
                                                     name: item.name,
                                                     salePrice: item.salePrice,
+                                                    rating: item.rating,
                                                     offerPrice: item.offerPrice,
                                                     id: item.id,
                                                   ),
@@ -134,8 +135,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                             InkWell(
                                               child: ShopOwn(
                                                 shopItem: ShopItem(
-                                                  rating:
-                                                      widget.productItem.rating,
+                                                  rating: item.shop.rating,
                                                   name: item.shop.name != null
                                                       ? item.shop.name
                                                       : "-",
@@ -145,10 +145,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                           .productItem.shop.id
                                                       : 0,
                                                   updatedAt:
-                                                      item.shop.updatedAt !=
-                                                              null
-                                                          ? item.shop.updatedAt
-                                                          : "",
+                                                          item.shop.updatedAt,
                                                   slug:
                                                       widget.productItem.shop !=
                                                               null

@@ -6,7 +6,7 @@ class ProductMyShopRequest {
   int stockQuantity;
   int salePrice;
   int sendArea;
-  int weight;
+  double weight;
   int packaging;
   String description;
   String slug;

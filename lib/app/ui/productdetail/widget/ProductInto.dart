@@ -24,6 +24,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:share/share.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ProductInto extends StatelessWidget {
   final ProducItemRespone data;
@@ -95,25 +96,48 @@ class ProductInto extends StatelessWidget {
               overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
           ],
         ),
-            showBtn?Row(
+            Row(
               children: [
+                SmoothStarRating(
+                    allowHalfRating: false,
+                    onRated: (v) {},
+                    starCount: 5,
+                    rating: data.rating!=null&&data.rating!=0?data.rating.toDouble():0.0,
+                    size: 13.0,
+                    isReadOnly: true,
+                    filledIconData: Icons.star,
+                    halfFilledIconData: Icons.star_half_outlined,
+                    color: Colors.amber,
+                    borderColor: Colors.amber,
+                    spacing: 0.0),
+                SizedBox(width: 1.0.w,),
+                Text("${data.rating!=null&&data.rating!=0?data.rating.toDouble():0.0}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
+                SizedBox(width: 1.0.w,),
+                Center(
+                  child: Container(
+                    width: 1,
+                    color: Colors.black.withOpacity(0.5),
+                    height: 1.3.h,
+                  ),
+                ),SizedBox(width: 1.0.w,),
                 Expanded(child: Text(
                   "${LocaleKeys.my_product_sold_end.tr()} ${data.saleCount!=null? data.saleCount.toString():'0'} ${LocaleKeys.cart_piece.tr()}",
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
                 ),),
-                InkWell(
+             InkWell(
                   child: SvgPicture.asset(
                     'assets/images/svg/share.svg',
                     width: 8.0.w,
                     height: 8.0.w,
+                    color: showBtn?Colors.black.withOpacity(0.55):Colors.transparent,
                   ),
                   onTap: () {
                     Share.share('${Env.value.baseUrlWeb}/${data.name}-i.${data.id}');
                     // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                   },
                 ),
-                SizedBox(width: 1.0.h,),
-                StreamBuilder(
+                showBtn?SizedBox(width: 1.0.h,):SizedBox(),
+                showBtn?StreamBuilder(
                   stream: bloc.Wishlists.stream,
                   builder: (BuildContext context,
                       AsyncSnapshot snapshot) {
@@ -129,10 +153,10 @@ class ProductInto extends StatelessWidget {
                       return IsLogin?LikeContent(item: WishlistsRespone()):LikeContentNoLogin(context);
                     }
                   },
-                ),
+                ):SizedBox(),
 
               ],
-            ):SizedBox(),
+            ),
             SizedBox(height: 15),
            // _IntroShipment()
           ],

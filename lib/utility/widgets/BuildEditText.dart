@@ -87,6 +87,7 @@ class BuildEditText extends StatelessWidget {
                           new Expanded(
                               child: Padding(
                                 child: TextFormField(
+
                                   obscureText: IsPassword ? snapshot.data : IsPassword,
                                   keyboardType: inputType,
                                   maxLines: maxLine,
@@ -94,6 +95,7 @@ class BuildEditText extends StatelessWidget {
                                   initialValue: initialValue,
                                   readOnly: readOnly,
                                   inputFormatters: [
+
                                     inputType == TextInputType.number
                                         ? FilteringTextInputFormatter.digitsOnly
                                         : FilteringTextInputFormatter.singleLineFormatter

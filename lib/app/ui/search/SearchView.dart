@@ -173,16 +173,13 @@ class _SearchViewState extends State<SearchView> {
                                     item.hits.length == 0
                                         ? LocaleKeys.search_product_not_found
                                         .tr()
-                                        : showMore
-                                        ? LocaleKeys.search_product_hide
-                                        .tr()
-                                        : LocaleKeys.search_product_show
-                                        .tr(),
+                                        : showMore ? LocaleKeys.search_product_hide.tr()
+                                        : LocaleKeys.search_product_show.tr(),
                                     style: FunctionHelper.FontTheme(
                                         color: Colors.grey,
                                         fontSize:
                                         SizeUtil.titleSmallFontSize().sp)),
-                                visible: item.limit == 0 ? false : true,
+                                visible: item.limit == 0||item.nbHits<=4 ? false : true,
                               );
                             } else {
                               return SizedBox();

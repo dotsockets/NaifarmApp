@@ -342,18 +342,17 @@ class _AddressEditViewState extends State<AddressEditView> {
     check = true;
 
 
-    if(!validator.phone(phoneController.text)){
+    if(!validator.phone(phoneController.text)||phoneController.text.length!=10){
       check = false;
       errorPhoneTxt = "หมายเลขโทรศัพท์ไม่ถูกต้อง";
     }else{
       errorPhoneTxt = "";
     }
 
-    if (detailAddrController.text.length==0 || nameController.text.length==0  ||
-    postController.text.length==0 || detailAddrController.text.length==0 || proviceSelect==0 || citySelect==0) {
+    if (detailAddrController.text.length==0 || nameController.text.length==0 ||
+    postController.text.length==0 || detailAddrController.text.length==0 || proviceSelect==0 || citySelect==0||postController.text.length!=5) {
       check = false;
     }
-
 
     setState(() {});
   }

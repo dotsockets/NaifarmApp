@@ -66,7 +66,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       });
       bloc.zipCcde.stream.listen((event) {
         _checkError();
-        postController.text = event.zipCode.toString();
+        postController.text = event.zipCode!=null?event.zipCode.toString():"";
       });
       bloc.city.stream.listen((event) {
         _checkError();
@@ -146,7 +146,7 @@ class _AddressAddViewState extends State<AddressAddView> {
                   LocaleKeys.my_profile_phoneNum.tr(),
               controller: phoneController,
               onChanged: (String x) => _checkError(),
-              inputType: TextInputType.phone),
+              inputType: TextInputType.number),
           SizedBox(
             height: 0.9.h,
           ),
@@ -159,9 +159,8 @@ class _AddressAddViewState extends State<AddressAddView> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 return _BuildDropdown(
-                    head: LocaleKeys.select.tr() +
-                        LocaleKeys.address_province.tr() +
-                        " * ",
+                    head: LocaleKeys.select.tr() + LocaleKeys.address_province.tr() + " * ",
+
                     hint: loopString(
                         (snapshot.data as StatesRespone).data, proviceSelect),
                     item: (snapshot.data as StatesRespone).data,
@@ -195,6 +194,7 @@ class _AddressAddViewState extends State<AddressAddView> {
                     hint: loopString(
                         (snapshot.data as StatesRespone).data, citySelect),
                     item: (snapshot.data as StatesRespone).data,
+
                     onSelect: (int index) {
                       setState(() => citySelect =
                           (snapshot.data as StatesRespone).data[index].id);
@@ -228,8 +228,7 @@ class _AddressAddViewState extends State<AddressAddView> {
               maxLength: 100,
               head: LocaleKeys.address_detail.tr(),
               EnableMaxLength: false,
-              hint:
-                  LocaleKeys.set_default.tr() + LocaleKeys.address_detail.tr(),
+              hint: LocaleKeys.set_default.tr() + LocaleKeys.address_detail.tr(),
               onChanged: (String x) => _checkError(),
               controller: detailAddrController,
               inputType: TextInputType.text),
@@ -347,7 +346,7 @@ class _AddressAddViewState extends State<AddressAddView> {
     //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "ไม่ถูกต้อง",context: context);
     check = true;
 
-    if (!validator.phone(phoneController.text)) {
+    if (!validator.phone(phoneController.text)||phoneController.text.length!=10) {
       check = false;
       errorPhoneTxt = "หมายเลขโทรศัพท์ไม่ถูกต้อง";
     } else {
@@ -359,7 +358,7 @@ class _AddressAddViewState extends State<AddressAddView> {
         postController.text.length == 0 ||
         detailAddrController.text.length == 0 ||
         proviceSelect == 0 ||
-        citySelect == 0) {
+        citySelect == 0||postController.text.length!=5) {
       check = false;
     }
 
