@@ -325,7 +325,7 @@ class _AddressEditViewState extends State<AddressEditView> {
           borderRadius: BorderRadius.circular(40.0),
         ),
         onPressed: () {
-
+          if(check)
           Usermanager().getUser().then((value) =>  bloc.UpdateAddress(data: AddressCreaterequest(countryId: 1,id: widget.item.id,cityId: citySelect,phone: phoneController.text,addressLine1: detailAddrController.text,
               addressLine2: "",addressTitle: nameController.text,stateId: proviceSelect,zipCode: postController.text,addressType: isSelect?"Primary":"Shipping"),token: value.token));
         },

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/utility/widgets/ProductItemCard.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -111,20 +112,21 @@ class _FlashSaleState extends State<FlashSale> {
               margin: EdgeInsets.all(1.0.h),
               child: Column(
                 children: [
-                  _ProductImage(
-                      item:
-                          widget.flashsaleRespone.data[0].items[index].product,
-                      index: index),
-                  _intoProduct(
-                      item:
-                          widget.flashsaleRespone.data[0].items[index].product,
-                      index: index)
+                  ProductItemCard(item: widget.flashsaleRespone.data[0].items[index].product,tagHero: "productImage_${index}",showSoldFlash: true,)
+                //   //_ProductImage(
+                //   //    item:
+                //           widget.flashsaleRespone.data[0].items[index].product,
+                //       index: index),
+                //   _intoProduct(
+                //       item:
+                //           widget.flashsaleRespone.data[0].items[index].product,
+                //       index: index)
                 ],
               ),
             ),
             onTap: () {
               AppRoute.ProductDetail(context,
-                  productImage: "productImage_${index}",
+                  productImage: "productImage_${index}_${widget.flashsaleRespone.data[0].items[index].product.id}1",
                   productItem: ProductBloc.ConvertDataToProduct(
                       data: widget
                           .flashsaleRespone.data[0].items[index].product));
@@ -134,7 +136,7 @@ class _FlashSaleState extends State<FlashSale> {
       ),
     );
   }
-
+/*
   Widget _ProductImage({ProductData item, int index}) {
     return Container(
 
@@ -289,5 +291,5 @@ class _FlashSaleState extends State<FlashSale> {
       ),
     );
   }
-
+*/
 }
