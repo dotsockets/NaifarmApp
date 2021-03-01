@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -83,12 +84,32 @@ class _AboutViewState extends State<AboutView> {
     );
   }
   Widget _buildTxt({String txt}) {
-    return HtmlWidget(
+    return Html(data:
+      txt,
+      /*  style: {
+      "tr": Style(
+        border: Border(bottom: BorderSide(color: Colors.grey)),
+      ),
+      "th": Style(
+        padding: EdgeInsets.all(6),
+        backgroundColor: Colors.grey,
+      ),
+      "td": Style(
+        padding: EdgeInsets.all(6),
+        alignment: Alignment.topLeft,
+      ),
+      // text that renders h1 elements will be red
+      "h1": Style(color: Colors.red),
+    }*/
+    );
+    /*
+    HtmlWidget(
       txt,textStyle: FunctionHelper.FontTheme(
         fontSize: SizeUtil.titleFontSize().sp,
         color: Colors.black),
       webView: true,
     );
+    * */
 
   }
 }

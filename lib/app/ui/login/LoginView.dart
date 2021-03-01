@@ -43,7 +43,7 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController _username = new TextEditingController();
   TextEditingController _password = new TextEditingController();
   MemberBloc bloc;
-  bool checkError = true;
+  bool checkError = false;
   String errorMail = "";
   String errorPass = "";
 

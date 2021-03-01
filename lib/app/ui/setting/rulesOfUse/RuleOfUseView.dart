@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -64,7 +64,7 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
                 if(snapshot.hasData){
                   return SingleChildScrollView(
                     child: Container(
-                      padding: EdgeInsets.all(20),
+                     // padding: EdgeInsets.all(20),
                       color: Colors.white,
                       child: Column(
                         children: [
@@ -83,12 +83,15 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
     );
   }
   Widget _buildTxt({String txt}) {
-    return HtmlWidget(
+    return Html(
+      data: txt,);
+
+    /*HtmlWidget(
       txt,textStyle: FunctionHelper.FontTheme(
         fontSize: SizeUtil.titleFontSize().sp,
         color: Colors.black),
       webView: true,
-    );
+    );*/
 
   }
 }
