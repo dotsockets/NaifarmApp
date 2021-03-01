@@ -35,9 +35,9 @@ class InfoCustomerBloc extends Cubit<InfoCustomerState> {
 
     }).listen((respone) async {
       if(respone.http_call_back.status==200){
-        if(oneSignal){
+        if(oneSignal && (respone.respone as ProfileObjectCombine).myShopRespone!=null){
           OneSignal.shared.setExternalUserId((respone.respone as ProfileObjectCombine).customerInfoRespone.id.toString());
-          await OneSignal.shared.sendTag("shopID", "${(respone.respone as ProfileObjectCombine).myShopRespone.id}");
+           OneSignal.shared.sendTag("shopID", "${(respone.respone as ProfileObjectCombine).myShopRespone.id}");
         }
 
         NaiFarmLocalStorage.saveCustomer_Info((respone.respone as ProfileObjectCombine)).then((value){

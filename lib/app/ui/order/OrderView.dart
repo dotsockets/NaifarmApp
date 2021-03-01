@@ -309,11 +309,16 @@ class _OrderViewState extends State<OrderView> {
                           ),
                           fit: BoxFit.cover,
                           imageUrl: "${Env.value.baseUrl}/storage/images/${orderData.shop.image.isNotEmpty ? orderData.shop.image[0].path : ''}",
-                          errorWidget: (context, url, error) => Container(
+                          errorWidget: (context, url, error) =>  Container(
+                              width: 30,
                               height: 30,
-                              child: Icon(
-                                Icons.error,
-                                size: 30,
+                              child: CircleAvatar(
+                                backgroundColor: Color(0xffE6E6E6),
+                                radius: 25,
+                                child: Icon(
+                                  Icons.shopping_bag_rounded,
+                                  color: Color(0xffCCCCCC),
+                                ),
                               )),
                         ),
                       ),

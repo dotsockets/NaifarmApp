@@ -4,6 +4,7 @@ import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
@@ -75,7 +76,12 @@ class _PurchaseViewState extends State<PurchaseView> {
                     Message: "${count.countLoaded.like} รายการ",
                     iconSize: 7.0.w,
                     onClick: () {
-                      AppRoute.Wishlists(context:context);
+                      Usermanager().isLogin().then((value){
+                        if(value!=null){
+                          AppRoute.Wishlists(context:context);
+                        }
+                      });
+
                     });
               }else if(count is CustomerCountLoading){
                 return ListMenuItem(
@@ -84,7 +90,11 @@ class _PurchaseViewState extends State<PurchaseView> {
                     Message: "${count.countLoaded!=null?count.countLoaded.like:0} รายการ",
                     iconSize: 7.0.w,
                     onClick: () {
-                      AppRoute.Wishlists(context:context);
+                      Usermanager().isLogin().then((value){
+                        if(value!=null){
+                          AppRoute.Wishlists(context:context);
+                        }
+                      });
                     });
               }else{
                 return  ListMenuItem(
@@ -93,7 +103,11 @@ class _PurchaseViewState extends State<PurchaseView> {
                     Message: "${0} รายการ",
                     iconSize:7.0.w,
                     onClick: () {
-                      AppRoute.Wishlists(context:context);
+                      Usermanager().isLogin().then((value){
+                        if(value!=null){
+                          AppRoute.Wishlists(context:context);
+                        }
+                      });
                     });
               }
 

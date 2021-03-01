@@ -48,16 +48,16 @@ class _LoginViewState extends State<LoginView> {
   String errorPass = "";
 
 
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-    _username.text = Usermanager.USERNAME_DEMO;
-    _password.text = Usermanager.PASSWORD_DEMO;
-
-
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //
+  //   super.initState();
+  //   _username.text = Usermanager.USERNAME_DEMO;
+  //   _password.text = Usermanager.PASSWORD_DEMO;
+  //
+  //
+  // }
 
   void _init(BuildContext context){
     if(null == bloc){

@@ -96,16 +96,16 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
   //       ,color: Colors.black, shape: BoxShape.rectangle),
   //   textStyle: TextStyle(
   //     fontSize: SizeUtil.titleFontSize().sp,
-  //     color: Colors.white,
-  //     fontWeight: FontWeight.bold,
-  //   ),
-  //   padding: EdgeInsets.all(1.5.w),
-  //   tightLabel: true,
-  //   onDone: () {
-  //
-  //   },
-  // );
-  // }
+    //     color: Colors.white,`
+    //     fontWeight: FontWeight.bold,
+    //   ),
+    //   padding: EdgeInsets.all(1.5.w),
+    //   tightLabel: true,
+    //   onDone: () {
+    //
+    //   },
+    // );
+    // }`
   //
 
 Widget _buildCountDown(){

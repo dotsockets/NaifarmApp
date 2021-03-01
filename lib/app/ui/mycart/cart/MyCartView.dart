@@ -73,17 +73,17 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
       bloc.CartList.stream.listen((event) {
         if(event is CartResponse){
 
-          if(widget.cart_nowId!=null){
+          if(widget.cart_nowId!=null && widget.cart_nowId.isNotEmpty){
 
-            for(var item in event.data){
-              for(var value in item.items){
-                for(var cart_select in widget.cart_nowId){
-                  if(value.inventory.id==cart_select.id){
-                    value.select = true;
-                  //  break;
-                  }
+            for(var value in event.data[0].items){
+              for(var cart_select in widget.cart_nowId){
+
+                if(value.inventory.id==cart_select.id){
+                  value.select = true;
+                 // break;
+
+
                 }
-
               }
             }
             widget.cart_nowId = [];

@@ -79,8 +79,8 @@ class CartBloc {
       onLoad.add(false);
       if (respone.http_call_back.status == 200) {
 
-        onSuccess.add(true);
         GetCartlists(token: token, cartActive: CartActive.CartDelete);
+        onSuccess.add(true);
         // CartList.add(CartResponse(data: CartList.value.data));
       } else {
         onError.add(respone.http_call_back.result);

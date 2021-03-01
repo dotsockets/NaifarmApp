@@ -39,6 +39,7 @@ class _EditProviceViewState extends State<EditProviceView> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    proviceSelect = widget.itemInfo.state.id;
     _input1.text = widget.itemInfo.description;
   }
 
@@ -115,7 +116,7 @@ class _EditProviceViewState extends State<EditProviceView> {
       stream: bloc.provice.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if(snapshot.hasData) {
-
+            print("secfsefc ${loopIndex((snapshot.data as StatesRespone).data,proviceSelect)}");
           return Container(
             color: Colors.white,
             padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),

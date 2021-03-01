@@ -46,16 +46,20 @@ class _MeViewState extends State<MeView> with RouteAware {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   StreamController<bool> controller = new StreamController<bool>();
+  ScrollController _scrollController = ScrollController();
+  final ExpandedBar = BehaviorSubject<bool>();
+
 
   void _init() {
     if (null == bloc) {
+      ExpandedBar.add(false);
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        // if(event){
-        //   FunctionHelper.showDialogProcess(context);
-        // }else{
-        //   Navigator.of(context).pop();
-        // }
+        if(event){
+          FunctionHelper.showDialogProcess(context);
+        }else{
+          Navigator.of(context).pop();
+        }
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
@@ -89,6 +93,20 @@ class _MeViewState extends State<MeView> with RouteAware {
     //     });
     //   }
     // });
+
+    _scrollController.addListener(() {
+
+      if(_isAppBarExpanded){
+        ExpandedBar.add(true);
+      }else{
+        ExpandedBar.add(false);
+      }
+    });
+  }
+
+  bool get _isAppBarExpanded {
+    return _scrollController.hasClients &&
+        _scrollController.offset > (200 - kToolbarHeight);
   }
 
 
@@ -115,6 +133,7 @@ class _MeViewState extends State<MeView> with RouteAware {
 
               Navigator.of(context).pop();
 
+
               // Usermanager().getUser().then((value){
               //
               //   bloc.MarkAsReadNotifications(token: value.token);
@@ -130,7 +149,7 @@ class _MeViewState extends State<MeView> with RouteAware {
 
   Widget _ContentMe() {
     return CustomScrollView(
-      // controller: _scr,
+       controller: _scrollController,
       slivers: [
         SliverAppBar(
           leading: Container(
@@ -151,7 +170,17 @@ class _MeViewState extends State<MeView> with RouteAware {
           actions: [
             Container(
                 margin: EdgeInsets.only(right: 2.0.w, left: 1.0.w, top: 1.0.w),
-                child: BuildIconShop()),
+                child:StreamBuilder(
+                  stream: ExpandedBar.stream,
+                  builder: (_,snapshot){
+                    if(snapshot.hasData){
+                      return !snapshot.data?BuildIconShop():SizedBox();
+                    }else{
+                      return SizedBox();
+                    }
+                  },
+                )
+            ),
           ],
           expandedHeight: 200,
           flexibleSpace: FlexibleSpaceBar(

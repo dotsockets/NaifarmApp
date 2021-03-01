@@ -547,8 +547,7 @@ class ProductBloc{
         for(var value in cartRequest.items ){
           BayNow.add(ProductData(id: value.inventoryId));
         }
-
-        Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+         Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
         onLoad.add(false);
         if(addNow){
           onSuccess.add(true);
