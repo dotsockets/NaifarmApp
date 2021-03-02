@@ -104,6 +104,7 @@ class _AvailableState extends State<Available> {
               controller: _scrollController,
               child: Column(
                 children: [
+                  SizedBox(height: 0.8.h,),
                   Column(
                     children: List.generate(
                       item.data.length,
@@ -294,7 +295,7 @@ class _AvailableState extends State<Available> {
                                   child: Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      "${LocaleKeys.my_product_sold.tr() + " " + item.hasVariant.toString() + " " + LocaleKeys.cart_piece.tr()}",
+                                      "${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():"0"} ${LocaleKeys.cart_piece.tr()}",
                                       style: FunctionHelper.FontTheme(
                                           fontSize:
                                               SizeUtil.detailFontSize().sp),
@@ -314,7 +315,7 @@ class _AvailableState extends State<Available> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                        LocaleKeys.my_product_like.tr() + " 0",
+                                        LocaleKeys.my_product_like.tr() + " ${item.likeCount!=null?item.likeCount.toString():"0"}",
                                         style: FunctionHelper.FontTheme(
                                             fontSize:
                                                 SizeUtil.detailFontSize().sp)),
@@ -383,6 +384,7 @@ class _AvailableState extends State<Available> {
 
                             Usermanager().getUser().then((value) =>
                                 bloc.UpdateProductMyShop(
+                                  isActive: IsActive.ReplacemenView,
                                     shopRequest: ProductMyShopRequest(name: item.name, active: val ? 1:0),
                                     token: value.token,
                                     productId: item.id));
@@ -423,7 +425,7 @@ class _AvailableState extends State<Available> {
                                     productMyShopRequest: product,
                                     onSelectItem: onSelectItem),
                                 indexTab: 0);
-                            if (result) {
+                            if (result!=null && result) {
                               _reloadFirstPage();
                             }
                           },

@@ -30,6 +30,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:naifarm/utility/widgets/MD2Indicator.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:rxdart/rxdart.dart';
@@ -133,7 +134,11 @@ class _MyProductViewState extends State<MyProductView> {
                             child: Container(
                               child: TabBar(
 
-                                indicatorColor: ThemeColor.ColorSale(),
+                                indicator: MD2Indicator(
+                                  indicatorSize: MD2IndicatorSize.tiny,
+                                  indicatorHeight: 0.5.h,
+                                  indicatorColor: ThemeColor.ColorSale(),
+                                ),
                                 isScrollable: false,
                                 tabs: [
                                   _tab(

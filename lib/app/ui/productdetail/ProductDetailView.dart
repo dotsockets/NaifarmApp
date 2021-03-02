@@ -42,6 +42,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:share/share.dart';
 import 'package:vibration/vibration.dart';
 import 'widget/BuildChoosesize.dart';
@@ -76,10 +77,12 @@ class _ProductDetailViewState extends State<ProductDetailView>
   StreamController<bool> checkScrollControl = new StreamController<bool>();
   int SubFixId = 0;
   bool IsLogin = true;
-
+  bool checkOwnShop = true;
   Animation<Offset> animation;
   AnimationController animationController;
 
+
+  final CheckMyShop = BehaviorSubject<int>();
 
 
   final _indicatorController = IndicatorController();
@@ -193,6 +196,12 @@ class _ProductDetailViewState extends State<ProductDetailView>
         bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
       });
     }
+
+    NaiFarmLocalStorage.getCustomer_Info().then((value){
+      //  print("efcsdcx ${widget.productItem.shop.id}  ${value.myShopRespone.id}");
+      CheckMyShop.add(value.myShopRespone.id);
+    });
+
   }
 
   void ISLogin() async => IsLogin = await Usermanager().isLogin();
@@ -307,7 +316,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                             },
                           ),
                         ),
-                        StreamBuilder<Object>(
+                      StreamBuilder<Object>(
                             stream: checkScrollControl.stream,
                             builder: (context, snapshot) {
                               if(snapshot.hasData){
@@ -492,135 +501,140 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
   Widget _BuildFooterTotal({WishlistsRespone item}) {
 
-    return FadeTransition(
-      opacity: _animation,
-      child: Container(
-        height: 8.0.h,
-        decoration: BoxDecoration(
-          border: Border(
-              top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0),
-              bottom:
-              BorderSide(color: Colors.grey.withOpacity(0.4), width: 0)),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-                child: InkWell(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset('assets/images/svg/message.svg',color:Colors.grey.shade300,width: 6.0.w,height: 6.0.w,),
-                      SizedBox(height: 1.0),
-                      Text(
-                        "Chat",
-                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold,color: Colors.grey.shade300),
-                      )
-                    ],
-                  ),
-                 /* onTap: () {
+    return   StreamBuilder(
+        stream: CheckMyShop.stream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData && snapshot.data!=widget.productItem.shop.id) {
+            return  FadeTransition(
+              opacity: _animation,
+              child: Container(
+                height: 8.0.h,
+                decoration: BoxDecoration(
+                  border: Border(
+                      top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0),
+                      bottom:
+                      BorderSide(color: Colors.grey.withOpacity(0.4), width: 0)),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: InkWell(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset('assets/images/svg/message.svg',color:Colors.grey.shade300,width: 6.0.w,height: 6.0.w,),
+                              SizedBox(height: 1.0),
+                              Text(
+                                "Chat",
+                                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold,color: Colors.grey.shade300),
+                              )
+                            ],
+                          ),
+                          /* onTap: () {
                     FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                    // Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
                     // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                   },*/
-                )),
-            Container(
-              color: Colors.grey.withOpacity(0.4),
-              height: 8.0.h,
-              width: 1,
-            ),
-            Expanded(
-                child: Center(
-                  child: InkWell(
-                    child: Stack(
-                      children: [
-                        Transform.translate(
-                          offset:  animation.value,
-                          child: Container(
-                            child: Image.network("${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty?widget.productItem.image[0].path:''}"),
-                            width: 10.0.w,
-                            height: 10.0.w,
-                          ),
-                        ),
-                        Container(
-                          color: Colors.white,
-                          width: MediaQuery.of(context).size.width,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.shopping_cart_outlined,color: ThemeColor.primaryColor(),size: 7.0.w,),
-                              SizedBox(height: 1.0),
-                              Text(
-                                "Add to Cart ",
-                                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                        )),
+                    Container(
+                      color: Colors.grey.withOpacity(0.4),
+                      height: 8.0.h,
+                      width: 1,
                     ),
-                    onTap: () {
-                      if(IsLogin){
-
-
-                        List<Items> items = new List<Items>();
-                        items.add(Items(
-                            inventoryId: bloc.ZipProductDetail.value.producItemRespone
-                                .inventories[0].id,
-                            quantity: 1));
-                        Usermanager().getUser().then((value) => bloc.AddCartlists(
-                            context: context,
-                            cartRequest: CartRequest(
-                              shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
-                              items: items,
+                    Expanded(
+                        child: Center(
+                          child: InkWell(
+                            child: Stack(
+                              children: [
+                                Transform.translate(
+                                  offset:  animation.value,
+                                  child: Container(
+                                    child: Image.network("${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty?widget.productItem.image[0].path:''}"),
+                                    width: 10.0.w,
+                                    height: 10.0.w,
+                                  ),
+                                ),
+                                Container(
+                                  color: Colors.white,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.shopping_cart_outlined,color: ThemeColor.primaryColor(),size: 7.0.w,),
+                                      SizedBox(height: 1.0),
+                                      Text(
+                                        "Add to Cart ",
+                                        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
-                            token: value.token));
-                      }else{
-                        AppRoute.Login(context,IsHeader: true,homeCallBack: (bool fix){});
-                      }
-                    },
-                  ),
-                )),
-            Expanded(
-                flex: 2,
-                child: InkWell(
-                    onTap: () {
-                      if(IsLogin){
-                        List<Items> items = new List<Items>();
-                        items.add(Items(
-                            inventoryId: bloc.ZipProductDetail.value.producItemRespone
-                                .inventories[0].id,
-                            quantity: 1));
-                        Usermanager().getUser().then((value) => bloc.AddCartlists(addNow: true,
-                            context: context,
-                            cartRequest: CartRequest(
-                              shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
-                              items: items,
-                            ),
-                            token: value.token));
+                            onTap: () {
+                              if(IsLogin){
 
-                      }else{
-                        AppRoute.Login(context,IsHeader: true,homeCallBack: (bool fix){});
-                      }
 
-                    },
-                    child: Container(
-                        alignment: Alignment.center,
-                        height: 8.0.h,
-                        color: ThemeColor.ColorSale(),
-                        child: Text(LocaleKeys.buy_product_btn.tr(),
-                            style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)))
-                ))
-          ],
-        ),
-      ),
-    );
+                                List<Items> items = new List<Items>();
+                                items.add(Items(
+                                    inventoryId: bloc.ZipProductDetail.value.producItemRespone
+                                        .inventories[0].id,
+                                    quantity: 1));
+                                Usermanager().getUser().then((value) => bloc.AddCartlists(
+                                    context: context,
+                                    cartRequest: CartRequest(
+                                      shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
+                                      items: items,
+                                    ),
+                                    token: value.token));
+                              }else{
+                                AppRoute.Login(context,IsHeader: true,homeCallBack: (bool fix){});
+                              }
+                            },
+                          ),
+                        )),
+                    Expanded(
+                        flex: 2,
+                        child: InkWell(
+                            onTap: () {
+                              if(IsLogin){
+                                List<Items> items = new List<Items>();
+                                items.add(Items(
+                                    inventoryId: bloc.ZipProductDetail.value.producItemRespone
+                                        .inventories[0].id,
+                                    quantity: 1));
+                                Usermanager().getUser().then((value) => bloc.AddCartlists(addNow: true,
+                                    context: context,
+                                    cartRequest: CartRequest(
+                                      shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
+                                      items: items,
+                                    ),
+                                    token: value.token));
+
+                              }else{
+                                AppRoute.Login(context,IsHeader: true,homeCallBack: (bool fix){});
+                              }
+
+                            },
+                            child: Container(
+                                alignment: Alignment.center,
+                                height: 8.0.h,
+                                color: ThemeColor.ColorSale(),
+                                child: Text(LocaleKeys.buy_product_btn.tr(),
+                                    style: FunctionHelper.FontTheme(
+                                        fontSize: SizeUtil.titleFontSize().sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white)))
+                        ))
+                  ],
+                ),
+              ),
+            );
+          }else{
+            return  SizedBox();
+          }
+        });
   }
-
-
-
 
 
 

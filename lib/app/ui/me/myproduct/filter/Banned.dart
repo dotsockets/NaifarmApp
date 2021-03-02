@@ -102,6 +102,7 @@ class _BannedState extends State<Banned> {
               controller: _scrollController,
               child: Column(
                 children: [
+                  SizedBox(height: 0.8.h,),
                   Column(
                     children: List.generate(item.data.length, (index) =>
                         _BuildProduct(item: item.data[index],index: index),),
@@ -264,7 +265,7 @@ class _BannedState extends State<Banned> {
                                   child: Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      "${LocaleKeys.my_product_sold.tr()+" "+item.hasVariant.toString()+" "+LocaleKeys.cart_piece.tr()}",
+                                      "${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():"0"} ${LocaleKeys.cart_piece.tr()}",
                                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp),
                                     ),
                                   ),
@@ -279,7 +280,13 @@ class _BannedState extends State<Banned> {
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(child: Text(LocaleKeys.my_product_like.tr()+" 0", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp)),),
+                                  Expanded(
+                                    child: Text(
+                                        LocaleKeys.my_product_like.tr() + " ${item.likeCount!=null?item.likeCount.toString():"0"}",
+                                        style: FunctionHelper.FontTheme(
+                                            fontSize:
+                                            SizeUtil.detailFontSize().sp)),
+                                  ),
                                   SizedBox(width: 10,),
                                   Expanded(child: Align(alignment: Alignment.topLeft,child: Text("ตัวเลือกสินค้า"+" ไม่มี", style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp),))
                                   )
@@ -326,7 +333,7 @@ class _BannedState extends State<Banned> {
                           //  bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
                             //count++;
 
-                            Usermanager().getUser().then((value) =>  bloc.UpdateProductMyShop(shopRequest: ProductMyShopRequest(
+                            Usermanager().getUser().then((value) =>  bloc.UpdateProductMyShop(isActive: IsActive.ReplacemenView,shopRequest: ProductMyShopRequest(
                                 name: item.name,active: val?1:0),token: value.token,productId: item.id));
                           },
                         ),
@@ -350,7 +357,7 @@ class _BannedState extends State<Banned> {
                               onSelectItem.add(OnSelectItem(onEdit: false,url: value.path));
                             }
                             var result = await  AppRoute.EditProduct(context, item.id,widget.shopId,uploadProductStorage: UploadProductStorage(productMyShopRequest: product,onSelectItem: onSelectItem),indexTab: 2);
-                            if(result){
+                            if(result!=null && result){
                               _reloadFirstPage();
                             }
                           },

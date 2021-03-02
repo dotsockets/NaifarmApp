@@ -87,10 +87,10 @@ class _EditProductViewState extends State<EditProductView> {
               token: value.token));
 
         //  AppRoute.MyProduct(context,widget.shopId,pushEvent: true,indexTab: widget.indexTab,countPage: 2);
-         Navigator.pop(context,event);
+        // Navigator.pop(context,true);
          // AppRoute.PoppageCount(context: context,countpage: 2);
         }else if(event is ProductMyShopRespone){
-         // Navigator.pop(context, onUpdate);
+          Navigator.pop(context, onUpdate);
         }else if(event is IsActive){
         //  Navigator.pop(context, true);
         }
@@ -308,8 +308,11 @@ class _EditProductViewState extends State<EditProductView> {
                   )
                 ],
               ))),
-      onTap: (){
-        AppRoute.DeliveryCost(context,uploadProductStorage: bloc.uploadProductStorage.value,productsId: widget.ProductId);
+      onTap: () async {
+        final result = await  AppRoute.DeliveryCost(context,uploadProductStorage: bloc.uploadProductStorage.value,productsId: widget.ProductId);
+        if(result!=null && result>0){
+          bloc.uploadProductStorage.value.productMyShopRequest.weight = result;
+        }
       },
     );
   }
@@ -409,9 +412,10 @@ class _EditProductViewState extends State<EditProductView> {
       onPressed: () {
         // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
 
-        if(enable){  FocusScope.of(context).unfocus();
+        if(enable){
+          FocusScope.of(context).unfocus();
           Usermanager().getUser().then((value) {
-            bloc.onLoad.add(true);
+            //bloc.onLoad.add(true);
             bloc.UpdateProductMyShop(isActive: IsActive.UpdateProduct,shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,productId: widget.ProductId,token: value.token);
           });
 
@@ -475,7 +479,7 @@ class _EditProductViewState extends State<EditProductView> {
     priceController.text = productMyShopRequest.salePrice.toString();
     priceController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.salePrice!=null?productMyShopRequest.salePrice.toString().length:0));
 
-    offerPriceController.text = productMyShopRequest.offerPrice!=null?productMyShopRequest.offerPrice.toString():0;
+    offerPriceController.text = productMyShopRequest.offerPrice!=null?productMyShopRequest.offerPrice.toString():"0";
     offerPriceController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.offerPrice!=null?productMyShopRequest.offerPrice.toString().length:0));
   }
 }

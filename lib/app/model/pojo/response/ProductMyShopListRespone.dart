@@ -49,6 +49,7 @@ class ProductMyShop {
   int discountPercent;
   int rating;
   double reviewCount;
+  int likeCount;
   int stockQuantity;
   int active;
 
@@ -68,6 +69,7 @@ class ProductMyShop {
         this.discountPercent,
         this.rating,
         this.reviewCount,
+        this.likeCount,
         this.stockQuantity,
         this.active});
 
@@ -92,6 +94,7 @@ class ProductMyShop {
     discountPercent = json['discountPercent'];
     rating = json['rating'];
     reviewCount = json['reviewCount'];
+    likeCount = json['likeCount'];
     stockQuantity = json['stockQuantity'];
     active = json['active'];
   }
@@ -117,6 +120,7 @@ class ProductMyShop {
     data['discountPercent'] = this.discountPercent;
     data['rating'] = this.rating;
     data['reviewCount'] = this.reviewCount;
+    data['likeCount'] = this.likeCount;
     data['stockQuantity'] = this.stockQuantity;
     data['active'] = this.active;
     return data;

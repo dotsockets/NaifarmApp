@@ -189,10 +189,16 @@ class UploadProductBloc {
                 shopRequest: shopRequest, productId: productId, token: token))
         .listen((respone) {
       if (respone.http_call_back.status == 200) {
-        onSuccess.add(true);
-        onLoad.add(false);
+      // onSuccess.add(true);
+
          if(isActive == IsActive.UpdateProduct){
+           //onLoad.add(false);
            onSuccess.add(true);
+         }else if(isActive == IsActive.ReplacemenView){
+           onLoad.add(false);
+           onSuccess.add(true);
+         }else{
+           onLoad.add(false);
          }
       } else {
         onLoad.add(false);
