@@ -79,7 +79,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(  color: Colors.white,
-                          padding: EdgeInsets.all(4.0.w),child: BuildEditText(head: LocaleKeys.my_product_weight.tr()+" (kg)", inputType: TextInputType.numberWithOptions(decimal: true),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_weight.tr(),controller: weightProductController,onChanged: (ch)=>CheckForm())),
+                          padding: EdgeInsets.all(4.0.w),child: BuildEditText(head: LocaleKeys.my_product_weight.tr()+" (kg)", inputType: TextInputType.number,hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_weight.tr(),controller: weightProductController,onChanged: (ch)=>CheckForm())),
                       _BuildSpace(),
                       //
                       // _BuildHeadText(head: LocaleKeys.my_product_size_product.tr()),

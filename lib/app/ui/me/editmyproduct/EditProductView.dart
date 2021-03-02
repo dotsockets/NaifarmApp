@@ -238,7 +238,7 @@ class _EditProductViewState extends State<EditProductView> {
 
   bool CheckEnable(){
     var item = bloc.uploadProductStorage.value.productMyShopRequest;
-    if(item.name!="" && item.category!=0 && item.description!="" && item.stockQuantity!=0 && item.salePrice!=0){
+    if(item.name.trim()!="" && item.category!=0 && item.description!="" && item.stockQuantity!=0 && item.salePrice!=0&&item.name.length!=0){
       return true;
     }else{
       return false;
