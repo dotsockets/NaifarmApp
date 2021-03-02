@@ -470,8 +470,8 @@ class AppRoute{
     });
   }
 
-  static SearchMyProductView({BuildContext context,int shopID}){
-  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:SearchMyProduct(shopID:shopID,)));
+  static SearchMyProductView({BuildContext context,int shopID,int tabNum}){
+  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:SearchMyProduct(shopID:shopID,tabNum: tabNum,)));
   }
 
   static Attribute({BuildContext context}){

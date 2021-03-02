@@ -35,8 +35,9 @@ import 'filter/SoldOut.dart';
 
 class SearchMyProduct extends StatefulWidget {
   final int shopID;
+  final int tabNum;
 
-  const SearchMyProduct({Key key, this.shopID}) : super(key: key);
+  const SearchMyProduct({Key key, this.shopID,this.tabNum=0}) : super(key: key);
 
   @override
   _SearchMyProductState createState() => _SearchMyProductState();
@@ -54,6 +55,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool checkPop = false;
   final _searchText = BehaviorSubject<String>();
+
 
  void _init() {
    _searchText.add("");
@@ -108,7 +110,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
             //    if (item.hits.isNotEmpty) {
              //     return
                DefaultTabController(
-                    initialIndex: 0,
+                    initialIndex: widget.tabNum,
                     length: 4,
                     child: Container(
                       child: Column(
@@ -117,9 +119,9 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             height: 7.0.h,
                             child: Container(
                               child: TabBar(
+
                                 indicatorColor:ThemeColor.ColorSale(),
                                 isScrollable: false,
-
                                 tabs: [
                                   _tab(title: "ขายอยู่", message: false),
                                   _tab(title: "สินค้าหมด", message: false),

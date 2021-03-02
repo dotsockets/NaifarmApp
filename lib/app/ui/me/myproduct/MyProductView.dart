@@ -54,6 +54,7 @@ class _MyProductViewState extends State<MyProductView> {
   int limit = 5;
   int page = 1;
   bool step_page = false;
+  int tabNum = 0;
 
   init(){
 
@@ -103,7 +104,7 @@ class _MyProductViewState extends State<MyProductView> {
                 IconButton(
                   icon: Icon(Icons.search,size: 7.0.w,color: Colors.white,),
                   onPressed: () {
-                   AppRoute.SearchMyProductView(context: context,shopID: widget.shopId);
+                   AppRoute.SearchMyProductView(context: context,shopID: widget.shopId,tabNum: tabNum);
                   }
                 ),
                 IconButton(
@@ -140,6 +141,9 @@ class _MyProductViewState extends State<MyProductView> {
                                   indicatorColor: ThemeColor.ColorSale(),
                                 ),
                                 isScrollable: false,
+                                onTap: (value) {
+                                    tabNum = value;
+                                },
                                 tabs: [
                                   _tab(
                                       title: "ขายอยู่",

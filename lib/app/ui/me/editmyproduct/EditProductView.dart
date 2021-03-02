@@ -255,7 +255,6 @@ class _EditProductViewState extends State<EditProductView> {
       }
     }
 
-
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
