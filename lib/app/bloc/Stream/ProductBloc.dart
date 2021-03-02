@@ -51,6 +51,7 @@ class ProductBloc{
   final RecommendProduct =  BehaviorSubject<ProductRespone>();
   final MoreProduct =  BehaviorSubject<ProductRespone>();
   final Flashsale =  BehaviorSubject<FlashsaleRespone>();
+  final ProductMyShopRes = BehaviorSubject<ProductMyShopListRespone>();
   final ProductItem =  BehaviorSubject<ProducItemRespone>();
   final myShop = BehaviorSubject<MyShopRespone>();
   final Wishlists = BehaviorSubject<WishlistsRespone>();
@@ -69,7 +70,7 @@ class ProductBloc{
 
   List<ProductData> product_more = List<ProductData>();
   List<Hits> searchList = List<Hits>();
-
+  List<ProductMyShop> productList = List<ProductMyShop>();
   ProductBloc(this._application);
 
   void dispose() {
@@ -175,24 +176,6 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  loadSearchMyshop({String page, String query, int shopId, int limit,String filter,String token})async{
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getSearchShop(shopId: shopId,page: page,query: query,limit: limit,filter: filter,token: token)).listen((respone) {
-      if(respone.http_call_back.status==200){
-        //SearchProduct.add((respone.respone as SearchRespone));
-        var item = (respone.respone as SearchRespone);
-        if(page=="1") {
-          searchList.clear();
-          searchList.addAll(item.hits);
-        }else{searchList.addAll(item.hits);}
-        SearchProduct.add(SearchRespone(query: item.query,hits: searchList,limit: item.limit,exhaustiveNbHits: item.exhaustiveNbHits,nbHits: item.nbHits,offset: item.offset,processingTimeMs: item.processingTimeMs));
-
-      }else{
-        onError.add(respone.http_call_back.result);
-      }
-    });
-    _compositeSubscription.add(subscription);
-  }
 
 
 
@@ -474,6 +457,41 @@ class ProductBloc{
         onError.add(respone.http_call_back.result);
       }
     });
+  }
+
+  GetProductMyShop({String page, int limit, String token,String filter}) {
+    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.GetProductMyShop(page: page, limit: limit, token: token,filter: filter)).listen((respone) {
+      if (respone.http_call_back.status == 200) {
+        var item = (respone.respone as ProductMyShopListRespone);
+        if(page=="1") {
+          productList.clear();
+        }
+        productList.addAll(item.data);
+        ProductMyShopRes.add(ProductMyShopListRespone(data: productList,limit: item.limit,page: item.page,total: item.total));
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  loadSearchMyshop({String page, String query, int shopId, int limit,String filter,String token})async{
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.getSearchShop(shopId: shopId,page: page,query: query,limit: limit,filter: filter,token: token)).listen((respone) {
+      if(respone.http_call_back.status==200){
+        var item = (respone.respone as SearchRespone);
+        if(page=="1"&&query.length!=0) {
+          productList.clear();
+        }
+          for(var list in item.hits){
+            productList.add(ProductMyShop(image: list.image,id: list.productId,offerPrice: list.offerPrice,salePrice: list.salePrice
+                ,name: list.name,active: list.active,discountPercent: list.discountPercent,rating: list.rating));
+          }
+          ProductMyShopRes.add(ProductMyShopListRespone(data: productList,limit: item.limit.toString(),total: item.nbHits));
+
+      }else{
+        onError.add(respone.http_call_back.result);
+      }
+    });
+    _compositeSubscription.add(subscription);
   }
 
 
