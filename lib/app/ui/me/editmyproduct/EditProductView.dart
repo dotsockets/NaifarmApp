@@ -48,7 +48,8 @@ class _EditProductViewState extends State<EditProductView> {
   bool checkKeyBoard = false;
   UploadProductBloc bloc;
   bool onUpdate = false;
-  int count = 0;
+  bool slug_install = true;
+  int count= 0;
   @override
   void initState() {
     super.initState();
@@ -67,10 +68,13 @@ class _EditProductViewState extends State<EditProductView> {
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.uploadProductStorage.stream.listen((event) {
-        if(count<=2) {
+        if(slug_install) {
           _installControllerInput(
               productMyShopRequest: event.productMyShopRequest);
-          count++;
+          slug_install = false;
+        }count++;
+        if(count == 2) {
+          detailController.text = event.productMyShopRequest.description;
         }
       });
       bloc.onLoad.stream.listen((event) {
@@ -474,8 +478,8 @@ class _EditProductViewState extends State<EditProductView> {
     nameProductController.text = productMyShopRequest.name;
     nameProductController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.name!=null?productMyShopRequest.name.length:0));
 
-    detailController.text = productMyShopRequest.description;
-    detailController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.description!=null?productMyShopRequest.description.length:0));
+   // detailController.text = productMyShopRequest.description;
+   // detailController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.description!=null?productMyShopRequest.description.length:0));
 
     amountController.text = productMyShopRequest.stockQuantity.toString();
     amountController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.stockQuantity!=null?productMyShopRequest.stockQuantity.toString().length:0));
