@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 
 class BuildIconShop extends StatelessWidget {
   final bool BtnBack;
@@ -35,7 +36,7 @@ class BuildIconShop extends StatelessWidget {
   Widget ItemIcon({BuildContext context,int notification}){
     return   Badge(
         shape: BadgeShape.circle,
-        position: BadgePosition.topEnd(top: -0.5.w, end: 5),
+        position: BadgePosition.topEnd(top: Device.get().isPhone ? -0.5.w : -0.7.w, end: Device.get().isPhone ? 5 : 2),
         animationDuration: Duration(milliseconds: 300),
         animationType: BadgeAnimationType.slide,
       showBadge: notification>0?true:false,
@@ -48,7 +49,7 @@ class BuildIconShop extends StatelessWidget {
         ),
       ),
       child: IconButton(
-        icon: Icon(Icons.shopping_cart_outlined,color: iconColor!=null?iconColor:Colors.white,size: 6.0.w),
+        icon: Icon(Icons.shopping_cart_outlined,color: iconColor!=null?iconColor:Colors.white,size: Device.get().isPhone ? 6.0.w : 5.0.w ),
         onPressed: (){
 
           Usermanager().getUser().then((value){
