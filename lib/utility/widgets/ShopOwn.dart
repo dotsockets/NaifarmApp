@@ -24,9 +24,10 @@ class ShopOwn extends StatelessWidget {
   final ShopItem shopItem;
   final MyShopRespone shopRespone;
   final bool showBtn;
+   bool rateStyle=true;
 
 
-  const ShopOwn({Key key, this.shopItem,this.shopRespone, this.showBtn=true}) : super(key: key);
+   ShopOwn({Key key, this.shopItem,this.shopRespone, this.showBtn=true,this.rateStyle}) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -102,7 +103,7 @@ class ShopOwn extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  flex: 1,
+                  flex: 2,
                   child: Column(
                     children: [
                       Text("${shopItem.countProduct!=null?shopItem.countProduct:'0'}",
@@ -118,37 +119,47 @@ class ShopOwn extends StatelessWidget {
 
                 Expanded(
                   flex: 3,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("${shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():'0.0'}",
-                              style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.priceFontSize().sp,
-                                  color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
-                          SizedBox(width: 10),
-                          SmoothStarRating(
-                              allowHalfRating: false,
-                              onRated: (v) {},
-                              starCount: 5,
-                              rating: shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():0.0,
-                              size: 18.0,
-                              isReadOnly: true,
-                              filledIconData: Icons.star,
-                              halfFilledIconData: Icons.star_half_outlined,
-                              color: Colors.amber,
-                              borderColor: Colors.amber,
-                              spacing: 0.0)
-                        ],
-                      ),
-                      SizedBox(height: 5),
-                      Text(LocaleKeys.shop_rate.tr(),
-                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
-                    ],
+                  child: Container(
+                    margin: EdgeInsets.only(right: 2.0.w,left: 2.0.w),
+                    decoration: BoxDecoration(
+                      border: Border(left: BorderSide(color: Colors.grey.withOpacity(0.5), width: 1),right: BorderSide(color: Colors.grey.withOpacity(0.5), width: 1)),
+                    ),
+                    child: Column(
+                      children: [
+                        rateStyle?Text("${shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():'0.0'}",
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.priceFontSize().sp,
+                                color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)):SizedBox(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            rateStyle==false?Text("${shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():'0.0'}",
+                                style: FunctionHelper.FontTheme(
+                                    fontSize: SizeUtil.priceFontSize().sp,
+                                    color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)):SizedBox(),
+                            SizedBox(width: 10),
+                            SmoothStarRating(
+                                allowHalfRating: false,
+                                onRated: (v) {},
+                                starCount: 5,
+                                rating: shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():0.0,
+                                size: 18.0,
+                                isReadOnly: true,
+                                filledIconData: Icons.star,
+                                halfFilledIconData: Icons.star_half_outlined,
+                                color: Colors.amber,
+                                borderColor: Colors.amber,
+                                spacing: 0.0)
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                        Text(LocaleKeys.shop_rate.tr(),
+                            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
+                      ],
+                    ),
                   ),
                 ),
-                Expanded(child: showBtn? Container(
+                Expanded(flex:2,child: showBtn? Container(
                   child: FlatButton(
                     minWidth: 20.0.w,
                     height: 4.0.h,

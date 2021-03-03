@@ -344,19 +344,19 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("ได้รับสินค้าแล้วหรือยัง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text("${item.meta.status}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
           RichText(
             text: new TextSpan(
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "กรุณาตรวจสอบสินค้าทั้งหมดที่คุณได้รับของคำสั่งซื้อ ",
+                    text: "คำสั่งซื้อ ",
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
                  new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
                 new TextSpan(
-                    text: " ก่อนกดรับสินค้า เพื่อ Naifarm จะดำเนินการโอนเงินคืนสินค้าไปยังผู้ขาย ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                    text: " สถานะยก เลิกคำสั่งซื้อ เนื่องจากไม่มีการชำระเงิน หรือผู้ซื้อยกเลิกสินค้า กรุณาติดต่อผู้ซื้อหากต้องการรับข้อมูลเพิ่มเติม",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
 
               ],
             ),

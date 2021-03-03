@@ -41,7 +41,7 @@ class _RegisterViewState extends State<RegisterView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    PhoneController.text = "0932971160";
+    PhoneController.text = "";
   }
 
   void _init(){

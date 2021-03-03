@@ -321,7 +321,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                   allowHalfRating: false,
                   onRated: (v) {},
                   starCount: 5,
-                  rating: 2,
+                  rating:  item.rating!=null&&item.rating!=0?item.rating.toDouble():0.0,
                   size: ScreenUtil().setHeight(40),
                   isReadOnly: true,
                   filledIconData: Icons.star,

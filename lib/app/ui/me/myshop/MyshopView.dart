@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/ui/me/widget/TabMenu.dart';
 import 'package:naifarm/config/Env.dart';
@@ -91,7 +92,7 @@ class _MyshopViewState extends State<MyshopView> {
 
           }else if(item is InfoCustomerLoading){
 
-            return _BuildMyShop(context,item: MyShopRespone(image: item.profileObjectCombine.myShopRespone.image,name: "กำลังโหลด",active: 0),shpping: item.profileObjectCombine.shppingMyShopRespone);
+            return _BuildMyShop(context,item: MyShopRespone(image: item.profileObjectCombine.myShopRespone!=null?item.profileObjectCombine.myShopRespone.image:List<ProductImage>(),name: "กำลังโหลด",active: 0),shpping: item.profileObjectCombine.shppingMyShopRespone);
           }else{
             return  SizedBox();
           }
@@ -156,7 +157,7 @@ class _MyshopViewState extends State<MyshopView> {
         children: [
           SizedBox(height: 0.2.h,),
         ExpandedSection(
-        expand: shpping.data[0].rates.length==0?true:false,
+        expand: shpping.data.isNotEmpty?shpping.data[0].rates.length==0?true:false:false,
         child: Container(
           padding: EdgeInsets.all(2.0.w),
           color: ThemeColor.Warning(),

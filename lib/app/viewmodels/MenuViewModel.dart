@@ -22,6 +22,11 @@ class MenuViewModel {
         label: LocaleKeys.recommend_notification.tr(),
       ),
       MenuModel(
+        icon: 'assets/images/svg/cart.svg',
+        iconSelected: 'assets/images/svg/cart.svg',
+        label: "Cart",
+      ),
+      MenuModel(
         icon: 'assets/images/svg/me.svg',
         iconSelected: 'assets/images/svg/me.svg',
         label: LocaleKeys.tab_bar_me.tr(),

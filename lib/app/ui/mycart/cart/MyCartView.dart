@@ -546,12 +546,17 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                                             ? Colors.black
                                             : Colors.grey))),
                           ),
-                          onTap: () => Usermanager().getUser().then((value) =>
-                              bloc.CartDeleteQuantity(
-                                  item: item,
-                                  indexShop: indexShop,
-                                  indexShopItem: indexShopItem,
-                                  token: value.token)),
+                          onTap: (){
+                            if(item.items[indexShopItem].inventory.stockQuantity>0){
+                              Usermanager().getUser().then((value) =>
+                                  bloc.CartDeleteQuantity(
+                                      item: item,
+                                      indexShop: indexShop,
+                                      indexShopItem: indexShopItem,
+                                      token: value.token));
+                            }
+
+                          }
                         ),
                         Container(
                           width: 7.0.w,
@@ -579,12 +584,17 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                                     style: TextStyle(
                                         fontSize: SizeUtil.titleFontSize().sp))),
                           ),
-                          onTap: () => Usermanager().getUser().then((value) =>
-                              bloc.CartPositiveQuantity(
-                                  item: item,
-                                  indexShop: indexShop,
-                                  indexShopItem: indexShopItem,
-                                  token: value.token)),
+                          onTap: (){
+                            if(item.items[indexShopItem].inventory.stockQuantity>0){
+                              Usermanager().getUser().then((value) =>
+                                  bloc.CartPositiveQuantity(
+                                      item: item,
+                                      indexShop: indexShop,
+                                      indexShopItem: indexShopItem,
+                                      token: value.token));
+                            }
+
+                          }
                         )
                       ],
                     )
@@ -595,7 +605,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
           ),
           item.items[indexShopItem].inventory.stockQuantity==0?Container(
             color: Colors.white.withOpacity(0.7),
-            height: 10.0.h,
+            height: 14.0.h,
             child: Center(
               child: Container(
                 width: 25.0.w,

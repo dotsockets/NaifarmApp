@@ -39,7 +39,12 @@ class _EditProviceViewState extends State<EditProviceView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    proviceSelect = widget.itemInfo.state.id;
+    if(widget.itemInfo.state!=null){
+      proviceSelect = widget.itemInfo.state.id;
+    }else{
+      proviceSelect = 0;
+    }
+
     _input1.text = widget.itemInfo.description;
   }
 

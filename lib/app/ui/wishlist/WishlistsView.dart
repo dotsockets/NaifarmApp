@@ -241,7 +241,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
         Container(
           height: SizeUtil
               .titleSmallFontSize()
-              .sp*2.5,
+              .sp*3.0,
           child: Text(item.product.name, maxLines: 2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
@@ -255,12 +255,30 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
         SizedBox(
           height: 0.8.h,
         ),
-        Text(
-          "฿${item.product.salePrice}",
-          style: FunctionHelper.FontTheme(
-              color: ThemeColor.ColorSale(), fontSize: SizeUtil
-              .titleSmallFontSize()
-              .sp),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            item.product.offerPrice != null
+                ? Text("${item.product.salePrice}",
+                style: FunctionHelper.FontTheme(
+                    color: Colors.grey,
+                    fontSize: SizeUtil.priceFontSize().sp - 2,
+                    decoration: TextDecoration.lineThrough))
+                : SizedBox(),
+            SizedBox(width: item.product.offerPrice != null ? 1.0.w : 0),
+            Text(
+              item.product.offerPrice != null
+                  ? "฿${item.product.offerPrice}"
+                  : "฿${item.product.salePrice}",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: FunctionHelper.FontTheme(
+                  color: ThemeColor.ColorSale(),
+                  fontWeight: FontWeight.w500,
+                  fontSize: SizeUtil.priceFontSize().sp),
+            ),
+          ],
         ),
         SizedBox(
           height: 8,
@@ -274,7 +292,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                   allowHalfRating: false,
                   onRated: (v) {},
                   starCount: 5,
-                  rating: 2,
+                  rating:  item.product.rating!=null&&item.product.rating!=0?item.product.rating.toDouble():0.0,
                   size: ScreenUtil().setHeight(40),
                   isReadOnly: true,
                   filledIconData: Icons.star,

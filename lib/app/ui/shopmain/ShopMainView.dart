@@ -137,6 +137,7 @@ class _ShopMainViewState extends State<ShopMainView>
                       SliverList(
                         delegate: SliverChildListDelegate(<Widget>[
                           ShopOwn(
+                            rateStyle: false,
                             showBtn: false,
                             shopItem: ShopItem(
                               countProduct: item.productmyshop.total,

@@ -49,7 +49,7 @@ class _HomeViewState extends State<HomeView>
   init() {
     if (bloc == null) {
       //Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-      _menuViewModel = MenuViewModel().getTabBarMenus();
+
       bloc = NotiBloc(AppProvider.getApplication(context));
       NaiFarmLocalStorage.getNowPage().then((value) {
         _selectedIndex.add(value);
@@ -62,6 +62,7 @@ class _HomeViewState extends State<HomeView>
   void initState() {
     super.initState();
     // initConnectivity();
+    _menuViewModel = MenuViewModel().getTabBarMenus();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
 
@@ -118,6 +119,7 @@ class _HomeViewState extends State<HomeView>
                       CategoryView(),
                       //MyCartView(BtnBack: false,),
                       NotiView(),
+                      SizedBox(),
                       MeView()
                     ],
                   );
@@ -146,9 +148,22 @@ class _HomeViewState extends State<HomeView>
                         menuViewModel: _menuViewModel,
                         selectedIndex: snapshot.data,
                         onTap: (index) {
+
+
                           // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
                           NaiFarmLocalStorage.saveNowPage(index);
-                          _selectedIndex.add(index);
+                          if(index==3){
+                            Usermanager().getUser().then((value){
+                              if(value.token!=null){
+                                AppRoute.MyCart(context,true);
+                              }else{
+                                AppRoute.Login(context, IsCallBack: true,IsHeader: true);
+                              }
+                            });
+                          }else{
+                            _selectedIndex.add(index);
+                          }
+
                         },
                       ),
                     ),

@@ -26,127 +26,172 @@ class CustomTabBar extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
 
+  // if (!isSelect && index == 0) {
+  // text = LocaleKeys.tab_bar_home.tr();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return TabBar(
       indicatorColor: Colors.transparent,
       indicatorPadding: EdgeInsets.zero,
       labelPadding: EdgeInsets.zero,
-      tabs: menuViewModel
-          .asMap()
-          .map(
-            (int index, MenuModel menuModel) {
-          final isSelect = index == selectedIndex;
+      tabs: [
+        Tab(
+          iconMargin: EdgeInsets.all(0.5.w),
+          icon: SizedBox(),
+          child: _buildIcon(
+              text: LocaleKeys.tab_bar_recommend.tr(),
+              isSelect: selectedIndex==0,
+              path_icon:selectedIndex==0 ? 'assets/images/svg/home_active.svg' : 'assets/images/svg/home_active.svg',
+              color: selectedIndex==0 ?ThemeColor.secondaryColor():Colors.white,
+              index: 0,notification: 0
+          ),
+        ),
+        Tab(
+          iconMargin: EdgeInsets.all(0.5.w),
+          icon: SizedBox(),
+          child: _buildIcon(
+              text: LocaleKeys.tab_bar_category.tr(),
+              isSelect: selectedIndex==1,
+              path_icon:selectedIndex==1 ? 'assets/images/svg/type.svg' : 'assets/images/svg/type.svg',
+              color: selectedIndex==1 ?ThemeColor.secondaryColor():Colors.white,
+              index: 1,notification: 0
+          ),
+        ),
+        Tab(
+          iconMargin: EdgeInsets.all(0.5.w),
+          icon: SizedBox(),
+          child: BlocBuilder<CustomerCountBloc, CustomerCountState>(
+            builder: (_, count) {
+              if(count is CustomerCountLoaded){
 
+                return  _buildIcon(
+                    text: LocaleKeys.recommend_notification.tr(),
+                    isSelect: selectedIndex==2,
+                    path_icon:selectedIndex==2 ? 'assets/images/svg/notification.svg' : 'assets/images/svg/notification.svg',
+                    color: selectedIndex==2 ?ThemeColor.secondaryColor():Colors.white,
+                    index: 2,notification: count.countLoaded.notification.unreadCustomer+count.countLoaded.notification.unreadShop
+                );
+              }else if(count is CustomerCountLoading){
+                return _buildIcon(
+                  text: LocaleKeys.recommend_notification.tr(),
+                  isSelect: selectedIndex==2,
+                  path_icon:selectedIndex==2 ? 'assets/images/svg/notification.svg' : 'assets/images/svg/notification.svg',
+                  color: selectedIndex==2 ?ThemeColor.secondaryColor():Colors.white,
+                  index: 2,notification: count.countLoaded!=null?count.countLoaded.notification.unreadCustomer+count.countLoaded.notification.unreadShop:count.countLoaded!=null?count.countLoaded.CartCount:0,
+                );
+              }else{
+                return _buildIcon(
+                    text: LocaleKeys.recommend_notification.tr(),
+                    isSelect: selectedIndex==2,
+                    path_icon:selectedIndex==2 ? 'assets/images/svg/notification.svg' : 'assets/images/svg/notification.svg',
+                    color: selectedIndex==2 ?ThemeColor.secondaryColor():Colors.white,
+                    index: 2,notification: 0
+                );
+              }
 
-          String text = menuModel.label;
+            },
+          ),
+        ),
+        Tab(
+          iconMargin: EdgeInsets.all(0.5.w),
+          icon: SizedBox(),
+          child: BlocBuilder<CustomerCountBloc, CustomerCountState>(
+            builder: (_, count) {
+              if(count is CustomerCountLoaded){
 
-          if (!isSelect && index == 0) {
-            text = LocaleKeys.tab_bar_home.tr();
-          }
+                return  _buildIcon(
+                    text: "Cart",
+                    isSelect: selectedIndex==3,
+                    path_icon:selectedIndex==3 ? 'assets/images/svg/cart.svg' : 'assets/images/svg/cart.svg',
+                    color: selectedIndex==3 ?ThemeColor.secondaryColor():Colors.white,
+                    index: 3,notification: count.countLoaded!=null?count.countLoaded.CartCount:0,
+                );
+              }else if(count is CustomerCountLoading){
+                return _buildIcon(
+                  text: "Cart",
+                  isSelect: selectedIndex==3,
+                  path_icon:selectedIndex==3 ? 'assets/images/svg/cart.svg' : 'assets/images/svg/cart.svg',
+                  color: selectedIndex==3 ?ThemeColor.secondaryColor():Colors.white,
+                  index: 3,notification: count.countLoaded!=null?count.countLoaded.CartCount:0,
+                );
+              }else{
+                return _buildIcon(
+                    text: "Cart",
+                    isSelect: selectedIndex==3,
+                    path_icon:selectedIndex==3 ? 'assets/images/svg/cart.svg' : 'assets/images/svg/cart.svg',
+                    color: selectedIndex==3 ?ThemeColor.secondaryColor():Colors.white,
+                    index: 3,notification: 0
+                );
+              }
 
-          return MapEntry(
-            index,
-            Tab(
-              iconMargin: EdgeInsets.all(0.5.w),
-              icon: SizedBox(),
-              child: Column(
-                children: [
+            },
+          ),
+        ),
+        Tab(
+          iconMargin: EdgeInsets.all(0.5.w),
+          icon: SizedBox(),
+          child: _buildIcon(
+              text: LocaleKeys.tab_bar_me.tr(),
+              isSelect: selectedIndex==4,
+              path_icon:selectedIndex==4 ? 'assets/images/svg/cart.me' : 'assets/images/svg/me.svg',
+              color: selectedIndex==4 ?ThemeColor.secondaryColor():Colors.white,
+              index: 4,notification: 0
+          ),
+        ),
 
-                  BlocBuilder<CustomerCountBloc, CustomerCountState>(
-                    builder: (_, count) {
-                      if(count is CustomerCountLoaded){
-                        return  _buildIcon(
-                          path_icon:isSelect ? menuModel.iconSelected : menuModel.icon,
-                          color: isSelect ?ThemeColor.secondaryColor():Colors.white,
-                          index: index,notification: count.countLoaded.notification.unreadCustomer+count.countLoaded.notification.unreadShop
-                        );
-                      }else if(count is CustomerCountLoading){
-                        return _buildIcon(
-                          path_icon:isSelect ? menuModel.iconSelected : menuModel.icon,
-                          color: isSelect ?ThemeColor.secondaryColor():Colors.white,
-                          index: index,notification: count.countLoaded!=null?count.countLoaded.notification.unreadCustomer+count.countLoaded.notification.unreadShop:0,
-                        );
-                      }else{
-                        return _buildIcon(
-                          path_icon:isSelect ? menuModel.iconSelected : menuModel.icon,
-                          color: isSelect ?ThemeColor.secondaryColor():Colors.white,
-                          index: index,notification: 0
-                        );
-                      }
-
-                    },
-                  ),
-                  _buildLabel(
-                    text: text,
-                    color: isSelect ?ThemeColor.secondaryColor():Colors.white,
-                    wrapText: menuViewModel[0].label == text,
-                  ),
-                  SizedBox(height: 0.5.w),
-                  isSelect ?Container(
-                    color: Color(ColorUtils.hexToInt("#e85440")),
-                    width: 10.0.w,
-                    height: 1.0.w,
-                  ):SizedBox()
-                ],
-              ),
-            ),
-          );
-        },
-      )
-          .values
-          .toList(),
+      ],
       onTap: onTap,
     );
   }
 
-  Stack _buildIcon({String path_icon, Color color, int index,int notification}) => Stack(
-    overflow: Overflow.visible,
-    children: [
-      Badge(
-          shape: BadgeShape.circle,
-          position: BadgePosition.topEnd(top: -1.5.w, end: -1.0.w),
-          animationDuration: Duration(milliseconds: 300),
-          animationType: BadgeAnimationType.slide,
-          showBadge: index==2?notification>0?true:false:false,
-          badgeContent: Container(
-            padding: EdgeInsets.all(notification<10?0.7:0),
-            child: Container(
-              margin: EdgeInsets.only(bottom: 0.5.w),
-              child: Text("${notification}",
-                  style: FunctionHelper.FontTheme(color: Colors.white,fontSize: (SizeUtil.titleSmallFontSize()-3).sp)),
+
+
+  Widget _buildIcon({String path_icon, Color color, int index,int notification,bool isSelect,String text}){
+    return Stack(
+      overflow: Overflow.visible,
+      children: [
+        Column(
+
+          children: [
+            Badge(
+              shape: BadgeShape.circle,
+              position: BadgePosition.topEnd(top: -1.5.w, end: -1.0.w),
+              animationDuration: Duration(milliseconds: 300),
+              animationType: BadgeAnimationType.slide,
+              showBadge: index==2 || index==3?notification>0?true:false:false,
+              badgeContent: Container(
+                padding: EdgeInsets.all(notification<10?0.7:0),
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 0.5.w),
+                  child: Text("${notification}",
+                      style: FunctionHelper.FontTheme(color: Colors.white,fontSize: (SizeUtil.titleSmallFontSize()-3).sp)),
+                ),
+              ),
+              child: Container(
+                padding: EdgeInsets.all(1.0.w),
+                child: SvgPicture.asset(path_icon,color: color,width: 5.0.w,height: 5.0.w,),
+              ),
             ),
-          ),
-          child: Container(
-            padding: EdgeInsets.all(1.0.w),
-            child: SvgPicture.asset(path_icon,color: color,width: 5.0.w,height: 5.0.w,),
-          )
-      )
-
-    ],
-  );
-
-  Widget getMessageRead({ int index,int notification}){
-    if(index==2 && notification>0){
-      return Positioned(
-        right: 3,
-        top: 0,
-        child: Container(
-          padding: EdgeInsets.all(1.0.w),
-          decoration: BoxDecoration(
-            color: ThemeColor.ColorSale(),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          constraints: BoxConstraints(
-            minWidth: 2.5.w,
-            minHeight: 2.5.w,
-          ),
+            _buildLabel(
+              text: text,
+              color: isSelect ?ThemeColor.secondaryColor():Colors.white,
+              wrapText: menuViewModel[0].label == text,
+            ),
+            SizedBox(height: 0.5.w),
+            isSelect ?Container(
+              color: Color(ColorUtils.hexToInt("#e85440")),
+              width: 10.0.w,
+              height: 1.0.w,
+            ):SizedBox()
+          ],
         ),
-      );
-    }else{
-      return SizedBox();
-    }
+
+      ],
+    );
   }
+
 
 
   Baseline _buildLabel({String text, Color color, bool wrapText}) => Baseline(

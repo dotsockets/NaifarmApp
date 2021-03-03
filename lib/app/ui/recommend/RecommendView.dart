@@ -408,9 +408,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
     }
     Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
     Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
-    Future.delayed(const Duration(milliseconds: 500), () {
-      bloc.loadHomeData(context: context,callback: true);
-    });
+    bloc.loadHomeData(context: context,callback: true);
 
   }
 
