@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/NaiFarmBlocObserver.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
+import 'package:naifarm/app/bloc/Provider/SettingReloadCubit.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -34,32 +35,33 @@ class Env {
   }
 
   void _init() async {
-
-
-
-
     WidgetsFlutterBinding.ensureInitialized();
     var application = AppNaiFarmApplication();
     await application.onCreate();
     Bloc.observer = NaiFarmBlocObserver();
     timeago.setLocaleMessages('th', timeago.ThMessages());
-    runApp(EasyLocalization(
-        supportedLocales: [Locale('en', 'US'), Locale('th', 'TH')],
-        path: 'resources/langs', // <-- change patch to your
-        fallbackLocale: Locale('en', 'US'),
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (_) => CustomerCountBloc(application),
-            ),
-            BlocProvider(
-              create: (_) => InfoCustomerBloc(application),
-            )
-          ],
-          child: AppComponent(application),
-        )
-      ),
+    runApp(
+      EasyLocalization(
+          supportedLocales: [Locale('en', 'US'), Locale('th', 'TH')],
+          path: 'resources/langs', // <-- change patch to your
+          fallbackLocale: Locale('en', 'US'),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => CustomerCountBloc(application),
+              ),
+              BlocProvider(
+                create: (_) => InfoCustomerBloc(application),
+              ),
+              BlocProvider(
+                create: (_) => SettingReloadCubit(),
+              ),
+            ],
+            child: BlocBuilder<SettingReloadCubit, bool>(
+                builder: (_, status) {
+              return AppComponent(application);
+            }),
+          )),
     );
   }
-
 }

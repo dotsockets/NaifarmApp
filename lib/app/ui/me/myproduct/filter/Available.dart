@@ -3,35 +3,35 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
-import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
-import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 
 class Available extends StatefulWidget {
   final int shopId;
-  final GlobalKey<ScaffoldState>  scaffoldKey;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  final String searchTxt;
 
-  const Available({Key key, this.shopId, this.scaffoldKey}) : super(key: key);
+  const Available({Key key, this.shopId, this.scaffoldKey, this.searchTxt = ""})
+      : super(key: key);
 
   @override
   _AvailableState createState() => _AvailableState();
@@ -39,30 +39,52 @@ class Available extends StatefulWidget {
 
 class _AvailableState extends State<Available> {
   ScrollController _scrollController = ScrollController();
-  UploadProductBloc bloc;
-  int limit = 5;
+  ProductBloc bloc;
   int page = 1;
+  int count = 0;
   bool step_page = false;
- // int count = 0;
+  final _searchText = BehaviorSubject<String>();
+  int total = 0;
 
   init() {
+    count = 0;
+    _searchText.add(widget.searchTxt);
+
+    _searchText.stream.listen((event) {
+      NaiFarmLocalStorage.getNowPage().then((value) {
+        if (value == 0 && count == 0) {
+          widget.searchTxt.length != 0
+              ? _reloadFirstSearch()
+              : _reloadFirstPage();
+
+          count++;
+        }
+      });
+    });
+
     if (bloc == null) {
-      bloc = UploadProductBloc(AppProvider.getApplication(context));
+      bloc = ProductBloc(AppProvider.getApplication(context));
 
       bloc.onSuccess.stream.listen((event) {
-        _reloadFirstPage();
+        widget.searchTxt.length != 0
+            ? _reloadFirstSearch()
+            : _reloadFirstPage();
+
         if (event is bool) {
-         // bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
+          // bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
         }
       });
 
       bloc.onError.stream.listen((event) {
-     /*   Future.delayed(const Duration(milliseconds: 1000), () {
+        /*   Future.delayed(const Duration(milliseconds: 1000), () {
           page=1;
           _reloadData();
         });*/
-        FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event);
-        _reloadFirstPage();
+        FunctionHelper.SnackBarShow(
+            scaffoldKey: widget.scaffoldKey, message: event.error.message);
+        widget.searchTxt.length != 0
+            ? _reloadFirstSearch()
+            : _reloadFirstPage();
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -71,17 +93,19 @@ class _AvailableState extends State<Available> {
           Navigator.of(context).pop();
         }
       });
-      _reloadData();
+      widget.searchTxt.length != 0
+          ? _reloadFirstSearch()
+          : _reloadFirstPage();
     }
 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=
           200) {
-        if (step_page) {
+        if (step_page && bloc.productList.length < total) {
           step_page = false;
           page++;
-          _reloadData();
+          widget.searchTxt.length != 0 ? _searchData() : _reloadData();
         }
       }
     });
@@ -93,18 +117,21 @@ class _AvailableState extends State<Available> {
     return StreamBuilder(
       stream: bloc.ProductMyShopRes.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        step_page = true;
         if (snapshot.hasData &&
             (snapshot.data as ProductMyShopListRespone).data.length > 0) {
           step_page = true;
+
           var item = (snapshot.data as ProductMyShopListRespone);
+          total = item.total;
           return Container(
             color: Colors.grey.shade300,
             child: SingleChildScrollView(
               controller: _scrollController,
               child: Column(
                 children: [
-                  SizedBox(height: 0.8.h,),
+                  SizedBox(
+                    height: 0.8.h,
+                  ),
                   Column(
                     children: List.generate(
                       item.data.length,
@@ -140,26 +167,31 @@ class _AvailableState extends State<Available> {
           );
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [Skeleton.LoaderListTite(context)],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [Skeleton.LoaderListTite(context)],
+              ),
             ),
           );
         } else {
           return Center(
-            child: Container(
-              margin: EdgeInsets.only(bottom: 15.0.h),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Lottie.asset('assets/json/boxorder.json',
-                      height: 70.0.w, width: 70.0.w, repeat: false),
-                  Text(
-                    LocaleKeys.search_product_not_found.tr(),
-                    style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
-                  )
-                ],
+            child: SingleChildScrollView(
+              child: Container(
+                margin: EdgeInsets.only(bottom: 15.0.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset('assets/json/boxorder.json',
+                        height: 70.0.w, width: 70.0.w, repeat: false),
+                    Text(
+                      LocaleKeys.search_product_not_found.tr(),
+                      style: FunctionHelper.FontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
               ),
             ),
           );
@@ -265,15 +297,18 @@ class _AvailableState extends State<Available> {
                           SizedBox(
                             height: 8,
                           ),
-                          Text(
-                            item.offerPrice != null
-                                ? "฿${item.offerPrice}"
-                                : "฿${item.salePrice}",
-                            style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.priceFontSize().sp,
-                                color: ThemeColor.ColorSale(),
-                                fontWeight: FontWeight.w500),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              item.offerPrice!=null?Text("${item.salePrice}",style: FunctionHelper.FontTheme(
+                                  color: Colors.grey,
+                                  fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
+                              SizedBox(width: item.offerPrice!=null?1.0.w:0),
+                              Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
+                                overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+                            ],
                           ),
+
                           SizedBox(
                             height: 10,
                           ),
@@ -282,8 +317,11 @@ class _AvailableState extends State<Available> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                      LocaleKeys.my_product_amount.tr() +
-                                          " ${item.stockQuantity}",
+                                      item.stockQuantity != null
+                                          ? LocaleKeys.my_product_amount.tr() +
+                                              " ${item.stockQuantity}"
+                                          : LocaleKeys.my_product_amount.tr() +
+                                              " 0",
                                       style: FunctionHelper.FontTheme(
                                           fontSize:
                                               SizeUtil.detailFontSize().sp)),
@@ -295,7 +333,7 @@ class _AvailableState extends State<Available> {
                                   child: Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      "${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():"0"} ${LocaleKeys.cart_piece.tr()}",
+                                      "${LocaleKeys.my_product_sold.tr()} ${item.saleCount != null ? item.saleCount.toString() : "0"} ${LocaleKeys.cart_piece.tr()}",
                                       style: FunctionHelper.FontTheme(
                                           fontSize:
                                               SizeUtil.detailFontSize().sp),
@@ -315,7 +353,8 @@ class _AvailableState extends State<Available> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                        LocaleKeys.my_product_like.tr() + " ${item.likeCount!=null?item.likeCount.toString():"0"}",
+                                        LocaleKeys.my_product_like.tr() +
+                                            " ${item.likeCount != null ? item.likeCount.toString() : "0"}",
                                         style: FunctionHelper.FontTheme(
                                             fontSize:
                                                 SizeUtil.detailFontSize().sp)),
@@ -327,8 +366,7 @@ class _AvailableState extends State<Available> {
                                       child: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            "ตัวเลือกสินค้า" +
-                                                " ไม่มี",
+                                            "ตัวเลือกสินค้า" + " ไม่มี",
                                             style: FunctionHelper.FontTheme(
                                                 fontSize:
                                                     SizeUtil.detailFontSize()
@@ -355,7 +393,7 @@ class _AvailableState extends State<Available> {
                       Expanded(
                         flex: 2,
                         child: Text(
-                          item.active == 1
+                          item.active == 1||item.active==null
                               ? LocaleKeys.my_product_sell.tr()
                               : LocaleKeys.my_product_break.tr(),
                           style: FunctionHelper.FontTheme(
@@ -374,18 +412,22 @@ class _AvailableState extends State<Available> {
                           toggleSize: 7.0.w,
                           activeColor: Colors.grey.shade200,
                           inactiveColor: Colors.grey.shade200,
-                          toggleColor: item.active == 1
+                          toggleColor: item.active == 1||item.active==null
                               ? ThemeColor.primaryColor()
                               : Colors.grey.shade400,
-                          value: item.active == 1 ? true : false,
+                          value: item.active == 1 ||item.active==null? true : false,
                           onToggle: (val) {
-                            bloc.ProductMyShopRes.value.data[index].active = val ? 1 : 0;
-                            bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
+                            FocusScope.of(context).unfocus();
+                            bloc.ProductMyShopRes.value.data[index].active =
+                                val ? 1 : 0;
+                            bloc.ProductMyShopRes.add(
+                                bloc.ProductMyShopRes.value);
 
                             Usermanager().getUser().then((value) =>
                                 bloc.UpdateProductMyShop(
-                                  isActive: IsActive.ReplacemenView,
-                                    shopRequest: ProductMyShopRequest(name: item.name, active: val ? 1:0),
+                                    isActive: IsActive.ReplacemenView,
+                                    shopRequest: ProductMyShopRequest(
+                                        name: item.name, active: 0),
                                     token: value.token,
                                     productId: item.id));
                           },
@@ -418,14 +460,16 @@ class _AvailableState extends State<Available> {
                                 active: item.active);
                             var onSelectItem = List<OnSelectItem>();
                             for (var value in item.image) {
-                              onSelectItem.add(OnSelectItem(onEdit: false, url: value.path));
+                              onSelectItem.add(
+                                  OnSelectItem(onEdit: false, url: value.path));
                             }
-                            var result = await AppRoute.EditProduct(context, item.id, widget.shopId,
+                            var result = await AppRoute.EditProduct(
+                                context, item.id, widget.shopId,
                                 uploadProductStorage: UploadProductStorage(
                                     productMyShopRequest: product,
                                     onSelectItem: onSelectItem),
                                 indexTab: 0);
-                            if (result!=null && result) {
+                            if (result != null && result) {
                               _reloadFirstPage();
                             }
                           },
@@ -509,15 +553,30 @@ class _AvailableState extends State<Available> {
   _reloadData() {
     Usermanager().getUser().then((value) => bloc.GetProductMyShop(
         page: page.toString(),
-        limit: limit,
+        limit: 5,
         token: value.token,
         filter: "available"));
   }
 
-  _reloadFirstPage(){
+  _reloadFirstPage() {
     bloc.productList.clear();
     page = 1;
     _reloadData();
+  }
+
+  _searchData() {
+    Usermanager().getUser().then((value) => bloc.loadSearchMyshop(
+        shopId: widget.shopId,
+        page: page.toString(),
+        query: widget.searchTxt,
+        limit: 5,
+        filter: "available",
+        token: value.token));
+  }
+
+  _reloadFirstSearch() {
+    page = 1;
+    _searchData();
   }
 
 /* @override

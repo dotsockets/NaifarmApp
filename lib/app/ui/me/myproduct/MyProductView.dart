@@ -16,6 +16,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
@@ -60,6 +61,7 @@ class _MyProductViewState extends State<MyProductView> {
 
      if(bloc==null){
        bloc=UploadProductBloc(AppProvider.getApplication(context));
+       NaiFarmLocalStorage.saveNowPage(0);
      /*  bloc.onSuccess.stream.listen((event)  {
           if(event is bool){
             bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
@@ -134,7 +136,7 @@ class _MyProductViewState extends State<MyProductView> {
                             height: 7.0.h,
                             child: Container(
                               child: TabBar(
-
+                                physics: NeverScrollableScrollPhysics(),
                                 indicator: MD2Indicator(
                                   indicatorSize: MD2IndicatorSize.tiny,
                                   indicatorHeight: 0.5.h,
@@ -143,6 +145,7 @@ class _MyProductViewState extends State<MyProductView> {
                                 isScrollable: false,
                                 onTap: (value) {
                                     tabNum = value;
+                                    NaiFarmLocalStorage.saveNowPage(value);
                                 },
                                 tabs: [
                                   _tab(
@@ -165,10 +168,10 @@ class _MyProductViewState extends State<MyProductView> {
                             child:
                             TabBarView(
                               children: [
-                                Available(shopId: widget.shopId,scaffoldKey: _scaffoldKey,),
-                               SoldOut(shopId: widget.shopId,scaffoldKey: _scaffoldKey),
-                                Banned(shopId: widget.shopId,scaffoldKey: _scaffoldKey),
-                                InActive(shopId: widget.shopId,scaffoldKey: _scaffoldKey),
+                                Available(shopId: widget.shopId,scaffoldKey: _scaffoldKey,searchTxt: "",),
+                               SoldOut(shopId: widget.shopId,scaffoldKey: _scaffoldKey,searchTxt: "",),
+                                Banned(shopId: widget.shopId,scaffoldKey: _scaffoldKey,searchTxt: "",),
+                                InActive(shopId: widget.shopId,scaffoldKey: _scaffoldKey,searchTxt: "",),
                               ],
                             ),
                           ),

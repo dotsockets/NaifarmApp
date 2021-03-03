@@ -112,7 +112,7 @@ class ProductItemCard extends StatelessWidget {
             height: SizeUtil.titleSmallFontSize().sp*2.7,
             child: Text(" "+item.name+" ",
               textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,maxLines: 2,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),),
+                overflow: TextOverflow.ellipsis,maxLines: 2,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize: SizeUtil.titleSmallFontSize().sp),),
           ),
           SizedBox(
             height: 0.8.h,
@@ -146,7 +146,7 @@ class ProductItemCard extends StatelessWidget {
                   borderColor: Colors.amber,
                   spacing: 0.0),
               SizedBox(width: 1.0.w,),
-              Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
+            //  Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
             ],
           ),
           showSoldFlash?Stack(
@@ -162,7 +162,7 @@ class ProductItemCard extends StatelessWidget {
                     child: Text("${item.saleCount!=null?item.saleCount.toString():'0'} ${LocaleKeys.my_product_sold_end.tr()}" ,
                       style: FunctionHelper.FontTheme(
                           color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                           fontSize: SizeUtil.detailSmallFontSize().sp),
                     ),
                   ),
@@ -178,7 +178,7 @@ class ProductItemCard extends StatelessWidget {
             padding: EdgeInsets.all(0.8.h),
             child: Container(
               padding: EdgeInsets.only(left: 15,right: 7,bottom: 3,top: 3),
-              child:  Text(LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_piece.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.detailSmallFontSize().sp),),
+              child:  Text(LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_piece.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize: SizeUtil.detailSmallFontSize().sp),),
             ),
           )
         ],

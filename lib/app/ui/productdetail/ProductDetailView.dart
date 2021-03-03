@@ -199,7 +199,12 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
     NaiFarmLocalStorage.getCustomer_Info().then((value){
       //  print("efcsdcx ${widget.productItem.shop.id}  ${value.myShopRespone.id}");
-      CheckMyShop.add(value.myShopRespone.id);
+      if(value.myShopRespone!=null){
+        CheckMyShop.add(value.myShopRespone.id);
+      }else{
+        CheckMyShop.add(0);
+      }
+
     });
 
   }
@@ -420,6 +425,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   // _Divider(),
                   InkWell(
                     child: ShopOwn(
+                      rateStyle: true,
                         shopItem: item.producItemRespone.shop,
                         shopRespone: MyShopRespone(
                             countProduct: item.producItemRespone.shop.countProduct,

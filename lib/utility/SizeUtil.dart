@@ -12,11 +12,11 @@ class SizeUtil {
   }
 
   static double titleFontSize() {
-    return Device.get().isPhone ? 11 : 7;
+    return Device.get().isPhone ? 10.5 : 7;
   }
 
   static double titleSmallFontSize() {
-    return Device.get().isPhone ? 10 : 6;
+    return Device.get().isPhone ? 9.5 : 6;
   }
 
   static double detailFontSize() {

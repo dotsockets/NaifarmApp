@@ -134,6 +134,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                             ),
                                             InkWell(
                                               child: ShopOwn(
+                                            rateStyle:true,
                                                 shopItem: ShopItem(
                                                   rating: item.shop.rating,
                                                   name: item.shop.name != null

@@ -47,7 +47,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _phone.text = "0932971160";
+    _phone.text = "";
     phoneError.add("");
   }
 

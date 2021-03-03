@@ -16,11 +16,7 @@ import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
-import 'package:naifarm/app/ui/me/myproduct/filter/AvailableSearch.dart';
-import 'package:naifarm/app/ui/me/myproduct/filter/BannedSearch.dart';
 import 'package:naifarm/app/ui/me/myproduct/filter/InActive.dart';
-import 'package:naifarm/app/ui/me/myproduct/filter/InActiveSearch.dart';
-import 'package:naifarm/app/ui/me/myproduct/filter/SoldOutSearch.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -28,7 +24,6 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
-
 import 'filter/Available.dart';
 import 'filter/Banned.dart';
 import 'filter/SoldOut.dart';
@@ -59,7 +54,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
 
  void _init() {
    _searchText.add("");
-   NaiFarmLocalStorage.saveNowPage(0);
+
    /*  if (null == blocProduct) {
       blocProduct = ProductBloc(AppProvider.getApplication(context));
       blocProduct.onLoad.stream.listen((event) {
@@ -119,7 +114,6 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             height: 7.0.h,
                             child: Container(
                               child: TabBar(
-
                                 indicatorColor:ThemeColor.ColorSale(),
                                 isScrollable: false,
                                 tabs: [
@@ -149,16 +143,16 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                 return Expanded(
                                   child: TabBarView(
                                     children: [
-                                      AvailableSearch(scaffoldKey: _scaffoldKey,
-                                        shopId: widget.shopID,
-                                        searchTxt: snapshot.data,),
-                                      SoldOutSearch(scaffoldKey: _scaffoldKey,
+                                      Available(scaffoldKey: _scaffoldKey,
                                           shopId: widget.shopID,
                                           searchTxt: snapshot.data),
-                                      BannedSearch(scaffoldKey: _scaffoldKey,
+                                      SoldOut(scaffoldKey: _scaffoldKey,
                                           shopId: widget.shopID,
                                           searchTxt: snapshot.data),
-                                      InActiveSearch(scaffoldKey: _scaffoldKey,
+                                      Banned(scaffoldKey: _scaffoldKey,
+                                          shopId: widget.shopID,
+                                          searchTxt: snapshot.data),
+                                      InActive(scaffoldKey: _scaffoldKey,
                                           shopId: widget.shopID,
                                           searchTxt: snapshot.data),
                                     ],
