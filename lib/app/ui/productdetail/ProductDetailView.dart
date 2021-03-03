@@ -114,7 +114,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 700));
-    animation = Tween<Offset>(begin: Offset(0, 0), end: Offset(45.0.w, -80.0.h)).animate(CurvedAnimation(      // เพิ่ม Curve
+    animation = Tween<Offset>(begin: Offset(0, 0), end: Offset(57.0.w, -85.0.h)).animate(CurvedAnimation(      // เพิ่ม Curve
         parent: animationController,          // เพิ่ม Curve
         curve: Curves.linear))
       ..addListener(() {
@@ -184,7 +184,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
       bloc.onSuccess.stream.listen((event) {
         if(event is CartResponse){
          // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-          animationController.forward();
+         //animationController.forward();
         }else if(event is bool){
           AppRoute.MyCart(context, true,cart_nowId:  bloc.BayNow);
          // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));

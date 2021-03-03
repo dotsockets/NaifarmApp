@@ -189,7 +189,7 @@ class _HeaderDetailState extends State<HeaderDetail> {
                                     maxLines: 2,
                                     style: FunctionHelper.FontTheme(
                                         fontSize: SizeUtil.titleFontSize().sp,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w500,
                                         color: _colorTitle)),
                               ),
                             ),

@@ -30,6 +30,9 @@ class ProductInto extends StatelessWidget {
   final ProducItemRespone data;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool showBtn;
+
+
+
    ProductInto({Key key, this.data, this.scaffoldKey,this.showBtn=true}) : super(key: key);
   ProductBloc bloc;
   bool IsLogin = true;
