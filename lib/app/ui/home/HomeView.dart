@@ -37,7 +37,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, RouteAware{
   List<MenuModel> _menuViewModel;
   bool IsLogin = true;
   final _selectedIndex = BehaviorSubject<int>();
@@ -75,6 +75,20 @@ class _HomeViewState extends State<HomeView>
   void dispose() {
     _connectivitySubscription.cancel();
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    print("Change dependencies!!!!");
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+
+
+  @override
+  void didPopNext() {
+    setState(() {});
   }
 
 
