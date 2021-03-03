@@ -48,6 +48,7 @@ class _EditProductViewState extends State<EditProductView> {
   bool checkKeyBoard = false;
   UploadProductBloc bloc;
   bool onUpdate = false;
+  bool slug_install = true;
   @override
   void initState() {
     super.initState();
@@ -66,7 +67,11 @@ class _EditProductViewState extends State<EditProductView> {
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.uploadProductStorage.stream.listen((event) {
-        _installControllerInput(productMyShopRequest: event.productMyShopRequest);
+        if(slug_install){
+          slug_install = false;
+          _installControllerInput(productMyShopRequest: event.productMyShopRequest);
+        }
+
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -467,7 +472,7 @@ class _EditProductViewState extends State<EditProductView> {
 
   void _installControllerInput({ProductMyShopRequest productMyShopRequest}){
     nameProductController.text = productMyShopRequest.name;
-    nameProductController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.name!=null?productMyShopRequest.name.length:0));
+    //nameProductController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.name!=null?productMyShopRequest.name.length:0));
 
     detailtController.text = productMyShopRequest.description;
     detailtController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.description!=null?productMyShopRequest.description.length:0));

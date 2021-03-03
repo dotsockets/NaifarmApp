@@ -39,6 +39,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool checkKeyBoard = false;
   UploadProductBloc bloc;
+  bool slug_install = true;
   //
   // @override
   // void initState() {
@@ -58,7 +59,11 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.uploadProductStorage.stream.listen((event) {
-        _installControllerInput(productMyShopRequest: event.productMyShopRequest);
+        if(slug_install) {
+          slug_install = false;
+          _installControllerInput(
+              productMyShopRequest: event.productMyShopRequest);
+        }
         NaiFarmLocalStorage.SaveProductStorage(bloc.uploadProductStorage.value);
       });
       bloc.onLoad.stream.listen((event) {
@@ -129,7 +134,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                     children: [
                                       BuildEditText(
                                         head: LocaleKeys.my_product_name.tr()+" * ",EnableMaxLength: true,
-                                        hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 10,controller: nameProductController,inputType: TextInputType.text,onChanged: (String char){
+                                        hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 120,controller: nameProductController,inputType: TextInputType.text,onChanged: (String char){
                                         if(char.isNotEmpty){
                                           bloc.uploadProductStorage.value.productMyShopRequest.name  = char;
                                           bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
@@ -149,7 +154,6 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                           bloc.uploadProductStorage.value.productMyShopRequest.description = char;
                                           bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
                                         }
-
                                       },),
                                       SizedBox(height: 15,),
 
