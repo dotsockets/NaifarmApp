@@ -223,7 +223,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
   @override
   Widget build(BuildContext context) {
     _init();
-    return Platform.isAndroid?AndroidRefreshIndicator():Container(color: Colors.white,child: SafeArea(child: IOSRefreshIndicator(),));
+    return Platform.isAndroid?AndroidRefreshIndicator():Container(color: ThemeColor.primaryColor(),child: SafeArea(child: IOSRefreshIndicator(),));
   }
 
 
@@ -382,19 +382,14 @@ class _ProductDetailViewState extends State<ProductDetailView>
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             var item = (snapshot.data as ProductObjectCombine);
             if (snapshot.hasData && item.producItemRespone != null) {
-              return  Stack(
-                children: [
-
-                  FullScreenWidget(
-                    backgroundIsTransparent: true,
-                    child: Center(
-                      child: Hero(
-                        tag: widget.productImage,
-                        child: ProductSlide(imgList:item.producItemRespone.image),
-                      ),
-                    ),
-                  )
-                ],
+              return  FullScreenWidget(
+                backgroundIsTransparent: true,
+                child: Center(
+                  child: Hero(
+                    tag: widget.productImage,
+                    child: ProductSlide(imgList:item.producItemRespone.image),
+                  ),
+                ),
               );
             }else{
               return  widget.productItem.image != null

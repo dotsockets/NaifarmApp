@@ -67,7 +67,7 @@ class _HeaderDetailState extends State<HeaderDetail> {
 
       if (_opacity >= 1.0) {
         _opacity = 1.0;
-        _colorIcon = Colors.black.withOpacity(_opacity);
+        _colorIcon = Colors.white.withOpacity(_opacity);
       }
 
       if(_opacity_icon<=0){
@@ -107,7 +107,7 @@ class _HeaderDetailState extends State<HeaderDetail> {
       }
 
       _backgroundColorSearch = Colors.black.withOpacity(_opacity_icon);
-      _backgroundColor = Colors.white.withOpacity(_opacity);
+      _backgroundColor = ThemeColor.primaryColor().withOpacity(_opacity);
       _colorTitle = Colors.black.withOpacity(_opacity);
 
     _reload.add(true);
@@ -181,13 +181,17 @@ class _HeaderDetailState extends State<HeaderDetail> {
                             //   ),
                             // ),
                             Expanded(
-                              child: Text(widget.title,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                  style: FunctionHelper.FontTheme(
-                                      fontSize: SizeUtil.titleFontSize().sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: _colorTitle)),
+                              child:
+                           // widget.title
+                              Center(
+                                child: Text("รายละเอียดสินค้า",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    style: FunctionHelper.FontTheme(
+                                        fontSize: SizeUtil.titleFontSize().sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: _colorTitle)),
+                              ),
                             ),
                             Stack(
                               children: [

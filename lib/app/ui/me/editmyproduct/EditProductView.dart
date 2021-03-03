@@ -83,7 +83,7 @@ class _EditProductViewState extends State<EditProductView> {
         if(event is bool){
           var item = bloc.uploadProductStorage.value.productMyShopRequest;
           var inventor = InventoriesRequest(title: item.name,offerPrice: offerPriceController.text.isNotEmpty?item.offerPrice:0,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
-          Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
+          Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(Isload: true,inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
               token: value.token));
 
         //  AppRoute.MyProduct(context,widget.shopId,pushEvent: true,indexTab: widget.indexTab,countPage: 2);

@@ -205,7 +205,7 @@ class _MyProductViewState extends State<MyProductView> {
           onPressed: () async {
             // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
             var result = await AppRoute.ImageProduct(context,isactive: IsActive.ReplacemenView);
-            if(result){
+            if(result!=null && result){
               Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
             }
           },

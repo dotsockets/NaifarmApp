@@ -136,6 +136,11 @@ class UploadProductBloc {
         if (uploadProductStorage.value.onSelectItem.length <= 0) {
           onLoad.add(false);
         } else {
+
+          var item = uploadProductStorage.value.productMyShopRequest;
+          var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice!=null?item.offerPrice:0,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
+         UpdateProductInventories(Isload: false,inventoriesRequest: inventor,productId: (respone.respone as ProductMyShopRespone).id,inventoriesId: (respone.respone as ProductMyShopRespone).inventories[0].id, token: token);
+
           checkloop = 0;
           for (var item in uploadProductStorage.value.onSelectItem) {
             writeToFile(await item.image.getByteData(quality: 100))
@@ -212,7 +217,7 @@ class UploadProductBloc {
       {InventoriesRequest inventoriesRequest,
       int productId,
       int inventoriesId,
-      String token}) {
+      String token,bool Isload}) {
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.UpdateProductInventories(
                 inventoriesRequest: inventoriesRequest,
@@ -220,7 +225,10 @@ class UploadProductBloc {
                 productId: productId,
                 token: token))
         .listen((respone) {
-      onLoad.add(false);
+          if(Isload){
+            onLoad.add(false);
+          }
+    //  onLoad.add(false);
       if (respone.http_call_back.status == 200) {
         onSuccess.add((respone.respone as ProductMyShopRespone));
       } else {

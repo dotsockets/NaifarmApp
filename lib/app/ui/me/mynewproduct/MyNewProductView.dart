@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
@@ -75,6 +76,13 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         if(event is ProductMyShopRespone){
 
         }else if(event is bool){
+
+          // var item = bloc.uploadProductStorage.value.productMyShopRequest;
+          // var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice!=null?item.offerPrice:0,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
+          //
+          // Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: bloc.inventoriesId,inventoriesId: bloc.inventoriesId,
+          //     token: value.token));
+
           NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Product_Upload).then((value){
             AppRoute.MyProduct(context,widget.shopId,pushEvent: true,countPage: 1,indexTab: bloc.uploadProductStorage.value.productMyShopRequest.active==0?3:0);
           });
