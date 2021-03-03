@@ -29,15 +29,20 @@ class CustomTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TabBar(
-      indicatorColor: Colors.transparent,
-      indicatorPadding: EdgeInsets.zero,
+      indicatorColor: Color(ColorUtils.hexToInt("#e85440")),
+      indicatorWeight: 5.0,
       labelPadding: EdgeInsets.zero,
+      labelColor: ThemeColor.secondaryColor(),
+      labelStyle: TextStyle(
+        fontSize: SizeUtil.titleSmallFontSize().sp,
+      ),
+      unselectedLabelColor: Colors.white,
+      indicatorPadding: EdgeInsets.fromLTRB(5.0.w, 0, 5.0.w, 1.2.h),
       tabs: menuViewModel
           .asMap()
           .map(
             (int index, MenuModel menuModel) {
           final isSelect = index == selectedIndex;
-
 
           String text = menuModel.label;
 
@@ -49,8 +54,33 @@ class CustomTabBar extends StatelessWidget {
             index,
             Tab(
               iconMargin: EdgeInsets.all(0.5.w),
-              icon: SizedBox(),
-              child: Column(
+              icon: BlocBuilder<CustomerCountBloc, CustomerCountState>(
+                builder: (_, count) {
+                  if(count is CustomerCountLoaded){
+                    return  _buildIcon(
+                        path_icon:isSelect ? menuModel.iconSelected : menuModel.icon,
+                        color: isSelect ?ThemeColor.secondaryColor():Colors.white,
+                        index: index,notification: count.countLoaded.notification.unreadCustomer+count.countLoaded.notification.unreadShop
+                    );
+                  }else if(count is CustomerCountLoading){
+                    return _buildIcon(
+                      path_icon:isSelect ? menuModel.iconSelected : menuModel.icon,
+                      color: isSelect ?ThemeColor.secondaryColor():Colors.white,
+                      index: index,notification: count.countLoaded!=null?count.countLoaded.notification.unreadCustomer+count.countLoaded.notification.unreadShop:0,
+                    );
+                  }else{
+                    return _buildIcon(
+                        path_icon:isSelect ? menuModel.iconSelected : menuModel.icon,
+                        color: isSelect ?ThemeColor.secondaryColor():Colors.white,
+                        index: index,notification: 0
+                    );
+                  }
+
+                },
+              ),
+              text: text,
+              // Jaruvas 03032021 use default materail tab
+              /*child: Column(
                 children: [
 
                   BlocBuilder<CustomerCountBloc, CustomerCountState>(
@@ -82,14 +112,14 @@ class CustomTabBar extends StatelessWidget {
                     color: isSelect ?ThemeColor.secondaryColor():Colors.white,
                     wrapText: menuViewModel[0].label == text,
                   ),
-                  SizedBox(height: 0.5.w),
+                  SizedBox(height: 0.5.w,),
                   isSelect ?Container(
                     color: Color(ColorUtils.hexToInt("#e85440")),
                     width: 10.0.w,
                     height: 1.0.w,
                   ):SizedBox()
                 ],
-              ),
+              ),*/
             ),
           );
         },
@@ -118,7 +148,6 @@ class CustomTabBar extends StatelessWidget {
             ),
           ),
           child: Container(
-            padding: EdgeInsets.all(1.0.w),
             child: SvgPicture.asset(path_icon,color: color,width: 5.0.w,height: 5.0.w,),
           )
       )

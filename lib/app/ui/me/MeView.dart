@@ -33,6 +33,7 @@ import 'myshop/MyshopView.dart';
 import 'purchase/PurchaseView.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 
 class MeView extends StatefulWidget {
   @override
@@ -182,7 +183,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                 )
             ),
           ],
-          expandedHeight: 200,
+          expandedHeight: Device.get().isPhone ? 200 : 350,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
               color: ThemeColor.primaryColor(),
@@ -227,7 +228,7 @@ class _MeViewState extends State<MeView> with RouteAware {
 
   Widget BodyContent({double wigitHight}){
     return Container(
-      height: wigitHight,
+      height: Device.get().isPhone ? wigitHight : wigitHight + 100.0,
       color: Colors.white,
       child: DefaultTabController(
         length: 2,
@@ -321,7 +322,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                 borderRadius:
                 BorderRadius.all(
                     Radius.circular(
-                        60)),
+                        10.0.w)),
                 child: CachedNetworkImage(
                   width: 20.0.w,
                   height: 20.0.w,
@@ -371,7 +372,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                   : '');
             }
         ),
-        SizedBox(height: 2.0.h),
+        SizedBox(height: 4.0.h),
         Text(
             info !=
                 null
