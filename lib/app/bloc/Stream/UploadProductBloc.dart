@@ -343,6 +343,7 @@ class UploadProductBloc {
             weight: item.inventories[0].shippingWeight,
             description: item.description);
         uploadProductStorage.add(uploadProductStorage.value);
+
       } else {
         onError.add(respone.http_call_back.result.error.message);
       }

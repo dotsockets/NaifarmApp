@@ -40,6 +40,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool checkKeyBoard = false;
   UploadProductBloc bloc;
+  bool slug_install = true;
   //
   // @override
   // void initState() {
@@ -56,10 +57,16 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   // }
 
   init() {
+
+
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.uploadProductStorage.stream.listen((event) {
-        _installControllerInput(productMyShopRequest: event.productMyShopRequest);
+        if(slug_install) {
+          _installControllerInput(productMyShopRequest: event.productMyShopRequest);
+          slug_install = false;
+          checkNum();
+        }
         NaiFarmLocalStorage.SaveProductStorage(bloc.uploadProductStorage.value);
       });
       bloc.onLoad.stream.listen((event) {
@@ -120,6 +127,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                     child: AppToobar(
                         title: LocaleKeys.my_product_data.tr(),
                         icon: "",
+                        isEnable_Search: false,
                         header_type: Header_Type.barNormal)),
                 StreamBuilder(
                     stream: bloc.uploadProductStorage.stream,
@@ -137,9 +145,12 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                     children: [
                                       BuildEditText(
                                         head: LocaleKeys.my_product_name.tr()+" * ",EnableMaxLength: true,
-                                        hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 10,controller: nameProductController,inputType: TextInputType.text,onChanged: (String char){
+                                        hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLength: 120,controller: nameProductController,inputType: TextInputType.text,onChanged: (String char){
                                         if(char.isNotEmpty){
-                                          bloc.uploadProductStorage.value.productMyShopRequest.name  = char;
+                                          bloc.uploadProductStorage.value.productMyShopRequest.name  = nameProductController.text;
+                                       //   if(char.length>120){
+                                       //     bloc.uploadProductStorage.value.productMyShopRequest.name= nameProductController.text.replaceRange(120, char.length, "");
+                                       //   }
                                           bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
                                         }
 
@@ -155,9 +166,11 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                         hint: LocaleKeys.fill.tr()+LocaleKeys.my_product_name.tr(),maxLine: 5,controller: detailController,inputType: TextInputType.text,onChanged: (String char){
                                         if(char.isNotEmpty){
                                           bloc.uploadProductStorage.value.productMyShopRequest.description = char;
+                                        //  if(char.length>5000){
+                                        //    bloc.uploadProductStorage.value.productMyShopRequest.description= detailController.text.replaceRange(5000, char.length, "");
+                                        //  }
                                           bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
                                         }
-
                                       },),
                                       SizedBox(height: 15,),
 
@@ -166,7 +179,6 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                           bloc.uploadProductStorage.value.productMyShopRequest.stockQuantity = int.parse(char);
                                           bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
                                         }
-
                                     },),
                                     SizedBox(height: 15,),
                                     BuildEditText(
@@ -302,8 +314,10 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                 ],
               ))),
       onTap: () async {
+        FocusScope.of(context).unfocus();
         final result = await AppRoute.DeliveryCost(context,uploadProductStorage: bloc.uploadProductStorage.value,productsId: 0);
         if(result>0){
+
            bloc.uploadProductStorage.value.productMyShopRequest.weight = result;
         }
       },
@@ -457,6 +471,18 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         });
   }
 
+  checkNum(){
+    if(amountController.text.startsWith("0")){
+      amountController.text = "";
+    }
+    if(priceController.text.startsWith("0")){
+      priceController.text = "";
+    }
+    if(offerPriceController.text.startsWith("0")){
+      offerPriceController.text = "";
+    }
+
+  }
   void _installControllerInput({ProductMyShopRequest productMyShopRequest}){
     nameProductController.text = productMyShopRequest.name;
     nameProductController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.name!=null?productMyShopRequest.name.length:0));
