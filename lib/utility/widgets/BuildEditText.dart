@@ -87,7 +87,6 @@ class BuildEditText extends StatelessWidget {
                           new Expanded(
                               child: Padding(
                                 child: TextFormField(
-
                                   obscureText: IsPassword ? snapshot.data : IsPassword,
                                   keyboardType: inputType,
                                   maxLines: maxLine,
@@ -115,6 +114,10 @@ class BuildEditText extends StatelessWidget {
                                       .sp),
                                   onChanged: (String char) {
                                     onChanged != null ? onChanged(char) : null;
+                                    if(char.length>maxLength){
+                                     controller.text = controller.text.replaceRange(maxLength, char.length, "");
+                                     controller.selection = TextSelection.fromPosition(TextPosition(offset: controller.text.length));
+                                    }
                                     // setState(() {
                                     //
                                     // });

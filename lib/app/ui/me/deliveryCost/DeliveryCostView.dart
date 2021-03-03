@@ -41,7 +41,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
   init(){
     final format = new NumberFormat("#.###");
 
-    weightProductController.text = widget.uploadProductStorage.productMyShopRequest.weight!=null? format.format( widget.uploadProductStorage.productMyShopRequest.weight):"0";
+    weightProductController.text = widget.uploadProductStorage.productMyShopRequest.weight!=null? format.format( widget.uploadProductStorage.productMyShopRequest.weight):"";
     if(bloc==null){
       CheckForm();
       bloc = UploadProductBloc(AppProvider.getApplication(context));
@@ -211,7 +211,10 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
     if(weightProductController.text.isNotEmpty&&checkWeight.hasMatch(weightProductController.text)){
       check = true;
     }
+    if(weightProductController.text.startsWith("0")){
+      weightProductController.text ="";
+    }
     reload.add(check);
-
   }
+
 }

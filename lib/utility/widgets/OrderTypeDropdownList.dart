@@ -101,7 +101,10 @@ class _OrderTypeDropdownListState extends State<OrderTypeDropdownList> with Sing
     width: MediaQuery.of(context).size.width,
     child: InkWell(
       child: Text("- "+item.name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
-      onTap: ()=>widget.onSelect(item.id,item.name),
+      onTap: (){
+        FocusScope.of(context).unfocus();
+        widget.onSelect(item.id,item.name);
+      },
     ),
   );
 }
