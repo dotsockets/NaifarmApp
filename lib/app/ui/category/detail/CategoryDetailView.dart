@@ -90,7 +90,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                         return CategoryMenu(
                           featuredRespone: (snapshot.data as CategoryObjectCombin).supGroup,
                           onTap: (CategoryGroupData val){
-                            AppRoute.CategorySubDetail(context, val.id,title:val.name);
+                            AppRoute.CategorySubDetail(context, val.id,title:LocaleKeys.recommend_category_sub.tr());
                           },
                           moreSize: true,
                         );

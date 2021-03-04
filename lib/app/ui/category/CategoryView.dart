@@ -12,10 +12,10 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:sticky_headers/sticky_headers/widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
 class CategoryView extends StatefulWidget {
@@ -48,7 +48,7 @@ class _CategoryViewState extends State<CategoryView> {
 
       backgroundColor: Colors.white,
     appBar: PreferredSize(
-        preferredSize: Size.fromHeight(6.5.h),child: AppToobar(showBackBtn: false,header_type: Header_Type.barcartShop,icon: 'assets/images/svg/cart_top.svg',title:"Product Type")),
+        preferredSize: Size.fromHeight(6.5.h),child: AppToobar(showBackBtn: false,header_type: Header_Type.barcartShop,icon: 'assets/images/svg/cart_top.svg',title:LocaleKeys.recommend_category_product.tr())),
     body: SingleChildScrollView(
       child: Container(
           color: Colors.white,
@@ -168,7 +168,7 @@ class _CategoryViewState extends State<CategoryView> {
        //
        //  }
 
-        AppRoute.CategoryDetail(context, item.id,title: item.name);
+        AppRoute.CategoryDetail(context, item.id,title: LocaleKeys.recommend_category_product.tr());
       },
     );
   }

@@ -111,7 +111,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
 
                           children: [
                             SizedBox(height: 3,),
-                            Text(LocaleKeys.forgot_pass_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp,
+                            Text(LocaleKeys.btn_forgot_pass.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp,
                                 )),
                             SizedBox(height: 2,),
                             Container(
@@ -139,7 +139,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                   onPressed: ()=>FormCheck()?verify():SizedBox(),
-                  child: Text(LocaleKeys.continue_btn.tr(),
+                  child: Text(LocaleKeys.btn_continue.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                   ),
                 )

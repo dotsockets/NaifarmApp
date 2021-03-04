@@ -227,7 +227,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                           borderRadius: BorderRadius.all(Radius.circular(15)),
                           color: ThemeColor.ColorSale()
                       ),
-                      child: Text(LocaleKeys.edit_img_btn.tr(),
+                      child: Text(LocaleKeys.btn_edit_img.tr(),
                           style: FunctionHelper.FontTheme(
                               color: Colors.white,
                               fontSize:  SizeUtil.detailSmallFontSize(),

@@ -703,7 +703,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         }
 
       },
-      child: Text(LocaleKeys.continue_btn.tr(),
+      child: Text(LocaleKeys.btn_continue.tr(),
         style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
       ),
     );

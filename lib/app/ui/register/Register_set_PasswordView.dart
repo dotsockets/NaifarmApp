@@ -104,7 +104,7 @@ import 'package:sizer/sizer.dart';
                       borderRadius: BorderRadius.circular(40.0),
                     ),
                     onPressed: ()=>FormCheck()?verify():SizedBox(),
-                    child: Text(LocaleKeys.continue_btn.tr(),
+                    child: Text(LocaleKeys.btn_continue.tr(),
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                     ),
                   )
@@ -127,7 +127,7 @@ import 'package:sizer/sizer.dart';
            setState(() {});
           },),
           SizedBox(height: 3.0.h,),
-          BuildEditText(head: LocaleKeys.confirm_btn.tr()+" "+LocaleKeys.my_profile_password.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input2,onError: onError2,onChanged: (String char){
+          BuildEditText(head: LocaleKeys.btn_confirm.tr()+" "+LocaleKeys.my_profile_password.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input2,onError: onError2,onChanged: (String char){
             setState(() {});
           },)
         ],

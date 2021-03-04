@@ -76,7 +76,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     // ),
                     SizedBox(height: 2),
                     Text(
-                      LocaleKeys.my_product_delivery_from.tr(),
+                      LocaleKeys.my_product_delivery_addr.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),

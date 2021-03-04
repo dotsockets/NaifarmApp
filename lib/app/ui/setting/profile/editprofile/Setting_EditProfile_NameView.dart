@@ -69,7 +69,7 @@ class _Setting_EditProfile_NameViewState extends State<Setting_EditProfile_NameV
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                   onPressed: ()=>FormCheck()?Navigator.pop(context, widget.customerInfoRespone):SizedBox(),
-                  child: Text(LocaleKeys.save_btn.tr(),
+                  child: Text(LocaleKeys.btn_save.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                   ),
                 )

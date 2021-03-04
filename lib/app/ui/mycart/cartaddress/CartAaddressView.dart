@@ -377,7 +377,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
             }
           },
           child: Text(
-            LocaleKeys.add_address_btn.tr(),
+            LocaleKeys.btn_add_address.tr(),
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),

@@ -188,7 +188,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(40.0),
     ),
-    child: Text(LocaleKeys.continue_btn.tr(),
+    child: Text(LocaleKeys.btn_continue.tr(),
       style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
     ),
   );

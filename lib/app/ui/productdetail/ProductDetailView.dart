@@ -57,8 +57,7 @@ class ProductDetailView extends StatefulWidget {
   final String productImage;
   ProducItemRespone productItem;
 
-  ProductDetailView({Key key, this.productImage, this.productItem})
-      : super(key: key);
+  ProductDetailView({Key key, this.productImage, this.productItem}) : super(key: key);
 
   @override
   _ProductDetailViewState createState() => _ProductDetailViewState();
@@ -621,7 +620,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 alignment: Alignment.center,
                                 height: 8.0.h,
                                 color: ThemeColor.ColorSale(),
-                                child: Text(LocaleKeys.buy_product_btn.tr(),
+                                child: Text(LocaleKeys.btn_buy_product.tr(),
                                     style: FunctionHelper.FontTheme(
                                         fontSize: SizeUtil.titleFontSize().sp,
                                         fontWeight: FontWeight.bold,

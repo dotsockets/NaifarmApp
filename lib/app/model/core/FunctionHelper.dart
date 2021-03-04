@@ -227,7 +227,7 @@ class FunctionHelper {
                 children: <Widget>[
                   CupertinoButton(
                     child: Text(
-                      LocaleKeys.cancel_btn.tr(),
+                      LocaleKeys.btn_cancel.tr(),
                       style: FunctionHelper.FontTheme(color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
                     onPressed: () {},
@@ -238,7 +238,7 @@ class FunctionHelper {
                   ),
                   CupertinoButton(
                     child: Text(
-                      LocaleKeys.ok_btn.tr(),
+                      LocaleKeys.btn_ok.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.black, fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
@@ -330,7 +330,7 @@ class FunctionHelper {
                     Expanded(child: Container(
                       padding: EdgeInsets.all(1.5.h),
                       child: GestureDetector(
-                          child: Text(LocaleKeys.ok_btn.tr(),
+                          child: Text(LocaleKeys.btn_ok.tr(),
                               textAlign: TextAlign.center,
                               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor())),
                           onTap: () => onClick()),
@@ -374,7 +374,7 @@ class FunctionHelper {
                           child: Padding(
                             padding: EdgeInsets.all(15),
                             child: Text(
-                              LocaleKeys.cancel_btn.tr(),
+                              LocaleKeys.btn_cancel.tr(),
                               textAlign: TextAlign.center,
                               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale()),
                             ),
@@ -387,7 +387,7 @@ class FunctionHelper {
                     ),
                     Expanded(
                         child: GestureDetector(
-                          child: Text(LocaleKeys.ok_btn.tr(),
+                          child: Text(LocaleKeys.btn_ok.tr(),
                               textAlign: TextAlign.center,
                               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.primaryColor())),
                             onTap: () => onClick()))

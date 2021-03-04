@@ -91,7 +91,7 @@ class Reviewscore extends StatelessWidget {
                         filledIconData: Icons.star,
                         halfFilledIconData: Icons.star_half_outlined,
                         color: Colors.amber,
-                        borderColor: Colors.amber,
+                        borderColor: Colors.grey.shade300,
                         spacing: 0.0)
                   ],
                 ),

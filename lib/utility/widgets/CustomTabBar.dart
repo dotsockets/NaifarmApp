@@ -177,7 +177,7 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
               }
             },
           ),
-          text: "Cart",
+          text: LocaleKeys.cart_toobar.tr(),
         ),
         Tab(
           icon: _buildIcon(

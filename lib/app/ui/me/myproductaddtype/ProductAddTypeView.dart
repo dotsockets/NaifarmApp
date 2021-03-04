@@ -289,7 +289,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
             AppRoute.ProductSetPrice(context);
           },
           child: Text(
-            LocaleKeys.set_price_btn.tr(),
+            LocaleKeys.btn_set_price.tr(),
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
           ),

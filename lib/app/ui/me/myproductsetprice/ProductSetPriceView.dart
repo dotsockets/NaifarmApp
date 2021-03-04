@@ -214,7 +214,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
         ),
         onPressed: () {},
         child: Text(
-          LocaleKeys.save_btn.tr(),
+          LocaleKeys.btn_save.tr(),
           style: FunctionHelper.FontTheme(
               fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
         ),

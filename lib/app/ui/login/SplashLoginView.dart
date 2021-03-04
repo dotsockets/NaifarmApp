@@ -86,7 +86,7 @@ class SplashLoginView extends StatelessWidget {
                   onPressed: () {
                      AppRoute.Login(context,IsCallBack: false,IsHeader: true);
                   },
-                  child: Text(LocaleKeys.login_btn.tr(),
+                  child: Text(LocaleKeys.btn_login.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -103,7 +103,7 @@ class SplashLoginView extends StatelessWidget {
                   onPressed: () {
                     AppRoute.Register(context);
                   },
-                  child: Text(LocaleKeys.register_btn.tr(),
+                  child: Text(LocaleKeys.btn_register.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                   ),
                 )

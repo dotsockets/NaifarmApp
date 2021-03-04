@@ -42,7 +42,7 @@ class _ReviewViewState extends State<ReviewView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
-            title: LocaleKeys.review_btn.tr(),
+            title: LocaleKeys.btn_review.tr(),
             header_type: Header_Type.barNormal,
             isEnable_Search: false,
             icon: '',
@@ -332,7 +332,7 @@ class _ReviewViewState extends State<ReviewView> {
             Container(
               padding: EdgeInsets.only(left: 20,right: 20,top: 20),
               child: BuildEditText(
-                  head: LocaleKeys.review_btn.tr()+" * ",maxLength: 5000,
+                  head: LocaleKeys.btn_review.tr()+" * ",maxLength: 5000,
                   hint: "Tell others why the product is good",maxLine: 5,controller: reviewController,inputType: TextInputType.text),
             ),
             SizedBox(height: 15,),
@@ -388,7 +388,7 @@ class _ReviewViewState extends State<ReviewView> {
           onClick();
         },
         child: Text(
-          LocaleKeys.confirm_btn.tr(),
+          LocaleKeys.btn_confirm.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
         ),
       ),

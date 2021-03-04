@@ -298,10 +298,10 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half,
                   color: Colors.orange,
-                  borderColor: Colors.black,
+                  borderColor: Colors.grey.shade300,
                   spacing: 0.0),
             ),
-            Text("${LocaleKeys.my_product_sold.tr()} ${item.product.saleCount!=null?item.product.saleCount.toString():'0'} ${LocaleKeys.cart_item.tr()}",
+            Text("${LocaleKeys.my_product_sold.tr()} ${item.product.saleCount!=null?item.product.saleCount.toString():'0'} ${LocaleKeys.cart_piece.tr()}",
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.detailSmallFontSize().sp,
                     color: Colors.black,

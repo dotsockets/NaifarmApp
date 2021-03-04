@@ -303,7 +303,7 @@ class _AddressAddViewState extends State<AddressAddView> {
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(2.0.w),
-            child: _buildButtonItem(btnTxt: LocaleKeys.continue_btn.tr())));
+            child: _buildButtonItem(btnTxt: LocaleKeys.btn_continue.tr())));
   }
 
   Widget _buildButtonItem({String btnTxt}) {

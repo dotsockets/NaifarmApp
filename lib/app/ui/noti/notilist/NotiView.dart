@@ -22,9 +22,6 @@ import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/app/ui/noti/notidetail/NotiCus.dart';
 import 'package:naifarm/app/ui/noti/notidetail/NotiShop.dart';
-import 'package:naifarm/app/ui/shopmain/category/CaregoryShopView.dart';
-import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -32,7 +29,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/MD2Indicator.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
-import 'package:naifarm/utility/widgets/CustomTabBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 //'assets/images/svg/cart_top.svg'
 
@@ -162,16 +158,16 @@ class _NotiViewState extends State<NotiView>
                   tabs: profileObjectCombine.myShopRespone!=null?[
                     // first tab [you can add an icon using the icon property]
                     Tab(
-                      child: Text('Buyer notification',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
+                      child: Text(LocaleKeys.noti_buyer.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
                     ),
 
                     // second tab [you can add an icon using the icon property]
                     Tab(
-                      child: Text('Seller notification',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
+                      child: Text(LocaleKeys.noti_seller.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
                     )
                   ]:[
                     Tab(
-                      child: Text('Buyer notification',style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
+                      child: Text(LocaleKeys.noti_buyer.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
                     ),
                   ],
                 ),

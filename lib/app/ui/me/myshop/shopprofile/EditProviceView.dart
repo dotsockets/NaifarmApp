@@ -105,7 +105,7 @@ class _EditProviceViewState extends State<EditProviceView> {
                     Navigator.pop(context, widget.itemInfo);
 
                   },
-                  child: Text(LocaleKeys.save_btn.tr(),
+                  child: Text(LocaleKeys.btn_save.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                   ),
                 )

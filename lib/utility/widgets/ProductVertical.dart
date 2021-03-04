@@ -256,8 +256,7 @@ class ProductVertical extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_piece.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.normal,fontSize:  SizeUtil.detailSmallFontSize().sp),),
-                  SizedBox(height: 5),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -276,7 +275,9 @@ class ProductVertical extends StatelessWidget {
                       SizedBox(width: 1.0.w,),
                      // Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
                     ],
-                  )
+                  ),SizedBox(height: 1.0.h),
+                  Text(LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_piece.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.normal,fontSize:  SizeUtil.detailSmallFontSize().sp),),
+
                 ],
               ),
               InkWell(
@@ -287,7 +288,7 @@ class ProductVertical extends StatelessWidget {
                       color: Colors.red,
                       borderRadius: BorderRadius.all(Radius.circular(15))
                   ),
-                  child: Text(LocaleKeys.buy_now_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
+                  child: Text(LocaleKeys.btn_buy_now.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
                 ),
                 onTap: (){
                   Product_bloc.GetProductsById(id: item.id);

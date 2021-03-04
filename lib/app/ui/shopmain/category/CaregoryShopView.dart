@@ -61,7 +61,7 @@ class CaregoryShopView extends StatelessWidget {
         AppRoute.ProductMore(
             api_link: "products/types/popular?shopId=${ShopId}&categoryId=${item.id}",
             context: context,
-            barTxt: item.name);
+            barTxt: LocaleKeys.shop_product_list.tr());
       },
     );
   }

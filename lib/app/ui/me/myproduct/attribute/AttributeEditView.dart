@@ -117,7 +117,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
             }
           },
           child: Text(
-            LocaleKeys.save_btn.tr(),
+            LocaleKeys.btn_save.tr(),
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),

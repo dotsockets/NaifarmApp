@@ -168,7 +168,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                 child: Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(15),
-                    child: _BuildButtonItem(btnTxt: LocaleKeys.save_btn.tr(),fix: snapshot.data)));
+                    child: _BuildButtonItem(btnTxt: LocaleKeys.btn_save.tr(),fix: snapshot.data)));
           }else{
             return SizedBox();
           }
