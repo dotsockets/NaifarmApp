@@ -71,6 +71,8 @@ class ProductBloc{
   List<ProductData> product_more = List<ProductData>();
   List<Hits> searchList = List<Hits>();
   List<ProductMyShop> productList = List<ProductMyShop>();
+
+
   ProductBloc(this._application);
 
   void dispose() {
@@ -328,6 +330,19 @@ class ProductBloc{
 
   }
 
+  GetProductsById({int id}){
+    onLoad.add(true);
+    Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)).listen((event) {
+     // onLoad.add(false);
+      if(event.http_call_back.status==200){
+        var item = (event.respone as ProducItemRespone);
+        ProductItem.add(item);
+      }else{
+        onError.add(event.http_call_back.result);
+      }
+    });
+  }
+
 
   // loadProductsPage({int id,String token}){
   // //  onLoad.add(true);
@@ -558,7 +573,7 @@ class ProductBloc{
 
   AddCartlists({BuildContext context,CartRequest cartRequest,String token,bool addNow=false}){
     BayNow.clear();
-    onLoad.add(true);
+    //onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.AddCartlists(cartRequest: cartRequest,token: token)).listen((respone) {
       if(respone.http_call_back.status==200||respone.http_call_back.status==201){

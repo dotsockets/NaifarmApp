@@ -57,6 +57,23 @@ class ProductVertical extends StatelessWidget {
 
         }
       });
+
+      Product_bloc.ProductItem.stream.listen((event) {
+        List<Items> items = new List<Items>();
+        items.add(Items(
+            inventoryId: event.inventories[0].id,
+            quantity: 1));
+
+        Usermanager().getUser().then((value) =>
+            Product_bloc.AddCartlists(
+                addNow: false,
+                context: context,
+                cartRequest: CartRequest(
+                  shopId: event.shopId,
+                  items: items,
+                ),
+                token: value.token));
+      });
       Product_bloc.onSuccess.stream.listen((event) {
         //onUpload = true;
         if (event is CartResponse) {
@@ -273,21 +290,7 @@ class ProductVertical extends StatelessWidget {
                   child: Text(LocaleKeys.buy_now_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
                 ),
                 onTap: (){
-
-                  List<Items> items = new List<Items>();
-                  items.add(Items(
-                      inventoryId: item.id,
-                      quantity: 1));
-
-                  Usermanager().getUser().then((value) =>
-                      Product_bloc.AddCartlists(
-                        addNow: false,
-                          context: context,
-                          cartRequest: CartRequest(
-                            shopId: item.shop.id,
-                            items: items,
-                          ),
-                          token: value.token));
+                  Product_bloc.GetProductsById(id: item.id);
                   },
               )
             ],

@@ -68,7 +68,8 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
+        FunctionHelper.AlertDialogRetry(context,
+            title: "Error", message: event.error.message,callBack: ()=> _refreshProducts());
       });
       bloc.CartList.stream.listen((event) {
         if(event is CartResponse){

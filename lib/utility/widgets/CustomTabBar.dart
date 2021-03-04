@@ -50,12 +50,15 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
       indicatorWeight: 5.0,
       labelPadding: EdgeInsets.zero,
       labelColor: ThemeColor.secondaryColor(),
-      labelStyle: TextStyle(fontSize: SizeUtil.titleSmallFontSize().sp,),
+      labelStyle: TextStyle(
+        fontSize: SizeUtil.detailSmallFontSize().sp,
+        fontWeight: FontWeight.bold,),
       unselectedLabelColor: Colors.white,
-      indicatorPadding: EdgeInsets.fromLTRB(5.0.w, 0, 5.0.w, 1.2.h),
+      indicatorPadding: EdgeInsets.fromLTRB(5.0.w, 0, 5.0.w, 1.0.h),
       tabs: [
         Tab(
           icon: _buildIcon(
+            sizeIcon: 6.0.w,
               path_icon: widget.selectedIndex == 0
                   ? 'assets/images/svg/home_active.svg'
                   : 'assets/images/svg/home_active.svg',
@@ -64,10 +67,12 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
                   : Colors.white,
               index: 0,
               notification: 0),
-          text: LocaleKeys.tab_bar_recommend.tr(),
+
+          text:  widget.selectedIndex==0?LocaleKeys.tab_bar_recommend.tr():LocaleKeys.tab_bar_home.tr(),
         ),
         Tab(
           icon: _buildIcon(
+              sizeIcon: 6.0.w,
               path_icon: widget.selectedIndex == 1
                   ? 'assets/images/svg/type.svg'
                   : 'assets/images/svg/type.svg',
@@ -83,6 +88,7 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
             builder: (_, count) {
               if (count is CustomerCountLoaded) {
                 return _buildIcon(
+                    sizeIcon: 6.0.w,
                     path_icon: widget.selectedIndex == 2
                         ? 'assets/images/svg/notification.svg'
                         : 'assets/images/svg/notification.svg',
@@ -95,6 +101,7 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
                             count.countLoaded.notification.unreadShop);
               } else if (count is CustomerCountLoading) {
                 return _buildIcon(
+                  sizeIcon: 6.0.w,
                   path_icon: widget.selectedIndex == 2
                       ? 'assets/images/svg/notification.svg'
                       : 'assets/images/svg/notification.svg',
@@ -111,6 +118,7 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
                 );
               } else {
                 return _buildIcon(
+                    sizeIcon: 6.0.w,
                     path_icon: widget.selectedIndex == 2
                         ? 'assets/images/svg/notification.svg'
                         : 'assets/images/svg/notification.svg',
@@ -129,6 +137,7 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
             builder: (_, count) {
               if (count is CustomerCountLoaded) {
                 return _buildIcon(
+                  sizeIcon: 6.8.w,
                   path_icon: widget.selectedIndex == 3
                       ? 'assets/images/svg/cart.svg'
                       : 'assets/images/svg/cart.svg',
@@ -142,6 +151,7 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
                 );
               } else if (count is CustomerCountLoading) {
                 return _buildIcon(
+                  sizeIcon: 6.8.w,
                   path_icon: widget.selectedIndex == 3
                       ? 'assets/images/svg/cart.svg'
                       : 'assets/images/svg/cart.svg',
@@ -155,6 +165,7 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
                 );
               } else {
                 return _buildIcon(
+                    sizeIcon: 6.8.w,
                     path_icon: widget.selectedIndex == 3
                         ? 'assets/images/svg/cart.svg'
                         : 'assets/images/svg/cart.svg',
@@ -170,6 +181,7 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
         ),
         Tab(
           icon: _buildIcon(
+              sizeIcon: 6.0.w,
               path_icon: widget.selectedIndex == 4
                   ? 'assets/images/svg/me.svg'
                   : 'assets/images/svg/me.svg',
@@ -194,7 +206,7 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
       {String path_icon,
       Color color,
       int index,
-      int notification}) {
+      int notification,double sizeIcon}) {
     return Stack(
       overflow: Overflow.visible,
       children: [
@@ -224,8 +236,8 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
                 child: SvgPicture.asset(
                   path_icon,
                   color: color,
-                  width: 5.0.w,
-                  height: 5.0.w,
+                  width: sizeIcon,
+                  height: sizeIcon,
                 ),
               ),
             ),

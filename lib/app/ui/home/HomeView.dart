@@ -143,7 +143,6 @@ class _HomeViewState extends State<HomeView>
                 stream: _selectedIndex.stream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return Container(
-                    height: 10.0.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(40),
@@ -162,7 +161,6 @@ class _HomeViewState extends State<HomeView>
                         menuViewModel: _menuViewModel,
                         selectedIndex: snapshot.data,
                         onTap: (index) {
-
 
                           // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
                           NaiFarmLocalStorage.saveNowPage(index);
@@ -224,10 +222,10 @@ class _HomeViewState extends State<HomeView>
             message: "The Internet contract has crashed Please try again...!",
             showbtn: false,
             barrierDismissible: false);
-        //  setState(() => _connectionStatus = result.toString());
         break;
       default:
         print('Failed to get connectivity.');
+        //  setState(() => _connectionStatus = result.toString());
         // FunctionHelper.AlertDialogShop(context,title: "Error",message: 'Failed to get connectivity.');
         break;
     }
