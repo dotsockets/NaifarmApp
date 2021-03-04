@@ -185,13 +185,19 @@ class _CustomTabBarState extends State<CustomTabBar>
                       : false
                   : false,
               badgeContent: Container(
-                padding: EdgeInsets.all(notification < 10 ? 0.7 : 0),
+                padding: EdgeInsets.all(
+                    notification < 10 ? (Device.get().isPhone ? 0.7 : 3.0) : 0),
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 0.5.w),
-                  child: Text("${notification}",
-                      style: FunctionHelper.FontTheme(
-                          color: Colors.white,
-                          fontSize: (SizeUtil.titleSmallFontSize() - 3).sp)),
+                  margin:
+                      EdgeInsets.only(bottom: Device.get().isPhone ? 0.5.w : 0),
+                  child: Text(
+                    "${notification}",
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.white,
+                        fontSize: Device.get().isPhone
+                            ? (SizeUtil.titleSmallFontSize() - 3).sp
+                            : (SizeUtil.titleSmallFontSize() - 1).sp),
+                  ),
                 ),
               ),
               child: Container(
