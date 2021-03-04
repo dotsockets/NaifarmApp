@@ -20,13 +20,12 @@ import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingProfileView extends StatefulWidget {
-
-
   @override
   _SettingProfileViewState createState() => _SettingProfileViewState();
 }
 
-class _SettingProfileViewState extends State<SettingProfileView> with RouteAware {
+class _SettingProfileViewState extends State<SettingProfileView>
+    with RouteAware {
   bool onImageUpdate = false;
 
   @override
@@ -41,13 +40,10 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
     routeObserver.subscribe(this, ModalRoute.of(context));
   }
 
-
-
   @override
   void didPopNext() {
-   setState(() {});
+    setState(() {});
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +57,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
             icon: "",
             header_type: Header_Type.barNormal,
             isEnable_Search: false,
-            onClick: (){
+            onClick: () {
               Navigator.pop(context);
             },
           ),
@@ -70,19 +66,20 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
               Expanded(
                 child: SingleChildScrollView(
                   child: Container(
+                    padding: SizeUtil.detailProfilePadding(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildTitle(txt: LocaleKeys.setting_account_head_profile.tr()),
+                        _buildTitle(
+                            txt: LocaleKeys.setting_account_head_profile.tr()),
                         ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_profile.tr(),
                           onClick: () async {
                             final result = await AppRoute.EditProfile(context);
-                                  if(result!=null && result){
-                                     onImageUpdate = true;
-                                   }
-
+                            if (result != null && result) {
+                              onImageUpdate = true;
+                            }
                           },
                         ),
                         _buildLine(),
@@ -93,8 +90,8 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                             AppRoute.SettingAddress(context);
                           },
                         ),
-                       _buildLine(),
-                       /* widget.IsLogin?ListMenuItem(
+                        _buildLine(),
+                        /* widget.IsLogin?ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_bank.tr(),
                           onClick: () {
@@ -102,7 +99,8 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                           },
                         ):SizedBox(),*/
                         _buildLine(),
-                        _buildTitle(txt: LocaleKeys.setting_account_head_setting.tr()),
+                        _buildTitle(
+                            txt: LocaleKeys.setting_account_head_setting.tr()),
                         ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_noti.tr(),
@@ -113,13 +111,15 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          Message: FunctionHelper.LocaleLanguage(locale: EasyLocalization.of(context).locale),
+                          Message: FunctionHelper.LocaleLanguage(
+                              locale: EasyLocalization.of(context).locale),
                           title: LocaleKeys.setting_account_title_language.tr(),
                           onClick: () {
                             AppRoute.SettingLanguage(context);
                           },
                         ),
-                        _buildTitle(txt: LocaleKeys.setting_account_head_help.tr()),
+                        _buildTitle(
+                            txt: LocaleKeys.setting_account_head_help.tr()),
                         ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_help.tr(),
@@ -188,7 +188,8 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
       padding: EdgeInsets.only(left: 3.0.w, top: 1.0.h, bottom: 1.0.h),
       child: Text(
         txt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+        style: FunctionHelper.FontTheme(
+            fontSize: SizeUtil.titleSmallFontSize().sp),
       ),
     );
   }
@@ -196,8 +197,8 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
   Widget _BuildButton() {
     return Center(
       child: Container(
-        margin: EdgeInsets.only(top: 3.0.h,bottom: 3.0.h),
-        width: 50.0.w,
+          margin: EdgeInsets.only(top: 3.0.h, bottom: 3.0.h),
+          width: 50.0.w,
           height: 5.0.h,
           color: Colors.grey.shade300,
           child: _BuildButtonItem(btnTxt: LocaleKeys.logout_btn.tr())),
@@ -213,21 +214,22 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () {
-        Usermanager().logout().then((value){
-          Usermanager().getUser().then((value){
-            context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token,oneSignal: false);
-            context.read<CustomerCountBloc>().loadCustomerCount(token: value.token);
-            Navigator.pop(context,true);
+        Usermanager().logout().then((value) {
+          Usermanager().getUser().then((value) {
+            context
+                .read<InfoCustomerBloc>()
+                .loadCustomInfo(token: value.token, oneSignal: false);
+            context
+                .read<CustomerCountBloc>()
+                .loadCustomerCount(token: value.token);
+            Navigator.pop(context, true);
           });
         });
-
-
-
-
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(
+            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
       ),
     );
   }

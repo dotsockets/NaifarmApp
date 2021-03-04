@@ -8,7 +8,6 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 
 class BuildIconShop extends StatelessWidget {
   final bool BtnBack;
@@ -45,22 +44,22 @@ class BuildIconShop extends StatelessWidget {
     return Badge(
         shape: BadgeShape.circle,
         position: BadgePosition.topEnd(
-            top: Device.get().isPhone ? -0.5.w : -1.5.w,
-            end: Device.get().isPhone ? 5 : 0),
+          top: SizeUtil.shopBadgeTop().w,
+          end: SizeUtil.shopBadgeEnd(),
+        ),
         animationDuration: Duration(milliseconds: 300),
         animationType: BadgeAnimationType.slide,
         showBadge: notification > 0 ? true : false,
         badgeContent: Container(
-          padding: EdgeInsets.all(notification < 10 ? 0.6.w : 0),
+          padding: EdgeInsets.all(
+              notification < 10 ? SizeUtil.shopBadgePadding().w : 0),
           child: Container(
             margin: EdgeInsets.only(bottom: 0.5.w),
             child: Text(
               "${notification}",
               style: FunctionHelper.FontTheme(
                 color: Colors.white,
-                fontSize: Device.get().isPhone
-                    ? (SizeUtil.titleSmallFontSize() - 3).sp
-                    : (SizeUtil.titleSmallFontSize() - 2).sp,
+                fontSize: SizeUtil.shopBadgeSize().sp,
               ),
             ),
           ),
@@ -68,7 +67,7 @@ class BuildIconShop extends StatelessWidget {
         child: IconButton(
           icon: Icon(Icons.shopping_cart_outlined,
               color: iconColor != null ? iconColor : Colors.white,
-              size: Device.get().isPhone ? 6.0.w : 5.0.w),
+              size: SizeUtil.shopIconSize().w),
           onPressed: () {
             Usermanager().getUser().then((value) {
               if (value.token != null) {

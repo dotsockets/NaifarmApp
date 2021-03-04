@@ -140,7 +140,7 @@ class _HomeViewState extends State<HomeView>
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return Container(
                     padding: EdgeInsets.symmetric(
-                        vertical: Device.get().isPhone ? 0 : 2.5.h),
+                        vertical: Device.get().isPhone ? 0 : 1.5.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(40),

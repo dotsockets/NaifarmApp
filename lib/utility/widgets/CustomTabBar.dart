@@ -57,12 +57,11 @@ class _CustomTabBarState extends State<CustomTabBar>
         fontWeight: FontWeight.bold,
       ),
       unselectedLabelColor: Colors.white,
-      indicatorPadding: EdgeInsets.fromLTRB(
-          5.0.w, 0, 5.0.w, Device.get().isPhone ? 1.0.h : 0),
+      indicatorPadding: SizeUtil.custombarIndicationPadding(),
       tabs: [
         Tab(
           icon: _buildIcon(
-              sizeIcon: Device.get().isPhone ? 6.0.w : 5.0.w,
+              sizeIcon: SizeUtil.custombarIconSize().w,
               path_icon: 'assets/images/svg/home_active.svg',
               index: 0,
               notification: 0),
@@ -72,7 +71,7 @@ class _CustomTabBarState extends State<CustomTabBar>
         ),
         Tab(
           icon: _buildIcon(
-              sizeIcon: Device.get().isPhone ? 6.0.w : 5.0.w,
+              sizeIcon: SizeUtil.custombarIconSize().w,
               path_icon: 'assets/images/svg/type.svg',
               index: 1,
               notification: 0),
@@ -83,7 +82,7 @@ class _CustomTabBarState extends State<CustomTabBar>
             builder: (_, count) {
               if (count is CustomerCountLoaded) {
                 return _buildIcon(
-                    sizeIcon: Device.get().isPhone ? 6.0.w : 5.0.w,
+                    sizeIcon: SizeUtil.custombarIconSize().w,
                     path_icon: 'assets/images/svg/notification.svg',
                     index: 2,
                     notification:
@@ -91,7 +90,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                             count.countLoaded.notification.unreadShop);
               } else if (count is CustomerCountLoading) {
                 return _buildIcon(
-                  sizeIcon: Device.get().isPhone ? 6.0.w : 5.0.w,
+                  sizeIcon: SizeUtil.custombarIconSize().w,
                   path_icon: 'assets/images/svg/notification.svg',
                   index: 2,
                   notification: count.countLoaded != null
@@ -103,7 +102,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                 );
               } else {
                 return _buildIcon(
-                    sizeIcon: Device.get().isPhone ? 6.0.w : 5.0.w,
+                    sizeIcon: SizeUtil.custombarIconSize().w,
                     path_icon: 'assets/images/svg/notification.svg',
                     index: 2,
                     notification: 0);
@@ -117,7 +116,7 @@ class _CustomTabBarState extends State<CustomTabBar>
             builder: (_, count) {
               if (count is CustomerCountLoaded) {
                 return _buildIcon(
-                  sizeIcon: Device.get().isPhone ? 6.8.w : 5.5.w,
+                  sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
                   path_icon: 'assets/images/svg/cart.svg',
                   index: 3,
                   notification: count.countLoaded != null
@@ -126,7 +125,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                 );
               } else if (count is CustomerCountLoading) {
                 return _buildIcon(
-                  sizeIcon: Device.get().isPhone ? 6.8.w : 5.5.w,
+                  sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
                   path_icon: 'assets/images/svg/cart.svg',
                   index: 3,
                   notification: count.countLoaded != null
@@ -135,7 +134,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                 );
               } else {
                 return _buildIcon(
-                    sizeIcon: Device.get().isPhone ? 6.8.w : 5.5.w,
+                    sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
                     path_icon: 'assets/images/svg/cart.svg',
                     index: 3,
                     notification: 0);
@@ -146,7 +145,7 @@ class _CustomTabBarState extends State<CustomTabBar>
         ),
         Tab(
           icon: _buildIcon(
-              sizeIcon: Device.get().isPhone ? 6.0.w : 5.0.w,
+              sizeIcon: SizeUtil.custombarIconSize().w,
               path_icon: 'assets/images/svg/me.svg',
               index: 4,
               notification: 0),
@@ -194,9 +193,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                     "${notification}",
                     style: FunctionHelper.FontTheme(
                         color: Colors.white,
-                        fontSize: Device.get().isPhone
-                            ? (SizeUtil.titleSmallFontSize() - 3).sp
-                            : (SizeUtil.titleSmallFontSize() - 1).sp),
+                        fontSize: SizeUtil.shopBadgeSize().sp),
                   ),
                 ),
               ),

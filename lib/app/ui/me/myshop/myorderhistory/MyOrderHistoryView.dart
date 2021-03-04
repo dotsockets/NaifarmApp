@@ -25,7 +25,7 @@ import 'delivery/DeliveryView.dart';
 
 class MyOrderHistoryView extends StatelessWidget {
   final int index;
-  final bool callback ;
+  final bool callback;
 
   MyOrderHistoryView({Key key, this.index, this.callback}) : super(key: key);
 
@@ -46,13 +46,14 @@ class MyOrderHistoryView extends StatelessWidget {
               child: AppToobar(
                 title: LocaleKeys.me_title_history.tr(),
                 header_type: Header_Type.barcartShop,
-                icon: '',onClick: (){
-                  if(callback){
-                    AppRoute.PoppageCount(context: context,countpage: 4);
-                  }else{
-                    AppRoute.PoppageCount(context: context,countpage: 1);
+                icon: '',
+                onClick: () {
+                  if (callback) {
+                    AppRoute.PoppageCount(context: context, countpage: 4);
+                  } else {
+                    AppRoute.PoppageCount(context: context, countpage: 1);
                   }
-              },
+                },
               ),
             ),
             body: Container(
@@ -60,6 +61,7 @@ class MyOrderHistoryView extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(
                     height: 7.0.h,
+                    width: 100.0.w,
                     child: Container(
                       color: Colors.white,
                       child: TabBar(
@@ -71,9 +73,11 @@ class MyOrderHistoryView extends StatelessWidget {
                         isScrollable: true,
                         tabs: [
                           _tabbar(
-                              title: LocaleKeys.me_menu_pay.tr(), message: false),
+                              title: LocaleKeys.me_menu_pay.tr(),
+                              message: false),
                           _tabbar(
-                              title: LocaleKeys.me_menu_ship.tr(), message: false),
+                              title: LocaleKeys.me_menu_ship.tr(),
+                              message: false),
                           _tabbar(
                               title: LocaleKeys.me_menu_receive_shop.tr(),
                               message: false),
@@ -93,13 +97,23 @@ class MyOrderHistoryView extends StatelessWidget {
 
                   // create widgets for each tab bar here
                   Expanded(
-                    child:TabBarView(
+                    child: TabBarView(
                       children: [
-                        PaidView(typeView: OrderViewType.Purchase,),
-                        ShippedView(typeView: OrderViewType.Purchase,),
-                        DeliveryView(typeView: OrderViewType.Purchase,),
-                        SuccessView(typeView: OrderViewType.Purchase,),
-                        CanceledView(typeView: OrderViewType.Purchase,),
+                        PaidView(
+                          typeView: OrderViewType.Purchase,
+                        ),
+                        ShippedView(
+                          typeView: OrderViewType.Purchase,
+                        ),
+                        DeliveryView(
+                          typeView: OrderViewType.Purchase,
+                        ),
+                        SuccessView(
+                          typeView: OrderViewType.Purchase,
+                        ),
+                        CanceledView(
+                          typeView: OrderViewType.Purchase,
+                        ),
                         //RefundView(typeView: OrderViewType.Purchase,)
                       ],
                     ),

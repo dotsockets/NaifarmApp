@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -33,8 +32,6 @@ class ShippedView extends StatefulWidget {
 }
 
 class _ShippedViewState extends State<ShippedView> {
-
-
   OrdersBloc bloc;
   ScrollController _scrollController = ScrollController();
   int page = 1;
@@ -42,10 +39,16 @@ class _ShippedViewState extends State<ShippedView> {
   bool step_page = false;
 
   init() {
-    if(bloc==null){
+    if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "3",sort: "orders.updatedAt:desc",limit: limit,page: 1,token: value.token));
-
+      Usermanager().getUser().then((value) => bloc.loadOrder(
+          orderType:
+              widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+          statusId: "3",
+          sort: "orders.updatedAt:desc",
+          limit: limit,
+          page: 1,
+          token: value.token));
     }
     bloc.onLoad.stream.listen((event) {
       if (event) {
@@ -56,7 +59,8 @@ class _ShippedViewState extends State<ShippedView> {
     });
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
-          _scrollController.position.pixels <= 200) {
+              _scrollController.position.pixels <=
+          200) {
         if (step_page) {
           step_page = false;
           page++;
@@ -64,7 +68,6 @@ class _ShippedViewState extends State<ShippedView> {
         }
       }
     });
-
   }
 
   @override
@@ -73,57 +76,78 @@ class _ShippedViewState extends State<ShippedView> {
     return Container(
       color: Colors.white,
       margin: EdgeInsets.only(top: 10),
-
-      child:  StreamBuilder(
+      child: StreamBuilder(
           stream: bloc.feedList,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData && (snapshot.data as OrderRespone).data.length>0) {
+            if (snapshot.hasData &&
+                (snapshot.data as OrderRespone).data.length > 0) {
               return SingleChildScrollView(
-                controller: _scrollController,
-                child: Column(
-                  children: [
+                  controller: _scrollController,
+                  child: Column(children: [
                     Column(
                         children: (snapshot.data as OrderRespone)
                             .data
                             .asMap()
                             .map((key, value) => MapEntry(
-                            key,
-                            Column(
-                              children: [
-                                Stack(
+                                key,
+                                Column(
                                   children: [
-                                    _BuildCard(
-                                        item: value, index: key, context: context),
-                                    value.items[0].inventory == null?
-                                    Center(
-                                      child: Container(
-                                        color: Colors.white.withOpacity(0.7),
-                                        height: 35.0.h,
-                                        child: Center(
-                                          child: Container(
-                                            width: 30.0.w,
-                                            height: 5.0.h,
-                                            padding: EdgeInsets.all(2.0.w),
-                                            decoration: new BoxDecoration(
-                                                color: Colors.black.withOpacity(0.5),
-                                                borderRadius: new BorderRadius.all(Radius.circular(10.0.w))
-                                            ),
-                                            child: Center(
-                                              child: Text(LocaleKeys.search_product_not_found.tr(),
-                                                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.white)),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ):SizedBox()
+                                    Stack(
+                                      children: [
+                                        _BuildCard(
+                                            item: value,
+                                            index: key,
+                                            context: context),
+                                        value.items[0].inventory == null
+                                            ? Center(
+                                                child: Container(
+                                                  color: Colors.white
+                                                      .withOpacity(0.7),
+                                                  height: 35.0.h,
+                                                  child: Center(
+                                                    child: Container(
+                                                      width: 30.0.w,
+                                                      height: 5.0.h,
+                                                      padding:
+                                                          EdgeInsets.all(2.0.w),
+                                                      decoration: new BoxDecoration(
+                                                          color: Colors.black
+                                                              .withOpacity(0.5),
+                                                          borderRadius:
+                                                              new BorderRadius
+                                                                      .all(
+                                                                  Radius.circular(
+                                                                      10.0.w))),
+                                                      child: Center(
+                                                        child: Text(
+                                                            LocaleKeys
+                                                                .search_product_not_found
+                                                                .tr(),
+                                                            style: FunctionHelper
+                                                                .FontTheme(
+                                                                    fontSize:
+                                                                        SizeUtil.titleSmallFontSize()
+                                                                            .sp,
+                                                                    color: Colors
+                                                                        .white)),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : SizedBox()
+                                      ],
+                                    ),
+                                    Container(
+                                      height: 10,
+                                      color: Colors.grey.shade300,
+                                    )
                                   ],
-                                ),
-                                Container(height: 10,color: Colors.grey.shade300,)
-                              ],
-                            )))
+                                )))
                             .values
                             .toList()),
-                    if ((snapshot.data as OrderRespone).data.length != (snapshot.data as OrderRespone).total)
+                    if ((snapshot.data as OrderRespone).data.length !=
+                        (snapshot.data as OrderRespone).total)
                       Container(
                         padding: EdgeInsets.all(20),
                         child: Row(
@@ -131,9 +155,9 @@ class _ShippedViewState extends State<ShippedView> {
                           children: [
                             Platform.isAndroid
                                 ? SizedBox(
-                                width: 5.0.w,
-                                height: 5.0.w,
-                                child: CircularProgressIndicator())
+                                    width: 5.0.w,
+                                    height: 5.0.w,
+                                    child: CircularProgressIndicator())
                                 : CupertinoActivityIndicator(),
                             SizedBox(
                               width: 10,
@@ -146,11 +170,13 @@ class _ShippedViewState extends State<ShippedView> {
                         ),
                       ),
                   ]));
-            } else if(snapshot.connectionState == ConnectionState.waiting){
-              return Center(child:  Platform.isAndroid
-                  ? CircularProgressIndicator()
-                  : CupertinoActivityIndicator(),);
-            }else {
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: Platform.isAndroid
+                    ? CircularProgressIndicator()
+                    : CupertinoActivityIndicator(),
+              );
+            } else {
               return Center(
                 child: Container(
                   margin: EdgeInsets.only(bottom: 15.0.h),
@@ -162,7 +188,8 @@ class _ShippedViewState extends State<ShippedView> {
                       Text(
                         LocaleKeys.search_product_not_found.tr(),
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
@@ -180,20 +207,20 @@ class _ShippedViewState extends State<ShippedView> {
           children: [
             _OwnShop(item: item),
             _ProductDetail(item: item, index: index),
-
           ],
         ),
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        if(item.items[0].inventory!=null) {
-          AppRoute.OrderDetail(
-              context, orderData: item, typeView: widget.typeView);
-        }},
+        if (item.items[0].inventory != null) {
+          AppRoute.OrderDetail(context,
+              orderData: item, typeView: widget.typeView);
+        }
+      },
     );
   }
 
-  Widget _ProductItem({OrderItems item,int shopId, int index}) {
+  Widget _ProductItem({OrderItems item, int shopId, int index}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -212,7 +239,7 @@ class _ShippedViewState extends State<ShippedView> {
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
-                "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : ''}",
+                    "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : ''}",
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
@@ -223,11 +250,14 @@ class _ShippedViewState extends State<ShippedView> {
               ),
             ),
           ),
-          onTap: (){
+          onTap: () {
             ProductData product = ProductData();
             product = item.inventory.product;
             product.shop = ProductShop(id: shopId);
-            AppRoute.ProductDetail(context, productImage: "history_paid_${item.orderId}${item.inventoryId}${index}2",productItem: ProductBloc.ConvertDataToProduct(data: product));
+            AppRoute.ProductDetail(context,
+                productImage:
+                    "history_paid_${item.orderId}${item.inventoryId}${index}2",
+                productItem: ProductBloc.ConvertDataToProduct(data: product));
           },
         ),
         SizedBox(width: 2.0.w),
@@ -256,11 +286,11 @@ class _ShippedViewState extends State<ShippedView> {
                     children: [
                       item.inventory.product.discountPercent != 0
                           ? Text(
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
-                          style: FunctionHelper.FontTheme(
-                              color: Colors.black.withOpacity(0.5),
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              decoration: TextDecoration.lineThrough))
+                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
+                              style: FunctionHelper.FontTheme(
+                                  color: Colors.black.withOpacity(0.5),
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  decoration: TextDecoration.lineThrough))
                           : SizedBox(),
                       SizedBox(width: 3.0.w),
                       Text(
@@ -292,7 +322,11 @@ class _ShippedViewState extends State<ShippedView> {
             children: item.items
                 .asMap()
                 .map((key, value) => MapEntry(
-                key, _ProductItem(item: item.items[key],shopId: item.shop.id, index: key)))
+                    key,
+                    _ProductItem(
+                        item: item.items[key],
+                        shopId: item.shop.id,
+                        index: key)))
                 .values
                 .toList(),
           ),
@@ -306,9 +340,16 @@ class _ShippedViewState extends State<ShippedView> {
                     children: <TextSpan>[
                       new TextSpan(
                           text: LocaleKeys.history_order_price.tr(),
-                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                      new TextSpan(text: " : " +
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black)),
+                      new TextSpan(
+                          text: " : " +
+                              "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              color: ThemeColor.ColorSale())),
                     ],
                   ),
                 ),
@@ -316,22 +357,35 @@ class _ShippedViewState extends State<ShippedView> {
               Divider(
                 color: Colors.grey.shade400,
               ),
-              widget.typeView == OrderViewType.Shop? _IntroShipment(address: item.shippingAddress):SizedBox(),
-              widget.typeView == OrderViewType.Shop?Divider(
-                color: Colors.grey.shade400,
-              ):SizedBox(),
+              widget.typeView == OrderViewType.Shop
+                  ? _IntroShipment(address: item.shippingAddress)
+                  : SizedBox(),
+              widget.typeView == OrderViewType.Shop
+                  ? Divider(
+                      color: Colors.grey.shade400,
+                    )
+                  : SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                 Expanded(flex: 3,child:  Text(
-                   widget.typeView==OrderViewType.Purchase? "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการขนส่ง" +
-                       "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
-                       "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
-                   style: FunctionHelper.FontTheme(
-                       fontSize: SizeUtil.titleSmallFontSize().sp,
-                       color: Colors.black.withOpacity(0.6)),
-                 )),
-                 Expanded(flex: 3,child:  _BuildButtonBayItem(btnTxt: widget.typeView==OrderViewType.Purchase?"seller is preparing to ship":"จัดส่งสินค้า",item: item)) // ผู้ขายกำลังเตรียมจัดส่งสินค้า for thai
+                  Expanded(
+                      flex: 3,
+                      child: Text(
+                        widget.typeView == OrderViewType.Purchase
+                            ? "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการขนส่ง" +
+                                "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
+                            : LocaleKeys.history_order_time.tr() +
+                                "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            color: Colors.black.withOpacity(0.6)),
+                      )),
+                  Expanded(
+                      child: _BuildButtonBayItem(
+                          btnTxt: widget.typeView == OrderViewType.Purchase
+                              ? "seller is preparing to ship"
+                              : "จัดส่งสินค้า",
+                          item: item)) // ผู้ขายกำลังเตรียมจัดส่งสินค้า for thai
                 ],
               )
             ],
@@ -349,47 +403,51 @@ class _ShippedViewState extends State<ShippedView> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            widget.typeView==OrderViewType.Shop?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
-                style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
-                    fontWeight: FontWeight.w500)),):Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  child: CachedNetworkImage(
-                    width: 7.0.w,
-                    height: 7.0.w,
-                    placeholder: (context, url) => Container(
-                      color: Colors.white,
-                      child: Lottie.asset(
-                        'assets/json/loading.json',
-                        width: 7.0.w,
-                        height: 7.0.w,
+            widget.typeView == OrderViewType.Shop
+                ? Container(
+                    child: Text("เลขคำสั่งซื้อ " + item.orderNumber,
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            fontWeight: FontWeight.w500)),
+                  )
+                : Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        child: CachedNetworkImage(
+                          width: 7.0.w,
+                          height: 7.0.w,
+                          placeholder: (context, url) => Container(
+                            color: Colors.white,
+                            child: Lottie.asset(
+                              'assets/json/loading.json',
+                              width: 7.0.w,
+                              height: 7.0.w,
+                            ),
+                          ),
+                          fit: BoxFit.cover,
+                          imageUrl:
+                              "${Env.value.baseUrl}/storage/images/${item.shop.image.isNotEmpty ? item.shop.image[0].path : ''}",
+                          errorWidget: (context, url, error) => Container(
+                              color: Colors.grey.shade400,
+                              width: 7.0.w,
+                              height: 7.0.w,
+                              child: Icon(
+                                Icons.person,
+                                size: 30,
+                                color: Colors.white,
+                              )),
+                        ),
                       ),
-                    ),
-                    fit: BoxFit.cover,
-                    imageUrl:
-                    "${Env.value.baseUrl}/storage/images/${item.shop.image.isNotEmpty ? item.shop.image[0].path : ''}",
-                    errorWidget: (context, url, error) => Container(
-                        color: Colors.grey.shade400,
-                        width: 7.0.w,
-                        height: 7.0.w,
-                        child: Icon(
-                          Icons.person,
-                          size: 30,
-                          color: Colors.white,
-                        )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(item.shop.name,
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleSmallFontSize().sp,
+                              fontWeight: FontWeight.bold))
+                    ],
                   ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(item.shop.name,
-                    style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        fontWeight: FontWeight.bold))
-              ],
-            ),
             Text(
               item.orderStatusName,
               style: FunctionHelper.FontTheme(
@@ -399,14 +457,15 @@ class _ShippedViewState extends State<ShippedView> {
             )
           ],
         ),
-        onTap: (){
-          AppRoute.ShopMain(context: context,myShopRespone: MyShopRespone(id: item.shop.id));
+        onTap: () {
+          AppRoute.ShopMain(
+              context: context, myShopRespone: MyShopRespone(id: item.shop.id));
         },
       ),
     );
   }
 
-  Widget _BuildButtonBayItem({String btnTxt,OrderData item}) {
+  Widget _BuildButtonBayItem({String btnTxt, OrderData item}) {
     return FlatButton(
       color: ThemeColor.ColorSale(),
       textColor: Colors.white,
@@ -415,17 +474,26 @@ class _ShippedViewState extends State<ShippedView> {
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () async {
-        if(widget.typeView==OrderViewType.Shop){
-         // AppRoute.ShippingOrder(context: context,orderData: item);
-          final result = await AppRoute.AddtTrackingNumber(context: context,orderData: item);
-          if(result){
+        if (widget.typeView == OrderViewType.Shop) {
+          // AppRoute.ShippingOrder(context: context,orderData: item);
+          final result = await AppRoute.AddtTrackingNumber(
+              context: context, orderData: item);
+          if (result) {
             bloc.orderList.clear();
-            Usermanager().getUser().then((value) => bloc.loadOrder(load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "3",limit: limit,page: 1,token: value.token));
+            Usermanager().getUser().then((value) => bloc.loadOrder(
+                load: true,
+                orderType: widget.typeView == OrderViewType.Shop
+                    ? "myshop/orders"
+                    : "order",
+                sort: "orders.updatedAt:desc",
+                statusId: "3",
+                limit: limit,
+                page: 1,
+                token: value.token));
           }
-        }else{
-         // AppRoute.TransferPayMentView(context: context,orderData: item);
+        } else {
+          // AppRoute.TransferPayMentView(context: context,orderData: item);
         }
-
       },
       child: Text(
         btnTxt,
@@ -476,7 +544,14 @@ class _ShippedViewState extends State<ShippedView> {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "3",limit: limit,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(
+        orderType:
+            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+        sort: "orders.updatedAt:desc",
+        statusId: "3",
+        limit: limit,
+        page: page,
+        token: value.token));
   }
 
   @override

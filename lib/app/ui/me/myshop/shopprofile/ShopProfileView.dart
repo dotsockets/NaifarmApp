@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -32,14 +31,13 @@ import 'package:sizer/sizer.dart';
 import 'EditProviceView.dart';
 
 class ShopProfileView extends StatefulWidget {
-
   @override
   _ShopprofileState createState() => _ShopprofileState();
 }
 
 class _ShopprofileState extends State<ShopProfileView> with RouteAware {
   MemberBloc bloc;
-  List<String> datalist = ["ชาย","หญิง"];
+  List<String> datalist = ["ชาย", "หญิง"];
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   MyShopRespone itemInfo = MyShopRespone();
   bool onUpdate = false;
@@ -53,17 +51,15 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
     super.initState();
   }
 
-  void _init(BuildContext context){
-    if(null == bloc){
+  void _init(BuildContext context) {
+    if (null == bloc) {
       bloc = MemberBloc(AppProvider.getApplication(context));
 
-      NaiFarmLocalStorage.getCustomer_Info().then((value){
-
-         setState(() {
-           itemInfo = value.myShopRespone;
-           isSelect = value.myShopRespone.active==1?true:false;
-
-         });
+      NaiFarmLocalStorage.getCustomer_Info().then((value) {
+        setState(() {
+          itemInfo = value.myShopRespone;
+          isSelect = value.myShopRespone.active == 1 ? true : false;
+        });
       });
 
       bloc.onLoad.stream.listen((event) {
@@ -74,59 +70,57 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
         // }
       });
       bloc.onError.stream.listen((event) {
-       // Navigator.of(context).pop();
-        onUpdate  = false;
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+        // Navigator.of(context).pop();
+        onUpdate = false;
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-
         // Future.delayed(const Duration(milliseconds: 1000), () {
         //   Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
         // });
 
-        if(event is ImageUploadRespone){
+        if (event is ImageUploadRespone) {
           setState(() {
             onImageUpdate = true;
             itemInfo.image[0].path = (event as ImageUploadRespone).path;
           });
         }
 
-       if(onUpdate || onImageUpdate){
-       //  Navigator.pop(context,true);
-       }
+        if (onUpdate || onImageUpdate) {
+          //  Navigator.pop(context,true);
+        }
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
 
-     // Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
+      // Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
 
-    }
-
-  }
-
-  void OnSave({MyShopRespone itemInfo}){
-    if(onUpdate || onImageUpdate){
-      Usermanager().getUser().then((value) =>  bloc.MyShopUpdate(context: context,data: MyShopRequest(
-          name: itemInfo.name,
-          description: itemInfo.description,
-          slug: itemInfo.slug,
-          legalName: itemInfo.legalName,
-          externalUrl: itemInfo.externalUrl,
-          stateId: itemInfo.state!=null?itemInfo.state.id:0,
-          active: isSelect?1:0
-      ),access_token: value.token));
-      Navigator.pop(context,true);
-    }else{
-      Navigator.pop(context,onImageUpdate);
     }
   }
 
-
+  void OnSave({MyShopRespone itemInfo}) {
+    if (onUpdate || onImageUpdate) {
+      Usermanager().getUser().then((value) => bloc.MyShopUpdate(
+          context: context,
+          data: MyShopRequest(
+              name: itemInfo.name,
+              description: itemInfo.description,
+              slug: itemInfo.slug,
+              legalName: itemInfo.legalName,
+              externalUrl: itemInfo.externalUrl,
+              stateId: itemInfo.state != null ? itemInfo.state.id : 0,
+              active: isSelect ? 1 : 0),
+          access_token: value.token));
+      Navigator.pop(context, true);
+    } else {
+      Navigator.pop(context, onImageUpdate);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     _init(context);
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         OnSave();
         return true;
       },
@@ -139,101 +133,124 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
               backgroundColor: Colors.grey.shade200,
               body: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
                 builder: (_, item) {
-                  if(item is InfoCustomerLoaded){
-                    return  _ContentMe(itemInfo: item.profileObjectCombine.myShopRespone);
-                  }else if(item is InfoCustomerLoading){
-                    return  _ContentMe(itemInfo: item.profileObjectCombine.myShopRespone);
-                  }else{
-                    return  SizedBox();
+                  if (item is InfoCustomerLoaded) {
+                    return _ContentMe(
+                        itemInfo: item.profileObjectCombine.myShopRespone);
+                  } else if (item is InfoCustomerLoading) {
+                    return _ContentMe(
+                        itemInfo: item.profileObjectCombine.myShopRespone);
+                  } else {
+                    return SizedBox();
                   }
-
                 },
-              )
-          ),
+              )),
         ),
       ),
     );
   }
 
-  Widget _ContentMe({MyShopRespone itemInfo}){
+  Widget _ContentMe({MyShopRespone itemInfo}) {
     return CustomScrollView(
       slivers: [
         SliverAppBar(
           leading: Container(
               margin: EdgeInsets.only(left: 10),
               child: IconButton(
-                icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
-                onPressed: (){
+                icon: Icon(
+                  Platform.isAndroid
+                      ? Icons.arrow_back
+                      : Icons.arrow_back_ios_rounded,
+                  color: Colors.white,
+                ),
+                onPressed: () {
                   OnSave(itemInfo: itemInfo);
-
                 },
-              )
-          ),
-          expandedHeight: 220,
+              )),
+          expandedHeight: SizeUtil.meBodyHeight(220),
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
               color: ThemeColor.primaryColor(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20,),
-                  Text("แก้ไขร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
-                  SizedBox(height: 30,),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "แก้ไขร้านค้า",
+                    style: FunctionHelper.FontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
                   InkWell(
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(60)),
-                      child: fileImage==null?CachedNetworkImage(
-                        width: 20.0.w,
-                        height: 20.0.w,
-                        placeholder: (context, url) => Container(
-                          width: 20.0.w,
-                          height: 20.0.w,
-                          color: Colors.white,
-                          child: Lottie.asset('assets/json/loading.json',
-                              height: 30),
-                        ),
-                        fit: BoxFit.cover,
-                        imageUrl:itemInfo!=null?itemInfo.image!=null?"${Env.value.baseUrl}/storage/images/${itemInfo.image.isNotEmpty?itemInfo.image[0].path:''}":'':'',
-                        errorWidget: (context, url, error) => Container(
-                            color: Colors.white,
-                            width: 20.0.w,
-                            height: 20.0.w,
-                            child: Icon(
-                              Icons.person,
-                              size: 30,
-                              color: Colors.grey.shade300,
-                            )),
-                      ):Stack(
-                        children: [
-                          Container(
-                            width: 20.0.w,
-                            height: 20.0.w,
-                            color: Colors.white,
-                            child: Lottie.asset('assets/json/loading.json',
-                                height: 30),
-                          ),
-                          Image.file(fileImage,width: 20.0.w, height: 20.0.w,fit: BoxFit.cover,),
-
-                        ],
-                      ),
+                      child: fileImage == null
+                          ? CachedNetworkImage(
+                              width: 20.0.w,
+                              height: 20.0.w,
+                              placeholder: (context, url) => Container(
+                                width: 20.0.w,
+                                height: 20.0.w,
+                                color: Colors.white,
+                                child: Lottie.asset('assets/json/loading.json',
+                                    height: 30),
+                              ),
+                              fit: BoxFit.cover,
+                              imageUrl: itemInfo != null
+                                  ? itemInfo.image != null
+                                      ? "${Env.value.baseUrl}/storage/images/${itemInfo.image.isNotEmpty ? itemInfo.image[0].path : ''}"
+                                      : ''
+                                  : '',
+                              errorWidget: (context, url, error) => Container(
+                                  color: Colors.white,
+                                  width: 20.0.w,
+                                  height: 20.0.w,
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 30,
+                                    color: Colors.grey.shade300,
+                                  )),
+                            )
+                          : Stack(
+                              children: [
+                                Container(
+                                  width: 20.0.w,
+                                  height: 20.0.w,
+                                  color: Colors.white,
+                                  child: Lottie.asset(
+                                      'assets/json/loading.json',
+                                      height: 30),
+                                ),
+                                Image.file(
+                                  fileImage,
+                                  width: 20.0.w,
+                                  height: 20.0.w,
+                                  fit: BoxFit.cover,
+                                ),
+                              ],
+                            ),
                     ),
-                    onTap: ()=> captureImage(ImageSource.gallery),
+                    onTap: () => captureImage(ImageSource.gallery),
                   ),
                   SizedBox(height: 15),
                   InkWell(
                     child: Container(
-                      padding: EdgeInsets.only(right: 15,left: 15,bottom: 5,top: 5),
+                      padding: EdgeInsets.only(
+                          right: 15, left: 15, bottom: 5, top: 5),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(15)),
-                          color: ThemeColor.ColorSale()
-                      ),
+                          color: ThemeColor.ColorSale()),
                       child: Text(LocaleKeys.edit_img_btn.tr(),
                           style: FunctionHelper.FontTheme(
                               color: Colors.white,
-                              fontSize:  SizeUtil.detailSmallFontSize(),
+                              fontSize: SizeUtil.detailSmallFontSize(),
                               fontWeight: FontWeight.bold)),
                     ),
-                    onTap: (){
+                    onTap: () {
                       captureImage(ImageSource.gallery);
                     },
                   ),
@@ -247,17 +264,17 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
             Container(
               child: Column(
                 children: [
-
                   ListMenuItem(
                     opacityMessage: 0.5,
                     icon: '',
-                    Message: itemInfo.name!=null?itemInfo.name:'',
+                    Message: itemInfo.name != null ? itemInfo.name : '',
                     title: "ชื่อร้านค้า",
                     onClick: () async {
-                      final result = await AppRoute.EditNameShop(context,itemInfo: itemInfo);
-                      if(result!=null){
+                      final result = await AppRoute.EditNameShop(context,
+                          itemInfo: itemInfo);
+                      if (result != null) {
                         onUpdate = true;
-                        setState(()=>itemInfo = result);
+                        setState(() => itemInfo = result);
                       }
                     },
                   ),
@@ -265,13 +282,18 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                   ListMenuItem(
                     opacityMessage: 0.5,
                     icon: '',
-                    Message: itemInfo.legalName!=null?itemInfo.legalName.length>20?'${itemInfo.legalName.substring(0,20)}...':itemInfo.legalName:'',
+                    Message: itemInfo.legalName != null
+                        ? itemInfo.legalName.length > 20
+                            ? '${itemInfo.legalName.substring(0, 20)}...'
+                            : itemInfo.legalName
+                        : '',
                     title: "ชื่อเป็นทางการ",
                     onClick: () async {
-                      final result = await AppRoute.OfficialName(context,itemInfo: itemInfo);
-                      if(result!=null){
+                      final result = await AppRoute.OfficialName(context,
+                          itemInfo: itemInfo);
+                      if (result != null) {
                         onUpdate = true;
-                        setState(()=>itemInfo = result);
+                        setState(() => itemInfo = result);
                       }
                     },
                   ),
@@ -279,13 +301,14 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                   ListMenuItem(
                     opacityMessage: 0.5,
                     icon: '',
-                    Message: itemInfo.slug!=null?itemInfo.slug:'',
+                    Message: itemInfo.slug != null ? itemInfo.slug : '',
                     title: "Slug ร้านค้า",
-                    onClick: () async{
-                      final result = await AppRoute.EditSlug(context,itemInfo: itemInfo);
-                      if(result!=null){
+                    onClick: () async {
+                      final result =
+                          await AppRoute.EditSlug(context, itemInfo: itemInfo);
+                      if (result != null) {
                         onUpdate = true;
-                        setState(()=>itemInfo = result);
+                        setState(() => itemInfo = result);
                       }
                     },
                   ),
@@ -293,13 +316,16 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                   ListMenuItem(
                     opacityMessage: 0.5,
                     icon: '',
-                    Message: itemInfo.description!=null?itemInfo.description:'',
+                    Message: itemInfo.description != null
+                        ? itemInfo.description
+                        : '',
                     title: "รายละเอียด",
                     onClick: () async {
-                      final result = await AppRoute.EditDetail(context,itemInfo: itemInfo);
-                      if(result!=null){
+                      final result = await AppRoute.EditDetail(context,
+                          itemInfo: itemInfo);
+                      if (result != null) {
                         onUpdate = true;
-                        setState(()=>itemInfo = result);
+                        setState(() => itemInfo = result);
                       }
                     },
                   ),
@@ -307,13 +333,16 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                   ListMenuItem(
                     opacityMessage: 0.5,
                     icon: '',
-                    Message: itemInfo.externalUrl!=null?itemInfo.externalUrl:'',
+                    Message: itemInfo.externalUrl != null
+                        ? itemInfo.externalUrl
+                        : '',
                     title: "ลิงค์ภายนอก",
                     onClick: () async {
-                      final result = await AppRoute.EditExtrlUrl(context,itemInfo: itemInfo);
-                      if(result!=null){
+                      final result = await AppRoute.EditExtrlUrl(context,
+                          itemInfo: itemInfo);
+                      if (result != null) {
                         onUpdate = true;
-                        setState(()=>itemInfo = result);
+                        setState(() => itemInfo = result);
                       }
                     },
                   ),
@@ -321,14 +350,19 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                   ListMenuItem(
                     opacityMessage: 0.5,
                     icon: '',
-                    Message: itemInfo!=null?itemInfo.state!=null?itemInfo.state.name:'':'',
+                    Message: itemInfo != null
+                        ? itemInfo.state != null
+                            ? itemInfo.state.name
+                            : ''
+                        : '',
                     title: "จังหวัด",
                     onClick: () async {
-                      final result = await AppRoute.EditProvice(context,itemInfo: itemInfo);
+                      final result = await AppRoute.EditProvice(context,
+                          itemInfo: itemInfo);
 
-                      if(result!=null){
+                      if (result != null) {
                         onUpdate = true;
-                        setState(()=>itemInfo = result);
+                        setState(() => itemInfo = result);
                       }
                     },
                   ),
@@ -337,10 +371,10 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     opacityMessage: 0.5,
                     icon: '',
                     SelectSwitch: isSelect,
-                    IsSwitch: (bool select){
+                    IsSwitch: (bool select) {
                       onUpdate = true;
-                      itemInfo.active = select?1:0;
-                      setState(()=> isSelect = select);
+                      itemInfo.active = select ? 1 : 0;
+                      setState(() => isSelect = select);
                     },
                     title: "สถานะร้านค้า",
                     onClick: () {
@@ -356,7 +390,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
     );
   }
 
-  Widget _buildLine({double num=0.5}) {
+  Widget _buildLine({double num = 0.5}) {
     return Container(
       height: num,
       color: Colors.grey.shade300,
@@ -367,17 +401,18 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
     final picker = ImagePicker();
     final pickedFile = await picker.getImage(source: imageSource);
 
-
     setState(() {
       if (pickedFile != null) {
         fileImage = File(pickedFile.path);
-        Usermanager().getUser().then((value) => bloc.UploadImage(context: context,imageFile: fileImage,imageableType: "shop",imageableId: itemInfo.id,token: value.token));
+        Usermanager().getUser().then((value) => bloc.UploadImage(
+            context: context,
+            imageFile: fileImage,
+            imageableType: "shop",
+            imageableId: itemInfo.id,
+            token: value.token));
       } else {
         print('No image selected.');
       }
     });
   }
-
-
-
 }
