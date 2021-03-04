@@ -136,7 +136,7 @@ class _LoginViewState extends State<LoginView> {
         child: Column(
           children: [
             SizedBox(height: 4.0.h,),
-            Text(LocaleKeys.login_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp+2,fontWeight: FontWeight.w500),),
+            Text(LocaleKeys.btn_login.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp+2,fontWeight: FontWeight.w500),),
             SizedBox(height: 3.0.h,),
             BuildEditText(head: LocaleKeys.my_profile_phone.tr()+"/"+LocaleKeys.my_profile_email.tr(), hint: LocaleKeys.my_profile_phone.tr()+"/"+LocaleKeys.my_profile_email.tr(),inputType: TextInputType.text,controller: _username,BorderOpacity: 0.3,borderRadius: 7,onChanged: (String x) => _checkError(),),
             SizedBox(height: 2.0.h,),
@@ -161,7 +161,7 @@ class _LoginViewState extends State<LoginView> {
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 onPressed: () => _validate(),
-                child: Text(LocaleKeys.login_btn.tr(),
+                child: Text(LocaleKeys.btn_login.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                 ),
               ),
@@ -181,7 +181,7 @@ class _LoginViewState extends State<LoginView> {
                 onPressed: () {
                   AppRoute.Register(context);
                 },
-                child: Text(LocaleKeys.register_btn.tr(),
+                child: Text(LocaleKeys.btn_register.tr(),
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                 ),
               ),

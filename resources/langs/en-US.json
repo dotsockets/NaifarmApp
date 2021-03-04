@@ -2,6 +2,7 @@
   "setting_account": {
     "title_profile": "My Profile",
     "title_address": "My Addresses",
+    "address_toobar": "My Addresses",
     "title_bank": "Bank Accounts/Cards Information",
     "title_noti": "Notification Settings",
     "title_language": "Language",
@@ -133,30 +134,32 @@
   "shipping_toobar": "Shipping",
   "market_toobar": "Naifarm Farm Market Products",
 
-  "logout_btn": "LOGOUT",
-  "add_address_btn": "Add New Address",
-  "add_product_btn": "Add Product",
-  "login_btn": "LOGIN",
-  "facebook_login_btn": "Login with Facebook",
-  "facebook_regis_btn": "Sign up with Facebook",
-  "edit_img_btn": "Edit Image",
-  "save_btn": "SAVE",
-  "register_btn": "SIGN UP",
-  "ok_btn": "OK",
-  "continue_btn": "Continue",
-  "next_btn": "Next",
-  "cancel_btn": "Cancel",
-  "forgot_pass_btn": "Forgot password?",
-  "confirm_btn": "Confirm",
-  "sell_btn": "SELL",
-  "set_price_btn": "Set Price",
-  "buy_now_btn": "Buy Now",
-  "buy_product_btn": "Buy Now",
-  "del_product_btn": "Delete Product",
-  "save_edit_btn": "Save Edit",
-  "review_btn": "Review",
-  "buy_product_again_btn": "Buy Again",
-
+  "btn":{
+    "logout": "LOGOUT",
+    "add_address": "Add New Address",
+    "add_product": "Add Product",
+    "login": "LOGIN",
+    "facebook_login": "Login with Facebook",
+    "facebook_regis": "Sign up with Facebook",
+    "edit_img": "Edit Image",
+    "save": "SAVE",
+    "register": "SIGN UP",
+    "ok": "OK",
+    "continue": "Continue",
+    "next": "Next",
+    "cancel": "Cancel",
+    "forgot_pass": "Forgot password?",
+    "confirm": "Confirm",
+    "sell": "SELL",
+    "set_price": "Set Price",
+    "buy_now": "Buy Now",
+    "buy_product": "Buy Now",
+    "del_product": "Delete Product",
+    "save_edit": "Save Edit",
+    "review": "Review",
+    "buy_product_again": "Buy Again",
+    "main": "Back to main page"
+  },
 
 
   "dialog_message":{
@@ -209,7 +212,9 @@
     "place_order": "Place Order",
     "shipping": "Shipping",
     "shipping_addr": "Shipping Address",
-    "use_before": "valid till"
+    "use_before": "valid till",
+    "outstock": "Out of stock",
+    "note": "note"
   },
   "history":{
     "order_time": "Payment Time",
@@ -257,7 +262,6 @@
     "image": "Product Image",
     "image_guide": "show 10 product images",
     "delivery_addr": "Ships Address",
-    "delivery_from": "Ships from",
     "delivery_price": "Shipping Cost",
     "delivery_price_each": "Each Shipping Cost",
     "options_add": "Add Options",
@@ -276,7 +280,7 @@
     "follow": "Follow",
     "following": "Following",
     "follower": "Follower",
-    "product_list": "Products",
+    "product_list": "Product",
     "name": "Shop Name",
     "active": {
       "hour": "hour ago",
@@ -287,6 +291,7 @@
     "market": "Farm Market",
     "search_hot":"Hot Search",
     "category_product": "Product Category",
+    "category_sub": "Product Category",
     "best_seller": "Best Seller",
     "product_for_you": "Product For You",
     "change": "Change",
@@ -303,7 +308,6 @@
   "tab_bar":{
     "recommend": "Recommend",
     "category": "Category",
-    "cart": "Cart",
     "me": "Me",
     "home": "Home"
   },
@@ -322,8 +326,9 @@
     "rate1": "Order ",
     "rate2": " Please rate the product.",
     "order_cancel": "Order Canceled",
-    "order2": " has been canceled because we unable to verify your payment."
-
+    "order2": " has been canceled because we unable to verify your payment.",
+    "buyer":"Buyer notification",
+    "seller":"Seller notification"
   },
   "order_detail":{
     "title": "Order Detail",
@@ -342,7 +347,9 @@
     "ship_addr": "Shipping Address",
     "total": "Order Total",
     "subtotal": "Order Subtotal",
-    "payment": "Payment Method"
+    "payment": "Payment Method",
+    "complete": "Order Successful",
+    "summary" : "Total"
   },
   "login": {
     "forgot_password": "Forgot Password",

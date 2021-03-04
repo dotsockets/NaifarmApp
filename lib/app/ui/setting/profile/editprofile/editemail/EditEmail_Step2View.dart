@@ -139,7 +139,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                   onPressed: ()=>FormCheck()?verify():SizedBox(),
-                  child: Text( LocaleKeys.continue_btn.tr(),
+                  child: Text( LocaleKeys.btn_continue.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                   ),
                 )

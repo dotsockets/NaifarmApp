@@ -95,7 +95,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
                       borderRadius: BorderRadius.circular(40.0),
                     ),
                     onPressed: ()=>verify(),
-                    child: Text(LocaleKeys.next_btn.tr(),
+                    child: Text(LocaleKeys.btn_next.tr(),
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                     ),
                   )

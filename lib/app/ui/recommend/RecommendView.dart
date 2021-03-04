@@ -420,6 +420,5 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
        _refreshProducts();
       }
     });
-
   }
 }

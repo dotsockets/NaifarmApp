@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -83,7 +84,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                             children: [
                               SvgPicture.asset('assets/images/svg/checkmark.svg',color: Colors.white,width: 6.0.w,height: 6.0.w,),
                               SizedBox(width: 2.0.w,),
-                              Text("คำสั่งซื้อเสร็จสมบูรณ์",
+                              Text(LocaleKeys.order_detail_complete.tr(),
                                   style: FunctionHelper.FontTheme(
                                       fontSize: (SizeUtil.titleFontSize()+2).sp,
                                       fontWeight: FontWeight.bold,
@@ -91,7 +92,8 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                             ],
                           ),
                           SizedBox(height: 2.0.h,),
-                          Text("ยอดชำระเงิน ฿${NumberFormat("#,##0.00", "en_US").format(int.parse(widget.payment_total))}",
+                         // Text("ยอดชำระเงิน ฿${NumberFormat("#,##0.00", "en_US").format(int.parse(widget.payment_total))}",
+                          Text("${LocaleKeys.order_detail_summary.tr()} ฿${int.parse(widget.payment_total)}",
                               style: FunctionHelper.FontTheme(
                                   fontSize: (SizeUtil.titleFontSize()+1.0).sp,
                                   fontWeight: FontWeight.bold,
@@ -137,7 +139,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
 
               },
               child: Text(
-                "Back to Main Page",
+                LocaleKeys.btn_main.tr(),
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.w500),
@@ -160,7 +162,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                 AppRoute.OrderDetail(context,orderData: widget.orderData);
               },
               child: Text(
-                "Order details",
+                LocaleKeys.order_detail_title.tr(),
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.w500),

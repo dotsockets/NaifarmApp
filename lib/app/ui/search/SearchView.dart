@@ -52,6 +52,7 @@ class _SearchViewState extends State<SearchView> {
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
+
           body: SingleChildScrollView(
             child: StickyHeader(
               header: AppToobar(

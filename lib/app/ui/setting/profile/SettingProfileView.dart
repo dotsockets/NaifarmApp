@@ -200,7 +200,7 @@ class _SettingProfileViewState extends State<SettingProfileView> with RouteAware
         width: 50.0.w,
           height: 5.0.h,
           color: Colors.grey.shade300,
-          child: _BuildButtonItem(btnTxt: LocaleKeys.logout_btn.tr())),
+          child: _BuildButtonItem(btnTxt: LocaleKeys.btn_logout.tr())),
     );
   }
 

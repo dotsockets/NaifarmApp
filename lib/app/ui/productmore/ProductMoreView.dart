@@ -327,7 +327,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half,
                   color: Colors.orange,
-                  borderColor: Colors.black,
+                  borderColor: Colors.grey.shade300,
                   spacing: 0.0),
             ),
             Text("${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():'0' } ${ LocaleKeys.cart_piece.tr()}",

@@ -169,7 +169,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
           /*...*/
         },
         child: Text(
-          LocaleKeys.confirm_btn.tr(),
+          LocaleKeys.btn_confirm.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
         ),
       ),

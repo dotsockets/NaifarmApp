@@ -301,9 +301,11 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           item.inventory.offerPrice !=
                               null ?
                           Text(
-                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
+                           //   "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
+                              "฿${item.inventory.salePrice}",
                               style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.priceFontSize().sp,
+                                  fontSize: SizeUtil.priceFontSize().sp-2,
+                                  color: Colors.grey,
                                   decoration: TextDecoration.lineThrough))
                               : SizedBox(),
                           //: SizedBox(),
@@ -313,11 +315,13 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                   null ? 2.0.w : 0),
                           item.inventory.offerPrice !=
                               null?Text(
-                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.offerPrice)}",
+                            //  "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.offerPrice)}",
+                              "฿${item.inventory.offerPrice}",
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.priceFontSize().sp,
                                   color: ThemeColor.ColorSale())):Text(
-                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
+                            //  "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
+                              "฿${item.inventory.salePrice}",
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.priceFontSize().sp,
                                   color: ThemeColor.ColorSale()))
@@ -413,7 +417,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           children: [
                             SizedBox(width: 1.0.w),
                             Text(
-                                "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data.rate != null ? snapshot.data.rate : 0)}",
+                                "฿${snapshot.data.rate != null ? snapshot.data.rate : 0}",
+                               // "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data.rate != null ? snapshot.data.rate : 0)}",
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     color: Colors.black)),
@@ -493,7 +498,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                             Radius.circular(10) //                 <--- border radius here
                         )
                     ),
-                    child: Text("${value[index].note!=null?value[index].note:'note...'}", style: FunctionHelper.FontTheme(
+                    child: Text("${value[index].note!=null?value[index].note:'${LocaleKeys.cart_note.tr()}...'}", style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         color: Colors.black),overflow: TextOverflow.ellipsis,),
                   ),
@@ -522,7 +527,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         color: Colors.black)),
-                Text("฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
+                Text("฿${item.total}",
+             //   Text("฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500,
@@ -612,7 +618,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   color: Colors.black.withOpacity(0.6))),
                           Text(
-                              "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
+                           //   "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
+                              "฿${snapshot.data}",
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   fontWeight: FontWeight.w500,
@@ -640,7 +647,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   color: Colors.black.withOpacity(0.6))),
                           Text(
-                              "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
+                            //  "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
+                              "฿${snapshot.data}",
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   fontWeight: FontWeight.w500,
@@ -669,7 +677,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold)),
                           Text(
-                              "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
+                              "฿${snapshot.data}",
+                             // "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   fontWeight: FontWeight.bold,
@@ -725,7 +734,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                 alignment: Alignment.topRight,
                                 margin: EdgeInsets.only(right: 10),
                                 child: Text(
-                                    "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
+                                    //"฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
+                                    "฿${snapshot.data}",
                                     style: FunctionHelper.FontTheme(
                                         fontSize: SizeUtil.titleFontSize().sp,
                                         fontWeight: FontWeight.bold,
@@ -778,7 +788,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                    LocaleKeys.select.tr() + LocaleKeys.cart_shipping_addr.tr(),
+                    LocaleKeys.cart_shipping_addr.tr(),
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500,
@@ -819,7 +829,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                       fontSize: SizeUtil.titleFontSize().sp,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black)),
-                              Text("${value.addressLine1}  ${value.zipCode}",
+                              Text("${value.addressLine1} ${value.zipCode}",
                                   style: FunctionHelper.FontTheme(
                                       fontSize: SizeUtil.titleFontSize().sp,
                                       fontWeight: FontWeight.w500,
@@ -882,7 +892,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     color: Colors.black)),
                             Text(
-                                "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
+                                "฿${item.total}",
+                              //  "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     fontWeight: FontWeight.w500,

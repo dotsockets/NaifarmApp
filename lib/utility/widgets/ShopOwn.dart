@@ -126,29 +126,30 @@ class ShopOwn extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        rateStyle?Text("${shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():'0.0'}",
+                        rateStyle?Text("${shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating:'0'}",
                             style: FunctionHelper.FontTheme(
                                 fontSize: SizeUtil.priceFontSize().sp,
                                 color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)):SizedBox(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            rateStyle==false?Text("${shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():'0.0'}",
+                            rateStyle==false?Text("${shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating:'0'}",
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.priceFontSize().sp,
                                     color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)):SizedBox(),
-                            SizedBox(width: 10),
+
                             SmoothStarRating(
                                 allowHalfRating: false,
                                 onRated: (v) {},
                                 starCount: 5,
-                                rating: shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():0.0,
+                                rating: shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating:0,
+                              //  rating: shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():0.0,
                                 size: 18.0,
                                 isReadOnly: true,
                                 filledIconData: Icons.star,
                                 halfFilledIconData: Icons.star_half_outlined,
                                 color: Colors.amber,
-                                borderColor: Colors.amber,
+                                borderColor: Colors.grey.shade300,
                                 spacing: 0.0)
                           ],
                         ),

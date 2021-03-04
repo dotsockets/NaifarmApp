@@ -111,10 +111,10 @@ class ProductInto extends StatelessWidget {
                     filledIconData: Icons.star,
                     halfFilledIconData: Icons.star_half_outlined,
                     color: Colors.amber,
-                    borderColor: Colors.amber,
+                    borderColor: Colors.grey.shade300,
                     spacing: 0.0),
                 SizedBox(width: 1.0.w,),
-                Text("${data.rating!=null&&data.rating!=0?data.rating.toDouble():0.0}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
+                Text("${data.rating!=null&&data.rating!=0?data.rating:0}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
                 SizedBox(width: 1.0.w,),
                 Center(
                   child: Container(
@@ -124,7 +124,7 @@ class ProductInto extends StatelessWidget {
                   ),
                 ),SizedBox(width: 1.0.w,),
                 Expanded(child: Text(
-                  "${LocaleKeys.my_product_sold_end.tr()} ${data.saleCount!=null? data.saleCount.toString():'0'} ${LocaleKeys.cart_piece.tr()}",
+                  "${LocaleKeys.my_product_sold.tr()} ${data.saleCount!=null? data.saleCount.toString():'0'} ${LocaleKeys.cart_piece.tr()}",
                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
                 ),),
              InkWell(

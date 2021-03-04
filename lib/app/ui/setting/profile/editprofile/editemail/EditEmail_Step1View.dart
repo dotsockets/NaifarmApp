@@ -115,21 +115,21 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                           setState(() {});
                         }),
                         SizedBox(height: 1.0.h,),
-                        // Column(
-                        //
-                        //   children: [
-                        //     SizedBox(height: 3,),
-                        //     Text(LocaleKeys.forgot_pass_btn.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp)),
-                        //     SizedBox(height: 2,),
-                        //     Container(
-                        //       width: ScreenUtil().setWidth(250),
-                        //       color: Colors.grey.shade500,
-                        //       height: 1,
-                        //     )
-                        //   ],
-                        // ),
-                        // SizedBox(height: 3,),
-                        // Text(LocaleKeys.message_forgot_mail.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp))
+                        Column(
+
+                          children: [
+                            SizedBox(height: 3,),
+                            Text(LocaleKeys.btn_forgot_pass.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp)),
+                            SizedBox(height: 2,),
+                            Container(
+                              width: ScreenUtil().setWidth(250),
+                              color: Colors.grey.shade500,
+                              height: 1,
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 3,),
+                        Text(LocaleKeys.message_forgot_mail.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp))
 
                       ],
                     ),
@@ -146,7 +146,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                   onPressed: ()=>FormCheck()?verify():SizedBox(),
-                  child: Text(LocaleKeys.continue_btn.tr(),
+                  child: Text(LocaleKeys.btn_continue.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                   ),
                 )

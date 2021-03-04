@@ -340,7 +340,7 @@ class _MyshopViewState extends State<MyshopView> {
 
         },
         child: Text(
-          LocaleKeys.add_product_btn.tr(),
+          LocaleKeys.btn_add_product.tr(),
           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
         ),
       ),
@@ -353,7 +353,7 @@ class _MyshopViewState extends State<MyshopView> {
         width: 60.0.w,
         height: 5.5.h,
         margin: EdgeInsets.all(15),
-        child: _buildButtonItem(btnTxt: LocaleKeys.continue_btn.tr()));
+        child: _buildButtonItem(btnTxt: LocaleKeys.btn_continue.tr()));
   }
 
   Widget _buildButtonItem({String btnTxt}) {

@@ -497,9 +497,11 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                                 item.items[indexShopItem].inventory.offerPrice !=
                                     null ?
                                 Text(
-                                    "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
+                                   // "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
+                                    "฿${item.items[indexShopItem].inventory.salePrice}",
                                     style: FunctionHelper.FontTheme(
-                                        fontSize: SizeUtil.priceFontSize().sp,
+                                        fontSize: SizeUtil.priceFontSize().sp-2,
+                                        color: Colors.grey,
                                         decoration: TextDecoration.lineThrough))
                                     : SizedBox(),
                                 //: SizedBox(),
@@ -511,11 +513,13 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                                         : 0),
                                 item.items[indexShopItem].inventory.offerPrice !=
                                     null?Text(
-                                    "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}",
+                                   // "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}",
+                                    "฿${item.items[indexShopItem].inventory.offerPrice}",
                                     style: FunctionHelper.FontTheme(
                                         fontSize: SizeUtil.priceFontSize().sp,
                                         color: ThemeColor.ColorSale())):Text(
-                                    "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
+                                   // "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
+                                    "฿${item.items[indexShopItem].inventory.salePrice}",
                                     style: FunctionHelper.FontTheme(
                                         fontSize: SizeUtil.priceFontSize().sp,
                                         color: ThemeColor.ColorSale()))
@@ -618,7 +622,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                     borderRadius: new BorderRadius.all(Radius.circular(10.0.w))
                 ),
                 child: Center(
-                  child: Text("Out of stock",
+                  child: Text(LocaleKeys.cart_outstock.tr(),
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.white)),
                 ),
               ),
@@ -758,7 +762,8 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                         alignment: Alignment.topRight,
                         margin: EdgeInsets.only(right: 2.0.w),
                         child: Text(
-                            "฿${NumberFormat("#,##0.00", "en_US").format(SumTotalPrice(cartResponse: cartResponse))}",
+                            //"฿${NumberFormat("#,##0.00", "en_US").format(SumTotalPrice(cartResponse: cartResponse))}",
+                          "฿${SumTotalPrice(cartResponse: cartResponse)}",
                             style: FunctionHelper.FontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.bold,

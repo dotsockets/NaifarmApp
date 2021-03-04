@@ -24,7 +24,7 @@ class MenuViewModel {
       MenuModel(
         icon: 'assets/images/svg/cart.svg',
         iconSelected: 'assets/images/svg/cart.svg',
-        label: "Cart",
+        label: LocaleKeys.cart_toobar.tr(),
       ),
       MenuModel(
         icon: 'assets/images/svg/me.svg',

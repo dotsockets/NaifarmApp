@@ -73,7 +73,7 @@ class _AddressViewState extends State<AddressView> {
                 appBar: PreferredSize(
                   preferredSize: Size.fromHeight(6.5.h),
                   child: AppToobar(
-                    title: LocaleKeys.setting_account_title_address.tr(),
+                    title: LocaleKeys.setting_account_address_toobar.tr(),
                     header_type: Header_Type.barNormal,
                     icon: "",
                     isEnable_Search: false,
@@ -363,7 +363,7 @@ class _AddressViewState extends State<AddressView> {
             }
           },
           child: Text(
-            LocaleKeys.add_address_btn.tr(),
+            LocaleKeys.btn_add_address.tr(),
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),

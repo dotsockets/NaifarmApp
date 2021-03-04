@@ -343,7 +343,7 @@ class _ImageProductViewState extends State<ImageProductView> {
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(15),
             child: _buildButtonItem(
-                btnTxt: LocaleKeys.continue_btn.tr(),
+                btnTxt: LocaleKeys.btn_continue.tr(),
                 isEnable: item.length > 0 ? true : false)));
   }
 

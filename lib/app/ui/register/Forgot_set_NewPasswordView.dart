@@ -138,7 +138,7 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
                                     bloc.ForgotPassword(password: _input2.text,phone: widget.phone,ref: widget.ref,code: widget.code);
                                   }
                                 },
-                                child: Text(LocaleKeys.continue_btn.tr(),
+                                child: Text(LocaleKeys.btn_continue.tr(),
                                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                                 ),
                               )
@@ -170,7 +170,7 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
           },),
           SizedBox(height: 3.0.h,),
 
-          BuildEditText(head: LocaleKeys.confirm_btn.tr()+" New "+LocaleKeys.my_profile_password.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input2,onError: onError2
+          BuildEditText(head: LocaleKeys.btn_confirm.tr()+" New "+LocaleKeys.my_profile_password.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input2,onError: onError2
             ,onChanged: (String char){
             verify();
           },)

@@ -62,7 +62,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                       borderRadius: BorderRadius.circular(40.0),
                     ),
                     onPressed: ()=>FormCheck()?Navigator.pop(context, widget.itemInfo):SizedBox(),
-                    child: Text(LocaleKeys.save_btn.tr(),
+                    child: Text(LocaleKeys.btn_save.tr(),
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
                     ),
                   )

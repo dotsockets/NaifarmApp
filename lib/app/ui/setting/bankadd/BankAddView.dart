@@ -143,7 +143,7 @@ class _BankAddViewState extends State<BankAddView> {
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(15),
-            child: _buildButtonItem(btnTxt: LocaleKeys.save_btn.tr())));
+            child: _buildButtonItem(btnTxt: LocaleKeys.btn_save.tr())));
   }
 
   Widget _buildButtonItem({String btnTxt}) {

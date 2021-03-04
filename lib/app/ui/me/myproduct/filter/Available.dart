@@ -80,8 +80,10 @@ class _AvailableState extends State<Available> {
           page=1;
           _reloadData();
         });*/
-        FunctionHelper.SnackBarShow(
-            scaffoldKey: widget.scaffoldKey, message: event.error.message);
+        FunctionHelper.AlertDialogShop(context,
+            title: "Error", message:event.error.message);
+        //FunctionHelper.SnackBarShow(
+        //    scaffoldKey: widget.scaffoldKey, message: event.error.message);
         widget.searchTxt.length != 0
             ? _reloadFirstSearch()
             : _reloadFirstPage();

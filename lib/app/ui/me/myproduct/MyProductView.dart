@@ -210,7 +210,7 @@ class _MyProductViewState extends State<MyProductView> {
             }
           },
           child: Text(
-            LocaleKeys.add_product_btn.tr(),
+            LocaleKeys.btn_add_product.tr(),
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
           ),
         )

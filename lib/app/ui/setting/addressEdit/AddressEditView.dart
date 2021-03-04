@@ -310,7 +310,7 @@ class _AddressEditViewState extends State<AddressEditView> {
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.all(1.5.w),
-            child: _buildButtonItem(btnTxt: LocaleKeys.continue_btn.tr())));
+            child: _buildButtonItem(btnTxt: LocaleKeys.btn_continue.tr())));
   }
 
   Widget _buildButtonItem({String btnTxt}) {

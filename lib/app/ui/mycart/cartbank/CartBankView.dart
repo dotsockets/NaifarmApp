@@ -207,7 +207,7 @@ class _CartBankViewState extends State<CartBankView> {
             Navigator.pop(context, bloc.PaymentList.value);
           },
           child: Text(
-            LocaleKeys.confirm_btn.tr(),
+            LocaleKeys.btn_confirm.tr(),
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),

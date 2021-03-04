@@ -111,7 +111,7 @@ class _RegisterViewState extends State<RegisterView> {
 
         children: [
           SizedBox(height: 4.0.h,),
-          Center(child: Text(LocaleKeys.register_btn.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp+2,fontWeight: FontWeight.w500),)),
+          Center(child: Text(LocaleKeys.btn_register.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp+2,fontWeight: FontWeight.w500),)),
           SizedBox(height: 4.0.h,),
           BuildEditText(head: LocaleKeys.my_profile_phone.tr()+" *", hint: LocaleKeys.my_profile_phone.tr(),inputType: TextInputType.number,controller: PhoneController,BorderOpacity: 0.3,onChanged: (String x)=> _checkError(),),
           SizedBox(height: 1.0.h,),
@@ -129,7 +129,7 @@ class _RegisterViewState extends State<RegisterView> {
                 borderRadius: BorderRadius.circular(40.0),
               ),
               onPressed: ()=>_validate(),
-              child: Text(LocaleKeys.continue_btn.tr(),
+              child: Text(LocaleKeys.btn_continue.tr(),
                 style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
               ),
             ),
