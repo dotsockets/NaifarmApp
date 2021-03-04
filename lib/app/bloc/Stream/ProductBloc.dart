@@ -545,15 +545,19 @@ class ProductBloc{
   GetCategoriesAll(){
 
 
-    StreamSubscription subscription = Observable.combineLatest2(
+    StreamSubscription subscription = Observable.combineLatest3(
         Observable.fromFuture(_application.appStoreAPIRepository.GetCategoriesAll()),
-        Observable.fromFuture(_application.appStoreAPIRepository.GetCategories()),(a, b){
+        Observable.fromFuture(_application.appStoreAPIRepository.GetCategories()),
+        Observable.fromFuture(_application.appStoreAPIRepository.StatesProvice(countries: "1")),(a, b,c){
       final _categorteAll= (a as ApiResult).respone;
       final _categortes  =(b as ApiResult).respone;
-      return CategoryCombin(categoriesAllRespone: _categorteAll,categoriesRespone: _categortes);
+      final _provice =(c as ApiResult).respone;
+      return CategoryCombin(categoriesAllRespone: _categorteAll,categoriesRespone: _categortes,statesRespone: _provice);
 
     }).listen((respone) {
-        NaiFarmLocalStorage.saveCategoriesAll(respone);
+        NaiFarmLocalStorage.saveCategoriesAll(respone).then((value){
+          onSuccess.add(respone);
+        });
 
     });
     _compositeSubscription.add(subscription);
@@ -573,7 +577,7 @@ class ProductBloc{
 
   AddCartlists({BuildContext context,CartRequest cartRequest,String token,bool addNow=false}){
     BayNow.clear();
-    //onLoad.add(true);
+    onLoad.add(true);
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.AddCartlists(cartRequest: cartRequest,token: token)).listen((respone) {
       if(respone.http_call_back.status==200||respone.http_call_back.status==201){

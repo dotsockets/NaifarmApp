@@ -1,17 +1,20 @@
 
 import 'CategoriesAllRespone.dart';
 import 'CategoriesRespone.dart';
+import 'StatesRespone.dart';
 
 class CategoryCombin{
    CategoriesAllRespone categoriesAllRespone;
    CategoriesRespone categoriesRespone;
+   StatesRespone statesRespone;
 
-  CategoryCombin({this.categoriesAllRespone, this.categoriesRespone});
+  CategoryCombin({this.categoriesAllRespone, this.categoriesRespone,this.statesRespone});
 
   CategoryCombin.fromJson(Map<String, dynamic> json) {
 
     categoriesAllRespone = json['categoriesAllRespone'] != null ? new CategoriesAllRespone.fromJson(json['categoriesAllRespone']) : null;
     categoriesRespone = json['categoriesRespone'] != null ? new CategoriesRespone.fromJson(json['categoriesRespone']) : null;
+    statesRespone = json['statesRespone'] != null ? new StatesRespone.fromJson(json['statesRespone']) : null;
 
   }
 
@@ -24,6 +27,10 @@ class CategoryCombin{
 
     if (this.categoriesRespone != null) {
       data['categoriesRespone'] = this.categoriesRespone.toJson();
+    }
+
+    if (this.statesRespone != null) {
+      data['statesRespone'] = this.statesRespone.toJson();
     }
 
     return data;

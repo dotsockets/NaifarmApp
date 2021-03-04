@@ -51,8 +51,8 @@ class _FlashSaleState extends State<FlashSale> {
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10.0.w),
-                  topLeft: Radius.circular(10.0.w)),
+                  topRight: Radius.circular(15.0.w),
+                  topLeft: Radius.circular(15.0.w)),
               border: Border.all(
                   width: 3, color: Colors.white, style: BorderStyle.solid)),
           child: Column(

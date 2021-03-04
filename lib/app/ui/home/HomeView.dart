@@ -162,7 +162,7 @@ class _HomeViewState extends State<HomeView>
                         selectedIndex: snapshot.data,
                         onTap: (index) {
 
-                          // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+                           Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
                           NaiFarmLocalStorage.saveNowPage(index);
                           if(index==3){
                             Usermanager().getUser().then((value){

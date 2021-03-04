@@ -24,6 +24,9 @@ class NotiBloc{
 
 //NotificationCombine
   GetNotification({BuildContext context,String group, int page,String sort, int limit, String token}) async{
+    if(page==1){
+      product_more.clear();
+    }
 
 
     StreamSubscription subscription =
@@ -32,7 +35,6 @@ class NotiBloc{
        // onSuccess.add((respone.respone as NotiRespone));
         var item = (respone.respone as NotiRespone);
         if(item.data!=null){
-          print("wefverfer ${item.data.length}");
           product_more.addAll(item.data);
           onSuccess.add(NotiRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
         }
@@ -73,7 +75,7 @@ class NotiBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.MarkAsReadNotifications(token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
-      // onSuccess.add(respone.respone);
+       onSuccess.add(respone.respone);
 
       }else{
         onError.add(respone.http_call_back.result.error.message);

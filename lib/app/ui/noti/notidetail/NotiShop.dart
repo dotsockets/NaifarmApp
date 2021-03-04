@@ -65,7 +65,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       //  bloc.onSuccess.add(widget.notiRespone);
 
     }
-
+    page = 1;
     bloc.refreshProducts(group: "shop",limit: limit,page: page);
 
     _scrollController.addListener(() {
@@ -197,8 +197,6 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       color: Colors.white,
       child: Column(
         children: [
-
-          SizedBox(height: 1.5.h,),
           Column(
 
             children: item.data
@@ -262,9 +260,10 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
           actionExtentRatio: 0.25,
           child: Container(
               decoration: BoxDecoration(
+                color: item.readAt!=null?Colors.white:ThemeColor.Warning().withOpacity(0.6),
                 border: Border(bottom: BorderSide(color: Colors.grey.shade200, width: 1)),
               ),
-              padding: EdgeInsets.only(top: index==0?0.0.h:2.0.h,right: 10,left: 10,bottom: 2.0.h),
+              padding: EdgeInsets.only(top: 2.0.h,right: 10,left: 10,bottom: 2.0.h),
               child: Column(
                 children: [
                   Row(

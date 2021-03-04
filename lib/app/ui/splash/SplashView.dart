@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:get_version/get_version.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/SplashLoginView.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -41,7 +43,7 @@ class _SplashViewState extends State<SplashView>
     super.initState();
 
     animationController = new AnimationController(
-        vsync: this, duration: new Duration(seconds: 2));
+        vsync: this, duration: new Duration(seconds: 1));
     animation =
     new CurvedAnimation(parent: animationController, curve: Curves.easeOut);
 
@@ -53,7 +55,8 @@ class _SplashViewState extends State<SplashView>
   void _init(){
     _VersionName();
     if(null == bloc) {
-      NaiFarmLocalStorage.Clean(keyStore: NaiFarmLocalStorage.NaiFarm_Storage);
+     // NaiFarmLocalStorage.Clean(keyStore: NaiFarmLocalStorage.NaiFarm_Storage);
+      NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_NowPage);
       bloc = ProductBloc(AppProvider.getApplication(context));
       Usermanager().getUser().then((value) =>  bloc.loadCustomerCount(token: value.token));
       bloc.onError.stream.listen((event) {
@@ -63,18 +66,30 @@ class _SplashViewState extends State<SplashView>
 
       });
       bloc.onSuccess.stream.listen((event) {
-        Usermanager().getUser().then((value){
-          bloc.loadHomeData(context: context,token: value.token);
-          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-          Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
+        if(event is CategoryCombin){
+
+        }else{
           bloc.GetCategoriesAll();
-        });
+          Usermanager().getUser().then((value){
+            context.read<HomeDataBloc>().loadHomeData();
+            Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+            Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
+          });
+        }
+
       });
-      bloc.ZipHomeObject.stream.listen((event) {
+
+      // bloc.ZipHomeObject.stream.listen((event) {
+      //   startTimer();
+      // });
+
+      Future.delayed(const Duration(milliseconds: 300), () {
         startTimer();
       });
 
     }
+
+   // startTimer();
 
   }
 
@@ -126,7 +141,7 @@ class _SplashViewState extends State<SplashView>
   }
 
   startTimer() async {
-    var duration = new Duration(seconds: 3);
+    var duration = new Duration(seconds: 1);
     return new Timer(duration, navigatorPage);
   }
 

@@ -57,10 +57,13 @@ class _NotiViewState extends State<NotiView>
 
 
   init() {
+
     if (bloc == null) {
       bloc = NotiBloc(AppProvider.getApplication(context));
 
-
+      bloc.onSuccess.listen((event) {
+        CustomReCount();
+      });
 
     }
     Usermanager().getUser().then((value) {
@@ -69,8 +72,10 @@ class _NotiViewState extends State<NotiView>
           if(data == 2){
             //NaiFarmLocalStorage.saveNowPage(0);
             //_reload.add(true);
-
-            bloc.MarkAsReadNotifications(token: value.token,context: context);
+            Future.delayed(const Duration(milliseconds: 3000), () {
+              bloc.MarkAsReadNotifications(token: value.token,context: context);
+            });
+           // bloc.MarkAsReadNotifications(token: value.token,context: context);
           }
         });
       }
@@ -97,7 +102,7 @@ class _NotiViewState extends State<NotiView>
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
         if(count is InfoCustomerLoaded){
-          CustomReCount();
+        //  CustomReCount();
           if(count.profileObjectCombine.myShopRespone!=null){
             return  DefaultTabController(length: 2,child: _content(profileObjectCombine: count.profileObjectCombine));
 
@@ -200,6 +205,7 @@ class _NotiViewState extends State<NotiView>
                     )
                 ),
               ),
+              SizedBox(height: 1.0.h,)
             ],
           ),
         ),

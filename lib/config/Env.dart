@@ -2,6 +2,7 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/NaiFarmBlocObserver.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Provider/SettingReloadCubit.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
@@ -52,6 +53,9 @@ class Env {
               ),
               BlocProvider(
                 create: (_) => InfoCustomerBloc(application),
+              ),
+              BlocProvider(
+                create: (_) => HomeDataBloc(application),
               ),
               BlocProvider(
                 create: (_) => SettingReloadCubit(),

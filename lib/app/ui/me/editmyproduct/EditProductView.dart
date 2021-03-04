@@ -412,9 +412,9 @@ class _EditProductViewState extends State<EditProductView> {
 
         //bloc.uploadProductStorage.value.productMyShopRequest.name = nameProductController.text;
        // bloc.uploadProductStorage.value.productMyShopRequest.description = detailtController.text;
-        bloc.uploadProductStorage.value.productMyShopRequest.stockQuantity = int.parse(amountController.text);
-        bloc.uploadProductStorage.value.productMyShopRequest.salePrice = int.parse(priceController.text);
-        bloc.uploadProductStorage.value.productMyShopRequest.offerPrice = int.parse(offerPriceController.text);
+        bloc.uploadProductStorage.value.productMyShopRequest.stockQuantity = int.parse(amountController.text.length>0?amountController.text:"0");
+        bloc.uploadProductStorage.value.productMyShopRequest.salePrice = int.parse(priceController.text.length>0?priceController.text:"0");
+        bloc.uploadProductStorage.value.productMyShopRequest.offerPrice = int.parse(offerPriceController.text.length>0?offerPriceController.text:"0");
 
         bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
 

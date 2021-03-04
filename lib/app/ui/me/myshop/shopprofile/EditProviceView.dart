@@ -3,6 +3,7 @@ import 'package:naifarm/app/bloc/Stream/AddressBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -69,8 +70,10 @@ class _EditProviceViewState extends State<EditProviceView> {
       bloc.provice.stream.listen((event) {
        // _checkError();
       });
-
-      bloc.StatesProvice(countries: "1");
+      NaiFarmLocalStorage.getAllCategoriesCache().then((value){
+        bloc.provice.add(value.statesRespone);
+      });
+      //bloc.StatesProvice(countries: "1");
     }
   }
 

@@ -66,8 +66,16 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
     //  bloc.onSuccess.add(widget.notiRespone);
 
     }
-
+    page = 1;
     bloc.refreshProducts(group: "customer",limit: limit,page: page);
+
+
+    // if (_scrollController.position.pixels > 200) {
+    //   _scrollController.animateTo(
+    //       0,
+    //       duration: Duration(milliseconds: 1000),
+    //       curve: Curves.ease);
+    // }
     _scrollController.addListener(() {
 
       if (_scrollController.position.maxScrollExtent -
@@ -81,7 +89,6 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
     });
 
   }
-
 
 
   @override
@@ -198,7 +205,6 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
       color: Colors.white,
       child: Column(
         children: [
-          SizedBox(height: 2.0.h,),
           Column(
 
             children: item.data
@@ -261,9 +267,10 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
           actionExtentRatio: 0.25,
           child: Container(
               decoration: BoxDecoration(
+                color: item.readAt!=null?Colors.white:ThemeColor.Warning().withOpacity(0.6),
                 border: Border(bottom: BorderSide(color: Colors.grey.shade200, width: 1)),
               ),
-              padding: EdgeInsets.only(top: index==0?0.0.h:2.0.h,right: 10,left: 10,bottom: 2.0.h),
+              padding: EdgeInsets.only(top: 2.0.h,right: 10,left: 10,bottom: 2.0.h),
               child: Column(
                 children: [
                   Row(
@@ -293,7 +300,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                       Expanded(
                           child: Container(
                             padding: EdgeInsets.only(left: 10,right: 5),
-                            child: ConvertStatus(item: item),
+                            child: ConvertStatus(item: item,index: index),
                           )),
                       CheckIsOrder(text: item.type)?Icon(
                         Icons.arrow_forward_ios,
@@ -339,7 +346,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
     ),
   );
 
-  Widget ConvertStatus({NotiData item}){
+  Widget ConvertStatus({NotiData item,int index}){
     if(item.type=="App\\Notifications\\Order\\OrderUpdated"){
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
