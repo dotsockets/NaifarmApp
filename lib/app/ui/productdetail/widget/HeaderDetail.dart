@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/BuildIconShop.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 
 
@@ -184,7 +186,7 @@ class _HeaderDetailState extends State<HeaderDetail> {
                               child:
                            // widget.title
                               Center(
-                                child: Text("รายละเอียดสินค้า",
+                                child: Text(LocaleKeys.my_product_detail.tr(),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     style: FunctionHelper.FontTheme(
