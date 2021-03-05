@@ -563,7 +563,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                       Icon(Icons.shopping_cart_outlined,color: ThemeColor.primaryColor(),size: 7.0.w,),
                                       SizedBox(height: 1.0),
                                       Text(
-                                        "Add to Cart ",
+                                        LocaleKeys.cart_add_cart.tr(),
                                         style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),
                                       )
                                     ],

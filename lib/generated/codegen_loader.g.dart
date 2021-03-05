@@ -55,7 +55,7 @@ class CodegenLoader extends AssetLoader{
     "title_likes": "My Likes",
     "title_again": "Buy Again",
     "title_setting": "Account Settings",
-    "title_help": "Help Centre",
+    "title_help": "Help Center",
     "message_other": "View Other Products",
     "menu_cancel_product": "Cancel Products",
     "menu_refund_product": "Refund Products",
@@ -220,7 +220,8 @@ class CodegenLoader extends AssetLoader{
     "shipping_addr": "Shipping Address",
     "use_before": "valid till",
     "outstock": "Out of stock",
-    "note": "note"
+    "note": "note",
+    "add_cart": "Add to Cart"
   },
   "history": {
     "order_time": "Payment Time",
@@ -589,7 +590,8 @@ static const Map<String,dynamic> th_TH = {
     "shipping_addr": "ที่อยู่จัดส่งสินค้า",
     "use_before": "ใช้ได้ก่อน",
     "outstock": "สินค้าหมด",
-    "note": "หมายเหตุ"
+    "note": "หมายเหตุ",
+    "add_cart": "เพิ่มไปยังรถเข็น"
   },
   "history": {
     "order_time": "วันที่ซื้อ",

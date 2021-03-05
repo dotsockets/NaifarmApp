@@ -190,6 +190,7 @@ abstract class  LocaleKeys {
   static const cart_use_before = 'cart.use_before';
   static const cart_outstock = 'cart.outstock';
   static const cart_note = 'cart.note';
+  static const cart_add_cart = 'cart.add_cart';
   static const cart = 'cart';
   static const history_order_time = 'history.order_time';
   static const history_order_price = 'history.order_price';

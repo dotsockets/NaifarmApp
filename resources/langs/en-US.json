@@ -214,7 +214,8 @@
     "shipping_addr": "Shipping Address",
     "use_before": "valid till",
     "outstock": "Out of stock",
-    "note": "note"
+    "note": "note",
+    "add_cart": "Add to Cart"
   },
   "history":{
     "order_time": "Payment Time",
