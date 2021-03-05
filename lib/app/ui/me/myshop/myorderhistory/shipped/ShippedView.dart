@@ -368,8 +368,8 @@ class _ShippedViewState extends State<ShippedView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                      flex: 3,
+                  Container(
+                      constraints: BoxConstraints(maxWidth: (50.0.w - 12.0)),
                       child: Text(
                         widget.typeView == OrderViewType.Purchase
                             ? LocaleKeys.order_detail_ship_date.tr() +"\n"+
@@ -380,7 +380,8 @@ class _ShippedViewState extends State<ShippedView> {
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black.withOpacity(0.6)),
                       )),
-                  Expanded(
+                  Container(
+                      constraints: BoxConstraints(maxWidth: (50.0.w - 12.0)),
                       child: _BuildButtonBayItem(
                           btnTxt: widget.typeView == OrderViewType.Purchase
                               ? LocaleKeys.order_detail_contact.tr()

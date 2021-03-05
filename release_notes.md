@@ -5,4 +5,5 @@
 -   Improve Card ProductInfo component [Bug]
 -   Improve Rate Mock up to Api [Bug]
 -   Improve Product Buy  Hide  Own [Bug]
+-   Improve Noti Config
 
