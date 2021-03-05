@@ -52,7 +52,7 @@ class _SplashViewState extends State<SplashView>
   }
 
 
-  void _init(){
+  void _init(BuildContext context){
     _VersionName();
     if(null == bloc) {
      // NaiFarmLocalStorage.Clean(keyStore: NaiFarmLocalStorage.NaiFarm_Storage);
@@ -103,7 +103,7 @@ class _SplashViewState extends State<SplashView>
 
   @override
    build(BuildContext context)  {
-    _init();
+    _init(context);
     ScreenUtil.init(context);
     return SafeArea(
       child: Scaffold(
