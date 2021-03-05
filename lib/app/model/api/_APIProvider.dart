@@ -17,7 +17,7 @@ class _APIProvider implements APIProvider {
   Future<ApiResult> getProFileFacebook(String access_token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      "fields": "name,first_name,last_name,email",
+      "fields": "name,first_name,last_name,email,photos",
       "access_token": access_token
     };
     final _data = <String, dynamic>{};

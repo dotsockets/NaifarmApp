@@ -129,6 +129,7 @@ class RecommendMenu extends StatelessWidget {
         break;
         case  "NotiView" :  {
     NaiFarmLocalStorage.saveNowPage(2).then((data){
+
       onClick(2);
             });
 

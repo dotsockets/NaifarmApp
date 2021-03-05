@@ -1,8 +1,22 @@
 
+import 'package:flutter/cupertino.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
+import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/response/NotificationOneSignal.dart';
+import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'dart:convert';
+import 'package:naifarm/app/model/core/AppRoute.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OneSignalCall{
+  final BuildContext context;
+
+  OneSignalCall(this.context);
+
   static Future<void> InitializeOneSignal() async {
     //Remove this method to stop OneSignal Debugging
 
@@ -45,15 +59,20 @@ class OneSignalCall{
 
   }
 
-  static OneSignalReceivedHandler() async {
+  static OneSignalReceivedHandler(BuildContext context) async {
     OneSignal.shared.setNotificationReceivedHandler((OSNotification notification) async {
-      print("notification : ${notification}");
-
-
+      var item = NotificationOneSignal.fromJson(jsonDecode(notification.payload.rawPayload['custom']));
+      Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+      Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
+      print("notification : ${item.item.status}");
     });
 
     OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) {
-      // will be called whenever a notification is opened/button pressed.
+      var item = NotificationOneSignal.fromJson(jsonDecode(result.notification.payload.rawPayload['custom']));
+      print("notification : ${item.item.id}");
+      if(item.item.name==null){
+        AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.item.id)),typeView: OrderViewType.Purchase);
+      }
     });
   }
 

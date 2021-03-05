@@ -48,6 +48,8 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
   ProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool islike = true;
+  bool IsLogin = true;
+
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
@@ -90,15 +92,25 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
         bloc.GetMyWishlists(token: value.token));
   }
 
+  void ISLogin() async => IsLogin = await Usermanager().isLogin();
+
 
   @override
   Widget build(BuildContext context) {
     _init();
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        if(count is InfoCustomerLoaded){
-          Usermanager().getUser().then((value) => bloc.GetMyWishlists(token: value.token));
-          return  _content();
+        ISLogin();
+        if(IsLogin){
+          if(count is InfoCustomerLoaded){
+            Usermanager().getUser().then((value) => bloc.GetMyWishlists(token: value.token));
+            return  _content();
+          }else{
+            return Center(
+                child:  Platform.isAndroid
+                ? CircularProgressIndicator()
+            : CupertinoActivityIndicator());
+          }
         }else{
           return LoginView(
             IsHeader: true,
@@ -113,6 +125,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
             },
           );
         }
+
 
       },
     );

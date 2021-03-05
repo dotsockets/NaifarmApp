@@ -50,7 +50,7 @@ class _NotiViewState extends State<NotiView>
   NotiBloc bloc;
   final _reload = BehaviorSubject<bool>();
   bool fixload = true;
-
+  bool IsLogin = true;
 
   init() {
 
@@ -66,6 +66,7 @@ class _NotiViewState extends State<NotiView>
       if (value.token != null) {
         NaiFarmLocalStorage.getNowPage().then((data){
           if(data == 2){
+
             //NaiFarmLocalStorage.saveNowPage(0);
             //_reload.add(true);
             Future.delayed(const Duration(milliseconds: 3000), () {
@@ -92,23 +93,36 @@ class _NotiViewState extends State<NotiView>
     });
   }
 
+  void ISLogin() async => IsLogin = await Usermanager().isLogin();
+
+
   @override
   Widget build(BuildContext context) {
     init();
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        if(count is InfoCustomerLoaded){
-        //  CustomReCount();
-          if(count.profileObjectCombine.myShopRespone!=null){
-            return  DefaultTabController(length: 2,child: _content(profileObjectCombine: count.profileObjectCombine));
+        ISLogin();
+        if(IsLogin){
+          if(count is InfoCustomerLoaded){
+            //  CustomReCount();
+            if(count.profileObjectCombine.myShopRespone!=null){
+              return  DefaultTabController(length: 2,child: _content(profileObjectCombine: count.profileObjectCombine));
+
+            }else{
+              //_tabController = TabController(length: 1, vsync: this);
+              return  DefaultTabController(length: 1,child: _content(profileObjectCombine: count.profileObjectCombine));
+            }
 
           }else{
-            //_tabController = TabController(length: 1, vsync: this);
-            return  DefaultTabController(length: 1,child: _content(profileObjectCombine: count.profileObjectCombine));
-          }
+            // NaiFarmLocalStorage.saveNowPage(2);
+            return Center(
+              child:  Platform.isAndroid
+                  ? CircularProgressIndicator()
+                  : CupertinoActivityIndicator(),
+            );
 
+          }
         }else{
-         // NaiFarmLocalStorage.saveNowPage(2);
           return LoginView(
             IsHeader: false,
             homeCallBack: (bool fix) {
@@ -122,9 +136,12 @@ class _NotiViewState extends State<NotiView>
           );
         }
 
+
       },
     );
   }
+
+
 
   Widget _content({ProfileObjectCombine profileObjectCombine}){
     return Container(

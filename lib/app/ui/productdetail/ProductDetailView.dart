@@ -183,7 +183,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
       bloc.onSuccess.stream.listen((event) {
         if(event is CartResponse){
          // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-         //animationController.forward();
+         animationController.forward();
         }else if(event is bool){
           AppRoute.MyCart(context, true,cart_nowId:  bloc.BayNow);
          // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));

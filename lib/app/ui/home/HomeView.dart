@@ -67,7 +67,7 @@ class _HomeViewState extends State<HomeView>
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
 
-    OneSignalCall.OneSignalReceivedHandler();
+    OneSignalCall.OneSignalReceivedHandler(context);
   }
 
   @override

@@ -213,18 +213,7 @@ class _ProductGridState extends State<ProductGrid> {
         SizedBox(
           height: 1.0.h,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            item.offerPrice!=null?Text("${item.salePrice}",style: FunctionHelper.FontTheme(
-                color: Colors.grey,
-                fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
-            SizedBox(width: item.offerPrice!=null?1.0.w:0),
-            Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
-              overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
-          ],
-        ),
+        SalePrice(item: item),
         SizedBox(
           height: 1.0.h,
         ),
@@ -340,6 +329,36 @@ class _ProductGridState extends State<ProductGrid> {
       ),
       onTap: () => widget.onTapItem(item,item.id),
     );
+  }
+
+  Row SalePrice({ProductData item}){
+    if(item.salePrice!=null){
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          item.offerPrice!=null?Text("${item.salePrice}",style: FunctionHelper.FontTheme(
+              color: Colors.grey,
+              fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
+          SizedBox(width: item.offerPrice!=null?1.0.w:0),
+          Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
+            overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+        ],
+      );
+    }else{
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(item.minPrice!=null?"฿${item.minPrice}":"฿0",maxLines: 1,
+            overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+          Text(" - ",maxLines: 1,
+            overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+          Text(item.maxPrice!=null?"฿${item.maxPrice}":"฿0",maxLines: 1,
+            overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+        ],
+      );
+    }
   }
 
   int Check(int i) => i != product_data.length - 1 ? 2 : 1;

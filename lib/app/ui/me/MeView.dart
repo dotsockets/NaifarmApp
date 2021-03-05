@@ -48,6 +48,8 @@ class _MeViewState extends State<MeView> with RouteAware {
   StreamController<bool> controller = new StreamController<bool>();
   ScrollController _scrollController = ScrollController();
   final ExpandedBar = BehaviorSubject<bool>();
+  bool IsLogin = true;
+
 
   void _init() {
     if (null == bloc) {
@@ -112,17 +114,29 @@ class _MeViewState extends State<MeView> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context));
   }
 
+  void ISLogin() async => IsLogin = await Usermanager().isLogin();
+
+
   @override
   Widget build(BuildContext context) {
     _init();
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        if (count is InfoCustomerLoaded || count is InfoCustomerLoading) {
-          return Scaffold(
-              key: _scaffoldKey,
-              backgroundColor: Colors.grey.shade300,
-              body: _ContentMe());
-        } else {
+        ISLogin();
+        if(IsLogin){
+          if (count is InfoCustomerLoaded || count is InfoCustomerLoading) {
+            return Scaffold(
+                key: _scaffoldKey,
+                backgroundColor: Colors.grey.shade300,
+                body: _ContentMe());
+          } else {
+            return Center(
+              child:  Platform.isAndroid
+                  ? CircularProgressIndicator()
+                  : CupertinoActivityIndicator(),
+            );
+          }
+        }else{
           return LoginView(
             IsHeader: false,
             homeCallBack: (bool fix) {
@@ -136,6 +150,7 @@ class _MeViewState extends State<MeView> with RouteAware {
             },
           );
         }
+
       },
     );
   }
