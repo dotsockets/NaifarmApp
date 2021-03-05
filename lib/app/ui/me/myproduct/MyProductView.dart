@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -41,7 +42,7 @@ class MyProductView extends StatefulWidget {
   final int shopId;
   final int indexTab;
 
-  const MyProductView({Key key, this.shopId,this.indexTab}) : super(key: key);
+  const MyProductView({Key key, this.shopId, this.indexTab}) : super(key: key);
 
   @override
   _MyProductViewState createState() => _MyProductViewState();
@@ -57,12 +58,11 @@ class _MyProductViewState extends State<MyProductView> {
   bool step_page = false;
   int tabNum = 0;
 
-  init(){
-
-     if(bloc==null){
-       bloc=UploadProductBloc(AppProvider.getApplication(context));
-       NaiFarmLocalStorage.saveNowPage(0);
-     /*  bloc.onSuccess.stream.listen((event)  {
+  init() {
+    if (bloc == null) {
+      bloc = UploadProductBloc(AppProvider.getApplication(context));
+      NaiFarmLocalStorage.saveNowPage(0);
+      /*  bloc.onSuccess.stream.listen((event)  {
           if(event is bool){
             bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
          }
@@ -75,9 +75,8 @@ class _MyProductViewState extends State<MyProductView> {
          });
        });
 */
-     }
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -95,16 +94,36 @@ class _MyProductViewState extends State<MyProductView> {
                 color: Colors.white, //change your color here
               ),
               backgroundColor: ThemeColor.primaryColor(),
-              title:Text(
+              title: Text(
                 LocaleKeys.me_title_my_product.tr(),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w600),
-            ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: FunctionHelper.FontTheme(
+                    fontSize: SizeUtil.titleFontSize().sp,
+                    fontWeight: FontWeight.w600),
+              ),
               centerTitle: true,
               actions: [
                 IconButton(
-                  icon: Icon(Icons.search,size: 7.0.w,color: Colors.white,),
+                    padding: EdgeInsets.only(
+                        right: Device.get().isPhone ? 0 : 5.0.w),
+                    icon: Icon(
+                      Icons.search,
+                      size: SizeUtil.mediumIconSize().w,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      AppRoute.SearchMyProductView(
+                          context: context,
+                          shopID: widget.shopId,
+                          tabNum: tabNum);
+                    }),
+                IconButton(
+                  icon: Icon(
+                    FontAwesome.ellipsis_v,
+                    size: SizeUtil.mediumIconSize().w,
+                    color: Colors.white,
+                  ),
                   onPressed: () {
                    AppRoute.SearchMyProductView(context: context,shopID: widget.shopId,tabNum: tabNum);
                   }
@@ -127,7 +146,6 @@ class _MyProductViewState extends State<MyProductView> {
                   color: Colors.white,
                   child: DefaultTabController(
                     length: 4,
-
                     initialIndex: widget.indexTab,
                     child: Container(
                       child: Column(
@@ -144,8 +162,8 @@ class _MyProductViewState extends State<MyProductView> {
                                 ),
                                 isScrollable: false,
                                 onTap: (value) {
-                                    tabNum = value;
-                                    NaiFarmLocalStorage.saveNowPage(value);
+                                  tabNum = value;
+                                  NaiFarmLocalStorage.saveNowPage(value);
                                 },
                                 tabs: [
                                   _tab(
@@ -165,17 +183,31 @@ class _MyProductViewState extends State<MyProductView> {
                           ),
                           // create widgets for each tab bar here
                           Expanded(
-                            child:
-                            TabBarView(
+                            child: TabBarView(
                               children: [
-                                Available(shopId: widget.shopId,scaffoldKey: _scaffoldKey,searchTxt: "",),
-                               SoldOut(shopId: widget.shopId,scaffoldKey: _scaffoldKey,searchTxt: "",),
-                                Banned(shopId: widget.shopId,scaffoldKey: _scaffoldKey,searchTxt: "",),
-                                InActive(shopId: widget.shopId,scaffoldKey: _scaffoldKey,searchTxt: "",),
+                                Available(
+                                  shopId: widget.shopId,
+                                  scaffoldKey: _scaffoldKey,
+                                  searchTxt: "",
+                                ),
+                                SoldOut(
+                                  shopId: widget.shopId,
+                                  scaffoldKey: _scaffoldKey,
+                                  searchTxt: "",
+                                ),
+                                Banned(
+                                  shopId: widget.shopId,
+                                  scaffoldKey: _scaffoldKey,
+                                  searchTxt: "",
+                                ),
+                                InActive(
+                                  shopId: widget.shopId,
+                                  scaffoldKey: _scaffoldKey,
+                                  searchTxt: "",
+                                ),
                               ],
                             ),
                           ),
-
                         ],
                       ),
                     ),
@@ -192,7 +224,7 @@ class _MyProductViewState extends State<MyProductView> {
 
   Widget _BuildButton() {
     return Container(
-     margin: EdgeInsets.all(2.0.w),
+        margin: EdgeInsets.all(2.0.w),
         width: 50.0.w,
         height: 5.0.h,
         child: FlatButton(
@@ -204,17 +236,20 @@ class _MyProductViewState extends State<MyProductView> {
           ),
           onPressed: () async {
             // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
-            var result = await AppRoute.ImageProduct(context,isactive: IsActive.ReplacemenView);
-            if(result!=null && result){
-              Usermanager().getUser().then((value) => bloc.GetProductMyShop(page: "1",limit: 5,token: value.token));
+            var result = await AppRoute.ImageProduct(context,
+                isactive: IsActive.ReplacemenView);
+            if (result != null && result) {
+              Usermanager().getUser().then((value) => bloc.GetProductMyShop(
+                  page: "1", limit: 5, token: value.token));
             }
           },
           child: Text(
             LocaleKeys.btn_add_product.tr(),
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+            style: FunctionHelper.FontTheme(
+                fontSize: SizeUtil.titleFontSize().sp,
+                fontWeight: FontWeight.w500),
           ),
-        )
-      );
+        ));
   }
 
   Widget _tab({String title, bool message}) {
@@ -229,44 +264,50 @@ class _MyProductViewState extends State<MyProductView> {
                   color: Colors.black)),
           message
               ? ClipRRect(
-            borderRadius: BorderRadius.circular(9.0),
-            child: Container(
-              alignment: Alignment.center,
-              width: 10,
-              height: 20,
-              color: ThemeColor.ColorSale(),
-            ),
-          ) : SizedBox()
+                  borderRadius: BorderRadius.circular(9.0),
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 10,
+                    height: 20,
+                    color: ThemeColor.ColorSale(),
+                  ),
+                )
+              : SizedBox()
         ],
       ),
     );
   }
-  Widget ButtonDialog(BuildContext context, {Function() onClick,List<String> message}) {
+
+  Widget ButtonDialog(BuildContext context,
+      {Function() onClick, List<String> message}) {
     showDialog<bool>(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
         return Dialog(
           child: InkWell(
-            onTap: (){
+            onTap: () {
               onClick();
             },
             child: Container(
                 padding: EdgeInsets.all(20),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: List.generate(message.length, (index) =>  Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Text(message[index],
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-                      textAlign: TextAlign.center,),
-                  ))
-                )
-            ),
+                    mainAxisSize: MainAxisSize.min,
+                    children: List.generate(
+                        message.length,
+                        (index) => Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: Text(
+                                message[index],
+                                style: FunctionHelper.FontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
+                              ),
+                            )))),
           ),
         );
       },
     );
   }
-
 }

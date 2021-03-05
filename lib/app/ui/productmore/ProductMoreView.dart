@@ -40,7 +40,8 @@ class ProductMoreView extends StatefulWidget {
       this.barTxt,
       this.productList,
       this.installData,
-      this.api_link, this.type_more})
+      this.api_link,
+      this.type_more})
       : super(key: key);
 
   @override
@@ -61,11 +62,19 @@ class _ProductMoreViewState extends State<ProductMoreView> {
       bloc = ProductBloc(AppProvider.getApplication(context));
 
       if (widget.installData != null) {
-       // bloc.product_more.addAll(widget.installData.data);
+        // bloc.product_more.addAll(widget.installData.data);
         bloc.MoreProduct.add(widget.installData);
-        bloc.loadMoreData(page: page.toString(), limit: 10, link: widget.api_link,type_more: widget.type_more);
+        bloc.loadMoreData(
+            page: page.toString(),
+            limit: 10,
+            link: widget.api_link,
+            type_more: widget.type_more);
       } else {
-        bloc.loadMoreData(page: page.toString(), limit: limit, link: widget.api_link,type_more: widget.type_more);
+        bloc.loadMoreData(
+            page: page.toString(),
+            limit: limit,
+            link: widget.api_link,
+            type_more: widget.type_more);
       }
     }
 
@@ -79,7 +88,8 @@ class _ProductMoreViewState extends State<ProductMoreView> {
           bloc.loadMoreData(
               page: page.toString(),
               limit: limit,
-              link: widget.api_link,type_more: widget.type_more);
+              link: widget.api_link,
+              type_more: widget.type_more);
         }
       }
 
@@ -91,13 +101,11 @@ class _ProductMoreViewState extends State<ProductMoreView> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     _init();
     return Container(
-      color:  ThemeColor.primaryColor(),
+      color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
@@ -111,150 +119,158 @@ class _ProductMoreViewState extends State<ProductMoreView> {
           backgroundColor: Colors.white,
           body: Stack(
             children: [
-             SingleChildScrollView(
-               controller: _scrollController,
-               child:  StreamBuilder(
-                 stream: bloc.MoreProduct.stream,
-                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                   step_page = true;
-                   if (snapshot.hasData) {
-                     var item = (snapshot.data as ProductRespone);
-                     if(item.data.length>0){
-                       step_page = true;
-                       return ListView.builder(
-                         padding: EdgeInsets.zero,
-                         primary: false,
-                         shrinkWrap: true,
+              SingleChildScrollView(
+                controller: _scrollController,
+                child: StreamBuilder(
+                  stream: bloc.MoreProduct.stream,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    step_page = true;
+                    if (snapshot.hasData) {
+                      var item = (snapshot.data as ProductRespone);
+                      if (item.data.length > 0) {
+                        step_page = true;
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          primary: false,
+                          shrinkWrap: true,
+                          itemBuilder: (context, i) {
+                            // if ( i+1==((item.data.length) / 2).round()) {
+                            //   return CupertinoActivityIndicator();
+                            // }
 
-                         itemBuilder: (context, i) {
-                           // if ( i+1==((item.data.length) / 2).round()) {
-                           //   return CupertinoActivityIndicator();
-                           // }
-
-                           return Container(
-                             child: Column(
-                               children: [
-                                 item.data.length - (i) * 2 > 1
-                                     ? Row(
-                                   children: [
-                                     Expanded(
-                                         child: _buildProduct(
-                                             item: item.data[(i * 2)],
-                                             index: (i * 2),
-                                             context: context)),
-                                     Expanded(
-                                         child: _buildProduct(
-                                             item: item.data[(i * 2) + 1],
-                                             index: ((i * 2) + 1),
-                                             context: context))
-                                   ],
-                                 )
-                                     : Row(
-                                   children: [
-                                     Expanded(
-                                         child: _buildProduct(
-                                             item: item.data[(i * 2)],
-                                             index: (i * 2),
-                                             context: context)),
-                                     Expanded(child: SizedBox()),
-                                   ],
-                                 ),
-                                 if (item.data.length != item.total && item.data.length >= limit)
-                                   i + 1 == ((item.data.length) / 2).round()
-                                       ? Container(
-                                     padding: EdgeInsets.all(20),
-                                     child: Row(
-                                       mainAxisAlignment:
-                                       MainAxisAlignment.center,
-                                       children: [
-                                         Platform.isAndroid
-                                             ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
-                                             : CupertinoActivityIndicator(),
-                                         SizedBox(
-                                           width: 10,
-                                         ),
-                                         Text("Loading",
-                                             style: FunctionHelper.FontTheme(
-                                                 color: Colors.grey,
-                                                 fontSize:
-                                                 SizeUtil.priceFontSize()
-                                                     .sp))
-                                       ],
-                                     ),
-                                   )
-                                       : SizedBox()
-                               ],
-                             ),
-                           );
-                         },
-                         itemCount: ((item.data.length) / 2).round(),
-                       );
-                     }else{
-                       return Center(
-                         child: Container(
-                           margin: EdgeInsets.only(top: 15.0.h),
-                           child: Column(
-                             mainAxisAlignment: MainAxisAlignment.center,
-                             children: [
-                               Lottie.asset('assets/json/boxorder.json',
-                                   height: 70.0.w, width: 70.0.w, repeat: false),
-                               Text(
-                                 LocaleKeys.search_product_not_found.tr(),
-                                 style: FunctionHelper.FontTheme(
-                                     fontSize: SizeUtil.titleFontSize().sp,
-                                     fontWeight: FontWeight.bold),
-                               )
-                             ],
-                           ),
-                         ),
-                       );
-                     }
-
-
-                   } else {
-                     return Container(
-                       margin: EdgeInsets.only(top: 40.0.h),
-                       child: Center(
-                         child:  Platform.isAndroid
-                             ? CircularProgressIndicator()
-                             : CupertinoActivityIndicator(),
-                       ),
-                     );
-                   }
-                 },
-               ),
-             ),
+                            return Container(
+                              child: Column(
+                                children: [
+                                  item.data.length - (i) * 2 > 1
+                                      ? Row(
+                                          children: [
+                                            Expanded(
+                                                child: _buildProduct(
+                                                    item: item.data[(i * 2)],
+                                                    index: (i * 2),
+                                                    context: context)),
+                                            Expanded(
+                                                child: _buildProduct(
+                                                    item:
+                                                        item.data[(i * 2) + 1],
+                                                    index: ((i * 2) + 1),
+                                                    context: context))
+                                          ],
+                                        )
+                                      : Row(
+                                          children: [
+                                            Expanded(
+                                                child: _buildProduct(
+                                                    item: item.data[(i * 2)],
+                                                    index: (i * 2),
+                                                    context: context)),
+                                            Expanded(child: SizedBox()),
+                                          ],
+                                        ),
+                                  if (item.data.length != item.total &&
+                                      item.data.length >= limit)
+                                    i + 1 == ((item.data.length) / 2).round()
+                                        ? Container(
+                                            padding: EdgeInsets.all(20),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Platform.isAndroid
+                                                    ? SizedBox(
+                                                        width: 5.0.w,
+                                                        height: 5.0.w,
+                                                        child:
+                                                            CircularProgressIndicator())
+                                                    : CupertinoActivityIndicator(),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text("Loading",
+                                                    style: FunctionHelper.FontTheme(
+                                                        color: Colors.grey,
+                                                        fontSize: SizeUtil
+                                                                .priceFontSize()
+                                                            .sp))
+                                              ],
+                                            ),
+                                          )
+                                        : SizedBox()
+                                ],
+                              ),
+                            );
+                          },
+                          itemCount: ((item.data.length) / 2).round(),
+                        );
+                      } else {
+                        return Center(
+                          child: Container(
+                            margin: EdgeInsets.only(top: 15.0.h),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Lottie.asset('assets/json/boxorder.json',
+                                    height: 70.0.w,
+                                    width: 70.0.w,
+                                    repeat: false),
+                                Text(
+                                  LocaleKeys.search_product_not_found.tr(),
+                                  style: FunctionHelper.FontTheme(
+                                      fontSize: SizeUtil.titleFontSize().sp,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+                    } else {
+                      return Container(
+                        margin: EdgeInsets.only(top: 40.0.h),
+                        child: Center(
+                          child: Platform.isAndroid
+                              ? CircularProgressIndicator()
+                              : CupertinoActivityIndicator(),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
               StreamBuilder(
-                  stream:position_scroll.stream,
+                  stream: position_scroll.stream,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
-                      return snapshot.data?Container(
-                        margin: EdgeInsets.only(right: 5.0.w, bottom:  5.0.w),
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: Container(
-                            width: 13.0.w,
-                            height: 13.0.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.black.withOpacity(0.4)
-                            ),
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.keyboard_arrow_up_outlined,
-                                size: 8.0.w,
-                                color: Colors.white,
-                              ),
-                              onPressed: (){
-                                _scrollController.animateTo(
-                                    _scrollController.position.minScrollExtent,
-                                    duration: Duration(milliseconds: 1000),
-                                    curve: Curves.ease);
-                              },
-                            ),
-                          )
-                        ),
-                      ):SizedBox();
+                      return snapshot.data
+                          ? Container(
+                              margin:
+                                  EdgeInsets.only(right: 5.0.w, bottom: 5.0.w),
+                              child: Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Container(
+                                    width: 13.0.w,
+                                    height: 13.0.w,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.black.withOpacity(0.4)),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_up_outlined,
+                                        size: 8.0.w,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        _scrollController.animateTo(
+                                            _scrollController
+                                                .position.minScrollExtent,
+                                            duration:
+                                                Duration(milliseconds: 1000),
+                                            curve: Curves.ease);
+                                      },
+                                    ),
+                                  )),
+                            )
+                          : SizedBox();
                     } else {
                       return SizedBox();
                     }
@@ -271,7 +287,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
       children: [
         SizedBox(height: 0.5.h),
         Container(
-          height: SizeUtil.titleSmallFontSize().sp*2.7,
+          height: SizeUtil.productNameHeight(SizeUtil.titleSmallFontSize().sp),
           child: Text(item.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -321,7 +337,9 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                   allowHalfRating: false,
                   onRated: (v) {},
                   starCount: 5,
-                  rating:  item.rating!=null&&item.rating!=0?item.rating.toDouble():0.0,
+                  rating: item.rating != null && item.rating != 0
+                      ? item.rating.toDouble()
+                      : 0.0,
                   size: ScreenUtil().setHeight(40),
                   isReadOnly: true,
                   filledIconData: Icons.star,
@@ -330,7 +348,8 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                   borderColor: Colors.grey.shade300,
                   spacing: 0.0),
             ),
-            Text("${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():'0' } ${ LocaleKeys.cart_piece.tr()}",
+            Text(
+                "${LocaleKeys.my_product_sold.tr()} ${item.saleCount != null ? item.saleCount.toString() : '0'} ${LocaleKeys.cart_piece.tr()}",
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.detailSmallFontSize().sp,
                     color: Colors.black,
@@ -366,8 +385,11 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                           width: 30.0.w,
                           height: 40.0.w,
                           color: Colors.white,
-                          child: Lottie.asset('assets/json/loading.json',   width: 30.0.w,
-                            height: 40.0.w,),
+                          child: Lottie.asset(
+                            'assets/json/loading.json',
+                            width: 30.0.w,
+                            height: 40.0.w,
+                          ),
                         ),
                         imageUrl: ProductLandscape.CovertUrlImage(item.image),
                         errorWidget: (context, url, error) => Container(
