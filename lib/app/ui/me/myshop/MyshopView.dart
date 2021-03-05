@@ -258,7 +258,7 @@ class _MyshopViewState extends State<MyshopView> {
           ListMenuItem(
             iconSize:7.0.w,
             icon: 'assets/images/svg/work.svg',
-            title: "ตั้งค่าข้อมูลร้านค้า",
+            title: LocaleKeys.setting_account_title_shop.tr(),
             IsPhoto: "${item!=null?item.image!=null ?item.image.isNotEmpty?"${Env.value.baseUrl}/storage/images/${item.image[0].path}":'':'':''}",
             Message: item.name,
             onClick: () async {

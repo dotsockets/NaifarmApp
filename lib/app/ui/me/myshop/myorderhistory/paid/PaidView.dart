@@ -332,14 +332,14 @@ class _PaidViewState extends State<PaidView>  {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.typeView==OrderViewType.Purchase? "ชำระเงินภายใน" +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":"Date of purchase " +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
+                    widget.typeView==OrderViewType.Purchase? LocaleKeys.order_detail_pay_date.tr()+
+                        " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr()+" " +
+                        " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
                   ),
-                  _BuildButtonBayItem(btnTxt: widget.typeView==OrderViewType.Shop?"Confirm payment":"Payment",item: item)
+                  _BuildButtonBayItem(btnTxt: widget.typeView==OrderViewType.Shop?LocaleKeys.order_detail_confirm_pay.tr():LocaleKeys.order_detail_pay.tr(),item: item)
                 ],
               )
             ],
@@ -357,7 +357,7 @@ class _PaidViewState extends State<PaidView>  {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            widget.typeView==OrderViewType.Shop?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
+            widget.typeView==OrderViewType.Shop?Container(child: Text(LocaleKeys.order_detail_id.tr()+" "+item.orderNumber,
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500)),):Row(

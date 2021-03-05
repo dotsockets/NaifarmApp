@@ -364,17 +364,17 @@ class _DeliveryViewState extends State<DeliveryView> {
                 children: [
                   Expanded(flex: 3,child: Text(
                     widget.typeView == OrderViewType.Purchase
-                        ? "ยืนยันการรับสินค้า\nภายในวันที่" +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
-                        :"รอผู้ซื้อยืนยันการยอมรับสินค้าภายใน" +
-                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
+                        ? LocaleKeys.order_detail_confirm.tr()+"\n" +LocaleKeys.order_detail_by_date.tr()+
+                        " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
+                        :LocaleKeys.order_detail_wait.tr()+" "+
+                        " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
                   )),
                  SizedBox(width: 3.0.w,),
                  Expanded(flex: widget.typeView == OrderViewType.Shop?1:2,child:  widget.typeView == OrderViewType.Purchase? _BuildButtonBayItem(
-                     btnTxt: "accept products",
+                     btnTxt: LocaleKeys.order_detail_accept.tr(),
                      item: item):SizedBox())
                 ],
               )
@@ -395,7 +395,7 @@ class _DeliveryViewState extends State<DeliveryView> {
           children: [
             widget.typeView == OrderViewType.Shop
                 ? Container(
-                    child: Text("เลขคำสั่งซื้อ " + item.orderNumber,
+                    child: Text(LocaleKeys.order_detail_id.tr()+" "+item.orderNumber,
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.w500)),

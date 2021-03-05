@@ -372,8 +372,8 @@ class _ShippedViewState extends State<ShippedView> {
                       flex: 3,
                       child: Text(
                         widget.typeView == OrderViewType.Purchase
-                            ? "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการขนส่ง" +
-                                "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
+                            ? LocaleKeys.order_detail_ship_date.tr() +"\n"+
+                            LocaleKeys.order_detail_by_date.tr() +" ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
                             : LocaleKeys.history_order_time.tr() +
                                 "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
                         style: FunctionHelper.FontTheme(
@@ -383,8 +383,8 @@ class _ShippedViewState extends State<ShippedView> {
                   Expanded(
                       child: _BuildButtonBayItem(
                           btnTxt: widget.typeView == OrderViewType.Purchase
-                              ? "seller is preparing to ship"
-                              : "จัดส่งสินค้า",
+                              ? LocaleKeys.order_detail_contact.tr()
+                              : LocaleKeys.order_detail_ship.tr(),
                           item: item)) // ผู้ขายกำลังเตรียมจัดส่งสินค้า for thai
                 ],
               )
@@ -405,7 +405,7 @@ class _ShippedViewState extends State<ShippedView> {
           children: [
             widget.typeView == OrderViewType.Shop
                 ? Container(
-                    child: Text("เลขคำสั่งซื้อ " + item.orderNumber,
+                    child: Text(LocaleKeys.order_detail_id.tr()+" "+ item.orderNumber,
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.w500)),

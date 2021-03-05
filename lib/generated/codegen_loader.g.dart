@@ -24,6 +24,7 @@ class CodegenLoader extends AssetLoader{
     "title_language": "Language",
     "title_help": "Help Center",
     "title_rule": "Rules of Use",
+    "title_shop": "Set Shop Info",
     "title_policy": "Naifarm Policies",
     "title_about": "About",
     "title_delete_account": "Request Account Delete",
@@ -64,6 +65,10 @@ class CodegenLoader extends AssetLoader{
     "title_my_product": "My Products",
     "title_shipping": "Shipping",
     "title_payment": "Payment Method"
+  },
+  "shipping": {
+    "edit": "Edit Shipping",
+    "cancel": "Cancel Shipping"
   },
   "review": {
     "write": "write review",
@@ -242,6 +247,14 @@ class CodegenLoader extends AssetLoader{
     "withdraw_amount": "Amount to withdraw (Baht)",
     "withdraw_fee": "Withdraw Fee"
   },
+  "attributes": {
+    "set": "Variations",
+    "add": "Add Variations",
+    "empty": "Data not found",
+    "color": "Color code",
+    "edit": "Edit Variations",
+    "list": "Variations List"
+  },
   "my_product": {
     "sell": "Sell Product",
     "break": "Stop Sell",
@@ -290,7 +303,11 @@ class CodegenLoader extends AssetLoader{
     "active": {
       "hour": "hour ago",
       "minute": "minutes ago"
-    }
+    },
+    "available": "Available",
+    "sold_out": "Sold out",
+    "banned": "Banned",
+    "inactive": "Inactive"
   },
   "recommend": {
     "market": "Farm Market",
@@ -352,7 +369,21 @@ class CodegenLoader extends AssetLoader{
     "subtotal": "Order Subtotal",
     "payment": "Payment Method",
     "complete": "Order Successful",
-    "summary": "Total"
+    "summary": "Total",
+    "pay_date": "Pay by",
+    "ship_date": "Product will be shipped out",
+    "by_date": "by",
+    "contact": "Contact Seller",
+    "confirm": "Confirm receipt of products",
+    "pay": "Pay Now",
+    "accept": "Order Received",
+    "confirm_pay": "Confirm Payment",
+    "ship": "Ship",
+    "wait": "Wait for buyer to accept the products by",
+    "cancel_detail": "Cancel Detail",
+    "cancel_by": "Cancel by",
+    "cancel_reason": "Reason for Cancel",
+    "id": "Order ID"
   },
   "login": {
     "forgot_password": "Forgot Password",
@@ -394,6 +425,7 @@ static const Map<String,dynamic> th_TH = {
     "title_language": "ภาษา",
     "title_help": "ศูนย์ช่วยเหลือ",
     "title_rule": "กฎระเบียบในการใช้",
+    "title_shop": "ตั้งค่าข้อมูลร้าน",
     "title_policy": "นโยบายของ Naifarm",
     "title_about": "เกี่ยวกับ",
     "title_delete_account": "คำขอลบบัญชีผู้ใช้",
@@ -434,6 +466,10 @@ static const Map<String,dynamic> th_TH = {
     "title_my_product": "สินค้าของฉัน",
     "title_shipping": "การจัดส่ง",
     "title_payment": "วิธีการชำระเงิน"
+  },
+  "shipping": {
+    "edit": "แก้ไขการขนส่งสินค้า",
+    "cancel": "ยกเลิกการเชื่อมต่อการขนส่ง"
   },
   "review": {
     "write": "เขียนรีวืว",
@@ -660,7 +696,19 @@ static const Map<String,dynamic> th_TH = {
     "active": {
       "hour": "ชั่วโมง ที่ผ่านมา",
       "minute": "นาที ที่ผ่านมา"
-    }
+    },
+    "available": "ขายอยู่",
+    "sold_out": "สินค้าหมด",
+    "banned": "ถูกระงับ",
+    "inactive": "ไม่แสดง"
+  },
+  "attributes": {
+    "set": "จัดการแอททริบิวต์",
+    "add": "เพิ่มแอททริบิวต์",
+    "empty": "ไม่พบรายการ",
+    "color": "โค้ดสี",
+    "edit": "แก้ไขแอททริบิวต์",
+    "list": "รายการแอททริบิวต์"
   },
   "recommend": {
     "market": "ฟาร์มมาร์เก็ต",
@@ -721,7 +769,21 @@ static const Map<String,dynamic> th_TH = {
     "subtotal": "รวมค่าสินค้า",
     "payment": "ช่องทางการชำระเงิน",
     "complete": "คำสั่งซื้อเสร็จสมบูรณ์",
-    "summary": "ยอดชำระเงิน"
+    "summary": "ยอดชำระเงิน",
+    "pay_date": "ชำระเงินภายใน",
+    "ship_date": "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการขนส่ง",
+    "by_date": "ภายในวันที่",
+    "contact": "ติดต่อผู้ขาย",
+    "confirm": "ยืนยันการรับสินค้า",
+    "pay": "ชำระเงิน",
+    "accept": "ตรวจสอบและยอมรับสินค้า",
+    "confirm_pay": "ยืนยันการชำระเงิน",
+    "ship": "จัดส่งสินค้า",
+    "wait": "รอผู้ซื้อยืนยันการยอมรับสินค้าภายใน",
+    "cancel_detail": "รายละอียดคำขอยกเลิก",
+    "cancel_by": "ยกเลิกโดย",
+    "cancel_reason": "เหตุผลการยกเลิก",
+    "id": "เลขคำสั่งซื้อ"
   },
   "login": {
     "forgot_password": "ลืมรหัสผ่าน",

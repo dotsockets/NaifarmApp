@@ -74,42 +74,44 @@ class _AttributeDetailEditViewState extends State<AttributeDetailEditView> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: "เพิ่มรายการแอททริบิวต์",
+              title: LocaleKeys.add.tr()+LocaleKeys.attributes_list.tr(),
               icon: "",
               isEnable_Search: false,
               header_type: Header_Type.barNormal,
             ),
           ),
-          body: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(20),
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    BuildEditText(
-                        head: LocaleKeys.my_profile_name.tr(),
-                        EnableMaxLength: false,
-                        hint: LocaleKeys.set_default.tr() +
-                            LocaleKeys.my_profile_name.tr(),
-                        controller: valueAttrController,
-                        onChanged: (String x) => _check(),
-                        inputType: TextInputType.text),
-                    SizedBox(height: 2.0.h,),
-                    BuildEditText(
-                        head: "โค้ดสี",
-                        EnableMaxLength: false,
-                        hint: LocaleKeys.set_default.tr() +
-                            "โค้ดสี",
-                        controller: colorAttrController,
-                        onChanged: (String x) => _check(),
-                        inputType: TextInputType.text),
-                  ],
-                ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20),
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      BuildEditText(
+                          head: LocaleKeys.my_profile_name.tr(),
+                          EnableMaxLength: false,
+                          hint: LocaleKeys.set_default.tr() +
+                              LocaleKeys.my_profile_name.tr(),
+                          controller: valueAttrController,
+                          onChanged: (String x) => _check(),
+                          inputType: TextInputType.text),
+                      SizedBox(height: 2.0.h,),
+                      BuildEditText(
+                          head: LocaleKeys.attributes_color.tr(),
+                          EnableMaxLength: false,
+                          hint: LocaleKeys.set_default.tr() +
+                              LocaleKeys.attributes_color.tr(),
+                          controller: colorAttrController,
+                          onChanged: (String x) => _check(),
+                          inputType: TextInputType.text),
+                    ],
+                  ),
 
-              ),
-              _buildButton()
-            ],
+                ),
+                _buildButton()
+              ],
+            ),
           ),
         ),
       ),

@@ -317,12 +317,12 @@ class _CanceledViewState extends State<CanceledView>{
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "ยกเลิกโดย: ผู้ซื้อ\nเหตุผลการยกเลิก: สินค้าเสียหาย",
+                        "${LocaleKeys.order_detail_cancel_detail.tr()}: ผู้ซื้อ\n${LocaleKeys.order_detail_cancel_reason.tr()}: สินค้าเสียหาย",
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black.withOpacity(0.6)),
                       ),
-                      _BuildButtonBayItem(btnTxt:"รายละเอียดคำขอยกเลิก",item: item)
+                      _BuildButtonBayItem(btnTxt:"${LocaleKeys.order_detail_cancel_detail.tr()}",item: item)
                     ],
                   )
                 ],
@@ -343,7 +343,7 @@ class _CanceledViewState extends State<CanceledView>{
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            widget.typeView == OrderViewType.Shop?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
+            widget.typeView == OrderViewType.Shop?Container(child: Text(LocaleKeys.order_detail_id.tr()+" "+item.orderNumber,
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500)),):Row(
