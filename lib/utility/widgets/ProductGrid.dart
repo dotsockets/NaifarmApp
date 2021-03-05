@@ -24,10 +24,9 @@ import 'ProductLandscape.dart';
 import 'Skeleton.dart';
 
 class ProductGrid extends StatefulWidget {
-
   final String titleInto;
   final Function() onSelectMore;
-  final Function(ProductData,int) onTapItem;
+  final Function(ProductData, int) onTapItem;
   final String IconInto;
   final bool EnableHeader;
   final String tagHero;
@@ -38,24 +37,26 @@ class ProductGrid extends StatefulWidget {
   final String api_link;
   final bool showSeeMore;
 
-   ProductGrid(
+  ProductGrid(
       {Key key,
-        this.titleInto,
-        this.onSelectMore,
-        this.onTapItem,
-        this.IconInto,
-        this.EnableHeader = true,
-        this.tagHero,
-        this.FlashSallLabel = false,
-        this.isLike = false,
-        this.showBorder = false,this.productRespone, this.api_link, this.showSeeMore})
+      this.titleInto,
+      this.onSelectMore,
+      this.onTapItem,
+      this.IconInto,
+      this.EnableHeader = true,
+      this.tagHero,
+      this.FlashSallLabel = false,
+      this.isLike = false,
+      this.showBorder = false,
+      this.productRespone,
+      this.api_link,
+      this.showSeeMore})
       : super(key: key);
   @override
   _ProductGridState createState() => _ProductGridState();
 }
 
 class _ProductGridState extends State<ProductGrid> {
-
   ProductBloc bloc;
   List<ProductData> product_data = List<ProductData>();
   int page = 1;
@@ -63,9 +64,8 @@ class _ProductGridState extends State<ProductGrid> {
   ScrollController _scrollController = ScrollController();
   bool step_page = false;
   final position_scroll = BehaviorSubject<bool>();
-  void _init(){
-    if(null == bloc) {
-
+  void _init() {
+    if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.MoreProduct.stream.listen((event) {
         setState(() {
@@ -79,24 +79,23 @@ class _ProductGridState extends State<ProductGrid> {
       //   bloc.loadMoreData(page: page.toString(),limit: 5,link: widget.api_link);
       // }
       //
-      if(widget.productRespone!=null){
+      if (widget.productRespone != null) {
         product_data.addAll(widget.productRespone.data);
-      }else{
-        bloc.loadMoreData(page: page.toString(),limit: 5,link: widget.api_link);
+      } else {
+        bloc.loadMoreData(
+            page: page.toString(), limit: 5, link: widget.api_link);
       }
     }
 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
-          _scrollController.position.pixels <=
+              _scrollController.position.pixels <=
           200) {
         if (step_page) {
           step_page = false;
           page++;
           bloc.loadMoreData(
-              page: page.toString(),
-              limit: limit,
-              link: widget.api_link);
+              page: page.toString(), limit: limit, link: widget.api_link);
         }
       }
 
@@ -106,65 +105,75 @@ class _ProductGridState extends State<ProductGrid> {
         position_scroll.add(false);
       }
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
     _init();
-    return product_data.length>0?ClipRRect(
-      borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(widget.showBorder ? 40 : 0),
-          topRight: Radius.circular(widget.showBorder ? 40 : 0)),
-      child: Container(
-          width: MediaQuery.of(context).size.width,
-          color: Colors.white,
-          child: Column(
-            children: [
-              widget.EnableHeader ? _header_bar() : SizedBox(),
-              SizedBox(height: 10,),
-              _buildCardProduct(context: context)
-            ],
-          )),
-    ):  Skeleton.LoaderGridV(context);
+    return product_data.length > 0
+        ? ClipRRect(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(widget.showBorder ? 40 : 0),
+                topRight: Radius.circular(widget.showBorder ? 40 : 0)),
+            child: Container(
+                width: MediaQuery.of(context).size.width,
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    widget.EnableHeader ? _header_bar() : SizedBox(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    _buildCardProduct(context: context)
+                  ],
+                )),
+          )
+        : Skeleton.LoaderGridV(context);
   }
 
   Container _header_bar() => Container(
-    margin: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
+        margin: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SvgPicture.asset(
-              widget.IconInto,
-              width: 30,
-              height: 30,
+            Row(
+              children: [
+                SvgPicture.asset(
+                  widget.IconInto,
+                  width: 30,
+                  height: 30,
+                ),
+                SizedBox(width: 8),
+                Text(widget.titleInto,
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.black,
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.bold)),
+              ],
             ),
-            SizedBox(width: 8),
-            Text(widget.titleInto,
-                style: FunctionHelper.FontTheme(
-                    color: Colors.black,
-                    fontSize: SizeUtil.titleFontSize().sp,
-                    fontWeight: FontWeight.bold)),
+            GestureDetector(
+                child: Visibility(
+                  visible: widget.showSeeMore,
+                  child: Row(
+                    children: [
+                      Text(LocaleKeys.recommend_see_more.tr(),
+                          style: FunctionHelper.FontTheme(
+                              color: Colors.black,
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontWeight: FontWeight.w500)),
+                      SizedBox(width: 2.0.w),
+                      SvgPicture.asset(
+                        'assets/images/svg/next.svg',
+                        width: 3.0.w,
+                        height: 3.0.h,
+                      ),
+                    ],
+                  ),
+                ),
+                onTap: () => widget.onSelectMore())
           ],
         ),
-        GestureDetector(
-            child: Visibility(
-              visible: widget.showSeeMore,
-              child: Row(
-                children: [
-                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
-                  SizedBox(width: 2.0.w),
-                  SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
-                ],
-              ),
-            ),
-            onTap: ()=>widget.onSelectMore()
-        )
-      ],
-    ),
-  );
+      );
 
   Widget _buildCardProduct({BuildContext context}) {
     return Container(
@@ -174,41 +183,42 @@ class _ProductGridState extends State<ProductGrid> {
   }
 
   Container ItemRow(BuildContext context) => Container(
-    child: Column(
-      children: [
-        for (int i = 0; i < product_data.length; i += 2)
-          Container(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            margin: EdgeInsets.only(bottom: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(
-                  Check(i),
+        child: Column(
+          children: [
+            for (int i = 0; i < product_data.length; i += 2)
+              Container(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                margin: EdgeInsets.only(bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: List.generate(
+                      Check(i),
                       (index) => _buildProduct(
-                      index: i + index,
-                      item: product_data[i + index],
-                      context: context)),
-            ),
-          )
-      ],
-    ),
-  );
-
-
+                          index: i + index,
+                          item: product_data[i + index],
+                          context: context)),
+                ),
+              )
+          ],
+        ),
+      );
 
   Widget _intoProduct({ProductData item, int index}) {
     return Column(
       children: [
         SizedBox(height: 0.5.h),
         Container(
-          height: SizeUtil.titleSmallFontSize().sp*2.5,
-          child: Text(item.name,maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: FunctionHelper.FontTheme(
-                  color: Colors.black,
-                  fontSize: SizeUtil.titleSmallFontSize().sp,
-                  fontWeight: FontWeight.w500)),
+          height: SizeUtil.productNameHeight(SizeUtil.titleSmallFontSize().sp),
+          child: Text(
+            item.name,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: FunctionHelper.FontTheme(
+                color: Colors.black,
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                fontWeight: FontWeight.w500),
+          ),
         ),
         SizedBox(
           height: 1.0.h,
@@ -217,12 +227,25 @@ class _ProductGridState extends State<ProductGrid> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            item.offerPrice!=null?Text("${item.salePrice}",style: FunctionHelper.FontTheme(
-                color: Colors.grey,
-                fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
-            SizedBox(width: item.offerPrice!=null?1.0.w:0),
-            Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
-              overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+            item.offerPrice != null
+                ? Text("${item.salePrice}",
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.grey,
+                        fontSize: SizeUtil.priceFontSize().sp - 2,
+                        decoration: TextDecoration.lineThrough))
+                : SizedBox(),
+            SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
+            Text(
+              item.offerPrice != null
+                  ? "฿${item.offerPrice}"
+                  : "฿${item.salePrice}",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: FunctionHelper.FontTheme(
+                  color: ThemeColor.ColorSale(),
+                  fontWeight: FontWeight.w500,
+                  fontSize: SizeUtil.priceFontSize().sp),
+            ),
           ],
         ),
         SizedBox(
@@ -237,7 +260,7 @@ class _ProductGridState extends State<ProductGrid> {
                   allowHalfRating: false,
                   onRated: (v) {},
                   starCount: 5,
-                  rating: item.rating!=null?item.rating.toDouble():0,
+                  rating: item.rating != null ? item.rating.toDouble() : 0,
                   size: ScreenUtil().setHeight(40),
                   isReadOnly: true,
                   filledIconData: Icons.star,
@@ -246,7 +269,8 @@ class _ProductGridState extends State<ProductGrid> {
                   borderColor: Colors.grey.shade300,
                   spacing: 0.0),
             ),
-            Text("${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():'0'} ${LocaleKeys.cart_piece.tr()}",
+            Text(
+                "${LocaleKeys.my_product_sold.tr()} ${item.saleCount != null ? item.saleCount.toString() : '0'} ${LocaleKeys.cart_piece.tr()}",
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.detailSmallFontSize().sp,
                     color: Colors.black,
@@ -283,15 +307,18 @@ class _ProductGridState extends State<ProductGrid> {
                           width: 30.0.w,
                           height: 40.0.w,
                           color: Colors.white,
-                          child:
-                          Lottie.asset('assets/json/loading.json',   width: 30.0.w,
-                            height: 40.0.w,),
+                          child: Lottie.asset(
+                            'assets/json/loading.json',
+                            width: 30.0.w,
+                            height: 40.0.w,
+                          ),
                         ),
                         imageUrl: ProductLandscape.CovertUrlImage(item.image),
                         errorWidget: (context, url, error) => Container(
                             width: 30.0.w,
                             height: 40.0.w,
-                            child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                            child: Image.network(Env.value.noItemUrl,
+                                fit: BoxFit.cover)),
                       ),
                     ),
                   ),
@@ -306,26 +333,29 @@ class _ProductGridState extends State<ProductGrid> {
                             color: ThemeColor.ColorSale(),
                             borderRadius: BorderRadius.all(Radius.circular(7))),
                         padding: EdgeInsets.only(
-                            left: 1.5.w, right: 1.5.w, top: 1.0.w, bottom: 1.0.w),
+                            left: 1.5.w,
+                            right: 1.5.w,
+                            top: 1.0.w,
+                            bottom: 1.0.w),
                         child: Text(
-                          item.discountPercent.toString()+"%",
+                          item.discountPercent.toString() + "%",
                           style: GoogleFonts.sarabun(
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
                               fontSize: SizeUtil.titleSmallFontSize().sp),
                         ),
                       ),
-                      visible: item.discountPercent>0?true:false,
+                      visible: item.discountPercent > 0 ? true : false,
                     ),
                     widget.isLike
                         ? Container(
-                        margin: EdgeInsets.only(right: 8, top: 7),
-                        child: SvgPicture.asset(
-                          'assets/images/svg/like_line.svg',
-                          width: 35,
-                          height: 35,
-                          color: ThemeColor.ColorSale(),
-                        ))
+                            margin: EdgeInsets.only(right: 8, top: 7),
+                            child: SvgPicture.asset(
+                              'assets/images/svg/like_line.svg',
+                              width: 35,
+                              height: 35,
+                              color: ThemeColor.ColorSale(),
+                            ))
                         : SizedBox()
                   ],
                 )
@@ -338,7 +368,7 @@ class _ProductGridState extends State<ProductGrid> {
           ],
         ),
       ),
-      onTap: () => widget.onTapItem(item,item.id),
+      onTap: () => widget.onTapItem(item, item.id),
     );
   }
 

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,14 +29,18 @@ class _PaymentViewState extends State<PaymentView> {
     super.initState();
   }
 
-  init(){
-    if(bloc==null){
+  init() {
+    if (bloc == null) {
       bloc = PaymentBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
-        Usermanager().getUser().then((value) => bloc.loadPaymentPage(token: value.token));
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+        Usermanager()
+            .getUser()
+            .then((value) => bloc.loadPaymentPage(token: value.token));
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
-      Usermanager().getUser().then((value) => bloc.loadPaymentPage(token: value.token));
+      Usermanager()
+          .getUser()
+          .then((value) => bloc.loadPaymentPage(token: value.token));
     }
   }
 
@@ -49,68 +52,99 @@ class _PaymentViewState extends State<PaymentView> {
       child: SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
-          appBar: AppToobar(title: LocaleKeys.me_title_payment.tr(),icon: "",header_type:  Header_Type.barNormal,isEnable_Search: false,),
-          body:  Container(
+          appBar: AppToobar(
+            title: LocaleKeys.me_title_payment.tr(),
+            icon: "",
+            header_type: Header_Type.barNormal,
+            isEnable_Search: false,
+          ),
+          body: Container(
+            padding: SizeUtil.detailProfilePadding(),
             color: Colors.grey.shade300,
             child: SingleChildScrollView(
               child: Column(
                 children: [
-
                   StreamBuilder(
                     stream: bloc.ZipPaymentObject.stream,
-                    builder: (BuildContext context,AsyncSnapshot snapshot){
-                      if(snapshot.hasData ){
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.hasData) {
                         return Column(
-                          children: List.generate((snapshot.data as PaymentObjectCombine).paymentRespone.total, (index){
+                          children: List.generate(
+                              (snapshot.data as PaymentObjectCombine)
+                                  .paymentRespone
+                                  .total, (index) {
                             return Column(
                               children: [
-                                _BuildDelivery(nameDeli: (snapshot.data as PaymentObjectCombine).paymentRespone.data[index].name,item: (snapshot.data as PaymentObjectCombine).paymentRespone.data[index]),
-                                Container(height: 1,color: Colors.grey.shade300,),
+                                _BuildDelivery(
+                                    nameDeli:
+                                        (snapshot.data as PaymentObjectCombine)
+                                            .paymentRespone
+                                            .data[index]
+                                            .name,
+                                    item:
+                                        (snapshot.data as PaymentObjectCombine)
+                                            .paymentRespone
+                                            .data[index]),
+                                Container(
+                                  height: 1,
+                                  color: Colors.grey.shade300,
+                                ),
                               ],
                             );
                           }),
                         );
-                      }else{
+                      } else {
                         return Skeleton.LoaderList(context);
                       }
                     },
                   ),
-
                 ],
               ),
             ),
-
           ),
         ),
       ),
     );
   }
-Widget _BuildDelivery({String nameDeli,PaymentData item}){
+
+  Widget _BuildDelivery({String nameDeli, PaymentData item}) {
     return Container(
       padding: EdgeInsets.all(2.0.h),
       color: Colors.white,
       child: Container(
-        margin: EdgeInsets.only(left: 2.0.w,right: 2.0.w),
+        margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(nameDeli,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),),
+          children: [
+            Text(
+              nameDeli,
+              style: FunctionHelper.FontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.w500),
+            ),
             FlutterSwitch(
               height: 30,
               width: 50,
               toggleSize: 20,
               activeColor: Colors.grey.shade200,
               inactiveColor: Colors.grey.shade200,
-               toggleColor: item.active ? ThemeColor.primaryColor() : Colors.grey.shade400,
-             value:item.active,
+              toggleColor: item.active
+                  ? ThemeColor.primaryColor()
+                  : Colors.grey.shade400,
+              value: item.active,
               onToggle: (val) {
                 //IsSwitch(val);
-                for(var index in bloc.ZipPaymentObject.value.paymentRespone.data){
-                  if(item.id == index.id){
+                for (var index
+                    in bloc.ZipPaymentObject.value.paymentRespone.data) {
+                  if (item.id == index.id) {
                     index.active = !index.active;
-                      if(index.active)
-                        Usermanager().getUser().then((value) => bloc.AddPayment(paymentMethodId: index.id,token: value.token));
-                      else
-                        Usermanager().getUser().then((value) => bloc.DeletePayment(paymentMethodId: index.id,token: value.token));
+                    if (index.active)
+                      Usermanager().getUser().then((value) => bloc.AddPayment(
+                          paymentMethodId: index.id, token: value.token));
+                    else
+                      Usermanager().getUser().then((value) =>
+                          bloc.DeletePayment(
+                              paymentMethodId: index.id, token: value.token));
                     break;
                   }
                 }
@@ -122,5 +156,5 @@ Widget _BuildDelivery({String nameDeli,PaymentData item}){
         ),
       ),
     );
-}
+  }
 }

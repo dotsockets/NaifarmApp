@@ -368,24 +368,28 @@ class _ShippedViewState extends State<ShippedView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                      flex: 3,
-                      child: Text(
-                        widget.typeView == OrderViewType.Purchase
-                            ? "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการขนส่ง" +
-                                "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
-                            : LocaleKeys.history_order_time.tr() +
-                                "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
-                        style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleSmallFontSize().sp,
-                            color: Colors.black.withOpacity(0.6)),
-                      )),
-                  Expanded(
-                      child: _BuildButtonBayItem(
-                          btnTxt: widget.typeView == OrderViewType.Purchase
-                              ? "seller is preparing to ship"
-                              : "จัดส่งสินค้า",
-                          item: item)) // ผู้ขายกำลังเตรียมจัดส่งสินค้า for thai
+                  Container(
+                    constraints: BoxConstraints(maxWidth: (50.0.w - 12.0)),
+                    child: Text(
+                      widget.typeView == OrderViewType.Purchase
+                          ? "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการขนส่ง" +
+                              "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
+                          : LocaleKeys.history_order_time.tr() +
+                              "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
+                      style: FunctionHelper.FontTheme(
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        color: Colors.black.withOpacity(0.6),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    constraints: BoxConstraints(maxWidth: (50.0.w - 12.0)),
+                    child: _BuildButtonBayItem(
+                        btnTxt: widget.typeView == OrderViewType.Purchase
+                            ? "seller is preparing to ship"
+                            : "จัดส่งสินค้า",
+                        item: item),
+                  ) // ผู้ขายกำลังเตรียมจัดส่งสินค้า for thai
                 ],
               )
             ],
