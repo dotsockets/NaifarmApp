@@ -275,8 +275,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                 ),
                 if (item.loadmore)
                 i + 1 ==
-                ((item.data[0].items.length) /
-                2)
+                ((item.data[0].items.length) / 2)
                     .round()
                 ? Container(
                 padding: EdgeInsets.all(20),

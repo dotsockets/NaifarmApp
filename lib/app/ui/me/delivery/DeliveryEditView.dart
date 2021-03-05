@@ -72,7 +72,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
         child: Scaffold(
           key: _scaffoldKey,
           appBar: AppToobar(
-            title: "แก้ไขการส่งสินค้า",
+            title: LocaleKeys.shipping_edit.tr(),
             icon: "",
             header_type: Header_Type.barNormal,
             isEnable_Search: false,
@@ -94,8 +94,8 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                   padding: EdgeInsets.all(15),
                   color: Colors.white,
                   child: BuildEditText(
-                      head: "ค่าขนส่ง",
-                      hint: "ระบุค่าขนส่ง",
+                      head: LocaleKeys.my_product_delivery_price.tr(),
+                      hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_delivery_price.tr(),
                       maxLength: 10,
                       controller: RateController,
                       onError: onError,
@@ -143,7 +143,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40.0),
                               ),
-                              child: Text("ยกเลิกการเชื่อมการขนส่ง",
+                              child: Text(LocaleKeys.shipping_cancel.tr(),
                                 style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                               ),
                             ),

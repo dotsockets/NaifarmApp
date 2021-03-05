@@ -117,10 +117,10 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                 indicatorColor:ThemeColor.ColorSale(),
                                 isScrollable: false,
                                 tabs: [
-                                  _tab(title: "ขายอยู่", message: false),
-                                  _tab(title: "สินค้าหมด", message: false),
-                                  _tab(title: "ถูกระงับ", message: false),
-                                  _tab(title: "ไม่แสดง", message: false)
+                                  _tab(title: LocaleKeys.shop_available.tr(), message: false),
+                                  _tab(title: LocaleKeys.shop_sold_out.tr(), message: false),
+                                  _tab(title: LocaleKeys.shop_banned.tr(), message: false),
+                                  _tab(title: LocaleKeys.shop_inactive.tr(), message: false)
                                 ],
                                 onTap: (value) {
                                   NaiFarmLocalStorage.saveNowPage(value);

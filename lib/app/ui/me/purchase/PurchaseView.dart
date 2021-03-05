@@ -87,7 +87,7 @@ class _PurchaseViewState extends State<PurchaseView> {
                 return ListMenuItem(
                     icon: 'assets/images/svg/like_2.svg',
                     title: LocaleKeys.me_title_likes.tr(),
-                    Message: "${count.countLoaded!=null?count.countLoaded.like:0} รายการ",
+                    Message: "${count.countLoaded!=null?count.countLoaded.like:0} ${LocaleKeys.cart_item.tr()}",
                     iconSize: 7.0.w,
                     onClick: () {
                       Usermanager().isLogin().then((value){

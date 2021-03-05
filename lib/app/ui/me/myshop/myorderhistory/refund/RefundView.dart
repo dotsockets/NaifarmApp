@@ -317,7 +317,7 @@ class _RefundViewState extends State<RefundView>  {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.typeView=="purchase"? "ชำระเงินภายใน" +
+                    widget.typeView==OrderViewType.Purchase? LocaleKeys.order_detail_pay_date.tr() +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}":LocaleKeys.history_order_time.tr() +
                         "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.FontTheme(
@@ -342,7 +342,7 @@ class _RefundViewState extends State<RefundView>  {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            widget.typeView=="shop"?Container(child: Text("เลขคำสั่งซื้อ "+item.orderNumber,
+            widget.typeView=="shop"?Container(child: Text(LocaleKeys.order_detail_id.tr()+" "+item.orderNumber,
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500)),):Row(

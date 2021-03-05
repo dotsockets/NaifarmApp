@@ -29,7 +29,6 @@ class _ProductDetailState extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
 
-
     return Container(
       padding: EdgeInsets.only(bottom: 20),
       child: Column(
@@ -87,7 +86,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${widget.productItem!=null&&widget.productItem.inventories!=null?widget.productItem.inventories[0].stockQuantity:0} ชิ้น",
+                      "${widget.productItem!=null&&widget.productItem.inventories!=null?widget.productItem.inventories[0].stockQuantity:0} ${LocaleKeys.cart_piece.tr()}",
                       style: FunctionHelper.FontTheme( fontWeight: FontWeight.w500,
                           color: Colors.black, fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),

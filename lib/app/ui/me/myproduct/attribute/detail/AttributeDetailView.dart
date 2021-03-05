@@ -78,7 +78,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: "รายการแอททริบิวต์",
+              title: LocaleKeys.attributes_list.tr(),
               icon: "",
               isEnable_Search: false,
               header_type: Header_Type.barNormal,
@@ -181,7 +181,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
                                 height: 15.0.h,
                                 color: Colors.white,
                                 child: Center(
-                                  child: Text("ไม่พบรายการ",
+                                  child: Text(LocaleKeys.attributes_empty.tr(),
                                       style: FunctionHelper.FontTheme(
                                           fontSize: SizeUtil.titleFontSize().sp,
                                           fontWeight: FontWeight.w500)),
@@ -272,7 +272,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
             AppRoute.AttributeDetailEdit(context: context,idAttr: widget.idAttr,color:"",value:"",vid: 0);
           },
           child: Text(
-            "เพิ่มแอททริบิวต์",
+            LocaleKeys.attributes_add.tr(),
             style: FunctionHelper.FontTheme(
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),

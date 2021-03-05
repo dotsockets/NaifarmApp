@@ -69,7 +69,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: "แก้ไขแอททริบิวต์",
+              title: LocaleKeys.add.tr()+LocaleKeys.attributes_list.tr(),
               icon: "",
               isEnable_Search: false,
               header_type: Header_Type.barNormal,

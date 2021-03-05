@@ -111,7 +111,7 @@ class _MyProductViewState extends State<MyProductView> {
                 ),
                 IconButton(
                   icon: Icon(FontAwesome.ellipsis_v,size: 7.0.w,color: Colors.white,)
-                  ,onPressed: (){ ButtonDialog(context,message: ["จัดการแอททริบิวต์"],onClick: () {
+                  ,onPressed: (){ ButtonDialog(context,message: [LocaleKeys.attributes_set.tr()],onClick: () {
                   Navigator.of(context).pop();
                   AppRoute.Attribute(context: context);
                 });},
@@ -149,16 +149,16 @@ class _MyProductViewState extends State<MyProductView> {
                                 },
                                 tabs: [
                                   _tab(
-                                      title: "ขายอยู่",
+                                      title: LocaleKeys.shop_available.tr(),
                                       message:
                                       false),
                                   _tab(
-                                      title: "สินค้าหมด",
+                                      title: LocaleKeys.shop_sold_out.tr(),
                                       message:
                                       false),
                                   _tab(title:
-                                  "ถูกระงับ",message: false),
-                                  _tab(title: "ไม่แสดง",message: false)
+                                  LocaleKeys.shop_banned.tr(),message: false),
+                                  _tab(title: LocaleKeys.shop_inactive.tr(),message: false)
                                 ],
                               ),
                             ),

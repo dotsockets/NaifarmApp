@@ -86,7 +86,6 @@ class _HeaderDetailState extends State<HeaderDetail> {
         _colorIcon = Colors.white.withOpacity(_opacity);
       }
 
-
        if(_opacity_icon>0.20){
          _opacity_icon = _opacity_icon - _opacityMax;
        }
