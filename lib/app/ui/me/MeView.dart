@@ -41,7 +41,6 @@ class MeView extends StatefulWidget {
 }
 
 class _MeViewState extends State<MeView> with RouteAware {
-
   MemberBloc bloc;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -50,15 +49,14 @@ class _MeViewState extends State<MeView> with RouteAware {
   ScrollController _scrollController = ScrollController();
   final ExpandedBar = BehaviorSubject<bool>();
 
-
   void _init() {
     if (null == bloc) {
       ExpandedBar.add(false);
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        if(event){
+        if (event) {
           FunctionHelper.showDialogProcess(context);
-        }else{
+        } else {
           Navigator.of(context).pop();
         }
       });
@@ -68,11 +66,11 @@ class _MeViewState extends State<MeView> with RouteAware {
       });
 
       //_reload.stream.listen((event) {
-        // Usermanager().getUser().then((value) => context
-        //     .read<CustomerCountBloc>()
-        //     .loadCustomerCount(token: value.token));
-        //Usermanager().getUser().then((value) => bloc.loadMyProfile(token: value.token));
-     // });
+      // Usermanager().getUser().then((value) => context
+      //     .read<CustomerCountBloc>()
+      //     .loadCustomerCount(token: value.token));
+      //Usermanager().getUser().then((value) => bloc.loadMyProfile(token: value.token));
+      // });
 
       // Usermanager().getUser().then((value) {
       //   if (value.token != null) {
@@ -83,7 +81,6 @@ class _MeViewState extends State<MeView> with RouteAware {
       // });
 
     }
-
 
     //
     // Usermanager().getUser().then((value) {
@@ -96,10 +93,9 @@ class _MeViewState extends State<MeView> with RouteAware {
     // });
 
     _scrollController.addListener(() {
-
-      if(_isAppBarExpanded){
+      if (_isAppBarExpanded) {
         ExpandedBar.add(true);
-      }else{
+      } else {
         ExpandedBar.add(false);
       }
     });
@@ -110,7 +106,6 @@ class _MeViewState extends State<MeView> with RouteAware {
         _scrollController.offset > (200 - kToolbarHeight);
   }
 
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -120,20 +115,18 @@ class _MeViewState extends State<MeView> with RouteAware {
   @override
   Widget build(BuildContext context) {
     _init();
-    return  BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+    return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        if(count is InfoCustomerLoaded || count is InfoCustomerLoading){
-          return  Scaffold(
+        if (count is InfoCustomerLoaded || count is InfoCustomerLoading) {
+          return Scaffold(
               key: _scaffoldKey,
               backgroundColor: Colors.grey.shade300,
               body: _ContentMe());
-        }else{
+        } else {
           return LoginView(
             IsHeader: false,
             homeCallBack: (bool fix) {
-
               Navigator.of(context).pop();
-
 
               // Usermanager().getUser().then((value){
               //
@@ -143,14 +136,13 @@ class _MeViewState extends State<MeView> with RouteAware {
             },
           );
         }
-
       },
     );
   }
 
   Widget _ContentMe() {
     return CustomScrollView(
-       controller: _scrollController,
+      controller: _scrollController,
       slivers: [
         SliverAppBar(
           leading: Container(
@@ -171,17 +163,16 @@ class _MeViewState extends State<MeView> with RouteAware {
           actions: [
             Container(
                 margin: EdgeInsets.only(right: 2.0.w, left: 1.0.w, top: 1.0.w),
-                child:StreamBuilder(
+                child: StreamBuilder(
                   stream: ExpandedBar.stream,
-                  builder: (_,snapshot){
-                    if(snapshot.hasData){
-                      return !snapshot.data?BuildIconShop():SizedBox();
-                    }else{
+                  builder: (_, snapshot) {
+                    if (snapshot.hasData) {
+                      return !snapshot.data ? BuildIconShop() : SizedBox();
+                    } else {
                       return SizedBox();
                     }
                   },
-                )
-            ),
+                )),
           ],
           expandedHeight: Device.get().isPhone ? 200 : 350,
           flexibleSpace: FlexibleSpaceBar(
@@ -190,7 +181,8 @@ class _MeViewState extends State<MeView> with RouteAware {
               child: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
                 builder: (_, item) {
                   if (item is InfoCustomerLoaded) {
-                    return ImageHeader(info: item.profileObjectCombine.customerInfoRespone);
+                    return ImageHeader(
+                        info: item.profileObjectCombine.customerInfoRespone);
                   } else if (item is InfoCustomerLoading) {
                     return ImageHeader();
                   } else {
@@ -206,12 +198,21 @@ class _MeViewState extends State<MeView> with RouteAware {
             BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
               builder: (_, item) {
                 if (item is InfoCustomerLoaded) {
-                  if( item.profileObjectCombine.shppingMyShopRespone.data.isNotEmpty){
-                    return BodyContent(wigitHight: item.profileObjectCombine.shppingMyShopRespone.data[0].rates.length==0?100.0.h:90.0.h);
-                  }else{
+                  if (item.profileObjectCombine.shppingMyShopRespone.data
+                      .isNotEmpty) {
+                    return BodyContent(
+                        wigitHight: item
+                                    .profileObjectCombine
+                                    .shppingMyShopRespone
+                                    .data[0]
+                                    .rates
+                                    .length ==
+                                0
+                            ? 100.0.h
+                            : 90.0.h);
+                  } else {
                     return BodyContent(wigitHight: 80.0.h);
                   }
-
                 } else if (item is InfoCustomerLoading) {
                   return BodyContent(wigitHight: 80.0.h);
                 } else {
@@ -219,16 +220,15 @@ class _MeViewState extends State<MeView> with RouteAware {
                 }
               },
             )
-
           ]),
         )
       ],
     );
   }
 
-  Widget BodyContent({double wigitHight}){
+  Widget BodyContent({double wigitHight}) {
     return Container(
-      height: Device.get().isPhone ? wigitHight : wigitHight + 100.0,
+      height: SizeUtil.meBodyHeight(wigitHight),
       color: Colors.white,
       child: DefaultTabController(
         length: 2,
@@ -256,11 +256,9 @@ class _MeViewState extends State<MeView> with RouteAware {
                     isScrollable: false,
                     tabs: [
                       _tabbar(
-                          title: LocaleKeys.me_tab_buy.tr(),
-                          message: false),
+                          title: LocaleKeys.me_tab_buy.tr(), message: false),
                       _tabbar(
-                          title: LocaleKeys.me_tab_shop.tr(),
-                          message: false)
+                          title: LocaleKeys.me_tab_shop.tr(), message: false)
                     ],
                   ),
                 ),
@@ -284,10 +282,13 @@ class _MeViewState extends State<MeView> with RouteAware {
                       scaffoldKey: _scaffoldKey,
                       onStatus: (bool status) {
                         if (status) {
-                          Future.delayed(
-                              const Duration(milliseconds: 500), () {
-                            Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-                            Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
+                          Future.delayed(const Duration(milliseconds: 500), () {
+                            Usermanager().getUser().then((value) => context
+                                .read<CustomerCountBloc>()
+                                .loadCustomerCount(token: value.token));
+                            Usermanager().getUser().then((value) => context
+                                .read<InfoCustomerBloc>()
+                                .loadCustomInfo(token: value.token));
                           });
                           // Usermanager()
                           //     .getUser()
@@ -307,129 +308,88 @@ class _MeViewState extends State<MeView> with RouteAware {
     );
   }
 
-  Widget ImageHeader({CustomerInfoRespone info}){
-    return info!=null?Column(
-      mainAxisAlignment:
-      MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 3.0.h,
-        ),
-        InkWell(
-            child: Hero(
-              tag: "image_profile_me",
-              child: ClipRRect(
-                borderRadius:
-                BorderRadius.all(
-                    Radius.circular(
-                        10.0.w)),
-                child: CachedNetworkImage(
-                  width: 20.0.w,
-                  height: 20.0.w,
-                  placeholder:
-                      (context, url) =>
-                      Container(
+  Widget ImageHeader({CustomerInfoRespone info}) {
+    return info != null
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 3.0.h,
+              ),
+              InkWell(
+                  child: Hero(
+                    tag: "image_profile_me",
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0.w)),
+                      child: CachedNetworkImage(
                         width: 20.0.w,
                         height: 20.0.w,
-                        color: Colors.white,
-                        child: Lottie.asset(
-                            'assets/json/loading.json',
-                            height: 30),
-                      ),
-                  fit: BoxFit.cover,
-                  imageUrl: info !=
-                      null
-                      ? info
-                      .image.length >
-                      0
-                      ? "${Env.value.baseUrl}/storage/images/${info.image[0].path}"
-                      : ''
-                      : '',
-                  errorWidget: (context,
-                      url, error) =>
-                      Container(
-                          color: Colors.grey
-                              .shade300,
+                        placeholder: (context, url) => Container(
                           width: 20.0.w,
                           height: 20.0.w,
-                          child: Icon(
-                            Icons.person,
-                            size: 10.0.w,
-                            color: Colors
-                                .white,
-                          )),
+                          color: Colors.white,
+                          child: Lottie.asset('assets/json/loading.json',
+                              height: 30),
+                        ),
+                        fit: BoxFit.cover,
+                        imageUrl: info != null
+                            ? info.image.length > 0
+                                ? "${Env.value.baseUrl}/storage/images/${info.image[0].path}"
+                                : ''
+                            : '',
+                        errorWidget: (context, url, error) => Container(
+                            color: Colors.grey.shade300,
+                            width: 20.0.w,
+                            height: 20.0.w,
+                            child: Icon(
+                              Icons.person,
+                              size: 10.0.w,
+                              color: Colors.white,
+                            )),
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    AppRoute.ImageFullScreenView(
+                        hero_tag: "image_profile_me",
+                        context: context,
+                        image: info != null
+                            ? info.image.length > 0
+                                ? "${Env.value.baseUrl}/storage/images/${info.image[0].path}"
+                                : ''
+                            : '');
+                  }),
+              SizedBox(height: 4.0.h),
+              Text(info != null ? info.name : "ฟาร์มมาร์เก็ต",
+                  style: FunctionHelper.FontTheme(
+                      color: Colors.white,
+                      fontSize: SizeUtil.titleFontSize().sp,
+                      fontWeight: FontWeight.bold))
+            ],
+          )
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 3.0.h,
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(60)),
+                child: Container(
+                  width: 20.0.w,
+                  height: 20.0.w,
+                  color: Colors.white,
+                  child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
               ),
-            ),
-            onTap: (){
-              AppRoute.ImageFullScreenView(hero_tag: "image_profile_me",context: context,image:  info !=
-                  null
-                  ? info
-                  .image.length >
-                  0
-                  ? "${Env.value.baseUrl}/storage/images/${info.image[0].path}"
-                  : ''
-                  : '');
-            }
-        ),
-        SizedBox(height: 4.0.h),
-        Text(
-            info !=
-                null
-                ? info
-                .name
-                : "ฟาร์มมาร์เก็ต",
-            style: FunctionHelper
-                .FontTheme(
-                color:
-                Colors.white,
-                fontSize: SizeUtil
-                    .titleFontSize()
-                    .sp,
-                fontWeight:
-                FontWeight
-                    .bold))
-      ],
-    ):Column(
-      mainAxisAlignment:
-      MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 3.0.h,
-        ),
-        ClipRRect(
-          borderRadius:
-          BorderRadius.all(
-              Radius.circular(
-                  60)),
-          child: Container(
-            width: 20.0.w,
-            height: 20.0.w,
-            color: Colors.white,
-            child: Lottie.asset(
-                'assets/json/loading.json',
-                height: 30),
-          ),
-        ),
-        SizedBox(height: 2.0.h),
-        Text(
-            info !=
-                null
-                ? info
-                .name
-                : "กำลังโหลด",
-            style: FunctionHelper
-                .FontTheme(
-                color:
-                Colors.white,
-                fontSize: SizeUtil
-                    .titleFontSize()
-                    .sp,
-                fontWeight:
-                FontWeight
-                    .bold))
-      ],
-    );
+              SizedBox(height: 2.0.h),
+              Text(info != null ? info.name : "กำลังโหลด",
+                  style: FunctionHelper.FontTheme(
+                      color: Colors.white,
+                      fontSize: SizeUtil.titleFontSize().sp,
+                      fontWeight: FontWeight.bold))
+            ],
+          );
   }
 
   // Widget _FormLogin() {

@@ -28,10 +28,10 @@ class _EditProviceViewState extends State<EditProviceView> {
   AddressBloc bloc;
   int proviceSelect = 0;
 
-  bool FormCheck(){
-    if(_input1.text.isEmpty){
+  bool FormCheck() {
+    if (_input1.text.isEmpty) {
       return false;
-    }else{
+    } else {
       return true;
     }
   }
@@ -40,35 +40,35 @@ class _EditProviceViewState extends State<EditProviceView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(widget.itemInfo.state!=null){
+    if (widget.itemInfo.state != null) {
       proviceSelect = widget.itemInfo.state.id;
-    }else{
+    } else {
       proviceSelect = 0;
     }
 
     _input1.text = widget.itemInfo.description;
   }
 
-  void _init(){
-    if(null == bloc){
+  void _init() {
+    if (null == bloc) {
       bloc = AddressBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        if(event){
+        if (event) {
           FunctionHelper.showDialogProcess(context);
-        }else{
+        } else {
           Navigator.of(context).pop();
         }
       });
       bloc.onError.stream.listen((event) {
         // Navigator.of(context).pop();
-       // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+        // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         Navigator.pop(context, true);
       });
 
       bloc.provice.stream.listen((event) {
-       // _checkError();
+        // _checkError();
       });
       NaiFarmLocalStorage.getAllCategoriesCache().then((value){
         bloc.provice.add(value.statesRespone);
@@ -85,31 +85,43 @@ class _EditProviceViewState extends State<EditProviceView> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
-          appBar: AppToobar(isEnable_Search: false,title: "แก้ไขรายละเอียดร้านค้า",header_type: Header_Type.barNormal,),
+          appBar: AppToobar(
+            isEnable_Search: false,
+            title: "แก้ไขรายละเอียดร้านค้า",
+            header_type: Header_Type.barNormal,
+          ),
           body: Container(
             width: MediaQuery.of(context).size.width,
+            padding: SizeUtil.detailProfilePadding(),
             child: Column(
               children: [
                 _Form(),
-                SizedBox(height: 3.0.h,),
+                SizedBox(
+                  height: 3.0.h,
+                ),
                 FlatButton(
                   minWidth: 50.0.w,
                   height: 5.0.h,
-                  color: _input1.text!=""?ThemeColor.secondaryColor():Colors.grey.shade400,
+                  color: _input1.text != ""
+                      ? ThemeColor.secondaryColor()
+                      : Colors.grey.shade400,
                   textColor: Colors.white,
                   splashColor: Colors.white.withOpacity(0.3),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40.0),
                   ),
-                  onPressed: (){
-                    if(bloc.provice.value!=null){
-                      widget.itemInfo.state = bloc.provice.value.data[loopIndex(bloc.provice.value.data,proviceSelect)];
+                  onPressed: () {
+                    if (bloc.provice.value != null) {
+                      widget.itemInfo.state = bloc.provice.value.data[
+                          loopIndex(bloc.provice.value.data, proviceSelect)];
                     }
                     Navigator.pop(context, widget.itemInfo);
-
                   },
-                  child: Text(LocaleKeys.btn_save.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                  child: Text(
+                    LocaleKeys.btn_save.tr(),
+                    style: FunctionHelper.FontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w500),
                   ),
                 )
               ],
@@ -119,37 +131,43 @@ class _EditProviceViewState extends State<EditProviceView> {
       ),
     );
   }
-  Widget _Form(){
+
+  Widget _Form() {
     return StreamBuilder(
       stream: bloc.provice.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if(snapshot.hasData) {
-            print("secfsefc ${loopIndex((snapshot.data as StatesRespone).data,proviceSelect)}");
+        if (snapshot.hasData) {
+          print(
+              "secfsefc ${loopIndex((snapshot.data as StatesRespone).data, proviceSelect)}");
           return Container(
             color: Colors.white,
-            padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),
+            padding: EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
             child: _BuildDropdown(
-                initialItem: loopIndex((snapshot.data as StatesRespone).data,proviceSelect),
+                initialItem: loopIndex(
+                    (snapshot.data as StatesRespone).data, proviceSelect),
                 head: LocaleKeys.select.tr() +
-                    LocaleKeys.address_province.tr() + " * ",
-                hint: loopString((snapshot.data as StatesRespone).data,proviceSelect),item: (snapshot.data as StatesRespone).data,
-                onSelect: (int index){
-                  setState(()=> proviceSelect = (snapshot.data as StatesRespone).data[index].id);
-
+                    LocaleKeys.address_province.tr() +
+                    " * ",
+                hint: loopString(
+                    (snapshot.data as StatesRespone).data, proviceSelect),
+                item: (snapshot.data as StatesRespone).data,
+                onSelect: (int index) {
+                  setState(() => proviceSelect =
+                      (snapshot.data as StatesRespone).data[index].id);
                 }),
           );
-        }else{
+        } else {
           return SizedBox();
         }
       },
     );
   }
 
-  String loopString(List<DataStates> data,int id){
+  String loopString(List<DataStates> data, int id) {
     String item = "กรุณาเลือก";
     var i = 0;
-    for(var index in data){
-      if(index.id == id){
+    for (var index in data) {
+      if (index.id == id) {
         item = index.name;
         break;
       }
@@ -158,11 +176,11 @@ class _EditProviceViewState extends State<EditProviceView> {
     return item;
   }
 
-  int loopIndex(List<DataStates> data,int id){
+  int loopIndex(List<DataStates> data, int id) {
     int item = 0;
     var i = 0;
-    for(var index in data){
-      if(index.id == id){
+    for (var index in data) {
+      if (index.id == id) {
         item = i;
         break;
       }
@@ -171,11 +189,17 @@ class _EditProviceViewState extends State<EditProviceView> {
     return item;
   }
 
-  Widget _BuildDropdown({String head, String hint, List<DataStates> item,Function(int) onSelect,int initialItem}) {
-
+  Widget _BuildDropdown(
+      {String head,
+      String hint,
+      List<DataStates> item,
+      Function(int) onSelect,
+      int initialItem}) {
     var datalist = List<String>();
-    if(item.isNotEmpty){
-      for(int i=0;i<item.length;i++){datalist.add(item[i].name);}
+    if (item.isNotEmpty) {
+      for (int i = 0; i < item.length; i++) {
+        datalist.add(item[i].name);
+      }
     }
 
     return Container(
@@ -184,22 +208,24 @@ class _EditProviceViewState extends State<EditProviceView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+            style: FunctionHelper.FontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           Container(
             margin: EdgeInsets.only(top: 1.5.h),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.black.withOpacity(0.5))),
-            child: CustomDropdownList(txtSelect: hint,title: head,dataList: datalist,onSelect: (int index)=>onSelect(index),initialItem: initialItem,),
+            child: CustomDropdownList(
+              txtSelect: hint,
+              title: head,
+              dataList: datalist,
+              onSelect: (int index) => onSelect(index),
+              initialItem: initialItem,
+            ),
           ),
-
         ],
       ),
     );
   }
-
-
 }
-
-

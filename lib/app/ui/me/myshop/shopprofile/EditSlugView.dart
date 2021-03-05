@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -11,7 +10,6 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:sizer/sizer.dart';
 
 class EditSlugView extends StatefulWidget {
-
   final MyShopRespone itemInfo;
 
   const EditSlugView({Key key, this.itemInfo}) : super(key: key);
@@ -23,10 +21,10 @@ class _EditSlugViewState extends State<EditSlugView> {
   TextEditingController _input1 = new TextEditingController();
   String onError1 = "";
 
-  bool FormCheck(){
-    if(_input1.text.isEmpty){
+  bool FormCheck() {
+    if (_input1.text.isEmpty) {
       return false;
-    }else{
+    } else {
       return true;
     }
   }
@@ -45,25 +43,39 @@ class _EditSlugViewState extends State<EditSlugView> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
-          appBar: AppToobar(isEnable_Search: false,title: "แก้ไข Slug ร้านค้า",header_type: Header_Type.barNormal,),
+          appBar: AppToobar(
+            isEnable_Search: false,
+            title: "แก้ไข Slug ร้านค้า",
+            header_type: Header_Type.barNormal,
+          ),
           body: Container(
+            padding: SizeUtil.detailProfilePadding(),
             child: Container(
               child: Column(
                 children: [
                   _Form(),
-                  SizedBox(height: 3.0.h,),
+                  SizedBox(
+                    height: 3.0.h,
+                  ),
                   FlatButton(
                     minWidth: 50.0.w,
                     height: 5.0.h,
-                    color: _input1.text!=""?ThemeColor.secondaryColor():Colors.grey.shade400,
+                    color: _input1.text != ""
+                        ? ThemeColor.secondaryColor()
+                        : Colors.grey.shade400,
                     textColor: Colors.white,
                     splashColor: Colors.white.withOpacity(0.3),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40.0),
                     ),
-                    onPressed: ()=>FormCheck()?Navigator.pop(context, widget.itemInfo):SizedBox(),
-                    child: Text(LocaleKeys.btn_save.tr(),
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize(),fontWeight: FontWeight.w500),
+                    onPressed: () => FormCheck()
+                        ? Navigator.pop(context, widget.itemInfo)
+                        : SizedBox(),
+                    child: Text(
+                      LocaleKeys.btn_save.tr(),
+                      style: FunctionHelper.FontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.w500),
                     ),
                   )
                 ],
@@ -74,24 +86,30 @@ class _EditSlugViewState extends State<EditSlugView> {
       ),
     );
   }
-  Widget _Form(){
+
+  Widget _Form() {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.only(top: 20,bottom: 30,left: 20,right: 20),
+      padding: EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
       child: Column(
         children: [
-          BuildEditText(head: "ชื่อ Slug ร้านค้า",hint: "ระบุ Slug ร้านค้า",inputType: TextInputType.text,BorderOpacity: 0.2,maxLength: 20,borderRadius: 5,onError: onError1,controller: _input1,onChanged: (String char){
-            setState(() {
-              widget.itemInfo.slug = char;
-            });
-          },),
-
+          BuildEditText(
+            head: "ชื่อ Slug ร้านค้า",
+            hint: "ระบุ Slug ร้านค้า",
+            inputType: TextInputType.text,
+            BorderOpacity: 0.2,
+            maxLength: 20,
+            borderRadius: 5,
+            onError: onError1,
+            controller: _input1,
+            onChanged: (String char) {
+              setState(() {
+                widget.itemInfo.slug = char;
+              });
+            },
+          ),
         ],
       ),
     );
   }
-
-
 }
-
-

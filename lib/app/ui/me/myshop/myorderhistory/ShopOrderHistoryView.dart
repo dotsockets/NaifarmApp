@@ -26,11 +26,9 @@ import 'delivery/DeliveryView.dart';
 
 class ShopOrderHistoryView extends StatelessWidget {
   final int index;
-  final bool callback ;
+  final bool callback;
 
-
-
-   ShopOrderHistoryView({Key key, this.index,this.callback}) : super(key: key);
+  ShopOrderHistoryView({Key key, this.index, this.callback}) : super(key: key);
 
   int tab_count = 5;
 
@@ -49,13 +47,14 @@ class ShopOrderHistoryView extends StatelessWidget {
               child: AppToobar(
                 title: LocaleKeys.me_title_history_shop.tr(),
                 header_type: Header_Type.barcartShop,
-                icon: '',onClick: (){
-                if(callback){
-                  AppRoute.PoppageCount(context: context,countpage: 4);
-                }else{
-                  AppRoute.PoppageCount(context: context,countpage: 1);
-                }
-              },
+                icon: '',
+                onClick: () {
+                  if (callback) {
+                    AppRoute.PoppageCount(context: context, countpage: 4);
+                  } else {
+                    AppRoute.PoppageCount(context: context, countpage: 1);
+                  }
+                },
               ),
             ),
             body: Container(
@@ -63,6 +62,7 @@ class ShopOrderHistoryView extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(
                     height: 7.0.h,
+                    width: 100.0.w,
                     child: Container(
                       color: Colors.white,
                       child: TabBar(
@@ -74,9 +74,11 @@ class ShopOrderHistoryView extends StatelessWidget {
                         isScrollable: true,
                         tabs: [
                           _tabbar(
-                              title: LocaleKeys.me_menu_wait_pay.tr(), message: false),
+                              title: LocaleKeys.me_menu_wait_pay.tr(),
+                              message: false),
                           _tabbar(
-                              title: LocaleKeys.me_menu_ship.tr(), message: false),
+                              title: LocaleKeys.me_menu_ship.tr(),
+                              message: false),
                           _tabbar(
                               title: LocaleKeys.me_menu_shipping.tr(),
                               message: false),
@@ -96,14 +98,14 @@ class ShopOrderHistoryView extends StatelessWidget {
 
                   // create widgets for each tab bar here
                   Expanded(
-                    child:TabBarView(
+                    child: TabBarView(
                       children: [
                         PaidView(typeView: OrderViewType.Shop),
                         ShippedView(typeView: OrderViewType.Shop),
                         DeliveryView(typeView: OrderViewType.Shop),
                         SuccessView(typeView: OrderViewType.Shop),
                         CanceledView(typeView: OrderViewType.Shop),
-                       // RefundView(typeView: OrderViewType.Shop)
+                        // RefundView(typeView: OrderViewType.Shop)
                       ],
                     ),
                   ),
@@ -128,14 +130,14 @@ class ShopOrderHistoryView extends StatelessWidget {
           ),
           message
               ? ClipRRect(
-            borderRadius: BorderRadius.circular(9.0),
-            child: Container(
-              alignment: Alignment.center,
-              width: 2.0.w,
-              height: 2.0.w,
-              color: ThemeColor.ColorSale(),
-            ),
-          )
+                  borderRadius: BorderRadius.circular(9.0),
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 2.0.w,
+                    height: 2.0.w,
+                    color: ThemeColor.ColorSale(),
+                  ),
+                )
               : SizedBox()
         ],
       ),

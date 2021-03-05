@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -24,16 +25,24 @@ class TabMenu extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Badge( shape: BadgeShape.circle,
+                  Badge(
+                      shape: BadgeShape.circle,
                       position: BadgePosition.topEnd(top: 0, end: 0),
                       animationDuration: Duration(milliseconds: 300),
                       animationType: BadgeAnimationType.slide,
-                      showBadge: notification>0?true:false,
+                      showBadge: notification > 0 ? true : false,
                       badgeContent: Container(
-                        padding: EdgeInsets.all(notification<10?0.7.w:0),
+                        padding: EdgeInsets.all(notification < 10
+                            ? 0.7.w
+                            : (Device.get().isPhone ? 0 : 0.3.w)),
                         child: Center(
-                          child: Text("${notification}",
-                              style: FunctionHelper.FontTheme(color: Colors.white,fontSize: (SizeUtil.titleSmallFontSize()-4).sp)),
+                          child: Text(
+                            "${notification}",
+                            style: FunctionHelper.FontTheme(
+                              color: Colors.white,
+                              fontSize: SizeUtil.shopBadgeSize().sp,
+                            ),
+                          ),
                         ),
                       ),
                       child: Container(

@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -30,7 +31,8 @@ class CustomTabBar extends StatefulWidget {
   _CustomTabBarState createState() => _CustomTabBarState();
 }
 
-class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderStateMixin {
+class _CustomTabBarState extends State<CustomTabBar>
+    with SingleTickerProviderStateMixin {
   TabController _tabController;
 
   @override
@@ -52,33 +54,25 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
       labelColor: ThemeColor.secondaryColor(),
       labelStyle: TextStyle(
         fontSize: SizeUtil.detailSmallFontSize().sp,
-        fontWeight: FontWeight.bold,),
+        fontWeight: FontWeight.bold,
+      ),
       unselectedLabelColor: Colors.white,
-      indicatorPadding: EdgeInsets.fromLTRB(5.0.w, 0, 5.0.w, 1.0.h),
+      indicatorPadding: SizeUtil.custombarIndicationPadding(),
       tabs: [
         Tab(
           icon: _buildIcon(
-            sizeIcon: 6.0.w,
-              path_icon: widget.selectedIndex == 0
-                  ? 'assets/images/svg/home_active.svg'
-                  : 'assets/images/svg/home_active.svg',
-              color: widget.selectedIndex == 0
-                  ? ThemeColor.secondaryColor()
-                  : Colors.white,
+              sizeIcon: SizeUtil.custombarIconSize().w,
+              path_icon: 'assets/images/svg/home_active.svg',
               index: 0,
               notification: 0),
-
-          text:  widget.selectedIndex==0?LocaleKeys.tab_bar_recommend.tr():LocaleKeys.tab_bar_home.tr(),
+          text: _tabController.index == 0
+              ? LocaleKeys.tab_bar_recommend.tr()
+              : LocaleKeys.tab_bar_home.tr(),
         ),
         Tab(
           icon: _buildIcon(
-              sizeIcon: 6.0.w,
-              path_icon: widget.selectedIndex == 1
-                  ? 'assets/images/svg/type.svg'
-                  : 'assets/images/svg/type.svg',
-              color: widget.selectedIndex == 1
-                  ? ThemeColor.secondaryColor()
-                  : Colors.white,
+              sizeIcon: SizeUtil.custombarIconSize().w,
+              path_icon: 'assets/images/svg/type.svg',
               index: 1,
               notification: 0),
           text: LocaleKeys.tab_bar_category.tr(),
@@ -88,26 +82,16 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
             builder: (_, count) {
               if (count is CustomerCountLoaded) {
                 return _buildIcon(
-                    sizeIcon: 6.0.w,
-                    path_icon: widget.selectedIndex == 2
-                        ? 'assets/images/svg/notification.svg'
-                        : 'assets/images/svg/notification.svg',
-                    color: widget.selectedIndex == 2
-                        ? ThemeColor.secondaryColor()
-                        : Colors.white,
+                    sizeIcon: SizeUtil.custombarIconSize().w,
+                    path_icon: 'assets/images/svg/notification.svg',
                     index: 2,
                     notification:
                         count.countLoaded.notification.unreadCustomer +
                             count.countLoaded.notification.unreadShop);
               } else if (count is CustomerCountLoading) {
                 return _buildIcon(
-                  sizeIcon: 6.0.w,
-                  path_icon: widget.selectedIndex == 2
-                      ? 'assets/images/svg/notification.svg'
-                      : 'assets/images/svg/notification.svg',
-                  color: widget.selectedIndex == 2
-                      ? ThemeColor.secondaryColor()
-                      : Colors.white,
+                  sizeIcon: SizeUtil.custombarIconSize().w,
+                  path_icon: 'assets/images/svg/notification.svg',
                   index: 2,
                   notification: count.countLoaded != null
                       ? count.countLoaded.notification.unreadCustomer +
@@ -118,13 +102,8 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
                 );
               } else {
                 return _buildIcon(
-                    sizeIcon: 6.0.w,
-                    path_icon: widget.selectedIndex == 2
-                        ? 'assets/images/svg/notification.svg'
-                        : 'assets/images/svg/notification.svg',
-                    color: widget.selectedIndex == 2
-                        ? ThemeColor.secondaryColor()
-                        : Colors.white,
+                    sizeIcon: SizeUtil.custombarIconSize().w,
+                    path_icon: 'assets/images/svg/notification.svg',
                     index: 2,
                     notification: 0);
               }
@@ -137,13 +116,8 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
             builder: (_, count) {
               if (count is CustomerCountLoaded) {
                 return _buildIcon(
-                  sizeIcon: 6.8.w,
-                  path_icon: widget.selectedIndex == 3
-                      ? 'assets/images/svg/cart.svg'
-                      : 'assets/images/svg/cart.svg',
-                  color: widget.selectedIndex == 3
-                      ? ThemeColor.secondaryColor()
-                      : Colors.white,
+                  sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
+                  path_icon: 'assets/images/svg/cart.svg',
                   index: 3,
                   notification: count.countLoaded != null
                       ? count.countLoaded.CartCount
@@ -151,13 +125,8 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
                 );
               } else if (count is CustomerCountLoading) {
                 return _buildIcon(
-                  sizeIcon: 6.8.w,
-                  path_icon: widget.selectedIndex == 3
-                      ? 'assets/images/svg/cart.svg'
-                      : 'assets/images/svg/cart.svg',
-                  color: widget.selectedIndex == 3
-                      ? ThemeColor.secondaryColor()
-                      : Colors.white,
+                  sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
+                  path_icon: 'assets/images/svg/cart.svg',
                   index: 3,
                   notification: count.countLoaded != null
                       ? count.countLoaded.CartCount
@@ -165,13 +134,8 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
                 );
               } else {
                 return _buildIcon(
-                    sizeIcon: 6.8.w,
-                    path_icon: widget.selectedIndex == 3
-                        ? 'assets/images/svg/cart.svg'
-                        : 'assets/images/svg/cart.svg',
-                    color: widget.selectedIndex == 3
-                        ? ThemeColor.secondaryColor()
-                        : Colors.white,
+                    sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
+                    path_icon: 'assets/images/svg/cart.svg',
                     index: 3,
                     notification: 0);
               }
@@ -181,13 +145,8 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
         ),
         Tab(
           icon: _buildIcon(
-              sizeIcon: 6.0.w,
-              path_icon: widget.selectedIndex == 4
-                  ? 'assets/images/svg/me.svg'
-                  : 'assets/images/svg/me.svg',
-              color: widget.selectedIndex == 4
-                  ? ThemeColor.secondaryColor()
-                  : Colors.white,
+              sizeIcon: SizeUtil.custombarIconSize().w,
+              path_icon: 'assets/images/svg/me.svg',
               index: 4,
               notification: 0),
           text: LocaleKeys.tab_bar_me.tr(),
@@ -195,9 +154,10 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
       ],
       onTap: (index) => {
         widget.onTap(index),
-        if (index == 3) {
-          _tabController.index = widget.selectedIndex,
-        }
+        if (index == 3)
+          {
+            _tabController.index = widget.selectedIndex,
+          }
       },
     );
   }
@@ -206,7 +166,8 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
       {String path_icon,
       Color color,
       int index,
-      int notification,double sizeIcon}) {
+      int notification,
+      double sizeIcon}) {
     return Stack(
       overflow: Overflow.visible,
       children: [
@@ -223,19 +184,25 @@ class _CustomTabBarState extends State<CustomTabBar> with SingleTickerProviderSt
                       : false
                   : false,
               badgeContent: Container(
-                padding: EdgeInsets.all(notification < 10 ? 0.7 : 0),
+                padding: EdgeInsets.all(
+                    notification < 10 ? (Device.get().isPhone ? 0.7 : 3.0) : 0),
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 0.5.w),
-                  child: Text("${notification}",
-                      style: FunctionHelper.FontTheme(
-                          color: Colors.white,
-                          fontSize: (SizeUtil.titleSmallFontSize() - 3).sp)),
+                  margin:
+                      EdgeInsets.only(bottom: Device.get().isPhone ? 0.5.w : 0),
+                  child: Text(
+                    "${notification}",
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.white,
+                        fontSize: SizeUtil.shopBadgeSize().sp),
+                  ),
                 ),
               ),
               child: Container(
                 child: SvgPicture.asset(
                   path_icon,
-                  color: color,
+                  color: _tabController.index == index
+                      ? ThemeColor.secondaryColor()
+                      : Colors.white,
                   width: sizeIcon,
                   height: sizeIcon,
                 ),

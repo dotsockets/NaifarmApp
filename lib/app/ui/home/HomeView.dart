@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
@@ -37,7 +38,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView>
-    with SingleTickerProviderStateMixin, RouteAware{
+    with SingleTickerProviderStateMixin, RouteAware {
   List<MenuModel> _menuViewModel;
   bool IsLogin = true;
   final _selectedIndex = BehaviorSubject<int>();
@@ -69,8 +70,6 @@ class _HomeViewState extends State<HomeView>
     OneSignalCall.OneSignalReceivedHandler();
   }
 
-
-
   @override
   void dispose() {
     _connectivitySubscription.cancel();
@@ -84,13 +83,10 @@ class _HomeViewState extends State<HomeView>
     routeObserver.subscribe(this, ModalRoute.of(context));
   }
 
-
-
   @override
   void didPopNext() {
     setState(() {});
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +139,8 @@ class _HomeViewState extends State<HomeView>
                 stream: _selectedIndex.stream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: Device.get().isPhone ? 0 : 1.5.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(40),
@@ -164,18 +162,18 @@ class _HomeViewState extends State<HomeView>
 
                            Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
                           NaiFarmLocalStorage.saveNowPage(index);
-                          if(index==3){
-                            Usermanager().getUser().then((value){
-                              if(value.token!=null){
-                                AppRoute.MyCart(context,true);
-                              }else{
-                                AppRoute.Login(context, IsCallBack: true,IsHeader: true);
+                          if (index == 3) {
+                            Usermanager().getUser().then((value) {
+                              if (value.token != null) {
+                                AppRoute.MyCart(context, true);
+                              } else {
+                                AppRoute.Login(context,
+                                    IsCallBack: true, IsHeader: true);
                               }
                             });
-                          }else{
+                          } else {
                             _selectedIndex.add(index);
                           }
-
                         },
                       ),
                     ),
