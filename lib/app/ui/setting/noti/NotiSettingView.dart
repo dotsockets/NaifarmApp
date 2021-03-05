@@ -91,9 +91,8 @@ class _NotiSettingViewState extends State<NotiSettingView> {
               style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
             ),
             FlutterSwitch(
-              width: 15.5.w,
-              height: 4.3.h,
-              toggleSize: 3.5.h,
+              height: SizeUtil.switchSize().w,
+              toggleSize: SizeUtil.switchToggleSize().w,
               activeColor: Colors.grey.shade200,
               inactiveColor: Colors.grey.shade200,
               toggleColor: index == 0 ? isSelectNoti ? ThemeColor.primaryColor() : Colors.black.withOpacity(0.3) :

@@ -284,8 +284,8 @@ class _AddressEditViewState extends State<AddressEditView> {
             style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
           FlutterSwitch(
-            height: 3.5.h,
-            width: 13.0.w,
+            height: SizeUtil.switchSize().w,
+            toggleSize: SizeUtil.switchToggleSize().w,
             activeColor: Colors.grey.shade200,
             inactiveColor: Colors.grey.shade200,
             toggleColor:

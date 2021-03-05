@@ -277,9 +277,8 @@ class _AddressAddViewState extends State<AddressAddView> {
                 FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
           FlutterSwitch(
-            height: 4.0.h,
-            width: 13.0.w,
-            toggleSize: 3.0.h,
+            height: SizeUtil.switchSize().w,
+            toggleSize: SizeUtil.switchToggleSize().w,
             activeColor: Colors.grey.shade200,
             inactiveColor: Colors.grey.shade200,
             toggleColor:
