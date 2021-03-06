@@ -333,7 +333,7 @@ class ProductBloc{
   GetProductsById({int id}){
     onLoad.add(true);
     Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)).listen((event) {
-     // onLoad.add(false);
+      onLoad.add(false);
       if(event.http_call_back.status==200){
         var item = (event.respone as ProducItemRespone);
         ProductItem.add(item);

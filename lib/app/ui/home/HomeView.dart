@@ -62,7 +62,7 @@ class _HomeViewState extends State<HomeView>
   @override
   void initState() {
     super.initState();
-    // initConnectivity();
+     initConnectivity();
     _menuViewModel = MenuViewModel().getTabBarMenus();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
@@ -85,7 +85,7 @@ class _HomeViewState extends State<HomeView>
 
   @override
   void didPopNext() {
-    setState(() {});
+   // setState(() {});
   }
 
   @override
@@ -183,46 +183,48 @@ class _HomeViewState extends State<HomeView>
     );
   }
 
-  //
-  // // Platform messages are asynchronous, so we initialize in an async method.
-  // Future<void> initConnectivity() async {
-  //   ConnectivityResult result = ConnectivityResult.none;
-  //   // Platform messages may fail, so we use a try/catch PlatformException.
-  //   try {
-  //     result = await _connectivity.checkConnectivity();
-  //   } on PlatformException catch (e) {
-  //     print(e.toString());
-  //   }
-  //
-  //   // If the widget was removed from the tree while the asynchronous platform
-  //   // message was in flight, we want to discard the reply rather than calling
-  //   // setState to update our non-existent appearance.
-  //   if (!mounted) {
-  //     return Future.value(null);
-  //   }
-  //
-  //   return _updateConnectionStatus(result);
-  // }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initConnectivity() async {
+    ConnectivityResult result = ConnectivityResult.none;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      result = await _connectivity.checkConnectivity();
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) {
+      return Future.value(null);
+    }
+
+    return _updateConnectionStatus(result);
+  }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     switch (result) {
       case ConnectivityResult.mobile:
       case ConnectivityResult.wifi:
-        if (_isDialogShowing) {
-          _isDialogShowing = false;
-          Navigator.of(context).pop();
-        }
-        break;
       case ConnectivityResult.none:
+        print("sdcwrsecf ${result.toString()}");
+      if(_isDialogShowing){
+        _isDialogShowing =false;
+        Navigator.of(context).pop();
+      }
+
+        break;
+      default:
         _isDialogShowing = true;
         FunctionHelper.AlertDialogShop(context,
             title: "Error Network",
             message: "The Internet contract has crashed Please try again...!",
             showbtn: false,
             barrierDismissible: false);
-        break;
-      default:
-        print('Failed to get connectivity.');
+
+
         //  setState(() => _connectionStatus = result.toString());
         // FunctionHelper.AlertDialogShop(context,title: "Error",message: 'Failed to get connectivity.');
         break;

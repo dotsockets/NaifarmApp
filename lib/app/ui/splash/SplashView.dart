@@ -77,15 +77,18 @@ class _SplashViewState extends State<SplashView>
           });
         }
 
+        Future.delayed(const Duration(milliseconds: 300), () {
+          startTimer();
+        });
+
       });
 
       // bloc.ZipHomeObject.stream.listen((event) {
       //   startTimer();
       // });
 
-      Future.delayed(const Duration(milliseconds: 300), () {
-        startTimer();
-      });
+
+
 
     }
 

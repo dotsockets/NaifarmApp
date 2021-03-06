@@ -27,6 +27,7 @@ import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/category/detail/CategoryDetailView.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
@@ -66,6 +67,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
   bool onReLoad = true;
+  bool onDialog = true;
   ProductBloc bloc;
   HomeObjectCombine temp_data;
   final _selectedIndex = BehaviorSubject<int>();
@@ -79,6 +81,22 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           onReLoad = true;
           bloc.ZipHomeObject.add(value);
         });
+      });
+      bloc.onError.stream.listen((event) {
+         if(event.error.status == 0 || event.error.status >= 500){
+          Future.delayed(const Duration(milliseconds: 500), () {
+          FunctionHelper.AlertDialogRetry(context,cancalMessage: "Exit",
+          callCancle: (){
+            exit(0);
+          },
+          title: "Error", message: event.error.message,callBack: (){
+                onDialog = true;
+                _refreshProducts();
+              });
+          });
+        }
+
+
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -167,87 +185,58 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
         return IndexedStack(
           index: snapshot.data,
           children: [
-            SingleChildScrollView(
-              child: Container(
-                color: Colors.grey.shade300,
-                child: StickyHeader(
-                  header: Column(
-                    children: [
-                      BlocBuilder<HomeDataBloc, HomeDataState>(
-                        builder: (_, item) {
-                          if (item is HomeDataLoaded) {
+            BlocBuilder<HomeDataBloc, HomeDataState>(
+              builder: (_, item) {
+                if (item is HomeDataLoaded) {
 
-                            return HomeHeader(
+                  return SingleChildScrollView(
+
+                    child: Container(
+                      color: Colors.grey.shade300,
+                      child: StickyHeader(
+                        header: Column(
+                          children: [
+                            HomeHeader(
                                 snapshot: item.homeObjectCombine,
                                 onTap: (CategoryGroupData val) {
                                   AppRoute.CategoryDetail(context, val.id,
                                       title: val.name);
-                                });
-
-                          } else if (item is HomeDataLoading) {
-                            return HomeHeader(
-                                snapshot: HomeObjectCombine());
-                          } else {
-                            return SizedBox();
-                          }
-                        },
+                                }),
+                          ],
+                        ),
+                        content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Content(item: item.homeObjectCombine),
+                            ]
+                        ),
                       ),
-                    ],
-                  ),
-                  content: Column(
+                    ),
+                  );
+
+                }else {
+                  if(onDialog){
+                    onDialog=false;
+                    bloc.onError.add(Result(error: Error(status: 500,message: "Please check your internet. And do the list again")));
+                  }
+
+                  return Column(
                     children: [
-                      BlocBuilder<HomeDataBloc, HomeDataState>(
-                        builder: (_, item) {
-                          if (item is HomeDataLoaded) {
-                            return Content(item: item.homeObjectCombine);
-
-                          } else if (item is HomeDataLoading) {
-                            return Content(item: item.homeObjectCombine);
-                          } else {
-                            return SizedBox();
-                          }
-                        },
-                      ),
-
-
-
-                      StreamBuilder(
-                        stream: bloc.ZipHomeObject.stream,
-                        builder: (BuildContext context,
-                            AsyncSnapshot snapshot) {
-                          if (snapshot.hasData) {
-                            return CategoryTab(
-                                categoryGroupRespone:
-                                (snapshot.data as HomeObjectCombine)
-                                    .categoryGroupRespone);
-                          } else {
-                            return SizedBox();
-                          }
-                        },
-                      ),
-                      // SizedBox(height: 2.0.h),
-                      // StreamBuilder(
-                      //   stream: bloc.ZipHomeObject.stream,
-                      //   builder: (BuildContext context,
-                      //       AsyncSnapshot snapshot) {
-                      //     if (snapshot.hasData) {
-                      //       return SearchHot(
-                      //           tagHero: "searchHot",
-                      //           productRespone:
-                      //           (snapshot.data as HomeObjectCombine)
-                      //               .trendingRespone,
-                      //           onSelectChang: () {});
-                      //     } else {
-                      //       return SizedBox();
-                      //     }
-                      //   },
-                      // ),
-
-                    ]
-                  ),
-                ),
-              ),
+                      HomeHeader(snapshot: HomeObjectCombine(),),
+                      SizedBox(height: 35.0.h,),
+                      Platform.isAndroid
+                          ? SizedBox(
+                          width: 5.0.w,
+                          height: 5.0.w,
+                          child:
+                          CircularProgressIndicator())
+                          : CupertinoActivityIndicator()
+                    ],
+                  );
+                }
+              },
             )
+
           ],
         );
       },
@@ -415,8 +404,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   @override
   void onResumed() {
     NaiFarmLocalStorage.getNowPage().then((value){
-      if(value==0 && onReLoad){
-       onReLoad = false;
+      if(value==0){
        _refreshProducts();
       }
     });

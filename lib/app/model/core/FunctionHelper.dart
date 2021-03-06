@@ -498,7 +498,7 @@ class FunctionHelper {
         ));
   }
 
-  static AlertDialogRetry(BuildContext context, {String title,String message,Function() callBack}){
+  static AlertDialogRetry(BuildContext context, {String title,String cancalMessage,String message,Function() callBack,Function() callCancle}){
     showDialog(
       barrierDismissible: false,
         context: context,
@@ -510,8 +510,13 @@ class FunctionHelper {
               style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
             ) ,
             actions: [
-              CupertinoDialogAction(isDefaultAction: true, child: new Text("Back"),onPressed: (){
-                AppRoute.PoppageCount(context: context,countpage: 2);
+              CupertinoDialogAction(isDefaultAction: true, child: new Text(cancalMessage!=null?cancalMessage:"Back"),onPressed: (){
+                if(callCancle!=null){
+                  callCancle();
+                }else{
+                  AppRoute.PoppageCount(context: context,countpage: 2);
+                }
+
               },),
 
               CupertinoDialogAction(isDefaultAction: true, child: new Text("Try again "),onPressed: (){
@@ -530,7 +535,12 @@ class FunctionHelper {
             FlatButton(
               child: Text("Back"),
               onPressed:  () {
-                AppRoute.PoppageCount(context: context,countpage: 2);
+                if(callCancle!=null){
+                  callCancle();
+                }else{
+                  AppRoute.PoppageCount(context: context,countpage: 2);
+                }
+
               },
             ),
             FlatButton(
