@@ -60,7 +60,7 @@ class ProductItemCard extends StatelessWidget {
               child: CachedNetworkImage(
                 width: tagHero != "flash"
                     ? 30.0.w
-                    : (MediaQuery.of(context).size.width / 2) - 15,
+                    : (MediaQuery.of(context).size.width / 2) - 3.0.w,
                 height: tagHero != "flash" ? 30.0.w : 40.0.w,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
@@ -118,7 +118,7 @@ class ProductItemCard extends StatelessWidget {
     return Container(
       width: tagHero != "flash"
           ? 30.0.w
-          : (MediaQuery.of(context).size.width / 2) - 15,
+          : (MediaQuery.of(context).size.width / 2) - 3.0.w,
       child: Column(
         children: [
           SizedBox(height: 1.0.h),

@@ -123,9 +123,9 @@ class _PaymentViewState extends State<PaymentView> {
                   fontWeight: FontWeight.w500),
             ),
             FlutterSwitch(
-              height: 30,
-              width: 50,
-              toggleSize: 20,
+              height: SizeUtil.switchHeight(),
+              width: SizeUtil.switchWidth(),
+              toggleSize: SizeUtil.switchToggleSize(),
               activeColor: Colors.grey.shade200,
               inactiveColor: Colors.grey.shade200,
               toggleColor: item.active

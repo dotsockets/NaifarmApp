@@ -39,9 +39,7 @@ class _AddressAddViewState extends State<AddressAddView> {
 
   AddressBloc bloc;
 
-
   //bool checkError = false;
-
 
   void _init() {
     if (null == bloc) {
@@ -58,7 +56,7 @@ class _AddressAddViewState extends State<AddressAddView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-         Navigator.pop(context, true);
+        Navigator.pop(context, true);
       });
       bloc.StatesProvice(countries: "1");
       bloc.provice.stream.listen((event) {
@@ -66,7 +64,8 @@ class _AddressAddViewState extends State<AddressAddView> {
       });
       bloc.zipCcde.stream.listen((event) {
         _checkError();
-        postController.text = event.zipCode!=null?event.zipCode.toString():"";
+        postController.text =
+            event.zipCode != null ? event.zipCode.toString() : "";
       });
       bloc.city.stream.listen((event) {
         _checkError();
@@ -159,8 +158,9 @@ class _AddressAddViewState extends State<AddressAddView> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 return _BuildDropdown(
-                    head: LocaleKeys.select.tr() + LocaleKeys.address_province.tr() + " * ",
-
+                    head: LocaleKeys.select.tr() +
+                        LocaleKeys.address_province.tr() +
+                        " * ",
                     hint: loopString(
                         (snapshot.data as StatesRespone).data, proviceSelect),
                     item: (snapshot.data as StatesRespone).data,
@@ -194,7 +194,6 @@ class _AddressAddViewState extends State<AddressAddView> {
                     hint: loopString(
                         (snapshot.data as StatesRespone).data, citySelect),
                     item: (snapshot.data as StatesRespone).data,
-
                     onSelect: (int index) {
                       setState(() => citySelect =
                           (snapshot.data as StatesRespone).data[index].id);
@@ -228,7 +227,8 @@ class _AddressAddViewState extends State<AddressAddView> {
               maxLength: 100,
               head: LocaleKeys.address_detail.tr(),
               EnableMaxLength: false,
-              hint: LocaleKeys.set_default.tr() + LocaleKeys.address_detail.tr(),
+              hint:
+                  LocaleKeys.set_default.tr() + LocaleKeys.address_detail.tr(),
               onChanged: (String x) => _checkError(),
               controller: detailAddrController,
               inputType: TextInputType.text),
@@ -277,8 +277,9 @@ class _AddressAddViewState extends State<AddressAddView> {
                 FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
           FlutterSwitch(
-            height: SizeUtil.switchSize().w,
-            toggleSize: SizeUtil.switchToggleSize().w,
+            height: SizeUtil.switchHeight(),
+            width: SizeUtil.switchWidth(),
+            toggleSize: SizeUtil.switchToggleSize(),
             activeColor: Colors.grey.shade200,
             inactiveColor: Colors.grey.shade200,
             toggleColor:
@@ -297,7 +298,7 @@ class _AddressAddViewState extends State<AddressAddView> {
 
   Widget _buildButton() {
     return Container(
-        padding: EdgeInsets.only(left: 50, right: 50,bottom: 1.0.h),
+        padding: EdgeInsets.only(left: 50, right: 50, bottom: 1.0.h),
         color: Colors.grey.shade300,
         child: Container(
             width: MediaQuery.of(context).size.width,
@@ -316,7 +317,7 @@ class _AddressAddViewState extends State<AddressAddView> {
         borderRadius: BorderRadius.circular(40.0),
       ),
       onPressed: () {
-        if(check){
+        if (check) {
           Usermanager().getUser().then((value) => bloc.CreateAddress(
               addressCreaterequest: AddressCreaterequest(
                   cityId: citySelect,
@@ -330,8 +331,6 @@ class _AddressAddViewState extends State<AddressAddView> {
                   addressType: isSelect ? "Primary" : "Shipping"),
               token: value.token));
         }
-
-
       },
       child: Text(
         btnTxt,
@@ -345,7 +344,8 @@ class _AddressAddViewState extends State<AddressAddView> {
     //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "ไม่ถูกต้อง",context: context);
     check = true;
 
-    if (!validator.phone(phoneController.text)||phoneController.text.length!=10) {
+    if (!validator.phone(phoneController.text) ||
+        phoneController.text.length != 10) {
       check = false;
       errorPhoneTxt = "หมายเลขโทรศัพท์ไม่ถูกต้อง";
     } else {
@@ -357,7 +357,8 @@ class _AddressAddViewState extends State<AddressAddView> {
         postController.text.length == 0 ||
         detailAddrController.text.length == 0 ||
         proviceSelect == 0 ||
-        citySelect == 0||postController.text.length!=5) {
+        citySelect == 0 ||
+        postController.text.length != 5) {
       check = false;
     }
 

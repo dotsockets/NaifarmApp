@@ -47,12 +47,16 @@ class SizeUtil {
     return Device.get().isPhone ? 8.0 : 7.0;
   }
 
-  static double switchSize() {
-    return Device.get().isPhone ? 9.0 : 5.0;
+  static double switchHeight() {
+    return Device.get().isPhone ? 30.0 : 40.0;
+  }
+
+  static double switchWidth() {
+    return Device.get().isPhone ? 55.0 : 70.0;
   }
 
   static double switchToggleSize() {
-    return Device.get().isPhone ? 7.0 : 5.0;
+    return Device.get().isPhone ? 28.0 : 38.0;
   }
 
   static double shopBadgeSize() {
