@@ -72,7 +72,13 @@ class CodegenLoader extends AssetLoader{
   },
   "review": {
     "write": "write review",
-    "rate": "Rate"
+    "rate": "Rate",
+    "deli_ex": "Excellent Delivery Speed",
+    "product_ex": "Excellent Product",
+    "quality_ex": "Excellent Quality of Product",
+    "tell": "Tell others why the product is good",
+    "anonymous": "Leave your review anonymous",
+    "username": "Your username will be show"
   },
   "edit_phone": {
     "title": "Please enter a new phone number to receive a OTP",
@@ -173,7 +179,12 @@ class CodegenLoader extends AssetLoader{
     "save_edit": "Save Edit",
     "review": "Review",
     "buy_product_again": "Buy Again",
-    "main": "Back to main page"
+    "main": "Back to main page",
+    "copy": "copy",
+    "close": "Close",
+    "connect": "Connect again",
+    "add_image": "Add image",
+    "add_vdo": "Add video"
   },
   "dialog_message": {
     "del_account": "We are sad that you want to leave us, but please note that account deletion is irreversible",
@@ -181,7 +192,8 @@ class CodegenLoader extends AssetLoader{
     "del_product": "Do you want to delete product",
     "mail_change_cancel": "Do you want to leave email change",
     "password_success": "Change Password Success",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "exit": "Do you want to exit an App"
   },
   "message": {
     "phone_edit": "If you edit phone number. All account numbers associated with this account will be modified",
@@ -230,12 +242,14 @@ class CodegenLoader extends AssetLoader{
   },
   "history": {
     "order_time": "Payment Time",
-    "order_price": "Order Total",
-    "wait_rate": "Rate"
+    "order_price": "Order Total"
   },
   "payment_method": {
     "cash_delivery": "Cash on Delivery",
-    "bank": "Bank account"
+    "bank": "Bank account",
+    "slip": "Upload Pay-in Slip Now",
+    "no_slip": "Upload Pay-in Slip Later",
+    "update_slip": "Update Pay-in Slip"
   },
   "wallet_balance": {
     "title": "Wallet Balance",
@@ -248,12 +262,12 @@ class CodegenLoader extends AssetLoader{
     "withdraw_fee": "Withdraw Fee"
   },
   "attributes": {
-    "set": "Variations",
-    "add": "Add Variations",
+    "set": "Attributes",
+    "add": "Add Attributes",
     "empty": "Data not found",
     "color": "Color code",
-    "edit": "Edit Variations",
-    "list": "Variations List"
+    "edit": "Edit Attributes",
+    "list": "Attributes List"
   },
   "my_product": {
     "sell": "Sell Product",
@@ -288,7 +302,8 @@ class CodegenLoader extends AssetLoader{
     "option": "Product Options",
     "stock_set": "Set stock and price",
     "review_score": "Product Ratings",
-    "read_more": "Read More"
+    "read_more": "Read More",
+    "empty": "-"
   },
   "shop": {
     "title": "Shop",
@@ -353,6 +368,7 @@ class CodegenLoader extends AssetLoader{
   "order_detail": {
     "title": "Order Detail",
     "wait_rate": "Waiting For Rating",
+    "wait_pay": "Waiting For Payment",
     "complete_rate": "Rating Success",
     "thank_rate": "Order completed.Thank you for rating",
     "complete_time": "Completed Time",
@@ -382,8 +398,10 @@ class CodegenLoader extends AssetLoader{
     "wait": "Wait for buyer to accept the products by",
     "cancel_detail": "Cancel Detail",
     "cancel_by": "Cancel by",
+    "cancel_order": "Cancel Order",
     "cancel_reason": "Reason for Cancel",
-    "id": "Order ID"
+    "id": "Order ID",
+    "payment_info": "Payment Information"
   },
   "login": {
     "forgot_password": "Forgot Password",
@@ -473,7 +491,13 @@ static const Map<String,dynamic> th_TH = {
   },
   "review": {
     "write": "เขียนรีวืว",
-    "rate": "ให้คะแนน"
+    "rate": "ให้คะแนน",
+    "deli_ex": "ส่งไวมาก",
+    "product_ex": "สินค้าดีมาก",
+    "quality_ex": "คุณภาพดี",
+    "tell": "บอกคนอื่นๆ ว่า ทำไมสินค้านี้ถึง ดี",
+    "anonymous": "รีวิวโดยไม่เปิดชื่อ",
+    "username": "ชื่อที่จะแสดง"
   },
   "edit_phone": {
     "title": "กรุณาใส่หมายเลขใหม่เพื่อรับ OTP",
@@ -565,16 +589,21 @@ static const Map<String,dynamic> th_TH = {
     "next": "ถัดไป",
     "cancel": "ยกเลิก",
     "forgot_pass": "หากลืมรหัสผ่าน",
-    "confirm_": "ยืนยัน",
+    "confirm": "ยืนยัน",
     "sell": "ลงขาย",
     "set_price": "ตั้งราคาต่อ",
     "buy_now": "ซื้อเลย",
     "buy_product": "ซื้อสินค้า",
     "del_product": "ลบรายการ",
     "save_edit": "บันทึกการแก้ไข",
-    "review_": "รีวิว",
+    "review": "รีวิว",
     "buy_product_again": "ซื้อสินค้าอีกครั้ง",
-    "main": "กลับสู่หน้าหลัก"
+    "main": "กลับสู่หน้าหลัก",
+    "copy": "คัดลอก",
+    "close": "ปิด",
+    "connect": "เชื่อมต่ออีกครั้ง",
+    "add_image": "เพิ่มรูปภาพ",
+    "add_vdo": "เพิ่มวิดีโอ"
   },
   "dialog_message": {
     "del_account": "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หากคุณต้องการลบจะไม่สามารถกู้คืนได้",
@@ -582,7 +611,8 @@ static const Map<String,dynamic> th_TH = {
     "phone_edit_cancel": "คุณต้องการออกจากการเปลี่ยนแปลงเบอร์โทรศัพท์ใช่หรือไม่",
     "change_mail": "คุณต้องการออกจากการเปลี่ยนแปลงอีเมลใช่หรือไม่",
     "password_success": "เปลี่ยนรหัสผ่านสำเร็จ",
-    "loading": "กำลังโหลด..."
+    "loading": "กำลังโหลด...",
+    "exit": "คุณต้องการออก"
   },
   "message": {
     "phone_edit": "หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่ หมายเลขบัญชีทั้งหมดที่ผูกกับบัญชีนี้จะถูกแก้ไขด้วย",
@@ -631,12 +661,14 @@ static const Map<String,dynamic> th_TH = {
   },
   "history": {
     "order_time": "วันที่ซื้อ",
-    "order_price": "รวมการสั่งซื้อ",
-    "wait_rate": "รอให้คะแนน"
+    "order_price": "รวมการสั่งซื้อ"
   },
   "payment_method": {
     "cash_delivery": "เก็บเงินปลายทาง",
-    "bank": "โอนเงินผ่านบัญชี"
+    "bank": "โอนเงินผ่านบัญชี",
+    "slip": "มีหลักฐานการชำระเงิน อัพโหลดเลย",
+    "no_slip": "ไม่มีหลักฐานการชำระเงิน และจะอัพโหลดทีหลัง",
+    "update_slip": "อัพเดตหลักฐานการชำระ"
   },
   "wallet_balance": {
     "title": "ยอดเงินในกระเป๋า",
@@ -681,7 +713,8 @@ static const Map<String,dynamic> th_TH = {
     "option": "ตัวเลือกสินค้า",
     "stock_set": "ตั้งค่าสต็อกและราคา",
     "review_score": "คะแนนรีวิว",
-    "read_more": "อ่านเพิ่มเติม"
+    "read_more": "อ่านเพิ่มเติม",
+    "empty": "ไม่มี"
   },
   "shop": {
     "title": "ร้านค้า",
@@ -753,6 +786,7 @@ static const Map<String,dynamic> th_TH = {
   "order_detail": {
     "title": "รายละเอียดคำสั่งซื้อ",
     "wait_rate": "รอให้คะแนน",
+    "wait_pay": "รอชำระเงิน",
     "complete_rate": "ให้คะแนนแล้ว",
     "thank_rate": "คำสั่งซื้อเสร็จสมบูรณ์และขอบคุณสำหรับการให้คะแนน",
     "complete_time": "เวลาที่สำเร็จ",
@@ -783,7 +817,9 @@ static const Map<String,dynamic> th_TH = {
     "cancel_detail": "รายละอียดคำขอยกเลิก",
     "cancel_by": "ยกเลิกโดย",
     "cancel_reason": "เหตุผลการยกเลิก",
-    "id": "เลขคำสั่งซื้อ"
+    "cancel_order": "ยกเลิกคำสั่งซื้อ",
+    "id": "เลขคำสั่งซื้อ",
+    "payment_info": "ข้อมูลการชำระเงิน"
   },
   "login": {
     "forgot_password": "ลืมรหัสผ่าน",

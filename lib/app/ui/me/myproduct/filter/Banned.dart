@@ -80,7 +80,7 @@ class _BannedState extends State<Banned> {
         FunctionHelper.AlertDialogShop(context,
             title: "Error", message:event.error.message);
       //  FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event.error.message);
-        widget.searchTxt.length!=0?_reloadFirstSearch():_reloadFirstPage();
+      // widget.searchTxt.length!=0?_reloadFirstSearch():_reloadFirstPage();
 
       });
       bloc.onLoad.stream.listen((event) {
@@ -355,8 +355,7 @@ class _BannedState extends State<Banned> {
                                       child: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            "ตัวเลือกสินค้า" +
-                                                " ไม่มี",
+                                            LocaleKeys.my_product_option.tr() + " ${LocaleKeys.my_product_empty.tr()}",
                                             style: FunctionHelper.FontTheme(
                                                 fontSize:
                                                 SizeUtil.detailFontSize()

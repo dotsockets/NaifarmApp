@@ -247,7 +247,8 @@ class _CanceledViewState extends State<CanceledView>{
                     children: [
                       item.inventory.product.discountPercent != 0
                           ? Text(
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
+                          //"฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
+                          "฿${item.inventory.product.discountPercent}",
                           style: FunctionHelper.FontTheme(
                               color: Colors.black.withOpacity(0.5),
                               fontSize: SizeUtil.titleFontSize().sp,
@@ -255,7 +256,8 @@ class _CanceledViewState extends State<CanceledView>{
                           : SizedBox(),
                       SizedBox(width: 3.0.w),
                       Text(
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
+                          //"฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
+                          "฿${item.inventory.salePrice}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: ThemeColor.ColorSale()))
@@ -296,10 +298,11 @@ class _CanceledViewState extends State<CanceledView>{
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       new TextSpan(
-                          text: LocaleKeys.history_order_price.tr(),
+                          text: LocaleKeys.history_order_price.tr()+" : " ,
                           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                      new TextSpan(text: " : " +
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                      new TextSpan(text:
+                          "฿${item.grandTotal}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                         // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
                     ],
                   ),
                 ),

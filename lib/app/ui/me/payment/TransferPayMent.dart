@@ -128,7 +128,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.w500),
                   ),
-                  SizedBox(height: 0.5.h,),
+                  SizedBox(height: 1.0.h,),
                   Row(
                     children: [
                       Expanded(
@@ -138,7 +138,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                               TextSpan(
                                   text: "เลขที่บัญชี : ",
                                   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.5))),
-                              TextSpan(text: "468 0601 709",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()).sp,fontWeight: FontWeight.bold,color: ThemeColor.ColorSale())),
+                              TextSpan(text: "468 0601 709",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleFontSize()).sp,fontWeight: FontWeight.bold,color: ThemeColor.ColorSale())),
                             ],
                           ),
                         ),
@@ -146,7 +146,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                       InkWell(
                         child: Container(
                           child: Text(
-                            "คัดลอก",
+                            "${LocaleKeys.btn_copy.tr()}",
                             style: FunctionHelper.FontTheme(color: ThemeColor.secondaryColor(),
                                 fontSize: SizeUtil.titleSmallFontSize().sp,
                                 fontWeight: FontWeight.bold),
@@ -235,7 +235,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 captureImage(ImageSource.gallery);
               },
               child: Text(
-                widget.orderData.image.length==0?"มีหลักฐานการชำระเงิน อัพโหลดเลย":"อัพเดตหลักฐานการชำระ",
+                widget.orderData.image.length==0?"${LocaleKeys.payment_method_slip.tr()}":"${LocaleKeys.payment_method_update_slip.tr()}",
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500),
@@ -257,7 +257,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 Navigator.of(context).pop();
               },
               child: Text(
-                "ไม่มีมีหลักฐานการชำระเงิน และอัพโหลดที่หลัง",
+                "${LocaleKeys.payment_method_no_slip.tr()}",
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500),

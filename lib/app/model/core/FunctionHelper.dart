@@ -489,7 +489,7 @@ class FunctionHelper {
           actions: [
             // okButton,
             showbtn?FlatButton(
-              child: Text("Close"),
+              child: Text(LocaleKeys.btn_close.tr()),
               onPressed:  () {
                 Navigator.of(context).pop();
               },

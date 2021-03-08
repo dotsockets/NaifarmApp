@@ -79,11 +79,11 @@ class _ReviewViewState extends State<ReviewView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 3.0.w),
-              Text("รีวิวโดยไม่เปิดชื่อ",
+              Text(LocaleKeys.review_anonymous.tr(),
                   style: FunctionHelper.FontTheme(
                       fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500)),
               SizedBox(height: 1.0.w),
-              Text("ชื่อที่จะแสดง: farnmarket@mail.com",
+              Text("${LocaleKeys.review_username.tr()}: farnmarket@mail.com",
                   style: FunctionHelper.FontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black.withOpacity(0.5))),
               SizedBox(height: 20,)
@@ -296,7 +296,7 @@ class _ReviewViewState extends State<ReviewView> {
                       child: Column(
                         children: [
                           Icon(Icons.camera_alt,color: ThemeColor.secondaryColor(),),
-                          Text("เพิ่มรูปภาพ",
+                          Text(LocaleKeys.btn_add_image.tr(),
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500,color: ThemeColor.secondaryColor())),
                         ],
@@ -316,7 +316,7 @@ class _ReviewViewState extends State<ReviewView> {
                       child: Column(
                         children: [
                           Icon(FontAwesome.video_camera,color: ThemeColor.secondaryColor(),),
-                          Text("เพิ่มวีดีโอ",
+                          Text(LocaleKeys.btn_add_vdo.tr(),
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500,color: ThemeColor.secondaryColor())),
                         ],
@@ -332,21 +332,24 @@ class _ReviewViewState extends State<ReviewView> {
             Container(
               padding: EdgeInsets.only(left: 20,right: 20,top: 20),
               child: BuildEditText(
-                  head: LocaleKeys.btn_review.tr()+" * ",maxLength: 5000,
-                  hint: "Tell others why the product is good",maxLine: 5,controller: reviewController,inputType: TextInputType.text),
+                  head: "",maxLength: 5000,
+                  hint: LocaleKeys.review_tell.tr(),maxLine: 5,controller: reviewController,inputType: TextInputType.text),
             ),
             SizedBox(height: 15,),
-            Container(
-              padding: EdgeInsets.only(left: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  _BuildButtonreview(title: "ส่งไวมาก",onClick: ()=>reviewController.text = "ส่งไวมาก" ),
-                  SizedBox(width: 10,),
-                  _BuildButtonreview(title: "สินค้าดีมาก",onClick: ()=>reviewController.text = "สินค้าดีมาก"),
-                  SizedBox(width: 10,),
-                  _BuildButtonreview(title: "คุณภาพดี",onClick: ()=>reviewController.text = "คุณภาพดี"),
-                ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                padding: EdgeInsets.only(left: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    _BuildButtonreview(title: LocaleKeys.review_deli_ex.tr(),onClick: ()=>reviewController.text = LocaleKeys.review_deli_ex.tr()),
+                    SizedBox(width: 10,),
+                    _BuildButtonreview(title: LocaleKeys.review_product_ex.tr(),onClick: ()=>reviewController.text = LocaleKeys.review_product_ex.tr()),
+                    SizedBox(width: 10,),
+                    _BuildButtonreview(title: LocaleKeys.review_quality_ex.tr(),onClick: ()=>reviewController.text = LocaleKeys.review_quality_ex.tr()),
+                  ],
+                ),
               ),
             ),
 

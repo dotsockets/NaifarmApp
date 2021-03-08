@@ -54,6 +54,12 @@ abstract class  LocaleKeys {
   static const shipping = 'shipping';
   static const review_write = 'review.write';
   static const review_rate = 'review.rate';
+  static const review_deli_ex = 'review.deli_ex';
+  static const review_product_ex = 'review.product_ex';
+  static const review_quality_ex = 'review.quality_ex';
+  static const review_tell = 'review.tell';
+  static const review_anonymous = 'review.anonymous';
+  static const review_username = 'review.username';
   static const review = 'review';
   static const edit_phone_title = 'edit_phone.title';
   static const edit_phone_hint = 'edit_phone.hint';
@@ -146,6 +152,11 @@ abstract class  LocaleKeys {
   static const btn_review = 'btn.review';
   static const btn_buy_product_again = 'btn.buy_product_again';
   static const btn_main = 'btn.main';
+  static const btn_copy = 'btn.copy';
+  static const btn_close = 'btn.close';
+  static const btn_connect = 'btn.connect';
+  static const btn_add_image = 'btn.add_image';
+  static const btn_add_vdo = 'btn.add_vdo';
   static const btn = 'btn';
   static const dialog_message_del_account = 'dialog_message.del_account';
   static const dialog_message_phone_edit_cancel = 'dialog_message.phone_edit_cancel';
@@ -153,6 +164,7 @@ abstract class  LocaleKeys {
   static const dialog_message_mail_change_cancel = 'dialog_message.mail_change_cancel';
   static const dialog_message_password_success = 'dialog_message.password_success';
   static const dialog_message_loading = 'dialog_message.loading';
+  static const dialog_message_exit = 'dialog_message.exit';
   static const dialog_message = 'dialog_message';
   static const message_phone_edit = 'message.phone_edit';
   static const message_mail_edit = 'message.mail_edit';
@@ -198,10 +210,12 @@ abstract class  LocaleKeys {
   static const cart = 'cart';
   static const history_order_time = 'history.order_time';
   static const history_order_price = 'history.order_price';
-  static const history_wait_rate = 'history.wait_rate';
   static const history = 'history';
   static const payment_method_cash_delivery = 'payment_method.cash_delivery';
   static const payment_method_bank = 'payment_method.bank';
+  static const payment_method_slip = 'payment_method.slip';
+  static const payment_method_no_slip = 'payment_method.no_slip';
+  static const payment_method_update_slip = 'payment_method.update_slip';
   static const payment_method = 'payment_method';
   static const wallet_balance_title = 'wallet_balance.title';
   static const wallet_balance_trans_history = 'wallet_balance.trans_history';
@@ -252,6 +266,7 @@ abstract class  LocaleKeys {
   static const my_product_stock_set = 'my_product.stock_set';
   static const my_product_review_score = 'my_product.review_score';
   static const my_product_read_more = 'my_product.read_more';
+  static const my_product_empty = 'my_product.empty';
   static const my_product = 'my_product';
   static const shop_title = 'shop.title';
   static const shop_category = 'shop.category';
@@ -310,6 +325,7 @@ abstract class  LocaleKeys {
   static const noti = 'noti';
   static const order_detail_title = 'order_detail.title';
   static const order_detail_wait_rate = 'order_detail.wait_rate';
+  static const order_detail_wait_pay = 'order_detail.wait_pay';
   static const order_detail_complete_rate = 'order_detail.complete_rate';
   static const order_detail_thank_rate = 'order_detail.thank_rate';
   static const order_detail_complete_time = 'order_detail.complete_time';
@@ -339,8 +355,10 @@ abstract class  LocaleKeys {
   static const order_detail_wait = 'order_detail.wait';
   static const order_detail_cancel_detail = 'order_detail.cancel_detail';
   static const order_detail_cancel_by = 'order_detail.cancel_by';
+  static const order_detail_cancel_order = 'order_detail.cancel_order';
   static const order_detail_cancel_reason = 'order_detail.cancel_reason';
   static const order_detail_id = 'order_detail.id';
+  static const order_detail_payment_info = 'order_detail.payment_info';
   static const order_detail = 'order_detail';
   static const login_forgot_password = 'login.forgot_password';
   static const login_not_member = 'login.not_member';
