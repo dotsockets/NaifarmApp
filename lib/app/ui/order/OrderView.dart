@@ -49,7 +49,14 @@ class _OrderViewState extends State<OrderView> {
 
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.AlertDialogShop(context,message:event,showbtn: true,title: "Error Shipping" );
+        FunctionHelper.AlertDialogShop(context,message:event,showbtn: true,title: "Error Shipping" ,callCancle: (){
+          AppRoute.PoppageCount(context: context,countpage: 2);
+        });
+        //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+      });
+      Product_bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        FunctionHelper.AlertDialogShop(context,message: event.error.message,showbtn: true,title: "Error Shipping" );
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onLoad.stream.listen((event) {
@@ -124,7 +131,7 @@ class _OrderViewState extends State<OrderView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 //widget.typeView==OrderViewType.Purchase &&  item.orderStatusId!=5 &&  item.orderStatusId!=6 &&  item.orderStatusId!=8?_HeaderStatus(context: context,orderData: item):SizedBox(),
-                                item.orderStatusId==1 ?_HeaderStatus(context: context,orderData: item):SizedBox(),
+                                item.orderStatusId==1 && widget.typeView == OrderViewType.Purchase?_HeaderStatus(context: context,orderData: item):SizedBox(),
                                 _labelText(title: LocaleKeys.order_detail_ship_addr.tr()),
                                 _addtess_recive(context: context,orderData: item),
                                 _labelText(title: LocaleKeys.order_detail_ship_data.tr()),

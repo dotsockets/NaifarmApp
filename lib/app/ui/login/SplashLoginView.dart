@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -21,7 +20,6 @@ class SplashLoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -66,17 +64,17 @@ class SplashLoginView extends StatelessWidget {
                   fontWeight: FontWeight.w500),
 
             ),
-            SizedBox(height: ScreenUtil().setHeight(70),),
-            Image.asset('assets/images/png/img_login.png',height: ScreenUtil().setHeight(600),),
+            SizedBox(height: 5.0.h,),
+            Image.asset('assets/images/png/img_login.png',height:35.0.h,),
             SizedBox(height: 3.0.h,),
             Text("แอปเพื่อเกษตรกรไทย ซื้อง่าย ขายคล่อง",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp),),
-            SizedBox(height: ScreenUtil().setHeight(80),),
+            SizedBox(height: 4.0.h,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FlatButton(
-                  minWidth: ScreenUtil().setWidth(400),
-                  height: ScreenUtil().setHeight(120),
+                  minWidth: 40.0.w,
+                  height: 5.0.h,
                   color: ThemeColor.ColorSale(),
                   textColor: Colors.white,
                   splashColor: Colors.white.withOpacity(0.3),
@@ -92,8 +90,8 @@ class SplashLoginView extends StatelessWidget {
                 ),
                 SizedBox(width: 2.0.h,),
                 FlatButton(
-                  minWidth: ScreenUtil().setWidth(400),
-                  height: ScreenUtil().setHeight(120),
+                  minWidth: 40.0.w,
+                  height: 5.0.h,
                   color: ThemeColor.secondaryColor(),
                   textColor: Colors.white,
                   splashColor: Colors.white.withOpacity(0.3),
@@ -109,7 +107,7 @@ class SplashLoginView extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: ScreenUtil().setHeight(60),),
+            SizedBox(height: 4.0.h,),
             Wrap(
               children: [
                 Text(LocaleKeys.splashLogin_skip_message.tr()+" ",style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize().sp)),
@@ -129,7 +127,7 @@ class SplashLoginView extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: ScreenUtil().setHeight(40),),
+            SizedBox(height: 5.0.h),
           ],
         ));
   }

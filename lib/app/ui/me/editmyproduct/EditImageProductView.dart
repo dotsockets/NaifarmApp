@@ -6,7 +6,6 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';

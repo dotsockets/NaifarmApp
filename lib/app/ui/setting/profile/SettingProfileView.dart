@@ -90,7 +90,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
                             AppRoute.SettingAddress(context);
                           },
                         ),
-                        _buildLine(),
+                        //_buildLine(),
                         /* widget.IsLogin?ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_bank.tr(),

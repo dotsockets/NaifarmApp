@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -14,6 +13,7 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -62,20 +62,32 @@ class _ProductMoreViewState extends State<ProductMoreView> {
       bloc = ProductBloc(AppProvider.getApplication(context));
 
       if (widget.installData != null) {
-        // bloc.product_more.addAll(widget.installData.data);
         bloc.MoreProduct.add(widget.installData);
-        bloc.loadMoreData(
-            page: page.toString(),
-            limit: 10,
-            link: widget.api_link,
-            type_more: widget.type_more);
-      } else {
-        bloc.loadMoreData(
-            page: page.toString(),
-            limit: limit,
-            link: widget.api_link,
-            type_more: widget.type_more);
       }
+      NaiFarmLocalStorage.getProductMoreCache().then((value){
+
+         if(value!=null){
+           for(var data in value.productRespone){
+               if(data.slag == widget.api_link){
+                 bloc.MoreProduct.add(data.searchRespone);
+                 break;
+               }
+           }
+           bloc.loadMoreData(
+               page: page.toString(),
+               limit: 10,
+               link: widget.api_link,
+               type_more: widget.type_more);
+
+         }else{
+           bloc.loadMoreData(
+               page: page.toString(),
+               limit: 10,
+               link: widget.api_link,
+               type_more: widget.type_more);
+         }
+      });
+
     }
 
     _scrollController.addListener(() {
@@ -340,7 +352,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                   rating: item.rating != null && item.rating != 0
                       ? item.rating.toDouble()
                       : 0.0,
-                  size: ScreenUtil().setHeight(40),
+                  size: 4.0.w,
                   isReadOnly: true,
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half,

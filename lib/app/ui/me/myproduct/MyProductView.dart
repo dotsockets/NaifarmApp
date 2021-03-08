@@ -118,18 +118,9 @@ class _MyProductViewState extends State<MyProductView> {
                           shopID: widget.shopId,
                           tabNum: tabNum);
                     }),
+
                 IconButton(
-                  icon: Icon(
-                    FontAwesome.ellipsis_v,
-                    size: SizeUtil.mediumIconSize().w,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                   AppRoute.SearchMyProductView(context: context,shopID: widget.shopId,tabNum: tabNum);
-                  }
-                ),
-                IconButton(
-                  icon: Icon(FontAwesome.ellipsis_v,size: 7.0.w,color: Colors.white,)
+                  icon: Icon(FontAwesome.ellipsis_v,size: SizeUtil.mediumIconSize().w,color: Colors.white,)
                   ,onPressed: (){ ButtonDialog(context,message: [LocaleKeys.attributes_set.tr()],onClick: () {
                   Navigator.of(context).pop();
                   AppRoute.Attribute(context: context);

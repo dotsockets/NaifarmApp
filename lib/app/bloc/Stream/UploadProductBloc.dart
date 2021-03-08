@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';

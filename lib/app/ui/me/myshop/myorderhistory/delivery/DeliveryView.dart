@@ -104,7 +104,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                                         Center(
                                           child: Container(
                                             color: Colors.white.withOpacity(0.7),
-                                            height: 35.0.h,
+                                            height: 27.0.h,
                                             child: Center(
                                               child: Container(
                                                 width: 30.0.w,
@@ -237,7 +237,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
-                    "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : ''}",
+                    "${Env.value.baseUrl}/storage/images/${item.inventory!=null?item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : '':''}",
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
@@ -265,7 +265,7 @@ class _DeliveryViewState extends State<DeliveryView> {
             children: [
               SizedBox(height: 3.0.w),
               Container(
-                child: Text(item.inventory.title,
+                child: Text(item.inventory!=null?item.inventory.title:'ไม่พบข้อมูล',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.FontTheme(
@@ -282,9 +282,9 @@ class _DeliveryViewState extends State<DeliveryView> {
                           color: Colors.black)),
                   Row(
                     children: [
-                      item.inventory.product.discountPercent != 0
+                  item.inventory!=null && item.inventory.product.discountPercent != 0
                           ? Text(
-                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
+                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory!=null?item.inventory.product.discountPercent:0)}",
                               style: FunctionHelper.FontTheme(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: SizeUtil.titleFontSize().sp,
@@ -292,7 +292,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                           : SizedBox(),
                       SizedBox(width: 3.0.w),
                       Text(
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
+                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory!=null?item.inventory.salePrice:999)}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: ThemeColor.ColorSale()))

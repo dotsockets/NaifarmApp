@@ -20,6 +20,8 @@ import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductDetailCombin.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMoreCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -216,23 +218,77 @@ class ProductBloc{
       Observable.fromFuture(_application.appStoreAPIRepository.getSearch(query: "&categoryGroupId=${link}",limit: limit,page: page)).listen((respone) {
         if(respone.http_call_back.status==200 ){
           var item = (respone.respone as SearchRespone);
-          product_more.addAll(ConvertSearchData(item: item).data);
-          MoreProduct.add(ConvertSearchData(item: item));
+          if(page=="1"){
+            NaiFarmLocalStorage.getProductMoreCache().then((value){
+              if(value!=null){
+                for(var data in value.productRespone){
+                  if(data.slag==link){
+                    value.productRespone.remove(data);
+                    break;
+                  }
+                }
+                value.productRespone.add(ProductMoreCombin(searchRespone: ConvertSearchData(item: item),slag: link));
+                NaiFarmLocalStorage.saveProductMoreCache(value).then((value){
+                  product_more.addAll(ConvertSearchData(item: item).data);
+                  MoreProduct.add(ConvertSearchData(item: item));
+                });
+              }else{
+                List<ProductMoreCombin> data = List<ProductMoreCombin>();
+                data.add(ProductMoreCombin(searchRespone: ConvertSearchData(item: item),slag: link));
+                NaiFarmLocalStorage.saveProductMoreCache(ProducMoreCache(data)).then((value){
+                  product_more.addAll(ConvertSearchData(item: item).data);
+                  MoreProduct.add(ConvertSearchData(item: item));
+                });
+              }
+
+            });
+
+          }else{
+            product_more.addAll(ConvertSearchData(item: item).data);
+            MoreProduct.add(ConvertSearchData(item: item));
+          }
+
+
 
         }else{
           onError.add(respone.http_call_back.result);
         }
       });
       _compositeSubscription.add(subscription);
-   // https://stg-api-test.naifarm.com/v1/products/types/popular?limit=10&page=1
+      // https://stg-api-test.naifarm.com/v1/products/types/popular?limit=10&page=1
     }else{
       StreamSubscription subscription =
       Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(page: page,link: link,limit: limit)).listen((respone) {
         if(respone.http_call_back.status==200){
           var item = (respone.respone as ProductRespone);
+          if(page=="1"){
+            NaiFarmLocalStorage.getProductMoreCache().then((value){
+              if(value!=null){
+                for(var data in value.productRespone){
+                  if(data.slag==link){
+                    value.productRespone.remove(data);
+                    break;
+                  }
+                }
+                value.productRespone.add(ProductMoreCombin(searchRespone: item,slag: link));
+                NaiFarmLocalStorage.saveProductMoreCache(value).then((value){
+                  product_more.addAll(item.data);
+                  MoreProduct.add(ProductRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
+                });
+              }else{
+                List<ProductMoreCombin> data = List<ProductMoreCombin>();
+                data.add(ProductMoreCombin(searchRespone: item,slag: link));
+                NaiFarmLocalStorage.saveProductMoreCache(ProducMoreCache(data)).then((value){
+                  product_more.addAll(item.data);
+                  MoreProduct.add(ProductRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
+                });
+              }
+            });
+          }else{
+            product_more.addAll(item.data);
+            MoreProduct.add(ProductRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
+          }
 
-          product_more.addAll(item.data);
-          MoreProduct.add(ProductRespone(data: product_more,limit: item.limit,page: item.page,total: item.total));
         }
       });
       _compositeSubscription.add(subscription);
@@ -319,9 +375,31 @@ class ProductBloc{
       if(event.http_call_back.status==200){
         var item = (event.respone as ProducItemRespone);
         if(item!=null){
-          GetSearchCategoryGroupId(GroupId: item.categories[0].category.categorySubGroup.categoryGroup.id,limit: 10);
+          GetSearchCategoryGroupId(productItem: item,GroupId: item.categories[0].category.categorySubGroup.categoryGroup.id,limit: 10);
         }
-        ZipProductDetail.add(ProductObjectCombine(producItemRespone: item));
+
+        NaiFarmLocalStorage.getProductDetailCache().then((value){
+          if(value!=null){
+             for(var data in value.item){
+                if(data.productObjectCombine.producItemRespone.id == id){
+                  value.item.remove(data);
+                  break;
+                }
+             }
+             value.item.add(ProductDetailData(productObjectCombine: ProductObjectCombine(producItemRespone: item)));
+
+             NaiFarmLocalStorage.saveProductDetailCache(value).then((value){
+               ZipProductDetail.add(ProductObjectCombine(producItemRespone: item));
+             });
+          }else{
+            List<ProductDetailData> data = List<ProductDetailData>();
+            data.add(ProductDetailData(productObjectCombine: ProductObjectCombine(producItemRespone: item)));
+
+            NaiFarmLocalStorage.saveProductDetailCache(ProductDetailCombin(data)).then((value){
+              ZipProductDetail.add(ProductObjectCombine(producItemRespone: item));
+            });
+          }
+        });
       }else{
         onError.add(event.http_call_back.result);
       }
@@ -433,7 +511,29 @@ class ProductBloc{
 
 
     }).listen((event) {
-      ZipShopObject.add(event);
+      NaiFarmLocalStorage.getNaiFarm_ShopCache().then((value){
+        if(value!=null){
+          for(var data in value.item){
+            if(data.shopRespone.id == shopid){
+              value.item.remove(data);
+              break;
+            }
+          }
+
+          value.item.add(event);
+
+          NaiFarmLocalStorage.saveNaiFarm_ShopCache(value).then((value){
+            ZipShopObject.add(event);
+          });
+        }else{
+          List<ZipShopObjectCombin> data = List<ZipShopObjectCombin>();
+          data.add(event);
+          NaiFarmLocalStorage.saveNaiFarm_ShopCache(NaiFarmShopCombin(data)).then((value){
+            ZipShopObject.add(event);
+          });
+        }
+      });
+
     });
     _compositeSubscription.add(subscription);
 
@@ -464,10 +564,25 @@ class ProductBloc{
   }
 
 
-  GetSearchCategoryGroupId({int GroupId,int limit=5,String page="1"}){
+  GetSearchCategoryGroupId({ProducItemRespone productItem,int GroupId,int limit=5,String page="1"}){
     Observable.fromFuture(_application.appStoreAPIRepository.getSearch(query: "&categoryGroupId=${GroupId}",limit: limit,page: page)).listen((respone) {
       if(respone.http_call_back.status==200 || respone.http_call_back.result.error.status==401){
-        SearchProduct.add((respone.respone as SearchRespone));
+        NaiFarmLocalStorage.getProductDetailCache().then((value){
+          if(value!=null){
+            for(var data in value.item){
+              if(data.productObjectCombine.producItemRespone.id == productItem.id){
+                value.item.remove(data);
+                break;
+              }
+            }
+            value.item.add(ProductDetailData(searchRespone: (respone.respone as SearchRespone),productObjectCombine: ProductObjectCombine(producItemRespone: productItem)));
+
+            NaiFarmLocalStorage.saveProductDetailCache(value).then((value){
+              SearchProduct.add((respone.respone as SearchRespone));
+            });
+          }
+        });
+
       }else{
         onError.add(respone.http_call_back.result);
       }

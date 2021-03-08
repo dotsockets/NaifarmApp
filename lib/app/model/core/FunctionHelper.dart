@@ -464,7 +464,7 @@ class FunctionHelper {
   }
 
 
-  static AlertDialogShop(BuildContext context, {String title,String message,bool showbtn=true,bool barrierDismissible=true}){
+  static AlertDialogShop(BuildContext context, {String title,String message,bool showbtn=true,bool barrierDismissible=true,Function() callCancle}){
     showDialog(
       barrierDismissible: barrierDismissible,
         context: context,
@@ -477,7 +477,8 @@ class FunctionHelper {
             ) ,
             actions: [
               showbtn?CupertinoDialogAction(isDefaultAction: true, child: new Text("Close"),onPressed: (){
-                Navigator.of(context).pop();
+                callCancle!=null?callCancle(): Navigator.of(context).pop();
+
               },):SizedBox(),
             ]): AlertDialog(
           title:Text(title,
@@ -491,7 +492,7 @@ class FunctionHelper {
             showbtn?FlatButton(
               child: Text("Close"),
               onPressed:  () {
-                Navigator.of(context).pop();
+                callCancle!=null?callCancle(): Navigator.of(context).pop();
               },
             ):SizedBox()
           ],

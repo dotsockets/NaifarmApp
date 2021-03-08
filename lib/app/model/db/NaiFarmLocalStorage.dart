@@ -2,13 +2,17 @@
 import 'package:localstorage/localstorage.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductDetailCombin.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMoreCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 
 class NaiFarmLocalStorage{
   static LocalStorage storage;
@@ -18,7 +22,87 @@ class NaiFarmLocalStorage{
   static String NaiFarm_Product_Upload = "product_upload";
   static String NaiFarm_NowPage = "NowPage";
   static String NaiFarm_Cus = "Customer_cus";
+  static String NaiFarm_ProductDetail= "ProductDetail";
   static String NaiFarm_Info = "Customer_Info";
+  static String NaiFarm_Shop = "NaiFarm_Shop";
+  static String NaiFarm_Cart = "NaiFarm_Cart";
+  static String NaiFarm_ProductMore = "NaiFarm_ProductMore";
+
+
+
+
+
+  static Future<void> saveCartCache(CartResponse cartResponse) async {
+    storage =  LocalStorage(NaiFarm_Storage);
+    await storage.ready;
+    storage.setItem(NaiFarm_Cart, cartResponse);
+  }
+
+  static Future<CartResponse> getCartCache() async {
+    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    await storage.ready;
+    Map<String, dynamic> data = storage.getItem(NaiFarm_Cart);
+    if (data == null) {
+      return null;
+    }
+    CartResponse value = CartResponse.fromJson(data);
+    return value;
+  }
+
+
+  static Future<void> saveProductMoreCache(ProducMoreCache producMoreCache) async {
+    storage =  LocalStorage(NaiFarm_Storage);
+    await storage.ready;
+    storage.setItem(NaiFarm_ProductMore, producMoreCache);
+  }
+
+  static Future<ProducMoreCache> getProductMoreCache() async {
+    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    await storage.ready;
+    Map<String, dynamic> data = storage.getItem(NaiFarm_ProductMore);
+    if (data == null) {
+      return null;
+    }
+    ProducMoreCache value = ProducMoreCache.fromJson(data);
+    return value;
+  }
+
+  static Future<void> saveNaiFarm_ShopCache(NaiFarmShopCombin naiFarmShopCombin) async {
+    storage =  LocalStorage(NaiFarm_Storage);
+    await storage.ready;
+    storage.setItem(NaiFarm_Shop, naiFarmShopCombin);
+  }
+
+  static Future<NaiFarmShopCombin> getNaiFarm_ShopCache() async {
+    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    await storage.ready;
+    Map<String, dynamic> data = storage.getItem(NaiFarm_Shop);
+    if (data == null) {
+      return null;
+    }
+    NaiFarmShopCombin value = NaiFarmShopCombin.fromJson(data);
+    return value;
+  }
+
+
+
+  static Future<void> saveProductDetailCache(ProductDetailCombin productDetailCombin) async {
+    storage =  LocalStorage(NaiFarm_Storage);
+    await storage.ready;
+    storage.setItem(NaiFarm_ProductDetail, productDetailCombin);
+  }
+
+  static Future<ProductDetailCombin> getProductDetailCache() async {
+    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    await storage.ready;
+    Map<String, dynamic> data = storage.getItem(NaiFarm_ProductDetail);
+    if (data == null) {
+      return null;
+    }
+    ProductDetailCombin value = ProductDetailCombin.fromJson(data);
+    return value;
+  }
+
 
 
   static Future<void> saveHomeData(HomeObjectCombine data) async {

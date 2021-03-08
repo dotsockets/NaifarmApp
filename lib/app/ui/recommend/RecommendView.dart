@@ -1,7 +1,6 @@
 
 import 'dart:io';
 
-import 'package:audioplayers/audio_cache.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -271,8 +270,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
               AppRoute.ProductMore(
                   api_link: "products/types/popular",
                   context: context,
-                  barTxt: LocaleKeys.recommend_best_seller.tr(),
-                  installData: item.productRespone);
+                  barTxt: LocaleKeys.recommend_best_seller.tr());
             },
             onTapItem: (ProductData item, int index) {
               AppRoute.ProductDetail(context,

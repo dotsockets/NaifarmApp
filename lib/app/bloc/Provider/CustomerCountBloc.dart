@@ -35,6 +35,7 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
       var item = (CustomerCount as CustomerCountRespone);
       var cart_item = (CartCout as CartResponse);
       if((a as ApiResult).http_call_back.status==200){
+
         return ApiResult(respone: CustomerCountRespone(CartCount: CountCartItem(item: cart_item),buyOrder: item.buyOrder,like: item.like,notification: item.notification,sellOrder: item.sellOrder,watingReview: item.watingReview,
         ),http_call_back: (a as ApiResult).http_call_back);
       }else{
@@ -46,11 +47,13 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
       if(event.http_call_back.status==200){
         var item =(event.respone as CustomerCountRespone);
 
+
         if(item.notification.unreadCustomer+item.notification.unreadShop>0 || item.buyOrder.cancel>0 || item.buyOrder.confirm>0 || item.buyOrder.delivered>0
             || item.buyOrder.failed>0 || item.buyOrder.refund>0 || item.buyOrder.toBeRecieve>0 || item.buyOrder.unpaid>0
             || item.sellOrder.unpaid>0 || item.sellOrder.refund>0 || item.sellOrder.failed>0 || item.sellOrder.delivered >0 || item.sellOrder.confirm>0
             || item.sellOrder.shipping>0 || item.sellOrder.cancel>0 || item.like>0 || item.watingReview> 0 || item.CartCount>0){
           NaiFarmLocalStorage.saveCustomer_cuse(item);
+
         }else{
           NaiFarmLocalStorage.saveCustomer_cuse(null);
         }
@@ -67,7 +70,7 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
 
   int CountCartItem({CartResponse item}){
     int count = 0;
-
+    NaiFarmLocalStorage.saveCartCache(item);
     for(var value in item.data){
       count+=value.items.length;
     }

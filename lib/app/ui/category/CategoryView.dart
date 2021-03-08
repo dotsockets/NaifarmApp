@@ -1,7 +1,6 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
@@ -149,13 +148,13 @@ class _CategoryViewState extends State<CategoryView> {
                     fit: BoxFit.cover,
                     imageUrl: "https://dev2-test.naifarm.com/category-icon/${item.icon}.png",
 
-                    errorWidget: (context, url, error) => Container(height: ScreenUtil().setWidth(200),width: ScreenUtil().setHeight(160),child: Icon(Icons.error,size: 30,)),
+                    errorWidget: (context, url, error) => Container(height: 12.0.w,width: 12.0.w,child: Icon(Icons.error,size: 30,)),
                   ),
                 ),
               ),
             ),
             SizedBox(height: 1.0.h),
-            Container(height: SizeUtil.titleSmallFontSize().sp*2.5,width: 180.w,child: Text(item.name,maxLines: 2,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),))
+            Container(height: SizeUtil.titleSmallFontSize().sp*2.5,width: 15.0.w,child: Text(item.name,maxLines: 2,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),))
           ],
         ),
       ),

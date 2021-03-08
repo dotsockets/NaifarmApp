@@ -96,7 +96,7 @@ class _PaidViewState extends State<PaidView>  {
                                       Center(
                                         child: Container(
                                           color: Colors.white.withOpacity(0.7),
-                                          height: 35.0.h,
+                                          height: 27.0.h,
                                           child: Center(
                                             child: Container(
                                               width: 30.0.w,
@@ -262,14 +262,14 @@ class _PaidViewState extends State<PaidView>  {
                           color: Colors.black)),
                   Row(
                     children: [
-                      item.inventory!=null?item.inventory.product.discountPercent != 0
+                      item.inventory!=null && item.inventory.product.discountPercent != 0
                           ? Text(
                               "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
                               style: FunctionHelper.FontTheme(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   decoration: TextDecoration.lineThrough))
-                          : SizedBox(): SizedBox(),
+                          : SizedBox(),
                       SizedBox(width: 3.0.w),
                       Text(
                       item.inventory!=null?"฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}":"-",

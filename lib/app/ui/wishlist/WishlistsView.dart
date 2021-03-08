@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
@@ -306,7 +305,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                   onRated: (v) {},
                   starCount: 5,
                   rating:  item.product.rating!=null&&item.product.rating!=0?item.product.rating.toDouble():0.0,
-                  size: ScreenUtil().setHeight(40),
+                  size: 3.0.w,
                   isReadOnly: true,
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half,

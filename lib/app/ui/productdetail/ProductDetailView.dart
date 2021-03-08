@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -183,7 +182,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
       bloc.onSuccess.stream.listen((event) {
         if(event is CartResponse){
          // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-         animationController.forward();
+         //animationController.forward();
         }else if(event is bool){
           AppRoute.MyCart(context, true,cart_nowId:  bloc.BayNow);
          // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
@@ -191,9 +190,23 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
       });
 
-      Usermanager().getUser().then((value) {
-        bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
+      NaiFarmLocalStorage.getProductDetailCache().then((value){
+        if(value!=null){
+          for(var data in value.item){
+            if(data.productObjectCombine.producItemRespone.id == widget.productItem.id){
+              bloc.ZipProductDetail.add(data.productObjectCombine);
+              bloc.SearchProduct.add(data.searchRespone);
+              break;
+            }
+          }
+        }
+
+        Usermanager().getUser().then((value) {
+          bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
+        });
       });
+
+
     }
 
     NaiFarmLocalStorage.getCustomer_Info().then((value){
@@ -205,6 +218,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
       }
 
     });
+
+
 
   }
 

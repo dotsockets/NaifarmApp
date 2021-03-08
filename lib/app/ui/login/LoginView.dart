@@ -323,12 +323,7 @@ class _LoginViewState extends State<LoginView> {
         DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
        // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
         var status = await OneSignal.shared.getPermissionSubscriptionState();
-        bloc.CustomerLogin(context: context,loginRequest: LoginRequest(username: validator.email(_username.text)?_username.text:"",phone: !validator.email(_username.text)?_username.text:"",password:_password.text,pushService: PushService(
-            deviceType: Platform.isIOS?0:1,
-            deviceModel:Platform.isIOS?(await deviceInfo.iosInfo as IosDeviceInfo).model:(await deviceInfo.androidInfo as AndroidDeviceInfo).model,
-          deviceOS: Platform.isIOS?(await deviceInfo.iosInfo as IosDeviceInfo).systemVersion.toString():(await deviceInfo.androidInfo as AndroidDeviceInfo).version.toString(),
-          identifier:status.subscriptionStatus.pushToken
-        )));
+        bloc.CustomerLogin(context: context,loginRequest: LoginRequest(username: validator.email(_username.text)?_username.text:"",phone: !validator.email(_username.text)?_username.text:"",password:_password.text));
       }
 
     }

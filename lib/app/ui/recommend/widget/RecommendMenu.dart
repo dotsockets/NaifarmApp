@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
@@ -19,7 +18,6 @@ import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:sizer/sizer.dart';
 
 class RecommendMenu extends StatelessWidget {
@@ -128,29 +126,20 @@ class RecommendMenu extends StatelessWidget {
         case  "SpecialproductsView" : AppRoute.ProductMore(api_link: "products/types/discount",context:context,barTxt:LocaleKeys.recommend_special_price_product.tr());
         break;
         case  "NotiView" :  {
-    NaiFarmLocalStorage.saveNowPage(2).then((data){
+    // NaiFarmLocalStorage.saveNowPage(2).then((data){
+    //
+    //   //onClick(2);
+    //         });
 
-      onClick(2);
+        Usermanager().isLogin().then((value) async {
+          if(!value){
+            final result = await  AppRoute.Login(context,IsCallBack: true,IsHeader: true);
+          }else{
+            NaiFarmLocalStorage.saveNowPage(2).then((value){
+              AppRoute.MyNoti(context,true);
             });
-
-          // Usermanager().isLogin().then((value) async {
-          //   if(!value){
-          //     final result = await  AppRoute.Login(context,IsCallBack: true,IsHeader: true);
-          //     if(result){
-          //       Usermanager().getUser().then((value) async {
-          //         NaiFarmLocalStorage.saveNowPage(2).then((data){
-          //           AppRoute.MyNoti(context,true);
-          //         });
-          //       });
-          //     }
-          //   }else{
-          //     Usermanager().getUser().then((value) async {
-          //       NaiFarmLocalStorage.saveNowPage(2).then((data){
-          //         AppRoute.MyNoti(context,true);
-          //       });
-          //     });
-          //   }
-          // });
+          }
+        });
 
 
         }

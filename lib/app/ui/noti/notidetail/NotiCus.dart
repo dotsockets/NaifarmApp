@@ -1,7 +1,6 @@
 
 import 'dart:io';
 
-import 'package:audioplayers/audio_cache.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,7 +57,17 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
       bloc = NotiBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
         //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
+
+        FunctionHelper.AlertDialogShop(context,
+            title: "Error", message: event,callCancle: (){
+              // if(widget.btnBack){
+              //   AppRoute.PoppageCount(context: context,countpage: 2);
+              // }else{
+              //   AppRoute.PoppageCount(context: context,countpage: 1);
+              // }
+            });
       });
+
       bloc.onSuccess.stream.listen((event) {
         // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
       });

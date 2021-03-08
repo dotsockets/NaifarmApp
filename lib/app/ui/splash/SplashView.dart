@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:get_version/get_version.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
@@ -57,6 +56,11 @@ class _SplashViewState extends State<SplashView>
     if(null == bloc) {
      // NaiFarmLocalStorage.Clean(keyStore: NaiFarmLocalStorage.NaiFarm_Storage);
       NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_NowPage);
+      NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Cart);
+      NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductDetail);
+      NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
+      NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Shop);
+     // NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
       bloc = ProductBloc(AppProvider.getApplication(context));
       Usermanager().getUser().then((value) =>  bloc.loadCustomerCount(token: value.token));
       bloc.onError.stream.listen((event) {
@@ -107,7 +111,6 @@ class _SplashViewState extends State<SplashView>
   @override
    build(BuildContext context)  {
     _init(context);
-    ScreenUtil.init(context);
     return SafeArea(
       child: Scaffold(
 
@@ -133,7 +136,7 @@ class _SplashViewState extends State<SplashView>
               new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset('assets/images/png/img_login.png',width: animation.value *ScreenUtil().setWidth(600),height: animation.value *ScreenUtil().setHeight(600),),
+                  Image.asset('assets/images/png/img_login.png',width: animation.value *70.0.w,height: animation.value *100.0.w,),
                 ],
               ),
             ],
@@ -153,8 +156,9 @@ class _SplashViewState extends State<SplashView>
    navigatorPage() async {
      //Clean();
     if(await Usermanager().isLogin())
-      Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  HomeView()), (Route<dynamic> route) => false);
+      AppRoute.Home(context);
     else
-      Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  SplashLoginView(item: bloc.ZipHomeObject.value,)), (Route<dynamic> route) => false);
+      AppRoute.SplashLogin(context);
+    //  Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  SplashLoginView(item: bloc.ZipHomeObject.value,)), (Route<dynamic> route) => false);
   }
 }

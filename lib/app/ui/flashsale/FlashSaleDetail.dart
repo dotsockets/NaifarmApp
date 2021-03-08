@@ -1,13 +1,11 @@
 import 'dart:io';
 
-import 'package:audioplayers/audio_cache.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -34,6 +32,10 @@ import 'package:sticky_headers/sticky_headers.dart';
 import 'package:vibration/vibration.dart';
 
 class FlashSaleView extends StatefulWidget {
+  final FlashsaleRespone flashsaleRespone;
+
+  const FlashSaleView({Key key, this.flashsaleRespone}) : super(key: key);
+
   @override
   _FlashSaleViewState createState() => _FlashSaleViewState();
 }
@@ -52,7 +54,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-
+      bloc.Flashsale.add(widget.flashsaleRespone);
       bloc.loadFlashsaleData(page: page.toString(), limit: limit);
     }
 

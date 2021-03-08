@@ -61,7 +61,7 @@ class CartBloc {
       if (respone.http_call_back.status == 200) {
         //   onSuccess.add(item);
 
-        if (cartActive == CartActive.CartList) onLoad.add(false);
+        if (cartActive == CartActive.CartList || cartActive == CartActive.CartDelete) onLoad.add(false);
         var item = (respone.respone as CartResponse);
         CartList.add(CartResponse(data: item.data,total: item.total,selectAll: false));
       } else {
@@ -78,13 +78,14 @@ class CartBloc {
             .appStoreAPIRepository
             .DeleteCart(inventoryid: inventoryId, cartid: cartid, token: token))
         .listen((respone) {
-      onLoad.add(false);
+
       if (respone.http_call_back.status == 200) {
 
         GetCartlists(token: token, cartActive: CartActive.CartDelete);
         onSuccess.add(true);
         // CartList.add(CartResponse(data: CartList.value.data));
       } else {
+        onLoad.add(false);
         onError.add(respone.http_call_back.result);
       }
     });
