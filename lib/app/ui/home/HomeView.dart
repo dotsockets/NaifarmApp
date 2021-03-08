@@ -23,11 +23,13 @@ import 'package:naifarm/app/ui/noti/notilist/NotiView.dart';
 import 'package:naifarm/app/ui/recommend/RecommendView.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeView extends StatefulWidget {
@@ -91,7 +93,7 @@ class _HomeViewState extends State<HomeView>
     return WillPopScope(
       onWillPop: () async {
         FunctionHelper.ConfirmDialog(context,
-            message: "Do you want to exit an App", onClick: () {
+            message: LocaleKeys.dialog_message_exit.tr(), onClick: () {
           if (Platform.isAndroid) {
             SystemNavigator.pop();
           } else if (Platform.isIOS) {

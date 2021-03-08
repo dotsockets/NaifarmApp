@@ -320,7 +320,8 @@ class _SuccessViewState extends State<SuccessView> {
                           text: LocaleKeys.history_order_price.tr()+" : ",
                           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
                       new TextSpan(text:
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                         // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                          "฿${item.grandTotal}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
                     ],
                   ),
                 ),

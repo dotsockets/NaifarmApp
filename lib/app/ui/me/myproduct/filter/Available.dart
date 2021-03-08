@@ -381,7 +381,7 @@ class _AvailableState extends State<Available> {
                                       child: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            "ตัวเลือกสินค้า" + " ไม่มี",
+                                            LocaleKeys.my_product_option.tr() + " ${LocaleKeys.my_product_empty.tr()}",
                                             style: FunctionHelper.FontTheme(
                                                 fontSize:
                                                     SizeUtil.detailFontSize()

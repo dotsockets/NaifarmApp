@@ -599,6 +599,9 @@ class ProductBloc{
         productList.addAll(item.data);
         ProductMyShopRes.add(ProductMyShopListRespone(data: productList,limit: item.limit,page: item.page,total: item.total));
       }
+      else{
+        onError.add(respone.http_call_back);
+      }
     });
     _compositeSubscription.add(subscription);
   }

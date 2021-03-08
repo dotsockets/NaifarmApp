@@ -56,7 +56,13 @@
   },
   "review": {
     "write": "write review",
-    "rate": "Rate"
+    "rate": "Rate",
+    "deli_ex": "Excellent Delivery Speed",
+    "product_ex": "Excellent Product",
+    "quality_ex": "Excellent Quality of Product",
+    "tell": "Tell others why the product is good",
+    "anonymous": "Leave your review anonymous",
+    "username": "Your username will be show"
   },
   "edit_phone": {
     "title": "Please enter a new phone number to receive a OTP",
@@ -163,7 +169,12 @@
     "save_edit": "Save Edit",
     "review": "Review",
     "buy_product_again": "Buy Again",
-    "main": "Back to main page"
+    "main": "Back to main page",
+    "copy": "copy",
+    "close": "Close",
+    "connect": "Connect again",
+    "add_image": "Add image",
+    "add_vdo": "Add video"
   },
 
 
@@ -173,7 +184,8 @@
     "del_product": "Do you want to delete product",
     "mail_change_cancel": "Do you want to leave email change",
     "password_success": "Change Password Success",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "exit": "Do you want to exit an App"
   },
 
   "message":{
@@ -224,12 +236,14 @@
   },
   "history":{
     "order_time": "Payment Time",
-    "order_price": "Order Total",
-    "wait_rate": "Rate"
+    "order_price": "Order Total"
   },
   "payment_method": {
     "cash_delivery": "Cash on Delivery",
-    "bank": "Bank account"
+    "bank": "Bank account",
+    "slip": "Upload Pay-in Slip Now",
+    "no_slip": "Upload Pay-in Slip Later",
+    "update_slip": "Update Pay-in Slip"
   },
 
   "wallet_balance": {
@@ -244,12 +258,12 @@
   },
 
   "attributes": {
-    "set": "Variations",
-    "add": "Add Variations",
+    "set": "Attributes",
+    "add": "Add Attributes",
     "empty": "Data not found",
     "color": "Color code",
-    "edit": "Edit Variations",
-    "list": "Variations List"
+    "edit": "Edit Attributes",
+    "list": "Attributes List"
   },
 
 
@@ -286,7 +300,8 @@
     "option": "Product Options",
     "stock_set": "Set stock and price",
     "review_score": "Product Ratings",
-    "read_more": "Read More"
+    "read_more": "Read More",
+    "empty":"-"
   },
   "shop":{
     "title": "Shop",
@@ -353,6 +368,7 @@
   "order_detail":{
     "title": "Order Detail",
     "wait_rate": "Waiting For Rating",
+    "wait_pay": "Waiting For Payment",
     "complete_rate": "Rating Success",
     "thank_rate": "Order completed.Thank you for rating",
     "complete_time": "Completed Time",
@@ -382,8 +398,10 @@
     "wait": "Wait for buyer to accept the products by",
     "cancel_detail": "Cancel Detail",
     "cancel_by": "Cancel by",
+    "cancel_order": "Cancel Order",
     "cancel_reason": "Reason for Cancel",
-    "id": "Order ID"
+    "id": "Order ID",
+    "payment_info": "Payment Information"
   },
   "login": {
     "forgot_password": "Forgot Password",

@@ -215,7 +215,7 @@ class _OrderViewState extends State<OrderView> {
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       new TextSpan(
-                          text: "กรุณาชำระเงินภายใน  ",
+                          text: "กรุณาชำระเงินภายใน ",
                           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
                       new TextSpan(text: "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.requirePaymentAt!=null?orderData.requirePaymentAt:DateTime.now().toString()))} ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5))),
                       //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
@@ -362,7 +362,8 @@ class _OrderViewState extends State<OrderView> {
               children: [
                 Text(LocaleKeys.order_detail_subtotal.tr()+" :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 SizedBox(width: 10,),
-                Text("฿${NumberFormat("#,##0.00", "en_US").format(sumTotal)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
+                //Text("฿${NumberFormat("#,##0.00", "en_US").format(sumTotal)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
+                Text("฿${sumTotal}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
               ],
             ),
             SizedBox(height: 5,),
@@ -371,7 +372,8 @@ class _OrderViewState extends State<OrderView> {
               children: [
                 Text(LocaleKeys.order_detail_ship_price.tr()+" :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 SizedBox(width: 10,),
-                Text("฿${NumberFormat("#,##0.00", "en_US").format(rate_delivery!=null?rate_delivery:0)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
+               // Text("฿${NumberFormat("#,##0.00", "en_US").format(rate_delivery!=null?rate_delivery:0)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
+               Text("฿${rate_delivery!=null?rate_delivery:0}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
               ],
             ),
             SizedBox(height: 5,),
@@ -380,7 +382,8 @@ class _OrderViewState extends State<OrderView> {
               children: [
                 Text(LocaleKeys.order_detail_total.tr()+" :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
                 SizedBox(width: 10,),
-                Text("฿${NumberFormat("#,##0.00", "en_US").format(sumTotal+(rate_delivery!=null?rate_delivery:0))}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale()))
+                //Text("฿${NumberFormat("#,##0.00", "en_US").format(sumTotal+(rate_delivery!=null?rate_delivery:0))}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale()))
+                Text("฿${sumTotal+(rate_delivery!=null?rate_delivery:0)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale()))
               ],
             ),
 
@@ -439,7 +442,8 @@ class _OrderViewState extends State<OrderView> {
                       //         fontSize: SizeUtil.titleFontSize().sp,
                       //         decoration: TextDecoration.lineThrough,color: Colors.black.withOpacity(0.5))),
                       // SizedBox(width: 8),
-                      Text("฿${NumberFormat("#,##0.00", "en_US").format(orderItems.inventory.salePrice*orderItems.quantity)}",
+                      //Text("฿${NumberFormat("#,##0.00", "en_US").format(orderItems.inventory.salePrice*orderItems.quantity)}",
+                      Text("฿${orderItems.inventory.salePrice*orderItems.quantity}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
                     ],
@@ -478,7 +482,7 @@ class _OrderViewState extends State<OrderView> {
           // ),
           Icon(Icons.money),
           SizedBox(width: 10,),
-          Text(orderData.paymentMethod.name, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black,fontWeight: FontWeight.bold))
+          Text(orderData.paymentMethod.name, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black,fontWeight: FontWeight.w500))
         ],
       ),
     );
@@ -568,7 +572,7 @@ class _OrderViewState extends State<OrderView> {
 
                   },
                   child: Text(
-                    "Cancel order",
+                    LocaleKeys.order_detail_cancel_order.tr(),
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
                   ),
@@ -591,7 +595,7 @@ class _OrderViewState extends State<OrderView> {
                       AppRoute.ConfirmPayment(context: context,orderData: orderData);
                     },
                     child: Text(
-                      "Confirm payment ",
+                      LocaleKeys.order_detail_confirm_pay.tr(),
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
                     ),
@@ -641,7 +645,7 @@ class _OrderViewState extends State<OrderView> {
 
                 },
                 child: Text(
-                  "Cancel order",
+                  LocaleKeys.order_detail_cancel_order.tr(),
                   style: FunctionHelper.FontTheme(
                       fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
                 ),
@@ -690,7 +694,7 @@ class _OrderViewState extends State<OrderView> {
 
                 },
                 child: Text(
-                  "Accept Products ",
+                  LocaleKeys.order_detail_accept.tr(),
                   style: FunctionHelper.FontTheme(
                       fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
                 ),
@@ -728,7 +732,7 @@ class _OrderViewState extends State<OrderView> {
                     SvgPicture.asset('assets/images/svg/star_entry.svg',width: 8.0.w,height: 8.0.w,),
                     SizedBox(width: 2.0.w),
                     Text(
-                      "Review",
+                      LocaleKeys.btn_review.tr(),
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),
                     )
                   ],
@@ -770,7 +774,7 @@ class _OrderViewState extends State<OrderView> {
                       alignment: Alignment.center,
                       height: 8.0.h,
                       color: ThemeColor.ColorSale(),
-                      child: Text("Buy again ",
+                      child: Text(LocaleKeys.btn_buy_product_again.tr(),
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.bold,
@@ -799,10 +803,9 @@ class _OrderViewState extends State<OrderView> {
             ),
             onPressed: () {
               AppRoute.ShippingOrder(context: context,orderData: orderData);
-
             },
             child: Text(
-              "Shipping",
+              LocaleKeys.order_detail_ship.tr(),
               style: FunctionHelper.FontTheme(
                   fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
             ),
