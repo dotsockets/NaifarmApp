@@ -3,6 +3,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
@@ -65,289 +67,289 @@ abstract class APIProvider{
 
 
   @GET("/tasks/{id}")
-  Future<ApiResult> getProFileFacebook(@Query("access_token") String access_token);
+  Future<ApiResult> getProFileFacebook(BuildContext context,@Query("access_token") String access_token);
 
   @POST("/v1/customers/login")
-  Future<ApiResult> CustomersLogin(@Body() LoginRequest loginRequest);
+  Future<ApiResult> CustomersLogin(BuildContext context,@Body() LoginRequest loginRequest);
 
   @POST("/v1/customers/login-social")
-  Future<ApiResult> CustomersLoginSocial(@Body() LoginRequest loginRequest,String provider);
+  Future<ApiResult> CustomersLoginSocial(BuildContext context,@Body() LoginRequest loginRequest,String provider);
 
   @POST("/v1/customers/check-email")
-  Future<ApiResult> CheckEmail({String email});
+  Future<ApiResult> CheckEmail(BuildContext context,{String email});
 
   @POST("/v1/customers/register")
-  Future<ApiResult> CustomersRegister(@Body() RegisterRequest registerRequest);
+  Future<ApiResult> CustomersRegister(BuildContext context,@Body() RegisterRequest registerRequest);
 
   @POST("/v1/otp/request")
   @FormUrlEncoded()
-  Future<ApiResult> OtpRequest(@Field() String numbephone);
+  Future<ApiResult> OtpRequest(BuildContext context,@Field() String numbephone);
 
   @POST("/v1/otp/verify")
   @FormUrlEncoded()
-  Future<ApiResult> OtpVerify(@Field() String phone,@Field() String code,@Field() String ref);
+  Future<ApiResult> OtpVerify(BuildContext context,@Field() String phone,@Field() String code,@Field() String ref);
 
   @POST("/v1/customers/v1/customers/forgot-password-phone")
-  Future<ApiResult> ForgotPasswordRequest({@Field() String phone,@Field() String code,@Field() String ref,@Field() String password});
+  Future<ApiResult> ForgotPasswordRequest(BuildContext context,{@Field() String phone,@Field() String code,@Field() String ref,@Field() String password});
 
   @POST("/v1/customers/reset-password")
   @FormUrlEncoded()
-  Future<ApiResult> ResetPasswordRequest(@Field() String email,@Field() String password,@Field() String token);
+  Future<ApiResult> ResetPasswordRequest(BuildContext context,@Field() String email,@Field() String password,@Field() String token);
 
   @GET("/v1/customers/info")
-  Future<ApiResult> getCustomerInfo(String access_token);
+  Future<ApiResult> getCustomerInfo(BuildContext context,String access_token);
 
   @PATCH("/v1/customers/modify-profile")
-  Future<ApiResult> ModifyProfile(@Body() CustomerInfoRespone data,String access_token);
+  Future<ApiResult> ModifyProfile(BuildContext context,@Body() CustomerInfoRespone data,String access_token);
 
   @PATCH("/v1/customers/modify-password")
-  Future<ApiResult> ModifyPassword(@Body() ModifyPasswordrequest data,String access_token);
+  Future<ApiResult> ModifyPassword(BuildContext context,@Body() ModifyPasswordrequest data,String access_token);
 
   @POST("/v1/customers/verify-password")
   @FormUrlEncoded()
-  Future<ApiResult> VerifyPassword(@Field() String password,String token);
+  Future<ApiResult> VerifyPassword(BuildContext context,@Field() String password,String token);
 
   @GET("/v1/addresses")
-  Future<ApiResult> AddressesList(String token);
+  Future<ApiResult> AddressesList(BuildContext context,String token);
 
   @GET("/v1/countries/1/states")
-  Future<ApiResult> StatesProvice(String countries);
+  Future<ApiResult> StatesProvice(BuildContext context,String countries);
 
   @GET("/v1/countries/1/states/1/cities")
-  Future<ApiResult> StatesCity(String countriesid,String statesId);
+  Future<ApiResult> StatesCity(BuildContext context,String countriesid,String statesId);
 
   @GET("/v1/countries/1/states/1/cities")
-  Future<ApiResult> zipCode(String countries,String statesId,String cityId);
+  Future<ApiResult> zipCode(BuildContext context,String countries,String statesId,String cityId);
 
   @POST("/v1/addresses")
-  Future<ApiResult> CreateAddress(@Body() AddressCreaterequest addressCreaterequest,String token);
+  Future<ApiResult> CreateAddress(BuildContext context,@Body() AddressCreaterequest addressCreaterequest,String token);
 
   @DELETE("/v1/addresses")
   @FormUrlEncoded()
-  Future<ApiResult> DeleteAddress(String id,String token);
+  Future<ApiResult> DeleteAddress(BuildContext context,String id,String token);
 
   @PATCH("/v1/addresses")
-  Future<ApiResult> UpdateAddress(@Body() AddressCreaterequest data,String access_token);
+  Future<ApiResult> UpdateAddress(BuildContext context,@Body() AddressCreaterequest data,String access_token);
 
 
   @GET("/v1/sliders")
-  Future<ApiResult> getSliderImage();
+  Future<ApiResult> getSliderImage(BuildContext context);
 
   @GET("/v1/products/types/popular?limit=9&page=1")
-  Future<ApiResult> getProductPopular(String page,int limit);
+  Future<ApiResult> getProductPopular(BuildContext context,String page,int limit);
 
   @GET("/v1/shop/1/products?limit=20&page=1")
-  Future<ApiResult> getShopProduct({int ShopId,String page,int limit});
+  Future<ApiResult> getShopProduct(BuildContext context,{int ShopId,String page,int limit});
 
   @GET("/v1/category-group")
-  Future<ApiResult> getCategoryGroup();
+  Future<ApiResult> getCategoryGroup(BuildContext context);
 
   @GET("/v1/categories/featured")
-  Future<ApiResult> getCategoriesFeatured();
+  Future<ApiResult> getCategoriesFeatured(BuildContext context,);
 
   @GET("/v1/products/types/trending?limit=6&page=1")
-  Future<ApiResult> getProductTrending(String page,int limit);
+  Future<ApiResult> getProductTrending(BuildContext context,String page,int limit);
 
   @GET("/v1/search/products?q=s&limit=10&page=1")
-  Future<ApiResult> getSearch({String page, String query,int limit});
+  Future<ApiResult> getSearch(BuildContext context,{String page, String query,int limit});
 
   @POST("/v1/customers/myshop")
   @FormUrlEncoded()
-  Future<ApiResult> CreateMyShop({@Field() String name,@Field() String slug,@Field() String description,@Field() String token});
+  Future<ApiResult> CreateMyShop(BuildContext context,{@Field() String name,@Field() String slug,@Field() String description,@Field() String token});
 
   @GET("/v1/myshop/shop")
-  Future<ApiResult> getMyShopInfo(String access_token);
+  Future<ApiResult> getMyShopInfo(BuildContext context,String access_token);
 
   @PATCH("/v1/myshop/shop")
-  Future<ApiResult> MyShopUpdate({@Body() MyShopRequest data,String access_token});
+  Future<ApiResult> MyShopUpdate(BuildContext context,{@Body() MyShopRequest data,String access_token});
 
   @GET("/v1/myshop/shop")
-  Future<ApiResult> FarmMarket();
+  Future<ApiResult> FarmMarket(BuildContext context);
 
-  Future<ApiResult> MoreProduct({String page, int limit, String link});
+  Future<ApiResult> MoreProduct(BuildContext context,{String page, int limit, String link});
 
   @GET("/v1/flashsale?limit=20&page=1")
-  Future<ApiResult> Flashsale({String page, int limit});
+  Future<ApiResult> Flashsale(BuildContext context,{String page, int limit});
 
   @POST("/v1/image")
-  Future<ApiResult> UploadImage({File imageFile,String imageableType, int imageableId, String token});
+  Future<ApiResult> UploadImage(BuildContext context,{File imageFile,String imageableType, int imageableId, String token});
 
   @GET("/v1/products")
-  Future<ApiResult> ProductsById({int id});
+  Future<ApiResult> ProductsById(BuildContext context,{int id});
 
   @GET("/v1/shop")
-  Future<ApiResult> ShopById({int id});
+  Future<ApiResult> ShopById(BuildContext context,{int id});
 
   @GET("/v1/products?limit=20&page=1&categoryGroupId=1")
-  Future<ApiResult> categoryGroupId({String page,int limit,int GroupId});
+  Future<ApiResult> categoryGroupId(BuildContext context,{String page,int limit,int GroupId});
 
   @GET("/v1/category-group")
-  Future<ApiResult> CategorySubgroup({int GroupId});
+  Future<ApiResult> CategorySubgroup(BuildContext context,{int GroupId});
 
   @GET("/v1/banners")
-  Future<ApiResult> GetBanners({String group});
+  Future<ApiResult> GetBanners(BuildContext context,{String group});
 
   @GET("/v1/payments")
-  Future<ApiResult> GetPaymentList();
+  Future<ApiResult> GetPaymentList(BuildContext context);
 
   @GET("/v1/payment")
-  Future<ApiResult> GetPaymentMyShop({String token});
+  Future<ApiResult> GetPaymentMyShop(BuildContext context,{String token});
 
   @POST("/v1/myshop/payment")
-  Future<ApiResult> AddPaymentMyShop({int paymentMethodId,String token});
+  Future<ApiResult> AddPaymentMyShop(BuildContext context,{int paymentMethodId,String token});
 
   @DELETE("/v1/payment")
-  Future<ApiResult> DELETEPaymentMyShop({int paymentMethodId,String token});
+  Future<ApiResult> DELETEPaymentMyShop(BuildContext context,{int paymentMethodId,String token});
 
   @GET("/v1/carriers")
-  Future<ApiResult> GetCarriersList();
+  Future<ApiResult> GetCarriersList(BuildContext context,);
 
   @GET("/v1/myshop/shipping")
-  Future<ApiResult> GetShippingMyShop({String token});
+  Future<ApiResult> GetShippingMyShop(BuildContext context,{String token});
 
   @DELETE("/v1/myshop/shipping")
-  Future<ApiResult> DELETEShoppingMyShop({int ratesId,String token});
+  Future<ApiResult> DELETEShoppingMyShop(BuildContext context,{int ratesId,String token});
 
   @POST("/v1/myshop/shipping")
-  Future<ApiResult> AddShoppingMyShop({ShppingMyShopRequest shopRequest,String token});
+  Future<ApiResult> AddShoppingMyShop(BuildContext context,{ShppingMyShopRequest shopRequest,String token});
 
   @PATCH("/v1/myshop/shipping")
-  Future<ApiResult> EditShoppingMyShop({ShppingMyShopRequest shopRequest,int rateID, String token});
+  Future<ApiResult> EditShoppingMyShop(BuildContext context,{ShppingMyShopRequest shopRequest,int rateID, String token});
 
   @GET("/v1/myshop/products")
-  Future<ApiResult> GetProductMyShop({String page, int limit,String token,String filter});
+  Future<ApiResult> GetProductMyShop(BuildContext context,{String page, int limit,String token,String filter});
 
   @POST("/v1/myshop/products")
-  Future<ApiResult> AddProductMyShop({ProductMyShopRequest shopRequest,String token});
+  Future<ApiResult> AddProductMyShop(BuildContext context,{ProductMyShopRequest shopRequest,String token});
 
   @GET("/v1/wishlists/productId")
-  Future<ApiResult> GetWishlistsByProduct({int productID,String token});
+  Future<ApiResult> GetWishlistsByProduct(BuildContext context,{int productID,String token});
 
   @DELETE("/v1/wishlists")
-  Future<ApiResult> DELETEWishlists({int WishId,String token});
+  Future<ApiResult> DELETEWishlists(BuildContext context,{int WishId,String token});
 
 
   @POST("/v1/wishlists")
-  Future<ApiResult> AddWishlists({int inventoryId,int productId,String token});
+  Future<ApiResult> AddWishlists(BuildContext context,{int inventoryId,int productId,String token});
 
   @GET("/v1/wishlists")
-  Future<ApiResult> GetMyWishlists({String token});
+  Future<ApiResult> GetMyWishlists(BuildContext context,{String token});
 
   @GET("/v1/customers/count")
-  Future<ApiResult> GetCustomerCount({String token});
+  Future<ApiResult> GetCustomerCount(BuildContext context,{String token});
 
   @GET("/v1/all-categories")
-  Future<ApiResult> GetCategoriesAll();
+  Future<ApiResult> GetCategoriesAll(BuildContext context);
 
   @GET("/v1/categories")
-  Future<ApiResult> GetCategories();
+  Future<ApiResult> GetCategories(BuildContext context);
 
   @POST("/v1/cart")
-  Future<ApiResult> AddCartlists({CartRequest cartRequest,String token});
+  Future<ApiResult> AddCartlists(BuildContext context,{CartRequest cartRequest,String token});
 
   @PATCH("/v1/myshop/products")
-  Future<ApiResult> UpdateProductMyShop({ProductMyShopRequest shopRequest,int productId,String token});
+  Future<ApiResult> UpdateProductMyShop(BuildContext context,{ProductMyShopRequest shopRequest,int productId,String token});
 
   @GET("/v1/cart")
-  Future<ApiResult> GetCartlists({String token});
+  Future<ApiResult> GetCartlists(BuildContext context,{String token});
 
   @DELETE("/v1/myshop/products")
-  Future<ApiResult> DELETEProductMyShop({int ProductId,String token});
+  Future<ApiResult> DELETEProductMyShop(BuildContext context,{int ProductId,String token});
 
   @DELETE("/v1/cart")
-  Future<ApiResult> DELETECart({int cartid,int inventoryid,String token});
+  Future<ApiResult> DELETECart(BuildContext context,{int cartid,int inventoryid,String token});
 
   @GET("/v1/myshop/products")
-  Future<ApiResult> GetProductIDMyShop({int productId, String token});
+  Future<ApiResult> GetProductIDMyShop(BuildContext context,{int productId, String token});
 
   @PATCH("/v1/myshop/products")
-  Future<ApiResult> UpdateProductInventories({InventoriesRequest inventoriesRequest,int productId,int inventoriesId,String token});
+  Future<ApiResult> UpdateProductInventories(BuildContext context,{InventoriesRequest inventoriesRequest,int productId,int inventoriesId,String token});
 
   @DELETE("/v1/image")
-  Future<ApiResult> DeleteImageProduct({String imageableId,String imageableType,String path,String token});
+  Future<ApiResult> DeleteImageProduct(BuildContext context,{String imageableId,String imageableType,String path,String token});
 
   @GET("/v1/order?limit=20&page=1&sort=orders.createdAt:desc&orderStatusId=1")
-  Future<ApiResult> GetOrder({String orderType,int page,int limit,String statusId,String token,String sort});
+  Future<ApiResult> GetOrder(BuildContext context,{String orderType,int page,int limit,String statusId,String token,String sort});
 
   @GET("/v1/order")
-  Future<ApiResult> GetOrderById({int id,String orderType,String token});
+  Future<ApiResult> GetOrderById(BuildContext context,{int id,String orderType,String token});
 
   @GET("/v1/products/types/trending?shopId=1&limit=10&page=1")
-  Future<ApiResult> getProductTypeShop({String type,int shopId,String page,int limit,String token});
+  Future<ApiResult> getProductTypeShop(BuildContext context,{String type,int shopId,String page,int limit,String token});
 
   @GET("/v1/notifications?group=customer&page=1&limit=20&sort=notification.createdAt:desc")
-  Future<ApiResult> GetNotificationByGroup({String group,int page,int limit,String sort,String token});
+  Future<ApiResult> GetNotificationByGroup(BuildContext context,{String group,int page,int limit,String sort,String token});
 
 
   @PATCH("/v1/cart")
-  Future<ApiResult> UpdateCart(@Body() CartRequest data,int cartId,String token);
+  Future<ApiResult> UpdateCart(BuildContext context,@Body() CartRequest data,int cartId,String token);
 
   @POST("/v1/order")
-  Future<ApiResult> CreateOrder({OrderRequest orderRequest,String token});
+  Future<ApiResult> CreateOrder(BuildContext context,{OrderRequest orderRequest,String token});
 
   @GET("/v1/shop/1/shippings")
-  Future<ApiResult> GetShippings({int shopId});
+  Future<ApiResult> GetShippings(BuildContext context,{int shopId});
 
   @POST("/v1/notifications/markAsRead")
-  Future<ApiResult> MarkAsReadNotifications({String token});
+  Future<ApiResult> MarkAsReadNotifications(BuildContext context,{String token});
 
   @GET("/v1/search/products?q=%E0%B8%99%E0%B9%89%E0%B8%B3&limit=10&page=1&shopId=3")
-  Future<ApiResult> getSearchProduct({String page, String query,int shopId,int limit});
+  Future<ApiResult> getSearchProduct(BuildContext context,{String page, String query,int shopId,int limit});
 
   @GET("/v1/myshop/attributes")
-  Future<ApiResult> getMyShopAttribute(String token);
+  Future<ApiResult> getMyShopAttribute(BuildContext context,String token);
 
   @POST("/v1/myshop/attributes")
-  Future<ApiResult> addMyShopAttribute({String name,String token});
+  Future<ApiResult> addMyShopAttribute(BuildContext context,{String name,String token});
 
   @DELETE("/v1/myshop/attributes")
-  Future<ApiResult> deleteMyShopAttribute({int id,String token});
+  Future<ApiResult> deleteMyShopAttribute(BuildContext context,{int id,String token});
 
   @GET("/v1/myshop/attributes/1/values")
-  Future<ApiResult> getAttributeDetail(int id,String token);
+  Future<ApiResult> getAttributeDetail(BuildContext context,int id,String token);
 
   @PATCH("/v1/myshop/attributes")
-  Future<ApiResult> updateAttribute(String name,int id,String token);
+  Future<ApiResult> updateAttribute(BuildContext context,String name,int id,String token);
 
   @POST("/v1/myshop/attributes/1/values")
-  Future<ApiResult> addAttributeDetail({String value,String color,int id,String token});
+  Future<ApiResult> addAttributeDetail(BuildContext context,{String value,String color,int id,String token});
 
   @PATCH("/v1/myshop/attributes/1/values/1")
-  Future<ApiResult> updateAttributeDetail({String value,String color,int id,int vid,String token,});
+  Future<ApiResult> updateAttributeDetail(BuildContext context,{String value,String color,int id,int vid,String token,});
 
   @DELETE("/v1/myshop/attributes")
-  Future<ApiResult> deleteAttributeDetail({int id,String token,int vid});
+  Future<ApiResult> deleteAttributeDetail(BuildContext context,{int id,String token,int vid});
 
   @GET("/v1/order")
-  Future<ApiResult> GetCategoryByShop({int CategoryId,String token});
+  Future<ApiResult> GetCategoryByShop(BuildContext context,{int CategoryId,String token});
 
 
   @GET("/v1/page?slug=terms-of-use-customer")
-  Future<ApiResult> getInformationRules(String slug);
+  Future<ApiResult> getInformationRules(BuildContext context,String slug);
 
   @GET("/v1/customers/request-change-email")
-  Future<ApiResult> requestChangEmail({String email,String token});
+  Future<ApiResult> requestChangEmail(BuildContext context,{String email,String token});
 
   @PATCH("/v1/myshop/products/231/inventories/231")
-  Future<ApiResult> updateinventories({int productsId,int inventoriesId,int shippingWeight,String token});
+  Future<ApiResult> updateinventories(BuildContext context,{int productsId,int inventoriesId,int shippingWeight,String token});
 
   @PATCH("/v1/order/220/mark-paid")
-  Future<ApiResult> MarkPaid({int orderId,String token});
+  Future<ApiResult> MarkPaid(BuildContext context,{int orderId,String token});
 
   @POST("/v1/customers/check-phone")
-  Future<ApiResult> checkPhone({String phone});
+  Future<ApiResult> checkPhone(BuildContext context,{String phone});
 
   @POST("/v1/order/298/fulfill")
-  Future<ApiResult> AddTracking({String trackingId, String token,int OrderId});
+  Future<ApiResult> AddTracking(BuildContext context,{String trackingId, String token,int OrderId});
 
   @PATCH("/v1/order/298/goods-received")
-  Future<ApiResult> GoodsReceived({String token,int OrderId});
+  Future<ApiResult> GoodsReceived(BuildContext context,{String token,int OrderId});
 
   @PATCH("/v1/order/298/cancel")
-  Future<ApiResult> OrderCancel({String token,int OrderId});
+  Future<ApiResult> OrderCancel(BuildContext context,{String token,int OrderId});
 
   @GET("/v1/myshop/search/products?limit=10&page=1&shopId=18&filter=available&q=%22%22")
-  Future<ApiResult> getSearchShop({String page, String query,int limit,int shopId,String filter,String token});
+  Future<ApiResult> getSearchShop({BuildContext context,String page, String query,int limit,int shopId,String filter,String token});
 
 }
 

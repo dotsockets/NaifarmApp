@@ -135,7 +135,7 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
                                 ),
                                 onPressed: (){
                                   if(snapshot.data){
-                                    bloc.ForgotPassword(password: _input2.text,phone: widget.phone,ref: widget.ref,code: widget.code);
+                                    bloc.ForgotPassword(context,password: _input2.text,phone: widget.phone,ref: widget.ref,code: widget.code);
                                   }
                                 },
                                 child: Text(LocaleKeys.btn_continue.tr(),

@@ -44,13 +44,13 @@ class ProductInto extends StatelessWidget {
       bloc.onError.stream.listen((event) {
         //checkScrollControl.add(true);
         if (event != null) {
-          if (event.error.status == 406) {
+          if (event.status == 406) {
             FunctionHelper.AlertDialogShop(context,
-                title: "Error", message: event.error.message);
-          }else if(event.error.status == 0 || event.error.status >= 500){
+                title: "Error", message: event.message);
+          }else if(event.status == 0 || event.status >= 500){
 
           }else {
-            FunctionHelper.SnackBarShow(scaffoldKey: scaffoldKey, message: event.error.message);
+            FunctionHelper.SnackBarShow(scaffoldKey: scaffoldKey, message: event.message);
           }
         }
       });
@@ -58,10 +58,10 @@ class ProductInto extends StatelessWidget {
 
 
       bloc.Wishlists.stream.listen((event) {
-        Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+        Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
       });
 
-      Usermanager().getUser().then((value) => bloc.GetWishlistsByProduct(token: value.token,productID: data.id));
+      Usermanager().getUser().then((value) => bloc.GetWishlistsByProduct(context,token: value.token,productID: data.id));
     }
   }
 
@@ -204,10 +204,10 @@ class ProductInto extends StatelessWidget {
       item.total = 0;
       bloc.Wishlists.add(item);
       Usermanager().getUser().then((value) =>
-          bloc.DELETEWishlists(WishId: id, token: value.token));
+          bloc.DELETEWishlists(context,WishId: id, token: value.token));
     } else {
 
-      Usermanager().getUser().then((value) => bloc.AddWishlists(
+      Usermanager().getUser().then((value) => bloc.AddWishlists(context,
           productId: data.id,
           inventoryId: data
               .inventories[0].id,

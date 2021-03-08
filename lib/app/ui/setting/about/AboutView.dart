@@ -37,7 +37,7 @@ class _AboutViewState extends State<AboutView> {
           Navigator.of(context).pop();
         }
       });
-      bloc.getInfoRules(slug: "about-us");
+      bloc.getInfoRules(context,slug: "about-us");
     }
   }
 

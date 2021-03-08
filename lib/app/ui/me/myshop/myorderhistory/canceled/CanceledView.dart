@@ -44,7 +44,7 @@ class _CanceledViewState extends State<CanceledView>{
   init() {
     if(bloc==null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(orderType:widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "8",limit: limit,page: 1,token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadOrder(context,orderType:widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "8",limit: limit,page: 1,token: value.token));
     }
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
@@ -472,7 +472,7 @@ class _CanceledViewState extends State<CanceledView>{
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "8",limit: limit,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(context,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "8",limit: limit,page: page,token: value.token));
   }
   @override
   bool get wantKeepAlive => true;

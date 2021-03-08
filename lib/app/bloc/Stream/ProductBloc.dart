@@ -41,7 +41,7 @@ class ProductBloc{
   CompositeSubscription _compositeSubscription = CompositeSubscription();
 
   final onLoad = BehaviorSubject<bool>();
-  final onError = BehaviorSubject<Result>();
+  final onError = BehaviorSubject<ThrowIfNoSuccess>();
   final onSuccess = BehaviorSubject<Object>();
 
   final ProductPopular = BehaviorSubject<ProductRespone>();
@@ -84,14 +84,14 @@ class ProductBloc{
 
   loadHomeData({BuildContext context,String token,bool callback=false})async{
   //  onLoad.add(true);
-    StreamSubscription subscription = Observable.combineLatest8(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage()) // สไลด์ภาพ
-        , Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular("1",10)), // สินค้าขายดี
-        Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup()), // หมวดหมู่ทั่วไป
-        Observable.fromFuture(_application.appStoreAPIRepository.getCategoriesFeatured()), // หมวดหมู่แนะนำ
-        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",6)), // สินค้าแนะนำ
-        Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(ShopId: 1,page: "1",limit: 10)), // สินค้าของ NaiFarm
-        Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: "1",limit: 5)), //  Flashsale
-        Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(page: "1",limit: 10,link: "products/types/trending")), // สินค้าสำหรับคุน
+    StreamSubscription subscription = Observable.combineLatest8(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage(context,)) // สไลด์ภาพ
+        , Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular(context,"1",10)), // สินค้าขายดี
+        Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup(context,)), // หมวดหมู่ทั่วไป
+        Observable.fromFuture(_application.appStoreAPIRepository.getCategoriesFeatured(context,)), // หมวดหมู่แนะนำ
+        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending(context,"1",6)), // สินค้าแนะนำ
+        Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(context,ShopId: 1,page: "1",limit: 10)), // สินค้าของ NaiFarm
+        Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(context,page: "1",limit: 5)), //  Flashsale
+        Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(context,page: "1",limit: 10,link: "products/types/trending")), // สินค้าสำหรับคุน
             (a, b,c,d,e,f,g,h){
             final _slider = (a as ApiResult).respone;
             final _product  =(b as ApiResult).respone;
@@ -119,10 +119,10 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  loadProductPopular(String page)async{
+  loadProductPopular(BuildContext context,String page)async{
     onLoad.add(true);
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular(page,10)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular(context,page,10)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
         ProductPopular.add((respone.respone as ProductRespone));
@@ -132,10 +132,10 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  GetMyWishlists({String token}){
+  GetMyWishlists(BuildContext context,{String token}){
     //onLoad.add(true);
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.GetMyWishlists(token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.GetMyWishlists(context,token: token)).listen((respone) {
      // onLoad.add(false);
       if(respone.http_call_back.status==200){
 
@@ -150,7 +150,7 @@ class ProductBloc{
 
 
       }else{
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -159,9 +159,9 @@ class ProductBloc{
 
 
 
-  loadProductTrending({String page,int limit=10})async{
+  loadProductTrending(BuildContext context,{String page,int limit=10})async{
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending(page,limit)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending(context,page,limit)).listen((respone) {
       if(respone.http_call_back.status==200){
         TrendingGroup.add(respone.respone);
       }
@@ -170,9 +170,9 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  loadProductSearch({String page,String query,int limit})async{
+  loadProductSearch(BuildContext context,{String page,String query,int limit})async{
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getSearch(page: page,query: query,limit: limit)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.getSearch(context,page: page,query: query,limit: limit)).listen((respone) {
       if(respone.http_call_back.status==200){
            SearchProduct.add((respone.respone as SearchRespone));
       }
@@ -184,9 +184,9 @@ class ProductBloc{
 
 
 
-  loadCategoryGroup(){
+  loadCategoryGroup(BuildContext context,){
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup()).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup(context,)).listen((respone) {
       if(respone.http_call_back.status==200){
         CategoryGroup.add((respone.respone as CategoryGroupRespone));
       }
@@ -194,13 +194,13 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  loadMartket(String page){
+  loadMartket(BuildContext context,String page){
 
 
     StreamSubscription subscription = Observable.combineLatest3(
-        Observable.fromFuture(_application.appStoreAPIRepository.FarmMarket()),
-        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",5)),
-        Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(ShopId: 1,page: "1",limit: 5)),(a, b,c){
+        Observable.fromFuture(_application.appStoreAPIRepository.FarmMarket(context,)),
+        Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending(context,"1",5)),
+        Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(context,ShopId: 1,page: "1",limit: 5)),(a, b,c){
           final _market = (a as ApiResult).respone;
           final _hotproduct  =(b as ApiResult).respone;
           final _recommend =(c as ApiResult).respone;
@@ -212,10 +212,10 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  loadMoreData({String page, int limit, String link,int type_more=0}){
+  loadMoreData(BuildContext context,{String page, int limit, String link,int type_more=0}){
     if(type_more==1){
       StreamSubscription subscription =
-      Observable.fromFuture(_application.appStoreAPIRepository.getSearch(query: "&categoryGroupId=${link}",limit: limit,page: page)).listen((respone) {
+      Observable.fromFuture(_application.appStoreAPIRepository.getSearch(context,query: "&categoryGroupId=${link}",limit: limit,page: page)).listen((respone) {
         if(respone.http_call_back.status==200 ){
           var item = (respone.respone as SearchRespone);
           if(page=="1"){
@@ -251,14 +251,14 @@ class ProductBloc{
 
 
         }else{
-          onError.add(respone.http_call_back.result);
+          onError.add(respone.http_call_back);
         }
       });
       _compositeSubscription.add(subscription);
       // https://stg-api-test.naifarm.com/v1/products/types/popular?limit=10&page=1
     }else{
       StreamSubscription subscription =
-      Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(page: page,link: link,limit: limit)).listen((respone) {
+      Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(context,page: page,link: link,limit: limit)).listen((respone) {
         if(respone.http_call_back.status==200){
           var item = (respone.respone as ProductRespone);
           if(page=="1"){
@@ -296,9 +296,9 @@ class ProductBloc{
 
   }
 
-  loadFlashsaleData({String page, int limit}){
+  loadFlashsaleData(BuildContext context,{String page, int limit}){
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: page,limit: limit)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(context,page: page,limit: limit)).listen((respone) {
       if(respone.http_call_back.status==200){
         var item = (respone.respone as FlashsaleRespone);
         for(var value in item.data[0].items){
@@ -316,17 +316,17 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  GetWishlistsByProduct({int productID,String token}){
+  GetWishlistsByProduct(BuildContext context,{int productID,String token}){
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.GetWishlistsByProduct(productID: productID,token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.GetWishlistsByProduct(context,productID: productID,token: token)).listen((respone) {
       Wishlists.add((respone.respone as WishlistsRespone));
     });
     _compositeSubscription.add(subscription);
   }
 
-  DELETEWishlists({int WishId,String token}){
+  DELETEWishlists(BuildContext context,{int WishId,String token}){
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.DELETEWishlists(WishId: WishId,token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.DELETEWishlists(context,WishId: WishId,token: token)).listen((respone) {
      // Wishlists.add((respone.respone as WishlistsRespone));
 
       if(respone.http_call_back.status==200){
@@ -335,7 +335,7 @@ class ProductBloc{
        onSuccess.add(true);
 
       }else{
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
 
 
@@ -343,9 +343,9 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  AddWishlists({int inventoryId,int productId,String token}){
+  AddWishlists(BuildContext context,{int inventoryId,int productId,String token}){
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.AddWishlists(inventoryId: inventoryId,productId: productId,token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.AddWishlists(context,inventoryId: inventoryId,productId: productId,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
        // GetMyWishlists(token: token); GetWishlistsByProduct
         var item = (respone.respone as DataWishlists);
@@ -360,7 +360,7 @@ class ProductBloc{
 
       //  onSuccess.add(true);
       }else{
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -368,14 +368,14 @@ class ProductBloc{
   }
 
 
-  loadProductsPage({int id,String token}){
+  loadProductsPage(BuildContext context,{int id,String token}){
     //  onLoad.add(true);
     onError.add(null);
-    Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)).listen((event) {
+    Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(context,id: id)).listen((event) {
       if(event.http_call_back.status==200){
         var item = (event.respone as ProducItemRespone);
         if(item!=null){
-          GetSearchCategoryGroupId(productItem: item,GroupId: item.categories[0].category.categorySubGroup.categoryGroup.id,limit: 10);
+          GetSearchCategoryGroupId(context,productItem: item,GroupId: item.categories[0].category.categorySubGroup.categoryGroup.id,limit: 10);
         }
 
         NaiFarmLocalStorage.getProductDetailCache().then((value){
@@ -401,22 +401,22 @@ class ProductBloc{
           }
         });
       }else{
-        onError.add(event.http_call_back.result);
+        onError.add(event.http_call_back);
       }
     });
 
 
   }
 
-  GetProductsById({int id}){
+  GetProductsById(BuildContext context,{int id}){
     onLoad.add(true);
-    Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)).listen((event) {
+    Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(context,id: id)).listen((event) {
       onLoad.add(false);
       if(event.http_call_back.status==200){
         var item = (event.respone as ProducItemRespone);
         ProductItem.add(item);
       }else{
-        onError.add(event.http_call_back.result);
+        onError.add(event.http_call_back);
       }
     });
   }
@@ -465,7 +465,7 @@ class ProductBloc{
   //      // GetMyWishlists(token: token);
   //       ProductItem.add(respone.respone);
   //     }else{
-  //       onError.add(respone.http_call_back.result);
+  //       onError.add(respone.http_call_back);
   //     }
   //
   //   });
@@ -474,14 +474,14 @@ class ProductBloc{
   //
   // }
 
-  ShopById({int shopid,String token}){
+  ShopById(BuildContext context,{int shopid,String token}){
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.ShopById(id: shopid)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.ShopById(context,id: shopid)).listen((respone) {
       if(respone.http_call_back.status==200){
-        GetMyWishlists(token: token);
+        GetMyWishlists(context,token: token);
         onSuccess.add(true);
       }else{
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -489,13 +489,13 @@ class ProductBloc{
   }
 
 
-  loadShop({int shopid,String token}){
+  loadShop(BuildContext context,{int shopid,String token}){
     onError.add(null);
     StreamSubscription subscription = Observable.combineLatest4(
-        Observable.fromFuture(_application.appStoreAPIRepository.getProductTypeShop(type:"popular" ,shopId: shopid,limit: 10,page: "1",token: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository.getProductTypeShop(type:"trending" ,shopId: shopid,limit: 10,page: "1",token: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository.ShopById(id: shopid)),
-        Observable.fromFuture(_application.appStoreAPIRepository.GetCategoryByShop(token: token,CategoryId: shopid)),(a, b,c,d){
+        Observable.fromFuture(_application.appStoreAPIRepository.getProductTypeShop(context,type:"popular" ,shopId: shopid,limit: 10,page: "1",token: token)),
+        Observable.fromFuture(_application.appStoreAPIRepository.getProductTypeShop(context,type:"trending" ,shopId: shopid,limit: 10,page: "1",token: token)),
+        Observable.fromFuture(_application.appStoreAPIRepository.ShopById(context,id: shopid)),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetCategoryByShop(context,token: token,CategoryId: shopid)),(a, b,c,d){
       final productmyshop = (a as ApiResult).respone;
       final productrecommend  =(b as ApiResult).respone;
       final shopRespone  =(c as ApiResult).respone;
@@ -504,7 +504,7 @@ class ProductBloc{
       if((c as ApiResult).http_call_back.status==200){
         return ZipShopObjectCombin(productmyshop: productmyshop,productrecommend: productrecommend,shopRespone: shopRespone,categoryGroupRespone: categoryRespone);
       }else{
-        onError.add((c as ApiResult).http_call_back.result);
+        onError.add((c as ApiResult).http_call_back);
         return ZipShopObjectCombin();
 
       }
@@ -542,13 +542,13 @@ class ProductBloc{
 
 
 
-  loadCategoryPage({int GroupId}){
+  loadCategoryPage(BuildContext context,{int GroupId}){
     onLoad.add(true);
     StreamSubscription subscription = Observable.combineLatest4(
-        Observable.fromFuture(_application.appStoreAPIRepository.CategorySubgroup(GroupId: GroupId)),
-        Observable.fromFuture(_application.appStoreAPIRepository.categoryGroupId(GroupId: GroupId,limit: 10,page: "1")),
-        Observable.fromFuture(_application.appStoreAPIRepository.GetBanners(group: "home_middle")),
-        Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(limit: 10,page: "1",link: "products/types/popular?categoryGroupId=${GroupId}")),(a, b,d,e){
+        Observable.fromFuture(_application.appStoreAPIRepository.CategorySubgroup(context,GroupId: GroupId)),
+        Observable.fromFuture(_application.appStoreAPIRepository.categoryGroupId(context,GroupId: GroupId,limit: 10,page: "1")),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetBanners(context,group: "home_middle")),
+        Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(context,limit: 10,page: "1",link: "products/types/popular?categoryGroupId=${GroupId}")),(a, b,d,e){
       final _supgroup = (a as ApiResult).respone;
       final _groupproduct  =(b as ApiResult).respone;
       final _banner  =(d as ApiResult).respone;
@@ -564,9 +564,9 @@ class ProductBloc{
   }
 
 
-  GetSearchCategoryGroupId({ProducItemRespone productItem,int GroupId,int limit=5,String page="1"}){
-    Observable.fromFuture(_application.appStoreAPIRepository.getSearch(query: "&categoryGroupId=${GroupId}",limit: limit,page: page)).listen((respone) {
-      if(respone.http_call_back.status==200 || respone.http_call_back.result.error.status==401){
+  GetSearchCategoryGroupId(BuildContext context,{ProducItemRespone productItem,int GroupId,int limit=5,String page="1"}){
+    Observable.fromFuture(_application.appStoreAPIRepository.getSearch(context,query: "&categoryGroupId=${GroupId}",limit: limit,page: page)).listen((respone) {
+      if(respone.http_call_back.status==200 || respone.http_call_back.status==401){
         NaiFarmLocalStorage.getProductDetailCache().then((value){
           if(value!=null){
             for(var data in value.item){
@@ -584,13 +584,13 @@ class ProductBloc{
         });
 
       }else{
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
   }
 
-  GetProductMyShop({String page, int limit, String token,String filter}) {
-    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.GetProductMyShop(page: page, limit: limit, token: token,filter: filter)).listen((respone) {
+  GetProductMyShop(BuildContext context,{String page, int limit, String token,String filter}) {
+    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.GetProductMyShop(context,page: page, limit: limit, token: token,filter: filter)).listen((respone) {
       if (respone.http_call_back.status == 200) {
         var item = (respone.respone as ProductMyShopListRespone);
         if(page=="1") {
@@ -603,9 +603,9 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  loadSearchMyshop({String page, String query, int shopId, int limit,String filter,String token})async{
+  loadSearchMyshop(BuildContext context,{String page, String query, int shopId, int limit,String filter,String token})async{
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getSearchShop(shopId: shopId,page: page,query: query,limit: limit,filter: filter,token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.getSearchShop(context,shopId: shopId,page: page,query: query,limit: limit,filter: filter,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
         var item = (respone.respone as SearchRespone);
         if(page=="1"&&query.length!=0) {
@@ -618,29 +618,29 @@ class ProductBloc{
           ProductMyShopRes.add(ProductMyShopListRespone(data: productList,limit: item.limit.toString(),total: item.nbHits));
 
       }else{
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
 
-  GetProductCategoryGroupId({int GroupId,int limit=5,String page="1"}){
-    Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(link:  "products/types/trending?categorySubGroupId=${GroupId}",limit: limit,page: page)).listen((respone) {
-      if(respone.http_call_back.status==200 || respone.http_call_back.result.error.status==401){
+  GetProductCategoryGroupId(BuildContext context,{int GroupId,int limit=5,String page="1"}){
+    Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(context,link:  "products/types/trending?categorySubGroupId=${GroupId}",limit: limit,page: page)).listen((respone) {
+      if(respone.http_call_back.status==200 || respone.http_call_back.status==401){
         TrendingGroup.add((respone.respone as ProductRespone));
       }else{
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
   }
 
-  UpdateProductMyShop(
+  UpdateProductMyShop(BuildContext context,
       {ProductMyShopRequest shopRequest, int productId, String token,IsActive isActive}) {
 
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
-        _application.appStoreAPIRepository.UpdateProductMyShop(
+        _application.appStoreAPIRepository.UpdateProductMyShop(context,
             shopRequest: shopRequest, productId: productId, token: token))
         .listen((respone) {
       if (respone.http_call_back.status == 200) {
@@ -651,19 +651,19 @@ class ProductBloc{
         }
       } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  GetCategoriesAll(){
+  GetCategoriesAll(BuildContext context,){
 
 
     StreamSubscription subscription = Observable.combineLatest3(
-        Observable.fromFuture(_application.appStoreAPIRepository.GetCategoriesAll()),
-        Observable.fromFuture(_application.appStoreAPIRepository.GetCategories()),
-        Observable.fromFuture(_application.appStoreAPIRepository.StatesProvice(countries: "1")),(a, b,c){
+        Observable.fromFuture(_application.appStoreAPIRepository.GetCategoriesAll(context,)),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetCategories(context,)),
+        Observable.fromFuture(_application.appStoreAPIRepository.StatesProvice(context,countries: "1")),(a, b,c){
       final _categorteAll= (a as ApiResult).respone;
       final _categortes  =(b as ApiResult).respone;
       final _provice =(c as ApiResult).respone;
@@ -678,28 +678,28 @@ class ProductBloc{
     _compositeSubscription.add(subscription);
   }
 
-  void loadCustomerCount({String token}){
-    Observable.fromFuture(_application.appStoreAPIRepository.GetCustomerCount(token: token)).listen((respone) {
-      if(respone.http_call_back.status==200 || respone.http_call_back.result.error.status==401){
+  void loadCustomerCount(BuildContext context,{String token}){
+    Observable.fromFuture(_application.appStoreAPIRepository.GetCustomerCount(context,token: token)).listen((respone) {
+      if(respone.http_call_back.status!=200 || respone.http_call_back.status!=401){
         onSuccess.add(true);
       }else{
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
   }
 
 //CategoryCombin
 
-  AddCartlists({BuildContext context,CartRequest cartRequest,String token,bool addNow=false}){
+  AddCartlists(BuildContext context,{CartRequest cartRequest,String token,bool addNow=false}){
     BayNow.clear();
     onLoad.add(true);
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.AddCartlists(cartRequest: cartRequest,token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.AddCartlists(context,cartRequest: cartRequest,token: token)).listen((respone) {
       if(respone.http_call_back.status==200||respone.http_call_back.status==201){
         for(var value in cartRequest.items ){
           BayNow.add(ProductData(id: value.inventoryId));
         }
-         Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+         Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
         onLoad.add(false);
         if(addNow){
           onSuccess.add(true);
@@ -709,7 +709,7 @@ class ProductBloc{
 
       }else{
         onLoad.add(false);
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -717,17 +717,17 @@ class ProductBloc{
   }
 
 
-  DELETEProductMyShop({int ProductId, String token}) {
+  DELETEProductMyShop(BuildContext context,{int ProductId, String token}) {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
         .appStoreAPIRepository
-        .DELETEProductMyShop(ProductId: ProductId, token: token))
+        .DELETEProductMyShop(context,ProductId: ProductId, token: token))
         .listen((respone) {
       if (respone.http_call_back.status == 200) {
         onLoad.add(false);
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);

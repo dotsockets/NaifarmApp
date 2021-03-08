@@ -36,7 +36,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
  init(){
 
    Usermanager().getUser().then((value){
-     Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+     Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
    });
 
  }

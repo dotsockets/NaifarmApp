@@ -173,7 +173,7 @@ class AddtTrackingNumberView extends StatelessWidget {
                     }, onClick: () {
                       Navigator.of(context).pop();
                       Usermanager().getUser().then((value) =>
-                          bloc.AddTracking(token: value.token, OrderId: orderData.id,trackingId: trackController.text));
+                          bloc.AddTracking(context,token: value.token, OrderId: orderData.id,trackingId: trackController.text));
                     });
               }else{
                 trackOnError.add("Please fill in the correct parcel number. ");

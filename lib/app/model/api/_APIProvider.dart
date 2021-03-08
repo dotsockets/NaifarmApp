@@ -14,7 +14,7 @@ class _APIProvider implements APIProvider {
 
 
   @override
-  Future<ApiResult> getProFileFacebook(String access_token) async {
+  Future<ApiResult> getProFileFacebook(BuildContext context,String access_token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       "fields": "name,first_name,last_name,email,photos",
@@ -39,7 +39,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> CustomersLogin(LoginRequest loginRequest) async {
+  Future<ApiResult> CustomersLogin(BuildContext context,LoginRequest loginRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -53,7 +53,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -66,7 +68,7 @@ class _APIProvider implements APIProvider {
 
 
   @override
-  Future<ApiResult> CustomersLoginSocial(LoginRequest loginRequest,String provider) async {
+  Future<ApiResult> CustomersLoginSocial(BuildContext context,LoginRequest loginRequest,String provider) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -80,7 +82,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -93,7 +97,7 @@ class _APIProvider implements APIProvider {
 
 
   @override
-  Future<ApiResult> OtpRequest(String numbephone) async {
+  Future<ApiResult> OtpRequest(BuildContext context,String numbephone) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -105,7 +109,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -117,7 +123,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> OtpVerify(String phone, String code, String ref) async {
+  Future<ApiResult> OtpVerify(BuildContext context,String phone, String code, String ref) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -131,7 +137,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -143,7 +151,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> CustomersRegister(RegisterRequest registerRequest) async {
+  Future<ApiResult> CustomersRegister(BuildContext context,RegisterRequest registerRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -159,7 +167,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -171,7 +181,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> ForgotPasswordRequest(
+  Future<ApiResult> ForgotPasswordRequest(BuildContext context,
       { String phone, String code, String ref, String password}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -188,7 +198,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -201,7 +213,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> ResetPasswordRequest(String email, String password,
+  Future<ApiResult> ResetPasswordRequest(BuildContext context,String email, String password,
       String token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -216,7 +228,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -228,7 +242,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getCustomerInfo(String access_token) async {
+  Future<ApiResult> getCustomerInfo(BuildContext context,String access_token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -239,7 +253,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": access_token
+                "token": access_token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -252,7 +267,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> ModifyProfile(CustomerInfoRespone data,
+  Future<ApiResult> ModifyProfile(BuildContext context,CustomerInfoRespone data,
       String access_token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -264,7 +279,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": access_token
+                "token": access_token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -277,7 +293,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> ModifyPassword(ModifyPasswordrequest data,
+  Future<ApiResult> ModifyPassword(BuildContext context,ModifyPasswordrequest data,
       String access_token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -289,7 +305,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": access_token
+                "token": access_token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -302,7 +319,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> VerifyPassword(String password, String token) async {
+  Future<ApiResult> VerifyPassword(BuildContext context,String password, String token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -316,7 +333,9 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -330,7 +349,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> AddressesList(String token) async {
+  Future<ApiResult> AddressesList(BuildContext context,String token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -341,7 +360,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -354,7 +374,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> StatesProvice(String countries) async {
+  Future<ApiResult> StatesProvice(BuildContext context,String countries) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -364,7 +384,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -376,7 +398,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> StatesCity(String countries, String statesId) async {
+  Future<ApiResult> StatesCity(BuildContext context,String countries, String statesId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -387,7 +409,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -399,7 +423,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> zipCode(String countries, String statesId,
+  Future<ApiResult> zipCode(BuildContext context,String countries, String statesId,
       String cityId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -411,7 +435,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -423,7 +449,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> CreateAddress(AddressCreaterequest addressCreaterequest,
+  Future<ApiResult> CreateAddress(BuildContext context,AddressCreaterequest addressCreaterequest,
       String token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -435,7 +461,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -449,7 +476,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> DeleteAddress(String id, String token) async {
+  Future<ApiResult> DeleteAddress(BuildContext context,String id, String token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -461,7 +488,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'DELETE',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -475,7 +503,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> UpdateAddress(AddressCreaterequest data,
+  Future<ApiResult> UpdateAddress(BuildContext context,AddressCreaterequest data,
       String token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -486,7 +514,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -501,7 +530,7 @@ class _APIProvider implements APIProvider {
 
 
   @override
-  Future<ApiResult> getSliderImage() async {
+  Future<ApiResult> getSliderImage(BuildContext context,) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -510,7 +539,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -522,7 +553,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getProductPopular(String page, int limit) async {
+  Future<ApiResult> getProductPopular(BuildContext context,String page, int limit) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -532,7 +563,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -544,7 +577,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getCategoryGroup() async {
+  Future<ApiResult> getCategoryGroup(BuildContext context,) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -553,7 +586,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -565,7 +600,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getCategoriesFeatured() async {
+  Future<ApiResult> getCategoriesFeatured(BuildContext context,) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -574,7 +609,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -586,7 +623,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getProductTrending(String page, int limit) async {
+  Future<ApiResult> getProductTrending(BuildContext context,String page, int limit) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -596,7 +633,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -608,7 +647,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getShopProduct({int ShopId, String page, int limit}) async {
+  Future<ApiResult> getShopProduct(BuildContext context,{int ShopId, String page, int limit}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -618,7 +657,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -630,7 +671,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getSearch({String page, String query, int limit}) async {
+  Future<ApiResult> getSearch(BuildContext context,{String page, String query, int limit}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -640,7 +681,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -652,7 +695,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> CreateMyShop(
+  Future<ApiResult> CreateMyShop(BuildContext context,
       {String name, String slug, String description, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -668,7 +711,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -681,7 +726,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getMyShopInfo(String access_token) async {
+  Future<ApiResult> getMyShopInfo(BuildContext context,String access_token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -692,7 +737,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": access_token
+                "token": access_token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -705,7 +751,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> MyShopUpdate(
+  Future<ApiResult> MyShopUpdate(BuildContext context,
       {MyShopRequest data, String access_token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -716,7 +762,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": access_token
+                "token": access_token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -729,7 +776,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> FarmMarket() async {
+  Future<ApiResult> FarmMarket(BuildContext context,) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -739,7 +786,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -751,7 +800,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> MoreProduct({String page, int limit, String link}) async {
+  Future<ApiResult> MoreProduct(BuildContext context,{String page, int limit, String link}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -761,7 +810,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -773,7 +824,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> Flashsale({String page, int limit}) async {
+  Future<ApiResult> Flashsale(BuildContext context,{String page, int limit}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -783,7 +834,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -795,7 +848,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> UploadImage(
+  Future<ApiResult> UploadImage(BuildContext context,
       {File imageFile, String imageableType, int imageableId, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -812,7 +865,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -825,7 +879,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> ProductsById({int id}) async {
+  Future<ApiResult> ProductsById(BuildContext context,{int id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -834,7 +888,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -846,7 +902,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> ShopById({int id}) async {
+  Future<ApiResult> ShopById(BuildContext context,{int id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -855,7 +911,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -867,7 +925,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> categoryGroupId(
+  Future<ApiResult> categoryGroupId(BuildContext context,
       {String page, int limit, int GroupId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -878,7 +936,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -890,7 +950,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> CategorySubgroup({int GroupId}) async {
+  Future<ApiResult> CategorySubgroup(BuildContext context,{int GroupId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -900,7 +960,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -912,7 +974,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetBanners({String group}) async {
+  Future<ApiResult> GetBanners(BuildContext context,{String group}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       "group": group
@@ -923,7 +985,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -935,7 +999,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetPaymentList() async {
+  Future<ApiResult> GetPaymentList(BuildContext context,) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -944,7 +1008,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -956,7 +1022,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetPaymentMyShop({String token}) async {
+  Future<ApiResult> GetPaymentMyShop(BuildContext context,{String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -966,7 +1032,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -979,7 +1046,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> AddPaymentMyShop(
+  Future<ApiResult> AddPaymentMyShop(BuildContext context,
       {int paymentMethodId, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -992,7 +1059,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1005,7 +1073,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> DELETEPaymentMyShop(
+  Future<ApiResult> DELETEPaymentMyShop(BuildContext context,
       {int paymentMethodId, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1017,7 +1085,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'DELETE',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1030,7 +1099,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetCarriersList() async {
+  Future<ApiResult> GetCarriersList(BuildContext context,) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1039,7 +1108,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -1051,7 +1122,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetShippingMyShop({String token}) async {
+  Future<ApiResult> GetShippingMyShop(BuildContext context,{String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1061,7 +1132,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1074,7 +1146,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> DELETEShoppingMyShop({int ratesId, String token}) async {
+  Future<ApiResult> DELETEShoppingMyShop(BuildContext context,{int ratesId, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1085,7 +1157,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'DELETE',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1098,7 +1171,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> AddShoppingMyShop(
+  Future<ApiResult> AddShoppingMyShop(BuildContext context,
       {ShppingMyShopRequest shopRequest, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1109,7 +1182,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1122,7 +1196,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> EditShoppingMyShop(
+  Future<ApiResult> EditShoppingMyShop(BuildContext context,
       {ShppingMyShopRequest shopRequest, int rateID, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1134,7 +1208,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1147,7 +1222,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetProductMyShop(
+  Future<ApiResult> GetProductMyShop(BuildContext context,
       {String page, int limit, String token, String filter}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1159,7 +1234,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1172,7 +1248,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> AddProductMyShop(
+  Future<ApiResult> AddProductMyShop(BuildContext context,
       {ProductMyShopRequest shopRequest, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1183,7 +1259,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1196,7 +1273,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetWishlistsByProduct({int productID, String token}) async {
+  Future<ApiResult> GetWishlistsByProduct(BuildContext context,{int productID, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       "productId": productID
@@ -1208,7 +1285,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1221,7 +1299,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> DELETEWishlists({int WishId, String token}) async {
+  Future<ApiResult> DELETEWishlists(BuildContext context,{int WishId, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1231,7 +1309,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'DELETE',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1244,7 +1323,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> AddWishlists(
+  Future<ApiResult> AddWishlists(BuildContext context,
       {int inventoryId, int productId, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1258,7 +1337,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1271,7 +1351,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetMyWishlists({String token}) async {
+  Future<ApiResult> GetMyWishlists(BuildContext context,{String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1281,7 +1361,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1294,7 +1375,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetCustomerCount({String token}) async {
+  Future<ApiResult> GetCustomerCount(BuildContext context,{String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1304,7 +1385,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1317,7 +1399,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetCategoriesAll() async {
+  Future<ApiResult> GetCategoriesAll(BuildContext context,) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1326,7 +1408,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -1338,7 +1422,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetCategories() async {
+  Future<ApiResult> GetCategories(BuildContext context,) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1347,7 +1431,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -1359,7 +1445,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> AddCartlists(
+  Future<ApiResult> AddCartlists(BuildContext context,
       {CartRequest cartRequest, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1373,7 +1459,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1387,7 +1474,7 @@ class _APIProvider implements APIProvider {
 
 
   @override
-  Future<ApiResult> GetProductIDMyShop({int productId, String token}) async {
+  Future<ApiResult> GetProductIDMyShop(BuildContext context,{int productId, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1398,7 +1485,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1412,7 +1500,7 @@ class _APIProvider implements APIProvider {
 
 
   @override
-  Future<ApiResult> UpdateProductMyShop(
+  Future<ApiResult> UpdateProductMyShop(BuildContext context,
       {ProductMyShopRequest shopRequest, int productId, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1424,7 +1512,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1437,7 +1526,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetCartlists({String token}) async {
+  Future<ApiResult> GetCartlists(BuildContext context,{String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1447,7 +1536,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1461,7 +1551,7 @@ class _APIProvider implements APIProvider {
 
 
   @override
-  Future<ApiResult> DELETEProductMyShop({int ProductId, String token}) async {
+  Future<ApiResult> DELETEProductMyShop(BuildContext context,{int ProductId, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1472,7 +1562,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'DELETE',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1486,7 +1577,7 @@ class _APIProvider implements APIProvider {
 
 
   @override
-  Future<ApiResult> DELETECart(
+  Future<ApiResult> DELETECart(BuildContext context,
       {int cartid, int inventoryid, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1500,7 +1591,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'DELETE',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1513,7 +1605,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> UpdateCart(CartRequest data, int cartId,
+  Future<ApiResult> UpdateCart(BuildContext context,CartRequest data, int cartId,
       String token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1524,7 +1616,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1538,7 +1631,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> UpdateProductInventories(
+  Future<ApiResult> UpdateProductInventories(BuildContext context,
       {InventoriesRequest inventoriesRequest, int productId, int inventoriesId, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1550,7 +1643,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1563,7 +1657,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> DeleteImageProduct(
+  Future<ApiResult> DeleteImageProduct(BuildContext context,
       {String imageableId, String imageableType, String path, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1578,7 +1672,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'DELETE',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1591,7 +1686,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetOrder(
+  Future<ApiResult> GetOrder(BuildContext context,
       {String orderType, int page, int limit, String statusId, String token,String sort}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1603,7 +1698,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1616,7 +1712,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetOrderById({int id,String orderType, String token}) async {
+  Future<ApiResult> GetOrderById(BuildContext context,{int id,String orderType, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1626,7 +1722,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1639,7 +1736,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getProductTypeShop(
+  Future<ApiResult> getProductTypeShop(BuildContext context,
       {String type, int shopId, String page, int limit, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1651,7 +1748,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1664,7 +1762,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetNotificationByGroup(
+  Future<ApiResult> GetNotificationByGroup(BuildContext context,
       {String group, int page, String sort = "notification.createdAt:desc", int limit, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -1680,7 +1778,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1693,7 +1792,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> CreateOrder(
+  Future<ApiResult> CreateOrder(BuildContext context,
       {OrderRequest orderRequest, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1704,7 +1803,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1717,7 +1817,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetShippings({int shopId}) async {
+  Future<ApiResult> GetShippings(BuildContext context,{int shopId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -1727,7 +1827,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -1739,7 +1841,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> MarkAsReadNotifications({String token}) async {
+  Future<ApiResult> MarkAsReadNotifications(BuildContext context,{String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -1753,7 +1855,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1766,7 +1869,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getSearchProduct(
+  Future<ApiResult> getSearchProduct(BuildContext context,
       {String page, String query, int shopId, int limit}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1777,7 +1880,9 @@ class _APIProvider implements APIProvider {
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
-              headers: <String, dynamic>{},
+              headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
               extra: _extra,
               baseUrl: baseUrl),
           data: _data);
@@ -1789,7 +1894,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getMyShopAttribute(String token) async {
+  Future<ApiResult> getMyShopAttribute(BuildContext context,String token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -1800,7 +1905,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1813,7 +1919,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> addMyShopAttribute({String name, String token}) async {
+  Future<ApiResult> addMyShopAttribute(BuildContext context,{String name, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -1825,7 +1931,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1838,7 +1945,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> deleteMyShopAttribute({int id, String token}) async {
+  Future<ApiResult> deleteMyShopAttribute(BuildContext context,{int id, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -1850,7 +1957,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'DELETE',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1864,7 +1972,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getAttributeDetail(int id, String token) async {
+  Future<ApiResult> getAttributeDetail(BuildContext context,int id, String token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -1876,7 +1984,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1889,7 +1998,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> updateAttribute(String name, int id, String token) async {
+  Future<ApiResult> updateAttribute(BuildContext context,String name, int id, String token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final data = <String, dynamic>{
@@ -1901,7 +2010,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1914,7 +2024,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> addAttributeDetail(
+  Future<ApiResult> addAttributeDetail(BuildContext context,
       {String value, String color, int id, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1929,7 +2039,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1942,7 +2053,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> updateAttributeDetail({String value, String color, int id, int vid, String token}) async {
+  Future<ApiResult> updateAttributeDetail(BuildContext context,{String value, String color, int id, int vid, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final data = <String, dynamic>{
@@ -1956,7 +2067,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1969,7 +2081,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> deleteAttributeDetail(
+  Future<ApiResult> deleteAttributeDetail(BuildContext context,
       {int id, String token, int vid}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1982,7 +2094,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'DELETE',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -1996,7 +2109,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GetCategoryByShop({int CategoryId, String token}) async {
+  Future<ApiResult> GetCategoryByShop(BuildContext context,{int CategoryId, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -2008,7 +2121,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2021,7 +2135,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getInformationRules(String slug) async {
+  Future<ApiResult> getInformationRules(BuildContext context,String slug) async {
     const _extra = <String, dynamic>{ };
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -2033,6 +2147,7 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2044,7 +2159,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> requestChangEmail({String email, String token}) async{
+  Future<ApiResult> requestChangEmail(BuildContext context,{String email, String token}) async{
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -2057,7 +2172,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2070,7 +2186,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> updateinventories({int productsId, int inventoriesId,int shippingWeight, String token}) async{
+  Future<ApiResult> updateinventories(BuildContext context,{int productsId, int inventoriesId,int shippingWeight, String token}) async{
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final data = <String, dynamic>{
@@ -2083,7 +2199,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2096,7 +2213,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> MarkPaid({int orderId, String token}) async{
+  Future<ApiResult> MarkPaid(BuildContext context,{int orderId, String token}) async{
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final data = <String, dynamic>{
@@ -2109,7 +2226,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2122,7 +2240,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> checkPhone({String phone}) async {
+  Future<ApiResult> checkPhone(BuildContext context,{String phone}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -2134,6 +2252,7 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2146,7 +2265,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> AddTracking({String trackingId, String token,int OrderId}) async{
+  Future<ApiResult> AddTracking(BuildContext context,{String trackingId, String token,int OrderId}) async{
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -2158,7 +2277,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2171,7 +2291,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> GoodsReceived({String token, int OrderId}) async{
+  Future<ApiResult> GoodsReceived(BuildContext context,{String token, int OrderId}) async{
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -2181,7 +2301,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2194,7 +2315,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> OrderCancel({String token, int OrderId}) async{
+  Future<ApiResult> OrderCancel(BuildContext context,{String token, int OrderId}) async{
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -2204,7 +2325,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'PATCH',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2217,7 +2339,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> CheckEmail({String email}) async{
+  Future<ApiResult> CheckEmail(BuildContext context,{String email}) async{
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{
@@ -2229,6 +2351,7 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2241,7 +2364,7 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getSearchShop({String page, String query, int limit, int shopId, String filter,String token}) async{
+  Future<ApiResult> getSearchShop({BuildContext context,String page, String query, int limit, int shopId, String filter,String token}) async{
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -2252,7 +2375,8 @@ class _APIProvider implements APIProvider {
           options: RequestOptions(
               method: 'GET',
               headers: <String, dynamic>{
-                "token": token
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),

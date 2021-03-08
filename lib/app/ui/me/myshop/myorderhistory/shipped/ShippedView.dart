@@ -41,7 +41,7 @@ class _ShippedViewState extends State<ShippedView> {
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(
+      Usermanager().getUser().then((value) => bloc.loadOrder(context,
           orderType:
               widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
           statusId: "3",
@@ -481,7 +481,7 @@ class _ShippedViewState extends State<ShippedView> {
               context: context, orderData: item);
           if (result) {
             bloc.orderList.clear();
-            Usermanager().getUser().then((value) => bloc.loadOrder(
+            Usermanager().getUser().then((value) => bloc.loadOrder(context,
                 load: true,
                 orderType: widget.typeView == OrderViewType.Shop
                     ? "myshop/orders"
@@ -545,7 +545,7 @@ class _ShippedViewState extends State<ShippedView> {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(
+    Usermanager().getUser().then((value) => bloc.loadOrder(context,
         orderType:
             widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
         sort: "orders.updatedAt:desc",

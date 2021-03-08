@@ -231,6 +231,7 @@ class _MyProductViewState extends State<MyProductView> {
                 isactive: IsActive.ReplacemenView);
             if (result != null && result) {
               Usermanager().getUser().then((value) => bloc.GetProductMyShop(
+                  context,
                   page: "1", limit: 5, token: value.token));
             }
           },

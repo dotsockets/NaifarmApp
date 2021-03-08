@@ -2,6 +2,7 @@
 
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
@@ -21,15 +22,15 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
   final AppNaiFarmApplication _application;
   CustomerCountBloc(this._application) : super(CustomerCountInitial());
 
-  void loadCustomerCount({String token}){
+  void loadCustomerCount(BuildContext context,{String token}){
     NaiFarmLocalStorage.getCustomer_cuse().then((value){
 
       emit(CustomerCountLoading(value));
     });
 
     Observable.combineLatest2(
-        Observable.fromFuture(_application.appStoreAPIRepository.GetCustomerCount(token: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository.GetCartlists(token: token)),(a, b){
+        Observable.fromFuture(_application.appStoreAPIRepository.GetCustomerCount(context,token: token)),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetCartlists(context,token: token)),(a, b){
       final CustomerCount= (a as ApiResult).respone;
       final CartCout  =(b as ApiResult).respone;
       var item = (CustomerCount as CustomerCountRespone);
@@ -61,7 +62,7 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
         emit(CustomerCountLoaded((event.respone as CustomerCountRespone)));
       }else{
         NaiFarmLocalStorage.saveCustomer_cuse(null);
-        emit(CustomerCountError(event.http_call_back.result.error.message));
+        emit(CustomerCountError(event.http_call_back.result.error));
       }
     });
 

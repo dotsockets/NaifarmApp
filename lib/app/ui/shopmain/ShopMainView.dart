@@ -63,11 +63,11 @@ class _ShopMainViewState extends State<ShopMainView>
 
         }
         Usermanager().getUser().then((value) =>
-            bloc.loadShop(shopid: widget.myShopRespone.id, token: value.token));
+            bloc.loadShop(context,shopid: widget.myShopRespone.id, token: value.token));
       });
 
       // bloc.onError.stream.listen((event) {
-      //   print("ewfcewrfc ${event.error.message}");
+      //   print("ewfcewrfc ${event.error}");
       // });
     }
   }
@@ -121,7 +121,7 @@ class _ShopMainViewState extends State<ShopMainView>
                 if(snapshot.hasData){
                   return Center(
                     child: ConnectErrorView(result: snapshot.data ,show_full: false,callback: (){
-                      Usermanager().getUser().then((value) => bloc.loadShop(shopid: widget.myShopRespone.id, token: value.token));
+                      Usermanager().getUser().then((value) => bloc.loadShop(context,shopid: widget.myShopRespone.id, token: value.token));
                     }),
                   );
                 }else{

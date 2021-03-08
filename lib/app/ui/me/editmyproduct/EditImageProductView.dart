@@ -383,7 +383,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
 
         if(isEnable){
           Usermanager().getUser().then((value){
-            bloc.OnUpdateImage(ProductId: widget.ProductId,token: value.token,data: bloc.GetSelectItemUpdate());
+            bloc.OnUpdateImage(context,ProductId: widget.ProductId,token: value.token,data: bloc.GetSelectItemUpdate());
           });
         }else{
           Navigator.pop(context, false);

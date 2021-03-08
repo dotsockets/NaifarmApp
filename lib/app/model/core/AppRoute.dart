@@ -442,7 +442,7 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:WishlistsView()));
   }
 
-  static ConnectError({BuildContext context,Result result,bool show_full,Function callback}){
+  static ConnectError({BuildContext context,ThrowIfNoSuccess result,bool show_full,Function callback}){
     Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ConnectErrorView(result: result,show_full: show_full,callback: callback,)));
   }
 

@@ -75,7 +75,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
 
       bloc.checkPhone.stream.listen((event) {
         if(event){
-          bloc.OTPRequest(numberphone: PhoneController.text);
+          bloc.OTPRequest(context,numberphone: PhoneController.text);
         }
       });
     }
@@ -161,7 +161,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
     }
 
     if(validator.phone(PhoneController.text) && PhoneController.text.length == 10){
-      bloc.checkPhoneNumber(phone: PhoneController.text);
+      bloc.checkPhoneNumber(context,phone: PhoneController.text);
       //bloc.OTPRequest(numberphone: PhoneController.text);
       // final result = await AppRoute.EditPhoneStep2(context,widget.customerInfoRespone,PhoneController.text);
       // if(result!=null){

@@ -64,7 +64,7 @@ class ConfirmPaymentView extends StatelessWidget {
          });
        }
       });
-      Usermanager().getUser().then((value) => bloc.GetOrderById(
+      Usermanager().getUser().then((value) => bloc.GetOrderById(context,
           orderType: "myshop/orders", id: orderData.id, token: value.token));
     }
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
@@ -255,7 +255,7 @@ class ConfirmPaymentView extends StatelessWidget {
                       Navigator.of(context).pop();
                       onUpload = true;
                       Usermanager().getUser().then((value) =>
-                          bloc.MarkPaid(token: value.token, OrderId: orderData.id));
+                          bloc.MarkPaid(context,token: value.token, OrderId: orderData.id));
                     });
               }
 

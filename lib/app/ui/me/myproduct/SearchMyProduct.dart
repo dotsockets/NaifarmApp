@@ -70,7 +70,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
 
       blocProduct.onError.stream.listen((event) {
         FunctionHelper.SnackBarShow(
-            scaffoldKey: _scaffoldKey, message: event.error.message);
+            scaffoldKey: _scaffoldKey, message: event.error);
       });
       _searchData();
     }*/

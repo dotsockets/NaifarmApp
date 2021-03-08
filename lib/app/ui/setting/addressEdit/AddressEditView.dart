@@ -78,7 +78,7 @@ class _AddressEditViewState extends State<AddressEditView> {
       bloc.onSuccess.stream.listen((event) {
         Navigator.pop(context, true);
       });
-      bloc.StatesProvice(countries: "1");
+      bloc.StatesProvice(context,countries: "1");
       bloc.provice.stream.listen((event) {
         _checkError();
       });
@@ -89,7 +89,7 @@ class _AddressEditViewState extends State<AddressEditView> {
       bloc.city.stream.listen((event) {
         _checkError();
       });
-      bloc.StatesCity(countriesid: "1",statesId: widget.item.stateId.toString());
+      bloc.StatesCity(context,countriesid: "1",statesId: widget.item.stateId.toString());
       postController.text = widget.item.zipCode;
 
     }
@@ -181,7 +181,7 @@ class _AddressEditViewState extends State<AddressEditView> {
                  onSelect: (int index){
                          postController.text = "";
                        setState(()=> proviceSelect = (snapshot.data as StatesRespone).data[index].id);
-                      bloc.StatesCity(countriesid: "1",statesId: (snapshot.data as StatesRespone).data[index].id.toString());
+                      bloc.StatesCity(context,countriesid: "1",statesId: (snapshot.data as StatesRespone).data[index].id.toString());
                  });
                }else{
                  return SizedBox();
@@ -201,7 +201,7 @@ class _AddressEditViewState extends State<AddressEditView> {
                         LocaleKeys.address_city.tr() + " * ",
                     hint: loopString((snapshot.data as StatesRespone).data,citySelect),item: (snapshot.data as StatesRespone).data,onSelect: (int index){
                   setState(()=> citySelect = (snapshot.data as StatesRespone).data[index].id);
-                  bloc.StatesZipCode(countries: "1",statesId: proviceSelect.toString(),cityId: (snapshot.data as StatesRespone).data[index].id.toString() );
+                  bloc.StatesZipCode(context,countries: "1",statesId: proviceSelect.toString(),cityId: (snapshot.data as StatesRespone).data[index].id.toString() );
                 });
               }else{
                 return SizedBox();
@@ -326,7 +326,7 @@ class _AddressEditViewState extends State<AddressEditView> {
         ),
         onPressed: () {
           if(check)
-          Usermanager().getUser().then((value) =>  bloc.UpdateAddress(data: AddressCreaterequest(countryId: 1,id: widget.item.id,cityId: citySelect,phone: phoneController.text,addressLine1: detailAddrController.text,
+          Usermanager().getUser().then((value) =>  bloc.UpdateAddress(context,data: AddressCreaterequest(countryId: 1,id: widget.item.id,cityId: citySelect,phone: phoneController.text,addressLine1: detailAddrController.text,
               addressLine2: "",addressTitle: nameController.text,stateId: proviceSelect,zipCode: postController.text,addressType: isSelect?"Primary":"Shipping"),token: value.token));
         },
         child: Text(

@@ -654,7 +654,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
 
   void RequestOTPNEW(){
     FunctionHelper.showDialogProcess(context);
-    AppProvider.getApplication(context).appStoreAPIRepository.OTPRequest(numberphone: widget.phoneNumber).then((value){
+    AppProvider.getApplication(context).appStoreAPIRepository.OTPRequest(context,numberphone: widget.phoneNumber).then((value){
 
       if(value.http_call_back.status==200){
         Navigator.of(context).pop();
@@ -667,7 +667,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         });
       }else{
         Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: value.http_call_back.result.error.message);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: value.http_call_back.message);
       }
     });
   }
@@ -697,7 +697,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         if(SuccessForm){
 
 
-        bloc.OTPVerify(phone: widget.phoneNumber,code: "${_input1.text}${_input2.text}${_input3.text}${_input4.text}${_input5.text}${_input6.text}",ref: widget.refCode);
+        bloc.OTPVerify(context,phone: widget.phoneNumber,code: "${_input1.text}${_input2.text}${_input3.text}${_input4.text}${_input5.text}${_input6.text}",ref: widget.refCode);
         // SuccessForm?AppRoute.Register_set_Password(context):SizedBox();
 
         }

@@ -42,7 +42,7 @@ class _DeliveryViewState extends State<DeliveryView> {
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(
+      Usermanager().getUser().then((value) => bloc.loadOrder(context,
           orderType:
               widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
           sort: "orders.updatedAt:desc",
@@ -203,7 +203,7 @@ class _DeliveryViewState extends State<DeliveryView> {
               orderData: item, typeView: widget.typeView);
           if(result){
             bloc.orderList.clear();
-            Usermanager().getUser().then((value) => bloc.loadOrder(load: true,
+            Usermanager().getUser().then((value) => bloc.loadOrder(context,load: true,
                 orderType:
                 widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",sort: "orders.updatedAt:desc",
 
@@ -484,7 +484,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                 orderData: item, typeView: widget.typeView);
               if(result){
                 bloc.orderList.clear();
-                Usermanager().getUser().then((value) => bloc.loadOrder(load: true,
+                Usermanager().getUser().then((value) => bloc.loadOrder(context,load: true,
                     orderType:
                     widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",sort: "orders.updatedAt:desc",
 
@@ -548,7 +548,7 @@ class _DeliveryViewState extends State<DeliveryView> {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: '4,5',limit: limit,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(context,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: '4,5',limit: limit,page: page,token: value.token));
   }
 
   @override

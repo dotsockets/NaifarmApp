@@ -56,7 +56,7 @@ class _OrderViewState extends State<OrderView> {
       });
       Product_bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.AlertDialogShop(context,message: event.error.message,showbtn: true,title: "Error Shipping" );
+        FunctionHelper.AlertDialogShop(context,message: event.message,showbtn: true,title: "Error Shipping" );
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onLoad.stream.listen((event) {
@@ -91,7 +91,7 @@ class _OrderViewState extends State<OrderView> {
 
 
 
-    Usermanager().getUser().then((value) => bloc.GetOrderById(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",id: widget.orderData.id, token: value.token));
+    Usermanager().getUser().then((value) => bloc.GetOrderById(context,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",id: widget.orderData.id, token: value.token));
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
 
@@ -634,7 +634,7 @@ class _OrderViewState extends State<OrderView> {
                     Navigator.of(context).pop();
                     //AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
                     Usermanager().getUser().then((value){
-                      bloc.OrderCancel(token: value.token,OrderId: orderData.id);
+                      bloc.OrderCancel(context,token: value.token,OrderId: orderData.id);
                     });
                   });
 
@@ -682,7 +682,7 @@ class _OrderViewState extends State<OrderView> {
                   },onClick: (){
                     Navigator.of(context).pop();
                     Usermanager().getUser().then((value){
-                      bloc.GoodsReceived(OrderId: orderData.id,token: value.token);
+                      bloc.GoodsReceived(context,OrderId: orderData.id,token: value.token);
                     });
                   //  AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
                   });
@@ -758,8 +758,7 @@ class _OrderViewState extends State<OrderView> {
                     }
 
 
-                    Usermanager().getUser().then((value) => Product_bloc.AddCartlists(
-                        context: context,
+                    Usermanager().getUser().then((value) => Product_bloc.AddCartlists(context,
                         cartRequest: CartRequest(
                           shopId: bloc.OrderList.value.shop.id,
                           items: items,

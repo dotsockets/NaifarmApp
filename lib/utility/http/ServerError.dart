@@ -33,10 +33,10 @@ class ServerError{
         break;
     }
     if(error.response!=null){
-      return ApiResult(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: error.response.statusCode,message:  message))));
+      return ApiResult(http_call_back: ThrowIfNoSuccess(code: error.response.statusCode,message: message));
 
     }else{
-      return ApiResult(http_call_back: ThrowIfNoSuccess(result: Result(error: Error(status: 000,message:  message))));
+      return ApiResult(http_call_back: ThrowIfNoSuccess(code: 000,message: message));
     }
 
 

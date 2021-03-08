@@ -62,10 +62,12 @@ class _SplashViewState extends State<SplashView>
       NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Shop);
      // NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
       bloc = ProductBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) =>  bloc.loadCustomerCount(token: value.token));
+      Usermanager().getUser().then((value) =>  bloc.loadCustomerCount(context,token: value.token));
       bloc.onError.stream.listen((event) {
         Future.delayed(const Duration(milliseconds: 1000), () {
-          AppRoute.ConnectError(context: context,result: event,show_full: true);
+
+            AppRoute.ConnectError(context: context,result: event,show_full: true);
+
         });
 
       });
@@ -73,11 +75,11 @@ class _SplashViewState extends State<SplashView>
         if(event is CategoryCombin){
 
         }else{
-          bloc.GetCategoriesAll();
+          bloc.GetCategoriesAll(context,);
           Usermanager().getUser().then((value){
-            context.read<HomeDataBloc>().loadHomeData();
-            Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-            Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
+            context.read<HomeDataBloc>().loadHomeData(context,);
+            Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
+            Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(context,token:value.token));
           });
         }
 

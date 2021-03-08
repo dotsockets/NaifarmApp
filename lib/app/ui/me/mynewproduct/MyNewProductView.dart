@@ -419,7 +419,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         if(enable){
 
           Usermanager().getUser().then((value) {
-            bloc.AddProductMyShop(shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,token: value.token);
+            bloc.AddProductMyShop(context,shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,token: value.token);
           });
 
         }

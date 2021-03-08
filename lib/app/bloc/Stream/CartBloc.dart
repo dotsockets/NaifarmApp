@@ -23,7 +23,7 @@ class CartBloc {
   CompositeSubscription _compositeSubscription = CompositeSubscription();
 
   final onLoad = BehaviorSubject<bool>();
-  final onError = BehaviorSubject<Result>();
+  final onError = BehaviorSubject<ThrowIfNoSuccess>();
   final onSuccess = BehaviorSubject<Object>();
   final CartList = BehaviorSubject<CartResponse>();
   final AddressList = BehaviorSubject<AddressesListRespone>();
@@ -54,7 +54,7 @@ class CartBloc {
   GetCartlists({BuildContext context,String token, CartActive cartActive}) {
     if (cartActive == CartActive.CartList) onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
-            _application.appStoreAPIRepository.GetCartlists(token: token))
+            _application.appStoreAPIRepository.GetCartlists(context,token: token))
         .listen((respone) {
 
       //  var item = (respone.respone as CartRequest);
@@ -66,7 +66,7 @@ class CartBloc {
         CartList.add(CartResponse(data: item.data,total: item.total,selectAll: false));
       } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);
@@ -76,7 +76,7 @@ class CartBloc {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .DeleteCart(inventoryid: inventoryId, cartid: cartid, token: token))
+            .DeleteCart(context,inventoryid: inventoryId, cartid: cartid, token: token))
         .listen((respone) {
 
       if (respone.http_call_back.status == 200) {
@@ -86,17 +86,17 @@ class CartBloc {
         // CartList.add(CartResponse(data: CartList.value.data));
       } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  UpdateCart({CartRequest data, int cartid, String token}) async {
+  UpdateCart(BuildContext context,{CartRequest data, int cartid, String token}) async {
     // onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .UpdateCart(data: data, cartid: cartid, token: token))
+            .UpdateCart(context,data: data, cartid: cartid, token: token))
         .listen((respone) {
       if (respone.http_call_back.status == 200 ||
           respone.http_call_back.status == 201) {
@@ -106,16 +106,16 @@ class CartBloc {
         CartList.add(CartList.value);
       } else {
         GetCartlists(token: token, cartActive: CartActive.CartDelete);
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  GetPaymentList() async {
+  GetPaymentList(BuildContext context,) async {
     // onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
-            _application.appStoreAPIRepository.GetPaymentList())
+            _application.appStoreAPIRepository.GetPaymentList(context,))
         .listen((respone) {
       if (respone.http_call_back.status == 200) {
         if ((respone.respone as PaymentRespone).data.isNotEmpty) {
@@ -127,16 +127,16 @@ class CartBloc {
         // CartResponse(data: CartList.value.data);
         // CartList.add(CartList.value);
       } else {
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  Future<ShippingRates> GetShippings({int shopId, int id, int index}) async {
+  Future<ShippingRates> GetShippings(BuildContext context,{int shopId, int id, int index}) async {
     if (check_note_update) {
       final response = await _application.appStoreAPIRepository
-          .GetShippings(shopId: shopId) as ApiResult;
+          .GetShippings(context,shopId: shopId) as ApiResult;
 
       for (var i = 0;
           i < (response.respone as ShippingsRespone).data[0].rates.length;
@@ -152,10 +152,10 @@ class CartBloc {
     }
   }
 
-  GetShippingsList({int shopId}) async {
+  GetShippingsList(BuildContext context,{int shopId}) async {
     // onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
-            _application.appStoreAPIRepository.GetShippings(shopId: shopId))
+            _application.appStoreAPIRepository.GetShippings(context,shopId: shopId))
         .listen((respone) {
       (respone.respone as ShippingsRespone).data[0].rates[0].select = true;
       Shippings.add(respone.respone);
@@ -163,10 +163,10 @@ class CartBloc {
     _compositeSubscription.add(subscription);
   }
 
-  AddressesList({String token,bool type=false}) async {
+  AddressesList(BuildContext context,{String token,bool type=false}) async {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
-            _application.appStoreAPIRepository.AddressesList(token: token))
+            _application.appStoreAPIRepository.AddressesList(context,token: token))
         .listen((respone) {
        onLoad.add(false);
       if (respone.http_call_back.status == 200) {
@@ -208,13 +208,13 @@ class CartBloc {
             (respone.respone as AddressesListRespone).http_call_back));
 
       } else {
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  void CartPositiveQuantity(
+  void CartPositiveQuantity(BuildContext context,
       {CartData item, int indexShop, int indexShopItem, String token}) {
     List<Items> items = new List<Items>();
     items.clear();
@@ -229,7 +229,7 @@ class CartBloc {
           items.add(Items(
               inventoryId: item.items[indexShopItem].inventory.id,
               quantity: item.items[indexShopItem].quantity += 1));
-          UpdateCart(
+          UpdateCart(context,
               data: CartRequest(items: items, shopId: item.shopId),
               cartid: item.id,
               token: token);
@@ -239,6 +239,7 @@ class CartBloc {
               inventoryId: item.items[indexShopItem].inventory.id,
               quantity: item.items[indexShopItem].quantity += 1));
           UpdateCart(
+              context,
               data: CartRequest(items: items, shopId: item.shopId),
               cartid: item.id,
               token: token);
@@ -248,7 +249,7 @@ class CartBloc {
     }
   }
 
-  void CartDeleteQuantity(
+  void CartDeleteQuantity(BuildContext context,
       {CartData item, int indexShop, int indexShopItem, String token}) {
     List<Items> items = new List<Items>();
 
@@ -264,7 +265,7 @@ class CartBloc {
             quantity: item.items[indexShopItem].quantity > 1
                 ? item.items[indexShopItem].quantity -= 1
                 : 1));
-        UpdateCart(
+        UpdateCart(context,
             data: CartRequest(items: items, shopId: item.shopId),
             cartid: item.id,
             token: token);
@@ -273,41 +274,41 @@ class CartBloc {
     }
   }
 
-  DeleteAddress({String id, String token}) async {
+  DeleteAddress(BuildContext context,{String id, String token}) async {
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .DeleteAddress(id: id, token: token))
+            .DeleteAddress(context,id: id, token: token))
         .listen((respone) {
       if (respone.http_call_back.status == 200) {
-        AddressesList(token: token);
+        AddressesList(context,token: token);
       } else {
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  UpdateAddress({AddressCreaterequest data, String token}) async {
+  UpdateAddress(BuildContext context,{AddressCreaterequest data, String token}) async {
     // onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .UpdateAddress(data: data, token: token))
+            .UpdateAddress(context,data: data, token: token))
         .listen((respone) {
       //  onLoad.add(false);
       if (respone.http_call_back.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  CreateOrder({OrderRequest orderRequest, String token}) async {
+  CreateOrder(BuildContext context,{OrderRequest orderRequest, String token}) async {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .CreateOrder(orderRequest: orderRequest, token: token))
+            .CreateOrder(context,orderRequest: orderRequest, token: token))
         .listen((respone) {
       if (CartList.value.data.length == check_loop) {
         onLoad.add(false);
@@ -322,13 +323,13 @@ class CartBloc {
         // CartList.add(CartList.value);
       } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.result);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  OrderRequest ConvertOrderData({CartData cartData, String email}) {
+  OrderRequest ConvertOrderData(BuildContext context,{CartData cartData, String email}) {
     PaymentData data = PaymentData();
 
     for (var value in PaymentList.value.data) {
@@ -379,7 +380,7 @@ class CartBloc {
     return check;
   }
 
-  void sumTotalPayment({ShippingRates snapshot, int index}) {
+  void sumTotalPayment(BuildContext context,{ShippingRates snapshot, int index}) {
     shipping_cost.add(0);
     order_total_cost.add(0);
     order_total_cost.add(0);

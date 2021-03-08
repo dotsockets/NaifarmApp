@@ -62,8 +62,8 @@ class OneSignalCall{
   static OneSignalReceivedHandler(BuildContext context) async {
     OneSignal.shared.setNotificationReceivedHandler((OSNotification notification) async {
       var item = NotificationOneSignal.fromJson(jsonDecode(notification.payload.rawPayload['custom']));
-      Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-      Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
+      Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
+      Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(context,token:value.token));
       print("notification : ${item.item.status}");
     });
 

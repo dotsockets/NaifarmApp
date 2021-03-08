@@ -160,7 +160,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
     //});
 
     if(PassController.text.length>6){
-      Usermanager().getUser().then((value) => bloc.VerifyPassword(password: PassController.text,token: value.token));
+      Usermanager().getUser().then((value) => bloc.VerifyPassword(context,password: PassController.text,token: value.token));
 
     }else{
       setState(() {

@@ -73,7 +73,7 @@ class _RegisterViewState extends State<RegisterView> {
       });
       bloc.checkPhone.stream.listen((event) {
         if(event){
-          bloc.OTPRequest(numberphone: PhoneController.text);
+          bloc.OTPRequest(context,numberphone: PhoneController.text);
        }
       });
     }
@@ -255,7 +255,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   void _validate() {
     if (PhoneController.text.isNotEmpty && PhoneController.text.length == 10) {
-      bloc.checkPhoneNumber(phone: PhoneController.text);
+      bloc.checkPhoneNumber(context,phone: PhoneController.text);
     }
   }
 

@@ -35,12 +35,12 @@ class _PaymentViewState extends State<PaymentView> {
       bloc.onError.stream.listen((event) {
         Usermanager()
             .getUser()
-            .then((value) => bloc.loadPaymentPage(token: value.token));
+            .then((value) => bloc.loadPaymentPage(context,token: value.token));
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       Usermanager()
           .getUser()
-          .then((value) => bloc.loadPaymentPage(token: value.token));
+          .then((value) => bloc.loadPaymentPage(context,token: value.token));
     }
   }
 
@@ -139,11 +139,11 @@ class _PaymentViewState extends State<PaymentView> {
                   if (item.id == index.id) {
                     index.active = !index.active;
                     if (index.active)
-                      Usermanager().getUser().then((value) => bloc.AddPayment(
+                      Usermanager().getUser().then((value) => bloc.AddPayment(context,
                           paymentMethodId: index.id, token: value.token));
                     else
                       Usermanager().getUser().then((value) =>
-                          bloc.DeletePayment(
+                          bloc.DeletePayment(context,
                               paymentMethodId: index.id, token: value.token));
                     break;
                   }

@@ -37,8 +37,8 @@ class ShippingBloc{
   loadShppingPage({BuildContext context,String token}){
 
     StreamSubscription subscription = Observable.combineLatest2(
-        Observable.fromFuture(_application.appStoreAPIRepository.GetCarriersList()),
-        Observable.fromFuture(_application.appStoreAPIRepository.GetShippingMyShop(token: token)),(a, b){
+        Observable.fromFuture(_application.appStoreAPIRepository.GetCarriersList(context,)),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetShippingMyShop(context,token: token)),(a, b){
       final _shppinglist = (a as ApiResult).respone;
       final _shppingmyshop =(b as ApiResult).respone;
       return ShppingOjectCombine(carriersRespone: _shppinglist,shppingMyShopRespone: _shppingmyshop);
@@ -64,48 +64,48 @@ class ShippingBloc{
 
   }
 
-  DELETEShoppingMyShop({int ratesId,String token}){
+  DELETEShoppingMyShop(BuildContext context,{int ratesId,String token}){
     onLoad.add(true);
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.DELETEShoppingMyShop(ratesId: ratesId ,token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.DELETEShoppingMyShop(context,ratesId: ratesId ,token: token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
         // ZipPaymentObject.add(event);
         onSuccess.add(true);
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.message);
       }
 
     });
     _compositeSubscription.add(subscription);
   }
 
-  AddShoppingMyShop({ShppingMyShopRequest shopRequest,String token}){
+  AddShoppingMyShop(BuildContext context,{ShppingMyShopRequest shopRequest,String token}){
     onLoad.add(true);
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.AddShoppingMyShop(shopRequest: shopRequest,token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.AddShoppingMyShop(context,shopRequest: shopRequest,token: token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
         // ZipPaymentObject.add(event);
         onSuccess.add(true);
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.message);
       }
 
     });
     _compositeSubscription.add(subscription);
   }
 
-  EditShoppingMyShop({ShppingMyShopRequest shopRequest,int rateID, String token}){
+  EditShoppingMyShop(BuildContext context,{ShppingMyShopRequest shopRequest,int rateID, String token}){
     onLoad.add(true);
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.EditShoppingMyShop(rateID: rateID,shopRequest: shopRequest,token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.EditShoppingMyShop(context,rateID: rateID,shopRequest: shopRequest,token: token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
         // ZipPaymentObject.add(event);
         onSuccess.add(true);
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.message);
       }
 
     });

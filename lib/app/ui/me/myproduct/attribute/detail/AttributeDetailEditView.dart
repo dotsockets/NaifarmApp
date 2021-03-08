@@ -134,8 +134,8 @@ class _AttributeDetailEditViewState extends State<AttributeDetailEditView> {
           onPressed: ()  {
             if(check){
               FocusScope.of(context).unfocus();
-              widget.value.length==0?Usermanager().getUser().then((value) => bloc.AddAttributeDetail(value: valueAttrController.text,id: widget.idAttr,token: value.token,color: colorAttrController.text)):
-              Usermanager().getUser().then((value) =>bloc.UpdateAttributeDetail(value: valueAttrController.text,id: widget.idAttr,token: value.token,color: colorAttrController.text,vid: widget.vid));
+              widget.value.length==0?Usermanager().getUser().then((value) => bloc.AddAttributeDetail(context,value: valueAttrController.text,id: widget.idAttr,token: value.token,color: colorAttrController.text)):
+              Usermanager().getUser().then((value) =>bloc.UpdateAttributeDetail(context,value: valueAttrController.text,id: widget.idAttr,token: value.token,color: colorAttrController.text,vid: widget.vid));
             }
           },
           child: Text(

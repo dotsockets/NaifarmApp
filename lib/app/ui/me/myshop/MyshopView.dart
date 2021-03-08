@@ -68,7 +68,7 @@ class _MyshopViewState extends State<MyshopView> {
         Usermanager().getUser().then((value) =>
             context
                 .read<InfoCustomerBloc>()
-                .loadCustomInfo(
+                .loadCustomInfo(context,
                 token: value.token));
       });
     }
@@ -367,7 +367,7 @@ class _MyshopViewState extends State<MyshopView> {
       ),
       onPressed: () {
           if(check){
-            Usermanager().getUser().then((value) => bloc.CreateMyShop(name: nameshopController.text,slug: slugshopController.text,description: slugshopController.text,token: value.token));
+            Usermanager().getUser().then((value) => bloc.CreateMyShop(context,name: nameshopController.text,slug: slugshopController.text,description: slugshopController.text,token: value.token));
 
           }
       },

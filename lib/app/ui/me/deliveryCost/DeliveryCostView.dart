@@ -188,7 +188,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
         if(fix){
            if(widget.productsId>0){
              Usermanager().getUser().then((value){
-               bloc.updateinventories(token: value.token,shippingWeight: int.parse(weightProductController.text),productsId: widget.productsId,inventoriesId: widget.uploadProductStorage.productMyShopRequest.inventoriesid);
+               bloc.updateinventories(context,token: value.token,shippingWeight: int.parse(weightProductController.text),productsId: widget.productsId,inventoriesId: widget.uploadProductStorage.productMyShopRequest.inventoriesid);
              });
              Navigator.pop(context, double.parse(weightProductController.text));
            }else{

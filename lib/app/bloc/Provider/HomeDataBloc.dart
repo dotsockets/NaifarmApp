@@ -1,5 +1,6 @@
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
@@ -12,20 +13,20 @@ class HomeDataBloc extends Cubit<HomeDataState> {
   final AppNaiFarmApplication _application;
   HomeDataBloc(this._application) : super(HomeDataInitial());
 
-  loadHomeData()async{
+  loadHomeData(BuildContext context,)async{
 
     NaiFarmLocalStorage.getHomeDataCache().then((value){
       emit(HomeDataLoaded(value));
     });
 
-      Observable.combineLatest8(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage()) // สไลด์ภาพ
-          , Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular("1",10)), // สินค้าขายดี
-          Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup()), // หมวดหมู่ทั่วไป
-          Observable.fromFuture(_application.appStoreAPIRepository.getCategoriesFeatured()), // หมวดหมู่แนะนำ
-          Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending("1",6)), // สินค้าแนะนำ
-          Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(ShopId: 1,page: "1",limit: 10)), // สินค้าของ NaiFarm
-          Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(page: "1",limit: 5)), //  Flashsale
-          Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(page: "1",limit: 10,link: "products/types/trending")), // สินค้าสำหรับคุน
+      Observable.combineLatest8(Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage(context)) // สไลด์ภาพ
+          , Observable.fromFuture(_application.appStoreAPIRepository.getProductPopular(context,"1",10)), // สินค้าขายดี
+          Observable.fromFuture(_application.appStoreAPIRepository.getCategoryGroup(context)), // หมวดหมู่ทั่วไป
+          Observable.fromFuture(_application.appStoreAPIRepository.getCategoriesFeatured(context)), // หมวดหมู่แนะนำ
+          Observable.fromFuture(_application.appStoreAPIRepository.getProductTrending(context,"1",6)), // สินค้าแนะนำ
+          Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(context,ShopId: 1,page: "1",limit: 10)), // สินค้าของ NaiFarm
+          Observable.fromFuture(_application.appStoreAPIRepository.Flashsale(context,page: "1",limit: 5)), //  Flashsale
+          Observable.fromFuture(_application.appStoreAPIRepository.MoreProduct(context,page: "1",limit: 10,link: "products/types/trending")), // สินค้าสำหรับคุน
               (a, b,c,d,e,f,g,h){
             final _slider = (a as ApiResult).respone;
             final _product  =(b as ApiResult).respone;
@@ -47,7 +48,7 @@ class HomeDataBloc extends Cubit<HomeDataState> {
             emit(HomeDataLoaded(respone.respone));
           });
         }else{
-          emit(HomeDataError(respone.http_call_back.result.error.message));
+          emit(HomeDataError(respone.http_call_back.message));
         }
 
       });

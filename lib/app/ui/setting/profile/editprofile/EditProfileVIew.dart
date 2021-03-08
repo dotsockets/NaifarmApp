@@ -69,7 +69,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
             Usermanager().getUser().then((value) =>
                 context
                     .read<InfoCustomerBloc>()
-                    .loadCustomInfo(
+                    .loadCustomInfo(context,
                     token: value.token,oneSignal: false));
           });
           setState(() {

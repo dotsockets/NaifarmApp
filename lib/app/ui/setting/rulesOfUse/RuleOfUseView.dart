@@ -37,7 +37,7 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
           Navigator.of(context).pop();
         }
       });
-      bloc.getInfoRules(slug: "terms-of-use-customer");
+      bloc.getInfoRules(context,slug: "terms-of-use-customer");
     }
   }
 

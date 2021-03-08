@@ -55,7 +55,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.Flashsale.add(widget.flashsaleRespone);
-      bloc.loadFlashsaleData(page: page.toString(), limit: limit);
+      bloc.loadFlashsaleData(context,page: page.toString(), limit: limit);
     }
 
     _scrollController.addListener(() {
@@ -537,6 +537,6 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
     page = 1;
     step_page = true;
     bloc.product_more.clear();
-    bloc.loadFlashsaleData(page: page.toString(), limit: limit);
+    bloc.loadFlashsaleData(context,page: page.toString(), limit: limit);
   }
 }

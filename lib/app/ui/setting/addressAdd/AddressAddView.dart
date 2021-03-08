@@ -60,7 +60,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       bloc.onSuccess.stream.listen((event) {
          Navigator.pop(context, true);
       });
-      bloc.StatesProvice(countries: "1");
+      bloc.StatesProvice(context,countries: "1");
       bloc.provice.stream.listen((event) {
         _checkError();
       });
@@ -168,7 +168,7 @@ class _AddressAddViewState extends State<AddressAddView> {
                       postController.text = "";
                       setState(() => proviceSelect =
                           (snapshot.data as StatesRespone).data[index].id);
-                      bloc.StatesCity(
+                      bloc.StatesCity(context,
                           countriesid: "1",
                           statesId: (snapshot.data as StatesRespone)
                               .data[index]
@@ -198,7 +198,7 @@ class _AddressAddViewState extends State<AddressAddView> {
                     onSelect: (int index) {
                       setState(() => citySelect =
                           (snapshot.data as StatesRespone).data[index].id);
-                      bloc.StatesZipCode(
+                      bloc.StatesZipCode(context,
                           countries: "1",
                           statesId: proviceSelect.toString(),
                           cityId: (snapshot.data as StatesRespone)
@@ -318,7 +318,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       ),
       onPressed: () {
         if(check){
-          Usermanager().getUser().then((value) => bloc.CreateAddress(
+          Usermanager().getUser().then((value) => bloc.CreateAddress(context,
               addressCreaterequest: AddressCreaterequest(
                   cityId: citySelect,
                   phone: phoneController.text,

@@ -1,6 +1,7 @@
 
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentObjectCombine.dart';
@@ -26,11 +27,11 @@ class PaymentBloc{
   }
 
 
-  loadPaymentPage({String token}){
+  loadPaymentPage(BuildContext context,{String token}){
 
     StreamSubscription subscription = Observable.combineLatest2(
-        Observable.fromFuture(_application.appStoreAPIRepository.GetPaymentList()),
-        Observable.fromFuture(_application.appStoreAPIRepository.GetPaymentMyShop(token: token)),(a, b){
+        Observable.fromFuture(_application.appStoreAPIRepository.GetPaymentList(context,)),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetPaymentMyShop(context,token: token)),(a, b){
       final _paymentlist = (a as ApiResult).respone;
       final _paymentmyshop =(b as ApiResult).respone;
       return PaymentObjectCombine(paymentRespone: _paymentlist,paymenMyshopRespone: _paymentmyshop);
@@ -52,26 +53,26 @@ class PaymentBloc{
 
   }
 
-  DeletePayment({int paymentMethodId,String token}){
+  DeletePayment(BuildContext context,{int paymentMethodId,String token}){
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.DELETEPaymentMyShop(paymentMethodId: paymentMethodId,token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.DELETEPaymentMyShop(context,paymentMethodId: paymentMethodId,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
        // ZipPaymentObject.add(event);
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.message);
       }
 
     });
     _compositeSubscription.add(subscription);
   }
 
-  AddPayment({int paymentMethodId,String token}){
+  AddPayment(BuildContext context,{int paymentMethodId,String token}){
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.AddPaymentMyShop(paymentMethodId: paymentMethodId,token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.AddPaymentMyShop(context,paymentMethodId: paymentMethodId,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
         // ZipPaymentObject.add(event);
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.message);
       }
 
     });

@@ -137,7 +137,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                               splashColor: Colors.grey.shade500,
                               onPressed: () {
                                 if(FormCheck()){
-                                  Usermanager().getUser().then((value) => bloc.DELETEShoppingMyShop(ratesId: rates.id,token: value.token));
+                                  Usermanager().getUser().then((value) => bloc.DELETEShoppingMyShop(context,ratesId: rates.id,token: value.token));
                                 }
                               },
                               shape: RoundedRectangleBorder(
@@ -177,10 +177,10 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
     onPressed: () {
       if(FormCheck()){
           if(IsHave){
-            Usermanager().getUser().then((value) => bloc.EditShoppingMyShop(rateID: rates.id,shopRequest: ShppingMyShopRequest(shippingZoneId: widget.shppingMyShopRespone.data[0].shopId,
+            Usermanager().getUser().then((value) => bloc.EditShoppingMyShop(context,rateID: rates.id,shopRequest: ShppingMyShopRequest(shippingZoneId: widget.shppingMyShopRespone.data[0].shopId,
                 rate: int.parse(RateController.text),carrierId: widget.carriersData.id,basedOn: "price",minimum: 0,maximum: 0,name: widget.carriersData.name),token: value.token));
           }else{
-            Usermanager().getUser().then((value) => bloc.AddShoppingMyShop(shopRequest: ShppingMyShopRequest(shippingZoneId: widget.shppingMyShopRespone.data[0].shopId,
+            Usermanager().getUser().then((value) => bloc.AddShoppingMyShop(context,shopRequest: ShppingMyShopRequest(shippingZoneId: widget.shppingMyShopRespone.data[0].shopId,
             rate: int.parse(RateController.text),carrierId: widget.carriersData.id,basedOn: "price",minimum: 0,maximum: 0,name: widget.carriersData.name),token: value.token));
           }
       }

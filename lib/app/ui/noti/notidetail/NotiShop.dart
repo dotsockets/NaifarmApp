@@ -72,7 +72,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
 
     }
     page = 1;
-    bloc.refreshProducts(group: "shop",limit: limit,page: page);
+    bloc.refreshProducts(context,group: "shop",limit: limit,page: page);
 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
@@ -80,7 +80,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
         if (step_page) {
           step_page = false;
           page++;
-          bloc.refreshProducts(group: "shop",limit: limit,page: page);
+          bloc.refreshProducts(context,group: "shop",limit: limit,page: page);
         }
       }
     });
@@ -452,7 +452,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
     }
     page = 1;
     bloc.product_more.clear();
-    bloc.refreshProducts(group: "shop",limit: limit,page: page);
+    bloc.refreshProducts(context,group: "shop",limit: limit,page: page);
   }
 
   @override

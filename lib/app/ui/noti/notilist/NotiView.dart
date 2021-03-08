@@ -70,7 +70,7 @@ class _NotiViewState extends State<NotiView>
             //NaiFarmLocalStorage.saveNowPage(0);
             //_reload.add(true);
             Future.delayed(const Duration(milliseconds: 3000), () {
-              bloc.MarkAsReadNotifications(token: value.token,context: context);
+              bloc.MarkAsReadNotifications(context,token: value.token);
             });
            // bloc.MarkAsReadNotifications(token: value.token,context: context);
           }
@@ -93,7 +93,7 @@ class _NotiViewState extends State<NotiView>
 
   void CustomReCount(){
     Usermanager().getUser().then((value){
-      context.read<CustomerCountBloc>().loadCustomerCount(token: value.token);
+      context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token);
     });
   }
 
@@ -132,7 +132,7 @@ class _NotiViewState extends State<NotiView>
             homeCallBack: (bool fix) {
               Usermanager().getUser().then((value){
 
-                bloc.MarkAsReadNotifications(token: value.token);
+                bloc.MarkAsReadNotifications(context,token: value.token);
                 //_reload.add(true);
               });
               Navigator.of(context).pop();

@@ -73,14 +73,14 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                  break;
                }
            }
-           bloc.loadMoreData(
+           bloc.loadMoreData(context,
                page: page.toString(),
                limit: 10,
                link: widget.api_link,
                type_more: widget.type_more);
 
          }else{
-           bloc.loadMoreData(
+           bloc.loadMoreData(context,
                page: page.toString(),
                limit: 10,
                link: widget.api_link,
@@ -97,7 +97,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
         if (step_page) {
           step_page = false;
           page++;
-          bloc.loadMoreData(
+          bloc.loadMoreData(context,
               page: page.toString(),
               limit: limit,
               link: widget.api_link,

@@ -2,7 +2,7 @@
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 
-import 'AssetImage.dart';
+import 'AssetImages.dart';
 import 'ProductMyShopRequest.dart';
 
 class UploadProductStorage{
@@ -47,7 +47,7 @@ class UploadProductStorage{
 
 
 class OnSelectItem{
-  AssetImage image;
+  AssetImages image;
   bool onEdit;
   String url;
 
@@ -55,7 +55,7 @@ class OnSelectItem{
 
   OnSelectItem.fromJson(Map<String, dynamic> json) {
 
-    image = json['image'] != null ? new AssetImage.fromJson(json['image']) : null;
+    image = json['image'] != null ? new AssetImages.fromJson(json['image']) : null;
     onEdit = json['onEdit'];
     url = json['url'];
 

@@ -55,10 +55,10 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
       bloc.onError.stream.listen((event) {
         Future.delayed(const Duration(milliseconds: 500), () {
           FunctionHelper.AlertDialogRetry(context,
-              title: "Error", message: event.error.message,callBack: ()=> Usermanager().getUser().then((value) =>
-                  bloc.GetMyWishlists(token: value.token)));
+              title: "Error", message: event.message,callBack: ()=> Usermanager().getUser().then((value) =>
+                  bloc.GetMyWishlists(context,token: value.token)));
         });
-       // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
+       // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error);
       });
       // bloc.onLoad.stream.listen((event) {
       //   if (event) {
@@ -69,7 +69,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
       // });
       bloc.onSuccess.stream.listen((event) {
         if(event is bool){
-          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
           // Usermanager().getUser().then((value) =>
           //     bloc.GetMyWishlists(token: value.token));
         }
@@ -88,7 +88,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
   @override
   void didPopNext() {
     Usermanager().getUser().then((value) =>
-        bloc.GetMyWishlists(token: value.token));
+        bloc.GetMyWishlists(context,token: value.token));
   }
 
   void ISLogin() async => IsLogin = await Usermanager().isLogin();
@@ -102,7 +102,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
         ISLogin();
         if(IsLogin){
           if(count is InfoCustomerLoaded){
-            Usermanager().getUser().then((value) => bloc.GetMyWishlists(token: value.token));
+            Usermanager().getUser().then((value) => bloc.GetMyWishlists(context,token: value.token));
             return  _content();
           }else{
             return Center(
@@ -438,7 +438,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
     bloc.Wishlists.add(bloc.Wishlists.value);
 
     Usermanager().getUser().then((value){
-      bloc.DELETEWishlists(WishId: id, token: value.token);
+      bloc.DELETEWishlists(context,WishId: id, token: value.token);
     });
 
 

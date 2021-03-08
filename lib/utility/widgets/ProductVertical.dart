@@ -52,7 +52,7 @@ class ProductVertical extends StatelessWidget {
         if (event != null) {
 
             FunctionHelper.AlertDialogShop(context,
-                title: "Error", message: event.error.message);
+                title: "Error", message: event.message);
 
         }
       });
@@ -65,8 +65,8 @@ class ProductVertical extends StatelessWidget {
 
         Usermanager().getUser().then((value) =>
             Product_bloc.AddCartlists(
+                context,
                 addNow: false,
-                context: context,
                 cartRequest: CartRequest(
                   shopId: event.shopId,
                   items: items,
@@ -290,7 +290,7 @@ class ProductVertical extends StatelessWidget {
                   child: Text(LocaleKeys.btn_buy_now.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
                 ),
                 onTap: (){
-                  Product_bloc.GetProductsById(id: item.id);
+                  Product_bloc.GetProductsById(context,id: item.id);
                   },
               )
             ],

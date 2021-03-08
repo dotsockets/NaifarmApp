@@ -41,7 +41,7 @@ class _AddressViewState extends State<AddressView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
       });
 
       bloc.onSuccess.stream.listen((event) {
@@ -51,7 +51,7 @@ class _AddressViewState extends State<AddressView> {
 
       Usermanager()
           .getUser()
-          .then((value) => bloc.AddressesList(token: value.token));
+          .then((value) => bloc.AddressesList(context,token: value.token));
 
     }
   }
@@ -269,7 +269,7 @@ class _AddressViewState extends State<AddressView> {
                 onUpdate = true;
                 Usermanager()
                     .getUser()
-                    .then((value) => bloc.AddressesList(token: value.token));
+                    .then((value) => bloc.AddressesList(context,token: value.token));
 
               }
             },
@@ -294,7 +294,7 @@ class _AddressViewState extends State<AddressView> {
             ),
             onTap: () {
               onUpdate = true;
-              Usermanager().getUser().then((value) => bloc.DeleteAddress(id: item.id.toString(),token: value.token));
+              Usermanager().getUser().then((value) => bloc.DeleteAddress(context,id: item.id.toString(),token: value.token));
             },
           )
 
@@ -334,7 +334,7 @@ class _AddressViewState extends State<AddressView> {
           onUpdate = true;
           Usermanager()
               .getUser()
-              .then((value) => bloc.AddressesList(token: value.token));
+              .then((value) => bloc.AddressesList(context,token: value.token));
 
         }
       },
@@ -359,7 +359,7 @@ class _AddressViewState extends State<AddressView> {
               onUpdate = true;
               Usermanager()
                   .getUser()
-                  .then((value) => bloc.AddressesList(token: value.token));
+                  .then((value) => bloc.AddressesList(context,token: value.token));
             }
           },
           child: Text(

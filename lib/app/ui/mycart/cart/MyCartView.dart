@@ -72,7 +72,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
       });
       bloc.onError.stream.listen((event) {
         FunctionHelper.AlertDialogRetry(context,
-            title: "Error", message: event.error.message,callBack: ()=> _refreshProducts());
+            title: "Error", message: event.message,callBack: ()=> _refreshProducts());
       });
       bloc.CartList.stream.listen((event) {
         if(event is CartResponse){
@@ -99,7 +99,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
       bloc.onSuccess.stream.listen((event) {
         //  cartReq = event;
         if(event is bool){
-          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
         }
       });
 
@@ -116,7 +116,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
           widget.cart_nowId.addAll(cart_nowId_temp);
           cart_nowId_temp = [];
         };
-        bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList);
+        bloc.GetCartlists(context: context,token: value.token, cartActive: CartActive.CartList);
       });
 
 
@@ -571,6 +571,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                             if(item.items[indexShopItem].inventory.stockQuantity>0){
                               Usermanager().getUser().then((value) =>
                                   bloc.CartDeleteQuantity(
+                                      context,
                                       item: item,
                                       indexShop: indexShop,
                                       indexShopItem: indexShopItem,
@@ -609,6 +610,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                             if(item.items[indexShopItem].inventory.stockQuantity>0){
                               Usermanager().getUser().then((value) =>
                                   bloc.CartPositiveQuantity(
+                                      context,
                                       item: item,
                                       indexShop: indexShop,
                                       indexShopItem: indexShopItem,

@@ -92,7 +92,7 @@ class _EditProductViewState extends State<EditProductView> {
         if(event is bool){
           var item = bloc.uploadProductStorage.value.productMyShopRequest;
           var inventor = InventoriesRequest(title: item.name,offerPrice: offerPriceController.text.isNotEmpty?item.offerPrice:0,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
-          Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(Isload: true,inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
+          Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(context,Isload: true,inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
               token: value.token));
 
         //  AppRoute.MyProduct(context,widget.shopId,pushEvent: true,indexTab: widget.indexTab,countPage: 2);
@@ -108,7 +108,7 @@ class _EditProductViewState extends State<EditProductView> {
         bloc.categoriesAllRespone = value;
       });
 
-      Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(token: value.token,ProductId: widget.ProductId));
+      Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(context,token: value.token,ProductId: widget.ProductId));
       bloc.uploadProductStorage.add(widget.uploadProductStorage);
 
     }
@@ -383,7 +383,7 @@ class _EditProductViewState extends State<EditProductView> {
         var result = await AppRoute.EditImageProduct(context: context,uploadProductStorage: bloc.uploadProductStorage.value,ProductId: widget.ProductId);
         if(result){
           onUpdate = true;
-          Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(token: value.token,ProductId: widget.ProductId));
+          Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(context,token: value.token,ProductId: widget.ProductId));
         }
 
       },
@@ -418,7 +418,7 @@ class _EditProductViewState extends State<EditProductView> {
           FocusScope.of(context).unfocus();
           Usermanager().getUser().then((value) {
             //bloc.onLoad.add(true);
-            bloc.UpdateProductMyShop(isActive: IsActive.UpdateProduct,shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,productId: widget.ProductId,token: value.token);
+            bloc.UpdateProductMyShop(context,isActive: IsActive.UpdateProduct,shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,productId: widget.ProductId,token: value.token);
           });
 
         }
@@ -443,7 +443,7 @@ class _EditProductViewState extends State<EditProductView> {
       ),
       onPressed: () {
         if(enable){
-          Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(ProductId:widget.ProductId,token: value.token));
+          Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(context,ProductId:widget.ProductId,token: value.token));
         }
 
       },

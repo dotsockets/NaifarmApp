@@ -82,13 +82,13 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
         });
       });
       bloc.onError.stream.listen((event) {
-         if(event.error.status == 0 || event.error.status >= 500){
+         if(event.status == 0 || event.status >= 500){
           Future.delayed(const Duration(milliseconds: 500), () {
           FunctionHelper.AlertDialogRetry(context,cancalMessage: "Exit",
           callCancle: (){
             exit(0);
           },
-          title: "Error", message: event.error.message,callBack: (){
+          title: "Error", message: event.message,callBack: (){
                 onDialog = true;
                 _refreshProducts();
               });
@@ -216,7 +216,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                 }else {
                   if(onDialog){
                     onDialog=false;
-                    bloc.onError.add(Result(error: Error(status: 500,message: "Please check your internet. And do the list again")));
+                    bloc.onError.add(ThrowIfNoSuccess(code: 500,message: "Please check your internet. And do the list again"));
                   }
 
                   return Column(
@@ -366,9 +366,9 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
       // AudioCache().play("sound/Click.mp3");
       // Vibration.vibrate(duration: 500);
     }
-    context.read<HomeDataBloc>().loadHomeData();
-    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-    Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
+    context.read<HomeDataBloc>().loadHomeData(context);
+    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
+    Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(context,token:value.token));
    // bloc.loadHomeData(context: context,callback: true);
 
   }

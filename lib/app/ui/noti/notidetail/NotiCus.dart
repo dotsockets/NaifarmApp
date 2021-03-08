@@ -76,7 +76,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
 
     }
     page = 1;
-    bloc.refreshProducts(group: "customer",limit: limit,page: page);
+    bloc.refreshProducts(context,group: "customer",limit: limit,page: page);
 
 
     // if (_scrollController.position.pixels > 200) {
@@ -92,7 +92,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
         if (step_page) {
           step_page = false;
           page++;
-          bloc.refreshProducts(group: "customer",limit: limit,page: page);
+          bloc.refreshProducts(context,group: "customer",limit: limit,page: page);
         }
       }
     });
@@ -524,7 +524,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
     }
     page = 1;
     bloc.product_more.clear();
-    bloc.refreshProducts(group: "customer",limit: limit,page: page);
+    bloc.refreshProducts(context,group: "customer",limit: limit,page: page);
   }
 
   @override

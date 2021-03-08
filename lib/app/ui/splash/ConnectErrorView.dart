@@ -9,7 +9,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
 class ConnectErrorView extends StatefulWidget {
-  final Result result;
+  final ThrowIfNoSuccess result;
   final bool show_full;
   final Function callback;
 
@@ -62,7 +62,7 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                   Lottie.asset('assets/json/servererror.json',
                       height: 70.0.w, width: 70.0.w, repeat: true),
                   SizedBox(height: 30,),
-                  Text(widget.result.error.message,style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),),
+                  Text(widget.result.message,style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),),
                   Text('Sorry, it is not currently available."',style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),),
                   SizedBox(height: 30,),
                   FlatButton(

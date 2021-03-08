@@ -47,8 +47,13 @@ class _SuccessViewState extends State<SuccessView> {
     if(bloc==null && Product_bloc == null){
       bloc = OrdersBloc(AppProvider.getApplication(context));
       Product_bloc = ProductBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "6",limit: limit,page: 1,token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadOrder(context,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "6",limit: limit,page: 1,token: value.token));
     }
+    Product_bloc.onError.stream.listen((event) {
+      //Navigator.of(context).pop();
+      FunctionHelper.AlertDialogShop(context,message: event.message,showbtn: true,title: "Error Shipping" );
+      //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+    });
 
     Product_bloc.onLoad.stream.listen((event) {
       if (event) {
@@ -431,7 +436,7 @@ class _SuccessViewState extends State<SuccessView> {
           }
 
           Usermanager().getUser().then((value) => Product_bloc.AddCartlists(
-              context: context,
+              context,
               cartRequest: CartRequest(
                 shopId: item.shop.id,
                 items: items,
@@ -491,7 +496,7 @@ class _SuccessViewState extends State<SuccessView> {
     return sum;
   }
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "6",limit: limit,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(context,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "6",limit: limit,page: page,token: value.token));
   }
   @override
   bool get wantKeepAlive => true;

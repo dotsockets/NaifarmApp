@@ -65,7 +65,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
       });*/
       bloc.onSuccess.stream.listen((event) {});
 
-      Usermanager().getUser().then((value) => bloc.GetProductDetailShop(
+      Usermanager().getUser().then((value) => bloc.GetProductDetailShop(context,
           token: value.token, ProductId: widget.productItem.id));
     }
   }

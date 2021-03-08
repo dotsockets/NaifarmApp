@@ -43,7 +43,7 @@ class _MarketViewState extends State<MarketView> {
   void _init(){
     if(null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.loadProductPopular("1");
+      bloc.loadProductPopular(context,"1");
     }
 
   }

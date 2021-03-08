@@ -56,7 +56,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
         //       Navigator.of(context).pop();
         //     }
       });
-      bloc.loadCategoryPage(GroupId: widget.index);
+      bloc.loadCategoryPage(context,GroupId: widget.index);
 
 
   }

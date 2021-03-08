@@ -81,8 +81,8 @@ class _BannedState extends State<Banned> {
           _reloadData();
         });*/
         FunctionHelper.AlertDialogShop(context,
-            title: "Error", message: event.error.message);
-        //  FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event.error.message);
+            title: "Error", message: event.message);
+        //  FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event.error);
         widget.searchTxt.length != 0
             ? _reloadFirstSearch()
             : _reloadFirstPage();
@@ -437,7 +437,7 @@ class _BannedState extends State<Banned> {
                                 bloc.ProductMyShopRes.value);
 
                             Usermanager().getUser().then((value) =>
-                                bloc.UpdateProductMyShop(
+                                bloc.UpdateProductMyShop(context,
                                     isActive: IsActive.ReplacemenView,
                                     shopRequest: ProductMyShopRequest(
                                         name: item.name, active: val ? 1 : 0),
@@ -510,7 +510,7 @@ class _BannedState extends State<Banned> {
                                   bloc.ProductMyShopRes.value);
                               //count++;
                               Usermanager().getUser().then((value) =>
-                                  bloc.DELETEProductMyShop(
+                                  bloc.DELETEProductMyShop(context,
                                       ProductId: item.id, token: value.token));
                               Navigator.of(context).pop();
                             }, onCancel: () {
@@ -564,7 +564,7 @@ class _BannedState extends State<Banned> {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.GetProductMyShop(
+    Usermanager().getUser().then((value) => bloc.GetProductMyShop(context,
         page: page.toString(), limit: 5, token: value.token, filter: "banned"));
   }
 
@@ -575,7 +575,7 @@ class _BannedState extends State<Banned> {
   }
 
   _searchData() {
-    Usermanager().getUser().then((value) => bloc.loadSearchMyshop(
+    Usermanager().getUser().then((value) => bloc.loadSearchMyshop(context,
         shopId: widget.shopId,
         page: page.toString(),
         query: widget.searchTxt,
