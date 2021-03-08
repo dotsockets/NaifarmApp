@@ -98,9 +98,9 @@ class _ReviewViewState extends State<ReviewView> {
             SelectSwitch ? ThemeColor.primaryColor() : Colors.grey.shade400,
             value: SelectSwitch ? true : false,
             onToggle: (val) {
-             setState(() {
-               SelectSwitch = !SelectSwitch;
-             });
+              setState(() {
+                SelectSwitch = !SelectSwitch;
+              });
             },
           )
         ],
@@ -145,9 +145,9 @@ class _ReviewViewState extends State<ReviewView> {
 
     setState(() {
       if (pickedFile != null) {
-       // fileImage = File(pickedFile.path);
+        // fileImage = File(pickedFile.path);
         print("dsceed ${ File(pickedFile.path)}");
-      //   Usermanager().getUser().then((value) => bloc.UploadImage(context: context,imageFile: fileImage,imageableType: "customer",imageableId: itemInfo.id,token: value.token));
+        //   Usermanager().getUser().then((value) => bloc.UploadImage(context: context,imageFile: fileImage,imageableType: "customer",imageableId: itemInfo.id,token: value.token));
       } else {
         print('No file selected.');
       }
@@ -264,97 +264,97 @@ class _ReviewViewState extends State<ReviewView> {
       padding: EdgeInsets.only(bottom: 20,top: 15),
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
-        child: Column(
-          children: [
-            Text(LocaleKeys.review_rate.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
-            SizedBox(height: 20,),
-            CustomStarRating(
-                allowHalfRating: false,
-                onRated: (v) {},
-                starCount: 5,
-                rating: 0,
-                size: 45.0,
-                isReadOnly: false,
-                filledIconData: 'assets/images/svg/star_active.svg',
-                halfFilledIconData: 'assets/images/svg/star_unactive.svg',
-                color: Colors.amber,
-                borderColor: Colors.amber,
-                spacing: 0.0),
-            SizedBox(height: 10,),
-            Divider(color: Colors.black.withOpacity(0.5),),
-            SizedBox(height: 5,),
-            Container(
-              child: Row(
-                children: [
-                  Expanded(child:InkWell(
-                    child: Container(
-                      margin: EdgeInsets.only(left: 2.0.w,right: 1.0.w),
-                      padding: EdgeInsets.all(2.0.w),
-                      decoration: BoxDecoration(
+      child: Column(
+        children: [
+          Text(LocaleKeys.review_rate.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
+          SizedBox(height: 20,),
+          CustomStarRating(
+              allowHalfRating: false,
+              onRated: (v) {},
+              starCount: 5,
+              rating: 0,
+              size: 45.0,
+              isReadOnly: false,
+              filledIconData: 'assets/images/svg/star_active.svg',
+              halfFilledIconData: 'assets/images/svg/star_unactive.svg',
+              color: Colors.amber,
+              borderColor: Colors.amber,
+              spacing: 0.0),
+          SizedBox(height: 10,),
+          Divider(color: Colors.black.withOpacity(0.5),),
+          SizedBox(height: 5,),
+          Container(
+            child: Row(
+              children: [
+                Expanded(child:InkWell(
+                  child: Container(
+                    margin: EdgeInsets.only(left: 2.0.w,right: 1.0.w),
+                    padding: EdgeInsets.all(2.0.w),
+                    decoration: BoxDecoration(
                         border: Border.all(color: ThemeColor.secondaryColor(),width: 1)
-                      ),
-                      child: Column(
-                        children: [
-                          Icon(Icons.camera_alt,color: ThemeColor.secondaryColor(),),
-                          Text(LocaleKeys.btn_add_image.tr(),
-                              style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500,color: ThemeColor.secondaryColor())),
-                        ],
-                      ),
                     ),
-                    onTap: (){
-                      loadAssets(maxImages: 10);
-                    },
-                  )),
-                  Expanded(child:InkWell(
-                    child: Container(
-                      margin: EdgeInsets.only(left: 1.0.w,right: 2.0.w),
-                      padding: EdgeInsets.all(2.0.w),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: ThemeColor.secondaryColor(),width: 1)
-                      ),
-                      child: Column(
-                        children: [
-                          Icon(FontAwesome.video_camera,color: ThemeColor.secondaryColor(),),
-                          Text(LocaleKeys.btn_add_vdo.tr(),
-                              style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500,color: ThemeColor.secondaryColor())),
-                        ],
-                      ),
+                    child: Column(
+                      children: [
+                        Icon(Icons.camera_alt,color: ThemeColor.secondaryColor(),),
+                        Text(LocaleKeys.btn_add_image.tr(),
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500,color: ThemeColor.secondaryColor())),
+                      ],
                     ),
-                    onTap: (){
-                      captureFile(ImageSource.gallery);
-                    },
-                  ))
+                  ),
+                  onTap: (){
+                    loadAssets(maxImages: 10);
+                  },
+                )),
+                Expanded(child:InkWell(
+                  child: Container(
+                    margin: EdgeInsets.only(left: 1.0.w,right: 2.0.w),
+                    padding: EdgeInsets.all(2.0.w),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: ThemeColor.secondaryColor(),width: 1)
+                    ),
+                    child: Column(
+                      children: [
+                        Icon(FontAwesome.video_camera,color: ThemeColor.secondaryColor(),),
+                        Text(LocaleKeys.btn_add_vdo.tr(),
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500,color: ThemeColor.secondaryColor())),
+                      ],
+                    ),
+                  ),
+                  onTap: (){
+                    captureFile(ImageSource.gallery);
+                  },
+                ))
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 20,right: 20,top: 20),
+            child: BuildEditText(
+                head: "",maxLength: 5000,
+                hint: LocaleKeys.review_tell.tr(),maxLine: 5,controller: reviewController,inputType: TextInputType.text),
+          ),
+          SizedBox(height: 15,),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Container(
+              padding: EdgeInsets.only(left: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _BuildButtonreview(title: LocaleKeys.review_deli_ex.tr(),onClick: ()=>reviewController.text = LocaleKeys.review_deli_ex.tr()),
+                  SizedBox(width: 10,),
+                  _BuildButtonreview(title: LocaleKeys.review_product_ex.tr(),onClick: ()=>reviewController.text = LocaleKeys.review_product_ex.tr()),
+                  SizedBox(width: 10,),
+                  _BuildButtonreview(title: LocaleKeys.review_quality_ex.tr(),onClick: ()=>reviewController.text = LocaleKeys.review_quality_ex.tr()),
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(left: 20,right: 20,top: 20),
-              child: BuildEditText(
-                  head: "",maxLength: 5000,
-                  hint: LocaleKeys.review_tell.tr(),maxLine: 5,controller: reviewController,inputType: TextInputType.text),
-            ),
-            SizedBox(height: 15,),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Container(
-                padding: EdgeInsets.only(left: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    _BuildButtonreview(title: LocaleKeys.review_deli_ex.tr(),onClick: ()=>reviewController.text = LocaleKeys.review_deli_ex.tr()),
-                    SizedBox(width: 10,),
-                    _BuildButtonreview(title: LocaleKeys.review_product_ex.tr(),onClick: ()=>reviewController.text = LocaleKeys.review_product_ex.tr()),
-                    SizedBox(width: 10,),
-                    _BuildButtonreview(title: LocaleKeys.review_quality_ex.tr(),onClick: ()=>reviewController.text = LocaleKeys.review_quality_ex.tr()),
-                  ],
-                ),
-              ),
-            ),
+          ),
 
-          ],
-        ),
+        ],
+      ),
     );
   }
 

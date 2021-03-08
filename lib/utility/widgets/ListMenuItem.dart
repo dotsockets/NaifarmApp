@@ -30,7 +30,11 @@ class ListMenuItem extends StatelessWidget {
       this.Message = "",
       this.onClick,
       this.iconSize = 30,
-      this.fontWeight = FontWeight.bold, this.opacityMessage=1,this.IsPhoto="",this.IsSwitch,this.SelectSwitch})
+      this.fontWeight = FontWeight.bold,
+      this.opacityMessage = 1,
+      this.IsPhoto = "",
+      this.IsSwitch,
+      this.SelectSwitch})
       : super(key: key);
 
   @override
@@ -38,7 +42,8 @@ class ListMenuItem extends StatelessWidget {
     return InkWell(
       child: Container(
           color: Colors.white,
-          padding: EdgeInsets.only(right: 2.0.w, left: 3.5.w, top: 2.0.h, bottom: 2.0.h),
+          padding: EdgeInsets.only(
+              right: 2.0.w, left: 3.5.w, top: 2.0.h, bottom: 2.0.h),
           child: Row(
             children: [
               Expanded(
@@ -46,34 +51,38 @@ class ListMenuItem extends StatelessWidget {
                 child: Row(
                   children: [
                     Visibility(
-                      child: IsPhoto==""?SvgPicture.asset(
-                        icon,
-                        width: iconSize,
-                        height: iconSize,
-                      ):ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(60)),
-                        child: CachedNetworkImage(
-                          width: iconSize,
-                          height: iconSize,
-                          placeholder: (context, url) => Container(
-                            color: Colors.white,
-                            child: Lottie.asset('assets/json/loading.json',
-                                height: iconSize),
-                          ),
-                          fit: BoxFit.cover,
-                          imageUrl:IsPhoto,
-                          errorWidget: (context, url, error) => Container(
+                      child: IsPhoto == ""
+                          ? SvgPicture.asset(
+                              icon,
+                              width: iconSize,
                               height: iconSize,
-                              child: CircleAvatar(
-                                backgroundColor: Color(0xffE6E6E6),
-                                radius: 30,
-                                child: Icon(
-                                  Icons.shopping_bag_rounded,
-                                  color: Color(0xffCCCCCC),
+                            )
+                          : ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(60)),
+                              child: CachedNetworkImage(
+                                width: iconSize,
+                                height: iconSize,
+                                placeholder: (context, url) => Container(
+                                  color: Colors.white,
+                                  child: Lottie.asset(
+                                      'assets/json/loading.json',
+                                      height: iconSize),
                                 ),
-                              )),
-                        ),
-                      ),
+                                fit: BoxFit.cover,
+                                imageUrl: IsPhoto,
+                                errorWidget: (context, url, error) => Container(
+                                    height: iconSize,
+                                    child: CircleAvatar(
+                                      backgroundColor: Color(0xffE6E6E6),
+                                      radius: 30,
+                                      child: Icon(
+                                        Icons.shopping_bag_rounded,
+                                        color: Color(0xffCCCCCC),
+                                      ),
+                                    )),
+                              ),
+                            ),
                       visible: icon != "" ? true : false,
                     ),
                     Visibility(
@@ -92,51 +101,55 @@ class ListMenuItem extends StatelessWidget {
                   ],
                 ),
               ),
-              IsSwitch!=null?Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  FlutterSwitch(
-                    width: 14.0.w,
-                    height: 4.0.h,
-                    activeColor: Colors.grey.shade200,
-                    inactiveColor: Colors.grey.shade200,
-                    toggleColor:
-                    SelectSwitch ? ThemeColor.primaryColor() : Colors.grey.shade400,
-                    value: SelectSwitch ? true : false,
-                    onToggle: (val) {
-                      IsSwitch(val);
-                    },
-                  ),
-                  SizedBox(
-                    width: 1.5.w,
-                  )
-                ],
-              ):Expanded(
-                flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Expanded(
-                      child: Text(Message,
-                          maxLines: 1,
-                          textAlign: TextAlign.end,
-                          overflow: TextOverflow.ellipsis,
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleSmallFontSize().sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey.withOpacity(opacityMessage)))
-                    ),
-                    SizedBox(
-                      width: 1.0.w,
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.grey.withOpacity(0.7),
-                      size: 4.0.w,
+              IsSwitch != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        FlutterSwitch(
+                          height: SizeUtil.switchSize().w,
+                          toggleSize: SizeUtil.switchToggleSize().w,
+                          activeColor: Colors.grey.shade200,
+                          inactiveColor: Colors.grey.shade200,
+                          toggleColor: SelectSwitch
+                              ? ThemeColor.primaryColor()
+                              : Colors.grey.shade400,
+                          value: SelectSwitch ? true : false,
+                          onToggle: (val) {
+                            IsSwitch(val);
+                          },
+                        ),
+                        SizedBox(
+                          width: 1.5.w,
+                        )
+                      ],
                     )
-                  ],
-                ),
-              )
+                  : Expanded(
+                      flex: 1,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(
+                              child: Text(Message,
+                                  maxLines: 1,
+                                  textAlign: TextAlign.end,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: FunctionHelper.FontTheme(
+                                      fontSize:
+                                          SizeUtil.titleSmallFontSize().sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey
+                                          .withOpacity(opacityMessage)))),
+                          SizedBox(
+                            width: 1.0.w,
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.grey.withOpacity(0.7),
+                            size: 4.0.w,
+                          )
+                        ],
+                      ),
+                    )
             ],
           )),
       onTap: () => onClick(),
