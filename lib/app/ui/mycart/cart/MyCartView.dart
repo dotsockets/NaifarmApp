@@ -371,6 +371,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                                   onTap: () {
                                     Usermanager().getUser().then((value) =>
                                         bloc.DeleteCart(
+                                          context: context,
                                             cartid: item.id,
                                             inventoryId:
                                             item.items[indexItem].inventory.id,

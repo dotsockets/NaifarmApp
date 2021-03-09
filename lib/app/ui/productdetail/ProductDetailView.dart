@@ -596,6 +596,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                         .inventories[0].id,
                                     quantity: 1));
                                 Usermanager().getUser().then((value) => bloc.AddCartlists(context,
+                                  onload: true,
                                     cartRequest: CartRequest(
                                       shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
                                       items: items,
@@ -617,7 +618,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                     inventoryId: bloc.ZipProductDetail.value.producItemRespone
                                         .inventories[0].id,
                                     quantity: 1));
-                                Usermanager().getUser().then((value) => bloc.AddCartlists(context,addNow: true,
+                                Usermanager().getUser().then((value) => bloc.AddCartlists(context,addNow: true,onload: true,
                                     cartRequest: CartRequest(
                                       shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
                                       items: items,
