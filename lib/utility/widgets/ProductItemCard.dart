@@ -59,7 +59,7 @@ class ProductItemCard extends StatelessWidget {
               child: CachedNetworkImage(
                 width: tagHero != "flash"
                     ? 30.0.w
-                    : (MediaQuery.of(context).size.width / 2) - 3.0.w,
+                    : (MediaQuery.of(context).size.width / 2) - 4.0.w,
                 height: tagHero != "flash" ? 30.0.w : 40.0.w,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
@@ -117,7 +117,7 @@ class ProductItemCard extends StatelessWidget {
     return Container(
       width: tagHero != "flash"
           ? 30.0.w
-          : (MediaQuery.of(context).size.width / 2) - 3.0.w,
+          : (MediaQuery.of(context).size.width / 2) - 4.0.w,
       child: Column(
         children: [
           SizedBox(height: 1.0.h),
@@ -215,34 +215,67 @@ class ProductItemCard extends StatelessWidget {
     );
   }
 
-  Row SalePrice({ProductData item}){
-      if(item.salePrice!=null){
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            item.offerPrice!=null?Text("${item.salePrice}",style: FunctionHelper.FontTheme(
-                color: Colors.grey,
-                fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
-            SizedBox(width: item.offerPrice!=null?1.0.w:0),
-            Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
-              overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
-          ],
-        );
-      }else{
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-        Text(item.minPrice!=null?"฿${item.minPrice}":"฿0",maxLines: 1,
-          overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
-            Text(" - ",maxLines: 1,
-              overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
-            Text(item.maxPrice!=null?"฿${item.maxPrice}":"฿0",maxLines: 1,
-              overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
-          ],
-        );
-      }
+  Row SalePrice({ProductData item}) {
+    if (item.salePrice != null) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          item.offerPrice != null
+              ? Text("${item.salePrice}",
+                  style: FunctionHelper.FontTheme(
+                      color: Colors.grey,
+                      fontSize: SizeUtil.priceFontSize().sp - 2,
+                      decoration: TextDecoration.lineThrough))
+              : SizedBox(),
+          SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
+          Text(
+            item.offerPrice != null
+                ? "฿${item.offerPrice}"
+                : "฿${item.salePrice}",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: FunctionHelper.FontTheme(
+                color: ThemeColor.ColorSale(),
+                fontWeight: FontWeight.w500,
+                fontSize: SizeUtil.priceFontSize().sp),
+          ),
+        ],
+      );
+    } else {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            item.minPrice != null ? "฿${item.minPrice}" : "฿0",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: FunctionHelper.FontTheme(
+                color: ThemeColor.ColorSale(),
+                fontWeight: FontWeight.w500,
+                fontSize: SizeUtil.priceFontSize().sp),
+          ),
+          Text(
+            " - ",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: FunctionHelper.FontTheme(
+                color: ThemeColor.ColorSale(),
+                fontWeight: FontWeight.w500,
+                fontSize: SizeUtil.priceFontSize().sp),
+          ),
+          Text(
+            item.maxPrice != null ? "฿${item.maxPrice}" : "฿0",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: FunctionHelper.FontTheme(
+                color: ThemeColor.ColorSale(),
+                fontWeight: FontWeight.w500,
+                fontSize: SizeUtil.priceFontSize().sp),
+          ),
+        ],
+      );
+    }
   }
-
 }
