@@ -464,6 +464,7 @@ class FunctionHelper {
   }
 
 
+
   static AlertDialogShop(BuildContext context, {String title,String message,bool showbtn=true,bool barrierDismissible=true,Function() callCancle}){
     showDialog(
       barrierDismissible: barrierDismissible,
@@ -476,8 +477,10 @@ class FunctionHelper {
               style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
             ) ,
             actions: [
+
               showbtn?CupertinoDialogAction(isDefaultAction: true, child: new Text("Close"),onPressed: (){
                 callCancle!=null?callCancle(): Navigator.of(context).pop();
+
 
               },):SizedBox(),
             ]): AlertDialog(
@@ -492,6 +495,7 @@ class FunctionHelper {
             showbtn?FlatButton(
               child: Text(LocaleKeys.btn_close.tr()),
               onPressed:  () {
+                Navigator.of(context).pop();
                 callCancle!=null?callCancle(): Navigator.of(context).pop();
               },
             ):SizedBox()
@@ -511,6 +515,7 @@ class FunctionHelper {
               style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
             ) ,
             actions: [
+
               CupertinoDialogAction(isDefaultAction: true, child: new Text(cancalMessage!=null?cancalMessage:"Back"),onPressed: (){
                 if(callCancle!=null){
                   callCancle();
@@ -536,6 +541,7 @@ class FunctionHelper {
             FlatButton(
               child: Text("Back"),
               onPressed:  () {
+                AppRoute.PoppageCount(context: context,countpage: 2);
                 if(callCancle!=null){
                   callCancle();
                 }else{

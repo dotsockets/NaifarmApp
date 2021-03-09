@@ -318,7 +318,7 @@ class _CanceledViewState extends State<CanceledView>{
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "${LocaleKeys.order_detail_cancel_detail.tr()}: ผู้ซื้อ\n${LocaleKeys.order_detail_cancel_reason.tr()}: สินค้าเสียหาย",
+                        "${LocaleKeys.order_detail_cancel_by.tr()}: ผู้ซื้อ\n${LocaleKeys.order_detail_cancel_reason.tr()}: สินค้าเสียหาย",
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black.withOpacity(0.6)),

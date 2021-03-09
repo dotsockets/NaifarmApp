@@ -81,7 +81,7 @@ class CartBloc {
 
       if (respone.http_call_back.status == 200) {
 
-        GetCartlists(token: token, cartActive: CartActive.CartDelete);
+        GetCartlists(context: context,token: token, cartActive: CartActive.CartDelete);
         onSuccess.add(true);
         // CartList.add(CartResponse(data: CartList.value.data));
       } else {
@@ -105,7 +105,7 @@ class CartBloc {
         // CartResponse(data: CartList.value.data);
         CartList.add(CartList.value);
       } else {
-        GetCartlists(token: token, cartActive: CartActive.CartDelete);
+        GetCartlists(context: context,token: token, cartActive: CartActive.CartDelete);
         onError.add(respone.http_call_back);
       }
     });

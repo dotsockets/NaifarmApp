@@ -87,6 +87,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
           NaiFarmLocalStorage.DeleteCacheByItem(
                   key: NaiFarmLocalStorage.NaiFarm_Product_Upload)
               .then((value) {
+
             AppRoute.MyProduct(context, widget.shopId,
                 pushEvent: true,
                 countPage: 1,
@@ -499,16 +500,18 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: _BuildButtonCancleItem(
-                      btnTxt: "Delete", index: 0, enable: enable),
+
+                  child: _BuildButtonCancleItem(btnTxt: LocaleKeys.cart_del.tr(),index: 0,enable: enable),
                 ),
+                SizedBox(width: 10,)
+                ,
+                Expanded(child: _BuildButtonItem(btnTxt: LocaleKeys.btn_save.tr(),index: 1,enable: enable),),
+
                 SizedBox(
                   width: 10,
                 ),
-                Expanded(
-                  child: _BuildButtonItem(
-                      btnTxt: "Save", index: 1, enable: enable),
-                )
+
+
               ],
             )));
   }

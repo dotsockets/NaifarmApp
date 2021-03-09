@@ -163,8 +163,10 @@ abstract class  LocaleKeys {
   static const dialog_message_del_product = 'dialog_message.del_product';
   static const dialog_message_mail_change_cancel = 'dialog_message.mail_change_cancel';
   static const dialog_message_password_success = 'dialog_message.password_success';
+  static const dialog_message_confirm_pay = 'dialog_message.confirm_pay';
   static const dialog_message_loading = 'dialog_message.loading';
   static const dialog_message_exit = 'dialog_message.exit';
+  static const dialog_message_success = 'dialog_message.success';
   static const dialog_message = 'dialog_message';
   static const message_phone_edit = 'message.phone_edit';
   static const message_mail_edit = 'message.mail_edit';
@@ -210,6 +212,7 @@ abstract class  LocaleKeys {
   static const cart = 'cart';
   static const history_order_time = 'history.order_time';
   static const history_order_price = 'history.order_price';
+  static const history_track = 'history.track';
   static const history = 'history';
   static const payment_method_cash_delivery = 'payment_method.cash_delivery';
   static const payment_method_bank = 'payment_method.bank';
@@ -344,6 +347,8 @@ abstract class  LocaleKeys {
   static const order_detail_complete = 'order_detail.complete';
   static const order_detail_summary = 'order_detail.summary';
   static const order_detail_pay_date = 'order_detail.pay_date';
+  static const order_detail_please = 'order_detail.please';
+  static const order_detail_cancel = 'order_detail.cancel';
   static const order_detail_ship_date = 'order_detail.ship_date';
   static const order_detail_by_date = 'order_detail.by_date';
   static const order_detail_contact = 'order_detail.contact';
@@ -359,6 +364,7 @@ abstract class  LocaleKeys {
   static const order_detail_cancel_reason = 'order_detail.cancel_reason';
   static const order_detail_id = 'order_detail.id';
   static const order_detail_payment_info = 'order_detail.payment_info';
+  static const order_detail_total_pay = 'order_detail.total_pay';
   static const order_detail = 'order_detail';
   static const login_forgot_password = 'login.forgot_password';
   static const login_not_member = 'login.not_member';
@@ -379,6 +385,7 @@ abstract class  LocaleKeys {
   static const splashLogin_skip_message = 'splashLogin.skip_message';
   static const splashLogin = 'splashLogin';
   static const search_product_title = 'search_product.title';
+  static const search_product_me = 'search_product.me';
   static const search_product_show = 'search_product.show';
   static const search_product_hide = 'search_product.hide';
   static const search_product_not_found = 'search_product.not_found';

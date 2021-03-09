@@ -184,8 +184,10 @@
     "del_product": "Do you want to delete product",
     "mail_change_cancel": "Do you want to leave email change",
     "password_success": "Change Password Success",
+    "confirm_pay": "Confirm payment for this order",
     "loading": "Loading...",
-    "exit": "Do you want to exit an App"
+    "exit": "Do you want to exit an App",
+    "success": "Successfully confirmed information"
   },
 
   "message":{
@@ -232,11 +234,13 @@
     "use_before": "valid till",
     "outstock": "Out of stock",
     "note": "note",
-    "add_cart": "Add to Cart"
+    "add_cart": "Add to Cart",
+    "promotion": "Promotion Price"
   },
   "history":{
     "order_time": "Payment Time",
-    "order_price": "Order Total"
+    "order_price": "Order Total",
+    "track": "Add a tracking number"
   },
   "payment_method": {
     "cash_delivery": "Cash on Delivery",
@@ -387,6 +391,8 @@
     "complete": "Order Successful",
     "summary" : "Total",
     "pay_date": "Pay by",
+    "please": "Please",
+    "cancel":"",
     "ship_date": "Product will be shipped out",
     "by_date": "by",
     "contact": "Contact Seller",
@@ -401,7 +407,9 @@
     "cancel_order": "Cancel Order",
     "cancel_reason": "Reason for Cancel",
     "id": "Order ID",
-    "payment_info": "Payment Information"
+    "payment_info": "Payment Information",
+    "total_pay": "Total Payment"
+
   },
   "login": {
     "forgot_password": "Forgot Password",
@@ -427,7 +435,8 @@
     "skip_message": "tap \"SKIP\" go to home page"
   },
   "search_product": {
-    "title": "Search Product",
+    "title": "Search product and shop",
+    "me": "Search my product",
     "show": "Show more",
     "hide": "Hide",
     "not_found": "Data not found"

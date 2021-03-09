@@ -408,10 +408,10 @@ class ProductBloc{
 
   }
 
-  GetProductsById(BuildContext context,{int id}){
+  GetProductsById(BuildContext context,{int id,bool onload}){
     onLoad.add(true);
     Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(context,id: id)).listen((event) {
-      onLoad.add(false);
+    //  onLoad.add(false);
       if(event.http_call_back.status==200){
         var item = (event.respone as ProducItemRespone);
         ProductItem.add(item);
@@ -693,9 +693,12 @@ class ProductBloc{
 
 //CategoryCombin
 
-  AddCartlists(BuildContext context,{CartRequest cartRequest,String token,bool addNow=false}){
+  AddCartlists(BuildContext context,{CartRequest cartRequest,String token,bool addNow=false,bool onload=true}){
     BayNow.clear();
-    onLoad.add(true);
+    if(onload){
+      onLoad.add(true);
+    }
+
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.AddCartlists(context,cartRequest: cartRequest,token: token)).listen((respone) {
       if(respone.http_call_back.status==200||respone.http_call_back.status==201){
