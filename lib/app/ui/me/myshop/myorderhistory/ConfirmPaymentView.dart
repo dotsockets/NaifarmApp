@@ -49,13 +49,13 @@ class ConfirmPaymentView extends StatelessWidget {
         //   Usermanager().getUser().then((value) => bloc.GetOrderById(orderType: "myshop/order",id: orderData.id, token: value.token));
         // });
         FunctionHelper.AlertDialogShop(contextMain,
-            title: "Error", message: event, showbtn: true);
+            title: LocaleKeys.btn_error.tr(), message: event, showbtn: true);
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
        if(event is bool){
          onDialog = true;
-         FunctionHelper.SuccessDialog(context,message: "Successfully confirmed information",onClick: (){
+         FunctionHelper.SuccessDialog(context,message: LocaleKeys.dialog_message_success_pay.tr(),onClick: (){
            onUpload = true;
            if(onDialog){
              Navigator.pop(context,onUpload);
@@ -107,18 +107,21 @@ class ConfirmPaymentView extends StatelessWidget {
                                   PricecolorText: ThemeColor.ColorSale(),
                                   leading: LocaleKeys.order_detail_total_pay.tr(),
                                   trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"):SizedBox(),
+                                      //"฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"):SizedBox(),
+                                      "฿${item.grandTotal}"):SizedBox(),
                               SizedBox(height: 1.0.h),
                               item.total!=null? ItemInfo(
                                   PricecolorText: Colors.grey.shade400,
                                   leading: LocaleKeys.order_detail_subtotal.tr(),
                                   trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}"):SizedBox(),
+                                     // "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}"):SizedBox(),
+                                      "฿${item.total}"):SizedBox(),
                               item.shipping!=null?ItemInfo(
                                   PricecolorText: Colors.grey.shade400,
                                   leading: LocaleKeys.order_detail_ship_price.tr(),
                                   trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.shipping)}"):SizedBox(),
+                                      //"฿${NumberFormat("#,##0.00", "en_US").format(item.shipping)}"):SizedBox(),
+                                      "฿${item.shipping}"):SizedBox(),
                               // item.discount!=null?ItemInfo(
                               //     PricecolorText: Colors.grey.shade400,
                               //     leading: "Discount code",
@@ -137,7 +140,7 @@ class ConfirmPaymentView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                     Text(
-                                      "Proof of transfer ",
+                                      LocaleKeys.payment_method_slip.tr(),
                                       style: FunctionHelper.FontTheme(
                                           color: Colors.black,
                                           fontWeight: FontWeight.normal,

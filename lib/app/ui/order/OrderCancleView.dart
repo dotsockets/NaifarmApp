@@ -92,8 +92,9 @@ class _OrderCancleViewState extends State<OrderCancleView> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: LocaleKeys.order_detail_title.tr(),
+              title: LocaleKeys.order_detail_cancelled_buyer.tr(),
               header_type: Header_Type.barcartShop,
+              showCartBtn: false,
               icon: '',
               onClick: (){
                 Navigator.pop(context,onUpload);
@@ -121,24 +122,25 @@ class _OrderCancleViewState extends State<OrderCancleView> {
                                 SizedBox(height: 1.0.h),
                                 ItemInfo(
                                     PricecolorText: ThemeColor.ColorSale(),
-                                    leading: "Amount of refund",
+                                    leading: LocaleKeys.order_detail_refund.tr(),
                                     trailing:
-                                    "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"),
+                                    //"฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"),
+                                    "฿${item.grandTotal}"),
                                 SizedBox(height: 1.0.h),
                                 ItemInfo(
                                     PricecolorText: Colors.grey.shade500,
-                                    leading: "Stand by ",
+                                    leading: LocaleKeys.order_detail_cancelled_by.tr(),
                                     trailing:
-                                    "ผู้ซื้อ"),
+                                    LocaleKeys.order_detail_buyer.tr()),
                                 ItemInfo(
                                     PricecolorText: Colors.grey.shade500,
-                                    leading: "Cancellation date ",
+                                    leading: LocaleKeys.order_detail_cancelled_time.tr(),
                                     trailing:
                                     "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(DateTime.now().toString()))} "),
 
                                 ItemInfo(
                                     PricecolorText: Colors.grey.shade500,
-                                    leading: "Reason for cancellation",
+                                    leading: LocaleKeys.order_detail_cancelled_reason.tr(),
                                     trailing:
                                     "สินค้าเสียหาย"),
                                 SizedBox(height: 1.0.h),
@@ -214,7 +216,7 @@ class _OrderCancleViewState extends State<OrderCancleView> {
 
                 },
                 child: Text(
-                  "Reject request",
+                  LocaleKeys.btn_reject_order.tr(),
                   style: FunctionHelper.FontTheme(
                       fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
                 ),
@@ -233,7 +235,6 @@ class _OrderCancleViewState extends State<OrderCancleView> {
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                   onPressed: () {
-
                     FunctionHelper.ConfirmDialog(context,message: "คุณได้ตอบรับคำขอยกเลิกคำสั่งซื้อสินค้านี้ ?",onCancel: (){
                       Navigator.of(context).pop();
                     },onClick: (){
@@ -242,7 +243,7 @@ class _OrderCancleViewState extends State<OrderCancleView> {
                     });
                   },
                   child: Text(
-                    "Accept request",
+                    LocaleKeys.btn_accept_order.tr(),
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
                   ),
@@ -307,7 +308,8 @@ class _OrderCancleViewState extends State<OrderCancleView> {
                       //         fontSize: SizeUtil.titleFontSize().sp,
                       //         decoration: TextDecoration.lineThrough,color: Colors.black.withOpacity(0.5))),
                       // SizedBox(width: 8),
-                      Text("฿${NumberFormat("#,##0.00", "en_US").format(orderItems.inventory.salePrice*orderItems.quantity)}",
+                      //Text("฿${NumberFormat("#,##0.00", "en_US").format(orderItems.inventory.salePrice*orderItems.quantity)}",
+                      Text("฿${orderItems.inventory.salePrice*orderItems.quantity}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
                     ],

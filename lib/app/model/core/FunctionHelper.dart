@@ -90,7 +90,7 @@ class FunctionHelper {
                       width: 20,
                     ),
                     Text(
-                      LocaleKeys.dialog_message_loading.tr(),
+                      LocaleKeys.dialog_message_loading.tr()+"...",
                       style: FunctionHelper.FontTheme(
                           color: Colors.black,
                           fontSize: SizeUtil.titleFontSize().sp,
@@ -128,7 +128,7 @@ class FunctionHelper {
                       height: 10,
                     ),
                     Text(
-                      LocaleKeys.dialog_message_loading.tr(),
+                      LocaleKeys.dialog_message_loading.tr()+"...",
                       style: FunctionHelper.FontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -545,7 +545,7 @@ class FunctionHelper {
           actions: [
             // okButton,
             FlatButton(
-              child: Text("Back"),
+              child: Text(LocaleKeys.btn_back.tr()),
               onPressed:  () {
                 AppRoute.PoppageCount(context: context,countpage: 2);
                 if(callCancle!=null){
@@ -557,7 +557,7 @@ class FunctionHelper {
               },
             ),
             FlatButton(
-              child: Text("Try again "),
+              child: Text(LocaleKeys.btn_again.tr()),
               onPressed:  () {
                 callBack();
                 Navigator.of(context).pop();

@@ -88,7 +88,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           callCancle: (){
             exit(0);
           },
-          title: "Error", message: event.message,callBack: (){
+          title: LocaleKeys.btn_error.tr(), message: event.message,callBack: (){
                 onDialog = true;
                 _refreshProducts();
               });

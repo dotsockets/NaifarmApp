@@ -52,7 +52,7 @@ class ProductVertical extends StatelessWidget {
         if (event != null) {
 
             FunctionHelper.AlertDialogShop(context,
-                title: "Error", message: event.message);
+                title: LocaleKeys.btn_error.tr(), message: event.message);
 
         }
       });
@@ -270,7 +270,7 @@ class ProductVertical extends StatelessWidget {
                           filledIconData: Icons.star,
                           halfFilledIconData: Icons.star_half_outlined,
                           color: Colors.amber,
-                          borderColor: Colors.amber,
+                          borderColor: Colors.grey.shade300,
                           spacing: 0.0),
                       SizedBox(width: 1.0.w,),
                      // Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),

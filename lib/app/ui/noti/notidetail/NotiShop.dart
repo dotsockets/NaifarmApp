@@ -56,7 +56,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       bloc = NotiBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
         FunctionHelper.AlertDialogShop(context,
-            title: "Error", message: event,callCancle: (){
+            title: LocaleKeys.btn_error.tr(), message: event,callCancle: (){
               if(widget.btnBack){
                 AppRoute.PoppageCount(context: context,countpage: 2);
               }else{
@@ -233,7 +233,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                   SizedBox(
                     width: 10,
                   ),
-                  Text("Loading",
+                  Text(LocaleKeys.dialog_message_loading.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.grey,
                           fontSize:

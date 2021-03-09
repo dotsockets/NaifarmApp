@@ -153,7 +153,7 @@ class ProductItemCard extends StatelessWidget {
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half_outlined,
                   color: Colors.amber,
-                  borderColor: Colors.amber,
+                  borderColor: Colors.grey.shade300,
                   spacing: 0.0),
               SizedBox(
                 width: 1.0.w,

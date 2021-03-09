@@ -162,7 +162,7 @@ class _ShippedViewState extends State<ShippedView> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text("Loading",
+                            Text(LocaleKeys.dialog_message_loading.tr(),
                                 style: FunctionHelper.FontTheme(
                                     color: Colors.grey,
                                     fontSize: SizeUtil.priceFontSize().sp))
@@ -298,7 +298,8 @@ class _ShippedViewState extends State<ShippedView> {
                     children: [
                       item.inventory!=null && item.inventory.product.discountPercent != 0
                           ? Text(
-                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory!=null?item.inventory.product.discountPercent:0)}",
+                             // "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory!=null?item.inventory.product.discountPercent:0)}",
+                              "฿${item.inventory!=null?item.inventory.product.discountPercent:0}",
                               style: FunctionHelper.FontTheme(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: SizeUtil.titleFontSize().sp,
@@ -306,7 +307,8 @@ class _ShippedViewState extends State<ShippedView> {
                           : SizedBox(),
                       SizedBox(width: 3.0.w),
                       Text(
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory!=null?item.inventory.salePrice:999)}",
+                          //"฿${NumberFormat("#,##0.00", "en_US").format(item.inventory!=null?item.inventory.salePrice:999)}",
+                          "฿${item.inventory!=null?item.inventory.salePrice:999}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: ThemeColor.ColorSale()))

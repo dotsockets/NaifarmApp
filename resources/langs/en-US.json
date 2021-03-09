@@ -150,8 +150,7 @@
     "add_address": "Add New Address",
     "add_product": "Add Product",
     "login": "LOGIN",
-    "facebook_login": "Login with Facebook",
-    "facebook_regis": "Sign up with Facebook",
+    "facebook": "Continue with Facebook",
     "edit_img": "Edit Image",
     "save": "SAVE",
     "register": "SIGN UP",
@@ -166,6 +165,7 @@
     "buy_now": "Buy Now",
     "buy_product": "Buy Now",
     "del_product": "Delete Product",
+    "error": "Error",
     "save_edit": "Save Edit",
     "review": "Review",
     "buy_product_again": "Buy Again",
@@ -174,7 +174,11 @@
     "close": "Close",
     "connect": "Connect again",
     "add_image": "Add image",
-    "add_vdo": "Add video"
+    "add_vdo": "Add video",
+    "back":"Back",
+    "again": "Try again",
+    "reject_order": "Reject request",
+    "accept_order": "Accept request"
   },
 
 
@@ -185,16 +189,20 @@
     "mail_change_cancel": "Do you want to leave email change",
     "password_success": "Change Password Success",
     "confirm_pay": "Confirm payment for this order",
-    "loading": "Loading...",
+    "confirm_track":  "Confirm that tracking number is correct",
+    "loading": "Loading",
     "exit": "Do you want to exit an App",
-    "success": "Successfully confirmed information"
+    "success": "Successfully confirmed information",
+    "success_track":"Successfully confirmed tracking number",
+    "success_pay":"Successfully confirmed payment",
+    "success_slip":"Upload Pay-in Slip Successfully"
   },
 
   "message":{
     "phone_edit":"If you edit phone number. All account numbers associated with this account will be modified",
     "mail_edit": "Keep your account safe, please enter a password to continue",
     "forgot_mail": "Please logout of your account and tap \"Forgot Password\" at the login page. To logout, Me page > Account Setting > Logout and tap on \"Forgot Password\"",
-    "error": {
+    "error":{
       "password_incorrect":"Password is incorrect",
       "password_length": "Should set a password of 8-12 characters or more",
       "password_not_match": "Password do not match",
@@ -240,14 +248,18 @@
   "history":{
     "order_time": "Payment Time",
     "order_price": "Order Total",
-    "track": "Add a tracking number"
+    "track": "Add a tracking number",
+    "track_fill": "Please fill tracking number to continue.",
+    "track_msg": "User can check shipping status with Naifarm.",
+    "track_no":  "Please fill correct tracking number."
   },
   "payment_method": {
     "cash_delivery": "Cash on Delivery",
     "bank": "Bank account",
-    "slip": "Upload Pay-in Slip Now",
+    "upload_slip": "Upload Pay-in Slip Now",
     "no_slip": "Upload Pay-in Slip Later",
-    "update_slip": "Update Pay-in Slip"
+    "update_slip": "Update Pay-in Slip",
+    "slip": "Pay-in Slip"
   },
 
   "wallet_balance": {
@@ -391,7 +403,7 @@
     "complete": "Order Successful",
     "summary" : "Total",
     "pay_date": "Pay by",
-    "please": "Please",
+    "please": "Please ",
     "cancel":"",
     "ship_date": "Product will be shipped out",
     "by_date": "by",
@@ -408,8 +420,23 @@
     "cancel_reason": "Reason for Cancel",
     "id": "Order ID",
     "payment_info": "Payment Information",
-    "total_pay": "Total Payment"
-
+    "total_pay": "Total Payment",
+    "refund": "Refund Amount",
+    "cancelled_by": "Cancelled by",
+    "cancelled_time": "Cancelled by",
+    "cancelled_reason": "Cancel reason",
+    "cancelled_buyer": "Buyer Cancelled Order",
+    "seller_cancelled": "Seller Cancelled Order",
+    "seller_cancelled_refund": "Refund Amount (With Shipping Fee)",
+    "seller_cancelled_by": "Refund by",
+    "seller_cancelled_time": "Refund at",
+    "seller_cancelled_reason": "Refund Reason",
+    "seller_cancelled_choose": "Choose Reason",
+    "seller_cancelled_detail": "Refund Detail",
+    "seller_cancelled_notpay": "Payment not Received",
+    "seller": "Seller",
+    "buyer": "Buyer",
+    "sell": "Sale Product Detail"
   },
   "login": {
     "forgot_password": "Forgot Password",

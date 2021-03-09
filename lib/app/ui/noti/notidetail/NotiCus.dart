@@ -59,7 +59,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
         //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
 
         FunctionHelper.AlertDialogShop(context,
-            title: "Error", message: event,callCancle: (){
+            title: LocaleKeys.btn_error.tr(), message: event,callCancle: (){
               // if(widget.btnBack){
               //   AppRoute.PoppageCount(context: context,countpage: 2);
               // }else{
@@ -244,7 +244,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                   SizedBox(
                     width: 10,
                   ),
-                  Text("Loading",
+                  Text(LocaleKeys.dialog_message_loading.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.grey,
                           fontSize:
