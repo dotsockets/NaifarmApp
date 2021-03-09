@@ -476,7 +476,7 @@ class FunctionHelper {
               style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
             ) ,
             actions: [
-              showbtn?CupertinoDialogAction(isDefaultAction: true, child: new Text("Close"),onPressed: (){
+              showbtn?CupertinoDialogAction(isDefaultAction: true, child: new Text(LocaleKeys.btn_close.tr()),onPressed: (){
                 Navigator.of(context).pop();
               },):SizedBox(),
             ]): AlertDialog(

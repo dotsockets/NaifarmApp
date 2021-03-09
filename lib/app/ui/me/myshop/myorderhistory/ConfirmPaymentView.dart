@@ -55,7 +55,7 @@ class ConfirmPaymentView extends StatelessWidget {
       bloc.onSuccess.stream.listen((event) {
        if(event is bool){
          onDialog = true;
-         FunctionHelper.SuccessDialog(context,message: "Successfully confirmed information ",onClick: (){
+         FunctionHelper.SuccessDialog(context,message: "Successfully confirmed information",onClick: (){
            onUpload = true;
            if(onDialog){
              Navigator.pop(context,onUpload);
@@ -81,7 +81,7 @@ class ConfirmPaymentView extends StatelessWidget {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: "Confirm payment of order ",
+              title: LocaleKeys.order_detail_confirm_pay.tr(),
               header_type: Header_Type.barcartShop,
               isEnable_Search: false,
               icon: '',
@@ -105,29 +105,29 @@ class ConfirmPaymentView extends StatelessWidget {
                             children: <Widget>[
                               item.grandTotal!=null? ItemInfo(
                                   PricecolorText: ThemeColor.ColorSale(),
-                                  leading: "All buyer payment ",
+                                  leading: LocaleKeys.order_detail_total_pay.tr(),
                                   trailing:
                                       "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"):SizedBox(),
                               SizedBox(height: 1.0.h),
                               item.total!=null? ItemInfo(
                                   PricecolorText: Colors.grey.shade400,
-                                  leading: "Total product cost",
+                                  leading: LocaleKeys.order_detail_subtotal.tr(),
                                   trailing:
                                       "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}"):SizedBox(),
                               item.shipping!=null?ItemInfo(
                                   PricecolorText: Colors.grey.shade400,
-                                  leading: "Shipping cost",
+                                  leading: LocaleKeys.order_detail_ship_price.tr(),
                                   trailing:
                                       "฿${NumberFormat("#,##0.00", "en_US").format(item.shipping)}"):SizedBox(),
-                              item.discount!=null?ItemInfo(
-                                  PricecolorText: Colors.grey.shade400,
-                                  leading: "Discount code",
-                                  trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.discount)}"):SizedBox(),
+                              // item.discount!=null?ItemInfo(
+                              //     PricecolorText: Colors.grey.shade400,
+                              //     leading: "Discount code",
+                              //     trailing:
+                              //         "฿${NumberFormat("#,##0.00", "en_US").format(item.discount)}"):SizedBox(),
                               SizedBox(height: 1.0.h),
                               item.discount!=null?ItemInfo(
                                   PricecolorText: Colors.grey.shade400,
-                                  leading: "Payment method",
+                                  leading: LocaleKeys.me_title_payment.tr(),
                                   trailing: "${item.paymentMethod.name}"):SizedBox(),
                               item.image!=null && item.image.length>0
                                   ? Container(
@@ -248,7 +248,7 @@ class ConfirmPaymentView extends StatelessWidget {
             onPressed: () {
               if(orderData.image.isNotEmpty){
                 FunctionHelper.ConfirmDialog(context,
-                    message: "คุณต้องการยืนยันการชำระเงินคำสั่งซื้อสินค้านี้ ?",
+                    message: "${LocaleKeys.dialog_message_confirm_pay.tr()} ?",
                     onCancel: () {
                       Navigator.of(context).pop();
                     }, onClick: () {
@@ -261,7 +261,7 @@ class ConfirmPaymentView extends StatelessWidget {
 
             },
             child: Text(
-              "Confirm ",
+              LocaleKeys.btn_confirm.tr(),
               style: FunctionHelper.FontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),

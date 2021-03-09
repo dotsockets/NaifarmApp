@@ -91,7 +91,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
             onClick: (){
               Navigator.pop(context,true);
             },
-            hint: LocaleKeys.search_product_title.tr(),
+            hint: LocaleKeys.search_product_me.tr(),
             onSearch: (String text) {
                 _searchText.add(text);
             },

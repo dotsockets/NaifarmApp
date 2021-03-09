@@ -39,13 +39,13 @@ class AddtTrackingNumberView extends StatelessWidget {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.AlertDialogShop(context,message:event,showbtn: true,title: "Eror Shipping" );
+        FunctionHelper.AlertDialogShop(context,message:event,showbtn: true,title: "Error Shipping" );
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         if(event is bool){
           onDialog = true;
-          FunctionHelper.SuccessDialog(context,message: "Successfully confirmed information ",onClick: (){
+          FunctionHelper.SuccessDialog(context,message: "Successfully confirmed information",onClick: (){
             if(onDialog){
               Navigator.pop(context,true);
             }
@@ -69,7 +69,7 @@ class AddtTrackingNumberView extends StatelessWidget {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: "Add a tracking number ",
+              title: "Add a tracking number",
               header_type: Header_Type.barcartShop,
               isEnable_Search: false,
               icon: '',
@@ -181,7 +181,7 @@ class AddtTrackingNumberView extends StatelessWidget {
              
             },
             child: Text(
-              "Shipping",
+             LocaleKeys.order_detail_ship.tr(),
               style: FunctionHelper.FontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),

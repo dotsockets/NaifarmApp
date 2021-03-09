@@ -192,8 +192,10 @@ class CodegenLoader extends AssetLoader{
     "del_product": "Do you want to delete product",
     "mail_change_cancel": "Do you want to leave email change",
     "password_success": "Change Password Success",
+    "confirm_pay": "Confirm payment for this order",
     "loading": "Loading...",
-    "exit": "Do you want to exit an App"
+    "exit": "Do you want to exit an App",
+    "success": "Successfully confirmed information"
   },
   "message": {
     "phone_edit": "If you edit phone number. All account numbers associated with this account will be modified",
@@ -242,7 +244,8 @@ class CodegenLoader extends AssetLoader{
   },
   "history": {
     "order_time": "Payment Time",
-    "order_price": "Order Total"
+    "order_price": "Order Total",
+    "track": "Add a tracking number"
   },
   "payment_method": {
     "cash_delivery": "Cash on Delivery",
@@ -387,6 +390,8 @@ class CodegenLoader extends AssetLoader{
     "complete": "Order Successful",
     "summary": "Total",
     "pay_date": "Pay by",
+    "please": "Please",
+    "cancel": "",
     "ship_date": "Product will be shipped out",
     "by_date": "by",
     "contact": "Contact Seller",
@@ -401,7 +406,8 @@ class CodegenLoader extends AssetLoader{
     "cancel_order": "Cancel Order",
     "cancel_reason": "Reason for Cancel",
     "id": "Order ID",
-    "payment_info": "Payment Information"
+    "payment_info": "Payment Information",
+    "total_pay": "Total Payment"
   },
   "login": {
     "forgot_password": "Forgot Password",
@@ -427,7 +433,8 @@ class CodegenLoader extends AssetLoader{
     "skip_message": "tap \"SKIP\" go to home page"
   },
   "search_product": {
-    "title": "Search Product",
+    "title": "Search product and shop",
+    "me": "Search my product",
     "show": "Show more",
     "hide": "Hide",
     "not_found": "Data not found"
@@ -611,8 +618,10 @@ static const Map<String,dynamic> th_TH = {
     "phone_edit_cancel": "คุณต้องการออกจากการเปลี่ยนแปลงเบอร์โทรศัพท์ใช่หรือไม่",
     "change_mail": "คุณต้องการออกจากการเปลี่ยนแปลงอีเมลใช่หรือไม่",
     "password_success": "เปลี่ยนรหัสผ่านสำเร็จ",
+    "confirm_pay": "คุณต้องการยืนยันการชำระเงินคำสั่งซื้อสินค้านี้",
     "loading": "กำลังโหลด...",
-    "exit": "คุณต้องการออก"
+    "exit": "ออกจากแอป",
+    "success": "สำเร็จ"
   },
   "message": {
     "phone_edit": "หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่ หมายเลขบัญชีทั้งหมดที่ผูกกับบัญชีนี้จะถูกแก้ไขด้วย",
@@ -661,7 +670,8 @@ static const Map<String,dynamic> th_TH = {
   },
   "history": {
     "order_time": "วันที่ซื้อ",
-    "order_price": "รวมการสั่งซื้อ"
+    "order_price": "รวมการสั่งซื้อ",
+    "track": "เพิ่มหมายเลขติดตามพัสดุ"
   },
   "payment_method": {
     "cash_delivery": "เก็บเงินปลายทาง",
@@ -805,6 +815,8 @@ static const Map<String,dynamic> th_TH = {
     "complete": "คำสั่งซื้อเสร็จสมบูรณ์",
     "summary": "ยอดชำระเงิน",
     "pay_date": "ชำระเงินภายใน",
+    "please": "กรุณา",
+    "cancel": "มิฉะนั้นระบบจะยกเลิกคำสั่งซื้อโดยอัตโนมัติ",
     "ship_date": "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการขนส่ง",
     "by_date": "ภายในวันที่",
     "contact": "ติดต่อผู้ขาย",
@@ -819,7 +831,8 @@ static const Map<String,dynamic> th_TH = {
     "cancel_reason": "เหตุผลการยกเลิก",
     "cancel_order": "ยกเลิกคำสั่งซื้อ",
     "id": "เลขคำสั่งซื้อ",
-    "payment_info": "ข้อมูลการชำระเงิน"
+    "payment_info": "ข้อมูลการชำระเงิน",
+    "total_pay": "การชำระงเินทั้งหมดของผู้ซื้อ"
   },
   "login": {
     "forgot_password": "ลืมรหัสผ่าน",
@@ -845,7 +858,8 @@ static const Map<String,dynamic> th_TH = {
     "skip_message": "กดข้ามเพื่อเข้าสู่หน้าหลัก"
   },
   "search_product": {
-    "title": "ค้นหาสินค้า",
+    "title": "ค้นหาสินค้าและร้านค้า",
+    "me": "ค้นหาสินค้าของฉัน",
     "show": "แสดงเพิ่ม",
     "hide": "ย่อ",
     "not_found": "ไม่พบข้อมูล"
