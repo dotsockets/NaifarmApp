@@ -161,8 +161,9 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                             fontSize: SizeUtil.titleFontSize().sp,
                             color: ThemeColor.ColorSale()))),
                 FlutterSwitch(
-                  height: SizeUtil.switchSize().w,
-                  toggleSize: SizeUtil.switchToggleSize().w,
+                  height: SizeUtil.switchHeight(),
+                  width: SizeUtil.switchWidth(),
+                  toggleSize: SizeUtil.switchToggleSize(),
                   activeColor: Colors.grey.shade200,
                   inactiveColor: Colors.grey.shade200,
                   toggleColor: index == 1

@@ -462,8 +462,9 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp)),
                 FlutterSwitch(
-                  height: SizeUtil.switchSize().w,
-                  toggleSize: SizeUtil.switchToggleSize().w,
+                  height: SizeUtil.switchHeight(),
+                  width: SizeUtil.switchWidth(),
+                  toggleSize: SizeUtil.switchToggleSize(),
                   activeColor: bloc.uploadProductStorage.value
                               .productMyShopRequest.active ==
                           1

@@ -12,7 +12,7 @@ class SizeUtil {
   }
 
   static double priceFontSize() {
-    return Device.get().isPhone ? 12 : 9;
+    return Device.get().isPhone ? 13 : 9;
   }
 
   static double titleFontSize() {
@@ -47,12 +47,16 @@ class SizeUtil {
     return Device.get().isPhone ? 8.0 : 7.0;
   }
 
-  static double switchSize() {
-    return Device.get().isPhone ? 9.0 : 5.0;
+  static double switchHeight() {
+    return Device.get().isPhone ? 30.0 : 40.0;
+  }
+
+  static double switchWidth() {
+    return Device.get().isPhone ? 55.0 : 70.0;
   }
 
   static double switchToggleSize() {
-    return Device.get().isPhone ? 7.0 : 5.0;
+    return Device.get().isPhone ? 28.0 : 38.0;
   }
 
   static double shopBadgeSize() {
@@ -72,7 +76,7 @@ class SizeUtil {
   }
 
   static double custombarIconSize() {
-    return Device.get().isPhone ? 6.0 : 4.0;
+    return Device.get().isPhone ? 6.0 : 3.8;
   }
 
   static EdgeInsets custombarIndicationPadding() {

@@ -90,8 +90,9 @@ class _ReviewViewState extends State<ReviewView> {
             ],
           ),
           FlutterSwitch(
-            height: SizeUtil.switchSize().w,
-            toggleSize: SizeUtil.switchToggleSize().w,
+            height: SizeUtil.switchHeight(),
+            width: SizeUtil.switchWidth(),
+            toggleSize: SizeUtil.switchToggleSize(),
             activeColor: Colors.grey.shade200,
             inactiveColor: Colors.grey.shade200,
             toggleColor:
