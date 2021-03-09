@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -115,7 +114,6 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                                 )),
                             SizedBox(height: 2,),
                             Container(
-                              width: ScreenUtil().setWidth(250),
                               color: Colors.grey.shade500,
                               height: 1,
                             )
@@ -162,7 +160,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
     //});
 
     if(PassController.text.length>6){
-      Usermanager().getUser().then((value) => bloc.VerifyPassword(password: PassController.text,token: value.token));
+      Usermanager().getUser().then((value) => bloc.VerifyPassword(context,password: PassController.text,token: value.token));
 
     }else{
       setState(() {

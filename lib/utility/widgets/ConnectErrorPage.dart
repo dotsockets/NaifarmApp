@@ -11,7 +11,7 @@ import '../SizeUtil.dart';
 
 
 class ConnectErrorPage extends StatelessWidget {
-  final Result result;
+  final ThrowIfNoSuccess result;
   final bool show_full;
   final Function callback;
 
@@ -24,7 +24,7 @@ class ConnectErrorPage extends StatelessWidget {
         Lottie.asset('assets/json/servererror.json',
             height: 70.0.w, width: 70.0.w, repeat: true),
         SizedBox(height: 30,),
-        Text(result.error.message,style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),),
+        Text(result.message,style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),),
         Text('Sorry, it is not currently available."',style: FunctionHelper.FontTheme(fontSize: 18,fontWeight: FontWeight.bold),),
         SizedBox(height: 30,),
         FlatButton(

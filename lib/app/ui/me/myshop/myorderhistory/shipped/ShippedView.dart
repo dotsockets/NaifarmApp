@@ -41,7 +41,7 @@ class _ShippedViewState extends State<ShippedView> {
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(
+      Usermanager().getUser().then((value) => bloc.loadOrder(context,
           orderType:
               widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
           statusId: "3",
@@ -103,7 +103,7 @@ class _ShippedViewState extends State<ShippedView> {
                                                 child: Container(
                                                   color: Colors.white
                                                       .withOpacity(0.7),
-                                                  height: 35.0.h,
+                                                  height: 27.0.h,
                                                   child: Center(
                                                     child: Container(
                                                       width: 30.0.w,
@@ -239,7 +239,7 @@ class _ShippedViewState extends State<ShippedView> {
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
-                    "${Env.value.baseUrl}/storage/images/${item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : ''}",
+                    "${Env.value.baseUrl}/storage/images/${item.inventory!=null?item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : '':''}",
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
@@ -267,7 +267,7 @@ class _ShippedViewState extends State<ShippedView> {
             children: [
               SizedBox(height: 3.0.w),
               Container(
-                child: Text(item.inventory.title,
+                child: Text(item.inventory!=null?item.inventory.title:'ไม่พบข้อมูล',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.FontTheme(
@@ -284,10 +284,9 @@ class _ShippedViewState extends State<ShippedView> {
                           color: Colors.black)),
                   Row(
                     children: [
-                      item.inventory.product.discountPercent != 0
+                      item.inventory!=null && item.inventory.product.discountPercent != 0
                           ? Text(
-                            //  "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
-                              "฿${item.inventory.product.discountPercent}",
+                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory!=null?item.inventory.product.discountPercent:0)}",
                               style: FunctionHelper.FontTheme(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: SizeUtil.titleFontSize().sp,
@@ -295,8 +294,7 @@ class _ShippedViewState extends State<ShippedView> {
                           : SizedBox(),
                       SizedBox(width: 3.0.w),
                       Text(
-                          //"฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
-                          "฿${item.inventory.salePrice}",
+                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory!=null?item.inventory.salePrice:999)}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: ThemeColor.ColorSale()))
@@ -371,8 +369,8 @@ class _ShippedViewState extends State<ShippedView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                      flex: 3,
+                  Container(
+                      constraints: BoxConstraints(maxWidth: (50.0.w - 12.0)),
                       child: Text(
                         widget.typeView == OrderViewType.Purchase
                             ? LocaleKeys.order_detail_ship_date.tr() +"\n"+
@@ -383,7 +381,8 @@ class _ShippedViewState extends State<ShippedView> {
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black.withOpacity(0.6)),
                       )),
-                  Expanded(
+                  Container(
+                      constraints: BoxConstraints(maxWidth: (50.0.w - 12.0)),
                       child: _BuildButtonBayItem(
                           btnTxt: widget.typeView == OrderViewType.Purchase
                               ? LocaleKeys.order_detail_contact.tr()
@@ -483,7 +482,7 @@ class _ShippedViewState extends State<ShippedView> {
               context: context, orderData: item);
           if (result) {
             bloc.orderList.clear();
-            Usermanager().getUser().then((value) => bloc.loadOrder(
+            Usermanager().getUser().then((value) => bloc.loadOrder(context,
                 load: true,
                 orderType: widget.typeView == OrderViewType.Shop
                     ? "myshop/orders"
@@ -547,7 +546,7 @@ class _ShippedViewState extends State<ShippedView> {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(
+    Usermanager().getUser().then((value) => bloc.loadOrder(context,
         orderType:
             widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
         sort: "orders.updatedAt:desc",

@@ -41,7 +41,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
   void _init() {
     if (null == bloc) {
       bloc = CartBloc(AppProvider.getApplication(context));
-      bloc.GetShippingsList(shopId: widget.shopId);
+      bloc.GetShippingsList(context,shopId: widget.shopId);
      // bloc.PaymentList.add(widget.paymentRespone);
     }
   }

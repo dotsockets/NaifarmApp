@@ -4,7 +4,6 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
@@ -194,8 +193,8 @@ class AppToobar extends PreferredSize {
               },
             ),
             Container(
-              width: ScreenUtil().setWidth(120),
-              height: ScreenUtil().setWidth(120),
+              width: 20.0.w,
+              height: 20.0.w,
               decoration: BoxDecoration(
                   color: ThemeColor.primaryColor(),
                   borderRadius: BorderRadius.all(Radius.circular(40))),

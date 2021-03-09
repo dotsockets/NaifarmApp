@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:audioplayers/audio_cache.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
@@ -22,6 +21,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -49,6 +49,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CartBloc bloc;
   NotiBloc bloc_noti;
+  List<ProductData> cart_nowId_temp = List<ProductData>();
 //    CartRequest cartReq = CartRequest();
 
 
@@ -57,7 +58,9 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
 
   void _init() {
     if (null == bloc && bloc_noti == null) {
-
+      if(widget.cart_nowId!=null && widget.cart_nowId.isNotEmpty) {
+        cart_nowId_temp.addAll(widget.cart_nowId);
+      }
       bloc = CartBloc(AppProvider.getApplication(context));
       bloc_noti = NotiBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
@@ -69,21 +72,21 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
       });
       bloc.onError.stream.listen((event) {
         FunctionHelper.AlertDialogRetry(context,
-            title: "Error", message: event.error.message,callBack: ()=> _refreshProducts());
+            title: "Error", message: event.message,callBack: ()=> _refreshProducts());
       });
       bloc.CartList.stream.listen((event) {
         if(event is CartResponse){
-
+          print("wefcwecde ${widget.cart_nowId}");
           if(widget.cart_nowId!=null && widget.cart_nowId.isNotEmpty){
 
             for(var value in event.data[0].items){
-              for(var cart_select in widget.cart_nowId){
 
+              for(var cart_select in widget.cart_nowId){
+                print("wefcwecde ${value.inventory.id}  ${cart_select.id}  ${value.select}");
                 if(value.inventory.id==cart_select.id){
+
                   value.select = true;
                  // break;
-
-
                 }
               }
             }
@@ -96,12 +99,24 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
       bloc.onSuccess.stream.listen((event) {
         //  cartReq = event;
         if(event is bool){
-          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
         }
       });
 
+      // NaiFarmLocalStorage.getCartCache().then((value){
+      //    if(value!=null){
+      //
+      //      bloc.CartList.add(CartResponse(data: value.data,total: value.total,selectAll: false));
+      //    }
+      // });
+
       Usermanager().getUser().then((value){
-        bloc.GetCartlists(token: value.token, cartActive: CartActive.CartList);
+        if(cart_nowId_temp!=null && cart_nowId_temp.isNotEmpty){
+
+          widget.cart_nowId.addAll(cart_nowId_temp);
+          cart_nowId_temp = [];
+        };
+        bloc.GetCartlists(context: context,token: value.token, cartActive: CartActive.CartList);
       });
 
 
@@ -151,6 +166,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
               child: StreamBuilder(
                   stream: bloc.CartList.stream,
                   builder: (context, snapshot) {
+
                     if (snapshot.hasData) {
                       var item = (snapshot.data as CartResponse).data;
                       if (item.isNotEmpty) {
@@ -555,6 +571,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                             if(item.items[indexShopItem].inventory.stockQuantity>0){
                               Usermanager().getUser().then((value) =>
                                   bloc.CartDeleteQuantity(
+                                      context,
                                       item: item,
                                       indexShop: indexShop,
                                       indexShopItem: indexShopItem,
@@ -593,6 +610,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
                             if(item.items[indexShopItem].inventory.stockQuantity>0){
                               Usermanager().getUser().then((value) =>
                                   bloc.CartPositiveQuantity(
+                                      context,
                                       item: item,
                                       indexShop: indexShop,
                                       indexShopItem: indexShopItem,

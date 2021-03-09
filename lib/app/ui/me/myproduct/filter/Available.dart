@@ -81,12 +81,12 @@ class _AvailableState extends State<Available> {
           _reloadData();
         });*/
         FunctionHelper.AlertDialogShop(context,
-            title: "Error", message:event.error.message,);
+            title: "Error", message: event.message);
         //FunctionHelper.SnackBarShow(
-        //    scaffoldKey: widget.scaffoldKey, message: event.error.message);
-        // widget.searchTxt.length != 0
-        //     ? _reloadFirstSearch()
-        //     : _reloadFirstPage();
+        //    scaffoldKey: widget.scaffoldKey, message: event.error);
+        widget.searchTxt.length != 0
+            ? _reloadFirstSearch()
+            : _reloadFirstPage();
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -95,9 +95,7 @@ class _AvailableState extends State<Available> {
           Navigator.of(context).pop();
         }
       });
-      widget.searchTxt.length != 0
-          ? _reloadFirstSearch()
-          : _reloadFirstPage();
+      widget.searchTxt.length != 0 ? _reloadFirstSearch() : _reloadFirstPage();
     }
 
     _scrollController.addListener(() {
@@ -302,15 +300,30 @@ class _AvailableState extends State<Available> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              item.offerPrice!=null?Text("${item.salePrice}",style: FunctionHelper.FontTheme(
-                                  color: Colors.grey,
-                                  fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
-                              SizedBox(width: item.offerPrice!=null?1.0.w:0),
-                              Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
-                                overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+                              item.offerPrice != null
+                                  ? Text("${item.salePrice}",
+                                      style: FunctionHelper.FontTheme(
+                                          color: Colors.grey,
+                                          fontSize:
+                                              SizeUtil.priceFontSize().sp - 2,
+                                          decoration:
+                                              TextDecoration.lineThrough))
+                                  : SizedBox(),
+                              SizedBox(
+                                  width: item.offerPrice != null ? 1.0.w : 0),
+                              Text(
+                                item.offerPrice != null
+                                    ? "฿${item.offerPrice}"
+                                    : "฿${item.salePrice}",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: FunctionHelper.FontTheme(
+                                    color: ThemeColor.ColorSale(),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: SizeUtil.priceFontSize().sp),
+                              ),
                             ],
                           ),
-
                           SizedBox(
                             height: 10,
                           ),
@@ -395,7 +408,7 @@ class _AvailableState extends State<Available> {
                       Expanded(
                         flex: 2,
                         child: Text(
-                          item.active == 1||item.active==null
+                          item.active == 1 || item.active == null
                               ? LocaleKeys.my_product_sell.tr()
                               : LocaleKeys.my_product_break.tr(),
                           style: FunctionHelper.FontTheme(
@@ -407,17 +420,19 @@ class _AvailableState extends State<Available> {
                         height: 50,
                         color: Colors.grey.shade300,
                       ),
-                      Expanded(
-                        flex: 1,
+                      Container(
                         child: FlutterSwitch(
-                          height: 9.0.w,
-                          toggleSize: 7.0.w,
+                          height: SizeUtil.switchHeight(),
+                          width: SizeUtil.switchWidth(),
+                          toggleSize: SizeUtil.switchToggleSize(),
                           activeColor: Colors.grey.shade200,
                           inactiveColor: Colors.grey.shade200,
-                          toggleColor: item.active == 1||item.active==null
+                          toggleColor: item.active == 1 || item.active == null
                               ? ThemeColor.primaryColor()
                               : Colors.grey.shade400,
-                          value: item.active == 1 ||item.active==null? true : false,
+                          value: item.active == 1 || item.active == null
+                              ? true
+                              : false,
                           onToggle: (val) {
                             FocusScope.of(context).unfocus();
                             bloc.ProductMyShopRes.value.data[index].active =
@@ -426,7 +441,7 @@ class _AvailableState extends State<Available> {
                                 bloc.ProductMyShopRes.value);
 
                             Usermanager().getUser().then((value) =>
-                                bloc.UpdateProductMyShop(
+                                bloc.UpdateProductMyShop(context,
                                     isActive: IsActive.ReplacemenView,
                                     shopRequest: ProductMyShopRequest(
                                         name: item.name, active: 0),
@@ -448,8 +463,8 @@ class _AvailableState extends State<Available> {
                           child: Container(
                             child: SvgPicture.asset(
                               'assets/images/svg/Edit.svg',
-                              width: 6.0.w,
-                              height: 6.0.w,
+                              width: SizeUtil.mediumIconSize().w,
+                              height: SizeUtil.mediumIconSize().w,
                               color: ThemeColor.ColorSale(),
                             ),
                           ),
@@ -486,8 +501,8 @@ class _AvailableState extends State<Available> {
                         child: InkWell(
                           child: SvgPicture.asset(
                             'assets/images/svg/trash.svg',
-                            width: 6.0.w,
-                            height: 6.0.w,
+                            width: SizeUtil.mediumIconSize().w,
+                            height: SizeUtil.mediumIconSize().w,
                             color: ThemeColor.ColorSale(),
                           ),
                           onTap: () {
@@ -499,7 +514,7 @@ class _AvailableState extends State<Available> {
                                   bloc.ProductMyShopRes.value);
                               //count++;
                               Usermanager().getUser().then((value) =>
-                                  bloc.DELETEProductMyShop(
+                                  bloc.DELETEProductMyShop(context,
                                       ProductId: item.id, token: value.token));
                               Navigator.of(context).pop();
                             }, onCancel: () {
@@ -553,7 +568,7 @@ class _AvailableState extends State<Available> {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.GetProductMyShop(
+    Usermanager().getUser().then((value) => bloc.GetProductMyShop(context,
         page: page.toString(),
         limit: 5,
         token: value.token,
@@ -567,7 +582,7 @@ class _AvailableState extends State<Available> {
   }
 
   _searchData() {
-    Usermanager().getUser().then((value) => bloc.loadSearchMyshop(
+    Usermanager().getUser().then((value) => bloc.loadSearchMyshop(context,
         shopId: widget.shopId,
         page: page.toString(),
         query: widget.searchTxt,

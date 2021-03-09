@@ -49,7 +49,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
      /* bloc.onSuccessDel.stream.listen((event) {
         Usermanager().getUser().then((value) => bloc.GetAttributeDetail(token: value.token,id: widget.idAttr));
       });*/
-      Usermanager().getUser().then((value) => bloc.GetAttributeDetail(token: value.token,id: widget.idAttr));
+      Usermanager().getUser().then((value) => bloc.GetAttributeDetail(context,token: value.token,id: widget.idAttr));
     }
   }
 
@@ -63,7 +63,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
   void didPopNext() {
     Usermanager()
         .getUser()
-        .then((value) => bloc.GetAttributeDetail(token: value.token,id: widget.idAttr));
+        .then((value) => bloc.GetAttributeDetail(context,token: value.token,id: widget.idAttr));
   }
 
   @override
@@ -156,7 +156,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
                                               ],
                                             ),
                                             onTap: () {
-                                              Usermanager().getUser().then((value) => bloc.DELETEAttributeDetail(id: widget.idAttr, token: value.token,vid: item.data[index].id));
+                                              Usermanager().getUser().then((value) => bloc.DELETEAttributeDetail(context,id: widget.idAttr, token: value.token,vid: item.data[index].id));
                                             },
                                           ),
                                         ],

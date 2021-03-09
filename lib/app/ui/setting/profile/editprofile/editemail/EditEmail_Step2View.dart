@@ -163,7 +163,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
 
     if(validator.email(EmailController.text)){
       // AppRoute.EditEmail_Step3(context,EmailController.text,widget.customerInfoRespone);
-      Usermanager().getUser().then((value) => bloc.requestChangEmail(email: EmailController.text,token: value.token));
+      Usermanager().getUser().then((value) => bloc.requestChangEmail(context,email: EmailController.text,token: value.token));
     }else{
       setState(() {
         onError = "Email ไม่ถูกต้อง";

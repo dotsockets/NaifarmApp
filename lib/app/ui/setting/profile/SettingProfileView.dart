@@ -90,7 +90,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
                             AppRoute.SettingAddress(context);
                           },
                         ),
-                        _buildLine(),
+                        //_buildLine(),
                         /* widget.IsLogin?ListMenuItem(
                           icon: '',
                           title: LocaleKeys.setting_account_title_bank.tr(),
@@ -218,10 +218,10 @@ class _SettingProfileViewState extends State<SettingProfileView>
           Usermanager().getUser().then((value) {
             context
                 .read<InfoCustomerBloc>()
-                .loadCustomInfo(token: value.token, oneSignal: false);
+                .loadCustomInfo(context,token: value.token, oneSignal: false);
             context
                 .read<CustomerCountBloc>()
-                .loadCustomerCount(token: value.token);
+                .loadCustomerCount(context,token: value.token);
             Navigator.pop(context, true);
           });
         });

@@ -42,7 +42,7 @@ class _CartBankViewState extends State<CartBankView> {
       if (widget.paymentRespone.data != null) {
         bloc.PaymentList.add(widget.paymentRespone);
       } else {
-        bloc.GetPaymentList();
+        bloc.GetPaymentList(context,);
       }
     }
   }

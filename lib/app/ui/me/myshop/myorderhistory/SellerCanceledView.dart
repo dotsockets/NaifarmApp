@@ -63,7 +63,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
         // Navigator.pop(context,true);
       });
 
-      Usermanager().getUser().then((value) => bloc.GetOrderById(
+      Usermanager().getUser().then((value) => bloc.GetOrderById(context,
           orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order", id: widget.orderData.id, token: value.token));
 
     }
@@ -238,7 +238,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
                   }, onClick: () {
                     Navigator.of(context).pop();
                     Usermanager().getUser().then((value) =>
-                        bloc.MarkPaid(token: value.token, OrderId: orderData.id));
+                        bloc.MarkPaid(context,token: value.token, OrderId: orderData.id));
                   });
             },
             child: Text(

@@ -50,7 +50,7 @@ class _NotiViewState extends State<NotiView>
   NotiBloc bloc;
   final _reload = BehaviorSubject<bool>();
   bool fixload = true;
-
+  bool IsLogin = true;
 
   init() {
 
@@ -66,10 +66,11 @@ class _NotiViewState extends State<NotiView>
       if (value.token != null) {
         NaiFarmLocalStorage.getNowPage().then((data){
           if(data == 2){
+
             //NaiFarmLocalStorage.saveNowPage(0);
             //_reload.add(true);
             Future.delayed(const Duration(milliseconds: 3000), () {
-              bloc.MarkAsReadNotifications(token: value.token,context: context);
+              bloc.MarkAsReadNotifications(context,token: value.token);
             });
            // bloc.MarkAsReadNotifications(token: value.token,context: context);
           }
@@ -82,39 +83,56 @@ class _NotiViewState extends State<NotiView>
 
   @override
   void dispose() {
+    if(_tabController!=null){
+      _tabController.dispose();
+    }
+
     super.dispose();
-    _tabController.dispose();
   }
+
 
   void CustomReCount(){
     Usermanager().getUser().then((value){
-      context.read<CustomerCountBloc>().loadCustomerCount(token: value.token);
+      context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token);
     });
   }
+
+  void ISLogin() async => IsLogin = await Usermanager().isLogin();
+
 
   @override
   Widget build(BuildContext context) {
     init();
-    return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+    return SafeArea(top: false,bottom: widget.btnBack,child: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        if(count is InfoCustomerLoaded){
-        //  CustomReCount();
-          if(count.profileObjectCombine.myShopRespone!=null){
-            return  DefaultTabController(length: 2,child: _content(profileObjectCombine: count.profileObjectCombine));
+        ISLogin();
+        if(IsLogin){
+          if(count is InfoCustomerLoaded){
+            //  CustomReCount();
+            if(count.profileObjectCombine.myShopRespone!=null){
+              return  DefaultTabController(length: 2,child: _content(profileObjectCombine: count.profileObjectCombine));
+
+            }else{
+              //_tabController = TabController(length: 1, vsync: this);
+              return  DefaultTabController(length: 1,child: _content(profileObjectCombine: count.profileObjectCombine));
+            }
 
           }else{
-            //_tabController = TabController(length: 1, vsync: this);
-            return  DefaultTabController(length: 1,child: _content(profileObjectCombine: count.profileObjectCombine));
-          }
+            // NaiFarmLocalStorage.saveNowPage(2);
+            return Center(
+              child:  Platform.isAndroid
+                  ? CircularProgressIndicator()
+                  : CupertinoActivityIndicator(),
+            );
 
+          }
         }else{
-         // NaiFarmLocalStorage.saveNowPage(2);
           return LoginView(
             IsHeader: false,
             homeCallBack: (bool fix) {
               Usermanager().getUser().then((value){
 
-                bloc.MarkAsReadNotifications(token: value.token);
+                bloc.MarkAsReadNotifications(context,token: value.token);
                 //_reload.add(true);
               });
               Navigator.of(context).pop();
@@ -122,88 +140,87 @@ class _NotiViewState extends State<NotiView>
           );
         }
 
+
       },
-    );
+    ));
   }
+
+
 
   Widget _content({ProfileObjectCombine profileObjectCombine}){
     return Container(
       color: ThemeColor.primaryColor(),
-      child: SafeArea(
-        bottom: false,
-        child: Scaffold(
-          key: _scaffoldKey,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(6.5.h),
-            child: AppToobar(
-              showBackBtn: widget.btnBack,
-              header_type: Header_Type.barcartShop,
-              icon: 'assets/images/svg/cart_top.svg',
-              title: LocaleKeys.recommend_notification
-                  .tr(),
-              onClick: (){
-                NaiFarmLocalStorage.saveNowPage(0);
-                Navigator.of(context).pop();
-              },
-            ),
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(6.5.h),
+          child: AppToobar(
+            showBackBtn: widget.btnBack,
+            header_type: Header_Type.barcartShop,
+            icon: 'assets/images/svg/cart_top.svg',
+            title: LocaleKeys.recommend_notification
+                .tr(),
+            onClick: (){
+              NaiFarmLocalStorage.saveNowPage(0);
+              Navigator.of(context).pop();
+            },
           ),
-          backgroundColor: Colors.white,
-          body: Column(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: Colors.white,
-                child: TabBar(
-                  controller: _tabController,
-                  indicator: MD2Indicator(
-                    indicatorSize: MD2IndicatorSize.normal,
-                    indicatorHeight: 0.5.h,
-                    indicatorColor: ThemeColor.ColorSale(),
+        ),
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: Colors.white,
+              child: TabBar(
+                controller: _tabController,
+                indicator: MD2Indicator(
+                  indicatorSize: MD2IndicatorSize.normal,
+                  indicatorHeight: 0.5.h,
+                  indicatorColor: ThemeColor.ColorSale(),
+                ),
+                tabs: profileObjectCombine.myShopRespone!=null?[
+                  // first tab [you can add an icon using the icon property]
+                  Tab(
+                    child: Text(LocaleKeys.noti_buyer.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
                   ),
-                  tabs: profileObjectCombine.myShopRespone!=null?[
-                    // first tab [you can add an icon using the icon property]
-                    Tab(
-                      child: Text(LocaleKeys.noti_buyer.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
-                    ),
 
-                    // second tab [you can add an icon using the icon property]
-                    Tab(
-                      child: Text(LocaleKeys.noti_seller.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
-                    )
-                  ]:[
-                    Tab(
-                      child: Text(LocaleKeys.noti_buyer.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
-                    ),
-                  ],
-                ),
+                  // second tab [you can add an icon using the icon property]
+                  Tab(
+                    child: Text(LocaleKeys.noti_seller.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
+                  )
+                ]:[
+                  Tab(
+                    child: Text(LocaleKeys.noti_buyer.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,),),
+                  ),
+                ],
               ),
-              // tab bar view here
+            ),
+            // tab bar view here
 
-              Expanded(
-                child: Container(
-                    color: Colors.transparent,
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: profileObjectCombine.myShopRespone!=null?[
-                        // first tab bar view widget
-                        NotiCus(
-                          scaffoldKey: _scaffoldKey,
-                        ),
+            Expanded(
+              child: Container(
+                  color: Colors.transparent,
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: profileObjectCombine.myShopRespone!=null?[
+                      // first tab bar view widget
+                      NotiCus(
+                        scaffoldKey: _scaffoldKey,
+                      ),
 
-                        NotiShop(
-                          scaffoldKey: _scaffoldKey,
-                        )
-                      ]:[
-                        NotiCus(
-                          scaffoldKey: _scaffoldKey,
-                        )
-                      ],
-                    )
-                ),
+                      NotiShop(
+                        scaffoldKey: _scaffoldKey,
+                      )
+                    ]:[
+                      NotiCus(
+                        scaffoldKey: _scaffoldKey,
+                      )
+                    ],
+                  )
               ),
-              SizedBox(height: 1.0.h,)
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

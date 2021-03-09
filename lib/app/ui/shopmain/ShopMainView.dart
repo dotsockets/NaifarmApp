@@ -51,10 +51,23 @@ class _ShopMainViewState extends State<ShopMainView>
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.ZipShopObject.add(
           ZipShopObjectCombin(shopRespone: widget.myShopRespone));
-      Usermanager().getUser().then((value) =>
-          bloc.loadShop(shopid: widget.myShopRespone.id, token: value.token));
+
+      NaiFarmLocalStorage.getNaiFarm_ShopCache().then((value){
+        if(value!=null){
+          for(var data in value.item){
+            if(data.shopRespone.id == widget.myShopRespone.id){
+              bloc.ZipShopObject.add(data);
+              break;
+            }
+          }
+
+        }
+        Usermanager().getUser().then((value) =>
+            bloc.loadShop(context,shopid: widget.myShopRespone.id, token: value.token));
+      });
+
       // bloc.onError.stream.listen((event) {
-      //   print("ewfcewrfc ${event.error.message}");
+      //   print("ewfcewrfc ${event.error}");
       // });
     }
   }
@@ -108,7 +121,7 @@ class _ShopMainViewState extends State<ShopMainView>
                 if(snapshot.hasData){
                   return Center(
                     child: ConnectErrorView(result: snapshot.data ,show_full: false,callback: (){
-                      Usermanager().getUser().then((value) => bloc.loadShop(shopid: widget.myShopRespone.id, token: value.token));
+                      Usermanager().getUser().then((value) => bloc.loadShop(context,shopid: widget.myShopRespone.id, token: value.token));
                     }),
                   );
                 }else{

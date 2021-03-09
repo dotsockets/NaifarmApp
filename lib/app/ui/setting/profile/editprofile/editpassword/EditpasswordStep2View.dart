@@ -184,7 +184,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                           ),
                           onPressed: (){
                             if(FormCheck()){
-                              Usermanager().getUser().then((value) => bloc.ModifyPassword(data: ModifyPasswordrequest(password: _input1.text,oldPassword: widget.passwordOld,checkPassword: _input2.text),token: value.token));
+                              Usermanager().getUser().then((value) => bloc.ModifyPassword(context,data: ModifyPasswordrequest(password: _input1.text,oldPassword: widget.passwordOld,checkPassword: _input2.text),token: value.token));
 
                             }
                           },

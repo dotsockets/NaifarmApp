@@ -42,7 +42,7 @@ class _PaidViewState extends State<PaidView>  {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       Usermanager().getUser().then((value) =>
-          bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1",sort: "orders.createdAt:desc", limit: limit, page: 1, token: value.token));
+          bloc.loadOrder(context,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",statusId: "1",sort: "orders.createdAt:desc", limit: limit, page: 1, token: value.token));
     }
     bloc.onLoad.stream.listen((event) {
       if (event) {
@@ -96,7 +96,7 @@ class _PaidViewState extends State<PaidView>  {
                                       Center(
                                         child: Container(
                                           color: Colors.white.withOpacity(0.7),
-                                          height: 35.0.h,
+                                          height: 27.0.h,
                                           child: Center(
                                             child: Container(
                                               width: 30.0.w,
@@ -195,7 +195,7 @@ class _PaidViewState extends State<PaidView>  {
           if(result){
             bloc.orderList.clear();
             Usermanager().getUser().then((value) =>
-                bloc.loadOrder(load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.createdAt:desc",statusId: "1", limit: limit, page: 1, token: value.token));
+                bloc.loadOrder(context,load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.createdAt:desc",statusId: "1", limit: limit, page: 1, token: value.token));
           }
         }},
     );
@@ -262,7 +262,7 @@ class _PaidViewState extends State<PaidView>  {
                           color: Colors.black)),
                   Row(
                     children: [
-                      item.inventory!=null?item.inventory.product.discountPercent != 0
+                      item.inventory!=null && item.inventory.product.discountPercent != 0
                           ? Text(
                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
                               "฿${item.inventory.product.discountPercent}",
@@ -270,7 +270,7 @@ class _PaidViewState extends State<PaidView>  {
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   decoration: TextDecoration.lineThrough))
-                          : SizedBox(): SizedBox(),
+                          : SizedBox(),
                       SizedBox(width: 3.0.w),
                       Text(
                       //item.inventory!=null?"฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}":"-",
@@ -433,7 +433,7 @@ class _PaidViewState extends State<PaidView>  {
             //bloc.onLoad.add(true);
             bloc.orderList.clear();
             Usermanager().getUser().then((value) =>
-                bloc.loadOrder(load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.createdAt:desc",statusId: "1", limit: 20, page: 1, token: value.token));
+                bloc.loadOrder(context,load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.createdAt:desc",statusId: "1", limit: 20, page: 1, token: value.token));
           }
         }else{
           AppRoute.TransferPayMentView(context: context,orderData: item);
@@ -489,7 +489,7 @@ class _PaidViewState extends State<PaidView>  {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.createdAt:desc",statusId: "1",limit: limit,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(context,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.createdAt:desc",statusId: "1",limit: limit,page: page,token: value.token));
   }
 
 

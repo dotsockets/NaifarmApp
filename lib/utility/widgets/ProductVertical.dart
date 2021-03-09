@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -53,7 +52,7 @@ class ProductVertical extends StatelessWidget {
         if (event != null) {
 
             FunctionHelper.AlertDialogShop(context,
-                title: "Error", message: event.error.message);
+                title: "Error", message: event.message);
 
         }
       });
@@ -66,8 +65,8 @@ class ProductVertical extends StatelessWidget {
 
         Usermanager().getUser().then((value) =>
             Product_bloc.AddCartlists(
+                context,
                 addNow: false,
-                context: context,
                 cartRequest: CartRequest(
                   shopId: event.shopId,
                   items: items,
@@ -291,7 +290,7 @@ class ProductVertical extends StatelessWidget {
                   child: Text(LocaleKeys.btn_buy_now.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
                 ),
                 onTap: (){
-                  Product_bloc.GetProductsById(id: item.id);
+                  Product_bloc.GetProductsById(context,id: item.id);
                   },
               )
             ],

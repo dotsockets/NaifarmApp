@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
@@ -46,8 +44,6 @@ class _HomeViewState extends State<HomeView>
   final _selectedIndex = BehaviorSubject<int>();
   bool _isDialogShowing = false;
   NotiBloc bloc;
-  Connectivity _connectivity = Connectivity();
-  StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
   init() {
     if (bloc == null) {
@@ -64,17 +60,17 @@ class _HomeViewState extends State<HomeView>
   @override
   void initState() {
     super.initState();
-    // initConnectivity();
     _menuViewModel = MenuViewModel().getTabBarMenus();
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
 
-    OneSignalCall.OneSignalReceivedHandler();
+    if (Platform.isAndroid || Platform.isIOS || Platform.isFuchsia) {
+      OneSignalCall.OneSignalReceivedHandler(context);
+    }
+
   }
 
   @override
   void dispose() {
-    _connectivitySubscription.cancel();
+   // _connectivitySubscription.cancel();
     super.dispose();
   }
 
@@ -87,7 +83,7 @@ class _HomeViewState extends State<HomeView>
 
   @override
   void didPopNext() {
-    setState(() {});
+   // setState(() {});
   }
 
   @override
@@ -162,7 +158,7 @@ class _HomeViewState extends State<HomeView>
                         selectedIndex: snapshot.data,
                         onTap: (index) {
 
-                           Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+                           Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
                           NaiFarmLocalStorage.saveNowPage(index);
                           if (index == 3) {
                             Usermanager().getUser().then((value) {
@@ -185,49 +181,6 @@ class _HomeViewState extends State<HomeView>
     );
   }
 
-  //
-  // // Platform messages are asynchronous, so we initialize in an async method.
-  // Future<void> initConnectivity() async {
-  //   ConnectivityResult result = ConnectivityResult.none;
-  //   // Platform messages may fail, so we use a try/catch PlatformException.
-  //   try {
-  //     result = await _connectivity.checkConnectivity();
-  //   } on PlatformException catch (e) {
-  //     print(e.toString());
-  //   }
-  //
-  //   // If the widget was removed from the tree while the asynchronous platform
-  //   // message was in flight, we want to discard the reply rather than calling
-  //   // setState to update our non-existent appearance.
-  //   if (!mounted) {
-  //     return Future.value(null);
-  //   }
-  //
-  //   return _updateConnectionStatus(result);
-  // }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-    switch (result) {
-      case ConnectivityResult.mobile:
-      case ConnectivityResult.wifi:
-        if (_isDialogShowing) {
-          _isDialogShowing = false;
-          Navigator.of(context).pop();
-        }
-        break;
-      case ConnectivityResult.none:
-        _isDialogShowing = true;
-        FunctionHelper.AlertDialogShop(context,
-            title: "Error Network",
-            message: "The Internet contract has crashed Please try again...!",
-            showbtn: false,
-            barrierDismissible: false);
-        break;
-      default:
-        print('Failed to get connectivity.');
-        //  setState(() => _connectionStatus = result.toString());
-        // FunctionHelper.AlertDialogShop(context,title: "Error",message: 'Failed to get connectivity.');
-        break;
-    }
-  }
+
 }

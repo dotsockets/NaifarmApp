@@ -59,17 +59,17 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        if (event.error.status > 400) {
+        if (event.status > 400) {
           FunctionHelper.AlertDialogRetry(context,
               title: "Error", message: "The transaction cannot be performed, please contact the seller. ",callBack: (){
                 Usermanager().getUser().then((value){
                   for(var item in bloc.CartList.value.data){
-                    bloc.CreateOrder(orderRequest: bloc.ConvertOrderData(cartData: item,email: value.email),token: value.token);
+                    bloc.CreateOrder(context,orderRequest: bloc.ConvertOrderData(context,cartData: item,email: value.email),token: value.token);
                   }
                 });
               });
         }else{
-          FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
+          FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
         }
        // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
@@ -88,8 +88,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
 
       Usermanager()
           .getUser()
-          .then((value) => bloc.AddressesList(token: value.token,type: true));
-      bloc.GetPaymentList();
+          .then((value) => bloc.AddressesList(context,token: value.token,type: true));
+      bloc.GetPaymentList(context,);
     }
   }
 
@@ -384,7 +384,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         ),
         SizedBox(height: 5),
         FutureBuilder<ShippingRates>(
-          future: bloc.GetShippings(shopId: item.shopId,id: item.shippingRateId,index: index),
+          future: bloc.GetShippings(context,shopId: item.shopId,id: item.shippingRateId,index: index),
           // a Future<String> or null
           builder:
               (BuildContext context, AsyncSnapshot<ShippingRates> snapshot) {
@@ -402,7 +402,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                       child: Text('ร้านนี้ไม่ได้ตั้งค่าการขนส่ง',style: FunctionHelper.FontTheme(  fontSize: SizeUtil.titleSmallFontSize().sp,color: Color(ColorUtils.hexToInt("#84643b"))),),
                     );
                   else
-                   bloc.sumTotalPayment(snapshot: snapshot.data,index: index); //
+                   bloc.sumTotalPayment(context,snapshot: snapshot.data,index: index); //
                   return InkWell(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -757,7 +757,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
 
                          Usermanager().getUser().then((value){
                            for(var item in bloc.CartList.value.data){
-                             bloc.CreateOrder(orderRequest: bloc.ConvertOrderData(cartData: item,email: value.email),token: value.token);
+                             bloc.CreateOrder(context,orderRequest: bloc.ConvertOrderData(context,cartData: item,email: value.email),token: value.token);
                            }
                         });
                          // AppRoute.OrderSuccess(context: context,payment_total: bloc.total_payment.value.toString());

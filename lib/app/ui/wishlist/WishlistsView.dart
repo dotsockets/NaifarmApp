@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
@@ -48,16 +47,18 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
   ProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool islike = true;
+  bool IsLogin = true;
+
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
         Future.delayed(const Duration(milliseconds: 500), () {
           FunctionHelper.AlertDialogRetry(context,
-              title: "Error", message: event.error.message,callBack: ()=> Usermanager().getUser().then((value) =>
-                  bloc.GetMyWishlists(token: value.token)));
+              title: "Error", message: event.message,callBack: ()=> Usermanager().getUser().then((value) =>
+                  bloc.GetMyWishlists(context,token: value.token)));
         });
-       // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
+       // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error);
       });
       // bloc.onLoad.stream.listen((event) {
       //   if (event) {
@@ -68,7 +69,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
       // });
       bloc.onSuccess.stream.listen((event) {
         if(event is bool){
-          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
           // Usermanager().getUser().then((value) =>
           //     bloc.GetMyWishlists(token: value.token));
         }
@@ -87,8 +88,10 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
   @override
   void didPopNext() {
     Usermanager().getUser().then((value) =>
-        bloc.GetMyWishlists(token: value.token));
+        bloc.GetMyWishlists(context,token: value.token));
   }
+
+  void ISLogin() async => IsLogin = await Usermanager().isLogin();
 
 
   @override
@@ -96,9 +99,17 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
     _init();
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        if(count is InfoCustomerLoaded){
-          Usermanager().getUser().then((value) => bloc.GetMyWishlists(token: value.token));
-          return  _content();
+        ISLogin();
+        if(IsLogin){
+          if(count is InfoCustomerLoaded){
+            Usermanager().getUser().then((value) => bloc.GetMyWishlists(context,token: value.token));
+            return  _content();
+          }else{
+            return Center(
+                child:  Platform.isAndroid
+                ? CircularProgressIndicator()
+            : CupertinoActivityIndicator());
+          }
         }else{
           return LoginView(
             IsHeader: true,
@@ -113,6 +124,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
             },
           );
         }
+
 
       },
     );
@@ -293,7 +305,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                   onRated: (v) {},
                   starCount: 5,
                   rating:  item.product.rating!=null&&item.product.rating!=0?item.product.rating.toDouble():0.0,
-                  size: ScreenUtil().setHeight(40),
+                  size: 3.0.w,
                   isReadOnly: true,
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half,
@@ -426,7 +438,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
     bloc.Wishlists.add(bloc.Wishlists.value);
 
     Usermanager().getUser().then((value){
-      bloc.DELETEWishlists(WishId: id, token: value.token);
+      bloc.DELETEWishlists(context,WishId: id, token: value.token);
     });
 
 

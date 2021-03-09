@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
@@ -122,7 +121,6 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                             Text(LocaleKeys.btn_forgot_pass.tr(),style: FunctionHelper.FontTheme(color: Colors.grey.shade500,fontSize: SizeUtil.titleSmallFontSize().sp)),
                             SizedBox(height: 2,),
                             Container(
-                              width: ScreenUtil().setWidth(250),
                               color: Colors.grey.shade500,
                               height: 1,
                             )
@@ -170,7 +168,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
 
     if(PassController.text.length>6){
       FocusScope.of(context).unfocus();
-      Usermanager().getUser().then((value) =>  bloc.VerifyPassword(password: PassController.text,token: value.token));
+      Usermanager().getUser().then((value) =>  bloc.VerifyPassword(context,password: PassController.text,token: value.token));
 
     }else{
       setState(() {

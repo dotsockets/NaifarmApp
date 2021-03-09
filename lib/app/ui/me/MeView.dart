@@ -5,7 +5,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
@@ -48,6 +47,8 @@ class _MeViewState extends State<MeView> with RouteAware {
   StreamController<bool> controller = new StreamController<bool>();
   ScrollController _scrollController = ScrollController();
   final ExpandedBar = BehaviorSubject<bool>();
+  bool IsLogin = true;
+
 
   void _init() {
     if (null == bloc) {
@@ -112,17 +113,29 @@ class _MeViewState extends State<MeView> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context));
   }
 
+  void ISLogin() async => IsLogin = await Usermanager().isLogin();
+
+
   @override
   Widget build(BuildContext context) {
     _init();
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        if (count is InfoCustomerLoaded || count is InfoCustomerLoading) {
-          return Scaffold(
-              key: _scaffoldKey,
-              backgroundColor: Colors.grey.shade300,
-              body: _ContentMe());
-        } else {
+        ISLogin();
+        if(IsLogin){
+          if (count is InfoCustomerLoaded || count is InfoCustomerLoading) {
+            return Scaffold(
+                key: _scaffoldKey,
+                backgroundColor: Colors.grey.shade300,
+                body: _ContentMe());
+          } else {
+            return Center(
+              child:  Platform.isAndroid
+                  ? CircularProgressIndicator()
+                  : CupertinoActivityIndicator(),
+            );
+          }
+        }else{
           return LoginView(
             IsHeader: false,
             homeCallBack: (bool fix) {
@@ -136,6 +149,7 @@ class _MeViewState extends State<MeView> with RouteAware {
             },
           );
         }
+
       },
     );
   }
@@ -285,10 +299,10 @@ class _MeViewState extends State<MeView> with RouteAware {
                           Future.delayed(const Duration(milliseconds: 500), () {
                             Usermanager().getUser().then((value) => context
                                 .read<CustomerCountBloc>()
-                                .loadCustomerCount(token: value.token));
+                                .loadCustomerCount(context,token: value.token));
                             Usermanager().getUser().then((value) => context
                                 .read<InfoCustomerBloc>()
-                                .loadCustomInfo(token: value.token));
+                                .loadCustomInfo(context,token: value.token));
                           });
                           // Usermanager()
                           //     .getUser()

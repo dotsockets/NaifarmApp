@@ -27,10 +27,11 @@ import 'package:sizer/sizer.dart';
 
 class SoldOut extends StatefulWidget {
   final int shopId;
-  final GlobalKey<ScaffoldState>  scaffoldKey;
+  final GlobalKey<ScaffoldState> scaffoldKey;
   final String searchTxt;
 
-  const SoldOut({Key key, this.shopId, this.scaffoldKey,this.searchTxt=""}) : super(key: key);
+  const SoldOut({Key key, this.shopId, this.scaffoldKey, this.searchTxt = ""})
+      : super(key: key);
 
   @override
   _SoldOutState createState() => _SoldOutState();
@@ -46,26 +47,28 @@ class _SoldOutState extends State<SoldOut> {
   int total = 0;
 
   init() {
-    count=0;
+    count = 0;
     _searchText.add(widget.searchTxt);
 
     _searchText.stream.listen((event) {
       NaiFarmLocalStorage.getNowPage().then((value) {
-
-        if (value == 1 && count==0) {
-          widget.searchTxt.length!=0?_reloadFirstSearch():_reloadFirstPage();
+        if (value == 1 && count == 0) {
+          widget.searchTxt.length != 0
+              ? _reloadFirstSearch()
+              : _reloadFirstPage();
 
           count++;
         }
       });
     });
 
-
     if (bloc == null) {
       bloc = ProductBloc(AppProvider.getApplication(context));
 
       bloc.onSuccess.stream.listen((event) {
-        widget.searchTxt.length!=0?_reloadFirstSearch():_reloadFirstPage();
+        widget.searchTxt.length != 0
+            ? _reloadFirstSearch()
+            : _reloadFirstPage();
 
         if (event is bool) {
           // bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
@@ -78,10 +81,11 @@ class _SoldOutState extends State<SoldOut> {
           _reloadData();
         });*/
         FunctionHelper.AlertDialogShop(context,
-            title: "Error", message:event.error.message);
-        //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event.error.message);
-     //   widget.searchTxt.length!=0?_reloadFirstSearch():_reloadFirstPage();
-
+            title: "Error", message: event.message);
+        //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event.error);
+        widget.searchTxt.length != 0
+            ? _reloadFirstSearch()
+            : _reloadFirstPage();
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -90,19 +94,17 @@ class _SoldOutState extends State<SoldOut> {
           Navigator.of(context).pop();
         }
       });
-      widget.searchTxt.length != 0
-          ? _reloadFirstSearch()
-          : _reloadFirstPage();
+      widget.searchTxt.length != 0 ? _reloadFirstSearch() : _reloadFirstPage();
     }
 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
-          _scrollController.position.pixels <=
+              _scrollController.position.pixels <=
           200) {
-        if (step_page&&bloc.productList.length<total) {
+        if (step_page && bloc.productList.length < total) {
           step_page = false;
           page++;
-          widget.searchTxt.length!=0?_searchData():_reloadData();
+          widget.searchTxt.length != 0 ? _searchData() : _reloadData();
         }
       }
     });
@@ -126,11 +128,13 @@ class _SoldOutState extends State<SoldOut> {
               controller: _scrollController,
               child: Column(
                 children: [
-                  SizedBox(height: 0.8.h,),
+                  SizedBox(
+                    height: 0.8.h,
+                  ),
                   Column(
                     children: List.generate(
                       item.data.length,
-                          (index) =>
+                      (index) =>
                           _BuildProduct(item: item.data[index], index: index),
                     ),
                   ),
@@ -142,9 +146,9 @@ class _SoldOutState extends State<SoldOut> {
                         children: [
                           Platform.isAndroid
                               ? SizedBox(
-                              width: 5.0.w,
-                              height: 5.0.w,
-                              child: CircularProgressIndicator())
+                                  width: 5.0.w,
+                                  height: 5.0.w,
+                                  child: CircularProgressIndicator())
                               : CupertinoActivityIndicator(),
                           SizedBox(
                             width: 10,
@@ -182,7 +186,8 @@ class _SoldOutState extends State<SoldOut> {
                     Text(
                       LocaleKeys.search_product_not_found.tr(),
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
@@ -219,7 +224,7 @@ class _SoldOutState extends State<SoldOut> {
                             border: Border.all(
                                 color: Colors.black.withOpacity(0.2), width: 1),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10))),
                         child: Hero(
                           tag: "myproduct_${index}_1",
                           child: ClipRRect(
@@ -294,12 +299,28 @@ class _SoldOutState extends State<SoldOut> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              item.offerPrice!=null?Text("${item.salePrice}",style: FunctionHelper.FontTheme(
-                                  color: Colors.grey,
-                                  fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
-                              SizedBox(width: item.offerPrice!=null?1.0.w:0),
-                              Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
-                                overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
+                              item.offerPrice != null
+                                  ? Text("${item.salePrice}",
+                                      style: FunctionHelper.FontTheme(
+                                          color: Colors.grey,
+                                          fontSize:
+                                              SizeUtil.priceFontSize().sp - 2,
+                                          decoration:
+                                              TextDecoration.lineThrough))
+                                  : SizedBox(),
+                              SizedBox(
+                                  width: item.offerPrice != null ? 1.0.w : 0),
+                              Text(
+                                item.offerPrice != null
+                                    ? "฿${item.offerPrice}"
+                                    : "฿${item.salePrice}",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: FunctionHelper.FontTheme(
+                                    color: ThemeColor.ColorSale(),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: SizeUtil.priceFontSize().sp),
+                              ),
                             ],
                           ),
                           SizedBox(
@@ -309,12 +330,15 @@ class _SoldOutState extends State<SoldOut> {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: Text(item.stockQuantity!=null?
-                                  LocaleKeys.my_product_amount.tr() +
-                                      " ${item.stockQuantity}":LocaleKeys.my_product_amount.tr() +" 0",
+                                  child: Text(
+                                      item.stockQuantity != null
+                                          ? LocaleKeys.my_product_amount.tr() +
+                                              " ${item.stockQuantity}"
+                                          : LocaleKeys.my_product_amount.tr() +
+                                              " 0",
                                       style: FunctionHelper.FontTheme(
                                           fontSize:
-                                          SizeUtil.detailFontSize().sp)),
+                                              SizeUtil.detailFontSize().sp)),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -323,10 +347,10 @@ class _SoldOutState extends State<SoldOut> {
                                   child: Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      "${LocaleKeys.my_product_sold.tr()} ${item.saleCount!=null?item.saleCount.toString():"0"} ${LocaleKeys.cart_piece.tr()}",
+                                      "${LocaleKeys.my_product_sold.tr()} ${item.saleCount != null ? item.saleCount.toString() : "0"} ${LocaleKeys.cart_piece.tr()}",
                                       style: FunctionHelper.FontTheme(
                                           fontSize:
-                                          SizeUtil.detailFontSize().sp),
+                                              SizeUtil.detailFontSize().sp),
                                     ),
                                   ),
                                 )
@@ -339,14 +363,15 @@ class _SoldOutState extends State<SoldOut> {
                           Container(
                             child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Text(
-                                        LocaleKeys.my_product_like.tr() + " ${item.likeCount!=null?item.likeCount.toString():"0"}",
+                                        LocaleKeys.my_product_like.tr() +
+                                            " ${item.likeCount != null ? item.likeCount.toString() : "0"}",
                                         style: FunctionHelper.FontTheme(
                                             fontSize:
-                                            SizeUtil.detailFontSize().sp)),
+                                                SizeUtil.detailFontSize().sp)),
                                   ),
                                   SizedBox(
                                     width: 10,
@@ -355,11 +380,11 @@ class _SoldOutState extends State<SoldOut> {
                                       child: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            LocaleKeys.my_product_option.tr() + " ${LocaleKeys.my_product_empty.tr()}",
+                                            "ตัวเลือกสินค้า" + " ไม่มี",
                                             style: FunctionHelper.FontTheme(
                                                 fontSize:
-                                                SizeUtil.detailFontSize()
-                                                    .sp),
+                                                    SizeUtil.detailFontSize()
+                                                        .sp),
                                           )))
                                 ]),
                           ),
@@ -382,7 +407,7 @@ class _SoldOutState extends State<SoldOut> {
                       Expanded(
                         flex: 2,
                         child: Text(
-                          item.active == 1||item.active==null
+                          item.active == 1 || item.active == null
                               ? LocaleKeys.my_product_sell.tr()
                               : LocaleKeys.my_product_break.tr(),
                           style: FunctionHelper.FontTheme(
@@ -394,26 +419,32 @@ class _SoldOutState extends State<SoldOut> {
                         height: 50,
                         color: Colors.grey.shade300,
                       ),
-                      Expanded(
-                        flex: 1,
+                      Container(
                         child: FlutterSwitch(
-                          height: 9.0.w,
-                          toggleSize: 7.0.w,
+                          height: SizeUtil.switchHeight(),
+                          width: SizeUtil.switchWidth(),
+                          toggleSize: SizeUtil.switchToggleSize(),
                           activeColor: Colors.grey.shade200,
                           inactiveColor: Colors.grey.shade200,
-                          toggleColor: item.active == 1||item.active==null
+                          toggleColor: item.active == 1 || item.active == null
                               ? ThemeColor.primaryColor()
                               : Colors.grey.shade400,
-                          value: item.active == 1 ||item.active==null? true : false,
+                          value: item.active == 1 || item.active == null
+                              ? true
+                              : false,
                           onToggle: (val) {
                             FocusScope.of(context).unfocus();
-                            bloc.ProductMyShopRes.value.data[index].active = val? 1:0;
-                            bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
+                            bloc.ProductMyShopRes.value.data[index].active =
+                                val ? 1 : 0;
+                            bloc.ProductMyShopRes.add(
+                                bloc.ProductMyShopRes.value);
 
                             Usermanager().getUser().then((value) =>
                                 bloc.UpdateProductMyShop(
+                                    context,
                                     isActive: IsActive.ReplacemenView,
-                                    shopRequest: ProductMyShopRequest(name: item.name, active: 0),
+                                    shopRequest: ProductMyShopRequest(
+                                        name: item.name, active: 0),
                                     token: value.token,
                                     productId: item.id));
                           },
@@ -432,8 +463,8 @@ class _SoldOutState extends State<SoldOut> {
                           child: Container(
                             child: SvgPicture.asset(
                               'assets/images/svg/Edit.svg',
-                              width: 6.0.w,
-                              height: 6.0.w,
+                              width: SizeUtil.mediumIconSize().w,
+                              height: SizeUtil.mediumIconSize().w,
                               color: ThemeColor.ColorSale(),
                             ),
                           ),
@@ -446,14 +477,16 @@ class _SoldOutState extends State<SoldOut> {
                                 active: item.active);
                             var onSelectItem = List<OnSelectItem>();
                             for (var value in item.image) {
-                              onSelectItem.add(OnSelectItem(onEdit: false, url: value.path));
+                              onSelectItem.add(
+                                  OnSelectItem(onEdit: false, url: value.path));
                             }
-                            var result = await AppRoute.EditProduct(context, item.id, widget.shopId,
+                            var result = await AppRoute.EditProduct(
+                                context, item.id, widget.shopId,
                                 uploadProductStorage: UploadProductStorage(
                                     productMyShopRequest: product,
                                     onSelectItem: onSelectItem),
                                 indexTab: 0);
-                            if (result!=null && result) {
+                            if (result != null && result) {
                               _reloadFirstPage();
                             }
                           },
@@ -468,25 +501,25 @@ class _SoldOutState extends State<SoldOut> {
                         child: InkWell(
                           child: SvgPicture.asset(
                             'assets/images/svg/trash.svg',
-                            width: 6.0.w,
-                            height: 6.0.w,
+                            width: SizeUtil.mediumIconSize().w,
+                            height: SizeUtil.mediumIconSize().w,
                             color: ThemeColor.ColorSale(),
                           ),
                           onTap: () {
                             FunctionHelper.ConfirmDialog(context,
                                 message: LocaleKeys.dialog_message_del_product
                                     .tr(), onClick: () {
-                                  bloc.ProductMyShopRes.value.data.removeAt(index);
-                                  bloc.ProductMyShopRes.add(
-                                      bloc.ProductMyShopRes.value);
-                                  //count++;
-                                  Usermanager().getUser().then((value) =>
-                                      bloc.DELETEProductMyShop(
-                                          ProductId: item.id, token: value.token));
-                                  Navigator.of(context).pop();
-                                }, onCancel: () {
-                                  Navigator.of(context).pop();
-                                });
+                              bloc.ProductMyShopRes.value.data.removeAt(index);
+                              bloc.ProductMyShopRes.add(
+                                  bloc.ProductMyShopRes.value);
+                              //count++;
+                              Usermanager().getUser().then((value) =>
+                                  bloc.DELETEProductMyShop(context,
+                                      ProductId: item.id, token: value.token));
+                              Navigator.of(context).pop();
+                            }, onCancel: () {
+                              Navigator.of(context).pop();
+                            });
                           },
                         ),
                       ),
@@ -518,16 +551,16 @@ class _SoldOutState extends State<SoldOut> {
                     mainAxisSize: MainAxisSize.min,
                     children: List.generate(
                         message.length,
-                            (index) => Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Text(
-                            message[index],
-                            style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp,
-                                fontWeight: FontWeight.w500),
-                            textAlign: TextAlign.center,
-                          ),
-                        )))),
+                        (index) => Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: Text(
+                                message[index],
+                                style: FunctionHelper.FontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
+                              ),
+                            )))),
           ),
         );
       },
@@ -535,21 +568,21 @@ class _SoldOutState extends State<SoldOut> {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.GetProductMyShop(
+    Usermanager().getUser().then((value) => bloc.GetProductMyShop(context,
         page: page.toString(),
         limit: 5,
         token: value.token,
         filter: "sold_out"));
   }
 
-  _reloadFirstPage(){
+  _reloadFirstPage() {
     bloc.productList.clear();
     page = 1;
     _reloadData();
   }
 
   _searchData() {
-    Usermanager().getUser().then((value) => bloc.loadSearchMyshop(
+    Usermanager().getUser().then((value) => bloc.loadSearchMyshop(context,
         shopId: widget.shopId,
         page: page.toString(),
         query: widget.searchTxt,
@@ -558,7 +591,7 @@ class _SoldOutState extends State<SoldOut> {
         token: value.token));
   }
 
-  _reloadFirstSearch(){
+  _reloadFirstSearch() {
     page = 1;
     _searchData();
   }

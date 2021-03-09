@@ -315,7 +315,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
 
       if (pickedFile != null) {
         fileImage = File(pickedFile.path);
-        Usermanager().getUser().then((value) => bloc.UploadImage(context: context,imageFile: fileImage,imageableType: "order",imageableId: widget.orderData.id,token: value.token));
+        Usermanager().getUser().then((value) => bloc.UploadImage(context,imageFile: fileImage,imageableType: "order",imageableId: widget.orderData.id,token: value.token));
       } else {
         print('No image selected.');
       }

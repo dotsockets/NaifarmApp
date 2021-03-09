@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -146,16 +145,16 @@ class _ProductDetailViewState extends State<ProductDetailView>
       bloc.onError.stream.listen((event) {
         checkScrollControl.add(true);
         if (event != null) {
-          if (event.error.status == 406) {
+          if (event.status == 406) {
             FunctionHelper.AlertDialogShop(context,
-                title: "Error", message: event.error.message);
-          }else if(event.error.status == 0 || event.error.status >= 500){
+                title: "Error", message: event.message);
+          }else if(event.status == 0 || event.status >= 500){
             Future.delayed(const Duration(milliseconds: 500), () {
               FunctionHelper.AlertDialogRetry(context,
-                  title: "Error", message: event.error.message,callBack: ()=> _refreshProducts());
+                  title: "Error", message: event.message,callBack: ()=> _refreshProducts());
             });
 
-          }else if(event.error.status == 404){
+          }else if(event.status == 404){
             Future.delayed(const Duration(milliseconds: 500), () {
               FunctionHelper.AlertDialogRetry(context,
                   title: "Error", message: "No information found for this restaurant. Or the shop has closed ",callBack: ()=> _refreshProducts());
@@ -163,7 +162,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
           }else {
             FunctionHelper.SnackBarShow(
-                scaffoldKey: _scaffoldKey, message: event.error.message);
+                scaffoldKey: _scaffoldKey, message: event.message);
           }
         }
       });
@@ -191,9 +190,23 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
       });
 
-      Usermanager().getUser().then((value) {
-        bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
+      NaiFarmLocalStorage.getProductDetailCache().then((value){
+        if(value!=null){
+          for(var data in value.item){
+            if(data.productObjectCombine.producItemRespone.id == widget.productItem.id){
+              bloc.ZipProductDetail.add(data.productObjectCombine);
+              bloc.SearchProduct.add(data.searchRespone);
+              break;
+            }
+          }
+        }
+
+        Usermanager().getUser().then((value) {
+          bloc.loadProductsPage(context,id: widget.productItem.id, token: value.token);
+        });
       });
+
+
     }
 
     NaiFarmLocalStorage.getCustomer_Info().then((value){
@@ -205,6 +218,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
       }
 
     });
+
+
 
   }
 
@@ -580,8 +595,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                     inventoryId: bloc.ZipProductDetail.value.producItemRespone
                                         .inventories[0].id,
                                     quantity: 1));
-                                Usermanager().getUser().then((value) => bloc.AddCartlists(
-                                    context: context,
+                                Usermanager().getUser().then((value) => bloc.AddCartlists(context,
                                     cartRequest: CartRequest(
                                       shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
                                       items: items,
@@ -603,8 +617,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                     inventoryId: bloc.ZipProductDetail.value.producItemRespone
                                         .inventories[0].id,
                                     quantity: 1));
-                                Usermanager().getUser().then((value) => bloc.AddCartlists(addNow: true,
-                                    context: context,
+                                Usermanager().getUser().then((value) => bloc.AddCartlists(context,addNow: true,
                                     cartRequest: CartRequest(
                                       shopId: widget.productItem.shop!=null? widget.productItem.shop.id:0,
                                       items: items,
@@ -652,7 +665,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
       // Vibration.vibrate(duration: 500);
     }
     Usermanager().getUser().then((value) {
-      bloc.loadProductsPage(id: widget.productItem.id, token: value.token);
+      bloc.loadProductsPage(context,id: widget.productItem.id, token: value.token);
     });
   }
 
@@ -666,9 +679,9 @@ class _ProductDetailViewState extends State<ProductDetailView>
         item.total = 0;
         bloc.Wishlists.add(item);
         Usermanager().getUser().then((value) =>
-            bloc.DELETEWishlists(WishId: id, token: value.token));
+            bloc.DELETEWishlists(context,WishId: id, token: value.token));
       } else {
-        Usermanager().getUser().then((value) => bloc.AddWishlists(
+        Usermanager().getUser().then((value) => bloc.AddWishlists(context,
             productId: widget.productItem.id,
             inventoryId: bloc.ZipProductDetail.value.producItemRespone
                 .inventories[0].id,

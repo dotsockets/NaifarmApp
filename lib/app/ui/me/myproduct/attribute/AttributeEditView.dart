@@ -113,7 +113,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
           onPressed: ()  {
             if(check){
               FocusScope.of(context).unfocus();
-             widget.nameAttr.length==0? Usermanager().getUser().then((value) => bloc.AddAttributeMyShop(name: nameAttrController.text,token: value.token)): Usermanager().getUser().then((value) => bloc.UpdateAttribute(id: widget.idAttr,token: value.token,name:nameAttrController.text));
+             widget.nameAttr.length==0? Usermanager().getUser().then((value) => bloc.AddAttributeMyShop(context,name: nameAttrController.text,token: value.token)): Usermanager().getUser().then((value) => bloc.UpdateAttribute(context,id: widget.idAttr,token: value.token,name:nameAttrController.text));
             }
           },
           child: Text(

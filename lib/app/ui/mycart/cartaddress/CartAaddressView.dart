@@ -49,7 +49,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
       });
 
       bloc.onSuccess.stream.listen((event) {
@@ -59,7 +59,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
 
       Usermanager()
           .getUser()
-          .then((value) => bloc.AddressesList(token: value.token));
+          .then((value) => bloc.AddressesList(context,token: value.token));
 
     }
   }
@@ -260,7 +260,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                 onUpdate = true;
                 Usermanager()
                     .getUser()
-                    .then((value) => bloc.AddressesList(token: value.token));
+                    .then((value) => bloc.AddressesList(context,token: value.token));
 
               }
             },
@@ -285,7 +285,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
             ),
             onTap: () {
               onUpdate = true;
-              Usermanager().getUser().then((value) => bloc.DeleteAddress(id: item.id.toString(),token: value.token));
+              Usermanager().getUser().then((value) => bloc.DeleteAddress(context,id: item.id.toString(),token: value.token));
             },
           )
 
@@ -324,7 +324,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
           onUpdate = true;
           Usermanager()
               .getUser()
-              .then((value) => bloc.AddressesList(token: value.token));
+              .then((value) => bloc.AddressesList(context,token: value.token));
         }
       },
       onTap: (){
@@ -343,7 +343,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
         //print("ewdfcesr ${widget.install_select!=null}")
 
          if(widget.install_select==null || widget.install_select.id!=item.id){
-          Usermanager().getUser().then((value) =>     bloc.UpdateAddress(data: AddressCreaterequest(countryId: 1,id: item.id,cityId: item.cityId,phone: item.phone,addressLine1: item.addressLine1,
+          Usermanager().getUser().then((value) =>     bloc.UpdateAddress(context,data: AddressCreaterequest(countryId: 1,id: item.id,cityId: item.cityId,phone: item.phone,addressLine1: item.addressLine1,
               addressLine2: "",addressTitle: item.addressTitle,stateId: item.stateId,zipCode: item.zipCode,addressType: "Primary"),token: value.token));
         }
 
@@ -373,7 +373,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
               onUpdate = true;
               Usermanager()
                   .getUser()
-                  .then((value) => bloc.AddressesList(token: value.token));
+                  .then((value) => bloc.AddressesList(context,token: value.token));
             }
           },
           child: Text(

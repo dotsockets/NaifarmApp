@@ -50,8 +50,8 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
         //   Navigator.of(context).pop();
         // }
       });
-      bloc.GetProductCategoryGroupId(GroupId: widget.index);
-      bloc.loadMoreData(limit: 10,page: "1",link: "products/types/popular?categorySubGroupId=${widget.index}");
+      bloc.GetProductCategoryGroupId(context,GroupId: widget.index);
+      bloc.loadMoreData(context,limit: 10,page: "1",link: "products/types/popular?categorySubGroupId=${widget.index}");
     }
 
   }

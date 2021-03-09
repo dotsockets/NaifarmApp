@@ -28,7 +28,7 @@ class _HomeHeaderState extends State<HomeHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 0, right: 0.3.w,bottom: 1.0.h),
+      padding: EdgeInsets.only(left: 0, right: 0.3.w,bottom: 1.0.h,top: 0.5.h),
 
       decoration: new BoxDecoration(
 

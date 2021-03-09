@@ -36,7 +36,7 @@ class _PolicyViewState extends State<PolicyView> {
           Navigator.of(context).pop();
         }
       });
-      bloc.getInfoRules(slug: "privacy-policy");
+      bloc.getInfoRules(context,slug: "privacy-policy");
     }
   }
 

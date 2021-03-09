@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 
-class AssetImage {
+class AssetImages {
   /// The resource identifier
   String _identifier;
 
@@ -18,7 +18,7 @@ class AssetImage {
   /// Original image height
   int _originalHeight;
 
-  AssetImage(
+  AssetImages(
       this._identifier,
       this._name,
       this._originalWidth,
@@ -166,7 +166,7 @@ class AssetImage {
     return metadata;
   }
 
-  AssetImage.fromJson(Map<String, dynamic> json) {
+  AssetImages.fromJson(Map<String, dynamic> json) {
 
     _identifier = json['_identifier'];
     _name = json['_name'];

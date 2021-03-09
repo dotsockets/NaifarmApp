@@ -133,7 +133,7 @@ class ShopOwn extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            rateStyle==false?Text("${shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating:'0'}",
+                            rateStyle==false?Text("${shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating:'0 '}",
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.priceFontSize().sp,
                                     color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)):SizedBox(),

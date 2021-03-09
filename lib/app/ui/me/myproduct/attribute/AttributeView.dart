@@ -47,7 +47,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
       /*bloc.onSuccessDel.stream.listen((event) {
         Usermanager().getUser().then((value) => bloc.GetAttributeMyShop(token: value.token));
       });*/
-      Usermanager().getUser().then((value) => bloc.GetAttributeMyShop(token: value.token));
+      Usermanager().getUser().then((value) => bloc.GetAttributeMyShop(context,token: value.token));
     }
   }
 
@@ -61,7 +61,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
   void didPopNext() {
     Usermanager()
         .getUser()
-        .then((value) => bloc.GetAttributeMyShop(token: value.token));
+        .then((value) => bloc.GetAttributeMyShop(context,token: value.token));
   }
 
   @override
@@ -153,7 +153,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                                   onTap: () {
                                                     //bloc.attributeMyShop.value.data.removeAt(index);
                                                     //bloc.attributeMyShop.add(bloc.attributeMyShop.value);
-                                                    Usermanager().getUser().then((value) => bloc.DELETEAttributeMyShop(id: item.data[index].id, token: value.token));
+                                                    Usermanager().getUser().then((value) => bloc.DELETEAttributeMyShop(context,id: item.data[index].id, token: value.token));
                                                     },
                                                 ),
                                               ],

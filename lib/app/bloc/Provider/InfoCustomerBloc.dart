@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
@@ -18,16 +19,16 @@ class InfoCustomerBloc extends Cubit<InfoCustomerState> {
   InfoCustomerBloc(this._application) : super(InfoCustomerInitial());
 
 
-   loadCustomInfo({String token,bool oneSignal=false}) async{
+   loadCustomInfo(BuildContext context,{String token,bool oneSignal=false}) async{
 
      NaiFarmLocalStorage.getCustomer_Info().then((value){
        emit(InfoCustomerLoading(value));
      });
 
     Observable.combineLatest3(
-        Observable.fromFuture(_application.appStoreAPIRepository.getCustomerInfo(token: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository.getMyShopInfo(access_token: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository.GetShippingMyShop(token: token)),(a, b,c){
+        Observable.fromFuture(_application.appStoreAPIRepository.getCustomerInfo(context,token: token)),
+        Observable.fromFuture(_application.appStoreAPIRepository.getMyShopInfo(context,access_token: token)),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetShippingMyShop(context,token: token)),(a, b,c){
       final _customInfo = (a as ApiResult).respone;
       final _myshopInfo  =(b as ApiResult).respone;
       final _shipping  =(c as ApiResult).respone;
@@ -44,7 +45,7 @@ class InfoCustomerBloc extends Cubit<InfoCustomerState> {
           emit(InfoCustomerLoaded((respone.respone as ProfileObjectCombine)));
         });
       }else{
-        emit(InfoCustomerError(respone.http_call_back.result.error.message));
+        emit(InfoCustomerError(respone.http_call_back.message));
       }
     });
   }

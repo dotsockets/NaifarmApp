@@ -43,19 +43,18 @@ class ThrowIfNoSuccess {
 }
 
 class Result {
-  Error error;
-
+ // Error error;
+  String error;
   Result({this.error});
 
   Result.fromJson(Map<String, dynamic> json) {
-    error = json['error'] != null ? new Error.fromJson(json['error']) : null;
+   // error = json['error'] != null ? new Error.fromJson(json['error']) : null;
+    error = json['error'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.error != null) {
-      data['error'] = this.error.toJson();
-    }
+    data['error'] = this.error;
     return data;
   }
 }
@@ -70,14 +69,14 @@ class Error {
   Error.fromJson(Map<String, dynamic> json) {
     response = json['response'];
     status = json['status'];
-    message = json['message'];
+    message = json['error'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['response'] = this.response;
     data['status'] = this.status;
-    data['message'] = this.message;
+    data['error'] = this.message;
     return data;
   }
 }

@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -49,7 +48,6 @@ class BuildChoosesize extends StatelessWidget {
 
   Widget _buildBtnAddProduct1({String title,bool isEnable=true,int index}){
     return Container(
-      width: ScreenUtil().setWidth(295),
       margin: EdgeInsets.only(right: 15,bottom: 10,top: 5),
       child: FlatButton(
         color: IndexType1==index?ThemeColor.primaryColor():isEnable?Colors.grey.shade300:Colors.grey.shade200,
@@ -72,7 +70,6 @@ class BuildChoosesize extends StatelessWidget {
 
   Widget _buildBtnAddProduct2({String title,bool isEnable=true,int index}){
     return Container(
-      width: ScreenUtil().setWidth(295),
       margin: EdgeInsets.only(right: 15,bottom: 10,top: 5),
       child: FlatButton(
         color: IndexType2==index?ThemeColor.primaryColor():isEnable?Colors.grey.shade300:Colors.grey.shade200,

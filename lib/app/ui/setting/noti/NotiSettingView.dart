@@ -47,20 +47,20 @@ class _NotiSettingViewState extends State<NotiSettingView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               // _buildTitleTxt(title: LocaleKeys.setting_noti_title_notification.tr()),
-               // SizedBox(height: 1.0.h,),
-               /* _BuildSwitch(
+                // _buildTitleTxt(title: LocaleKeys.setting_noti_title_notification.tr()),
+                // SizedBox(height: 1.0.h,),
+                /* _BuildSwitch(
                     title: LocaleKeys.setting_noti_title_notification.tr(),
                     index: 0,
                     onClick: () =>
                         setState(() => isSelectNoti = isSelectNoti ? false : true)),*/
-               // SizedBox(height: 1.0.h,),
+                // SizedBox(height: 1.0.h,),
                 _BuildSwitch(
                     title: LocaleKeys.setting_noti_title_update.tr(),
                     index: 1,
-                    onClick: () =>
-                        setState(() => isSelectUpdate = isSelectUpdate ? false : true)),
-               /* _BuildSwitch(
+                    onClick: () => setState(
+                        () => isSelectUpdate = isSelectUpdate ? false : true)),
+                /* _BuildSwitch(
                     title: LocaleKeys.setting_noti_title_privacy.tr(),
                     index: 2,
                     onClick: () =>
@@ -68,8 +68,8 @@ class _NotiSettingViewState extends State<NotiSettingView> {
                 _BuildSwitch(
                     title: LocaleKeys.setting_noti_title_sound.tr(),
                     index: 3,
-                    onClick: () =>
-                        setState(() => isSelectSound = isSelectSound ? false : true)),
+                    onClick: () => setState(
+                        () => isSelectSound = isSelectSound ? false : true)),
               ],
             ),
           ),
@@ -82,25 +82,44 @@ class _NotiSettingViewState extends State<NotiSettingView> {
     return Container(
       color: Colors.white,
       child: Container(
-        margin: EdgeInsets.only(top: 1.0.h, left: 3.0.w, bottom: 1.0.h, right: 3.0.w),
+        margin: EdgeInsets.only(
+            top: 1.0.h, left: 3.0.w, bottom: 1.0.h, right: 3.0.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               title,
-              style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
+              style: FunctionHelper.FontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp),
             ),
             FlutterSwitch(
-              width: 15.5.w,
-              height: 4.3.h,
-              toggleSize: 3.5.h,
+              height: SizeUtil.switchHeight(),
+              width: SizeUtil.switchWidth(),
+              toggleSize: SizeUtil.switchToggleSize(),
               activeColor: Colors.grey.shade200,
               inactiveColor: Colors.grey.shade200,
-              toggleColor: index == 0 ? isSelectNoti ? ThemeColor.primaryColor() : Colors.black.withOpacity(0.3) :
-              index == 1 ? isSelectUpdate ? ThemeColor.primaryColor() : Colors.black.withOpacity(0.3):
-              index == 2 ? isSelectPrivate ? ThemeColor.primaryColor() : Colors.black.withOpacity(0.3):
-              isSelectSound ? ThemeColor.primaryColor() : Colors.black.withOpacity(0.3),
-              value: index == 0 ? isSelectNoti :index == 1 ? isSelectUpdate:index == 2 ? isSelectPrivate: isSelectSound,
+              toggleColor: index == 0
+                  ? isSelectNoti
+                      ? ThemeColor.primaryColor()
+                      : Colors.black.withOpacity(0.3)
+                  : index == 1
+                      ? isSelectUpdate
+                          ? ThemeColor.primaryColor()
+                          : Colors.black.withOpacity(0.3)
+                      : index == 2
+                          ? isSelectPrivate
+                              ? ThemeColor.primaryColor()
+                              : Colors.black.withOpacity(0.3)
+                          : isSelectSound
+                              ? ThemeColor.primaryColor()
+                              : Colors.black.withOpacity(0.3),
+              value: index == 0
+                  ? isSelectNoti
+                  : index == 1
+                      ? isSelectUpdate
+                      : index == 2
+                          ? isSelectPrivate
+                          : isSelectSound,
               onToggle: (val) => onClick(),
             )
           ],
@@ -114,7 +133,8 @@ class _NotiSettingViewState extends State<NotiSettingView> {
         margin: EdgeInsets.only(left: 3.0.w),
         child: Text(
           title,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+          style: FunctionHelper.FontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp),
         ));
   }
 }

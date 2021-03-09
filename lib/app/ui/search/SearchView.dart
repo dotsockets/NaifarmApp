@@ -38,8 +38,8 @@ class _SearchViewState extends State<SearchView> {
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.loadMoreData(page: "1",limit:  6,link: "products/types/random");
-      bloc.loadProductSearch(page: "1", query: SearchText, limit: showMore?6:4);
+      bloc.loadMoreData(context,page: "1",limit:  6,link: "products/types/random");
+      bloc.loadProductSearch(context,page: "1", query: SearchText, limit: showMore?6:4);
     }
   }
 
@@ -195,7 +195,7 @@ class _SearchViewState extends State<SearchView> {
                       // });
                       if(bloc.SearchProduct.value.hits.length>0){
                         showMore = !showMore;
-                        bloc.loadProductSearch(
+                        bloc.loadProductSearch(context,
                             page: "1", query: SearchText, limit:  showMore?6:4);
                       }
 
@@ -253,6 +253,6 @@ class _SearchViewState extends State<SearchView> {
     //   }
     // }
     SearchText = text;
-    bloc.loadProductSearch(page: "1", query: SearchText, limit:  showMore?6:4);
+    bloc.loadProductSearch(context,page: "1", query: SearchText, limit:  showMore?6:4);
   }
 }

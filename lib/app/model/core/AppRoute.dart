@@ -125,8 +125,8 @@ class AppRoute{
   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MarketView()));
   }
 
-  static  FlashSaleAll(BuildContext context){
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FlashSaleView()));
+  static  FlashSaleAll(BuildContext context,{FlashsaleRespone flashsaleRespone}){
+    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: FlashSaleView(flashsaleRespone: flashsaleRespone,)));
   }
 
   static  MyCart(BuildContext context,bool btnBack,{List<ProductData> cart_nowId}){
@@ -442,7 +442,7 @@ class AppRoute{
     Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:WishlistsView()));
   }
 
-  static ConnectError({BuildContext context,Result result,bool show_full,Function callback}){
+  static ConnectError({BuildContext context,ThrowIfNoSuccess result,bool show_full,Function callback}){
     Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:ConnectErrorView(result: result,show_full: show_full,callback: callback,)));
   }
 

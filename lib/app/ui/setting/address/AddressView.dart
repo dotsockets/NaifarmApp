@@ -41,7 +41,7 @@ class _AddressViewState extends State<AddressView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error.message);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
       });
 
       bloc.onSuccess.stream.listen((event) {
@@ -51,7 +51,7 @@ class _AddressViewState extends State<AddressView> {
 
       Usermanager()
           .getUser()
-          .then((value) => bloc.AddressesList(token: value.token));
+          .then((value) => bloc.AddressesList(context,token: value.token));
 
     }
   }
@@ -60,7 +60,7 @@ class _AddressViewState extends State<AddressView> {
   Widget build(BuildContext context) {
     _init();
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         check_call_back();
         return true;
       },
@@ -77,11 +77,11 @@ class _AddressViewState extends State<AddressView> {
                     header_type: Header_Type.barNormal,
                     icon: "",
                     isEnable_Search: false,
-                    onClick: ()=>check_call_back(),
+                    onClick: () => check_call_back(),
                   ),
                 ),
                 body: Container(
-
+                  padding: SizeUtil.detailProfilePadding(),
                   child: StreamBuilder(
                       stream: bloc.AddressList.stream,
                       builder: (context, snapshot) {
@@ -96,14 +96,19 @@ class _AddressViewState extends State<AddressView> {
                                       children: item.data
                                           .asMap()
                                           .map((index, value) {
-                                        return MapEntry(index,
-                                            Column(
-                                              children: [
-                                                _BuildCard(item: value, index: index),
-                                                SizedBox(height: 1.0.h,)
-                                              ],
-                                            ));
-                                      })
+                                            return MapEntry(
+                                                index,
+                                                Column(
+                                                  children: [
+                                                    _BuildCard(
+                                                        item: value,
+                                                        index: index),
+                                                    SizedBox(
+                                                      height: 1.0.h,
+                                                    )
+                                                  ],
+                                                ));
+                                          })
                                           .values
                                           .toList(),
                                     ),
@@ -115,23 +120,30 @@ class _AddressViewState extends State<AddressView> {
                                 ),
                               ),
                             );
-                          }else{
+                          } else {
                             return Container(
                               color: Colors.white,
                               child: Column(
                                 children: [
-                                  Expanded(child: Center(
+                                  Expanded(
+                                      child: Center(
                                     child: Container(
                                       margin: EdgeInsets.only(bottom: 15.0.h),
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
-                                          Lottie.asset('assets/json/boxorder.json',
-                                              height: 70.0.w, width: 70.0.w, repeat: false),
+                                          Lottie.asset(
+                                              'assets/json/boxorder.json',
+                                              height: 70.0.w,
+                                              width: 70.0.w,
+                                              repeat: false),
                                           Text(
-                                            LocaleKeys.search_product_not_found.tr(),
+                                            LocaleKeys.search_product_not_found
+                                                .tr(),
                                             style: FunctionHelper.FontTheme(
-                                                fontSize: SizeUtil.titleFontSize().sp,
+                                                fontSize:
+                                                    SizeUtil.titleFontSize().sp,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           SizedBox(height: 3.0.h),
@@ -144,7 +156,6 @@ class _AddressViewState extends State<AddressView> {
                               ),
                             );
                           }
-
                         } else {
                           return SizedBox();
                         }
@@ -165,7 +176,10 @@ class _AddressViewState extends State<AddressView> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             SizedBox(width: 3.0.w,height: 3.0.w,),
+              SizedBox(
+                width: 3.0.w,
+                height: 3.0.w,
+              ),
               Expanded(
                 flex: 8,
                 child: Container(
@@ -193,12 +207,13 @@ class _AddressViewState extends State<AddressView> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  item.addressType=="Primary"
+                                  item.addressType == "Primary"
                                       ? Text(LocaleKeys.address_default.tr(),
-                                      style: FunctionHelper.FontTheme(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: SizeUtil.titleFontSize().sp,
-                                          color: ThemeColor.ColorSale()))
+                                          style: FunctionHelper.FontTheme(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize:
+                                                  SizeUtil.titleFontSize().sp,
+                                              color: ThemeColor.ColorSale()))
                                       : SizedBox(),
                                   SizedBox(
                                     width: 5,
@@ -231,7 +246,7 @@ class _AddressViewState extends State<AddressView> {
                             color: Colors.grey,
                             height: 1.5),
                       ),
-                   /*   Text(
+                      /*   Text(
                         item.zipCode,
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -251,9 +266,7 @@ class _AddressViewState extends State<AddressView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Lottie.asset('assets/json/edit.json',
-                    height: 5.0.h,
-                    width: 5.0.h,
-                    repeat: true),
+                    height: 5.0.h, width: 5.0.h, repeat: true),
                 Text(
                   LocaleKeys.cart_edit.tr(),
                   style: FunctionHelper.FontTheme(
@@ -269,7 +282,7 @@ class _AddressViewState extends State<AddressView> {
                 onUpdate = true;
                 Usermanager()
                     .getUser()
-                    .then((value) => bloc.AddressesList(token: value.token));
+                    .then((value) => bloc.AddressesList(context,token: value.token));
 
               }
             },
@@ -280,9 +293,7 @@ class _AddressViewState extends State<AddressView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Lottie.asset('assets/json/delete.json',
-                    height: 4.0.h,
-                    width: 4.0.h,
-                    repeat: true),
+                    height: 4.0.h, width: 4.0.h, repeat: true),
                 Text(
                   LocaleKeys.cart_del.tr(),
                   style: FunctionHelper.FontTheme(
@@ -294,10 +305,9 @@ class _AddressViewState extends State<AddressView> {
             ),
             onTap: () {
               onUpdate = true;
-              Usermanager().getUser().then((value) => bloc.DeleteAddress(id: item.id.toString(),token: value.token));
+              Usermanager().getUser().then((value) => bloc.DeleteAddress(context,id: item.id.toString(),token: value.token));
             },
           )
-
         ],
       ),
       // Dismissible(
@@ -328,13 +338,13 @@ class _AddressViewState extends State<AddressView> {
       //   },
       // ),
 
-      onTap: ()async{
+      onTap: () async {
         var result = await AppRoute.AddressEdit(context, item);
         if (result != null) {
           onUpdate = true;
           Usermanager()
               .getUser()
-              .then((value) => bloc.AddressesList(token: value.token));
+              .then((value) => bloc.AddressesList(context,token: value.token));
 
         }
       },
@@ -359,7 +369,7 @@ class _AddressViewState extends State<AddressView> {
               onUpdate = true;
               Usermanager()
                   .getUser()
-                  .then((value) => bloc.AddressesList(token: value.token));
+                  .then((value) => bloc.AddressesList(context,token: value.token));
             }
           },
           child: Text(
@@ -373,22 +383,30 @@ class _AddressViewState extends State<AddressView> {
     );
   }
 
+  void check_call_back() {
+    if (bloc.AddressList.value.data != null) {
+      List<AddressesData> returnData = List<AddressesData>();
 
-  void check_call_back(){
-    if(bloc.AddressList.value.data!=null){
-      List<AddressesData>  returnData = List<AddressesData>();
-
-      for(var item in bloc.AddressList.value.data){
-        if(item.addressType=="Primary"){
-          returnData.add(AddressesData(id: item.id,addressLine1: item.addressLine1,addressLine2: item.addressLine2,addressTitle: item.addressTitle,addressType: "Primary",
-              cityId: 1,phone: item.phone,select: true,stateId: item.stateId,zipCode: item.zipCode));
+      for (var item in bloc.AddressList.value.data) {
+        if (item.addressType == "Primary") {
+          returnData.add(AddressesData(
+              id: item.id,
+              addressLine1: item.addressLine1,
+              addressLine2: item.addressLine2,
+              addressTitle: item.addressTitle,
+              addressType: "Primary",
+              cityId: 1,
+              phone: item.phone,
+              select: true,
+              stateId: item.stateId,
+              zipCode: item.zipCode));
           break;
         }
       }
-      Navigator.pop(context, AddressesListRespone(data: returnData,total: returnData.length));
-    }else{
+      Navigator.pop(context,
+          AddressesListRespone(data: returnData, total: returnData.length));
+    } else {
       Navigator.pop(context, AddressesListRespone());
     }
-
   }
 }

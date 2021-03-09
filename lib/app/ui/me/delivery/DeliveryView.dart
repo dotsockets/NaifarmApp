@@ -36,7 +36,7 @@ class _DeliveryViewState extends State<DeliveryView> {
 
       });
       bloc.ZipShppingOject.stream.listen((event) {
-        Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(token:value.token));
+        Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(context,token:value.token));
       });
       Usermanager().getUser().then((value) => bloc.loadShppingPage(token: value.token));
     }

@@ -30,7 +30,7 @@ class NotiBloc{
 
 
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.GetNotificationByGroup(group: group,limit: limit,page: page,sort: sort ,token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.GetNotificationByGroup(context,group: group,limit: limit,page: page,sort: sort ,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
        // onSuccess.add((respone.respone as NotiRespone));
         var item = (respone.respone as NotiRespone);
@@ -40,7 +40,7 @@ class NotiBloc{
         }
 
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.message);
       }
     });
     _compositeSubscription.add(subscription);
@@ -51,8 +51,8 @@ class NotiBloc{
 
 
     StreamSubscription subscription = Observable.combineLatest2(
-        Observable.fromFuture(_application.appStoreAPIRepository.GetNotificationByGroup(group: "customer",limit: limit,page: page,sort: sort ,token: token))
-        ,Observable.fromFuture(_application.appStoreAPIRepository.GetNotificationByGroup(group: "shop",limit: limit,page: page,sort: sort ,token: token)),
+        Observable.fromFuture(_application.appStoreAPIRepository.GetNotificationByGroup(context,group: "customer",limit: limit,page: page,sort: sort ,token: token))
+        ,Observable.fromFuture(_application.appStoreAPIRepository.GetNotificationByGroup(context,group: "shop",limit: limit,page: page,sort: sort ,token: token)),
             (a,b){
           final _cusNoti = (a as ApiResult).respone;
           final _shopNoti  =(b as ApiResult).respone;
@@ -61,7 +61,7 @@ class NotiBloc{
           return NotificationCombine(CusNotiRespone: _cusNoti,ShopNotiRespone: _shopNoti);
 
         }).listen((event) {
-      MarkAsReadNotifications(context: context,token: token);
+      MarkAsReadNotifications(context,token: token);
       onSuccess.add(event);
 
     });
@@ -71,27 +71,27 @@ class NotiBloc{
   }
 
 
-  MarkAsReadNotifications({String token,BuildContext context}) async{
+  MarkAsReadNotifications(BuildContext context,{String token}) async{
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.MarkAsReadNotifications(token: token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.MarkAsReadNotifications(context,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
        onSuccess.add(respone.respone);
 
       }else{
-        onError.add(respone.http_call_back.result.error.message);
+        onError.add(respone.http_call_back.message);
       }
     });
     _compositeSubscription.add(subscription);
 
   }
 
-  refreshProducts({int page,int limit ,String group}){
+  refreshProducts(BuildContext context,{int page,int limit ,String group}){
 
     Usermanager().getUser().then((value) {
       if (value.token != null) {
         NaiFarmLocalStorage.getNowPage().then((data){
           if(data==2){
-            GetNotification(group: group,page: page,limit: limit,sort: "notification.createdAt:desc",token: value.token);
+            GetNotification(context: context,group: group,page: page,limit: limit,sort: "notification.createdAt:desc",token: value.token);
           }
 
         });
