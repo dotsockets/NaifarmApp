@@ -1,8 +1,5 @@
 <component name="libraryTable">
   <library name="Flutter Plugins" type="FlutterPluginsLibraryType">
-<<<<<<< HEAD
-    <CLASSES />
-=======
     <CLASSES>
       <root url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-0.0.5" />
       <root url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/import_js_library-1.0.2" />
@@ -36,7 +33,6 @@
       <root url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/get_version-0.2.2" />
       <root url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-0.0.2+3" />
     </CLASSES>
->>>>>>> 709f3c07d89af8a4354dd536f65f24e673975b25
     <JAVADOC />
     <SOURCES />
   </library>
