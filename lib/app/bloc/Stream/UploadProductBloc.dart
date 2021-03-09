@@ -189,8 +189,10 @@ class UploadProductBloc {
 
   UpdateProductMyShop(BuildContext context,
       {ProductMyShopRequest shopRequest, int productId, String token,IsActive isActive}) {
+    if(isActive != IsActive.NewProduct){
+      onLoad.add(true);
+    }
 
-    onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.UpdateProductMyShop(context,
                 shopRequest: shopRequest, productId: productId, token: token))

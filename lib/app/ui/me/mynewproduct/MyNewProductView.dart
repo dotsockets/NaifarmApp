@@ -87,6 +87,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
           NaiFarmLocalStorage.DeleteCacheByItem(
                   key: NaiFarmLocalStorage.NaiFarm_Product_Upload)
               .then((value) {
+
             AppRoute.MyProduct(context, widget.shopId,
                 pushEvent: true,
                 countPage: 1,

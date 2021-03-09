@@ -67,6 +67,7 @@ class ProductVertical extends StatelessWidget {
             Product_bloc.AddCartlists(
                 context,
                 addNow: false,
+                onload: false,
                 cartRequest: CartRequest(
                   shopId: event.shopId,
                   items: items,
