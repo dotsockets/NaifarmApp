@@ -123,7 +123,7 @@ class ProductItemCard extends StatelessWidget {
           SizedBox(height: 1.0.h),
           Container(
             height:
-                SizeUtil.productNameHeight(SizeUtil.titleSmallFontSize().sp),
+                SizeUtil.productNameHeight(SizeUtil.titleFontSize().sp),
             child: Text(
               " " + item.name + " ",
               textAlign: TextAlign.center,
@@ -132,7 +132,7 @@ class ProductItemCard extends StatelessWidget {
               style: FunctionHelper.FontTheme(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
-                  fontSize: SizeUtil.titleSmallFontSize().sp),
+                  fontSize: SizeUtil.titleFontSize().sp),
             ),
           ),
           SizedBox(

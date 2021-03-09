@@ -145,8 +145,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             Padding(
               padding: const EdgeInsets.only(right: 15, left: 15),
               child: FlatButton(
-                minWidth: MediaQuery.of(context).size.width,
-                height: 7.0.h,
+                minWidth: 80.0.w,
+                height: 6.0.h,
                 color: _phone.text.isNotEmpty
                     ? ThemeColor.secondaryColor()
                     : Colors.grey.shade300,
@@ -218,6 +218,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   }
 
   void _validate() {
-    bloc.OTPRequest(context,numberphone: _phone.text);
+    if(_phone.text.isNotEmpty){
+      bloc.OTPRequest(context,numberphone: _phone.text);
+    }
+
   }
 }

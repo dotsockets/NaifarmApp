@@ -34,7 +34,7 @@ class _RegisterViewState extends State<RegisterView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   MemberBloc bloc;
-  bool checkError = true;
+  bool checkError = false;
   String errorTxt = "";
 
   @override

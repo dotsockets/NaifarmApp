@@ -210,11 +210,23 @@ class _ShippedViewState extends State<ShippedView> {
           ],
         ),
       ),
-      onTap: () {
+      onTap: () async {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
         if (item.items[0].inventory != null) {
-          AppRoute.OrderDetail(context,
+          final result = await AppRoute.OrderDetail(context,
               orderData: item, typeView: widget.typeView);
+          if(result){
+            bloc.orderList.clear();
+            Usermanager().getUser().then((value) => bloc.loadOrder(context,
+                load: true,
+                orderType:
+                widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+                statusId: "3",
+                sort: "orders.updatedAt:desc",
+                limit: limit,
+                page: 1,
+                token: value.token));
+          }
         }
       },
     );

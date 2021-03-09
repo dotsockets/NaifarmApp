@@ -82,7 +82,7 @@ class ProductInto extends StatelessWidget {
               data.name.toString(),
               textAlign: TextAlign.left,
               style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
+                  fontSize: (SizeUtil.titleFontSize()+2).sp, fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 10),
         Row(

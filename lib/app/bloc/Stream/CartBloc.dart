@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
@@ -51,7 +52,7 @@ class CartBloc {
     _compositeSubscription.clear();
   }
 
-  GetCartlists({BuildContext context,String token, CartActive cartActive}) {
+  GetCartlists({BuildContext context,String token, CartActive cartActive,List<ProductData> cart_nowId}) {
     if (cartActive == CartActive.CartList) onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.GetCartlists(context,token: token))
@@ -63,6 +64,24 @@ class CartBloc {
 
         if (cartActive == CartActive.CartList || cartActive == CartActive.CartDelete) onLoad.add(false);
         var item = (respone.respone as CartResponse);
+
+
+        if(cart_nowId!=null && cart_nowId.isNotEmpty){
+
+          for(var value in item.data[0].items){
+
+            for(var cart_select in cart_nowId){
+            //  print("wefcwecde ${value.inventory.id}  ${cart_select.id}  ${value.select}");
+              if(value.inventory.id==cart_select.id){
+
+                value.select = true;
+                // break;
+              }
+            }
+          }
+
+        }
+
         CartList.add(CartResponse(data: item.data,total: item.total,selectAll: false));
       } else {
         onLoad.add(false);

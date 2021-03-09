@@ -436,7 +436,13 @@ class _PaidViewState extends State<PaidView>  {
                 bloc.loadOrder(context,load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.createdAt:desc",statusId: "1", limit: 20, page: 1, token: value.token));
           }
         }else{
-          AppRoute.TransferPayMentView(context: context,orderData: item);
+        final result = await  AppRoute.TransferPayMentView(context: context,orderData: item);
+            if(result){
+              bloc.orderList.clear();
+              Usermanager().getUser().then((value) =>
+                  bloc.loadOrder(context,load: true,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.createdAt:desc",statusId: "1", limit: 20, page: 1, token: value.token));
+
+            }
         }
 
       },

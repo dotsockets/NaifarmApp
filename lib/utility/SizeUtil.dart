@@ -16,19 +16,19 @@ class SizeUtil {
   }
 
   static double titleFontSize() {
-    return Device.get().isPhone ? 10.5 : 7;
+    return Device.get().isPhone ? 9.5 : 7;
   }
 
   static double titleSmallFontSize() {
-    return Device.get().isPhone ? 9.5 : 6;
+    return Device.get().isPhone ? 9.0 : 6;
   }
 
   static double detailFontSize() {
-    return Device.get().isPhone ? 9 : 5;
+    return Device.get().isPhone ? 8 : 5;
   }
 
   static double detailSmallFontSize() {
-    return Device.get().isPhone ? 9 : 5;
+    return Device.get().isPhone ? 7 : 5;
   }
 
   static double shopIconSize() {

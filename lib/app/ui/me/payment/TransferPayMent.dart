@@ -77,7 +77,8 @@ class _TransferPayMentState extends State<TransferPayMent> {
             header_type: Header_Type.barNormal,
             isEnable_Search: false,
             icon: '',onClick: (){
-            AppRoute.PoppageCount(context: context,countpage: 1);
+            Navigator.pop(context,false);
+            //AppRoute.PoppageCount(context: context,countpage: 1);
           },
           ),
           body: Container(

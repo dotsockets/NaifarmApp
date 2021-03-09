@@ -112,21 +112,21 @@ Widget _buildCountDown(){
     return CountdownTimer(
       endTime: FunctionHelper.flashSaleTime(flashTime: widget.flashTime),
       widgetBuilder: (_, CurrentRemainingTime remaining) {
-        final showTime = (String text) => ClipRRect(
-          borderRadius: BorderRadius.circular(9.0),
-          child: Container(
-            color: Colors.black,
-            padding: EdgeInsets.only(
-                left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(horizontal: 3),
-            child: Text(
-              text,
-              style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+        final showTime = (String text) => Container(
+          decoration: new BoxDecoration(
+              color: Colors.black,
+              borderRadius: new BorderRadius.all(Radius.circular(1.5.w))
+          ),
+          padding: EdgeInsets.only(
+              left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
+          alignment: Alignment.center,
+          margin: EdgeInsets.symmetric(horizontal: 3),
+          child: Text(
+            text,
+            style: FunctionHelper.FontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
         );

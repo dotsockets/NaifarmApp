@@ -801,8 +801,12 @@ class _OrderViewState extends State<OrderView> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40.0),
             ),
-            onPressed: () {
-              AppRoute.ShippingOrder(context: context,orderData: orderData);
+            onPressed: () async {
+              //AppRoute.ShippingOrder(context: context,orderData: orderData);
+              final result = await AppRoute.AddtTrackingNumber(context: context, orderData: orderData);
+              if(result){
+                Navigator.pop(context,true);
+              }
             },
             child: Text(
               LocaleKeys.order_detail_ship.tr(),

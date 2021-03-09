@@ -495,9 +495,9 @@ class AppRoute{
 
   }
 
-  static TransferPayMentView({BuildContext context,OrderData orderData}){
+  static Future<bool>  TransferPayMentView({BuildContext context,OrderData orderData}) async {
 
-    Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:TransferPayMent(orderData: orderData,)));
+    return  await  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child:TransferPayMent(orderData: orderData,)));
 
   }
 

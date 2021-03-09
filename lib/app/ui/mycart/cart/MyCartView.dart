@@ -76,23 +76,7 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
       });
       bloc.CartList.stream.listen((event) {
         if(event is CartResponse){
-          print("wefcwecde ${widget.cart_nowId}");
-          if(widget.cart_nowId!=null && widget.cart_nowId.isNotEmpty){
-
-            for(var value in event.data[0].items){
-
-              for(var cart_select in widget.cart_nowId){
-                print("wefcwecde ${value.inventory.id}  ${cart_select.id}  ${value.select}");
-                if(value.inventory.id==cart_select.id){
-
-                  value.select = true;
-                 // break;
-                }
-              }
-            }
-            widget.cart_nowId = [];
-            bloc.CartList.add(bloc.CartList.value);
-          }
+         widget.cart_nowId = [];
 
         }
       });
@@ -103,20 +87,16 @@ class _MyCartViewState extends State<MyCartView>  with RouteAware{
         }
       });
 
-      // NaiFarmLocalStorage.getCartCache().then((value){
-      //    if(value!=null){
-      //
-      //      bloc.CartList.add(CartResponse(data: value.data,total: value.total,selectAll: false));
-      //    }
-      // });
+      NaiFarmLocalStorage.getCartCache().then((value){
+         if(value!=null){
+
+           bloc.CartList.add(CartResponse(data: value.data,total: value.total,selectAll: false));
+         }
+      });
 
       Usermanager().getUser().then((value){
-        if(cart_nowId_temp!=null && cart_nowId_temp.isNotEmpty){
-
-          widget.cart_nowId.addAll(cart_nowId_temp);
-          cart_nowId_temp = [];
-        };
-        bloc.GetCartlists(context: context,token: value.token, cartActive: CartActive.CartList);
+      //  widget.cart_nowId= [];
+        bloc.GetCartlists(context: context,token: value.token, cartActive: CartActive.CartList,cart_nowId: widget.cart_nowId);
       });
 
 

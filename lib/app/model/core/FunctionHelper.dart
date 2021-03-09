@@ -470,8 +470,11 @@ class FunctionHelper {
       barrierDismissible: barrierDismissible,
         context: context,
         builder: (BuildContext context) =>  Platform.isIOS?CupertinoAlertDialog(
-            title: Text(title,
-              style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
+            title: Container(
+              padding: EdgeInsets.only(bottom: 0.5.h),
+              child: Text(title,
+                style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
+              ),
             ) ,
             content: Text(message,
               style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
@@ -508,8 +511,11 @@ class FunctionHelper {
       barrierDismissible: false,
         context: context,
         builder: (BuildContext context) =>  Platform.isIOS?CupertinoAlertDialog(
-            title: Text(title,
-              style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
+            title: Container(
+              padding: EdgeInsets.only(bottom: 0.5.h),
+              child: Text(title,
+                style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
+              ),
             ) ,
             content: Text(message,
               style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
@@ -577,7 +583,7 @@ class FunctionHelper {
     int difTimeSc = timeData.difference(currentTime).inSeconds;
 
     if(difTimeSc>86400){
-      difTimeSc = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+1, 03, 06,40).millisecondsSinceEpoch;
+      difTimeSc = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+1, 03, 06,41).millisecondsSinceEpoch;
     }
     // DateTime.now().millisecondsSinceEpoch + 1000 * 30
     return difTimeSc;
