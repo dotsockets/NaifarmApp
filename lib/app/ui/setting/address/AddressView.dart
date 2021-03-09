@@ -86,8 +86,8 @@ class _AddressViewState extends State<AddressView> {
                       stream: bloc.AddressList.stream,
                       builder: (context, snapshot) {
                         var item = (snapshot.data as AddressesListRespone);
-                        if (snapshot.hasData && item.data != null) {
-                          if (item.data.isNotEmpty) {
+                        if (snapshot.hasData && item.data!=null) {
+                          if(item.data.isNotEmpty){
                             return SingleChildScrollView(
                               child: Container(
                                 child: Column(
