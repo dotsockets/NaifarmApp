@@ -138,7 +138,7 @@ class _PaidViewState extends State<PaidView>  {
                             SizedBox(
                               width: 10,
                             ),
-                            Text("Loading",
+                            Text(LocaleKeys.dialog_message_loading.tr(),
                                 style: FunctionHelper.FontTheme(
                                     color: Colors.grey,
                                     fontSize: SizeUtil.priceFontSize().sp))

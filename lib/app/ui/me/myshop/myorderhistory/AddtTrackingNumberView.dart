@@ -45,7 +45,7 @@ class AddtTrackingNumberView extends StatelessWidget {
       bloc.onSuccess.stream.listen((event) {
         if(event is bool){
           onDialog = true;
-          FunctionHelper.SuccessDialog(context,message: "Successfully confirmed information",onClick: (){
+          FunctionHelper.SuccessDialog(context,message: LocaleKeys.dialog_message_success_track.tr(),onClick: (){
             if(onDialog){
               Navigator.pop(context,true);
             }
@@ -69,7 +69,7 @@ class AddtTrackingNumberView extends StatelessWidget {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: "Add a tracking number",
+              title: LocaleKeys.history_track.tr(),
               header_type: Header_Type.barcartShop,
               isEnable_Search: false,
               icon: '',
@@ -93,7 +93,7 @@ class AddtTrackingNumberView extends StatelessWidget {
                           builder: (BuildContext context,AsyncSnapshot snapshot){
                            if(snapshot.hasData){
                              return BuildEditText(EnableMaxLength: false,maxLength: 5000,BorderOpacity: 0.3,
-                               hint: "Add a tracking number ",maxLine: 1,controller: trackController,onError: snapshot.data,inputType: TextInputType.text,onChanged: (String char){
+                               hint: LocaleKeys.history_track.tr(),maxLine: 1,controller: trackController,onError: snapshot.data,inputType: TextInputType.text,onChanged: (String char){
                                  if(char.isNotEmpty){
                                    trackOnError.add("");
                                  }
@@ -105,10 +105,10 @@ class AddtTrackingNumberView extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 4.0.w,right: 4.0.w,top: 3.0.w),
+                        padding: EdgeInsets.only(left: 4.0.w,right: 4.0.w,top: 3.0.h),
                         color: Colors.white,
                         child: Text(
-                          "กรุณากรอกหมายเลขติดตามพัสดุเพื่อให้สามารถดำเนินการต่อไปนี้ได้โดยตรง",
+                          LocaleKeys.history_track_fill.tr(),
                           style: FunctionHelper.FontTheme(
                               color: Colors.grey.shade700,
                               fontWeight: FontWeight.normal,
@@ -127,7 +127,7 @@ class AddtTrackingNumberView extends StatelessWidget {
                             ),width: 2.5.w,height: 2.5.w,),
                             SizedBox(width: 2.5.w,),
                             Expanded(child: Text(
-                              "ผู้ใช้สามารถตรวจสอบสถานะการขนส่งของพัสดุผ่าน Naifarm ได้โดยตรง",
+                              LocaleKeys.history_track_msg.tr(),
                               style: FunctionHelper.FontTheme(
                                   color: Colors.grey.shade700,
                                   fontWeight: FontWeight.normal,
@@ -167,7 +167,7 @@ class AddtTrackingNumberView extends StatelessWidget {
             onPressed: () {
               if( trackController.text.isNotEmpty){
                 FunctionHelper.ConfirmDialog(context,
-                    message: "Confirm that filling in the parcel number is correct ",
+                    message: LocaleKeys.dialog_message_confirm_track.tr(),
                     onCancel: () {
                       Navigator.of(context).pop();
                     }, onClick: () {
@@ -176,7 +176,7 @@ class AddtTrackingNumberView extends StatelessWidget {
                           bloc.AddTracking(context,token: value.token, OrderId: orderData.id,trackingId: trackController.text));
                     });
               }else{
-                trackOnError.add("Please fill in the correct parcel number. ");
+                trackOnError.add(LocaleKeys.history_track_no.tr());
               }
              
             },

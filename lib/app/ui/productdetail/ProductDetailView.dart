@@ -147,17 +147,17 @@ class _ProductDetailViewState extends State<ProductDetailView>
         if (event != null) {
           if (event.status == 406) {
             FunctionHelper.AlertDialogShop(context,
-                title: "Error", message: event.message);
+                title: LocaleKeys.btn_error.tr(), message: event.message);
           }else if(event.status == 0 || event.status >= 500){
             Future.delayed(const Duration(milliseconds: 500), () {
               FunctionHelper.AlertDialogRetry(context,
-                  title: "Error", message: event.message,callBack: ()=> _refreshProducts());
+                  title: LocaleKeys.btn_error.tr(), message: event.message,callBack: ()=> _refreshProducts());
             });
 
           }else if(event.status == 404){
             Future.delayed(const Duration(milliseconds: 500), () {
               FunctionHelper.AlertDialogRetry(context,
-                  title: "Error", message: "No information found for this restaurant. Or the shop has closed ",callBack: ()=> _refreshProducts());
+                  title: LocaleKeys.btn_error.tr(), message: "No information found for this restaurant. Or the shop has closed ",callBack: ()=> _refreshProducts());
             });
 
           }else {

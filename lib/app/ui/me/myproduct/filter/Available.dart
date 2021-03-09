@@ -81,7 +81,7 @@ class _AvailableState extends State<Available> {
           _reloadData();
         });*/
         FunctionHelper.AlertDialogShop(context,
-            title: "Error", message: event.message);
+            title: LocaleKeys.btn_error.tr(), message: event.message);
         //FunctionHelper.SnackBarShow(
         //    scaffoldKey: widget.scaffoldKey, message: event.error);
         widget.searchTxt.length != 0
@@ -154,7 +154,7 @@ class _AvailableState extends State<Available> {
                           SizedBox(
                             width: 10,
                           ),
-                          Text("Loading",
+                          Text(LocaleKeys.dialog_message_loading.tr(),
                               style: FunctionHelper.FontTheme(
                                   color: Colors.grey,
                                   fontSize: SizeUtil.priceFontSize().sp))

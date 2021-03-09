@@ -46,12 +46,12 @@ class _TransferPayMentState extends State<TransferPayMent> {
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         FunctionHelper.AlertDialogShop(context,
-            title: "Error", message: event);
+            title: LocaleKeys.btn_error.tr(), message: event);
       //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
-        FunctionHelper.SuccessDialog(context,message: "Successfully uploaded",onClick: (){
+        FunctionHelper.SuccessDialog(context,message: LocaleKeys.dialog_message_success_slip.tr(),onClick: (){
           if(onDialog){
             Navigator.pop(context,true);
           }
@@ -73,7 +73,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
-            title: "Payment information",
+            title: LocaleKeys.order_detail_payment_info.tr(),
             header_type: Header_Type.barNormal,
             isEnable_Search: false,
             icon: '',onClick: (){
@@ -235,7 +235,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 captureImage(ImageSource.gallery);
               },
               child: Text(
-                widget.orderData.image.length==0?"${LocaleKeys.payment_method_slip.tr()}":"${LocaleKeys.payment_method_update_slip.tr()}",
+                widget.orderData.image.length==0?"${LocaleKeys.payment_method_upload_slip.tr()}":"${LocaleKeys.payment_method_update_slip.tr()}",
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500),

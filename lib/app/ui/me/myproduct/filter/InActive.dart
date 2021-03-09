@@ -81,7 +81,7 @@ class _InActiveState extends State<InActive> {
           _reloadData();
         });*/
         FunctionHelper.AlertDialogShop(context,
-            title: "Error", message: event.message);
+            title: LocaleKeys.btn_error.tr(), message: event.message);
         //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event.error);
         widget.searchTxt.length != 0
             ? _reloadFirstSearch()
@@ -153,7 +153,7 @@ class _InActiveState extends State<InActive> {
                           SizedBox(
                             width: 10,
                           ),
-                          Text("Loading",
+                          Text(LocaleKeys.dialog_message_loading.tr(),
                               style: FunctionHelper.FontTheme(
                                   color: Colors.grey,
                                   fontSize: SizeUtil.priceFontSize().sp))
@@ -380,7 +380,7 @@ class _InActiveState extends State<InActive> {
                                       child: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            "ตัวเลือกสินค้า" + " ไม่มี",
+                                            LocaleKeys.my_product_option.tr() + " ${LocaleKeys.my_product_empty.tr()}",
                                             style: FunctionHelper.FontTheme(
                                                 fontSize:
                                                     SizeUtil.detailFontSize()

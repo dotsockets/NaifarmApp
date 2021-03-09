@@ -397,7 +397,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                 ),
               ),
               SizedBox(height: 2.0.h),
-              Text(info != null ? info.name : "กำลังโหลด",
+              Text(info != null ? info.name : LocaleKeys.dialog_message_loading.tr(),
                   style: FunctionHelper.FontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,

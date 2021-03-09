@@ -248,7 +248,7 @@ class _EditProductViewState extends State<EditProductView> {
                                         height: 20,
                                       ),
                                       BuildEditText(
-                                        head: "ราคาโปรโมชั่น" +
+                                        head: LocaleKeys.cart_promotion.tr() +
                                             " * (" +
                                             LocaleKeys.my_product_baht.tr() +
                                             ")",

@@ -106,7 +106,7 @@ class _OrderViewState extends State<OrderView> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: LocaleKeys.order_detail_title.tr(),
+              title: widget.typeView == OrderViewType.Shop?LocaleKeys.order_detail_sell.tr():LocaleKeys.order_detail_title.tr(),
               header_type: Header_Type.barcartShop,
               icon: '',
               onClick: (){
@@ -330,13 +330,13 @@ class _OrderViewState extends State<OrderView> {
                         ),
                       ),
                       SizedBox(width: 15,),
-                      Text(orderData.shop.name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),)
+                      Text(orderData.shop.name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),)
                     ],
                   ),
                   Row(
                     children: [
-                      Container(margin: EdgeInsets.only(bottom: 0.8.h),child: Text(LocaleKeys.order_detail_go_shop.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),)),
-                      SizedBox(width: 10,),
+                      Container(margin: EdgeInsets.only(bottom: 0.8.h),child: Text(LocaleKeys.order_detail_go_shop.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),)),
+                      SizedBox(width: 1.0.w,),
                       Icon(Icons.arrow_forward_ios,color: Colors.grey.shade400,size: 4.0.w,)
                     ],
                   ),
@@ -562,13 +562,13 @@ class _OrderViewState extends State<OrderView> {
                   ),
                   onPressed: () {
 
-                    FunctionHelper.ConfirmDialog(context,message: "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",onCancel: (){
-                      Navigator.of(context).pop();
-                    },onClick: (){
-                      Navigator.of(context).pop();
-                      AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
-                    });
-
+                    // FunctionHelper.ConfirmDialog(context,message: "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",onCancel: (){
+                    //   Navigator.of(context).pop();
+                    // },onClick: (){
+                    //   Navigator.of(context).pop();
+                    //   AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
+                    // });
+                    AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
 
                   },
                   child: Text(

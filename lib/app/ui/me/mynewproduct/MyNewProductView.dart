@@ -262,7 +262,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                         height: 20,
                                       ),
                                       BuildEditText(
-                                        head: "ราคาโปรโมชั่น" +
+                                        head: LocaleKeys.cart_promotion.tr() +
                                             " * (" +
                                             LocaleKeys.my_product_baht.tr() +
                                             ")",
@@ -504,7 +504,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                 ),
                 SizedBox(width: 10,)
                 ,
-                Expanded(child: _BuildButtonItem(btnTxt: LocaleKeys.btn_save.tr(),index: 1,enable: enable),)
+                Expanded(child: _BuildButtonItem(btnTxt: LocaleKeys.btn_save.tr(),index: 1,enable: enable),),
 
                 SizedBox(
                   width: 10,

@@ -55,7 +55,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
       bloc.onError.stream.listen((event) {
         Future.delayed(const Duration(milliseconds: 500), () {
           FunctionHelper.AlertDialogRetry(context,
-              title: "Error", message: event.message,callBack: ()=> Usermanager().getUser().then((value) =>
+              title: LocaleKeys.btn_error.tr(), message: event.message,callBack: ()=> Usermanager().getUser().then((value) =>
                   bloc.GetMyWishlists(context,token: value.token)));
         });
        // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error);

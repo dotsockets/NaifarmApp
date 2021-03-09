@@ -73,7 +73,7 @@ class _LoginViewState extends State<LoginView> {
         //Navigator.of(context).pop();
         await FacebookLogin().logOut();
         FunctionHelper.AlertDialogShop(context,
-            title: "Error", message:event);
+            title: LocaleKeys.btn_error.tr(), message:event);
       //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
@@ -222,7 +222,7 @@ class _LoginViewState extends State<LoginView> {
                       width: 2.0.w,
                       height: 2.0.h,
                     ),   SizedBox(width: 2.0.w,),
-                    Text("Continue with Facebook",
+                    Text(LocaleKeys.btn_facebook.tr(),
                       style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                     ),
                   ],
@@ -313,11 +313,11 @@ class _LoginViewState extends State<LoginView> {
     }else if(!nameRegExp.hasMatch(_username.text) && _username.text.length<10 || !nameRegExp.hasMatch(_username.text) && _username.text.length>10){
      // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_phone_invalid.tr(),context: context);
       FunctionHelper.AlertDialogShop(context,
-          title: "Error", message: LocaleKeys.message_error_phone_invalid.tr());
+          title: LocaleKeys.btn_error.tr(), message: LocaleKeys.message_error_phone_invalid.tr());
   }else if(!validator.email(_username.text) && nameRegExp.hasMatch(_username.text)){
     //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_mail_invalid.tr());
       FunctionHelper.AlertDialogShop(context,
-          title: "Error", message:LocaleKeys.message_error_mail_invalid.tr());
+          title: LocaleKeys.btn_error.tr(), message:LocaleKeys.message_error_mail_invalid.tr());
     }else{
       if(checkError){
         DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();

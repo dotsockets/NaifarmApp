@@ -155,8 +155,8 @@ class BuildEditText extends StatelessWidget {
             onError != "" ? SizedBox(height: 10,) : SizedBox(),
             onError != "" ? Text(
               onError, style: FunctionHelper.FontTheme(fontSize: SizeUtil
-                .titleFontSize()
-                .sp, color: Colors.grey.shade700),) : SizedBox()
+                .titleSmallFontSize()
+                .sp, color: Colors.red),) : SizedBox()
           ],
         ),
       );

@@ -46,7 +46,7 @@ class ProductInto extends StatelessWidget {
         if (event != null) {
           if (event.status == 406) {
             FunctionHelper.AlertDialogShop(context,
-                title: "Error", message: event.message);
+                title: LocaleKeys.btn_error.tr(), message: event.message);
           }else if(event.status == 0 || event.status >= 500){
 
           }else {

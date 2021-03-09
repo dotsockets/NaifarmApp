@@ -59,7 +59,7 @@ class _RegisterViewState extends State<RegisterView> {
         //Navigator.of(context).pop();
         //if (event.error.status == 406) {
           FunctionHelper.AlertDialogShop(context,
-              title: "Error", message: event);
+              title: LocaleKeys.btn_error.tr(), message: event);
         //}
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
@@ -167,7 +167,7 @@ class _RegisterViewState extends State<RegisterView> {
                     height: 2.0.h,
                   ),
                   SizedBox(width: 2.0.w,),
-                  Text("Continue with Facebook",
+                  Text(LocaleKeys.btn_facebook.tr(),
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
             ),
                 ],
