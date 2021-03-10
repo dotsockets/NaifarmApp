@@ -448,8 +448,10 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         shopId: item.shopId,
                         select_id: snapshot.data.id);
                     if (result != null) {
+
                       bloc.CartList.value.data[index].shippingRateId =
                           (result as ShippingRates).id;
+                      bloc.CartList.value.data[index].shippingRates = result;
                       bloc.CartList.value.data[index].carrierId =
                           (result as ShippingRates).carrierId;
                       bloc.CartList.value.data[index].shippingZoneId =
@@ -545,7 +547,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         color: Colors.black)),
-                Text("฿${item.total}",
+                Text("฿${item.total+item.shippingRates.rate}",
                     //   Text("฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
