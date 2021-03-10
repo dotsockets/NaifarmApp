@@ -295,6 +295,11 @@ class APIRepository{
     return _apiProvider.UpdateProductMyShop(context,shopRequest: shopRequest,productId: productId,token: token);
   }
 
+  Future<ApiResult> AtiveProduct(BuildContext context,{int active,int productId,String token}){
+    return _apiProvider.AtiveProduct(context,ative: active,productId: productId,token: token);
+  }
+
+
   Future<ApiResult> DELETEProductMyShop(BuildContext context,{int ProductId, String token}){
     return _apiProvider.DELETEProductMyShop(context,ProductId: ProductId,token: token);
   }

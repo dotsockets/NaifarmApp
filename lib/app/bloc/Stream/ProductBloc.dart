@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
+import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/BannersRespone.dart';
@@ -23,6 +24,7 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductDetailCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMoreCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
@@ -650,8 +652,57 @@ class ProductBloc{
         onSuccess.add(true);
         onLoad.add(false);
         if(isActive == IsActive.UpdateProduct){
+
           onSuccess.add(true);
         }
+      } else {
+        onLoad.add(false);
+        onError.add(respone.http_call_back);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  UpdateProductInventories(BuildContext context,
+      {InventoriesRequest inventoriesRequest,
+        int productId,
+        int inventoriesId,
+        String token,bool Isload}) {
+    StreamSubscription subscription = Observable.fromFuture(
+        _application.appStoreAPIRepository.UpdateProductInventories(context,
+            inventoriesRequest: inventoriesRequest,
+            inventoriesId: inventoriesId,
+            productId: productId,
+            token: token))
+        .listen((respone) {
+      if(Isload){
+        onLoad.add(false);
+      }
+      //  onLoad.add(false);
+      if (respone.http_call_back.status == 200) {
+        onSuccess.add((respone.respone as ProductMyShopRespone));
+      } else {
+        onError.add(respone.http_call_back);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  AtiveProduct(BuildContext context,
+      {ProductMyShopRequest shopRequest, int productId, String token,IsActive isActive}) {
+
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(
+        _application.appStoreAPIRepository.AtiveProduct(context,
+            active: shopRequest.active, productId: productId, token: token))
+        .listen((respone) {
+      if (respone.http_call_back.status == 200) {
+        //onSuccess.add(true);
+        var item = respone.respone as ProductMyShopRespone;
+        var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice,stockQuantity: item.inventories[0].stockQuantity,salePrice: item.salePrice,active: 0);
+        Usermanager().getUser().then((value) =>UpdateProductInventories(context,Isload: true,inventoriesRequest: inventor,productId: item.id,inventoriesId: item.inventories[0].id,
+            token: value.token));
+       // onSuccess.add(respone.respone);
       } else {
         onLoad.add(false);
         onError.add(respone.http_call_back);

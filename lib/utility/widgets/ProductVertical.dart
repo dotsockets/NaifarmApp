@@ -29,12 +29,13 @@ class ProductVertical extends StatelessWidget {
   final Function(ProductData,int) onTapItem;
   final Function(ProductData,int) onTapBay;
   final String IconInto;
+  final String ImageIcon;
   final  bool borderRadius;
   final String tagHero;
   final double IconSize;
   final ProductRespone productRespone;
 
-   ProductVertical({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.borderRadius, this.tagHero, this.IconSize=35,this.productRespone, this.onTapBay}) : super(key: key);
+   ProductVertical({Key key, this.titleInto, this.onSelectMore, this.onTapItem, this.IconInto, this.ImageIcon="",this.borderRadius, this.tagHero, this.IconSize=35,this.productRespone, this.onTapBay}) : super(key: key);
 
   ProductBloc Product_bloc;
 
@@ -127,8 +128,7 @@ class ProductVertical extends StatelessWidget {
       children: [
         Row(
           children: [
-           // Image.asset(IconI=nto,width: 50,height: 50,),
-            SvgPicture.asset(IconInto,width: IconSize,height: IconSize,),
+            ImageIcon!=""?Image.asset(ImageIcon,width: IconSize,height: IconSize,): SvgPicture.asset(IconInto,width: IconSize,height: IconSize,),
             SizedBox(width: 2.0.w),
             Text(titleInto,style: FunctionHelper.FontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold)),
           ],

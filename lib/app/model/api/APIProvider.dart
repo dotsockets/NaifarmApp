@@ -250,6 +250,10 @@ abstract class APIProvider{
   @PATCH("/v1/myshop/products")
   Future<ApiResult> UpdateProductMyShop(BuildContext context,{ProductMyShopRequest shopRequest,int productId,String token});
 
+  @PATCH("/v1/myshop/products")
+  Future<ApiResult> AtiveProduct(BuildContext context,{int ative,int productId,String token});
+
+
   @GET("/v1/cart")
   Future<ApiResult> GetCartlists(BuildContext context,{String token});
 

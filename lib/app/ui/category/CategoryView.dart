@@ -152,7 +152,7 @@ class _CategoryViewState extends State<CategoryView> {
               ),
             ),
             SizedBox(height: 1.0.h),
-            Container(height: SizeUtil.titleSmallFontSize().sp*2.6,width: 16.0.w,child: Text(item.name,maxLines: 2,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),))
+            Container(height: SizeUtil.titleSmallFontSize().sp*2.7,width: 16.0.w,child: Text(item.name,maxLines: 2,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: Colors.black,fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.bold),))
           ],
         ),
       ),

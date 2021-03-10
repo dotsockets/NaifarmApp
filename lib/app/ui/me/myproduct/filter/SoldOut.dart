@@ -18,6 +18,7 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -48,7 +49,9 @@ class _SoldOutState extends State<SoldOut> {
 
   init() {
     count = 0;
-    _searchText.add(widget.searchTxt);
+    if(widget.searchTxt.isNotEmpty){
+      _searchText.add(widget.searchTxt);
+    }
 
     _searchText.stream.listen((event) {
       NaiFarmLocalStorage.getNowPage().then((value) {
@@ -66,22 +69,28 @@ class _SoldOutState extends State<SoldOut> {
       bloc = ProductBloc(AppProvider.getApplication(context));
 
       bloc.onSuccess.stream.listen((event) {
-        widget.searchTxt.length != 0
-            ? _reloadFirstSearch()
-            : _reloadFirstPage();
 
-        if (event is bool) {
+
+        if (event is ProductMyShopRespone) {
+          widget.searchTxt.length != 0
+              ? _reloadFirstSearch()
+              : _reloadFirstPage();
           // bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
         }
       });
+
 
       bloc.onError.stream.listen((event) {
         /*   Future.delayed(const Duration(milliseconds: 1000), () {
           page=1;
           _reloadData();
         });*/
-        FunctionHelper.AlertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message: event.message);
+        FunctionHelper.AlertDialogRetry(context,
+            title: LocaleKeys.btn_error.tr(), message: event.message,callBack: (){
+              widget.searchTxt.length != 0
+                  ? _reloadFirstSearch()
+                  : _reloadFirstPage();
+            });
         //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event.error);
         widget.searchTxt.length != 0
             ? _reloadFirstSearch()
@@ -94,12 +103,12 @@ class _SoldOutState extends State<SoldOut> {
           Navigator.of(context).pop();
         }
       });
-      widget.searchTxt.length != 0 ? _reloadFirstSearch() : _reloadFirstPage();
+        widget.searchTxt.length != 0 ? _reloadFirstSearch() : _reloadFirstPage();
     }
 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
-              _scrollController.position.pixels <=
+          _scrollController.position.pixels <=
           200) {
         if (step_page && bloc.productList.length < total) {
           step_page = false;
@@ -440,7 +449,7 @@ class _SoldOutState extends State<SoldOut> {
                                 bloc.ProductMyShopRes.value);
 
                             Usermanager().getUser().then((value) =>
-                                bloc.UpdateProductMyShop(
+                                bloc.AtiveProduct(
                                     context,
                                     isActive: IsActive.ReplacemenView,
                                     shopRequest: ProductMyShopRequest(

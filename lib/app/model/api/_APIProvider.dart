@@ -2388,6 +2388,33 @@ class _APIProvider implements APIProvider {
     }
   }
 
+  @override
+  Future<ApiResult> AtiveProduct(BuildContext context, {int ative, int productId, String token}) async{
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "active":ative
+    };
+    try {
+      final _result = await _dio.request<dynamic>(
+          '/v1/myshop/products/${productId}',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token": token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: ProductMyShopRespone.fromJson(_result.data),
+          http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
 
 }
 

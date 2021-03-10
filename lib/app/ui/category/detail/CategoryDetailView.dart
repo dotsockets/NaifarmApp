@@ -166,7 +166,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                         return ProductVertical(
                           titleInto: LocaleKeys.recommend_best_seller.tr(),
                           productRespone: (snapshot.data as CategoryObjectCombin).hotProduct,
-                          IconInto: 'assets/images/svg/product_hot.svg',
+                          ImageIcon: 'assets/images/png/product_hot.png',
                           onSelectMore: () {
                             AppRoute.ProductMore(api_link: "products/types/popular?categoryGroupId=${widget.index}",context:context,barTxt:LocaleKeys.recommend_best_seller.tr(),installData: (snapshot.data as CategoryObjectCombin).hotProduct);
                           },
@@ -175,7 +175,6 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                                 productImage: "sell_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
                           },
                           borderRadius: false,
-                          IconSize: 25,
                           tagHero: "sell",
                         );
                       }else{
