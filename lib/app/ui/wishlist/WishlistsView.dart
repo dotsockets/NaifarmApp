@@ -272,17 +272,17 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             item.product.offerPrice != null
-                ? Text("${item.product.salePrice}",
+                ? Text("฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}",
                 style: FunctionHelper.FontTheme(
                     color: Colors.grey,
-                    fontSize: SizeUtil.priceFontSize().sp - 2,
+                    fontSize: SizeUtil.priceFontSize().sp - 1,
                     decoration: TextDecoration.lineThrough))
                 : SizedBox(),
             SizedBox(width: item.product.offerPrice != null ? 1.0.w : 0),
             Text(
               item.product.offerPrice != null
-                  ? "฿${item.product.offerPrice}"
-                  : "฿${item.product.salePrice}",
+                  ? "฿${NumberFormat("#,##0", "en_US").format(item.product.offerPrice)}"
+                  : "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: FunctionHelper.FontTheme(
@@ -305,7 +305,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                   onRated: (v) {},
                   starCount: 5,
                   rating:  item.product.rating!=null&&item.product.rating!=0?item.product.rating.toDouble():0.0,
-                  size: 3.0.w,
+                  size: 3.5.w,
                   isReadOnly: true,
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half,
@@ -315,7 +315,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
             ),
             Text("${LocaleKeys.my_product_sold.tr()} ${item.product.saleCount!=null?item.product.saleCount.toString():'0'} ${LocaleKeys.cart_piece.tr()}",
                 style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.detailSmallFontSize().sp,
+                    fontSize: SizeUtil.detailFontSize().sp,
                     color: Colors.black,
                     fontWeight: FontWeight.w500))
           ],

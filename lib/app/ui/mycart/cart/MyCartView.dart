@@ -521,15 +521,15 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                             .offerPrice !=
                                         null
                                     ? Text(
-                                        // "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}",
-                                        "฿${item.items[indexShopItem].inventory.offerPrice}",
+                                         "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}",
+                                        //"฿${item.items[indexShopItem].inventory.offerPrice}",
                                         style: FunctionHelper.FontTheme(
                                             fontSize:
                                                 SizeUtil.priceFontSize().sp,
                                             color: ThemeColor.ColorSale()))
                                     : Text(
-                                        // "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
-                                        "฿${item.items[indexShopItem].inventory.salePrice}",
+                                         "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
+                                        //"฿${item.items[indexShopItem].inventory.salePrice}",
                                         style: FunctionHelper.FontTheme(
                                             fontSize:
                                                 SizeUtil.priceFontSize().sp,
@@ -742,6 +742,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                           ],
                         ),
                       )),
+
                   Expanded(
                     flex: 2,
                     child: Text(
@@ -749,7 +750,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                             " ${SumQuantity(cartResponse: cartResponse)} " +
                             LocaleKeys.cart_item.tr(),
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.w500,
                             color: Colors.black)),
                   )
@@ -780,10 +781,10 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                         alignment: Alignment.topRight,
                         margin: EdgeInsets.only(right: 2.0.w),
                         child: Text(
-                            //"฿${NumberFormat("#,##0.00", "en_US").format(SumTotalPrice(cartResponse: cartResponse))}",
-                            "฿${SumTotalPrice(cartResponse: cartResponse)}",
+                            "฿${NumberFormat("#,##0.00", "en_US").format(SumTotalPrice(cartResponse: cartResponse))}",
+                            //"฿${SumTotalPrice(cartResponse: cartResponse)}",
                             style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontSize: SizeUtil.priceFontSize().sp,
                                 fontWeight: FontWeight.bold,
                                 color: ThemeColor.ColorSale())))),
                 Expanded(

@@ -157,7 +157,7 @@ class _OrderViewState extends State<OrderView> {
                                 _Order_number_information(
                                     context: context,
                                     orderData: item,
-                                    sumTotal: SumTotal(item.items),
+                                    sumTotal: item.total,
                                     rate_delivery: item.shipping),
                                 _labelText(
                                     title:
@@ -506,11 +506,11 @@ class _OrderViewState extends State<OrderView> {
               SizedBox(
                 width: 10,
               ),
-              //Text("฿${NumberFormat("#,##0.00", "en_US").format(sumTotal)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
-              Text("฿${sumTotal}",
-                  style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      color: Colors.black))
+              Text("฿${NumberFormat("#,##0", "en_US").format(sumTotal)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
+              // Text("฿${sumTotal}",
+              //     style: FunctionHelper.FontTheme(
+              //         fontSize: SizeUtil.titleFontSize().sp,
+              //         color: Colors.black))
             ],
           ),
           SizedBox(
@@ -530,11 +530,11 @@ class _OrderViewState extends State<OrderView> {
               SizedBox(
                 width: 10,
               ),
-              // Text("฿${NumberFormat("#,##0.00", "en_US").format(rate_delivery!=null?rate_delivery:0)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
-              Text("฿${rate_delivery != null ? rate_delivery : 0}",
-                  style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      color: Colors.black))
+               Text("฿${NumberFormat("#,##0", "en_US").format(rate_delivery!=null?rate_delivery:0)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
+              // Text("฿${rate_delivery != null ? rate_delivery : 0}",
+              //     style: FunctionHelper.FontTheme(
+              //         fontSize: SizeUtil.titleFontSize().sp,
+              //         color: Colors.black))
             ],
           ),
           SizedBox(
@@ -554,11 +554,11 @@ class _OrderViewState extends State<OrderView> {
               SizedBox(
                 width: 10,
               ),
-              //Text("฿${NumberFormat("#,##0.00", "en_US").format(sumTotal+(rate_delivery!=null?rate_delivery:0))}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale()))
-              Text("฿${sumTotal + (rate_delivery != null ? rate_delivery : 0)}",
-                  style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      color: ThemeColor.ColorSale()))
+              Text("฿${NumberFormat("#,##0", "en_US").format(sumTotal+(rate_delivery!=null?rate_delivery:0))}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale()))
+              // Text("฿${sumTotal + (rate_delivery != null ? rate_delivery : 0)}",
+              //     style: FunctionHelper.FontTheme(
+              //         fontSize: SizeUtil.titleFontSize().sp,
+              //         color: ThemeColor.ColorSale()))
             ],
           ),
         ],
@@ -621,7 +621,7 @@ class _OrderViewState extends State<OrderView> {
                       // SizedBox(width: 8),
                       //Text("฿${NumberFormat("#,##0.00", "en_US").format(orderItems.inventory.salePrice*orderItems.quantity)}",
                       Text(
-                          "฿${orderItems.inventory.salePrice * orderItems.quantity}",
+                          "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: Colors.black))

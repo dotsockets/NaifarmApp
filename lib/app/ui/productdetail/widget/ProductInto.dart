@@ -89,11 +89,11 @@ class ProductInto extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            data.offerPrice!=null?Text("฿${data.salePrice}",style: FunctionHelper.FontTheme(
+            data.salePrice!=null?Text("฿${NumberFormat("#,##0", "en_US").format(data.salePrice)}",style: FunctionHelper.FontTheme(
                 color: Colors.grey,
                 fontSize: SizeUtil.priceFontSize().sp, decoration: TextDecoration.lineThrough)):SizedBox(),
-            SizedBox(width: data.offerPrice!=null?1.0.w:0),
-            Text(data.offerPrice!=null?"฿${data.offerPrice}":"฿${data.salePrice}",maxLines: 1,
+            SizedBox(width: data.salePrice!=null?1.0.w:0),
+            Text(data.offerPrice!=null?"฿${NumberFormat("#,##0", "en_US").format(data.offerPrice)}":"฿${NumberFormat("#,##0", "en_US").format(0)}",maxLines: 1,
               overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
           ],
         ),

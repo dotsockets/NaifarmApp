@@ -310,8 +310,8 @@ class _SuccessViewState extends State<SuccessView> {
                       item.inventory != null &&
                               item.inventory.product.discountPercent != 0
                           ? Text(
-                          //"฿${NumberFormat("#,##0.00", "en_US").format(item.inventory!=null?item.inventory.product.discountPercent:0)}",
-                          "฿${item.inventory!=null?item.inventory.product.discountPercent:0}",
+                          "฿${NumberFormat("#,##0", "en_US").format(item.inventory!=null?item.inventory.product.discountPercent:0)}",
+                          //"฿${item.inventory!=null?item.inventory.product.discountPercent:0}",
                           style: FunctionHelper.FontTheme(
                               color: Colors.black.withOpacity(0.5),
                               fontSize: SizeUtil.titleFontSize().sp,
@@ -319,8 +319,8 @@ class _SuccessViewState extends State<SuccessView> {
                           : SizedBox(),
                       SizedBox(width: 3.0.w),
                       Text(
-                         // "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory!=null?item.inventory.salePrice:999)}",
-                          "฿${item.inventory!=null?item.inventory.salePrice:999}",
+                          "฿${NumberFormat("#,##0", "en_US").format(item.inventory!=null?item.inventory.salePrice:999)}",
+                         // "฿${item.inventory!=null?item.inventory.salePrice:999}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: ThemeColor.ColorSale()))
@@ -372,11 +372,11 @@ class _SuccessViewState extends State<SuccessView> {
                               color: Colors.black)),
                       new TextSpan(
                           text:
-                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
-                              "฿${item.grandTotal}",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale())),
+                              "฿${NumberFormat("#,##0", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                              //"฿${item.grandTotal}",
+                          // style: FunctionHelper.FontTheme(
+                          //     fontSize: SizeUtil.titleFontSize().sp,
+                          //     color: ThemeColor.ColorSale())),
                     ],
                   ),
                 ),

@@ -240,13 +240,26 @@ class ProductVertical extends StatelessWidget {
 
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              item.offerPrice!=null?Text("${item.salePrice}",style: FunctionHelper.FontTheme(
-                  color: Colors.grey,
-                  fontSize: SizeUtil.priceFontSize().sp-2, decoration: TextDecoration.lineThrough)):SizedBox(),
-              SizedBox(width: item.offerPrice!=null?1.0.w:0),
-              Text(item.offerPrice!=null?"฿${item.offerPrice}":"฿${item.salePrice}",maxLines: 1,
-                overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
-            ],
+              item.offerPrice != null
+                  ? Text("฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                  style: FunctionHelper.FontTheme(
+                      color: Colors.grey,
+                      fontSize: SizeUtil.priceFontSize().sp - 1,
+                      decoration: TextDecoration.lineThrough))
+                  : SizedBox(),
+              SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
+              Text(
+                item.offerPrice != null
+                    ? "฿${NumberFormat("#,##0", "en_US").format(item.offerPrice)}"
+                    : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: FunctionHelper.FontTheme(
+                    color: ThemeColor.ColorSale(),
+                    fontWeight: FontWeight.w500,
+                    fontSize: SizeUtil.priceFontSize().sp),
+              ),
+              ],
           ),
 
           SizedBox(height: 1.0.h,),
@@ -276,7 +289,7 @@ class ProductVertical extends StatelessWidget {
                      // Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
                     ],
                   ),SizedBox(height: 1.0.h),
-                  Text(LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_piece.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.normal,fontSize:  SizeUtil.detailSmallFontSize().sp),),
+                  Text(LocaleKeys.my_product_sold.tr()+" "+item.saleCount.toString().replaceAll("null", "0")+" "+LocaleKeys.cart_piece.tr(),style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.normal,fontSize:  SizeUtil.detailFontSize().sp),),
 
                 ],
               ),

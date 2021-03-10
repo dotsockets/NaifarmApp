@@ -699,7 +699,7 @@ class ProductBloc{
       if (respone.http_call_back.status == 200) {
         //onSuccess.add(true);
         var item = respone.respone as ProductMyShopRespone;
-        var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice,stockQuantity: item.inventories[0].stockQuantity,salePrice: item.salePrice,active: 0);
+        var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice,stockQuantity: item.inventories[0].stockQuantity,salePrice: item.salePrice,active: shopRequest.active);
         Usermanager().getUser().then((value) =>UpdateProductInventories(context,Isload: true,inventoriesRequest: inventor,productId: item.id,inventoriesId: item.inventories[0].id,
             token: value.token));
        // onSuccess.add(respone.respone);

@@ -310,20 +310,17 @@ class _AvailableState extends State<Available> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               item.offerPrice != null
-                                  ? Text("${item.salePrice}",
-                                      style: FunctionHelper.FontTheme(
-                                          color: Colors.grey,
-                                          fontSize:
-                                              SizeUtil.priceFontSize().sp - 2,
-                                          decoration:
-                                              TextDecoration.lineThrough))
+                                  ? Text("฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                                  style: FunctionHelper.FontTheme(
+                                      color: Colors.grey,
+                                      fontSize: SizeUtil.priceFontSize().sp - 1,
+                                      decoration: TextDecoration.lineThrough))
                                   : SizedBox(),
-                              SizedBox(
-                                  width: item.offerPrice != null ? 1.0.w : 0),
+                              SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
                               Text(
                                 item.offerPrice != null
-                                    ? "฿${item.offerPrice}"
-                                    : "฿${item.salePrice}",
+                                    ? "฿${NumberFormat("#,##0", "en_US").format(item.offerPrice)}"
+                                    : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: FunctionHelper.FontTheme(

@@ -306,8 +306,8 @@ class _PaidViewState extends State<PaidView> {
                       item.inventory != null &&
                               item.inventory.product.discountPercent != 0
                           ? Text(
-                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
-                              "฿${item.inventory.product.discountPercent}",
+                               "฿${NumberFormat("#,##0", "en_US").format(item.inventory.product.discountPercent)}",
+                             // "฿${item.inventory.product.discountPercent}",
                               style: FunctionHelper.FontTheme(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: SizeUtil.titleFontSize().sp,
@@ -315,10 +315,10 @@ class _PaidViewState extends State<PaidView> {
                           : SizedBox(),
                       SizedBox(width: 3.0.w),
                       Text(
-                          //item.inventory!=null?"฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}":"-",
-                          item.inventory != null
-                              ? "฿${item.inventory.salePrice}"
-                              : "-",
+                          item.inventory!=null?"฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}":"-",
+                          // item.inventory != null
+                          //     ? "฿${item.inventory.salePrice}"
+                          //     : "-",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: ThemeColor.ColorSale()))
@@ -370,11 +370,11 @@ class _PaidViewState extends State<PaidView> {
                               color: Colors.black)),
                       new TextSpan(
                           text:
-                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
-                              "฿${item.grandTotal}",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale())),
+                               "฿${NumberFormat("#,##0", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                          //     "฿${item.grandTotal}",
+                          // style: FunctionHelper.FontTheme(
+                          //     fontSize: SizeUtil.titleFontSize().sp,
+                          //     color: ThemeColor.ColorSale())),
                     ],
                   ),
                 ),
