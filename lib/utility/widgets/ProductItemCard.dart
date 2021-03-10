@@ -180,7 +180,7 @@ class ProductItemCard extends StatelessWidget {
                             style: FunctionHelper.FontTheme(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
-                                fontSize: SizeUtil.detailSmallFontSize().sp),
+                                fontSize: SizeUtil.detailFontSize().sp),
                           ),
                         ),
                       ),

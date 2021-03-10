@@ -110,7 +110,7 @@ class ProductVertical extends StatelessWidget {
           children: [
             _header_bar(),
             productRespone!=null?Column(
-              children: List.generate(productRespone.data.length, (index) => _buildCardProduct(context,item: productRespone.data[index],index: index)),
+              children: productRespone.data.asMap().map((key, value) => MapEntry(key, _buildCardProduct(context,item: value,index: key))).values.toList(),
             ):SizedBox()
           ],
         ),
@@ -150,7 +150,7 @@ class ProductVertical extends StatelessWidget {
     ),
   );
 
-  _buildCardProduct(BuildContext context,{ProductData item,int index}){
+  Widget _buildCardProduct(BuildContext context,{ProductData item,int index}){
     return InkWell(
       onTap: (){
         onTapItem(item,index);
