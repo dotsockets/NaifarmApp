@@ -70,7 +70,7 @@ class _EditProviceViewState extends State<EditProviceView> {
       bloc.provice.stream.listen((event) {
         // _checkError();
       });
-      NaiFarmLocalStorage.getAllCategoriesCache().then((value){
+      NaiFarmLocalStorage.getAllCategoriesCache().then((value) {
         bloc.provice.add(value.statesRespone);
       });
       //bloc.StatesProvice(countries: "1");
@@ -99,16 +99,24 @@ class _EditProviceViewState extends State<EditProviceView> {
                 SizedBox(
                   height: 3.0.h,
                 ),
-                FlatButton(
-                  minWidth: 50.0.w,
-                  height: 5.0.h,
-                  color: _input1.text != ""
-                      ? ThemeColor.secondaryColor()
-                      : Colors.grey.shade400,
-                  textColor: Colors.white,
-                  splashColor: Colors.white.withOpacity(0.3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0),
+                TextButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                    ),
+                    minimumSize: MaterialStateProperty.all(
+                      Size(50.0.w, 5.0.h),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      _input1.text != ""
+                          ? ThemeColor.secondaryColor()
+                          : Colors.grey.shade400,
+                    ),
+                    overlayColor: MaterialStateProperty.all(
+                      Colors.white.withOpacity(0.3),
+                    ),
                   ),
                   onPressed: () {
                     if (bloc.provice.value != null) {
@@ -120,6 +128,7 @@ class _EditProviceViewState extends State<EditProviceView> {
                   child: Text(
                     LocaleKeys.btn_save.tr(),
                     style: FunctionHelper.FontTheme(
+                        color: Colors.white,
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500),
                   ),

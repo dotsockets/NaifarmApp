@@ -205,30 +205,44 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
   }
 
   Widget _BuildButtonItem({String btnTxt, bool fix}) {
-    return FlatButton(
-      color: fix ? ThemeColor.secondaryColor() : Colors.grey.shade400,
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          fix ? ThemeColor.secondaryColor() : Colors.grey.shade400,
+        ),
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.3),
+        ),
       ),
       onPressed: () {
-        if(fix){
-           if(widget.productsId>0){
-             Usermanager().getUser().then((value){
-               bloc.updateinventories(context,token: value.token,shippingWeight: int.parse(weightProductController.text),productsId: widget.productsId,inventoriesId: widget.uploadProductStorage.productMyShopRequest.inventoriesid);
-             });
-             Navigator.pop(context, double.parse(weightProductController.text));
-           }else{
-             Navigator.pop(context, double.parse(weightProductController.text));
-           }
-          
+        if (fix) {
+          if (widget.productsId > 0) {
+            Usermanager().getUser().then((value) {
+              bloc.updateinventories(context,
+                  token: value.token,
+                  shippingWeight: int.parse(weightProductController.text),
+                  productsId: widget.productsId,
+                  inventoriesId: widget
+                      .uploadProductStorage.productMyShopRequest.inventoriesid);
+            });
+            Navigator.pop(context, double.parse(weightProductController.text));
+          } else {
+            Navigator.pop(context, double.parse(weightProductController.text));
+          }
         }
       },
       child: Text(
         btnTxt,
         style: FunctionHelper.FontTheme(
-            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+          color: Colors.white,
+          fontSize: SizeUtil.titleFontSize().sp,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }

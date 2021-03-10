@@ -95,8 +95,19 @@ class _EditProductViewState extends State<EditProductView> {
         onUpdate = true;
         if (event is bool) {
           var item = bloc.uploadProductStorage.value.productMyShopRequest;
-          var inventor = InventoriesRequest(title: item.name,offerPrice: offerPriceController.text.isNotEmpty?item.offerPrice:0,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
-          Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(context,Isload: true,inventoriesRequest: inventor,productId: widget.ProductId,inventoriesId: bloc.inventoriesId,
+          var inventor = InventoriesRequest(
+              title: item.name,
+              offerPrice:
+                  offerPriceController.text.isNotEmpty ? item.offerPrice : 0,
+              stockQuantity: item.stockQuantity,
+              salePrice: item.salePrice,
+              active: item.active);
+          Usermanager().getUser().then((value) => bloc.UpdateProductInventories(
+              context,
+              Isload: true,
+              inventoriesRequest: inventor,
+              productId: widget.ProductId,
+              inventoriesId: bloc.inventoriesId,
               token: value.token));
 
           //  AppRoute.MyProduct(context,widget.shopId,pushEvent: true,indexTab: widget.indexTab,countPage: 2);
@@ -112,7 +123,8 @@ class _EditProductViewState extends State<EditProductView> {
         bloc.categoriesAllRespone = value;
       });
 
-      Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(context,token: value.token,ProductId: widget.ProductId));
+      Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(context,
+          token: value.token, ProductId: widget.ProductId));
       bloc.uploadProductStorage.add(widget.uploadProductStorage);
     }
   }
@@ -393,25 +405,37 @@ class _EditProductViewState extends State<EditProductView> {
   Widget _BuildAtivceTab() {
     return Container(
         color: Colors.white,
-        padding: EdgeInsets.only(left: 5,right: 5),
+        padding: EdgeInsets.only(left: 5, right: 5),
         child: Container(
             margin: EdgeInsets.all(15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Open sales", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+                Text("Open sales",
+                    style: FunctionHelper.FontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp)),
                 FlutterSwitch(
                   height: 30,
                   width: 50,
                   toggleSize: 20,
-                  activeColor: bloc.uploadProductStorage.value.productMyShopRequest.active==1?ThemeColor.primaryColor():Colors.grey.shade200,
+                  activeColor: bloc.uploadProductStorage.value
+                              .productMyShopRequest.active ==
+                          1
+                      ? ThemeColor.primaryColor()
+                      : Colors.grey.shade200,
                   inactiveColor: Colors.grey.shade200,
                   // toggleColor: item.active ? ThemeColor.primaryColor() : Colors.grey.shade400,
-                  value:bloc.uploadProductStorage.value.productMyShopRequest.active==1?true:false,
+                  value: bloc.uploadProductStorage.value.productMyShopRequest
+                              .active ==
+                          1
+                      ? true
+                      : false,
                   onToggle: (val) {
                     //IsSwitch(val);
-                    bloc.uploadProductStorage.value.productMyShopRequest.active = val?1:0;
-                    bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+                    bloc.uploadProductStorage.value.productMyShopRequest
+                        .active = val ? 1 : 0;
+                    bloc.uploadProductStorage
+                        .add(bloc.uploadProductStorage.value);
                   },
                 )
               ],
@@ -468,20 +492,32 @@ class _EditProductViewState extends State<EditProductView> {
             ProductId: widget.ProductId);
         if (result) {
           onUpdate = true;
-          Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(context,token: value.token,ProductId: widget.ProductId));
+          Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(
+              context,
+              token: value.token,
+              ProductId: widget.ProductId));
         }
       },
     );
   }
 
   Widget _BuildButtonItem({String btnTxt, int index, bool enable}) {
-    return FlatButton(
-      height: 50,
-      color: enable ? ThemeColor.secondaryColor() : Colors.grey.shade400,
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+        ),
+        minimumSize: MaterialStateProperty.all(
+          Size(80.0.w, 50.0),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          enable ? ThemeColor.secondaryColor() : Colors.grey.shade400,
+        ),
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.3),
+        ),
       ),
       onPressed: () {
         // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
@@ -505,13 +541,19 @@ class _EditProductViewState extends State<EditProductView> {
           FocusScope.of(context).unfocus();
           Usermanager().getUser().then((value) {
             //bloc.onLoad.add(true);
-            bloc.UpdateProductMyShop(context,isActive: IsActive.UpdateProduct,shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,productId: widget.ProductId,token: value.token);
+            bloc.UpdateProductMyShop(context,
+                isActive: IsActive.UpdateProduct,
+                shopRequest:
+                    bloc.uploadProductStorage.value.productMyShopRequest,
+                productId: widget.ProductId,
+                token: value.token);
           });
         }
       },
       child: Text(
         btnTxt,
         style: FunctionHelper.FontTheme(
+            color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),
       ),
@@ -519,22 +561,35 @@ class _EditProductViewState extends State<EditProductView> {
   }
 
   Widget _BuildButtonCancleItem({String btnTxt, int index, bool enable}) {
-    return FlatButton(
-      height: 50,
-      color: enable ? ThemeColor.ColorSale() : Colors.grey.shade400,
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+        ),
+        minimumSize: MaterialStateProperty.all(
+          Size(80.0.w, 50.0),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          enable ? ThemeColor.ColorSale() : Colors.grey.shade400,
+        ),
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.3),
+        ),
       ),
       onPressed: () {
-        if(enable){
-          Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(context,ProductId:widget.ProductId,token: value.token));
+        if (enable) {
+          Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(
+              context,
+              ProductId: widget.ProductId,
+              token: value.token));
         }
       },
       child: Text(
         btnTxt,
         style: FunctionHelper.FontTheme(
+            color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),
       ),

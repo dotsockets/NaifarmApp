@@ -45,32 +45,32 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                Visibility(
-                  child: _BuildProductType(
-                    item: listColorsType,
-                    index: 0,
-                    typeTxt: listType[0],
-                    onClick: () => setState(() => checkEdit[0]
-                        ? checkEdit[0] = false
-                        : checkEdit[0] = true),
-                  ),
-                  visible: showCard0,
-                ),
-                _buildSpace(),
-                Visibility(
-                  child: _BuildProductType(
-                    item: listSizeType,
-                    index: 1,
-                    typeTxt: listType[1],
-                    onClick: () => setState(() => checkEdit[1]
-                        ? checkEdit[1] = false
-                        : checkEdit[1] = true),
-                  ),
-                  visible: showCard1,
-                ),
-                _buildAddTypeBtn(),
-                _BuildButton(context)
-              ]),
+                    Visibility(
+                      child: _BuildProductType(
+                        item: listColorsType,
+                        index: 0,
+                        typeTxt: listType[0],
+                        onClick: () => setState(() => checkEdit[0]
+                            ? checkEdit[0] = false
+                            : checkEdit[0] = true),
+                      ),
+                      visible: showCard0,
+                    ),
+                    _buildSpace(),
+                    Visibility(
+                      child: _BuildProductType(
+                        item: listSizeType,
+                        index: 1,
+                        typeTxt: listType[1],
+                        onClick: () => setState(() => checkEdit[1]
+                            ? checkEdit[1] = false
+                            : checkEdit[1] = true),
+                      ),
+                      visible: showCard1,
+                    ),
+                    _buildAddTypeBtn(),
+                    _BuildButton(context)
+                  ]),
             ),
           ),
         ),
@@ -224,7 +224,8 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                               child: Text("x",
                                   style: FunctionHelper.FontTheme(
                                       color: ThemeColor.ColorSale(),
-                                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                                      fontSize:
+                                          SizeUtil.titleSmallFontSize().sp,
                                       fontWeight: FontWeight.bold)),
                             ),
                             constraints: BoxConstraints(
@@ -259,7 +260,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  " "+LocaleKeys.add.tr(),
+                  " " + LocaleKeys.add.tr(),
                   style: FunctionHelper.FontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -277,21 +278,30 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
     return Center(
       child: Container(
         margin: EdgeInsets.only(top: 100),
-        child: FlatButton(
-          color: ThemeColor.secondaryColor(),
-          textColor: Colors.white,
-          padding: EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
-          splashColor: Colors.white.withOpacity(0.3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40.0),
-          ),
+        child: TextButton(
+          style: ButtonStyle(
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+              ),
+              backgroundColor: MaterialStateProperty.all(
+                ThemeColor.secondaryColor(),
+              ),
+              overlayColor: MaterialStateProperty.all(
+                Colors.white.withOpacity(0.3),
+              ),
+              padding: MaterialStateProperty.all(
+                  EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20))),
           onPressed: () {
             AppRoute.ProductSetPrice(context);
           },
           child: Text(
             LocaleKeys.btn_set_price.tr(),
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                color: Colors.white,
+                fontSize: SizeUtil.titleFontSize().sp,
+                fontWeight: FontWeight.w500),
           ),
         ),
       ),
@@ -318,17 +328,18 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                     fontWeight: FontWeight.w500),
               ),
               Text(
-                " "+LocaleKeys.my_product_options_add.tr(),
+                " " + LocaleKeys.my_product_options_add.tr(),
                 style: FunctionHelper.FontTheme(
                     color: Colors.white,
                     fontSize: SizeUtil.titleSmallFontSize().sp,
-                    fontWeight: FontWeight.w500),)
+                    fontWeight: FontWeight.w500),
+              )
             ],
           ),
         ),
       ),
       visible:
-      !showCard0 || !showCard1 || !showCard0 && !showCard1 ? true : false,
+          !showCard0 || !showCard1 || !showCard0 && !showCard1 ? true : false,
     );
   }
 

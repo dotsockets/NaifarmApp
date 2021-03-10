@@ -53,16 +53,16 @@ class ConfirmPaymentView extends StatelessWidget {
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-       if(event is bool){
-         onDialog = true;
-         FunctionHelper.SuccessDialog(context,message: "Successfully confirmed information ",onClick: (){
-           onUpload = true;
-           if(onDialog){
-             Navigator.pop(context,onUpload);
-           }
-
-         });
-       }
+        if (event is bool) {
+          onDialog = true;
+          FunctionHelper.SuccessDialog(context,
+              message: "Successfully confirmed information ", onClick: () {
+            onUpload = true;
+            if (onDialog) {
+              Navigator.pop(context, onUpload);
+            }
+          });
+        }
       });
       Usermanager().getUser().then((value) => bloc.GetOrderById(context,
           orderType: "myshop/orders", id: orderData.id, token: value.token));
@@ -103,77 +103,100 @@ class ConfirmPaymentView extends StatelessWidget {
                             child: SingleChildScrollView(
                           child: Column(
                             children: <Widget>[
-                              item.grandTotal!=null? ItemInfo(
-                                  PricecolorText: ThemeColor.ColorSale(),
-                                  leading: "All buyer payment ",
-                                  trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"):SizedBox(),
+                              item.grandTotal != null
+                                  ? ItemInfo(
+                                      PricecolorText: ThemeColor.ColorSale(),
+                                      leading: "All buyer payment ",
+                                      trailing:
+                                          "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}")
+                                  : SizedBox(),
                               SizedBox(height: 1.0.h),
-                              item.total!=null? ItemInfo(
-                                  PricecolorText: Colors.grey.shade400,
-                                  leading: "Total product cost",
-                                  trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}"):SizedBox(),
-                              item.shipping!=null?ItemInfo(
-                                  PricecolorText: Colors.grey.shade400,
-                                  leading: "Shipping cost",
-                                  trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.shipping)}"):SizedBox(),
-                              item.discount!=null?ItemInfo(
-                                  PricecolorText: Colors.grey.shade400,
-                                  leading: "Discount code",
-                                  trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.discount)}"):SizedBox(),
+                              item.total != null
+                                  ? ItemInfo(
+                                      PricecolorText: Colors.grey.shade400,
+                                      leading: "Total product cost",
+                                      trailing:
+                                          "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}")
+                                  : SizedBox(),
+                              item.shipping != null
+                                  ? ItemInfo(
+                                      PricecolorText: Colors.grey.shade400,
+                                      leading: "Shipping cost",
+                                      trailing:
+                                          "฿${NumberFormat("#,##0.00", "en_US").format(item.shipping)}")
+                                  : SizedBox(),
+                              item.discount != null
+                                  ? ItemInfo(
+                                      PricecolorText: Colors.grey.shade400,
+                                      leading: "Discount code",
+                                      trailing:
+                                          "฿${NumberFormat("#,##0.00", "en_US").format(item.discount)}")
+                                  : SizedBox(),
                               SizedBox(height: 1.0.h),
-                              item.discount!=null?ItemInfo(
-                                  PricecolorText: Colors.grey.shade400,
-                                  leading: "Payment method",
-                                  trailing: "${item.paymentMethod.name}"):SizedBox(),
-                              item.image!=null && item.image.length>0
+                              item.discount != null
+                                  ? ItemInfo(
+                                      PricecolorText: Colors.grey.shade400,
+                                      leading: "Payment method",
+                                      trailing: "${item.paymentMethod.name}")
+                                  : SizedBox(),
+                              item.image != null && item.image.length > 0
                                   ? Container(
-                                color: Colors.white,
-                                padding: EdgeInsets.all(5.0.w),
-                                    child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                    Text(
-                                      "Proof of transfer ",
-                                      style: FunctionHelper.FontTheme(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: SizeUtil.titleSmallFontSize().sp),
-                                    ),
-                                    SizedBox(height: 2.0.h,),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey.shade400,width: 1),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10),
-                                          bottomLeft: Radius.circular(10),
-                                          bottomRight: Radius.circular(10)
-                                        ),
-                                      ),
-                                      padding: EdgeInsets.all(2.0.h),
-                                      child: FullScreenWidget(
-                                        backgroundIsTransparent: true,
-                                        child: Center(
-                                          child: Hero(
-                                            tag: "payment",
-                                            child: CachedNetworkImage(
-                                              // placeholder: (context, url) => Container(
-                                              //   child: Lottie.asset('assets/json/loading.json', ),
-                                              // ),
-                                              imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                                              //  errorWidget: (context, url, error) => Container(child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
-                                            ),
+                                      color: Colors.white,
+                                      padding: EdgeInsets.all(5.0.w),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Proof of transfer ",
+                                            style: FunctionHelper.FontTheme(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: SizeUtil
+                                                        .titleSmallFontSize()
+                                                    .sp),
                                           ),
-                                        ),
+                                          SizedBox(
+                                            height: 2.0.h,
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.grey.shade400,
+                                                  width: 1),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(10),
+                                                      topRight:
+                                                          Radius.circular(10),
+                                                      bottomLeft:
+                                                          Radius.circular(10),
+                                                      bottomRight:
+                                                          Radius.circular(10)),
+                                            ),
+                                            padding: EdgeInsets.all(2.0.h),
+                                            child: FullScreenWidget(
+                                              backgroundIsTransparent: true,
+                                              child: Center(
+                                                child: Hero(
+                                                  tag: "payment",
+                                                  child: CachedNetworkImage(
+                                                    // placeholder: (context, url) => Container(
+                                                    //   child: Lottie.asset('assets/json/loading.json', ),
+                                                    // ),
+                                                    imageUrl: ProductLandscape
+                                                        .CovertUrlImage(
+                                                            item.image),
+                                                    //  errorWidget: (context, url, error) => Container(child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     )
-                                ],
-                              ),
-                                  )
                                   : SizedBox()
                             ],
                           ),
@@ -209,7 +232,8 @@ class ConfirmPaymentView extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.grey.shade400, width: 1)),
+        border:
+            Border(bottom: BorderSide(color: Colors.grey.shade400, width: 1)),
       ),
       padding: EdgeInsets.all(1.0.w),
       child: ListTile(
@@ -236,33 +260,45 @@ class ConfirmPaymentView extends StatelessWidget {
         color: Colors.white,
         padding: EdgeInsets.all(2.0.w),
         child: Center(
-          child: FlatButton(
-            minWidth: 50.0.w,
-            height: 5.0.h,
-            color: orderData.image!=null?orderData.image.isNotEmpty?ThemeColor.ColorSale():Colors.black.withOpacity(0.2):Colors.black.withOpacity(0.2),
-            textColor: Colors.white,
-            splashColor: Colors.white.withOpacity(0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
+          child: TextButton(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+              ),
+              minimumSize: MaterialStateProperty.all(
+                Size(50.0.w, 5.0.h),
+              ),
+              backgroundColor: MaterialStateProperty.all(
+                orderData.image != null
+                    ? orderData.image.isNotEmpty
+                        ? ThemeColor.ColorSale()
+                        : Colors.black.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.2),
+              ),
+              overlayColor: MaterialStateProperty.all(
+                Colors.white.withOpacity(0.3),
+              ),
             ),
             onPressed: () {
-              if(orderData.image.isNotEmpty){
+              if (orderData.image.isNotEmpty) {
                 FunctionHelper.ConfirmDialog(context,
                     message: "คุณต้องการยืนยันการชำระเงินคำสั่งซื้อสินค้านี้ ?",
                     onCancel: () {
-                      Navigator.of(context).pop();
-                    }, onClick: () {
-                      Navigator.of(context).pop();
-                      onUpload = true;
-                      Usermanager().getUser().then((value) =>
-                          bloc.MarkPaid(context,token: value.token, OrderId: orderData.id));
-                    });
+                  Navigator.of(context).pop();
+                }, onClick: () {
+                  Navigator.of(context).pop();
+                  onUpload = true;
+                  Usermanager().getUser().then((value) => bloc.MarkPaid(context,
+                      token: value.token, OrderId: orderData.id));
+                });
               }
-
             },
             child: Text(
               "Confirm ",
               style: FunctionHelper.FontTheme(
+                  color: Colors.white,
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),
             ),

@@ -118,13 +118,19 @@ class _MyProductViewState extends State<MyProductView> {
                           shopID: widget.shopId,
                           tabNum: tabNum);
                     }),
-
                 IconButton(
-                  icon: Icon(FontAwesome.ellipsis_v,size: SizeUtil.mediumIconSize().w,color: Colors.white,)
-                  ,onPressed: (){ ButtonDialog(context,message: [LocaleKeys.attributes_set.tr()],onClick: () {
-                  Navigator.of(context).pop();
-                  AppRoute.Attribute(context: context);
-                });},
+                  icon: Icon(
+                    FontAwesome.ellipsis_v,
+                    size: SizeUtil.mediumIconSize().w,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    ButtonDialog(context,
+                        message: [LocaleKeys.attributes_set.tr()], onClick: () {
+                      Navigator.of(context).pop();
+                      AppRoute.Attribute(context: context);
+                    });
+                  },
                 )
               ],
             ),
@@ -159,15 +165,16 @@ class _MyProductViewState extends State<MyProductView> {
                                 tabs: [
                                   _tab(
                                       title: LocaleKeys.shop_available.tr(),
-                                      message:
-                                      false),
+                                      message: false),
                                   _tab(
                                       title: LocaleKeys.shop_sold_out.tr(),
-                                      message:
-                                      false),
-                                  _tab(title:
-                                  LocaleKeys.shop_banned.tr(),message: false),
-                                  _tab(title: LocaleKeys.shop_inactive.tr(),message: false)
+                                      message: false),
+                                  _tab(
+                                      title: LocaleKeys.shop_banned.tr(),
+                                      message: false),
+                                  _tab(
+                                      title: LocaleKeys.shop_inactive.tr(),
+                                      message: false)
                                 ],
                               ),
                             ),
@@ -218,12 +225,19 @@ class _MyProductViewState extends State<MyProductView> {
         margin: EdgeInsets.all(2.0.w),
         width: 50.0.w,
         height: 5.0.h,
-        child: FlatButton(
-          color: ThemeColor.secondaryColor(),
-          textColor: Colors.white,
-          splashColor: Colors.white.withOpacity(0.3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40.0),
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+            ),
+            backgroundColor: MaterialStateProperty.all(
+              ThemeColor.secondaryColor(),
+            ),
+            overlayColor: MaterialStateProperty.all(
+              Colors.white.withOpacity(0.3),
+            ),
           ),
           onPressed: () async {
             // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
@@ -232,12 +246,15 @@ class _MyProductViewState extends State<MyProductView> {
             if (result != null && result) {
               Usermanager().getUser().then((value) => bloc.GetProductMyShop(
                   context,
-                  page: "1", limit: 5, token: value.token));
+                  page: "1",
+                  limit: 5,
+                  token: value.token));
             }
           },
           child: Text(
             LocaleKeys.btn_add_product.tr(),
             style: FunctionHelper.FontTheme(
+                color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
           ),

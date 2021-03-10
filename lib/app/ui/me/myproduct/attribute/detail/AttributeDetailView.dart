@@ -24,7 +24,8 @@ class AttributeDetailView extends StatefulWidget {
   _AttributeDetailViewState createState() => _AttributeDetailViewState();
 }
 
-class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAware{
+class _AttributeDetailViewState extends State<AttributeDetailView>
+    with RouteAware {
   UploadProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
@@ -44,12 +45,13 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
-     /* bloc.onSuccessDel.stream.listen((event) {
+      /* bloc.onSuccessDel.stream.listen((event) {
         Usermanager().getUser().then((value) => bloc.GetAttributeDetail(token: value.token,id: widget.idAttr));
       });*/
-      Usermanager().getUser().then((value) => bloc.GetAttributeDetail(context,token: value.token,id: widget.idAttr));
+      Usermanager().getUser().then((value) => bloc.GetAttributeDetail(context,
+          token: value.token, id: widget.idAttr));
     }
   }
 
@@ -61,9 +63,8 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
 
   @override
   void didPopNext() {
-    Usermanager()
-        .getUser()
-        .then((value) => bloc.GetAttributeDetail(context,token: value.token,id: widget.idAttr));
+    Usermanager().getUser().then((value) => bloc.GetAttributeDetail(context,
+        token: value.token, id: widget.idAttr));
   }
 
   @override
@@ -92,126 +93,163 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
                     var item = (snapshot.data as MyShopAttributeRespone);
                     if (item.data.length != 0) {
                       return Column(
-                            children: [
-                              Column(
-                                children: List.generate(
-                                  item.data.length,
-                                  (index) => Column(
-                                    children: [
-                                      Slidable(
-                                        actionPane:
-                                        SlidableDrawerActionPane(),
-                                        actionExtentRatio: 0.25,
-                                        child: InkWell(
-                                          onTap: (){AppRoute.AttributeDetailEdit(context: context,idAttr: widget.idAttr,color:item.data[index].color,value:item.data[index].value,vid: item.data[index].id);},
-                                          child: _buildItem(
-                                              txt: item.data[index].value,
-                                              id: item.data[index].id),
-                                        ),
-                                        secondaryActions: <Widget>[
-                                          IconSlideAction(
-                                            color: ThemeColor.secondaryColor(),
-                                            iconWidget: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Lottie.asset('assets/json/edit.json',
-                                                    height: 4.5.h,
-                                                    width: 4.5.h,
-                                                    repeat: true),
-                                                Text(
-                                                  LocaleKeys.cart_edit.tr(),
-                                                  style: FunctionHelper.FontTheme(
-                                                      color: Colors.white,
-                                                      fontSize: SizeUtil.titleSmallFontSize().sp,
-                                                      fontWeight: FontWeight.bold),
-                                                )
-                                              ],
-                                            ),
+                        children: [
+                          Column(
+                            children: List.generate(
+                                item.data.length,
+                                (index) => Column(
+                                      children: [
+                                        Slidable(
+                                          actionPane:
+                                              SlidableDrawerActionPane(),
+                                          actionExtentRatio: 0.25,
+                                          child: InkWell(
                                             onTap: () {
-                                              AppRoute.AttributeDetailEdit(context: context,idAttr: widget.idAttr,color:item.data[index].color,value:item.data[index].value,vid: item.data[index].id);
+                                              AppRoute.AttributeDetailEdit(
+                                                  context: context,
+                                                  idAttr: widget.idAttr,
+                                                  color: item.data[index].color,
+                                                  value: item.data[index].value,
+                                                  vid: item.data[index].id);
                                             },
+                                            child: _buildItem(
+                                                txt: item.data[index].value,
+                                                id: item.data[index].id),
                                           ),
-                                          IconSlideAction(
-                                            color: ThemeColor.ColorSale(),
-                                            iconWidget: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  margin: EdgeInsets.only(top: 0.5.h),
-                                                  child: Lottie.asset('assets/json/delete.json',
-                                                      height: 3.0.h,
-                                                      width: 3.0.h,
+                                          secondaryActions: <Widget>[
+                                            IconSlideAction(
+                                              color:
+                                                  ThemeColor.secondaryColor(),
+                                              iconWidget: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Lottie.asset(
+                                                      'assets/json/edit.json',
+                                                      height: 4.5.h,
+                                                      width: 4.5.h,
                                                       repeat: true),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(top: 0.5.h),
-                                                  child: Text(
-                                                    LocaleKeys.cart_del.tr(),
+                                                  Text(
+                                                    LocaleKeys.cart_edit.tr(),
                                                     style: FunctionHelper.FontTheme(
                                                         color: Colors.white,
-                                                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                                                        fontWeight: FontWeight.bold),
-                                                  ),
-                                                )
-                                              ],
+                                                        fontSize: SizeUtil
+                                                                .titleSmallFontSize()
+                                                            .sp,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                ],
+                                              ),
+                                              onTap: () {
+                                                AppRoute.AttributeDetailEdit(
+                                                    context: context,
+                                                    idAttr: widget.idAttr,
+                                                    color:
+                                                        item.data[index].color,
+                                                    value:
+                                                        item.data[index].value,
+                                                    vid: item.data[index].id);
+                                              },
                                             ),
-                                            onTap: () {
-                                              Usermanager().getUser().then((value) => bloc.DELETEAttributeDetail(context,id: widget.idAttr, token: value.token,vid: item.data[index].id));
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                      index != item.data.length - 1
-                                          ? SizedBox(
-                                        height: 0.5.h,
-                                      )
-                                          : SizedBox()
-                                    ],
-                                  )
-                                ),
-                              ),
-                              _buildButton()
-                            ],
-                          );
+                                            IconSlideAction(
+                                              color: ThemeColor.ColorSale(),
+                                              iconWidget: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 0.5.h),
+                                                    child: Lottie.asset(
+                                                        'assets/json/delete.json',
+                                                        height: 3.0.h,
+                                                        width: 3.0.h,
+                                                        repeat: true),
+                                                  ),
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 0.5.h),
+                                                    child: Text(
+                                                      LocaleKeys.cart_del.tr(),
+                                                      style: FunctionHelper
+                                                          .FontTheme(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: SizeUtil
+                                                                      .titleSmallFontSize()
+                                                                  .sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              onTap: () {
+                                                Usermanager().getUser().then(
+                                                    (value) => bloc
+                                                        .DELETEAttributeDetail(
+                                                            context,
+                                                            id: widget.idAttr,
+                                                            token: value.token,
+                                                            vid: item
+                                                                .data[index]
+                                                                .id));
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                        index != item.data.length - 1
+                                            ? SizedBox(
+                                                height: 0.5.h,
+                                              )
+                                            : SizedBox()
+                                      ],
+                                    )),
+                          ),
+                          _buildButton()
+                        ],
+                      );
                     } else {
                       return Column(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 15.0.h,
-                                color: Colors.white,
-                                child: Center(
-                                  child: Text(LocaleKeys.attributes_empty.tr(),
-                                      style: FunctionHelper.FontTheme(
-                                          fontSize: SizeUtil.titleFontSize().sp,
-                                          fontWeight: FontWeight.w500)),
-                                ),
-                              ),
-                              _buildButton()
-                            ],
-                          );
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 15.0.h,
+                            color: Colors.white,
+                            child: Center(
+                              child: Text(LocaleKeys.attributes_empty.tr(),
+                                  style: FunctionHelper.FontTheme(
+                                      fontSize: SizeUtil.titleFontSize().sp,
+                                      fontWeight: FontWeight.w500)),
+                            ),
+                          ),
+                          _buildButton()
+                        ],
+                      );
                     }
                   } else {
-                    return  StreamBuilder(
-                      stream: bloc.onError.stream,
-                      builder: (context, snapshot) {
-                        if(snapshot.hasData){
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 15.0.h,
-                          color: Colors.white,
-                          child: Center(
-                            child: Text(LocaleKeys.search_product_not_found.tr(),
-                                style: FunctionHelper.FontTheme(
-                                    fontSize: SizeUtil.titleFontSize().sp,
-                                    fontWeight: FontWeight.w500)),
-                          ),
-                        );
-                        }else{
-                          return SizedBox();
-                        }
-                      }
-                    );
+                    return StreamBuilder(
+                        stream: bloc.onError.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 15.0.h,
+                              color: Colors.white,
+                              child: Center(
+                                child: Text(
+                                    LocaleKeys.search_product_not_found.tr(),
+                                    style: FunctionHelper.FontTheme(
+                                        fontSize: SizeUtil.titleFontSize().sp,
+                                        fontWeight: FontWeight.w500)),
+                              ),
+                            );
+                          } else {
+                            return SizedBox();
+                          }
+                        });
                   }
                 }),
           ),
@@ -220,7 +258,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
     );
   }
 
-  Widget _buildItem({String txt,int id}) {
+  Widget _buildItem({String txt, int id}) {
     return Container(
       color: Colors.white,
       width: MediaQuery.of(context).size.width,
@@ -259,21 +297,35 @@ class _AttributeDetailViewState extends State<AttributeDetailView> with RouteAwa
     return Container(
       margin: EdgeInsets.only(top: 2.0.h),
       child: Center(
-        child: FlatButton(
-          minWidth: 50.0.w,
-          height: 5.0.h,
-          color: ThemeColor.secondaryColor(),
-          textColor: Colors.white,
-          splashColor: Colors.white.withOpacity(0.3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40.0),
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+            ),
+            minimumSize: MaterialStateProperty.all(
+              Size(50.0.w, 5.0.h),
+            ),
+            backgroundColor: MaterialStateProperty.all(
+              ThemeColor.secondaryColor(),
+            ),
+            overlayColor: MaterialStateProperty.all(
+              Colors.white.withOpacity(0.3),
+            ),
           ),
           onPressed: () {
-            AppRoute.AttributeDetailEdit(context: context,idAttr: widget.idAttr,color:"",value:"",vid: 0);
+            AppRoute.AttributeDetailEdit(
+                context: context,
+                idAttr: widget.idAttr,
+                color: "",
+                value: "",
+                vid: 0);
           },
           child: Text(
             LocaleKeys.attributes_add.tr(),
             style: FunctionHelper.FontTheme(
+                color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
           ),

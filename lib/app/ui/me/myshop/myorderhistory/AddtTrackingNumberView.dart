@@ -31,32 +31,33 @@ class AddtTrackingNumberView extends StatelessWidget {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       trackOnError.add("");
       bloc.onLoad.stream.listen((event) {
-        if(event){
+        if (event) {
           FunctionHelper.showDialogProcess(context);
-        }else{
+        } else {
           Navigator.of(context).pop();
         }
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.AlertDialogShop(context,message:event,showbtn: true,title: "Eror Shipping" );
+        FunctionHelper.AlertDialogShop(context,
+            message: event, showbtn: true, title: "Eror Shipping");
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        if(event is bool){
+        if (event is bool) {
           onDialog = true;
-          FunctionHelper.SuccessDialog(context,message: "Successfully confirmed information ",onClick: (){
-            if(onDialog){
-              Navigator.pop(context,true);
+          FunctionHelper.SuccessDialog(context,
+              message: "Successfully confirmed information ", onClick: () {
+            if (onDialog) {
+              Navigator.pop(context, true);
             }
-
           });
         }
-
       });
     }
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
+
   @override
   Widget build(BuildContext context) {
     init(context);
@@ -73,39 +74,52 @@ class AddtTrackingNumberView extends StatelessWidget {
               header_type: Header_Type.barcartShop,
               isEnable_Search: false,
               icon: '',
-              onClick: (){
-                Navigator.pop(context,false);
+              onClick: () {
+                Navigator.pop(context, false);
               },
             ),
           ),
           body: Column(
             children: [
-              Expanded(child: Container(
+              Expanded(
+                  child: Container(
                 child: Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.only(left: 4.0.w,right: 4.0.w,top: 2.0.w),
+                        padding: EdgeInsets.only(
+                            left: 4.0.w, right: 4.0.w, top: 2.0.w),
                         color: Colors.white,
                         child: StreamBuilder(
                           stream: trackOnError.stream,
-                          builder: (BuildContext context,AsyncSnapshot snapshot){
-                           if(snapshot.hasData){
-                             return BuildEditText(EnableMaxLength: false,maxLength: 5000,BorderOpacity: 0.3,
-                               hint: "Add a tracking number ",maxLine: 1,controller: trackController,onError: snapshot.data,inputType: TextInputType.text,onChanged: (String char){
-                                 if(char.isNotEmpty){
-                                   trackOnError.add("");
-                                 }
-                               },);
-                           }else{
-                             return SizedBox();
-                           }
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              return BuildEditText(
+                                EnableMaxLength: false,
+                                maxLength: 5000,
+                                BorderOpacity: 0.3,
+                                hint: "Add a tracking number ",
+                                maxLine: 1,
+                                controller: trackController,
+                                onError: snapshot.data,
+                                inputType: TextInputType.text,
+                                onChanged: (String char) {
+                                  if (char.isNotEmpty) {
+                                    trackOnError.add("");
+                                  }
+                                },
+                              );
+                            } else {
+                              return SizedBox();
+                            }
                           },
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 4.0.w,right: 4.0.w,top: 3.0.w),
+                        padding: EdgeInsets.only(
+                            left: 4.0.w, right: 4.0.w, top: 3.0.w),
                         color: Colors.white,
                         child: Text(
                           "กรุณากรอกหมายเลขติดตามพัสดุเพื่อให้สามารถดำเนินการต่อไปนี้ได้โดยตรง",
@@ -115,18 +129,29 @@ class AddtTrackingNumberView extends StatelessWidget {
                               fontSize: SizeUtil.titleSmallFontSize().sp),
                         ),
                       ),
-
                       Container(
-                        padding: EdgeInsets.only(left: 4.0.w,right: 4.0.w,top: 2.0.w,bottom: 4.0.w),
+                        padding: EdgeInsets.only(
+                            left: 4.0.w,
+                            right: 4.0.w,
+                            top: 2.0.w,
+                            bottom: 4.0.w),
                         color: Colors.white,
                         child: Row(
                           children: [
-                            Container( decoration:  BoxDecoration(
-                              color: Colors.black.withOpacity(0.5),
-                              borderRadius:  BorderRadius.all(Radius.circular(2.0.w)),
-                            ),width: 2.5.w,height: 2.5.w,),
-                            SizedBox(width: 2.5.w,),
-                            Expanded(child: Text(
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.5),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(2.0.w)),
+                              ),
+                              width: 2.5.w,
+                              height: 2.5.w,
+                            ),
+                            SizedBox(
+                              width: 2.5.w,
+                            ),
+                            Expanded(
+                                child: Text(
                               "ผู้ใช้สามารถตรวจสอบสถานะการขนส่งของพัสดุผ่าน Naifarm ได้โดยตรง",
                               style: FunctionHelper.FontTheme(
                                   color: Colors.grey.shade700,
@@ -140,7 +165,7 @@ class AddtTrackingNumberView extends StatelessWidget {
                   ),
                 ),
               )),
-              _ButtonActive(context: context,orderData: orderData),
+              _ButtonActive(context: context, orderData: orderData),
             ],
           ),
         ),
@@ -148,41 +173,52 @@ class AddtTrackingNumberView extends StatelessWidget {
     );
   }
 
-
   Widget _ButtonActive({BuildContext context, OrderData orderData}) {
     return Center(
       child: Container(
         color: Colors.white,
         padding: EdgeInsets.all(2.0.w),
         child: Center(
-          child: FlatButton(
-            minWidth: 50.0.w,
-            height: 5.0.h,
-            color: ThemeColor.ColorSale(),
-            textColor: Colors.white,
-            splashColor: Colors.white.withOpacity(0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
+          child: TextButton(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+              ),
+              minimumSize: MaterialStateProperty.all(
+                Size(50.0.w, 5.0.h),
+              ),
+              backgroundColor: MaterialStateProperty.all(
+                ThemeColor.ColorSale(),
+              ),
+              overlayColor: MaterialStateProperty.all(
+                Colors.white.withOpacity(0.3),
+              ),
             ),
             onPressed: () {
-              if( trackController.text.isNotEmpty){
+              if (trackController.text.isNotEmpty) {
                 FunctionHelper.ConfirmDialog(context,
-                    message: "Confirm that filling in the parcel number is correct ",
+                    message:
+                        "Confirm that filling in the parcel number is correct ",
                     onCancel: () {
-                      Navigator.of(context).pop();
-                    }, onClick: () {
-                      Navigator.of(context).pop();
-                      Usermanager().getUser().then((value) =>
-                          bloc.AddTracking(context,token: value.token, OrderId: orderData.id,trackingId: trackController.text));
-                    });
-              }else{
+                  Navigator.of(context).pop();
+                }, onClick: () {
+                  Navigator.of(context).pop();
+                  Usermanager().getUser().then((value) => bloc.AddTracking(
+                      context,
+                      token: value.token,
+                      OrderId: orderData.id,
+                      trackingId: trackController.text));
+                });
+              } else {
                 trackOnError.add("Please fill in the correct parcel number. ");
               }
-             
             },
             child: Text(
               "Shipping",
               style: FunctionHelper.FontTheme(
+                  color: Colors.white,
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),
             ),

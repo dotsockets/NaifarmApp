@@ -514,25 +514,38 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   }
 
   Widget _BuildButtonItem({String btnTxt, int index, bool enable}) {
-    return FlatButton(
-      height: 50,
-      color: enable ? ThemeColor.secondaryColor() : Colors.grey.shade400,
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+        ),
+        minimumSize: MaterialStateProperty.all(
+          Size(80.0.w, 50.0),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          enable ? ThemeColor.secondaryColor() : Colors.grey.shade400,
+        ),
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.3),
+        ),
       ),
       onPressed: () {
         // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
         if (enable) {
           Usermanager().getUser().then((value) {
-            bloc.AddProductMyShop(context,shopRequest: bloc.uploadProductStorage.value.productMyShopRequest,token: value.token);
+            bloc.AddProductMyShop(context,
+                shopRequest:
+                    bloc.uploadProductStorage.value.productMyShopRequest,
+                token: value.token);
           });
         }
       },
       child: Text(
         btnTxt,
         style: FunctionHelper.FontTheme(
+            color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),
       ),
@@ -540,13 +553,22 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   }
 
   Widget _BuildButtonCancleItem({String btnTxt, int index, bool enable}) {
-    return FlatButton(
-      height: 50,
-      color: enable ? ThemeColor.ColorSale() : Colors.grey.shade400,
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+        ),
+        minimumSize: MaterialStateProperty.all(
+          Size(80.0.w, 50.0),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          enable ? ThemeColor.ColorSale() : Colors.grey.shade400,
+        ),
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.3),
+        ),
       ),
       onPressed: () {
         if (enable) {
@@ -560,6 +582,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
       child: Text(
         btnTxt,
         style: FunctionHelper.FontTheme(
+            color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),
       ),

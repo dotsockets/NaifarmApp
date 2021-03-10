@@ -49,7 +49,8 @@ class _CartAaddressViewState extends State<CartAaddressView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+        FunctionHelper.SnackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
 
       bloc.onSuccess.stream.listen((event) {
@@ -59,8 +60,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
 
       Usermanager()
           .getUser()
-          .then((value) => bloc.AddressesList(context,token: value.token));
-
+          .then((value) => bloc.AddressesList(context, token: value.token));
     }
   }
 
@@ -68,10 +68,10 @@ class _CartAaddressViewState extends State<CartAaddressView> {
   Widget build(BuildContext context) {
     _init();
     return WillPopScope(
-        onWillPop: ()async{
-          check_call_back();
-          return true;
-        },
+      onWillPop: () async {
+        check_call_back();
+        return true;
+      },
       child: Container(
         color: ThemeColor.primaryColor(),
         child: SafeArea(
@@ -85,7 +85,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                     header_type: Header_Type.barNormal,
                     icon: "",
                     isEnable_Search: false,
-                    onClick: ()=>check_call_back(),
+                    onClick: () => check_call_back(),
                   ),
                 ),
                 body: Container(
@@ -93,8 +93,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                       stream: bloc.AddressList.stream,
                       builder: (context, snapshot) {
                         var item = (snapshot.data as AddressesListRespone);
-                        if (snapshot.hasData && item.data!=null) {
-
+                        if (snapshot.hasData && item.data != null) {
                           return SingleChildScrollView(
                             child: Column(
                               children: [
@@ -102,11 +101,15 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                                   children: item.data
                                       .asMap()
                                       .map((index, value) {
-                                        return MapEntry(index,
+                                        return MapEntry(
+                                            index,
                                             Column(
                                               children: [
-                                                _BuildCard(item: value, index: index),
-                                                SizedBox(height: 1.0.h,)
+                                                _BuildCard(
+                                                    item: value, index: index),
+                                                SizedBox(
+                                                  height: 1.0.h,
+                                                )
                                               ],
                                             ));
                                       })
@@ -146,17 +149,17 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                   padding: EdgeInsets.all(2.0.w),
                   child: item.select
                       ? SvgPicture.asset(
-                    'assets/images/svg/checkmark.svg',
-                    width: 6.0.w,
-                    height: 6.0.w,
-                    color: ThemeColor.primaryColor(),
-                  )
+                          'assets/images/svg/checkmark.svg',
+                          width: 6.0.w,
+                          height: 6.0.w,
+                          color: ThemeColor.primaryColor(),
+                        )
                       : SvgPicture.asset(
-                    'assets/images/svg/uncheckmark.svg',
-                    width: 6.0.w,
-                    height: 6.0.w,
-                    color: Colors.black.withOpacity(0.5),
-                  ),
+                          'assets/images/svg/uncheckmark.svg',
+                          width: 6.0.w,
+                          height: 6.0.w,
+                          color: Colors.black.withOpacity(0.5),
+                        ),
                 ),
               ),
               Expanded(
@@ -188,15 +191,16 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                                 children: [
                                   item.select
                                       ? Text(LocaleKeys.address_default.tr(),
-                                      style: FunctionHelper.FontTheme(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: SizeUtil.titleFontSize().sp,
-                                          color: ThemeColor.ColorSale()))
+                                          style: FunctionHelper.FontTheme(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize:
+                                                  SizeUtil.titleFontSize().sp,
+                                              color: ThemeColor.ColorSale()))
                                       : SizedBox(),
                                   SizedBox(
                                     width: 5,
                                   ),
-                                 /* Icon(
+                                  /* Icon(
                                     Icons.arrow_forward_ios,
                                     color: Colors.grey.shade500,
                                     size: 5.0.w,
@@ -242,9 +246,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Lottie.asset('assets/json/edit.json',
-                    height: 5.0.h,
-                    width: 5.0.h,
-                    repeat: true),
+                    height: 5.0.h, width: 5.0.h, repeat: true),
                 Text(
                   LocaleKeys.cart_del.tr(),
                   style: FunctionHelper.FontTheme(
@@ -258,10 +260,8 @@ class _CartAaddressViewState extends State<CartAaddressView> {
               var result = await AppRoute.AddressEdit(context, item);
               if (result != null) {
                 onUpdate = true;
-                Usermanager()
-                    .getUser()
-                    .then((value) => bloc.AddressesList(context,token: value.token));
-
+                Usermanager().getUser().then(
+                    (value) => bloc.AddressesList(context, token: value.token));
               }
             },
           ),
@@ -271,9 +271,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Lottie.asset('assets/json/delete.json',
-                    height: 4.0.h,
-                    width: 4.0.h,
-                    repeat: true),
+                    height: 4.0.h, width: 4.0.h, repeat: true),
                 Text(
                   LocaleKeys.cart_del.tr(),
                   style: FunctionHelper.FontTheme(
@@ -285,10 +283,12 @@ class _CartAaddressViewState extends State<CartAaddressView> {
             ),
             onTap: () {
               onUpdate = true;
-              Usermanager().getUser().then((value) => bloc.DeleteAddress(context,id: item.id.toString(),token: value.token));
+              Usermanager().getUser().then((value) => bloc.DeleteAddress(
+                  context,
+                  id: item.id.toString(),
+                  token: value.token));
             },
           )
-
         ],
       ),
       // Dismissible(
@@ -324,16 +324,15 @@ class _CartAaddressViewState extends State<CartAaddressView> {
           onUpdate = true;
           Usermanager()
               .getUser()
-              .then((value) => bloc.AddressesList(context,token: value.token));
+              .then((value) => bloc.AddressesList(context, token: value.token));
         }
       },
-      onTap: (){
-
-        for(var i=0;i<bloc.AddressList.value.data.length;i++){
-          if(bloc.AddressList.value.data[i].id == item.id){
+      onTap: () {
+        for (var i = 0; i < bloc.AddressList.value.data.length; i++) {
+          if (bloc.AddressList.value.data[i].id == item.id) {
             bloc.AddressList.value.data[i].select = true;
             bloc.AddressList.value.data[i].addressType = "Primary";
-          }else{
+          } else {
             bloc.AddressList.value.data[i].select = false;
             bloc.AddressList.value.data[i].addressType = "";
           }
@@ -342,15 +341,37 @@ class _CartAaddressViewState extends State<CartAaddressView> {
 
         //print("ewdfcesr ${widget.install_select!=null}")
 
-         if(widget.install_select==null || widget.install_select.id!=item.id){
-          Usermanager().getUser().then((value) =>     bloc.UpdateAddress(context,data: AddressCreaterequest(countryId: 1,id: item.id,cityId: item.cityId,phone: item.phone,addressLine1: item.addressLine1,
-              addressLine2: "",addressTitle: item.addressTitle,stateId: item.stateId,zipCode: item.zipCode,addressType: "Primary"),token: value.token));
+        if (widget.install_select == null ||
+            widget.install_select.id != item.id) {
+          Usermanager().getUser().then((value) => bloc.UpdateAddress(context,
+              data: AddressCreaterequest(
+                  countryId: 1,
+                  id: item.id,
+                  cityId: item.cityId,
+                  phone: item.phone,
+                  addressLine1: item.addressLine1,
+                  addressLine2: "",
+                  addressTitle: item.addressTitle,
+                  stateId: item.stateId,
+                  zipCode: item.zipCode,
+                  addressType: "Primary"),
+              token: value.token));
         }
 
-        List<AddressesData>  returnData = List<AddressesData>();
-        returnData.add(AddressesData(id: item.id,addressLine1: item.addressLine1,addressLine2: item.addressLine2,addressTitle: item.addressTitle,addressType: "Primary",
-        cityId: 1,phone: item.phone,select: true,stateId: item.stateId,zipCode: item.zipCode));
-        Navigator.pop(context, AddressesListRespone(data: returnData,total: returnData.length));
+        List<AddressesData> returnData = List<AddressesData>();
+        returnData.add(AddressesData(
+            id: item.id,
+            addressLine1: item.addressLine1,
+            addressLine2: item.addressLine2,
+            addressTitle: item.addressTitle,
+            addressType: "Primary",
+            cityId: 1,
+            phone: item.phone,
+            select: true,
+            stateId: item.stateId,
+            zipCode: item.zipCode));
+        Navigator.pop(context,
+            AddressesListRespone(data: returnData, total: returnData.length));
       },
     );
   }
@@ -360,25 +381,32 @@ class _CartAaddressViewState extends State<CartAaddressView> {
       child: Container(
         width: 50.0.w,
         height: 5.0.h,
-        child: FlatButton(
-          color: ThemeColor.secondaryColor(),
-          textColor: Colors.white,
-          splashColor: Colors.white.withOpacity(0.3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40.0),
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+            ),
+            backgroundColor: MaterialStateProperty.all(
+              ThemeColor.secondaryColor(),
+            ),
+            overlayColor: MaterialStateProperty.all(
+              Colors.white.withOpacity(0.3),
+            ),
           ),
           onPressed: () async {
             final result = await AppRoute.SettingAddAddress(context);
             if (result) {
               onUpdate = true;
-              Usermanager()
-                  .getUser()
-                  .then((value) => bloc.AddressesList(context,token: value.token));
+              Usermanager().getUser().then(
+                  (value) => bloc.AddressesList(context, token: value.token));
             }
           },
           child: Text(
             LocaleKeys.btn_add_address.tr(),
             style: FunctionHelper.FontTheme(
+                color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
           ),
@@ -387,22 +415,30 @@ class _CartAaddressViewState extends State<CartAaddressView> {
     );
   }
 
+  void check_call_back() {
+    if (bloc.AddressList.value.data != null) {
+      List<AddressesData> returnData = List<AddressesData>();
 
-  void check_call_back(){
-    if(bloc.AddressList.value.data!=null){
-      List<AddressesData>  returnData = List<AddressesData>();
-
-      for(var item in bloc.AddressList.value.data){
-        if(item.addressType=="Primary"){
-          returnData.add(AddressesData(id: item.id,addressLine1: item.addressLine1,addressLine2: item.addressLine2,addressTitle: item.addressTitle,addressType: "Primary",
-              cityId: 1,phone: item.phone,select: true,stateId: item.stateId,zipCode: item.zipCode));
+      for (var item in bloc.AddressList.value.data) {
+        if (item.addressType == "Primary") {
+          returnData.add(AddressesData(
+              id: item.id,
+              addressLine1: item.addressLine1,
+              addressLine2: item.addressLine2,
+              addressTitle: item.addressTitle,
+              addressType: "Primary",
+              cityId: 1,
+              phone: item.phone,
+              select: true,
+              stateId: item.stateId,
+              zipCode: item.zipCode));
           break;
         }
       }
-      Navigator.pop(context, AddressesListRespone(data: returnData,total: returnData.length));
-    }else{
+      Navigator.pop(context,
+          AddressesListRespone(data: returnData, total: returnData.length));
+    } else {
       Navigator.pop(context, AddressesListRespone());
     }
-
   }
 }

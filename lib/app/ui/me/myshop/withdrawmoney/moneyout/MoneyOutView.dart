@@ -70,7 +70,11 @@ class _MoneyOutViewState extends State<MoneyOutView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LocaleKeys.wallet_balance_withdraw_to.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),),
+          Text(
+            LocaleKeys.wallet_balance_withdraw_to.tr(),
+            style:
+                FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
+          ),
           SizedBox(
             height: 15,
           ),
@@ -99,12 +103,16 @@ class _MoneyOutViewState extends State<MoneyOutView> {
                   SizedBox(
                     width: 10,
                   ),
-                  Text("ธนาคารไทยพาณิช",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+                  Text("ธนาคารไทยพาณิช",
+                      style: FunctionHelper.FontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp)),
                 ],
               ),
               Row(
                 children: [
-                  Text("* 9803",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+                  Text("* 9803",
+                      style: FunctionHelper.FontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp)),
                   SizedBox(
                     width: 5,
                   ),
@@ -130,26 +138,53 @@ class _MoneyOutViewState extends State<MoneyOutView> {
         children: [
           Row(
             children: [
-              InkWell(child: SvgPicture.asset(CheckBox?'assets/images/svg/Check_CheckBox.svg':'assets/images/svg/Uncheck_CheckBox.svg',width: 20,height: 20,),onTap: (){
-                setState(() {
-                  CheckBox = CheckBox?false:true;
-                });
-              },),
-              SizedBox(width: 10,),
-              Text(LocaleKeys.wallet_balance_withdraw_all.tr()+" (฿300.00)",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp))
+              InkWell(
+                child: SvgPicture.asset(
+                  CheckBox
+                      ? 'assets/images/svg/Check_CheckBox.svg'
+                      : 'assets/images/svg/Uncheck_CheckBox.svg',
+                  width: 20,
+                  height: 20,
+                ),
+                onTap: () {
+                  setState(() {
+                    CheckBox = CheckBox ? false : true;
+                  });
+                },
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(LocaleKeys.wallet_balance_withdraw_all.tr() + " (฿300.00)",
+                  style: FunctionHelper.FontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp))
             ],
           ),
-          SizedBox(height: 10,),
-          Text(LocaleKeys.wallet_balance_withdraw_amount.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
+          SizedBox(
+            height: 10,
+          ),
+          Text(LocaleKeys.wallet_balance_withdraw_amount.tr(),
+              style: FunctionHelper.FontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp)),
           BuildEditText(
-              head: "",maxLength: 16,
-              hint: "0.00",maxLine: 1,controller: inputController,inputType: TextInputType.number),
-          SizedBox(height: 10,),
+              head: "",
+              maxLength: 16,
+              hint: "0.00",
+              maxLine: 1,
+              controller: inputController,
+              inputType: TextInputType.number),
+          SizedBox(
+            height: 10,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(LocaleKeys.wallet_balance_withdraw_fee.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
-              Text(LocaleKeys.cart_free.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp))
+              Text(LocaleKeys.wallet_balance_withdraw_fee.tr(),
+                  style: FunctionHelper.FontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp)),
+              Text(LocaleKeys.cart_free.tr(),
+                  style: FunctionHelper.FontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp))
             ],
           )
         ],
@@ -159,18 +194,34 @@ class _MoneyOutViewState extends State<MoneyOutView> {
 
   Widget _BuildButton(BuildContext context) {
     return Container(
-      child: FlatButton(
-        minWidth: MediaQuery.of(context).size.width,
-        color: ThemeColor.secondaryColor(),
-        textColor: Colors.white,
-        padding: EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
-        splashColor: Colors.white.withOpacity(0.3),
+      child: TextButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+          ),
+          padding: MaterialStateProperty.all(
+              EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20)),
+          minimumSize: MaterialStateProperty.all(
+            Size(MediaQuery.of(context).size.width, 6.5.h),
+          ),
+          backgroundColor: MaterialStateProperty.all(
+            ThemeColor.secondaryColor(),
+          ),
+          overlayColor: MaterialStateProperty.all(
+            Colors.white.withOpacity(0.3),
+          ),
+        ),
         onPressed: () {
           /*...*/
         },
         child: Text(
           LocaleKeys.btn_confirm.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(
+              color: Colors.white,
+              fontSize: SizeUtil.titleFontSize().sp,
+              fontWeight: FontWeight.w500),
         ),
       ),
     );

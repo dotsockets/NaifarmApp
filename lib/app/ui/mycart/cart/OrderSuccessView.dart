@@ -1,4 +1,3 @@
-
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +20,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
 class OrderSuccessView extends StatefulWidget {
-
   final String payment_total;
   final OrderData orderData;
 
-  const OrderSuccessView({Key key, this.payment_total, this.orderData}) : super(key: key);
+  const OrderSuccessView({Key key, this.payment_total, this.orderData})
+      : super(key: key);
   @override
   _OrderSuccessViewState createState() => _OrderSuccessViewState();
 }
@@ -33,13 +32,14 @@ class OrderSuccessView extends StatefulWidget {
 class _OrderSuccessViewState extends State<OrderSuccessView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
- init(){
+  init() {
+    Usermanager().getUser().then((value) {
+      Usermanager().getUser().then((value) => context
+          .read<CustomerCountBloc>()
+          .loadCustomerCount(context, token: value.token));
+    });
+  }
 
-   Usermanager().getUser().then((value){
-     Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
-   });
-
- }
   @override
   Widget build(BuildContext context) {
     init();
@@ -54,26 +54,28 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                 child: AppToobar(
                   isEnable_Search: false,
                   title: "รายละเอียดการสั่งซื้อ",
-
                   header_type: Header_Type.barNormal,
-                  icon: "",onClick: ()=> AppRoute.PoppageCount(context: context,countpage: 2),
+                  icon: "",
+                  onClick: () =>
+                      AppRoute.PoppageCount(context: context, countpage: 2),
                 ),
               ),
               body: WillPopScope(
-                onWillPop: ()async{
-                  AppRoute.PoppageCount(context: context,countpage: 2);
-                      return false;
+                onWillPop: () async {
+                  AppRoute.PoppageCount(context: context, countpage: 2);
+                  return false;
                 },
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(bottom: 2.0.h,right: 3.0.w,left: 3.0.w,top: 3.0.h),
+                      padding: EdgeInsets.only(
+                          bottom: 2.0.h, right: 3.0.w, left: 3.0.w, top: 3.0.h),
                       width: MediaQuery.of(context).size.width,
                       color: ThemeColor.primaryColor(),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                       //   SizedBox(height: 10,),
+                          //   SizedBox(height: 10,),
                           // Text("Order details",
                           //     style: FunctionHelper.FontTheme(
                           //         fontSize: 16.0.sp,
@@ -82,25 +84,39 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SvgPicture.asset('assets/images/svg/checkmark.svg',color: Colors.white,width: 6.0.w,height: 6.0.w,),
-                              SizedBox(width: 2.0.w,),
+                              SvgPicture.asset(
+                                'assets/images/svg/checkmark.svg',
+                                color: Colors.white,
+                                width: 6.0.w,
+                                height: 6.0.w,
+                              ),
+                              SizedBox(
+                                width: 2.0.w,
+                              ),
                               Text(LocaleKeys.order_detail_complete.tr(),
                                   style: FunctionHelper.FontTheme(
-                                      fontSize: (SizeUtil.titleFontSize()+2).sp,
+                                      fontSize:
+                                          (SizeUtil.titleFontSize() + 2).sp,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white)),
                             ],
                           ),
-                          SizedBox(height: 2.0.h,),
-                         // Text("ยอดชำระเงิน ฿${NumberFormat("#,##0.00", "en_US").format(int.parse(widget.payment_total))}",
-                          Text("${LocaleKeys.order_detail_summary.tr()} ฿${int.parse(widget.payment_total)}",
+                          SizedBox(
+                            height: 2.0.h,
+                          ),
+                          // Text("ยอดชำระเงิน ฿${NumberFormat("#,##0.00", "en_US").format(int.parse(widget.payment_total))}",
+                          Text(
+                              "${LocaleKeys.order_detail_summary.tr()} ฿${int.parse(widget.payment_total)}",
                               style: FunctionHelper.FontTheme(
-                                  fontSize: (SizeUtil.titleFontSize()+1.0).sp,
+                                  fontSize: (SizeUtil.titleFontSize() + 1.0).sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),
-                          SizedBox(height: 2.0.h,), // Wed Jan 27 2021 22:28:51 GMT+0700  //${DateFormat.jms().format(DateTime.parse(widget.orderData.requirePaymentAt)
+                          SizedBox(
+                            height: 2.0.h,
+                          ), // Wed Jan 27 2021 22:28:51 GMT+0700  //${DateFormat.jms().format(DateTime.parse(widget.orderData.requirePaymentAt)
                           //Text("You have placed an order and must pay by the date ${DateFormat.yMMMMEEEEd().format(DateTime.parse(widget.orderData.requirePaymentAt))}",
-                           Text("คุณได้ทำรายการสั่งซื้อสินค้าและต้องชำระเงิน\nภายในวันที่ ${DateFormat('dd-MM-yyyy H:m').format(DateTime.parse(widget.orderData.requirePaymentAt))}",
+                          Text(
+                              "คุณได้ทำรายการสั่งซื้อสินค้าและต้องชำระเงิน\nภายในวันที่ ${DateFormat('dd-MM-yyyy H:m').format(DateTime.parse(widget.orderData.requirePaymentAt))}",
                               textAlign: TextAlign.center,
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -109,38 +125,46 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 1.0.h,),
+                    SizedBox(
+                      height: 1.0.h,
+                    ),
                     _buildBtnAddProduct()
                   ],
                 ),
-              )
-          )),
+              ))),
     );
   }
 
   Widget _buildBtnAddProduct() {
     return Center(
       child: Row(
-         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             width: 45.0.w,
             height: 8.0.h,
             padding: EdgeInsets.all(10),
-            child: FlatButton(
-              color: ThemeColor.ColorSale(),
-              textColor: Colors.white,
-              splashColor: Colors.white.withOpacity(0.3),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40.0),
+            child: TextButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
+                ),
+                backgroundColor: MaterialStateProperty.all(
+                  ThemeColor.ColorSale(),
+                ),
+                overlayColor: MaterialStateProperty.all(
+                  Colors.white.withOpacity(0.3),
+                ),
               ),
               onPressed: () async {
-               AppRoute.Home(context);
-
+                AppRoute.Home(context);
               },
               child: Text(
                 LocaleKeys.btn_main.tr(),
                 style: FunctionHelper.FontTheme(
+                    color: Colors.white,
                     fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.w500),
               ),
@@ -150,20 +174,28 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
             width: 45.0.w,
             height: 8.0.h,
             padding: EdgeInsets.all(10),
-            child: FlatButton(
-              color: ThemeColor.secondaryColor(),
-              textColor: Colors.white,
-              splashColor: Colors.white.withOpacity(0.3),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40.0),
+            child: TextButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
+                ),
+                backgroundColor: MaterialStateProperty.all(
+                  ThemeColor.secondaryColor(),
+                ),
+                overlayColor: MaterialStateProperty.all(
+                  Colors.white.withOpacity(0.3),
+                ),
               ),
               onPressed: () async {
-                AppRoute.PoppageCount(context: context,countpage: 2);
-                AppRoute.OrderDetail(context,orderData: widget.orderData);
+                AppRoute.PoppageCount(context: context, countpage: 2);
+                AppRoute.OrderDetail(context, orderData: widget.orderData);
               },
               child: Text(
                 LocaleKeys.order_detail_title.tr(),
                 style: FunctionHelper.FontTheme(
+                    color: Colors.white,
                     fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.w500),
               ),
@@ -173,5 +205,4 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
       ),
     );
   }
-
 }

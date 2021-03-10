@@ -64,7 +64,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.RegisterOTP(context,phoneNumber: _phone.text,refCode: (event as OTPRespone).refCode,requestOtp: RequestOtp.Forgotpassword);
+        AppRoute.RegisterOTP(context,
+            phoneNumber: _phone.text,
+            refCode: (event as OTPRespone).refCode,
+            requestOtp: RequestOtp.Forgotpassword);
         // if(event is ForgotRespone){
         //  setState(()=>_forgotRespone = (event as ForgotRespone));
         // }else if(event is RegisterRespone){
@@ -144,21 +147,30 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 15, left: 15),
-              child: FlatButton(
-                minWidth: MediaQuery.of(context).size.width,
-                height: 7.0.h,
-                color: _phone.text.isNotEmpty
-                    ? ThemeColor.secondaryColor()
-                    : Colors.grey.shade300,
-                textColor: Colors.white,
-                splashColor: Colors.white.withOpacity(0.3),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
+              child: TextButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                  ),
+                  minimumSize: MaterialStateProperty.all(
+                    Size(MediaQuery.of(context).size.width, 7.0.h),
+                  ),
+                  backgroundColor: MaterialStateProperty.all(
+                    _phone.text.isNotEmpty
+                        ? ThemeColor.secondaryColor()
+                        : Colors.grey.shade300,
+                  ),
+                  overlayColor: MaterialStateProperty.all(
+                    Colors.white.withOpacity(0.3),
+                  ),
                 ),
                 onPressed: () => _validate(),
                 child: Text(
                   LocaleKeys.btn_continue.tr(),
                   style: FunctionHelper.FontTheme(
+                      color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.w500),
                 ),
@@ -177,7 +189,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: ThemeColor.primaryColor(),
-          borderRadius: BorderRadius.only(bottomRight:  Radius.circular(20.0.w),bottomLeft: Radius.circular(20.0.w)),
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(20.0.w),
+              bottomLeft: Radius.circular(20.0.w)),
         ),
         child: Column(
           children: [
@@ -192,21 +206,28 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         ));
   }
 
-  Widget _BuildBar(BuildContext context){
+  Widget _BuildBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: ThemeColor.primaryColor(),
-        borderRadius: BorderRadius.only(bottomRight:  Radius.circular(20.0.w),bottomLeft: Radius.circular(20.0.w)),
+        borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(20.0.w),
+            bottomLeft: Radius.circular(20.0.w)),
       ),
       width: MediaQuery.of(context).size.width,
-      child:Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(left: 2.0.w,top: 2.0.w),
+            margin: EdgeInsets.only(left: 2.0.w, top: 2.0.w),
             child: IconButton(
-              icon: Icon(Platform.isAndroid?Icons.arrow_back:Icons.arrow_back_ios_rounded,color: Colors.white,),
-              onPressed: (){
+              icon: Icon(
+                Platform.isAndroid
+                    ? Icons.arrow_back
+                    : Icons.arrow_back_ios_rounded,
+                color: Colors.white,
+              ),
+              onPressed: () {
                 Navigator.pop(context, false);
               },
             ),
@@ -218,6 +239,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   }
 
   void _validate() {
-    bloc.OTPRequest(context,numberphone: _phone.text);
+    bloc.OTPRequest(context, numberphone: _phone.text);
   }
 }
