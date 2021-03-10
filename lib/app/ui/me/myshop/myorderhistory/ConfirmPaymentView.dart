@@ -170,13 +170,28 @@ class ConfirmPaymentView extends StatelessWidget {
                                               imageUrl: ProductLandscape.CovertUrlImage(item.image),
                                               //  errorWidget: (context, url, error) => Container(child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                                             ),
-                                          ),
-                                        ),
+                                            padding: EdgeInsets.all(2.0.h),
+                                            child: FullScreenWidget(
+                                              backgroundIsTransparent: true,
+                                              child: Center(
+                                                child: Hero(
+                                                  tag: "payment",
+                                                  child: CachedNetworkImage(
+                                                    // placeholder: (context, url) => Container(
+                                                    //   child: Lottie.asset('assets/json/loading.json', ),
+                                                    // ),
+                                                    imageUrl: ProductLandscape
+                                                        .CovertUrlImage(
+                                                            item.image),
+                                                    //  errorWidget: (context, url, error) => Container(child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     )
-                                ],
-                              ),
-                                  )
                                   : SizedBox()
                             ],
                           ),
@@ -212,7 +227,8 @@ class ConfirmPaymentView extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.grey.shade400, width: 1)),
+        border:
+            Border(bottom: BorderSide(color: Colors.grey.shade400, width: 1)),
       ),
       padding: EdgeInsets.all(1.0.w),
       child: ListTile(
@@ -239,33 +255,45 @@ class ConfirmPaymentView extends StatelessWidget {
         color: Colors.white,
         padding: EdgeInsets.all(2.0.w),
         child: Center(
-          child: FlatButton(
-            minWidth: 50.0.w,
-            height: 5.0.h,
-            color: orderData.image!=null?orderData.image.isNotEmpty?ThemeColor.ColorSale():Colors.black.withOpacity(0.2):Colors.black.withOpacity(0.2),
-            textColor: Colors.white,
-            splashColor: Colors.white.withOpacity(0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
+          child: TextButton(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+              ),
+              minimumSize: MaterialStateProperty.all(
+                Size(50.0.w, 5.0.h),
+              ),
+              backgroundColor: MaterialStateProperty.all(
+                orderData.image != null
+                    ? orderData.image.isNotEmpty
+                        ? ThemeColor.ColorSale()
+                        : Colors.black.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.2),
+              ),
+              overlayColor: MaterialStateProperty.all(
+                Colors.white.withOpacity(0.3),
+              ),
             ),
             onPressed: () {
-              if(orderData.image.isNotEmpty){
+              if (orderData.image.isNotEmpty) {
                 FunctionHelper.ConfirmDialog(context,
                     message: "${LocaleKeys.dialog_message_confirm_pay.tr()} ?",
                     onCancel: () {
-                      Navigator.of(context).pop();
-                    }, onClick: () {
-                      Navigator.of(context).pop();
-                      onUpload = true;
-                      Usermanager().getUser().then((value) =>
-                          bloc.MarkPaid(context,token: value.token, OrderId: orderData.id));
-                    });
+                  Navigator.of(context).pop();
+                }, onClick: () {
+                  Navigator.of(context).pop();
+                  onUpload = true;
+                  Usermanager().getUser().then((value) => bloc.MarkPaid(context,
+                      token: value.token, OrderId: orderData.id));
+                });
               }
-
             },
             child: Text(
               LocaleKeys.btn_confirm.tr(),
               style: FunctionHelper.FontTheme(
+                  color: Colors.white,
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),
             ),

@@ -17,7 +17,8 @@ class AttributeEditView extends StatefulWidget {
   final String nameAttr;
   final int idAttr;
 
-  const AttributeEditView({Key key, this.nameAttr, this.idAttr}) : super(key: key);
+  const AttributeEditView({Key key, this.nameAttr, this.idAttr})
+      : super(key: key);
 
   @override
   _AttributeEditViewState createState() => _AttributeEditViewState();
@@ -32,30 +33,27 @@ class _AttributeEditViewState extends State<AttributeEditView> {
   void initState() {
     super.initState();
     nameAttrController.text = widget.nameAttr;
-    widget.nameAttr.length==0? check = false:check=true;
+    widget.nameAttr.length == 0 ? check = false : check = true;
   }
 
-  init(){
-    if(bloc==null){
-      bloc=UploadProductBloc(AppProvider.getApplication(context));
+  init() {
+    if (bloc == null) {
+      bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        if(event){
+        if (event) {
           FunctionHelper.showDialogProcess(context);
-        }else{
+        } else {
           Navigator.of(context).pop();
         }
       });
       bloc.onSuccess.stream.listen((event) {
         Navigator.pop(context, true);
       });
-    bloc.onError.stream.listen((event) {
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
-
-    });
+      bloc.onError.stream.listen((event) {
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+      });
     }
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +67,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: LocaleKeys.add.tr()+LocaleKeys.attributes_list.tr(),
+              title: LocaleKeys.add.tr() + LocaleKeys.attributes_list.tr(),
               icon: "",
               isEnable_Search: false,
               header_type: Header_Type.barNormal,
@@ -101,24 +99,41 @@ class _AttributeEditViewState extends State<AttributeEditView> {
     return Container(
       margin: EdgeInsets.only(top: 2.0.h),
       child: Center(
-        child: FlatButton(
-          minWidth: 50.0.w,
-          height: 5.0.h,
-          color: check?ThemeColor.secondaryColor():Colors.grey,
-          textColor: Colors.white,
-          splashColor: Colors.white.withOpacity(0.3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40.0),
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+            ),
+            minimumSize: MaterialStateProperty.all(
+              Size(50.0.w, 5.5.h),
+            ),
+            backgroundColor: MaterialStateProperty.all(
+              check ? ThemeColor.secondaryColor() : Colors.grey,
+            ),
+            overlayColor: MaterialStateProperty.all(
+              Colors.white.withOpacity(0.3),
+            ),
           ),
-          onPressed: ()  {
-            if(check){
+          onPressed: () {
+            if (check) {
               FocusScope.of(context).unfocus();
-             widget.nameAttr.length==0? Usermanager().getUser().then((value) => bloc.AddAttributeMyShop(context,name: nameAttrController.text,token: value.token)): Usermanager().getUser().then((value) => bloc.UpdateAttribute(context,id: widget.idAttr,token: value.token,name:nameAttrController.text));
+              widget.nameAttr.length == 0
+                  ? Usermanager().getUser().then((value) =>
+                      bloc.AddAttributeMyShop(context,
+                          name: nameAttrController.text, token: value.token))
+                  : Usermanager().getUser().then((value) =>
+                      bloc.UpdateAttribute(context,
+                          id: widget.idAttr,
+                          token: value.token,
+                          name: nameAttrController.text));
             }
           },
           child: Text(
             LocaleKeys.btn_save.tr(),
             style: FunctionHelper.FontTheme(
+                color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
           ),
@@ -126,11 +141,12 @@ class _AttributeEditViewState extends State<AttributeEditView> {
       ),
     );
   }
+
   void _check() {
     //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "ไม่ถูกต้อง",context: context);
-    if(nameAttrController.text.length==0){
+    if (nameAttrController.text.length == 0) {
       check = false;
-    }else{
+    } else {
       check = true;
     }
     setState(() {});

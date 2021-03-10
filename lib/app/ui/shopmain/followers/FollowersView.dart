@@ -1,5 +1,3 @@
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -19,29 +17,37 @@ class FollowersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      appBar: AppToobar(
-        title: LocaleKeys.shop_follower.tr(),
-        header_type: Header_Type.barNormal,
-        icon: 'assets/images/svg/search.svg',
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          color: Colors.white,
-          padding: EdgeInsets.only(top: 10),
-          child: Column(
-            children: ReviewViewModel().getFollower().asMap().map((key, value) => MapEntry(key, _BuildCard(item: ReviewViewModel().getFollower()[key],context: context))).values.toList(),
-          ),
+        backgroundColor: Colors.grey.shade300,
+        appBar: AppToobar(
+          title: LocaleKeys.shop_follower.tr(),
+          header_type: Header_Type.barNormal,
+          icon: 'assets/images/svg/search.svg',
         ),
-      )
-    );
+        body: SingleChildScrollView(
+          child: Container(
+            color: Colors.white,
+            padding: EdgeInsets.only(top: 10),
+            child: Column(
+              children: ReviewViewModel()
+                  .getFollower()
+                  .asMap()
+                  .map((key, value) => MapEntry(
+                      key,
+                      _BuildCard(
+                          item: ReviewViewModel().getFollower()[key],
+                          context: context)))
+                  .values
+                  .toList(),
+            ),
+          ),
+        ));
   }
 
-  Widget _BuildCard({FollowersModel item,BuildContext context}){
+  Widget _BuildCard({FollowersModel item, BuildContext context}) {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.only(right: 15,left: 15,top: 5,bottom: 5),
+          padding: EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -54,8 +60,8 @@ class FollowersView extends StatelessWidget {
                       height: 60,
                       placeholder: (context, url) => Container(
                         color: Colors.white,
-                        child:
-                        Lottie.asset('assets/json/loading.json', height: 30),
+                        child: Lottie.asset('assets/json/loading.json',
+                            height: 30),
                       ),
                       fit: BoxFit.cover,
                       imageUrl: item.Image,
@@ -68,32 +74,55 @@ class FollowersView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 15),
-                  Text(item.Name,style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.bold,fontSize: SizeUtil.titleSmallFontSize().sp),)
+                  Text(
+                    item.Name,
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: SizeUtil.titleSmallFontSize().sp),
+                  )
                 ],
               ),
               Container(
-                child: FlatButton(
-                  color: item.IsFollow?Colors.white:ThemeColor.primaryColor(),
-                  textColor: item.IsFollow?ThemeColor.primaryColor():Colors.white,
-                  padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                  splashColor: Colors.white.withOpacity(0.3),
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(color: ThemeColor.primaryColor()),
-                    borderRadius: BorderRadius.circular(10.0),
+                child: TextButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        side: BorderSide(color: ThemeColor.primaryColor()),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    padding: MaterialStateProperty.all(EdgeInsets.only(
+                        left: 10, right: 10, top: 10, bottom: 10)),
+                    backgroundColor: MaterialStateProperty.all(
+                      item.IsFollow ? Colors.white : ThemeColor.primaryColor(),
+                    ),
+                    overlayColor: MaterialStateProperty.all(
+                      Colors.white.withOpacity(0.3),
+                    ),
                   ),
                   onPressed: () {
                     AppRoute.Followers(context);
                   },
                   child: Text(
-                    item.IsFollow?LocaleKeys.shop_following.tr():LocaleKeys.shop_follow.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
+                    item.IsFollow
+                        ? LocaleKeys.shop_following.tr()
+                        : LocaleKeys.shop_follow.tr(),
+                    style: FunctionHelper.FontTheme(
+                        color: item.IsFollow
+                            ? ThemeColor.primaryColor()
+                            : Colors.white,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
               )
             ],
           ),
         ),
-        Divider(color: Colors.grey.shade500,)
+        Divider(
+          color: Colors.grey.shade500,
+        )
       ],
     );
   }

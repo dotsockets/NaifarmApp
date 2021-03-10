@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -16,11 +15,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
 class EditEmail_Step2View extends StatefulWidget {
-
   final CustomerInfoRespone customerInfoRespone;
 
-  const EditEmail_Step2View({Key key, this.customerInfoRespone}) : super(key: key);
-
+  const EditEmail_Step2View({Key key, this.customerInfoRespone})
+      : super(key: key);
 
   @override
   _EditEmail_Step2ViewState createState() => _EditEmail_Step2ViewState();
@@ -30,14 +28,14 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
   TextEditingController EmailController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  String onError="";
+  String onError = "";
   MemberBloc bloc;
   bool onDialog = false;
 
-  bool FormCheck(){
-    if(EmailController.text.isEmpty){
+  bool FormCheck() {
+    if (EmailController.text.isEmpty) {
       return false;
-    }else{
+    } else {
       return true;
     }
   }
@@ -48,9 +46,6 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
     super.initState();
     EmailController.text = "";
   }
-
-
-
 
   void _init() {
     if (null == bloc) {
@@ -68,16 +63,15 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
-        FunctionHelper.SuccessDialog(context,message: "Please confirm Email in your mailbox ",onClick: (){
-          if(onDialog){
+        FunctionHelper.SuccessDialog(context,
+            message: "Please confirm Email in your mailbox ", onClick: () {
+          if (onDialog) {
             Navigator.of(context).pop();
           }
-
         });
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -91,56 +85,90 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: LocaleKeys.edit_email_toobar.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,onClick: (){
-              FunctionHelper.ConfirmDialog(context,
-                  message: LocaleKeys.dialog_message_mail_change_cancel.tr(),
-                  onClick: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  }, onCancel: () {
-                    Navigator.of(context).pop();
-                  });
-            },),
+              title: LocaleKeys.edit_email_toobar.tr(),
+              header_type: Header_Type.barNormal,
+              isEnable_Search: false,
+              onClick: () {
+                FunctionHelper.ConfirmDialog(context,
+                    message: LocaleKeys.dialog_message_mail_change_cancel.tr(),
+                    onClick: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                }, onCancel: () {
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
           ),
           body: SingleChildScrollView(
             child: Column(
               children: [
-              Container(
+                Container(
                   color: Colors.white,
                   child: Container(
-                    padding:EdgeInsets.all(5.0.w),
+                    padding: EdgeInsets.all(5.0.w),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(LocaleKeys.edit_email_old.tr()+" ${widget.customerInfoRespone.email}",
-                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                        Text(
+                          LocaleKeys.edit_email_old.tr() +
+                              " ${widget.customerInfoRespone.email}",
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontWeight: FontWeight.w500),
                         ),
-                        SizedBox(height: 15,),
+                        SizedBox(
+                          height: 15,
+                        ),
                         BuildEditText(
                             head: LocaleKeys.edit_email_new.tr(),
-                            hint:   LocaleKeys.set_default.tr()+LocaleKeys.edit_email_new.tr(),maxLength: 10,controller: EmailController,onError: onError,inputType: TextInputType.emailAddress,BorderOpacity: 0.2,onChanged: (String char){
-                          setState(() {});
-                        }),
-                        SizedBox(height: 20,),
-
+                            hint: LocaleKeys.set_default.tr() +
+                                LocaleKeys.edit_email_new.tr(),
+                            maxLength: 10,
+                            controller: EmailController,
+                            onError: onError,
+                            inputType: TextInputType.emailAddress,
+                            BorderOpacity: 0.2,
+                            onChanged: (String char) {
+                              setState(() {});
+                            }),
+                        SizedBox(
+                          height: 20,
+                        ),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: 20,),
-                FlatButton(
-                  minWidth: 50.0.w,
-                  height: 5.0.h,
-                  color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
-                  textColor: Colors.white,
-                  splashColor: Colors.white.withOpacity(0.3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0),
+                SizedBox(
+                  height: 20,
+                ),
+                TextButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                    ),
+                    minimumSize: MaterialStateProperty.all(
+                      Size(50.0.w, 5.0.h),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      FormCheck()
+                          ? ThemeColor.ColorSale()
+                          : Colors.grey.shade400,
+                    ),
+                    overlayColor: MaterialStateProperty.all(
+                      Colors.white.withOpacity(0.3),
+                    ),
                   ),
-                  onPressed: ()=>FormCheck()?verify():SizedBox(),
-                  child: Text( LocaleKeys.btn_continue.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                  onPressed: () => FormCheck() ? verify() : SizedBox(),
+                  child: Text(
+                    LocaleKeys.btn_continue.tr(),
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.white,
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w500),
                   ),
                 )
               ],
@@ -151,7 +179,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
     );
   }
 
-  void verify(){
+  void verify() {
     // FunctionHelper.showDialogProcess(context);
     // Usermanager().Savelogin(user: User(id: "1",fullname: "John Mayer",username: "ApisitKaewsasan@gmail.com",email: "ApisitKaewsasan@gmail.com",phone: "0932971160",
     //     imageurl:  "https://freshairboutique.files.wordpress.com/2015/05/28438-long-red-head-girl.jpg")).then((value){
@@ -161,15 +189,14 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
 
     //});
 
-    if(validator.email(EmailController.text)){
+    if (validator.email(EmailController.text)) {
       // AppRoute.EditEmail_Step3(context,EmailController.text,widget.customerInfoRespone);
-      Usermanager().getUser().then((value) => bloc.requestChangEmail(context,email: EmailController.text,token: value.token));
-    }else{
+      Usermanager().getUser().then((value) => bloc.requestChangEmail(context,
+          email: EmailController.text, token: value.token));
+    } else {
       setState(() {
         onError = "Email ไม่ถูกต้อง";
       });
     }
-
-
   }
 }

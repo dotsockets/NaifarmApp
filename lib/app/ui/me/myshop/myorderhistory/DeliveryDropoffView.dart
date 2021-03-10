@@ -15,33 +15,31 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sizer/sizer.dart';
 
 class DeliveryDropoffView extends StatelessWidget {
-
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-
   OrdersBloc bloc;
-
 
   init(BuildContext context) {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        if(event){
+        if (event) {
           FunctionHelper.showDialogProcess(context);
-        }else{
+        } else {
           Navigator.of(context).pop();
         }
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        Navigator.pop(context,true);
+        Navigator.pop(context, true);
       });
     }
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
+
   @override
   Widget build(BuildContext context) {
     init(context);
@@ -58,21 +56,26 @@ class DeliveryDropoffView extends StatelessWidget {
               header_type: Header_Type.barcartShop,
               isEnable_Search: false,
               icon: '',
-              onClick: (){
-                Navigator.pop(context,false);
+              onClick: () {
+                Navigator.pop(context, false);
               },
             ),
           ),
           body: Container(
             child: Column(
               children: [
-                Expanded(child: Column(
+                Expanded(
+                    child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     genQR(context),
-                    SizedBox(height: 1.0.h,),
+                    SizedBox(
+                      height: 1.0.h,
+                    ),
                     ItemInfoNearby(context),
-                    SizedBox(height: 1.0.h,),
+                    SizedBox(
+                      height: 1.0.h,
+                    ),
                     ItemInfoDelivery()
                   ],
                 )),
@@ -85,7 +88,7 @@ class DeliveryDropoffView extends StatelessWidget {
     );
   }
 
-  Widget genQR(BuildContext context){
+  Widget genQR(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(3.0.h),
       width: MediaQuery.of(context).size.width,
@@ -96,29 +99,31 @@ class DeliveryDropoffView extends StatelessWidget {
             "คุณสามารถนำ QR Code ด้านล่างไปสแกนที่สาขา ที่เคาน์เตอร์",
             textAlign: TextAlign.center,
             style: FunctionHelper.FontTheme(
-                color: Colors.black,
-                fontSize: SizeUtil.titleFontSize().sp),
+                color: Colors.black, fontSize: SizeUtil.titleFontSize().sp),
           ),
-          SizedBox(height: 2.0.h,),
+          SizedBox(
+            height: 2.0.h,
+          ),
           QrImage(
             data: "642345790",
             version: QrVersions.auto,
             size: 200.0,
           ),
-          SizedBox(height: 2.0.h,),
+          SizedBox(
+            height: 2.0.h,
+          ),
           Text(
             "642345790",
             style: FunctionHelper.FontTheme(
-                color: Colors.black,
-                fontSize: SizeUtil.titleFontSize().sp),
+                color: Colors.black, fontSize: SizeUtil.titleFontSize().sp),
           ),
         ],
       ),
     );
   }
 
-  Widget ItemInfoNearby(BuildContext context){
-    return  Container(
+  Widget ItemInfoNearby(BuildContext context) {
+    return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
@@ -129,70 +134,77 @@ class DeliveryDropoffView extends StatelessWidget {
         icon: "",
         title: "See a branch near you",
         Message: "Branch 1, Mueang Chiang Mai District ",
-        onClick: (){
+        onClick: () {
           _showMyDialog(context);
         },
       ),
     );
   }
 
-  Widget ItemInfoDelivery(){
-    return  Container(
+  Widget ItemInfoDelivery() {
+    return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
       ),
       padding: EdgeInsets.all(1.0.w),
-      child: ListTile(title: Text(
-        "Delivery address ",
-        style: FunctionHelper.FontTheme(
-            color: Colors.black,
-            fontSize: SizeUtil.titleFontSize().sp),
-      ) ,subtitle: Text(
-        "39 Srichandorn Road, Chang Khlan Subdistrict, Mueang District, Chiang Mai 50100 ",
-        style: FunctionHelper.FontTheme(
-            color: Colors.grey.shade500,
-            fontSize: SizeUtil.titleFontSize().sp),
-      )),
+      child: ListTile(
+          title: Text(
+            "Delivery address ",
+            style: FunctionHelper.FontTheme(
+                color: Colors.black, fontSize: SizeUtil.titleFontSize().sp),
+          ),
+          subtitle: Text(
+            "39 Srichandorn Road, Chang Khlan Subdistrict, Mueang District, Chiang Mai 50100 ",
+            style: FunctionHelper.FontTheme(
+                color: Colors.grey.shade500,
+                fontSize: SizeUtil.titleFontSize().sp),
+          )),
     );
   }
 
-  Widget _ButtonActive({BuildContext context}){
-
+  Widget _ButtonActive({BuildContext context}) {
     return Center(
       child: Container(
         color: Colors.white,
         padding: EdgeInsets.all(2.0.w),
         child: Center(
-          child: FlatButton(
-            minWidth: 50.0.w,
-            height: 5.0.h,
-            color:  ThemeColor.ColorSale() ,
-            textColor: Colors.white,
-            splashColor: Colors.white.withOpacity(0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
+          child: TextButton(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+              ),
+              minimumSize: MaterialStateProperty.all(
+                Size(50.0.w, 5.0.h),
+              ),
+              backgroundColor: MaterialStateProperty.all(
+                ThemeColor.ColorSale(),
+              ),
+              overlayColor: MaterialStateProperty.all(
+                Colors.white.withOpacity(0.3),
+              ),
             ),
             onPressed: () {
-              FunctionHelper.ConfirmDialog(context,message: "สำคัญ! คุณสามารถทำการ Drop Off พัสดุของคุณได้ที่ สาขาใกล้บ้านคุณ",onCancel: (){
+              FunctionHelper.ConfirmDialog(context,
+                  message:
+                      "สำคัญ! คุณสามารถทำการ Drop Off พัสดุของคุณได้ที่ สาขาใกล้บ้านคุณ",
+                  onCancel: () {
                 Navigator.of(context).pop();
-              },onClick: (){
-
-              });
-
-
+              }, onClick: () {});
             },
             child: Text(
               "Confirm ",
               style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                  color: Colors.white,
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.w500),
             ),
           ),
         ),
       ),
     );
-
-
   }
 
   Future<void> _showMyDialog(BuildContext context) async {
@@ -202,93 +214,113 @@ class DeliveryDropoffView extends StatelessWidget {
       builder: (BuildContext context) {
         return Dialog(
           child: InkWell(
-            onTap: (){
-             // onClick();
+            onTap: () {
+              // onClick();
             },
             child: Container(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(22.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: ThemeColor.DialogprimaryColor(context),
+                  child: Column(
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(22.0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          color: ThemeColor.DialogprimaryColor(context),
-                          child: Column(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
-
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Center(child: Text("เลือกสาขาในการจัดส่ง",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),)),
-                                ),
-                              ),
-                              SingleChildScrollView(
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      InkWell(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
-
-                                          ),
-                                          padding: const EdgeInsets.all(15.0),
-                                          width: MediaQuery.of(context).size.width,
-                                          child: Text("สาขา 1 อำเภอเมือง เชัยงใหม่",style: FunctionHelper.FontTheme(color: Colors.grey.shade700,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal),),
-                                        ),
-                                        onTap: (){
-                                          Navigator.pop(context, false);
-                                        },
-                                      ),
-                                      InkWell(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
-
-                                          ),
-                                          padding: const EdgeInsets.all(15.0),
-                                          width: MediaQuery.of(context).size.width,
-                                          child: Text("สาขา 1 อำเภอเมือง เชัยงใหม่",style: FunctionHelper.FontTheme(color: Colors.grey.shade700,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal),),
-                                        ),
-                                        onTap: (){
-                                          Navigator.pop(context, false);
-                                        },
-                                      ),
-                                      InkWell(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
-
-                                          ),
-                                          padding: const EdgeInsets.all(15.0),
-                                          width: MediaQuery.of(context).size.width,
-                                          child: Text("สาขา 1 อำเภอเมือง เชัยงใหม่",style: FunctionHelper.FontTheme(color: Colors.grey.shade700,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal),),
-                                        ),
-                                        onTap: (){
-                                          Navigator.pop(context, false);
-                                        },
-                                      ),
-                                    ]
-                                ),
-                              )
-                            ],
-                          ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(color: Colors.grey, width: 1)),
                         ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Center(
+                              child: Text(
+                            "เลือกสาขาในการจัดส่ง",
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.bold),
+                          )),
+                        ),
+                      ),
+                      SingleChildScrollView(
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              InkWell(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey, width: 1)),
+                                  ),
+                                  padding: const EdgeInsets.all(15.0),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Text(
+                                    "สาขา 1 อำเภอเมือง เชัยงใหม่",
+                                    style: FunctionHelper.FontTheme(
+                                        color: Colors.grey.shade700,
+                                        fontSize: SizeUtil.titleFontSize().sp,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.pop(context, false);
+                                },
+                              ),
+                              InkWell(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey, width: 1)),
+                                  ),
+                                  padding: const EdgeInsets.all(15.0),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Text(
+                                    "สาขา 1 อำเภอเมือง เชัยงใหม่",
+                                    style: FunctionHelper.FontTheme(
+                                        color: Colors.grey.shade700,
+                                        fontSize: SizeUtil.titleFontSize().sp,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.pop(context, false);
+                                },
+                              ),
+                              InkWell(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey, width: 1)),
+                                  ),
+                                  padding: const EdgeInsets.all(15.0),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Text(
+                                    "สาขา 1 อำเภอเมือง เชัยงใหม่",
+                                    style: FunctionHelper.FontTheme(
+                                        color: Colors.grey.shade700,
+                                        fontSize: SizeUtil.titleFontSize().sp,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.pop(context, false);
+                                },
+                              ),
+                            ]),
                       )
-                    ]
-                )
-            ),
+                    ],
+                  ),
+                ),
+              )
+            ])),
           ),
         );
       },
     );
-
   }
-
 }

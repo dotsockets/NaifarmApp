@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -25,10 +23,10 @@ class _CreditAddViewState extends State<CreditAddView> {
   TextEditingController cvvController = TextEditingController();
   TextEditingController detailAddrController = TextEditingController();
   bool checkKeyBoard = false;
-  String errorNameTxt = "",errorDetailTxt = "",errorExTxt = "",errorCvvTxt = "";
-
-
-
+  String errorNameTxt = "",
+      errorDetailTxt = "",
+      errorExTxt = "",
+      errorCvvTxt = "";
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,7 @@ class _CreditAddViewState extends State<CreditAddView> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title:  LocaleKeys.card_add_toobar.tr(),
+              title: LocaleKeys.card_add_toobar.tr(),
               icon: "",
               header_type: Header_Type.barNormal,
             ),
@@ -53,8 +51,9 @@ class _CreditAddViewState extends State<CreditAddView> {
                       children: [
                         _buildEditCard(
                             head: LocaleKeys.card_name.tr(),
-                            hint:   LocaleKeys.set_default.tr()+LocaleKeys.card_name.tr(),controller: nameController),
-
+                            hint: LocaleKeys.set_default.tr() +
+                                LocaleKeys.card_name.tr(),
+                            controller: nameController),
                         Container(
                           padding: EdgeInsets.only(
                               top: 10, left: 20, right: 20, bottom: 10),
@@ -65,14 +64,16 @@ class _CreditAddViewState extends State<CreditAddView> {
                               Text(
                                 LocaleKeys.card_number.tr(),
                                 style: FunctionHelper.FontTheme(
-                                    fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    fontWeight: FontWeight.w500),
                               ),
                               GestureDetector(
                                 child: Row(
                                   children: [
                                     Text(LocaleKeys.card_img.tr(),
                                         style: FunctionHelper.FontTheme(
-                                            fontSize: SizeUtil.titleFontSize().sp,
+                                            fontSize:
+                                                SizeUtil.titleFontSize().sp,
                                             fontWeight: FontWeight.w500)),
                                     SizedBox(
                                       width: 5,
@@ -81,7 +82,8 @@ class _CreditAddViewState extends State<CreditAddView> {
                                   ],
                                 ),
                                 onTap: () async {
-                                  var status = await Permission.camera.request();
+                                  var status =
+                                      await Permission.camera.request();
                                   if (status == PermissionStatus.granted) {
                                     //scanCard();
                                   }
@@ -92,22 +94,35 @@ class _CreditAddViewState extends State<CreditAddView> {
                         ),
                         _buildLine(),
                         _buildDropDown(
-                            title:  LocaleKeys.card_type.tr(), list: ["VISA", "VISA2"]),
-                        _buildEditCard(head:  LocaleKeys.card_number.tr(), hint: LocaleKeys.card_number.tr(),controller: numCardController),
-                        _buildEditCard(head:  LocaleKeys.card_exp.tr(), hint: "MM/YY",controller: exController),
-                        _buildEditCard(head: "CVV", hint: "?",controller: cvvController),
+                            title: LocaleKeys.card_type.tr(),
+                            list: ["VISA", "VISA2"]),
+                        _buildEditCard(
+                            head: LocaleKeys.card_number.tr(),
+                            hint: LocaleKeys.card_number.tr(),
+                            controller: numCardController),
+                        _buildEditCard(
+                            head: LocaleKeys.card_exp.tr(),
+                            hint: "MM/YY",
+                            controller: exController),
+                        _buildEditCard(
+                            head: "CVV", hint: "?", controller: cvvController),
                         _buildDropDown(
                             title: LocaleKeys.address_province.tr(),
                             list: ["กรุงเทพมหานคร", "เชียงใหม่"]),
                         _buildDropDown(
-                            title: LocaleKeys.address_city.tr(), list: ["ขลุง", "ขลุง"]),
-                        _buildDropDown(title: LocaleKeys.address_postal.tr(), list: ["10400"]),
+                            title: LocaleKeys.address_city.tr(),
+                            list: ["ขลุง", "ขลุง"]),
+                        _buildDropDown(
+                            title: LocaleKeys.address_postal.tr(),
+                            list: ["10400"]),
                         _buildEditCard(
-                            head:
-                            LocaleKeys.address_detail.tr(),
-                            hint: "612/399 A space condo ชั้น 4",controller: detailAddrController),
+                            head: LocaleKeys.address_detail.tr(),
+                            hint: "612/399 A space condo ชั้น 4",
+                            controller: detailAddrController),
                         Container(
-                          color: Colors.white, height: 20,)
+                          color: Colors.white,
+                          height: 20,
+                        )
                       ],
                     ),
                   ),
@@ -123,6 +138,7 @@ class _CreditAddViewState extends State<CreditAddView> {
       ),
     );
   }
+
   Widget _buildError({String errorTxt}) {
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -131,7 +147,8 @@ class _CreditAddViewState extends State<CreditAddView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.detailFontSize().sp, color: Colors.grey),
+          style: FunctionHelper.FontTheme(
+              fontSize: SizeUtil.detailFontSize().sp, color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
       ),
@@ -149,13 +166,13 @@ class _CreditAddViewState extends State<CreditAddView> {
     );
   }
 
-  Widget _buildEditCard({String head, String hint,TextEditingController controller}) {
+  Widget _buildEditCard(
+      {String head, String hint, TextEditingController controller}) {
     return Container(
       padding: EdgeInsets.only(top: 20, left: 20, right: 20),
       color: Colors.white,
       child: BuildEditText(
           head: head,
-
           EnableMaxLength: false,
           hint: hint,
           controller: controller,
@@ -172,7 +189,8 @@ class _CreditAddViewState extends State<CreditAddView> {
         children: [
           Text(title,
               style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black)),
+                  fontSize: SizeUtil.titleSmallFontSize().sp,
+                  color: Colors.black)),
           SizedBox(
             height: 10,
           ),
@@ -202,30 +220,39 @@ class _CreditAddViewState extends State<CreditAddView> {
   }
 
   Widget _buildButtonItem({String btnTxt}) {
-    return FlatButton(
-      padding: EdgeInsets.only(top: 15, bottom: 15),
-      color: nameController.text.isNotEmpty&&exController.text.isNotEmpty&&cvvController.text.isNotEmpty&&detailAddrController.text.isNotEmpty
-          ?ThemeColor.ColorSale():Colors.grey.shade400,
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+        ),
+        padding:
+            MaterialStateProperty.all(EdgeInsets.only(top: 15, bottom: 15)),
+        backgroundColor: MaterialStateProperty.all(
+          nameController.text.isNotEmpty &&
+                  exController.text.isNotEmpty &&
+                  cvvController.text.isNotEmpty &&
+                  detailAddrController.text.isNotEmpty
+              ? ThemeColor.ColorSale()
+              : Colors.grey.shade400,
+        ),
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.3),
+        ),
       ),
-      onPressed: () { _checkError();},
+      onPressed: () {
+        _checkError();
+      },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(
+            color: Colors.white,
+            fontSize: SizeUtil.titleFontSize().sp,
+            fontWeight: FontWeight.w500),
       ),
     );
   }
 
-  void _checkError(){
-
-  }
-
-
-
-
-
-
+  void _checkError() {}
 }

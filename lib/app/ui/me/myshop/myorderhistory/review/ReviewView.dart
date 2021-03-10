@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -28,8 +27,6 @@ class ReviewView extends StatefulWidget {
 }
 
 class _ReviewViewState extends State<ReviewView> {
-
-
   TextEditingController reviewController = TextEditingController();
   bool SelectSwitch = false;
   List<Asset> images = List<Asset>();
@@ -51,14 +48,19 @@ class _ReviewViewState extends State<ReviewView> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-
-                  _Header(item: ProductViewModel().getHistorySuccess()[0],index: 0,context: context),
-                  SizedBox(height: 2.0.w,),
+                  _Header(
+                      item: ProductViewModel().getHistorySuccess()[0],
+                      index: 0,
+                      context: context),
+                  SizedBox(
+                    height: 2.0.w,
+                  ),
                   _BuildForm(context),
-                  SizedBox(height: 2.0.w,),
+                  SizedBox(
+                    height: 2.0.w,
+                  ),
                   HideNameRate(),
                   _buildBtnSend(),
-
                 ],
               ),
             ),
@@ -68,9 +70,9 @@ class _ReviewViewState extends State<ReviewView> {
     );
   }
 
-  Widget HideNameRate(){
+  Widget HideNameRate() {
     return Container(
-      padding: EdgeInsets.only(right: 2.0.w,left: 2.0.w),
+      padding: EdgeInsets.only(right: 2.0.w, left: 2.0.w),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,12 +83,16 @@ class _ReviewViewState extends State<ReviewView> {
               SizedBox(height: 3.0.w),
               Text(LocaleKeys.review_anonymous.tr(),
                   style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500)),
+                      fontSize: SizeUtil.titleFontSize().sp,
+                      fontWeight: FontWeight.w500)),
               SizedBox(height: 1.0.w),
               Text("${LocaleKeys.review_username.tr()}: farnmarket@mail.com",
                   style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black.withOpacity(0.5))),
-              SizedBox(height: 20,)
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      color: Colors.black.withOpacity(0.5))),
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
           FlutterSwitch(
@@ -96,7 +102,7 @@ class _ReviewViewState extends State<ReviewView> {
             activeColor: Colors.grey.shade200,
             inactiveColor: Colors.grey.shade200,
             toggleColor:
-            SelectSwitch ? ThemeColor.primaryColor() : Colors.grey.shade400,
+                SelectSwitch ? ThemeColor.primaryColor() : Colors.grey.shade400,
             value: SelectSwitch ? true : false,
             onToggle: (val) {
               setState(() {
@@ -127,8 +133,6 @@ class _ReviewViewState extends State<ReviewView> {
           selectCircleStrokeColor: "#000000",
         ),
       );
-
-
     } on Exception catch (e) {
       error = e.toString();
     }
@@ -143,11 +147,10 @@ class _ReviewViewState extends State<ReviewView> {
     final picker = ImagePicker();
     final pickedFile = await picker.getVideo(source: imageSource);
 
-
     setState(() {
       if (pickedFile != null) {
         // fileImage = File(pickedFile.path);
-        print("dsceed ${ File(pickedFile.path)}");
+        print("dsceed ${File(pickedFile.path)}");
         //   Usermanager().getUser().then((value) => bloc.UploadImage(context: context,imageFile: fileImage,imageableType: "customer",imageableId: itemInfo.id,token: value.token));
       } else {
         print('No file selected.');
@@ -155,10 +158,10 @@ class _ReviewViewState extends State<ReviewView> {
     });
   }
 
-  Widget _Header({ProductModel item,int index,BuildContext context}) {
+  Widget _Header({ProductModel item, int index, BuildContext context}) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 15),
+      padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 15),
       color: Colors.white,
       child: Column(
         children: [
@@ -214,7 +217,7 @@ class _ReviewViewState extends State<ReviewView> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Hero(
-                tag:"history_${index}",
+                tag: "history_${index}",
                 child: Container(
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -223,10 +226,12 @@ class _ReviewViewState extends State<ReviewView> {
                     height: 22.0.w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
-                      child: Lottie.asset('assets/json/loading.json', height: 30),
+                      child:
+                          Lottie.asset('assets/json/loading.json', height: 30),
                     ),
                     fit: BoxFit.contain,
-                    imageUrl: "https://dev2-test.naifarm.com/img/thumb.e4f48571.png",
+                    imageUrl:
+                        "https://dev2-test.naifarm.com/img/thumb.e4f48571.png",
                     errorWidget: (context, url, error) => Container(
                         height: 30,
                         child: Icon(
@@ -244,12 +249,16 @@ class _ReviewViewState extends State<ReviewView> {
                     SizedBox(height: 3.0.w),
                     Text("อโวกาโก้ ภาคเหนือ",
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500)),
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.w500)),
                     SizedBox(height: 1.0.w),
                     Text("ตัวเลือกสินค้า: ดำ, XL",
                         style: FunctionHelper.FontTheme(
-                            fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black.withOpacity(0.5))),
-                    SizedBox(height: 20,)
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            color: Colors.black.withOpacity(0.5))),
+                    SizedBox(
+                      height: 20,
+                    )
                   ],
                 ),
               )
@@ -260,15 +269,22 @@ class _ReviewViewState extends State<ReviewView> {
     );
   }
 
-  Widget _BuildForm(BuildContext context){
+  Widget _BuildForm(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(bottom: 20,top: 15),
+      padding: EdgeInsets.only(bottom: 20, top: 15),
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
       child: Column(
         children: [
-          Text(LocaleKeys.review_rate.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
-          SizedBox(height: 20,),
+          Text(
+            LocaleKeys.review_rate.tr(),
+            style: FunctionHelper.FontTheme(
+                fontSize: SizeUtil.titleFontSize().sp,
+                fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 20,
+          ),
           CustomStarRating(
               allowHalfRating: false,
               onRated: (v) {},
@@ -281,49 +297,67 @@ class _ReviewViewState extends State<ReviewView> {
               color: Colors.amber,
               borderColor: Colors.amber,
               spacing: 0.0),
-          SizedBox(height: 10,),
-          Divider(color: Colors.black.withOpacity(0.5),),
-          SizedBox(height: 5,),
+          SizedBox(
+            height: 10,
+          ),
+          Divider(
+            color: Colors.black.withOpacity(0.5),
+          ),
+          SizedBox(
+            height: 5,
+          ),
           Container(
             child: Row(
               children: [
-                Expanded(child:InkWell(
+                Expanded(
+                    child: InkWell(
                   child: Container(
-                    margin: EdgeInsets.only(left: 2.0.w,right: 1.0.w),
+                    margin: EdgeInsets.only(left: 2.0.w, right: 1.0.w),
                     padding: EdgeInsets.all(2.0.w),
                     decoration: BoxDecoration(
-                        border: Border.all(color: ThemeColor.secondaryColor(),width: 1)
-                    ),
+                        border: Border.all(
+                            color: ThemeColor.secondaryColor(), width: 1)),
                     child: Column(
                       children: [
-                        Icon(Icons.camera_alt,color: ThemeColor.secondaryColor(),),
+                        Icon(
+                          Icons.camera_alt,
+                          color: ThemeColor.secondaryColor(),
+                        ),
                         Text(LocaleKeys.btn_add_image.tr(),
                             style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500,color: ThemeColor.secondaryColor())),
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.w500,
+                                color: ThemeColor.secondaryColor())),
                       ],
                     ),
                   ),
-                  onTap: (){
+                  onTap: () {
                     loadAssets(maxImages: 10);
                   },
                 )),
-                Expanded(child:InkWell(
+                Expanded(
+                    child: InkWell(
                   child: Container(
-                    margin: EdgeInsets.only(left: 1.0.w,right: 2.0.w),
+                    margin: EdgeInsets.only(left: 1.0.w, right: 2.0.w),
                     padding: EdgeInsets.all(2.0.w),
                     decoration: BoxDecoration(
-                        border: Border.all(color: ThemeColor.secondaryColor(),width: 1)
-                    ),
+                        border: Border.all(
+                            color: ThemeColor.secondaryColor(), width: 1)),
                     child: Column(
                       children: [
-                        Icon(FontAwesome.video_camera,color: ThemeColor.secondaryColor(),),
+                        Icon(
+                          FontAwesome.video_camera,
+                          color: ThemeColor.secondaryColor(),
+                        ),
                         Text(LocaleKeys.btn_add_vdo.tr(),
                             style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500,color: ThemeColor.secondaryColor())),
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.w500,
+                                color: ThemeColor.secondaryColor())),
                       ],
                     ),
                   ),
-                  onTap: (){
+                  onTap: () {
                     captureFile(ImageSource.gallery);
                   },
                 ))
@@ -331,12 +365,18 @@ class _ReviewViewState extends State<ReviewView> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 20,right: 20,top: 20),
+            padding: EdgeInsets.only(left: 20, right: 20, top: 20),
             child: BuildEditText(
-                head: "",maxLength: 5000,
-                hint: LocaleKeys.review_tell.tr(),maxLine: 5,controller: reviewController,inputType: TextInputType.text),
+                head: "",
+                maxLength: 5000,
+                hint: LocaleKeys.review_tell.tr(),
+                maxLine: 5,
+                controller: reviewController,
+                inputType: TextInputType.text),
           ),
-          SizedBox(height: 15,),
+          SizedBox(
+            height: 15,
+          ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
@@ -344,56 +384,89 @@ class _ReviewViewState extends State<ReviewView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  _BuildButtonreview(title: LocaleKeys.review_deli_ex.tr(),onClick: ()=>reviewController.text = LocaleKeys.review_deli_ex.tr()),
-                  SizedBox(width: 10,),
-                  _BuildButtonreview(title: LocaleKeys.review_product_ex.tr(),onClick: ()=>reviewController.text = LocaleKeys.review_product_ex.tr()),
-                  SizedBox(width: 10,),
-                  _BuildButtonreview(title: LocaleKeys.review_quality_ex.tr(),onClick: ()=>reviewController.text = LocaleKeys.review_quality_ex.tr()),
+                  _BuildButtonreview(
+                      title: LocaleKeys.review_deli_ex.tr(),
+                      onClick: () => reviewController.text =
+                          LocaleKeys.review_deli_ex.tr()),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  _BuildButtonreview(
+                      title: LocaleKeys.review_product_ex.tr(),
+                      onClick: () => reviewController.text =
+                          LocaleKeys.review_product_ex.tr()),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  _BuildButtonreview(
+                      title: LocaleKeys.review_quality_ex.tr(),
+                      onClick: () => reviewController.text =
+                          LocaleKeys.review_quality_ex.tr()),
                 ],
               ),
             ),
           ),
-
         ],
       ),
     );
   }
 
-  Widget _BuildButtonreview({String title="",Function() onClick}){
-    return FlatButton(
-      color: Colors.grey.shade300,
-      textColor: Colors.black,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
+  Widget _BuildButtonreview({String title = "", Function() onClick}) {
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          Colors.grey.shade300,
+        ),
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.3),
+        ),
       ),
       onPressed: () {
         onClick();
       },
       child: Text(
         title,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(
+            color: Colors.black,
+            fontSize: SizeUtil.titleFontSize().sp,
+            fontWeight: FontWeight.w500),
       ),
     );
   }
 
-  Widget _buildBtnSend({Function() onClick}){
+  Widget _buildBtnSend({Function() onClick}) {
     return Container(
-      margin: EdgeInsets.only(top: 20,bottom: 20),
-      child: FlatButton(
-        color: ThemeColor.secondaryColor(),
-        textColor: Colors.white,
-        padding: EdgeInsets.only(left: 100,right: 100,top: 20,bottom: 20),
-        splashColor: Colors.white.withOpacity(0.3),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40.0),
+      margin: EdgeInsets.only(top: 20, bottom: 20),
+      child: TextButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+          ),
+          padding: MaterialStateProperty.all(
+              EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20)),
+          backgroundColor: MaterialStateProperty.all(
+            ThemeColor.secondaryColor(),
+          ),
+          overlayColor: MaterialStateProperty.all(
+            Colors.white.withOpacity(0.3),
+          ),
         ),
         onPressed: () {
           onClick();
         },
         child: Text(
           LocaleKeys.btn_confirm.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+          style: FunctionHelper.FontTheme(
+              color: Colors.white,
+              fontSize: SizeUtil.titleFontSize().sp,
+              fontWeight: FontWeight.w500),
         ),
       ),
     );

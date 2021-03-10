@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -24,13 +23,17 @@ class ShopOwn extends StatelessWidget {
   final ShopItem shopItem;
   final MyShopRespone shopRespone;
   final bool showBtn;
-   bool rateStyle=true;
+  bool rateStyle = true;
 
-
-   ShopOwn({Key key, this.shopItem,this.shopRespone, this.showBtn=true,this.rateStyle}) : super(key: key);
+  ShopOwn(
+      {Key key,
+      this.shopItem,
+      this.shopRespone,
+      this.showBtn = true,
+      this.rateStyle})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Column(
@@ -50,11 +53,13 @@ class ShopOwn extends StatelessWidget {
                       height: 15.0.w,
                       placeholder: (context, url) => Container(
                         color: Colors.white,
-                        child:
-                        Lottie.asset('assets/json/loading.json',width: 30, height: 30),
+                        child: Lottie.asset('assets/json/loading.json',
+                            width: 30, height: 30),
                       ),
                       fit: BoxFit.cover,
-                      imageUrl: shopItem.image!=null?ProductLandscape.CovertUrlImage(shopItem.image):"",
+                      imageUrl: shopItem.image != null
+                          ? ProductLandscape.CovertUrlImage(shopItem.image)
+                          : "",
                       errorWidget: (context, url, error) => Container(
                           width: 60,
                           height: 60,
@@ -68,37 +73,52 @@ class ShopOwn extends StatelessWidget {
                           )),
                     ),
                   ),
-                  onTap: (){
-                    AppRoute.ImageFullScreenView(hero_tag: "image_profile_me${shopItem.id}",context: context,image: ProductLandscape.CovertUrlImage(shopItem.image));
+                  onTap: () {
+                    AppRoute.ImageFullScreenView(
+                        hero_tag: "image_profile_me${shopItem.id}",
+                        context: context,
+                        image: ProductLandscape.CovertUrlImage(shopItem.image));
                   },
                 ),
                 SizedBox(width: 20),
-               Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   Text(shopItem.name!=null?shopItem.name:"Nifarm Shop",
-                       style: FunctionHelper.FontTheme(
-                           fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black,height: 1,fontWeight: FontWeight.bold)),
-                   SizedBox(height: 5),
-                   Text(shopItem.updatedAt!=null?"Active ${timeago.format(DateTime.parse(DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(shopItem.updatedAt))),locale: 'th')} ":"เวลาไม่ถูกต้อง",
-                       style: FunctionHelper.FontTheme(
-                           fontSize: SizeUtil.titleSmallFontSize().sp,
-                           color: Colors.black.withOpacity(0.8))),
-                   SizedBox(height: 2),
-                   Text("${shopItem.state!=null?"จังหวัด${shopItem.state.name}":'จังหวัดไม่ถูกต้อง'}",
-                       style: FunctionHelper.FontTheme(
-                           fontSize: SizeUtil.titleSmallFontSize().sp,
-                           color: Colors.black.withOpacity(0.8),height: 1.5)),
-                 ],
-               ),
-
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(shopItem.name != null ? shopItem.name : "Nifarm Shop",
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            color: Colors.black,
+                            height: 1,
+                            fontWeight: FontWeight.bold)),
+                    SizedBox(height: 5),
+                    Text(
+                        shopItem.updatedAt != null
+                            ? "Active ${timeago.format(DateTime.parse(DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(shopItem.updatedAt))), locale: 'th')} "
+                            : "เวลาไม่ถูกต้อง",
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            color: Colors.black.withOpacity(0.8))),
+                    SizedBox(height: 2),
+                    Text(
+                        "${shopItem.state != null ? "จังหวัด${shopItem.state.name}" : 'จังหวัดไม่ถูกต้อง'}",
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            color: Colors.black.withOpacity(0.8),
+                            height: 1.5)),
+                  ],
+                ),
               ],
             ),
           ),
-          Container(color: Colors.white,height: 10,width: MediaQuery.of(context).size.width,),
           Container(
             color: Colors.white,
-            padding: EdgeInsets.only(left: 2.5.w, right:2.5.w, bottom: 10, top: 10),
+            height: 10,
+            width: MediaQuery.of(context).size.width,
+          ),
+          Container(
+            color: Colors.white,
+            padding:
+                EdgeInsets.only(left: 2.5.w, right: 2.5.w, bottom: 10, top: 10),
             width: MediaQuery.of(context).size.width,
             child: Row(
               children: [
@@ -106,13 +126,16 @@ class ShopOwn extends StatelessWidget {
                   flex: 2,
                   child: Column(
                     children: [
-                      Text("${shopItem.countProduct!=null?shopItem.countProduct:'0'}",
+                      Text(
+                          "${shopItem.countProduct != null ? shopItem.countProduct : '0'}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.priceFontSize().sp,
-                              color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)),
+                              color: ThemeColor.ColorSale(),
+                              fontWeight: FontWeight.w500)),
                       SizedBox(height: 5),
                       Text(LocaleKeys.shop_product_list.tr(),
-                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp))
+                          style: FunctionHelper.FontTheme(
+                              fontSize: SizeUtil.titleSmallFontSize().sp))
                     ],
                   ),
                 ),
@@ -120,30 +143,44 @@ class ShopOwn extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: Container(
-                    margin: EdgeInsets.only(right: 2.0.w,left: 2.0.w),
+                    margin: EdgeInsets.only(right: 2.0.w, left: 2.0.w),
                     decoration: BoxDecoration(
-                      border: Border(left: BorderSide(color: Colors.grey.withOpacity(0.5), width: 1),right: BorderSide(color: Colors.grey.withOpacity(0.5), width: 1)),
+                      border: Border(
+                          left: BorderSide(
+                              color: Colors.grey.withOpacity(0.5), width: 1),
+                          right: BorderSide(
+                              color: Colors.grey.withOpacity(0.5), width: 1)),
                     ),
                     child: Column(
                       children: [
-                        rateStyle?Text("${shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating:'0'}",
-                            style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.priceFontSize().sp,
-                                color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)):SizedBox(),
+                        rateStyle
+                            ? Text(
+                                "${shopItem.rating != null && shopItem.rating != 0 ? shopItem.rating : '0'}",
+                                style: FunctionHelper.FontTheme(
+                                    fontSize: SizeUtil.priceFontSize().sp,
+                                    color: ThemeColor.ColorSale(),
+                                    fontWeight: FontWeight.w500))
+                            : SizedBox(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            rateStyle==false?Text("${shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating:'0 '}",
-                                style: FunctionHelper.FontTheme(
-                                    fontSize: SizeUtil.priceFontSize().sp,
-                                    color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500)):SizedBox(),
-
+                            rateStyle == false
+                                ? Text(
+                                    "${shopItem.rating != null && shopItem.rating != 0 ? shopItem.rating : '0 '}",
+                                    style: FunctionHelper.FontTheme(
+                                        fontSize: SizeUtil.priceFontSize().sp,
+                                        color: ThemeColor.ColorSale(),
+                                        fontWeight: FontWeight.w500))
+                                : SizedBox(),
                             SmoothStarRating(
                                 allowHalfRating: false,
                                 onRated: (v) {},
                                 starCount: 5,
-                                rating: shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating:0,
-                              //  rating: shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():0.0,
+                                rating: shopItem.rating != null &&
+                                        shopItem.rating != 0
+                                    ? shopItem.rating
+                                    : 0,
+                                //  rating: shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():0.0,
                                 size: 18.0,
                                 isReadOnly: true,
                                 filledIconData: Icons.star,
@@ -155,31 +192,57 @@ class ShopOwn extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(LocaleKeys.shop_rate.tr(),
-                            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleSmallFontSize().sp)),
                       ],
                     ),
                   ),
                 ),
-                Expanded(flex:2,child: showBtn? Container(
-                  child: FlatButton(
-                    minWidth: 20.0.w,
-                    height: 4.0.h,
-                    color: ThemeColor.primaryColor(),
-                    textColor: Colors.white,
-                    padding: EdgeInsets.only(left: 1.5.w,right: 1.5.w,top: 1.5.w,bottom: 1.5.w),
-                    splashColor: Colors.white.withOpacity(0.3),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    onPressed: () {
-                      AppRoute.ShopMain(context: context,myShopRespone: shopRespone);
-                    },
-                    child: Text(
-                      LocaleKeys.shop_title.tr(),
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ):SizedBox(width: 5.0.w,height: 5.0.w,))
+                Expanded(
+                    flex: 2,
+                    child: showBtn
+                        ? Container(
+                            child: TextButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                ),
+                                padding: MaterialStateProperty.all(
+                                    EdgeInsets.only(
+                                        left: 1.5.w,
+                                        right: 1.5.w,
+                                        top: 1.5.w,
+                                        bottom: 1.5.w)),
+                                minimumSize: MaterialStateProperty.all(
+                                  Size(20.0.w, 4.0.h),
+                                ),
+                                backgroundColor: MaterialStateProperty.all(
+                                  ThemeColor.primaryColor(),
+                                ),
+                                overlayColor: MaterialStateProperty.all(
+                                  Colors.white.withOpacity(0.3),
+                                ),
+                              ),
+                              onPressed: () {
+                                AppRoute.ShopMain(
+                                    context: context,
+                                    myShopRespone: shopRespone);
+                              },
+                              child: Text(
+                                LocaleKeys.shop_title.tr(),
+                                style: FunctionHelper.FontTheme(
+                                    color: Colors.white,
+                                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          )
+                        : SizedBox(
+                            width: 5.0.w,
+                            height: 5.0.w,
+                          ))
 
                 // Expanded(
                 //   flex: 1,
@@ -204,5 +267,4 @@ class ShopOwn extends StatelessWidget {
       ),
     );
   }
-
 }

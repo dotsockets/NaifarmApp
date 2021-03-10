@@ -10,10 +10,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
-
-
 class SplashLoginView extends StatelessWidget {
-
   final HomeObjectCombine item;
 
   const SplashLoginView({Key key, this.item}) : super(key: key);
@@ -30,9 +27,7 @@ class SplashLoginView extends StatelessWidget {
             children: [
               SingleChildScrollView(
                 child: Column(
-                  children: [
-                    _BorderHeader(context)
-                  ],
+                  children: [_BorderHeader(context)],
                 ),
               )
             ],
@@ -44,7 +39,7 @@ class SplashLoginView extends StatelessWidget {
 
   Widget _BuildHeader(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height-12.0.h,
+        height: MediaQuery.of(context).size.height - 12.0.h,
         padding: EdgeInsets.all(10),
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -62,65 +57,118 @@ class SplashLoginView extends StatelessWidget {
                   color: Colors.white,
                   fontSize: SizeUtil.appNameFontSize().sp,
                   fontWeight: FontWeight.w500),
-
             ),
-            SizedBox(height: 5.0.h,),
-            Image.asset('assets/images/png/img_login.png',height:35.0.h,),
-            SizedBox(height: 3.0.h,),
-            Text("แอปเพื่อเกษตรกรไทย ซื้อง่าย ขายคล่อง",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp),),
-            SizedBox(height: 4.0.h,),
+            SizedBox(
+              height: 5.0.h,
+            ),
+            Image.asset(
+              'assets/images/png/img_login.png',
+              height: 35.0.h,
+            ),
+            SizedBox(
+              height: 3.0.h,
+            ),
+            Text(
+              "แอปเพื่อเกษตรกรไทย ซื้อง่าย ขายคล่อง",
+              style: FunctionHelper.FontTheme(
+                  color: Colors.white, fontSize: SizeUtil.titleFontSize().sp),
+            ),
+            SizedBox(
+              height: 4.0.h,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FlatButton(
-                  minWidth: 40.0.w,
-                  height: 5.0.h,
-                  color: ThemeColor.ColorSale(),
-                  textColor: Colors.white,
-                  splashColor: Colors.white.withOpacity(0.3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0),
+                TextButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                    ),
+                    minimumSize: MaterialStateProperty.all(
+                      Size(40.0.w, 5.0.h),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      ThemeColor.ColorSale(),
+                    ),
+                    overlayColor: MaterialStateProperty.all(
+                      Colors.white.withOpacity(0.3),
+                    ),
                   ),
                   onPressed: () {
-                     AppRoute.Login(context,IsCallBack: false,IsHeader: true);
+                    AppRoute.Login(context, IsCallBack: false, IsHeader: true);
                   },
-                  child: Text(LocaleKeys.btn_login.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                  child: Text(
+                    LocaleKeys.btn_login.tr(),
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.white,
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
-                SizedBox(width: 2.0.h,),
-                FlatButton(
-                  minWidth: 40.0.w,
-                  height: 5.0.h,
-                  color: ThemeColor.secondaryColor(),
-                  textColor: Colors.white,
-                  splashColor: Colors.white.withOpacity(0.3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0),
+                SizedBox(
+                  width: 2.0.h,
+                ),
+                TextButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                    ),
+                    minimumSize: MaterialStateProperty.all(
+                      Size(40.0.w, 5.0.h),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      ThemeColor.secondaryColor(),
+                    ),
+                    overlayColor: MaterialStateProperty.all(
+                      Colors.white.withOpacity(0.3),
+                    ),
                   ),
                   onPressed: () {
                     AppRoute.Register(context);
                   },
-                  child: Text(LocaleKeys.btn_register.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                  child: Text(
+                    LocaleKeys.btn_register.tr(),
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.white,
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w500),
                   ),
                 )
               ],
             ),
-            SizedBox(height: 4.0.h,),
+            SizedBox(
+              height: 4.0.h,
+            ),
             Wrap(
               children: [
-                Text(LocaleKeys.splashLogin_skip_message.tr()+" ",style: FunctionHelper.FontTheme(color: Colors.black,fontWeight: FontWeight.w500,fontSize: SizeUtil.titleFontSize().sp)),
-                SizedBox(width: 8,),
+                Text(LocaleKeys.splashLogin_skip_message.tr() + " ",
+                    style: FunctionHelper.FontTheme(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        fontSize: SizeUtil.titleFontSize().sp)),
+                SizedBox(
+                  width: 8,
+                ),
                 Column(
                   children: [
                     Container(
-                      child: InkWell(child: Text(LocaleKeys.splashLogin_skip.tr(),style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleFontSize().sp)),onTap: (){
-                        // FunctionHelper.showDialogProcess(context);
-                        AppRoute.Home(context);
-                      },),
+                      child: InkWell(
+                        child: Text(LocaleKeys.splashLogin_skip.tr(),
+                            style: FunctionHelper.FontTheme(
+                                color: Colors.white,
+                                fontSize: SizeUtil.titleFontSize().sp)),
+                        onTap: () {
+                          // FunctionHelper.showDialogProcess(context);
+                          AppRoute.Home(context);
+                        },
+                      ),
                       decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(color: Colors.white, width: 2)),
+                        border: Border(
+                            bottom: BorderSide(color: Colors.white, width: 2)),
                       ),
                     )
                   ],
@@ -144,5 +192,4 @@ class SplashLoginView extends StatelessWidget {
         ),
         child: _BuildHeader(context));
   }
-
 }

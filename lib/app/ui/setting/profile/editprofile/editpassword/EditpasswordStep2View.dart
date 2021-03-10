@@ -14,6 +14,7 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class EditpasswordStep2View extends StatefulWidget {
   final String passwordOld;
 
@@ -28,81 +29,74 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
   TextEditingController _input2 = new TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   MemberBloc bloc;
-  String onError1 ="" ,onError2="";
+  String onError1 = "", onError2 = "";
   final onCheck = BehaviorSubject<bool>();
   bool onDialog = false;
 
-
-  void _init(){
-    if(null == bloc){
+  void _init() {
+    if (null == bloc) {
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        if(event){
+        if (event) {
           FunctionHelper.showDialogProcess(context);
-        }else{
+        } else {
           Navigator.of(context).pop();
         }
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
-        FunctionHelper.SuccessDialog(context,message: "Please confirm Email in your mailbox ",onClick: (){
-          if(onDialog){
+        FunctionHelper.SuccessDialog(context,
+            message: "Please confirm Email in your mailbox ", onClick: () {
+          if (onDialog) {
             Navigator.of(context).pop();
           }
-
         });
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
 
       verify();
-
     }
-
   }
 
-  bool FormCheck(){
-    if(_input1.text.isEmpty || _input2.text.isEmpty){
+  bool FormCheck() {
+    if (_input1.text.isEmpty || _input2.text.isEmpty) {
       return false;
-    }else{
+    } else {
       return true;
     }
   }
 
-
-  void verify(){
-    if(_input1.text.length<8 || _input1.text.length>12){
+  void verify() {
+    if (_input1.text.length < 8 || _input1.text.length > 12) {
       onError1 = LocaleKeys.message_error_password_length.tr();
       onCheck.add(false);
-    }else{
+    } else {
       onCheck.add(false);
       onError1 = "";
     }
 
-    if(_input2.text.length<8 || _input2.text.length>12){
+    if (_input2.text.length < 8 || _input2.text.length > 12) {
       onError2 = LocaleKeys.message_error_password_length.tr();
       onCheck.add(false);
-    }else{
+    } else {
       onCheck.add(false);
       onError2 = "";
     }
 
-    if(onError1=="" && onError2==""){
-      if(_input2.text!=_input1.text){
+    if (onError1 == "" && onError2 == "") {
+      if (_input2.text != _input1.text) {
         onError1 = "";
         onError2 = LocaleKeys.message_error_password_not_match.tr();
         onCheck.add(false);
-      }else{
+      } else {
         onCheck.add(true);
       }
-
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -116,15 +110,19 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: LocaleKeys.my_profile_change_password.tr(), header_type: Header_Type.barNormal,isEnable_Search: false,onClick: (){
-              FunctionHelper.ConfirmDialog(context,
-                  message: LocaleKeys.dialog_message_phone_edit_cancel.tr(),
-                  onClick: () {
-                    AppRoute.PoppageCount(context: context,countpage: 2);
-                  }, onCancel: () {
-                    Navigator.of(context).pop();
-                  });
-            },),
+              title: LocaleKeys.my_profile_change_password.tr(),
+              header_type: Header_Type.barNormal,
+              isEnable_Search: false,
+              onClick: () {
+                FunctionHelper.ConfirmDialog(context,
+                    message: LocaleKeys.dialog_message_phone_edit_cancel.tr(),
+                    onClick: () {
+                  AppRoute.PoppageCount(context: context, countpage: 2);
+                }, onCancel: () {
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -132,11 +130,11 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                 StreamBuilder(
                     stream: onCheck.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if(snapshot.hasData){
-                        return  Container(
+                      if (snapshot.hasData) {
+                        return Container(
                           color: Colors.white,
                           child: Container(
-                            padding:EdgeInsets.all(5.0.w),
+                            padding: EdgeInsets.all(5.0.w),
                             width: MediaQuery.of(context).size.width,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,15 +143,44 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                                 //   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
                                 // ),
                                 // SizedBox(height: 15,),
-                                BuildEditText(head: "New "+LocaleKeys.my_profile_password.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input1,onError: onError1,onChanged: (String char){
-                                  verify();
-                                },),
-                                SizedBox(height: 3.0.h,),
+                                BuildEditText(
+                                  head: "New " +
+                                      LocaleKeys.my_profile_password.tr(),
+                                  hint: LocaleKeys.set_default.tr() +
+                                      LocaleKeys.my_profile_password.tr(),
+                                  inputType: TextInputType.text,
+                                  maxLength: 20,
+                                  IsPassword: true,
+                                  borderRadius: 5,
+                                  controller: _input1,
+                                  onError: onError1,
+                                  onChanged: (String char) {
+                                    verify();
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 3.0.h,
+                                ),
 
-                                BuildEditText(head: LocaleKeys.btn_confirm.tr()+" New "+LocaleKeys.my_profile_password.tr(),hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_password.tr(),inputType: TextInputType.text,maxLength: 20,IsPassword: true,borderRadius: 5,controller: _input2,onError: onError2,onChanged: (String char){
-                                  verify();
-                                },),
-                                SizedBox(height: 1.0.h,),
+                                BuildEditText(
+                                  head: LocaleKeys.btn_confirm.tr() +
+                                      " New " +
+                                      LocaleKeys.my_profile_password.tr(),
+                                  hint: LocaleKeys.set_default.tr() +
+                                      LocaleKeys.my_profile_password.tr(),
+                                  inputType: TextInputType.text,
+                                  maxLength: 20,
+                                  IsPassword: true,
+                                  borderRadius: 5,
+                                  controller: _input2,
+                                  onError: onError2,
+                                  onChanged: (String char) {
+                                    verify();
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 1.0.h,
+                                ),
                                 // Center(
                                 //   child: Text("ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป",
                                 //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500)),
@@ -162,43 +189,59 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                             ),
                           ),
                         );
-                      }else{
+                      } else {
                         return SizedBox();
                       }
-
-
                     }),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 StreamBuilder(
                     stream: onCheck.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if(snapshot.hasData){
-                        return   FlatButton(
-                          minWidth: 50.0.w,
-                          height: 5.0.h,
-                          color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
-                          textColor: Colors.white,
-                          splashColor: Colors.white.withOpacity(0.3),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40.0),
+                      if (snapshot.hasData) {
+                        return TextButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40.0),
+                              ),
+                            ),
+                            minimumSize: MaterialStateProperty.all(
+                              Size(50.0.w, 5.0.h),
+                            ),
+                            backgroundColor: MaterialStateProperty.all(
+                              FormCheck()
+                                  ? ThemeColor.ColorSale()
+                                  : Colors.grey.shade400,
+                            ),
+                            overlayColor: MaterialStateProperty.all(
+                              Colors.white.withOpacity(0.3),
+                            ),
                           ),
-                          onPressed: (){
-                            if(FormCheck()){
-                              Usermanager().getUser().then((value) => bloc.ModifyPassword(context,data: ModifyPasswordrequest(password: _input1.text,oldPassword: widget.passwordOld,checkPassword: _input2.text),token: value.token));
-
+                          onPressed: () {
+                            if (FormCheck()) {
+                              Usermanager().getUser().then((value) =>
+                                  bloc.ModifyPassword(context,
+                                      data: ModifyPasswordrequest(
+                                          password: _input1.text,
+                                          oldPassword: widget.passwordOld,
+                                          checkPassword: _input2.text),
+                                      token: value.token));
                             }
                           },
-                          child: Text(LocaleKeys.btn_continue.tr(),
-                            style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                          child: Text(
+                            LocaleKeys.btn_continue.tr(),
+                            style: FunctionHelper.FontTheme(
+                                color: Colors.white,
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.w500),
                           ),
                         );
-                      }else{
+                      } else {
                         return SizedBox();
                       }
-
-
                     })
-
               ],
             ),
           ),
@@ -206,6 +249,4 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
       ),
     );
   }
-
-
 }

@@ -41,7 +41,8 @@ class _AddressViewState extends State<AddressView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+        FunctionHelper.SnackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
 
       bloc.onSuccess.stream.listen((event) {
@@ -51,8 +52,7 @@ class _AddressViewState extends State<AddressView> {
 
       Usermanager()
           .getUser()
-          .then((value) => bloc.AddressesList(context,token: value.token));
-
+          .then((value) => bloc.AddressesList(context, token: value.token));
     }
   }
 
@@ -86,8 +86,8 @@ class _AddressViewState extends State<AddressView> {
                       stream: bloc.AddressList.stream,
                       builder: (context, snapshot) {
                         var item = (snapshot.data as AddressesListRespone);
-                        if (snapshot.hasData && item.data!=null) {
-                          if(item.data.isNotEmpty){
+                        if (snapshot.hasData && item.data != null) {
+                          if (item.data.isNotEmpty) {
                             return SingleChildScrollView(
                               child: Container(
                                 child: Column(
@@ -280,10 +280,8 @@ class _AddressViewState extends State<AddressView> {
               var result = await AppRoute.AddressEdit(context, item);
               if (result != null) {
                 onUpdate = true;
-                Usermanager()
-                    .getUser()
-                    .then((value) => bloc.AddressesList(context,token: value.token));
-
+                Usermanager().getUser().then(
+                    (value) => bloc.AddressesList(context, token: value.token));
               }
             },
           ),
@@ -305,7 +303,10 @@ class _AddressViewState extends State<AddressView> {
             ),
             onTap: () {
               onUpdate = true;
-              Usermanager().getUser().then((value) => bloc.DeleteAddress(context,id: item.id.toString(),token: value.token));
+              Usermanager().getUser().then((value) => bloc.DeleteAddress(
+                  context,
+                  id: item.id.toString(),
+                  token: value.token));
             },
           )
         ],
@@ -344,8 +345,7 @@ class _AddressViewState extends State<AddressView> {
           onUpdate = true;
           Usermanager()
               .getUser()
-              .then((value) => bloc.AddressesList(context,token: value.token));
-
+              .then((value) => bloc.AddressesList(context, token: value.token));
         }
       },
     );
@@ -356,25 +356,32 @@ class _AddressViewState extends State<AddressView> {
       child: Container(
         width: 50.0.w,
         height: 6.0.h,
-        child: FlatButton(
-          color: ThemeColor.secondaryColor(),
-          textColor: Colors.white,
-          splashColor: Colors.white.withOpacity(0.3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40.0),
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+            ),
+            backgroundColor: MaterialStateProperty.all(
+              ThemeColor.secondaryColor(),
+            ),
+            overlayColor: MaterialStateProperty.all(
+              Colors.white.withOpacity(0.3),
+            ),
           ),
           onPressed: () async {
             final result = await AppRoute.SettingAddAddress(context);
             if (result) {
               onUpdate = true;
-              Usermanager()
-                  .getUser()
-                  .then((value) => bloc.AddressesList(context,token: value.token));
+              Usermanager().getUser().then(
+                  (value) => bloc.AddressesList(context, token: value.token));
             }
           },
           child: Text(
             LocaleKeys.btn_add_address.tr(),
             style: FunctionHelper.FontTheme(
+                color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
           ),

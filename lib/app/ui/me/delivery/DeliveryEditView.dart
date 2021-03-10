@@ -35,10 +35,10 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
   Rates rates;
   ShippingBloc bloc;
 
-  init(){
-    if(bloc==null){
-      for(var item in widget.shppingMyShopRespone.data[0].rates){
-        if(widget.carriersData.id == item.carrierId){
+  init() {
+    if (bloc == null) {
+      for (var item in widget.shppingMyShopRespone.data[0].rates) {
+        if (widget.carriersData.id == item.carrierId) {
           RateController.text = item.rate.toString();
           IsHave = true;
           rates = item;
@@ -47,9 +47,9 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
       }
       bloc = ShippingBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        if(event){
+        if (event) {
           FunctionHelper.showDialogProcess(context);
-        }else{
+        } else {
           Navigator.of(context).pop();
         }
       });
@@ -57,9 +57,9 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
         Navigator.pop(context, event);
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
-     // Usermanager().getUser().then((value) => bloc.loadShppingPage(token: value.token));
+      // Usermanager().getUser().then((value) => bloc.loadShppingPage(token: value.token));
     }
   }
 
@@ -76,7 +76,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
             icon: "",
             header_type: Header_Type.barNormal,
             isEnable_Search: false,
-            onClick: (){
+            onClick: () {
               Navigator.pop(context, false);
             },
           ),
@@ -88,14 +88,18 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(2.0.w),
-                  child: Text("${widget.carriersData.name}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w600)),
+                  child: Text("${widget.carriersData.name}",
+                      style: FunctionHelper.FontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.w600)),
                 ),
                 Container(
                   padding: EdgeInsets.all(15),
                   color: Colors.white,
                   child: BuildEditText(
                       head: LocaleKeys.my_product_delivery_price.tr(),
-                      hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_delivery_price.tr(),
+                      hint: LocaleKeys.set_default.tr() +
+                          LocaleKeys.my_product_delivery_price.tr(),
                       maxLength: 10,
                       controller: RateController,
                       onError: onError,
@@ -104,59 +108,88 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                       BorderOpacity: 0.2,
                       onChanged: (String char) {
                         RegExp _numeric = RegExp(r'^-?[0-9]+$');
-                        if(!_numeric.hasMatch(RateController.text))
+                        if (!_numeric.hasMatch(RateController.text))
                           RateController.text = "";
 
                         setState(() {});
-
                       }),
                 ),
-                SizedBox(height: 1.0.w,),
-                IsHave?Center(
-                  child: Container(
-                    padding: EdgeInsets.only(right: 1.0.w,left: 1.0.w),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.only(right:3.0.w,left: 3.0.w,top:4.0.w,bottom: 4.0.w),
-                            child: BuildItem(),
+                SizedBox(
+                  height: 1.0.w,
+                ),
+                IsHave
+                    ? Center(
+                        child: Container(
+                          padding: EdgeInsets.only(right: 1.0.w, left: 1.0.w),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      right: 3.0.w,
+                                      left: 3.0.w,
+                                      top: 4.0.w,
+                                      bottom: 4.0.w),
+                                  child: BuildItem(),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      right: 3.0.w,
+                                      left: 3.0.w,
+                                      top: 4.0.w,
+                                      bottom: 4.0.w),
+                                  child: TextButton(
+                                    style: ButtonStyle(
+                                      padding: MaterialStateProperty.all(
+                                          EdgeInsets.all(8.0)),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(40.0),
+                                        ),
+                                      ),
+                                      minimumSize: MaterialStateProperty.all(
+                                        Size(50.0.w, 6.0.h),
+                                      ),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                        FormCheck()
+                                            ? ThemeColor.ColorSale()
+                                            : Colors.grey.shade400,
+                                      ),
+                                      overlayColor: MaterialStateProperty.all(
+                                        Colors.white.withOpacity(0.3),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      if (FormCheck()) {
+                                        Usermanager().getUser().then((value) =>
+                                            bloc.DELETEShoppingMyShop(context,
+                                                ratesId: rates.id,
+                                                token: value.token));
+                                      }
+                                    },
+                                    child: Text(
+                                      LocaleKeys.shipping_cancel.tr(),
+                                      style: FunctionHelper.FontTheme(
+                                          color: Colors.white,
+                                          fontSize: SizeUtil.titleFontSize().sp,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.only(right:3.0.w,left: 3.0.w,top:4.0.w,bottom: 4.0.w),
-                            child: FlatButton(
-                              minWidth: 50.0.w,
-                              height: 6.0.h,
-                              color: FormCheck()?ThemeColor.ColorSale():Colors.grey.shade400,
-                              textColor: Colors.white,
-                              disabledColor: Colors.grey,
-                              disabledTextColor: Colors.black,
-                              padding: EdgeInsets.all(8.0),
-                              splashColor: Colors.grey.shade500,
-                              onPressed: () {
-                                if(FormCheck()){
-                                  Usermanager().getUser().then((value) => bloc.DELETEShoppingMyShop(context,ratesId: rates.id,token: value.token));
-                                }
-                              },
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40.0),
-                              ),
-                              child: Text(LocaleKeys.shipping_cancel.tr(),
-                                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ):SizedBox(),
-                SizedBox(height: 20,),
-                IsHave==false?Center(
-                  child: BuildItem()):SizedBox()
-
+                      )
+                    : SizedBox(),
+                SizedBox(
+                  height: 20,
+                ),
+                IsHave == false ? Center(child: BuildItem()) : SizedBox()
               ],
             ),
           ),
@@ -165,38 +198,69 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
     );
   }
 
-  Widget BuildItem()=> FlatButton(
-    minWidth: 50.0.w,
-    height: 6.0.h,
-    color: FormCheck()?ThemeColor.secondaryColor():Colors.grey.shade400,
-    textColor: Colors.white,
-    disabledColor: Colors.grey,
-    disabledTextColor: Colors.black,
-    padding: EdgeInsets.all(8.0),
-    splashColor: Colors.grey.shade500,
-    onPressed: () {
-      if(FormCheck()){
-          if(IsHave){
-            Usermanager().getUser().then((value) => bloc.EditShoppingMyShop(context,rateID: rates.id,shopRequest: ShppingMyShopRequest(shippingZoneId: widget.shppingMyShopRespone.data[0].shopId,
-                rate: int.parse(RateController.text),carrierId: widget.carriersData.id,basedOn: "price",minimum: 0,maximum: 0,name: widget.carriersData.name),token: value.token));
-          }else{
-            Usermanager().getUser().then((value) => bloc.AddShoppingMyShop(context,shopRequest: ShppingMyShopRequest(shippingZoneId: widget.shppingMyShopRespone.data[0].shopId,
-            rate: int.parse(RateController.text),carrierId: widget.carriersData.id,basedOn: "price",minimum: 0,maximum: 0,name: widget.carriersData.name),token: value.token));
+  Widget BuildItem() => TextButton(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(EdgeInsets.all(8.0)),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+          ),
+          minimumSize: MaterialStateProperty.all(
+            Size(50.0.w, 6.0.h),
+          ),
+          backgroundColor: MaterialStateProperty.all(
+            FormCheck() ? ThemeColor.secondaryColor() : Colors.grey.shade400,
+          ),
+          overlayColor: MaterialStateProperty.all(
+            Colors.white.withOpacity(0.3),
+          ),
+        ),
+        onPressed: () {
+          if (FormCheck()) {
+            if (IsHave) {
+              Usermanager().getUser().then((value) => bloc.EditShoppingMyShop(
+                  context,
+                  rateID: rates.id,
+                  shopRequest: ShppingMyShopRequest(
+                      shippingZoneId:
+                          widget.shppingMyShopRespone.data[0].shopId,
+                      rate: int.parse(RateController.text),
+                      carrierId: widget.carriersData.id,
+                      basedOn: "price",
+                      minimum: 0,
+                      maximum: 0,
+                      name: widget.carriersData.name),
+                  token: value.token));
+            } else {
+              Usermanager().getUser().then((value) => bloc.AddShoppingMyShop(
+                  context,
+                  shopRequest: ShppingMyShopRequest(
+                      shippingZoneId:
+                          widget.shppingMyShopRespone.data[0].shopId,
+                      rate: int.parse(RateController.text),
+                      carrierId: widget.carriersData.id,
+                      basedOn: "price",
+                      minimum: 0,
+                      maximum: 0,
+                      name: widget.carriersData.name),
+                  token: value.token));
+            }
           }
-      }
-    },
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(40.0),
-    ),
-    child: Text(LocaleKeys.btn_continue.tr(),
-      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-    ),
-  );
+        },
+        child: Text(
+          LocaleKeys.btn_continue.tr(),
+          style: FunctionHelper.FontTheme(
+              color: Colors.white,
+              fontSize: SizeUtil.titleFontSize().sp,
+              fontWeight: FontWeight.w500),
+        ),
+      );
 
-  bool FormCheck(){
-    if(RateController.text.isEmpty){
+  bool FormCheck() {
+    if (RateController.text.isEmpty) {
       return false;
-    }else{
+    } else {
       return true;
     }
   }

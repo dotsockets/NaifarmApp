@@ -42,7 +42,9 @@ class _CartBankViewState extends State<CartBankView> {
       if (widget.paymentRespone.data != null) {
         bloc.PaymentList.add(widget.paymentRespone);
       } else {
-        bloc.GetPaymentList(context,);
+        bloc.GetPaymentList(
+          context,
+        );
       }
     }
   }
@@ -59,14 +61,14 @@ class _CartBankViewState extends State<CartBankView> {
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(6.5.h),
               child: AppToobar(
-                  title: LocaleKeys.select.tr() + LocaleKeys.me_title_payment.tr(),
+                  title:
+                      LocaleKeys.select.tr() + LocaleKeys.me_title_payment.tr(),
                   header_type: Header_Type.barNormal,
                   isEnable_Search: false,
                   onClick: () => Navigator.pop(context, null)),
             ),
             body: SingleChildScrollView(
               child: Container(
-
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -143,7 +145,7 @@ class _CartBankViewState extends State<CartBankView> {
                       SizedBox(
                         width: 1.0.w,
                       ),
-                        Row(
+                      Row(
                         children: [
                           index == 0
                               ? SvgPicture.asset(
@@ -156,7 +158,9 @@ class _CartBankViewState extends State<CartBankView> {
                                   width: 8.0.w,
                                   height: 8.0.w,
                                 ),
-                          SizedBox(width: 2.0.w,),
+                          SizedBox(
+                            width: 2.0.w,
+                          ),
                           Text(item.name,
                               style: FunctionHelper.FontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp)),
@@ -172,19 +176,18 @@ class _CartBankViewState extends State<CartBankView> {
                   // )
                 ],
               ),
-            onTap: (){
-              for (var i = 0;
-              i < bloc.PaymentList.value.data.length;
-              i++) {
-                if (bloc.PaymentList.value.data[i].id == item.id) {
-                  bloc.PaymentList.value.data[i].active = true;
-                } else {
-                  bloc.PaymentList.value.data[i].active = false;
+              onTap: () {
+                for (var i = 0; i < bloc.PaymentList.value.data.length; i++) {
+                  if (bloc.PaymentList.value.data[i].id == item.id) {
+                    bloc.PaymentList.value.data[i].active = true;
+                  } else {
+                    bloc.PaymentList.value.data[i].active = false;
+                  }
                 }
-              }
 
-              bloc.PaymentList.add(bloc.PaymentList.value);
-            },)),
+                bloc.PaymentList.add(bloc.PaymentList.value);
+              },
+            )),
         SizedBox(
           height: 1.0.h,
         )
@@ -195,13 +198,21 @@ class _CartBankViewState extends State<CartBankView> {
   Widget _buildAddBtn() {
     return Center(
       child: Container(
-        child: FlatButton(
-          color: ThemeColor.secondaryColor(),
-          textColor: Colors.white,
-          padding: EdgeInsets.only(left: 20.0.w, right: 20.0.w, top: 2.0.h, bottom: 2.0.h),
-          splashColor: Colors.white.withOpacity(0.3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40.0),
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+            ),
+            padding: MaterialStateProperty.all(EdgeInsets.only(
+                left: 20.0.w, right: 20.0.w, top: 2.0.h, bottom: 2.0.h)),
+            backgroundColor: MaterialStateProperty.all(
+              ThemeColor.secondaryColor(),
+            ),
+            overlayColor: MaterialStateProperty.all(
+              Colors.white.withOpacity(0.3),
+            ),
           ),
           onPressed: () async {
             Navigator.pop(context, bloc.PaymentList.value);
@@ -209,6 +220,7 @@ class _CartBankViewState extends State<CartBankView> {
           child: Text(
             LocaleKeys.btn_confirm.tr(),
             style: FunctionHelper.FontTheme(
+                color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
           ),

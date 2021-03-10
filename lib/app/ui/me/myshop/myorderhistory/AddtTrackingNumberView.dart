@@ -31,9 +31,9 @@ class AddtTrackingNumberView extends StatelessWidget {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       trackOnError.add("");
       bloc.onLoad.stream.listen((event) {
-        if(event){
+        if (event) {
           FunctionHelper.showDialogProcess(context);
-        }else{
+        } else {
           Navigator.of(context).pop();
         }
       });
@@ -43,20 +43,19 @@ class AddtTrackingNumberView extends StatelessWidget {
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        if(event is bool){
+        if (event is bool) {
           onDialog = true;
           FunctionHelper.SuccessDialog(context,message: LocaleKeys.dialog_message_success_track.tr(),onClick: (){
             if(onDialog){
               Navigator.pop(context,true);
             }
-
           });
         }
-
       });
     }
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
+
   @override
   Widget build(BuildContext context) {
     init(context);
@@ -73,20 +72,22 @@ class AddtTrackingNumberView extends StatelessWidget {
               header_type: Header_Type.barcartShop,
               isEnable_Search: false,
               icon: '',
-              onClick: (){
-                Navigator.pop(context,false);
+              onClick: () {
+                Navigator.pop(context, false);
               },
             ),
           ),
           body: Column(
             children: [
-              Expanded(child: Container(
+              Expanded(
+                  child: Container(
                 child: Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.only(left: 4.0.w,right: 4.0.w,top: 2.0.w),
+                        padding: EdgeInsets.only(
+                            left: 4.0.w, right: 4.0.w, top: 2.0.w),
                         color: Colors.white,
                         child: StreamBuilder(
                           stream: trackOnError.stream,
@@ -115,9 +116,12 @@ class AddtTrackingNumberView extends StatelessWidget {
                               fontSize: SizeUtil.titleSmallFontSize().sp),
                         ),
                       ),
-
                       Container(
-                        padding: EdgeInsets.only(left: 4.0.w,right: 4.0.w,top: 2.0.w,bottom: 4.0.w),
+                        padding: EdgeInsets.only(
+                            left: 4.0.w,
+                            right: 4.0.w,
+                            top: 2.0.w,
+                            bottom: 4.0.w),
                         color: Colors.white,
                         child: Row(
                           children: [
@@ -140,7 +144,7 @@ class AddtTrackingNumberView extends StatelessWidget {
                   ),
                 ),
               )),
-              _ButtonActive(context: context,orderData: orderData),
+              _ButtonActive(context: context, orderData: orderData),
             ],
           ),
         ),
@@ -148,24 +152,31 @@ class AddtTrackingNumberView extends StatelessWidget {
     );
   }
 
-
   Widget _ButtonActive({BuildContext context, OrderData orderData}) {
     return Center(
       child: Container(
         color: Colors.white,
         padding: EdgeInsets.all(2.0.w),
         child: Center(
-          child: FlatButton(
-            minWidth: 50.0.w,
-            height: 5.0.h,
-            color: ThemeColor.ColorSale(),
-            textColor: Colors.white,
-            splashColor: Colors.white.withOpacity(0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
+          child: TextButton(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                ),
+              ),
+              minimumSize: MaterialStateProperty.all(
+                Size(50.0.w, 5.0.h),
+              ),
+              backgroundColor: MaterialStateProperty.all(
+                ThemeColor.ColorSale(),
+              ),
+              overlayColor: MaterialStateProperty.all(
+                Colors.white.withOpacity(0.3),
+              ),
             ),
             onPressed: () {
-              if( trackController.text.isNotEmpty){
+              if (trackController.text.isNotEmpty) {
                 FunctionHelper.ConfirmDialog(context,
                     message: LocaleKeys.dialog_message_confirm_track.tr(),
                     onCancel: () {
@@ -178,11 +189,11 @@ class AddtTrackingNumberView extends StatelessWidget {
               }else{
                 trackOnError.add(LocaleKeys.history_track_no.tr());
               }
-             
             },
             child: Text(
              LocaleKeys.order_detail_ship.tr(),
               style: FunctionHelper.FontTheme(
+                  color: Colors.white,
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),
             ),

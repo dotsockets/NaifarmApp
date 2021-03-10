@@ -65,7 +65,7 @@ class _DeliveryViewState extends State<DeliveryView> {
         if (step_page) {
           step_page = false;
           page++;
-           _reloadData();
+          _reloadData();
         }
       }
     });
@@ -100,28 +100,44 @@ class _DeliveryViewState extends State<DeliveryView> {
                                             item: value,
                                             index: key,
                                             context: context),
-                                        value.items[0].inventory == null?
-                                        Center(
-                                          child: Container(
-                                            color: Colors.white.withOpacity(0.7),
-                                            height: 27.0.h,
-                                            child: Center(
-                                              child: Container(
-                                                width: 30.0.w,
-                                                height: 5.0.h,
-                                                padding: EdgeInsets.all(2.0.w),
-                                                decoration: new BoxDecoration(
-                                                    color: Colors.black.withOpacity(0.5),
-                                                    borderRadius: new BorderRadius.all(Radius.circular(10.0.w))
+                                        value.items[0].inventory == null
+                                            ? Center(
+                                                child: Container(
+                                                  color: Colors.white
+                                                      .withOpacity(0.7),
+                                                  height: 27.0.h,
+                                                  child: Center(
+                                                    child: Container(
+                                                      width: 30.0.w,
+                                                      height: 5.0.h,
+                                                      padding:
+                                                          EdgeInsets.all(2.0.w),
+                                                      decoration: new BoxDecoration(
+                                                          color: Colors.black
+                                                              .withOpacity(0.5),
+                                                          borderRadius:
+                                                              new BorderRadius
+                                                                      .all(
+                                                                  Radius.circular(
+                                                                      10.0.w))),
+                                                      child: Center(
+                                                        child: Text(
+                                                            LocaleKeys
+                                                                .search_product_not_found
+                                                                .tr(),
+                                                            style: FunctionHelper
+                                                                .FontTheme(
+                                                                    fontSize:
+                                                                        SizeUtil.titleSmallFontSize()
+                                                                            .sp,
+                                                                    color: Colors
+                                                                        .white)),
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
-                                                child: Center(
-                                                  child: Text(LocaleKeys.search_product_not_found.tr(),
-                                                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.white)),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ):SizedBox()
+                                              )
+                                            : SizedBox()
                                       ],
                                     ),
                                     Container(
@@ -198,22 +214,23 @@ class _DeliveryViewState extends State<DeliveryView> {
       ),
       onTap: () async {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
-        if(item.items[0].inventory!=null) {
+        if (item.items[0].inventory != null) {
           final result = await AppRoute.OrderDetail(context,
               orderData: item, typeView: widget.typeView);
-          if(result){
+          if (result) {
             bloc.orderList.clear();
-            Usermanager().getUser().then((value) => bloc.loadOrder(context,load: true,
-                orderType:
-                widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",sort: "orders.updatedAt:desc",
-
+            Usermanager().getUser().then((value) => bloc.loadOrder(context,
+                load: true,
+                orderType: widget.typeView == OrderViewType.Shop
+                    ? "myshop/orders"
+                    : "order",
+                sort: "orders.updatedAt:desc",
                 statusId: '4,5',
                 limit: limit,
                 page: 1,
                 token: value.token));
           }
         }
-
       },
     );
   }
@@ -237,7 +254,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
-                    "${Env.value.baseUrl}/storage/images/${item.inventory!=null?item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : '':''}",
+                    "${Env.value.baseUrl}/storage/images/${item.inventory != null ? item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : '' : ''}",
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
@@ -265,7 +282,10 @@ class _DeliveryViewState extends State<DeliveryView> {
             children: [
               SizedBox(height: 3.0.w),
               Container(
-                child: Text(item.inventory!=null?item.inventory.title:'ไม่พบข้อมูล',
+                child: Text(
+                    item.inventory != null
+                        ? item.inventory.title
+                        : 'ไม่พบข้อมูล',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.FontTheme(
@@ -282,7 +302,8 @@ class _DeliveryViewState extends State<DeliveryView> {
                           color: Colors.black)),
                   Row(
                     children: [
-                  item.inventory!=null && item.inventory.product.discountPercent != 0
+                      item.inventory != null &&
+                              item.inventory.product.discountPercent != 0
                           ? Text(
                               //"฿${NumberFormat("#,##0.00", "en_US").format(item.inventory!=null?item.inventory.product.discountPercent:0)}",
                               "฿${item.inventory!=null?item.inventory.product.discountPercent:0}",
@@ -339,14 +360,14 @@ class _DeliveryViewState extends State<DeliveryView> {
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       new TextSpan(
-                          text: LocaleKeys.history_order_price.tr()+" : " ,
+                          text: LocaleKeys.history_order_price.tr() + " : ",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.normal,
                               color: Colors.black)),
                       new TextSpan(
                           text:
-                             // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",
+                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",
                               "฿${item.grandTotal}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
@@ -358,27 +379,42 @@ class _DeliveryViewState extends State<DeliveryView> {
               Divider(
                 color: Colors.grey.shade400,
               ),
-              widget.typeView == OrderViewType.Shop? _IntroShipment(address: item.shippingAddress):SizedBox(),
-              widget.typeView == OrderViewType.Shop?Divider(
-                color: Colors.grey.shade400,
-              ):SizedBox(),
+              widget.typeView == OrderViewType.Shop
+                  ? _IntroShipment(address: item.shippingAddress)
+                  : SizedBox(),
+              widget.typeView == OrderViewType.Shop
+                  ? Divider(
+                      color: Colors.grey.shade400,
+                    )
+                  : SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(flex: 3,child: Text(
-                    widget.typeView == OrderViewType.Purchase
-                        ? LocaleKeys.order_detail_confirm.tr()+"\n" +LocaleKeys.order_detail_by_date.tr()+
-                        " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
-                        :LocaleKeys.order_detail_wait.tr()+" "+
-                        " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
-                    style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        color: Colors.black.withOpacity(0.6)),
-                  )),
-                 SizedBox(width: 3.0.w,),
-                 Expanded(flex: widget.typeView == OrderViewType.Shop?1:2,child:  widget.typeView == OrderViewType.Purchase? _BuildButtonBayItem(
-                     btnTxt: LocaleKeys.order_detail_accept.tr(),
-                     item: item):SizedBox())
+                  Expanded(
+                      flex: 3,
+                      child: Text(
+                        widget.typeView == OrderViewType.Purchase
+                            ? LocaleKeys.order_detail_confirm.tr() +
+                                "\n" +
+                                LocaleKeys.order_detail_by_date.tr() +
+                                " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
+                            : LocaleKeys.order_detail_wait.tr() +
+                                " " +
+                                " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            color: Colors.black.withOpacity(0.6)),
+                      )),
+                  SizedBox(
+                    width: 3.0.w,
+                  ),
+                  Expanded(
+                      flex: widget.typeView == OrderViewType.Shop ? 1 : 2,
+                      child: widget.typeView == OrderViewType.Purchase
+                          ? _BuildButtonBayItem(
+                              btnTxt: LocaleKeys.order_detail_accept.tr(),
+                              item: item)
+                          : SizedBox())
                 ],
               )
             ],
@@ -398,7 +434,10 @@ class _DeliveryViewState extends State<DeliveryView> {
           children: [
             widget.typeView == OrderViewType.Shop
                 ? Container(
-                    child: Text(LocaleKeys.order_detail_id.tr()+" "+item.orderNumber,
+                    child: Text(
+                        LocaleKeys.order_detail_id.tr() +
+                            " " +
+                            item.orderNumber,
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.w500)),
@@ -460,12 +499,19 @@ class _DeliveryViewState extends State<DeliveryView> {
 
   Widget _BuildButtonBayItem({String btnTxt, OrderData item}) {
     return Container(
-      child: FlatButton(
-        color: ThemeColor.ColorSale(),
-        textColor: Colors.white,
-        splashColor: Colors.white.withOpacity(0.3),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40.0),
+      child: TextButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+          ),
+          backgroundColor: MaterialStateProperty.all(
+            ThemeColor.ColorSale(),
+          ),
+          overlayColor: MaterialStateProperty.all(
+            Colors.white.withOpacity(0.3),
+          ),
         ),
         onPressed: () async {
           if (widget.typeView == OrderViewType.Shop) {
@@ -480,30 +526,31 @@ class _DeliveryViewState extends State<DeliveryView> {
             //       limit: 20,
             //       page: 1,
             //       token: value.token));
-           // }
+            // }
           } else {
-            if(item.items[0].inventory!=null) {
+            if (item.items[0].inventory != null) {
               final result = await AppRoute.OrderDetail(context,
-                orderData: item, typeView: widget.typeView);
-              if(result){
+                  orderData: item, typeView: widget.typeView);
+              if (result) {
                 bloc.orderList.clear();
-                Usermanager().getUser().then((value) => bloc.loadOrder(context,load: true,
-                    orderType:
-                    widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",sort: "orders.updatedAt:desc",
-
+                Usermanager().getUser().then((value) => bloc.loadOrder(context,
+                    load: true,
+                    orderType: widget.typeView == OrderViewType.Shop
+                        ? "myshop/orders"
+                        : "order",
+                    sort: "orders.updatedAt:desc",
                     statusId: '4,5',
                     limit: limit,
                     page: 1,
                     token: value.token));
               }
             }
-
-
           }
         },
         child: Text(
           btnTxt,
           style: FunctionHelper.FontTheme(
+              color: Colors.white,
               fontSize: SizeUtil.titleSmallFontSize().sp,
               fontWeight: FontWeight.w500),
         ),
@@ -551,7 +598,14 @@ class _DeliveryViewState extends State<DeliveryView> {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(context,orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: '4,5',limit: limit,page: page,token: value.token));
+    Usermanager().getUser().then((value) => bloc.loadOrder(context,
+        orderType:
+            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+        sort: "orders.updatedAt:desc",
+        statusId: '4,5',
+        limit: limit,
+        page: page,
+        token: value.token));
   }
 
   @override

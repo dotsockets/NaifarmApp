@@ -30,7 +30,6 @@ class _BankAddViewState extends State<BankAddView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
@@ -49,12 +48,14 @@ class _BankAddViewState extends State<BankAddView> {
                 children: [
                   _buildEditCard(
                       head: LocaleKeys.bank_name_account.tr(),
-                      hint: LocaleKeys.set_default.tr()+LocaleKeys.my_profile_fullname.tr(),
+                      hint: LocaleKeys.set_default.tr() +
+                          LocaleKeys.my_profile_fullname.tr(),
                       controller: nameController,
                       type: TextInputType.text),
                   _buildEditCard(
                       head: LocaleKeys.bank_id_card.tr(),
-                      hint: LocaleKeys.set_default.tr()+LocaleKeys.bank_id_card.tr(),
+                      hint: LocaleKeys.set_default.tr() +
+                          LocaleKeys.bank_id_card.tr(),
                       controller: idController,
                       type: TextInputType.number),
                   _buildError(errorTxt: errorIdTxt),
@@ -84,7 +85,8 @@ class _BankAddViewState extends State<BankAddView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.grey),
+          style: FunctionHelper.FontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
       ),
@@ -117,7 +119,8 @@ class _BankAddViewState extends State<BankAddView> {
         children: [
           Text(title,
               style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.black)),
+                  fontSize: SizeUtil.titleSmallFontSize().sp,
+                  color: Colors.black)),
           SizedBox(
             height: 10,
           ),
@@ -147,33 +150,46 @@ class _BankAddViewState extends State<BankAddView> {
   }
 
   Widget _buildButtonItem({String btnTxt}) {
-    return FlatButton(
-      padding: EdgeInsets.only(top: 15, bottom: 15),
-      color: nameController.text.isNotEmpty && idController.text.isNotEmpty
-          ? ThemeColor.ColorSale()
-          : Colors.grey.shade400,
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
-      ),
+    return TextButton(
+      style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+          ),
+          minimumSize: MaterialStateProperty.all(
+            Size(80.0.w, 6.5.h),
+          ),
+          backgroundColor: MaterialStateProperty.all(
+            nameController.text.isNotEmpty && idController.text.isNotEmpty
+                ? ThemeColor.ColorSale()
+                : Colors.grey.shade400,
+          ),
+          overlayColor: MaterialStateProperty.all(
+            Colors.white.withOpacity(0.3),
+          ),
+          padding:
+              MaterialStateProperty.all(EdgeInsets.only(top: 15, bottom: 15))),
       onPressed: () {
         _checkError();
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+        style: FunctionHelper.FontTheme(
+            color: Colors.white,
+            fontSize: SizeUtil.titleFontSize().sp,
+            fontWeight: FontWeight.w500),
       ),
     );
   }
 
   void _checkError() {
-      if (idController.text.length != 13&&idController.text.isNotEmpty) {
-        setState(() {
-          errorIdTxt = "กรอกเลขบัตรประชาชน 13 หลัก";
-        });
-      } else {
-        errorIdTxt = "";
-      }
+    if (idController.text.length != 13 && idController.text.isNotEmpty) {
+      setState(() {
+        errorIdTxt = "กรอกเลขบัตรประชาชน 13 หลัก";
+      });
+    } else {
+      errorIdTxt = "";
+    }
   }
 }

@@ -28,22 +28,21 @@ class OrderCancleView extends StatefulWidget {
 }
 
 class _OrderCancleViewState extends State<OrderCancleView> {
-
   OrdersBloc bloc;
   ProductBloc Product_bloc;
   bool onUpload = false;
   init() {
-
-    if (bloc == null && Product_bloc ==null) {
+    if (bloc == null && Product_bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       Product_bloc = ProductBloc(AppProvider.getApplication(context));
-      if(widget.orderData.orderStatusName!=null){
+      if (widget.orderData.orderStatusName != null) {
         bloc.OrderList.add(widget.orderData);
       }
 
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.AlertDialogShop(context,message:event,showbtn: true,title: "Error Shipping" );
+        FunctionHelper.AlertDialogShop(context,
+            message: event, showbtn: true, title: "Error Shipping");
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onLoad.stream.listen((event) {
@@ -55,9 +54,8 @@ class _OrderCancleViewState extends State<OrderCancleView> {
       });
       bloc.onSuccess.stream.listen((event) {
         //onUpload = true;
-        Navigator.pop(context,true);
+        Navigator.pop(context, true);
       });
-
 
       Product_bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -73,14 +71,12 @@ class _OrderCancleViewState extends State<OrderCancleView> {
         //   // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
         // }
       });
-
     }
 
-
-
-  //  Usermanager().getUser().then((value) => bloc.GetOrderById(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",id: widget.orderData.id, token: value.token));
+    //  Usermanager().getUser().then((value) => bloc.GetOrderById(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",id: widget.orderData.id, token: value.token));
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
+
   @override
   Widget build(BuildContext context) {
     init();
@@ -96,17 +92,17 @@ class _OrderCancleViewState extends State<OrderCancleView> {
               header_type: Header_Type.barcartShop,
               showCartBtn: false,
               icon: '',
-              onClick: (){
-                Navigator.pop(context,onUpload);
+              onClick: () {
+                Navigator.pop(context, onUpload);
               },
             ),
           ),
           body: StreamBuilder(
             stream: bloc.OrderList.stream,
-            builder: (BuildContext context,AsyncSnapshot snapshot){
-              if(snapshot.hasData){
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
                 var item = (snapshot.data as OrderData);
-                if(snapshot.data!=null) {
+                if (snapshot.data != null) {
                   return Container(
                     color: Colors.grey.shade200,
                     child: Column(
@@ -118,7 +114,8 @@ class _OrderCancleViewState extends State<OrderCancleView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 //widget.typeView==OrderViewType.Purchase &&  item.orderStatusId!=5 &&  item.orderStatusId!=6 &&  item.orderStatusId!=8?_HeaderStatus(context: context,orderData: item):SizedBox(),
-                                _HeaderStatus(context: context,orderData: item),
+                                _HeaderStatus(
+                                    context: context, orderData: item),
                                 SizedBox(height: 1.0.h),
                                 ItemInfo(
                                     PricecolorText: ThemeColor.ColorSale(),
@@ -136,7 +133,7 @@ class _OrderCancleViewState extends State<OrderCancleView> {
                                     PricecolorText: Colors.grey.shade500,
                                     leading: LocaleKeys.order_detail_cancelled_time.tr(),
                                     trailing:
-                                    "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(DateTime.now().toString()))} "),
+                                        "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(DateTime.now().toString()))} "),
 
                                 ItemInfo(
                                     PricecolorText: Colors.grey.shade500,
@@ -148,33 +145,48 @@ class _OrderCancleViewState extends State<OrderCancleView> {
                                   padding: EdgeInsets.all(3.0.w),
                                   color: Colors.white,
                                   child: Column(
-                                    children: item.items.asMap().map((key, value) => MapEntry(key,Column(
-                                      children: [
-                                        ItemProduct(orderItems: item.items[key]),
-                                        SizedBox(height: 1.0.h,)
-                                      ],
-                                    ))).values.toList(),
+                                    children: item.items
+                                        .asMap()
+                                        .map((key, value) => MapEntry(
+                                            key,
+                                            Column(
+                                              children: [
+                                                ItemProduct(
+                                                    orderItems:
+                                                        item.items[key]),
+                                                SizedBox(
+                                                  height: 1.0.h,
+                                                )
+                                              ],
+                                            )))
+                                        .values
+                                        .toList(),
                                   ),
                                 ),
                                 SizedBox(height: 1.0.h),
-                                _ButtonConfirm(context: context,orderData: item)
+                                _ButtonConfirm(
+                                    context: context, orderData: item)
                               ],
                             ),
                           ),
                         ),
-
                       ],
                     ),
                   );
-                }else{
-                  return Container(color: Colors.white,child: SizedBox());
+                } else {
+                  return Container(color: Colors.white, child: SizedBox());
                 }
-              }else{
-                return Container(color: Colors.white,child: Center(
-                  child: Platform.isAndroid
-                      ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
-                      : CupertinoActivityIndicator(),
-                ));
+              } else {
+                return Container(
+                    color: Colors.white,
+                    child: Center(
+                      child: Platform.isAndroid
+                          ? SizedBox(
+                              width: 5.0.w,
+                              height: 5.0.w,
+                              child: CircularProgressIndicator())
+                          : CupertinoActivityIndicator(),
+                    ));
               }
             },
           ),
@@ -183,69 +195,86 @@ class _OrderCancleViewState extends State<OrderCancleView> {
     );
   }
 
-
-  Widget _ButtonConfirm({BuildContext context,OrderData orderData}){
-
+  Widget _ButtonConfirm({BuildContext context, OrderData orderData}) {
     return Center(
       child: Container(
         padding: EdgeInsets.all(1.5.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(child:
-            Padding(
+            Expanded(
+                child: Padding(
               padding: EdgeInsets.all(1.0.h),
-              child: FlatButton(
-                minWidth: 60.0.w,
-                height: 6.0.h,
-                color:  ThemeColor.ColorSale() ,
-                textColor: Colors.white,
-                splashColor: Colors.white.withOpacity(0.3),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
+              child: TextButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                  ),
+                  minimumSize: MaterialStateProperty.all(
+                    Size(60.0.w, 6.0.h),
+                  ),
+                  backgroundColor: MaterialStateProperty.all(
+                    ThemeColor.ColorSale(),
+                  ),
+                  overlayColor: MaterialStateProperty.all(
+                    Colors.white.withOpacity(0.3),
+                  ),
                 ),
                 onPressed: () {
-
-                  FunctionHelper.ConfirmDialog(context,message: "คุณได้ตอบรับคำขอยกเลิกคำสั่งซื้อสินค้านี้ ?",onCancel: (){
+                  FunctionHelper.ConfirmDialog(context,
+                      message: "คุณได้ตอบรับคำขอยกเลิกคำสั่งซื้อสินค้านี้ ?",
+                      onCancel: () {
                     Navigator.of(context).pop();
-                  },onClick: (){
+                  }, onClick: () {
                     Navigator.of(context).pop();
                     //  AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
                   });
-
-
                 },
                 child: Text(
                   LocaleKeys.btn_reject_order.tr(),
                   style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                      color: Colors.white,
+                      fontSize: SizeUtil.titleFontSize().sp,
+                      fontWeight: FontWeight.w500),
                 ),
               ),
             )),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(1.0.h),
-                child: FlatButton(
-                  minWidth: 60.0.w,
-                  height: 6.0.h,
-                  color:  ThemeColor.secondaryColor() ,
-                  textColor: Colors.white,
-                  splashColor: Colors.white.withOpacity(0.3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0),
+                child: TextButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                    ),
+                    minimumSize: MaterialStateProperty.all(
+                      Size(60.0.w, 6.0.h),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      ThemeColor.secondaryColor(),
+                    ),
+                    overlayColor: MaterialStateProperty.all(
+                      Colors.white.withOpacity(0.3),
+                    ),
                   ),
                   onPressed: () {
                     FunctionHelper.ConfirmDialog(context,message: "คุณได้ตอบรับคำขอยกเลิกคำสั่งซื้อสินค้านี้ ?",onCancel: (){
                       Navigator.of(context).pop();
-                    },onClick: (){
+                    }, onClick: () {
                       Navigator.of(context).pop();
-                    //  AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
+                      //  AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
                     });
                   },
                   child: Text(
                     LocaleKeys.btn_accept_order.tr(),
                     style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                        color: Colors.white,
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
               ),
@@ -254,12 +283,9 @@ class _OrderCancleViewState extends State<OrderCancleView> {
         ),
       ),
     );
-
-
   }
 
-
-  Widget ItemProduct({OrderItems orderItems}){
+  Widget ItemProduct({OrderItems orderItems}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -276,7 +302,8 @@ class _OrderCancleViewState extends State<OrderCancleView> {
               child: Lottie.asset('assets/json/loading.json', height: 30),
             ),
             fit: BoxFit.cover,
-            imageUrl: "${Env.value.baseUrl}/storage/images/${orderItems.inventory.product.image.isNotEmpty?orderItems.inventory.product.image[0].path : ''}",
+            imageUrl:
+                "${Env.value.baseUrl}/storage/images/${orderItems.inventory.product.image.isNotEmpty ? orderItems.inventory.product.image[0].path : ''}",
             errorWidget: (context, url, error) => Container(
                 width: 22.0.w,
                 height: 22.0.w,
@@ -293,14 +320,17 @@ class _OrderCancleViewState extends State<OrderCancleView> {
             children: [
               Text("${orderItems.inventory.title}",
                   style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold)),
+                      fontSize: SizeUtil.titleFontSize().sp,
+                      fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("x ${orderItems.quantity}",
                       style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp, color: Colors.black, fontWeight: FontWeight.bold)),
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold)),
                   Row(
                     children: [
                       // Text("฿${orderItems.inventory.offerPrice}",
@@ -311,7 +341,8 @@ class _OrderCancleViewState extends State<OrderCancleView> {
                       //Text("฿${NumberFormat("#,##0.00", "en_US").format(orderItems.inventory.salePrice*orderItems.quantity)}",
                       Text("฿${orderItems.inventory.salePrice*orderItems.quantity}",
                           style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              color: Colors.black))
                     ],
                   )
                 ],
@@ -323,13 +354,13 @@ class _OrderCancleViewState extends State<OrderCancleView> {
     );
   }
 
-
   Widget ItemInfo(
       {Color PricecolorText, String leading = "", String trailing = ""}) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.grey.shade400, width: 1)),
+        border:
+            Border(bottom: BorderSide(color: Colors.grey.shade400, width: 1)),
       ),
       child: ListTile(
           leading: Text(
@@ -349,8 +380,7 @@ class _OrderCancleViewState extends State<OrderCancleView> {
     );
   }
 
-
-  Widget _HeaderStatus({BuildContext context,OrderData orderData}){
+  Widget _HeaderStatus({BuildContext context, OrderData orderData}) {
     return Stack(
       children: [
         Container(
@@ -359,35 +389,46 @@ class _OrderCancleViewState extends State<OrderCancleView> {
           margin: EdgeInsets.only(top: 50),
           decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(topRight:  Radius.circular(40),topLeft: Radius.circular(40)),
-              border: Border.all(width: 3,color: Colors.white,style: BorderStyle.solid)
-          ),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 30,),
-                // Text("Order ${orderData.orderNumber}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
-                //SizedBox(height: 3),
-                RichText(
-                  text: new TextSpan(
-                    style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
-                      new TextSpan(
-                          text: "คุณสามารถตอบรับหรือปฏิเสธคำขอยกเลิก โดยตอบกลับภายใน  ",
-                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-                      new TextSpan(text: "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.requirePaymentAt!=null?orderData.requirePaymentAt:DateTime.now().toString()))} ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.5))),
-                      //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                      //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
-                      new TextSpan(
-                          text: " ไม่เช่นนั้นคำสั่งซื้อจะถูกยกเลิกโดยอัตโนมัติ",
-                          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-
-                    ],
-                  ),
-                ),
-
-              ]
-          ),
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(40), topLeft: Radius.circular(40)),
+              border: Border.all(
+                  width: 3, color: Colors.white, style: BorderStyle.solid)),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            SizedBox(
+              height: 30,
+            ),
+            // Text("Order ${orderData.orderNumber}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
+            //SizedBox(height: 3),
+            RichText(
+              text: new TextSpan(
+                style: DefaultTextStyle.of(context).style,
+                children: <TextSpan>[
+                  new TextSpan(
+                      text:
+                          "คุณสามารถตอบรับหรือปฏิเสธคำขอยกเลิก โดยตอบกลับภายใน  ",
+                      style: FunctionHelper.FontTheme(
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black.withOpacity(0.8))),
+                  new TextSpan(
+                      text:
+                          "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.requirePaymentAt != null ? orderData.requirePaymentAt : DateTime.now().toString()))} ",
+                      style: FunctionHelper.FontTheme(
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          color: Colors.black.withOpacity(0.5))),
+                  //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+                  //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                  new TextSpan(
+                      text: " ไม่เช่นนั้นคำสั่งซื้อจะถูกยกเลิกโดยอัตโนมัติ",
+                      style: FunctionHelper.FontTheme(
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black.withOpacity(0.8))),
+                ],
+              ),
+            ),
+          ]),
         ),
         Align(
           alignment: Alignment.bottomCenter,
@@ -397,7 +438,7 @@ class _OrderCancleViewState extends State<OrderCancleView> {
     );
   }
 
-  Widget _HeaderStatusText({OrderData orderData}){
+  Widget _HeaderStatusText({OrderData orderData}) {
     return Container(
       width: 70.0.w,
       height: 6.0.h,
@@ -405,9 +446,16 @@ class _OrderCancleViewState extends State<OrderCancleView> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Container(
-          padding: EdgeInsets.only(right: 13,left: 10,top: 5,bottom: 5),
+          padding: EdgeInsets.only(right: 13, left: 10, top: 5, bottom: 5),
           color: ThemeColor.primaryColor(),
-          child: Center(child: Text("ผู้ซื้อขอยกเลิกคำสั่งซื้อ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.white),)),
+          child: Center(
+              child: Text(
+            "ผู้ซื้อขอยกเลิกคำสั่งซื้อ",
+            style: FunctionHelper.FontTheme(
+                fontSize: SizeUtil.titleFontSize().sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
+          )),
         ),
       ),
     );

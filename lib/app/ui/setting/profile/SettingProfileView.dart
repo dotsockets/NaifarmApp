@@ -206,22 +206,29 @@ class _SettingProfileViewState extends State<SettingProfileView>
   }
 
   Widget _BuildButtonItem({String btnTxt}) {
-    return FlatButton(
-      color: ThemeColor.ColorSale(),
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          ThemeColor.ColorSale(),
+        ),
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.3),
+        ),
       ),
       onPressed: () {
         Usermanager().logout().then((value) {
           Usermanager().getUser().then((value) {
             context
                 .read<InfoCustomerBloc>()
-                .loadCustomInfo(context,token: value.token, oneSignal: false);
+                .loadCustomInfo(context, token: value.token, oneSignal: false);
             context
                 .read<CustomerCountBloc>()
-                .loadCustomerCount(context,token: value.token);
+                .loadCustomerCount(context, token: value.token);
             Navigator.pop(context, true);
           });
         });
@@ -229,7 +236,9 @@ class _SettingProfileViewState extends State<SettingProfileView>
       child: Text(
         btnTxt,
         style: FunctionHelper.FontTheme(
-            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+            color: Colors.white,
+            fontSize: SizeUtil.titleFontSize().sp,
+            fontWeight: FontWeight.w500),
       ),
     );
   }

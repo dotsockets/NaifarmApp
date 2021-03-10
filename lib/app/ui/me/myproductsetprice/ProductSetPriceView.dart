@@ -1,4 +1,3 @@
-
 import 'package:fdottedline/fdottedline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +66,8 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                 child: Text(
                   titleType,
                   style: FunctionHelper.FontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                      fontSize: SizeUtil.titleFontSize().sp,
+                      fontWeight: FontWeight.w500),
                 )),
             Column(
                 children: List.generate(
@@ -90,12 +90,15 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                   children: [
                                     Text(listSizeType[index],
                                         style: FunctionHelper.FontTheme(
-                                            fontSize: SizeUtil.titleFontSize().sp,
+                                            fontSize:
+                                                SizeUtil.titleFontSize().sp,
                                             fontWeight: FontWeight.w500)),
                                     Container(
-                                      padding: EdgeInsets.only(top: 5,bottom: 5),
-                                      width:
-                                          MediaQuery.of(context).size.width / 2+5,
+                                      padding:
+                                          EdgeInsets.only(top: 5, bottom: 5),
+                                      width: MediaQuery.of(context).size.width /
+                                              2 +
+                                          5,
                                       child: Row(
                                         children: [
                                           Container(
@@ -113,18 +116,24 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                             child: TextFormField(
                                               style: FunctionHelper.FontTheme(
                                                   color: Colors.black,
-                                                  fontSize: SizeUtil.detailFontSize().sp),
+                                                  fontSize:
+                                                      SizeUtil.detailFontSize()
+                                                          .sp),
                                               maxLines: 1,
-                                              keyboardType: TextInputType.number,
+                                              keyboardType:
+                                                  TextInputType.number,
                                               decoration: InputDecoration(
-                                                contentPadding: EdgeInsets.all(5),
+                                                contentPadding:
+                                                    EdgeInsets.all(5),
                                                 focusedBorder: InputBorder.none,
                                                 enabledBorder: InputBorder.none,
                                                 hintText: "฿0",
                                                 hintStyle:
                                                     FunctionHelper.FontTheme(
                                                         color: Colors.grey,
-                                                        fontSize: SizeUtil.detailFontSize().sp),
+                                                        fontSize: SizeUtil
+                                                                .detailFontSize()
+                                                            .sp),
                                               ),
                                             ),
                                           ),
@@ -144,19 +153,25 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                                 child: TextFormField(
                                                   style: FunctionHelper.FontTheme(
                                                       color: Colors.black,
-                                                      fontSize: SizeUtil.detailFontSize().sp),
+                                                      fontSize: SizeUtil
+                                                              .detailFontSize()
+                                                          .sp),
                                                   maxLines: 1,
-                                                  keyboardType: TextInputType.number,
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                   decoration: InputDecoration(
-                                                    contentPadding: EdgeInsets.all(5),
+                                                    contentPadding:
+                                                        EdgeInsets.all(5),
                                                     focusedBorder:
                                                         InputBorder.none,
                                                     enabledBorder:
                                                         InputBorder.none,
-                                                    hintStyle:
-                                                        FunctionHelper.FontTheme(
+                                                    hintStyle: FunctionHelper
+                                                        .FontTheme(
                                                             color: Colors.grey,
-                                                            fontSize: SizeUtil.detailFontSize().sp),
+                                                            fontSize: SizeUtil
+                                                                    .detailFontSize()
+                                                                .sp),
                                                   ),
                                                 ),
                                               ),
@@ -184,17 +199,20 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
           Text(
             LocaleKeys.my_product_option.tr(),
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                fontSize: SizeUtil.titleFontSize().sp,
+                fontWeight: FontWeight.w500),
           ),
           Text(
             LocaleKeys.my_product_price_no_product.tr(),
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                fontSize: SizeUtil.titleFontSize().sp,
+                fontWeight: FontWeight.w500),
           ),
           Text(
             LocaleKeys.my_product_amount.tr(),
             style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+                fontSize: SizeUtil.titleFontSize().sp,
+                fontWeight: FontWeight.w500),
           )
         ],
       ),
@@ -204,19 +222,28 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
   Widget _BuildButton(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 100),
-      child: FlatButton(
-        color: Colors.grey,
-        textColor: Colors.white,
-        padding: EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
-        splashColor: Colors.white.withOpacity(0.3),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40.0),
-        ),
+      child: TextButton(
+        style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+            ),
+            backgroundColor: MaterialStateProperty.all(
+              Colors.grey,
+            ),
+            overlayColor: MaterialStateProperty.all(
+              Colors.white.withOpacity(0.3),
+            ),
+            padding: MaterialStateProperty.all(
+                EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20))),
         onPressed: () {},
         child: Text(
           LocaleKeys.btn_save.tr(),
           style: FunctionHelper.FontTheme(
-              fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+              color: Colors.white,
+              fontSize: SizeUtil.titleFontSize().sp,
+              fontWeight: FontWeight.w500),
         ),
       ),
     );

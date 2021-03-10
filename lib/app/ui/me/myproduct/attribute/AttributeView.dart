@@ -42,12 +42,13 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       /*bloc.onSuccessDel.stream.listen((event) {
         Usermanager().getUser().then((value) => bloc.GetAttributeMyShop(token: value.token));
       });*/
-      Usermanager().getUser().then((value) => bloc.GetAttributeMyShop(context,token: value.token));
+      Usermanager().getUser().then(
+          (value) => bloc.GetAttributeMyShop(context, token: value.token));
     }
   }
 
@@ -61,7 +62,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
   void didPopNext() {
     Usermanager()
         .getUser()
-        .then((value) => bloc.GetAttributeMyShop(context,token: value.token));
+        .then((value) => bloc.GetAttributeMyShop(context, token: value.token));
   }
 
   @override
@@ -95,8 +96,8 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                 children: List.generate(
                                     item.data.length,
                                     (index) => Column(
-                                      children: [
-                                        Slidable(
+                                          children: [
+                                            Slidable(
                                               actionPane:
                                                   SlidableDrawerActionPane(),
                                               actionExtentRatio: 0.25,
@@ -105,47 +106,75 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                                   id: item.data[index].id),
                                               secondaryActions: <Widget>[
                                                 IconSlideAction(
-                                                  color: ThemeColor.secondaryColor(),
+                                                  color: ThemeColor
+                                                      .secondaryColor(),
                                                   iconWidget: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
-                                                      Lottie.asset('assets/json/edit.json',
+                                                      Lottie.asset(
+                                                          'assets/json/edit.json',
                                                           height: 4.5.h,
                                                           width: 4.5.h,
                                                           repeat: true),
                                                       Text(
-                                                        LocaleKeys.cart_edit.tr(),
-                                                        style: FunctionHelper.FontTheme(
-                                                            color: Colors.white,
-                                                            fontSize: SizeUtil.titleSmallFontSize().sp,
-                                                            fontWeight: FontWeight.bold),
+                                                        LocaleKeys.cart_edit
+                                                            .tr(),
+                                                        style: FunctionHelper
+                                                            .FontTheme(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: SizeUtil
+                                                                        .titleSmallFontSize()
+                                                                    .sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
                                                       )
                                                     ],
                                                   ),
                                                   onTap: () {
-                                                    AppRoute.AttributeEdit(idAttr: item.data[index].id,context: context,nameAttr:item.data[index].name );
+                                                    AppRoute.AttributeEdit(
+                                                        idAttr:
+                                                            item.data[index].id,
+                                                        context: context,
+                                                        nameAttr: item
+                                                            .data[index].name);
                                                   },
                                                 ),
                                                 IconSlideAction(
                                                   color: ThemeColor.ColorSale(),
                                                   iconWidget: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       Container(
-                                                        margin: EdgeInsets.only(top: 0.5.h),
-                                                        child: Lottie.asset('assets/json/delete.json',
+                                                        margin: EdgeInsets.only(
+                                                            top: 0.5.h),
+                                                        child: Lottie.asset(
+                                                            'assets/json/delete.json',
                                                             height: 3.0.h,
                                                             width: 3.0.h,
                                                             repeat: true),
                                                       ),
                                                       Container(
-                                                        margin: EdgeInsets.only(top: 0.5.h),
+                                                        margin: EdgeInsets.only(
+                                                            top: 0.5.h),
                                                         child: Text(
-                                                          LocaleKeys.cart_del.tr(),
-                                                          style: FunctionHelper.FontTheme(
-                                                              color: Colors.white,
-                                                              fontSize: SizeUtil.titleSmallFontSize().sp,
-                                                              fontWeight: FontWeight.bold),
+                                                          LocaleKeys.cart_del
+                                                              .tr(),
+                                                          style: FunctionHelper
+                                                              .FontTheme(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      SizeUtil.titleSmallFontSize()
+                                                                          .sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
                                                         ),
                                                       )
                                                     ],
@@ -153,15 +182,27 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                                   onTap: () {
                                                     //bloc.attributeMyShop.value.data.removeAt(index);
                                                     //bloc.attributeMyShop.add(bloc.attributeMyShop.value);
-                                                    Usermanager().getUser().then((value) => bloc.DELETEAttributeMyShop(context,id: item.data[index].id, token: value.token));
-                                                    },
+                                                    Usermanager()
+                                                        .getUser()
+                                                        .then((value) => bloc
+                                                            .DELETEAttributeMyShop(
+                                                                context,
+                                                                id: item
+                                                                    .data[index]
+                                                                    .id,
+                                                                token: value
+                                                                    .token));
+                                                  },
                                                 ),
                                               ],
                                             ),
-                                        index != item.data.length - 1 ? SizedBox(height: 0.5.h,) : SizedBox()
-                                      ],
-                                    )
-                                    ),
+                                            index != item.data.length - 1
+                                                ? SizedBox(
+                                                    height: 0.5.h,
+                                                  )
+                                                : SizedBox()
+                                          ],
+                                        )),
                               ),
                               _buildButton()
                             ],
@@ -186,23 +227,23 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                     return StreamBuilder(
                         stream: bloc.onError.stream,
                         builder: (context, snapshot) {
-                          if(snapshot.hasData){
+                          if (snapshot.hasData) {
                             return Container(
                               width: MediaQuery.of(context).size.width,
                               height: 15.0.h,
                               color: Colors.white,
                               child: Center(
-                                child: Text(LocaleKeys.search_product_not_found.tr(),
+                                child: Text(
+                                    LocaleKeys.search_product_not_found.tr(),
                                     style: FunctionHelper.FontTheme(
                                         fontSize: SizeUtil.titleFontSize().sp,
                                         fontWeight: FontWeight.w500)),
                               ),
                             );
-                          }else{
+                          } else {
                             return SizedBox();
                           }
-                        }
-                    );
+                        });
                   }
                 }),
           ),
@@ -255,21 +296,30 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
     return Container(
       margin: EdgeInsets.only(top: 2.0.h),
       child: Center(
-        child: FlatButton(
-          minWidth: 50.0.w,
-          height: 5.0.h,
-          color: ThemeColor.secondaryColor(),
-          textColor: Colors.white,
-          splashColor: Colors.white.withOpacity(0.3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40.0),
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+            ),
+            minimumSize: MaterialStateProperty.all(
+              Size(50.0.w, 5.0.h),
+            ),
+            backgroundColor: MaterialStateProperty.all(
+              ThemeColor.secondaryColor(),
+            ),
+            overlayColor: MaterialStateProperty.all(
+              Colors.white.withOpacity(0.3),
+            ),
           ),
           onPressed: () {
-            AppRoute.AttributeEdit(context: context,nameAttr: "",idAttr: 0);
+            AppRoute.AttributeEdit(context: context, nameAttr: "", idAttr: 0);
           },
           child: Text(
             LocaleKeys.attributes_add.tr(),
             style: FunctionHelper.FontTheme(
+                color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
           ),

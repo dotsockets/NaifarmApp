@@ -19,11 +19,13 @@ class AttributeDetailEditView extends StatefulWidget {
   final String color;
   final int vid;
 
-  const AttributeDetailEditView({Key key, this.idAttr, this.value, this.color,this.vid}) : super(key: key);
-
+  const AttributeDetailEditView(
+      {Key key, this.idAttr, this.value, this.color, this.vid})
+      : super(key: key);
 
   @override
-  _AttributeDetailEditViewState createState() => _AttributeDetailEditViewState();
+  _AttributeDetailEditViewState createState() =>
+      _AttributeDetailEditViewState();
 }
 
 class _AttributeDetailEditViewState extends State<AttributeDetailEditView> {
@@ -37,30 +39,27 @@ class _AttributeDetailEditViewState extends State<AttributeDetailEditView> {
     super.initState();
     valueAttrController.text = widget.value;
     colorAttrController.text = widget.color;
-    widget.value.length==0? check = false:check=true;
+    widget.value.length == 0 ? check = false : check = true;
   }
 
-  init(){
-    if(bloc==null){
-      bloc=UploadProductBloc(AppProvider.getApplication(context));
+  init() {
+    if (bloc == null) {
+      bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        if(event){
+        if (event) {
           FunctionHelper.showDialogProcess(context);
-        }else{
+        } else {
           Navigator.of(context).pop();
         }
       });
       bloc.onSuccess.stream.listen((event) {
         Navigator.pop(context, true);
       });
-    bloc.onError.stream.listen((event) {
-      FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
-
-    });
+      bloc.onError.stream.listen((event) {
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+      });
     }
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +73,7 @@ class _AttributeDetailEditViewState extends State<AttributeDetailEditView> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: LocaleKeys.add.tr()+LocaleKeys.attributes_list.tr(),
+              title: LocaleKeys.add.tr() + LocaleKeys.attributes_list.tr(),
               icon: "",
               isEnable_Search: false,
               header_type: Header_Type.barNormal,
@@ -96,7 +95,9 @@ class _AttributeDetailEditViewState extends State<AttributeDetailEditView> {
                           controller: valueAttrController,
                           onChanged: (String x) => _check(),
                           inputType: TextInputType.text),
-                      SizedBox(height: 2.0.h,),
+                      SizedBox(
+                        height: 2.0.h,
+                      ),
                       BuildEditText(
                           head: LocaleKeys.attributes_color.tr(),
                           EnableMaxLength: false,
@@ -107,7 +108,6 @@ class _AttributeDetailEditViewState extends State<AttributeDetailEditView> {
                           inputType: TextInputType.text),
                     ],
                   ),
-
                 ),
                 _buildButton()
               ],
@@ -122,25 +122,46 @@ class _AttributeDetailEditViewState extends State<AttributeDetailEditView> {
     return Container(
       margin: EdgeInsets.only(top: 2.0.h),
       child: Center(
-        child: FlatButton(
-          minWidth: 50.0.w,
-          height: 5.0.h,
-          color: check?ThemeColor.secondaryColor():Colors.grey,
-          textColor: Colors.white,
-          splashColor: Colors.white.withOpacity(0.3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40.0),
+        child: TextButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+            ),
+            minimumSize: MaterialStateProperty.all(
+              Size(50.0.w, 5.0.h),
+            ),
+            backgroundColor: MaterialStateProperty.all(
+              check ? ThemeColor.secondaryColor() : Colors.grey,
+            ),
+            overlayColor: MaterialStateProperty.all(
+              Colors.white.withOpacity(0.3),
+            ),
           ),
-          onPressed: ()  {
-            if(check){
+          onPressed: () {
+            if (check) {
               FocusScope.of(context).unfocus();
-              widget.value.length==0?Usermanager().getUser().then((value) => bloc.AddAttributeDetail(context,value: valueAttrController.text,id: widget.idAttr,token: value.token,color: colorAttrController.text)):
-              Usermanager().getUser().then((value) =>bloc.UpdateAttributeDetail(context,value: valueAttrController.text,id: widget.idAttr,token: value.token,color: colorAttrController.text,vid: widget.vid));
+              widget.value.length == 0
+                  ? Usermanager().getUser().then((value) =>
+                      bloc.AddAttributeDetail(context,
+                          value: valueAttrController.text,
+                          id: widget.idAttr,
+                          token: value.token,
+                          color: colorAttrController.text))
+                  : Usermanager().getUser().then((value) =>
+                      bloc.UpdateAttributeDetail(context,
+                          value: valueAttrController.text,
+                          id: widget.idAttr,
+                          token: value.token,
+                          color: colorAttrController.text,
+                          vid: widget.vid));
             }
           },
           child: Text(
             LocaleKeys.btn_save.tr(),
             style: FunctionHelper.FontTheme(
+                color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
           ),
@@ -148,11 +169,13 @@ class _AttributeDetailEditViewState extends State<AttributeDetailEditView> {
       ),
     );
   }
+
   void _check() {
     //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "ไม่ถูกต้อง",context: context);
-    if(valueAttrController.text.length!=0&&colorAttrController.text.length!=0){
+    if (valueAttrController.text.length != 0 &&
+        colorAttrController.text.length != 0) {
       check = true;
-    }else{
+    } else {
       check = false;
     }
     setState(() {});

@@ -21,10 +21,10 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
 
 class ImageProductView extends StatefulWidget {
-
   final IsActive isActive;
   final int shopId;
-  const ImageProductView({Key key, this.isActive,this.shopId}) : super(key: key);
+  const ImageProductView({Key key, this.isActive, this.shopId})
+      : super(key: key);
 
   @override
   _ImageProductViewState createState() => _ImageProductViewState();
@@ -40,25 +40,22 @@ class _ImageProductViewState extends State<ImageProductView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   init() {
-
-
-
     if (bloc == null) {
-
       bloc = UploadProductBloc(AppProvider.getApplication(context));
 
       bloc.onChang.stream.listen((event) {
-        if(widget.isActive == IsActive.NewProduct || widget.isActive == IsActive.ReplacemenView ) {
+        if (widget.isActive == IsActive.NewProduct ||
+            widget.isActive == IsActive.ReplacemenView) {
           NaiFarmLocalStorage.SaveProductStorage(UploadProductStorage(
               onSelectItem: bloc.ItemImage,
               productMyShopRequest: bloc.ProductDetail));
         }
       });
-      NaiFarmLocalStorage.getProductStorageCache().then((value){
-         if(value!=null){
-           bloc.ProductDetail = value.productMyShopRequest;
-           bloc.LoadImage(item: value.onSelectItem);
-         }
+      NaiFarmLocalStorage.getProductStorageCache().then((value) {
+        if (value != null) {
+          bloc.ProductDetail = value.productMyShopRequest;
+          bloc.LoadImage(item: value.onSelectItem);
+        }
       });
     }
   }
@@ -79,7 +76,7 @@ class _ImageProductViewState extends State<ImageProductView> {
               icon: "",
               isEnable_Search: false,
               header_type: Header_Type.barNormal,
-              onClick: ()=> Navigator.pop(context, false),
+              onClick: () => Navigator.pop(context, false),
             ),
           ),
           body: Container(
@@ -140,7 +137,6 @@ class _ImageProductViewState extends State<ImageProductView> {
   //   }
   // }
 
-
   Widget _buildGrid() {
     return StreamBuilder(
       stream: bloc.onChang.stream,
@@ -148,8 +144,7 @@ class _ImageProductViewState extends State<ImageProductView> {
         if (snapshot.hasData) {
           var item = (snapshot.data as List<OnSelectItem>);
           item.remove(null);
-          if(item.length<10)
-             item.add(null);
+          if (item.length < 10) item.add(null);
           return GridView.count(
             crossAxisCount: 2,
             // childAspectRatio: (itemWidth / itemHeight),
@@ -157,7 +152,7 @@ class _ImageProductViewState extends State<ImageProductView> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: List.generate(item.length,
-                    (index) => _buildImageItem(item: item[index], index: index)),
+                (index) => _buildImageItem(item: item[index], index: index)),
           );
         } else {
           return GridView.count(
@@ -167,7 +162,7 @@ class _ImageProductViewState extends State<ImageProductView> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-              AddButton(index: 0,flag: 1,maxImages: 10),
+              AddButton(index: 0, flag: 1, maxImages: 10),
             ],
           );
         }
@@ -175,56 +170,56 @@ class _ImageProductViewState extends State<ImageProductView> {
     );
   }
 
-  InkWell AddButton({int index,int flag,int maxImages}) => InkWell(
-    child: Container(
-      margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-      decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.1),
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-      child: DottedBorder(
-        strokeWidth: 1.5,
-        dashPattern: [10, 2],
-        borderType: BorderType.RRect,
-        radius: Radius.circular(10),
-        color: ThemeColor.primaryColor(),
-        child: Center(
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "+",
-                  style: FunctionHelper.FontTheme(fontSize: 30),
+  InkWell AddButton({int index, int flag, int maxImages}) => InkWell(
+        child: Container(
+          margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+          decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.1),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: DottedBorder(
+            strokeWidth: 1.5,
+            dashPattern: [10, 2],
+            borderType: BorderType.RRect,
+            radius: Radius.circular(10),
+            color: ThemeColor.primaryColor(),
+            child: Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "+",
+                      style: FunctionHelper.FontTheme(fontSize: 30),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        LocaleKeys.add.tr() + LocaleKeys.my_product_image.tr(),
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleFontSize().sp),
+                      ),
+                    )
+                  ],
                 ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 10),
-                  child: Text(
-                    LocaleKeys.add.tr() + LocaleKeys.my_product_image.tr(),
-                    style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp),
-                  ),
-                )
-              ],
+              ),
             ),
           ),
         ),
-      ),
-    ),
-    onTap: () {
-      loadAssets(flag: flag,index: index,maxImages: maxImages);
-    },
-    onLongPress: () {
-      // if(bloc.listImage[index].name=="0"){
-      //   bloc.listImage[index].file = null;
-      //   bloc.onChang.add(bloc.listImage);
-      // }else{
-      //   bloc.onError.add(true);
-      // }
-    },
-  );
+        onTap: () {
+          loadAssets(flag: flag, index: index, maxImages: maxImages);
+        },
+        onLongPress: () {
+          // if(bloc.listImage[index].name=="0"){
+          //   bloc.listImage[index].file = null;
+          //   bloc.onChang.add(bloc.listImage);
+          // }else{
+          //   bloc.onError.add(true);
+          // }
+        },
+      );
 
-  Future<void> loadAssets({int index,int flag,int maxImages}) async {
+  Future<void> loadAssets({int index, int flag, int maxImages}) async {
     List<Asset> resultList = List<Asset>();
     String error = 'No Error Dectected';
 
@@ -242,12 +237,11 @@ class _ImageProductViewState extends State<ImageProductView> {
           selectCircleStrokeColor: "#000000",
         ),
       );
-      if(flag==1){
+      if (flag == 1) {
         bloc.ConvertArrayFile(imageList: resultList, index: index);
-      }else if(flag==2){
-        bloc.EditImage(imageList: resultList,index: index);
+      } else if (flag == 2) {
+        bloc.EditImage(imageList: resultList, index: index);
       }
-
     } on Exception catch (e) {
       error = e.toString();
     }
@@ -261,75 +255,94 @@ class _ImageProductViewState extends State<ImageProductView> {
   Widget _buildImageItem({OnSelectItem item, int index}) {
     return item != null
         ? InkWell(
-      child: Container(
-        margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-        decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.1),
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        child: DottedBorder(
-            strokeWidth: 1.5,
-            dashPattern: [10, 2],
-            borderType: BorderType.RRect,
-            radius: Radius.circular(10),
-            color: ThemeColor.primaryColor(),
-            child: Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  // child: Image.file(bloc.listImage[index].file)
-                  child: Stack(
-                    children: [
-                      AssetThumb(
-                        asset: Asset(item.image.identifier,item.image.name,item.image.originalWidth,item.image.originalHeight),
-                        width: 300,
-                        height: 300,
-                      ),
-                      item.onEdit?Container(
-                        width: 300,
-                        height: 300,
-                        color: Colors.black.withOpacity(0.3),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(30)),
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  color: Colors.white.withOpacity(0.5),
-                                  child: Icon(Icons.edit_rounded,color: Colors.white,),
-                                ),
-                              ),
-                              onTap: (){
-                                loadAssets(index: index,flag: 2,maxImages: 1);
-                              },
-                            ),
-                            SizedBox(width: 20,),
-                            InkWell(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(30)),
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  color: Colors.white.withOpacity(0.5),
-                                  child: Icon(Icons.delete_forever_sharp,color: Colors.white,),
-                                ),
-                              ),
-                              onTap: (){
-                                 bloc.DeleteImage(index: index);
-                              },
-                            ),
-                          ],
+            child: Container(
+              margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+              decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.1),
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              child: DottedBorder(
+                  strokeWidth: 1.5,
+                  dashPattern: [10, 2],
+                  borderType: BorderType.RRect,
+                  radius: Radius.circular(10),
+                  color: ThemeColor.primaryColor(),
+                  child: Center(
+                      child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    // child: Image.file(bloc.listImage[index].file)
+                    child: Stack(
+                      children: [
+                        AssetThumb(
+                          asset: Asset(
+                              item.image.identifier,
+                              item.image.name,
+                              item.image.originalWidth,
+                              item.image.originalHeight),
+                          width: 300,
+                          height: 300,
                         ),
-                      ):SizedBox()
-                    ],
-                  ),
-                ))),
-      ),
-      onTap: () {
-        bloc.ConvertOnEdit(index: index);
-
-      },
-    )
-        : AddButton(index: index,flag: 1,maxImages: 10-(bloc.ItemImage.length-1));
+                        item.onEdit
+                            ? Container(
+                                width: 300,
+                                height: 300,
+                                color: Colors.black.withOpacity(0.3),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(30)),
+                                        child: Container(
+                                          padding: EdgeInsets.all(10),
+                                          color: Colors.white.withOpacity(0.5),
+                                          child: Icon(
+                                            Icons.edit_rounded,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        loadAssets(
+                                            index: index,
+                                            flag: 2,
+                                            maxImages: 1);
+                                      },
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    InkWell(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(30)),
+                                        child: Container(
+                                          padding: EdgeInsets.all(10),
+                                          color: Colors.white.withOpacity(0.5),
+                                          child: Icon(
+                                            Icons.delete_forever_sharp,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        bloc.DeleteImage(index: index);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : SizedBox()
+                      ],
+                    ),
+                  ))),
+            ),
+            onTap: () {
+              bloc.ConvertOnEdit(index: index);
+            },
+          )
+        : AddButton(
+            index: index, flag: 1, maxImages: 10 - (bloc.ItemImage.length - 1));
   }
 
   Widget _buildButton({List<OnSelectItem> item}) {
@@ -346,26 +359,41 @@ class _ImageProductViewState extends State<ImageProductView> {
   }
 
   Widget _buildButtonItem({String btnTxt, isEnable = false}) {
-    return FlatButton(
-      color: isEnable ? ThemeColor.secondaryColor() : Colors.grey,
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          isEnable ? ThemeColor.secondaryColor() : Colors.grey,
+        ),
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.3),
+        ),
       ),
       onPressed: () {
-        if(widget.isActive == IsActive.NewProduct || widget.isActive == IsActive.ReplacemenView){
-          isEnable ?AppRoute.MyNewProduct(context,widget.shopId,isActive: widget.isActive):print("");
-        }else{
-          NaiFarmLocalStorage.SaveProductStorage(UploadProductStorage(onSelectItem: bloc.GetSelectItem(),productMyShopRequest: bloc.ProductDetail));
+        if (widget.isActive == IsActive.NewProduct ||
+            widget.isActive == IsActive.ReplacemenView) {
+          isEnable
+              ? AppRoute.MyNewProduct(context, widget.shopId,
+                  isActive: widget.isActive)
+              : print("");
+        } else {
+          NaiFarmLocalStorage.SaveProductStorage(UploadProductStorage(
+              onSelectItem: bloc.GetSelectItem(),
+              productMyShopRequest: bloc.ProductDetail));
           Navigator.pop(context, true);
         }
-
       },
       child: Text(
         btnTxt,
         style: FunctionHelper.FontTheme(
-            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+          color: Colors.white,
+          fontSize: SizeUtil.titleFontSize().sp,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }

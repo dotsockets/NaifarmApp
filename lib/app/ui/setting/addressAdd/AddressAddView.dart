@@ -58,7 +58,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       bloc.onSuccess.stream.listen((event) {
         Navigator.pop(context, true);
       });
-      bloc.StatesProvice(context,countries: "1");
+      bloc.StatesProvice(context, countries: "1");
       bloc.provice.stream.listen((event) {
         _checkError();
       });
@@ -307,17 +307,25 @@ class _AddressAddViewState extends State<AddressAddView> {
   }
 
   Widget _buildButtonItem({String btnTxt}) {
-    return FlatButton(
-      minWidth: 50.0.w,
-      height: 5.0.h,
-      color: check ? ThemeColor.ColorSale() : Colors.grey.shade400,
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+        ),
+        minimumSize: MaterialStateProperty.all(
+          Size(50.0.w, 5.0.h),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          check ? ThemeColor.ColorSale() : Colors.grey.shade400,
+        ),
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.3),
+        ),
       ),
       onPressed: () {
-        if(check){
+        if (check) {
           Usermanager().getUser().then((value) => bloc.CreateAddress(context,
               addressCreaterequest: AddressCreaterequest(
                   cityId: citySelect,
@@ -335,7 +343,9 @@ class _AddressAddViewState extends State<AddressAddView> {
       child: Text(
         btnTxt,
         style: FunctionHelper.FontTheme(
-            fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.w500),
+            color: Colors.white,
+            fontSize: SizeUtil.titleFontSize().sp,
+            fontWeight: FontWeight.w500),
       ),
     );
   }

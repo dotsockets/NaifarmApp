@@ -251,7 +251,7 @@ class _ShippedViewState extends State<ShippedView> {
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
-                    "${Env.value.baseUrl}/storage/images/${item.inventory!=null?item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : '':''}",
+                    "${Env.value.baseUrl}/storage/images/${item.inventory != null ? item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : '' : ''}",
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
@@ -279,7 +279,10 @@ class _ShippedViewState extends State<ShippedView> {
             children: [
               SizedBox(height: 3.0.w),
               Container(
-                child: Text(item.inventory!=null?item.inventory.title:'ไม่พบข้อมูล',
+                child: Text(
+                    item.inventory != null
+                        ? item.inventory.title
+                        : 'ไม่พบข้อมูล',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.FontTheme(
@@ -296,7 +299,8 @@ class _ShippedViewState extends State<ShippedView> {
                           color: Colors.black)),
                   Row(
                     children: [
-                      item.inventory!=null && item.inventory.product.discountPercent != 0
+                      item.inventory != null &&
+                              item.inventory.product.discountPercent != 0
                           ? Text(
                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory!=null?item.inventory.product.discountPercent:0)}",
                               "฿${item.inventory!=null?item.inventory.product.discountPercent:0}",
@@ -353,14 +357,14 @@ class _ShippedViewState extends State<ShippedView> {
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       new TextSpan(
-                          text: LocaleKeys.history_order_price.tr() +" : ",
+                          text: LocaleKeys.history_order_price.tr() + " : ",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.normal,
                               color: Colors.black)),
                       new TextSpan(
                           text:
-                             // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",
+                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",
                               "฿${item.grandTotal}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
@@ -387,8 +391,10 @@ class _ShippedViewState extends State<ShippedView> {
                       constraints: BoxConstraints(maxWidth: (50.0.w - 12.0)),
                       child: Text(
                         widget.typeView == OrderViewType.Purchase
-                            ? LocaleKeys.order_detail_ship_date.tr() +"\n"+
-                            LocaleKeys.order_detail_by_date.tr() +" ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
+                            ? LocaleKeys.order_detail_ship_date.tr() +
+                                "\n" +
+                                LocaleKeys.order_detail_by_date.tr() +
+                                " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
                             : LocaleKeys.history_order_time.tr() +
                                 "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
                         style: FunctionHelper.FontTheme(
@@ -421,7 +427,10 @@ class _ShippedViewState extends State<ShippedView> {
           children: [
             widget.typeView == OrderViewType.Shop
                 ? Container(
-                    child: Text(LocaleKeys.order_detail_id.tr()+" "+ item.orderNumber,
+                    child: Text(
+                        LocaleKeys.order_detail_id.tr() +
+                            " " +
+                            item.orderNumber,
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.w500)),
@@ -482,12 +491,19 @@ class _ShippedViewState extends State<ShippedView> {
   }
 
   Widget _BuildButtonBayItem({String btnTxt, OrderData item}) {
-    return FlatButton(
-      color: ThemeColor.ColorSale(),
-      textColor: Colors.white,
-      splashColor: Colors.white.withOpacity(0.3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          ThemeColor.ColorSale(),
+        ),
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.3),
+        ),
       ),
       onPressed: () async {
         if (widget.typeView == OrderViewType.Shop) {
@@ -514,6 +530,7 @@ class _ShippedViewState extends State<ShippedView> {
       child: Text(
         btnTxt,
         style: FunctionHelper.FontTheme(
+            color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),
       ),
