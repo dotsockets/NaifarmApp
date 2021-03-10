@@ -371,7 +371,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
                  new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
                 new TextSpan(
-                    text: " สถานะยก เลิกคำสั่งซื้อ เนื่องจากไม่มีการชำระเงิน หรือผู้ซื้อยกเลิกสินค้า กรุณาติดต่อผู้ซื้อหากต้องการรับข้อมูลเพิ่มเติม",
+                    text: " สถานะ ยกเลิกคำสั่งซื้อ เนื่องจากไม่มีการชำระเงินหรือผู้ซื้อยกเลิกสินค้า กรุณาติดต่อผู้ซื้อหากต้องการข้อมูลเพิ่มเติม",
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
 
               ],
@@ -468,7 +468,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                 //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
                //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
-                    text: " จัดส่งแล้วเมื่อ 19-06-2563 กรุณารอให้ผู้ซื้อตรวจสอบและยืนยันการรับสินค้าภายใน 3 วัน จากนั้น NaiFarm จะดำเนินการโอนเงินให้คุณ",
+                    text: " จัดส่งถึงแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.readAt!=null?item.readAt:DateTime.now().toString()))} กรุณาตรวจสอบและยืนยันการรับสินค้าภายใน 3 วันจากนั้น Naifarm จะโอนเงินให้ร้านค้า",
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
 
               ],

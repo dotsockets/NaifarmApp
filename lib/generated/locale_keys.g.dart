@@ -169,6 +169,9 @@ abstract class  LocaleKeys {
   static const dialog_message_password_success = 'dialog_message.password_success';
   static const dialog_message_confirm_pay = 'dialog_message.confirm_pay';
   static const dialog_message_confirm_track = 'dialog_message.confirm_track';
+  static const dialog_message_confirm_order = 'dialog_message.confirm_order';
+  static const dialog_message_confirm_cancel_buyer = 'dialog_message.confirm_cancel_buyer';
+  static const dialog_message_confirm_cancel_seller = 'dialog_message.confirm_cancel_seller';
   static const dialog_message_loading = 'dialog_message.loading';
   static const dialog_message_exit = 'dialog_message.exit';
   static const dialog_message_success = 'dialog_message.success';

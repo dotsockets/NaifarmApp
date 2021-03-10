@@ -233,7 +233,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
             ),
             onPressed: () {
               FunctionHelper.ConfirmDialog(context,
-                  message: "Would you like to cancel your order for this product ?",
+                  message: LocaleKeys.dialog_message_confirm_cancel_seller.tr(),
                   onCancel: () {
                     Navigator.of(context).pop();
                   }, onClick: () {

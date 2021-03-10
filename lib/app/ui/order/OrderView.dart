@@ -935,10 +935,8 @@ class _OrderViewState extends State<OrderView> {
                   ),
                 ),
                 onPressed: () {
-                  FunctionHelper.ConfirmDialog(context,
-                      message:
-                          "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",
-                      onCancel: () {
+
+                  FunctionHelper.ConfirmDialog(context,message: LocaleKeys.dialog_message_confirm_cancel_buyer.tr(),onCancel: (){
                     Navigator.of(context).pop();
                   }, onClick: () {
                     Navigator.of(context).pop();
