@@ -190,12 +190,16 @@
     "password_success": "Change Password Success",
     "confirm_pay": "Confirm payment for this order",
     "confirm_track":  "Confirm that tracking number is correct",
+    "confirm_order": "Confirm Order Received",
+    "confirm_cancel_buyer": "If you cancel the order. Your cancellation request must be accepted by the buyer because the order is already in progress",
+    "confirm_cancel_seller": "Confirm cancel this order?",
     "loading": "Loading",
     "exit": "Do you want to exit an App",
     "success": "Successfully confirmed information",
     "success_track":"Successfully confirmed tracking number",
     "success_pay":"Successfully confirmed payment",
     "success_slip":"Upload Pay-in Slip Successfully"
+
   },
 
   "message":{
