@@ -322,18 +322,11 @@ class _LoginViewState extends State<LoginView> {
                       height: 2.0.h,
                     ),   SizedBox(width: 2.0.w,),
                     Text(LocaleKeys.btn_facebook.tr(),
-                      style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      width: 2.0.w,
-                    ),
-                    Text(
-                      "Continue with Facebook",
                       style: FunctionHelper.FontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w500),
-                    ),
+                    )
                   ],
                 ),
               ),

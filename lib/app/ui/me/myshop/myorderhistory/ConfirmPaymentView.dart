@@ -53,16 +53,16 @@ class ConfirmPaymentView extends StatelessWidget {
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-       if(event is bool){
-         onDialog = true;
-         FunctionHelper.SuccessDialog(context,message: LocaleKeys.dialog_message_success_pay.tr(),onClick: (){
-           onUpload = true;
-           if(onDialog){
-             Navigator.pop(context,onUpload);
-           }
-
-         });
-       }
+        if (event is bool) {
+          onDialog = true;
+          FunctionHelper.SuccessDialog(context,
+              message: LocaleKeys.dialog_message_success_pay.tr(), onClick: () {
+            onUpload = true;
+            if (onDialog) {
+              Navigator.pop(context, onUpload);
+            }
+          });
+        }
       });
       Usermanager().getUser().then((value) => bloc.GetOrderById(context,
           orderType: "myshop/orders", id: orderData.id, token: value.token));
@@ -103,94 +103,108 @@ class ConfirmPaymentView extends StatelessWidget {
                             child: SingleChildScrollView(
                           child: Column(
                             children: <Widget>[
-                              item.grandTotal!=null? ItemInfo(
-                                  PricecolorText: ThemeColor.ColorSale(),
-                                  leading: LocaleKeys.order_detail_total_pay.tr(),
-                                  trailing:
-                                      //"฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"):SizedBox(),
-                                      "฿${item.grandTotal}"):SizedBox(),
+                              item.grandTotal != null
+                                  ? ItemInfo(
+                                      PricecolorText: ThemeColor.ColorSale(),
+                                      leading: LocaleKeys.order_detail_total_pay
+                                          .tr(),
+                                      trailing:
+                                          //"฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"):SizedBox(),
+                                          "฿${item.grandTotal}")
+                                  : SizedBox(),
                               SizedBox(height: 1.0.h),
-                              item.total!=null? ItemInfo(
-                                  PricecolorText: Colors.grey.shade400,
-                                  leading: LocaleKeys.order_detail_subtotal.tr(),
-                                  trailing:
-                                     // "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}"):SizedBox(),
-                                      "฿${item.total}"):SizedBox(),
-                              item.shipping!=null?ItemInfo(
-                                  PricecolorText: Colors.grey.shade400,
-                                  leading: LocaleKeys.order_detail_ship_price.tr(),
-                                  trailing:
-                                      //"฿${NumberFormat("#,##0.00", "en_US").format(item.shipping)}"):SizedBox(),
-                                      "฿${item.shipping}"):SizedBox(),
+                              item.total != null
+                                  ? ItemInfo(
+                                      PricecolorText: Colors.grey.shade400,
+                                      leading:
+                                          LocaleKeys.order_detail_subtotal.tr(),
+                                      trailing:
+                                          // "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}"):SizedBox(),
+                                          "฿${item.total}")
+                                  : SizedBox(),
+                              item.shipping != null
+                                  ? ItemInfo(
+                                      PricecolorText: Colors.grey.shade400,
+                                      leading: LocaleKeys
+                                          .order_detail_ship_price
+                                          .tr(),
+                                      trailing:
+                                          //"฿${NumberFormat("#,##0.00", "en_US").format(item.shipping)}"):SizedBox(),
+                                          "฿${item.shipping}")
+                                  : SizedBox(),
                               // item.discount!=null?ItemInfo(
                               //     PricecolorText: Colors.grey.shade400,
                               //     leading: "Discount code",
                               //     trailing:
                               //         "฿${NumberFormat("#,##0.00", "en_US").format(item.discount)}"):SizedBox(),
                               SizedBox(height: 1.0.h),
-                              item.discount!=null?ItemInfo(
-                                  PricecolorText: Colors.grey.shade400,
-                                  leading: LocaleKeys.me_title_payment.tr(),
-                                  trailing: "${item.paymentMethod.name}"):SizedBox(),
-                              item.image!=null && item.image.length>0
+                              item.discount != null
+                                  ? ItemInfo(
+                                      PricecolorText: Colors.grey.shade400,
+                                      leading: LocaleKeys.me_title_payment.tr(),
+                                      trailing: "${item.paymentMethod.name}")
+                                  : SizedBox(),
+                              item.image != null && item.image.length > 0
                                   ? Container(
-                                color: Colors.white,
-                                padding: EdgeInsets.all(5.0.w),
-                                    child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                    Text(
-                                      LocaleKeys.payment_method_slip.tr(),
-                                      style: FunctionHelper.FontTheme(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: SizeUtil.titleSmallFontSize().sp),
-                                    ),
-                                    SizedBox(height: 2.0.h,),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey.shade400,width: 1),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10),
-                                          bottomLeft: Radius.circular(10),
-                                          bottomRight: Radius.circular(10)
-                                        ),
-                                      ),
-                                      padding: EdgeInsets.all(2.0.h),
-                                      child: FullScreenWidget(
-                                        backgroundIsTransparent: true,
-                                        child: Center(
-                                          child: Hero(
-                                            tag: "payment",
-                                            child: CachedNetworkImage(
-                                              // placeholder: (context, url) => Container(
-                                              //   child: Lottie.asset('assets/json/loading.json', ),
-                                              // ),
-                                              imageUrl: ProductLandscape.CovertUrlImage(item.image),
-                                              //  errorWidget: (context, url, error) => Container(child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                                      color: Colors.white,
+                                      padding: EdgeInsets.all(5.0.w),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              LocaleKeys.payment_method_slip
+                                                  .tr(),
+                                              style: FunctionHelper.FontTheme(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.normal,
+                                                  fontSize: SizeUtil
+                                                          .titleSmallFontSize()
+                                                      .sp),
                                             ),
-                                            padding: EdgeInsets.all(2.0.h),
-                                            child: FullScreenWidget(
-                                              backgroundIsTransparent: true,
-                                              child: Center(
-                                                child: Hero(
-                                                  tag: "payment",
-                                                  child: CachedNetworkImage(
-                                                    // placeholder: (context, url) => Container(
-                                                    //   child: Lottie.asset('assets/json/loading.json', ),
-                                                    // ),
-                                                    imageUrl: ProductLandscape
-                                                        .CovertUrlImage(
-                                                            item.image),
-                                                    //  errorWidget: (context, url, error) => Container(child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
-                                                  ),
+                                            SizedBox(
+                                              height: 2.0.h,
+                                            ),
+                                            Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          Colors.grey.shade400,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  10),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  10),
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  10),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  10)),
                                                 ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                                padding: EdgeInsets.all(2.0.h),
+                                                child: FullScreenWidget(
+                                                    backgroundIsTransparent:
+                                                        true,
+                                                    child: Center(
+                                                        child: Hero(
+                                                      tag: "payment",
+                                                      child: CachedNetworkImage(
+                                                        // placeholder: (context, url) => Container(
+                                                        //   child: Lottie.asset('assets/json/loading.json', ),
+                                                        // ),
+                                                        imageUrl:
+                                                            ProductLandscape
+                                                                .CovertUrlImage(
+                                                                    item.image),
+                                                        //  errorWidget: (context, url, error) => Container(child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                                                      ),
+                                                    ))))
+                                          ]),
                                     )
                                   : SizedBox()
                             ],

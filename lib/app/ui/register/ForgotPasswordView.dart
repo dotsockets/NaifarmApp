@@ -239,6 +239,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   }
 
   void _validate() {
-    bloc.OTPRequest(context, numberphone: _phone.text);
+    if(_phone.text.isNotEmpty){
+      bloc.OTPRequest(context, numberphone: _phone.text);
+    }
+
   }
 }

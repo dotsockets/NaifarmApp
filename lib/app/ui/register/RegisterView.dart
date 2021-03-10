@@ -29,7 +29,7 @@ class _RegisterViewState extends State<RegisterView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   MemberBloc bloc;
-  bool checkError = false;
+  bool checkError = true;
   String errorTxt = "";
 
   @override
@@ -52,8 +52,7 @@ class _RegisterViewState extends State<RegisterView> {
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         //if (event.error.status == 406) {
-          FunctionHelper.AlertDialogShop(context,
-              title: LocaleKeys.btn_error.tr(), message: event);
+        FunctionHelper.AlertDialogShop(context, title: "Error", message: event);
         //}
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
@@ -105,11 +104,11 @@ class _RegisterViewState extends State<RegisterView> {
             ),
             Center(
                 child: Text(
-              LocaleKeys.btn_register.tr(),
-              style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.titleFontSize().sp + 2,
-                  fontWeight: FontWeight.w500),
-            )),
+                  LocaleKeys.btn_register.tr(),
+                  style: FunctionHelper.FontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp + 2,
+                      fontWeight: FontWeight.w500),
+                )),
             SizedBox(
               height: 4.0.h,
             ),
@@ -178,9 +177,26 @@ class _RegisterViewState extends State<RegisterView> {
                     color: Colors.black.withOpacity(0.2),
                     height: 1,
                   ),
-                  SizedBox(width: 2.0.w,),
-                  Text(LocaleKeys.btn_facebook.tr(),
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        LocaleKeys.or.tr(),
+                        style: FunctionHelper.FontTheme(
+                            fontSize: SizeUtil.titleSmallFontSize().sp),
+                      )),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    margin: EdgeInsets.only(right: 30),
+                    color: Colors.black.withOpacity(0.2),
+                    height: 1,
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 2.0.h,
@@ -207,8 +223,8 @@ class _RegisterViewState extends State<RegisterView> {
                 onPressed: () =>
                     bloc.LoginFacebook(context: context, isLoad: true),
                 child: //Text(LocaleKeys.facebook_regis_btn.tr(),
-                    //style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
-                    Row(
+                //style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset(
@@ -220,7 +236,7 @@ class _RegisterViewState extends State<RegisterView> {
                       width: 2.0.w,
                     ),
                     Text(
-                      "Continue with Facebook",
+                      LocaleKeys.btn_facebook.tr(),
                       style: FunctionHelper.FontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,

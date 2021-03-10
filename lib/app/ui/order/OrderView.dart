@@ -133,7 +133,7 @@ class _OrderViewState extends State<OrderView> {
                                 //widget.typeView==OrderViewType.Purchase &&  item.orderStatusId!=5 &&  item.orderStatusId!=6 &&  item.orderStatusId!=8?_HeaderStatus(context: context,orderData: item):SizedBox(),
                                 item.orderStatusId == 1 &&
                                         widget.typeView ==
-                                            OrderViewType.Purchase
+                                            OrderViewType.Purchase || item.orderStatusId == 3 &&  widget.typeView ==OrderViewType.Purchase
                                     ? _HeaderStatus(
                                         context: context, orderData: item)
                                     : SizedBox(),
@@ -463,6 +463,7 @@ class _OrderViewState extends State<OrderView> {
                               ),
                             )),
                       ),
+                    ),
                       SizedBox(width: 15,),
                       Text(orderData.shop.name,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w500,height: 1.5),)
                     ],
@@ -490,49 +491,7 @@ class _OrderViewState extends State<OrderView> {
                 ],
               ))).values.toList(),
             ),
-            SizedBox(height: 13,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(LocaleKeys.order_detail_subtotal.tr()+" :",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold,height: 1.5),),
-                SizedBox(width: 10,),
-                //Text("฿${NumberFormat("#,##0.00", "en_US").format(sumTotal)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
-                Text("฿${sumTotal}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
-              ],
-            ),
-            onTap: () {
-              var item = orderData.shop;
-              AppRoute.ShopMain(
-                  context: context,
-                  myShopRespone: MyShopRespone(
-                      id: item.id,
-                      name: item.name,
-                      image: item.image,
-                      updatedAt: item.updatedAt));
-            },
-          ),
-          SizedBox(
-            height: 13,
-          ),
-          Column(
-            children: orderData.items
-                .asMap()
-                .map((key, value) => MapEntry(
-                    key,
-                    Column(
-                      children: [
-                        ItemProduct(orderItems: orderData.items[key]),
-                        SizedBox(
-                          height: 1.0.h,
-                        )
-                      ],
-                    )))
-                .values
-                .toList(),
-          ),
-          SizedBox(
-            height: 13,
-          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -25,8 +26,7 @@ class SellerCanceledView extends StatefulWidget {
   final OrderData orderData;
   final OrderViewType typeView;
 
-  const SellerCanceledView({Key key, this.orderData, this.typeView})
-      : super(key: key);
+  const SellerCanceledView({Key key, this.orderData, this.typeView}) : super(key: key);
   @override
   _SellerCanceledViewState createState() => _SellerCanceledViewState();
 }
@@ -39,7 +39,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
 
-      if (widget.orderData.grandTotal != null) {
+      if(widget.orderData.grandTotal!=null){
         bloc.OrderList.add(widget.orderData);
       }
 
@@ -64,10 +64,8 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
       });
 
       Usermanager().getUser().then((value) => bloc.GetOrderById(context,
-          orderType:
-              widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
-          id: widget.orderData.id,
-          token: value.token));
+          orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order", id: widget.orderData.id, token: value.token));
+
     }
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
@@ -80,7 +78,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
-          appBar: PreferredSize(
+          appBar:PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
               title: LocaleKeys.order_detail_seller_cancelled.tr(),
@@ -136,10 +134,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
 
                                 ],
                               ),
-                              ItemFormDetail()
-                            ],
-                          ),
-                        )),
+                            )),
                         _ButtonActive(context: context, orderData: item)
                       ],
                     ),
@@ -153,9 +148,9 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
                     child: Center(
                       child: Platform.isAndroid
                           ? SizedBox(
-                              width: 5.0.w,
-                              height: 5.0.w,
-                              child: CircularProgressIndicator())
+                          width: 5.0.w,
+                          height: 5.0.w,
+                          child: CircularProgressIndicator())
                           : CupertinoActivityIndicator(),
                     ));
               }
@@ -171,8 +166,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        border:
-            Border(bottom: BorderSide(color: Colors.grey.shade400, width: 1)),
+        border: Border(bottom: BorderSide(color: Colors.grey.shade400, width: 1)),
       ),
       child: ListTile(
           leading: Text(
@@ -192,15 +186,13 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
     );
   }
 
-  Widget ItemFormDetail() {
+  Widget ItemFormDetail(){
     return Container(
       padding: EdgeInsets.all(2.0.h),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border(
-            bottom: BorderSide(color: Colors.grey.shade400, width: 1),
-            top: BorderSide(color: Colors.grey.shade400, width: 1)),
+        border: Border(bottom: BorderSide(color: Colors.grey.shade400, width: 1),top: BorderSide(color: Colors.grey.shade400, width: 1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,10 +207,10 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
           SizedBox(height: 0.5.h,),
           BuildEditText(EnableMaxLength: false,maxLength: 5000,BorderOpacity: 0.3,
             hint: LocaleKeys.order_detail_seller_cancelled_detail.tr(),maxLine: 5,controller: detailtController,inputType: TextInputType.text,onChanged: (String char){
-            if(char.isNotEmpty){
+              if(char.isNotEmpty){
 
-            }
-          },)
+              }
+            },)
         ],
       ),
     );
@@ -230,39 +222,29 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
         color: Colors.white,
         padding: EdgeInsets.all(2.0.w),
         child: Center(
-          child: TextButton(
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-              ),
-              minimumSize: MaterialStateProperty.all(
-                Size(50.0.w, 5.0.h),
-              ),
-              backgroundColor: MaterialStateProperty.all(
-                ThemeColor.ColorSale(),
-              ),
-              overlayColor: MaterialStateProperty.all(
-                Colors.white.withOpacity(0.3),
-              ),
+          child: FlatButton(
+            minWidth: 50.0.w,
+            height: 5.0.h,
+            color: ThemeColor.ColorSale(),
+            textColor: Colors.white,
+            splashColor: Colors.white.withOpacity(0.3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
             ),
             onPressed: () {
               FunctionHelper.ConfirmDialog(context,
-                  message:
-                      "Would you like to cancel your order for this product ?",
+                  message: "Would you like to cancel your order for this product ?",
                   onCancel: () {
-                Navigator.of(context).pop();
-              }, onClick: () {
-                Navigator.of(context).pop();
-                Usermanager().getUser().then((value) => bloc.MarkPaid(context,
-                    token: value.token, OrderId: orderData.id));
-              });
+                    Navigator.of(context).pop();
+                  }, onClick: () {
+                    Navigator.of(context).pop();
+                    Usermanager().getUser().then((value) =>
+                        bloc.MarkPaid(context,token: value.token, OrderId: orderData.id));
+                  });
             },
             child: Text(
-                LocaleKeys.btn_confirm.tr(),
+              LocaleKeys.btn_confirm.tr(),
               style: FunctionHelper.FontTheme(
-                  color: Colors.white,
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),
             ),
@@ -279,66 +261,30 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
       builder: (BuildContext context) {
         return Dialog(
           child: InkWell(
-            onTap: () {
+            onTap: (){
               // onClick();
             },
             child: Container(
-                child: Column(mainAxisSize: MainAxisSize.min, children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(22.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: ThemeColor.DialogprimaryColor(context),
-                  child: Column(
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  color: Colors.grey.shade400, width: 1)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Center(
-                              child: Text(
-                            "Select a reason for cancellation",
-                            style: FunctionHelper.FontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp,
-                                fontWeight: FontWeight.bold),
-                          )),
-                        ),
-                      ),
-                      SingleChildScrollView(
-                        child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(22.0),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          color: ThemeColor.DialogprimaryColor(context),
+                          child: Column(
                             children: [
-                              InkWell(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.grey.shade400,
-                                            width: 1)),
-                                  ),
-                                  padding: const EdgeInsets.all(15.0),
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Text(
-                                    "Out of stock ",
-                                    style: FunctionHelper.FontTheme(
-                                        color: Colors.grey.shade700,
-                                        fontSize: SizeUtil.titleFontSize().sp,
-                                        fontWeight: FontWeight.normal),
-                                  ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  border: Border(bottom: BorderSide(color: Colors.grey.shade400, width: 1)),
+
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: Center(child: Text(LocaleKeys.select.tr()+LocaleKeys.order_detail_seller_cancelled_reason.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),)),
                                 ),
-                                onTap: () {
-                                  Navigator.pop(context, false);
-                                },
                               ),
                               SingleChildScrollView(
                                 child: Column(
@@ -380,14 +326,14 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
                           ),
                         ),
                       )
-                    ],
-                  ),
-                ),
-              )
-            ])),
+                    ]
+                )
+            ),
           ),
         );
       },
     );
+
   }
 }
+
