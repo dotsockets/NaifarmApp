@@ -48,7 +48,8 @@
     "title_wallet": "Wallet",
     "title_my_product": "My Products",
     "title_shipping": "Shipping",
-    "title_payment": "Payment Method"
+    "title_payment": "Payment Method",
+    "title_pay": "Payment Method"
   },
   "shipping": {
     "edit": "Edit Shipping",
@@ -247,7 +248,11 @@
     "outstock": "Out of stock",
     "note": "note",
     "add_cart": "Add to Cart",
-    "promotion": "Promotion Price"
+    "promotion": "Promotion Price",
+    "order": "Order Total",
+    "message":"Leave a message",
+   "ship": "Choose a shipping method",
+    "ship_at": "Receive at"
   },
   "history":{
     "order_time": "Payment Time",
@@ -387,6 +392,7 @@
   },
   "order_detail":{
     "title": "Order Detail",
+    "txt": "Order Detail",
     "wait_rate": "Waiting For Rating",
     "wait_pay": "Waiting For Payment",
     "complete_rate": "Rating Success",

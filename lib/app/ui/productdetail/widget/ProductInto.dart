@@ -85,15 +85,17 @@ class ProductInto extends StatelessWidget {
                   fontSize: (SizeUtil.titleFontSize()+2).sp, fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 10),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            data.salePrice!=null?Text("฿${NumberFormat("#,##0", "en_US").format(data.salePrice)}",style: FunctionHelper.FontTheme(
+
+            data.salePrice!=null&&data.offerPrice!=null?Text("฿${NumberFormat("#,##0", "en_US").format(data.salePrice)}",style: FunctionHelper.FontTheme(
                 color: Colors.grey,
                 fontSize: SizeUtil.priceFontSize().sp, decoration: TextDecoration.lineThrough)):SizedBox(),
-            SizedBox(width: data.salePrice!=null?1.0.w:0),
-            Text(data.offerPrice!=null?"฿${NumberFormat("#,##0", "en_US").format(data.offerPrice)}":"฿${NumberFormat("#,##0", "en_US").format(0)}",maxLines: 1,
+            SizedBox(width: data.salePrice!=null&&data.offerPrice!=null?1.0.w:0),
+            Text(data.offerPrice!=null?"฿${NumberFormat("#,##0", "en_US").format(data.offerPrice)}":"฿${NumberFormat("#,##0", "en_US").format(data.salePrice)}",maxLines: 1,
               overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
           ],
         ),
