@@ -138,6 +138,7 @@
   "or": "OR",
   "withh": "with",
   "and": "and",
+  "edit": "Edit ",
 
   "setting_language_toobar": "Select Language",
   "setting_rule_toobar": "Rules of Use",
@@ -153,6 +154,7 @@
     "login": "LOGIN",
     "facebook": "Continue with Facebook",
     "edit_img": "Edit Image",
+    "img": "Image",
     "save": "SAVE",
     "register": "SIGN UP",
     "ok": "OK",
@@ -166,6 +168,7 @@
     "buy_now": "Buy Now",
     "buy_product": "Buy Now",
     "del_product": "Delete Product",
+    "update_product": "Update Product",
     "error": "Error",
     "save_edit": "Save Edit",
     "review": "Review",
@@ -256,6 +259,7 @@
   },
   "history":{
     "order_time": "Payment Time",
+    "receipt_time": "Receipt Time",
     "order_price": "Order Total",
     "track": "Add a tracking number",
     "track_fill": "Please fill tracking number to continue.",
@@ -293,7 +297,8 @@
 
 
   "my_product": {
-    "sell": "Sell Product",
+    "sell": "Open sales",
+    "sell_open":"Open Sell",
     "break": "Stop Sell",
     "amount": "Amount",
     "sold": "sold",
@@ -333,11 +338,19 @@
     "category": "Category",
     "detail": "Shop Detail",
     "rate": "Shop Rating",
+    "edit": "Edit Shop",
     "follow": "Follow",
     "following": "Following",
     "follower": "Follower",
     "product_list": "Product",
-    "name": "Shop Name",
+    "name": "Shop name",
+    "name_title": "Shop name",
+    "name_official": "Official name",
+    "slug": "Shop Slug",
+    "detail_title": "Detail",
+    "external_link": "External Link",
+    "edit_link": "Edit Link",
+    "status": "Shop Status",
     "active": {
       "hour": "hour ago",
       "minute" : "minutes ago"

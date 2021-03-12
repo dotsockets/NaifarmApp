@@ -17,6 +17,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
+import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/config/Env.dart';
@@ -70,8 +71,7 @@ class _SoldOutState extends State<SoldOut> {
 
       bloc.onSuccess.stream.listen((event) {
 
-
-        if (event is ProductMyShopRespone) {
+        if (event is ProductMyShopRespone||event is bool) {
           widget.searchTxt.length != 0
               ? _reloadFirstSearch()
               : _reloadFirstPage();
@@ -520,6 +520,7 @@ class _SoldOutState extends State<SoldOut> {
                                   bloc.ProductMyShopRes.value);
                               //count++;
                               Usermanager().getUser().then((value) =>
+
                                   bloc.DELETEProductMyShop(context,
                                       ProductId: item.id, token: value.token));
                               Navigator.of(context).pop();

@@ -425,7 +425,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Edit picture",
+                  Text(LocaleKeys.btn_edit_img.tr(),
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleFontSize().sp)),
                   Icon(
@@ -459,7 +459,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Open sales",
+                Text(LocaleKeys.my_product_sell_open.tr(),
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp)),
                 FlutterSwitch(

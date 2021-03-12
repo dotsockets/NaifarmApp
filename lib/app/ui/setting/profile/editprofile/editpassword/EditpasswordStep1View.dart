@@ -25,7 +25,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
   String onError = "";
 
   bool FormCheck() {
-    if (PassController.text.isEmpty) {
+    if (PassController.text.isEmpty||PassController.text.length<8) {
       return false;
     } else {
       return true;
@@ -105,8 +105,8 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                         BuildEditText(
                             head: LocaleKeys.edit_password_old.tr(),
                             hint: LocaleKeys.my_profile_password.tr(),
-                            maxLength: 10,
                             controller: PassController,
+                            maxLength: 40,
                             onError: onError,
                             IsPassword: true,
                             inputType: TextInputType.text,
@@ -118,6 +118,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                           height: 20,
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
                               height: 3,
@@ -133,6 +134,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                             Container(
                               color: Colors.grey.shade500,
                               height: 1,
+                              width: 19.0.w,
                             )
                           ],
                         ),

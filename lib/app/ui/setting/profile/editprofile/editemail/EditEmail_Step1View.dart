@@ -33,7 +33,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
   String onError = "";
 
   bool FormCheck() {
-    if (PassController.text.isEmpty) {
+    if (PassController.text.isEmpty||PassController.text.length<8) {
       return false;
     } else {
       return true;
@@ -122,6 +122,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                           height: 1.0.h,
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
                               height: 3,
@@ -130,13 +131,14 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                                 style: FunctionHelper.FontTheme(
                                     color: Colors.grey.shade500,
                                     fontSize:
-                                        SizeUtil.titleSmallFontSize().sp)),
+                                        SizeUtil.titleSmallFontSize().sp),),
                             SizedBox(
                               height: 2,
                             ),
                             Container(
                               color: Colors.grey.shade500,
                               height: 1,
+                              width: 19.0.w,
                             )
                           ],
                         ),

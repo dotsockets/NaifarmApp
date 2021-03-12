@@ -106,7 +106,7 @@ class _PaidViewState extends State<PaidView> {
                                                 child: Container(
                                                   color: Colors.white
                                                       .withOpacity(0.7),
-                                                  height: 27.0.h,
+                                                  height: 29.0.h,
                                                   child: Center(
                                                     child: Container(
                                                       width: 30.0.w,

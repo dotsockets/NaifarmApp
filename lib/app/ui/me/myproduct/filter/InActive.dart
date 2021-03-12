@@ -71,8 +71,7 @@ class _InActiveState extends State<InActive> {
 
       bloc.onSuccess.stream.listen((event) {
 
-
-        if (event is ProductMyShopRespone) {
+        if (event is ProductMyShopRespone||event is bool) {
           widget.searchTxt.length != 0
               ? _reloadFirstSearch()
               : _reloadFirstPage();

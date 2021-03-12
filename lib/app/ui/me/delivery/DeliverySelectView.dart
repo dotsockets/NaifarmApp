@@ -160,7 +160,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
                   ),
                   Container(
                     child: Text(
-                        "฿${NumberFormat("#,##0.00", "en_US").format(item.rate)}",
+                        "฿${NumberFormat("#,##0", "en_US").format(item.rate)}",
                         style: FunctionHelper.FontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             color: ThemeColor.ColorSale())),

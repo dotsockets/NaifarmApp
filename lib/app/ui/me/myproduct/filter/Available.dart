@@ -49,6 +49,7 @@ class _AvailableState extends State<Available> {
   int total = 0;
 
   init() {
+
     count = 0;
     if(widget.searchTxt.isNotEmpty){
       _searchText.add(widget.searchTxt);
@@ -71,8 +72,7 @@ class _AvailableState extends State<Available> {
 
       bloc.onSuccess.stream.listen((event) {
 
-
-        if (event is ProductMyShopRespone) {
+        if (event is ProductMyShopRespone||event is bool) {
           widget.searchTxt.length != 0
               ? _reloadFirstSearch()
               : _reloadFirstPage();
@@ -105,6 +105,7 @@ class _AvailableState extends State<Available> {
         }
       });
       widget.searchTxt.length != 0 ? _reloadFirstSearch() : _reloadFirstPage();
+
     }
 
     _scrollController.addListener(() {

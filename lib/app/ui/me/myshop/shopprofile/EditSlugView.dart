@@ -45,7 +45,7 @@ class _EditSlugViewState extends State<EditSlugView> {
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
             isEnable_Search: false,
-            title: "แก้ไข Slug ร้านค้า",
+            title: LocaleKeys.shop_edit_link.tr(),
             header_type: Header_Type.barNormal,
           ),
           body: Container(
@@ -103,11 +103,11 @@ class _EditSlugViewState extends State<EditSlugView> {
       child: Column(
         children: [
           BuildEditText(
-            head: "ชื่อ Slug ร้านค้า",
-            hint: "ระบุ Slug ร้านค้า",
+            head: LocaleKeys.shop_slug.tr(),
+            hint: LocaleKeys.set_default.tr()+LocaleKeys.shop_slug.tr(),
             inputType: TextInputType.text,
             BorderOpacity: 0.2,
-            maxLength: 20,
+            maxLength: 100,
             borderRadius: 5,
             onError: onError1,
             controller: _input1,

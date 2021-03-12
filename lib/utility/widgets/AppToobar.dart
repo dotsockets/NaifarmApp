@@ -31,6 +31,7 @@ class AppToobar extends PreferredSize {
   final Function(String) onSearch;
   final bool showBackBtn;
   final bool showCartBtn;
+  final Function onTab;
 
   const AppToobar(
       {this.onClick = null,
@@ -43,7 +44,7 @@ class AppToobar extends PreferredSize {
       this.showBackBtn = true,
       this.locationTxt = "",
       this.hint = "",
-      this.onSearch})
+      this.onSearch,this.onTab = null})
       : super(key: key);
 
   @override
@@ -299,7 +300,17 @@ class AppToobar extends PreferredSize {
                       },
                     ),
                     _buildSearch(context),
-                    BuildIconShop()
+                    showCartBtn?BuildIconShop():
+                    IconButton(
+                      icon: Icon(
+                        FontAwesome.ellipsis_v,
+                        size: SizeUtil.mediumIconSize().w,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        onTab();
+                      },
+                    )
                   ],
                 ),
 

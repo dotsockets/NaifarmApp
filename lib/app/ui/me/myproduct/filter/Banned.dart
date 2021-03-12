@@ -46,6 +46,7 @@ class _BannedState extends State<Banned> {
   bool step_page = false;
   final _searchText = BehaviorSubject<String>();
   int total = 0;
+  int countDel = 0;
 
   init() {
     count = 0;
@@ -70,8 +71,7 @@ class _BannedState extends State<Banned> {
 
       bloc.onSuccess.stream.listen((event) {
 
-
-        if (event is ProductMyShopRespone) {
+        if (event is ProductMyShopRespone||event is bool) {
           widget.searchTxt.length != 0
               ? _reloadFirstSearch()
               : _reloadFirstPage();
@@ -147,7 +147,7 @@ class _BannedState extends State<Banned> {
                           _BuildProduct(item: item.data[index], index: index),
                     ),
                   ),
-                  if (item.data.length != item.total)
+                  if (item.data.length != item.total-countDel)
                     Container(
                       padding: EdgeInsets.all(20),
                       child: Row(
@@ -520,6 +520,7 @@ class _BannedState extends State<Banned> {
                                   bloc.DELETEProductMyShop(context,
                                       ProductId: item.id, token: value.token));
                               Navigator.of(context).pop();
+                              countDel++;
                             }, onCancel: () {
                               Navigator.of(context).pop();
                             });

@@ -45,7 +45,7 @@ class _OfficialNameViewState extends State<OfficialNameView> {
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
             isEnable_Search: false,
-            title: "แก้ไขชื่อทางการ",
+            title:  LocaleKeys.edit.tr()+LocaleKeys.shop_name_title.tr(),
             header_type: Header_Type.barNormal,
           ),
           body: Container(
@@ -103,8 +103,8 @@ class _OfficialNameViewState extends State<OfficialNameView> {
       child: Column(
         children: [
           BuildEditText(
-            head: "ชื่อเป็นทางการ",
-            hint: "ระบุชื่อทางการ",
+            head:  LocaleKeys.shop_name_official.tr(),
+            hint:   LocaleKeys.set_default.tr()+LocaleKeys.shop_name_official.tr(),
             inputType: TextInputType.text,
             BorderOpacity: 0.2,
             maxLength: 20,

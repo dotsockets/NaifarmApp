@@ -123,6 +123,7 @@ abstract class  LocaleKeys {
   static const or = 'or';
   static const withh = 'withh';
   static const and = 'and';
+  static const edit = 'edit';
   static const setting_language_toobar = 'setting_language_toobar';
   static const setting_rule_toobar = 'setting_rule_toobar';
   static const setting_about_toobar = 'setting_about_toobar';
@@ -135,6 +136,7 @@ abstract class  LocaleKeys {
   static const btn_login = 'btn.login';
   static const btn_facebook = 'btn.facebook';
   static const btn_edit_img = 'btn.edit_img';
+  static const btn_img = 'btn.img';
   static const btn_save = 'btn.save';
   static const btn_register = 'btn.register';
   static const btn_ok = 'btn.ok';
@@ -148,6 +150,7 @@ abstract class  LocaleKeys {
   static const btn_buy_now = 'btn.buy_now';
   static const btn_buy_product = 'btn.buy_product';
   static const btn_del_product = 'btn.del_product';
+  static const btn_update_product = 'btn.update_product';
   static const btn_error = 'btn.error';
   static const btn_save_edit = 'btn.save_edit';
   static const btn_review = 'btn.review';
@@ -228,6 +231,7 @@ abstract class  LocaleKeys {
   static const cart_ship_at = 'cart.ship_at';
   static const cart = 'cart';
   static const history_order_time = 'history.order_time';
+  static const history_receipt_time = 'history.receipt_time';
   static const history_order_price = 'history.order_price';
   static const history_track = 'history.track';
   static const history_track_fill = 'history.track_fill';
@@ -258,6 +262,7 @@ abstract class  LocaleKeys {
   static const attributes_list = 'attributes.list';
   static const attributes = 'attributes';
   static const my_product_sell = 'my_product.sell';
+  static const my_product_sell_open = 'my_product.sell_open';
   static const my_product_break = 'my_product.break';
   static const my_product_amount = 'my_product.amount';
   static const my_product_sold = 'my_product.sold';
@@ -296,11 +301,19 @@ abstract class  LocaleKeys {
   static const shop_category = 'shop.category';
   static const shop_detail = 'shop.detail';
   static const shop_rate = 'shop.rate';
+  static const shop_edit = 'shop.edit';
   static const shop_follow = 'shop.follow';
   static const shop_following = 'shop.following';
   static const shop_follower = 'shop.follower';
   static const shop_product_list = 'shop.product_list';
   static const shop_name = 'shop.name';
+  static const shop_name_title = 'shop.name_title';
+  static const shop_name_official = 'shop.name_official';
+  static const shop_slug = 'shop.slug';
+  static const shop_detail_title = 'shop.detail_title';
+  static const shop_external_link = 'shop.external_link';
+  static const shop_edit_link = 'shop.edit_link';
+  static const shop_status = 'shop.status';
   static const shop_active_hour = 'shop.active.hour';
   static const shop_active_minute = 'shop.active.minute';
   static const shop_active = 'shop.active';
