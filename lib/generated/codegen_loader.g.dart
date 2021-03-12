@@ -64,7 +64,8 @@ class CodegenLoader extends AssetLoader{
     "title_wallet": "Wallet",
     "title_my_product": "My Products",
     "title_shipping": "Shipping",
-    "title_payment": "Payment Method"
+    "title_payment": "Payment Method",
+    "title_pay": "Payment Method"
   },
   "shipping": {
     "edit": "Edit Shipping",
@@ -252,7 +253,11 @@ class CodegenLoader extends AssetLoader{
     "outstock": "Out of stock",
     "note": "note",
     "add_cart": "Add to Cart",
-    "promotion": "Promotion Price"
+    "promotion": "Promotion Price",
+    "order": "Order Total",
+    "message": "Leave a message",
+    "ship": "Choose a shipping method",
+    "ship_at": "Receive at"
   },
   "history": {
     "order_time": "Payment Time",
@@ -386,6 +391,7 @@ class CodegenLoader extends AssetLoader{
   },
   "order_detail": {
     "title": "Order Detail",
+    "txt": "Order Detail",
     "wait_rate": "Waiting For Rating",
     "wait_pay": "Waiting For Payment",
     "complete_rate": "Rating Success",
@@ -522,7 +528,8 @@ static const Map<String,dynamic> th_TH = {
     "title_wallet": "กระเป๋าเงิน",
     "title_my_product": "สินค้าของฉัน",
     "title_shipping": "การจัดส่ง",
-    "title_payment": "วิธีการชำระเงิน"
+    "title_payment": "วิธีการชำระเงิน",
+    "title_pay": "วิธีการชำระ"
   },
   "shipping": {
     "edit": "แก้ไขการขนส่งสินค้า",
@@ -637,7 +644,7 @@ static const Map<String,dynamic> th_TH = {
     "save_edit": "บันทึกการแก้ไข",
     "review": "รีวิว",
     "buy_product_again": "ซื้อสินค้าอีกครั้ง",
-    "main": "กลับสู่หน้าหลัก",
+    "main": "กลับสู่หน้าแรก",
     "copy": "คัดลอก",
     "close": "ปิด",
     "connect": "เชื่อมต่ออีกครั้ง",
@@ -710,7 +717,11 @@ static const Map<String,dynamic> th_TH = {
     "outstock": "สินค้าหมด",
     "note": "หมายเหตุ",
     "add_cart": "เพิ่มไปยังรถเข็น",
-    "promotion": "ราคาโปรโมชั่น"
+    "promotion": "ราคาโปรโมชั่น",
+    "order": "คำสั่งซื้อทั้งหมด",
+    "message": "ฝากข้อความ",
+    "ship": "เลือกวิธีการจัดส่ง",
+    "ship_at": "จะได้รับภายใน"
   },
   "history": {
     "order_time": "วันที่ซื้อ",
@@ -843,6 +854,7 @@ static const Map<String,dynamic> th_TH = {
   },
   "order_detail": {
     "title": "รายการสั่งซื้อสินค้า",
+    "txt": "รายละเอียดคำสั่งซื้อ",
     "wait_rate": "รอให้คะแนน",
     "wait_pay": "รอชำระเงิน",
     "complete_rate": "ให้คะแนนแล้ว",

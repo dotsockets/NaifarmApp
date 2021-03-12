@@ -193,7 +193,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                 AppRoute.OrderDetail(context, orderData: widget.orderData);
               },
               child: Text(
-                LocaleKeys.order_detail_title.tr(),
+                LocaleKeys.order_detail_txt.tr(),
                 style: FunctionHelper.FontTheme(
                     color: Colors.white,
                     fontSize: SizeUtil.titleFontSize().sp,

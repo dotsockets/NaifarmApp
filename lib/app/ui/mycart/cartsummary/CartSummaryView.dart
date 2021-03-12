@@ -546,7 +546,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                            "คำสั่งซื้อทั้งหมด ${item.itemCount} " +
+                            "${LocaleKeys.cart_order.tr()} ${item.itemCount} " +
                                 LocaleKeys.cart_piece.tr(),
                             style: FunctionHelper.FontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
@@ -594,7 +594,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         child: ListMenuItem(
                           icon: 'assets/images/svg/payment.svg',
                           title: LocaleKeys.select.tr() +
-                              LocaleKeys.me_title_payment.tr(),
+                              LocaleKeys.me_title_pay.tr(),
                           Message: data.name,
                           iconSize: 7.0.w,
                           fontWeight: FontWeight.w500,
@@ -612,7 +612,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         child: ListMenuItem(
                           icon: 'assets/images/svg/payment.svg',
                           title: LocaleKeys.select.tr() +
-                              LocaleKeys.me_title_payment.tr(),
+                              LocaleKeys.me_title_pay.tr(),
                           Message: "Please select",
                           iconSize: 7.0.w,
                           fontWeight: FontWeight.w500,
@@ -922,7 +922,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                                "คำสั่งซื้อทั้งหมด ${item.quantity} " +
+                                "${LocaleKeys.cart_order.tr()} ${item.quantity} " +
                                     LocaleKeys.cart_item.tr(),
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
@@ -938,7 +938,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                       ),
                     ),
                     BuildEditText(
-                      hint: "note...",
+                      hint: "${LocaleKeys.cart_note.tr()}...",
                       initialValue: item.note,
                       maxLine: 3,
                       inputType: TextInputType.text,
@@ -978,7 +978,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                             Navigator.pop(context);
                           },
                           child: Text(
-                            "Leave a message",
+                            LocaleKeys.cart_message.tr(),
                             style: FunctionHelper.FontTheme(
                                 color: Colors.white,
                                 fontSize: SizeUtil.titleFontSize().sp,

@@ -48,6 +48,7 @@ abstract class  LocaleKeys {
   static const me_title_my_product = 'me.title_my_product';
   static const me_title_shipping = 'me.title_shipping';
   static const me_title_payment = 'me.title_payment';
+  static const me_title_pay = 'me.title_pay';
   static const me = 'me';
   static const shipping_edit = 'shipping.edit';
   static const shipping_cancel = 'shipping.cancel';
@@ -221,6 +222,10 @@ abstract class  LocaleKeys {
   static const cart_note = 'cart.note';
   static const cart_add_cart = 'cart.add_cart';
   static const cart_promotion = 'cart.promotion';
+  static const cart_order = 'cart.order';
+  static const cart_message = 'cart.message';
+  static const cart_ship = 'cart.ship';
+  static const cart_ship_at = 'cart.ship_at';
   static const cart = 'cart';
   static const history_order_time = 'history.order_time';
   static const history_order_price = 'history.order_price';
@@ -343,6 +348,7 @@ abstract class  LocaleKeys {
   static const noti_seller = 'noti.seller';
   static const noti = 'noti';
   static const order_detail_title = 'order_detail.title';
+  static const order_detail_txt = 'order_detail.txt';
   static const order_detail_wait_rate = 'order_detail.wait_rate';
   static const order_detail_wait_pay = 'order_detail.wait_pay';
   static const order_detail_complete_rate = 'order_detail.complete_rate';

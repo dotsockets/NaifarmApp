@@ -62,7 +62,7 @@ class _CartBankViewState extends State<CartBankView> {
               preferredSize: Size.fromHeight(6.5.h),
               child: AppToobar(
                   title:
-                      LocaleKeys.select.tr() + LocaleKeys.me_title_payment.tr(),
+                      LocaleKeys.select.tr() + LocaleKeys.me_title_pay.tr(),
                   header_type: Header_Type.barNormal,
                   isEnable_Search: false,
                   onClick: () => Navigator.pop(context, null)),
