@@ -54,7 +54,7 @@ class _MyshopViewState extends State<MyshopView> {
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         FunctionHelper.AlertDialogShop(context,
-            message: event, title: "Error Create");
+            message: event.message, title: "Error Create");
         // FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
@@ -83,12 +83,20 @@ class _MyshopViewState extends State<MyshopView> {
           } else {
             return _BuildRegisterMyshop(context);
           }
+        }else if(item is InfoCustomerError) {
+          if (item.profileObjectCombine.myShopRespone != null) {
+            return _BuildMyShop(context,
+                item: item.profileObjectCombine.myShopRespone,
+                shpping: item.profileObjectCombine.shppingMyShopRespone);
+          } else {
+            return _BuildRegisterMyshop(context);
+          }
         } else if (item is InfoCustomerLoading) {
           return _BuildMyShop(context,
               item: MyShopRespone(
                   image: item.profileObjectCombine.myShopRespone != null
                       ? item.profileObjectCombine.myShopRespone.image
-                      : List<ProductImage>(),
+                      : [],
                   name: "กำลังโหลด",
                   active: 0),
               shpping: item.profileObjectCombine.shppingMyShopRespone);

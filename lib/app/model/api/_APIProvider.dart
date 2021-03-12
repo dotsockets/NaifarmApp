@@ -1380,6 +1380,7 @@ class _APIProvider implements APIProvider {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     try {
+
       final _result = await _dio.request<dynamic>('/v1/customers/count',
           queryParameters: queryParameters,
           options: RequestOptions(

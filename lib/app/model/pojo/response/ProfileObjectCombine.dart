@@ -2,13 +2,15 @@
 import 'CustomerInfoRespone.dart';
 import 'MyShopRespone.dart';
 import 'ShppingMyShopRespone.dart';
+import 'ThrowIfNoSuccess.dart';
 
 class ProfileObjectCombine{
    CustomerInfoRespone customerInfoRespone;
    MyShopRespone myShopRespone;
     ShppingMyShopRespone shppingMyShopRespone;
+   ThrowIfNoSuccess http_call_back;
 
-  ProfileObjectCombine({this.customerInfoRespone, this.myShopRespone,this.shppingMyShopRespone});
+  ProfileObjectCombine({this.customerInfoRespone, this.myShopRespone,this.shppingMyShopRespone,this.http_call_back});
 
 
   ProfileObjectCombine.fromJson(Map<String, dynamic> json) {

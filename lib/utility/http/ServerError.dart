@@ -6,7 +6,7 @@ import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 class ServerError{
 
   static  ApiResult  DioErrorExpction(DioError error) {
-    String message = "";
+    String message = "Please check your internet. And do the list again";
 
     switch (error.type) {
       case DioErrorType.CANCEL:
@@ -16,7 +16,7 @@ class ServerError{
         message = "Connection timeout";
         break;
       case DioErrorType.DEFAULT:
-        message = "Connection failed due to internet connection";
+        message = "Could not connect to server, please try again.";
         break;
       case DioErrorType.RECEIVE_TIMEOUT:
         message = "Receive timeout in connection";
@@ -33,10 +33,12 @@ class ServerError{
         break;
     }
     if(error.response!=null){
-      return ApiResult(http_call_back: ThrowIfNoSuccess(code: error.response.statusCode,message: message));
+
+      return ApiResult(http_call_back: ThrowIfNoSuccess(status: error.response.statusCode,message: message));
 
     }else{
-      return ApiResult(http_call_back: ThrowIfNoSuccess(code: 000,message: message));
+
+      return ApiResult(http_call_back: ThrowIfNoSuccess(status: 000,message: message));
     }
 
 

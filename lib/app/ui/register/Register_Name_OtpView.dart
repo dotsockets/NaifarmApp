@@ -53,7 +53,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         AppRoute.Home(context);

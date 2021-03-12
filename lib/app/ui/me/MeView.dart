@@ -20,6 +20,7 @@ import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -43,7 +44,7 @@ class _MeViewState extends State<MeView> with RouteAware {
   MemberBloc bloc;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  bool onDialog = true;
   StreamController<bool> controller = new StreamController<bool>();
   ScrollController _scrollController = ScrollController();
   final ExpandedBar = BehaviorSubject<bool>();
@@ -128,6 +129,12 @@ class _MeViewState extends State<MeView> with RouteAware {
                 key: _scaffoldKey,
                 backgroundColor: Colors.grey.shade300,
                 body: _ContentMe());
+          }else if(count is InfoCustomerError) {
+
+            return Scaffold(
+                key: _scaffoldKey,
+                backgroundColor: Colors.grey.shade300,
+                body: _ContentMe());
           } else {
             return Center(
               child:  Platform.isAndroid
@@ -198,7 +205,11 @@ class _MeViewState extends State<MeView> with RouteAware {
                     return ImageHeader(
                         info: item.profileObjectCombine.customerInfoRespone);
                   } else if (item is InfoCustomerLoading) {
-                    return ImageHeader();
+                    return ImageHeader(
+                        info: item.profileObjectCombine!=null?item.profileObjectCombine.customerInfoRespone:[]);
+                  }else if(item is InfoCustomerError) {
+                    return ImageHeader(
+                        info: item.profileObjectCombine.customerInfoRespone);
                   } else {
                     return SizedBox();
                   }
@@ -229,6 +240,22 @@ class _MeViewState extends State<MeView> with RouteAware {
                   }
                 } else if (item is InfoCustomerLoading) {
                   return BodyContent(wigitHight: 80.0.h);
+                }else if(item is InfoCustomerError) {
+                  if (item.profileObjectCombine.shppingMyShopRespone.data
+                      .isNotEmpty) {
+                    return BodyContent(
+                        wigitHight: item
+                            .profileObjectCombine
+                            .shppingMyShopRespone
+                            .data[0]
+                            .rates
+                            .length ==
+                            0
+                            ? 100.0.h
+                            : 90.0.h);
+                  } else {
+                    return BodyContent(wigitHight: 80.0.h);
+                  }
                 } else {
                   return SizedBox();
                 }

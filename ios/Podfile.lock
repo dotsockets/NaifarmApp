@@ -51,6 +51,8 @@ PODS:
     - FBSDKCoreKit (~> 5.5)
     - FBSDKLoginKit (~> 5.5)
     - Flutter
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -137,6 +139,7 @@ DEPENDENCIES:
   - Firebase/Analytics
   - Flutter (from `Flutter`)
   - flutter_facebook_login (from `.symlinks/plugins/flutter_facebook_login/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - get_version (from `.symlinks/plugins/get_version/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
@@ -183,6 +186,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_facebook_login:
     :path: ".symlinks/plugins/flutter_facebook_login/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   get_version:
     :path: ".symlinks/plugins/get_version/ios"
   google_maps_flutter:
@@ -230,6 +235,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 3de38553e86171b5f81d83cdeef63473d37bfdb0
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_facebook_login: cfb5659f686b1c575ef205c6b6fd20db9679d3c4
+  flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   get_version: 2bc18c4e26a265571662cab5d38f8b50dc8c1c77
   google_maps_flutter: c7f9c73576de1fbe152a227bfd6e6c4ae8088619

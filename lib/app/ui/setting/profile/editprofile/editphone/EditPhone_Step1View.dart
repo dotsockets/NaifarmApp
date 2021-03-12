@@ -58,7 +58,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         FunctionHelper.AlertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message: event);
+            title: LocaleKeys.btn_error.tr(), message: event.message);
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {

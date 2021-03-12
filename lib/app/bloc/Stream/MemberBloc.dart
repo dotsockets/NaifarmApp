@@ -33,7 +33,7 @@ class MemberBloc{
 
   final onLoad = BehaviorSubject<bool>();
 
-  final onError = BehaviorSubject<String>();
+  final onError = BehaviorSubject<ThrowIfNoSuccess>();
 
   final customerInfoRespone = BehaviorSubject<ProfileObjectCombine>();
 
@@ -64,7 +64,7 @@ class MemberBloc{
         onSuccess.add(item);
       }else{
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -89,7 +89,7 @@ class MemberBloc{
         });
       }else{
         Usermanager().logout();
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -105,7 +105,7 @@ class MemberBloc{
       onSuccess.add(fb_profile);
       }else{
 
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -128,7 +128,7 @@ class MemberBloc{
       }else{
         Usermanager().logout();
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -149,11 +149,11 @@ class MemberBloc{
         break;
       case FacebookLoginStatus.cancelledByUser:
       //  onLoad.add(false);
-        onError.add("Login cancelled by the user.");
+        onError.add(ThrowIfNoSuccess(message: "Login cancelled by the user."));
         break;
       case FacebookLoginStatus.error:
       //  onLoad.add(false);
-        onError.add("Something went wrong with the login process.");
+        onError.add(ThrowIfNoSuccess(message: "Something went wrong with the login process."));
         break;
     }
   }
@@ -166,7 +166,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
         onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -181,7 +181,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
         onSuccess.add(true);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);
@@ -201,7 +201,7 @@ class MemberBloc{
         });
       }else{
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
     });
     _compositeSubscription.add(subscription);
@@ -215,7 +215,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
         onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -230,7 +230,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
         onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -265,7 +265,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
         onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -281,7 +281,7 @@ class MemberBloc{
         context.read<InfoCustomerBloc>().loadCustomInfo(context,token:token);
         onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -296,7 +296,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
           onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -311,7 +311,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
           onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -327,7 +327,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
         onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -342,7 +342,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
         onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -359,7 +359,7 @@ class MemberBloc{
      //  context.read<InfoCustomerBloc>().loadCustomInfo(token:access_token);
         onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -374,7 +374,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200 || respone.http_call_back.status==201){
         onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -389,7 +389,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
         onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -404,7 +404,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
         onSuccess.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });
@@ -419,7 +419,7 @@ class MemberBloc{
       if(respone.http_call_back.status==200){
         checkPhone.add(respone.respone);
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.http_call_back);
       }
 
     });

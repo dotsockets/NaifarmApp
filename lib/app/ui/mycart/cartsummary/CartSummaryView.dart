@@ -51,6 +51,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       bloc.order_total_cost.add(0);
       bloc.order_total_cost.add(0);
 
+
+
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);
@@ -403,63 +405,60 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                     padding: EdgeInsets.all(2.0.w),
                     width: MediaQuery.of(context).size.width,
                     color: ThemeColor.Warning(),
-                    child: Text(
-                      'ร้านนี้ไม่ได้ตั้งค่าการขนส่ง',
+                    child: Text('ร้านนี้ไม่ได้ตั้งค่าการขนส่ง',
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleSmallFontSize().sp,
                           color: Color(ColorUtils.hexToInt("#84643b"))),
                     ),
                   );
-                else
+                else{
+
                   bloc.sumTotalPayment(context,
                       snapshot: snapshot.data, index: index); //
-                return InkWell(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("${snapshot.data.carrier.name}",
-                          // "${snapshot.data.carrier.name} [${snapshot.data.name}]",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              color: Colors.black)),
-                      Row(
-                        children: [
-                          SizedBox(width: 1.0.w),
-                          Text(
-                              "฿${snapshot.data.rate != null ? snapshot.data.rate : 0}",
-                              // "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data.rate != null ? snapshot.data.rate : 0)}",
-                              style: FunctionHelper.FontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  color: Colors.black)),
-                          SizedBox(width: 1.0.w),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.grey.withOpacity(0.7),
-                            size: 4.0.w,
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  onTap: () async {
-                    bloc.check_note_update = true;
-                    final result = await AppRoute.DeliverySelect(
-                        context: context,
-                        shopId: item.shopId,
-                        select_id: snapshot.data.id);
-                    if (result != null) {
 
-                      bloc.CartList.value.data[index].shippingRateId =
-                          (result as ShippingRates).id;
-                      bloc.CartList.value.data[index].shippingRates = result;
-                      bloc.CartList.value.data[index].carrierId =
-                          (result as ShippingRates).carrierId;
-                      bloc.CartList.value.data[index].shippingZoneId =
-                          (result as ShippingRates).shippingZoneId;
-                      bloc.CartList.add(bloc.CartList.value);
-                    }
-                  },
-                );
+                  return InkWell(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("${snapshot.data.carrier.name}",
+                            // "${snapshot.data.carrier.name} [${snapshot.data.name}]",
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                color: Colors.black)),
+                        Row(
+                          children: [
+                            SizedBox(width: 1.0.w),
+                            Text(
+                                "฿${snapshot.data.rate != null ? snapshot.data.rate : 0}",
+                                // "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data.rate != null ? snapshot.data.rate : 0)}",
+                                style: FunctionHelper.FontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    color: Colors.black)),
+                            SizedBox(width: 1.0.w),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.grey.withOpacity(0.7),
+                              size: 4.0.w,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    onTap: () async {
+                      bloc.check_note_update = true;
+                      final result = await AppRoute.DeliverySelect(
+                          context: context,
+                          shopId: item.shopId,
+                          select_id: snapshot.data.id);
+                      if (result != null) {
+                        bloc.sumTotalPayment(context,
+                            snapshot: (result as ShippingRates), index: index); //
+                        bloc.CartList.add(bloc.CartList.value);
+                      }
+                    },
+                  );
+                }
+
             }
           },
         ),
@@ -533,30 +532,40 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         SizedBox(
           height: 1.0.h,
         ),
-        Container(
-          color: Colors.white,
-          child: Padding(
-            padding:
-                const EdgeInsets.only(left: 0, right: 0, bottom: 10, top: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                    "${LocaleKeys.cart_order.tr()} ${item.itemCount} " +
-                        LocaleKeys.cart_piece.tr(),
-                    style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
-                        color: Colors.black)),
-                Text("฿${item.total+item.shippingRates.rate}",
-                    //   Text("฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
-                    style: FunctionHelper.FontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
-                        fontWeight: FontWeight.w500,
-                        color: ThemeColor.ColorSale())),
-              ],
-            ),
-          ),
-        )
+        StreamBuilder(
+            stream: bloc.shipping_cost.stream,
+            initialData: 0,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding:
+                    const EdgeInsets.only(left: 0, right: 0, bottom: 10, top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                            "${LocaleKeys.cart_order.tr()} ${item.itemCount} " +
+                                LocaleKeys.cart_piece.tr(),
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                color: Colors.black)),
+                        Text("฿${item.total+(item.shippingRates!=null?item.shippingRates.rate:0)}",
+                            //   Text("฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
+                            style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.w500,
+                                color: ThemeColor.ColorSale())),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return SizedBox();
+              }
+            })
+
       ],
     );
   }
@@ -918,7 +927,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     color: Colors.black)),
-                            Text("฿${item.total}",
+                            Text("฿${bloc.CartList.value.data[index].total+(item.shippingRates!=null?item.shippingRates.rate:0)}",
                                 //  "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
                                 style: FunctionHelper.FontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
@@ -985,4 +994,6 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       },
     );
   }
+
+
 }

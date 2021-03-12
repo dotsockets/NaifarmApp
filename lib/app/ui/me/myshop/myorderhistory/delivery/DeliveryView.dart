@@ -302,23 +302,19 @@ class _DeliveryViewState extends State<DeliveryView> {
                           color: Colors.black)),
                   Row(
                     children: [
-                      item.inventory != null &&
-                              item.inventory.product.discountPercent != 0
-                          ? Text(
-                              "฿${NumberFormat("#,##0", "en_US").format(item.inventory!=null?item.inventory.product.discountPercent:0)}",
-                              //"฿${item.inventory!=null?item.inventory.product.discountPercent:0}",
-                              style: FunctionHelper.FontTheme(
-                                  color: Colors.black.withOpacity(0.5),
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  decoration: TextDecoration.lineThrough))
-                          : SizedBox(),
-                      SizedBox(width: 3.0.w),
-                      Text(
-                          "฿${NumberFormat("#,##0", "en_US").format(item.inventory!=null?item.inventory.salePrice:999)}",
-                         // "฿${item.inventory!=null?item.inventory.salePrice:999}",
+                      item.inventory.offerPrice!=null?Text("฿${item.inventory.salePrice}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale()))
+                              decoration: TextDecoration.lineThrough,color: Colors.black.withOpacity(0.5))):SizedBox(),
+                      SizedBox(width: 8),
+                      Text("฿${NumberFormat("#,##0", "en_US").format(item.inventory.offerPrice!=null?item.inventory.offerPrice:item.inventory.salePrice*item.quantity)}",style: FunctionHelper.FontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          color: ThemeColor.ColorSale())),
+                      // Text(
+                      //     "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
+                      //     style: FunctionHelper.FontTheme(
+                      //         fontSize: SizeUtil.titleFontSize().sp,
+                      //         color: Colors.black))
                     ],
                   )
                 ],
@@ -365,13 +361,9 @@ class _DeliveryViewState extends State<DeliveryView> {
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.normal,
                               color: Colors.black)),
-                      new TextSpan(
-                          text:
-                               "฿${NumberFormat("#,##0", "en_US").format(item.grandTotal)}",
-                            //  "฿${item.grandTotal}",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale())),
+    new TextSpan(
+    text:
+    "฿${NumberFormat("#,##0", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
                     ],
                   ),
                 ),
@@ -589,13 +581,7 @@ class _DeliveryViewState extends State<DeliveryView> {
     );
   }
 
-  int SumTotal(List<OrderItems> items) {
-    var sum = 0;
-    for (var item in items) {
-      sum += item.inventory.salePrice;
-    }
-    return sum;
-  }
+
 
   _reloadData() {
     Usermanager().getUser().then((value) => bloc.loadOrder(context,

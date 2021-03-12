@@ -554,7 +554,7 @@ class _OrderViewState extends State<OrderView> {
               SizedBox(
                 width: 10,
               ),
-              Text("฿${NumberFormat("#,##0", "en_US").format(sumTotal+(rate_delivery!=null?rate_delivery:0))}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale()))
+              Text("฿${NumberFormat("#,##0", "en_US").format(orderData.grandTotal)}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.ColorSale()))
               // Text("฿${sumTotal + (rate_delivery != null ? rate_delivery : 0)}",
               //     style: FunctionHelper.FontTheme(
               //         fontSize: SizeUtil.titleFontSize().sp,
@@ -614,17 +614,17 @@ class _OrderViewState extends State<OrderView> {
                           fontWeight: FontWeight.bold)),
                   Row(
                     children: [
-                      // Text("฿${orderItems.inventory.offerPrice}",
-                      //     style: FunctionHelper.FontTheme(
-                      //         fontSize: SizeUtil.titleFontSize().sp,
-                      //         decoration: TextDecoration.lineThrough,color: Colors.black.withOpacity(0.5))),
-                      // SizedBox(width: 8),
-                      //Text("฿${NumberFormat("#,##0.00", "en_US").format(orderItems.inventory.salePrice*orderItems.quantity)}",
-                      Text(
-                          "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
+                      orderItems.inventory.offerPrice!=null?Text("฿${orderItems.inventory.salePrice}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
-                              color: Colors.black))
+                              decoration: TextDecoration.lineThrough,color: Colors.black.withOpacity(0.5))):SizedBox(),
+                      SizedBox(width: 8),
+                      Text("฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.offerPrice!=null?orderItems.inventory.offerPrice:orderItems.inventory.salePrice*orderItems.quantity)}"),
+                      // Text(
+                      //     "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
+                      //     style: FunctionHelper.FontTheme(
+                      //         fontSize: SizeUtil.titleFontSize().sp,
+                      //         color: Colors.black))
                     ],
                   )
                 ],
@@ -1145,7 +1145,7 @@ class _OrderViewState extends State<OrderView> {
   int SumTotal(List<OrderItems> items) {
     var sum = 0;
     for (var item in items) {
-      sum += item.inventory.salePrice;
+      sum += (item.inventory.offerPrice!=null?item.inventory.offerPrice:item.inventory.salePrice)*item.quantity;
     }
     return sum;
   }

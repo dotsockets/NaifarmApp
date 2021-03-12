@@ -37,7 +37,6 @@ class OneSignalCall{
     await OneSignal.shared.promptUserForPushNotificationPermission(fallbackToSettings: true);
 
 
-
     OneSignal.shared.setPermissionObserver((OSPermissionStateChanges changes) {
       // will be called whenever the permission changes
       // (ie. user taps Allow on the permission prompt in iOS)

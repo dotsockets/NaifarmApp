@@ -59,7 +59,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         if (event) {
