@@ -186,6 +186,9 @@ abstract class  LocaleKeys {
   static const message_phone_edit = 'message.phone_edit';
   static const message_mail_edit = 'message.mail_edit';
   static const message_forgot_mail = 'message.forgot_mail';
+  static const message_open_shop = 'message.open_shop';
+  static const message_complete_shop = 'message.complete_shop';
+  static const message_protect = 'message.protect';
   static const message_error_password_incorrect = 'message.error.password_incorrect';
   static const message_error_password_length = 'message.error.password_length';
   static const message_error_password_not_match = 'message.error.password_not_match';
@@ -359,6 +362,20 @@ abstract class  LocaleKeys {
   static const noti_order2 = 'noti.order2';
   static const noti_buyer = 'noti.buyer';
   static const noti_seller = 'noti.seller';
+  static const noti_shop_update = 'noti.shop_update';
+  static const noti_shop_status = 'noti.shop_status';
+  static const noti_shop_new_order = 'noti.shop_new_order';
+  static const noti_shop_orderid = 'noti.shop_orderid';
+  static const noti_shop_open = 'noti.shop_open';
+  static const noti_shop_open_detail = 'noti.shop_open_detail';
+  static const noti_shop_outstock = 'noti.shop_outstock';
+  static const noti_cus_cancel_status = 'noti.cus_cancel_status';
+  static const noti_cus_order = 'noti.cus_order';
+  static const noti_cus_pay_at = 'noti.cus_pay_at';
+  static const noti_cus_complete = 'noti.cus_complete';
+  static const noti_cus_orderid = 'noti.cus_orderid';
+  static const noti_cus_cancel = 'noti.cus_cancel';
+  static const noti_cus_cancel_reason = 'noti.cus_cancel_reason';
   static const noti = 'noti';
   static const order_detail_title = 'order_detail.title';
   static const order_detail_txt = 'order_detail.txt';
@@ -441,5 +458,13 @@ abstract class  LocaleKeys {
   static const search_product_hide = 'search_product.hide';
   static const search_product_not_found = 'search_product.not_found';
   static const search_product = 'search_product';
+  static const server_error_cancel = 'server_error.cancel';
+  static const server_error_timeout_connect = 'server_error.timeout_connect';
+  static const server_error_timeout_receive = 'server_error.timeout_receive';
+  static const server_error_timeout_send = 'server_error.timeout_send';
+  static const server_error_default = 'server_error.default';
+  static const server_error_status = 'server_error.status';
+  static const server_error_again = 'server_error.again';
+  static const server_error = 'server_error';
 
 }

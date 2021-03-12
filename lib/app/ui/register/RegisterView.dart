@@ -52,7 +52,7 @@ class _RegisterViewState extends State<RegisterView> {
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         //if (event.error.status == 406) {
-        FunctionHelper.AlertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
+        FunctionHelper.AlertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
         //}
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });

@@ -54,7 +54,7 @@ class _MyshopViewState extends State<MyshopView> {
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         FunctionHelper.AlertDialogShop(context,
-            message: event.message, title: "Error Create");
+            message: event.message, title: LocaleKeys.btn_error.tr());
         // FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
@@ -97,7 +97,7 @@ class _MyshopViewState extends State<MyshopView> {
                   image: item.profileObjectCombine.myShopRespone != null
                       ? item.profileObjectCombine.myShopRespone.image
                       : [],
-                  name: "กำลังโหลด",
+                  name: LocaleKeys.dialog_message_loading.tr(),
                   active: 0),
               shpping: item.profileObjectCombine.shppingMyShopRespone);
         } else {
@@ -117,9 +117,10 @@ class _MyshopViewState extends State<MyshopView> {
             children: [
               Container(
                 padding: EdgeInsets.all(3.0.w),
+                width: MediaQuery.of(context).size.width,
                 color: Colors.grey.shade300,
                 child: Text(
-                  "You can open a shop By filling in the information below to open your own shop ",
+                  LocaleKeys.message_open_shop.tr(),
                   style: FunctionHelper.FontTheme(
                       fontSize: SizeUtil.titleFontSize().sp,
                       color: Colors.black),
@@ -194,7 +195,7 @@ class _MyshopViewState extends State<MyshopView> {
                   ),
                   Expanded(
                       child: Text(
-                          "Alway protect yourself by completing your transactions within Naifarm.",
+                          LocaleKeys.message_protect.tr(),
                           style: FunctionHelper.FontTheme(
                               color: ThemeColor.ColorSale(),
                               fontSize: SizeUtil.titleSmallFontSize().sp))),
@@ -273,7 +274,7 @@ class _MyshopViewState extends State<MyshopView> {
                 FunctionHelper.NaiFarmDialog(
                     context: context,
                     message:
-                        "Please complete the shop information. Before handling products ",
+                       LocaleKeys.message_complete_shop.tr(),
                     onClick: () {
                       Navigator.of(context).pop();
                     });
@@ -397,7 +398,7 @@ class _MyshopViewState extends State<MyshopView> {
             FunctionHelper.NaiFarmDialog(
                 context: context,
                 message:
-                    "Please complete the shop information. Before handling products ",
+                    LocaleKeys.message_complete_shop.tr(),
                 onClick: () {
                   Navigator.of(context).pop();
                 });
