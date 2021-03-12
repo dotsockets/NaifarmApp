@@ -11,16 +11,16 @@ class SearchRespone {
 
   SearchRespone(
       {this.hits,
-        this.offset,
-        this.limit,
-        this.nbHits,
-        this.processingTimeMs,
-        this.exhaustiveNbHits,
-        this.query});
+      this.offset,
+      this.limit,
+      this.nbHits,
+      this.processingTimeMs,
+      this.exhaustiveNbHits,
+      this.query});
 
   SearchRespone.fromJson(Map<String, dynamic> json) {
     if (json['hits'] != null) {
-      hits = new List<Hits>();
+      hits = [];
       json['hits'].forEach((v) {
         hits.add(new Hits.fromJson(v));
       });
@@ -71,23 +71,24 @@ class Hits {
 
   Hits(
       {this.productId,
-        this.shopId,
-        this.manufacturerId,
-        this.brand,
-        this.name,
-        this.saleCount,
-        this.inventories,
-        this.shop,
-        this.categories,
-        this.image,
-        this.minPrice,
-        this.maxPrice,
-        this.salePrice,
-        this.offerPrice,
-        this.discountPercent,
-        this.rating,
-        this.reviewCount,
-        this.hasVariant,this.active});
+      this.shopId,
+      this.manufacturerId,
+      this.brand,
+      this.name,
+      this.saleCount,
+      this.inventories,
+      this.shop,
+      this.categories,
+      this.image,
+      this.minPrice,
+      this.maxPrice,
+      this.salePrice,
+      this.offerPrice,
+      this.discountPercent,
+      this.rating,
+      this.reviewCount,
+      this.hasVariant,
+      this.active});
 
   Hits.fromJson(Map<String, dynamic> json) {
     productId = json['productId'];
@@ -97,20 +98,20 @@ class Hits {
     name = json['name'];
     saleCount = json['saleCount'];
     if (json['inventories'] != null) {
-      inventories = new List<Inventories>();
+      inventories = [];
       json['inventories'].forEach((v) {
         inventories.add(new Inventories.fromJson(v));
       });
     }
     shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
     if (json['categories'] != null) {
-      categories = new List<Categories>();
+      categories = [];
       json['categories'].forEach((v) {
         categories.add(new Categories.fromJson(v));
       });
     }
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -121,7 +122,9 @@ class Hits {
     offerPrice = json['offerPrice'];
     discountPercent = json['discountPercent'];
     rating = json['rating'];
-    reviewCount = json['reviewCount'] is int?json['reviewCount'].toDouble():json['reviewCount'];
+    reviewCount = json['reviewCount'] is int
+        ? json['reviewCount'].toDouble()
+        : json['reviewCount'];
 
     hasVariant = json['hasVariant'];
     active = json['active'];
@@ -207,8 +210,6 @@ class Shop {
   }
 }
 
-
-
 class Categories {
   int id;
   String name;
@@ -230,4 +231,3 @@ class Categories {
     return data;
   }
 }
-

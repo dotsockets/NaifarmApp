@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -13,21 +12,16 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
-import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/ui/category/CategoryView.dart';
-import 'package:naifarm/app/ui/category/detail/CategoryDetailView.dart';
 import 'package:naifarm/app/ui/me/MeView.dart';
-import 'package:naifarm/app/ui/mycart/cart/MyCartView.dart';
 import 'package:naifarm/app/ui/noti/notilist/NotiView.dart';
 import 'package:naifarm/app/ui/recommend/RecommendView.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
@@ -40,9 +34,9 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin, RouteAware {
   List<MenuModel> _menuViewModel;
-  bool IsLogin = true;
+  bool isLogin = true;
   final _selectedIndex = BehaviorSubject<int>();
-  bool _isDialogShowing = false;
+  bool isDialogShowing = false;
   NotiBloc bloc;
 
   init() {
@@ -63,14 +57,13 @@ class _HomeViewState extends State<HomeView>
     _menuViewModel = MenuViewModel().getTabBarMenus();
 
     if (Platform.isAndroid || Platform.isIOS || Platform.isFuchsia) {
-      OneSignalCall.OneSignalReceivedHandler(context);
+      OneSignalCall.oneSignalReceivedHandler(context);
     }
-
   }
 
   @override
   void dispose() {
-   // _connectivitySubscription.cancel();
+    // _connectivitySubscription.cancel();
     super.dispose();
   }
 
@@ -83,7 +76,7 @@ class _HomeViewState extends State<HomeView>
 
   @override
   void didPopNext() {
-   // setState(() {});
+    // setState(() {});
   }
 
   @override
@@ -92,7 +85,7 @@ class _HomeViewState extends State<HomeView>
 
     return WillPopScope(
       onWillPop: () async {
-        FunctionHelper.ConfirmDialog(context,
+        FunctionHelper.confirmDialog(context,
             message: LocaleKeys.dialog_message_exit.tr(), onClick: () {
           if (Platform.isAndroid) {
             SystemNavigator.pop();
@@ -157,16 +150,17 @@ class _HomeViewState extends State<HomeView>
                         menuViewModel: _menuViewModel,
                         selectedIndex: snapshot.data,
                         onTap: (index) {
-
-                           Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
+                          Usermanager().getUser().then((value) => context
+                              .read<CustomerCountBloc>()
+                              .loadCustomerCount(context, token: value.token));
                           NaiFarmLocalStorage.saveNowPage(index);
                           if (index == 3) {
                             Usermanager().getUser().then((value) {
                               if (value.token != null) {
-                                AppRoute.MyCart(context, true);
+                                AppRoute.myCart(context, true);
                               } else {
-                                AppRoute.Login(context,
-                                    IsCallBack: true, IsHeader: true);
+                                AppRoute.login(context,
+                                    isCallBack: true, isHeader: true);
                               }
                             });
                           } else {
@@ -180,7 +174,4 @@ class _HomeViewState extends State<HomeView>
               ))),
     );
   }
-
-
-
 }

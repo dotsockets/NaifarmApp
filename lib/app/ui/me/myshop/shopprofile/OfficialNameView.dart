@@ -21,7 +21,7 @@ class _OfficialNameViewState extends State<OfficialNameView> {
   TextEditingController _input1 = new TextEditingController();
   String onError1 = "";
 
-  bool FormCheck() {
+  bool formCheck() {
     if (_input1.text.isEmpty) {
       return false;
     } else {
@@ -31,9 +31,8 @@ class _OfficialNameViewState extends State<OfficialNameView> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     _input1.text = widget.itemInfo.legalName;
+    super.initState();
   }
 
   @override
@@ -44,16 +43,16 @@ class _OfficialNameViewState extends State<OfficialNameView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
-            isEnable_Search: false,
+            isEnableSearch: false,
             title: "แก้ไขชื่อทางการ",
-            header_type: Header_Type.barNormal,
+            headerType: Header_Type.barNormal,
           ),
           body: Container(
             padding: SizeUtil.detailProfilePadding(),
             child: Container(
               child: Column(
                 children: [
-                  _Form(),
+                  form(),
                   SizedBox(
                     height: 3.0.h,
                   ),
@@ -76,12 +75,12 @@ class _OfficialNameViewState extends State<OfficialNameView> {
                         Colors.white.withOpacity(0.3),
                       ),
                     ),
-                    onPressed: () => FormCheck()
+                    onPressed: () => formCheck()
                         ? Navigator.pop(context, widget.itemInfo)
                         : SizedBox(),
                     child: Text(
                       LocaleKeys.btn_save.tr(),
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w500),
@@ -96,7 +95,7 @@ class _OfficialNameViewState extends State<OfficialNameView> {
     );
   }
 
-  Widget _Form() {
+  Widget form() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
@@ -106,7 +105,7 @@ class _OfficialNameViewState extends State<OfficialNameView> {
             head: "ชื่อเป็นทางการ",
             hint: "ระบุชื่อทางการ",
             inputType: TextInputType.text,
-            BorderOpacity: 0.2,
+            borderOpacity: 0.2,
             maxLength: 20,
             borderRadius: 5,
             onError: onError1,

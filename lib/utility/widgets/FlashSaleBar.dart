@@ -1,28 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
-
-//import 'package:countdown_flutter/countdown_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
-import 'package:naifarm/config/Env.dart';
-import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
-import 'package:slide_countdown_clock/slide_countdown_clock.dart';
-
-import 'ProductLandscape.dart';
 
 class FlashSaleBar extends StatefulWidget {
   final String flashTime;
@@ -34,7 +18,6 @@ class FlashSaleBar extends StatefulWidget {
 }
 
 class _FlashSaleBarState extends State<FlashSaleBar> {
-
   @override
   void initState() {
     super.initState();
@@ -42,14 +25,13 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       margin: EdgeInsets.only(top: 2.0.h),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Container(
           padding: EdgeInsets.all(2.5.w),
-          color: ThemeColor.ColorSale(),
+          color: ThemeColor.colorSale(),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -60,9 +42,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
               ),
               Text("Fla",
                   style: GoogleFonts.kanit(
-                      fontSize: SizeUtil
-                          .titleSmallFontSize()
-                          .sp,
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
                       color: Colors.white)),
               SizedBox(width: 1.0.h),
               SvgPicture.asset('assets/images/svg/flash.svg',
@@ -70,9 +50,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
               SizedBox(width: 1.0.h),
               Text("h Sale",
                   style: GoogleFonts.kanit(
-                      fontSize: SizeUtil
-                          .titleSmallFontSize()
-                          .sp,
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
                       color: Colors.white)),
               SizedBox(width: 1.0.h),
               _buildCountDown()
@@ -96,52 +74,60 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
   //       ,color: Colors.black, shape: BoxShape.rectangle),
   //   textStyle: TextStyle(
   //     fontSize: SizeUtil.titleFontSize().sp,
-    //     color: Colors.white,`
-    //     fontWeight: FontWeight.bold,
-    //   ),
-    //   padding: EdgeInsets.all(1.5.w),
-    //   tightLabel: true,
-    //   onDone: () {
-    //
-    //   },
-    // );
-    // }`
+  //     color: Colors.white,`
+  //     fontWeight: FontWeight.bold,
+  //   ),
+  //   padding: EdgeInsets.all(1.5.w),
+  //   tightLabel: true,
+  //   onDone: () {
+  //
+  //   },
+  // );
+  // }`
   //
 
-Widget _buildCountDown(){
+  Widget _buildCountDown() {
     return CountdownTimer(
       endTime: FunctionHelper.flashSaleTime(flashTime: widget.flashTime),
       widgetBuilder: (_, CurrentRemainingTime remaining) {
         final showTime = (String text) => ClipRRect(
-          borderRadius: BorderRadius.circular(9.0),
-          child: Container(
-            color: Colors.black,
-            padding: EdgeInsets.only(
-                left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(horizontal: 3),
-            child: Text(
-              text,
-              style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+              borderRadius: BorderRadius.circular(9.0),
+              child: Container(
+                color: Colors.black,
+                padding: EdgeInsets.only(
+                    left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
+                alignment: Alignment.center,
+                margin: EdgeInsets.symmetric(horizontal: 3),
+                child: Text(
+                  text,
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
-          ),
-        );
+            );
         if (remaining != null) {
           //List<String> time = remaining.split(':').toList();
           // time[0] = time[0]-24;
 
           return Row(
             children: [
-              showTime(remaining.hours.toString().length==1?"0"+remaining.hours.toString():remaining.hours.toString()),
-              showTime(remaining.min != null?remaining.min.toString().length==1?"0"+remaining.min.toString():remaining.min.toString():"00"),
-              showTime(remaining.sec.toString().length==1?"0"+remaining.sec.toString():remaining.sec.toString()),
+              showTime(remaining.hours.toString().length == 1
+                  ? "0" + remaining.hours.toString()
+                  : remaining.hours.toString()),
+              showTime(remaining.min != null
+                  ? remaining.min.toString().length == 1
+                      ? "0" + remaining.min.toString()
+                      : remaining.min.toString()
+                  : "00"),
+              showTime(remaining.sec.toString().length == 1
+                  ? "0" + remaining.sec.toString()
+                  : remaining.sec.toString()),
             ],
           );
-        }else{
+        } else {
           return Row(
             children: [
               showTime("0"),
@@ -150,14 +136,9 @@ Widget _buildCountDown(){
             ],
           );
         }
-
       },
     );
-
-}
-
-
-
+  }
 
 // CountdownFormatted _buildCountDown() => CountdownFormatted(
 //       duration: Duration(
@@ -176,7 +157,7 @@ Widget _buildCountDown(){
 //                 margin: EdgeInsets.symmetric(horizontal: 3),
 //                 child: Text(
 //                   text,
-//                   style: FunctionHelper.FontTheme(
+//                   style: FunctionHelper.fontTheme(
 //                     fontSize: SizeUtil.titleSmallFontSize().sp,
 //                     fontWeight: FontWeight.bold,
 //                     color: Colors.white,

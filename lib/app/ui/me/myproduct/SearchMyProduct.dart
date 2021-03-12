@@ -1,23 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_switch/flutter_switch.dart';
-import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
-import 'package:naifarm/app/model/core/AppProvider.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
-import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
-import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
-import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
-import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/ui/me/myproduct/filter/InActive.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -32,14 +20,15 @@ class SearchMyProduct extends StatefulWidget {
   final int shopID;
   final int tabNum;
 
-  const SearchMyProduct({Key key, this.shopID,this.tabNum=0}) : super(key: key);
+  const SearchMyProduct({Key key, this.shopID, this.tabNum = 0})
+      : super(key: key);
 
   @override
   _SearchMyProductState createState() => _SearchMyProductState();
 }
 
 class _SearchMyProductState extends State<SearchMyProduct> {
-  List<String> listClone = List<String>();
+  List<String> listClone = [];
   bool checkSeemore = false;
   TextEditingController txtController = TextEditingController();
   int limit = 10;
@@ -51,11 +40,10 @@ class _SearchMyProductState extends State<SearchMyProduct> {
   bool checkPop = false;
   final _searchText = BehaviorSubject<String>();
 
+  void _init() {
+    _searchText.add("");
 
- void _init() {
-   _searchText.add("");
-
-   /*  if (null == blocProduct) {
+    /*  if (null == blocProduct) {
       blocProduct = ProductBloc(AppProvider.getApplication(context));
       blocProduct.onLoad.stream.listen((event) {
         if (event) {
@@ -86,93 +74,104 @@ class _SearchMyProductState extends State<SearchMyProduct> {
           key: _scaffoldKey,
           appBar: AppToobar(
             icon: "",
-            isEnable_Search: false,
-            header_type: Header_Type.barHome,
-            onClick: (){
-              Navigator.pop(context,true);
+            isEnableSearch: false,
+            headerType: Header_Type.barHome,
+            onClick: () {
+              Navigator.pop(context, true);
             },
             hint: LocaleKeys.search_product_title.tr(),
             onSearch: (String text) {
-                _searchText.add(text);
+              _searchText.add(text);
             },
           ),
           body:
-          // StreamBuilder(
-           // stream: blocProduct.SearchProduct.stream,
-            //builder: (BuildContext context, AsyncSnapshot snapshot) {
-            //  var item = (snapshot.data as SearchRespone);
-            //  if (snapshot.hasData) {
-            //    if (item.hits.isNotEmpty) {
-             //     return
-               DefaultTabController(
-                    initialIndex: widget.tabNum,
-                    length: 4,
+              // StreamBuilder(
+              // stream: blocProduct.SearchProduct.stream,
+              //builder: (BuildContext context, AsyncSnapshot snapshot) {
+              //  var item = (snapshot.data as SearchRespone);
+              //  if (snapshot.hasData) {
+              //    if (item.hits.isNotEmpty) {
+              //     return
+              DefaultTabController(
+            initialIndex: widget.tabNum,
+            length: 4,
+            child: Container(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 7.0.h,
                     child: Container(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 7.0.h,
-                            child: Container(
-                              child: TabBar(
-                                indicatorColor:ThemeColor.ColorSale(),
-                                isScrollable: false,
-                                tabs: [
-                                  _tab(title: LocaleKeys.shop_available.tr(), message: false),
-                                  _tab(title: LocaleKeys.shop_sold_out.tr(), message: false),
-                                  _tab(title: LocaleKeys.shop_banned.tr(), message: false),
-                                  _tab(title: LocaleKeys.shop_inactive.tr(), message: false)
-                                ],
-                                onTap: (value) {
-                                  NaiFarmLocalStorage.saveNowPage(value);
-                                 // FocusScope.of(context).unfocus();
-                                /*  switch (value) {
+                      child: TabBar(
+                        indicatorColor: ThemeColor.colorSale(),
+                        isScrollable: false,
+                        tabs: [
+                          _tab(
+                              title: LocaleKeys.shop_available.tr(),
+                              message: false),
+                          _tab(
+                              title: LocaleKeys.shop_sold_out.tr(),
+                              message: false),
+                          _tab(
+                              title: LocaleKeys.shop_banned.tr(),
+                              message: false),
+                          _tab(
+                              title: LocaleKeys.shop_inactive.tr(),
+                              message: false)
+                        ],
+                        onTap: (value) {
+                          NaiFarmLocalStorage.saveNowPage(value);
+                          // FocusScope.of(context).unfocus();
+                          /*  switch (value) {
                                     case 0:filter = "available"; break;
                                     case 1:filter = "sold_out"; break;
                                     case 2:filter = "banned"; break;
                                     case 3:filter = "inactive"; break;
                                   }*/
-                                },
-                              ),
-                            ),
-                          ),
-
-                          StreamBuilder(
-                            stream: _searchText.stream,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Expanded(
-                                  child: TabBarView(
-                                    children: [
-                                      Available(scaffoldKey: _scaffoldKey,
-                                          shopId: widget.shopID,
-                                          searchTxt: snapshot.data),
-                                      SoldOut(scaffoldKey: _scaffoldKey,
-                                          shopId: widget.shopID,
-                                          searchTxt: snapshot.data),
-                                      Banned(scaffoldKey: _scaffoldKey,
-                                          shopId: widget.shopID,
-                                          searchTxt: snapshot.data),
-                                      InActive(scaffoldKey: _scaffoldKey,
-                                          shopId: widget.shopID,
-                                          searchTxt: snapshot.data),
-                                    ],
-                                  ),
-                                );
-                              } else {
-                                return SizedBox();
-                              }
-                            }),
-                        ],
+                        },
                       ),
                     ),
-                //  );
-                  /*SingleChildScrollView(
+                  ),
+                  StreamBuilder(
+                      stream: _searchText.stream,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Expanded(
+                            child: TabBarView(
+                              children: [
+                                Available(
+                                    scaffoldKey: _scaffoldKey,
+                                    shopId: widget.shopID,
+                                    searchTxt: snapshot.data),
+                                SoldOut(
+                                    scaffoldKey: _scaffoldKey,
+                                    shopId: widget.shopID,
+                                    searchTxt: snapshot.data),
+                                Banned(
+                                    scaffoldKey: _scaffoldKey,
+                                    shopId: widget.shopID,
+                                    searchTxt: snapshot.data),
+                                InActive(
+                                    scaffoldKey: _scaffoldKey,
+                                    shopId: widget.shopID,
+                                    searchTxt: snapshot.data),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      }),
+                ],
+              ),
+            ),
+            //  );
+            /*SingleChildScrollView(
                     child: Column(
                       children: item.hits.asMap().map((key, value) => MapEntry(key, _BuildProduct(index: key,item: CovertDataMyShop(hits: value)))).values.toList(),
                     ),
                   );*/
             //    } else {
-    /*     return Center(
+            /*     return Center(
                     child: Container(
                       margin: EdgeInsets.only(bottom: 15.0.h),
                       child: Column(
@@ -182,7 +181,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                               height: 70.0.w, width: 70.0.w, repeat: false),
                           Text(
                             LocaleKeys.cart_empty.tr(),
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
                           )
                         ],
@@ -192,7 +191,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                       Center(
                           child: Text(
                     LocaleKeys.search_product_not_found.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500,
                         color: Colors.grey),
@@ -205,7 +204,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                       if (snapshot.hasData) {
                         return Center(
                           child: Text(LocaleKeys.search_product_not_found.tr(),
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   color: Colors.grey,
                                   fontWeight: FontWeight.w500)),
@@ -319,10 +318,10 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                   left: 1.5.w,
                                   top: 1.0.w,
                                   bottom: 1.0.w),
-                              color: ThemeColor.ColorSale(),
+                              color: ThemeColor.colorSale(),
                               child: Text(
                                 "${item.discountPercent}%",
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     color: Colors.white,
                                     fontSize: SizeUtil.titleSmallFontSize().sp),
                               ),
@@ -343,7 +342,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             item.name,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -354,9 +353,9 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             item.offerPrice != null
                                 ? "฿${item.offerPrice}"
                                 : "฿${item.salePrice}",
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.priceFontSize().sp,
-                                color: ThemeColor.ColorSale(),
+                                color: ThemeColor.colorSale(),
                                 fontWeight: FontWeight.w500),
                           ),
                           SizedBox(
@@ -369,7 +368,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                   child: Text(
                                       LocaleKeys.my_product_amount.tr() +
                                           " ${item.stockQuantity != null ? item.stockQuantity : 0}",
-                                      style: FunctionHelper.FontTheme(
+                                      style: FunctionHelper.fontTheme(
                                           fontSize:
                                               SizeUtil.detailFontSize().sp)),
                                 ),
@@ -381,7 +380,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                     alignment: Alignment.topLeft,
                                     child: Text(
                                       "${LocaleKeys.my_product_sold.tr() + " " + item.hasVariant.toString() + " " + LocaleKeys.cart_item.tr()}",
-                                      style: FunctionHelper.FontTheme(
+                                      style: FunctionHelper.fontTheme(
                                           fontSize:
                                               SizeUtil.detailFontSize().sp),
                                     ),
@@ -401,7 +400,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                   Expanded(
                                     child: Text(
                                         LocaleKeys.my_product_like.tr() + " 10",
-                                        style: FunctionHelper.FontTheme(
+                                        style: FunctionHelper.fontTheme(
                                             fontSize:
                                                 SizeUtil.detailFontSize().sp)),
                                   ),
@@ -414,7 +413,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                           child: Text(
                                             LocaleKeys.my_product_visit.tr() +
                                                 " 10",
-                                            style: FunctionHelper.FontTheme(
+                                            style: FunctionHelper.fontTheme(
                                                 fontSize:
                                                     SizeUtil.detailFontSize()
                                                         .sp),
@@ -443,7 +442,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                           item.active == 1
                               ? LocaleKeys.my_product_sell.tr()
                               : LocaleKeys.my_product_break.tr(),
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.w600),
                         ),
@@ -481,7 +480,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                               'assets/images/svg/Edit.svg',
                               width: 6.0.w,
                               height: 6.0.w,
-                              color: ThemeColor.ColorSale(),
+                              color: ThemeColor.colorSale(),
                             ),
                           ),
                           onTap: () async {
@@ -523,7 +522,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             'assets/images/svg/trash.svg',
                             width: 6.0.w,
                             height: 6.0.w,
-                            color: ThemeColor.ColorSale(),
+                            color: ThemeColor.colorSale(),
                           ),
                           onTap: () {
                             FunctionHelper.ConfirmDialog(context,
@@ -558,7 +557,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(title,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontWeight: FontWeight.w500,
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   color: Colors.black)),
@@ -569,7 +568,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                     alignment: Alignment.center,
                     width: 10,
                     height: 20,
-                    color: ThemeColor.ColorSale(),
+                    color: ThemeColor.colorSale(),
                   ),
                 )
               : SizedBox()

@@ -9,15 +9,12 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
-import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:sizer/sizer.dart';
-import 'package:http/http.dart' as http;
 
 class RegisterView extends StatefulWidget {
   @override
@@ -25,7 +22,7 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  TextEditingController PhoneController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   MemberBloc bloc;
@@ -34,9 +31,8 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    PhoneController.text = "";
+    phoneController.text = "";
   }
 
   void _init() {
@@ -52,23 +48,23 @@ class _RegisterViewState extends State<RegisterView> {
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         //if (event.error.status == 406) {
-        FunctionHelper.AlertDialogShop(context, title: "Error", message: event);
+        FunctionHelper.alertDialogShop(context, title: "Error", message: event);
         //}
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         if (event is LoginRespone) {
-          AppRoute.Home(context);
+          AppRoute.home(context);
         } else {
-          AppRoute.RegisterOTP(context,
-              phoneNumber: PhoneController.text,
+          AppRoute.registerOTP(context,
+              phoneNumber: phoneController.text,
               refCode: (event as OTPRespone).refCode,
               requestOtp: RequestOtp.Register);
         }
       });
       bloc.checkPhone.stream.listen((event) {
         if (event) {
-          bloc.OTPRequest(context, numberphone: PhoneController.text);
+          bloc.otpRequest(context, numberphone: phoneController.text);
         }
       });
     }
@@ -86,14 +82,14 @@ class _RegisterViewState extends State<RegisterView> {
           key: _scaffoldKey,
           backgroundColor: Colors.white,
           body: ListView(
-            children: [_BuildBar(context), _BuildContent(context)],
+            children: [buildBar(context), buildContent(context)],
           ),
         ),
       ),
     );
   }
 
-  Widget _BuildContent(BuildContext context) {
+  Widget buildContent(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -105,7 +101,7 @@ class _RegisterViewState extends State<RegisterView> {
             Center(
                 child: Text(
               LocaleKeys.btn_register.tr(),
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp + 2,
                   fontWeight: FontWeight.w500),
             )),
@@ -116,8 +112,8 @@ class _RegisterViewState extends State<RegisterView> {
               head: LocaleKeys.my_profile_phone.tr() + " *",
               hint: LocaleKeys.my_profile_phone.tr(),
               inputType: TextInputType.number,
-              controller: PhoneController,
-              BorderOpacity: 0.3,
+              controller: phoneController,
+              borderOpacity: 0.3,
               onChanged: (String x) => _checkError(),
             ),
             SizedBox(
@@ -125,7 +121,7 @@ class _RegisterViewState extends State<RegisterView> {
             ),
             Text(
               errorTxt,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize(),
                   fontWeight: FontWeight.w500,
                   color: Colors.grey),
@@ -157,7 +153,7 @@ class _RegisterViewState extends State<RegisterView> {
                 onPressed: () => _validate(),
                 child: Text(
                   LocaleKeys.btn_continue.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.w500),
@@ -184,7 +180,7 @@ class _RegisterViewState extends State<RegisterView> {
                       alignment: Alignment.center,
                       child: Text(
                         LocaleKeys.or.tr(),
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp),
                       )),
                 ),
@@ -221,9 +217,9 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                 ),
                 onPressed: () =>
-                    bloc.LoginFacebook(context: context, isLoad: true),
+                    bloc.loginFacebook(context: context, isLoad: true),
                 child: //Text(LocaleKeys.facebook_regis_btn.tr(),
-                    //style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                    //style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                     Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -237,7 +233,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     Text(
                       "Continue with Facebook",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w500),
@@ -253,7 +249,7 @@ class _RegisterViewState extends State<RegisterView> {
               children: [
                 Text(
                   LocaleKeys.regis_agree.tr() + " ",
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       height: 1.7,
                       fontWeight: FontWeight.w500),
@@ -261,7 +257,7 @@ class _RegisterViewState extends State<RegisterView> {
                 InkWell(
                   child: Text(
                     LocaleKeys.regis_rule.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: ThemeColor.secondaryColor(),
                         decoration: TextDecoration.underline,
@@ -269,12 +265,12 @@ class _RegisterViewState extends State<RegisterView> {
                         fontWeight: FontWeight.w500),
                   ),
                   onTap: () {
-                    AppRoute.SettingRules(context);
+                    AppRoute.settingRules(context);
                   },
                 ),
                 Text(
                   " " + LocaleKeys.and.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       height: 1.7,
                       fontWeight: FontWeight.w500),
@@ -282,7 +278,7 @@ class _RegisterViewState extends State<RegisterView> {
                 InkWell(
                   child: Text(
                     " " + LocaleKeys.regis_policy.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: ThemeColor.secondaryColor(),
                         decoration: TextDecoration.underline,
@@ -290,12 +286,12 @@ class _RegisterViewState extends State<RegisterView> {
                         fontWeight: FontWeight.w500),
                   ),
                   onTap: () {
-                    AppRoute.SettingPolicy(context);
+                    AppRoute.settingPolicy(context);
                   },
                 ),
                 Text(
                   " " + LocaleKeys.withh.tr() + " NaiFarm",
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       height: 1.7,
                       fontWeight: FontWeight.w500),
@@ -306,7 +302,7 @@ class _RegisterViewState extends State<RegisterView> {
         ));
   }
 
-  Widget _BuildHeader(BuildContext context) {
+  Widget buildHeader(BuildContext context) {
     return Container(
         padding: EdgeInsets.only(bottom: 4.0.h),
         width: MediaQuery.of(context).size.width,
@@ -318,7 +314,7 @@ class _RegisterViewState extends State<RegisterView> {
           children: [
             Text(
               "NaiFarm",
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.white,
                   fontSize: SizeUtil.appNameFontSize().sp,
                   fontWeight: FontWeight.w500),
@@ -327,7 +323,7 @@ class _RegisterViewState extends State<RegisterView> {
         ));
   }
 
-  Widget _BuildBar(BuildContext context) {
+  Widget buildBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: ThemeColor.primaryColor(),
@@ -353,20 +349,20 @@ class _RegisterViewState extends State<RegisterView> {
               },
             ),
           ),
-          _BuildHeader(context),
+          buildHeader(context),
         ],
       ),
     );
   }
 
   void _checkError() {
-    if (PhoneController.text.isEmpty) {
+    if (phoneController.text.isEmpty) {
       /*FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,
           message: LocaleKeys.message_error_phone_empty.tr(),
           context: context);*/
       errorTxt = LocaleKeys.message_error_phone_empty.tr();
       checkError = false;
-    } else if (PhoneController.text.length != 10) {
+    } else if (phoneController.text.length != 10) {
       /*  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,
           message: LocaleKeys.message_error_phone_invalid.tr());*/
       errorTxt = LocaleKeys.message_error_phone_invalid.tr();
@@ -379,8 +375,8 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   void _validate() {
-    if (PhoneController.text.isNotEmpty && PhoneController.text.length == 10) {
-      bloc.checkPhoneNumber(context, phone: PhoneController.text);
+    if (phoneController.text.isNotEmpty && phoneController.text.length == 10) {
+      bloc.checkPhoneNumber(context, phone: phoneController.text);
     }
   }
 }

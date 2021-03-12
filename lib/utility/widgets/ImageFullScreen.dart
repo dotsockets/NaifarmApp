@@ -1,31 +1,28 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:lottie/lottie.dart';
-import 'package:naifarm/config/Env.dart';
 
 class ImageFullScreen extends StatelessWidget {
   final String image;
-  final String hero_tag;
+  final String heroTag;
 
-  const ImageFullScreen({Key key, this.image,this.hero_tag}) : super(key: key);
+  const ImageFullScreen({Key key, this.image, this.heroTag}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: Colors.black,
-      body:Stack(
+      body: Stack(
         children: [
           GestureDetector(
             child: Center(
               child: Hero(
-                  tag: hero_tag,
+                  tag: heroTag,
                   child: CachedNetworkImage(
                     placeholder: (context, url) => Container(
                       color: Colors.white,
-                      child:
-                      Lottie.asset('assets/json/loading.json',width: 30, height: 30),
+                      child: Lottie.asset('assets/json/loading.json',
+                          width: 30, height: 30),
                     ),
                     fit: BoxFit.cover,
                     imageUrl: image,
@@ -40,8 +37,7 @@ class ImageFullScreen extends StatelessWidget {
                             color: Color(0xffCCCCCC),
                           ),
                         )),
-                  )
-              ),
+                  )),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -51,8 +47,12 @@ class ImageFullScreen extends StatelessWidget {
             top: 50,
             right: 30,
             child: IconButton(
-              onPressed: ()=>Navigator.pop(context),
-              icon: Icon(FontAwesome5.window_close,color: Colors.white,size: 30,),
+              onPressed: () => Navigator.pop(context),
+              icon: Icon(
+                FontAwesome5.window_close,
+                color: Colors.white,
+                size: 30,
+              ),
             ),
           )
         ],

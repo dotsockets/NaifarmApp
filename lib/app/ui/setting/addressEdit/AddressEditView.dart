@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:naifarm/app/bloc/Stream/AddressBloc.dart';
-import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
@@ -68,12 +67,12 @@ class _AddressEditViewState extends State<AddressEditView> {
       });
       bloc.onError.stream.listen((event) {
         // Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         Navigator.pop(context, true);
       });
-      bloc.StatesProvice(context, countries: "1");
+      bloc.statesProvice(context, countries: "1");
       bloc.provice.stream.listen((event) {
         _checkError();
       });
@@ -85,7 +84,7 @@ class _AddressEditViewState extends State<AddressEditView> {
       bloc.city.stream.listen((event) {
         _checkError();
       });
-      bloc.StatesCity(context,
+      bloc.statesCity(context,
           countriesid: "1", statesId: widget.item.stateId.toString());
       postController.text = widget.item.zipCode;
     }
@@ -105,8 +104,8 @@ class _AddressEditViewState extends State<AddressEditView> {
             child: AppToobar(
               title: LocaleKeys.address_add_toobar.tr(),
               icon: "",
-              isEnable_Search: false,
-              header_type: Header_Type.barNormal,
+              isEnableSearch: false,
+              headerType: Header_Type.barNormal,
             ),
           ),
           body: Container(
@@ -144,7 +143,7 @@ class _AddressEditViewState extends State<AddressEditView> {
         children: [
           BuildEditText(
               head: LocaleKeys.my_profile_fullname.tr(),
-              EnableMaxLength: false,
+              enableMaxLength: false,
               hint: LocaleKeys.set_default.tr() +
                   LocaleKeys.my_profile_fullname.tr(),
               controller: nameController,
@@ -155,7 +154,7 @@ class _AddressEditViewState extends State<AddressEditView> {
           ),
           BuildEditText(
               head: LocaleKeys.my_profile_phoneNum.tr(),
-              EnableMaxLength: false,
+              enableMaxLength: false,
               hint: LocaleKeys.set_default.tr() +
                   LocaleKeys.my_profile_phoneNum.tr(),
               controller: phoneController,
@@ -169,7 +168,7 @@ class _AddressEditViewState extends State<AddressEditView> {
             stream: bloc.provice.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
-                return _BuildDropdown(
+                return buildDropdown(
                     initialItem: loopIndex(
                         (snapshot.data as StatesRespone).data, proviceSelect),
                     head: LocaleKeys.select.tr() +
@@ -182,7 +181,7 @@ class _AddressEditViewState extends State<AddressEditView> {
                       postController.text = "";
                       setState(() => proviceSelect =
                           (snapshot.data as StatesRespone).data[index].id);
-                      bloc.StatesCity(context,
+                      bloc.statesCity(context,
                           countriesid: "1",
                           statesId: (snapshot.data as StatesRespone)
                               .data[index]
@@ -201,7 +200,7 @@ class _AddressEditViewState extends State<AddressEditView> {
             stream: bloc.city.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
-                return _BuildDropdown(
+                return buildDropdown(
                     initialItem: loopIndex(
                         (snapshot.data as StatesRespone).data, citySelect),
                     head: LocaleKeys.select.tr() +
@@ -213,7 +212,7 @@ class _AddressEditViewState extends State<AddressEditView> {
                     onSelect: (int index) {
                       setState(() => citySelect =
                           (snapshot.data as StatesRespone).data[index].id);
-                      bloc.StatesZipCode(context,
+                      bloc.statesZipCode(context,
                           countries: "1",
                           statesId: proviceSelect.toString(),
                           cityId: (snapshot.data as StatesRespone)
@@ -231,7 +230,7 @@ class _AddressEditViewState extends State<AddressEditView> {
           ),
           BuildEditText(
               head: LocaleKeys.address_postal.tr(),
-              EnableMaxLength: false,
+              enableMaxLength: false,
               hint: LocaleKeys.select.tr() + LocaleKeys.address_postal.tr(),
               onChanged: (String x) => _checkError(),
               controller: postController,
@@ -242,7 +241,7 @@ class _AddressEditViewState extends State<AddressEditView> {
           BuildEditText(
               maxLength: 100,
               head: LocaleKeys.address_detail.tr(),
-              EnableMaxLength: false,
+              enableMaxLength: false,
               hint:
                   LocaleKeys.set_default.tr() + LocaleKeys.address_detail.tr(),
               onChanged: (String x) => _checkError(),
@@ -255,13 +254,13 @@ class _AddressEditViewState extends State<AddressEditView> {
 
   String loopString(List<DataStates> data, int id) {
     String item = "กรุณาเลือก";
-    var i = 0;
+    // var i = 0;
     for (var index in data) {
       if (index.id == id) {
         item = index.name;
         break;
       }
-      i++;
+      // i++;
     }
     return item;
   }
@@ -284,7 +283,7 @@ class _AddressEditViewState extends State<AddressEditView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
@@ -303,7 +302,7 @@ class _AddressEditViewState extends State<AddressEditView> {
           Text(
             head,
             style:
-                FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
+                FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
           FlutterSwitch(
             height: SizeUtil.switchHeight(),
@@ -347,7 +346,7 @@ class _AddressEditViewState extends State<AddressEditView> {
             ),
           ),
           backgroundColor: MaterialStateProperty.all(
-            check ? ThemeColor.ColorSale() : Colors.grey.shade400,
+            check ? ThemeColor.colorSale() : Colors.grey.shade400,
           ),
           overlayColor: MaterialStateProperty.all(
             Colors.white.withOpacity(0.3),
@@ -355,7 +354,7 @@ class _AddressEditViewState extends State<AddressEditView> {
         ),
         onPressed: () {
           if (check)
-            Usermanager().getUser().then((value) => bloc.UpdateAddress(context,
+            Usermanager().getUser().then((value) => bloc.updateAddress(context,
                 data: AddressCreaterequest(
                     countryId: 1,
                     id: widget.item.id,
@@ -371,7 +370,7 @@ class _AddressEditViewState extends State<AddressEditView> {
         },
         child: Text(
           btnTxt,
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               color: Colors.white,
               fontSize: SizeUtil.titleFontSize().sp,
               fontWeight: FontWeight.w500),
@@ -405,13 +404,13 @@ class _AddressEditViewState extends State<AddressEditView> {
     setState(() {});
   }
 
-  Widget _BuildDropdown(
+  Widget buildDropdown(
       {String head,
       String hint,
       List<DataStates> item,
       Function(int) onSelect,
       int initialItem}) {
-    var datalist = List<String>();
+    var datalist = [];
     if (item.isNotEmpty) {
       for (int i = 0; i < item.length; i++) {
         datalist.add(item[i].name);
@@ -424,7 +423,7 @@ class _AddressEditViewState extends State<AddressEditView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           Container(

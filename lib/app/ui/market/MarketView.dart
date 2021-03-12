@@ -1,4 +1,3 @@
-
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,45 +7,34 @@ import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:naifarm/app/models/MenuModel.dart';
-import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
-
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:naifarm/utility/widgets/CategoryMenu.dart';
 import 'package:naifarm/utility/widgets/ProductGrid.dart';
 import 'package:naifarm/utility/widgets/ProductVertical.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import '../../../utility/widgets/BannerSlide.dart';
 
-
-// ไม่ได้ใช้งาน
-
 class MarketView extends StatefulWidget {
-
   @override
   _MarketViewState createState() => _MarketViewState();
 }
 
 class _MarketViewState extends State<MarketView> {
-
   final _scrollController = TrackingScrollController();
-  final List<MenuModel> _menuViewModel = MenuViewModel().getMenustype();
+  // final List<MenuModel> _menuViewModel = MenuViewModel().getMenustype();
   final _indicatorController = IndicatorController();
-  int _categoryselectedIndex = 0;
+  // int _categoryselectedIndex = 0;
 
   ProductBloc bloc;
 
-  void _init(){
-    if(null == bloc) {
+  void _init() {
+    if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.loadProductPopular(context,"1");
+      bloc.loadProductPopular(context, "1");
     }
-
   }
+
   @override
   void dispose() {
     _scrollController?.dispose();
@@ -66,10 +54,10 @@ class _MarketViewState extends State<MarketView> {
       trailingGlowVisible: false,
       offsetToArmed: 100.0,
       builder: (
-          BuildContext context,
-          Widget child,
-          IndicatorController controller,
-          ) {
+        BuildContext context,
+        Widget child,
+        IndicatorController controller,
+      ) {
         return AnimatedBuilder(
           animation: controller,
           builder: (BuildContext context, _) {
@@ -93,7 +81,6 @@ class _MarketViewState extends State<MarketView> {
           },
         );
       },
-
       child: SafeArea(
         top: false,
         child: Scaffold(
@@ -101,11 +88,16 @@ class _MarketViewState extends State<MarketView> {
             child: Container(
               color: Colors.grey.shade300,
               child: StickyHeader(
-                header:  Column(
+                header: Column(
                   children: [
-                    AppToobar(title: LocaleKeys.market_toobar.tr(),header_type:  Header_Type.barcartShop,isEnable_Search: true,
-                      onClick: (){AppRoute.SearchHome(context);},),
-
+                    AppToobar(
+                      title: LocaleKeys.market_toobar.tr(),
+                      headerType: Header_Type.barcartShop,
+                      isEnableSearch: true,
+                      onClick: () {
+                        AppRoute.searchHome(context);
+                      },
+                    ),
                   ],
                 ),
                 content: Column(
@@ -113,34 +105,47 @@ class _MarketViewState extends State<MarketView> {
                     BannerSlide(),
                     SizedBox(height: 15),
                     StreamBuilder(
-                      stream: bloc.ProductPopular.stream,
+                      stream: bloc.productPopular.stream,
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if(snapshot.hasData) {
+                        if (snapshot.hasData) {
                           return ProductVertical(
                               productRespone: snapshot.data,
                               titleInto: LocaleKeys.recommend_best_seller.tr(),
-                              IconInto: 'assets/images/svg/product_hot.svg',
+                              iconInto: 'assets/images/svg/product_hot.svg',
                               onSelectMore: () {
-                                AppRoute.ProductMore(context: context,barTxt: LocaleKeys.recommend_best_seller.tr(),installData: snapshot.data);
+                                AppRoute.productMore(
+                                    context: context,
+                                    barTxt:
+                                        LocaleKeys.recommend_best_seller.tr(),
+                                    installData: snapshot.data);
                               },
-                              onTapItem: (ProductData item,int index) {
-                                AppRoute.ProductDetail(context,
-                                    productImage: "sell_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
-                              },borderRadius: true,IconSize: 30,tagHero: "sell");
-                        }else{
+                              onTapItem: (ProductData item, int index) {
+                                AppRoute.productDetail(context,
+                                    productImage: "sell_$index",
+                                    productItem:
+                                        ProductBloc.convertDataToProduct(
+                                            data: item));
+                              },
+                              borderRadius: true,
+                              iconSize: 30,
+                              tagHero: "sell");
+                        } else {
                           return SizedBox();
                         }
                       },
                     ),
                     SizedBox(height: 15),
-                    ProductGrid(titleInto: LocaleKeys.recommend_title.tr(),
-                      IconInto: 'assets/images/svg/like.svg',
-                      onSelectMore: () {
-                      },
-                        onTapItem: (ProductData item,int index) {
-                        AppRoute.ProductDetail(context,
-                            productImage: "market_farm_${index}",productItem: ProductBloc.ConvertDataToProduct(data: item));
-                      },tagHero: 'market_farm' ),
+                    ProductGrid(
+                        titleInto: LocaleKeys.recommend_title.tr(),
+                        iconInto: 'assets/images/svg/like.svg',
+                        onSelectMore: () {},
+                        onTapItem: (ProductData item, int index) {
+                          AppRoute.productDetail(context,
+                              productImage: "market_farm_$index",
+                              productItem:
+                                  ProductBloc.convertDataToProduct(data: item));
+                        },
+                        tagHero: 'market_farm'),
                   ],
                 ),
               ),
@@ -149,6 +154,5 @@ class _MarketViewState extends State<MarketView> {
         ),
       ),
     );
-
   }
 }

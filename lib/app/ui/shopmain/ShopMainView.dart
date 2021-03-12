@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,21 +9,16 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
-import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 import 'package:naifarm/app/ui/shopmain/shop/Shop.dart';
 import 'package:naifarm/app/ui/shopmain/shopdetails/ShopDetailsView.dart';
 import 'package:naifarm/app/ui/splash/ConnectErrorView.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ShopOwn.dart';
-import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:sizer/sizer.dart';
 import '../../../utility/widgets/MD2Indicator.dart';
 import 'category/CaregoryShopView.dart';
@@ -46,24 +40,22 @@ class _ShopMainViewState extends State<ShopMainView>
   ProductBloc bloc;
 
   void _init() {
-
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.ZipShopObject.add(
-          ZipShopObjectCombin(shopRespone: widget.myShopRespone));
+      bloc.zipShopObject
+          .add(ZipShopObjectCombin(shopRespone: widget.myShopRespone));
 
-      NaiFarmLocalStorage.getNaiFarm_ShopCache().then((value){
-        if(value!=null){
-          for(var data in value.item){
-            if(data.shopRespone.id == widget.myShopRespone.id){
-              bloc.ZipShopObject.add(data);
+      NaiFarmLocalStorage.getNaiFarmShopCache().then((value) {
+        if (value != null) {
+          for (var data in value.item) {
+            if (data.shopRespone.id == widget.myShopRespone.id) {
+              bloc.zipShopObject.add(data);
               break;
             }
           }
-
         }
-        Usermanager().getUser().then((value) =>
-            bloc.loadShop(context,shopid: widget.myShopRespone.id, token: value.token));
+        Usermanager().getUser().then((value) => bloc.loadShop(context,
+            shopid: widget.myShopRespone.id, token: value.token));
       });
 
       // bloc.onError.stream.listen((event) {
@@ -106,25 +98,31 @@ class _ShopMainViewState extends State<ShopMainView>
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(6.5.h),
-            child: AppToobar(
-              title: "ร้านค้า",
-              header_type: Header_Type.barcartShop,
-              icon: 'assets/images/svg/search.svg',
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(6.5.h),
+              child: AppToobar(
+                title: "ร้านค้า",
+                headerType: Header_Type.barcartShop,
+                icon: 'assets/images/svg/search.svg',
+              ),
             ),
-          ),
             backgroundColor: Colors.white,
             body: StreamBuilder(
               stream: bloc.onError.stream,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if(snapshot.hasData){
+                if (snapshot.hasData) {
                   return Center(
-                    child: ConnectErrorView(result: snapshot.data ,show_full: false,callback: (){
-                      Usermanager().getUser().then((value) => bloc.loadShop(context,shopid: widget.myShopRespone.id, token: value.token));
-                    }),
+                    child: ConnectErrorView(
+                        result: snapshot.data,
+                        showFull: false,
+                        callback: () {
+                          Usermanager().getUser().then((value) => bloc.loadShop(
+                              context,
+                              shopid: widget.myShopRespone.id,
+                              token: value.token));
+                        }),
                   );
-                }else{
+                } else {
                   return _content;
                 }
               },
@@ -134,7 +132,7 @@ class _ShopMainViewState extends State<ShopMainView>
   }
 
   Widget get _content => StreamBuilder(
-      stream: bloc.ZipShopObject.stream,
+      stream: bloc.zipShopObject.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         var item = (snapshot.data as ZipShopObjectCombin);
         if (snapshot.hasData && item.productmyshop != null) {
@@ -153,14 +151,13 @@ class _ShopMainViewState extends State<ShopMainView>
                             rateStyle: false,
                             showBtn: false,
                             shopItem: ShopItem(
-                              countProduct: item.productmyshop.total,
+                                countProduct: item.productmyshop.total,
                                 name: item.shopRespone.name,
                                 id: item.shopRespone.id,
                                 image: item.shopRespone.image,
                                 updatedAt: item.shopRespone.updatedAt,
                                 state: item.shopRespone.state),
                             shopRespone: item.shopRespone,
-
                           )
                         ]),
                       ),
@@ -179,14 +176,11 @@ class _ShopMainViewState extends State<ShopMainView>
                           controller: tabController,
                           tabs: [
                             _tabbar(
-                                title: LocaleKeys.shop_title.tr(),
-                                index: 0),
+                                title: LocaleKeys.shop_title.tr(), index: 0),
                             _tabbar(
-                                title: LocaleKeys.shop_category.tr(),
-                                index: 1),
+                                title: LocaleKeys.shop_category.tr(), index: 1),
                             _tabbar(
-                                title: LocaleKeys.shop_detail.tr(),
-                                index: 2),
+                                title: LocaleKeys.shop_detail.tr(), index: 2),
                           ],
                         ),
                       ),
@@ -196,11 +190,15 @@ class _ShopMainViewState extends State<ShopMainView>
                           children: [
                             Shop(
                                 productRespone:
-                                (snapshot.data as ZipShopObjectCombin)),
-                            CaregoryShopView(ShopId: widget.myShopRespone.id,categoryGroupRespone: (snapshot.data as ZipShopObjectCombin).categoryGroupRespone),
+                                    (snapshot.data as ZipShopObjectCombin)),
+                            CaregoryShopView(
+                                shopId: widget.myShopRespone.id,
+                                categoryGroupRespone:
+                                    (snapshot.data as ZipShopObjectCombin)
+                                        .categoryGroupRespone),
                             ShopDetailsView(
                               zipShopObjectCombin:
-                              (snapshot.data as ZipShopObjectCombin),
+                                  (snapshot.data as ZipShopObjectCombin),
                             )
                           ],
                         ),
@@ -214,10 +212,12 @@ class _ShopMainViewState extends State<ShopMainView>
         } else {
           return Column(
             children: [
-
-              Expanded(child: Center(child: Platform.isAndroid
-                  ? CircularProgressIndicator()
-                  : CupertinoActivityIndicator()),)
+              Expanded(
+                child: Center(
+                    child: Platform.isAndroid
+                        ? CircularProgressIndicator()
+                        : CupertinoActivityIndicator()),
+              )
             ],
           );
         }
@@ -227,7 +227,7 @@ class _ShopMainViewState extends State<ShopMainView>
     return Tab(
       child: Container(
         child: Text(title,
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 fontWeight: FontWeight.w500,
                 fontSize: SizeUtil.titleSmallFontSize().sp,
                 color: tabController.index == index

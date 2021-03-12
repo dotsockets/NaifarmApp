@@ -3,11 +3,8 @@ import 'dart:io';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:basic_utils/basic_utils.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -16,20 +13,15 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/FlashSaleBar.dart';
 import 'package:naifarm/utility/widgets/LifecycleWatcherState.dart';
 import 'package:naifarm/utility/widgets/ProductItemCard.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
-import 'package:sticky_headers/sticky_headers.dart';
-import 'package:vibration/vibration.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FlashSaleView extends StatefulWidget {
   final FlashsaleRespone flashsaleRespone;
@@ -45,22 +37,22 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
   int page = 1;
   int limit = 10;
   ScrollController _scrollController = ScrollController();
-  bool step_page = false;
+  bool stepPage = false;
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
 
-  final position_scroll = BehaviorSubject<bool>();
+  final positionScroll = BehaviorSubject<bool>();
 
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.Flashsale.add(widget.flashsaleRespone);
-      bloc.loadFlashsaleData(context,page: page.toString(), limit: limit);
+      bloc.flashsale.add(widget.flashsaleRespone);
+      bloc.loadFlashsaleData(context, page: page.toString(), limit: limit);
     }
 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
-          _scrollController.position.pixels <=
+              _scrollController.position.pixels <=
           200) {
         // if (step_page) {
         //   step_page = false;
@@ -71,9 +63,9 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
       }
 
       if (_scrollController.position.pixels > 500) {
-        position_scroll.add(true);
+        positionScroll.add(true);
       } else {
-        position_scroll.add(false);
+        positionScroll.add(false);
       }
     });
   }
@@ -87,31 +79,31 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
         child: Scaffold(
           appBar: AppToobar(
             title: "Flash Sale",
-            header_type: Header_Type.barcartShop,
+            headerType: Header_Type.barcartShop,
             icon: 'assets/images/svg/search.svg',
           ),
           backgroundColor: Colors.grey.shade300,
           // appBar: AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
           body: Platform.isAndroid
-              ? AndroidRefreshIndicator()
+              ? androidRefreshIndicator()
               : Container(
-              color: Colors.grey.shade200,
-              child: SafeArea(
-                child: IOSRefreshIndicator(),
-              )),
+                  color: Colors.grey.shade200,
+                  child: SafeArea(
+                    child: iosRefreshIndicator(),
+                  )),
         ),
       ),
     );
   }
 
-  Widget AndroidRefreshIndicator() {
+  Widget androidRefreshIndicator() {
     return RefreshIndicator(
       onRefresh: _refreshProducts,
       child: content,
     );
   }
 
-  Widget IOSRefreshIndicator() {
+  Widget iosRefreshIndicator() {
     return CustomRefreshIndicator(
         controller: _indicatorController,
         onRefresh: () => _refreshProducts(),
@@ -119,9 +111,11 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
         draggingToIdleDuration: const Duration(seconds: 1),
         completeStateDuration: const Duration(seconds: 1),
         offsetToArmed: 50.0,
-        builder: (BuildContext context,
-            Widget child,
-            IndicatorController controller,) {
+        builder: (
+          BuildContext context,
+          Widget child,
+          IndicatorController controller,
+        ) {
           return Stack(
             children: <Widget>[
               AnimatedBuilder(
@@ -139,9 +133,9 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                       width: 5.0.w,
                       height: 5.0.w,
                       child: controller.state == IndicatorState.loading ||
-                          controller.state == IndicatorState.dragging ||
-                          controller.state == IndicatorState.armed ||
-                          controller.state == IndicatorState.complete
+                              controller.state == IndicatorState.dragging ||
+                              controller.state == IndicatorState.armed ||
+                              controller.state == IndicatorState.complete
                           ? CupertinoActivityIndicator()
                           : SizedBox(),
                     ),
@@ -163,223 +157,229 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
         child: content);
   }
 
-  Widget get content =>
-      SingleChildScrollView(
+  Widget get content => SingleChildScrollView(
         child: Container(
             margin: EdgeInsets.only(top: 1.0.h),
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
+            width: MediaQuery.of(context).size.width,
             child: StreamBuilder(
-              stream: bloc.Flashsale.stream,
+              stream: bloc.flashsale.stream,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                step_page = true;
+                stepPage = true;
                 if (snapshot.hasData && snapshot.data != null) {
                   var item = (snapshot.data as FlashsaleRespone);
-                  step_page = true;
+                  stepPage = true;
                   if (item.data.isNotEmpty) {
                     return Stack(
                       children: [
                         Container(
-                            margin: EdgeInsets.only(top: 6.0.h),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(50),
-                                    topLeft: Radius.circular(50),
-                                    bottomLeft: Radius.circular(
-                                        item.data.length != 0 ? 0 : 40),
-                                    bottomRight: Radius.circular(
-                                        item.data.length != 0 ? 0 : 40)),
-                                border: Border.all(
-                                    width: 3,
-                                    color: Colors.white,
-                                    style: BorderStyle.solid)),
-                            child: Container(
-                              margin: EdgeInsets.only(top: 5.0.h),
-                              child: ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                controller: _scrollController,
-                                itemBuilder: (context, i) {
-                                  // if ( i+1==((item.data.length) / 2).round()) {
-                                  //   return CupertinoActivityIndicator();
-                                  // }
+                          margin: EdgeInsets.only(top: 6.0.h),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(50),
+                                  topLeft: Radius.circular(50),
+                                  bottomLeft: Radius.circular(
+                                      item.data.length != 0 ? 0 : 40),
+                                  bottomRight: Radius.circular(
+                                      item.data.length != 0 ? 0 : 40)),
+                              border: Border.all(
+                                  width: 3,
+                                  color: Colors.white,
+                                  style: BorderStyle.solid)),
+                          child: Container(
+                            margin: EdgeInsets.only(top: 5.0.h),
+                            child: ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              controller: _scrollController,
+                              itemBuilder: (context, i) {
+                                // if ( i+1==((item.data.length) / 2).round()) {
+                                //   return CupertinoActivityIndicator();
+                                // }
 
-                                  return Container(
-                                      child: Column(
-                                      children: [
-                                      item.data[0].items.length - (i) * 2 > 1
-                                      ? Row(
+                                return Container(
+                                  child: Column(
                                     children: [
-                                      InkWell(
-                                        child: ProductItemCard(
-                                          item: item.data[0]
-                                              .items[(i * 2)].product,
-                                          showSoldFlash: true,
-                                          tagHero: "flash",
-                                        ),
-                                        onTap: () {
-                                          AppRoute.ProductDetail(context,
-                                              productImage: "flash_${item.data[0].items[(i * 2)].product.id}1",
-                                              productItem: ProductBloc
-                                                  .ConvertDataToProduct(
-                                                  data: item.data[0]
-                                                      .items[(i * 2)].product));
-                                        },
-                                      ),
-                                      /*_buildProduct(
+                                      item.data[0].items.length - (i) * 2 > 1
+                                          ? Row(
+                                              children: [
+                                                InkWell(
+                                                  child: ProductItemCard(
+                                                    item: item.data[0]
+                                                        .items[(i * 2)].product,
+                                                    showSoldFlash: true,
+                                                    tagHero: "flash",
+                                                  ),
+                                                  onTap: () {
+                                                    AppRoute.productDetail(
+                                                        context,
+                                                        productImage:
+                                                            "flash_${item.data[0].items[(i * 2)].product.id}1",
+                                                        productItem: ProductBloc
+                                                            .convertDataToProduct(
+                                                                data: item
+                                                                    .data[0]
+                                                                    .items[
+                                                                        (i * 2)]
+                                                                    .product));
+                                                  },
+                                                ),
+                                                /*_buildProduct(
                                               item: item.data[0].items[(i * 2)+1].product,
                                               index: (i * 2),
                                               context: context)),*/
-                                      InkWell(
-                                          child: ProductItemCard(
-                                          item: item
-                                              .data[0].items[(i * 2) + 1]
-                                        .product,
-                                    showSoldFlash: true,
-                                    tagHero: "flash",
-                                  )
-                                  ,
-                                  onTap: (){
-                                  AppRoute.ProductDetail(context,
-                                  productImage: "flash_${item.data[0].items[(i * 2) + 1].product.id}1",
-                                  productItem: ProductBloc.ConvertDataToProduct(data: item.data[0]
-                                      .items[(i * 2)+1].product));},
-                              )
+                                                InkWell(
+                                                  child: ProductItemCard(
+                                                    item: item
+                                                        .data[0]
+                                                        .items[(i * 2) + 1]
+                                                        .product,
+                                                    showSoldFlash: true,
+                                                    tagHero: "flash",
+                                                  ),
+                                                  onTap: () {
+                                                    AppRoute.productDetail(
+                                                        context,
+                                                        productImage:
+                                                            "flash_${item.data[0].items[(i * 2) + 1].product.id}1",
+                                                        productItem: ProductBloc
+                                                            .convertDataToProduct(
+                                                                data: item
+                                                                    .data[0]
+                                                                    .items[(i *
+                                                                            2) +
+                                                                        1]
+                                                                    .product));
+                                                  },
+                                                )
 
-                              /*_buildProduct(
+                                                /*_buildProduct(
                                               item: item.data[0].items[(i * 2) + 1].product,
                                               index: ((i * 2) + 1),
                                               context: context))*/
-                              ],
-                            )
-                                : Row(
-                        children: [
-                        Expanded(
-                        child: ProductItemCard(
-                        item: item.data[0]
-                            .items[(i * 2)
-                      ].product,
-                      showSoldFlash: true,
-                      tagHero: "flash",
-                    ),
-                ),
+                                              ],
+                                            )
+                                          : Row(
+                                              children: [
+                                                Expanded(
+                                                  child: ProductItemCard(
+                                                    item: item.data[0]
+                                                        .items[(i * 2)].product,
+                                                    showSoldFlash: true,
+                                                    tagHero: "flash",
+                                                  ),
+                                                ),
 
-                /*_buildProduct(
+                                                /*_buildProduct(
                                               item: item.data[0].items[(i * 2)].product,
                                               index: (i * 2),
                                               context: context)),*/
-                Expanded(child: SizedBox()),
-                ],
-                ),
-                if (item.loadmore)
-                i + 1 ==
-                ((item.data[0].items.length) / 2)
-                    .round()
-                ? Container(
-                padding: EdgeInsets.all(20),
-                child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.center,
-                children: [
-                Platform.isAndroid
-                ? SizedBox(
-                width: 5.0.w,
-                height: 5.0.w,
-                child:
-                CircularProgressIndicator())
-                    : CupertinoActivityIndicator(),
-                SizedBox(
-                width: 10,
-                ),
-                Text("Loading",
-                style: FunctionHelper
-                    .FontTheme(
-                color:
-                Colors.grey,
-                fontSize: SizeUtil
-                    .priceFontSize()
-                    .sp))
-                ],
-                ),
-                )
-                    : SizedBox()
-                ],
-                ),
-                );
-                },
-                itemCount:
-                ((item.data[0].items.length) / 2).round(),
-                ),
-                ),
-                ),
-                Align(
-                alignment: Alignment.bottomCenter,
-                child: FlashSaleBar(
-                flashTime: item.data[0].end,
-                ),
-                ),
-                ],
-                );
+                                                Expanded(child: SizedBox()),
+                                              ],
+                                            ),
+                                      if (item.loadmore)
+                                        i + 1 ==
+                                                ((item.data[0].items.length) /
+                                                        2)
+                                                    .round()
+                                            ? Container(
+                                                padding: EdgeInsets.all(20),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Platform.isAndroid
+                                                        ? SizedBox(
+                                                            width: 5.0.w,
+                                                            height: 5.0.w,
+                                                            child:
+                                                                CircularProgressIndicator())
+                                                        : CupertinoActivityIndicator(),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text("Loading",
+                                                        style: FunctionHelper
+                                                            .fontTheme(
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontSize: SizeUtil
+                                                                        .priceFontSize()
+                                                                    .sp))
+                                                  ],
+                                                ),
+                                              )
+                                            : SizedBox()
+                                    ],
+                                  ),
+                                );
+                              },
+                              itemCount:
+                                  ((item.data[0].items.length) / 2).round(),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: FlashSaleBar(
+                            flashTime: item.data[0].end,
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Container(
+                      padding: EdgeInsets.only(top: 12.0.h),
+                      color: Colors.white,
+                      height: MediaQuery.of(context).size.height,
+                      child: Column(
+                        children: [
+                          Lottie.asset('assets/json/boxorder.json',
+                              height: 70.0.w, width: 70.0.w, repeat: false),
+                          Text(
+                            LocaleKeys.search_product_not_found.tr(),
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    );
+                  }
                 } else {
-                return Container(
-                padding: EdgeInsets.only(top: 12.0.h),
-                color: Colors.white,
-                height: MediaQuery.of(context).size.height,
-                child: Column(
-                children: [
-                Lottie.asset('assets/json/boxorder.json',
-                height: 70.0.w, width: 70.0.w, repeat: false),
-                Text(
-                LocaleKeys.search_product_not_found.tr(),
-                style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleFontSize().sp,
-                fontWeight: FontWeight.bold),
-                )
-                ],
-                ),
-                );
+                  return Center(
+                    child: Container(
+                      padding: EdgeInsets.only(top: 15.0.h, bottom: 15.0.h),
+                      child: Platform.isAndroid
+                          ? SizedBox(
+                              width: 5.0.w,
+                              height: 5.0.w,
+                              child: CircularProgressIndicator())
+                          : CupertinoActivityIndicator(),
+                    ),
+                  );
                 }
-              } else {
-            return Center(
-            child: Container(
-            padding: EdgeInsets.only(top: 15.0.h, bottom: 15.0.h),
-            child: Platform.isAndroid
-            ? SizedBox(
-            width: 5.0.w,
-            height: 5.0.w,
-            child: CircularProgressIndicator())
-                : CupertinoActivityIndicator(),
-            ),
-            );
-            }
-            },
+              },
             )),
       );
 
-  Widget _FlashintoProduct({ProductData item, int index}) {
+  Widget flashintoProduct({ProductData item, int index}) {
     return Container(
       child: Column(
         children: [
           SizedBox(height: 1.0.h),
           Container(
-            height: SizeUtil
-                .titleSmallFontSize()
-                .sp * 2.7,
+            height: SizeUtil.titleSmallFontSize().sp * 2.7,
             child: Text(
               item.name,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontSize: SizeUtil
-                      .titleSmallFontSize()
-                      .sp),
+                  fontSize: SizeUtil.titleSmallFontSize().sp),
             ),
           ),
           SizedBox(
@@ -387,12 +387,10 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
           ),
           Text(
             "฿${item.salePrice}",
-            style: FunctionHelper.FontTheme(
-                color: ThemeColor.ColorSale(),
+            style: FunctionHelper.fontTheme(
+                color: ThemeColor.colorSale(),
                 fontWeight: FontWeight.bold,
-                fontSize: SizeUtil
-                    .priceFontSize()
-                    .sp),
+                fontSize: SizeUtil.priceFontSize().sp),
           ),
           SizedBox(height: 5),
           Stack(
@@ -403,16 +401,12 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                   borderRadius: BorderRadius.circular(8.0),
                   child: Container(
                     padding:
-                    EdgeInsets.only(left: 15, right: 7, bottom: 3, top: 3),
-                    color: ThemeColor.ColorSale(),
+                        EdgeInsets.only(left: 15, right: 7, bottom: 3, top: 3),
+                    color: ThemeColor.colorSale(),
                     child: Text(
-                      "${item.saleCount != null
-                          ? item.saleCount.toString()
-                          : '0'} ${LocaleKeys.my_product_sold_end.tr()}",
-                      style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil
-                              .detailSmallFontSize()
-                              .sp,
+                      "${item.saleCount != null ? item.saleCount.toString() : '0'} ${LocaleKeys.my_product_sold_end.tr()}",
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.detailSmallFontSize().sp,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
@@ -485,8 +479,8 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                           borderRadius: BorderRadius.circular(1.0.w),
                           child: Container(
                             padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
-                            color: ThemeColor.ColorSale(),
-                            child: Text("${item.discountPercent}%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
+                            color: ThemeColor.colorSale(),
+                            child: Text("${item.discountPercent}%",style: FunctionHelper.fontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
                           ),
                         ),
                       ),
@@ -535,8 +529,8 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
       // Vibration.vibrate(duration: 500);
     }
     page = 1;
-    step_page = true;
-    bloc.product_more.clear();
-    bloc.loadFlashsaleData(context,page: page.toString(), limit: limit);
+    stepPage = true;
+    bloc.productMore.clear();
+    bloc.loadFlashsaleData(context, page: page.toString(), limit: limit);
   }
 }

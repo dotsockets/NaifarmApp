@@ -6,7 +6,7 @@ class ShippingsRespone {
 
   ShippingsRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<ShippingsData>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new ShippingsData.fromJson(v));
       });
@@ -39,16 +39,16 @@ class ShippingsData {
 
   ShippingsData(
       {this.id,
-        this.shopId,
-        this.name,
-        this.taxId,
-        this.countryIds,
-        this.stateIds,
-        this.restOfTheWorld,
-        this.active,
-        this.createdAt,
-        this.updatedAt,
-        this.rates});
+      this.shopId,
+      this.name,
+      this.taxId,
+      this.countryIds,
+      this.stateIds,
+      this.restOfTheWorld,
+      this.active,
+      this.createdAt,
+      this.updatedAt,
+      this.rates});
 
   ShippingsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -62,12 +62,11 @@ class ShippingsData {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['rates'] != null) {
-      rates = new List<ShippingRates>();
+      rates = [];
       json['rates'].forEach((v) {
         rates.add(new ShippingRates.fromJson(v));
       });
     }
-
   }
 
   Map<String, dynamic> toJson() {
@@ -104,15 +103,16 @@ class ShippingRates {
 
   ShippingRates(
       {this.id,
-        this.name,
-        this.shippingZoneId,
-        this.carrierId,
-        this.carrier,
-        this.basedOn,
-        this.minimum,
-        this.maximum,
-        this.rate,
-        this.deliveryTakes,this.select});
+      this.name,
+      this.shippingZoneId,
+      this.carrierId,
+      this.carrier,
+      this.basedOn,
+      this.minimum,
+      this.maximum,
+      this.rate,
+      this.deliveryTakes,
+      this.select});
 
   ShippingRates.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -120,13 +120,13 @@ class ShippingRates {
     shippingZoneId = json['shippingZoneId'];
     carrierId = json['carrierId'];
     carrier =
-    json['carrier'] != null ? new Carrier.fromJson(json['carrier']) : null;
+        json['carrier'] != null ? new Carrier.fromJson(json['carrier']) : null;
     basedOn = json['basedOn'];
     minimum = json['minimum'];
     maximum = json['maximum'];
-    rate = json['rate']!=null?json['rate']:0;
+    rate = json['rate'] != null ? json['rate'] : 0;
     deliveryTakes = json['deliveryTakes'];
-    select = json['select']!=null?json['select']:false;
+    select = json['select'] != null ? json['select'] : false;
   }
 
   Map<String, dynamic> toJson() {
@@ -162,4 +162,3 @@ class Carrier {
     return data;
   }
 }
-

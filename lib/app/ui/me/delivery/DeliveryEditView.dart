@@ -12,7 +12,6 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:regexed_validator/regexed_validator.dart';
 import 'package:sizer/sizer.dart';
 
 class DeliveryEditView extends StatefulWidget {
@@ -28,10 +27,10 @@ class DeliveryEditView extends StatefulWidget {
 }
 
 class _DeliveryEditViewState extends State<DeliveryEditView> {
-  TextEditingController RateController = TextEditingController();
+  TextEditingController rateController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String onError = "";
-  bool IsHave = false;
+  bool isHave = false;
   Rates rates;
   ShippingBloc bloc;
 
@@ -39,8 +38,8 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
     if (bloc == null) {
       for (var item in widget.shppingMyShopRespone.data[0].rates) {
         if (widget.carriersData.id == item.carrierId) {
-          RateController.text = item.rate.toString();
-          IsHave = true;
+          rateController.text = item.rate.toString();
+          isHave = true;
           rates = item;
           break;
         }
@@ -57,7 +56,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
         Navigator.pop(context, event);
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       // Usermanager().getUser().then((value) => bloc.loadShppingPage(token: value.token));
     }
@@ -74,8 +73,8 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
           appBar: AppToobar(
             title: LocaleKeys.shipping_edit.tr(),
             icon: "",
-            header_type: Header_Type.barNormal,
-            isEnable_Search: false,
+            headerType: Header_Type.barNormal,
+            isEnableSearch: false,
             onClick: () {
               Navigator.pop(context, false);
             },
@@ -89,7 +88,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(2.0.w),
                   child: Text("${widget.carriersData.name}",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w600)),
                 ),
@@ -101,15 +100,15 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                       hint: LocaleKeys.set_default.tr() +
                           LocaleKeys.my_product_delivery_price.tr(),
                       maxLength: 10,
-                      controller: RateController,
+                      controller: rateController,
                       onError: onError,
                       inputType: TextInputType.number,
-                      IsPassword: false,
-                      BorderOpacity: 0.2,
+                      isPassword: false,
+                      borderOpacity: 0.2,
                       onChanged: (String char) {
                         RegExp _numeric = RegExp(r'^-?[0-9]+$');
-                        if (!_numeric.hasMatch(RateController.text))
-                          RateController.text = "";
+                        if (!_numeric.hasMatch(rateController.text))
+                          rateController.text = "";
 
                         setState(() {});
                       }),
@@ -117,7 +116,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                 SizedBox(
                   height: 1.0.w,
                 ),
-                IsHave
+                isHave
                     ? Center(
                         child: Container(
                           padding: EdgeInsets.only(right: 1.0.w, left: 1.0.w),
@@ -130,7 +129,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                                       left: 3.0.w,
                                       top: 4.0.w,
                                       bottom: 4.0.w),
-                                  child: BuildItem(),
+                                  child: buildItem(),
                                 ),
                               ),
                               Expanded(
@@ -155,8 +154,8 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                                       ),
                                       backgroundColor:
                                           MaterialStateProperty.all(
-                                        FormCheck()
-                                            ? ThemeColor.ColorSale()
+                                        formCheck()
+                                            ? ThemeColor.colorSale()
                                             : Colors.grey.shade400,
                                       ),
                                       overlayColor: MaterialStateProperty.all(
@@ -164,16 +163,16 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      if (FormCheck()) {
+                                      if (formCheck()) {
                                         Usermanager().getUser().then((value) =>
-                                            bloc.DELETEShoppingMyShop(context,
+                                            bloc.deleteShoppingMyShop(context,
                                                 ratesId: rates.id,
                                                 token: value.token));
                                       }
                                     },
                                     child: Text(
                                       LocaleKeys.shipping_cancel.tr(),
-                                      style: FunctionHelper.FontTheme(
+                                      style: FunctionHelper.fontTheme(
                                           color: Colors.white,
                                           fontSize: SizeUtil.titleFontSize().sp,
                                           fontWeight: FontWeight.w500),
@@ -189,7 +188,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                 SizedBox(
                   height: 20,
                 ),
-                IsHave == false ? Center(child: BuildItem()) : SizedBox()
+                isHave == false ? Center(child: buildItem()) : SizedBox()
               ],
             ),
           ),
@@ -198,7 +197,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
     );
   }
 
-  Widget BuildItem() => TextButton(
+  Widget buildItem() => TextButton(
         style: ButtonStyle(
           padding: MaterialStateProperty.all(EdgeInsets.all(8.0)),
           shape: MaterialStateProperty.all(
@@ -210,22 +209,22 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
             Size(50.0.w, 6.0.h),
           ),
           backgroundColor: MaterialStateProperty.all(
-            FormCheck() ? ThemeColor.secondaryColor() : Colors.grey.shade400,
+            formCheck() ? ThemeColor.secondaryColor() : Colors.grey.shade400,
           ),
           overlayColor: MaterialStateProperty.all(
             Colors.white.withOpacity(0.3),
           ),
         ),
         onPressed: () {
-          if (FormCheck()) {
-            if (IsHave) {
-              Usermanager().getUser().then((value) => bloc.EditShoppingMyShop(
+          if (formCheck()) {
+            if (isHave) {
+              Usermanager().getUser().then((value) => bloc.editShoppingMyShop(
                   context,
                   rateID: rates.id,
                   shopRequest: ShppingMyShopRequest(
                       shippingZoneId:
                           widget.shppingMyShopRespone.data[0].shopId,
-                      rate: int.parse(RateController.text),
+                      rate: int.parse(rateController.text),
                       carrierId: widget.carriersData.id,
                       basedOn: "price",
                       minimum: 0,
@@ -233,12 +232,12 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                       name: widget.carriersData.name),
                   token: value.token));
             } else {
-              Usermanager().getUser().then((value) => bloc.AddShoppingMyShop(
+              Usermanager().getUser().then((value) => bloc.addShoppingMyShop(
                   context,
                   shopRequest: ShppingMyShopRequest(
                       shippingZoneId:
                           widget.shppingMyShopRespone.data[0].shopId,
-                      rate: int.parse(RateController.text),
+                      rate: int.parse(rateController.text),
                       carrierId: widget.carriersData.id,
                       basedOn: "price",
                       minimum: 0,
@@ -250,15 +249,15 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
         },
         child: Text(
           LocaleKeys.btn_continue.tr(),
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               color: Colors.white,
               fontSize: SizeUtil.titleFontSize().sp,
               fontWeight: FontWeight.w500),
         ),
       );
 
-  bool FormCheck() {
-    if (RateController.text.isEmpty) {
+  bool formCheck() {
+    if (rateController.text.isEmpty) {
       return false;
     } else {
       return true;

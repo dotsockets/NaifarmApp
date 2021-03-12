@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
@@ -14,26 +13,26 @@ import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
-class EditEmail_Step2View extends StatefulWidget {
+class EditEmailStep2View extends StatefulWidget {
   final CustomerInfoRespone customerInfoRespone;
 
-  const EditEmail_Step2View({Key key, this.customerInfoRespone})
+  const EditEmailStep2View({Key key, this.customerInfoRespone})
       : super(key: key);
 
   @override
-  _EditEmail_Step2ViewState createState() => _EditEmail_Step2ViewState();
+  EditEmailStep2ViewState createState() => EditEmailStep2ViewState();
 }
 
-class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
-  TextEditingController EmailController = TextEditingController();
+class EditEmailStep2ViewState extends State<EditEmailStep2View> {
+  TextEditingController emailController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   String onError = "";
   MemberBloc bloc;
   bool onDialog = false;
 
-  bool FormCheck() {
-    if (EmailController.text.isEmpty) {
+  bool formCheck() {
+    if (emailController.text.isEmpty) {
       return false;
     } else {
       return true;
@@ -42,9 +41,8 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    emailController.text = "";
     super.initState();
-    EmailController.text = "";
   }
 
   void _init() {
@@ -59,11 +57,11 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
-        FunctionHelper.SuccessDialog(context,
+        FunctionHelper.successDialog(context,
             message: "Please confirm Email in your mailbox ", onClick: () {
           if (onDialog) {
             Navigator.of(context).pop();
@@ -86,10 +84,10 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
               title: LocaleKeys.edit_email_toobar.tr(),
-              header_type: Header_Type.barNormal,
-              isEnable_Search: false,
+              headerType: Header_Type.barNormal,
+              isEnableSearch: false,
               onClick: () {
-                FunctionHelper.ConfirmDialog(context,
+                FunctionHelper.confirmDialog(context,
                     message: LocaleKeys.dialog_message_mail_change_cancel.tr(),
                     onClick: () {
                   Navigator.of(context).pop();
@@ -114,7 +112,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
                         Text(
                           LocaleKeys.edit_email_old.tr() +
                               " ${widget.customerInfoRespone.email}",
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.w500),
                         ),
@@ -126,10 +124,10 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
                             hint: LocaleKeys.set_default.tr() +
                                 LocaleKeys.edit_email_new.tr(),
                             maxLength: 10,
-                            controller: EmailController,
+                            controller: emailController,
                             onError: onError,
                             inputType: TextInputType.emailAddress,
-                            BorderOpacity: 0.2,
+                            borderOpacity: 0.2,
                             onChanged: (String char) {
                               setState(() {});
                             }),
@@ -154,18 +152,18 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
                       Size(50.0.w, 5.0.h),
                     ),
                     backgroundColor: MaterialStateProperty.all(
-                      FormCheck()
-                          ? ThemeColor.ColorSale()
+                      formCheck()
+                          ? ThemeColor.colorSale()
                           : Colors.grey.shade400,
                     ),
                     overlayColor: MaterialStateProperty.all(
                       Colors.white.withOpacity(0.3),
                     ),
                   ),
-                  onPressed: () => FormCheck() ? verify() : SizedBox(),
+                  onPressed: () => formCheck() ? verify() : SizedBox(),
                   child: Text(
                     LocaleKeys.btn_continue.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500),
@@ -189,10 +187,10 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
 
     //});
 
-    if (validator.email(EmailController.text)) {
+    if (validator.email(emailController.text)) {
       // AppRoute.EditEmail_Step3(context,EmailController.text,widget.customerInfoRespone);
       Usermanager().getUser().then((value) => bloc.requestChangEmail(context,
-          email: EmailController.text, token: value.token));
+          email: emailController.text, token: value.token));
     } else {
       setState(() {
         onError = "Email ไม่ถูกต้อง";

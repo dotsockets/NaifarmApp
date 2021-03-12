@@ -42,13 +42,13 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       /*bloc.onSuccessDel.stream.listen((event) {
         Usermanager().getUser().then((value) => bloc.GetAttributeMyShop(token: value.token));
       });*/
       Usermanager().getUser().then(
-          (value) => bloc.GetAttributeMyShop(context, token: value.token));
+          (value) => bloc.getAttributeMyShop(context, token: value.token));
     }
   }
 
@@ -62,7 +62,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
   void didPopNext() {
     Usermanager()
         .getUser()
-        .then((value) => bloc.GetAttributeMyShop(context, token: value.token));
+        .then((value) => bloc.getAttributeMyShop(context, token: value.token));
   }
 
   @override
@@ -79,8 +79,8 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
             child: AppToobar(
               title: LocaleKeys.attributes_set.tr(),
               icon: "",
-              isEnable_Search: false,
-              header_type: Header_Type.barNormal,
+              isEnableSearch: false,
+              headerType: Header_Type.barNormal,
             ),
           ),
           body: SingleChildScrollView(
@@ -122,7 +122,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                                         LocaleKeys.cart_edit
                                                             .tr(),
                                                         style: FunctionHelper
-                                                            .FontTheme(
+                                                            .fontTheme(
                                                                 color: Colors
                                                                     .white,
                                                                 fontSize: SizeUtil
@@ -135,7 +135,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                                     ],
                                                   ),
                                                   onTap: () {
-                                                    AppRoute.AttributeEdit(
+                                                    AppRoute.attributeEdit(
                                                         idAttr:
                                                             item.data[index].id,
                                                         context: context,
@@ -144,7 +144,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                                   },
                                                 ),
                                                 IconSlideAction(
-                                                  color: ThemeColor.ColorSale(),
+                                                  color: ThemeColor.colorSale(),
                                                   iconWidget: Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -166,7 +166,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                                           LocaleKeys.cart_del
                                                               .tr(),
                                                           style: FunctionHelper
-                                                              .FontTheme(
+                                                              .fontTheme(
                                                                   color: Colors
                                                                       .white,
                                                                   fontSize:
@@ -185,7 +185,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                                     Usermanager()
                                                         .getUser()
                                                         .then((value) => bloc
-                                                            .DELETEAttributeMyShop(
+                                                            .deleteAttributeMyShop(
                                                                 context,
                                                                 id: item
                                                                     .data[index]
@@ -215,7 +215,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                 color: Colors.white,
                                 child: Center(
                                   child: Text(LocaleKeys.attributes_empty.tr(),
-                                      style: FunctionHelper.FontTheme(
+                                      style: FunctionHelper.fontTheme(
                                           fontSize: SizeUtil.titleFontSize().sp,
                                           fontWeight: FontWeight.w500)),
                                 ),
@@ -235,7 +235,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                               child: Center(
                                 child: Text(
                                     LocaleKeys.search_product_not_found.tr(),
-                                    style: FunctionHelper.FontTheme(
+                                    style: FunctionHelper.fontTheme(
                                         fontSize: SizeUtil.titleFontSize().sp,
                                         fontWeight: FontWeight.w500)),
                               ),
@@ -266,7 +266,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(txt,
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           color: ThemeColor.primaryColor())),
                   Icon(
@@ -281,7 +281,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
         ),
       ),
       onTap: () {
-        AppRoute.AttributeDetail(context: context, idAttr: id);
+        AppRoute.attributeDetail(context: context, idAttr: id);
       },
     );
   }
@@ -314,11 +314,11 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
             ),
           ),
           onPressed: () {
-            AppRoute.AttributeEdit(context: context, nameAttr: "", idAttr: 0);
+            AppRoute.attributeEdit(context: context, nameAttr: "", idAttr: 0);
           },
           child: Text(
             LocaleKeys.attributes_add.tr(),
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),

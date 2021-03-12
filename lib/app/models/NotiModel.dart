@@ -1,25 +1,35 @@
-
-class NotiModel{
-  final String  Title;
-  final String ImageShop;
-  final int Status_Sell;
-  final String Order_number;
-  final String Date_Order;
+class NotiModel {
+  final String title;
+  final String imageShop;
+  final int statusSell;
+  final String orderNumber;
+  final String dateOrder;
   final String message;
-  final List<Status_order> step_order;
+  final List<StatusOrder> stepOrder;
 
-
-  NotiModel({this.Title, this.ImageShop, this.Status_Sell, this.Order_number, this.Date_Order,this.message,this.step_order});
-
+  NotiModel(
+      {this.title,
+      this.imageShop,
+      this.statusSell,
+      this.orderNumber,
+      this.dateOrder,
+      this.message,
+      this.stepOrder});
 }
 
-class Status_order{
-  final int Status_step;
-  final String NameProduct;
-  final String Parcelnumber;
-  final String date_recive;
-  final String Name_customer;
-  final String Order_number;
-  Status_order({this.Status_step,this.NameProduct, this.Parcelnumber, this.date_recive, this.Name_customer, this.Order_number,});
-
+class StatusOrder {
+  final int statusStep;
+  final String nameProduct;
+  final String parcelNumber;
+  final String dateRecive;
+  final String nameCustomer;
+  final String orderNumber;
+  StatusOrder({
+    this.statusStep,
+    this.nameProduct,
+    this.parcelNumber,
+    this.dateRecive,
+    this.nameCustomer,
+    this.orderNumber,
+  });
 }

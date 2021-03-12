@@ -10,10 +10,10 @@ import '../SizeUtil.dart';
 
 class ConnectErrorPage extends StatelessWidget {
   final ThrowIfNoSuccess result;
-  final bool show_full;
+  final bool showFull;
   final Function callback;
 
-  const ConnectErrorPage({Key key, this.result, this.show_full, this.callback})
+  const ConnectErrorPage({Key key, this.result, this.showFull, this.callback})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class ConnectErrorPage extends StatelessWidget {
         ),
         Text(
           result.message,
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               fontSize: 18, fontWeight: FontWeight.bold),
         ),
         Text(
           'Sorry, it is not currently available."',
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               fontSize: 18, fontWeight: FontWeight.bold),
         ),
         SizedBox(
@@ -60,7 +60,7 @@ class ConnectErrorPage extends StatelessWidget {
           },
           child: Text(
             LocaleKeys.btn_connect.tr(),
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 color: Colors.white,
                 fontSize: SizeUtil.titleSmallFontSize().sp,
                 fontWeight: FontWeight.bold),

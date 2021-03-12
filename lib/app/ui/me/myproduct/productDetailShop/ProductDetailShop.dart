@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -20,7 +19,6 @@ import 'package:naifarm/app/ui/productdetail/widget/ProductDetail.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductInto.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductSlide.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
-import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/ShopOwn.dart';
@@ -29,7 +27,7 @@ import 'package:sizer/sizer.dart';
 
 class ProductDetailShopView extends StatefulWidget {
   final String productImage;
-  ProductMyShop productItem;
+  final ProductMyShop productItem;
 
   ProductDetailShopView({Key key, this.productItem, this.productImage})
       : super(key: key);
@@ -45,7 +43,6 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -54,7 +51,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
 
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       /* bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -65,8 +62,8 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
       });*/
       bloc.onSuccess.stream.listen((event) {});
 
-      Usermanager().getUser().then((value) => bloc.GetProductDetailShop(context,
-          token: value.token, ProductId: widget.productItem.id));
+      Usermanager().getUser().then((value) => bloc.getProductDetailShop(context,
+          token: value.token, productId: widget.productItem.id));
     }
   }
 
@@ -83,8 +80,8 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
             child: AppToobar(
               title: LocaleKeys.me_title_my_product.tr(),
               icon: "",
-              isEnable_Search: false,
-              header_type: Header_Type.barNormal,
+              isEnableSearch: false,
+              headerType: Header_Type.barNormal,
             ),
           ),
           body: Container(
@@ -103,12 +100,16 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                     stream: bloc.productRes.stream,
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
-                                        return _BuildTitle(img: (snapshot.data
-                                        as ProductMyShopRespone).image);
+                                        return buildTitle(
+                                            img: (snapshot.data
+                                                    as ProductMyShopRespone)
+                                                .image);
                                       } else
                                         return Hero(
                                             tag: widget.productImage,
-                                            child: ProductSlide(imgList: widget.productItem.image));
+                                            child: ProductSlide(
+                                                imgList:
+                                                    widget.productItem.image));
                                     }),
                                 StreamBuilder(
                                     stream: bloc.onSuccess.stream,
@@ -122,7 +123,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                             Container(
                                               color: Colors.white,
                                               child: ProductInto(
-                                                showBtn: false,
+                                                  showBtn: false,
                                                   data: ProducItemRespone(
                                                     name: item.name,
                                                     salePrice: item.salePrice,
@@ -134,7 +135,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                             ),
                                             InkWell(
                                               child: ShopOwn(
-                                            rateStyle:true,
+                                                rateStyle: true,
                                                 shopItem: ShopItem(
                                                   rating: item.shop.rating,
                                                   name: item.shop.name != null
@@ -146,7 +147,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                           .productItem.shop.id
                                                       : 0,
                                                   updatedAt:
-                                                          item.shop.updatedAt,
+                                                      item.shop.updatedAt,
                                                   slug:
                                                       widget.productItem.shop !=
                                                               null
@@ -176,7 +177,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                         : 0),
                                               ),
                                               onTap: () {
-                                                AppRoute.ShopMain(
+                                                AppRoute.shopMain(
                                                     context: context,
                                                     myShopRespone:
                                                         MyShopRespone(
@@ -238,7 +239,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
     );
   }
 
-  Widget _BuildTitle({List<ImageProductShop> img}) {
+  Widget buildTitle({List<ImageProductShop> img}) {
     return Container(
       color: Colors.white,
       child: Column(
@@ -257,16 +258,12 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
     );
   }
 
-
-
   List imgProductList({List<ImageProductShop> imgRes}) {
-    List<ProductImage> img = List<ProductImage>();
+    List<ProductImage> img = [];
 
     if (imgRes != null) {
       for (int i = 0; i < imgRes.length; i++)
-        img.add(ProductImage(
-            name: imgRes[i].name,
-            path: imgRes[i].path));
+        img.add(ProductImage(name: imgRes[i].name, path: imgRes[i].path));
     } else {
       img.add(ProductImage(name: "", path: ""));
     }
@@ -274,7 +271,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   }
 
   List inventoryList({ProductMyShopRespone item}) {
-    List<InventoriesProduct> inventory = List<InventoriesProduct>();
+    List<InventoriesProduct> inventory = [];
     for (int i = 0; i < item.inventories.length; i++)
       inventory.add(
           InventoriesProduct(stockQuantity: item.inventories[i].stockQuantity));
@@ -282,7 +279,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   }
 
   List imgShopList({ProductMyShopRespone item}) {
-    List<ProductImage> img = List<ProductImage>();
+    List<ProductImage> img = [];
 
     if (item.shop.image != null || item.shop.image.length != 0) {
       for (int i = 0; i < item.shop.image.length; i++)

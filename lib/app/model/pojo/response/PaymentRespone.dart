@@ -1,5 +1,3 @@
-
-
 class PaymentRespone {
   List<PaymentData> data;
   int total;
@@ -8,7 +6,7 @@ class PaymentRespone {
 
   PaymentRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<PaymentData>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new PaymentData.fromJson(v));
       });
@@ -43,17 +41,18 @@ class PaymentData {
 
   PaymentData(
       {this.id,
-        this.code,
-        this.name,
-        this.type,
-        this.companyName,
-        this.website,
-        this.helpDocLink,
-        this.termsConditionsLink,
-        this.description,
-        this.order,
-        this.createAt,
-        this.updateAt,this.active});
+      this.code,
+      this.name,
+      this.type,
+      this.companyName,
+      this.website,
+      this.helpDocLink,
+      this.termsConditionsLink,
+      this.description,
+      this.order,
+      this.createAt,
+      this.updateAt,
+      this.active});
 
   PaymentData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -87,4 +86,3 @@ class PaymentData {
     return data;
   }
 }
-

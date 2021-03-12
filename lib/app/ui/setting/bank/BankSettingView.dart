@@ -9,7 +9,6 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/BankModel.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -38,8 +37,8 @@ class _BankSettingViewState extends State<BankSettingView> {
             child: AppToobar(
               title: LocaleKeys.setting_account_title_bank.tr(),
               icon: "",
-              isEnable_Search: false,
-              header_type: Header_Type.barNormal,
+              isEnableSearch: false,
+              headerType: Header_Type.barNormal,
             ),
           ),
           body: Container(
@@ -48,30 +47,65 @@ class _BankSettingViewState extends State<BankSettingView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-              LocaleKeys.card_title.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+                  LocaleKeys.card_title.tr(),
+                  style: FunctionHelper.fontTheme(
+                      fontSize: SizeUtil.titleSmallFontSize().sp),
                 ),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 Column(
-                  children: CartViewModel().getBankCartType1().asMap().map((index, value){
-                    return MapEntry(index, _buildCardBank(item: CartViewModel().getBankCartType1()[index],index: index));
-                  }).values.toList(),
+                  children: CartViewModel()
+                      .getBankCartType1()
+                      .asMap()
+                      .map((index, value) {
+                        return MapEntry(
+                            index,
+                            _buildCardBank(
+                                item: CartViewModel().getBankCartType1()[index],
+                                index: index));
+                      })
+                      .values
+                      .toList(),
                 ),
-                SizedBox(height: 1.0.h,),
-                _buildAddBtn(txtBtn: LocaleKeys.card_add_toobar.tr(),indexBtn: 0),
-                SizedBox(height: 2.0.h,),
+                SizedBox(
+                  height: 1.0.h,
+                ),
+                _buildAddBtn(
+                    txtBtn: LocaleKeys.card_add_toobar.tr(), indexBtn: 0),
+                SizedBox(
+                  height: 2.0.h,
+                ),
                 Text(
                   LocaleKeys.bank_title.tr(),
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
-                ),SizedBox(height: 1.0.h,),
-                Column(
-                  children: CartViewModel().getBankCartType2().asMap().map((index, value){
-                    return MapEntry(index, _buildCardBank(item: CartViewModel().getBankCartType2()[index],index: index));
-                  }).values.toList(),
+                  style: FunctionHelper.fontTheme(
+                      fontSize: SizeUtil.titleSmallFontSize().sp),
                 ),
-                SizedBox(height: 1.0.h,),
-                _buildAddBtn(txtBtn: LocaleKeys.bank_add_toobar.tr(),indexBtn: 1),
-                SizedBox(height: 1.0.h,),
+                SizedBox(
+                  height: 1.0.h,
+                ),
+                Column(
+                  children: CartViewModel()
+                      .getBankCartType2()
+                      .asMap()
+                      .map((index, value) {
+                        return MapEntry(
+                            index,
+                            _buildCardBank(
+                                item: CartViewModel().getBankCartType2()[index],
+                                index: index));
+                      })
+                      .values
+                      .toList(),
+                ),
+                SizedBox(
+                  height: 1.0.h,
+                ),
+                _buildAddBtn(
+                    txtBtn: LocaleKeys.bank_add_toobar.tr(), indexBtn: 1),
+                SizedBox(
+                  height: 1.0.h,
+                ),
               ],
             ),
           ),
@@ -80,13 +114,12 @@ class _BankSettingViewState extends State<BankSettingView> {
     );
   }
 
-  Widget _buildCardBank({BankModel item,int index}) {
+  Widget _buildCardBank({BankModel item, int index}) {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(10))
-      ),
+          borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -94,11 +127,10 @@ class _BankSettingViewState extends State<BankSettingView> {
             height: 3.5.h,
             placeholder: (context, url) => Container(
               color: Colors.white,
-              child:
-              Lottie.asset('assets/json/loading.json', height: 30),
+              child: Lottie.asset('assets/json/loading.json', height: 30),
             ),
             fit: BoxFit.cover,
-            imageUrl: item.BackIcon,
+            imageUrl: item.backIcon,
             errorWidget: (context, url, error) => Container(
                 height: 30,
                 child: Icon(
@@ -106,16 +138,23 @@ class _BankSettingViewState extends State<BankSettingView> {
                   size: 30,
                 )),
           ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(item.NameBank,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp)),
-          Text(item.NumberCard,style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp))],)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(item.nameBank,
+                  style: FunctionHelper.fontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp)),
+              Text(item.numberCard,
+                  style: FunctionHelper.fontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp))
+            ],
+          )
         ],
       ),
     );
   }
 
-  Widget _buildAddBtn({String txtBtn,int indexBtn}){
+  Widget _buildAddBtn({String txtBtn, int indexBtn}) {
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(10)),
       child: DottedBorder(
@@ -127,18 +166,31 @@ class _BankSettingViewState extends State<BankSettingView> {
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(10))
-            ),
+                borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Row(
               children: [
-                Text("+",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w200),),
-                SizedBox(width: 15,),
-                Text(txtBtn,style: FunctionHelper.FontTheme(color: ThemeColor.primaryColor(),fontSize: SizeUtil.titleFontSize().sp),),
+                Text(
+                  "+",
+                  style: FunctionHelper.fontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp,
+                      fontWeight: FontWeight.w200),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  txtBtn,
+                  style: FunctionHelper.fontTheme(
+                      color: ThemeColor.primaryColor(),
+                      fontSize: SizeUtil.titleFontSize().sp),
+                ),
               ],
             ),
           ),
-          onTap: (){
-            indexBtn ==0? AppRoute.SettingCreditAdd(context):AppRoute.SettingBankAdd(context);
+          onTap: () {
+            indexBtn == 0
+                ? AppRoute.settingCreditAdd(context)
+                : AppRoute.settingBankAdd(context);
           },
         ),
       ),

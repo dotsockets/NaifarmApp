@@ -1,4 +1,3 @@
-
 class NotiRespone {
   List<NotiData> data;
   int total;
@@ -9,14 +8,14 @@ class NotiRespone {
 
   NotiRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<NotiData>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new NotiData.fromJson(v));
       });
     }
     total = json['total'];
-    page = json['page'] is int?json['page'].toString():json['page'];
-    limit = json['limit'] is int?json['limit'].toString():json['limit'];
+    page = json['page'] is int ? json['page'].toString() : json['page'];
+    limit = json['limit'] is int ? json['limit'].toString() : json['limit'];
   }
 
   Map<String, dynamic> toJson() {
@@ -46,16 +45,16 @@ class NotiData {
 
   NotiData(
       {this.id,
-        this.type,
-        this.notifiableType,
-        this.notifiableId,
-        this.createdBy,
-        this.icon,
-        this.actionText,
-        this.actionUrl,
-        this.data,
-        this.meta,
-        this.readAt});
+      this.type,
+      this.notifiableType,
+      this.notifiableId,
+      this.createdBy,
+      this.icon,
+      this.actionText,
+      this.actionUrl,
+      this.data,
+      this.meta,
+      this.readAt});
 
   NotiData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -100,7 +99,14 @@ class Meta {
   String requirePaymentAt;
   String image;
 
-  Meta({this.user, this.name, this.status, this.id, this.order, this.customer,this.image});
+  Meta(
+      {this.user,
+      this.name,
+      this.status,
+      this.id,
+      this.order,
+      this.customer,
+      this.image});
 
   Meta.fromJson(Map<String, dynamic> json) {
     user = json['user'];

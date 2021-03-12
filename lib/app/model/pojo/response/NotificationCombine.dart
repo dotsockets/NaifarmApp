@@ -1,9 +1,8 @@
-
 import 'NotiRespone.dart';
 
-class NotificationCombine{
-  final NotiRespone CusNotiRespone;
-  final NotiRespone ShopNotiRespone;
+class NotificationCombine {
+  final NotiRespone cusNotiRespone;
+  final NotiRespone shopNotiRespone;
 
-  NotificationCombine({this.CusNotiRespone, this.ShopNotiRespone});
+  NotificationCombine({this.cusNotiRespone, this.shopNotiRespone});
 }

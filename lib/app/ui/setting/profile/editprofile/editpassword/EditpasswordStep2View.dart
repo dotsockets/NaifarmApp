@@ -6,7 +6,6 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
-import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -45,11 +44,11 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
-        FunctionHelper.SuccessDialog(context,
+        FunctionHelper.successDialog(context,
             message: "Please confirm Email in your mailbox ", onClick: () {
           if (onDialog) {
             Navigator.of(context).pop();
@@ -62,7 +61,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
     }
   }
 
-  bool FormCheck() {
+  bool formCheck() {
     if (_input1.text.isEmpty || _input2.text.isEmpty) {
       return false;
     } else {
@@ -111,13 +110,13 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
               title: LocaleKeys.my_profile_change_password.tr(),
-              header_type: Header_Type.barNormal,
-              isEnable_Search: false,
+              headerType: Header_Type.barNormal,
+              isEnableSearch: false,
               onClick: () {
-                FunctionHelper.ConfirmDialog(context,
+                FunctionHelper.confirmDialog(context,
                     message: LocaleKeys.dialog_message_phone_edit_cancel.tr(),
                     onClick: () {
-                  AppRoute.PoppageCount(context: context, countpage: 2);
+                  AppRoute.poppageCount(context: context, countpage: 2);
                 }, onCancel: () {
                   Navigator.of(context).pop();
                 });
@@ -140,7 +139,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 // Text( LocaleKeys.edit_password_confirm_new.tr(),
-                                //   style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
+                                //   style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500),
                                 // ),
                                 // SizedBox(height: 15,),
                                 BuildEditText(
@@ -150,7 +149,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                                       LocaleKeys.my_profile_password.tr(),
                                   inputType: TextInputType.text,
                                   maxLength: 20,
-                                  IsPassword: true,
+                                  isPassword: true,
                                   borderRadius: 5,
                                   controller: _input1,
                                   onError: onError1,
@@ -170,7 +169,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                                       LocaleKeys.my_profile_password.tr(),
                                   inputType: TextInputType.text,
                                   maxLength: 20,
-                                  IsPassword: true,
+                                  isPassword: true,
                                   borderRadius: 5,
                                   controller: _input2,
                                   onError: onError2,
@@ -183,7 +182,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                                 ),
                                 // Center(
                                 //   child: Text("ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป",
-                                //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500)),
+                                //     style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.w500)),
                                 // ),
                               ],
                             ),
@@ -211,8 +210,8 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                               Size(50.0.w, 5.0.h),
                             ),
                             backgroundColor: MaterialStateProperty.all(
-                              FormCheck()
-                                  ? ThemeColor.ColorSale()
+                              formCheck()
+                                  ? ThemeColor.colorSale()
                                   : Colors.grey.shade400,
                             ),
                             overlayColor: MaterialStateProperty.all(
@@ -220,9 +219,9 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                             ),
                           ),
                           onPressed: () {
-                            if (FormCheck()) {
+                            if (formCheck()) {
                               Usermanager().getUser().then((value) =>
-                                  bloc.ModifyPassword(context,
+                                  bloc.modifyPassword(context,
                                       data: ModifyPasswordrequest(
                                           password: _input1.text,
                                           oldPassword: widget.passwordOld,
@@ -232,7 +231,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                           },
                           child: Text(
                             LocaleKeys.btn_continue.tr(),
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 color: Colors.white,
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w500),

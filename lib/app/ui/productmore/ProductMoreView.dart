@@ -2,11 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -25,23 +22,22 @@ import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
-import 'package:sticky_headers/sticky_headers.dart';
 
 class ProductMoreView extends StatefulWidget {
   final String barTxt;
 
   final List<ProductModel> productList;
   final ProductRespone installData;
-  final String api_link;
-  final int type_more;
+  final String apiLink;
+  final int typeMore;
 
   ProductMoreView(
       {Key key,
       this.barTxt,
       this.productList,
       this.installData,
-      this.api_link,
-      this.type_more})
+      this.apiLink,
+      this.typeMore})
       : super(key: key);
 
   @override
@@ -53,62 +49,59 @@ class _ProductMoreViewState extends State<ProductMoreView> {
   int page = 1;
   int limit = 10;
   ScrollController _scrollController = ScrollController();
-  bool step_page = false;
+  bool stepPage = false;
 
-  final position_scroll = BehaviorSubject<bool>();
+  final positionScroll = BehaviorSubject<bool>();
 
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
 
       if (widget.installData != null) {
-        bloc.MoreProduct.add(widget.installData);
+        bloc.moreProduct.add(widget.installData);
       }
-      NaiFarmLocalStorage.getProductMoreCache().then((value){
-
-         if(value!=null){
-           for(var data in value.productRespone){
-               if(data.slag == widget.api_link){
-                 bloc.MoreProduct.add(data.searchRespone);
-                 break;
-               }
-           }
-           bloc.loadMoreData(context,
-               page: page.toString(),
-               limit: 10,
-               link: widget.api_link,
-               type_more: widget.type_more);
-
-         }else{
-           bloc.loadMoreData(context,
-               page: page.toString(),
-               limit: 10,
-               link: widget.api_link,
-               type_more: widget.type_more);
-         }
+      NaiFarmLocalStorage.getProductMoreCache().then((value) {
+        if (value != null) {
+          for (var data in value.productRespone) {
+            if (data.slag == widget.apiLink) {
+              bloc.moreProduct.add(data.searchRespone);
+              break;
+            }
+          }
+          bloc.loadMoreData(context,
+              page: page.toString(),
+              limit: 10,
+              link: widget.apiLink,
+              typeMore: widget.typeMore);
+        } else {
+          bloc.loadMoreData(context,
+              page: page.toString(),
+              limit: 10,
+              link: widget.apiLink,
+              typeMore: widget.typeMore);
+        }
       });
-
     }
 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=
           200) {
-        if (step_page) {
-          step_page = false;
+        if (stepPage) {
+          stepPage = false;
           page++;
           bloc.loadMoreData(context,
               page: page.toString(),
               limit: limit,
-              link: widget.api_link,
-              type_more: widget.type_more);
+              link: widget.apiLink,
+              typeMore: widget.typeMore);
         }
       }
 
       if (_scrollController.position.pixels > 500) {
-        position_scroll.add(true);
+        positionScroll.add(true);
       } else {
-        position_scroll.add(false);
+        positionScroll.add(false);
       }
     });
   }
@@ -124,7 +117,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
               title: widget.barTxt,
-              header_type: Header_Type.barcartShop,
+              headerType: Header_Type.barcartShop,
               icon: 'assets/images/svg/search.svg',
             ),
           ),
@@ -134,13 +127,13 @@ class _ProductMoreViewState extends State<ProductMoreView> {
               SingleChildScrollView(
                 controller: _scrollController,
                 child: StreamBuilder(
-                  stream: bloc.MoreProduct.stream,
+                  stream: bloc.moreProduct.stream,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    step_page = true;
+                    stepPage = true;
                     if (snapshot.hasData) {
                       var item = (snapshot.data as ProductRespone);
                       if (item.data.length > 0) {
-                        step_page = true;
+                        stepPage = true;
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           primary: false,
@@ -199,7 +192,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                                                   width: 10,
                                                 ),
                                                 Text("Loading",
-                                                    style: FunctionHelper.FontTheme(
+                                                    style: FunctionHelper.fontTheme(
                                                         color: Colors.grey,
                                                         fontSize: SizeUtil
                                                                 .priceFontSize()
@@ -227,7 +220,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                                     repeat: false),
                                 Text(
                                   LocaleKeys.search_product_not_found.tr(),
-                                  style: FunctionHelper.FontTheme(
+                                  style: FunctionHelper.fontTheme(
                                       fontSize: SizeUtil.titleFontSize().sp,
                                       fontWeight: FontWeight.bold),
                                 )
@@ -250,7 +243,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                 ),
               ),
               StreamBuilder(
-                  stream: position_scroll.stream,
+                  stream: positionScroll.stream,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       return snapshot.data
@@ -304,7 +297,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.black,
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.w500)),
@@ -318,7 +311,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
           children: [
             item.offerPrice != null
                 ? Text("${item.salePrice}",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.grey,
                         fontSize: SizeUtil.priceFontSize().sp - 2,
                         decoration: TextDecoration.lineThrough))
@@ -330,8 +323,8 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                   : "฿${item.salePrice}",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: FunctionHelper.FontTheme(
-                  color: ThemeColor.ColorSale(),
+              style: FunctionHelper.fontTheme(
+                  color: ThemeColor.colorSale(),
                   fontWeight: FontWeight.w500,
                   fontSize: SizeUtil.priceFontSize().sp),
             ),
@@ -362,7 +355,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
             ),
             Text(
                 "${LocaleKeys.my_product_sold.tr()} ${item.saleCount != null ? item.saleCount.toString() : '0'} ${LocaleKeys.cart_piece.tr()}",
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.detailSmallFontSize().sp,
                     color: Colors.black,
                     fontWeight: FontWeight.w500))
@@ -387,7 +380,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                       border: Border.all(width: 1, color: Colors.grey.shade400),
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Hero(
-                    tag: "loadmore_${item.id}${index}",
+                    tag: "loadmore_${item.id}$index",
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(1.0.h),
                       child: CachedNetworkImage(
@@ -403,7 +396,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                             height: 40.0.w,
                           ),
                         ),
-                        imageUrl: ProductLandscape.CovertUrlImage(item.image),
+                        imageUrl: ProductLandscape.covertUrlImage(item.image),
                         errorWidget: (context, url, error) => Container(
                             width: 30.0.w,
                             height: 40.0.w,
@@ -427,10 +420,10 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                                 left: 1.5.w,
                                 top: 1.0.w,
                                 bottom: 1.0.w),
-                            color: ThemeColor.ColorSale(),
+                            color: ThemeColor.colorSale(),
                             child: Text(
                               "${item.discountPercent}%",
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   color: Colors.white,
                                   fontSize: SizeUtil.titleSmallFontSize().sp),
                             ),
@@ -452,12 +445,12 @@ class _ProductMoreViewState extends State<ProductMoreView> {
       ),
       onTap: () {
         // widget.onTapItem(item,item.id)
-        AppRoute.ProductDetail(context,
-            productImage: "loadmore_${item.id}${index}",
-            productItem: ProductBloc.ConvertDataToProduct(data: item));
+        AppRoute.productDetail(context,
+            productImage: "loadmore_${item.id}$index",
+            productItem: ProductBloc.convertDataToProduct(data: item));
       },
     );
   }
 
-  int Check(int i) => i != bloc.product_more.length - 1 ? 2 : 1;
+  int check(int i) => i != bloc.productMore.length - 1 ? 2 : 1;
 }

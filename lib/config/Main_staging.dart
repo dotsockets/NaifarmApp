@@ -1,8 +1,4 @@
-
-
-import 'package:basic_utils/basic_utils.dart';
 import 'package:naifarm/config/Env.dart';
-import 'package:flutter/material.dart';
 
 void main() => Staging();
 
@@ -13,5 +9,6 @@ class Staging extends Env {
   final String baseUrlWeb = 'https://dev2-test.naifarm.com';
   final String dbName = 'Naifarm-Stg.db';
   final String onesignal = "a9de415f-fb9f-48ae-a0e2-429ef73974ea";
-  final String noItemUrl = "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com";
+  final String noItemUrl =
+      "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com";
 }

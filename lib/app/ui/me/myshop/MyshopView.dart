@@ -10,9 +10,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
-import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/ui/me/widget/TabMenu.dart';
 import 'package:naifarm/config/Env.dart';
@@ -53,7 +51,7 @@ class _MyshopViewState extends State<MyshopView> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.AlertDialogShop(context,
+        FunctionHelper.alertDialogShop(context,
             message: event, title: "Error Create");
         // FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
       });
@@ -77,18 +75,18 @@ class _MyshopViewState extends State<MyshopView> {
       builder: (_, item) {
         if (item is InfoCustomerLoaded) {
           if (item.profileObjectCombine.myShopRespone != null) {
-            return _BuildMyShop(context,
+            return buildMyShop(context,
                 item: item.profileObjectCombine.myShopRespone,
                 shpping: item.profileObjectCombine.shppingMyShopRespone);
           } else {
-            return _BuildRegisterMyshop(context);
+            return buildRegisterMyshop(context);
           }
         } else if (item is InfoCustomerLoading) {
-          return _BuildMyShop(context,
+          return buildMyShop(context,
               item: MyShopRespone(
                   image: item.profileObjectCombine.myShopRespone != null
                       ? item.profileObjectCombine.myShopRespone.image
-                      : List<ProductImage>(),
+                      : [],
                   name: "กำลังโหลด",
                   active: 0),
               shpping: item.profileObjectCombine.shppingMyShopRespone);
@@ -99,7 +97,7 @@ class _MyshopViewState extends State<MyshopView> {
     );
   }
 
-  Widget _BuildRegisterMyshop(BuildContext context) {
+  Widget buildRegisterMyshop(BuildContext context) {
     return Container(
       color: Colors.grey.shade300,
       child: SingleChildScrollView(
@@ -112,7 +110,7 @@ class _MyshopViewState extends State<MyshopView> {
                 color: Colors.grey.shade300,
                 child: Text(
                   "You can open a shop By filling in the information below to open your own shop ",
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp,
                       color: Colors.black),
                 ),
@@ -126,7 +124,7 @@ class _MyshopViewState extends State<MyshopView> {
                   children: [
                     BuildEditText(
                         head: LocaleKeys.shop_name.tr(),
-                        EnableMaxLength: false,
+                        enableMaxLength: false,
                         hint: LocaleKeys.set_default.tr() +
                             LocaleKeys.shop_name.tr(),
                         controller: nameshopController,
@@ -137,7 +135,7 @@ class _MyshopViewState extends State<MyshopView> {
                     ),
                     BuildEditText(
                         head: LocaleKeys.shop_detail.tr(),
-                        EnableMaxLength: false,
+                        enableMaxLength: false,
                         hint: LocaleKeys.set_default.tr() +
                             LocaleKeys.shop_detail.tr(),
                         controller: slugshopController,
@@ -157,7 +155,7 @@ class _MyshopViewState extends State<MyshopView> {
     );
   }
 
-  Widget _BuildMyShop(BuildContext context,
+  Widget buildMyShop(BuildContext context,
       {MyShopRespone item, ShppingMyShopRespone shpping}) {
     return Container(
       color: Colors.grey.shade200,
@@ -174,12 +172,12 @@ class _MyshopViewState extends State<MyshopView> {
                 : false,
             child: Container(
               padding: EdgeInsets.all(2.0.w),
-              color: ThemeColor.Warning(),
+              color: ThemeColor.warning(),
               child: Row(
                 children: [
                   Icon(
                     Icons.error,
-                    color: ThemeColor.ColorSale(),
+                    color: ThemeColor.colorSale(),
                   ),
                   SizedBox(
                     width: 2.0.w,
@@ -187,8 +185,8 @@ class _MyshopViewState extends State<MyshopView> {
                   Expanded(
                       child: Text(
                           "Alway protect yourself by completing your transactions within Naifarm.",
-                          style: FunctionHelper.FontTheme(
-                              color: ThemeColor.ColorSale(),
+                          style: FunctionHelper.fontTheme(
+                              color: ThemeColor.colorSale(),
                               fontSize: SizeUtil.titleSmallFontSize().sp))),
                   IconButton(
                       icon: Icon(
@@ -242,7 +240,7 @@ class _MyshopViewState extends State<MyshopView> {
             icon: 'assets/images/svg/latest.svg',
             title: LocaleKeys.me_title_history_shop.tr(),
             iconSize: 7.0.w,
-            onClick: () => AppRoute.ShopOrderHistory(context, 0),
+            onClick: () => AppRoute.shopOrderHistory(context, 0),
           ),
           //  widget.IsLogin ? _BuildDivider() : SizedBox(),
           // widget.IsLogin
@@ -254,7 +252,7 @@ class _MyshopViewState extends State<MyshopView> {
           //   onClick: () => AppRoute.WithdrawMoney(context),
           // )
           //     : SizedBox(),
-          _BuildDivider(),
+          buildDivider(),
 
           ListMenuItem(
             iconSize: 7.0.w,
@@ -262,7 +260,7 @@ class _MyshopViewState extends State<MyshopView> {
             title: LocaleKeys.me_title_my_product.tr(),
             onClick: () {
               if (shpping.data[0].rates.length == 0) {
-                FunctionHelper.NaiFarmDialog(
+                FunctionHelper.naiFarmDialog(
                     context: context,
                     message:
                         "Please complete the shop information. Before handling products ",
@@ -270,46 +268,46 @@ class _MyshopViewState extends State<MyshopView> {
                       Navigator.of(context).pop();
                     });
               } else {
-                AppRoute.MyProduct(context, item.id);
+                AppRoute.myProduct(context, item.id);
               }
             },
           ),
-          _BuildDivider(),
+          buildDivider(),
           ListMenuItem(
             iconSize: 7.0.w,
             icon: 'assets/images/svg/delivery.svg',
             title: LocaleKeys.me_title_shipping.tr(),
             onClick: () {
-              AppRoute.DeliveryMe(context);
+              AppRoute.deliveryMe(context);
             },
           ),
-          _BuildDivider(),
+          buildDivider(),
           ListMenuItem(
               iconSize: 7.0.w,
               icon: 'assets/images/svg/money.svg',
               title: LocaleKeys.me_title_payment.tr(),
               onClick: () {
-                AppRoute.PaymentMe(context);
+                AppRoute.paymentMe(context);
               }),
-          _BuildDivider(),
+          buildDivider(),
           ListMenuItem(
             iconSize: 6.5.w,
             icon: 'assets/images/svg/help.svg',
             title: LocaleKeys.me_title_help.tr(),
             onClick: () {
-              AppRoute.SettingHelp(context);
+              AppRoute.settingHelp(context);
             },
           ),
-          _BuildDivider(num: 10),
+          buildDivider(num: 10),
           ListMenuItem(
             iconSize: 7.0.w,
             icon: 'assets/images/svg/work.svg',
             title: LocaleKeys.setting_account_title_shop.tr(),
-            IsPhoto:
+            isPhoto:
                 "${item != null ? item.image != null ? item.image.isNotEmpty ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}" : '' : '' : ''}",
-            Message: item.name,
+            message: item.name,
             onClick: () async {
-              final result = await AppRoute.ShopProfile(context);
+              final result = await AppRoute.shopProfile(context);
               if (result != null && result) {
                 widget.onStatus(result);
               } else {
@@ -335,14 +333,14 @@ class _MyshopViewState extends State<MyshopView> {
               icon: 'assets/images/svg/status_delivery.svg',
               title: LocaleKeys.me_menu_ship.tr(),
               onClick: () {
-                AppRoute.ShopOrderHistory(context, 1);
+                AppRoute.shopOrderHistory(context, 1);
               },
               notification: count.sellOrder.confirm),
           TabMenu(
             icon: 'assets/images/svg/status_delivery.svg',
             title: LocaleKeys.me_menu_shipping.tr(),
             onClick: () {
-              AppRoute.ShopOrderHistory(context, 2);
+              AppRoute.shopOrderHistory(context, 2);
             },
             notification: count.sellOrder.shipping,
           ),
@@ -350,7 +348,7 @@ class _MyshopViewState extends State<MyshopView> {
             icon: 'assets/images/svg/status_cancel.svg',
             title: LocaleKeys.me_menu_cancel_product.tr(),
             onClick: () {
-              AppRoute.ShopOrderHistory(context, 4);
+              AppRoute.shopOrderHistory(context, 4);
             },
             notification: count.sellOrder.cancel,
           ),
@@ -386,7 +384,7 @@ class _MyshopViewState extends State<MyshopView> {
         ),
         onPressed: () {
           if (shpping.data[0].rates.length == 0) {
-            FunctionHelper.NaiFarmDialog(
+            FunctionHelper.naiFarmDialog(
                 context: context,
                 message:
                     "Please complete the shop information. Before handling products ",
@@ -394,12 +392,12 @@ class _MyshopViewState extends State<MyshopView> {
                   Navigator.of(context).pop();
                 });
           } else {
-            AppRoute.ImageProduct(context, isactive: IsActive.NewProduct);
+            AppRoute.imageProduct(context, isactive: IsActive.NewProduct);
           }
         },
         child: Text(
           LocaleKeys.btn_add_product.tr(),
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               color: Colors.white,
               fontSize: SizeUtil.titleFontSize().sp,
               fontWeight: FontWeight.w500),
@@ -433,7 +431,7 @@ class _MyshopViewState extends State<MyshopView> {
       ),
       onPressed: () {
         if (check) {
-          Usermanager().getUser().then((value) => bloc.CreateMyShop(context,
+          Usermanager().getUser().then((value) => bloc.createMyShop(context,
               name: nameshopController.text,
               slug: slugshopController.text,
               description: slugshopController.text,
@@ -442,7 +440,7 @@ class _MyshopViewState extends State<MyshopView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleFontSize().sp,
             fontWeight: FontWeight.w500),
@@ -450,7 +448,7 @@ class _MyshopViewState extends State<MyshopView> {
     );
   }
 
-  Widget _BuildDivider({double num = 0.5}) {
+  Widget buildDivider({double num = 0.5}) {
     return Container(
       height: num,
       color: Colors.grey.shade300,

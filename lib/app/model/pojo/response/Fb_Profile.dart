@@ -1,5 +1,4 @@
-
-class Fb_Profile {
+class FbProfile {
   String name;
   String firstName;
   String lastName;
@@ -7,9 +6,15 @@ class Fb_Profile {
   String id;
   String token;
 
-  Fb_Profile({this.name, this.firstName, this.lastName, this.email, this.id,this.token});
+  FbProfile(
+      {this.name,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.id,
+      this.token});
 
-  Fb_Profile.fromJson(Map<String, dynamic> json) {
+  FbProfile.fromJson(Map<String, dynamic> json) {
     name = json['name'].toString();
     firstName = json['first_name'].toString();
     lastName = json['last_name'].toString();

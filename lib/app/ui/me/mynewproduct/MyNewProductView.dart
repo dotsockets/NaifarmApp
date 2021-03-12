@@ -8,7 +8,6 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
-import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
@@ -37,7 +36,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool checkKeyBoard = false;
   UploadProductBloc bloc;
-  bool slug_install = true;
+  bool slugInstall = true;
   //
   // @override
   // void initState() {
@@ -57,13 +56,13 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.uploadProductStorage.stream.listen((event) {
-        if (slug_install) {
+        if (slugInstall) {
           _installControllerInput(
               productMyShopRequest: event.productMyShopRequest);
-          slug_install = false;
+          slugInstall = false;
           checkNum();
         }
-        NaiFarmLocalStorage.SaveProductStorage(bloc.uploadProductStorage.value);
+        NaiFarmLocalStorage.saveProductStorage(bloc.uploadProductStorage.value);
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -73,7 +72,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         if (event is ProductMyShopRespone) {
@@ -84,10 +83,10 @@ class _MyNewProductViewState extends State<MyNewProductView> {
           // Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: bloc.inventoriesId,inventoriesId: bloc.inventoriesId,
           //     token: value.token));
 
-          NaiFarmLocalStorage.DeleteCacheByItem(
-                  key: NaiFarmLocalStorage.NaiFarm_Product_Upload)
+          NaiFarmLocalStorage.deleteCacheByItem(
+                  key: NaiFarmLocalStorage.naiFarmProductUpload)
               .then((value) {
-            AppRoute.MyProduct(context, widget.shopId,
+            AppRoute.myProduct(context, widget.shopId,
                 pushEvent: true,
                 countPage: 1,
                 indexTab: bloc.uploadProductStorage.value.productMyShopRequest
@@ -104,8 +103,8 @@ class _MyNewProductViewState extends State<MyNewProductView> {
 
       NaiFarmLocalStorage.getProductStorageCache().then((value) {
         if (value != null) {
-          bloc.ItemImage.clear();
-          bloc.ItemImage.addAll(value.onSelectItem);
+          bloc.itemImage.clear();
+          bloc.itemImage.addAll(value.onSelectItem);
           bloc.uploadProductStorage.add(UploadProductStorage(
               productMyShopRequest: value.productMyShopRequest,
               onSelectItem: value.onSelectItem));
@@ -130,8 +129,8 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                     child: AppToobar(
                         title: LocaleKeys.my_product_data.tr(),
                         icon: "",
-                        isEnable_Search: false,
-                        header_type: Header_Type.barNormal)),
+                        isEnableSearch: false,
+                        headerType: Header_Type.barNormal)),
                 StreamBuilder(
                     stream: bloc.uploadProductStorage.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -151,7 +150,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                       BuildEditText(
                                         head: LocaleKeys.my_product_name.tr() +
                                             " * ",
-                                        EnableMaxLength: true,
+                                        enableMaxLength: true,
                                         hint: LocaleKeys.fill.tr() +
                                             LocaleKeys.my_product_name.tr(),
                                         maxLength: 120,
@@ -173,7 +172,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      _BuildDropdown(
+                                      buildDropdown(
                                           head: LocaleKeys.my_product_category
                                                   .tr() +
                                               " *",
@@ -190,7 +189,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                         head:
                                             LocaleKeys.my_product_detail.tr() +
                                                 " * ",
-                                        EnableMaxLength: true,
+                                        enableMaxLength: true,
                                         maxLength: 5000,
                                         hint: LocaleKeys.fill.tr() +
                                             LocaleKeys.my_product_name.tr(),
@@ -284,15 +283,15 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                     ],
                                   ),
                                 ),
-                                _BuildDeliveryTab(),
+                                buildDeliveryTab(),
                                 Divider(
                                   height: 10,
                                 ),
-                                _BuildImageTab(),
+                                buildImageTab(),
                                 Divider(
                                   height: 10,
                                 ),
-                                _BuildAtivceTab(),
+                                buildAtivceTab(),
                               ],
                             ),
                           ),
@@ -307,7 +306,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                       if (snapshot.hasData) {
                         return Visibility(
                           visible: checkKeyBoard ? false : true,
-                          child: _BuildButton(enable: CheckEnable()),
+                          child: buildButton(enable: checkEnable()),
                         );
                       } else {
                         return SizedBox();
@@ -321,7 +320,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     );
   }
 
-  bool CheckEnable() {
+  bool checkEnable() {
     var item = bloc.uploadProductStorage.value.productMyShopRequest;
     if (item.name != "" &&
         item.category != 0 &&
@@ -335,7 +334,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     }
   }
 
-  Widget _BuildDropdown(
+  Widget buildDropdown(
       {String head, String hint, String seletText, List<String> dataList}) {
     for (var item in bloc.categoriesAllRespone.categoriesRespone.data) {
       if (item.id ==
@@ -351,7 +350,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           Container(
@@ -368,7 +367,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                     children: [
                       Text(
                         seletText,
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp),
                       ),
                       Icon(Icons.keyboard_arrow_down)
@@ -384,7 +383,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     );
   }
 
-  Widget _BuildDeliveryTab() {
+  Widget buildDeliveryTab() {
     return InkWell(
       child: Container(
           padding: EdgeInsets.all(20),
@@ -394,7 +393,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(LocaleKeys.my_product_delivery_price.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp)),
               Icon(
                 Icons.arrow_forward_ios,
@@ -404,7 +403,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
           ))),
       onTap: () async {
         FocusScope.of(context).unfocus();
-        final result = await AppRoute.DeliveryCost(context,
+        final result = await AppRoute.deliveryCost(context,
             uploadProductStorage: bloc.uploadProductStorage.value,
             productsId: 0);
         if (result > 0) {
@@ -414,7 +413,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     );
   }
 
-  Widget _BuildImageTab() {
+  Widget buildImageTab() {
     return InkWell(
       child: Container(
           color: Colors.white,
@@ -425,7 +424,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Edit picture",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp)),
                   Icon(
                     Icons.arrow_forward_ios,
@@ -434,7 +433,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                 ],
               ))),
       onTap: () async {
-        var result = await AppRoute.ImageProduct(context,
+        var result = await AppRoute.imageProduct(context,
             isactive: IsActive.UpdateProduct);
         if (result) {
           NaiFarmLocalStorage.getProductStorageCache().then((value) {
@@ -449,7 +448,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     );
   }
 
-  Widget _BuildAtivceTab() {
+  Widget buildAtivceTab() {
     return Container(
         color: Colors.white,
         padding: EdgeInsets.only(left: 5, right: 5),
@@ -459,7 +458,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Open sales",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp)),
                 FlutterSwitch(
                   height: SizeUtil.switchHeight(),
@@ -489,7 +488,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
             )));
   }
 
-  Widget _BuildButton({bool enable}) {
+  Widget buildButton({bool enable}) {
     return Container(
         color: Colors.grey.shade300,
         height: 80,
@@ -499,21 +498,21 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: _BuildButtonCancleItem(
+                  child: buildButtonCancleItem(
                       btnTxt: "Delete", index: 0, enable: enable),
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 Expanded(
-                  child: _BuildButtonItem(
-                      btnTxt: "Save", index: 1, enable: enable),
+                  child:
+                      buildButtonItem(btnTxt: "Save", index: 1, enable: enable),
                 )
               ],
             )));
   }
 
-  Widget _BuildButtonItem({String btnTxt, int index, bool enable}) {
+  Widget buildButtonItem({String btnTxt, int index, bool enable}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -535,7 +534,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
         if (enable) {
           Usermanager().getUser().then((value) {
-            bloc.AddProductMyShop(context,
+            bloc.addProductMyShop(context,
                 shopRequest:
                     bloc.uploadProductStorage.value.productMyShopRequest,
                 token: value.token);
@@ -544,7 +543,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),
@@ -552,7 +551,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     );
   }
 
-  Widget _BuildButtonCancleItem({String btnTxt, int index, bool enable}) {
+  Widget buildButtonCancleItem({String btnTxt, int index, bool enable}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -564,7 +563,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
           Size(80.0.w, 50.0),
         ),
         backgroundColor: MaterialStateProperty.all(
-          enable ? ThemeColor.ColorSale() : Colors.grey.shade400,
+          enable ? ThemeColor.colorSale() : Colors.grey.shade400,
         ),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),
@@ -572,8 +571,8 @@ class _MyNewProductViewState extends State<MyNewProductView> {
       ),
       onPressed: () {
         if (enable) {
-          NaiFarmLocalStorage.DeleteCacheByItem(
-                  key: NaiFarmLocalStorage.NaiFarm_Product_Upload)
+          NaiFarmLocalStorage.deleteCacheByItem(
+                  key: NaiFarmLocalStorage.naiFarmProductUpload)
               .then((value) {
             Navigator.of(context).pop();
           });
@@ -581,7 +580,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),

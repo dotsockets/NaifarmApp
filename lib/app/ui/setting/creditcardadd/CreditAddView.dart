@@ -39,7 +39,7 @@ class _CreditAddViewState extends State<CreditAddView> {
             child: AppToobar(
               title: LocaleKeys.card_add_toobar.tr(),
               icon: "",
-              header_type: Header_Type.barNormal,
+              headerType: Header_Type.barNormal,
             ),
           ),
           body: Container(
@@ -63,7 +63,7 @@ class _CreditAddViewState extends State<CreditAddView> {
                             children: [
                               Text(
                                 LocaleKeys.card_number.tr(),
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -71,7 +71,7 @@ class _CreditAddViewState extends State<CreditAddView> {
                                 child: Row(
                                   children: [
                                     Text(LocaleKeys.card_img.tr(),
-                                        style: FunctionHelper.FontTheme(
+                                        style: FunctionHelper.fontTheme(
                                             fontSize:
                                                 SizeUtil.titleFontSize().sp,
                                             fontWeight: FontWeight.w500)),
@@ -139,7 +139,7 @@ class _CreditAddViewState extends State<CreditAddView> {
     );
   }
 
-  Widget _buildError({String errorTxt}) {
+  Widget buildError({String errorTxt}) {
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.only(top: 10, left: 20, right: 20),
@@ -147,7 +147,7 @@ class _CreditAddViewState extends State<CreditAddView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               fontSize: SizeUtil.detailFontSize().sp, color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
@@ -173,7 +173,7 @@ class _CreditAddViewState extends State<CreditAddView> {
       color: Colors.white,
       child: BuildEditText(
           head: head,
-          EnableMaxLength: false,
+          enableMaxLength: false,
           hint: hint,
           controller: controller,
           inputType: TextInputType.text),
@@ -188,7 +188,7 @@ class _CreditAddViewState extends State<CreditAddView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   color: Colors.black)),
           SizedBox(
@@ -234,7 +234,7 @@ class _CreditAddViewState extends State<CreditAddView> {
                   exController.text.isNotEmpty &&
                   cvvController.text.isNotEmpty &&
                   detailAddrController.text.isNotEmpty
-              ? ThemeColor.ColorSale()
+              ? ThemeColor.colorSale()
               : Colors.grey.shade400,
         ),
         overlayColor: MaterialStateProperty.all(
@@ -246,7 +246,7 @@ class _CreditAddViewState extends State<CreditAddView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleFontSize().sp,
             fontWeight: FontWeight.w500),

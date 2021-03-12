@@ -10,14 +10,10 @@ import 'package:naifarm/app/model/pojo/request/AssetImages.dart';
 import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
-import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopAttributeRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -29,78 +25,78 @@ class UploadProductBloc {
   final onError = BehaviorSubject<Object>();
   final onSuccess = BehaviorSubject<Object>();
   final onChang = BehaviorSubject<Object>();
-  final ProductMyShopRes = BehaviorSubject<ProductMyShopListRespone>();
+  final productMyShopRes = BehaviorSubject<ProductMyShopListRespone>();
   final attributeMyShop = BehaviorSubject<MyShopAttributeRespone>();
   final uploadProductStorage = BehaviorSubject<UploadProductStorage>();
   final productRes = BehaviorSubject<ProductMyShopRespone>();
 
   CategoryCombin categoriesAllRespone = CategoryCombin();
-  ProductMyShopRequest ProductDetail = ProductMyShopRequest();
-  List<OnSelectItem> ItemImage = List<OnSelectItem>();
-  List<ProductMyShop> productList = List<ProductMyShop>();
-  List<ImageProductShop> productImageList = List<ImageProductShop>();
+  ProductMyShopRequest productDetail = ProductMyShopRequest();
+  List<OnSelectItem> itemImage = [];
+  List<ProductMyShop> productList = [];
+  List<ImageProductShop> productImageList = [];
 
   int inventoriesId = 0;
   var checkloop = 0;
 
   UploadProductBloc(this._application);
 
-  void ConvertArrayFile({List<Asset> imageList, int index}) {
-    List<AssetImages> ItemConvert = List<AssetImages>();
-    ItemImage.remove(null);
+  void convertArrayFile({List<Asset> imageList, int index}) {
+    List<AssetImages> itemConvert = [];
+    itemImage.remove(null);
     for (var temp in imageList) {
-      ItemConvert.add(AssetImages(
+      itemConvert.add(AssetImages(
           temp.identifier, temp.name, temp.originalWidth, temp.originalHeight));
     }
 
-    if (ItemImage.length <= 9) {
-      for (var i = 0; i < (ItemConvert.length); i++) {
-        if (ItemImage.length != 10) {
-          ItemImage.add(OnSelectItem(image: ItemConvert[i], onEdit: false));
+    if (itemImage.length <= 9) {
+      for (var i = 0; i < (itemConvert.length); i++) {
+        if (itemImage.length != 10) {
+          itemImage.add(OnSelectItem(image: itemConvert[i], onEdit: false));
         } else {
           break;
         }
       }
-      onChang.add(ItemImage);
+      onChang.add(itemImage);
     }
   }
 
-  void EditImage({List<Asset> imageList, int index}) {
-    ItemImage.remove(null);
-    ItemImage[index] = OnSelectItem(
-        url: ItemImage[index].url,
+  void editImage({List<Asset> imageList, int index}) {
+    itemImage.remove(null);
+    itemImage[index] = OnSelectItem(
+        url: itemImage[index].url,
         image: AssetImages(imageList[0].identifier, imageList[0].name,
             imageList[0].originalWidth, imageList[0].originalHeight),
         onEdit: false);
-    onChang.add(ItemImage);
+    onChang.add(itemImage);
   }
 
-  void DeleteImage({int index}) {
-    ItemImage.remove(null);
-    ItemImage.removeAt(index);
+  void deleteImage({int index}) {
+    itemImage.remove(null);
+    itemImage.removeAt(index);
 
-    NaiFarmLocalStorage.SaveProductStorage(UploadProductStorage(
-            onSelectItem: ItemImage, productMyShopRequest: ProductDetail))
+    NaiFarmLocalStorage.saveProductStorage(UploadProductStorage(
+            onSelectItem: itemImage, productMyShopRequest: productDetail))
         .then((value) {
-      onChang.add(ItemImage);
+      onChang.add(itemImage);
     });
   }
 
-  void LoadImage({List<OnSelectItem> item}) {
+  void loadImage({List<OnSelectItem> item}) {
     if (item != null) {
       for (var items in item) {
-        if (ItemImage.length != 10) {
-          ItemImage.add(OnSelectItem(image: items.image, onEdit: false));
+        if (itemImage.length != 10) {
+          itemImage.add(OnSelectItem(image: items.image, onEdit: false));
         } else {
           break;
         }
       }
     }
-    onChang.add(ItemImage);
+    onChang.add(itemImage);
   }
 
-  void ConvertOnEdit({int index}) {
-    ItemImage.remove(null);
+  void convertOnEdit({int index}) {
+    itemImage.remove(null);
     var item = (onChang.value as List<OnSelectItem>);
 
     for (var i = 0; i < item.length; i++) {
@@ -113,57 +109,68 @@ class UploadProductBloc {
       }
     }
 
-    onChang.add(ItemImage);
+    onChang.add(itemImage);
   }
 
-  void SaveProductDetail() {
-    NaiFarmLocalStorage.SaveProductStorage(uploadProductStorage.value);
+  void saveProductDetail() {
+    NaiFarmLocalStorage.saveProductStorage(uploadProductStorage.value);
   }
 
-  AddProductMyShop(BuildContext context,{ProductMyShopRequest shopRequest, String token}) {
+  addProductMyShop(BuildContext context,
+      {ProductMyShopRequest shopRequest, String token}) {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .AddProductMyShop(context,shopRequest: shopRequest, token: token))
+            .addProductMyShop(context, shopRequest: shopRequest, token: token))
         .listen((respone) async {
-      if (respone.http_call_back.status == 200) {
+      if (respone.httpCallBack.status == 200) {
         if (uploadProductStorage.value.productMyShopRequest.active == 1) {
-          UpdateProductMyShop(context,
+          updateProductMyShop(context,
               shopRequest: shopRequest,
               token: token,
-              productId: (respone.respone as ProductMyShopRespone).id,isActive: IsActive.NewProduct);
+              productId: (respone.respone as ProductMyShopRespone).id,
+              isActive: IsActive.NewProduct);
         }
         if (uploadProductStorage.value.onSelectItem.length <= 0) {
           onLoad.add(false);
         } else {
-
           var item = uploadProductStorage.value.productMyShopRequest;
-          var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice!=null?item.offerPrice:0,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
-         UpdateProductInventories(context,Isload: false,inventoriesRequest: inventor,productId: (respone.respone as ProductMyShopRespone).id,inventoriesId: (respone.respone as ProductMyShopRespone).inventories[0].id, token: token);
+          var inventor = InventoriesRequest(
+              title: item.name,
+              offerPrice: item.offerPrice != null ? item.offerPrice : 0,
+              stockQuantity: item.stockQuantity,
+              salePrice: item.salePrice,
+              active: item.active);
+          updateProductInventories(context,
+              isload: false,
+              inventoriesRequest: inventor,
+              productId: (respone.respone as ProductMyShopRespone).id,
+              inventoriesId:
+                  (respone.respone as ProductMyShopRespone).inventories[0].id,
+              token: token);
 
           checkloop = 0;
           for (var item in uploadProductStorage.value.onSelectItem) {
             writeToFile(await item.image.getByteData(quality: 100))
                 .then((file) {
-              UploadImageProduct(
-                  context,
+              uploadImageProduct(context,
                   token: token,
                   imageableId: (respone.respone as ProductMyShopRespone).id,
                   imageFile: file,
                   imageableType: "product",
-                  index: CountSelectImage());
+                  index: countSelectImage());
             });
           }
         }
       } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  UploadImageProduct(BuildContext context,
+  uploadImageProduct(BuildContext context,
       {File imageFile,
       String imageableType,
       int imageableId,
@@ -171,8 +178,7 @@ class UploadProductBloc {
       int index,
       IsActive isActive}) {
     StreamSubscription subscription = Observable.fromFuture(
-            _application.appStoreAPIRepository.UploadImage(
-                context,
+            _application.appStoreAPIRepository.uploadImage(context,
                 imageFile: imageFile,
                 imageableId: imageableId,
                 imageableType: imageableType,
@@ -187,129 +193,141 @@ class UploadProductBloc {
     _compositeSubscription.add(subscription);
   }
 
-  UpdateProductMyShop(BuildContext context,
-      {ProductMyShopRequest shopRequest, int productId, String token,IsActive isActive}) {
-
+  updateProductMyShop(BuildContext context,
+      {ProductMyShopRequest shopRequest,
+      int productId,
+      String token,
+      IsActive isActive}) {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
-            _application.appStoreAPIRepository.UpdateProductMyShop(context,
+            _application.appStoreAPIRepository.updateProductMyShop(context,
                 shopRequest: shopRequest, productId: productId, token: token))
         .listen((respone) {
-      if (respone.http_call_back.status == 200) {
-      // onSuccess.add(true);
+      if (respone.httpCallBack.status == 200) {
+        // onSuccess.add(true);
 
-         if(isActive == IsActive.UpdateProduct){
-           //onLoad.add(false);
-           onSuccess.add(true);
-         }else if(isActive == IsActive.ReplacemenView){
-           onLoad.add(false);
-           onSuccess.add(true);
-         }else{
-           onLoad.add(false);
-         }
+        if (isActive == IsActive.UpdateProduct) {
+          //onLoad.add(false);
+          onSuccess.add(true);
+        } else if (isActive == IsActive.ReplacemenView) {
+          onLoad.add(false);
+          onSuccess.add(true);
+        } else {
+          onLoad.add(false);
+        }
       } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  UpdateProductInventories(BuildContext context,
+  updateProductInventories(BuildContext context,
       {InventoriesRequest inventoriesRequest,
       int productId,
       int inventoriesId,
-      String token,bool Isload}) {
+      String token,
+      bool isload}) {
     StreamSubscription subscription = Observable.fromFuture(
-            _application.appStoreAPIRepository.UpdateProductInventories(context,
+            _application.appStoreAPIRepository.updateProductInventories(context,
                 inventoriesRequest: inventoriesRequest,
                 inventoriesId: inventoriesId,
                 productId: productId,
                 token: token))
         .listen((respone) {
-          if(Isload){
-            onLoad.add(false);
-          }
-    //  onLoad.add(false);
-      if (respone.http_call_back.status == 200) {
+      if (isload) {
+        onLoad.add(false);
+      }
+      //  onLoad.add(false);
+      if (respone.httpCallBack.status == 200) {
         onSuccess.add((respone.respone as ProductMyShopRespone));
       } else {
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  GetProductMyShop(BuildContext context,{String page, int limit, String token,String filter}) {
-    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.GetProductMyShop(context,page: page, limit: limit, token: token,filter: filter)).listen((respone) {
-      if (respone.http_call_back.status == 200) {
+  getProductMyShop(BuildContext context,
+      {String page, int limit, String token, String filter}) {
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.getProductMyShop(context,
+                page: page, limit: limit, token: token, filter: filter))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
         var item = (respone.respone as ProductMyShopListRespone);
         productList.addAll(item.data);
-        ProductMyShopRes.add(ProductMyShopListRespone(data: productList,limit: item.limit,page: item.page,total: item.total));
+        productMyShopRes.add(ProductMyShopListRespone(
+            data: productList,
+            limit: item.limit,
+            page: item.page,
+            total: item.total));
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  DELETEProductMyShop(BuildContext context,{int ProductId, String token}) {
+  deleteProductMyShop(BuildContext context, {int productId, String token}) {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .DELETEProductMyShop(context,ProductId: ProductId, token: token))
+            .deleteProductMyShop(context, productId: productId, token: token))
         .listen((respone) {
-      if (respone.http_call_back.status == 200) {
+      if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
         onSuccess.add(IsActive.DeleteImage);
       } else {
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  DeleteImageProduct(BuildContext context,
+  deleteImageProduct(BuildContext context,
       {String imageableId, String imageableType, String path, String token}) {
     StreamSubscription subscription = Observable.fromFuture(
-            _application.appStoreAPIRepository.DeleteImageProduct(context,
+            _application.appStoreAPIRepository.deleteImageProduct(context,
                 imageableType: imageableType,
                 imageableId: imageableId,
                 path: path,
                 token: token))
         .listen((respone) {
-      if (respone.http_call_back.status == 200) {
+      if (respone.httpCallBack.status == 200) {
       } else {
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  OnUpdateImage(BuildContext context,{int ProductId, String token, List<OnSelectItem> data}) async {
+  onUpdateImage(BuildContext context,
+      {int productId, String token, List<OnSelectItem> data}) async {
     onLoad.add(true);
-    ItemImage.remove(null);
+    itemImage.remove(null);
     checkloop = 0;
 
     for (var item in data) {
       if (item.image != null && item.url != "") {
         writeToFile(await item.image.getByteData(quality: 100)).then((file) {
-          UploadImageProduct(context,
+          uploadImageProduct(context,
               token: token,
-              imageableId: ProductId,
+              imageableId: productId,
               imageFile: file,
               imageableType: "product",
               index: data.length,
               isActive: IsActive.UpdateProduct);
         });
-        DeleteImageProduct(context,
-            imageableId: ProductId.toString(),
+        deleteImageProduct(context,
+            imageableId: productId.toString(),
             imageableType: "product",
             path: item.url,
             token: token);
       } else if (item.image != null && item.url == "") {
         writeToFile(await item.image.getByteData(quality: 100)).then((file) {
-          UploadImageProduct(context,
+          uploadImageProduct(context,
               token: token,
-              imageableId: ProductId,
+              imageableId: productId,
               imageFile: file,
               imageableType: "product",
               index: data.length,
@@ -319,14 +337,14 @@ class UploadProductBloc {
     }
   }
 
-  GetProductIDMyShop(BuildContext context,{int ProductId, String token}) {
+  getProductIDMyShop(BuildContext context, {int productId, String token}) {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .GetProductIDMyShop(context,ProductId: ProductId, token: token))
+            .getProductIDMyShop(context, productId: productId, token: token))
         .listen((respone) {
       onLoad.add(false);
-      if (respone.http_call_back.status == 200) {
+      if (respone.httpCallBack.status == 200) {
         var item = (respone.respone as ProductMyShopRespone);
         uploadProductStorage.value.onSelectItem.clear();
         for (var value in item.image) {
@@ -335,7 +353,7 @@ class UploadProductBloc {
         }
         inventoriesId = item.inventories[0].id;
         uploadProductStorage.value.productMyShopRequest = ProductMyShopRequest(
-            inventoriesid : item.inventories[0].id,
+            inventoriesid: item.inventories[0].id,
             name: item.name,
             salePrice: item.salePrice,
             stockQuantity: item.inventories[0].stockQuantity,
@@ -345,48 +363,49 @@ class UploadProductBloc {
             weight: item.inventories[0].shippingWeight,
             description: item.description);
         uploadProductStorage.add(uploadProductStorage.value);
-
       } else {
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
 
     _compositeSubscription.add(subscription);
   }
 
-  GetProductDetailShop(BuildContext context,{int ProductId, String token}) {
+  getProductDetailShop(BuildContext context, {int productId, String token}) {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
-        .appStoreAPIRepository
-        .GetProductIDMyShop(context,ProductId: ProductId, token: token))
+            .appStoreAPIRepository
+            .getProductIDMyShop(context, productId: productId, token: token))
         .listen((respone) {
       onLoad.add(false);
-      if (respone.http_call_back.status == 200) {
-        productImageList.addAll((respone.respone as ProductMyShopRespone).image);
+      if (respone.httpCallBack.status == 200) {
+        productImageList
+            .addAll((respone.respone as ProductMyShopRespone).image);
         productRes.add(ProductMyShopRespone(image: productImageList));
 
-       onSuccess.add((respone.respone as ProductMyShopRespone));
+        onSuccess.add((respone.respone as ProductMyShopRespone));
       } else {
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
 
     _compositeSubscription.add(subscription);
   }
-  int CountSelectImage() {
+
+  int countSelectImage() {
     var number = 0;
-    for (var item in ItemImage) {
-      if (item != null && item.image!=null) {
+    for (var item in itemImage) {
+      if (item != null && item.image != null) {
         number++;
       }
     }
     return number;
   }
 
-  List<OnSelectItem> GetSelectItemUpdate() {
-    List<OnSelectItem> data = List<OnSelectItem>();
-    for (var item in ItemImage) {
-      if (item != null && item.image!=null) {
+  List<OnSelectItem> getSelectItemUpdate() {
+    List<OnSelectItem> data = [];
+    for (var item in itemImage) {
+      if (item != null && item.image != null) {
         data.add(item);
       }
     }
@@ -394,17 +413,15 @@ class UploadProductBloc {
     return data;
   }
 
-  List<OnSelectItem> GetSelectItem() {
-    List<OnSelectItem> data = List<OnSelectItem>();
-    for (var i = 0; i < ItemImage.length; i++) {
-      if (ItemImage[i] != null) {
-        data.add(ItemImage[i]);
+  List<OnSelectItem> getSelectItem() {
+    List<OnSelectItem> data = [];
+    for (var i = 0; i < itemImage.length; i++) {
+      if (itemImage[i] != null) {
+        data.add(itemImage[i]);
       }
     }
-    ItemImage.clear();
-    ItemImage.addAll(data);
-
-
+    itemImage.clear();
+    itemImage.addAll(data);
     return data;
   }
 
@@ -418,139 +435,170 @@ class UploadProductBloc {
         buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
   }
 
-  GetAttributeMyShop(BuildContext context,{String token}) {
+  getAttributeMyShop(BuildContext context, {String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.getMyShopAttribute(context,token: token)).listen((respone) {
-      if (respone.http_call_back.status == 200) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .getMyShopAttribute(context, token: token))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
         onSuccess.add(true);
         attributeMyShop.add((respone.respone as MyShopAttributeRespone));
-      }else{
+      } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
-      }
-    });
-    _compositeSubscription.add(subscription);
-  }
-  AddAttributeMyShop(BuildContext context,{String name, String token}) {
-    onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.addMyShopAttribute(context,token: token,name: name)).listen((respone) async {
-      if (respone.http_call_back.status == 200) {
-       onLoad.add(false);
-       onSuccess.add(true);
-      }else {
-        onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  DELETEAttributeMyShop(BuildContext context,{int id, String token}) {
+  addAttributeMyShop(BuildContext context, {String name, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.deleteMyShopAttribute(context,id: id, token: token)).listen((respone) {
-      if (respone.http_call_back.status == 200) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .addMyShopAttribute(context, token: token, name: name))
+        .listen((respone) async {
+      if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
-        GetAttributeMyShop(context,token: token);
-       // onSuccessDel.add(true);
-      }else {
+        onSuccess.add(true);
+      } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  GetAttributeDetail(BuildContext context,{String token,int id}) {
+  deleteAttributeMyShop(BuildContext context, {int id, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.getAttributeDetail(context,id: id,token: token)).listen((respone) {
-      if (respone.http_call_back.status == 200) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .deleteMyShopAttribute(context, id: id, token: token))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
+        onLoad.add(false);
+        getAttributeMyShop(context, token: token);
+        // onSuccessDel.add(true);
+      } else {
+        onLoad.add(false);
+        onError.add(respone.httpCallBack.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  getAttributeDetail(BuildContext context, {String token, int id}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .getAttributeDetail(context, id: id, token: token))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
         attributeMyShop.add((respone.respone as MyShopAttributeRespone));
-      }else{
+      } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  UpdateAttribute(BuildContext context,{String name,int id, String token}) async{
+  updateAttribute(BuildContext context,
+      {String name, int id, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.updateAttribute(context,id:id,name:name,token: token)).listen((respone) {
-      if(respone.http_call_back.status==200){
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .updateAttribute(context, id: id, name: name, token: token))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
         onSuccess.add(true);
-      }else{
+      } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  AddAttributeDetail(BuildContext context,{String value,String color,int id,String token}) {
+  addAttributeDetail(BuildContext context,
+      {String value, String color, int id, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.addAttributeDetail(context,token: token,value: value,color: color,id: id)).listen((respone) async {
-      if (respone.http_call_back.status == 200) {
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.addAttributeDetail(context,
+                token: token, value: value, color: color, id: id))
+        .listen((respone) async {
+      if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
         onSuccess.add(true);
-      }else {
+      } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  UpdateAttributeDetail(BuildContext context,{String value, String color, int id, int vid, String token}) async{
+  updateAttributeDetail(BuildContext context,
+      {String value, String color, int id, int vid, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.updateAttributeDetail(context,value: value,id: id,color: color,vid: vid,token: token)).listen((respone) {
-      if(respone.http_call_back.status==200){
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.updateAttributeDetail(context,
+                value: value, id: id, color: color, vid: vid, token: token))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
         onSuccess.add(true);
-      }else{
+      } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
-  DELETEAttributeDetail(BuildContext context,{int id, String token,int vid}) {
+
+  deleteAttributeDetail(BuildContext context, {int id, String token, int vid}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.deleteAttributeDetail(context,id: id, token: token,vid: vid)).listen((respone) {
-      if (respone.http_call_back.status == 200) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .deleteAttributeDetail(context, id: id, token: token, vid: vid))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
-        GetAttributeDetail(context,token: token,id: id);
+        getAttributeDetail(context, token: token, id: id);
         //  onSuccessDel.add(true);
-      }else {
+      } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  updateinventories(BuildContext context,{int productsId, int inventoriesId,int shippingWeight, String token}) {
+  updateinventories(BuildContext context,
+      {int productsId, int inventoriesId, int shippingWeight, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application.appStoreAPIRepository.updateinventories(context,productsId: productsId,inventoriesId: inventoriesId,shippingWeight: shippingWeight,token: token)).listen((respone) {
-      if (respone.http_call_back.status == 200) {
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.updateinventories(context,
+                productsId: productsId,
+                inventoriesId: inventoriesId,
+                shippingWeight: shippingWeight,
+                token: token))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
         onSuccess.add(true);
-      //  GetAttributeDetail(token: token,id: id);
+        //  GetAttributeDetail(token: token,id: id);
         //  onSuccessDel.add(true);
-      }else {
+      } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
-
 
 // bool ValidateButton(){
 //   bool value = false;
@@ -567,4 +615,10 @@ class UploadProductBloc {
 
 }
 
-enum IsActive { NewProduct, UpdateProduct, DeleteImage,ReplacemenView,NoReplacemenView }
+enum IsActive {
+  NewProduct,
+  UpdateProduct,
+  DeleteImage,
+  ReplacemenView,
+  NoReplacemenView
+}

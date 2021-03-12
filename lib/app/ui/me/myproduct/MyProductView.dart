@@ -1,41 +1,24 @@
-import 'dart:io';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
-import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
-import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
-import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
-import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/ui/me/myproduct/filter/Available.dart';
 import 'package:naifarm/app/ui/me/myproduct/filter/Banned.dart';
 import 'package:naifarm/app/ui/me/myproduct/filter/InActive.dart';
 import 'package:naifarm/app/ui/me/myproduct/filter/SoldOut.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/MD2Indicator.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
-import 'package:naifarm/utility/widgets/Skeleton.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 
 class MyProductView extends StatefulWidget {
@@ -55,7 +38,7 @@ class _MyProductViewState extends State<MyProductView> {
   UploadProductBloc bloc;
   int limit = 5;
   int page = 1;
-  bool step_page = false;
+  bool stepPage = false;
   int tabNum = 0;
 
   init() {
@@ -98,7 +81,7 @@ class _MyProductViewState extends State<MyProductView> {
                 LocaleKeys.me_title_my_product.tr(),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.w600),
               ),
@@ -113,7 +96,7 @@ class _MyProductViewState extends State<MyProductView> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      AppRoute.SearchMyProductView(
+                      AppRoute.searchMyProductView(
                           context: context,
                           shopID: widget.shopId,
                           tabNum: tabNum);
@@ -125,10 +108,10 @@ class _MyProductViewState extends State<MyProductView> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    ButtonDialog(context,
+                    buttonDialog(context,
                         message: [LocaleKeys.attributes_set.tr()], onClick: () {
                       Navigator.of(context).pop();
-                      AppRoute.Attribute(context: context);
+                      AppRoute.attribute(context: context);
                     });
                   },
                 )
@@ -155,7 +138,7 @@ class _MyProductViewState extends State<MyProductView> {
                                 indicator: MD2Indicator(
                                   indicatorSize: MD2IndicatorSize.tiny,
                                   indicatorHeight: 0.5.h,
-                                  indicatorColor: ThemeColor.ColorSale(),
+                                  indicatorColor: ThemeColor.colorSale(),
                                 ),
                                 isScrollable: false,
                                 onTap: (value) {
@@ -212,7 +195,7 @@ class _MyProductViewState extends State<MyProductView> {
                   ),
                 ),
               ),
-              _BuildButton()
+              buildButton()
             ],
           ),
         ),
@@ -220,7 +203,7 @@ class _MyProductViewState extends State<MyProductView> {
     );
   }
 
-  Widget _BuildButton() {
+  Widget buildButton() {
     return Container(
         margin: EdgeInsets.all(2.0.w),
         width: 50.0.w,
@@ -241,10 +224,10 @@ class _MyProductViewState extends State<MyProductView> {
           ),
           onPressed: () async {
             // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
-            var result = await AppRoute.ImageProduct(context,
+            var result = await AppRoute.imageProduct(context,
                 isactive: IsActive.ReplacemenView);
             if (result != null && result) {
-              Usermanager().getUser().then((value) => bloc.GetProductMyShop(
+              Usermanager().getUser().then((value) => bloc.getProductMyShop(
                   context,
                   page: "1",
                   limit: 5,
@@ -253,7 +236,7 @@ class _MyProductViewState extends State<MyProductView> {
           },
           child: Text(
             LocaleKeys.btn_add_product.tr(),
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
@@ -267,7 +250,7 @@ class _MyProductViewState extends State<MyProductView> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(title,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontWeight: FontWeight.w500,
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   color: Colors.black)),
@@ -278,7 +261,7 @@ class _MyProductViewState extends State<MyProductView> {
                     alignment: Alignment.center,
                     width: 10,
                     height: 20,
-                    color: ThemeColor.ColorSale(),
+                    color: ThemeColor.colorSale(),
                   ),
                 )
               : SizedBox()
@@ -287,7 +270,7 @@ class _MyProductViewState extends State<MyProductView> {
     );
   }
 
-  Widget ButtonDialog(BuildContext context,
+  buttonDialog(BuildContext context,
       {Function() onClick, List<String> message}) {
     showDialog<bool>(
       context: context,
@@ -308,7 +291,7 @@ class _MyProductViewState extends State<MyProductView> {
                               width: MediaQuery.of(context).size.width,
                               child: Text(
                                 message[index],
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     fontWeight: FontWeight.w500),
                                 textAlign: TextAlign.center,

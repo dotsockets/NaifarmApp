@@ -1,7 +1,3 @@
-
-
-import 'ThrowIfNoSuccess.dart';
-
 class LoginRespone {
   String token;
   String name;

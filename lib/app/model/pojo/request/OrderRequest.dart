@@ -17,20 +17,20 @@ class OrderRequest {
 
   OrderRequest(
       {this.cartId,
-        this.shopId,
-        this.paymentMethodId,
-        this.shippingZoneId,
-        this.shippingRateId,
-        this.couponId,
-        this.coupon,
-        this.packagingId,
-        this.taxId,
-        this.shipTo,
-        this.addressId,
-        this.carrierId,
-        this.email,
-        this.buyerNote,
-        this.items});
+      this.shopId,
+      this.paymentMethodId,
+      this.shippingZoneId,
+      this.shippingRateId,
+      this.couponId,
+      this.coupon,
+      this.packagingId,
+      this.taxId,
+      this.shipTo,
+      this.addressId,
+      this.carrierId,
+      this.email,
+      this.buyerNote,
+      this.items});
 
   OrderRequest.fromJson(Map<String, dynamic> json) {
     cartId = json['cartId'];
@@ -48,7 +48,7 @@ class OrderRequest {
     email = json['email'];
     buyerNote = json['buyerNote'];
     if (json['items'] != null) {
-      items = new List<OrderRequestItems>();
+      items = [];
       json['items'].forEach((v) {
         items.add(new OrderRequestItems.fromJson(v));
       });
@@ -99,4 +99,3 @@ class OrderRequestItems {
     return data;
   }
 }
-

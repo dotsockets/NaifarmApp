@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -38,8 +37,8 @@ class _NotiSettingViewState extends State<NotiSettingView> {
             child: AppToobar(
               title: LocaleKeys.setting_account_title_noti.tr(),
               icon: "",
-              isEnable_Search: false,
-              header_type: Header_Type.barNormal,
+              isEnableSearch: false,
+              headerType: Header_Type.barNormal,
             ),
           ),
           body: Container(
@@ -55,7 +54,7 @@ class _NotiSettingViewState extends State<NotiSettingView> {
                     onClick: () =>
                         setState(() => isSelectNoti = isSelectNoti ? false : true)),*/
                 // SizedBox(height: 1.0.h,),
-                _BuildSwitch(
+                buildSwitch(
                     title: LocaleKeys.setting_noti_title_update.tr(),
                     index: 1,
                     onClick: () => setState(
@@ -65,7 +64,7 @@ class _NotiSettingViewState extends State<NotiSettingView> {
                     index: 2,
                     onClick: () =>
                         setState(() => isSelectPrivate = isSelectPrivate ? false : true)),*/
-                _BuildSwitch(
+                buildSwitch(
                     title: LocaleKeys.setting_noti_title_sound.tr(),
                     index: 3,
                     onClick: () => setState(
@@ -78,7 +77,7 @@ class _NotiSettingViewState extends State<NotiSettingView> {
     );
   }
 
-  Widget _BuildSwitch({String title, int index, Function() onClick}) {
+  Widget buildSwitch({String title, int index, Function() onClick}) {
     return Container(
       color: Colors.white,
       child: Container(
@@ -89,7 +88,7 @@ class _NotiSettingViewState extends State<NotiSettingView> {
           children: [
             Text(
               title,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp),
             ),
             FlutterSwitch(
@@ -128,12 +127,12 @@ class _NotiSettingViewState extends State<NotiSettingView> {
     );
   }
 
-  Widget _buildTitleTxt({String title}) {
+  Widget buildTitleTxt({String title}) {
     return Container(
         margin: EdgeInsets.only(left: 3.0.w),
         child: Text(
           title,
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               fontSize: SizeUtil.titleSmallFontSize().sp),
         ));
   }

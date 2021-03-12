@@ -1,7 +1,5 @@
-import 'package:custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -14,19 +12,16 @@ import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
-import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/OrderTypeDropdownList.dart';
 import 'package:sizer/sizer.dart';
 
 class EditProductView extends StatefulWidget {
-  final int ProductId;
+  final int productId;
   final UploadProductStorage uploadProductStorage;
 
   final int shopId;
@@ -34,7 +29,7 @@ class EditProductView extends StatefulWidget {
 
   const EditProductView(
       {Key key,
-      this.ProductId,
+      this.productId,
       this.uploadProductStorage,
       this.shopId,
       this.indexTab})
@@ -53,7 +48,7 @@ class _EditProductViewState extends State<EditProductView> {
   bool checkKeyBoard = false;
   UploadProductBloc bloc;
   bool onUpdate = false;
-  bool slug_install = true;
+  bool slugInstall = true;
   int count = 0;
   @override
   void initState() {
@@ -71,10 +66,10 @@ class _EditProductViewState extends State<EditProductView> {
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.uploadProductStorage.stream.listen((event) {
-        if (slug_install) {
+        if (slugInstall) {
           _installControllerInput(
               productMyShopRequest: event.productMyShopRequest);
-          slug_install = false;
+          slugInstall = false;
         }
         count++;
         if (count == 2) {
@@ -89,7 +84,7 @@ class _EditProductViewState extends State<EditProductView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         onUpdate = true;
@@ -102,11 +97,11 @@ class _EditProductViewState extends State<EditProductView> {
               stockQuantity: item.stockQuantity,
               salePrice: item.salePrice,
               active: item.active);
-          Usermanager().getUser().then((value) => bloc.UpdateProductInventories(
+          Usermanager().getUser().then((value) => bloc.updateProductInventories(
               context,
-              Isload: true,
+              isload: true,
               inventoriesRequest: inventor,
-              productId: widget.ProductId,
+              productId: widget.productId,
               inventoriesId: bloc.inventoriesId,
               token: value.token));
 
@@ -123,8 +118,8 @@ class _EditProductViewState extends State<EditProductView> {
         bloc.categoriesAllRespone = value;
       });
 
-      Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(context,
-          token: value.token, ProductId: widget.ProductId));
+      Usermanager().getUser().then((value) => bloc.getProductIDMyShop(context,
+          token: value.token, productId: widget.productId));
       bloc.uploadProductStorage.add(widget.uploadProductStorage);
     }
   }
@@ -147,8 +142,8 @@ class _EditProductViewState extends State<EditProductView> {
                   child: AppToobar(
                     title: LocaleKeys.my_product_data.tr(),
                     icon: "",
-                    isEnable_Search: false,
-                    header_type: Header_Type.barNormal,
+                    isEnableSearch: false,
+                    headerType: Header_Type.barNormal,
                     onClick: () {
                       Navigator.pop(context, onUpdate);
                     },
@@ -173,7 +168,7 @@ class _EditProductViewState extends State<EditProductView> {
                                       BuildEditText(
                                         head: LocaleKeys.my_product_name.tr() +
                                             " * ",
-                                        EnableMaxLength: true,
+                                        enableMaxLength: true,
                                         hint: LocaleKeys.fill.tr() +
                                             LocaleKeys.my_product_name.tr(),
                                         maxLength: 120,
@@ -193,7 +188,7 @@ class _EditProductViewState extends State<EditProductView> {
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      _BuildDropdown(
+                                      _buildDropdown(
                                           head: LocaleKeys.my_product_category
                                                   .tr() +
                                               " *",
@@ -210,7 +205,7 @@ class _EditProductViewState extends State<EditProductView> {
                                         head:
                                             LocaleKeys.my_product_detail.tr() +
                                                 " * ",
-                                        EnableMaxLength: true,
+                                        enableMaxLength: true,
                                         maxLength: 5000,
                                         hint: LocaleKeys.fill.tr() +
                                             LocaleKeys.my_product_name.tr(),
@@ -272,15 +267,15 @@ class _EditProductViewState extends State<EditProductView> {
                                     ],
                                   ),
                                 ),
-                                _BuildDeliveryTab(),
+                                _buildDeliveryTab(),
                                 Divider(
                                   height: 10,
                                 ),
-                                _BuildImageTab(),
+                                _buildImageTab(),
                                 Divider(
                                   height: 10,
                                 ),
-                                _BuildAtivceTab(),
+                                _buildAtivceTab(),
                               ],
                             ),
                           ),
@@ -295,7 +290,7 @@ class _EditProductViewState extends State<EditProductView> {
                       if (snapshot.hasData) {
                         return Visibility(
                           visible: checkKeyBoard ? false : true,
-                          child: _BuildButton(enable: CheckEnable()),
+                          child: _buildButton(enable: checkEnable()),
                         );
                       } else {
                         return SizedBox();
@@ -309,7 +304,7 @@ class _EditProductViewState extends State<EditProductView> {
     );
   }
 
-  bool CheckEnable() {
+  bool checkEnable() {
     var item = bloc.uploadProductStorage.value.productMyShopRequest;
     if (item.name.trim() != "" &&
         item.category != 0 &&
@@ -323,8 +318,10 @@ class _EditProductViewState extends State<EditProductView> {
     }
   }
 
-  Widget _BuildDropdown(
-      {String head, String hint, String seletText, List<String> dataList}) {
+  Widget _buildDropdown(
+      {String head,
+      String hint,
+      String seletText /*, List<String> dataList*/}) {
     for (var item in bloc.categoriesAllRespone.categoriesRespone.data) {
       if (item.id ==
           bloc.uploadProductStorage.value.productMyShopRequest.category) {
@@ -339,7 +336,7 @@ class _EditProductViewState extends State<EditProductView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           Container(
@@ -356,7 +353,7 @@ class _EditProductViewState extends State<EditProductView> {
                     children: [
                       Text(
                         seletText,
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp),
                       ),
                       Icon(Icons.keyboard_arrow_down)
@@ -372,7 +369,7 @@ class _EditProductViewState extends State<EditProductView> {
     );
   }
 
-  Widget _BuildDeliveryTab() {
+  Widget _buildDeliveryTab() {
     return InkWell(
       child: Container(
           padding: EdgeInsets.all(20),
@@ -382,7 +379,7 @@ class _EditProductViewState extends State<EditProductView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(LocaleKeys.my_product_delivery_price.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp)),
               Icon(
                 Icons.arrow_forward_ios,
@@ -392,9 +389,9 @@ class _EditProductViewState extends State<EditProductView> {
           ))),
       onTap: () async {
         FocusScope.of(context).unfocus();
-        final result = await AppRoute.DeliveryCost(context,
+        final result = await AppRoute.deliveryCost(context,
             uploadProductStorage: bloc.uploadProductStorage.value,
-            productsId: widget.ProductId);
+            productsId: widget.productId);
         if (result != null && result > 0) {
           bloc.uploadProductStorage.value.productMyShopRequest.weight = result;
         }
@@ -402,7 +399,7 @@ class _EditProductViewState extends State<EditProductView> {
     );
   }
 
-  Widget _BuildAtivceTab() {
+  Widget _buildAtivceTab() {
     return Container(
         color: Colors.white,
         padding: EdgeInsets.only(left: 5, right: 5),
@@ -412,7 +409,7 @@ class _EditProductViewState extends State<EditProductView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Open sales",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp)),
                 FlutterSwitch(
                   height: 30,
@@ -442,7 +439,7 @@ class _EditProductViewState extends State<EditProductView> {
             )));
   }
 
-  Widget _BuildButton({bool enable}) {
+  Widget _buildButton({bool enable}) {
     return Container(
         color: Colors.grey.shade300,
         height: 80,
@@ -452,21 +449,21 @@ class _EditProductViewState extends State<EditProductView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: _BuildButtonCancleItem(
+                  child: _buildButtonCancleItem(
                       btnTxt: "Delete", index: 0, enable: enable),
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 Expanded(
-                  child: _BuildButtonItem(
+                  child: _buildButtonItem(
                       btnTxt: "Save", index: 1, enable: enable),
                 )
               ],
             )));
   }
 
-  Widget _BuildImageTab() {
+  Widget _buildImageTab() {
     return InkWell(
       child: Container(
           color: Colors.white,
@@ -477,7 +474,7 @@ class _EditProductViewState extends State<EditProductView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Edit picture",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp)),
                   Icon(
                     Icons.arrow_forward_ios,
@@ -486,22 +483,22 @@ class _EditProductViewState extends State<EditProductView> {
                 ],
               ))),
       onTap: () async {
-        var result = await AppRoute.EditImageProduct(
+        var result = await AppRoute.editImageProduct(
             context: context,
             uploadProductStorage: bloc.uploadProductStorage.value,
-            ProductId: widget.ProductId);
+            productId: widget.productId);
         if (result) {
           onUpdate = true;
-          Usermanager().getUser().then((value) => bloc.GetProductIDMyShop(
+          Usermanager().getUser().then((value) => bloc.getProductIDMyShop(
               context,
               token: value.token,
-              ProductId: widget.ProductId));
+              productId: widget.productId));
         }
       },
     );
   }
 
-  Widget _BuildButtonItem({String btnTxt, int index, bool enable}) {
+  Widget _buildButtonItem({String btnTxt, int index, bool enable}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -541,18 +538,18 @@ class _EditProductViewState extends State<EditProductView> {
           FocusScope.of(context).unfocus();
           Usermanager().getUser().then((value) {
             //bloc.onLoad.add(true);
-            bloc.UpdateProductMyShop(context,
+            bloc.updateProductMyShop(context,
                 isActive: IsActive.UpdateProduct,
                 shopRequest:
                     bloc.uploadProductStorage.value.productMyShopRequest,
-                productId: widget.ProductId,
+                productId: widget.productId,
                 token: value.token);
           });
         }
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),
@@ -560,7 +557,7 @@ class _EditProductViewState extends State<EditProductView> {
     );
   }
 
-  Widget _BuildButtonCancleItem({String btnTxt, int index, bool enable}) {
+  Widget _buildButtonCancleItem({String btnTxt, int index, bool enable}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -572,7 +569,7 @@ class _EditProductViewState extends State<EditProductView> {
           Size(80.0.w, 50.0),
         ),
         backgroundColor: MaterialStateProperty.all(
-          enable ? ThemeColor.ColorSale() : Colors.grey.shade400,
+          enable ? ThemeColor.colorSale() : Colors.grey.shade400,
         ),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),
@@ -580,15 +577,15 @@ class _EditProductViewState extends State<EditProductView> {
       ),
       onPressed: () {
         if (enable) {
-          Usermanager().getUser().then((value) => bloc.DELETEProductMyShop(
+          Usermanager().getUser().then((value) => bloc.deleteProductMyShop(
               context,
-              ProductId: widget.ProductId,
+              productId: widget.productId,
               token: value.token));
         }
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),

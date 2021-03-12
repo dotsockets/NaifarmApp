@@ -22,7 +22,7 @@ class _EditNameShopState extends State<EditNameShopView> {
   TextEditingController _input1 = new TextEditingController();
   String onError1 = "";
 
-  bool FormCheck() {
+  bool formCheck() {
     if (_input1.text.isEmpty) {
       return false;
     } else {
@@ -32,9 +32,8 @@ class _EditNameShopState extends State<EditNameShopView> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     _input1.text = widget.itemInfo.name;
+    super.initState();
   }
 
   @override
@@ -46,15 +45,15 @@ class _EditNameShopState extends State<EditNameShopView> {
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
             title: "แก้ไขชื่อร้านค้า",
-            header_type: Header_Type.barNormal,
-            isEnable_Search: false,
+            headerType: Header_Type.barNormal,
+            isEnableSearch: false,
           ),
           body: Container(
             padding: SizeUtil.detailProfilePadding(),
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  _Form(),
+                  form(),
                   SizedBox(
                     height: 3.0.h,
                   ),
@@ -77,12 +76,12 @@ class _EditNameShopState extends State<EditNameShopView> {
                         Colors.white.withOpacity(0.3),
                       ),
                     ),
-                    onPressed: () => FormCheck()
+                    onPressed: () => formCheck()
                         ? Navigator.pop(context, widget.itemInfo)
                         : SizedBox(),
                     child: Text(
                       LocaleKeys.btn_save.tr(),
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w500),
@@ -97,7 +96,7 @@ class _EditNameShopState extends State<EditNameShopView> {
     );
   }
 
-  Widget _Form() {
+  Widget form() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
@@ -107,7 +106,7 @@ class _EditNameShopState extends State<EditNameShopView> {
             head: "ชื่อร้านค้า",
             hint: "ระบุชื่อร้านค้า",
             inputType: TextInputType.text,
-            BorderOpacity: 0.2,
+            borderOpacity: 0.2,
             maxLength: 20,
             borderRadius: 5,
             onError: onError1,

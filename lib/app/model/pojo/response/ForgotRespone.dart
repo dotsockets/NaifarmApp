@@ -3,9 +3,9 @@ import 'ThrowIfNoSuccess.dart';
 class ForgotRespone {
   String email;
   String token;
-  ThrowIfNoSuccess http_call_back;
+  ThrowIfNoSuccess httpCallBack;
 
-  ForgotRespone({this.email, this.token,this.http_call_back});
+  ForgotRespone({this.email, this.token, this.httpCallBack});
 
   ForgotRespone.fromJson(Map<String, dynamic> json) {
     email = json['email'];

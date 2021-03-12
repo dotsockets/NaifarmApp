@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
@@ -7,80 +5,78 @@ import 'package:naifarm/app/model/pojo/response/User.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Usermanager{
-
-  static final String IS_LOGIN = "is_login";
-
-  static final String PHONE = "phone";
-  static final String TOKEN = "token";
-  static final String NAME = "name";
-  static final String EMAIL = "email";
-  static final String IMAGEURL = "imageurl";
-
+class Usermanager {
+  static final String _isLogin = "is_login";
+  static final String phone = "phone";
+  static final String token = "token";
+  static final String name = "name";
+  static final String email = "email";
+  static final String imageURL = "imageurl";
 
   SharedPreferences _prefs;
 
-  static final String USERNAME_DEMO = "ApisitKaewsasan@gmail.com";
-  static final String PASSWORD_DEMO = "cccza007";
+  static final String userNameDemo = "ApisitKaewsasan@gmail.com";
+  static final String passwordDemo = "cccza007";
 
   Future<bool> isLogin() async {
-     _prefs = await SharedPreferences.getInstance();
+    _prefs = await SharedPreferences.getInstance();
 
-    return _prefs.getBool(IS_LOGIN) ?? false;
+    return _prefs.getBool(_isLogin) ?? false;
   }
 
   Future<User> getUser() async {
-     _prefs = await SharedPreferences.getInstance();
-    return User(token: _prefs.getString(TOKEN),fullname: _prefs.getString(NAME),email: _prefs.getString(EMAIL),imageurl: _prefs.getString(IMAGEURL));
+    _prefs = await SharedPreferences.getInstance();
+    return User(
+        token: _prefs.getString(token),
+        fullname: _prefs.getString(name),
+        email: _prefs.getString(email),
+        imageurl: _prefs.getString(imageURL));
   }
 
-  Future<void> Savelogin({LoginRespone user}) async {
+  Future<void> savelogin({LoginRespone user}) async {
     if (user.token != "") {
-       _prefs = await SharedPreferences.getInstance();
-      _prefs.setString(TOKEN, user.token);
-      _prefs.setString(NAME, user.name);
-      _prefs.setString(EMAIL, user.email);
-      _prefs.setBool(IS_LOGIN, true);
-
+      _prefs = await SharedPreferences.getInstance();
+      _prefs.setString(token, user.token);
+      _prefs.setString(name, user.name);
+      _prefs.setString(email, user.email);
+      _prefs.setBool(_isLogin, true);
     }
     await Future<void>.delayed(Duration(seconds: 1));
   }
 
-  Future<void> SavePhone({String phone}) async {
+  Future<void> savePhone({String phones}) async {
     _prefs = await SharedPreferences.getInstance();
-    _prefs.setString(PHONE, phone);
+    _prefs.setString(phone, phones);
     await Future<void>.delayed(Duration(seconds: 1));
   }
 
-  Future<void> SaveShop({String phone}) async {
+  Future<void> saveShop({String phones}) async {
     _prefs = await SharedPreferences.getInstance();
-    _prefs.setString(PHONE, phone);
+    _prefs.setString(phone, phones);
     await Future<void>.delayed(Duration(seconds: 1));
   }
 
-  Future<void> Updatelogin({String col,String val}) async {
+  Future<void> updatelogin({String col, String val}) async {
     _prefs = await SharedPreferences.getInstance();
     _prefs.setString(col, val);
     await Future<void>.delayed(Duration(seconds: 1));
   }
 
-
   Future<void> logout() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    _prefs.remove(IS_LOGIN);
-    _prefs.remove(TOKEN);
-    _prefs.remove(NAME);
-    _prefs.remove(EMAIL);
-    _prefs.remove(IMAGEURL);
-    _prefs.remove(IS_LOGIN);
+    _prefs.remove(_isLogin);
+    _prefs.remove(token);
+    _prefs.remove(name);
+    _prefs.remove(email);
+    _prefs.remove(imageURL);
+    _prefs.remove(_isLogin);
     await FacebookLogin().logOut();
 
-    NaiFarmLocalStorage.getCustomer_Info().then((value) async {
+    NaiFarmLocalStorage.getCustomerInfo().then((value) async {
       await OneSignal.shared.deleteTag("shopID");
       OneSignal.shared.removeExternalUserId();
     });
 
-
-   // return await Future<void>.delayed(Duration(seconds: 1));
+    // return await Future<void>.delayed(Duration(seconds: 1));
   }
 }

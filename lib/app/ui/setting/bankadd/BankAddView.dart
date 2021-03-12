@@ -1,4 +1,3 @@
-import 'package:custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -38,7 +37,7 @@ class _BankAddViewState extends State<BankAddView> {
             child: AppToobar(
               title: LocaleKeys.bank_add_toobar.tr(),
               icon: "",
-              header_type: Header_Type.barNormal,
+              headerType: Header_Type.barNormal,
             ),
           ),
           body: Container(
@@ -85,7 +84,7 @@ class _BankAddViewState extends State<BankAddView> {
       child: Visibility(
         child: Text(
           errorTxt,
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               fontSize: SizeUtil.titleSmallFontSize().sp, color: Colors.grey),
         ),
         visible: errorTxt != "" ? true : false,
@@ -103,7 +102,7 @@ class _BankAddViewState extends State<BankAddView> {
       color: Colors.white,
       child: BuildEditText(
           head: head,
-          EnableMaxLength: false,
+          enableMaxLength: false,
           hint: hint,
           controller: controller,
           inputType: type),
@@ -118,7 +117,7 @@ class _BankAddViewState extends State<BankAddView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   color: Colors.black)),
           SizedBox(
@@ -162,7 +161,7 @@ class _BankAddViewState extends State<BankAddView> {
           ),
           backgroundColor: MaterialStateProperty.all(
             nameController.text.isNotEmpty && idController.text.isNotEmpty
-                ? ThemeColor.ColorSale()
+                ? ThemeColor.colorSale()
                 : Colors.grey.shade400,
           ),
           overlayColor: MaterialStateProperty.all(
@@ -175,7 +174,7 @@ class _BankAddViewState extends State<BankAddView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleFontSize().sp,
             fontWeight: FontWeight.w500),

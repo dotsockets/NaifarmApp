@@ -1,21 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
-import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
-import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/paid/PaidView.dart';
-import 'package:naifarm/app/ui/me/myshop/myorderhistory/refund/RefundView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/shipped/ShippedView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/success/SuccessView.dart';
-import 'package:naifarm/app/ui/order/OrderView.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -24,18 +15,19 @@ import 'package:sizer/sizer.dart';
 import 'canceled/CanceledView.dart';
 import 'delivery/DeliveryView.dart';
 
+// ignore: must_be_immutable
 class ShopOrderHistoryView extends StatelessWidget {
   final int index;
   final bool callback;
 
   ShopOrderHistoryView({Key key, this.index, this.callback}) : super(key: key);
 
-  int tab_count = 5;
+  int tabCount = 5;
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: tab_count,
+      length: tabCount,
       initialIndex: index,
       child: Container(
         color: ThemeColor.primaryColor(),
@@ -46,13 +38,13 @@ class ShopOrderHistoryView extends StatelessWidget {
               preferredSize: Size.fromHeight(6.5.h),
               child: AppToobar(
                 title: LocaleKeys.me_title_history_shop.tr(),
-                header_type: Header_Type.barcartShop,
+                headerType: Header_Type.barcartShop,
                 icon: '',
                 onClick: () {
                   if (callback) {
-                    AppRoute.PoppageCount(context: context, countpage: 4);
+                    AppRoute.poppageCount(context: context, countpage: 4);
                   } else {
-                    AppRoute.PoppageCount(context: context, countpage: 1);
+                    AppRoute.poppageCount(context: context, countpage: 1);
                   }
                 },
               ),
@@ -69,7 +61,7 @@ class ShopOrderHistoryView extends StatelessWidget {
                         indicator: MD2Indicator(
                           indicatorSize: MD2IndicatorSize.tiny,
                           indicatorHeight: 0.8.h,
-                          indicatorColor: ThemeColor.ColorSale(),
+                          indicatorColor: ThemeColor.colorSale(),
                         ),
                         isScrollable: true,
                         tabs: [
@@ -123,7 +115,7 @@ class ShopOrderHistoryView extends StatelessWidget {
       child: Row(
         children: [
           Text(title,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleSmallFontSize().sp)),
           SizedBox(
             width: 2.0.w,
@@ -135,7 +127,7 @@ class ShopOrderHistoryView extends StatelessWidget {
                     alignment: Alignment.center,
                     width: 2.0.w,
                     height: 2.0.w,
-                    color: ThemeColor.ColorSale(),
+                    color: ThemeColor.colorSale(),
                   ),
                 )
               : SizedBox()

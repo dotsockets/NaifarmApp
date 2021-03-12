@@ -1,4 +1,3 @@
-import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/NaiFarmBlocObserver.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
@@ -32,7 +31,7 @@ class Env {
   Env() {
     value = this;
     _init();
-    OneSignalCall.InitializeOneSignal();
+    OneSignalCall.initializeOneSignal();
   }
 
   void _init() async {
@@ -61,8 +60,7 @@ class Env {
                 create: (_) => SettingReloadCubit(),
               ),
             ],
-            child: BlocBuilder<SettingReloadCubit, bool>(
-                builder: (_, status) {
+            child: BlocBuilder<SettingReloadCubit, bool>(builder: (_, status) {
               return AppComponent(application);
             }),
           )),

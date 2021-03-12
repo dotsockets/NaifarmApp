@@ -9,24 +9,23 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:sizer/sizer.dart';
 
-class Setting_EditProdile_BioView extends StatefulWidget {
+class SettingEditProdileBioView extends StatefulWidget {
   final CustomerInfoRespone customerInfoRespone;
 
-  const Setting_EditProdile_BioView({Key key, this.customerInfoRespone})
+  const SettingEditProdileBioView({Key key, this.customerInfoRespone})
       : super(key: key);
 
   @override
-  _Setting_EditProdile_BioViewState createState() =>
-      _Setting_EditProdile_BioViewState();
+  SettingEditProdileBioViewState createState() =>
+      SettingEditProdileBioViewState();
 }
 
-class _Setting_EditProdile_BioViewState
-    extends State<Setting_EditProdile_BioView> {
+class SettingEditProdileBioViewState extends State<SettingEditProdileBioView> {
   TextEditingController _input1 = new TextEditingController();
 
   String onError1 = "";
 
-  bool FormCheck() {
+  bool formCheck() {
     if (_input1.text.isEmpty) {
       return false;
     } else {
@@ -36,9 +35,8 @@ class _Setting_EditProdile_BioViewState
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     _input1.text = widget.customerInfoRespone.description;
+    super.initState();
   }
 
   @override
@@ -52,13 +50,13 @@ class _Setting_EditProdile_BioViewState
               preferredSize: Size.fromHeight(6.5.h),
               child: AppToobar(
                 title: LocaleKeys.my_profile_about_me.tr(),
-                header_type: Header_Type.barNormal,
-                isEnable_Search: false,
+                headerType: Header_Type.barNormal,
+                isEnableSearch: false,
               )),
           body: SingleChildScrollView(
             child: Column(
               children: [
-                _Form(),
+                form(),
                 SizedBox(
                   height: 4.0.h,
                 ),
@@ -73,7 +71,7 @@ class _Setting_EditProdile_BioViewState
                       Size(60.0.w, 5.0.h),
                     ),
                     backgroundColor: MaterialStateProperty.all(
-                      FormCheck()
+                      formCheck()
                           ? ThemeColor.secondaryColor()
                           : Colors.grey.shade400,
                     ),
@@ -81,12 +79,12 @@ class _Setting_EditProdile_BioViewState
                       Colors.white.withOpacity(0.3),
                     ),
                   ),
-                  onPressed: () => FormCheck()
+                  onPressed: () => formCheck()
                       ? Navigator.pop(context, widget.customerInfoRespone)
                       : SizedBox(),
                   child: Text(
                     LocaleKeys.btn_save.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500),
@@ -100,7 +98,7 @@ class _Setting_EditProdile_BioViewState
     );
   }
 
-  Widget _Form() {
+  Widget form() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
@@ -111,7 +109,7 @@ class _Setting_EditProdile_BioViewState
             hint: LocaleKeys.set_message.tr(),
             inputType: TextInputType.text,
             maxLine: 5,
-            BorderOpacity: 0.2,
+            borderOpacity: 0.2,
             maxLength: 20,
             borderRadius: 5,
             onError: onError1,

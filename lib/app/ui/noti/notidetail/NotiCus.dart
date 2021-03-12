@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -6,78 +5,68 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
-import 'package:naifarm/app/models/NotiModel.dart';
-import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vibration/vibration.dart';
 
 class NotiCus extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool btnBack;
   final NotiRespone notiRespone;
-  const NotiCus({Key key, this.btnBack=false, this.scaffoldKey, this.notiRespone}) : super(key: key);
+  const NotiCus(
+      {Key key, this.btnBack = false, this.scaffoldKey, this.notiRespone})
+      : super(key: key);
   @override
   _NotiCusState createState() => _NotiCusState();
 }
 
-class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<NotiCus>{
+class _NotiCusState extends State<NotiCus>
+    with AutomaticKeepAliveClientMixin<NotiCus> {
   NotiBloc bloc;
   int limit = 10;
   int page = 1;
-  bool step_page = false;
+  bool stepPage = false;
   ScrollController _scrollController = ScrollController();
 
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
 
-
-  init(){
-    if(bloc==null){
+  init() {
+    if (bloc == null) {
       bloc = NotiBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
         //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
 
-        FunctionHelper.AlertDialogShop(context,
-            title: "Error", message: event,callCancle: (){
-              // if(widget.btnBack){
-              //   AppRoute.PoppageCount(context: context,countpage: 2);
-              // }else{
-              //   AppRoute.PoppageCount(context: context,countpage: 1);
-              // }
-            });
+        FunctionHelper.alertDialogShop(context, title: "Error", message: event,
+            callCancle: () {
+          // if(widget.btnBack){
+          //   AppRoute.PoppageCount(context: context,countpage: 2);
+          // }else{
+          //   AppRoute.PoppageCount(context: context,countpage: 1);
+          // }
+        });
       });
 
       bloc.onSuccess.stream.listen((event) {
         // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
       });
 
-    //  bloc.onSuccess.add(widget.notiRespone);
+      //  bloc.onSuccess.add(widget.notiRespone);
 
     }
     page = 1;
-    bloc.refreshProducts(context,group: "customer",limit: limit,page: page);
-
+    bloc.refreshProducts(context, group: "customer", limit: limit, page: page);
 
     // if (_scrollController.position.pixels > 200) {
     //   _scrollController.animateTo(
@@ -86,34 +75,35 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
     //       curve: Curves.ease);
     // }
     _scrollController.addListener(() {
-
       if (_scrollController.position.maxScrollExtent -
-          _scrollController.position.pixels <= 200) {
-        if (step_page) {
-          step_page = false;
+              _scrollController.position.pixels <=
+          200) {
+        if (stepPage) {
+          stepPage = false;
           page++;
-          bloc.refreshProducts(context,group: "customer",limit: limit,page: page);
+          bloc.refreshProducts(context,
+              group: "customer", limit: limit, page: page);
         }
       }
     });
-
   }
 
-
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     init();
     return Container(
-
       child: StreamBuilder(
         stream: bloc.feedList,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var item = (snapshot.data as NotiRespone);
-          if(snapshot.hasData){
-            step_page = item.data.length != item.total?true:false;
-            if(item.data.isNotEmpty){
-              return Platform.isAndroid?AndroidRefreshIndicator(item: item):IOSRefreshIndicator(item: item);
-            }else{
+          if (snapshot.hasData) {
+            stepPage = item.data.length != item.total ? true : false;
+            if (item.data.isNotEmpty) {
+              return Platform.isAndroid
+                  ? androidRefreshIndicator(item: item)
+                  : iosRefreshIndicator(item: item);
+            } else {
               return Center(
                 child: Container(
                   margin: EdgeInsets.only(bottom: 15.0.h),
@@ -124,7 +114,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                           height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
                         LocaleKeys.search_product_not_found.tr(),
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.bold),
                       )
@@ -133,12 +123,11 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                 ),
               );
             }
-
-          }else{
+          } else {
             return Container(
               margin: EdgeInsets.only(bottom: 15.0.h),
               child: Center(
-                child:  Platform.isAndroid
+                child: Platform.isAndroid
                     ? CircularProgressIndicator()
                     : CupertinoActivityIndicator(),
               ),
@@ -149,26 +138,26 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
     );
   }
 
-  Widget AndroidRefreshIndicator({NotiRespone item}){
+  Widget androidRefreshIndicator({NotiRespone item}) {
     return RefreshIndicator(
       onRefresh: _refreshProducts,
-      child: Content_Main(item: item),
+      child: contentMain(item: item),
     );
   }
 
-  Widget IOSRefreshIndicator({NotiRespone item}){
+  Widget iosRefreshIndicator({NotiRespone item}) {
     return CustomRefreshIndicator(
       controller: _indicatorController,
-      onRefresh: ()=>_refreshProducts(),
+      onRefresh: () => _refreshProducts(),
       armedToLoadingDuration: const Duration(seconds: 1),
       draggingToIdleDuration: const Duration(seconds: 1),
       completeStateDuration: const Duration(seconds: 1),
       offsetToArmed: 50.0,
       builder: (
-          BuildContext context,
-          Widget child,
-          IndicatorController controller,
-          ) {
+        BuildContext context,
+        Widget child,
+        IndicatorController controller,
+      ) {
         return Stack(
           children: <Widget>[
             AnimatedBuilder(
@@ -203,164 +192,179 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
           ],
         );
       },
-      child: Content_Main(item: item),
+      child: contentMain(item: item),
     );
   }
 
-  Widget  Content_Main({NotiRespone item}) => SingleChildScrollView(
-
-    controller: _scrollController,
-    child: Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Column(
-
-            children: item.data
-                .asMap()
-                .map((index, value) {
-              return MapEntry(
-                  index,
-                  Column(
-                    children: [
-                      _BuildCardNoti(
-                          item: value,context: context,index: index),
-                    ],
-                  ));
-            })
-                .values
-                .toList(),
-          ),
-          if (item.data.length != item.total )
-            Container(
-              padding: EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.center,
-                children: [
-                  Platform.isAndroid
-                      ? SizedBox(width: 5.0.w,height: 5.0.w,child: CircularProgressIndicator())
-                      : CupertinoActivityIndicator(),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text("Loading",
-                      style: FunctionHelper.FontTheme(
-                          color: Colors.grey,
-                          fontSize:
-                          SizeUtil.priceFontSize()
-                              .sp))
-                ],
+  Widget contentMain({NotiRespone item}) => SingleChildScrollView(
+        controller: _scrollController,
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            children: [
+              Column(
+                children: item.data
+                    .asMap()
+                    .map((index, value) {
+                      return MapEntry(
+                          index,
+                          Column(
+                            children: [
+                              buildCardNoti(
+                                  item: value, context: context, index: index),
+                            ],
+                          ));
+                    })
+                    .values
+                    .toList(),
               ),
-            ),
-          SizedBox(height: 10.0.h,)
-        ],
-      ),
-    ),
-  );
-
-  Container _BuildCardNoti({NotiData item,BuildContext context,int index}) => Container(
-
-    child: GestureDetector(
-        onTap: (){
-          // if(item.Status_Sell==1)
-          //   AppRoute.NotiDetail(context,"notiitem_${index}","notititle_${index}");
-          // else
-
-          if(CheckIsOrder(text: item.type)){
-            AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)),typeView: OrderViewType.Purchase);
-          }
-        },
-        child: Slidable(
-          actionPane: SlidableDrawerActionPane(),
-          actionExtentRatio: 0.25,
-          child: Container(
-              decoration: BoxDecoration(
-                color: item.readAt!=null?Colors.white:ThemeColor.Warning().withOpacity(0.6),
-                border: Border(bottom: BorderSide(color: Colors.grey.shade200, width: 1)),
-              ),
-              padding: EdgeInsets.only(top: 2.0.h,right: 10,left: 10,bottom: 2.0.h),
-              child: Column(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+              if (item.data.length != item.total)
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(1.0.w),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.black.withOpacity(0.2), width: 1),
-                            borderRadius: BorderRadius.all(Radius.circular(6))),
-                        child:  Container(
-                            child: CachedNetworkImage(
-                              width: 12.0.w,
-                              height: 12.0.w,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => Container(
-                                color: Colors.white,
-                                child: Lottie.asset('assets/json/loading.json',   width: 12.0.w,
-                                  height: 12.0.w,),
-                              ),
-                              imageUrl: "${Env.value.baseUrl}/storage/images/${item.meta.image}",
-                              errorWidget: (context, url, error) => Container(   width: 12.0.w,
-                                  height: 12.0.w,child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
-                            ),),
+                      Platform.isAndroid
+                          ? SizedBox(
+                              width: 5.0.w,
+                              height: 5.0.w,
+                              child: CircularProgressIndicator())
+                          : CupertinoActivityIndicator(),
+                      SizedBox(
+                        width: 10,
                       ),
-                      Expanded(
-                          child: Container(
-                            padding: EdgeInsets.only(left: 10,right: 5),
-                            child: ConvertStatus(item: item,index: index),
-                          )),
-                      CheckIsOrder(text: item.type)?Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.black.withOpacity(0.4),
-                        size: 4.0.w,
-                      ):SizedBox()
+                      Text("Loading",
+                          style: FunctionHelper.fontTheme(
+                              color: Colors.grey,
+                              fontSize: SizeUtil.priceFontSize().sp))
                     ],
                   ),
-
-
-                ],
+                ),
+              SizedBox(
+                height: 10.0.h,
               )
+            ],
           ),
-          secondaryActions: <Widget>[
-            IconSlideAction(
-              color: Colors.red,
-              iconWidget: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Lottie.asset('assets/json/delete.json',
-                      height: 4.0.h,
-                      width: 4.0.h,
-                      repeat: true),
-                  Text(
-                    LocaleKeys.cart_del.tr(),
-                    style: FunctionHelper.FontTheme(
-                        color: Colors.white,
-                        fontSize: SizeUtil.titleFontSize().sp,
-                        fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-              onTap: () {
-                var item = (bloc.onSuccess.value as NotiRespone);
-                item.data.removeAt(index);
-                bloc.onSuccess.add(item);
+        ),
+      );
 
-              },
-            )
+  Container buildCardNoti({NotiData item, BuildContext context, int index}) =>
+      Container(
+        child: GestureDetector(
+            onTap: () {
+              // if(item.Status_Sell==1)
+              //   AppRoute.NotiDetail(context,"notiitem_${index}","notititle_${index}");
+              // else
 
-          ],
-        )
-    ),
-  );
+              if (checkIsOrder(text: item.type)) {
+                AppRoute.orderDetail(context,
+                    orderData: OrderData(id: int.parse(item.meta.id)),
+                    typeView: OrderViewType.Purchase);
+              }
+            },
+            child: Slidable(
+              actionPane: SlidableDrawerActionPane(),
+              actionExtentRatio: 0.25,
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: item.readAt != null
+                        ? Colors.white
+                        : ThemeColor.warning().withOpacity(0.6),
+                    border: Border(
+                        bottom:
+                            BorderSide(color: Colors.grey.shade200, width: 1)),
+                  ),
+                  padding: EdgeInsets.only(
+                      top: 2.0.h, right: 10, left: 10, bottom: 2.0.h),
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(1.0.w),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                    width: 1),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(6))),
+                            child: Container(
+                              child: CachedNetworkImage(
+                                width: 12.0.w,
+                                height: 12.0.w,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => Container(
+                                  color: Colors.white,
+                                  child: Lottie.asset(
+                                    'assets/json/loading.json',
+                                    width: 12.0.w,
+                                    height: 12.0.w,
+                                  ),
+                                ),
+                                imageUrl:
+                                    "${Env.value.baseUrl}/storage/images/${item.meta.image}",
+                                errorWidget: (context, url, error) => Container(
+                                    width: 12.0.w,
+                                    height: 12.0.w,
+                                    child: Image.network(Env.value.noItemUrl,
+                                        fit: BoxFit.cover)),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                              child: Container(
+                            padding: EdgeInsets.only(left: 10, right: 5),
+                            child: convertStatus(item: item, index: index),
+                          )),
+                          checkIsOrder(text: item.type)
+                              ? Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.black.withOpacity(0.4),
+                                  size: 4.0.w,
+                                )
+                              : SizedBox()
+                        ],
+                      ),
+                    ],
+                  )),
+              secondaryActions: <Widget>[
+                IconSlideAction(
+                  color: Colors.red,
+                  iconWidget: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset('assets/json/delete.json',
+                          height: 4.0.h, width: 4.0.h, repeat: true),
+                      Text(
+                        LocaleKeys.cart_del.tr(),
+                        style: FunctionHelper.fontTheme(
+                            color: Colors.white,
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  onTap: () {
+                    var item = (bloc.onSuccess.value as NotiRespone);
+                    item.data.removeAt(index);
+                    bloc.onSuccess.add(item);
+                  },
+                )
+              ],
+            )),
+      );
 
-  Widget ConvertStatus({NotiData item,int index}){
-    if(item.type=="App\\Notifications\\Order\\OrderUpdated"){
+  Widget convertStatus({NotiData item, int index}) {
+    if (item.type == "App\\Notifications\\Order\\OrderUpdated") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${item.meta.status}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text("${item.meta.status}",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
           SizedBox(height: 0.5.h),
           RichText(
             text: new TextSpan(
@@ -368,22 +372,37 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
               children: <TextSpan>[
                 new TextSpan(
                     text: "คำสั่งซื้อ ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                 new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black)),
                 new TextSpan(
-                    text: " สถานะยก เลิกคำสั่งซื้อ เนื่องจากไม่มีการชำระเงิน หรือผู้ซื้อยกเลิกสินค้า กรุณาติดต่อผู้ซื้อหากต้องการรับข้อมูลเพิ่มเติม",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-
+                    text: "${item.meta.order}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.bold,
+                        color: ThemeColor.secondaryColor())),
+                new TextSpan(
+                    text:
+                        " สถานะยก เลิกคำสั่งซื้อ เนื่องจากไม่มีการชำระเงิน หรือผู้ซื้อยกเลิกสินค้า กรุณาติดต่อผู้ซื้อหากต้องการรับข้อมูลเพิ่มเติม",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black)),
               ],
             ),
           ),
         ],
       );
-    }else if(item.type=="App\\Notifications\\Shop\\ShopIsLive"){
+    } else if (item.type == "App\\Notifications\\Shop\\ShopIsLive") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("อัพเดทข้อมูลร้านค้า",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text("อัพเดทข้อมูลร้านค้า",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
           SizedBox(height: 0.5.h),
           RichText(
             text: new TextSpan(
@@ -391,21 +410,37 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
               children: <TextSpan>[
                 new TextSpan(
                     text: "อัพเดทข้อมูลร้านค้า ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                new TextSpan(text: "${item.meta.name} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                new TextSpan(text: "${item.meta.order}",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black)),
+                new TextSpan(
+                    text:
+                        "${item.meta.name} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black)),
+                new TextSpan(
+                    text: "${item.meta.order}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.bold,
+                        color: ThemeColor.secondaryColor())),
               ],
             ),
           )
         ],
       );
-    }else if(item.type=="App\\Notifications\\Order\\OrderCreated"){
+    } else if (item.type == "App\\Notifications\\Order\\OrderCreated") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("คำสั่งซื้อใหม่ ${item.meta.status}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text("คำสั่งซื้อใหม่ ${item.meta.status}",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
           SizedBox(height: 0.5.h),
           RichText(
             text: new TextSpan(
@@ -413,24 +448,39 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
               children: <TextSpan>[
                 new TextSpan(
                     text: "คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-                new TextSpan(text: " และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black.withOpacity(0.8)))
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black.withOpacity(0.8))),
+                new TextSpan(
+                    text: "${item.meta.order}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                        fontWeight: FontWeight.bold,
+                        color: ThemeColor.secondaryColor())),
+                new TextSpan(
+                    text:
+                        " และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt != null ? item.meta.requirePaymentAt : DateTime.now().toString()))}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        color: Colors.black.withOpacity(0.8)))
               ],
             ),
           ),
-           // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-           // Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-           // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
-
+          // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+          // Text("${item.meta.order}",style: FunctionHelper.fontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+          // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
         ],
       );
-    }else if(item.type=="App\\Notifications\\Order\\OrderBeenPaid"){
+    } else if (item.type == "App\\Notifications\\Order\\OrderBeenPaid") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("คำสั่งซื้อใหม่ ${item.meta.status}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text("คำสั่งซื้อใหม่ ${item.meta.status}",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
           SizedBox(height: 0.5.h),
           RichText(
             text: new TextSpan(
@@ -438,24 +488,39 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
               children: <TextSpan>[
                 new TextSpan(
                     text: "คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-                new TextSpan(text: " และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: Colors.black.withOpacity(0.8)))
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black.withOpacity(0.8))),
+                new TextSpan(
+                    text: "${item.meta.order}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                        fontWeight: FontWeight.bold,
+                        color: ThemeColor.secondaryColor())),
+                new TextSpan(
+                    text:
+                        " และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt != null ? item.meta.requirePaymentAt : DateTime.now().toString()))}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        color: Colors.black.withOpacity(0.8)))
               ],
             ),
           ),
-          // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-          // Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-          // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
-
+          // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+          // Text("${item.meta.order}",style: FunctionHelper.fontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+          // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
         ],
       );
-    }else if(item.type=="App\\Notifications\\Order\\OrderFulfilled"){
+    } else if (item.type == "App\\Notifications\\Order\\OrderFulfilled") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("คำสั่งซื้อถูกจัดส่งแล้ว ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text("คำสั่งซื้อถูกจัดส่งแล้ว ",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
           SizedBox(height: 0.5.h),
           RichText(
             text: new TextSpan(
@@ -463,28 +528,42 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
               children: <TextSpan>[
                 new TextSpan(
                     text: "สินค้าทุกชิ้นในคำสั้งซื้อหมายเลข ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-                //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-               //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
-                    text: " จัดส่งแล้วเมื่อ 19-06-2563 กรุณารอให้ผู้ซื้อตรวจสอบและยืนยันการรับสินค้าภายใน 3 วัน จากนั้น NaiFarm จะดำเนินการโอนเงินให้คุณ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-
+                    text: "${item.meta.order}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                        fontWeight: FontWeight.bold,
+                        color: ThemeColor.secondaryColor())),
+                //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+                //     style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                new TextSpan(
+                    text:
+                        " จัดส่งแล้วเมื่อ 19-06-2563 กรุณารอให้ผู้ซื้อตรวจสอบและยืนยันการรับสินค้าภายใน 3 วัน จากนั้น NaiFarm จะดำเนินการโอนเงินให้คุณ",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black.withOpacity(0.8))),
               ],
             ),
           ),
-          // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-          // Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-          // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
-
+          // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+          // Text("${item.meta.order}",style: FunctionHelper.fontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+          // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
         ],
       );
-    }else if(item.type=="App\\Notifications\\Order\\OrderPaymentFailed"){
+    } else if (item.type == "App\\Notifications\\Order\\OrderPaymentFailed") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("คำสั่งซื้อถูกยกเลิก ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text("คำสั่งซื้อถูกยกเลิก ",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
           SizedBox(height: 0.5.h),
           RichText(
             text: new TextSpan(
@@ -492,55 +571,63 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
               children: <TextSpan>[
                 new TextSpan(
                     text: "คำสั่งซื้อ  ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-                new TextSpan(text: "${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-                //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
-                    text: " ถูกยกเลิกแล้ว เพราะไม่สามารถตรวจสอบการชำระเงินของคุณได้",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-
+                    text: "${item.meta.order}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                        fontWeight: FontWeight.bold,
+                        color: ThemeColor.secondaryColor())),
+                //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+                //     style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                new TextSpan(
+                    text:
+                        " ถูกยกเลิกแล้ว เพราะไม่สามารถตรวจสอบการชำระเงินของคุณได้",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black.withOpacity(0.8))),
               ],
             ),
           ),
-          // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-          // Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-          // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
-
+          // Text("คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
+          // Text("${item.meta.order}",style: FunctionHelper.fontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+          // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
         ],
       );
-    }
-    else{
+    } else {
       return SizedBox();
     }
-
   }
 
-  Future<Null>  _refreshProducts() async{
-    if(Platform.isAndroid){
+  Future<Null> _refreshProducts() async {
+    if (Platform.isAndroid) {
       await Future.delayed(Duration(seconds: 2));
       // AudioCache().play("sound/Click.mp3");
       // Vibration.vibrate(duration: 500);
     }
     page = 1;
-    bloc.product_more.clear();
-    bloc.refreshProducts(context,group: "customer",limit: limit,page: page);
+    bloc.productMore.clear();
+    bloc.refreshProducts(context, group: "customer", limit: limit, page: page);
   }
 
   @override
   bool get wantKeepAlive => true;
 
-  bool CheckIsOrder({String text}){
-    if(text=="App\\Notifications\\Order\\OrderCreated"){
+  bool checkIsOrder({String text}) {
+    if (text == "App\\Notifications\\Order\\OrderCreated") {
       return true;
-    }else  if(text=="App\\Notifications\\Order\\OrderBeenPaid"){
-       return true;
-    }else  if(text=="App\\Notifications\\Order\\OrderFulfilled" || text=="App\\Notifications\\Order\\OrderPaymentFailed" || text== "App\\Notifications\\Order\\OrderUpdated"){
+    } else if (text == "App\\Notifications\\Order\\OrderBeenPaid") {
       return true;
-    }else {
+    } else if (text == "App\\Notifications\\Order\\OrderFulfilled" ||
+        text == "App\\Notifications\\Order\\OrderPaymentFailed" ||
+        text == "App\\Notifications\\Order\\OrderUpdated") {
+      return true;
+    } else {
       return false;
     }
-
   }
 }
-

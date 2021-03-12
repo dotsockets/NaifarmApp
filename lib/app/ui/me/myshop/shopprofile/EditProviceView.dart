@@ -28,7 +28,7 @@ class _EditProviceViewState extends State<EditProviceView> {
   AddressBloc bloc;
   int proviceSelect = 0;
 
-  bool FormCheck() {
+  bool formCheck() {
     if (_input1.text.isEmpty) {
       return false;
     } else {
@@ -38,15 +38,13 @@ class _EditProviceViewState extends State<EditProviceView> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     if (widget.itemInfo.state != null) {
       proviceSelect = widget.itemInfo.state.id;
     } else {
       proviceSelect = 0;
     }
-
     _input1.text = widget.itemInfo.description;
+    super.initState();
   }
 
   void _init() {
@@ -86,16 +84,16 @@ class _EditProviceViewState extends State<EditProviceView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
-            isEnable_Search: false,
+            isEnableSearch: false,
             title: "แก้ไขรายละเอียดร้านค้า",
-            header_type: Header_Type.barNormal,
+            headerType: Header_Type.barNormal,
           ),
           body: Container(
             width: MediaQuery.of(context).size.width,
             padding: SizeUtil.detailProfilePadding(),
             child: Column(
               children: [
-                _Form(),
+                form(),
                 SizedBox(
                   height: 3.0.h,
                 ),
@@ -127,7 +125,7 @@ class _EditProviceViewState extends State<EditProviceView> {
                   },
                   child: Text(
                     LocaleKeys.btn_save.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500),
@@ -141,7 +139,7 @@ class _EditProviceViewState extends State<EditProviceView> {
     );
   }
 
-  Widget _Form() {
+  Widget form() {
     return StreamBuilder(
       stream: bloc.provice.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -151,7 +149,7 @@ class _EditProviceViewState extends State<EditProviceView> {
           return Container(
             color: Colors.white,
             padding: EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
-            child: _BuildDropdown(
+            child: buildDropdown(
                 initialItem: loopIndex(
                     (snapshot.data as StatesRespone).data, proviceSelect),
                 head: LocaleKeys.select.tr() +
@@ -174,13 +172,13 @@ class _EditProviceViewState extends State<EditProviceView> {
 
   String loopString(List<DataStates> data, int id) {
     String item = "กรุณาเลือก";
-    var i = 0;
+    // int i = 0;
     for (var index in data) {
       if (index.id == id) {
         item = index.name;
         break;
       }
-      i++;
+      // i++;
     }
     return item;
   }
@@ -198,13 +196,13 @@ class _EditProviceViewState extends State<EditProviceView> {
     return item;
   }
 
-  Widget _BuildDropdown(
+  Widget buildDropdown(
       {String head,
       String hint,
       List<DataStates> item,
       Function(int) onSelect,
       int initialItem}) {
-    var datalist = List<String>();
+    var datalist = [];
     if (item.isNotEmpty) {
       for (int i = 0; i < item.length; i++) {
         datalist.add(item[i].name);
@@ -217,7 +215,7 @@ class _EditProviceViewState extends State<EditProviceView> {
         children: [
           Text(
             head,
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           Container(

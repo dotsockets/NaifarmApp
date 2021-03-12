@@ -1,8 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
-import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 
 class ShopDetailsView extends StatelessWidget {
@@ -20,8 +17,11 @@ class ShopDetailsView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(zipShopObjectCombin.shopRespone.description
-              ,style: FunctionHelper.FontTheme(color: Colors.black.withOpacity(0.7),height: 2),)
+              Text(
+                zipShopObjectCombin.shopRespone.description,
+                style: FunctionHelper.fontTheme(
+                    color: Colors.black.withOpacity(0.7), height: 2),
+              )
             ],
           ),
         ),

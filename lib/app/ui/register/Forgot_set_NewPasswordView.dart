@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -13,25 +11,25 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
-class Forgot_set_NewPasswordView extends StatefulWidget {
+class ForgotSetNewPasswordView extends StatefulWidget {
   final String phone;
   final String code;
   final String ref;
 
-  const Forgot_set_NewPasswordView({Key key, this.phone, this.code, this.ref})
+  const ForgotSetNewPasswordView({Key key, this.phone, this.code, this.ref})
       : super(key: key);
 
   @override
-  _Forgot_set_NewPasswordState createState() => _Forgot_set_NewPasswordState();
+  ForgotSetNewPasswordState createState() => ForgotSetNewPasswordState();
 }
 
-class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
+class ForgotSetNewPasswordState extends State<ForgotSetNewPasswordView> {
   TextEditingController _input1 = new TextEditingController();
   TextEditingController _input2 = new TextEditingController();
   String onError1 = "", onError2 = "";
   MemberBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool SuccessForm = false;
+  bool successForm = false;
   final onCheck = BehaviorSubject<bool>();
   bool onDialog = false;
 
@@ -46,11 +44,11 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
-        FunctionHelper.SuccessDialog(context, message: "ตั้งรหัสผ่านสำเร็จ",
+        FunctionHelper.successDialog(context, message: "ตั้งรหัสผ่านสำเร็จ",
             onClick: () {
           if (onDialog) {
             Navigator.of(context).pop();
@@ -61,7 +59,7 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
     }
   }
 
-  bool FormCheck() {
+  bool formCheck() {
     if (_input1.text.isEmpty || _input2.text.isEmpty) {
       return false;
     } else {
@@ -110,8 +108,8 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
               preferredSize: Size.fromHeight(6.5.h),
               child: AppToobar(
                 title: LocaleKeys.edit_password_set.tr(),
-                header_type: Header_Type.barNormal,
-                isEnable_Search: false,
+                headerType: Header_Type.barNormal,
+                isEnableSearch: false,
               )),
           body: Container(
             child: SingleChildScrollView(
@@ -123,7 +121,7 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
                         if (snapshot.hasData) {
                           return Column(
                             children: [
-                              _Form(),
+                              form(),
                               SizedBox(
                                 height: 4.0.h,
                               ),
@@ -148,7 +146,7 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
                                 ),
                                 onPressed: () {
                                   if (snapshot.data) {
-                                    bloc.ForgotPassword(context,
+                                    bloc.forgotPassword(context,
                                         password: _input2.text,
                                         phone: widget.phone,
                                         ref: widget.ref,
@@ -157,7 +155,7 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
                                 },
                                 child: Text(
                                   LocaleKeys.btn_continue.tr(),
-                                  style: FunctionHelper.FontTheme(
+                                  style: FunctionHelper.fontTheme(
                                       color: Colors.white,
                                       fontSize: SizeUtil.titleFontSize().sp,
                                       fontWeight: FontWeight.w500),
@@ -178,7 +176,7 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
     );
   }
 
-  Widget _Form() {
+  Widget form() {
     return Container(
       color: Colors.white,
       padding:
@@ -191,7 +189,7 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
                 LocaleKeys.my_profile_password.tr(),
             inputType: TextInputType.text,
             maxLength: 20,
-            IsPassword: true,
+            isPassword: true,
             borderRadius: 5,
             controller: _input1,
             onError: onError1,
@@ -210,7 +208,7 @@ class _Forgot_set_NewPasswordState extends State<Forgot_set_NewPasswordView> {
                 LocaleKeys.my_profile_password.tr(),
             inputType: TextInputType.text,
             maxLength: 20,
-            IsPassword: true,
+            isPassword: true,
             borderRadius: 5,
             controller: _input2,
             onError: onError2,

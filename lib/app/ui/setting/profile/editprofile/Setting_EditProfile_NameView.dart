@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
-import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,23 +9,23 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 
-class Setting_EditProfile_NameView extends StatefulWidget {
+class SettingEditProfileNameView extends StatefulWidget {
   final CustomerInfoRespone customerInfoRespone;
 
-  const Setting_EditProfile_NameView({Key key, this.customerInfoRespone})
+  const SettingEditProfileNameView({Key key, this.customerInfoRespone})
       : super(key: key);
 
   @override
-  _Setting_EditProfile_NameViewState createState() =>
-      _Setting_EditProfile_NameViewState();
+  SettingEditProfileNameViewState createState() =>
+      SettingEditProfileNameViewState();
 }
 
-class _Setting_EditProfile_NameViewState
-    extends State<Setting_EditProfile_NameView> {
+class SettingEditProfileNameViewState
+    extends State<SettingEditProfileNameView> {
   TextEditingController _input1 = new TextEditingController();
   String onError1 = "";
 
-  bool FormCheck() {
+  bool formCheck() {
     if (_input1.text.isEmpty) {
       return false;
     } else {
@@ -37,9 +35,8 @@ class _Setting_EditProfile_NameViewState
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     _input1.text = widget.customerInfoRespone.name;
+    super.initState();
   }
 
   @override
@@ -53,13 +50,13 @@ class _Setting_EditProfile_NameViewState
               preferredSize: Size.fromHeight(6.5.h),
               child: AppToobar(
                 title: LocaleKeys.my_profile_name.tr(),
-                header_type: Header_Type.barNormal,
-                isEnable_Search: false,
+                headerType: Header_Type.barNormal,
+                isEnableSearch: false,
               )),
           body: SingleChildScrollView(
             child: Column(
               children: [
-                _Form(),
+                form(),
                 SizedBox(
                   height: 4.0.h,
                 ),
@@ -74,7 +71,7 @@ class _Setting_EditProfile_NameViewState
                       Size(60.0.w, 5.0.h),
                     ),
                     backgroundColor: MaterialStateProperty.all(
-                      FormCheck()
+                      formCheck()
                           ? ThemeColor.secondaryColor()
                           : Colors.grey.shade400,
                     ),
@@ -82,12 +79,12 @@ class _Setting_EditProfile_NameViewState
                       Colors.white.withOpacity(0.3),
                     ),
                   ),
-                  onPressed: () => FormCheck()
+                  onPressed: () => formCheck()
                       ? Navigator.pop(context, widget.customerInfoRespone)
                       : SizedBox(),
                   child: Text(
                     LocaleKeys.btn_save.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500),
@@ -101,7 +98,7 @@ class _Setting_EditProfile_NameViewState
     );
   }
 
-  Widget _Form() {
+  Widget form() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
@@ -112,7 +109,7 @@ class _Setting_EditProfile_NameViewState
             hint: LocaleKeys.set_default.tr() +
                 LocaleKeys.my_profile_username.tr(),
             inputType: TextInputType.text,
-            BorderOpacity: 0.2,
+            borderOpacity: 0.2,
             maxLength: 20,
             borderRadius: 5,
             onError: onError1,

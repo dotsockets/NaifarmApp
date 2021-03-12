@@ -27,7 +27,7 @@ class SplashLoginView extends StatelessWidget {
             children: [
               SingleChildScrollView(
                 child: Column(
-                  children: [_BorderHeader(context)],
+                  children: [borderHeader(context)],
                 ),
               )
             ],
@@ -37,7 +37,7 @@ class SplashLoginView extends StatelessWidget {
     );
   }
 
-  Widget _BuildHeader(BuildContext context) {
+  Widget buildHeader(BuildContext context) {
     return Container(
         height: MediaQuery.of(context).size.height - 12.0.h,
         padding: EdgeInsets.all(10),
@@ -53,7 +53,7 @@ class SplashLoginView extends StatelessWidget {
           children: [
             Text(
               Env.value.appName,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.white,
                   fontSize: SizeUtil.appNameFontSize().sp,
                   fontWeight: FontWeight.w500),
@@ -70,7 +70,7 @@ class SplashLoginView extends StatelessWidget {
             ),
             Text(
               "แอปเพื่อเกษตรกรไทย ซื้อง่าย ขายคล่อง",
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.white, fontSize: SizeUtil.titleFontSize().sp),
             ),
             SizedBox(
@@ -90,18 +90,18 @@ class SplashLoginView extends StatelessWidget {
                       Size(40.0.w, 5.0.h),
                     ),
                     backgroundColor: MaterialStateProperty.all(
-                      ThemeColor.ColorSale(),
+                      ThemeColor.colorSale(),
                     ),
                     overlayColor: MaterialStateProperty.all(
                       Colors.white.withOpacity(0.3),
                     ),
                   ),
                   onPressed: () {
-                    AppRoute.Login(context, IsCallBack: false, IsHeader: true);
+                    AppRoute.login(context, isCallBack: false, isHeader: true);
                   },
                   child: Text(
                     LocaleKeys.btn_login.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500),
@@ -128,11 +128,11 @@ class SplashLoginView extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    AppRoute.Register(context);
+                    AppRoute.register(context);
                   },
                   child: Text(
                     LocaleKeys.btn_register.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500),
@@ -146,7 +146,7 @@ class SplashLoginView extends StatelessWidget {
             Wrap(
               children: [
                 Text(LocaleKeys.splashLogin_skip_message.tr() + " ",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.black,
                         fontWeight: FontWeight.w500,
                         fontSize: SizeUtil.titleFontSize().sp)),
@@ -158,12 +158,12 @@ class SplashLoginView extends StatelessWidget {
                     Container(
                       child: InkWell(
                         child: Text(LocaleKeys.splashLogin_skip.tr(),
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 color: Colors.white,
                                 fontSize: SizeUtil.titleFontSize().sp)),
                         onTap: () {
                           // FunctionHelper.showDialogProcess(context);
-                          AppRoute.Home(context);
+                          AppRoute.home(context);
                         },
                       ),
                       decoration: BoxDecoration(
@@ -180,16 +180,16 @@ class SplashLoginView extends StatelessWidget {
         ));
   }
 
-  Widget _BorderHeader(BuildContext context) {
+  Widget borderHeader(BuildContext context) {
     return Container(
         padding: EdgeInsets.only(bottom: 15),
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: ThemeColor.ColorSale(),
+          color: ThemeColor.colorSale(),
           borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(50),
               bottomLeft: Radius.circular(50)),
         ),
-        child: _BuildHeader(context));
+        child: buildHeader(context));
   }
 }

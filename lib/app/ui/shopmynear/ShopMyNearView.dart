@@ -1,13 +1,8 @@
-import 'dart:async';
-import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 //import 'package:geocoder/geocoder.dart';
 //import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class ShopMyNearView extends StatefulWidget {
   @override
@@ -15,24 +10,23 @@ class ShopMyNearView extends StatefulWidget {
 }
 
 class _ShopMyNearViewState extends State<ShopMyNearView> {
-  LatLng latlong=null;
+  LatLng latlong;
   CameraPosition _cameraPosition;
-  GoogleMapController _controller ;
-  Set<Marker> _markers={};
+  GoogleMapController _controller;
+  Set<Marker> _markers = {};
   var address;
   Set<Circle> circles = {};
 
   @override
   void initState() {
     super.initState();
-    _cameraPosition=CameraPosition(target: LatLng(0, 0),zoom: 16.0);
-   //getCurrentLocation();
-
+    _cameraPosition = CameraPosition(target: LatLng(0, 0), zoom: 16.0);
+    //getCurrentLocation();
   }
 
   @override
   Widget build(BuildContext context) {
-   // getCurrentAddress();
+    // getCurrentAddress();
     return SafeArea(
         top: false,
         child: Scaffold(
@@ -40,8 +34,7 @@ class _ShopMyNearViewState extends State<ShopMyNearView> {
               title: "",
               icon: "",
               locationTxt: address,
-
-              header_type: Header_Type.barMap,
+              headerType: Header_Type.barMap,
             ),
             body: Stack(
               children: [
@@ -49,24 +42,20 @@ class _ShopMyNearViewState extends State<ShopMyNearView> {
                   myLocationEnabled: true,
                   myLocationButtonEnabled: false,
 
-                //  circles: circles,
+                  //  circles: circles,
                   initialCameraPosition: _cameraPosition,
-                  onMapCreated: (GoogleMapController controller){
-                    _controller=(controller);
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller = (controller);
                     _controller.animateCamera(
                         CameraUpdate.newCameraPosition(_cameraPosition));
                   },
                   markers: _markers,
-                  onCameraIdle: (){
-                    setState(() {
-
-                    });
+                  onCameraIdle: () {
+                    setState(() {});
                   },
                 )
               ],
-            )
-        )
-    );
+            )));
   }
   // Future getCurrentLocation() async {
   //   LocationPermission permission = await Geolocator.checkPermission();
@@ -129,6 +118,5 @@ class _ShopMyNearViewState extends State<ShopMyNearView> {
   // }
   //
   //
-
 
 }

@@ -45,12 +45,12 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       /* bloc.onSuccessDel.stream.listen((event) {
         Usermanager().getUser().then((value) => bloc.GetAttributeDetail(token: value.token,id: widget.idAttr));
       });*/
-      Usermanager().getUser().then((value) => bloc.GetAttributeDetail(context,
+      Usermanager().getUser().then((value) => bloc.getAttributeDetail(context,
           token: value.token, id: widget.idAttr));
     }
   }
@@ -63,7 +63,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
 
   @override
   void didPopNext() {
-    Usermanager().getUser().then((value) => bloc.GetAttributeDetail(context,
+    Usermanager().getUser().then((value) => bloc.getAttributeDetail(context,
         token: value.token, id: widget.idAttr));
   }
 
@@ -81,8 +81,8 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
             child: AppToobar(
               title: LocaleKeys.attributes_list.tr(),
               icon: "",
-              isEnable_Search: false,
-              header_type: Header_Type.barNormal,
+              isEnableSearch: false,
+              headerType: Header_Type.barNormal,
             ),
           ),
           body: SingleChildScrollView(
@@ -105,7 +105,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
                                           actionExtentRatio: 0.25,
                                           child: InkWell(
                                             onTap: () {
-                                              AppRoute.AttributeDetailEdit(
+                                              AppRoute.attributeDetailEdit(
                                                   context: context,
                                                   idAttr: widget.idAttr,
                                                   color: item.data[index].color,
@@ -131,7 +131,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
                                                       repeat: true),
                                                   Text(
                                                     LocaleKeys.cart_edit.tr(),
-                                                    style: FunctionHelper.FontTheme(
+                                                    style: FunctionHelper.fontTheme(
                                                         color: Colors.white,
                                                         fontSize: SizeUtil
                                                                 .titleSmallFontSize()
@@ -142,7 +142,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
                                                 ],
                                               ),
                                               onTap: () {
-                                                AppRoute.AttributeDetailEdit(
+                                                AppRoute.attributeDetailEdit(
                                                     context: context,
                                                     idAttr: widget.idAttr,
                                                     color:
@@ -153,7 +153,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
                                               },
                                             ),
                                             IconSlideAction(
-                                              color: ThemeColor.ColorSale(),
+                                              color: ThemeColor.colorSale(),
                                               iconWidget: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -173,7 +173,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
                                                     child: Text(
                                                       LocaleKeys.cart_del.tr(),
                                                       style: FunctionHelper
-                                                          .FontTheme(
+                                                          .fontTheme(
                                                               color:
                                                                   Colors.white,
                                                               fontSize: SizeUtil
@@ -189,7 +189,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
                                               onTap: () {
                                                 Usermanager().getUser().then(
                                                     (value) => bloc
-                                                        .DELETEAttributeDetail(
+                                                        .deleteAttributeDetail(
                                                             context,
                                                             id: widget.idAttr,
                                                             token: value.token,
@@ -220,7 +220,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
                             color: Colors.white,
                             child: Center(
                               child: Text(LocaleKeys.attributes_empty.tr(),
-                                  style: FunctionHelper.FontTheme(
+                                  style: FunctionHelper.fontTheme(
                                       fontSize: SizeUtil.titleFontSize().sp,
                                       fontWeight: FontWeight.w500)),
                             ),
@@ -241,7 +241,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
                               child: Center(
                                 child: Text(
                                     LocaleKeys.search_product_not_found.tr(),
-                                    style: FunctionHelper.FontTheme(
+                                    style: FunctionHelper.fontTheme(
                                         fontSize: SizeUtil.titleFontSize().sp,
                                         fontWeight: FontWeight.w500)),
                               ),
@@ -271,7 +271,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(txt,
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         color: ThemeColor.primaryColor())),
                 Icon(
@@ -315,7 +315,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
             ),
           ),
           onPressed: () {
-            AppRoute.AttributeDetailEdit(
+            AppRoute.attributeDetailEdit(
                 context: context,
                 idAttr: widget.idAttr,
                 color: "",
@@ -324,7 +324,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
           },
           child: Text(
             LocaleKeys.attributes_add.tr(),
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),

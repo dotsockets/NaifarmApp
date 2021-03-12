@@ -16,8 +16,6 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -35,7 +33,7 @@ class _RefundViewState extends State<RefundView> {
   OrdersBloc bloc;
   ScrollController _scrollController = ScrollController();
   int page = 1;
-  bool step_page = false;
+  bool stepPage = false;
   int limit = 10;
 
   init() {
@@ -55,8 +53,8 @@ class _RefundViewState extends State<RefundView> {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=
           200) {
-        if (step_page) {
-          step_page = false;
+        if (stepPage) {
+          stepPage = false;
           page++;
           _reloadData();
         }
@@ -75,7 +73,7 @@ class _RefundViewState extends State<RefundView> {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData &&
                 (snapshot.data as OrderRespone).data.length > 0) {
-              step_page = true;
+              stepPage = true;
               return SingleChildScrollView(
                   controller: _scrollController,
                   child: Column(children: [
@@ -89,7 +87,7 @@ class _RefundViewState extends State<RefundView> {
                                   children: [
                                     Stack(
                                       children: [
-                                        _BuildCard(
+                                        buildCard(
                                             item: value,
                                             index: key,
                                             context: context),
@@ -119,7 +117,7 @@ class _RefundViewState extends State<RefundView> {
                                                                 .search_product_not_found
                                                                 .tr(),
                                                             style: FunctionHelper
-                                                                .FontTheme(
+                                                                .fontTheme(
                                                                     fontSize:
                                                                         SizeUtil.titleSmallFontSize()
                                                                             .sp,
@@ -158,7 +156,7 @@ class _RefundViewState extends State<RefundView> {
                               width: 10,
                             ),
                             Text("Loading",
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     color: Colors.grey,
                                     fontSize: SizeUtil.priceFontSize().sp))
                           ],
@@ -182,7 +180,7 @@ class _RefundViewState extends State<RefundView> {
                           height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
                         LocaleKeys.search_product_not_found.tr(),
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.bold),
                       )
@@ -195,33 +193,33 @@ class _RefundViewState extends State<RefundView> {
     );
   }
 
-  Widget _BuildCard({OrderData item, BuildContext context, int index}) {
+  Widget buildCard({OrderData item, BuildContext context, int index}) {
     return InkWell(
       child: Container(
         child: Column(
           children: [
-            _OwnShop(item: item),
-            _ProductDetail(item: item, index: index),
+            ownShop(item: item),
+            productDetail(item: item, index: index),
           ],
         ),
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
         if (item.items[0].inventory != null) {
-          AppRoute.OrderDetail(context,
+          AppRoute.orderDetail(context,
               orderData: item, typeView: widget.typeView);
         }
       },
     );
   }
 
-  Widget _ProductItem({OrderItems item, int shopId, int index}) {
+  Widget productItem({OrderItems item, int shopId, int index}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
           child: Hero(
-            tag: "history_paid_${item.orderId}${item.inventoryId}${index}",
+            tag: "history_paid_${item.orderId}${item.inventoryId}$index",
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -249,10 +247,10 @@ class _RefundViewState extends State<RefundView> {
             ProductData product = ProductData();
             product = item.inventory.product;
             product.shop = ProductShop(id: shopId);
-            AppRoute.ProductDetail(context,
+            AppRoute.productDetail(context,
                 productImage:
-                    "history_paid_${item.orderId}${item.inventoryId}${index}",
-                productItem: ProductBloc.ConvertDataToProduct(data: product));
+                    "history_paid_${item.orderId}${item.inventoryId}$index",
+                productItem: ProductBloc.convertDataToProduct(data: product));
           },
         ),
         SizedBox(width: 2.0.w),
@@ -268,7 +266,7 @@ class _RefundViewState extends State<RefundView> {
                         : 'ไม่พบข้อมูล',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w600)),
               ),
@@ -277,7 +275,7 @@ class _RefundViewState extends State<RefundView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("x ${item.quantity}",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           color: Colors.black)),
                   Row(
@@ -286,7 +284,7 @@ class _RefundViewState extends State<RefundView> {
                               item.inventory.product.discountPercent != 0
                           ? Text(
                               "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory != null ? item.inventory.product.discountPercent : 0)}",
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   decoration: TextDecoration.lineThrough))
@@ -294,9 +292,9 @@ class _RefundViewState extends State<RefundView> {
                       SizedBox(width: 3.0.w),
                       Text(
                           "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory != null ? item.inventory.salePrice : 999)}",
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale()))
+                              color: ThemeColor.colorSale()))
                     ],
                   )
                 ],
@@ -311,7 +309,7 @@ class _RefundViewState extends State<RefundView> {
     );
   }
 
-  Widget _ProductDetail({OrderData item, int index}) {
+  Widget productDetail({OrderData item, int index}) {
     return Container(
       padding: EdgeInsets.all(3.0.w),
       color: Colors.white,
@@ -322,7 +320,7 @@ class _RefundViewState extends State<RefundView> {
                 .asMap()
                 .map((key, value) => MapEntry(
                     key,
-                    _ProductItem(
+                    productItem(
                         item: item.items[key],
                         shopId: item.shop.id,
                         index: key)))
@@ -339,17 +337,17 @@ class _RefundViewState extends State<RefundView> {
                     children: <TextSpan>[
                       new TextSpan(
                           text: LocaleKeys.history_order_price.tr(),
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.normal,
                               color: Colors.black)),
                       new TextSpan(
                           text: " : " +
-                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.colorSale())),
                               "฿${item.grandTotal}",
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale())),
+                              color: ThemeColor.colorSale())),
                     ],
                   ),
                 ),
@@ -358,7 +356,7 @@ class _RefundViewState extends State<RefundView> {
                 color: Colors.grey.shade400,
               ),
               widget.typeView == OrderViewType.Shop
-                  ? _IntroShipment(address: item.shippingAddress)
+                  ? introShipment(address: item.shippingAddress)
                   : SizedBox(),
               widget.typeView == OrderViewType.Shop
                   ? Divider(
@@ -374,12 +372,12 @@ class _RefundViewState extends State<RefundView> {
                             "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
                         : LocaleKeys.history_order_time.tr() +
                             "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
                   ),
-                  _BuildButtonBayItem(
-                      btnTxt: widget.typeView == "shop"
+                  buildButtonBayItem(
+                      btnTxt: widget.typeView == OrderViewType.Shop
                           ? "Confirm payment"
                           : "Payment",
                       item: item)
@@ -392,7 +390,7 @@ class _RefundViewState extends State<RefundView> {
     );
   }
 
-  Widget _OwnShop({OrderData item}) {
+  Widget ownShop({OrderData item}) {
     return Container(
       padding: EdgeInsets.only(left: 15, top: 15, bottom: 5, right: 20),
       color: Colors.white,
@@ -400,13 +398,13 @@ class _RefundViewState extends State<RefundView> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            widget.typeView == "shop"
+            widget.typeView == OrderViewType.Shop
                 ? Container(
                     child: Text(
                         LocaleKeys.order_detail_id.tr() +
                             " " +
                             item.orderNumber,
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.w500)),
                   )
@@ -443,14 +441,14 @@ class _RefundViewState extends State<RefundView> {
                         width: 10,
                       ),
                       Text(item.shop.name,
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleSmallFontSize().sp,
                               fontWeight: FontWeight.bold))
                     ],
                   ),
             Text(
               item.orderStatusName,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: ThemeColor.primaryColor(),
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.w500),
@@ -458,14 +456,14 @@ class _RefundViewState extends State<RefundView> {
           ],
         ),
         onTap: () {
-          AppRoute.ShopMain(
+          AppRoute.shopMain(
               context: context, myShopRespone: MyShopRespone(id: item.shop.id));
         },
       ),
     );
   }
 
-  Widget _BuildButtonBayItem({String btnTxt, OrderData item}) {
+  Widget buildButtonBayItem({String btnTxt, OrderData item}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -474,16 +472,16 @@ class _RefundViewState extends State<RefundView> {
           ),
         ),
         backgroundColor: MaterialStateProperty.all(
-          ThemeColor.ColorSale(),
+          ThemeColor.colorSale(),
         ),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),
         ),
       ),
       onPressed: () async {
-        if (widget.typeView == "shop") {
+        if (widget.typeView == OrderViewType.Shop) {
           final result =
-              await AppRoute.ConfirmPayment(context: context, orderData: item);
+              await AppRoute.confirmPayment(context: context, orderData: item);
           if (result) {
             Usermanager().getUser().then((value) => bloc.loadOrder(context,
                 orderType: widget.typeView == OrderViewType.Shop
@@ -496,12 +494,12 @@ class _RefundViewState extends State<RefundView> {
                 token: value.token));
           }
         } else {
-          AppRoute.TransferPayMentView(context: context, orderData: item);
+          AppRoute.transferPayMentView(context: context, orderData: item);
         }
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),
@@ -509,7 +507,7 @@ class _RefundViewState extends State<RefundView> {
     );
   }
 
-  Widget _IntroShipment({String address}) {
+  Widget introShipment({String address}) {
     return Container(
       color: Colors.white,
       child: Row(
@@ -524,7 +522,7 @@ class _RefundViewState extends State<RefundView> {
             child: Text(address,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     color: ThemeColor.secondaryColor())),
           ),
@@ -540,7 +538,7 @@ class _RefundViewState extends State<RefundView> {
     );
   }
 
-  int SumTotal(List<OrderItems> items) {
+  int sumTotal(List<OrderItems> items) {
     var sum = 0;
     for (var item in items) {
       sum += item.inventory.salePrice;
@@ -559,6 +557,5 @@ class _RefundViewState extends State<RefundView> {
         token: value.token));
   }
 
-  @override
   bool get wantKeepAlive => true;
 }

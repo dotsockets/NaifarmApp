@@ -16,8 +16,6 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -36,7 +34,7 @@ class _CanceledViewState extends State<CanceledView> {
   ScrollController _scrollController = ScrollController();
   int page = 1;
   int limit = 10;
-  bool step_page = false;
+  bool stepPage = false;
 
   init() {
     if (bloc == null) {
@@ -54,8 +52,8 @@ class _CanceledViewState extends State<CanceledView> {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=
           200) {
-        if (step_page) {
-          step_page = false;
+        if (stepPage) {
+          stepPage = false;
           page++;
           _reloadData();
         }
@@ -74,7 +72,7 @@ class _CanceledViewState extends State<CanceledView> {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData &&
                 (snapshot.data as OrderRespone).data.length > 0) {
-              step_page = true;
+              stepPage = true;
               return SingleChildScrollView(
                 controller: _scrollController,
                 child: Column(
@@ -89,7 +87,7 @@ class _CanceledViewState extends State<CanceledView> {
                                   children: [
                                     Stack(
                                       children: [
-                                        _BuildCard(
+                                        buildCard(
                                             item: value,
                                             index: key,
                                             context: context),
@@ -119,7 +117,7 @@ class _CanceledViewState extends State<CanceledView> {
                                                                 .search_product_not_found
                                                                 .tr(),
                                                             style: FunctionHelper
-                                                                .FontTheme(
+                                                                .fontTheme(
                                                                     fontSize:
                                                                         SizeUtil.titleSmallFontSize()
                                                                             .sp,
@@ -158,7 +156,7 @@ class _CanceledViewState extends State<CanceledView> {
                               width: 10,
                             ),
                             Text("Loading",
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     color: Colors.grey,
                                     fontSize: SizeUtil.priceFontSize().sp))
                           ],
@@ -184,7 +182,7 @@ class _CanceledViewState extends State<CanceledView> {
                           height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
                         LocaleKeys.search_product_not_found.tr(),
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.bold),
                       )
@@ -197,33 +195,33 @@ class _CanceledViewState extends State<CanceledView> {
     );
   }
 
-  Widget _BuildCard({OrderData item, BuildContext context, int index}) {
+  Widget buildCard({OrderData item, BuildContext context, int index}) {
     return InkWell(
       child: Container(
         child: Column(
           children: [
-            _OwnShop(item: item),
-            _ProductDetail(item: item, index: index),
+            ownShop(item: item),
+            productDetail(item: item, index: index),
           ],
         ),
       ),
       onTap: () {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
         if (item.items[0].inventory != null) {
-          AppRoute.OrderDetail(context,
+          AppRoute.orderDetail(context,
               orderData: item, typeView: widget.typeView);
         }
       },
     );
   }
 
-  Widget _ProductItem({OrderItems item, int shopId, int index}) {
+  Widget productItem({OrderItems item, int shopId, int index}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
           child: Hero(
-            tag: "history_paid_${item.orderId}${item.inventoryId}${index}",
+            tag: "history_paid_${item.orderId}${item.inventoryId}$index",
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -251,10 +249,10 @@ class _CanceledViewState extends State<CanceledView> {
             ProductData product = ProductData();
             product = item.inventory.product;
             product.shop = ProductShop(id: shopId);
-            AppRoute.ProductDetail(context,
+            AppRoute.productDetail(context,
                 productImage:
-                    "history_paid_${item.orderId}${item.inventoryId}${index}",
-                productItem: ProductBloc.ConvertDataToProduct(data: product));
+                    "history_paid_${item.orderId}${item.inventoryId}$index",
+                productItem: ProductBloc.convertDataToProduct(data: product));
           },
         ),
         SizedBox(width: 2.0.w),
@@ -270,7 +268,7 @@ class _CanceledViewState extends State<CanceledView> {
                         : 'ไม่พบข้อมูล',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w600)),
               ),
@@ -279,7 +277,7 @@ class _CanceledViewState extends State<CanceledView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("x ${item.quantity}",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           color: Colors.black)),
                   Row(
@@ -288,7 +286,7 @@ class _CanceledViewState extends State<CanceledView> {
                               item.inventory.product.discountPercent != 0
                           ? Text(
                               "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory != null ? item.inventory.product.discountPercent : 0)}",
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   decoration: TextDecoration.lineThrough))
@@ -296,9 +294,9 @@ class _CanceledViewState extends State<CanceledView> {
                       SizedBox(width: 3.0.w),
                       Text(
                           "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory != null ? item.inventory.salePrice : 999)}",
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale()))
+                              color: ThemeColor.colorSale()))
                     ],
                   )
                 ],
@@ -313,7 +311,7 @@ class _CanceledViewState extends State<CanceledView> {
     );
   }
 
-  Widget _ProductDetail({OrderData item, int index}) {
+  Widget productDetail({OrderData item, int index}) {
     return Container(
       padding: EdgeInsets.all(3.0.w),
       color: Colors.white,
@@ -324,7 +322,7 @@ class _CanceledViewState extends State<CanceledView> {
                 .asMap()
                 .map((key, value) => MapEntry(
                     key,
-                    _ProductItem(
+                    productItem(
                         item: item.items[key],
                         shopId: item.shop.id,
                         index: key)))
@@ -341,16 +339,16 @@ class _CanceledViewState extends State<CanceledView> {
                     children: <TextSpan>[
                       new TextSpan(
                           text: LocaleKeys.history_order_price.tr() + " : ",
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.normal,
                               color: Colors.black)),
                       new TextSpan(
                           text: "฿${item.grandTotal}",
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale())),
-                      // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                              color: ThemeColor.colorSale())),
+                      // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.colorSale())),
                     ],
                   ),
                 ),
@@ -361,7 +359,7 @@ class _CanceledViewState extends State<CanceledView> {
                         Divider(
                           color: Colors.grey.shade400,
                         ),
-                        _IntroShipment(address: item.shippingAddress),
+                        introShipment(address: item.shippingAddress),
                         Divider(
                           color: Colors.grey.shade400,
                         ),
@@ -370,11 +368,11 @@ class _CanceledViewState extends State<CanceledView> {
                           children: [
                             Text(
                               "${LocaleKeys.order_detail_cancel_detail.tr()}: ผู้ซื้อ\n${LocaleKeys.order_detail_cancel_reason.tr()}: สินค้าเสียหาย",
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   color: Colors.black.withOpacity(0.6)),
                             ),
-                            _BuildButtonBayItem(
+                            buildButtonBayItem(
                                 btnTxt:
                                     "${LocaleKeys.order_detail_cancel_detail.tr()}",
                                 item: item)
@@ -390,7 +388,7 @@ class _CanceledViewState extends State<CanceledView> {
     );
   }
 
-  Widget _OwnShop({OrderData item}) {
+  Widget ownShop({OrderData item}) {
     return Container(
       padding: EdgeInsets.only(left: 15, top: 15, bottom: 5, right: 20),
       color: Colors.white,
@@ -404,7 +402,7 @@ class _CanceledViewState extends State<CanceledView> {
                         LocaleKeys.order_detail_id.tr() +
                             " " +
                             item.orderNumber,
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.w500)),
                   )
@@ -441,14 +439,14 @@ class _CanceledViewState extends State<CanceledView> {
                         width: 10,
                       ),
                       Text(item.shop.name,
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleSmallFontSize().sp,
                               fontWeight: FontWeight.bold))
                     ],
                   ),
             Text(
               item.orderStatusName,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: ThemeColor.primaryColor(),
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.w500),
@@ -456,14 +454,14 @@ class _CanceledViewState extends State<CanceledView> {
           ],
         ),
         onTap: () {
-          AppRoute.ShopMain(
+          AppRoute.shopMain(
               context: context, myShopRespone: MyShopRespone(id: item.shop.id));
         },
       ),
     );
   }
 
-  Widget _BuildButtonBayItem({String btnTxt, OrderData item}) {
+  Widget buildButtonBayItem({String btnTxt, OrderData item}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -472,7 +470,7 @@ class _CanceledViewState extends State<CanceledView> {
           ),
         ),
         backgroundColor: MaterialStateProperty.all(
-          ThemeColor.ColorSale(),
+          ThemeColor.colorSale(),
         ),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),
@@ -485,14 +483,14 @@ class _CanceledViewState extends State<CanceledView> {
           //     Usermanager().getUser().then((value) =>
           //       bloc.loadOrder(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",sort: "orders.updatedAt:desc",statusId: "1", limit: 20, page: 1, token: value.token));
           //  }
-          AppRoute.OrderCancle(context: context, orderData: item);
+          AppRoute.orderCancle(context: context, orderData: item);
         } else {
-          AppRoute.TransferPayMentView(context: context, orderData: item);
+          AppRoute.transferPayMentView(context: context, orderData: item);
         }
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),
@@ -500,7 +498,7 @@ class _CanceledViewState extends State<CanceledView> {
     );
   }
 
-  Widget _IntroShipment({String address}) {
+  Widget introShipment({String address}) {
     return Container(
       color: Colors.white,
       child: Row(
@@ -515,7 +513,7 @@ class _CanceledViewState extends State<CanceledView> {
             child: Text(address,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     color: ThemeColor.secondaryColor())),
           ),
@@ -531,7 +529,7 @@ class _CanceledViewState extends State<CanceledView> {
     );
   }
 
-  int SumTotal(List<OrderItems> items) {
+  int sumTotal(List<OrderItems> items) {
     var sum = 0;
     for (var item in items) {
       sum += item.inventory.salePrice;
@@ -550,6 +548,5 @@ class _CanceledViewState extends State<CanceledView> {
         token: value.token));
   }
 
-  @override
   bool get wantKeepAlive => true;
 }

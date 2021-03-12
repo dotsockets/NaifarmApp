@@ -1,4 +1,3 @@
-
 class SliderRespone {
   List<SliderData> data;
   int total;
@@ -7,7 +6,7 @@ class SliderRespone {
 
   SliderRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<SliderData>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new SliderData.fromJson(v));
       });
@@ -37,13 +36,13 @@ class SliderData {
 
   SliderData(
       {this.id,
-        this.title,
-        this.titleColor,
-        this.subTitle,
-        this.subTitleColor,
-        this.link,
-        this.order,
-        this.image});
+      this.title,
+      this.titleColor,
+      this.subTitle,
+      this.subTitleColor,
+      this.link,
+      this.order,
+      this.image});
 
   SliderData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -54,7 +53,7 @@ class SliderData {
     link = json['link'];
     order = json['order'];
     if (json['image'] != null) {
-      image = new List<SliderImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new SliderImage.fromJson(v));
       });
@@ -95,4 +94,3 @@ class SliderImage {
     return data;
   }
 }
-

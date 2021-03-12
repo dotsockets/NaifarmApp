@@ -3,31 +3,29 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:sizer/sizer.dart';
 
-class Register_set_PasswordView extends StatefulWidget {
+class RegisterSetPasswordView extends StatefulWidget {
   final String phone;
 
-  const Register_set_PasswordView({Key key, this.phone}) : super(key: key);
+  const RegisterSetPasswordView({Key key, this.phone}) : super(key: key);
   @override
-  _Register_set_PasswordViewState createState() =>
-      _Register_set_PasswordViewState();
+  RegisterSetPasswordViewState createState() => RegisterSetPasswordViewState();
 }
 
-class _Register_set_PasswordViewState extends State<Register_set_PasswordView> {
+class RegisterSetPasswordViewState extends State<RegisterSetPasswordView> {
   TextEditingController _input1 = new TextEditingController();
   TextEditingController _input2 = new TextEditingController();
 
-  bool SuccessForm = false;
+  bool successForm = false;
   String onError1 = "";
   String onError2 = "";
 
-  bool FormCheck() {
+  bool formCheck() {
     if (_input1.text.isEmpty || _input2.text.isEmpty) {
       return false;
     } else {
@@ -71,7 +69,7 @@ class _Register_set_PasswordViewState extends State<Register_set_PasswordView> {
     }
 
     if (t1 && t2) {
-      AppRoute.Register_Name_Otp(context, widget.phone, _input1.text);
+      AppRoute.registerNameOtp(context, widget.phone, _input1.text);
     }
   }
 
@@ -86,14 +84,14 @@ class _Register_set_PasswordViewState extends State<Register_set_PasswordView> {
               preferredSize: Size.fromHeight(6.5.h),
               child: AppToobar(
                 title: LocaleKeys.edit_password_set.tr(),
-                header_type: Header_Type.barNormal,
-                isEnable_Search: false,
+                headerType: Header_Type.barNormal,
+                isEnableSearch: false,
               )),
           body: Container(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  _Form(),
+                  form(),
                   SizedBox(
                     height: 4.0.h,
                   ),
@@ -108,7 +106,7 @@ class _Register_set_PasswordViewState extends State<Register_set_PasswordView> {
                         Size(250.0, 7.0.h),
                       ),
                       backgroundColor: MaterialStateProperty.all(
-                        FormCheck()
+                        formCheck()
                             ? ThemeColor.secondaryColor()
                             : Colors.grey.shade400,
                       ),
@@ -116,10 +114,10 @@ class _Register_set_PasswordViewState extends State<Register_set_PasswordView> {
                         Colors.white.withOpacity(0.3),
                       ),
                     ),
-                    onPressed: () => FormCheck() ? verify() : SizedBox(),
+                    onPressed: () => formCheck() ? verify() : SizedBox(),
                     child: Text(
                       LocaleKeys.btn_continue.tr(),
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w500),
@@ -134,7 +132,7 @@ class _Register_set_PasswordViewState extends State<Register_set_PasswordView> {
     );
   }
 
-  Widget _Form() {
+  Widget form() {
     return Container(
       color: Colors.white,
       padding:
@@ -147,7 +145,7 @@ class _Register_set_PasswordViewState extends State<Register_set_PasswordView> {
                 LocaleKeys.my_profile_password.tr(),
             inputType: TextInputType.text,
             maxLength: 20,
-            IsPassword: true,
+            isPassword: true,
             borderRadius: 5,
             controller: _input1,
             onError: onError1,
@@ -166,7 +164,7 @@ class _Register_set_PasswordViewState extends State<Register_set_PasswordView> {
                 LocaleKeys.my_profile_password.tr(),
             inputType: TextInputType.text,
             maxLength: 20,
-            IsPassword: true,
+            isPassword: true,
             borderRadius: 5,
             controller: _input2,
             onError: onError2,

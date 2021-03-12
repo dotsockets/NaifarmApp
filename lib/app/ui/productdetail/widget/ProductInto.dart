@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,11 +10,8 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -24,49 +20,50 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
+// ignore: must_be_immutable
 class ProductInto extends StatelessWidget {
   final ProducItemRespone data;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool showBtn;
 
-
-
-   ProductInto({Key key, this.data, this.scaffoldKey,this.showBtn=true}) : super(key: key);
+  ProductInto({Key key, this.data, this.scaffoldKey, this.showBtn = true})
+      : super(key: key);
   ProductBloc bloc;
-  bool IsLogin = true;
+  bool isLogin = true;
 
   void _init(BuildContext context) {
     if (null == bloc) {
-
-      ISLogin();
+      iSLogin();
       bloc = ProductBloc(AppProvider.getApplication(context));
       //bloc.ProductItem.add(widget.productItem);
       bloc.onError.stream.listen((event) {
         //checkScrollControl.add(true);
         if (event != null) {
           if (event.status == 406) {
-            FunctionHelper.AlertDialogShop(context,
+            FunctionHelper.alertDialogShop(context,
                 title: "Error", message: event.message);
-          }else if(event.status == 0 || event.status >= 500){
-
-          }else {
-            FunctionHelper.SnackBarShow(scaffoldKey: scaffoldKey, message: event.message);
+          } else if (event.status == 0 || event.status >= 500) {
+          } else {
+            FunctionHelper.snackBarShow(
+                scaffoldKey: scaffoldKey, message: event.message);
           }
         }
       });
 
-
-
-      bloc.Wishlists.stream.listen((event) {
-        Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
+      bloc.wishlists.stream.listen((event) {
+        Usermanager().getUser().then((value) => context
+            .read<CustomerCountBloc>()
+            .loadCustomerCount(context, token: value.token));
       });
 
-      Usermanager().getUser().then((value) => bloc.GetWishlistsByProduct(context,token: value.token,productID: data.id));
+      Usermanager().getUser().then((value) => bloc.getWishlistsByProduct(
+          context,
+          token: value.token,
+          productID: data.id));
     }
   }
 
-  void ISLogin() async => IsLogin = await Usermanager().isLogin();
-
+  void iSLogin() async => isLogin = await Usermanager().isLogin();
 
   @override
   Widget build(BuildContext context) {
@@ -74,36 +71,52 @@ class ProductInto extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Container(
-        padding: EdgeInsets.only(left: 3.0.w,right: 1.0.w),
+        padding: EdgeInsets.only(left: 3.0.w, right: 1.0.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               data.name.toString(),
               textAlign: TextAlign.left,
-              style: FunctionHelper.FontTheme(
-                  fontSize: SizeUtil.priceFontSize().sp, fontWeight: FontWeight.w500),
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.priceFontSize().sp,
+                  fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            data.offerPrice!=null?Text("฿${data.salePrice}",style: FunctionHelper.FontTheme(
-                color: Colors.grey,
-                fontSize: SizeUtil.priceFontSize().sp, decoration: TextDecoration.lineThrough)):SizedBox(),
-            SizedBox(width: data.offerPrice!=null?1.0.w:0),
-            Text(data.offerPrice!=null?"฿${data.offerPrice}":"฿${data.salePrice}",maxLines: 1,
-              overflow: TextOverflow.ellipsis,style: FunctionHelper.FontTheme(color: ThemeColor.ColorSale(),fontWeight: FontWeight.w500,fontSize: SizeUtil.priceFontSize().sp),),
-          ],
-        ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                data.offerPrice != null
+                    ? Text("฿${data.salePrice}",
+                        style: FunctionHelper.fontTheme(
+                            color: Colors.grey,
+                            fontSize: SizeUtil.priceFontSize().sp,
+                            decoration: TextDecoration.lineThrough))
+                    : SizedBox(),
+                SizedBox(width: data.offerPrice != null ? 1.0.w : 0),
+                Text(
+                  data.offerPrice != null
+                      ? "฿${data.offerPrice}"
+                      : "฿${data.salePrice}",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: FunctionHelper.fontTheme(
+                      color: ThemeColor.colorSale(),
+                      fontWeight: FontWeight.w500,
+                      fontSize: SizeUtil.priceFontSize().sp),
+                ),
+              ],
+            ),
             Row(
               children: [
                 SmoothStarRating(
                     allowHalfRating: false,
                     onRated: (v) {},
                     starCount: 5,
-                    rating: data.rating!=null&&data.rating!=0?data.rating.toDouble():0.0,
+                    rating: data.rating != null && data.rating != 0
+                        ? data.rating.toDouble()
+                        : 0.0,
                     size: 13.0,
                     isReadOnly: true,
                     filledIconData: Icons.star,
@@ -111,115 +124,151 @@ class ProductInto extends StatelessWidget {
                     color: Colors.amber,
                     borderColor: Colors.grey.shade300,
                     spacing: 0.0),
-                SizedBox(width: 1.0.w,),
-                Text("${data.rating!=null&&data.rating!=0?data.rating:0}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
-                SizedBox(width: 1.0.w,),
+                SizedBox(
+                  width: 1.0.w,
+                ),
+                Text(
+                    "${data.rating != null && data.rating != 0 ? data.rating : 0}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleSmallFontSize().sp)),
+                SizedBox(
+                  width: 1.0.w,
+                ),
                 Center(
                   child: Container(
                     width: 1,
                     color: Colors.black.withOpacity(0.5),
                     height: 1.3.h,
                   ),
-                ),SizedBox(width: 1.0.w,),
-                Expanded(child: Text(
-                  "${LocaleKeys.my_product_sold.tr()} ${data.saleCount!=null? data.saleCount.toString():'0'} ${LocaleKeys.cart_piece.tr()}",
-                  style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
-                ),),
-             InkWell(
+                ),
+                SizedBox(
+                  width: 1.0.w,
+                ),
+                Expanded(
+                  child: Text(
+                    "${LocaleKeys.my_product_sold.tr()} ${data.saleCount != null ? data.saleCount.toString() : '0'} ${LocaleKeys.cart_piece.tr()}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleSmallFontSize().sp),
+                  ),
+                ),
+                InkWell(
                   child: SvgPicture.asset(
                     'assets/images/svg/share.svg',
                     width: 8.0.w,
                     height: 8.0.w,
-                    color: showBtn?Colors.black.withOpacity(0.55):Colors.transparent,
+                    color: showBtn
+                        ? Colors.black.withOpacity(0.55)
+                        : Colors.transparent,
                   ),
                   onTap: () {
-                    Share.share('${Env.value.baseUrlWeb}/${data.name}-i.${data.id}');
+                    Share.share(
+                        '${Env.value.baseUrlWeb}/${data.name}-i.${data.id}');
                     // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                   },
                 ),
-                showBtn?SizedBox(width: 1.0.h,):SizedBox(),
-                showBtn?StreamBuilder(
-                  stream: bloc.Wishlists.stream,
-                  builder: (BuildContext context,
-                      AsyncSnapshot snapshot) {
-
-                    if (snapshot.hasData && (snapshot.data as WishlistsRespone) != null) {
-
-                      if ((snapshot.data as WishlistsRespone).total > 0) {
-                        return LikeContent(item: snapshot.data,context: context);
-                      } else {
-                        return IsLogin?LikeContent(item: snapshot.data,context: context):LikeContentNoLogin(context);
-                      }
-                    } else {
-                      return IsLogin?LikeContent(item: WishlistsRespone()):LikeContentNoLogin(context);
-                    }
-                  },
-                ):SizedBox(),
-
+                showBtn
+                    ? SizedBox(
+                        width: 1.0.h,
+                      )
+                    : SizedBox(),
+                showBtn
+                    ? StreamBuilder(
+                        stream: bloc.wishlists.stream,
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.hasData &&
+                              (snapshot.data as WishlistsRespone) != null) {
+                            if ((snapshot.data as WishlistsRespone).total > 0) {
+                              return likeContent(
+                                  item: snapshot.data, context: context);
+                            } else {
+                              return isLogin
+                                  ? likeContent(
+                                      item: snapshot.data, context: context)
+                                  : likeContentNoLogin(context);
+                            }
+                          } else {
+                            return isLogin
+                                ? likeContent(item: WishlistsRespone())
+                                : likeContentNoLogin(context);
+                          }
+                        },
+                      )
+                    : SizedBox(),
               ],
             ),
             SizedBox(height: 15),
-           // _IntroShipment()
+            // _IntroShipment()
           ],
         ),
       ),
     );
   }
-  Widget LikeContentNoLogin(BuildContext context){
-    return InkWell(child: Container(margin: EdgeInsets.only(right: 2.0.w,left: 1.0.w),child: Icon(Icons.favorite_outline_sharp,size: 8.0.w,color: Colors.black.withOpacity(0.55),)),onTap: (){
-      AppRoute.Login(context,IsHeader: true,homeCallBack: (bool fix){
-        ISLogin();
-      });
-    },);
+
+  Widget likeContentNoLogin(BuildContext context) {
+    return InkWell(
+      child: Container(
+          margin: EdgeInsets.only(right: 2.0.w, left: 1.0.w),
+          child: Icon(
+            Icons.favorite_outline_sharp,
+            size: 8.0.w,
+            color: Colors.black.withOpacity(0.55),
+          )),
+      onTap: () {
+        AppRoute.login(context, isHeader: true, homeCallBack: (bool fix) {
+          iSLogin();
+        });
+      },
+    );
   }
 
-  Widget LikeContent({WishlistsRespone item,BuildContext context}){
+  Widget likeContent({WishlistsRespone item, BuildContext context}) {
     return LikeButton(
       size: 10.0.w,
-      isLiked: item.total>0?true:false,
-      circleColor: const CircleColor(
-          start: Color(0xffF03A13), end: Color(0xffE6593A)),
+      isLiked: item.total > 0 ? true : false,
+      circleColor:
+          const CircleColor(start: Color(0xffF03A13), end: Color(0xffE6593A)),
       bubblesColor: const BubblesColor(
         dotPrimaryColor: Color(0xffF03A13),
         dotSecondaryColor: Color(0xffE6593A),
       ),
       likeBuilder: (bool isLiked) {
         return Icon(
-          isLiked?Icons.favorite:Icons.favorite_outline_sharp,
-          color: isLiked ? ThemeColor.ColorSale() : Colors.black.withOpacity(0.55),
+          isLiked ? Icons.favorite : Icons.favorite_outline_sharp,
+          color:
+              isLiked ? ThemeColor.colorSale() : Colors.black.withOpacity(0.55),
           size: 8.0.w,
         );
       },
       likeCountAnimationType: LikeCountAnimationType.part,
-      likeCountPadding:  EdgeInsets.all(1.0.w),
-      onTap: (bool like)=>onLikeButtonTapped(item.total>0?true:false,item,context),
+      likeCountPadding: EdgeInsets.all(1.0.w),
+      onTap: (bool like) =>
+          onLikeButtonTapped(item.total > 0 ? true : false, item, context),
     );
   }
 
-  Future<bool> onLikeButtonTapped(bool isLiked,WishlistsRespone item,BuildContext context) async {
-
+  Future<bool> onLikeButtonTapped(
+      bool isLiked, WishlistsRespone item, BuildContext context) async {
     if (item.total > 0) {
       int id = item.data[0].id;
       item.data = [];
       item.total = 0;
-      bloc.Wishlists.add(item);
+      bloc.wishlists.add(item);
       Usermanager().getUser().then((value) =>
-          bloc.DELETEWishlists(context,WishId: id, token: value.token));
+          bloc.deleteWishlists(context, wishId: id, token: value.token));
     } else {
-
-      Usermanager().getUser().then((value) => bloc.AddWishlists(context,
+      Usermanager().getUser().then((value) => bloc.addWishlists(context,
           productId: data.id,
-          inventoryId: data
-              .inventories[0].id,
+          inventoryId: data.inventories[0].id,
           token: value.token));
       item.data = [];
       item.total = 1;
-      bloc.Wishlists.add(item);
+      bloc.wishlists.add(item);
     }
     return !isLiked;
   }
 
-  Widget _IntroShipment() {
+  Widget introShipment() {
     return Container(
       color: ThemeColor.primaryColor().withOpacity(0.3),
       child: Padding(
@@ -233,15 +282,16 @@ class ProductInto extends StatelessWidget {
             ),
             SizedBox(width: 2.0.w),
             Text(LocaleKeys.cart_free.tr(),
-                style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.ColorSale())),
+                style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    color: ThemeColor.colorSale())),
             Text(LocaleKeys.cart_delivery_free.tr(),
-                style: FunctionHelper.FontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp, fontWeight: FontWeight.w500)),
+                style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.w500)),
           ],
         ),
       ),
     );
   }
-
 }

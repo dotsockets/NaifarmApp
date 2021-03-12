@@ -43,12 +43,12 @@ class _TransferPayMentState extends State<TransferPayMent> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.AlertDialogShop(context, title: "Error", message: event);
+        FunctionHelper.alertDialogShop(context, title: "Error", message: event);
         //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
-        FunctionHelper.SuccessDialog(context, message: "Successfully uploaded",
+        FunctionHelper.successDialog(context, message: "Successfully uploaded",
             onClick: () {
           if (onDialog) {
             Navigator.pop(context, true);
@@ -70,31 +70,31 @@ class _TransferPayMentState extends State<TransferPayMent> {
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
             title: "Payment information",
-            header_type: Header_Type.barNormal,
-            isEnable_Search: false,
+            headerType: Header_Type.barNormal,
+            isEnableSearch: false,
             icon: '',
             onClick: () {
-              AppRoute.PoppageCount(context: context, countpage: 1);
+              AppRoute.poppageCount(context: context, countpage: 1);
             },
           ),
           body: Container(
             child: Column(
               children: <Widget>[
-                InfoMessage(
+                infoMessage(
                     title: "1",
                     message:
                         "หากท่านต้องการชำระเงินผ่านตู้ ATM หรือหน้าเคาท์เตอร์ธนาคาร ท่านสามารถเลือก ATM Bill Payment ใน Naifarm ได้เช่นกัน ซึ่งวิธีนี้ท่านไม่จำเป็นต้องอัพโหลดเอกสารการชำระเงิน และสามารถรอการยืนยันการชำระเงินได้รวดเร็วกว่า หากท่านยืนยันที่จะเลือกช่องทางนี้ ท่านสามารถชำระเงินผ่าน intenet/mobile banking มายังบัญชีธนาคารของ Naifarm"),
-                CardBank(index: 0),
-                CardBank1(index: 1),
-                InfoMessage(
+                cardBank(index: 0),
+                cardBank1(index: 1),
+                infoMessage(
                     title: "2",
                     message: "เก็บหลักฐานการโอนเงินและอัพโหลดภายใน 14-01-2021",
-                    padding_bottom: false),
-                InfoMessage(
+                    paddingBottom: false),
+                infoMessage(
                     title: "3",
                     message:
                         "เพื่อความรวดเร็วในการยืนยันการชำระเงินของท่าน ขอแนะนำให้ท่านอัพโหลดหลักฐานการชำระเงินที่ท่านได้รับจาก mobile banking application หรือ internet banking แทนการอัพโหลดหลักฐานประเภทอื่น ซึ่งอาจทำให้ตรวจสอบการชำระเงินล่าช้า"),
-                ButtonItem()
+                buttonItem()
               ],
             ),
           ),
@@ -103,7 +103,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
     );
   }
 
-  Widget CardBank({int index}) {
+  Widget cardBank({int index}) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -128,7 +128,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 children: [
                   Text(
                     "ไทยพานิชย์ (SCB)",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.black,
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.bold),
@@ -138,7 +138,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                   ),
                   Text(
                     "ชื่อบัญชี: บริษัท แอร์เพย์ ประเทศไทย จำกัด",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.black.withOpacity(0.5),
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.w500),
@@ -154,17 +154,17 @@ class _TransferPayMentState extends State<TransferPayMent> {
                             children: <TextSpan>[
                               TextSpan(
                                   text: "เลขที่บัญชี : ",
-                                  style: FunctionHelper.FontTheme(
+                                  style: FunctionHelper.fontTheme(
                                       fontSize:
                                           SizeUtil.titleSmallFontSize().sp,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black.withOpacity(0.5))),
                               TextSpan(
                                   text: "468 0601 709",
-                                  style: FunctionHelper.FontTheme(
+                                  style: FunctionHelper.fontTheme(
                                       fontSize: (SizeUtil.titleFontSize()).sp,
                                       fontWeight: FontWeight.bold,
-                                      color: ThemeColor.ColorSale())),
+                                      color: ThemeColor.colorSale())),
                             ],
                           ),
                         ),
@@ -173,7 +173,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                         child: Container(
                           child: Text(
                             "${LocaleKeys.btn_copy.tr()}",
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 color: ThemeColor.secondaryColor(),
                                 fontSize: SizeUtil.titleSmallFontSize().sp,
                                 fontWeight: FontWeight.bold),
@@ -181,7 +181,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                         ),
                         onTap: () {
                           FlutterClipboard.copy('4680601709').then((value) {
-                            FunctionHelper.SnackBarShow(
+                            FunctionHelper.snackBarShow(
                                 scaffoldKey: _scaffoldKey,
                                 message: "คัดลอกแล้ว");
                           });
@@ -201,7 +201,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
     );
   }
 
-  Widget CardBank1({int index}) {
+  Widget cardBank1({int index}) {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
@@ -226,7 +226,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 children: [
                   Text(
                     "กสิกร",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.black,
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.bold),
@@ -236,7 +236,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                   ),
                   Text(
                     "ปิดปรับปรุงชั่วคราว",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.black.withOpacity(0.5),
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.w500),
@@ -250,7 +250,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
     );
   }
 
-  Widget ButtonItem() {
+  Widget buttonItem() {
     return Container(
       padding: EdgeInsets.all(3.0.h),
       width: MediaQuery.of(context).size.width,
@@ -286,7 +286,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 widget.orderData.image.length == 0
                     ? "${LocaleKeys.payment_method_slip.tr()}"
                     : "${LocaleKeys.payment_method_update_slip.tr()}",
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     color: Colors.white,
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500),
@@ -308,7 +308,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                         ),
                       ),
                       backgroundColor: MaterialStateProperty.all(
-                        ThemeColor.ColorSale(),
+                        ThemeColor.colorSale(),
                       ),
                       overlayColor: MaterialStateProperty.all(
                         Colors.white.withOpacity(0.3),
@@ -319,7 +319,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                     },
                     child: Text(
                       "${LocaleKeys.payment_method_no_slip.tr()}",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleSmallFontSize().sp,
                           fontWeight: FontWeight.w500),
@@ -332,11 +332,11 @@ class _TransferPayMentState extends State<TransferPayMent> {
     );
   }
 
-  Widget InfoMessage(
-      {String title, String message, bool padding_bottom = true}) {
+  Widget infoMessage(
+      {String title, String message, bool paddingBottom = true}) {
     return Container(
       padding: EdgeInsets.only(
-          bottom: padding_bottom ? 1.0.h : 0.0.h,
+          bottom: paddingBottom ? 1.0.h : 0.0.h,
           left: 1.0.h,
           right: 1.0.h,
           top: 0.5.h),
@@ -353,7 +353,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
             ),
             child: Text(
               title,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.white,
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.w500),
@@ -364,7 +364,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
               margin: EdgeInsets.only(top: 0.8.h),
               child: Text(
                 message,
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     color: Colors.black.withOpacity(0.5),
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500),
@@ -382,7 +382,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
 
     if (pickedFile != null) {
       fileImage = File(pickedFile.path);
-      Usermanager().getUser().then((value) => bloc.UploadImage(context,
+      Usermanager().getUser().then((value) => bloc.uploadImage(context,
           imageFile: fileImage,
           imageableType: "order",
           imageableId: widget.orderData.id,

@@ -4,11 +4,11 @@ class WishlistsRespone {
   List<DataWishlists> data;
   int total;
 
-  WishlistsRespone({this.data, this.total=0});
+  WishlistsRespone({this.data, this.total = 0});
 
   WishlistsRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<DataWishlists>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new DataWishlists.fromJson(v));
       });
@@ -39,7 +39,7 @@ class DataWishlists {
     inventoryId = json['inventoryId'];
     productId = json['productId'];
     product =
-    json['product'] != null ? new Product.fromJson(json['product']) : null;
+        json['product'] != null ? new Product.fromJson(json['product']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -79,26 +79,26 @@ class Product {
 
   Product(
       {this.id,
-        this.shopId,
-        this.manufacturerId,
-        this.brand,
-        this.name,
-        this.description,
-        this.minPrice,
-        this.maxPrice,
-        this.salePrice,
-        this.offerPrice,
-        this.originCountry,
-        this.hasVariant,
-        this.requiresShipping,
-        this.downloadable,
-        this.slug,
-        this.saleCount,
-        this.inventories,
-        this.image,
-        this.discountPercent,
-        this.rating,
-        this.reviewCount});
+      this.shopId,
+      this.manufacturerId,
+      this.brand,
+      this.name,
+      this.description,
+      this.minPrice,
+      this.maxPrice,
+      this.salePrice,
+      this.offerPrice,
+      this.originCountry,
+      this.hasVariant,
+      this.requiresShipping,
+      this.downloadable,
+      this.slug,
+      this.saleCount,
+      this.inventories,
+      this.image,
+      this.discountPercent,
+      this.rating,
+      this.reviewCount});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -118,13 +118,13 @@ class Product {
     slug = json['slug'];
     saleCount = json['saleCount'];
     if (json['inventories'] != null) {
-      inventories = new List<Inventories>();
+      inventories = [];
       json['inventories'].forEach((v) {
         inventories.add(new Inventories.fromJson(v));
       });
     }
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -191,27 +191,27 @@ class Inventories {
 
   Inventories(
       {this.id,
-        this.title,
-        this.warehouseId,
-        this.brand,
-        this.sku,
-        this.condition,
-        this.description,
-        this.keyFeatures,
-        this.stockQuantity,
-        this.damagedQuantity,
-        this.salePrice,
-        this.offerPrice,
-        this.offerStart,
-        this.offerEnd,
-        this.preorder,
-        this.preorderMsg,
-        this.preorderStart,
-        this.preorderEnd,
-        this.freeShipping,
-        this.minOrderQuantity,
-        this.linkedItems,
-        this.image});
+      this.title,
+      this.warehouseId,
+      this.brand,
+      this.sku,
+      this.condition,
+      this.description,
+      this.keyFeatures,
+      this.stockQuantity,
+      this.damagedQuantity,
+      this.salePrice,
+      this.offerPrice,
+      this.offerStart,
+      this.offerEnd,
+      this.preorder,
+      this.preorderMsg,
+      this.preorderStart,
+      this.preorderEnd,
+      this.freeShipping,
+      this.minOrderQuantity,
+      this.linkedItems,
+      this.image});
 
   Inventories.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -236,7 +236,7 @@ class Inventories {
     minOrderQuantity = json['minOrderQuantity'];
     linkedItems = json['linkedItems'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -272,6 +272,3 @@ class Inventories {
     return data;
   }
 }
-
-
-

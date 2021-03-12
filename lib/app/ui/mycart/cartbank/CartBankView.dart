@@ -1,21 +1,11 @@
-import 'package:basic_utils/basic_utils.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
-import 'package:naifarm/app/models/BankModel.dart';
-import 'package:naifarm/app/models/CartModel.dart';
-import 'package:naifarm/app/viewmodels/CartViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -40,9 +30,9 @@ class _CartBankViewState extends State<CartBankView> {
     if (null == bloc) {
       bloc = CartBloc(AppProvider.getApplication(context));
       if (widget.paymentRespone.data != null) {
-        bloc.PaymentList.add(widget.paymentRespone);
+        bloc.paymentList.add(widget.paymentRespone);
       } else {
-        bloc.GetPaymentList(
+        bloc.getPaymentList(
           context,
         );
       }
@@ -63,8 +53,8 @@ class _CartBankViewState extends State<CartBankView> {
               child: AppToobar(
                   title:
                       LocaleKeys.select.tr() + LocaleKeys.me_title_payment.tr(),
-                  header_type: Header_Type.barNormal,
-                  isEnable_Search: false,
+                  headerType: Header_Type.barNormal,
+                  isEnableSearch: false,
                   onClick: () => Navigator.pop(context, null)),
             ),
             body: SingleChildScrollView(
@@ -73,13 +63,13 @@ class _CartBankViewState extends State<CartBankView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /*Text("Payment",
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             color: Colors.black,
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.bold)),*/
                     //SizedBox(height: 8),
                     StreamBuilder(
-                        stream: bloc.PaymentList.stream,
+                        stream: bloc.paymentList.stream,
                         builder: (context, snapshot) {
                           var item = (snapshot.data as PaymentRespone);
                           if (snapshot.hasData && item.data != null) {
@@ -162,7 +152,7 @@ class _CartBankViewState extends State<CartBankView> {
                             width: 2.0.w,
                           ),
                           Text(item.name,
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp)),
                         ],
                       ),
@@ -177,15 +167,15 @@ class _CartBankViewState extends State<CartBankView> {
                 ],
               ),
               onTap: () {
-                for (var i = 0; i < bloc.PaymentList.value.data.length; i++) {
-                  if (bloc.PaymentList.value.data[i].id == item.id) {
-                    bloc.PaymentList.value.data[i].active = true;
+                for (var i = 0; i < bloc.paymentList.value.data.length; i++) {
+                  if (bloc.paymentList.value.data[i].id == item.id) {
+                    bloc.paymentList.value.data[i].active = true;
                   } else {
-                    bloc.PaymentList.value.data[i].active = false;
+                    bloc.paymentList.value.data[i].active = false;
                   }
                 }
 
-                bloc.PaymentList.add(bloc.PaymentList.value);
+                bloc.paymentList.add(bloc.paymentList.value);
               },
             )),
         SizedBox(
@@ -215,11 +205,11 @@ class _CartBankViewState extends State<CartBankView> {
             ),
           ),
           onPressed: () async {
-            Navigator.pop(context, bloc.PaymentList.value);
+            Navigator.pop(context, bloc.paymentList.value);
           },
           child: Text(
             LocaleKeys.btn_confirm.tr(),
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
@@ -246,7 +236,7 @@ class _CartBankViewState extends State<CartBankView> {
 //             children: [
 //               Text(
 //                 "+",
-//                 style: FunctionHelper.FontTheme(
+//                 style: FunctionHelper.fontTheme(
 //                     fontSize: SizeUtil
 //                         .titleFontSize()
 //                         .sp,
@@ -257,7 +247,7 @@ class _CartBankViewState extends State<CartBankView> {
 //               ),
 //               Text(
 //                 txtBtn,
-//                 style: FunctionHelper.FontTheme(
+//                 style: FunctionHelper.fontTheme(
 //                     color: ThemeColor.primaryColor(),
 //                     fontSize: SizeUtil
 //                         .titleFontSize()

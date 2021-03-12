@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -16,16 +13,16 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:sizer/sizer.dart';
 
-class Register_Name_OtpView extends StatefulWidget {
+class RegisterNameOtpView extends StatefulWidget {
   final String phone;
   final String password;
-  const Register_Name_OtpView({Key key, this.phone, this.password})
+  const RegisterNameOtpView({Key key, this.phone, this.password})
       : super(key: key);
   @override
-  _Register_Name_OtpViewState createState() => _Register_Name_OtpViewState();
+  RegisterNameOtpViewState createState() => RegisterNameOtpViewState();
 }
 
-class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
+class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
   TextEditingController _input1 = new TextEditingController();
   TextEditingController _input2 = new TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -33,7 +30,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
   String onError2 = "";
   MemberBloc bloc;
 
-  bool FormCheck() {
+  bool formCheck() {
     if (_input1.text.isEmpty && _input2.text.isEmpty) {
       return false;
     } else {
@@ -53,10 +50,10 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.Home(context);
+        AppRoute.home(context);
       });
     }
   }
@@ -74,14 +71,14 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
               preferredSize: Size.fromHeight(6.5.h),
               child: AppToobar(
                 title: LocaleKeys.my_profile_username.tr(),
-                header_type: Header_Type.barNormal,
-                isEnable_Search: false,
+                headerType: Header_Type.barNormal,
+                isEnableSearch: false,
               )),
           body: Container(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  _Form(),
+                  form(),
                   SizedBox(
                     height: 4.0.h,
                   ),
@@ -96,7 +93,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
                         Size(250.0, 7.0.h),
                       ),
                       backgroundColor: MaterialStateProperty.all(
-                        FormCheck()
+                        formCheck()
                             ? ThemeColor.secondaryColor()
                             : Colors.grey.shade400,
                       ),
@@ -107,7 +104,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
                     onPressed: () => verify(),
                     child: Text(
                       LocaleKeys.btn_next.tr(),
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w500),
@@ -122,7 +119,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
     );
   }
 
-  Widget _Form() {
+  Widget form() {
     return Container(
       color: Colors.white,
       padding:
@@ -178,7 +175,7 @@ class _Register_Name_OtpViewState extends State<Register_Name_OtpView> {
     }
 
     if (onError1 == "" && onError2 == "") {
-      bloc.CustomersRegister(
+      bloc.customersRegister(
           context: context,
           registerRequest: RegisterRequest(
               name: _input1.text,

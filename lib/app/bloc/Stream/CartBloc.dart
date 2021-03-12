@@ -1,22 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/request/OrderRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartBloc {
   final AppNaiFarmApplication _application;
@@ -25,118 +19,127 @@ class CartBloc {
   final onLoad = BehaviorSubject<bool>();
   final onError = BehaviorSubject<ThrowIfNoSuccess>();
   final onSuccess = BehaviorSubject<Object>();
-  final CartList = BehaviorSubject<CartResponse>();
-  final AddressList = BehaviorSubject<AddressesListRespone>();
-  final PaymentList = BehaviorSubject<PaymentRespone>();
+  final cartList = BehaviorSubject<CartResponse>();
+  final addressList = BehaviorSubject<AddressesListRespone>();
+  final paymentList = BehaviorSubject<PaymentRespone>();
+  final shippings = BehaviorSubject<ShippingsRespone>();
+  final checkOut = BehaviorSubject<bool>();
+  final shippingCost = BehaviorSubject<int>();
+  final orderTotalCost = BehaviorSubject<int>();
+  final totalPayment = BehaviorSubject<int>();
 
-  final Shippings = BehaviorSubject<ShippingsRespone>();
-
-  final CheckOut = BehaviorSubject<bool>();
-
-  final shipping_cost = BehaviorSubject<int>();
-  final order_total_cost = BehaviorSubject<int>();
-  final total_payment = BehaviorSubject<int>();
-
-  bool check_note_update = true;
-  int check_loop = 0;
+  bool checkNoteUpdate = true;
+  int checkLoop = 0;
 
   CartBloc(this._application) {
-    AddressList.add(AddressesListRespone(total: 0));
-    PaymentList.add(PaymentRespone(total: 0));
+    addressList.add(AddressesListRespone(total: 0));
+    paymentList.add(PaymentRespone(total: 0));
   }
 
-  final deleteData = List<CartData>();
+  final deleteData = [];
 
   void dispose() {
     _compositeSubscription.clear();
+    cartList.close();
+    shippings.close();
+    checkOut.close();
+    shippingCost.close();
+    orderTotalCost.close();
+    totalPayment.close();
   }
 
-  GetCartlists({BuildContext context,String token, CartActive cartActive}) {
+  getCartlists({BuildContext context, String token, CartActive cartActive}) {
     if (cartActive == CartActive.CartList) onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
-            _application.appStoreAPIRepository.GetCartlists(context,token: token))
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .getCartlists(context, token: token))
         .listen((respone) {
-
       //  var item = (respone.respone as CartRequest);
-      if (respone.http_call_back.status == 200) {
+      if (respone.httpCallBack.status == 200) {
         //   onSuccess.add(item);
 
-        if (cartActive == CartActive.CartList || cartActive == CartActive.CartDelete) onLoad.add(false);
+        if (cartActive == CartActive.CartList ||
+            cartActive == CartActive.CartDelete) onLoad.add(false);
         var item = (respone.respone as CartResponse);
-        CartList.add(CartResponse(data: item.data,total: item.total,selectAll: false));
+        cartList.add(
+            CartResponse(data: item.data, total: item.total, selectAll: false));
       } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  DeleteCart({BuildContext context,int cartid, int inventoryId, String token}) async {
+  deleteCart(
+      {BuildContext context, int cartid, int inventoryId, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
-            .appStoreAPIRepository
-            .DeleteCart(context,inventoryid: inventoryId, cartid: cartid, token: token))
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.deleteCart(context,
+                inventoryid: inventoryId, cartid: cartid, token: token))
         .listen((respone) {
-
-      if (respone.http_call_back.status == 200) {
-
-        GetCartlists(token: token, cartActive: CartActive.CartDelete);
+      if (respone.httpCallBack.status == 200) {
+        getCartlists(token: token, cartActive: CartActive.CartDelete);
         onSuccess.add(true);
         // CartList.add(CartResponse(data: CartList.value.data));
       } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  UpdateCart(BuildContext context,{CartRequest data, int cartid, String token}) async {
+  updateCart(BuildContext context,
+      {CartRequest data, int cartid, String token}) async {
     // onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .UpdateCart(context,data: data, cartid: cartid, token: token))
+            .updateCart(context, data: data, cartid: cartid, token: token))
         .listen((respone) {
-      if (respone.http_call_back.status == 200 ||
-          respone.http_call_back.status == 201) {
+      if (respone.httpCallBack.status == 200 ||
+          respone.httpCallBack.status == 201) {
         //onLoad.add(false);
         // bool temp = CartList.value.selectAll;
         // CartResponse(data: CartList.value.data);
-        CartList.add(CartList.value);
+        cartList.add(cartList.value);
       } else {
-        GetCartlists(token: token, cartActive: CartActive.CartDelete);
-        onError.add(respone.http_call_back);
+        getCartlists(token: token, cartActive: CartActive.CartDelete);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  GetPaymentList(BuildContext context,) async {
+  getPaymentList(
+    BuildContext context,
+  ) async {
     // onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
-            _application.appStoreAPIRepository.GetPaymentList(context,))
-        .listen((respone) {
-      if (respone.http_call_back.status == 200) {
+    StreamSubscription subscription =
+        Observable.fromFuture(_application.appStoreAPIRepository.getPaymentList(
+      context,
+    )).listen((respone) {
+      if (respone.httpCallBack.status == 200) {
         if ((respone.respone as PaymentRespone).data.isNotEmpty) {
           (respone.respone as PaymentRespone).data[0].active = true;
         }
-        PaymentList.add(respone.respone);
+        paymentList.add(respone.respone);
         //onLoad.add(false);
         // bool temp = CartList.value.selectAll;
         // CartResponse(data: CartList.value.data);
         // CartList.add(CartList.value);
       } else {
-        onError.add(respone.http_call_back);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  Future<ShippingRates> GetShippings(BuildContext context,{int shopId, int id, int index}) async {
-    if (check_note_update) {
+  Future<ShippingRates> getShippings(BuildContext context,
+      {int shopId, int id, int index}) async {
+    if (checkNoteUpdate) {
       final response = await _application.appStoreAPIRepository
-          .GetShippings(context,shopId: shopId) as ApiResult;
+          .getShippings(context, shopId: shopId);
 
       for (var i = 0;
           i < (response.respone as ShippingsRespone).data[0].rates.length;
@@ -148,98 +151,110 @@ class CartBloc {
 
       return (response.respone as ShippingsRespone).data[0].rates[0];
     } else {
-      return CartList.value.data[index].shippingRates;
+      return cartList.value.data[index].shippingRates;
     }
   }
 
-  GetShippingsList(BuildContext context,{int shopId}) async {
+  getShippingsList(BuildContext context, {int shopId}) async {
     // onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
-            _application.appStoreAPIRepository.GetShippings(context,shopId: shopId))
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .getShippings(context, shopId: shopId))
         .listen((respone) {
       (respone.respone as ShippingsRespone).data[0].rates[0].select = true;
-      Shippings.add(respone.respone);
+      shippings.add(respone.respone);
     });
     _compositeSubscription.add(subscription);
   }
 
-  AddressesList(BuildContext context,{String token,bool type=false}) async {
+  addressesList(BuildContext context, {String token, bool type = false}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
-            _application.appStoreAPIRepository.AddressesList(context,token: token))
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .addressesList(context, token: token))
         .listen((respone) {
-       onLoad.add(false);
-      if (respone.http_call_back.status == 200) {
-        List<AddressesData> data = List<AddressesData>();
-      if(type){
-        if ((respone.respone as AddressesListRespone).data.isNotEmpty) {
-          for (var i = 0; i < (respone.respone as AddressesListRespone).data.length; i++){
-            if ((respone.respone as AddressesListRespone).data[i].addressType ==
-                "Primary") {
-              (respone.respone as AddressesListRespone).data[i].select = true;
-              data.add((respone.respone as AddressesListRespone).data[i]);
-              break;
+      onLoad.add(false);
+      if (respone.httpCallBack.status == 200) {
+        List<AddressesData> data = [];
+        if (type) {
+          if ((respone.respone as AddressesListRespone).data.isNotEmpty) {
+            for (var i = 0;
+                i < (respone.respone as AddressesListRespone).data.length;
+                i++) {
+              if ((respone.respone as AddressesListRespone)
+                      .data[i]
+                      .addressType ==
+                  "Primary") {
+                (respone.respone as AddressesListRespone).data[i].select = true;
+                data.add((respone.respone as AddressesListRespone).data[i]);
+                break;
+              }
+            }
+          }
+        } else {
+          if ((respone.respone as AddressesListRespone).data.isNotEmpty) {
+            for (var i = 0;
+                i < (respone.respone as AddressesListRespone).data.length;
+                i++) {
+              if ((respone.respone as AddressesListRespone)
+                      .data[i]
+                      .addressType ==
+                  "Primary") {
+                (respone.respone as AddressesListRespone).data[i].select = true;
+                data.add((respone.respone as AddressesListRespone).data[i]);
+              }
+            }
+            for (var i = 0;
+                i < (respone.respone as AddressesListRespone).data.length;
+                i++) {
+              if ((respone.respone as AddressesListRespone)
+                      .data[i]
+                      .addressType !=
+                  "Primary") {
+                (respone.respone as AddressesListRespone).data[i].select =
+                    false;
+                data.add((respone.respone as AddressesListRespone).data[i]);
+              }
             }
           }
         }
-      }else{
-        if ((respone.respone as AddressesListRespone).data.isNotEmpty) {
-          for (var i = 0; i < (respone.respone as AddressesListRespone).data.length; i++){
-            if ((respone.respone as AddressesListRespone).data[i].addressType ==
-                "Primary") {
-              (respone.respone as AddressesListRespone).data[i].select = true;
-              data.add((respone.respone as AddressesListRespone).data[i]);
-            }
-          }
-          for (var i = 0; i < (respone.respone as AddressesListRespone).data.length; i++){
-            if ((respone.respone as AddressesListRespone).data[i].addressType !=
-                "Primary") {
-              (respone.respone as AddressesListRespone).data[i].select = false;
-              data.add((respone.respone as AddressesListRespone).data[i]);
-            }
-          }
-        }
-
-      }
-        AddressList.add(AddressesListRespone(
+        addressList.add(AddressesListRespone(
             data: data,
             total: data.length,
-            http_call_back:
-            (respone.respone as AddressesListRespone).http_call_back));
-
+            httpCallBack:
+                (respone.respone as AddressesListRespone).httpCallBack));
       } else {
-        onError.add(respone.http_call_back);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  void CartPositiveQuantity(BuildContext context,
+  void cartPositiveQuantity(BuildContext context,
       {CartData item, int indexShop, int indexShopItem, String token}) {
-    List<Items> items = new List<Items>();
+    List<Items> items = [];
     items.clear();
-    for (var i = 0; i < CartList.value.data[indexShop].items.length; i++) {
-      if (CartList.value.data[indexShop].items[i].inventory.id ==
+    for (var i = 0; i < cartList.value.data[indexShop].items.length; i++) {
+      if (cartList.value.data[indexShop].items[i].inventory.id ==
           item.items[indexShopItem].inventory.id) {
-        if (CartList.value.data[indexShop].items[i].quantity <
-            CartList.value.data[indexShop].items[i].inventory.stockQuantity) {
-          CartList.value.data[indexShop].items[i].quantity =
-              CartList.value.data[indexShop].items[i].quantity++;
-          CartList.add(CartList.value);
+        if (cartList.value.data[indexShop].items[i].quantity <
+            cartList.value.data[indexShop].items[i].inventory.stockQuantity) {
+          cartList.value.data[indexShop].items[i].quantity =
+              cartList.value.data[indexShop].items[i].quantity++;
+          cartList.add(cartList.value);
           items.add(Items(
               inventoryId: item.items[indexShopItem].inventory.id,
               quantity: item.items[indexShopItem].quantity += 1));
-          UpdateCart(context,
+          updateCart(context,
               data: CartRequest(items: items, shopId: item.shopId),
               cartid: item.id,
               token: token);
-        } else if (CartList.value.data[indexShop].items[i].quantity ==
-            CartList.value.data[indexShop].items[i].inventory.stockQuantity) {
+        } else if (cartList.value.data[indexShop].items[i].quantity ==
+            cartList.value.data[indexShop].items[i].inventory.stockQuantity) {
           items.add(Items(
               inventoryId: item.items[indexShopItem].inventory.id,
               quantity: item.items[indexShopItem].quantity += 1));
-          UpdateCart(
-              context,
+          updateCart(context,
               data: CartRequest(items: items, shopId: item.shopId),
               cartid: item.id,
               token: token);
@@ -249,23 +264,23 @@ class CartBloc {
     }
   }
 
-  void CartDeleteQuantity(BuildContext context,
+  void cartDeleteQuantity(BuildContext context,
       {CartData item, int indexShop, int indexShopItem, String token}) {
-    List<Items> items = new List<Items>();
+    List<Items> items = [];
 
-    for (var i = 0; i < CartList.value.data[indexShop].items.length; i++) {
-      if (CartList.value.data[indexShop].items[i].inventory.id ==
+    for (var i = 0; i < cartList.value.data[indexShop].items.length; i++) {
+      if (cartList.value.data[indexShop].items[i].inventory.id ==
               item.items[indexShopItem].inventory.id &&
           item.items[indexShopItem].quantity > 1) {
-        CartList.value.data[indexShop].items[i].quantity =
-            CartList.value.data[indexShop].items[i].quantity--;
-        CartList.add(CartList.value);
+        cartList.value.data[indexShop].items[i].quantity =
+            cartList.value.data[indexShop].items[i].quantity--;
+        cartList.add(cartList.value);
         items.add(Items(
             inventoryId: item.items[indexShopItem].inventory.id,
             quantity: item.items[indexShopItem].quantity > 1
                 ? item.items[indexShopItem].quantity -= 1
                 : 1));
-        UpdateCart(context,
+        updateCart(context,
             data: CartRequest(items: items, shopId: item.shopId),
             cartid: item.id,
             token: token);
@@ -274,72 +289,75 @@ class CartBloc {
     }
   }
 
-  DeleteAddress(BuildContext context,{String id, String token}) async {
+  deleteAddress(BuildContext context, {String id, String token}) async {
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .DeleteAddress(context,id: id, token: token))
+            .deleteAddress(context, id: id, token: token))
         .listen((respone) {
-      if (respone.http_call_back.status == 200) {
-        AddressesList(context,token: token);
+      if (respone.httpCallBack.status == 200) {
+        addressesList(context, token: token);
       } else {
-        onError.add(respone.http_call_back);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  UpdateAddress(BuildContext context,{AddressCreaterequest data, String token}) async {
+  updateAddress(BuildContext context,
+      {AddressCreaterequest data, String token}) async {
     // onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .UpdateAddress(context,data: data, token: token))
+            .updateAddress(context, data: data, token: token))
         .listen((respone) {
       //  onLoad.add(false);
-      if (respone.http_call_back.status == 200) {
+      if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.http_call_back);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  CreateOrder(BuildContext context,{OrderRequest orderRequest, String token}) async {
+  createOrder(BuildContext context,
+      {OrderRequest orderRequest, String token}) async {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .CreateOrder(context,orderRequest: orderRequest, token: token))
+            .createOrder(context, orderRequest: orderRequest, token: token))
         .listen((respone) {
-      if (CartList.value.data.length == check_loop) {
+      if (cartList.value.data.length == checkLoop) {
         onLoad.add(false);
       }
 
-      if (respone.http_call_back.status == 200 ||
-          respone.http_call_back.status == 201) {
+      if (respone.httpCallBack.status == 200 ||
+          respone.httpCallBack.status == 201) {
         onSuccess.add(respone.respone);
-        check_loop++;
+        checkLoop++;
         // bool temp = CartList.value.selectAll;
         // CartResponse(data: CartList.value.data);
         // CartList.add(CartList.value);
       } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  OrderRequest ConvertOrderData(BuildContext context,{CartData cartData, String email}) {
+  OrderRequest convertOrderData(BuildContext context,
+      {CartData cartData, String email}) {
     PaymentData data = PaymentData();
 
-    for (var value in PaymentList.value.data) {
+    for (var value in paymentList.value.data) {
       if (value.active == true) {
         data = value;
         break;
       }
     }
 
-    List<OrderRequestItems> items = List<OrderRequestItems>();
+    List<OrderRequestItems> items = [];
     for (var value in cartData.items) {
       items.add(OrderRequestItems(
           quantity: value.quantity,
@@ -357,21 +375,21 @@ class CartBloc {
         buyerNote: cartData.note,
         shipTo: 0,
         shippingRateId: cartData.shippingRateId,
-        addressId: AddressList.value.data[0].id,
+        addressId: addressList.value.data[0].id,
         paymentMethodId: data.id,
         carrierId: cartData.carrierId,
         shippingZoneId: cartData.shippingZoneId,
         packagingId: 0);
   }
 
-  bool CheckListOut() {
+  bool checkListOut() {
     bool check = true;
-    if (AddressList.value.total==0 || PaymentList.value.total == 0) {
+    if (addressList.value.total == 0 || paymentList.value.total == 0) {
       check = false;
     }
 
-    for (var i = 0; i < CartList.value.data.length; i++) {
-      var item = CartList.value.data[i];
+    for (var i = 0; i < cartList.value.data.length; i++) {
+      var item = cartList.value.data[i];
       if (item.shippingRateId == 0 || item.shippingZoneId == 0) {
         check = false;
       }
@@ -380,26 +398,25 @@ class CartBloc {
     return check;
   }
 
-  void sumTotalPayment(BuildContext context,{ShippingRates snapshot, int index}) {
-    shipping_cost.add(0);
-    order_total_cost.add(0);
-    order_total_cost.add(0);
-    shipping_cost.add(shipping_cost.value + snapshot.rate);
-    for (var value in CartList.value.data) {
-      order_total_cost.add(order_total_cost.value += value.total);
+  void sumTotalPayment(BuildContext context,
+      {ShippingRates snapshot, int index}) {
+    shippingCost.add(0);
+    orderTotalCost.add(0);
+    orderTotalCost.add(0);
+    shippingCost.add(shippingCost.value + snapshot.rate);
+    for (var value in cartList.value.data) {
+      orderTotalCost.add(orderTotalCost.value += value.total);
     }
 
-    total_payment.add(order_total_cost.value + shipping_cost.value);
+    totalPayment.add(orderTotalCost.value + shippingCost.value);
 
-    CartList.value.data[index].shippingRates = snapshot;
-    CartList.value.data[index].shippingRateId = snapshot.id;
-    CartList.value.data[index].carrierId = snapshot.carrierId;
-    CartList.value.data[index].shippingZoneId = snapshot.shippingZoneId;
-    CheckOut.add(true);
-    check_note_update = false;
+    cartList.value.data[index].shippingRates = snapshot;
+    cartList.value.data[index].shippingRateId = snapshot.id;
+    cartList.value.data[index].carrierId = snapshot.carrierId;
+    cartList.value.data[index].shippingZoneId = snapshot.shippingZoneId;
+    checkOut.add(true);
+    checkNoteUpdate = false;
   }
-
-
 }
 
 enum CartActive { CartList, CartDelete, CartUpdate }

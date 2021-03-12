@@ -21,8 +21,6 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
-import 'package:provider/provider.dart';
-
 class PaidView extends StatefulWidget {
   final OrderViewType typeView;
 
@@ -36,7 +34,7 @@ class _PaidViewState extends State<PaidView> {
   ScrollController _scrollController = ScrollController();
   int page = 1;
   int limit = 10;
-  bool step_page = false;
+  bool stepPage = false;
 
   init() {
     if (bloc == null) {
@@ -62,8 +60,8 @@ class _PaidViewState extends State<PaidView> {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=
           200) {
-        if (step_page) {
-          step_page = false;
+        if (stepPage) {
+          stepPage = false;
           page++;
           _reloadData();
         }
@@ -82,7 +80,7 @@ class _PaidViewState extends State<PaidView> {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData &&
                 (snapshot.data as OrderRespone).data.length > 0) {
-              step_page = true;
+              stepPage = true;
               return SingleChildScrollView(
                 controller: _scrollController,
                 child: Column(
@@ -97,7 +95,7 @@ class _PaidViewState extends State<PaidView> {
                                   children: [
                                     Stack(
                                       children: [
-                                        _BuildCard(
+                                        buildCard(
                                             item: value,
                                             index: key,
                                             context: context),
@@ -127,7 +125,7 @@ class _PaidViewState extends State<PaidView> {
                                                                 .search_product_not_found
                                                                 .tr(),
                                                             style: FunctionHelper
-                                                                .FontTheme(
+                                                                .fontTheme(
                                                                     fontSize:
                                                                         SizeUtil.titleSmallFontSize()
                                                                             .sp,
@@ -166,7 +164,7 @@ class _PaidViewState extends State<PaidView> {
                               width: 10,
                             ),
                             Text("Loading",
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     color: Colors.grey,
                                     fontSize: SizeUtil.priceFontSize().sp))
                           ],
@@ -192,7 +190,7 @@ class _PaidViewState extends State<PaidView> {
                           height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
                         LocaleKeys.search_product_not_found.tr(),
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.bold),
                       )
@@ -205,24 +203,24 @@ class _PaidViewState extends State<PaidView> {
     );
   }
 
-  Widget _BuildCard({OrderData item, BuildContext context, int index}) {
+  Widget buildCard({OrderData item, BuildContext context, int index}) {
     return InkWell(
       child: Container(
         child: Column(
           children: [
-            _OwnShop(item: item),
-            _ProductDetail(item: item, index: index),
+            ownShop(item: item),
+            productDetail(item: item, index: index),
           ],
         ),
       ),
       onTap: () async {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
         if (item.items[0].inventory != null) {
-          final result = await AppRoute.OrderDetail(context,
+          final result = await AppRoute.orderDetail(context,
               orderData: item, typeView: widget.typeView);
 
           if (result) {
-            bloc.orderList.clear();
+            bloc.orderDataList.clear();
             Usermanager().getUser().then((value) => bloc.loadOrder(context,
                 load: true,
                 orderType: widget.typeView == OrderViewType.Shop
@@ -239,7 +237,7 @@ class _PaidViewState extends State<PaidView> {
     );
   }
 
-  Widget _ProductItem({OrderItems item, int shopId, int index}) {
+  Widget productItem({OrderItems item, int shopId, int index}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -273,10 +271,10 @@ class _PaidViewState extends State<PaidView> {
             ProductData product = ProductData();
             product = item.inventory.product;
             product.shop = ProductShop(id: shopId);
-            AppRoute.ProductDetail(context,
+            AppRoute.productDetail(context,
                 productImage:
                     "history_paid_${item.orderId}${item.inventoryId}${index}1",
-                productItem: ProductBloc.ConvertDataToProduct(data: product));
+                productItem: ProductBloc.convertDataToProduct(data: product));
           },
         ),
         SizedBox(width: 2.0.w),
@@ -289,7 +287,7 @@ class _PaidViewState extends State<PaidView> {
                 child: Text(item.inventory != null ? item.inventory.title : "",
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w600)),
               ),
@@ -298,7 +296,7 @@ class _PaidViewState extends State<PaidView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("x ${item.quantity}",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           color: Colors.black)),
                   Row(
@@ -308,7 +306,7 @@ class _PaidViewState extends State<PaidView> {
                           ? Text(
                               // "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
                               "฿${item.inventory.product.discountPercent}",
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   decoration: TextDecoration.lineThrough))
@@ -319,9 +317,9 @@ class _PaidViewState extends State<PaidView> {
                           item.inventory != null
                               ? "฿${item.inventory.salePrice}"
                               : "-",
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale()))
+                              color: ThemeColor.colorSale()))
                     ],
                   )
                 ],
@@ -336,7 +334,7 @@ class _PaidViewState extends State<PaidView> {
     );
   }
 
-  Widget _ProductDetail({OrderData item, int index}) {
+  Widget productDetail({OrderData item, int index}) {
     return Container(
       padding: EdgeInsets.all(3.0.w),
       color: Colors.white,
@@ -347,7 +345,7 @@ class _PaidViewState extends State<PaidView> {
                 .asMap()
                 .map((key, value) => MapEntry(
                     key,
-                    _ProductItem(
+                    productItem(
                         item: item.items[key],
                         shopId: item.shop.id,
                         index: key)))
@@ -364,17 +362,17 @@ class _PaidViewState extends State<PaidView> {
                     children: <TextSpan>[
                       new TextSpan(
                           text: LocaleKeys.history_order_price.tr() + " : ",
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.normal,
                               color: Colors.black)),
                       new TextSpan(
                           text:
-                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.colorSale())),
                               "฿${item.grandTotal}",
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale())),
+                              color: ThemeColor.colorSale())),
                     ],
                   ),
                 ),
@@ -383,7 +381,7 @@ class _PaidViewState extends State<PaidView> {
                 color: Colors.grey.shade400,
               ),
               widget.typeView == OrderViewType.Shop
-                  ? _IntroShipment(address: item.shippingAddress)
+                  ? introShipment(address: item.shippingAddress)
                   : SizedBox(),
               widget.typeView == OrderViewType.Shop
                   ? Divider(
@@ -400,11 +398,11 @@ class _PaidViewState extends State<PaidView> {
                         : LocaleKeys.history_order_time.tr() +
                             " " +
                             " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
                   ),
-                  _BuildButtonBayItem(
+                  buildButtonBayItem(
                       btnTxt: widget.typeView == OrderViewType.Shop
                           ? LocaleKeys.order_detail_confirm_pay.tr()
                           : LocaleKeys.order_detail_pay.tr(),
@@ -418,7 +416,7 @@ class _PaidViewState extends State<PaidView> {
     );
   }
 
-  Widget _OwnShop({OrderData item}) {
+  Widget ownShop({OrderData item}) {
     return Container(
       padding: EdgeInsets.only(left: 15, top: 15, bottom: 5, right: 20),
       color: Colors.white,
@@ -432,7 +430,7 @@ class _PaidViewState extends State<PaidView> {
                         LocaleKeys.order_detail_id.tr() +
                             " " +
                             item.orderNumber,
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.w500)),
                   )
@@ -469,14 +467,14 @@ class _PaidViewState extends State<PaidView> {
                         width: 10,
                       ),
                       Text(item.shop.name,
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleSmallFontSize().sp,
                               fontWeight: FontWeight.bold))
                     ],
                   ),
             Text(
               item.orderStatusName,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: ThemeColor.primaryColor(),
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.w500),
@@ -484,14 +482,14 @@ class _PaidViewState extends State<PaidView> {
           ],
         ),
         onTap: () {
-          AppRoute.ShopMain(
+          AppRoute.shopMain(
               context: context, myShopRespone: MyShopRespone(id: item.shop.id));
         },
       ),
     );
   }
 
-  Widget _BuildButtonBayItem({String btnTxt, OrderData item}) {
+  Widget buildButtonBayItem({String btnTxt, OrderData item}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -500,7 +498,7 @@ class _PaidViewState extends State<PaidView> {
           ),
         ),
         backgroundColor: MaterialStateProperty.all(
-          ThemeColor.ColorSale(),
+          ThemeColor.colorSale(),
         ),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),
@@ -509,11 +507,11 @@ class _PaidViewState extends State<PaidView> {
       onPressed: () async {
         if (widget.typeView == OrderViewType.Shop) {
           final result =
-              await AppRoute.ConfirmPayment(context: context, orderData: item);
+              await AppRoute.confirmPayment(context: context, orderData: item);
 
           if (result) {
             //bloc.onLoad.add(true);
-            bloc.orderList.clear();
+            bloc.orderDataList.clear();
             Usermanager().getUser().then((value) => bloc.loadOrder(context,
                 load: true,
                 orderType: widget.typeView == OrderViewType.Shop
@@ -526,12 +524,12 @@ class _PaidViewState extends State<PaidView> {
                 token: value.token));
           }
         } else {
-          AppRoute.TransferPayMentView(context: context, orderData: item);
+          AppRoute.transferPayMentView(context: context, orderData: item);
         }
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),
@@ -539,7 +537,7 @@ class _PaidViewState extends State<PaidView> {
     );
   }
 
-  Widget _IntroShipment({String address}) {
+  Widget introShipment({String address}) {
     return Container(
       color: Colors.white,
       child: Row(
@@ -554,7 +552,7 @@ class _PaidViewState extends State<PaidView> {
             child: Text(address,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     color: ThemeColor.secondaryColor())),
           ),
@@ -570,7 +568,7 @@ class _PaidViewState extends State<PaidView> {
     );
   }
 
-  int SumTotal(List<OrderItems> items) {
+  int sumTotal(List<OrderItems> items) {
     var sum = 0;
     for (var item in items) {
       sum += item.inventory.salePrice;

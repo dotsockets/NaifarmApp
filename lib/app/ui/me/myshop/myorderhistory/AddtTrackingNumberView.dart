@@ -1,14 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
-import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -21,12 +17,12 @@ class AddtTrackingNumberView extends StatelessWidget {
   AddtTrackingNumberView({Key key, this.orderData}) : super(key: key);
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  TextEditingController trackController = TextEditingController();
-  final trackOnError = BehaviorSubject<String>();
-  OrdersBloc bloc;
-  bool onDialog = false;
 
-  init(BuildContext context) {
+  final trackOnError = BehaviorSubject<String>();
+
+  init(BuildContext context, OrdersBloc bloc) {
+    bool onDialog = false;
+
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       trackOnError.add("");
@@ -39,14 +35,14 @@ class AddtTrackingNumberView extends StatelessWidget {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.AlertDialogShop(context,
+        FunctionHelper.alertDialogShop(context,
             message: event, showbtn: true, title: "Eror Shipping");
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         if (event is bool) {
           onDialog = true;
-          FunctionHelper.SuccessDialog(context,
+          FunctionHelper.successDialog(context,
               message: "Successfully confirmed information ", onClick: () {
             if (onDialog) {
               Navigator.pop(context, true);
@@ -60,7 +56,9 @@ class AddtTrackingNumberView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    init(context);
+    TextEditingController trackController = TextEditingController();
+    OrdersBloc bloc;
+    init(context, bloc);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -71,8 +69,8 @@ class AddtTrackingNumberView extends StatelessWidget {
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
               title: "Add a tracking number ",
-              header_type: Header_Type.barcartShop,
-              isEnable_Search: false,
+              headerType: Header_Type.barcartShop,
+              isEnableSearch: false,
               icon: '',
               onClick: () {
                 Navigator.pop(context, false);
@@ -97,9 +95,9 @@ class AddtTrackingNumberView extends StatelessWidget {
                               (BuildContext context, AsyncSnapshot snapshot) {
                             if (snapshot.hasData) {
                               return BuildEditText(
-                                EnableMaxLength: false,
+                                enableMaxLength: false,
                                 maxLength: 5000,
-                                BorderOpacity: 0.3,
+                                borderOpacity: 0.3,
                                 hint: "Add a tracking number ",
                                 maxLine: 1,
                                 controller: trackController,
@@ -123,7 +121,7 @@ class AddtTrackingNumberView extends StatelessWidget {
                         color: Colors.white,
                         child: Text(
                           "กรุณากรอกหมายเลขติดตามพัสดุเพื่อให้สามารถดำเนินการต่อไปนี้ได้โดยตรง",
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               color: Colors.grey.shade700,
                               fontWeight: FontWeight.normal,
                               fontSize: SizeUtil.titleSmallFontSize().sp),
@@ -153,7 +151,7 @@ class AddtTrackingNumberView extends StatelessWidget {
                             Expanded(
                                 child: Text(
                               "ผู้ใช้สามารถตรวจสอบสถานะการขนส่งของพัสดุผ่าน Naifarm ได้โดยตรง",
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   color: Colors.grey.shade700,
                                   fontWeight: FontWeight.normal,
                                   fontSize: SizeUtil.titleSmallFontSize().sp),
@@ -165,7 +163,10 @@ class AddtTrackingNumberView extends StatelessWidget {
                   ),
                 ),
               )),
-              _ButtonActive(context: context, orderData: orderData),
+              buttonActive(
+                  controller: trackController,
+                  context: context,
+                  orderData: orderData),
             ],
           ),
         ),
@@ -173,7 +174,11 @@ class AddtTrackingNumberView extends StatelessWidget {
     );
   }
 
-  Widget _ButtonActive({BuildContext context, OrderData orderData}) {
+  Widget buttonActive(
+      {TextEditingController controller,
+      BuildContext context,
+      OrderData orderData,
+      OrdersBloc bloc}) {
     return Center(
       child: Container(
         color: Colors.white,
@@ -190,26 +195,26 @@ class AddtTrackingNumberView extends StatelessWidget {
                 Size(50.0.w, 5.0.h),
               ),
               backgroundColor: MaterialStateProperty.all(
-                ThemeColor.ColorSale(),
+                ThemeColor.colorSale(),
               ),
               overlayColor: MaterialStateProperty.all(
                 Colors.white.withOpacity(0.3),
               ),
             ),
             onPressed: () {
-              if (trackController.text.isNotEmpty) {
-                FunctionHelper.ConfirmDialog(context,
+              if (controller.text.isNotEmpty) {
+                FunctionHelper.confirmDialog(context,
                     message:
                         "Confirm that filling in the parcel number is correct ",
                     onCancel: () {
                   Navigator.of(context).pop();
                 }, onClick: () {
                   Navigator.of(context).pop();
-                  Usermanager().getUser().then((value) => bloc.AddTracking(
+                  Usermanager().getUser().then((value) => bloc.addTracking(
                       context,
                       token: value.token,
-                      OrderId: orderData.id,
-                      trackingId: trackController.text));
+                      orderId: orderData.id,
+                      trackingId: controller.text));
                 });
               } else {
                 trackOnError.add("Please fill in the correct parcel number. ");
@@ -217,7 +222,7 @@ class AddtTrackingNumberView extends StatelessWidget {
             },
             child: Text(
               "Shipping",
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.white,
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),

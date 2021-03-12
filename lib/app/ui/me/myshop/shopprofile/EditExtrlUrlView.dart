@@ -21,7 +21,7 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
   TextEditingController _input1 = new TextEditingController();
   String onError1 = "";
 
-  bool FormCheck() {
+  bool formCheck() {
     if (_input1.text.isEmpty) {
       return false;
     } else {
@@ -31,9 +31,8 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     _input1.text = widget.itemInfo.externalUrl;
+    super.initState();
   }
 
   @override
@@ -44,16 +43,16 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
-            isEnable_Search: false,
+            isEnableSearch: false,
             title: "แก้ไขลิงค์ภายนอก",
-            header_type: Header_Type.barNormal,
+            headerType: Header_Type.barNormal,
           ),
           body: Container(
             padding: SizeUtil.detailProfilePadding(),
             child: Container(
               child: Column(
                 children: [
-                  _Form(),
+                  form(),
                   SizedBox(
                     height: 3.0.h,
                   ),
@@ -76,12 +75,12 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
                         Colors.white.withOpacity(0.3),
                       ),
                     ),
-                    onPressed: () => FormCheck()
+                    onPressed: () => formCheck()
                         ? Navigator.pop(context, widget.itemInfo)
                         : SizedBox(),
                     child: Text(
                       LocaleKeys.btn_save.tr(),
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w500),
@@ -96,7 +95,7 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
     );
   }
 
-  Widget _Form() {
+  Widget form() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
@@ -106,7 +105,7 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
             head: "ลิงค์ภายนอก",
             hint: "ระบุลิงค์ภายนอก",
             inputType: TextInputType.text,
-            BorderOpacity: 0.2,
+            borderOpacity: 0.2,
             maxLength: 20,
             borderRadius: 5,
             onError: onError1,

@@ -10,20 +10,23 @@ class RegisterRespone {
   String dob;
   String description;
   String shop;
-  ThrowIfNoSuccess http_call_back;
+  ThrowIfNoSuccess httpCallBack;
 
   RegisterRespone(
       {this.id,
-        this.name,
-        this.niceName,
-        this.email,
-        this.phone,
-        this.sex,
-        this.dob,
-        this.description,
-        this.shop,this.http_call_back});
+      this.name,
+      this.niceName,
+      this.email,
+      this.phone,
+      this.sex,
+      this.dob,
+      this.description,
+      this.shop,
+      this.httpCallBack});
 
-  RegisterRespone.fromJson(Map<String, dynamic> json,) {
+  RegisterRespone.fromJson(
+    Map<String, dynamic> json,
+  ) {
     id = json['id'];
     name = json['name'];
     niceName = json['niceName'];
@@ -33,7 +36,7 @@ class RegisterRespone {
     dob = json['dob'];
     description = json['description'];
     shop = json['shop'];
-    http_call_back = json['shop'];
+    httpCallBack = json['shop'];
   }
 
   Map<String, dynamic> toJson() {

@@ -8,205 +8,273 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
 class NotiViewModel {
-  Widget GetStatusMessage({NotiModel status}) {
-    switch (status.Status_Sell) {
+  Widget getStatusMessage({NotiModel status}) {
+    switch (status.statusSell) {
       case 1:
-        return Order_has_been_shipped(
-            number_order: status.Order_number, order_date: status.Date_Order);
+        return orderHasBeenShipped(
+            numberOrder: status.orderNumber, orderDate: status.dateOrder);
         break;
       case 2:
-        return New_shop();
+        return newShop();
         break;
       case 3:
-        return Received_product(number_order: status.Order_number);
+        return receivedProduct(numberOrder: status.orderNumber);
         break;
       case 4:
-        return Rate_product(number_order: status.Order_number);
+        return rateProduct(numberOrder: status.orderNumber);
         break;
       case 5:
-        return Order_canceled(number_order: status.Order_number);
+        return orderCanceled(numberOrder: status.orderNumber);
         break;
+      default:
+        return null;
     }
   }
 
-  Widget Order_has_been_shipped({String number_order, String order_date}) {
+  Widget orderHasBeenShipped({String numberOrder, String orderDate}) {
     return Wrap(
       children: [
         Text(
           LocaleKeys.noti_shipped1.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
-        Text(number_order,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(numberOrder,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                color: ThemeColor.secondaryColor(),
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
         Text(
           LocaleKeys.noti_shipped2.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp, height: 1.5),
         ),
-        Text(order_date,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(orderDate,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                color: ThemeColor.secondaryColor(),
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
         Text(
           LocaleKeys.noti_shipped3.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp, height: 1.5),
         ),
       ],
     );
   }
 
-  Widget New_shop() {
+  Widget newShop() {
     return Wrap(
       children: [
         Text(
           LocaleKeys.noti_welcome1.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
       ],
     );
   }
 
-  Widget Received_product({String number_order}) {
+  Widget receivedProduct({String numberOrder}) {
     return Wrap(
       children: [
         Text(
           LocaleKeys.noti_receipt1.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp, height: 1.5),
         ),
-        Text(number_order,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(numberOrder,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                color: ThemeColor.secondaryColor(),
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
         Text(
           LocaleKeys.noti_receipt2.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp, height: 1.5),
         ),
       ],
     );
   }
 
-  Widget Rate_product({String number_order}) {
+  Widget rateProduct({String numberOrder}) {
     return Wrap(
       children: [
         Text(
           LocaleKeys.noti_rate1.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp, height: 1.5),
         ),
-        Text(number_order,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(numberOrder,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                color: ThemeColor.secondaryColor(),
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
         Text(
           LocaleKeys.noti_rate2.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp, height: 1.5),
         ),
       ],
     );
   }
 
-  Widget Order_canceled({String number_order}) {
+  Widget orderCanceled({String numberOrder}) {
     return Wrap(
       children: [
         Text(
           LocaleKeys.noti_rate1.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp, height: 1.5),
         ),
-        Text(number_order,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(numberOrder,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                color: ThemeColor.secondaryColor(),
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
         Text(
           LocaleKeys.noti_order2.tr(),
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp, height: 1.5),
         ),
       ],
     );
   }
 
-  Widget GetStatusStep({Status_order status}) {
-    switch (status.Status_step) {
+  Widget getStatusStep({StatusOrder status}) {
+    switch (status.statusStep) {
       case 1:
-        return Order_has_been_shipped_Step1(parcel_number: status.Parcelnumber,number_order: status.Order_number);
+        return orderHasBeenShippedStep1(
+            parcelNumber: status.parcelNumber, numberOrder: status.orderNumber);
         break;
       case 2:
-        return Order_has_been_shipped_Step2(number_order: status.Order_number,name_Received: status.Name_customer,date_send: status.date_recive);
+        return orderHasBeenShippedStep2(
+            numberOrder: status.orderNumber,
+            nameReceived: status.nameCustomer,
+            dateSend: status.dateRecive);
         break;
       case 3:
-        return Order_has_been_shipped_Step3(name_Received: status.Name_customer,date_send: status.date_recive,name_product: status.NameProduct);
+        return orderHasBeenShippedStep3(
+            nameReceived: status.nameCustomer,
+            dateSend: status.dateRecive,
+            nameProduct: status.nameProduct);
         break;
+      default:
+        return null;
     }
   }
 
-  Widget Order_has_been_shipped_Step1(
-      {String parcel_number, String number_order}) {
+  Widget orderHasBeenShippedStep1({String parcelNumber, String numberOrder}) {
     return Wrap(
       children: [
         Text(
           "พัสดุหมายเลข ",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp, height: 1.5),
         ),
-        Text(parcel_number,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(parcelNumber,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                color: ThemeColor.secondaryColor(),
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
         Text(
           " คำสั่งซื้อหมายเลข",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
-        Text(number_order,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(parcelNumber,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                color: ThemeColor.secondaryColor(),
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
         Text(
           " จัดส่งสำเร็จแล้ว",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
       ],
     );
   }
 
-  Widget Order_has_been_shipped_Step2(
-      {String number_order, String name_Received, String date_send}) {
+  Widget orderHasBeenShippedStep2(
+      {String numberOrder, String nameReceived, String dateSend}) {
     return Wrap(
       children: [
         Text(
           "ยืนยันการชำระเงินสำหรับคำสั่งซื้อ ",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
-        Text(number_order,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(numberOrder,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                color: ThemeColor.secondaryColor(),
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
         Text(
           " กรุณาส่งสินค้าไปให้คุณ ",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
-        Text(name_Received,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(nameReceived,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                color: ThemeColor.secondaryColor(),
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
         Text(
           " ภายในวันที่ ",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
-        Text(date_send,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(dateSend,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                color: ThemeColor.secondaryColor(),
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
       ],
     );
   }
 
-  Widget Order_has_been_shipped_Step3(
-      {String name_product, String name_Received, String date_send}) {
+  Widget orderHasBeenShippedStep3(
+      {String nameProduct, String nameReceived, String dateSend}) {
     return Wrap(
       children: [
-        Text(name_Received,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(nameReceived,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                color: ThemeColor.secondaryColor(),
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
         Text(
           "ได้ทำรายการสั่งซื้อสินค้า ",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
-        Text(name_product, style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,height: 1.5,fontWeight: FontWeight.bold)),
+        Text(nameProduct,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
         Text(
           " และต้องชำระเงินภายในวันที่ ",
-          style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),
+          style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp),
         ),
-        Text(date_send,
-            style: FunctionHelper.FontTheme(
-                fontSize: SizeUtil.titleSmallFontSize().sp, color: ThemeColor.secondaryColor(),height: 1.5,fontWeight: FontWeight.bold)),
+        Text(dateSend,
+            style: FunctionHelper.fontTheme(
+                fontSize: SizeUtil.titleSmallFontSize().sp,
+                color: ThemeColor.secondaryColor(),
+                height: 1.5,
+                fontWeight: FontWeight.bold)),
       ],
     );
   }
@@ -214,98 +282,98 @@ class NotiViewModel {
   List<NotiModel> getNoti() {
     return [
       NotiModel(
-          Title: LocaleKeys.noti_order_shipped.tr(),
-          Date_Order: "19-06-2563",
-          ImageShop:
+          title: LocaleKeys.noti_order_shipped.tr(),
+          dateOrder: "19-06-2563",
+          imageShop:
               "https://www.lnwshop.com/system/application/modules/lnwshopweb/_images/lnwshop_why/shop.png",
-          Status_Sell: 1,
-          Order_number: "200613ND38CKQ5 ",
-          step_order: [
-            Status_order(
-              Status_step: 1,
-                date_recive: "12-06-2563",
-                Name_customer: "Laongfongx",
-                NameProduct: "หัวหอมใหญ่",
-                Parcelnumber: "FDSE0000",
-            Order_number: "200613ND38CKQ5"),
-            Status_order(
-                Status_step: 2,
-                date_recive: "12-06-2563",
-                Name_customer: "Laongfongx",
-                NameProduct: "หัวหอมใหญ่",
-                Parcelnumber: "",
-                Order_number: "200613ND38CKQ5"),
-            Status_order(
-                Status_step: 3,
-                date_recive: "12-06-2563",
-                Name_customer: "Laongfongx",
-                NameProduct: "หัวหอมใหญ่",
-                Parcelnumber: "",
-                Order_number: "200613ND38CKQ5")
+          statusSell: 1,
+          orderNumber: "200613ND38CKQ5 ",
+          stepOrder: [
+            StatusOrder(
+                statusStep: 1,
+                dateRecive: "12-06-2563",
+                nameCustomer: "Laongfongx",
+                nameProduct: "หัวหอมใหญ่",
+                parcelNumber: "FDSE0000",
+                orderNumber: "200613ND38CKQ5"),
+            StatusOrder(
+                statusStep: 2,
+                dateRecive: "12-06-2563",
+                nameCustomer: "Laongfongx",
+                nameProduct: "หัวหอมใหญ่",
+                parcelNumber: "",
+                orderNumber: "200613ND38CKQ5"),
+            StatusOrder(
+                statusStep: 3,
+                dateRecive: "12-06-2563",
+                nameCustomer: "Laongfongx",
+                nameProduct: "หัวหอมใหญ่",
+                parcelNumber: "",
+                orderNumber: "200613ND38CKQ5")
           ]),
       NotiModel(
-          Title: LocaleKeys.noti_welcome_shop.tr(),
-          Date_Order: "19-06-2563",
-          ImageShop:
+          title: LocaleKeys.noti_welcome_shop.tr(),
+          dateOrder: "19-06-2563",
+          imageShop:
               "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Woman_1.jpg/768px-Woman_1.jpg",
-          Status_Sell: 2,
-          Order_number: "200613ND38CKQ5 ",
-          step_order: [
-            Status_order(
-                Status_step: 1,
-                date_recive: "12-06-2563",
-                Name_customer: "Laongfongx",
-                NameProduct: "หัวหอมใหญ่",
-                Parcelnumber: "FDSE0000",
-                Order_number: "200613ND38CKQ5"),
+          statusSell: 2,
+          orderNumber: "200613ND38CKQ5 ",
+          stepOrder: [
+            StatusOrder(
+                statusStep: 1,
+                dateRecive: "12-06-2563",
+                nameCustomer: "Laongfongx",
+                nameProduct: "หัวหอมใหญ่",
+                parcelNumber: "FDSE0000",
+                orderNumber: "200613ND38CKQ5"),
           ]),
       NotiModel(
-          Title: LocaleKeys.noti_confirm_receipt.tr(),
-          Date_Order: "19-06-2563",
-          ImageShop:
+          title: LocaleKeys.noti_confirm_receipt.tr(),
+          dateOrder: "19-06-2563",
+          imageShop:
               "https://assets.brandinside.asia/uploads/2018/08/shopping-woman.jpg",
-          Status_Sell: 3,
-          Order_number: "200613ND38CKQ5 ",
-          step_order: [
-            Status_order(
-                Status_step: 1,
-                date_recive: "12-06-2563",
-                Name_customer: "Laongfongx",
-                NameProduct: "หัวหอมใหญ่",
-                Parcelnumber: "FDSE0000",
-                Order_number: "200613ND38CKQ5"),
+          statusSell: 3,
+          orderNumber: "200613ND38CKQ5 ",
+          stepOrder: [
+            StatusOrder(
+                statusStep: 1,
+                dateRecive: "12-06-2563",
+                nameCustomer: "Laongfongx",
+                nameProduct: "หัวหอมใหญ่",
+                parcelNumber: "FDSE0000",
+                orderNumber: "200613ND38CKQ5"),
           ]),
       NotiModel(
-          Title: LocaleKeys.noti_rate_purchase.tr(),
-          Date_Order: "19-06-2563",
-          ImageShop:
+          title: LocaleKeys.noti_rate_purchase.tr(),
+          dateOrder: "19-06-2563",
+          imageShop:
               "https://i1.wp.com/www.korseries.com/wp-content/uploads/2019/11/Womanof9.9Billion-LeeJiHoon.jpg?resize=696%2C522&ssl=1",
-          Status_Sell: 4,
-          Order_number: "200613ND38CKQ5 ",
-          step_order: [
-            Status_order(
-                Status_step: 1,
-                date_recive: "12-06-2563",
-                Name_customer: "Laongfongx",
-                NameProduct: "หัวหอมใหญ่",
-                Parcelnumber: "FDSE0000",
-                Order_number: "200613ND38CKQ5"),
+          statusSell: 4,
+          orderNumber: "200613ND38CKQ5 ",
+          stepOrder: [
+            StatusOrder(
+                statusStep: 1,
+                dateRecive: "12-06-2563",
+                nameCustomer: "Laongfongx",
+                nameProduct: "หัวหอมใหญ่",
+                parcelNumber: "FDSE0000",
+                orderNumber: "200613ND38CKQ5"),
           ]),
       NotiModel(
-          Title: LocaleKeys.noti_order_cancel.tr(),
-          Date_Order: "19-06-2563",
-          ImageShop:
+          title: LocaleKeys.noti_order_cancel.tr(),
+          dateOrder: "19-06-2563",
+          imageShop:
               "https://cdn.lifehack.org/wp-content/uploads/2015/01/alpha-woman-1024x768.jpeg",
-          Status_Sell: 5,
-          Order_number: "200613ND38CKQ5 ",
-          step_order: [
-            Status_order(
-                Status_step: 1,
-                date_recive: "12-06-2563",
-                Name_customer: "Laongfongx",
-                NameProduct: "หัวหอมใหญ่",
-                Parcelnumber: "FDSE0000",
-                Order_number: "200613ND38CKQ5"),
+          statusSell: 5,
+          orderNumber: "200613ND38CKQ5 ",
+          stepOrder: [
+            StatusOrder(
+                statusStep: 1,
+                dateRecive: "12-06-2563",
+                nameCustomer: "Laongfongx",
+                nameProduct: "หัวหอมใหญ่",
+                parcelNumber: "FDSE0000",
+                orderNumber: "200613ND38CKQ5"),
           ])
     ];
   }

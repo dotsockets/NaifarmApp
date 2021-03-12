@@ -8,7 +8,7 @@ class CategoriesAllRespone {
 
   CategoriesAllRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<CategoriesAllData>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new CategoriesAllData.fromJson(v));
       });
@@ -38,13 +38,13 @@ class CategoriesAllData {
 
   CategoriesAllData(
       {this.id,
-        this.name,
-        this.slug,
-        this.description,
-        this.icon,
-        this.order,
-        this.image,
-        this.categorySubGroups});
+      this.name,
+      this.slug,
+      this.description,
+      this.icon,
+      this.order,
+      this.image,
+      this.categorySubGroups});
 
   CategoriesAllData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -54,13 +54,13 @@ class CategoriesAllData {
     icon = json['icon'];
     order = json['order'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
     }
     if (json['categorySubGroups'] != null) {
-      categorySubGroups = new List<CategorySubGroups>();
+      categorySubGroups = [];
       json['categorySubGroups'].forEach((v) {
         categorySubGroups.add(new CategorySubGroups.fromJson(v));
       });
@@ -103,13 +103,13 @@ class CategorySubGroups {
     slug = json['slug'];
     order = json['order'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
     }
     if (json['category'] != null) {
-      category = new List<Category>();
+      category = [];
       json['category'].forEach((v) {
         category.add(new Category.fromJson(v));
       });
@@ -142,11 +142,11 @@ class Category {
 
   Category(
       {this.id,
-        this.categorySubGroupId,
-        this.name,
-        this.slug,
-        this.description,
-        this.order});
+      this.categorySubGroupId,
+      this.name,
+      this.slug,
+      this.description,
+      this.order});
 
   Category.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -168,4 +168,3 @@ class Category {
     return data;
   }
 }
-
