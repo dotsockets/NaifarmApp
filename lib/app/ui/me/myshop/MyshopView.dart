@@ -96,7 +96,7 @@ class _MyshopViewState extends State<MyshopView> {
               item: MyShopRespone(
                   image: item.profileObjectCombine.myShopRespone != null
                       ? item.profileObjectCombine.myShopRespone.image
-                      : List<ProductImage>(),
+                      : [],
                   name: "กำลังโหลด",
                   active: 0),
               shpping: item.profileObjectCombine.shppingMyShopRespone);

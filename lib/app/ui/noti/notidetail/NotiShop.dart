@@ -212,6 +212,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                   index,
                   Column(
                     children: [
+                      if(CheckShowOrder(text: value.type))
                       _BuildCardNoti(
                           item: value,context: context,index: index),
                     ],
@@ -442,6 +443,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       return SizedBox();
     }
 
+
   }
 
   Future<Null>  _refreshProducts() async{
@@ -462,8 +464,18 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
   bool CheckIsOrder({String text}){
     if(text=="App\\Notifications\\Order\\MerchantOrderCreatedNotification"){
       return true;
+    }else if(text=="App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification"){
+      return false;
     }else {
       return false;
+    }
+  }
+
+  bool CheckShowOrder({String text}){
+    if(text=="App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification"){
+      return false;
+    }else {
+      return true;
     }
   }
 

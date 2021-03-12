@@ -51,13 +51,7 @@
     </content>
     <content url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/multi_image_picker-4.7.15">
       <sourceFolder url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/multi_image_picker-4.7.15/android/src/main/java" isTestSource="false" />
-      <excludeFolder url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/multi_image_picker-4.7.15/.dart_tool" />
-      <excludeFolder url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/multi_image_picker-4.7.15/.pub" />
       <excludeFolder url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/multi_image_picker-4.7.15/android/.gradle" />
-      <excludeFolder url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/multi_image_picker-4.7.15/build" />
-      <excludeFolder url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/multi_image_picker-4.7.15/example/.dart_tool" />
-      <excludeFolder url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/multi_image_picker-4.7.15/example/.pub" />
-      <excludeFolder url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/multi_image_picker-4.7.15/example/build" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

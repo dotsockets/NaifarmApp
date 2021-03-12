@@ -22,7 +22,10 @@ class InfoCustomerBloc extends Cubit<InfoCustomerState> {
    loadCustomInfo(BuildContext context,{String token,bool oneSignal=false}) async{
 
      NaiFarmLocalStorage.getCustomer_Info().then((value){
-       emit(InfoCustomerLoading(value));
+       if(value!=null){
+         emit(InfoCustomerLoading(value));
+       }
+
      });
 
     Observable.combineLatest3(
