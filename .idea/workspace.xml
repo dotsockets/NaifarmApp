@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58a27b11-528a-49d6-84cb-85d1863d58ed" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/3f44f96e242913cc33ff82057526db18/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/3f44f96e242913cc33ff82057526db18/.filecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/3f44f96e242913cc33ff82057526db18/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/3f44f96e242913cc33ff82057526db18/app.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/3f44f96e242913cc33ff82057526db18/debug_ios_bundle_flutter_assets.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/3f44f96e242913cc33ff82057526db18/debug_ios_bundle_flutter_assets.stamp" afterDir="false" />
@@ -17,35 +15,7 @@
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-1056053953/android.flutter_facebook_login.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-1056053953/android.flutter_facebook_login.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-1080781376/android.package_info.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-1080781376/android.package_info.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-1365956502/android.sqflite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-1365956502/android.sqflite.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-1519112376/android.multi_image_picker.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-1519112376/android.multi_image_picker.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-1839930269/android.webview_flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-1839930269/android.webview_flutter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-2047168574/android.google_maps_flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-2047168574/android.google_maps_flutter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-2125162764/android.device_info_plus.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-2125162764/android.device_info_plus.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-246614271/android.wakelock.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-246614271/android.wakelock.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-329360848/android.video_player.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-329360848/android.video_player.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/-829367773/android.image_picker.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/-829367773/android.image_picker.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1142977208/android.get_version.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1142977208/android.get_version.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1352861371/android.onesignal_flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1352861371/android.onesignal_flutter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1641874648/android.share.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1641874648/android.share.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1824967138/android.vibration.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1824967138/android.vibration.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/1995290254/android.shared_preferences.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/1995290254/android.shared_preferences.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/2051518997/android.flutter_plugin_android_lifecycle.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/2051518997/android.flutter_plugin_android_lifecycle.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/777566010/android.keyboard_visibility.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/777566010/android.keyboard_visibility.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/818916222/android.path_provider.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/818916222/android.path_provider.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/850280336/android.permission_handler.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/850280336/android.permission_handler.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules/931857890/android.flutter_local_notifications.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules/931857890/android.flutter_local_notifications.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-hdpi/ic_stat_onesignal_default.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-hdpi/ic_stat_onesignal_default.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-mdpi/ic_stat_onesignal_default.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-mdpi/ic_stat_onesignal_default.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xhdpi/ic_stat_onesignal_default.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-xhdpi/ic_stat_onesignal_default.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxhdpi/ic_stat_onesignal_default.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxhdpi/ic_stat_onesignal_default.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxxhdpi/ic_stat_onesignal_default.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxxhdpi/ic_stat_onesignal_default.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/NOTICES" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/NOTICES" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/assets/images/svg/boxes.svg" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/assets/images/svg/boxes.svg" afterDir="false" />
@@ -203,11 +173,6 @@
       <change beforePath="$PROJECT_DIR$/build/ios/iphonesimulator/Runner.app/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphonesimulator/Runner.app/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/ios/iphonesimulator/Runner.app/Runner" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphonesimulator/Runner.app/Runner" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/ios/iphonesimulator/Runner.app/_CodeSignature/CodeResources" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphonesimulator/Runner.app/_CodeSignature/CodeResources" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/bloc/Provider/InfoCustomerBloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/bloc/Provider/InfoCustomerBloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/ui/me/MeView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/me/MeView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/ui/me/myshop/MyshopView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/me/myshop/MyshopView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/ui/noti/notidetail/NotiShop.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/noti/notidetail/NotiShop.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utility/widgets/CustomTabBar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utility/widgets/CustomTabBar.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -299,29 +264,29 @@
       <screen x="0" y="25" width="1680" height="971" />
     </state>
     <state x="172" y="25" key="CommitChangelistDialog2/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615517244511" />
-    <state width="1640" height="297" key="GridCell.Tab.0.bottom" timestamp="1615529553707">
+    <state width="1640" height="297" key="GridCell.Tab.0.bottom" timestamp="1615531667184">
       <screen x="0" y="25" width="1680" height="971" />
     </state>
     <state width="1640" height="159" key="GridCell.Tab.0.bottom/0.25.1680.1025/1680.25.1920.1001@0.25.1680.1025" timestamp="1615455494396" />
-    <state width="1640" height="297" key="GridCell.Tab.0.bottom/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615529553707" />
+    <state width="1640" height="297" key="GridCell.Tab.0.bottom/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615531667184" />
     <state width="1640" height="280" key="GridCell.Tab.0.bottom/0.25.1680.971@0.25.1680.971" timestamp="1615378618404" />
-    <state width="1640" height="297" key="GridCell.Tab.0.center" timestamp="1615529553706">
+    <state width="1640" height="297" key="GridCell.Tab.0.center" timestamp="1615531667183">
       <screen x="0" y="25" width="1680" height="971" />
     </state>
     <state width="1640" height="159" key="GridCell.Tab.0.center/0.25.1680.1025/1680.25.1920.1001@0.25.1680.1025" timestamp="1615455494395" />
-    <state width="1640" height="297" key="GridCell.Tab.0.center/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615529553706" />
+    <state width="1640" height="297" key="GridCell.Tab.0.center/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615531667183" />
     <state width="1640" height="280" key="GridCell.Tab.0.center/0.25.1680.971@0.25.1680.971" timestamp="1615378618396" />
-    <state width="1640" height="297" key="GridCell.Tab.0.left" timestamp="1615529553706">
+    <state width="1640" height="297" key="GridCell.Tab.0.left" timestamp="1615531667182">
       <screen x="0" y="25" width="1680" height="971" />
     </state>
     <state width="1640" height="159" key="GridCell.Tab.0.left/0.25.1680.1025/1680.25.1920.1001@0.25.1680.1025" timestamp="1615455494395" />
-    <state width="1640" height="297" key="GridCell.Tab.0.left/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615529553706" />
+    <state width="1640" height="297" key="GridCell.Tab.0.left/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615531667182" />
     <state width="1640" height="280" key="GridCell.Tab.0.left/0.25.1680.971@0.25.1680.971" timestamp="1615378618394" />
-    <state width="1640" height="297" key="GridCell.Tab.0.right" timestamp="1615529553707">
+    <state width="1640" height="297" key="GridCell.Tab.0.right" timestamp="1615531667183">
       <screen x="0" y="25" width="1680" height="971" />
     </state>
     <state width="1640" height="159" key="GridCell.Tab.0.right/0.25.1680.1025/1680.25.1920.1001@0.25.1680.1025" timestamp="1615455494396" />
-    <state width="1640" height="297" key="GridCell.Tab.0.right/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615529553707" />
+    <state width="1640" height="297" key="GridCell.Tab.0.right/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615531667183" />
     <state width="1640" height="280" key="GridCell.Tab.0.right/0.25.1680.971@0.25.1680.971" timestamp="1615378618403" />
     <state x="520" y="269" width="639" height="537" key="find.popup" timestamp="1615454770351">
       <screen x="0" y="25" width="1680" height="1025" />
