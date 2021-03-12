@@ -73,8 +73,11 @@ class _SplashViewState extends State<SplashView>
       });
       bloc.onSuccess.stream.listen((event) {
         if(event is CategoryCombin){
-
+          Future.delayed(const Duration(milliseconds: 300), () {
+            startTimer();
+          });
         }else{
+
           bloc.GetCategoriesAll(context,);
           Usermanager().getUser().then((value){
             context.read<HomeDataBloc>().loadHomeData(context,);
@@ -83,9 +86,7 @@ class _SplashViewState extends State<SplashView>
           });
         }
 
-        Future.delayed(const Duration(milliseconds: 300), () {
-          startTimer();
-        });
+
 
       });
 

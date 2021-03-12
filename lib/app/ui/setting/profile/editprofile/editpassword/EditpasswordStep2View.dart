@@ -45,7 +45,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;

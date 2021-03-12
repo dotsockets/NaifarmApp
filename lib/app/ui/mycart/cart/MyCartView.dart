@@ -91,7 +91,6 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
 
       NaiFarmLocalStorage.getCartCache().then((value){
          if(value!=null){
-
            bloc.CartList.add(CartResponse(data: value.data,total: value.total,selectAll: false));
          }
       });

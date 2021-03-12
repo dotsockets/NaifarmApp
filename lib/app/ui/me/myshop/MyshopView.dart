@@ -54,7 +54,7 @@ class _MyshopViewState extends State<MyshopView> {
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         FunctionHelper.AlertDialogShop(context,
-            message: event, title: "Error Create");
+            message: event.message, title: "Error Create");
         // FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
@@ -76,6 +76,14 @@ class _MyshopViewState extends State<MyshopView> {
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, item) {
         if (item is InfoCustomerLoaded) {
+          if (item.profileObjectCombine.myShopRespone != null) {
+            return _BuildMyShop(context,
+                item: item.profileObjectCombine.myShopRespone,
+                shpping: item.profileObjectCombine.shppingMyShopRespone);
+          } else {
+            return _BuildRegisterMyshop(context);
+          }
+        }else if(item is InfoCustomerError) {
           if (item.profileObjectCombine.myShopRespone != null) {
             return _BuildMyShop(context,
                 item: item.profileObjectCombine.myShopRespone,

@@ -123,6 +123,14 @@ class OrdersBloc{
     });
     _compositeSubscription.add(subscription);
   }
+
+  int SumTotal(List<OrderItems> items,int rate) {
+    var sum = 0;
+    for (var item in items) {
+      sum += (item.inventory.offerPrice!=null?item.inventory.offerPrice:item.inventory.salePrice)*item.quantity;
+    }
+    return sum+rate;
+  }
 }
 
 

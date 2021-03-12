@@ -400,22 +400,41 @@ class CartBloc {
   }
 
   void sumTotalPayment(BuildContext context,{ShippingRates snapshot, int index}) {
-    shipping_cost.add(0);
-    order_total_cost.add(0);
-    order_total_cost.add(0);
-    shipping_cost.add(shipping_cost.value + snapshot.rate);
-    for (var value in CartList.value.data) {
-      order_total_cost.add(order_total_cost.value += value.total);
+
+    // shipping_cost.add(0);
+     order_total_cost.add(0);
+     total_payment.add(0);
+
+    //shipping_cost.add(shipping_cost.value+snapshot.rate);
+
+
+    for(var item in CartList.value.data){
+      if( item.id == CartList.value.data[index].id){
+         if(item.shippingRates!=null){
+          // print("serwfer  ${(shipping_cost.value-item.shippingRates.rate)} ${snapshot.rate}");
+           shipping_cost.add((shipping_cost.value-item.shippingRates.rate)+snapshot.rate);
+
+         }else{
+           shipping_cost.add(shipping_cost.value+snapshot.rate);
+         }
+
+         print("serwfer  ${item.total}");
+
+      }
+      order_total_cost.add(order_total_cost.value+=item.total);
     }
+
 
     total_payment.add(order_total_cost.value + shipping_cost.value);
 
+   // order_total_cost.add(order_total_cost.value += item.total);
     CartList.value.data[index].shippingRates = snapshot;
     CartList.value.data[index].shippingRateId = snapshot.id;
     CartList.value.data[index].carrierId = snapshot.carrierId;
     CartList.value.data[index].shippingZoneId = snapshot.shippingZoneId;
     CheckOut.add(true);
     check_note_update = false;
+
   }
 
 

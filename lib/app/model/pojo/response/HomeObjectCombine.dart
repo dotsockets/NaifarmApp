@@ -4,6 +4,7 @@ import 'FlashsaleRespone.dart';
 import 'MyShopRespone.dart';
 import 'ProductRespone.dart';
 import 'SliderRespone.dart';
+import 'ThrowIfNoSuccess.dart';
 import 'WishlistsRespone.dart';
 
 class HomeObjectCombine{
@@ -15,10 +16,11 @@ class HomeObjectCombine{
   ProductRespone martket;
   FlashsaleRespone flashsaleRespone;
   ProductRespone product_foryou;
+  ThrowIfNoSuccess http_call_back;
 
 
 
-  HomeObjectCombine({this.sliderRespone, this.productRespone,this.categoryGroupRespone,this.featuredRespone,this.trendingRespone,this.martket,this.flashsaleRespone,this.product_foryou});
+  HomeObjectCombine({this.sliderRespone, this.productRespone,this.categoryGroupRespone,this.featuredRespone,this.trendingRespone,this.martket,this.flashsaleRespone,this.product_foryou,this.http_call_back});
 
 
   HomeObjectCombine.fromJson(Map<String, dynamic> json) {

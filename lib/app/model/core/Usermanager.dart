@@ -1,6 +1,7 @@
 
 
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/User.dart';
@@ -74,6 +75,11 @@ class Usermanager{
     _prefs.remove(IMAGEURL);
     _prefs.remove(IS_LOGIN);
     await FacebookLogin().logOut();
+
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.cancelAll();
+
 
     NaiFarmLocalStorage.getCustomer_Info().then((value) async {
       await OneSignal.shared.deleteTag("shopID");

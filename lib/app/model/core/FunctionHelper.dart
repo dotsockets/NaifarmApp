@@ -545,10 +545,9 @@ class FunctionHelper {
           ),
           actions: [
             // okButton,
-            showbtn?FlatButton(
+            showbtn?TextButton(
               child: Text(LocaleKeys.btn_close.tr()),
               onPressed:  () {
-                Navigator.of(context).pop();
                 callCancle!=null?callCancle(): Navigator.of(context).pop();
               },
             ):SizedBox()

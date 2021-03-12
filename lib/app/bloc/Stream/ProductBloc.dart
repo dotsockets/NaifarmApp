@@ -734,7 +734,8 @@ class ProductBloc{
 
   void loadCustomerCount(BuildContext context,{String token}){
     Observable.fromFuture(_application.appStoreAPIRepository.GetCustomerCount(context,token: token)).listen((respone) {
-      if(respone.http_call_back.status!=200 || respone.http_call_back.status!=401){
+     // print("esfwcersfc ${respone.http_call_back.status}");
+      if(respone.http_call_back.status==200 || respone.http_call_back.status==401){
         onSuccess.add(true);
       }else{
         onError.add(respone.http_call_back);

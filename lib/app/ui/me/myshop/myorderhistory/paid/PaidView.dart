@@ -303,25 +303,19 @@ class _PaidViewState extends State<PaidView> {
                           color: Colors.black)),
                   Row(
                     children: [
-                      item.inventory != null &&
-                              item.inventory.product.discountPercent != 0
-                          ? Text(
-                               "฿${NumberFormat("#,##0", "en_US").format(item.inventory.product.discountPercent)}",
-                             // "฿${item.inventory.product.discountPercent}",
-                              style: FunctionHelper.FontTheme(
-                                  color: Colors.black.withOpacity(0.5),
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  decoration: TextDecoration.lineThrough))
-                          : SizedBox(),
-                      SizedBox(width: 3.0.w),
-                      Text(
-                          item.inventory!=null?"฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}":"-",
-                          // item.inventory != null
-                          //     ? "฿${item.inventory.salePrice}"
-                          //     : "-",
+                      item.inventory.offerPrice!=null?Text("฿${item.inventory.salePrice}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.ColorSale()))
+                              decoration: TextDecoration.lineThrough,color: Colors.black.withOpacity(0.5))):SizedBox(),
+                      SizedBox(width: 8),
+                      Text("฿${NumberFormat("#,##0", "en_US").format(item.inventory.offerPrice!=null?item.inventory.offerPrice:item.inventory.salePrice*item.quantity)}",style: FunctionHelper.FontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                color: ThemeColor.ColorSale())),
+                      // Text(
+                      //     "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
+                      //     style: FunctionHelper.FontTheme(
+                      //         fontSize: SizeUtil.titleFontSize().sp,
+                      //         color: Colors.black))
                     ],
                   )
                 ],
@@ -371,6 +365,7 @@ class _PaidViewState extends State<PaidView> {
                       new TextSpan(
                           text:
                                "฿${NumberFormat("#,##0", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+
                           //     "฿${item.grandTotal}",
                           // style: FunctionHelper.FontTheme(
                           //     fontSize: SizeUtil.titleFontSize().sp,
@@ -393,13 +388,12 @@ class _PaidViewState extends State<PaidView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  Text( //order_detail_pay_date
                     widget.typeView == OrderViewType.Purchase
-                        ? LocaleKeys.order_detail_pay_date.tr() +
-                            " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
+                        ? item.image.isNotEmpty?"${"แจ้งชำระเงินเมื่อ"} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.paymentAt!=null?item.paymentAt:DateTime.now().toString()))}":"${LocaleKeys.history_order_time.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}"
                         : LocaleKeys.history_order_time.tr() +
                             " " +
-                            " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
+                            " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
@@ -407,7 +401,7 @@ class _PaidViewState extends State<PaidView> {
                   _BuildButtonBayItem(
                       btnTxt: widget.typeView == OrderViewType.Shop
                           ? LocaleKeys.order_detail_confirm_pay.tr()
-                          : LocaleKeys.order_detail_pay.tr(),
+                          : item.image.isNotEmpty?"รอตรวจสอบการชำระเงิน":LocaleKeys.order_detail_pay.tr(),
                       item: item)
                 ],
               )
@@ -494,6 +488,9 @@ class _PaidViewState extends State<PaidView> {
   Widget _BuildButtonBayItem({String btnTxt, OrderData item}) {
     return TextButton(
       style: ButtonStyle(
+        padding: MaterialStateProperty.all(
+            EdgeInsets.only(left: 6.0.w,right: 6.0.w)
+        ),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40.0),
@@ -576,13 +573,7 @@ class _PaidViewState extends State<PaidView> {
     );
   }
 
-  int SumTotal(List<OrderItems> items) {
-    var sum = 0;
-    for (var item in items) {
-      sum += item.inventory.salePrice;
-    }
-    return sum;
-  }
+
 
   _reloadData() {
     Usermanager().getUser().then((value) => bloc.loadOrder(context,
@@ -594,4 +585,6 @@ class _PaidViewState extends State<PaidView> {
         page: page,
         token: value.token));
   }
+
+
 }

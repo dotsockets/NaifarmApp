@@ -75,7 +75,7 @@ class _LoginViewState extends State<LoginView> {
         //Navigator.of(context).pop();
         await FacebookLogin().logOut();
         FunctionHelper.AlertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message:event);
+            title: LocaleKeys.btn_error.tr(), message:event.message);
       //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {

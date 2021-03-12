@@ -100,6 +100,18 @@ class _CustomTabBarState extends State<CustomTabBar>
                           ? count.countLoaded.CartCount
                           : 0,
                 );
+              }else if (count is CustomerCountError) {
+                return _buildIcon(
+                  sizeIcon: SizeUtil.custombarIconSize().w,
+                  path_icon: 'assets/images/svg/notification.svg',
+                  index: 2,
+                  notification: count.countRespone != null
+                      ? count.countRespone.notification.unreadCustomer +
+                      count.countRespone.notification.unreadShop
+                      : count.countRespone != null
+                      ? count.countRespone.CartCount
+                      : 0,
+                );
               } else {
                 return _buildIcon(
                     sizeIcon: SizeUtil.custombarIconSize().w,
@@ -130,6 +142,15 @@ class _CustomTabBarState extends State<CustomTabBar>
                   index: 3,
                   notification: count.countLoaded != null
                       ? count.countLoaded.CartCount
+                      : 0,
+                );
+              }else if (count is CustomerCountError) {
+                return _buildIcon(
+                  sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
+                  path_icon: 'assets/images/svg/cart.svg',
+                  index: 3,
+                  notification: count.countRespone != null
+                      ? count.countRespone.CartCount
                       : 0,
                 );
               } else {
