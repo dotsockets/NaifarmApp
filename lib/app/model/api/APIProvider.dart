@@ -163,6 +163,9 @@ abstract class APIProvider{
   @PATCH("/v1/myshop/shop")
   Future<ApiResult> MyShopUpdate(BuildContext context,{@Body() MyShopRequest data,String access_token});
 
+  @PATCH("/v1/myshop/shop")
+  Future<ApiResult> MyShopActive(BuildContext context,{@Body() int data,String access_token});
+
   @GET("/v1/myshop/shop")
   Future<ApiResult> FarmMarket(BuildContext context);
 

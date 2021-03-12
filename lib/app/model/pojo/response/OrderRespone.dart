@@ -252,25 +252,34 @@ class Carrier {
 class OrderItems {
   int orderId;
   int inventoryId;
+  String itemTitle;
   String itemDescription;
+  String itemVariant;
   int quantity;
   String unitPrice;
+  String offerPrice;
   Inventory inventory;
 
   OrderItems(
       {this.orderId,
         this.inventoryId,
+        this.itemTitle,
         this.itemDescription,
+        this.itemVariant,
         this.quantity,
         this.unitPrice,
+        this.offerPrice,
         this.inventory});
 
   OrderItems.fromJson(Map<String, dynamic> json) {
     orderId = json['orderId'];
     inventoryId = json['inventoryId'];
+    itemTitle = json['itemTitle'];
     itemDescription = json['itemDescription'];
+    itemVariant = json['itemVariant'];
     quantity = json['quantity'];
     unitPrice = json['unitPrice'];
+    offerPrice = json['offerPrice'];
     inventory = json['inventory'] != null
         ? new Inventory.fromJson(json['inventory'])
         : null;
@@ -280,9 +289,12 @@ class OrderItems {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['orderId'] = this.orderId;
     data['inventoryId'] = this.inventoryId;
+    data['itemTitle'] = this.itemTitle;
     data['itemDescription'] = this.itemDescription;
+    data['itemVariant'] = this.itemVariant;
     data['quantity'] = this.quantity;
     data['unitPrice'] = this.unitPrice;
+    data['offerPrice'] = this.offerPrice;
     if (this.inventory != null) {
       data['inventory'] = this.inventory.toJson();
     }

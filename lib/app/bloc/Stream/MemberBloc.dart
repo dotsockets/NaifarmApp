@@ -353,10 +353,26 @@ class MemberBloc{
   MyShopUpdate({BuildContext context,MyShopRequest data, String access_token}) async{
     onLoad.add(true);
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.MyShopUpdate(data: data,access_token: access_token)).listen((respone) {
+    Observable.fromFuture(_application.appStoreAPIRepository.MyShopUpdate(context: context,data: data,access_token: access_token)).listen((respone) {
       onLoad.add(false);
       if(respone.http_call_back.status==200){
      //  context.read<InfoCustomerBloc>().loadCustomInfo(token:access_token);
+        onSuccess.add(respone.respone);
+      }else{
+        onError.add(respone.http_call_back);
+      }
+
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  MyShopActive({BuildContext context,int data, String access_token}) async{
+    onLoad.add(true);
+    StreamSubscription subscription =
+    Observable.fromFuture(_application.appStoreAPIRepository.MyShopActive(context: context,data: data,access_token: access_token)).listen((respone) {
+      onLoad.add(false);
+      if(respone.http_call_back.status==200){
+        //  context.read<InfoCustomerBloc>().loadCustomInfo(token:access_token);
         onSuccess.add(respone.respone);
       }else{
         onError.add(respone.http_call_back);

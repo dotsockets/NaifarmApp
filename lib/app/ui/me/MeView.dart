@@ -323,7 +323,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                       scaffoldKey: _scaffoldKey,
                       onStatus: (bool status) {
                         if (status) {
-                          Future.delayed(const Duration(milliseconds: 500), () {
+                          Future.delayed(const Duration(milliseconds: 300), () {
                             Usermanager().getUser().then((value) => context
                                 .read<CustomerCountBloc>()
                                 .loadCustomerCount(context,token: value.token));

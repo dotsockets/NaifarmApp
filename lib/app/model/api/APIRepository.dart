@@ -166,6 +166,10 @@ class APIRepository{
     return _apiProvider.MyShopUpdate(context,data: data,access_token: access_token);
   }
 
+  Future<ApiResult> MyShopActive({BuildContext context,int data, String access_token}){
+    return _apiProvider.MyShopActive(context,data: data,access_token: access_token);
+  }
+
   Future<ApiResult> FarmMarket(BuildContext context,){
     return _apiProvider.FarmMarket(context,);
   }

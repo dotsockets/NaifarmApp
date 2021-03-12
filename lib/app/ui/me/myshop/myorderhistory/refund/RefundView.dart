@@ -215,13 +215,13 @@ class _RefundViewState extends State<RefundView> {
     );
   }
 
-  Widget _ProductItem({OrderItems item, int shopId, int index}) {
+  Widget _ProductItem({OrderItems item, int shopId, int index,int idOrder}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
           child: Hero(
-            tag: "history_paid_${item.orderId}${item.inventoryId}${index}",
+            tag: "history_refun_${idOrder}${item.orderId}${item.inventoryId}${index}",
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -251,7 +251,7 @@ class _RefundViewState extends State<RefundView> {
             product.shop = ProductShop(id: shopId);
             AppRoute.ProductDetail(context,
                 productImage:
-                    "history_paid_${item.orderId}${item.inventoryId}${index}",
+                    "history_refun_${idOrder}${item.orderId}${item.inventoryId}${index}",
                 productItem: ProductBloc.ConvertDataToProduct(data: product));
           },
         ),
@@ -323,6 +323,7 @@ class _RefundViewState extends State<RefundView> {
                     _ProductItem(
                         item: item.items[key],
                         shopId: item.shop.id,
+                        idOrder: item.id,
                         index: key)))
                 .values
                 .toList(),

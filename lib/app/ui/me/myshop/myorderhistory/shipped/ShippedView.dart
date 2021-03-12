@@ -232,13 +232,13 @@ class _ShippedViewState extends State<ShippedView> {
     );
   }
 
-  Widget _ProductItem({OrderItems item, int shopId, int index}) {
+  Widget _ProductItem({OrderItems item, int shopId, int index,int idOrder}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
           child: Hero(
-            tag: "history_paid_${item.orderId}${item.inventoryId}${index}2",
+            tag: "history_ship_${idOrder}${item.orderId}${item.inventoryId}${index}2",
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -268,7 +268,7 @@ class _ShippedViewState extends State<ShippedView> {
             product.shop = ProductShop(id: shopId);
             AppRoute.ProductDetail(context,
                 productImage:
-                    "history_paid_${item.orderId}${item.inventoryId}${index}2",
+                    "history_ship_${idOrder}${item.orderId}${item.inventoryId}${index}2",
                 productItem: ProductBloc.ConvertDataToProduct(data: product));
           },
         ),
@@ -340,6 +340,7 @@ class _ShippedViewState extends State<ShippedView> {
                     _ProductItem(
                         item: item.items[key],
                         shopId: item.shop.id,
+                        idOrder: item.id,
                         index: key)))
                 .values
                 .toList(),

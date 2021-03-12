@@ -601,7 +601,6 @@ class FunctionHelper {
             FlatButton(
               child: Text(LocaleKeys.btn_back.tr()),
               onPressed:  () {
-                AppRoute.PoppageCount(context: context,countpage: 2);
                 if(callCancle!=null){
                   callCancle();
                 }else{

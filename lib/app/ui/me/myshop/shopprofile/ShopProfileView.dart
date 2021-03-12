@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
@@ -84,10 +85,13 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
             onImageUpdate = true;
             itemInfo.image[0].path = (event as ImageUploadRespone).path;
           });
-        }
-
-        if (onUpdate || onImageUpdate) {
-          //  Navigator.pop(context,true);
+        }else if(event is MyShopRespone){
+          Usermanager().getUser().then((value) => context
+              .read<CustomerCountBloc>()
+              .loadCustomerCount(context,token: value.token));
+          Usermanager().getUser().then((value) => context
+              .read<InfoCustomerBloc>()
+              .loadCustomInfo(context,token: value.token));
         }
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
@@ -97,7 +101,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
     }
   }
 
-  void OnSave({MyShopRespone itemInfo}) {
+  void OnSave({MyShopRespone itemInfo,bool onLoad=true}) {
     if (onUpdate || onImageUpdate) {
       Usermanager().getUser().then((value) => bloc.MyShopUpdate(
           context: context,
@@ -110,7 +114,10 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
               stateId: itemInfo.state != null ? itemInfo.state.id : 0,
               active: isSelect ? 1 : 0),
           access_token: value.token));
-      Navigator.pop(context, true);
+      if(onLoad){
+        Navigator.pop(context, true);
+      }
+
     } else {
       Navigator.pop(context, onImageUpdate);
     }
@@ -121,7 +128,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
     _init(context);
     return WillPopScope(
       onWillPop: () async {
-        OnSave();
+        OnSave(itemInfo: itemInfo,onLoad: true);
         return true;
       },
       child: Container(
@@ -163,7 +170,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  OnSave(itemInfo: itemInfo);
+                  OnSave(itemInfo: itemInfo,onLoad: true);
                 },
               )),
           expandedHeight: SizeUtil.meBodyHeight(220),
@@ -375,6 +382,10 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                       onUpdate = true;
                       itemInfo.active = select ? 1 : 0;
                       setState(() => isSelect = select);
+                     // OnSave(onLoad: false,itemInfo: itemInfo);
+                    Usermanager().getUser().then((value){
+                      bloc.MyShopActive(context: context,data: itemInfo.active,access_token: value.token);
+                    });
                     },
                     title: "สถานะร้านค้า",
                     onClick: () {

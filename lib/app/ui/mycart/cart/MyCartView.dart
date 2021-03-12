@@ -72,7 +72,9 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       });
       bloc.onError.stream.listen((event) {
         FunctionHelper.AlertDialogRetry(context,
-            title: LocaleKeys.btn_error.tr(), message: event.message,callBack: ()=> _refreshProducts());
+            title: LocaleKeys.btn_error.tr(), message: event.message,callCancle: (){
+              AppRoute.PoppageCount(context: context,countpage: 1);
+            },callBack: ()=> _refreshProducts());
       });
       bloc.CartList.stream.listen((event) {
         if(event is CartResponse){

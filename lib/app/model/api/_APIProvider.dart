@@ -776,6 +776,33 @@ class _APIProvider implements APIProvider {
   }
 
   @override
+  Future<ApiResult> MyShopActive(BuildContext context,
+      {int data, String access_token}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "active":data
+    };
+    try {
+      final _result = await _dio.request<dynamic>('/v1/myshop/shop',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token": access_token,
+                'Accept-Language':EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(respone: MyShopRespone.fromJson(_result.data),
+          http_call_back: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.DioErrorExpction(e);
+    }
+  }
+
+  @override
   Future<ApiResult> FarmMarket(BuildContext context,) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
