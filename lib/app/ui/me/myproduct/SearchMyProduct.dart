@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:lottie/lottie.dart';
@@ -16,6 +17,7 @@ import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
+import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
 import 'package:naifarm/app/ui/me/myproduct/filter/InActive.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -32,7 +34,8 @@ class SearchMyProduct extends StatefulWidget {
   final int shopID;
   final int tabNum;
 
-  const SearchMyProduct({Key key, this.shopID,this.tabNum=0}) : super(key: key);
+  const SearchMyProduct({Key key, this.shopID, this.tabNum = 0})
+      : super(key: key);
 
   @override
   _SearchMyProductState createState() => _SearchMyProductState();
@@ -42,20 +45,22 @@ class _SearchMyProductState extends State<SearchMyProduct> {
   List<String> listClone = List<String>();
   bool checkSeemore = false;
   TextEditingController txtController = TextEditingController();
-  int limit = 10;
+
+  // int limit = 10;
   String searchText = "";
-  String filter = "available";
-  ProductBloc blocProduct;
-  UploadProductBloc bloc;
+
+  //String filter = "available";
+  //ProductBloc blocProduct;
+  //UploadProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool checkPop = false;
+
+  //bool checkPop = false;
   final _searchText = BehaviorSubject<String>();
 
+  void _init() {
+    _searchText.add("");
 
- void _init() {
-   _searchText.add("");
-
-   /*  if (null == blocProduct) {
+    /*  if (null == blocProduct) {
       blocProduct = ProductBloc(AppProvider.getApplication(context));
       blocProduct.onLoad.stream.listen((event) {
         if (event) {
@@ -88,91 +93,110 @@ class _SearchMyProductState extends State<SearchMyProduct> {
             icon: "",
             isEnable_Search: false,
             header_type: Header_Type.barHome,
-            onClick: (){
-              Navigator.pop(context,true);
+            showCartBtn: false,
+            onClick: () {
+              Navigator.pop(context, true);
             },
             hint: LocaleKeys.search_product_me.tr(),
             onSearch: (String text) {
-                _searchText.add(text);
+              _searchText.add(text);
+            },
+            onTab: () {
+              ButtonDialog(context, message: [LocaleKeys.attributes_set.tr()],
+                  onClick: () {
+                Navigator.of(context).pop();
+                AppRoute.Attribute(context: context);
+              });
             },
           ),
           body:
-          // StreamBuilder(
-           // stream: blocProduct.SearchProduct.stream,
-            //builder: (BuildContext context, AsyncSnapshot snapshot) {
-            //  var item = (snapshot.data as SearchRespone);
-            //  if (snapshot.hasData) {
-            //    if (item.hits.isNotEmpty) {
-             //     return
-               DefaultTabController(
-                    initialIndex: widget.tabNum,
-                    length: 4,
+              // StreamBuilder(
+              // stream: blocProduct.SearchProduct.stream,
+              //builder: (BuildContext context, AsyncSnapshot snapshot) {
+              //  var item = (snapshot.data as SearchRespone);
+              //  if (snapshot.hasData) {
+              //    if (item.hits.isNotEmpty) {
+              //     return
+              DefaultTabController(
+            initialIndex: widget.tabNum,
+            length: 4,
+            child: Container(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 7.0.h,
                     child: Container(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 7.0.h,
-                            child: Container(
-                              child: TabBar(
-                                indicatorColor:ThemeColor.ColorSale(),
-                                isScrollable: false,
-                                tabs: [
-                                  _tab(title: LocaleKeys.shop_available.tr(), message: false),
-                                  _tab(title: LocaleKeys.shop_sold_out.tr(), message: false),
-                                  _tab(title: LocaleKeys.shop_banned.tr(), message: false),
-                                  _tab(title: LocaleKeys.shop_inactive.tr(), message: false)
-                                ],
-                                onTap: (value) {
-                                  NaiFarmLocalStorage.saveNowPage(value);
-                                 // FocusScope.of(context).unfocus();
-                                /*  switch (value) {
+                      child: TabBar(
+                        indicatorColor: ThemeColor.ColorSale(),
+                        isScrollable: false,
+                        tabs: [
+                          _tab(
+                              title: LocaleKeys.shop_available.tr(),
+                              message: false),
+                          _tab(
+                              title: LocaleKeys.shop_sold_out.tr(),
+                              message: false),
+                          _tab(
+                              title: LocaleKeys.shop_banned.tr(),
+                              message: false),
+                          _tab(
+                              title: LocaleKeys.shop_inactive.tr(),
+                              message: false)
+                        ],
+                        onTap: (value) {
+                          NaiFarmLocalStorage.saveNowPage(value);
+                          // FocusScope.of(context).unfocus();
+                          /*  switch (value) {
                                     case 0:filter = "available"; break;
                                     case 1:filter = "sold_out"; break;
                                     case 2:filter = "banned"; break;
                                     case 3:filter = "inactive"; break;
                                   }*/
-                                },
-                              ),
-                            ),
-                          ),
-
-                          StreamBuilder(
-                            stream: _searchText.stream,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Expanded(
-                                  child: TabBarView(
-                                    children: [
-                                      Available(scaffoldKey: _scaffoldKey,
-                                          shopId: widget.shopID,
-                                          searchTxt: snapshot.data),
-                                      SoldOut(scaffoldKey: _scaffoldKey,
-                                          shopId: widget.shopID,
-                                          searchTxt: snapshot.data),
-                                      Banned(scaffoldKey: _scaffoldKey,
-                                          shopId: widget.shopID,
-                                          searchTxt: snapshot.data),
-                                      InActive(scaffoldKey: _scaffoldKey,
-                                          shopId: widget.shopID,
-                                          searchTxt: snapshot.data),
-                                    ],
-                                  ),
-                                );
-                              } else {
-                                return SizedBox();
-                              }
-                            }),
-                        ],
+                        },
                       ),
                     ),
-                //  );
-                  /*SingleChildScrollView(
+                  ),
+                  StreamBuilder(
+                      stream: _searchText.stream,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Expanded(
+                            child: TabBarView(
+                              children: [
+                                Available(
+                                    scaffoldKey: _scaffoldKey,
+                                    shopId: widget.shopID,
+                                    searchTxt: snapshot.data),
+                                SoldOut(
+                                    scaffoldKey: _scaffoldKey,
+                                    shopId: widget.shopID,
+                                    searchTxt: snapshot.data),
+                                Banned(
+                                    scaffoldKey: _scaffoldKey,
+                                    shopId: widget.shopID,
+                                    searchTxt: snapshot.data),
+                                InActive(
+                                    scaffoldKey: _scaffoldKey,
+                                    shopId: widget.shopID,
+                                    searchTxt: snapshot.data),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      }),
+                ],
+              ),
+            ),
+            //  );
+            /*SingleChildScrollView(
                     child: Column(
                       children: item.hits.asMap().map((key, value) => MapEntry(key, _BuildProduct(index: key,item: CovertDataMyShop(hits: value)))).values.toList(),
                     ),
                   );*/
             //    } else {
-    /*     return Center(
+            /*     return Center(
                     child: Container(
                       margin: EdgeInsets.only(bottom: 15.0.h),
                       child: Column(
@@ -578,7 +602,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
     );
   }
 
-  /*_searchData() {
+/*_searchData() {
     Usermanager().getUser().then((value) => blocProduct.loadSearchMyshop(
         shopId: widget.shopID,
         page: "1",

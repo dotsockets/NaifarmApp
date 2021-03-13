@@ -123,6 +123,7 @@ abstract class  LocaleKeys {
   static const or = 'or';
   static const withh = 'withh';
   static const and = 'and';
+  static const edit = 'edit';
   static const setting_language_toobar = 'setting_language_toobar';
   static const setting_rule_toobar = 'setting_rule_toobar';
   static const setting_about_toobar = 'setting_about_toobar';
@@ -135,6 +136,7 @@ abstract class  LocaleKeys {
   static const btn_login = 'btn.login';
   static const btn_facebook = 'btn.facebook';
   static const btn_edit_img = 'btn.edit_img';
+  static const btn_img = 'btn.img';
   static const btn_save = 'btn.save';
   static const btn_register = 'btn.register';
   static const btn_ok = 'btn.ok';
@@ -148,6 +150,7 @@ abstract class  LocaleKeys {
   static const btn_buy_now = 'btn.buy_now';
   static const btn_buy_product = 'btn.buy_product';
   static const btn_del_product = 'btn.del_product';
+  static const btn_update_product = 'btn.update_product';
   static const btn_error = 'btn.error';
   static const btn_save_edit = 'btn.save_edit';
   static const btn_review = 'btn.review';
@@ -183,6 +186,9 @@ abstract class  LocaleKeys {
   static const message_phone_edit = 'message.phone_edit';
   static const message_mail_edit = 'message.mail_edit';
   static const message_forgot_mail = 'message.forgot_mail';
+  static const message_open_shop = 'message.open_shop';
+  static const message_complete_shop = 'message.complete_shop';
+  static const message_protect = 'message.protect';
   static const message_error_password_incorrect = 'message.error.password_incorrect';
   static const message_error_password_length = 'message.error.password_length';
   static const message_error_password_not_match = 'message.error.password_not_match';
@@ -228,6 +234,7 @@ abstract class  LocaleKeys {
   static const cart_ship_at = 'cart.ship_at';
   static const cart = 'cart';
   static const history_order_time = 'history.order_time';
+  static const history_receipt_time = 'history.receipt_time';
   static const history_order_price = 'history.order_price';
   static const history_track = 'history.track';
   static const history_track_fill = 'history.track_fill';
@@ -258,6 +265,7 @@ abstract class  LocaleKeys {
   static const attributes_list = 'attributes.list';
   static const attributes = 'attributes';
   static const my_product_sell = 'my_product.sell';
+  static const my_product_sell_open = 'my_product.sell_open';
   static const my_product_break = 'my_product.break';
   static const my_product_amount = 'my_product.amount';
   static const my_product_sold = 'my_product.sold';
@@ -296,11 +304,19 @@ abstract class  LocaleKeys {
   static const shop_category = 'shop.category';
   static const shop_detail = 'shop.detail';
   static const shop_rate = 'shop.rate';
+  static const shop_edit = 'shop.edit';
   static const shop_follow = 'shop.follow';
   static const shop_following = 'shop.following';
   static const shop_follower = 'shop.follower';
   static const shop_product_list = 'shop.product_list';
   static const shop_name = 'shop.name';
+  static const shop_name_title = 'shop.name_title';
+  static const shop_name_official = 'shop.name_official';
+  static const shop_slug = 'shop.slug';
+  static const shop_detail_title = 'shop.detail_title';
+  static const shop_external_link = 'shop.external_link';
+  static const shop_edit_link = 'shop.edit_link';
+  static const shop_status = 'shop.status';
   static const shop_active_hour = 'shop.active.hour';
   static const shop_active_minute = 'shop.active.minute';
   static const shop_active = 'shop.active';
@@ -346,6 +362,20 @@ abstract class  LocaleKeys {
   static const noti_order2 = 'noti.order2';
   static const noti_buyer = 'noti.buyer';
   static const noti_seller = 'noti.seller';
+  static const noti_shop_update = 'noti.shop_update';
+  static const noti_shop_status = 'noti.shop_status';
+  static const noti_shop_new_order = 'noti.shop_new_order';
+  static const noti_shop_orderid = 'noti.shop_orderid';
+  static const noti_shop_open = 'noti.shop_open';
+  static const noti_shop_open_detail = 'noti.shop_open_detail';
+  static const noti_shop_outstock = 'noti.shop_outstock';
+  static const noti_cus_cancel_status = 'noti.cus_cancel_status';
+  static const noti_cus_order = 'noti.cus_order';
+  static const noti_cus_pay_at = 'noti.cus_pay_at';
+  static const noti_cus_complete = 'noti.cus_complete';
+  static const noti_cus_orderid = 'noti.cus_orderid';
+  static const noti_cus_cancel = 'noti.cus_cancel';
+  static const noti_cus_cancel_reason = 'noti.cus_cancel_reason';
   static const noti = 'noti';
   static const order_detail_title = 'order_detail.title';
   static const order_detail_txt = 'order_detail.txt';
@@ -428,5 +458,13 @@ abstract class  LocaleKeys {
   static const search_product_hide = 'search_product.hide';
   static const search_product_not_found = 'search_product.not_found';
   static const search_product = 'search_product';
+  static const server_error_cancel = 'server_error.cancel';
+  static const server_error_timeout_connect = 'server_error.timeout_connect';
+  static const server_error_timeout_receive = 'server_error.timeout_receive';
+  static const server_error_timeout_send = 'server_error.timeout_send';
+  static const server_error_default = 'server_error.default';
+  static const server_error_status = 'server_error.status';
+  static const server_error_again = 'server_error.again';
+  static const server_error = 'server_error';
 
 }

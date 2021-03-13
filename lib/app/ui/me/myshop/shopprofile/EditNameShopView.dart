@@ -45,7 +45,7 @@ class _EditNameShopState extends State<EditNameShopView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
-            title: "แก้ไขชื่อร้านค้า",
+            title: LocaleKeys.edit.tr()+LocaleKeys.shop_name_title.tr(),
             header_type: Header_Type.barNormal,
             isEnable_Search: false,
           ),
@@ -104,8 +104,8 @@ class _EditNameShopState extends State<EditNameShopView> {
       child: Column(
         children: [
           BuildEditText(
-            head: "ชื่อร้านค้า",
-            hint: "ระบุชื่อร้านค้า",
+            head: LocaleKeys.shop_name_title.tr(),
+            hint: LocaleKeys.set_default.tr()+LocaleKeys.shop_name_title.tr(),
             inputType: TextInputType.text,
             BorderOpacity: 0.2,
             maxLength: 20,

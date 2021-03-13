@@ -125,7 +125,7 @@ class _EditEmail_Step2ViewState extends State<EditEmail_Step2View> {
                             head: LocaleKeys.edit_email_new.tr(),
                             hint: LocaleKeys.set_default.tr() +
                                 LocaleKeys.edit_email_new.tr(),
-                            maxLength: 10,
+                            maxLength: 40,
                             controller: EmailController,
                             onError: onError,
                             inputType: TextInputType.emailAddress,

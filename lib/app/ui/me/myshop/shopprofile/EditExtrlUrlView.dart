@@ -45,7 +45,7 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
             isEnable_Search: false,
-            title: "แก้ไขลิงค์ภายนอก",
+            title:  LocaleKeys.edit.tr()+LocaleKeys.shop_external_link.tr(),
             header_type: Header_Type.barNormal,
           ),
           body: Container(
@@ -103,8 +103,8 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
       child: Column(
         children: [
           BuildEditText(
-            head: "ลิงค์ภายนอก",
-            hint: "ระบุลิงค์ภายนอก",
+            head: LocaleKeys.shop_external_link.tr(),
+            hint: LocaleKeys.set_default.tr()+LocaleKeys.shop_external_link.tr(),
             inputType: TextInputType.text,
             BorderOpacity: 0.2,
             maxLength: 20,

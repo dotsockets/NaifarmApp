@@ -382,7 +382,7 @@ class _OrderViewState extends State<OrderView> {
           orderData.deliveryDate != null ? SizedBox(height: 1.0.w) : SizedBox(),
           orderData.deliveryDate != null
               ? Text(
-                  "วันที่รับ ${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.deliveryDate.toString()))} ",
+                  "${LocaleKeys.history_receipt_time.tr()} ${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.deliveryDate.toString()))} ",
                   style: FunctionHelper.FontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       color: Colors.black.withOpacity(0.6),
@@ -836,18 +836,23 @@ class _OrderViewState extends State<OrderView> {
                   ),
                 ),
                 onPressed: () {
-                  FunctionHelper.ConfirmDialog(context,
-                      message:
-                          "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",
-                      onCancel: () {
-                    Navigator.of(context).pop();
-                  }, onClick: () {
-                    Navigator.of(context).pop();
+
+                  // FunctionHelper.ConfirmDialog(context,
+                  //     message:
+                  //         "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",
+                  //     onCancel: () {
+                  //   Navigator.of(context).pop();
+                  // }, onClick: () {
+                  //   Navigator.of(context).pop();
+                  //   AppRoute.SellerCanceled(
+                  //       context: context,
+                  //       orderData: widget.orderData,
+                  //       typeView: orderViewType);
+                  // });
                     AppRoute.SellerCanceled(
                         context: context,
                         orderData: widget.orderData,
                         typeView: orderViewType);
-                  });
                 },
                 child: Text(
                   LocaleKeys.order_detail_cancel_order.tr(),
@@ -991,7 +996,7 @@ class _OrderViewState extends State<OrderView> {
                 onPressed: () {
                   FunctionHelper.ConfirmDialog(context,
                       message:
-                          "Have you accepted and inspected the product successfully?  ",
+                          LocaleKeys.dialog_message_confirm_order.tr(),
                       onCancel: () {
                     Navigator.of(context).pop();
                   }, onClick: () {

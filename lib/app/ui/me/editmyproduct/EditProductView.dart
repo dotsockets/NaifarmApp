@@ -411,7 +411,7 @@ class _EditProductViewState extends State<EditProductView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Open sales",
+                Text(LocaleKeys.my_product_sell_open.tr(),
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp)),
                 FlutterSwitch(
@@ -453,14 +453,14 @@ class _EditProductViewState extends State<EditProductView> {
               children: [
                 Expanded(
                   child: _BuildButtonCancleItem(
-                      btnTxt: "Delete", index: 0, enable: enable),
+                      btnTxt: LocaleKeys.btn_del_product.tr(), index: 0, enable: enable),
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 Expanded(
                   child: _BuildButtonItem(
-                      btnTxt: "Save", index: 1, enable: enable),
+                      btnTxt: LocaleKeys.btn_update_product.tr(), index: 1, enable: enable),
                 )
               ],
             )));
@@ -476,7 +476,7 @@ class _EditProductViewState extends State<EditProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Edit picture",
+                  Text(LocaleKeys.btn_edit_img.tr(),
                       style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleFontSize().sp)),
                   Icon(

@@ -141,11 +141,13 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
               body: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
                 builder: (_, item) {
                   if (item is InfoCustomerLoaded) {
+                    itemInfo = item.profileObjectCombine.myShopRespone;
                     return _ContentMe(
-                        itemInfo: item.profileObjectCombine.myShopRespone);
+                        itemInfo:  itemInfo);
                   } else if (item is InfoCustomerLoading) {
+                    itemInfo = item.profileObjectCombine.myShopRespone;
                     return _ContentMe(
-                        itemInfo: item.profileObjectCombine.myShopRespone);
+                        itemInfo:  itemInfo);
                   } else {
                     return SizedBox();
                   }
@@ -184,7 +186,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     height: 20,
                   ),
                   Text(
-                    "แก้ไขร้านค้า",
+                    LocaleKeys.edit.tr()+LocaleKeys.shop_title.tr(),
                     style: FunctionHelper.FontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.bold),
@@ -254,7 +256,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                       child: Text(LocaleKeys.btn_edit_img.tr(),
                           style: FunctionHelper.FontTheme(
                               color: Colors.white,
-                              fontSize: SizeUtil.detailSmallFontSize(),
+                              fontSize: SizeUtil.detailFontSize().sp,
                               fontWeight: FontWeight.bold)),
                     ),
                     onTap: () {
@@ -275,7 +277,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     opacityMessage: 0.5,
                     icon: '',
                     Message: itemInfo.name != null ? itemInfo.name : '',
-                    title: "ชื่อร้านค้า",
+                    title: LocaleKeys.shop_name_title.tr(),
                     onClick: () async {
                       final result = await AppRoute.EditNameShop(context,
                           itemInfo: itemInfo);
@@ -294,7 +296,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                             ? '${itemInfo.legalName.substring(0, 20)}...'
                             : itemInfo.legalName
                         : '',
-                    title: "ชื่อเป็นทางการ",
+                    title: LocaleKeys.shop_name_official.tr(),
                     onClick: () async {
                       final result = await AppRoute.OfficialName(context,
                           itemInfo: itemInfo);
@@ -308,8 +310,8 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                   ListMenuItem(
                     opacityMessage: 0.5,
                     icon: '',
-                    Message: itemInfo.slug != null ? itemInfo.slug : '',
-                    title: "Slug ร้านค้า",
+                    Message: itemInfo.slug != null ? "naifarm.com/${itemInfo.slug}" : "",
+                    title: LocaleKeys.shop_slug.tr(),
                     onClick: () async {
                       final result =
                           await AppRoute.EditSlug(context, itemInfo: itemInfo);
@@ -326,7 +328,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     Message: itemInfo.description != null
                         ? itemInfo.description
                         : '',
-                    title: "รายละเอียด",
+                    title: LocaleKeys.shop_detail_title.tr(),
                     onClick: () async {
                       final result = await AppRoute.EditDetail(context,
                           itemInfo: itemInfo);
@@ -343,7 +345,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     Message: itemInfo.externalUrl != null
                         ? itemInfo.externalUrl
                         : '',
-                    title: "ลิงค์ภายนอก",
+                    title: LocaleKeys.shop_external_link.tr(),
                     onClick: () async {
                       final result = await AppRoute.EditExtrlUrl(context,
                           itemInfo: itemInfo);
@@ -362,7 +364,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                             ? itemInfo.state.name
                             : ''
                         : '',
-                    title: "จังหวัด",
+                    title: LocaleKeys.address_province.tr(),
                     onClick: () async {
                       final result = await AppRoute.EditProvice(context,
                           itemInfo: itemInfo);
@@ -387,7 +389,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                       bloc.MyShopActive(context: context,data: itemInfo.active,access_token: value.token);
                     });
                     },
-                    title: "สถานะร้านค้า",
+                    title: LocaleKeys.shop_status.tr(),
                     onClick: () {
                       // AppRoute.EditpasswordStep1(context);
                     },
