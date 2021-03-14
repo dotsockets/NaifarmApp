@@ -81,69 +81,68 @@ class AddtTrackingNumberView extends StatelessWidget {
             children: [
               Expanded(
                   child: Container(
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: 4.0.w, right: 4.0.w, top: 2.0.w),
-                        color: Colors.white,
-                        child: StreamBuilder(
-                          stream: trackOnError.stream,
-                          builder: (BuildContext context,AsyncSnapshot snapshot){
-                           if(snapshot.hasData){
-                             return BuildEditText(EnableMaxLength: false,maxLength: 5000,BorderOpacity: 0.3,
-                               hint: LocaleKeys.history_track.tr(),maxLine: 1,controller: trackController,onError: snapshot.data,inputType: TextInputType.text,onChanged: (String char){
-                                 if(char.isNotEmpty){
-                                   trackOnError.add("");
-                                 }
-                               },);
-                           }else{
-                             return SizedBox();
-                           }
-                          },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.only(
+                              left: 4.0.w, right: 4.0.w, top: 2.0.w),
+                          color: Colors.white,
+                          child: StreamBuilder(
+                            stream: trackOnError.stream,
+                            builder: (BuildContext context,AsyncSnapshot snapshot){
+                             if(snapshot.hasData){
+                               return BuildEditText(EnableMaxLength: false,maxLength: 5000,BorderOpacity: 0.3,
+                                 hint: LocaleKeys.history_track.tr(),maxLine: 1,controller: trackController,onError: snapshot.data,inputType: TextInputType.text,onChanged: (String char){
+                                   if(char.isNotEmpty){
+                                     trackOnError.add("");
+                                   }
+                                 },);
+                             }else{
+                               return SizedBox();
+                             }
+                            },
+                          ),
                         ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: 4.0.w,right: 4.0.w,top: 3.0.h),
-                        color: Colors.white,
-                        child: Text(
-                          LocaleKeys.history_track_fill.tr(),
-                          style: FunctionHelper.FontTheme(
-                              color: Colors.grey.shade700,
-                              fontWeight: FontWeight.normal,
-                              fontSize: SizeUtil.titleSmallFontSize().sp),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.only(left: 4.0.w,right: 4.0.w,top: 2.0.h),
+                          color: Colors.white,
+                          child: Text(
+                            LocaleKeys.history_track_fill.tr(),
+                            style: FunctionHelper.FontTheme(
+                                color: Colors.grey.shade700,
+                                fontWeight: FontWeight.normal,
+                                fontSize: SizeUtil.titleSmallFontSize().sp),
+                          ),
                         ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: 4.0.w,
-                            right: 4.0.w,
-                            top: 2.0.w,
-                            bottom: 4.0.w),
-                        color: Colors.white,
-                        child: Row(
-                          children: [
-                            Container( decoration:  BoxDecoration(
-                              color: Colors.black.withOpacity(0.5),
-                              borderRadius:  BorderRadius.all(Radius.circular(2.0.w)),
-                            ),width: 2.5.w,height: 2.5.w,),
-                            SizedBox(width: 2.5.w,),
-                            Expanded(child: Text(
-                              LocaleKeys.history_track_msg.tr(),
-                              style: FunctionHelper.FontTheme(
-                                  color: Colors.grey.shade700,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: SizeUtil.titleSmallFontSize().sp),
-                            )),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              )),
+                        Container(
+                          padding: EdgeInsets.only(
+                              left: 4.0.w,
+                              right: 4.0.w,
+                              top: 2.0.w,
+                              bottom: 4.0.w),
+                          color: Colors.white,
+                          child: Row(
+                            children: [
+                              Container( decoration:  BoxDecoration(
+                                color: Colors.black.withOpacity(0.5),
+                                borderRadius:  BorderRadius.all(Radius.circular(2.0.w)),
+                              ),width: 2.5.w,height: 2.5.w,),
+                              SizedBox(width: 2.5.w,),
+                              Expanded(child: Text(
+                                LocaleKeys.history_track_msg.tr(),
+                                style: FunctionHelper.FontTheme(
+                                    color: Colors.grey.shade700,
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: SizeUtil.titleSmallFontSize().sp),
+                              )),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
               _ButtonActive(context: context, orderData: orderData),
             ],
           ),

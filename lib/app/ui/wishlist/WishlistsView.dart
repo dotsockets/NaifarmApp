@@ -254,7 +254,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
           height: SizeUtil
               .titleSmallFontSize()
               .sp*3.0,
-          child: Text(item.product.name, maxLines: 2,
+          child: Text(item.product!=null?item.product.name:'ไม่พบสินค้า', maxLines: 2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: FunctionHelper.FontTheme(
@@ -271,18 +271,18 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            item.product.offerPrice != null
+            item.product!=null && item.product.offerPrice != null
                 ? Text("฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}",
                 style: FunctionHelper.FontTheme(
                     color: Colors.grey,
                     fontSize: SizeUtil.priceFontSize().sp - 1,
                     decoration: TextDecoration.lineThrough))
                 : SizedBox(),
-            SizedBox(width: item.product.offerPrice != null ? 1.0.w : 0),
+            SizedBox(width: item.product!=null && item.product.offerPrice != null ? 1.0.w : 0),
             Text(
-              item.product.offerPrice != null
+              item.product!=null?item.product.offerPrice != null
                   ? "฿${NumberFormat("#,##0", "en_US").format(item.product.offerPrice)}"
-                  : "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}",
+                  : "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}":"000",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: FunctionHelper.FontTheme(
@@ -304,7 +304,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                   allowHalfRating: false,
                   onRated: (v) {},
                   starCount: 5,
-                  rating:  item.product.rating!=null&&item.product.rating!=0?item.product.rating.toDouble():0.0,
+                  rating:  item.product!=null && item.product.rating!=null&&item.product.rating!=0?item.product.rating.toDouble():0.0,
                   size: 3.5.w,
                   isReadOnly: true,
                   filledIconData: Icons.star,
@@ -313,7 +313,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                   borderColor: Colors.grey.shade300,
                   spacing: 0.0),
             ),
-            Text("${LocaleKeys.my_product_sold.tr()} ${item.product.saleCount!=null?item.product.saleCount.toString():'0'} ${LocaleKeys.cart_piece.tr()}",
+            Text("${LocaleKeys.my_product_sold.tr()} ${item.product!=null && item.product.saleCount!=null?item.product.saleCount.toString():'0'} ${LocaleKeys.cart_piece.tr()}",
                 style: FunctionHelper.FontTheme(
                     fontSize: SizeUtil.detailFontSize().sp,
                     color: Colors.black,
@@ -360,8 +360,8 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                               width: 30.0.w,
                               height: 40.0.w,),
                           ),
-                      imageUrl: ProductLandscape.CovertUrlImage(
-                          item.product.image),
+                      imageUrl: item.product!=null?ProductLandscape.CovertUrlImage(
+                          item.product.image):'',
                       errorWidget: (context, url, error) =>
                           Container(
                               width: 30.0.w,
@@ -382,7 +382,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                         padding: EdgeInsets.only(
                             left: 10, right: 10, top: 5, bottom: 5),
                         child: Text(
-                          "${item.product.discountPercent}%",
+                          item.product!=null?"${item.product.discountPercent}%":'',
                           style: GoogleFonts.sarabun(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -391,7 +391,7 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                                   .sp),
                         ),
                       ),
-                      visible: item.product.discountPercent>0?true:false,
+                      visible: item.product!=null && item.product.discountPercent>0?true:false,
                     ),
                     LikeButton(
                       size: 10.0.w,
@@ -425,11 +425,18 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
         ),
       ),
       onTap: () {
-        var data =  ProducItemRespone(name: item.product.name,salePrice: item.product.salePrice,hasVariant: item.product.hasVariant,brand: item.product.brand,minPrice: item.product.minPrice,maxPrice: item.product.maxPrice,
-            slug: item.product.slug,offerPrice: item.product.offerPrice,id: item.product.id,saleCount: item.product.saleCount,discountPercent: item.product.discountPercent,rating: item.product.rating,reviewCount: item.product.reviewCount,
-            shop: ShopItem(id: item.product.shopId),image: item.product.image);
-        AppRoute.ProductDetail(context,
-            productImage: "wishlist_${item.id}",productItem: data);
+        if(item.product!=null){
+          var data =  ProducItemRespone(name: item.product.name,salePrice: item.product.salePrice,hasVariant: item.product.hasVariant,brand: item.product.brand,minPrice: item.product.minPrice,maxPrice: item.product.maxPrice,
+              slug: item.product.slug,offerPrice: item.product.offerPrice,id: item.product.id,saleCount: item.product.saleCount,discountPercent: item.product.discountPercent,rating: item.product.rating,reviewCount: item.product.reviewCount,
+              shop: ShopItem(id: item.product.shopId),image: item.product.image);
+          AppRoute.ProductDetail(context,
+              productImage: "wishlist_${item.id}",productItem: data);
+        }else{
+
+          AppRoute.ProductDetail(context,
+              productImage: "wishlist_${item.id}",productItem: ProducItemRespone(id: item.id));
+        }
+
       },
     );
   }

@@ -33,8 +33,10 @@ class ConfirmPaymentView extends StatelessWidget {
   bool onUpload = false;
 
   init(BuildContext context) {
+    print("wercfrewfc ");
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
+
       bloc.OrderList.add(orderData);
       bloc.onLoad.stream.listen((event) {
         if (event) {

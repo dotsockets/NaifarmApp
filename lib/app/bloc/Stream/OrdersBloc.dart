@@ -42,6 +42,7 @@ class OrdersBloc{
     StreamSubscription subscription =
     Observable.fromFuture(_application.appStoreAPIRepository.GetOrderById(context,id: id,orderType:orderType ,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
+
         OrderList.add((respone.respone as OrderData));
       }else{
         onError.add(respone.http_call_back.message);
@@ -127,7 +128,7 @@ class OrdersBloc{
   int SumTotal(List<OrderItems> items,int rate) {
     var sum = 0;
     for (var item in items) {
-      sum += (item.inventory.offerPrice!=null?item.inventory.offerPrice:item.inventory.salePrice)*item.quantity;
+      sum += item.inventory!=null?(item.inventory.offerPrice!=null?item.inventory.offerPrice:item.inventory.salePrice)*item.quantity:double.parse(item.unitPrice.toString()).toInt()*item.quantity;
     }
     return sum+rate;
   }

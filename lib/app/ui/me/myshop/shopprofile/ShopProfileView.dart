@@ -381,7 +381,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     icon: '',
                     SelectSwitch: isSelect,
                     IsSwitch: (bool select) {
-                      onUpdate = true;
+                      onUpdate = false;
                       itemInfo.active = select ? 1 : 0;
                       setState(() => isSelect = select);
                      // OnSave(onLoad: false,itemInfo: itemInfo);

@@ -46,31 +46,34 @@ class ShopOwn extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(40),
-                    child: CachedNetworkImage(
-                      width: 15.0.w,
-                      height: 15.0.w,
-                      placeholder: (context, url) => Container(
-                        color: Colors.white,
-                        child: Lottie.asset('assets/json/loading.json',
-                            width: 30, height: 30),
+                  child: Hero(
+                    tag: "image_profile_me${shopItem.id}",
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: CachedNetworkImage(
+                        width: 15.0.w,
+                        height: 15.0.w,
+                        placeholder: (context, url) => Container(
+                          color: Colors.white,
+                          child: Lottie.asset('assets/json/loading.json',
+                              width: 30, height: 30),
+                        ),
+                        fit: BoxFit.cover,
+                        imageUrl: shopItem.image != null
+                            ? ProductLandscape.CovertUrlImage(shopItem.image)
+                            : "",
+                        errorWidget: (context, url, error) => Container(
+                            width: 60,
+                            height: 60,
+                            child: CircleAvatar(
+                              backgroundColor: Color(0xffE6E6E6),
+                              radius: 30,
+                              child: Icon(
+                                Icons.shopping_bag_rounded,
+                                color: Color(0xffCCCCCC),
+                              ),
+                            )),
                       ),
-                      fit: BoxFit.cover,
-                      imageUrl: shopItem.image != null
-                          ? ProductLandscape.CovertUrlImage(shopItem.image)
-                          : "",
-                      errorWidget: (context, url, error) => Container(
-                          width: 60,
-                          height: 60,
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xffE6E6E6),
-                            radius: 30,
-                            child: Icon(
-                              Icons.shopping_bag_rounded,
-                              color: Color(0xffCCCCCC),
-                            ),
-                          )),
                     ),
                   ),
                   onTap: () {

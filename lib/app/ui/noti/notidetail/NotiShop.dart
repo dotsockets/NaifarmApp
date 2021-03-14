@@ -212,7 +212,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                   index,
                   Column(
                     children: [
-                      if(CheckShowOrder(text: value.type))
+                     // if(CheckShowOrder(text: value.type))
                       _BuildCardNoti(
                           item: value,context: context,index: index),
                     ],
@@ -221,7 +221,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                 .values
                 .toList(),
           ),
-          if (item.data.length != item.total )
+          if (item.data.length != item.total && item.data.length>limit)
             Container(
               padding: EdgeInsets.all(20),
               child: Row(
@@ -243,7 +243,7 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
                 ],
               ),
             ),
-          SizedBox(height: 10.0.h,)
+          SizedBox(height: 12.0.h,)
         ],
       ),
     ),
@@ -439,6 +439,27 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
           Text("${item.meta.name} ${LocaleKeys.noti_shop_open_detail.tr()}", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
         ],
       );
+    }else if(item.type=="App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification"){
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("คำสั่งซื้อ ${item.meta.order}  ${item.meta.image!=null?"อัพโหลดเอกสารการชำระเงิน!":"รอการชำระเงิน"}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text:"${item.meta.image!=null?"${item.meta.customer} อัพโหลดเอกสารการชำระเงิน":"รอการชำระเงิน"} ",
+                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                new TextSpan(text: "[หมายเลขคำสั่งซื้อ ${item.meta.order} ]",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+
+              ],
+            ),
+          ),
+         // Text("${item.meta.customer} อัพโหลดเอกสารการชำระเงิน [หมายเลขคำสั่งซื้อ ${item.meta.order} ] กรุณาตรวจสอบรายละเอียด", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+        ],
+      );
     }else{
       return SizedBox();
     }
@@ -464,6 +485,8 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
   bool CheckIsOrder({String text}){
     if(text=="App\\Notifications\\Order\\MerchantOrderCreatedNotification"){
       return true;
+    }else if(text== "App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification"){
+      return true;
     }else if(text=="App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification"){
       return false;
     }else {
@@ -471,13 +494,15 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
     }
   }
 
-  bool CheckShowOrder({String text}){
-    if(text=="App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification"){
-      return false;
-    }else {
-      return true;
-    }
-  }
+
+
+  // bool CheckShowOrder({String text}){
+  //   if(text=="App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification"){
+  //     return false;
+  //   }else {
+  //     return true;
+  //   }
+  // }
 
 }
 

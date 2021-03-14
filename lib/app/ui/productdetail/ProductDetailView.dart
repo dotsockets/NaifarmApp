@@ -499,15 +499,20 @@ class _ProductDetailViewState extends State<ProductDetailView>
                 ],
               );
             } else {
-              return Column(
-                children: [
-                  SizedBox(
-                    height: 10.0.h,
-                  ),
-                  Platform.isAndroid
-                      ? CircularProgressIndicator()
-                      : CupertinoActivityIndicator(),
-                ],
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: widget.productItem.shop!=null?10.0.h:30.0.h,
+                    ),
+                    Platform.isAndroid
+                        ? CircularProgressIndicator()
+                        : CupertinoActivityIndicator(),
+                  ],
+                ),
               );
             }
           })
@@ -516,7 +521,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
   Widget _BuildFooterTotal({WishlistsRespone item}) {
 
-    return   StreamBuilder(
+    return   widget.productItem.shop!=null?StreamBuilder(
         stream: CheckMyShop.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData && snapshot.data!=widget.productItem.shop.id) {
@@ -647,7 +652,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
           }else{
             return  SizedBox();
           }
-        });
+        }):SizedBox();
   }
 
 

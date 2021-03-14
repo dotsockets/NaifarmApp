@@ -95,39 +95,46 @@ class _CanceledViewState extends State<CanceledView> {
                                             context: context),
                                         value.items[0].inventory == null
                                             ? Center(
-                                                child: Container(
-                                                  color: Colors.white
-                                                      .withOpacity(0.7),
-                                                  height: 27.0.h,
-                                                  child: Center(
-                                                    child: Container(
-                                                      width: 30.0.w,
-                                                      height: 5.0.h,
-                                                      padding:
-                                                          EdgeInsets.all(2.0.w),
-                                                      decoration: new BoxDecoration(
-                                                          color: Colors.black
-                                                              .withOpacity(0.5),
-                                                          borderRadius:
-                                                              new BorderRadius
-                                                                      .all(
-                                                                  Radius.circular(
-                                                                      10.0.w))),
-                                                      child: Center(
-                                                        child: Text(
-                                                            LocaleKeys
-                                                                .search_product_not_found
-                                                                .tr(),
-                                                            style: FunctionHelper
-                                                                .FontTheme(
-                                                                    fontSize:
-                                                                        SizeUtil.titleSmallFontSize()
-                                                                            .sp,
-                                                                    color: Colors
-                                                                        .white)),
+                                                child: InkWell(
+                                                  child: Container(
+                                                    color: Colors.white
+                                                        .withOpacity(0.7),
+                                                    height: 30.0.h,
+                                                    child: Center(
+                                                      child: Container(
+                                                        width: 30.0.w,
+                                                        height: 5.0.h,
+                                                        padding:
+                                                            EdgeInsets.all(2.0.w),
+                                                        decoration: new BoxDecoration(
+                                                            color: Colors.black
+                                                                .withOpacity(0.5),
+                                                            borderRadius:
+                                                                new BorderRadius
+                                                                        .all(
+                                                                    Radius.circular(
+                                                                        10.0.w))),
+                                                        child: Center(
+                                                          child: Text(
+                                                              LocaleKeys
+                                                                  .search_product_not_found
+                                                                  .tr(),
+                                                              style: FunctionHelper
+                                                                  .FontTheme(
+                                                                      fontSize:
+                                                                          SizeUtil.titleSmallFontSize()
+                                                                              .sp,
+                                                                      color: Colors
+                                                                          .white)),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
+                                                  onTap: (){
+
+                                                    AppRoute.OrderDetail(context,
+                                                        orderData: value, typeView: widget.typeView);
+                                                  },
                                                 ),
                                               )
                                             : SizedBox()
@@ -217,7 +224,7 @@ class _CanceledViewState extends State<CanceledView> {
     );
   }
 
-  Widget _ProductItem({OrderItems item, int shopId, int index,int idOrder}) {
+  Widget _ProductItem({OrderData orderData,OrderItems item, int shopId, int index,int idOrder}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -236,14 +243,11 @@ class _CanceledViewState extends State<CanceledView> {
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
-                    "${Env.value.baseUrl}/storage/images/${item.inventory != null ? item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : '' : ''}",
+                    "${Env.value.baseUrl}/storage/images/${item.inventory != null ? item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : Env.value.noItemUrl : Env.value.noItemUrl}",
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
-                    child: Icon(
-                      Icons.error,
-                      size: 7.0.w,
-                    )),
+                    child: Image.network(Env.value.noItemUrl)),
               ),
             ),
           ),
@@ -267,7 +271,7 @@ class _CanceledViewState extends State<CanceledView> {
                 child: Text(
                     item.inventory != null
                         ? item.inventory.title
-                        : 'ไม่พบข้อมูล',
+                        : item.itemTitle.isNotEmpty?item.itemTitle:'ไม่พบข้อมูล',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.FontTheme(
@@ -284,12 +288,12 @@ class _CanceledViewState extends State<CanceledView> {
                           color: Colors.black)),
                   Row(
                     children: [
-                      item.inventory.offerPrice!=null?Text("฿${item.inventory.salePrice}",
+                      item.inventory!=null && item.inventory.offerPrice!=null?Text("฿${item.inventory.salePrice}",
                           style: FunctionHelper.FontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               decoration: TextDecoration.lineThrough,color: Colors.black.withOpacity(0.5))):SizedBox(),
                       SizedBox(width: 8),
-                      Text("฿${NumberFormat("#,##0", "en_US").format(item.inventory.offerPrice!=null?item.inventory.offerPrice:item.inventory.salePrice*item.quantity)}",style: FunctionHelper.FontTheme(
+                      Text("฿${NumberFormat("#,##0", "en_US").format(item.inventory!=null?item.inventory.offerPrice!=null?item.inventory.offerPrice:item.inventory.salePrice*item.quantity:orderData.total)}",style: FunctionHelper.FontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           color: ThemeColor.ColorSale())),
                       // Text(
@@ -323,6 +327,7 @@ class _CanceledViewState extends State<CanceledView> {
                 .map((key, value) => MapEntry(
                     key,
                     _ProductItem(
+                      orderData: item,
                         item: item.items[key],
                         shopId: item.shop.id,
                         idOrder: item.id,
@@ -346,7 +351,7 @@ class _CanceledViewState extends State<CanceledView> {
                               color: Colors.black)),
                       new TextSpan(
                           text:
-                          "฿${NumberFormat("#,##0", "en_US").format(item.grandTotal)}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                          "฿${NumberFormat("#,##0", "en_US").format(bloc.SumTotal(item.items, item.shipping!=null?item.shipping:0))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
                     ],
                   ),
                 ),
@@ -462,6 +467,9 @@ class _CanceledViewState extends State<CanceledView> {
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40.0),
           ),
+        ),
+        padding: MaterialStateProperty.all(
+            EdgeInsets.only(right: 10.0.w,left: 10.0.w)
         ),
         backgroundColor: MaterialStateProperty.all(
           ThemeColor.ColorSale(),

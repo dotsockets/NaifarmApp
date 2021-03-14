@@ -231,7 +231,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                 .values
                 .toList(),
           ),
-          if (item.data.length != item.total )
+          if (item.data.length != item.total && item.data.length>limit)
             Container(
               padding: EdgeInsets.all(20),
               child: Row(
