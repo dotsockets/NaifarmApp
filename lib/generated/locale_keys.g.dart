@@ -299,6 +299,7 @@ abstract class  LocaleKeys {
   static const my_product_review_score = 'my_product.review_score';
   static const my_product_read_more = 'my_product.read_more';
   static const my_product_empty = 'my_product.empty';
+  static const my_product_delivery_use = 'my_product.delivery_use';
   static const my_product = 'my_product';
   static const shop_title = 'shop.title';
   static const shop_category = 'shop.category';
@@ -369,6 +370,8 @@ abstract class  LocaleKeys {
   static const noti_shop_open = 'noti.shop_open';
   static const noti_shop_open_detail = 'noti.shop_open_detail';
   static const noti_shop_outstock = 'noti.shop_outstock';
+  static const noti_shop_pay_upload = 'noti.shop_pay_upload';
+  static const noti_shop_pay = 'noti.shop_pay';
   static const noti_cus_cancel_status = 'noti.cus_cancel_status';
   static const noti_cus_order = 'noti.cus_order';
   static const noti_cus_pay_at = 'noti.cus_pay_at';
@@ -376,11 +379,14 @@ abstract class  LocaleKeys {
   static const noti_cus_orderid = 'noti.cus_orderid';
   static const noti_cus_cancel = 'noti.cus_cancel';
   static const noti_cus_cancel_reason = 'noti.cus_cancel_reason';
+  static const noti_cus_complete_confirm = 'noti.cus_complete_confirm';
   static const noti = 'noti';
   static const order_detail_title = 'order_detail.title';
   static const order_detail_txt = 'order_detail.txt';
   static const order_detail_wait_rate = 'order_detail.wait_rate';
   static const order_detail_wait_pay = 'order_detail.wait_pay';
+  static const order_detail_wait_pay_verify = 'order_detail.wait_pay_verify';
+  static const order_detail_upload_slip = 'order_detail.upload_slip';
   static const order_detail_complete_rate = 'order_detail.complete_rate';
   static const order_detail_thank_rate = 'order_detail.thank_rate';
   static const order_detail_complete_time = 'order_detail.complete_time';

@@ -335,7 +335,8 @@ class CodegenLoader extends AssetLoader{
     "stock_set": "Set stock and price",
     "review_score": "Product Ratings",
     "read_more": "Read More",
-    "empty": "-"
+    "empty": "-",
+    "delivery_use": "using"
   },
   "shop": {
     "title": "Shop",
@@ -405,25 +406,30 @@ class CodegenLoader extends AssetLoader{
     "buyer": "Buyer notification",
     "seller": "Seller notification",
     "shop_update": "Update shop information",
-    "shop_status": "Status,",
+    "shop_status": "Status",
     "shop_new_order": "New order",
     "shop_orderid": "ordered the item, order number",
     "shop_open": "Open a new shop",
     "shop_open_detail": "has been opened the shop",
     "shop_outstock": "out of stock",
+    "shop_pay_upload": "Upload Pay-in Slip",
+    "shop_pay": "Waiting For Payment",
     "cus_cancel_status": "cancel order because no payment or the buyer canceled the product. Please contact buyer if you need more information.",
     "cus_order": "You have order in order number",
-    "cus_pay_at": "and must be paid before",
+    "cus_pay_at": "and must be paid within",
     "cus_complete": "The order has been shipped",
     "cus_orderid": "All items in order numbers",
     "cus_cancel": "Order has been canceled",
-    "cus_cancel_reason": "has been canceled because we can't verify your payment."
+    "cus_cancel_reason": "has been canceled because we can't verify your payment.",
+    "cus_complete_confirm": "please comfirm receipts order within 3 days. Then naiFarm will transfer the money to shop."
   },
   "order_detail": {
     "title": "Order Detail",
     "txt": "Order Detail",
     "wait_rate": "Waiting For Rating",
     "wait_pay": "Waiting For Payment",
+    "wait_pay_verify": "Waiting for verify payment",
+    "upload_slip": "upload pay-in slip at",
     "complete_rate": "Rating Success",
     "thank_rate": "Order completed.Thank you for rating",
     "complete_time": "Completed Time",
@@ -829,7 +835,8 @@ static const Map<String,dynamic> th_TH = {
     "stock_set": "ตั้งค่าสต็อกและราคา",
     "review_score": "คะแนนรีวิว",
     "read_more": "อ่านเพิ่มเติม",
-    "empty": "ไม่มี"
+    "empty": "ไม่มี",
+    "delivery_use": "เลือกใช้"
   },
   "shop": {
     "title": "ร้านค้า",
@@ -912,19 +919,24 @@ static const Map<String,dynamic> th_TH = {
     "shop_open": "เปิดร้านใหม่",
     "shop_open_detail": "ได้ทำการเปิดร้านใหม่",
     "shop_outstock": "จำนวนสินค้าหมด",
+    "shop_pay_upload": "อัพโหลดเอกสารการชำระเงิน",
+    "shop_pay": "รอการชำระเงิน",
     "cus_cancel_status": "ยกเลิกคำสั่งซื้อ เนื่องจากไม่มีการชำระเงินหรือผู้ซื้อยกเลิกสินค้า กรุณาติดต่อผู้ซื้อหากต้องการข้อมูลเพิ่มเติม",
-    "cus_order": "คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ",
-    "cus_pay_at": "และต้องชำระเงินก่อนวันที่",
+    "cus_order": "คุณได้ทำการสั่งซื้อสินค้า หมายเลขสั่งซื้อ",
+    "cus_pay_at": "และต้องชำระเงินภายในวันที่",
     "cus_complete": "คำสั่งซื้อถูกจัดส่งแล้ว",
     "cus_orderid": "สินค้าทุกชิ้นในคำสั้งซื้อหมายเลข ",
     "cus_cancel": "คำสั่งซื้อถูกยกเลิก",
-    "cus_cancel_reason": "ถูกยกเลิกแล้ว เพราะไม่สามารถตรวจสอบการชำระเงินของคุณได้ "
+    "cus_cancel_reason": "ถูกยกเลิกแล้ว เพราะไม่สามารถตรวจสอบการชำระเงินของคุณได้ ",
+    "cus_complete_confirm": "กรุณาตรวจสอบและยืนยันการรับสินค้าภายใน 3 วันจากนั้น Naifarm จะโอนเงินให้ร้านค้า"
   },
   "order_detail": {
     "title": "รายการสั่งซื้อสินค้า",
     "txt": "รายละเอียดคำสั่งซื้อ",
     "wait_rate": "รอให้คะแนน",
     "wait_pay": "รอชำระเงิน",
+    "wait_pay_verify": "รอตรวจสอบการชำระเงิน",
+    "upload_slip": "แจ้งชำระเงินเมื่อ",
     "complete_rate": "ให้คะแนนแล้ว",
     "thank_rate": "คำสั่งซื้อเสร็จสมบูรณ์และขอบคุณสำหรับการให้คะแนน",
     "complete_time": "เวลาที่สำเร็จ",

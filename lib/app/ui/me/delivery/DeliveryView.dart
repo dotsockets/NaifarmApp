@@ -125,7 +125,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                 Text(
                     item.active != null
                         ? item.active
-                            ? "เลือกใช้"
+                            ? LocaleKeys.my_product_delivery_use.tr()
                             : ""
                         : "",
                     style: FunctionHelper.FontTheme(

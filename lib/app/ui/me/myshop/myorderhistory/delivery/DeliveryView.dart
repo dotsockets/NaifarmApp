@@ -306,7 +306,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                 child: Text(
                     item.inventory != null
                         ? item.inventory.title
-                        : item.itemTitle.isNotEmpty?item.itemTitle:'ไม่พบข้อมูล',
+                        : item.itemTitle.isNotEmpty?item.itemTitle:LocaleKeys.search_product_not_found.tr(),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.FontTheme(
@@ -421,10 +421,10 @@ class _DeliveryViewState extends State<DeliveryView> {
                             color: Colors.black.withOpacity(0.6)),
                       )),
                   SizedBox(
-                    width: 3.0.w,
+                    width:  widget.typeView == OrderViewType.Shop ?3.0.w:12.0.w,
                   ),
                   Expanded(
-                      flex: widget.typeView == OrderViewType.Shop ? 1 : 2,
+                      flex: widget.typeView == OrderViewType.Shop ? 1 : 3,
                       child: widget.typeView == OrderViewType.Purchase
                           ? _BuildButtonBayItem(
                               btnTxt: LocaleKeys.order_detail_accept.tr(),

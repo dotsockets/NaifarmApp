@@ -334,7 +334,8 @@
     "stock_set": "Set stock and price",
     "review_score": "Product Ratings",
     "read_more": "Read More",
-    "empty":"-"
+    "empty":"-",
+    "delivery_use": "using"
   },
   "shop":{
     "title": "Shop",
@@ -407,12 +408,14 @@
     "seller":"Seller notification",
 
     "shop_update": "Update shop information",
-    "shop_status": "Status,",
+    "shop_status": "Status",
     "shop_new_order": "New order",
     "shop_orderid": "ordered the item, order number",
     "shop_open": "Open a new shop",
     "shop_open_detail": "has been opened the shop",
     "shop_outstock":"out of stock",
+    "shop_pay_upload": "Upload Pay-in Slip",
+    "shop_pay": "Waiting For Payment",
 
     "cus_cancel_status": "cancel order because no payment or the buyer canceled the product. Please contact buyer if you need more information.",
     "cus_order": "You have order in order number",
@@ -420,7 +423,8 @@
     "cus_complete": "The order has been shipped",
     "cus_orderid": "All items in order numbers",
     "cus_cancel": "Order has been canceled",
-    "cus_cancel_reason": "has been canceled because we can't verify your payment."
+    "cus_cancel_reason": "has been canceled because we can't verify your payment.",
+    "cus_complete_confirm": "please comfirm receipts order within 3 days. Then naiFarm will transfer the money to shop."
 
 
   },
@@ -429,6 +433,8 @@
     "txt": "Order Detail",
     "wait_rate": "Waiting For Rating",
     "wait_pay": "Waiting For Payment",
+    "wait_pay_verify": "Waiting for verify payment",
+    "upload_slip": "upload pay-in slip at",
     "complete_rate": "Rating Success",
     "thank_rate": "Order completed.Thank you for rating",
     "complete_time": "Completed Time",
