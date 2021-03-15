@@ -73,19 +73,12 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                  break;
                }
            }
-           bloc.loadMoreData(context,
-               page: page.toString(),
-               limit: 10,
-               link: widget.api_link,
-               type_more: widget.type_more);
-
-         }else{
-           bloc.loadMoreData(context,
-               page: page.toString(),
-               limit: 10,
-               link: widget.api_link,
-               type_more: widget.type_more);
          }
+         bloc.loadMoreData(context,
+             page: page.toString(),
+             limit: 10,
+             link: widget.api_link,
+             type_more: widget.type_more);
       });
 
     }

@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
@@ -46,14 +47,30 @@ class _SuccessViewState extends State<SuccessView> {
     if (bloc == null && Product_bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       Product_bloc = ProductBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(context,
-          orderType:
-              widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
-          sort: "orders.updatedAt:desc",
-          statusId: "6",
-          limit: limit,
-          page: 1,
-          token: value.token));
+
+      NaiFarmLocalStorage.getHistoryCache().then((value){
+        //   print("ewfcwef ${value}");
+        String orderType = widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
+        if(value!=null){
+          for(var data in value.historyCache){
+            if(data.orderViewType==orderType && data.TypeView=="6"){
+
+              bloc.orderList.addAll(data.orderRespone.data);
+              bloc.onSuccess.add(OrderRespone(data: bloc.orderList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
+              break;
+            }
+          }
+        }
+        Usermanager().getUser().then((value) => bloc.loadOrder(context,
+            orderType:
+            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+            statusId: "6",
+            sort: "orders.updatedAt:desc",
+            limit: limit,
+            page: 1,
+            token: value.token));
+      });
+
     }
     Product_bloc.onError.stream.listen((event) {
       //Navigator.of(context).pop();

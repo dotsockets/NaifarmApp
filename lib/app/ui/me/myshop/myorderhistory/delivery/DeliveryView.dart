@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -42,14 +43,30 @@ class _DeliveryViewState extends State<DeliveryView> {
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(context,
-          orderType:
-              widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
-          sort: "orders.updatedAt:desc",
-          statusId: '4,5',
-          limit: limit,
-          page: 1,
-          token: value.token));
+
+      NaiFarmLocalStorage.getHistoryCache().then((value){
+        //   print("ewfcwef ${value}");
+        String orderType = widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
+        if(value!=null){
+          for(var data in value.historyCache){
+            if(data.orderViewType==orderType && data.TypeView=="4,5"){
+
+              bloc.orderList.addAll(data.orderRespone.data);
+              bloc.onSuccess.add(OrderRespone(data: bloc.orderList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
+              break;
+            }
+          }
+        }
+        Usermanager().getUser().then((value) => bloc.loadOrder(context,
+            orderType:
+            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+            statusId: "4,5",
+            sort: "orders.updatedAt:desc",
+            limit: limit,
+            page: 1,
+            token: value.token));
+      });
+
     }
     bloc.onLoad.stream.listen((event) {
       if (event) {
@@ -156,7 +173,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                             .values
                             .toList()),
                     if ((snapshot.data as OrderRespone).data.length !=
-                        (snapshot.data as OrderRespone).total)
+                        (snapshot.data as OrderRespone).total && (snapshot.data as OrderRespone).data.length>=limit)
                       Container(
                         padding: EdgeInsets.all(20),
                         child: Row(

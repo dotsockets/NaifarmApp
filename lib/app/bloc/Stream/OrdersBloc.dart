@@ -4,7 +4,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductHistoryCache.dart';
 import 'package:rxdart/rxdart.dart';
 
 class OrdersBloc{
@@ -27,8 +29,38 @@ class OrdersBloc{
       load?onLoad.add(false):null;
       if(respone.http_call_back.status==200){
         var item = (respone.respone as OrderRespone);
-        orderList.addAll(item.data);
-        onSuccess.add(OrderRespone(data: orderList,total: item.total,limit: item.limit,page: item.page,));
+        if(page==1){
+          NaiFarmLocalStorage.getHistoryCache().then((value){
+            if(value!=null ){
+
+              for(var data in value.historyCache){
+                if(data.orderViewType==orderType && data.TypeView==statusId){
+                  value.historyCache.remove(data);
+                  orderList.clear();
+                  break;
+                }
+              }
+              value.historyCache.add(HistoryCache(orderViewType: orderType,orderRespone: item,TypeView: statusId));
+              NaiFarmLocalStorage.saveHistoryCache(value).then((value){
+                orderList.addAll(item.data);
+                onSuccess.add(OrderRespone(data: orderList,total: item.total,limit: item.limit,page: item.limit));
+              });
+
+            }else{
+
+              List<HistoryCache> data = List<HistoryCache>();
+              data.add(HistoryCache(TypeView: statusId,orderViewType: orderType,orderRespone: item));
+              NaiFarmLocalStorage.saveHistoryCache(ProductHistoryCache(historyCache: data)).then((value){
+                orderList.addAll(item.data);
+                onSuccess.add(OrderRespone(data: orderList,total: item.total,limit: item.limit,page: item.page,));
+              });
+
+            }
+          });
+        }else{
+          orderList.addAll(item.data);
+          onSuccess.add(OrderRespone(data: orderList,total: item.total,limit: item.limit,page: item.page,));
+        }
       }else{
         onError.add(respone.http_call_back.message);
       }

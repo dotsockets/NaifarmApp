@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -37,18 +38,32 @@ class _PaidViewState extends State<PaidView> {
   int page = 1;
   int limit = 10;
   bool step_page = false;
-
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadOrder(context,
-          orderType:
-              widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
-          statusId: "1",
-          sort: "orders.createdAt:desc",
-          limit: limit,
-          page: 1,
-          token: value.token));
+      NaiFarmLocalStorage.getHistoryCache().then((value){
+     //   print("ewfcwef ${value}");
+        String orderType = widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
+        if(value!=null){
+          for(var data in value.historyCache){
+            if(data.orderViewType==orderType && data.TypeView=="1"){
+
+              bloc.orderList.addAll(data.orderRespone.data);
+              bloc.onSuccess.add(OrderRespone(data: bloc.orderList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
+              break;
+            }
+          }
+        }
+        Usermanager().getUser().then((value) => bloc.loadOrder(context,
+            orderType:
+            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+            statusId: "1",
+            sort: "orders.createdAt:desc",
+            limit: limit,
+            page: 1,
+            token: value.token));
+      });
+
     }
     bloc.onLoad.stream.listen((event) {
       if (event) {
