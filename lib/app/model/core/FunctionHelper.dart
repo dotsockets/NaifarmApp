@@ -50,7 +50,7 @@ class FunctionHelper {
       String message,
       BuildContext context,
       Function() onPressed}) {
-    scaffoldKey.currentState.showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(message,
             style: FunctionHelper.fontTheme(
                 fontWeight: FontWeight.w500, color: Colors.white)),
@@ -61,7 +61,7 @@ class FunctionHelper {
           onPressed: () {
             onPressed != null
                 ? onPressed()
-                : scaffoldKey.currentState.hideCurrentSnackBar();
+                : ScaffoldMessenger.of(context).hideCurrentSnackBar();
             // scaffoldKey.currentState.hideCurrentSnackBar();
           },
         )));
