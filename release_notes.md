@@ -3,9 +3,13 @@
 Update 
 
     - Flutter 2.0.1
+    - Onesignal flutter 2.6.3
+    - flutter_local_notifications 4.0.1+2
 
 New Function
 
+    - Clear Noti badge when logout
+    - Save Cache History Shop Page
     - Save Cache Home Page
     - Save Cache Shop NaiFarm
     - Save Cache Shop By Own
@@ -15,6 +19,7 @@ New Function
 
 Improve
 
+    - Fix Text Center in Widget Search TextFromBox
     - Fix Tablet Display
     - State Noti Update
     - Fix Icon Noti
