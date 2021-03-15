@@ -63,7 +63,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       bloc.onError.stream.listen((event) {
         if (event.status > 400) {
           FunctionHelper.AlertDialogRetry(context,
-              title: LocaleKeys.btn_error.tr(), message: "The transaction cannot be performed, please contact the seller. ",callBack: (){
+              title: LocaleKeys.btn_error.tr(), message: LocaleKeys.dialog_message_contact.tr(),callBack: (){
                 Usermanager().getUser().then((value){
                   for(var item in bloc.CartList.value.data){
                     bloc.CreateOrder(context,orderRequest: bloc.ConvertOrderData(context,cartData: item,email: value.email),token: value.token);

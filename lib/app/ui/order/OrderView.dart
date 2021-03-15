@@ -571,28 +571,31 @@ class _OrderViewState extends State<OrderView> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black.withOpacity(0.1))),
-            child: CachedNetworkImage(
-              width: 22.0.w,
-              height: 22.0.w,
-              placeholder: (context, url) => Container(
+          child: Hero(
+            tag: "orderview_${orderItems.orderId}1",
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black.withOpacity(0.1))),
+              child: CachedNetworkImage(
                 width: 22.0.w,
                 height: 22.0.w,
-                color: Colors.white,
-                child: Lottie.asset('assets/json/loading.json', height: 30),
-              ),
-              fit: BoxFit.cover,
-              imageUrl:
-              orderItems.inventory!=null?"${Env.value.baseUrl}/storage/images/${orderItems.inventory!=null?orderItems.inventory.product.image.isNotEmpty ? orderItems.inventory.product.image[0].path : '':''}":Env.value.noItemUrl,
-              errorWidget: (context, url, error) => Container(
+                placeholder: (context, url) => Container(
                   width: 22.0.w,
                   height: 22.0.w,
-                  child: Icon(
-                    Icons.error,
-                    size: 30,
-                  )),
+                  color: Colors.white,
+                  child: Lottie.asset('assets/json/loading.json', height: 30),
+                ),
+                fit: BoxFit.cover,
+                imageUrl:
+                orderItems.inventory!=null?"${Env.value.baseUrl}/storage/images/${orderItems.inventory!=null?orderItems.inventory.product.image.isNotEmpty ? orderItems.inventory.product.image[0].path : '':''}":Env.value.noItemUrl,
+                errorWidget: (context, url, error) => Container(
+                    width: 22.0.w,
+                    height: 22.0.w,
+                    child: Icon(
+                      Icons.error,
+                      size: 30,
+                    )),
+              ),
             ),
           ),
           onTap: (){
@@ -602,7 +605,7 @@ class _OrderViewState extends State<OrderView> {
               product = orderItems.inventory.product;
               AppRoute.ProductDetail(context,
                   productImage:
-                  "orderview_${orderItems.inventoryId}1",
+                  "orderview_${orderItems.orderId}1",
                   productItem: ProducItemRespone(id: orderItems.inventory.product.id,image: orderItems.inventory.image));
             }
 

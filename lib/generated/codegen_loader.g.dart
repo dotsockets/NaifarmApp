@@ -210,7 +210,8 @@ class CodegenLoader extends AssetLoader{
     "success": "Successfully confirmed information",
     "success_track": "Successfully confirmed tracking number",
     "success_pay": "Successfully confirmed payment",
-    "success_slip": "Upload Pay-in Slip Successfully"
+    "success_slip": "Upload Pay-in Slip Successfully",
+    "contact": "The transaction cannot be performed, please contact the seller. "
   },
   "message": {
     "phone_edit": "If you edit phone number. All account numbers associated with this account will be modified",
@@ -718,7 +719,8 @@ static const Map<String,dynamic> th_TH = {
     "success": "สำเร็จ",
     "success_track": "คุณได้ทำการกรอกเลขพัสดุเรียบร้อยแล้ว",
     "success_pay": "คุณได้ยืนยันการชำระเงินแล้ว",
-    "success_slip": "คุณได้อัพโหลดหลักฐานการชำระเงินแล้ว"
+    "success_slip": "คุณได้อัพโหลดหลักฐานการชำระเงินแล้ว",
+    "contact": "ไม่สามารถสั่งซื้อสินค้าได้, กรุณาติดต่อผู้ขาย"
   },
   "message": {
     "phone_edit": "หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่ หมายเลขบัญชีทั้งหมดที่ผูกกับบัญชีนี้จะถูกแก้ไขด้วย",

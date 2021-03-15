@@ -531,7 +531,7 @@ class FunctionHelper {
             ) ,
             actions: [
 
-              showbtn?CupertinoDialogAction(isDefaultAction: true, child: new Text("Close"),onPressed: (){
+              showbtn?CupertinoDialogAction(isDefaultAction: true, child: new Text(LocaleKeys.btn_close.tr() ,style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),onPressed: (){
                 callCancle!=null?callCancle(): Navigator.of(context).pop();
 
 
@@ -576,7 +576,7 @@ class FunctionHelper {
             ) ,
             actions: [
 
-              CupertinoDialogAction(isDefaultAction: true, child: new Text(cancalMessage!=null?cancalMessage:"Back"),onPressed: (){
+              CupertinoDialogAction(isDefaultAction: true, child: new Text(cancalMessage!=null?cancalMessage:LocaleKeys.btn_back.tr(), style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),onPressed: (){
                 if(callCancle!=null){
                   callCancle();
                 }else{
@@ -585,7 +585,7 @@ class FunctionHelper {
 
               },),
 
-              CupertinoDialogAction(isDefaultAction: true, child: new Text("Try again "),onPressed: (){
+              CupertinoDialogAction(isDefaultAction: true, child: new Text(LocaleKeys.btn_again.tr(), style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),onPressed: (){
                 callBack();
                 Navigator.of(context).pop();
               },),
@@ -599,7 +599,7 @@ class FunctionHelper {
           actions: [
             // okButton,
             FlatButton(
-              child: Text(LocaleKeys.btn_back.tr()),
+              child: Text(LocaleKeys.btn_back.tr() ,style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),
               onPressed:  () {
                 if(callCancle!=null){
                   callCancle();
@@ -610,7 +610,7 @@ class FunctionHelper {
               },
             ),
             FlatButton(
-              child: Text(LocaleKeys.btn_again.tr()),
+              child: Text(LocaleKeys.btn_again.tr(), style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),
               onPressed:  () {
                 callBack();
                 Navigator.of(context).pop();

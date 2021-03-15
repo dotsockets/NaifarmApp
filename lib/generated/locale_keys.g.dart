@@ -182,6 +182,7 @@ abstract class  LocaleKeys {
   static const dialog_message_success_track = 'dialog_message.success_track';
   static const dialog_message_success_pay = 'dialog_message.success_pay';
   static const dialog_message_success_slip = 'dialog_message.success_slip';
+  static const dialog_message_contact = 'dialog_message.contact';
   static const dialog_message = 'dialog_message';
   static const message_phone_edit = 'message.phone_edit';
   static const message_mail_edit = 'message.mail_edit';
