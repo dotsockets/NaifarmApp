@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductHistoryCache.dart';
+import 'package:naifarm/app/model/pojo/response/ProductOrderCache.dart';
 import 'package:rxdart/rxdart.dart';
 
 class OrdersBloc{
@@ -75,7 +76,29 @@ class OrdersBloc{
     Observable.fromFuture(_application.appStoreAPIRepository.GetOrderById(context,id: id,orderType:orderType ,token: token)).listen((respone) {
       if(respone.http_call_back.status==200){
 
-        OrderList.add((respone.respone as OrderData));
+        NaiFarmLocalStorage.getOrderCache().then((value){
+           if(value!=null){
+             for(var data in value.orderCahe){
+               if(data.TypeView==id.toString() && data.orderViewType==orderType){
+                 value.orderCahe.remove(data);
+                 break;
+               }
+             }
+             value.orderCahe.add(OrderCache(orderData: respone.respone,orderViewType: orderType,TypeView: id.toString()));
+             NaiFarmLocalStorage.saveOrderCache(value).then((value) {
+               OrderList.add((respone.respone as OrderData));
+             });
+           }else{
+             List<OrderCache> data = List<OrderCache>();
+             data.add(OrderCache(TypeView: id.toString(),orderViewType: orderType,orderData: respone.respone));
+             NaiFarmLocalStorage.saveOrderCache(ProductOrderCache(orderCahe: data)).then((value){
+             //  orderList.addAll(respone.respone);
+               OrderList.add(respone.respone);
+             });
+           }
+        });
+
+
       }else{
         onError.add(respone.http_call_back.message);
       }

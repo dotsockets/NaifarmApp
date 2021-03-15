@@ -345,7 +345,6 @@ class AppToobar extends PreferredSize {
 
     return Expanded(
       child: Container(
-        height: 5.2.h,
         decoration: new BoxDecoration(
             color: Colors.white,
             borderRadius: new BorderRadius.all(Radius.circular(40.0))),
@@ -377,6 +376,8 @@ class AppToobar extends PreferredSize {
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
                               hintText: hint,
+                              isCollapsed: true,
+                              contentPadding: EdgeInsets.only(top: 1.5.h,bottom: 1.5.h),
                               hintStyle: FunctionHelper.FontTheme(
                                   color: Colors.grey,
                                   fontSize: SizeUtil.titleSmallFontSize().sp),

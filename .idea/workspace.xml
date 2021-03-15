@@ -174,14 +174,10 @@
       <change beforePath="$PROJECT_DIR$/build/ios/iphonesimulator/Runner.app/_CodeSignature/CodeResources" beforeDir="false" afterPath="$PROJECT_DIR$/build/ios/iphonesimulator/Runner.app/_CodeSignature/CodeResources" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/bloc/Stream/OrdersBloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/bloc/Stream/OrdersBloc.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/model/db/NaiFarmLocalStorage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/model/db/NaiFarmLocalStorage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/ui/me/myshop/myorderhistory/canceled/CanceledView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/me/myshop/myorderhistory/canceled/CanceledView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/ui/me/myshop/myorderhistory/delivery/DeliveryView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/me/myshop/myorderhistory/delivery/DeliveryView.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/ui/me/myshop/myorderhistory/paid/PaidView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/me/myshop/myorderhistory/paid/PaidView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/ui/me/myshop/myorderhistory/refund/RefundView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/me/myshop/myorderhistory/refund/RefundView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/ui/me/myshop/myorderhistory/shipped/ShippedView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/me/myshop/myorderhistory/shipped/ShippedView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/ui/me/myshop/myorderhistory/success/SuccessView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/me/myshop/myorderhistory/success/SuccessView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/ui/productmore/ProductMoreView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/productmore/ProductMoreView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/ui/splash/SplashView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/splash/SplashView.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/ui/order/OrderView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/order/OrderView.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/ui/search/SearchView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/ui/search/SearchView.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utility/widgets/AppToobar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utility/widgets/AppToobar.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -274,29 +270,29 @@
       <screen x="0" y="25" width="1680" height="971" />
     </state>
     <state x="172" y="25" key="CommitChangelistDialog2/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615517244511" />
-    <state width="1640" height="340" key="GridCell.Tab.0.bottom" timestamp="1615780970068">
+    <state width="1640" height="340" key="GridCell.Tab.0.bottom" timestamp="1615795407024">
       <screen x="0" y="25" width="1680" height="971" />
     </state>
     <state width="1640" height="159" key="GridCell.Tab.0.bottom/0.25.1680.1025/1680.25.1920.1001@0.25.1680.1025" timestamp="1615455494396" />
-    <state width="1640" height="340" key="GridCell.Tab.0.bottom/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615780970068" />
+    <state width="1640" height="340" key="GridCell.Tab.0.bottom/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615795407024" />
     <state width="1640" height="276" key="GridCell.Tab.0.bottom/0.25.1680.971@0.25.1680.971" timestamp="1615707234898" />
-    <state width="1640" height="340" key="GridCell.Tab.0.center" timestamp="1615780970067">
+    <state width="1640" height="340" key="GridCell.Tab.0.center" timestamp="1615795407023">
       <screen x="0" y="25" width="1680" height="971" />
     </state>
     <state width="1640" height="159" key="GridCell.Tab.0.center/0.25.1680.1025/1680.25.1920.1001@0.25.1680.1025" timestamp="1615455494395" />
-    <state width="1640" height="340" key="GridCell.Tab.0.center/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615780970067" />
+    <state width="1640" height="340" key="GridCell.Tab.0.center/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615795407023" />
     <state width="1640" height="276" key="GridCell.Tab.0.center/0.25.1680.971@0.25.1680.971" timestamp="1615707234897" />
-    <state width="1640" height="340" key="GridCell.Tab.0.left" timestamp="1615780970066">
+    <state width="1640" height="340" key="GridCell.Tab.0.left" timestamp="1615795407022">
       <screen x="0" y="25" width="1680" height="971" />
     </state>
     <state width="1640" height="159" key="GridCell.Tab.0.left/0.25.1680.1025/1680.25.1920.1001@0.25.1680.1025" timestamp="1615455494395" />
-    <state width="1640" height="340" key="GridCell.Tab.0.left/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615780970066" />
+    <state width="1640" height="340" key="GridCell.Tab.0.left/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615795407022" />
     <state width="1640" height="276" key="GridCell.Tab.0.left/0.25.1680.971@0.25.1680.971" timestamp="1615707234897" />
-    <state width="1640" height="340" key="GridCell.Tab.0.right" timestamp="1615780970067">
+    <state width="1640" height="340" key="GridCell.Tab.0.right" timestamp="1615795407023">
       <screen x="0" y="25" width="1680" height="971" />
     </state>
     <state width="1640" height="159" key="GridCell.Tab.0.right/0.25.1680.1025/1680.25.1920.1001@0.25.1680.1025" timestamp="1615455494396" />
-    <state width="1640" height="340" key="GridCell.Tab.0.right/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615780970067" />
+    <state width="1640" height="340" key="GridCell.Tab.0.right/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615795407023" />
     <state width="1640" height="276" key="GridCell.Tab.0.right/0.25.1680.971@0.25.1680.971" timestamp="1615707234898" />
     <state x="520" y="256" width="639" height="536" key="find.popup" timestamp="1615541968713">
       <screen x="0" y="25" width="1680" height="971" />
@@ -304,10 +300,10 @@
     <state x="520" y="269" width="639" height="537" key="find.popup/0.25.1680.1025/1680.25.1920.1001@0.25.1680.1025" timestamp="1615454770351" />
     <state x="520" y="256" width="639" height="536" key="find.popup/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615541968713" />
     <state x="520" y="256" width="639" height="508" key="find.popup/0.25.1680.971@0.25.1680.971" timestamp="1615303042092" />
-    <state x="505" y="238" width="670" height="676" key="search.everywhere.popup" timestamp="1615780662193">
+    <state x="505" y="238" width="670" height="676" key="search.everywhere.popup" timestamp="1615795397762">
       <screen x="0" y="25" width="1680" height="971" />
     </state>
-    <state x="505" y="238" width="670" height="676" key="search.everywhere.popup/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615780662193" />
+    <state x="505" y="238" width="670" height="676" key="search.everywhere.popup/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615795397762" />
     <state x="505" y="238" width="670" height="676" key="search.everywhere.popup/0.25.1680.971@0.25.1680.971" timestamp="1615642639972" />
   </component>
 </project>

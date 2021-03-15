@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
@@ -41,9 +42,24 @@ class _OrderViewState extends State<OrderView> {
     if (bloc == null && Product_bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       Product_bloc = ProductBloc(AppProvider.getApplication(context));
-      if (widget.orderData.orderStatusName != null) {
-        bloc.OrderList.add(widget.orderData);
-      }
+
+
+
+      NaiFarmLocalStorage.getOrderCache().then((value){
+        if(value!=null){
+          var orderType = widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
+          for(var data in value.orderCahe){
+            if(data.TypeView==widget.orderData.id.toString() && data.orderViewType==orderType){
+              bloc.OrderList.add(data.orderData);
+              break;
+            }
+          }
+        }else{
+          if (widget.orderData.orderStatusName != null) {
+            bloc.OrderList.add(widget.orderData);
+          }
+        }
+      });
 
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();

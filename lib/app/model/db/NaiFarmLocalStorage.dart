@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductDetailCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProductHistoryCache.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMoreCombin.dart';
+import 'package:naifarm/app/model/pojo/response/ProductOrderCache.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 
@@ -29,8 +30,25 @@ class NaiFarmLocalStorage{
   static String NaiFarm_Cart = "NaiFarm_Cart";
   static String NaiFarm_ProductMore = "NaiFarm_ProductMore";
   static String NaiFarm_HiSTORY = "NaiFarm_history";
+  static String NaiFarm_Order = "NaiFarm_order";
 
 
+  static Future<void> saveOrderCache(ProductOrderCache productOrderCache) async {
+    storage =  LocalStorage(NaiFarm_Storage);
+    await storage.ready;
+    storage.setItem(NaiFarm_Order, productOrderCache);
+  }
+
+  static Future<ProductOrderCache> getOrderCache() async {
+    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    await storage.ready;
+    Map<String, dynamic> data = storage.getItem(NaiFarm_Order);
+    if (data == null) {
+      return null;
+    }
+    ProductOrderCache value = ProductOrderCache.fromJson(data);
+    return value;
+  }
 
 
   static Future<void> saveHistoryCache(ProductHistoryCache productHistoryCache) async {
