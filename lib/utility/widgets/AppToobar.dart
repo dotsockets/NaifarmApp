@@ -375,7 +375,7 @@ class AppToobar extends PreferredSize {
                               hintText: hint,
                               isCollapsed: true,
                               contentPadding: EdgeInsets.only(top: 1.5.h,bottom: 1.5.h),
-                              hintStyle: FunctionHelper.FontTheme(
+                              hintStyle: FunctionHelper.fontTheme(
                                   color: Colors.grey,
                                   fontSize: SizeUtil.titleSmallFontSize().sp),
                             ),

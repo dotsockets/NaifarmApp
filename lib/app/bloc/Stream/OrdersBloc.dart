@@ -53,14 +53,14 @@ class OrdersBloc {
               for(var data in value.historyCache){
                 if(data.orderViewType==orderType && data.TypeView==statusId){
                   value.historyCache.remove(data);
-                  orderList.clear();
+                  orderDataList.clear();
                   break;
                 }
               }
               value.historyCache.add(HistoryCache(orderViewType: orderType,orderRespone: item,TypeView: statusId));
               NaiFarmLocalStorage.saveHistoryCache(value).then((value){
-                orderList.addAll(item.data);
-                onSuccess.add(OrderRespone(data: orderList,total: item.total,limit: item.limit,page: item.limit));
+                orderDataList.addAll(item.data);
+                onSuccess.add(OrderRespone(data: orderDataList,total: item.total,limit: item.limit,page: item.limit));
               });
 
             }else{
@@ -68,54 +68,53 @@ class OrdersBloc {
               List<HistoryCache> data = List<HistoryCache>();
               data.add(HistoryCache(TypeView: statusId,orderViewType: orderType,orderRespone: item));
               NaiFarmLocalStorage.saveHistoryCache(ProductHistoryCache(historyCache: data)).then((value){
-                orderList.addAll(item.data);
-                onSuccess.add(OrderRespone(data: orderList,total: item.total,limit: item.limit,page: item.page,));
+                orderDataList.addAll(item.data);
+                onSuccess.add(OrderRespone(data: orderDataList,total: item.total,limit: item.limit,page: item.page,));
               });
 
             }
           });
         }else{
-          orderList.addAll(item.data);
-          onSuccess.add(OrderRespone(data: orderList,total: item.total,limit: item.limit,page: item.page,));
+          orderDataList.addAll(item.data);
+          onSuccess.add(OrderRespone(data: orderDataList,total: item.total,limit: item.limit,page: item.page,));
         }
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
 
-  GetOrderById(BuildContext context,{int id,String orderType, String token}){
+  getOrderById(BuildContext context,{int id,String orderType, String token}){
     StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.GetOrderById(context,id: id,orderType:orderType ,token: token)).listen((respone) {
-      if(respone.http_call_back.status==200){
+    Observable.fromFuture(_application.appStoreAPIRepository.getOrderById(context,id: id,orderType:orderType ,token: token)).listen((respone) {
+      if(respone.httpCallBack.status==200){
 
         NaiFarmLocalStorage.getOrderCache().then((value){
-           if(value!=null){
-             for(var data in value.orderCahe){
-               if(data.TypeView==id.toString() && data.orderViewType==orderType){
-                 value.orderCahe.remove(data);
-                 break;
-               }
-             }
-             value.orderCahe.add(OrderCache(orderData: respone.respone,orderViewType: orderType,TypeView: id.toString()));
-             NaiFarmLocalStorage.saveOrderCache(value).then((value) {
-               OrderList.add((respone.respone as OrderData));
-             });
-           }else{
-             List<OrderCache> data = List<OrderCache>();
-             data.add(OrderCache(TypeView: id.toString(),orderViewType: orderType,orderData: respone.respone));
-             NaiFarmLocalStorage.saveOrderCache(ProductOrderCache(orderCahe: data)).then((value){
-             //  orderList.addAll(respone.respone);
-               OrderList.add(respone.respone);
-             });
-           }
+          if(value!=null){
+            for(var data in value.orderCahe){
+              if(data.TypeView==id.toString() && data.orderViewType==orderType){
+                value.orderCahe.remove(data);
+                break;
+              }
+            }
+            value.orderCahe.add(OrderCache(orderData: respone.respone,orderViewType: orderType,TypeView: id.toString()));
+            NaiFarmLocalStorage.saveOrderCache(value).then((value) {
+              orderList.add((respone.respone as OrderData));
+            });
+          }else{
+            List<OrderCache> data = List<OrderCache>();
+            data.add(OrderCache(TypeView: id.toString(),orderViewType: orderType,orderData: respone.respone));
+            NaiFarmLocalStorage.saveOrderCache(ProductOrderCache(orderCahe: data)).then((value){
+              //  orderList.addAll(respone.respone);
+              orderList.add(respone.respone);
+            });
+          }
         });
 
-
       }else{
-        onError.add(respone.http_call_back.message);
+        onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);

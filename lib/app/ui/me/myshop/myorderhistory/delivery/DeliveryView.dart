@@ -49,8 +49,8 @@ class _DeliveryViewState extends State<DeliveryView> {
           for(var data in value.historyCache){
             if(data.orderViewType==orderType && data.TypeView=="4,5"){
 
-              bloc.orderList.addAll(data.orderRespone.data);
-              bloc.onSuccess.add(OrderRespone(data: bloc.orderList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
+              bloc.orderDataList.addAll(data.orderRespone.data);
+              bloc.onSuccess.add(OrderRespone(data: bloc.orderDataList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
               break;
             }
           }

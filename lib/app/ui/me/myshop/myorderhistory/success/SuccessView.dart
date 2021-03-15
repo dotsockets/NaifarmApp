@@ -44,7 +44,7 @@ class _SuccessViewState extends State<SuccessView> {
   init() {
     if (bloc == null && productBloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Product_bloc = ProductBloc(AppProvider.getApplication(context));
+      productBloc = ProductBloc(AppProvider.getApplication(context));
 
       NaiFarmLocalStorage.getHistoryCache().then((value){
         //   print("ewfcwef ${value}");
@@ -53,8 +53,8 @@ class _SuccessViewState extends State<SuccessView> {
           for(var data in value.historyCache){
             if(data.orderViewType==orderType && data.TypeView=="6"){
 
-              bloc.orderList.addAll(data.orderRespone.data);
-              bloc.onSuccess.add(OrderRespone(data: bloc.orderList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
+              bloc.orderDataList.addAll(data.orderRespone.data);
+              bloc.onSuccess.add(OrderRespone(data: bloc.orderDataList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
               break;
             }
           }

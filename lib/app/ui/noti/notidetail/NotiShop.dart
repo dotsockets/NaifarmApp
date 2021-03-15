@@ -496,7 +496,7 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${LocaleKeys.noti_rate1.tr()}${item.meta.order}  ${item.meta.image!=null?"${LocaleKeys.noti_shop_pay_upload.tr()}!":"${LocaleKeys.noti_shop_pay.tr()}"}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text("${LocaleKeys.noti_rate1.tr()}${item.meta.order}  ${item.meta.image!=null?"${LocaleKeys.noti_shop_pay_upload.tr()}!":"${LocaleKeys.noti_shop_pay.tr()}"}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
           RichText(
             text: new TextSpan(
@@ -504,8 +504,8 @@ class _NotiShopState extends State<NotiShop>
               children: <TextSpan>[
                 new TextSpan(
                     text:"${item.meta.image!=null?"${item.meta.customer} ${LocaleKeys.noti_shop_pay_upload.tr()}":"${LocaleKeys.noti_shop_pay.tr()}"} ",
-                    style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                new TextSpan(text: "[${LocaleKeys.order_detail_order_num.tr()} ${item.meta.order} ]",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                    style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+                new TextSpan(text: "[${LocaleKeys.order_detail_order_num.tr()} ${item.meta.order} ]",style: FunctionHelper.fontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
 
               ],
             ),

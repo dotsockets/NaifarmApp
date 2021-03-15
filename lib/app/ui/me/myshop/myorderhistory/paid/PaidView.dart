@@ -35,7 +35,7 @@ class _PaidViewState extends State<PaidView> {
   ScrollController _scrollController = ScrollController();
   int page = 1;
   int limit = 10;
-  bool step_page = false;
+  bool stepPage = false;
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
@@ -46,8 +46,8 @@ class _PaidViewState extends State<PaidView> {
           for(var data in value.historyCache){
             if(data.orderViewType==orderType && data.TypeView=="1"){
 
-              bloc.orderList.addAll(data.orderRespone.data);
-              bloc.onSuccess.add(OrderRespone(data: bloc.orderList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
+              bloc.orderDataList.addAll(data.orderRespone.data);
+              bloc.onSuccess.add(OrderRespone(data: bloc.orderDataList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
               break;
             }
           }
@@ -506,7 +506,7 @@ class _PaidViewState extends State<PaidView> {
                   ),
             Text(
               item.image!=null && item.image.isNotEmpty?"รอตรวจสอบการชำระเงิน":item.orderStatusName,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: ThemeColor.primaryColor(),
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.w500),

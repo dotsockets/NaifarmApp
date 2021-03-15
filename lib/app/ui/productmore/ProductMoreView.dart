@@ -64,8 +64,8 @@ class _ProductMoreViewState extends State<ProductMoreView> {
 
          if(value!=null){
            for(var data in value.productRespone){
-               if(data.slag == widget.api_link){
-                 bloc.MoreProduct.add(data.searchRespone);
+               if(data.slag == widget.apiLink){
+                 bloc.moreProduct.add(data.searchRespone);
                  break;
                }
            }
@@ -73,8 +73,8 @@ class _ProductMoreViewState extends State<ProductMoreView> {
          bloc.loadMoreData(context,
              page: page.toString(),
              limit: 10,
-             link: widget.api_link,
-             type_more: widget.type_more);
+             link: widget.apiLink,
+             typeMore: widget.typeMore);
       });
     }
 

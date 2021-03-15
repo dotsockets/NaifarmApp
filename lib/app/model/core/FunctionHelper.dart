@@ -525,25 +525,25 @@ class FunctionHelper {
             title: Container(
               padding: EdgeInsets.only(bottom: 0.5.h),
               child: Text(title,
-                style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
+                style: FunctionHelper.fontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
               ),
             ) ,
             content: Text(message,
-              style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
+              style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
             ) ,
             actions: [
 
-              showbtn?CupertinoDialogAction(isDefaultAction: true, child: new Text(LocaleKeys.btn_close.tr() ,style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),onPressed: (){
+              showbtn?CupertinoDialogAction(isDefaultAction: true, child: new Text(LocaleKeys.btn_close.tr() ,style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),onPressed: (){
                 callCancle!=null?callCancle(): Navigator.of(context).pop();
 
 
               },):SizedBox(),
             ]): AlertDialog(
           title:Text(title,
-            style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
+            style: FunctionHelper.fontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
           ),
           content: Text(message,
-            style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
+            style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           actions: [
             // okButton,
@@ -570,49 +570,49 @@ class FunctionHelper {
             title: Container(
               padding: EdgeInsets.only(bottom: 0.5.h),
               child: Text(title,
-                style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
+                style: FunctionHelper.fontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
               ),
             ) ,
             content: Text(message,
-              style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
+              style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
             ) ,
             actions: [
 
-              CupertinoDialogAction(isDefaultAction: true, child: new Text(cancalMessage!=null?cancalMessage:LocaleKeys.btn_back.tr(), style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),onPressed: (){
+              CupertinoDialogAction(isDefaultAction: true, child: new Text(cancalMessage!=null?cancalMessage:LocaleKeys.btn_back.tr(), style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),onPressed: (){
                 if(callCancle!=null){
                   callCancle();
                 }else{
-                  AppRoute.PoppageCount(context: context,countpage: 2);
+                  AppRoute.poppageCount(context: context,countpage: 2);
                 }
 
               },),
 
-              CupertinoDialogAction(isDefaultAction: true, child: new Text(LocaleKeys.btn_again.tr(), style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),onPressed: (){
+              CupertinoDialogAction(isDefaultAction: true, child: new Text(LocaleKeys.btn_again.tr(), style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),onPressed: (){
                 callBack();
                 Navigator.of(context).pop();
               },),
             ]): AlertDialog(
           title:Text(title,
-            style: FunctionHelper.FontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
+            style: FunctionHelper.fontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
           ),
           content: Text(message,
-            style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
+            style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           actions: [
             // okButton,
             FlatButton(
-              child: Text(LocaleKeys.btn_back.tr() ,style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),
+              child: Text(LocaleKeys.btn_back.tr() ,style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),
               onPressed:  () {
                 if(callCancle!=null){
                   callCancle();
                 }else{
-                  AppRoute.PoppageCount(context: context,countpage: 2);
+                  AppRoute.poppageCount(context: context,countpage: 2);
                 }
 
               },
             ),
             FlatButton(
-              child: Text(LocaleKeys.btn_again.tr(), style: FunctionHelper.FontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),
+              child: Text(LocaleKeys.btn_again.tr(), style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),
               onPressed:  () {
                 callBack();
                 Navigator.of(context).pop();

@@ -46,15 +46,15 @@ class _SplashViewState extends State<SplashView>
 
 
   void _init(BuildContext context){
-    _VersionName();
+    versionName();
     if(null == bloc) {
      // NaiFarmLocalStorage.Clean(keyStore: NaiFarmLocalStorage.NaiFarm_Storage);
-      NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_NowPage);
-      NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Cart);
-      NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductDetail);
-      NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
-      NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Shop);
-      NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_HiSTORY);
+      NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.naiFarmNowPage);
+      NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Cart);
+      NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.naiFarmProductDetail);
+      NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
+      NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Shop);
+      NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_HiSTORY);
      // NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
       bloc = ProductBloc(AppProvider.getApplication(context));
       Usermanager()

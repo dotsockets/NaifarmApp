@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,9 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
+import 'package:naifarm/app/ui/recommend/widget/SearchHot.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -250,7 +254,7 @@ class _SearchViewState extends State<SearchView> {
                     height: 6,
                   ),
                   StreamBuilder(
-                    stream: bloc.MoreProduct.stream,
+                    stream: bloc.moreProduct.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         if((snapshot.data as ProductRespone).data.isNotEmpty){

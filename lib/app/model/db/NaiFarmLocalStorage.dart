@@ -13,14 +13,14 @@ import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 
 class NaiFarmLocalStorage {
   static LocalStorage storage;
-  static String NaiFarm_Storage = "NaiFarm";
-  static String NaiFarm_HomeData = "homedata";
-  static String NaiFarm_Allcategories = "allcategories";
-  static String NaiFarm_Product_Upload = "product_upload";
-  static String NaiFarm_NowPage = "NowPage";
-  static String NaiFarm_Cus = "Customer_cus";
-  static String NaiFarm_ProductDetail= "ProductDetail";
-  static String NaiFarm_Info = "Customer_Info";
+  static String naiFarmStorage = "NaiFarm";
+  static String naiFarmHomeData = "homedata";
+  static String naiFarmAllcategories = "allcategories";
+  static String naiFarmProductUpload = "product_upload";
+  static String naiFarmNowPage = "NowPage";
+  static String naiFarmCus = "Customer_cus";
+  static String naiFarmProductDetail= "ProductDetail";
+  static String naiFarmInfo = "Customer_Info";
   static String NaiFarm_Shop = "NaiFarm_Shop";
   static String NaiFarm_Cart = "NaiFarm_Cart";
   static String NaiFarm_ProductMore = "NaiFarm_ProductMore";
@@ -29,13 +29,13 @@ class NaiFarmLocalStorage {
 
 
   static Future<void> saveOrderCache(ProductOrderCache productOrderCache) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+    storage =  LocalStorage(naiFarmStorage);
     await storage.ready;
     storage.setItem(NaiFarm_Order, productOrderCache);
   }
 
   static Future<ProductOrderCache> getOrderCache() async {
-    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
     Map<String, dynamic> data = storage.getItem(NaiFarm_Order);
     if (data == null) {
@@ -47,13 +47,13 @@ class NaiFarmLocalStorage {
 
 
   static Future<void> saveHistoryCache(ProductHistoryCache productHistoryCache) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+    storage =  LocalStorage(naiFarmStorage);
     await storage.ready;
     storage.setItem(NaiFarm_HiSTORY, productHistoryCache);
   }
 
   static Future<ProductHistoryCache> getHistoryCache() async {
-    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
     Map<String, dynamic> data = storage.getItem(NaiFarm_HiSTORY);
     if (data == null) {
@@ -66,13 +66,13 @@ class NaiFarmLocalStorage {
   static Future<void> saveCartCache(CartResponse cartResponse) async {
     storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(naiFarmCart, cartResponse);
+    storage.setItem(NaiFarm_Cart, cartResponse);
   }
 
   static Future<CartResponse> getCartCache() async {
     LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
-    Map<String, dynamic> data = storage.getItem(naiFarmCart);
+    Map<String, dynamic> data = storage.getItem(NaiFarm_Cart);
     if (data == null) {
       return null;
     }
@@ -84,13 +84,13 @@ class NaiFarmLocalStorage {
       ProducMoreCache producMoreCache) async {
     storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(naiFarmProductMore, producMoreCache);
+    storage.setItem(NaiFarm_ProductMore, producMoreCache);
   }
 
   static Future<ProducMoreCache> getProductMoreCache() async {
     LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
-    Map<String, dynamic> data = storage.getItem(naiFarmProductMore);
+    Map<String, dynamic> data = storage.getItem(NaiFarm_ProductMore);
     if (data == null) {
       return null;
     }
@@ -102,13 +102,13 @@ class NaiFarmLocalStorage {
       NaiFarmShopCombin naiFarmShopCombin) async {
     storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(naiFarmShop, naiFarmShopCombin);
+    storage.setItem(NaiFarm_Shop, naiFarmShopCombin);
   }
 
   static Future<NaiFarmShopCombin> getNaiFarmShopCache() async {
     LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
-    Map<String, dynamic> data = storage.getItem(naiFarmShop);
+    Map<String, dynamic> data = storage.getItem(NaiFarm_Shop);
     if (data == null) {
       return null;
     }

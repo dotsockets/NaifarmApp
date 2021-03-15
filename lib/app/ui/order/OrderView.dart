@@ -41,7 +41,7 @@ class _OrderViewState extends State<OrderView> {
   init() {
     if (bloc == null && productBloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      Product_bloc = ProductBloc(AppProvider.getApplication(context));
+      productBloc = ProductBloc(AppProvider.getApplication(context));
 
 
 
@@ -50,13 +50,13 @@ class _OrderViewState extends State<OrderView> {
           var orderType = widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
           for(var data in value.orderCahe){
             if(data.TypeView==widget.orderData.id.toString() && data.orderViewType==orderType){
-              bloc.OrderList.add(data.orderData);
+              bloc.orderList.add(data.orderData);
               break;
             }
           }
         }else{
           if (widget.orderData.orderStatusName != null) {
-            bloc.OrderList.add(widget.orderData);
+            bloc.orderList.add(widget.orderData);
           }
         }
       });
@@ -683,7 +683,7 @@ class _OrderViewState extends State<OrderView> {
               // ignore: unused_local_variable
               ProductData product = ProductData();
               product = orderItems.inventory.product;
-              AppRoute.ProductDetail(context,
+              AppRoute.productDetail(context,
                   productImage:
                   "orderview_${orderItems.orderId}1",
                   productItem: ProducItemRespone(id: orderItems.inventory.product.id,image: orderItems.inventory.image));
