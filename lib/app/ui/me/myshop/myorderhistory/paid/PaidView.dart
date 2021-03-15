@@ -491,7 +491,7 @@ class _PaidViewState extends State<PaidView> {
                     ],
                   ),
             Text(
-              item.image!=null && item.image.isNotEmpty?"${LocaleKeys.order_detail_wait_pay_verify.tr()}":LocaleKeys.order_detail_wait_pay.tr(),
+              item.image!=null && item.image.isNotEmpty?"รอตรวจสอบการชำระเงิน":item.orderStatusName,
               style: FunctionHelper.FontTheme(
                   color: ThemeColor.primaryColor(),
                   fontSize: SizeUtil.titleSmallFontSize().sp,
