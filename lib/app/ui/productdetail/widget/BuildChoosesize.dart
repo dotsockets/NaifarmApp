@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -10,15 +9,15 @@ import 'package:sizer/sizer.dart';
 class BuildChoosesize extends StatelessWidget {
   final Function(int) onclick1;
   final Function(int) onclick2;
-  final int IndexType1;
-  final int IndexType2;
+  final int indexType1;
+  final int indexType2;
 
   const BuildChoosesize(
       {Key key,
       this.onclick1,
       this.onclick2,
-      this.IndexType1 = 1,
-      this.IndexType2 = 1})
+      this.indexType1 = 1,
+      this.indexType2 = 1})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class BuildChoosesize extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(LocaleKeys.select.tr() + LocaleKeys.my_product_size.tr(),
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.bold)),
           Wrap(
@@ -45,7 +44,7 @@ class BuildChoosesize extends StatelessWidget {
             height: 10,
           ),
           Text(LocaleKeys.select.tr() + LocaleKeys.my_product_weight.tr(),
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.bold)),
           Wrap(
@@ -72,7 +71,7 @@ class BuildChoosesize extends StatelessWidget {
             ),
           ),
           backgroundColor: MaterialStateProperty.all(
-            IndexType1 == index
+            indexType1 == index
                 ? ThemeColor.primaryColor()
                 : isEnable
                     ? Colors.grey.shade300
@@ -88,7 +87,7 @@ class BuildChoosesize extends StatelessWidget {
         },
         child: Text(
           title,
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               color: isEnable ? Colors.black : Colors.grey.shade600,
               fontSize: SizeUtil.titleSmallFontSize().sp,
               fontWeight: FontWeight.w500),
@@ -108,7 +107,7 @@ class BuildChoosesize extends StatelessWidget {
             ),
           ),
           backgroundColor: MaterialStateProperty.all(
-            IndexType2 == index
+            indexType2 == index
                 ? ThemeColor.primaryColor()
                 : isEnable
                     ? Colors.grey.shade300
@@ -124,7 +123,7 @@ class BuildChoosesize extends StatelessWidget {
         },
         child: Text(
           title,
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               color: isEnable ? Colors.black : Colors.grey.shade600,
               fontSize: SizeUtil.titleSmallFontSize().sp,
               fontWeight: FontWeight.w500),

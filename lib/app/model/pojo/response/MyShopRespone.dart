@@ -33,32 +33,32 @@ class MyShopRespone {
 
   MyShopRespone(
       {this.id,
-        this.ownerId,
-        this.name,
-        this.legalName,
-        this.slug,
-        this.email,
-        this.description,
-        this.externalUrl,
-        this.timezoneId,
-        this.currentBillingPlan,
-        this.stripeId,
-        this.cardHolderName,
-        this.cardBrand,
-        this.cardLastFour,
-        this.paymentVerified,
-        this.idVerified,
-        this.phoneVerified,
-        this.addressVerified,
-        this.createdAt,
-        this.updatedAt,
-        this.config,
-        this.shopPaymentMethod,
-        this.image,
-        this.state,
-        this.countProduct,
-        this.rating,
-        this.active});
+      this.ownerId,
+      this.name,
+      this.legalName,
+      this.slug,
+      this.email,
+      this.description,
+      this.externalUrl,
+      this.timezoneId,
+      this.currentBillingPlan,
+      this.stripeId,
+      this.cardHolderName,
+      this.cardBrand,
+      this.cardLastFour,
+      this.paymentVerified,
+      this.idVerified,
+      this.phoneVerified,
+      this.addressVerified,
+      this.createdAt,
+      this.updatedAt,
+      this.config,
+      this.shopPaymentMethod,
+      this.image,
+      this.state,
+      this.countProduct,
+      this.rating,
+      this.active});
 
   MyShopRespone.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -82,7 +82,7 @@ class MyShopRespone {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['config'] != null) {
-      config = new List<Config>();
+      config = [];
       json['config'].forEach((v) {
         config.add(new Config.fromJson(v));
       });
@@ -91,12 +91,13 @@ class MyShopRespone {
         ? new ShopPaymentMethod.fromJson(json['shopPaymentMethod'])
         : null;
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
     }
-    state = json['state'] != null ? new DataStates.fromJson(json['state']) : null;
+    state =
+        json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     countProduct = json['countProduct'];
     rating = json['rating'];
     active = json['active'];
@@ -173,31 +174,31 @@ class Config {
 
   Config(
       {this.shopId,
-        this.supportPhone,
-        this.supportPhoneTollFree,
-        this.supportEmail,
-        this.defaultSenderEmailAddress,
-        this.defaultEmailSenderName,
-        this.returnRefund,
-        this.orderNumberPrefix,
-        this.orderNumberSuffix,
-        this.defaultTaxId,
-        this.orderHandlingCost,
-        this.autoArchiveOrder,
-        this.defaultPaymentMethodId,
-        this.pagination,
-        this.alertQuantity,
-        this.digitalGoodsOnly,
-        this.defaultWarehouseId,
-        this.defaultSupplierId,
-        this.notifyNewMessage,
-        this.notifyAlertQuantity,
-        this.notifyInventoryOut,
-        this.notifyNewOrder,
-        this.notifyAbandonedCheckout,
-        this.notifyNewDisput,
-        this.maintenanceMode,
-        this.pendingVerification});
+      this.supportPhone,
+      this.supportPhoneTollFree,
+      this.supportEmail,
+      this.defaultSenderEmailAddress,
+      this.defaultEmailSenderName,
+      this.returnRefund,
+      this.orderNumberPrefix,
+      this.orderNumberSuffix,
+      this.defaultTaxId,
+      this.orderHandlingCost,
+      this.autoArchiveOrder,
+      this.defaultPaymentMethodId,
+      this.pagination,
+      this.alertQuantity,
+      this.digitalGoodsOnly,
+      this.defaultWarehouseId,
+      this.defaultSupplierId,
+      this.notifyNewMessage,
+      this.notifyAlertQuantity,
+      this.notifyInventoryOut,
+      this.notifyNewOrder,
+      this.notifyAbandonedCheckout,
+      this.notifyNewDisput,
+      this.maintenanceMode,
+      this.pendingVerification});
 
   Config.fromJson(Map<String, dynamic> json) {
     shopId = json['shopId'];
@@ -278,6 +279,3 @@ class ShopPaymentMethod {
     return data;
   }
 }
-
-
-

@@ -6,7 +6,7 @@ class BannersRespone {
 
   BannersRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<BannersData>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new BannersData.fromJson(v));
       });
@@ -37,14 +37,14 @@ class BannersData {
 
   BannersData(
       {this.id,
-        this.title,
-        this.description,
-        this.link,
-        this.linkLabel,
-        this.bgColor,
-        this.columns,
-        this.order,
-        this.image});
+      this.title,
+      this.description,
+      this.link,
+      this.linkLabel,
+      this.bgColor,
+      this.columns,
+      this.order,
+      this.image});
 
   BannersData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -56,7 +56,7 @@ class BannersData {
     columns = json['columns'];
     order = json['order'];
     if (json['image'] != null) {
-      image = new List<BannersImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new BannersImage.fromJson(v));
       });
@@ -93,14 +93,14 @@ class BannersImage {
 
   BannersImage(
       {this.id,
-        this.path,
-        this.name,
-        this.extension,
-        this.size,
-        this.imageableId,
-        this.imageableType,
-        this.featured,
-        this.order});
+      this.path,
+      this.name,
+      this.extension,
+      this.size,
+      this.imageableId,
+      this.imageableType,
+      this.featured,
+      this.order});
 
   BannersImage.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -128,4 +128,3 @@ class BannersImage {
     return data;
   }
 }
-

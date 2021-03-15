@@ -3,13 +3,13 @@ import 'ThrowIfNoSuccess.dart';
 class AddressesListRespone {
   List<AddressesData> data;
   int total;
-  ThrowIfNoSuccess http_call_back;
+  ThrowIfNoSuccess httpCallBack;
 
-  AddressesListRespone({this.data, this.total,this.http_call_back});
+  AddressesListRespone({this.data, this.total, this.httpCallBack});
 
   AddressesListRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<AddressesData>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new AddressesData.fromJson(v));
       });
@@ -39,19 +39,17 @@ class AddressesData {
   String phone;
   bool select;
 
-
-  
-
   AddressesData(
       {this.id,
-        this.addressType,
-        this.addressTitle,
-        this.addressLine1,
-        this.addressLine2,
-        this.cityId,
-        this.stateId,
-        this.zipCode,
-        this.phone,this.select});
+      this.addressType,
+      this.addressTitle,
+      this.addressLine1,
+      this.addressLine2,
+      this.cityId,
+      this.stateId,
+      this.zipCode,
+      this.phone,
+      this.select});
 
   AddressesData.fromJson(Map<String, dynamic> json) {
     id = json['id'];

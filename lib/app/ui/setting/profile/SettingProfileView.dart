@@ -7,10 +7,6 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
-import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
-import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
-import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -55,8 +51,8 @@ class _SettingProfileViewState extends State<SettingProfileView>
           appBar: AppToobar(
             title: LocaleKeys.setting_account_toobar.tr(),
             icon: "",
-            header_type: Header_Type.barNormal,
-            isEnable_Search: false,
+            headerType: Header_Type.barNormal,
+            isEnableSearch: false,
             onClick: () {
               Navigator.pop(context);
             },
@@ -76,7 +72,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
                           icon: '',
                           title: LocaleKeys.setting_account_title_profile.tr(),
                           onClick: () async {
-                            final result = await AppRoute.EditProfile(context);
+                            final result = await AppRoute.editProfile(context);
                             if (result != null && result) {
                               onImageUpdate = true;
                             }
@@ -87,7 +83,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
                           icon: '',
                           title: LocaleKeys.setting_account_title_address.tr(),
                           onClick: () {
-                            AppRoute.SettingAddress(context);
+                            AppRoute.settingAddress(context);
                           },
                         ),
                         //_buildLine(),
@@ -105,17 +101,17 @@ class _SettingProfileViewState extends State<SettingProfileView>
                           icon: '',
                           title: LocaleKeys.setting_account_title_noti.tr(),
                           onClick: () {
-                            AppRoute.SettingNoti(context);
+                            AppRoute.settingNoti(context);
                           },
                         ),
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
-                          Message: FunctionHelper.LocaleLanguage(
+                          message: FunctionHelper.localeLanguage(
                               locale: EasyLocalization.of(context).locale),
                           title: LocaleKeys.setting_account_title_language.tr(),
                           onClick: () {
-                            AppRoute.SettingLanguage(context);
+                            AppRoute.settingLanguage(context);
                           },
                         ),
                         _buildTitle(
@@ -124,7 +120,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
                           icon: '',
                           title: LocaleKeys.setting_account_title_help.tr(),
                           onClick: () {
-                            AppRoute.SettingHelp(context);
+                            AppRoute.settingHelp(context);
                           },
                         ),
                         _buildLine(),
@@ -132,7 +128,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
                           icon: '',
                           title: LocaleKeys.setting_account_title_rule.tr(),
                           onClick: () {
-                            AppRoute.SettingRules(context);
+                            AppRoute.settingRules(context);
                           },
                         ),
                         _buildLine(),
@@ -140,7 +136,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
                           icon: '',
                           title: LocaleKeys.setting_account_title_policy.tr(),
                           onClick: () {
-                            AppRoute.SettingPolicy(context);
+                            AppRoute.settingPolicy(context);
                           },
                         ),
                         _buildLine(),
@@ -148,7 +144,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
                           icon: '',
                           title: LocaleKeys.setting_account_title_about.tr(),
                           onClick: () {
-                            AppRoute.SettingAbout(context);
+                            AppRoute.settingAbout(context);
                           },
                         ),
                         //_buildLine(),
@@ -163,7 +159,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
                             });
                           },
                         ),*/
-                        _BuildButton()
+                        buildButton()
                       ],
                     ),
                   ),
@@ -188,24 +184,24 @@ class _SettingProfileViewState extends State<SettingProfileView>
       padding: EdgeInsets.only(left: 3.0.w, top: 1.0.h, bottom: 1.0.h),
       child: Text(
         txt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             fontSize: SizeUtil.titleSmallFontSize().sp),
       ),
     );
   }
 
-  Widget _BuildButton() {
+  Widget buildButton() {
     return Center(
       child: Container(
           margin: EdgeInsets.only(top: 3.0.h, bottom: 3.0.h),
           width: 50.0.w,
           height: 5.0.h,
           color: Colors.grey.shade300,
-          child: _BuildButtonItem(btnTxt: LocaleKeys.btn_logout.tr())),
+          child: buildButtonItem(btnTxt: LocaleKeys.btn_logout.tr())),
     );
   }
 
-  Widget _BuildButtonItem({String btnTxt}) {
+  Widget buildButtonItem({String btnTxt}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -214,7 +210,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
           ),
         ),
         backgroundColor: MaterialStateProperty.all(
-          ThemeColor.ColorSale(),
+          ThemeColor.colorSale(),
         ),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),
@@ -235,7 +231,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleFontSize().sp,
             fontWeight: FontWeight.w500),

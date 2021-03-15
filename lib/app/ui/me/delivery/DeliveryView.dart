@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ShippingBloc.dart';
@@ -30,7 +29,7 @@ class _DeliveryViewState extends State<DeliveryView> {
     if (bloc == null) {
       bloc = ShippingBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {});
-      bloc.ZipShppingOject.stream.listen((event) {
+      bloc.zipShppingOject.stream.listen((event) {
         Usermanager().getUser().then((value) => context
             .read<InfoCustomerBloc>()
             .loadCustomInfo(context, token: value.token));
@@ -51,15 +50,15 @@ class _DeliveryViewState extends State<DeliveryView> {
               child: AppToobar(
                 title: LocaleKeys.shipping_toobar.tr(),
                 icon: "",
-                header_type: Header_Type.barNormal,
-                isEnable_Search: false,
+                headerType: Header_Type.barNormal,
+                isEnableSearch: false,
               )),
           body: Container(
             color: Colors.grey.shade300,
             child: ListView(
               children: [
                 StreamBuilder(
-                  stream: bloc.ZipShppingOject.stream,
+                  stream: bloc.zipShppingOject.stream,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       var item = (snapshot.data as ShppingOjectCombine);
@@ -69,7 +68,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                           return GestureDetector(
                             child: Column(
                               children: [
-                                _BuildDelivery(
+                                _buildDelivery(
                                     nameDeli:
                                         item.carriersRespone.data[index].name,
                                     item: item.carriersRespone.data[index]),
@@ -80,7 +79,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                               ],
                             ),
                             onTap: () async {
-                              var result = await AppRoute.DeliveryEdit(context,
+                              var result = await AppRoute.deliveryEdit(context,
                                   shppingMyShopRespone:
                                       item.shppingMyShopRespone,
                                   carriersDat:
@@ -94,7 +93,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                         }),
                       );
                     } else {
-                      return Skeleton.LoaderList(context);
+                      return Skeleton.loaderList(context);
                     }
                   },
                 )
@@ -106,7 +105,7 @@ class _DeliveryViewState extends State<DeliveryView> {
     );
   }
 
-  Widget _BuildDelivery({String nameDeli, CarriersData item}) {
+  Widget _buildDelivery({String nameDeli, CarriersData item}) {
     return Container(
       padding:
           EdgeInsets.only(bottom: 2.0.h, top: 2.0.h, left: 1.0.h, right: 1.0.h),
@@ -117,7 +116,7 @@ class _DeliveryViewState extends State<DeliveryView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(nameDeli,
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.w600)),
             Row(
@@ -128,7 +127,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                             ? LocaleKeys.my_product_delivery_use.tr()
                             : ""
                         : "",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         color: Colors.red.shade600,
                         fontWeight: FontWeight.w600)),

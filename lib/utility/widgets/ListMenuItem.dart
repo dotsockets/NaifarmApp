@@ -2,39 +2,36 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
 class ListMenuItem extends StatelessWidget {
   final String icon;
   final String title;
-  final String Message;
+  final String message;
   final Function() onClick;
   final double iconSize;
   final FontWeight fontWeight;
   final double opacityMessage;
-  final String IsPhoto;
-  final Function(bool) IsSwitch;
-  final bool SelectSwitch;
+  final String isPhoto;
+  final Function(bool) isSwitch;
+  final bool selectSwitch;
 
   const ListMenuItem(
       {Key key,
       this.icon,
       this.title,
-      this.Message = "",
+      this.message = "",
       this.onClick,
       this.iconSize = 30,
       this.fontWeight = FontWeight.bold,
       this.opacityMessage = 1,
-      this.IsPhoto = "",
-      this.IsSwitch,
-      this.SelectSwitch})
+      this.isPhoto = "",
+      this.isSwitch,
+      this.selectSwitch})
       : super(key: key);
 
   @override
@@ -51,7 +48,7 @@ class ListMenuItem extends StatelessWidget {
                 child: Row(
                   children: [
                     Visibility(
-                      child: IsPhoto == ""
+                      child: isPhoto == ""
                           ? SvgPicture.asset(
                               icon,
                               width: iconSize,
@@ -70,7 +67,7 @@ class ListMenuItem extends StatelessWidget {
                                       height: iconSize),
                                 ),
                                 fit: BoxFit.cover,
-                                imageUrl: IsPhoto,
+                                imageUrl: isPhoto,
                                 errorWidget: (context, url, error) => Container(
                                     height: iconSize,
                                     child: CircleAvatar(
@@ -94,14 +91,14 @@ class ListMenuItem extends StatelessWidget {
                     Text(title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: fontWeight,
                             color: Colors.black)),
                   ],
                 ),
               ),
-              IsSwitch != null
+              isSwitch != null
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -111,12 +108,12 @@ class ListMenuItem extends StatelessWidget {
                           toggleSize: SizeUtil.switchToggleSize(),
                           activeColor: Colors.grey.shade200,
                           inactiveColor: Colors.grey.shade200,
-                          toggleColor: SelectSwitch
+                          toggleColor: selectSwitch
                               ? ThemeColor.primaryColor()
                               : Colors.grey.shade400,
-                          value: SelectSwitch ? true : false,
+                          value: selectSwitch ? true : false,
                           onToggle: (val) {
-                            IsSwitch(val);
+                            isSwitch(val);
                           },
                         ),
                         SizedBox(
@@ -130,11 +127,11 @@ class ListMenuItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Expanded(
-                              child: Text(Message,
+                              child: Text(message,
                                   maxLines: 1,
                                   textAlign: TextAlign.end,
                                   overflow: TextOverflow.ellipsis,
-                                  style: FunctionHelper.FontTheme(
+                                  style: FunctionHelper.fontTheme(
                                       fontSize:
                                           SizeUtil.titleSmallFontSize().sp,
                                       fontWeight: FontWeight.w500,

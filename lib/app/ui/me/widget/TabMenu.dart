@@ -2,9 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
-import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
@@ -37,8 +35,8 @@ class TabMenu extends StatelessWidget {
                             : (Device.get().isPhone ? 0 : 0.3.w)),
                         child: Center(
                           child: Text(
-                            "${notification}",
-                            style: FunctionHelper.FontTheme(
+                            "$notification",
+                            style: FunctionHelper.fontTheme(
                               color: Colors.white,
                               fontSize: SizeUtil.shopBadgeSize().sp,
                             ),
@@ -56,7 +54,7 @@ class TabMenu extends StatelessWidget {
               ),
               SizedBox(height: 1.0.h),
               Text(title,
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.detailFontSize().sp,
                       fontWeight: FontWeight.w500,
                       color: Colors.black))

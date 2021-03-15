@@ -1,18 +1,19 @@
-import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-
 import 'ProducItemRespone.dart';
 import 'WishlistsRespone.dart';
 
-class ProductObjectCombine{
-   ProducItemRespone producItemRespone;
-   WishlistsRespone wishlistsRespone;
+class ProductObjectCombine {
+  ProducItemRespone producItemRespone;
+  WishlistsRespone wishlistsRespone;
 
   ProductObjectCombine({this.producItemRespone, this.wishlistsRespone});
 
   ProductObjectCombine.fromJson(Map<String, dynamic> json) {
-    producItemRespone = json['producItemRespone'] != null ? new ProducItemRespone.fromJson(json['producItemRespone']) : null;
-    wishlistsRespone = json['wishlistsRespone'] != null ? new WishlistsRespone.fromJson(json['wishlistsRespone']) : null;
-
+    producItemRespone = json['producItemRespone'] != null
+        ? new ProducItemRespone.fromJson(json['producItemRespone'])
+        : null;
+    wishlistsRespone = json['wishlistsRespone'] != null
+        ? new WishlistsRespone.fromJson(json['wishlistsRespone'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

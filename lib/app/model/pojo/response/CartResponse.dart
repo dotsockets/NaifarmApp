@@ -1,27 +1,26 @@
-import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 
 import 'ShippingsRespone.dart';
+
 class CartResponse {
   List<CartData> data;
   String total;
   bool selectAll;
 
-  CartResponse({this.data, this.total,this.selectAll});
+  CartResponse({this.data, this.total, this.selectAll});
 
   CartResponse.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<CartData>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new CartData.fromJson(v));
       });
     }
-    if(json['total'] is int){
+    if (json['total'] is int) {
       total = json['total'].toString();
-    }else{
-      total =  json['total'];
+    } else {
+      total = json['total'];
     }
-
   }
 
   Map<String, dynamic> toJson() {
@@ -33,6 +32,7 @@ class CartResponse {
     return data;
   }
 }
+
 class CartData {
   int id;
   int shopId;
@@ -65,46 +65,54 @@ class CartData {
   int carrierId;
   ShippingRates shippingRates;
 
-
   CartData(
       {this.id,
-        this.shopId,
-        this.shipTo,
-        this.shippingZoneId,
-        this.shippingRateId,
-        this.packagingId,
-        this.itemCount,
-        this.quantity,
-        this.shippingWeight,
-        this.total,
-        this.discount,
-        this.shipping,
-        this.packaging,
-        this.handling,
-        this.taxes,
-        this.taxRate,
-        this.grandTotal,
-        this.billingAddress,
-        this.shippingAddress,
-        this.couponId,
-        this.paymentStatus,
-        this.paymentMethodId,
-        this.messageToCustomer,
-        this.shop,
-        this.items,
-        this.paymentMethod,
-        this.coupon,this.note,this.carrierId,this.shippingRates});
+      this.shopId,
+      this.shipTo,
+      this.shippingZoneId,
+      this.shippingRateId,
+      this.packagingId,
+      this.itemCount,
+      this.quantity,
+      this.shippingWeight,
+      this.total,
+      this.discount,
+      this.shipping,
+      this.packaging,
+      this.handling,
+      this.taxes,
+      this.taxRate,
+      this.grandTotal,
+      this.billingAddress,
+      this.shippingAddress,
+      this.couponId,
+      this.paymentStatus,
+      this.paymentMethodId,
+      this.messageToCustomer,
+      this.shop,
+      this.items,
+      this.paymentMethod,
+      this.coupon,
+      this.note,
+      this.carrierId,
+      this.shippingRates});
 
   CartData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     shopId = json['shopId'];
     shipTo = json['shipTo'];
-    shippingZoneId = json['shippingZoneId']!=null?json['shippingRateId']:0;
-    shippingRateId = json['shippingRateId']!=null?json['shippingRateId']:0;
+    shippingZoneId =
+        json['shippingZoneId'] != null ? json['shippingRateId'] : 0;
+    shippingRateId =
+        json['shippingRateId'] != null ? json['shippingRateId'] : 0;
     packagingId = json['packagingId'];
     itemCount = json['itemCount'];
     quantity = json['quantity'];
-    shippingWeight = json['shippingWeight'] > 0?json['shippingWeight'] is int?double.parse(json['shippingWeight'].toString()):json['shippingWeight']:0;
+    shippingWeight = json['shippingWeight'] > 0
+        ? json['shippingWeight'] is int
+            ? double.parse(json['shippingWeight'].toString())
+            : json['shippingWeight']
+        : 0;
     total = json['total'];
     discount = json['discount'];
     shipping = json['shipping'];
@@ -121,7 +129,7 @@ class CartData {
     messageToCustomer = json['messageToCustomer'];
     shop = json['shop'] != null ? new CartShop.fromJson(json['shop']) : null;
     if (json['items'] != null) {
-      items = new List<CartItems>();
+      items = [];
       json['items'].forEach((v) {
         items.add(new CartItems.fromJson(v));
       });
@@ -130,9 +138,9 @@ class CartData {
         ? new PaymentMethod.fromJson(json['paymentMethod'])
         : null;
     coupon =
-    json['coupon'] != null ? new Coupon.fromJson(json['coupon']) : null;
-    note = json['note']!=null?json['note']:"note...";
-    carrierId = json['carrierId']!=null?json['carrierId']:0;
+        json['coupon'] != null ? new Coupon.fromJson(json['coupon']) : null;
+    note = json['note'] != null ? json['note'] : "note...";
+    carrierId = json['carrierId'] != null ? json['carrierId'] : 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -184,16 +192,18 @@ class CartShop {
   String updatedAt;
   List<ProductImage> image;
 
-  CartShop({this.id, this.name, this.slug, this.state, this.updatedAt, this.image});
+  CartShop(
+      {this.id, this.name, this.slug, this.state, this.updatedAt, this.image});
 
   CartShop.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     slug = json['slug'];
-    state = json['state'] != null ? new CartState.fromJson(json['state']) : null;
+    state =
+        json['state'] != null ? new CartState.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -235,22 +245,21 @@ class CartState {
   }
 }
 
-
 class CartItems {
   String itemDescription;
   int quantity;
   int unitPrice;
   int total;
   CartInventory inventory;
-  bool select=false;
-
+  bool select = false;
 
   CartItems(
       {this.itemDescription,
-        this.quantity,
-        this.unitPrice,
-        this.total,
-        this.inventory,this.select});
+      this.quantity,
+      this.unitPrice,
+      this.total,
+      this.inventory,
+      this.select});
 
   CartItems.fromJson(Map<String, dynamic> json) {
     itemDescription = json['itemDescription'];
@@ -274,9 +283,6 @@ class CartItems {
     return data;
   }
 }
-
-
-
 
 class PaymentMethod {
   int id;
@@ -368,38 +374,38 @@ class CartInventory {
 
   CartInventory(
       {this.id,
-        this.title,
-        this.warehouseId,
-        this.productId,
-        this.brand,
-        this.supplierId,
-        this.sku,
-        this.condition,
-        this.conditionNote,
-        this.description,
-        this.keyFeatures,
-        this.stockQuantity,
-        this.damagedQuantity,
-        this.purchasePrice,
-        this.salePrice,
-        this.offerPrice,
-        this.offerStart,
-        this.offerEnd,
-        this.preorder,
-        this.preorderMsg,
-        this.preorderStart,
-        this.preorderEnd,
-        this.shippingWeight,
-        this.freeShipping,
-        this.minOrderQuantity,
-        this.slug,
-        this.linkedItems,
-        this.metaTitle,
-        this.metaDescription,
-        this.stuffPick,
-        this.product,
-        this.image,
-        this.isActive});
+      this.title,
+      this.warehouseId,
+      this.productId,
+      this.brand,
+      this.supplierId,
+      this.sku,
+      this.condition,
+      this.conditionNote,
+      this.description,
+      this.keyFeatures,
+      this.stockQuantity,
+      this.damagedQuantity,
+      this.purchasePrice,
+      this.salePrice,
+      this.offerPrice,
+      this.offerStart,
+      this.offerEnd,
+      this.preorder,
+      this.preorderMsg,
+      this.preorderStart,
+      this.preorderEnd,
+      this.shippingWeight,
+      this.freeShipping,
+      this.minOrderQuantity,
+      this.slug,
+      this.linkedItems,
+      this.metaTitle,
+      this.metaDescription,
+      this.stuffPick,
+      this.product,
+      this.image,
+      this.isActive});
 
   CartInventory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -432,10 +438,11 @@ class CartInventory {
     metaTitle = json['metaTitle'];
     metaDescription = json['metaDescription'];
     stuffPick = json['stuffPick'];
-    product =
-    json['product'] != null ? new CartProduct.fromJson(json['product']) : null;
+    product = json['product'] != null
+        ? new CartProduct.fromJson(json['product'])
+        : null;
     if (json['image'] != null) {
-      image = new List<Null>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -486,7 +493,6 @@ class CartInventory {
   }
 }
 
-
 class CartProduct {
   int id;
   int shopId;
@@ -519,33 +525,33 @@ class CartProduct {
 
   CartProduct(
       {this.id,
-        this.shopId,
-        this.manufacturerId,
-        this.brand,
-        this.name,
-        this.modelNumber,
-        this.mpn,
-        this.description,
-        this.originCountry,
-        this.requiresShipping,
-        this.downloadable,
-        this.slug,
-        this.saleCount,
-        this.gtin,
-        this.gtinType,
-        this.active,
-        this.createdAt,
-        this.updatedAt,
-        this.image,
-        this.hasVariant,
-        this.minPrice,
-        this.maxPrice,
-        this.salePrice,
-        this.offerPrice,
-        this.discountPercent,
-        this.rating,
-        this.reviewCount,
-        this.stockQuantity});
+      this.shopId,
+      this.manufacturerId,
+      this.brand,
+      this.name,
+      this.modelNumber,
+      this.mpn,
+      this.description,
+      this.originCountry,
+      this.requiresShipping,
+      this.downloadable,
+      this.slug,
+      this.saleCount,
+      this.gtin,
+      this.gtinType,
+      this.active,
+      this.createdAt,
+      this.updatedAt,
+      this.image,
+      this.hasVariant,
+      this.minPrice,
+      this.maxPrice,
+      this.salePrice,
+      this.offerPrice,
+      this.discountPercent,
+      this.rating,
+      this.reviewCount,
+      this.stockQuantity});
 
   CartProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -567,7 +573,7 @@ class CartProduct {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });

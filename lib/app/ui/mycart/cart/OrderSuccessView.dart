@@ -1,12 +1,6 @@
-import 'package:basic_utils/basic_utils.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
-import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
-import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -21,10 +15,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
 class OrderSuccessView extends StatefulWidget {
-  final String payment_total;
+  final String paymentTotal;
   final OrderData orderData;
 
-  const OrderSuccessView({Key key, this.payment_total, this.orderData})
+  const OrderSuccessView({Key key, this.paymentTotal, this.orderData})
       : super(key: key);
   @override
   _OrderSuccessViewState createState() => _OrderSuccessViewState();
@@ -33,13 +27,15 @@ class OrderSuccessView extends StatefulWidget {
 class _OrderSuccessViewState extends State<OrderSuccessView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
- init(){
-   NaiFarmLocalStorage.saveNowPage(0);
-   Usermanager().getUser().then((value){
-     Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
-   });
+  init() {
+    NaiFarmLocalStorage.saveNowPage(0);
+    Usermanager().getUser().then((value) {
+      Usermanager().getUser().then((value) => context
+          .read<CustomerCountBloc>()
+          .loadCustomerCount(context, token: value.token));
+    });
+  }
 
- }
   @override
   Widget build(BuildContext context) {
     init();
@@ -52,17 +48,17 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(6.5.h),
                 child: AppToobar(
-                  isEnable_Search: false,
+                  isEnableSearch: false,
                   title: "รายละเอียดการสั่งซื้อ",
-                  header_type: Header_Type.barNormal,
+                  headerType: Header_Type.barNormal,
                   icon: "",
                   onClick: () =>
-                      AppRoute.PoppageCount(context: context, countpage: 2),
+                      AppRoute.poppageCount(context: context, countpage: 2),
                 ),
               ),
               body: WillPopScope(
                 onWillPop: () async {
-                  AppRoute.PoppageCount(context: context, countpage: 2);
+                  AppRoute.poppageCount(context: context, countpage: 2);
                   return false;
                 },
                 child: Column(
@@ -77,7 +73,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                         children: [
                           //   SizedBox(height: 10,),
                           // Text("Order details",
-                          //     style: FunctionHelper.FontTheme(
+                          //     style: FunctionHelper.fontTheme(
                           //         fontSize: 16.0.sp,
                           //         fontWeight: FontWeight.bold,
                           //         color: Colors.black)),
@@ -94,7 +90,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                                 width: 2.0.w,
                               ),
                               Text(LocaleKeys.order_detail_complete.tr(),
-                                  style: FunctionHelper.FontTheme(
+                                  style: FunctionHelper.fontTheme(
                                       fontSize:
                                           (SizeUtil.titleFontSize() + 2).sp,
                                       fontWeight: FontWeight.bold,
@@ -106,8 +102,8 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                           ),
                           // Text("ยอดชำระเงิน ฿${NumberFormat("#,##0.00", "en_US").format(int.parse(widget.payment_total))}",
                           Text(
-                              "${LocaleKeys.order_detail_summary.tr()} ฿${int.parse(widget.payment_total)}",
-                              style: FunctionHelper.FontTheme(
+                              "${LocaleKeys.order_detail_summary.tr()} ฿${int.parse(widget.paymentTotal)}",
+                              style: FunctionHelper.fontTheme(
                                   fontSize: (SizeUtil.titleFontSize() + 1.0).sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),
@@ -118,7 +114,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                           Text(
                               "คุณได้ทำรายการสั่งซื้อสินค้าและต้องชำระเงิน\nภายในวันที่ ${DateFormat('dd-MM-yyyy H:m').format(DateTime.parse(widget.orderData.requirePaymentAt))}",
                               textAlign: TextAlign.center,
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   fontWeight: FontWeight.w400,
                                   color: Colors.black)),
@@ -152,18 +148,18 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all(
-                  ThemeColor.ColorSale(),
+                  ThemeColor.colorSale(),
                 ),
                 overlayColor: MaterialStateProperty.all(
                   Colors.white.withOpacity(0.3),
                 ),
               ),
               onPressed: () async {
-                AppRoute.Home(context);
+                AppRoute.home(context);
               },
               child: Text(
                 LocaleKeys.btn_main.tr(),
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     color: Colors.white,
                     fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.w500),
@@ -189,12 +185,12 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                 ),
               ),
               onPressed: () async {
-                AppRoute.PoppageCount(context: context, countpage: 2);
-                AppRoute.OrderDetail(context, orderData: widget.orderData);
+                AppRoute.poppageCount(context: context, countpage: 2);
+                AppRoute.orderDetail(context, orderData: widget.orderData);
               },
               child: Text(
                 LocaleKeys.order_detail_txt.tr(),
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     color: Colors.white,
                     fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.w500),

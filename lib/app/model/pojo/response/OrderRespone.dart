@@ -10,7 +10,7 @@ class OrderRespone {
 
   OrderRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<OrderData>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new OrderData.fromJson(v));
       });
@@ -77,46 +77,46 @@ class OrderData {
 
   OrderData(
       {this.id,
-        this.orderNumber,
-        this.shipTo,
-        this.shippingZoneId,
-        this.shippingRateId,
-        this.packagingId,
-        this.itemCount,
-        this.quantity,
-        this.shippingWeight,
-        this.total,
-        this.discount,
-        this.shipping,
-        this.packaging,
-        this.handling,
-        this.taxes,
-        this.taxRate,
-        this.grandTotal,
-        this.billingAddress,
-        this.shippingAddress,
-        this.shippingAddressTitle,
-        this.shippingAddressPhone,
-        this.shippingDate,
-        this.deliveryDate,
-        this.trackingId,
-        this.couponId,
-        this.carrierId,
-        this.carrier,
-        this.paymentStatus,
-        this.paymentMethodId,
-        this.messageToCustomer,
-        this.buyerNote,
-        this.disputed,
-        this.orderStatusId,
-        this.orderStatusName,
-        this.createdAt,
-        this.paymentAt,
-        this.requirePaymentAt,
-        this.shop,
-        this.items,
-        this.paymentMethod,
-        this.image});
+      this.orderNumber,
+      this.shipTo,
+      this.shippingZoneId,
+      this.shippingRateId,
+      this.packagingId,
+      this.itemCount,
+      this.quantity,
+      this.shippingWeight,
+      this.total,
+      this.discount,
+      this.shipping,
+      this.packaging,
+      this.handling,
+      this.taxes,
+      this.taxRate,
+      this.grandTotal,
+      this.billingAddress,
+      this.shippingAddress,
+      this.shippingAddressTitle,
+      this.shippingAddressPhone,
+      this.shippingDate,
+      this.deliveryDate,
+      this.trackingId,
+      this.couponId,
+      this.carrierId,
+      this.carrier,
+      this.paymentStatus,
+      this.paymentMethodId,
+      this.messageToCustomer,
+      this.buyerNote,
+      this.disputed,
+      this.orderStatusId,
+      this.orderStatusName,
+      this.createdAt,
+      this.paymentAt,
+      this.requirePaymentAt,
+      this.shop,
+      this.items,
+      this.paymentMethod,
+      this.image});
 
   OrderData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -127,7 +127,8 @@ class OrderData {
     packagingId = json['packagingId'];
     itemCount = json['itemCount'];
     quantity = json['quantity'];
-    shippingWeight = json['shippingWeight']>0?json['shippingWeight']*1.0:0.0;
+    shippingWeight =
+        json['shippingWeight'] > 0 ? json['shippingWeight'] * 1.0 : 0.0;
     total = json['total'];
     discount = json['discount'];
     shipping = json['shipping'];
@@ -146,7 +147,7 @@ class OrderData {
     couponId = json['couponId'];
     carrierId = json['carrierId'];
     carrier =
-    json['carrier'] != null ? new Carrier.fromJson(json['carrier']) : null;
+        json['carrier'] != null ? new Carrier.fromJson(json['carrier']) : null;
     paymentStatus = json['paymentStatus'];
     paymentMethodId = json['paymentMethodId'];
     messageToCustomer = json['messageToCustomer'];
@@ -159,7 +160,7 @@ class OrderData {
     requirePaymentAt = json['requirePaymentAt'];
     shop = json['shop'] != null ? new ProductShop.fromJson(json['shop']) : null;
     if (json['items'] != null) {
-      items = new List<OrderItems>();
+      items = [];
       json['items'].forEach((v) {
         items.add(new OrderItems.fromJson(v));
       });
@@ -168,7 +169,7 @@ class OrderData {
         ? new PaymentMethod.fromJson(json['paymentMethod'])
         : null;
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -248,7 +249,6 @@ class Carrier {
   }
 }
 
-
 class OrderItems {
   int orderId;
   int inventoryId;
@@ -262,14 +262,14 @@ class OrderItems {
 
   OrderItems(
       {this.orderId,
-        this.inventoryId,
-        this.itemTitle,
-        this.itemDescription,
-        this.itemVariant,
-        this.quantity,
-        this.unitPrice,
-        this.offerPrice,
-        this.inventory});
+      this.inventoryId,
+      this.itemTitle,
+      this.itemDescription,
+      this.itemVariant,
+      this.quantity,
+      this.unitPrice,
+      this.offerPrice,
+      this.inventory});
 
   OrderItems.fromJson(Map<String, dynamic> json) {
     orderId = json['orderId'];
@@ -315,14 +315,14 @@ class Inventory {
 
   Inventory(
       {this.id,
-        this.title,
-        this.brand,
-        this.sku,
-        this.salePrice,
-        this.offerPrice,
-        this.stockQuantity,
-        this.image,
-        this.product});
+      this.title,
+      this.brand,
+      this.sku,
+      this.salePrice,
+      this.offerPrice,
+      this.stockQuantity,
+      this.image,
+      this.product});
 
   Inventory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -333,13 +333,14 @@ class Inventory {
     offerPrice = json['offerPrice'];
     stockQuantity = json['stockQuantity'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
     }
-    product =
-    json['product'] != null ? new ProductData.fromJson(json['product']) : null;
+    product = json['product'] != null
+        ? new ProductData.fromJson(json['product'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -360,7 +361,6 @@ class Inventory {
     return data;
   }
 }
-
 
 class PaymentMethod {
   int id;
@@ -386,4 +386,3 @@ class PaymentMethod {
     return data;
   }
 }
-

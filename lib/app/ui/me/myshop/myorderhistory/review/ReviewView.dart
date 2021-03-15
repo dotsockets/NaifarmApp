@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
@@ -12,7 +11,6 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -28,8 +26,8 @@ class ReviewView extends StatefulWidget {
 
 class _ReviewViewState extends State<ReviewView> {
   TextEditingController reviewController = TextEditingController();
-  bool SelectSwitch = false;
-  List<Asset> images = List<Asset>();
+  bool selectSwitch = false;
+  List<Asset> images = [];
 
   @override
   Widget build(BuildContext context) {
@@ -40,26 +38,26 @@ class _ReviewViewState extends State<ReviewView> {
           backgroundColor: Colors.grey.shade300,
           appBar: AppToobar(
             title: LocaleKeys.btn_review.tr(),
-            header_type: Header_Type.barNormal,
-            isEnable_Search: false,
+            headerType: Header_Type.barNormal,
+            isEnableSearch: false,
             icon: '',
           ),
           body: Container(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  _Header(
+                  header(
                       item: ProductViewModel().getHistorySuccess()[0],
                       index: 0,
                       context: context),
                   SizedBox(
                     height: 2.0.w,
                   ),
-                  _BuildForm(context),
+                  buildForm(context),
                   SizedBox(
                     height: 2.0.w,
                   ),
-                  HideNameRate(),
+                  hideNameRate(),
                   _buildBtnSend(),
                 ],
               ),
@@ -70,7 +68,7 @@ class _ReviewViewState extends State<ReviewView> {
     );
   }
 
-  Widget HideNameRate() {
+  Widget hideNameRate() {
     return Container(
       padding: EdgeInsets.only(right: 2.0.w, left: 2.0.w),
       color: Colors.white,
@@ -82,12 +80,12 @@ class _ReviewViewState extends State<ReviewView> {
             children: [
               SizedBox(height: 3.0.w),
               Text(LocaleKeys.review_anonymous.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.w500)),
               SizedBox(height: 1.0.w),
               Text("${LocaleKeys.review_username.tr()}: farnmarket@mail.com",
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       color: Colors.black.withOpacity(0.5))),
               SizedBox(
@@ -102,11 +100,11 @@ class _ReviewViewState extends State<ReviewView> {
             activeColor: Colors.grey.shade200,
             inactiveColor: Colors.grey.shade200,
             toggleColor:
-                SelectSwitch ? ThemeColor.primaryColor() : Colors.grey.shade400,
-            value: SelectSwitch ? true : false,
+                selectSwitch ? ThemeColor.primaryColor() : Colors.grey.shade400,
+            value: selectSwitch ? true : false,
             onToggle: (val) {
               setState(() {
-                SelectSwitch = !SelectSwitch;
+                selectSwitch = !selectSwitch;
               });
             },
           )
@@ -116,7 +114,9 @@ class _ReviewViewState extends State<ReviewView> {
   }
 
   Future<void> loadAssets({int maxImages}) async {
-    List<Asset> resultList = List<Asset>();
+    // ignore: unused_local_variable
+    List<Asset> resultList = [];
+    // ignore: unused_local_variable
     String error = 'No Error Dectected';
 
     try {
@@ -158,7 +158,7 @@ class _ReviewViewState extends State<ReviewView> {
     });
   }
 
-  Widget _Header({ProductModel item, int index, BuildContext context}) {
+  Widget header({ProductModel item, int index, BuildContext context}) {
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 15),
@@ -168,8 +168,8 @@ class _ReviewViewState extends State<ReviewView> {
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //   children: [
-          //     Text(LocaleKeys.order_detail_order_num.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
-          //     Text("09988203dergd4",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold),),
+          //     Text(LocaleKeys.order_detail_order_num.tr(),style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
+          //     Text("09988203dergd4",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.colorSale(),fontWeight: FontWeight.bold),),
           //
           //   ],
           // ),
@@ -206,7 +206,7 @@ class _ReviewViewState extends State<ReviewView> {
           //           ),
           //           Text(item.shopName,
           //               style:
-          //               FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold))
+          //               FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold))
           //         ],
           //       ),
           //
@@ -217,7 +217,7 @@ class _ReviewViewState extends State<ReviewView> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Hero(
-                tag: "history_${index}",
+                tag: "history_$index",
                 child: Container(
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -248,12 +248,12 @@ class _ReviewViewState extends State<ReviewView> {
                   children: [
                     SizedBox(height: 3.0.w),
                     Text("อโวกาโก้ ภาคเหนือ",
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.w500)),
                     SizedBox(height: 1.0.w),
                     Text("ตัวเลือกสินค้า: ดำ, XL",
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black.withOpacity(0.5))),
                     SizedBox(
@@ -269,7 +269,7 @@ class _ReviewViewState extends State<ReviewView> {
     );
   }
 
-  Widget _BuildForm(BuildContext context) {
+  Widget buildForm(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(bottom: 20, top: 15),
       width: MediaQuery.of(context).size.width,
@@ -278,7 +278,7 @@ class _ReviewViewState extends State<ReviewView> {
         children: [
           Text(
             LocaleKeys.review_rate.tr(),
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.bold),
           ),
@@ -324,7 +324,7 @@ class _ReviewViewState extends State<ReviewView> {
                           color: ThemeColor.secondaryColor(),
                         ),
                         Text(LocaleKeys.btn_add_image.tr(),
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w500,
                                 color: ThemeColor.secondaryColor())),
@@ -350,7 +350,7 @@ class _ReviewViewState extends State<ReviewView> {
                           color: ThemeColor.secondaryColor(),
                         ),
                         Text(LocaleKeys.btn_add_vdo.tr(),
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w500,
                                 color: ThemeColor.secondaryColor())),
@@ -384,21 +384,21 @@ class _ReviewViewState extends State<ReviewView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  _BuildButtonreview(
+                  buildButtonreview(
                       title: LocaleKeys.review_deli_ex.tr(),
                       onClick: () => reviewController.text =
                           LocaleKeys.review_deli_ex.tr()),
                   SizedBox(
                     width: 10,
                   ),
-                  _BuildButtonreview(
+                  buildButtonreview(
                       title: LocaleKeys.review_product_ex.tr(),
                       onClick: () => reviewController.text =
                           LocaleKeys.review_product_ex.tr()),
                   SizedBox(
                     width: 10,
                   ),
-                  _BuildButtonreview(
+                  buildButtonreview(
                       title: LocaleKeys.review_quality_ex.tr(),
                       onClick: () => reviewController.text =
                           LocaleKeys.review_quality_ex.tr()),
@@ -411,7 +411,7 @@ class _ReviewViewState extends State<ReviewView> {
     );
   }
 
-  Widget _BuildButtonreview({String title = "", Function() onClick}) {
+  Widget buildButtonreview({String title = "", Function() onClick}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -431,7 +431,7 @@ class _ReviewViewState extends State<ReviewView> {
       },
       child: Text(
         title,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.black,
             fontSize: SizeUtil.titleFontSize().sp,
             fontWeight: FontWeight.w500),
@@ -463,7 +463,7 @@ class _ReviewViewState extends State<ReviewView> {
         },
         child: Text(
           LocaleKeys.btn_confirm.tr(),
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               color: Colors.white,
               fontSize: SizeUtil.titleFontSize().sp,
               fontWeight: FontWeight.w500),

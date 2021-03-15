@@ -5,10 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -62,7 +60,7 @@ class _CustomTabBarState extends State<CustomTabBar>
         Tab(
           icon: _buildIcon(
               sizeIcon: SizeUtil.custombarIconSize().w,
-              path_icon: 'assets/images/svg/home_active.svg',
+              pathIcon: 'assets/images/svg/home_active.svg',
               index: 0,
               notification: 0),
           text: _tabController.index == 0
@@ -72,7 +70,7 @@ class _CustomTabBarState extends State<CustomTabBar>
         Tab(
           icon: _buildIcon(
               sizeIcon: SizeUtil.custombarIconSize().w,
-              path_icon: 'assets/images/svg/type.svg',
+              pathIcon: 'assets/images/svg/type.svg',
               index: 1,
               notification: 0),
           text: LocaleKeys.tab_bar_category.tr(),
@@ -83,7 +81,7 @@ class _CustomTabBarState extends State<CustomTabBar>
               if (count is CustomerCountLoaded) {
                 return _buildIcon(
                     sizeIcon: SizeUtil.custombarIconSize().w,
-                    path_icon: 'assets/images/svg/notification.svg',
+                    pathIcon: 'assets/images/svg/notification.svg',
                     index: 2,
                     notification:
                         count.countLoaded.notification.unreadCustomer +
@@ -91,19 +89,19 @@ class _CustomTabBarState extends State<CustomTabBar>
               } else if (count is CustomerCountLoading) {
                 return _buildIcon(
                   sizeIcon: SizeUtil.custombarIconSize().w,
-                  path_icon: 'assets/images/svg/notification.svg',
+                  pathIcon: 'assets/images/svg/notification.svg',
                   index: 2,
                   notification: count.countLoaded != null
                       ? count.countLoaded.notification.unreadCustomer +
                           count.countLoaded.notification.unreadShop
                       : count.countLoaded != null
-                          ? count.countLoaded.CartCount
+                          ? count.countLoaded.cartCount
                           : 0,
                 );
               } else {
                 return _buildIcon(
                     sizeIcon: SizeUtil.custombarIconSize().w,
-                    path_icon: 'assets/images/svg/notification.svg',
+                    pathIcon: 'assets/images/svg/notification.svg',
                     index: 2,
                     notification: 0);
               }
@@ -117,25 +115,25 @@ class _CustomTabBarState extends State<CustomTabBar>
               if (count is CustomerCountLoaded) {
                 return _buildIcon(
                   sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
-                  path_icon: 'assets/images/svg/cart.svg',
+                  pathIcon: 'assets/images/svg/cart.svg',
                   index: 3,
                   notification: count.countLoaded != null
-                      ? count.countLoaded.CartCount
+                      ? count.countLoaded.cartCount
                       : 0,
                 );
               } else if (count is CustomerCountLoading) {
                 return _buildIcon(
                   sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
-                  path_icon: 'assets/images/svg/cart.svg',
+                  pathIcon: 'assets/images/svg/cart.svg',
                   index: 3,
                   notification: count.countLoaded != null
-                      ? count.countLoaded.CartCount
+                      ? count.countLoaded.cartCount
                       : 0,
                 );
               } else {
                 return _buildIcon(
                     sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
-                    path_icon: 'assets/images/svg/cart.svg',
+                    pathIcon: 'assets/images/svg/cart.svg',
                     index: 3,
                     notification: 0);
               }
@@ -146,7 +144,7 @@ class _CustomTabBarState extends State<CustomTabBar>
         Tab(
           icon: _buildIcon(
               sizeIcon: SizeUtil.custombarIconSize().w,
-              path_icon: 'assets/images/svg/me.svg',
+              pathIcon: 'assets/images/svg/me.svg',
               index: 4,
               notification: 0),
           text: LocaleKeys.tab_bar_me.tr(),
@@ -163,13 +161,8 @@ class _CustomTabBarState extends State<CustomTabBar>
   }
 
   Widget _buildIcon(
-      {String path_icon,
-      Color color,
-      int index,
-      int notification,
-      double sizeIcon}) {
+      {String pathIcon, int index, int notification, double sizeIcon}) {
     return Stack(
-      overflow: Overflow.visible,
       children: [
         Column(
           children: [
@@ -190,8 +183,8 @@ class _CustomTabBarState extends State<CustomTabBar>
                   margin:
                       EdgeInsets.only(bottom: Device.get().isPhone ? 0.5.w : 0),
                   child: Text(
-                    "${notification}",
-                    style: FunctionHelper.FontTheme(
+                    "$notification",
+                    style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.shopBadgeSize().sp),
                   ),
@@ -199,7 +192,7 @@ class _CustomTabBarState extends State<CustomTabBar>
               ),
               child: Container(
                 child: SvgPicture.asset(
-                  path_icon,
+                  pathIcon,
                   color: _tabController.index == index
                       ? ThemeColor.secondaryColor()
                       : Colors.white,
@@ -228,7 +221,7 @@ class _CustomTabBarState extends State<CustomTabBar>
     );
   }
 
-  Baseline _buildLabel({String text, Color color, bool wrapText}) => Baseline(
+  Baseline buildLabel({String text, Color color, bool wrapText}) => Baseline(
         baselineType: TextBaseline.alphabetic,
         child: Text(
           text,

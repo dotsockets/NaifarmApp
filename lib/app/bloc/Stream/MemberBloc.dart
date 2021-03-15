@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,20 +10,16 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
-import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:http/http.dart' as http;
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
-import 'dart:convert';
 
-class MemberBloc{
+class MemberBloc {
   final AppNaiFarmApplication _application;
 
   CompositeSubscription _compositeSubscription = CompositeSubscription();
@@ -37,7 +32,7 @@ class MemberBloc{
 
   final customerInfoRespone = BehaviorSubject<ProfileObjectCombine>();
 
-  final TextOn = BehaviorSubject<String>();
+  final textOn = BehaviorSubject<String>();
 
   final checkPhone = BehaviorSubject<bool>();
   Stream<Object> get feedList => onSuccess.stream;
@@ -46,406 +41,469 @@ class MemberBloc{
 
   void dispose() {
     _compositeSubscription.clear();
+    textOn.close();
   }
 
-
-  CustomerLogin({BuildContext context,LoginRequest loginRequest}) async{
-     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.CustomersLogin(context,loginRequest: LoginRequest(username: loginRequest.username,phone: loginRequest.phone,password: loginRequest.password))).listen((respone) {
-
+  customerLogin({BuildContext context, LoginRequest loginRequest}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.customersLogin(context,
+                loginRequest: LoginRequest(
+                    username: loginRequest.username,
+                    phone: loginRequest.phone,
+                    password: loginRequest.password)))
+        .listen((respone) {
       var item = (respone.respone as LoginRespone);
-      if(respone.http_call_back.status==200){
-
-        context.read<CustomerCountBloc>().loadCustomerCount(context,token: item.token);
-        context.read<InfoCustomerBloc>().loadCustomInfo(context,token: item.token,oneSignal: true);
-        Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email));
-       // onLoad.add(false);
+      if (respone.httpCallBack.status == 200) {
+        context
+            .read<CustomerCountBloc>()
+            .loadCustomerCount(context, token: item.token);
+        context
+            .read<InfoCustomerBloc>()
+            .loadCustomInfo(context, token: item.token, oneSignal: true);
+        Usermanager().savelogin(
+            user: LoginRespone(
+                name: item.name, token: item.token, email: item.email));
+        // onLoad.add(false);
         onSuccess.add(item);
-      }else{
+      } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back);
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  CustomersLoginSocial({BuildContext context,Fb_Profile loginRequest,String provider,bool isLoad}) async{
-
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.CustomersLoginSocial(context,loginRequest: LoginRequest(name: loginRequest.name,email: loginRequest.email,accessToken: loginRequest.token),provider: provider)).listen((respone) {
-
+  customersLoginSocial(
+      {BuildContext context,
+      FbProfile loginRequest,
+      String provider,
+      bool isLoad}) async {
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.customersLoginSocial(context,
+                loginRequest: LoginRequest(
+                    name: loginRequest.name,
+                    email: loginRequest.email,
+                    accessToken: loginRequest.token),
+                provider: provider))
+        .listen((respone) {
       var item = (respone.respone as LoginRespone);
-      if(respone.http_call_back.status==200){
-        context.read<CustomerCountBloc>().loadCustomerCount(context,token: item.token);
-        context.read<InfoCustomerBloc>().loadCustomInfo(context,token: item.token,oneSignal: true);
+      if (respone.httpCallBack.status == 200) {
+        context
+            .read<CustomerCountBloc>()
+            .loadCustomerCount(context, token: item.token);
+        context
+            .read<InfoCustomerBloc>()
+            .loadCustomInfo(context, token: item.token, oneSignal: true);
 
-        Usermanager().Savelogin(user: LoginRespone(name: item.name,token: item.token,email: item.email)).then((value){
-          if(isLoad){
+        Usermanager()
+            .savelogin(
+                user: LoginRespone(
+                    name: item.name, token: item.token, email: item.email))
+            .then((value) {
+          if (isLoad) {
             onLoad.add(false);
           }
           onSuccess.add(item);
         });
-      }else{
+      } else {
         Usermanager().logout();
-        onError.add(respone.http_call_back);
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  CheckEmail(BuildContext context,{Fb_Profile fb_profile}) async{
+  checkEmail(BuildContext context, {FbProfile fbProfile}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.CheckEmail(context,email: fb_profile.email)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .checkEmail(context, email: fbProfile.email))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
-      onSuccess.add(fb_profile);
-      }else{
-
-        onError.add(respone.http_call_back);
+      if (respone.httpCallBack.status == 200) {
+        onSuccess.add(fbProfile);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  getFBProfile({BuildContext context,String accessToken,bool isLoad}){
-
+  getFBProfile({BuildContext context, String accessToken, bool isLoad}) {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getFBProfile(context,access_token: accessToken)).listen((respone) {
-     // onLoad.add(false);
-      if(respone.http_call_back.status==200){
-        var item = (respone.respone as Fb_Profile);
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .getFBProfile(context, accessToken: accessToken))
+        .listen((respone) {
+      // onLoad.add(false);
+      if (respone.httpCallBack.status == 200) {
+        var item = (respone.respone as FbProfile);
         item.token = accessToken;
 
-        CustomersLoginSocial(context: context,loginRequest: item,provider: "facebook",isLoad: isLoad);
+        customersLoginSocial(
+            context: context,
+            loginRequest: item,
+            provider: "facebook",
+            isLoad: isLoad);
         //CheckEmail(fb_profile: item);
         //onSuccess.add(true);
-      }else{
+      } else {
         Usermanager().logout();
         onLoad.add(false);
-        onError.add(respone.http_call_back);
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  LoginFacebook({BuildContext context,bool isLoad}) async{
-   // onLoad.add(true);
+  loginFacebook({BuildContext context, bool isLoad}) async {
+    // onLoad.add(true);
     final FacebookLogin facebookSignIn = new FacebookLogin();
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-   // facebookSignIn.loginBehavior = FacebookLoginBehavior.webViewOnly;
+    // facebookSignIn.loginBehavior = FacebookLoginBehavior.webViewOnly;
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
-      //  onLoad.add(false);
+        //  onLoad.add(false);
         //  {"name":"Apisit Kaewsasan","first_name":"Apisit","last_name":"Kaewsasan","email":"apisitkaewsasan\u0040hotmail.com","id":"3899261036761384"}
         final FacebookAccessToken accessToken = result.accessToken;
-        getFBProfile(context: context,accessToken: accessToken.token,isLoad: isLoad);
+        getFBProfile(
+            context: context, accessToken: accessToken.token, isLoad: isLoad);
         break;
       case FacebookLoginStatus.cancelledByUser:
-      //  onLoad.add(false);
+        //  onLoad.add(false);
         onError.add(ThrowIfNoSuccess(message: "Login cancelled by the user."));
         break;
       case FacebookLoginStatus.error:
-      //  onLoad.add(false);
-        onError.add(ThrowIfNoSuccess(message: "Something went wrong with the login process."));
+        //  onLoad.add(false);
+        onError.add(ThrowIfNoSuccess(
+            message: "Something went wrong with the login process."));
         break;
     }
   }
 
-  OTPRequest(BuildContext context,{String numberphone}) async{
+  otpRequest(BuildContext context, {String numberphone}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.OTPRequest(context,numberphone: numberphone)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .otpRequest(context, numberphone: numberphone))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
+      if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  OTPVerify(BuildContext context,{String phone,String code,String ref}) async{
+  otpVerify(BuildContext context,
+      {String phone, String code, String ref}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.OtpVerify(context,phone: phone,ref: ref,code: code)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .otpVerify(context, phone: phone, ref: ref, code: code))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
+      if (respone.httpCallBack.status == 200) {
         onSuccess.add(true);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-
-  CustomersRegister({BuildContext context,RegisterRequest registerRequest}) async{
+  customersRegister(
+      {BuildContext context, RegisterRequest registerRequest}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.CustomersRegister(context,registerRequest: registerRequest)).listen((respone) {
-
-      if(respone.http_call_back.status==200 || respone.http_call_back.status==201){
-
-        Usermanager().SavePhone(phone: registerRequest.phone).then((value){
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .customersRegister(context, registerRequest: registerRequest))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200 ||
+          respone.httpCallBack.status == 201) {
+        Usermanager().savePhone(phones: registerRequest.phone).then((value) {
           onLoad.add(false);
-          CustomerLogin(context: context,loginRequest: LoginRequest(username: registerRequest.email,password: registerRequest.password));
+          customerLogin(
+              context: context,
+              loginRequest: LoginRequest(
+                  username: registerRequest.email,
+                  password: registerRequest.password));
         });
-      }else{
+      } else {
         onLoad.add(false);
-        onError.add(respone.http_call_back);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  ForgotPassword(BuildContext context,{ String phone,String code,String ref,String password}) async{
+  forgotPassword(BuildContext context,
+      {String phone, String code, String ref, String password}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.ForgotPassword(context,code: code,ref: ref,phone: phone,password: password)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.forgotPassword(context,
+                code: code, ref: ref, phone: phone, password: password))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
+      if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  ResetPasswordRequest(BuildContext context,{String email, String password,String token}) async{
+  resetPasswordRequest(BuildContext context,
+      {String email, String password, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.ResetPasswordRequest(context,email: email,password: password,token: token)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.resetPasswordRequest(context,
+                email: email, password: password, token: token))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
+      if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  loadMyProfile(BuildContext context,{String token}){
-
+  loadMyProfile(BuildContext context, {String token}) {
     StreamSubscription subscription = Observable.combineLatest2(
-        Observable.fromFuture(_application.appStoreAPIRepository.getCustomerInfo(context,token: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository.getMyShopInfo(context,access_token: token)),(a, b){
+        Observable.fromFuture(_application.appStoreAPIRepository
+            .getCustomerInfo(context, token: token)),
+        Observable.fromFuture(_application.appStoreAPIRepository
+            .getMyShopInfo(context, accessToken: token)), (a, b) {
       final _customInfo = (a as ApiResult).respone;
-      final _myshopInfo  =(b as ApiResult).respone;
+      final _myshopInfo = (b as ApiResult).respone;
 
-      return ProfileObjectCombine(customerInfoRespone: _customInfo,myShopRespone: _myshopInfo);
-
+      return ProfileObjectCombine(
+          customerInfoRespone: _customInfo, myShopRespone: _myshopInfo);
     }).listen((event) {
       customerInfoRespone.add(event);
     });
     _compositeSubscription.add(subscription);
-
-
   }
 
-
-  getCustomerInfo(BuildContext context,{String token}) async{
+  getCustomerInfo(BuildContext context, {String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getCustomerInfo(context,token: token)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .getCustomerInfo(context, token: token))
+        .listen((respone) {
       onLoad.add(false);
 
-      if(respone.http_call_back.status==200){
+      if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  ModifyProfile({BuildContext context,CustomerInfoRespone data ,String token,bool onload}) async{
-    onload?onLoad.add(true):null;
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.ModifyProfile(context,data: data,token: token)).listen((respone) {
+  modifyProfile(
+      {BuildContext context,
+      CustomerInfoRespone data,
+      String token,
+      bool onload}) async {
+    if (onload) {
+      onLoad.add(true);
+    }
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .modifyProfile(context, data: data, token: token))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
-        context.read<InfoCustomerBloc>().loadCustomInfo(context,token:token);
+      if (respone.httpCallBack.status == 200) {
+        context.read<InfoCustomerBloc>().loadCustomInfo(context, token: token);
         onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  ModifyPassword(BuildContext context,{ModifyPasswordrequest data ,String token}) async{
-     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.ModifyPassword(context,data: data,token: token)).listen((respone) {
-      onLoad.add(false);
-      if(respone.http_call_back.status==200){
-          onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
-      }
-
-    });
-    _compositeSubscription.add(subscription);
-  }
-
-  VerifyPassword(BuildContext context,{String password ,String token}) async{
-     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.VerifyPassword(context,password: password,token: token)).listen((respone) {
-      onLoad.add(false);
-      if(respone.http_call_back.status==200){
-          onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
-      }
-
-    });
-    _compositeSubscription.add(subscription);
-  }
-
-
-  CreateMyShop(BuildContext context,{String name, String slug, String description, String token}) async{
+  modifyPassword(BuildContext context,
+      {ModifyPasswordrequest data, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.CreateMyShop(context,name: name,slug: slug,description: description,token: token)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .modifyPassword(context, data: data, token: token))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
+      if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  getMyShopInfo(BuildContext context,{String token}) async{
+  verifyPassword(BuildContext context, {String password, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getMyShopInfo(context,access_token: token)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .verifyPassword(context, password: password, token: token))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
+      if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-
-  MyShopUpdate({BuildContext context,MyShopRequest data, String access_token}) async{
+  createMyShop(BuildContext context,
+      {String name, String slug, String description, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.MyShopUpdate(context: context,data: data,access_token: access_token)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.createMyShop(context,
+                name: name, slug: slug, description: description, token: token))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
-     //  context.read<InfoCustomerBloc>().loadCustomInfo(token:access_token);
+      if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  MyShopActive({BuildContext context,int data, String access_token}) async{
+  getMyShopInfo(BuildContext context, {String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.MyShopActive(context: context,data: data,access_token: access_token)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .getMyShopInfo(context, accessToken: token))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
+      if (respone.httpCallBack.status == 200) {
+        onSuccess.add(respone.respone);
+      } else {
+        onError.add(respone.httpCallBack);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  myShopUpdate(
+      {BuildContext context, MyShopRequest data, String accessToken}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.myShopUpdate(
+                context: context, data: data, accessToken: accessToken))
+        .listen((respone) {
+      onLoad.add(false);
+      if (respone.httpCallBack.status == 200) {
         //  context.read<InfoCustomerBloc>().loadCustomInfo(token:access_token);
         onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  UploadImage({BuildContext context,File imageFile,String imageableType, int imageableId, String token}) async{
+  myShopActive({BuildContext context, int data, String accessToken}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.UploadImage(context,imageFile: imageFile,imageableType: imageableType,imageableId: imageableId,token: token)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.myShopActive(
+                context: context, data: data, accessToken: accessToken))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200 || respone.http_call_back.status==201){
+      if (respone.httpCallBack.status == 200) {
+        //  context.read<InfoCustomerBloc>().loadCustomInfo(token:access_token);
         onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  getInfoRules(BuildContext context,{String slug}) async{
+  uploadImage(
+      {BuildContext context,
+      File imageFile,
+      String imageableType,
+      int imageableId,
+      String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getInformationRules(context,slug)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.uploadImage(context,
+                imageFile: imageFile,
+                imageableType: imageableType,
+                imageableId: imageableId,
+                token: token))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
+      if (respone.httpCallBack.status == 200 ||
+          respone.httpCallBack.status == 201) {
         onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  requestChangEmail(BuildContext context,{String email, String token}) async{
+  getInfoRules(BuildContext context, {String slug}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.requestChangEmail(context,email: email,token: token)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .getInformationRules(context, slug))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
+      if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
 
-  checkPhoneNumber(BuildContext context,{String phone}) async{
+  requestChangEmail(BuildContext context, {String email, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.checkPhone(context,phone: phone)).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .requestChangEmail(context, email: email, token: token))
+        .listen((respone) {
       onLoad.add(false);
-      if(respone.http_call_back.status==200){
+      if (respone.httpCallBack.status == 200) {
+        onSuccess.add(respone.respone);
+      } else {
+        onError.add(respone.httpCallBack);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  checkPhoneNumber(BuildContext context, {String phone}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .checkPhone(context, phone: phone))
+        .listen((respone) {
+      onLoad.add(false);
+      if (respone.httpCallBack.status == 200) {
         checkPhone.add(respone.respone);
-      }else{
-        onError.add(respone.http_call_back);
+      } else {
+        onError.add(respone.httpCallBack);
       }
-
     });
     _compositeSubscription.add(subscription);
   }
-
 }
 
-enum RequestOtp{
-  Register,
-  Forgotpassword,
-  ChangPassword
-}
+enum RequestOtp { Register, Forgotpassword, ChangPassword }

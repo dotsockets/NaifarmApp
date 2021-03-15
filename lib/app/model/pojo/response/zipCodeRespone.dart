@@ -1,9 +1,9 @@
-class zipCodeRespone {
+class ZipCodeRespone {
   int zipCode;
 
-  zipCodeRespone({this.zipCode});
+  ZipCodeRespone({this.zipCode});
 
-  zipCodeRespone.fromJson(Map<String, dynamic> json) {
+  ZipCodeRespone.fromJson(Map<String, dynamic> json) {
     zipCode = json['zipCode'];
   }
 
@@ -13,4 +13,3 @@ class zipCodeRespone {
     return data;
   }
 }
-

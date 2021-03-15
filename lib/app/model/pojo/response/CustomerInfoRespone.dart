@@ -13,19 +13,20 @@ class CustomerInfoRespone {
   String description;
   Shop shop;
   List<ImageShop> image;
-  ThrowIfNoSuccess http_call_back;
+  ThrowIfNoSuccess httpCallBack;
 
   CustomerInfoRespone(
       {this.id,
-        this.name,
-        this.niceName,
-        this.email,
-        this.phone,
-        this.sex,
-        this.dob,
-        this.description,
-        this.shop,
-        this.image,this.http_call_back});
+      this.name,
+      this.niceName,
+      this.email,
+      this.phone,
+      this.sex,
+      this.dob,
+      this.description,
+      this.shop,
+      this.image,
+      this.httpCallBack});
 
   CustomerInfoRespone.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -38,7 +39,7 @@ class CustomerInfoRespone {
     description = json['description'];
     shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
     if (json['image'] != null) {
-      image = new List<ImageShop>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ImageShop.fromJson(v));
       });
@@ -98,10 +99,11 @@ class Shop {
     id = json['id'];
     name = json['name'];
     slug = json['slug'];
-    state = json['state'] != null ? new DataStates.fromJson(json['state']) : null;
+    state =
+        json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = new List<ImageShop>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ImageShop.fromJson(v));
       });

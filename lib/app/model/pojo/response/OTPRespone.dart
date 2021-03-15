@@ -3,9 +3,9 @@ import 'ThrowIfNoSuccess.dart';
 class OTPRespone {
   String phone;
   String refCode;
-  ThrowIfNoSuccess http_call_back;
+  ThrowIfNoSuccess httpCallBack;
 
-  OTPRespone({this.phone, this.refCode,this.http_call_back});
+  OTPRespone({this.phone, this.refCode, this.httpCallBack});
 
   OTPRespone.fromJson(Map<String, dynamic> json) {
     phone = json['phone'];

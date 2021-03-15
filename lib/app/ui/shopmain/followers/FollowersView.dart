@@ -7,7 +7,6 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/FollowersModel.dart';
 import 'package:naifarm/app/viewmodels/ReviewViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -20,7 +19,7 @@ class FollowersView extends StatelessWidget {
         backgroundColor: Colors.grey.shade300,
         appBar: AppToobar(
           title: LocaleKeys.shop_follower.tr(),
-          header_type: Header_Type.barNormal,
+          headerType: Header_Type.barNormal,
           icon: 'assets/images/svg/search.svg',
         ),
         body: SingleChildScrollView(
@@ -33,7 +32,7 @@ class FollowersView extends StatelessWidget {
                   .asMap()
                   .map((key, value) => MapEntry(
                       key,
-                      _BuildCard(
+                      buildCard(
                           item: ReviewViewModel().getFollower()[key],
                           context: context)))
                   .values
@@ -43,7 +42,7 @@ class FollowersView extends StatelessWidget {
         ));
   }
 
-  Widget _BuildCard({FollowersModel item, BuildContext context}) {
+  Widget buildCard({FollowersModel item, BuildContext context}) {
     return Column(
       children: [
         Container(
@@ -64,7 +63,7 @@ class FollowersView extends StatelessWidget {
                             height: 30),
                       ),
                       fit: BoxFit.cover,
-                      imageUrl: item.Image,
+                      imageUrl: item.image,
                       errorWidget: (context, url, error) => Container(
                           height: 30,
                           child: Icon(
@@ -75,8 +74,8 @@ class FollowersView extends StatelessWidget {
                   ),
                   SizedBox(width: 15),
                   Text(
-                    item.Name,
-                    style: FunctionHelper.FontTheme(
+                    item.name,
+                    style: FunctionHelper.fontTheme(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: SizeUtil.titleSmallFontSize().sp),
@@ -95,21 +94,21 @@ class FollowersView extends StatelessWidget {
                     padding: MaterialStateProperty.all(EdgeInsets.only(
                         left: 10, right: 10, top: 10, bottom: 10)),
                     backgroundColor: MaterialStateProperty.all(
-                      item.IsFollow ? Colors.white : ThemeColor.primaryColor(),
+                      item.isFollow ? Colors.white : ThemeColor.primaryColor(),
                     ),
                     overlayColor: MaterialStateProperty.all(
                       Colors.white.withOpacity(0.3),
                     ),
                   ),
                   onPressed: () {
-                    AppRoute.Followers(context);
+                    AppRoute.followers(context);
                   },
                   child: Text(
-                    item.IsFollow
+                    item.isFollow
                         ? LocaleKeys.shop_following.tr()
                         : LocaleKeys.shop_follow.tr(),
-                    style: FunctionHelper.FontTheme(
-                        color: item.IsFollow
+                    style: FunctionHelper.fontTheme(
+                        color: item.isFollow
                             ? ThemeColor.primaryColor()
                             : Colors.white,
                         fontSize: SizeUtil.titleSmallFontSize().sp,

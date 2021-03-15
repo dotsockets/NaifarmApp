@@ -11,7 +11,7 @@ class ProductMyShopListRespone {
 
   ProductMyShopListRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<ProductMyShop>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new ProductMyShop.fromJson(v));
       });
@@ -55,23 +55,23 @@ class ProductMyShop {
 
   ProductMyShop(
       {this.id,
-        this.brand,
-        this.name,
-        this.minPrice,
-        this.maxPrice,
-        this.salePrice,
-        this.offerPrice,
-        this.hasVariant,
-        this.slug,
-        this.saleCount,
-        this.shop,
-        this.image,
-        this.discountPercent,
-        this.rating,
-        this.reviewCount,
-        this.likeCount,
-        this.stockQuantity,
-        this.active});
+      this.brand,
+      this.name,
+      this.minPrice,
+      this.maxPrice,
+      this.salePrice,
+      this.offerPrice,
+      this.hasVariant,
+      this.slug,
+      this.saleCount,
+      this.shop,
+      this.image,
+      this.discountPercent,
+      this.rating,
+      this.reviewCount,
+      this.likeCount,
+      this.stockQuantity,
+      this.active});
 
   ProductMyShop.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -86,7 +86,7 @@ class ProductMyShop {
     saleCount = json['saleCount'];
     shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -141,10 +141,11 @@ class Shop {
     id = json['id'];
     name = json['name'];
     slug = json['slug'];
-    state = json['state'] != null ? new DataStates.fromJson(json['state']) : null;
+    state =
+        json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -166,6 +167,3 @@ class Shop {
     return data;
   }
 }
-
-
-

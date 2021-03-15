@@ -1,14 +1,9 @@
-
 import 'package:localstorage/localstorage.dart';
-import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
-import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
-import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
-import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductDetailCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProductHistoryCache.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMoreCombin.dart';
@@ -16,7 +11,7 @@ import 'package:naifarm/app/model/pojo/response/ProductOrderCache.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 
-class NaiFarmLocalStorage{
+class NaiFarmLocalStorage {
   static LocalStorage storage;
   static String NaiFarm_Storage = "NaiFarm";
   static String NaiFarm_HomeData = "homedata";
@@ -69,15 +64,15 @@ class NaiFarmLocalStorage{
   }
 
   static Future<void> saveCartCache(CartResponse cartResponse) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+    storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(NaiFarm_Cart, cartResponse);
+    storage.setItem(naiFarmCart, cartResponse);
   }
 
   static Future<CartResponse> getCartCache() async {
-    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
-    Map<String, dynamic> data = storage.getItem(NaiFarm_Cart);
+    Map<String, dynamic> data = storage.getItem(naiFarmCart);
     if (data == null) {
       return null;
     }
@@ -85,17 +80,17 @@ class NaiFarmLocalStorage{
     return value;
   }
 
-
-  static Future<void> saveProductMoreCache(ProducMoreCache producMoreCache) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+  static Future<void> saveProductMoreCache(
+      ProducMoreCache producMoreCache) async {
+    storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(NaiFarm_ProductMore, producMoreCache);
+    storage.setItem(naiFarmProductMore, producMoreCache);
   }
 
   static Future<ProducMoreCache> getProductMoreCache() async {
-    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
-    Map<String, dynamic> data = storage.getItem(NaiFarm_ProductMore);
+    Map<String, dynamic> data = storage.getItem(naiFarmProductMore);
     if (data == null) {
       return null;
     }
@@ -103,16 +98,17 @@ class NaiFarmLocalStorage{
     return value;
   }
 
-  static Future<void> saveNaiFarm_ShopCache(NaiFarmShopCombin naiFarmShopCombin) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+  static Future<void> saveNaiFarmShopCache(
+      NaiFarmShopCombin naiFarmShopCombin) async {
+    storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(NaiFarm_Shop, naiFarmShopCombin);
+    storage.setItem(naiFarmShop, naiFarmShopCombin);
   }
 
-  static Future<NaiFarmShopCombin> getNaiFarm_ShopCache() async {
-    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+  static Future<NaiFarmShopCombin> getNaiFarmShopCache() async {
+    LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
-    Map<String, dynamic> data = storage.getItem(NaiFarm_Shop);
+    Map<String, dynamic> data = storage.getItem(naiFarmShop);
     if (data == null) {
       return null;
     }
@@ -120,18 +116,17 @@ class NaiFarmLocalStorage{
     return value;
   }
 
-
-
-  static Future<void> saveProductDetailCache(ProductDetailCombin productDetailCombin) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+  static Future<void> saveProductDetailCache(
+      ProductDetailCombin productDetailCombin) async {
+    storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(NaiFarm_ProductDetail, productDetailCombin);
+    storage.setItem(naiFarmProductDetail, productDetailCombin);
   }
 
   static Future<ProductDetailCombin> getProductDetailCache() async {
-    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
-    Map<String, dynamic> data = storage.getItem(NaiFarm_ProductDetail);
+    Map<String, dynamic> data = storage.getItem(naiFarmProductDetail);
     if (data == null) {
       return null;
     }
@@ -139,25 +134,22 @@ class NaiFarmLocalStorage{
     return value;
   }
 
-
-
   static Future<void> saveHomeData(HomeObjectCombine data) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+    storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(NaiFarm_HomeData, data);
-
+    storage.setItem(naiFarmHomeData, data);
   }
 
-
-  static Future<void> saveCustomer_cuse(CustomerCountRespone countRespone) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+  static Future<void> saveCustomerCuse(
+      CustomerCountRespone countRespone) async {
+    storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(NaiFarm_Cus, countRespone);
+    storage.setItem(naiFarmCus, countRespone);
   }
 
-  static Future<CustomerCountRespone> getCustomer_cuse() async {
-    storage =  LocalStorage(NaiFarm_Storage);
-    Map<String, dynamic> data = storage.getItem(NaiFarm_Cus);
+  static Future<CustomerCountRespone> getCustomerCuse() async {
+    storage = LocalStorage(naiFarmStorage);
+    Map<String, dynamic> data = storage.getItem(naiFarmCus);
     if (data == null) {
       return null;
     }
@@ -165,15 +157,16 @@ class NaiFarmLocalStorage{
     return value;
   }
 
-  static Future<void> saveCustomer_Info(ProfileObjectCombine profileObjectCombine) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+  static Future<void> saveCustomerInfo(
+      ProfileObjectCombine profileObjectCombine) async {
+    storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(NaiFarm_Info, profileObjectCombine);
+    storage.setItem(naiFarmInfo, profileObjectCombine);
   }
 
-  static Future<ProfileObjectCombine> getCustomer_Info() async {
-    storage =  LocalStorage(NaiFarm_Storage);
-    Map<String, dynamic> data = storage.getItem(NaiFarm_Info);
+  static Future<ProfileObjectCombine> getCustomerInfo() async {
+    storage = LocalStorage(naiFarmStorage);
+    Map<String, dynamic> data = storage.getItem(naiFarmInfo);
     if (data == null) {
       return null;
     }
@@ -182,30 +175,30 @@ class NaiFarmLocalStorage{
   }
 
   static Future<void> saveNowPage(int page) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+    storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(NaiFarm_NowPage, page);
+    storage.setItem(naiFarmNowPage, page);
   }
 
   static Future<int> getNowPage() async {
-    storage =  LocalStorage(NaiFarm_Storage);
-    int data = storage.getItem(NaiFarm_NowPage);
-    if(data == null){
+    storage = LocalStorage(naiFarmStorage);
+    int data = storage.getItem(naiFarmNowPage);
+    if (data == null) {
       return 0;
     }
     return data;
   }
 
-  static Future<void> Clean({String keyStore}) async {
-    storage =  LocalStorage(keyStore);
+  static Future<void> clean({String keyStore}) async {
+    storage = LocalStorage(keyStore);
     await storage.ready;
     storage.clear();
   }
 
   static Future<HomeObjectCombine> getHomeDataCache() async {
-    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
-    Map<String, dynamic> data = storage.getItem(NaiFarm_HomeData);
+    Map<String, dynamic> data = storage.getItem(naiFarmHomeData);
     if (data == null) {
       return null;
     }
@@ -214,9 +207,9 @@ class NaiFarmLocalStorage{
   }
 
   static Future<CategoryCombin> getAllCategoriesCache() async {
-    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
-    Map<String, dynamic> data = storage.getItem(NaiFarm_Allcategories);
+    Map<String, dynamic> data = storage.getItem(naiFarmAllcategories);
     if (data == null) {
       return null;
     }
@@ -224,26 +217,22 @@ class NaiFarmLocalStorage{
     return value;
   }
 
-
   static Future<void> saveCategoriesAll(CategoryCombin data) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+    storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(NaiFarm_Allcategories, data);
-
+    storage.setItem(naiFarmAllcategories, data);
   }
 
-  static Future<void> SaveProductStorage(UploadProductStorage data) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+  static Future<void> saveProductStorage(UploadProductStorage data) async {
+    storage = LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(NaiFarm_Product_Upload, data);
-
+    storage.setItem(naiFarmProductUpload, data);
   }
-
 
   static Future<UploadProductStorage> getProductStorageCache() async {
-    LocalStorage storage = new LocalStorage(NaiFarm_Storage);
+    LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
-    Map<String, dynamic> data = storage.getItem(NaiFarm_Product_Upload);
+    Map<String, dynamic> data = storage.getItem(naiFarmProductUpload);
 
     if (data == null) {
       return null;
@@ -252,18 +241,9 @@ class NaiFarmLocalStorage{
     return value;
   }
 
-
-
-
-
-
-  static Future<void> DeleteCacheByItem({String key}) async {
-    storage =  LocalStorage(NaiFarm_Storage);
+  static Future<void> deleteCacheByItem({String key}) async {
+    storage = LocalStorage(naiFarmStorage);
     await storage.ready;
     storage.deleteItem(key);
   }
-
-
-
-
 }

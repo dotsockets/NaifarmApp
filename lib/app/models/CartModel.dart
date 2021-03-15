@@ -1,13 +1,20 @@
-
-class CartModel{
-  final String NameShop;
-  final String PofileShop;
-  final String ProductImage;
-  final String ProductName;
-  final int ProductPrice;
-  final int ProductDicount;
+class CartModel {
+  final String nameShop;
+  final String profileShop;
+  final String productImage;
+  final String productName;
+  final int productPrice;
+  final int productDicount;
   int amout;
   bool select;
 
-  CartModel({this.NameShop, this.PofileShop, this.ProductImage, this.ProductName, this.ProductPrice, this.ProductDicount,this.select,this.amout});
+  CartModel(
+      {this.nameShop,
+      this.profileShop,
+      this.productImage,
+      this.productName,
+      this.productPrice,
+      this.productDicount,
+      this.select,
+      this.amout});
 }

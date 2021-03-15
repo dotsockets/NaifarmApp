@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/InformationResponce.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
-import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
@@ -36,7 +34,7 @@ class _PolicyViewState extends State<PolicyView> {
           Navigator.of(context).pop();
         }
       });
-      bloc.getInfoRules(context,slug: "privacy-policy");
+      bloc.getInfoRules(context, slug: "privacy-policy");
     }
   }
 
@@ -52,8 +50,8 @@ class _PolicyViewState extends State<PolicyView> {
             child: AppToobar(
               title: LocaleKeys.setting_account_title_policy.tr(),
               icon: "",
-              isEnable_Search: false,
-              header_type: Header_Type.barNormal,
+              isEnableSearch: false,
+              headerType: Header_Type.barNormal,
             ),
           ),
           body: StreamBuilder(
@@ -87,7 +85,7 @@ class _PolicyViewState extends State<PolicyView> {
     );
 /*
 HtmlWidget(
-      txt,textStyle: FunctionHelper.FontTheme(
+      txt,textStyle: FunctionHelper.fontTheme(
         fontSize: SizeUtil.titleFontSize().sp,
         color: Colors.black),
       webView: true,

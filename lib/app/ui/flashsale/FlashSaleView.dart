@@ -1,26 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/utility/widgets/ProductItemCard.dart';
-import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
-import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/FlashSaleBar.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
-
 
 class FlashSale extends StatefulWidget {
   final FlashsaleRespone flashsaleRespone;
@@ -32,13 +21,12 @@ class FlashSale extends StatefulWidget {
 }
 
 class _FlashSaleState extends State<FlashSale> {
-  bool OnFlashSale = false;
+  bool onFlashSale = false;
 
   @override
   void initState() {
-    // TODO: implement initState
+    onFlashSale = widget.flashsaleRespone.total > 0 ? true : false;
     super.initState();
-    OnFlashSale = widget.flashsaleRespone.total > 0 ? true : false;
   }
 
   @override
@@ -61,14 +49,16 @@ class _FlashSaleState extends State<FlashSale> {
               SizedBox(height: 6.5.h),
               Center(child: _textSale(context: context)),
               SizedBox(height: 2.5.h),
-              OnFlashSale ? _flashProduct(context) : SizedBox(),
+              onFlashSale ? _flashProduct(context) : SizedBox(),
               SizedBox(height: 2.5.h),
             ],
           ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: FlashSaleBar(flashTime: widget.flashsaleRespone.data[0].end,),
+          child: FlashSaleBar(
+            flashTime: widget.flashsaleRespone.data[0].end,
+          ),
         )
       ],
     );
@@ -82,7 +72,8 @@ class _FlashSaleState extends State<FlashSale> {
           children: [
             Text(
               LocaleKeys.recommend_select_all.tr(),
-              style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,
+              style: FunctionHelper.fontTheme(
+                  fontWeight: FontWeight.bold,
                   fontSize: SizeUtil.titleFontSize().sp),
             ),
             SvgPicture.asset(
@@ -94,7 +85,8 @@ class _FlashSaleState extends State<FlashSale> {
         ),
       ),
       onTap: () {
-        AppRoute.FlashSaleAll(context,flashsaleRespone: widget.flashsaleRespone);
+        AppRoute.flashSaleAll(context,
+            flashsaleRespone: widget.flashsaleRespone);
       },
     );
   }
@@ -112,22 +104,27 @@ class _FlashSaleState extends State<FlashSale> {
               margin: EdgeInsets.all(1.0.h),
               child: Column(
                 children: [
-                  ProductItemCard(item: widget.flashsaleRespone.data[0].items[index].product,tagHero: "productImage_${index}",showSoldFlash: true,)
-                //   //_ProductImage(
-                //   //    item:
-                //           widget.flashsaleRespone.data[0].items[index].product,
-                //       index: index),
-                //   _intoProduct(
-                //       item:
-                //           widget.flashsaleRespone.data[0].items[index].product,
-                //       index: index)
+                  ProductItemCard(
+                    item: widget.flashsaleRespone.data[0].items[index].product,
+                    tagHero: "productImage_$index",
+                    showSoldFlash: true,
+                  )
+                  //   //_ProductImage(
+                  //   //    item:
+                  //           widget.flashsaleRespone.data[0].items[index].product,
+                  //       index: index),
+                  //   _intoProduct(
+                  //       item:
+                  //           widget.flashsaleRespone.data[0].items[index].product,
+                  //       index: index)
                 ],
               ),
             ),
             onTap: () {
-              AppRoute.ProductDetail(context,
-                  productImage: "productImage_${index}_${widget.flashsaleRespone.data[0].items[index].product.id}1",
-                  productItem: ProductBloc.ConvertDataToProduct(
+              AppRoute.productDetail(context,
+                  productImage:
+                      "productImage_${index}_${widget.flashsaleRespone.data[0].items[index].product.id}1",
+                  productItem: ProductBloc.convertDataToProduct(
                       data: widget
                           .flashsaleRespone.data[0].items[index].product));
             },
@@ -177,10 +174,10 @@ class _FlashSaleState extends State<FlashSale> {
                 child: Container(
                   padding: EdgeInsets.only(
                       right: 1.5.w, left: 1.5.w, top: 1.0.w, bottom: 1.0.w),
-                  color: ThemeColor.ColorSale(),
+                  color: ThemeColor.colorSale(),
                   child: Text(
                     "${item.discountPercent}%",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleSmallFontSize().sp),
                   ),
@@ -207,7 +204,7 @@ class _FlashSaleState extends State<FlashSale> {
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: SizeUtil.titleSmallFontSize().sp),
@@ -222,7 +219,7 @@ class _FlashSaleState extends State<FlashSale> {
             children: [
               item.offerPrice != null
                   ? Text("${item.salePrice}",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.grey,
                           fontSize: SizeUtil.priceFontSize().sp,
                           decoration: TextDecoration.lineThrough))
@@ -234,8 +231,8 @@ class _FlashSaleState extends State<FlashSale> {
                     : "฿${item.salePrice}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: FunctionHelper.FontTheme(
-                    color: ThemeColor.ColorSale(),
+                style: FunctionHelper.fontTheme(
+                    color: ThemeColor.colorSale(),
                     fontWeight: FontWeight.w500,
                     fontSize: SizeUtil.priceFontSize().sp),
               ),
@@ -258,7 +255,7 @@ class _FlashSaleState extends State<FlashSale> {
                   borderColor: Colors.amber,
                   spacing: 0.0),
               SizedBox(width: 1.0.w,),
-              Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
+              Text("${item.rating.toDouble()}",style: FunctionHelper.fontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
             ],
           ),
           Stack(
@@ -270,9 +267,9 @@ class _FlashSaleState extends State<FlashSale> {
                   child: Container(
                     padding: EdgeInsets.only(
                         left: 3.0.w, right: 2.0.w, bottom: 1.0.w, top: 1.0.w),
-                    color: ThemeColor.ColorSale(),
+                    color: ThemeColor.colorSale(),
                     child: Text("${item.saleCount!=null?item.saleCount.toString():'0'} ${LocaleKeys.my_product_sold_end.tr()}" ,
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: SizeUtil.detailSmallFontSize().sp),

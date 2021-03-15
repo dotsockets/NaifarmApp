@@ -1,23 +1,16 @@
 import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
-import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -26,14 +19,14 @@ import 'package:regexed_validator/regexed_validator.dart';
 import 'package:sizer/sizer.dart';
 
 class LoginView extends StatefulWidget {
-  final bool IsCallBack;
-  final bool IsHeader;
+  final bool isCallBack;
+  final bool isHeader;
   final Function(bool) homeCallBack;
 
   const LoginView(
       {Key key,
-      this.IsCallBack = false,
-      this.IsHeader = true,
+      this.isCallBack = false,
+      this.isHeader = true,
       this.homeCallBack})
       : super(key: key);
 
@@ -52,13 +45,9 @@ class _LoginViewState extends State<LoginView> {
 
   // @override
   // void initState() {
-  //   // TODO: implement initState
-  //
-  //   super.initState();
   //   _username.text = Usermanager.USERNAME_DEMO;
   //   _password.text = Usermanager.PASSWORD_DEMO;
-  //
-  //
+  //   super.initState();
   // }
 
   void _init(BuildContext context) {
@@ -74,9 +63,9 @@ class _LoginViewState extends State<LoginView> {
       bloc.onError.stream.listen((event) async {
         //Navigator.of(context).pop();
         await FacebookLogin().logOut();
-        FunctionHelper.AlertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message:event.message);
-      //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event.message);
+        //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         // if(widget.IsCallBack){
@@ -84,13 +73,13 @@ class _LoginViewState extends State<LoginView> {
         // }else{
         //   AppRoute.Home(context,item: widget.item);
         // }
-        if (widget.IsHeader) {
+        if (widget.isHeader) {
           if (widget.homeCallBack != null) {
             widget.homeCallBack(true);
             //bloc.onLoad.add(false);
-            AppRoute.PoppageCount(context: context, countpage: 2);
+            AppRoute.poppageCount(context: context, countpage: 2);
           } else {
-            AppRoute.Home(context);
+            AppRoute.home(context);
           }
         } else {
           // bloc.onLoad.add(false);
@@ -113,7 +102,7 @@ class _LoginViewState extends State<LoginView> {
           body: SingleChildScrollView(
             physics: ClampingScrollPhysics(),
             child: Column(
-              children: [_BuildBar(context), _BuildContent(context)],
+              children: [buildBar(context), buildContent(context)],
             ),
           ),
         ),
@@ -121,10 +110,10 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget _BuildContent(BuildContext context) {
+  Widget buildContent(BuildContext context) {
     return Container(
         padding: EdgeInsets.fromLTRB(
-            20.0, 20.0, 20.0, widget.IsCallBack ? 20.0 : (20.0 + 10.0.h)),
+            20.0, 20.0, 20.0, widget.isCallBack ? 20.0 : (20.0 + 10.0.h)),
         child: Column(
           children: [
             SizedBox(
@@ -132,7 +121,7 @@ class _LoginViewState extends State<LoginView> {
             ),
             Text(
               LocaleKeys.btn_login.tr(),
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp + 2,
                   fontWeight: FontWeight.w500),
             ),
@@ -148,7 +137,7 @@ class _LoginViewState extends State<LoginView> {
                   LocaleKeys.my_profile_email.tr(),
               inputType: TextInputType.text,
               controller: _username,
-              BorderOpacity: 0.3,
+              borderOpacity: 0.3,
               borderRadius: 7,
               onChanged: (String x) => _checkError(),
             ),
@@ -160,8 +149,8 @@ class _LoginViewState extends State<LoginView> {
                 hint: LocaleKeys.my_profile_password.tr(),
                 inputType: TextInputType.text,
                 controller: _password,
-                BorderOpacity: 0.3,
-                IsPassword: true,
+                borderOpacity: 0.3,
+                isPassword: true,
                 borderRadius: 7,
                 onChanged: (String x) => _checkError()),
             SizedBox(
@@ -171,14 +160,14 @@ class _LoginViewState extends State<LoginView> {
               alignment: Alignment.topRight,
               child: InkWell(
                 child: Text(LocaleKeys.login_forgot_password.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: ThemeColor.secondaryColor(),
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         decoration: TextDecoration.underline,
                         height: 1.7,
                         fontWeight: FontWeight.w500)),
                 onTap: () {
-                  AppRoute.ForgotPassword(context);
+                  AppRoute.forgotPassword(context);
                 },
               ),
             ),
@@ -198,7 +187,7 @@ class _LoginViewState extends State<LoginView> {
                     Size(80.0.w, 6.5.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
-                    checkError ? ThemeColor.ColorSale() : Colors.grey.shade300,
+                    checkError ? ThemeColor.colorSale() : Colors.grey.shade300,
                   ),
                   overlayColor: MaterialStateProperty.all(
                     Colors.white.withOpacity(0.3),
@@ -207,7 +196,7 @@ class _LoginViewState extends State<LoginView> {
                 onPressed: () => _validate(),
                 child: Text(
                   LocaleKeys.btn_login.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.w500),
@@ -237,11 +226,11 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
                 onPressed: () {
-                  AppRoute.Register(context);
+                  AppRoute.register(context);
                 },
                 child: Text(
                   LocaleKeys.btn_register.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.w500),
@@ -268,7 +257,7 @@ class _LoginViewState extends State<LoginView> {
                       alignment: Alignment.center,
                       child: Text(
                         LocaleKeys.or.tr(),
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp),
                       )),
                 ),
@@ -306,7 +295,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 onPressed: () async {
                   await FacebookLogin().logOut().then((value) {
-                    bloc.LoginFacebook(
+                    bloc.loginFacebook(
                         context: context,
                         isLoad: widget.homeCallBack != null ? false : true);
                   });
@@ -320,9 +309,13 @@ class _LoginViewState extends State<LoginView> {
                       'assets/images/svg/facebook.svg',
                       width: 2.0.w,
                       height: 2.0.h,
-                    ),   SizedBox(width: 2.0.w,),
-                    Text(LocaleKeys.btn_facebook.tr(),
-                      style: FunctionHelper.FontTheme(
+                    ),
+                    SizedBox(
+                      width: 2.0.w,
+                    ),
+                    Text(
+                      LocaleKeys.btn_facebook.tr(),
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w500),
@@ -338,7 +331,7 @@ class _LoginViewState extends State<LoginView> {
               children: [
                 Text(
                   LocaleKeys.regis_agree.tr() + " ",
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       height: 1.7,
                       fontWeight: FontWeight.w500),
@@ -346,7 +339,7 @@ class _LoginViewState extends State<LoginView> {
                 InkWell(
                   child: Text(
                     LocaleKeys.regis_rule.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: ThemeColor.secondaryColor(),
                         decoration: TextDecoration.underline,
@@ -354,12 +347,12 @@ class _LoginViewState extends State<LoginView> {
                         fontWeight: FontWeight.w500),
                   ),
                   onTap: () {
-                    AppRoute.SettingRules(context);
+                    AppRoute.settingRules(context);
                   },
                 ),
                 Text(
                   " " + LocaleKeys.and.tr() + " ",
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       height: 1.7,
                       fontWeight: FontWeight.w500),
@@ -367,7 +360,7 @@ class _LoginViewState extends State<LoginView> {
                 InkWell(
                   child: Text(
                     LocaleKeys.regis_policy.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: ThemeColor.secondaryColor(),
                         decoration: TextDecoration.underline,
@@ -375,12 +368,12 @@ class _LoginViewState extends State<LoginView> {
                         fontWeight: FontWeight.w500),
                   ),
                   onTap: () {
-                    AppRoute.SettingPolicy(context);
+                    AppRoute.settingPolicy(context);
                   },
                 ),
                 Text(
                   " " + LocaleKeys.withh.tr() + " NaiFarm",
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       height: 1.7,
                       fontWeight: FontWeight.w500),
@@ -391,7 +384,7 @@ class _LoginViewState extends State<LoginView> {
         ));
   }
 
-  Widget _BuildHeader(BuildContext context) {
+  Widget buildHeader(BuildContext context) {
     return Container(
         padding: EdgeInsets.only(bottom: 4.0.h),
         width: MediaQuery.of(context).size.width,
@@ -403,7 +396,7 @@ class _LoginViewState extends State<LoginView> {
           children: [
             Text(
               "NaiFarm",
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.white,
                   fontSize: SizeUtil.appNameFontSize().sp,
                   fontWeight: FontWeight.w500),
@@ -412,7 +405,7 @@ class _LoginViewState extends State<LoginView> {
         ));
   }
 
-  Widget _BuildBar(BuildContext context) {
+  Widget buildBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: ThemeColor.primaryColor(),
@@ -424,7 +417,7 @@ class _LoginViewState extends State<LoginView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          widget.IsHeader
+          widget.isHeader
               ? Container(
                   margin: EdgeInsets.only(left: 2.0.w, top: 2.0.w),
                   child: IconButton(
@@ -442,7 +435,7 @@ class _LoginViewState extends State<LoginView> {
               : SizedBox(
                   height: 1.5.h,
                 ),
-          _BuildHeader(context),
+          buildHeader(context),
         ],
       ),
     );
@@ -469,18 +462,22 @@ class _LoginViewState extends State<LoginView> {
             _username.text.length < 10 ||
         !nameRegExp.hasMatch(_username.text) && _username.text.length > 10) {
       // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_phone_invalid.tr(),context: context);
-      FunctionHelper.AlertDialogShop(context,
-          title: LocaleKeys.btn_error.tr(), message: LocaleKeys.message_error_phone_invalid.tr());
-  }else if(!validator.email(_username.text) && nameRegExp.hasMatch(_username.text)){
-    //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_mail_invalid.tr());
-      FunctionHelper.AlertDialogShop(context,
-          title: LocaleKeys.btn_error.tr(), message:LocaleKeys.message_error_mail_invalid.tr());
-    }else{
-      if(checkError){
-        DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      FunctionHelper.alertDialogShop(context,
+          title: LocaleKeys.btn_error.tr(),
+          message: LocaleKeys.message_error_phone_invalid.tr());
+    } else if (!validator.email(_username.text) &&
+        nameRegExp.hasMatch(_username.text)) {
+      //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_mail_invalid.tr());
+      FunctionHelper.alertDialogShop(context,
+          title: LocaleKeys.btn_error.tr(),
+          message: LocaleKeys.message_error_mail_invalid.tr());
+    } else {
+      if (checkError) {
+        // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
         // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        // ignore: unused_local_variable
         var status = await OneSignal.shared.getPermissionSubscriptionState();
-        bloc.CustomerLogin(
+        bloc.customerLogin(
             context: context,
             loginRequest: LoginRequest(
                 username: validator.email(_username.text) ? _username.text : "",

@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/bloc/Stream/AddressBloc.dart';
 import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -41,7 +37,7 @@ class _AddressViewState extends State<AddressView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(
+        FunctionHelper.snackBarShow(
             scaffoldKey: _scaffoldKey, message: event.message);
       });
 
@@ -52,7 +48,7 @@ class _AddressViewState extends State<AddressView> {
 
       Usermanager()
           .getUser()
-          .then((value) => bloc.AddressesList(context, token: value.token));
+          .then((value) => bloc.addressesList(context, token: value.token));
     }
   }
 
@@ -61,7 +57,7 @@ class _AddressViewState extends State<AddressView> {
     _init();
     return WillPopScope(
       onWillPop: () async {
-        check_call_back();
+        checkCallBack();
         return true;
       },
       child: Container(
@@ -74,16 +70,16 @@ class _AddressViewState extends State<AddressView> {
                   preferredSize: Size.fromHeight(6.5.h),
                   child: AppToobar(
                     title: LocaleKeys.setting_account_address_toobar.tr(),
-                    header_type: Header_Type.barNormal,
+                    headerType: Header_Type.barNormal,
                     icon: "",
-                    isEnable_Search: false,
-                    onClick: () => check_call_back(),
+                    isEnableSearch: false,
+                    onClick: () => checkCallBack(),
                   ),
                 ),
                 body: Container(
                   padding: SizeUtil.detailProfilePadding(),
                   child: StreamBuilder(
-                      stream: bloc.AddressList.stream,
+                      stream: bloc.addressList.stream,
                       builder: (context, snapshot) {
                         var item = (snapshot.data as AddressesListRespone);
                         if (snapshot.hasData && item.data != null) {
@@ -100,7 +96,7 @@ class _AddressViewState extends State<AddressView> {
                                                 index,
                                                 Column(
                                                   children: [
-                                                    _BuildCard(
+                                                    buildCard(
                                                         item: value,
                                                         index: index),
                                                     SizedBox(
@@ -141,7 +137,7 @@ class _AddressViewState extends State<AddressView> {
                                           Text(
                                             LocaleKeys.search_product_not_found
                                                 .tr(),
-                                            style: FunctionHelper.FontTheme(
+                                            style: FunctionHelper.fontTheme(
                                                 fontSize:
                                                     SizeUtil.titleFontSize().sp,
                                                 fontWeight: FontWeight.bold),
@@ -165,7 +161,7 @@ class _AddressViewState extends State<AddressView> {
     );
   }
 
-  Widget _BuildCard({AddressesData item, int index}) {
+  Widget buildCard({AddressesData item, int index}) {
     return GestureDetector(
       child: Slidable(
         actionPane: SlidableDrawerActionPane(),
@@ -194,7 +190,7 @@ class _AddressViewState extends State<AddressView> {
                             child: Text(
                               item.addressTitle,
                               textAlign: TextAlign.start,
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   fontWeight: FontWeight.bold,
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   height: 1.6,
@@ -209,11 +205,11 @@ class _AddressViewState extends State<AddressView> {
                                 children: [
                                   item.addressType == "Primary"
                                       ? Text(LocaleKeys.address_default.tr(),
-                                          style: FunctionHelper.FontTheme(
+                                          style: FunctionHelper.fontTheme(
                                               fontWeight: FontWeight.w500,
                                               fontSize:
                                                   SizeUtil.titleFontSize().sp,
-                                              color: ThemeColor.ColorSale()))
+                                              color: ThemeColor.colorSale()))
                                       : SizedBox(),
                                   SizedBox(
                                     width: 5,
@@ -234,21 +230,21 @@ class _AddressViewState extends State<AddressView> {
                       ),
                       Text(
                         item.phone,
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.grey,
                             height: 1.5),
                       ),
                       Text(
                         item.addressLine1,
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.grey,
                             height: 1.5),
                       ),
                       /*   Text(
                         item.zipCode,
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             height: 1.5),
                       ),*/
@@ -269,7 +265,7 @@ class _AddressViewState extends State<AddressView> {
                     height: 5.0.h, width: 5.0.h, repeat: true),
                 Text(
                   LocaleKeys.cart_edit.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.bold),
@@ -277,16 +273,16 @@ class _AddressViewState extends State<AddressView> {
               ],
             ),
             onTap: () async {
-              var result = await AppRoute.AddressEdit(context, item);
+              var result = await AppRoute.addressEdit(context, item);
               if (result != null) {
                 onUpdate = true;
                 Usermanager().getUser().then(
-                    (value) => bloc.AddressesList(context, token: value.token));
+                    (value) => bloc.addressesList(context, token: value.token));
               }
             },
           ),
           IconSlideAction(
-            color: ThemeColor.ColorSale(),
+            color: ThemeColor.colorSale(),
             iconWidget: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -294,7 +290,7 @@ class _AddressViewState extends State<AddressView> {
                     height: 4.0.h, width: 4.0.h, repeat: true),
                 Text(
                   LocaleKeys.cart_del.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.bold),
@@ -303,7 +299,7 @@ class _AddressViewState extends State<AddressView> {
             ),
             onTap: () {
               onUpdate = true;
-              Usermanager().getUser().then((value) => bloc.DeleteAddress(
+              Usermanager().getUser().then((value) => bloc.deleteAddress(
                   context,
                   id: item.id.toString(),
                   token: value.token));
@@ -316,7 +312,7 @@ class _AddressViewState extends State<AddressView> {
       //   background: Container(
       //     padding: EdgeInsets.only(right: 30),
       //     alignment: Alignment.centerRight,
-      //     color: ThemeColor.ColorSale(),
+      //     color: ThemeColor.colorSale(),
       //     child: Column(
       //       mainAxisAlignment: MainAxisAlignment.center,
       //       children: [
@@ -324,7 +320,7 @@ class _AddressViewState extends State<AddressView> {
       //             height: 30, width: 30, repeat: true),
       //         Text(
       //           LocaleKeys.cart_del.tr(),
-      //           style: FunctionHelper.FontTheme(
+      //           style: FunctionHelper.fontTheme(
       //               color: Colors.white,
       //               fontSize: SizeUtil.titleFontSize().sp,
       //               fontWeight: FontWeight.bold),
@@ -340,12 +336,12 @@ class _AddressViewState extends State<AddressView> {
       // ),
 
       onTap: () async {
-        var result = await AppRoute.AddressEdit(context, item);
+        var result = await AppRoute.addressEdit(context, item);
         if (result != null) {
           onUpdate = true;
           Usermanager()
               .getUser()
-              .then((value) => bloc.AddressesList(context, token: value.token));
+              .then((value) => bloc.addressesList(context, token: value.token));
         }
       },
     );
@@ -371,16 +367,16 @@ class _AddressViewState extends State<AddressView> {
             ),
           ),
           onPressed: () async {
-            final result = await AppRoute.SettingAddAddress(context);
+            final result = await AppRoute.settingAddAddress(context);
             if (result) {
               onUpdate = true;
               Usermanager().getUser().then(
-                  (value) => bloc.AddressesList(context, token: value.token));
+                  (value) => bloc.addressesList(context, token: value.token));
             }
           },
           child: Text(
             LocaleKeys.btn_add_address.tr(),
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
@@ -390,11 +386,11 @@ class _AddressViewState extends State<AddressView> {
     );
   }
 
-  void check_call_back() {
-    if (bloc.AddressList.value.data != null) {
-      List<AddressesData> returnData = List<AddressesData>();
+  void checkCallBack() {
+    if (bloc.addressList.value.data != null) {
+      List<AddressesData> returnData = [];
 
-      for (var item in bloc.AddressList.value.data) {
+      for (var item in bloc.addressList.value.data) {
         if (item.addressType == "Primary") {
           returnData.add(AddressesData(
               id: item.id,

@@ -13,18 +13,17 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:vibration/vibration.dart';
 import 'package:sizer/sizer.dart';
 
 class FunctionHelper {
-  static String ReportDateTwo({String date}) {
+  static String reportDateTwo({String date}) {
     return DateFormat.E().format(DateTime.parse(date)) +
         ", " +
         DateFormat("dd/MM/yyyy").format(DateTime.parse(date));
   }
 
-  Future<ProgressDialog> ProgressDiolog(
+  Future<ProgressDialog> progressDiolog(
       {BuildContext context, String message}) async {
     ProgressDialog pr = ProgressDialog(context, isDismissible: false);
     pr.style(
@@ -46,14 +45,14 @@ class FunctionHelper {
     //await pr.show();
   }
 
-  static SnackBarShow(
+  static snackBarShow(
       {GlobalKey<ScaffoldState> scaffoldKey,
       String message,
       BuildContext context,
-      Function() onPressed = null}) {
-    scaffoldKey.currentState.showSnackBar(SnackBar(
+      Function() onPressed}) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(message,
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 fontWeight: FontWeight.w500, color: Colors.white)),
         duration: Duration(seconds: 3),
         action: SnackBarAction(
@@ -62,7 +61,7 @@ class FunctionHelper {
           onPressed: () {
             onPressed != null
                 ? onPressed()
-                : scaffoldKey.currentState.hideCurrentSnackBar();
+                : ScaffoldMessenger.of(context).hideCurrentSnackBar();
             // scaffoldKey.currentState.hideCurrentSnackBar();
           },
         )));
@@ -87,8 +86,8 @@ class FunctionHelper {
                       width: 20,
                     ),
                     Text(
-                      LocaleKeys.dialog_message_loading.tr()+"...",
-                      style: FunctionHelper.FontTheme(
+                      LocaleKeys.dialog_message_loading.tr() + "...",
+                      style: FunctionHelper.fontTheme(
                           color: Colors.black,
                           fontSize: SizeUtil.titleFontSize().sp,
                           decoration: TextDecoration.none),
@@ -125,8 +124,8 @@ class FunctionHelper {
                       height: 10,
                     ),
                     Text(
-                      LocaleKeys.dialog_message_loading.tr()+"...",
-                      style: FunctionHelper.FontTheme(
+                      LocaleKeys.dialog_message_loading.tr() + "...",
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleSmallFontSize().sp,
                           decoration: TextDecoration.none),
@@ -138,22 +137,22 @@ class FunctionHelper {
           );
   }
 
-  static String ConverTime({String time}) {
+  static String converTime({String time}) {
     if (int.parse(time) < 10) {
-      return "0${time}";
+      return "0$time";
     } else {
       return time;
     }
   }
 
-  static String LocaleLanguage({Locale locale}) {
+  static String localeLanguage({Locale locale}) {
     if (locale.toString() == "th_TH")
       return "ภาษาไทย";
     else
       return "English";
   }
 
-  static DropDownAndroid(BuildContext context, List<String> dataList,
+  static dropDownAndroid(BuildContext context, List<String> dataList,
       {Function(int) onTap}) {
     showDialog<bool>(
       context: context,
@@ -177,7 +176,7 @@ class FunctionHelper {
                               top: index == 0 ? 15 : 10),
                           child: Text(
                             dataList[index],
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w500),
                           ),
@@ -205,7 +204,7 @@ class FunctionHelper {
     );
   }
 
-  static DropDownIOS(BuildContext context, List<String> dataList,
+  static dropDownIOS(BuildContext context, List<String> dataList,
       {Function(int) onTap, int initialItem = 0}) {
     int select = initialItem;
     showCupertinoModalPopup(
@@ -230,7 +229,7 @@ class FunctionHelper {
                   CupertinoButton(
                     child: Text(
                       LocaleKeys.btn_cancel.tr(),
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: SizeUtil.titleSmallFontSize().sp),
@@ -244,7 +243,7 @@ class FunctionHelper {
                   CupertinoButton(
                     child: Text(
                       LocaleKeys.btn_ok.tr(),
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: SizeUtil.titleSmallFontSize().sp),
@@ -274,7 +273,7 @@ class FunctionHelper {
                     return Text(
                       "" + dataList[index],
                       style:
-                          FunctionHelper.FontTheme(fontWeight: FontWeight.bold),
+                          FunctionHelper.fontTheme(fontWeight: FontWeight.bold),
                     );
                   }),
                   scrollController:
@@ -291,7 +290,7 @@ class FunctionHelper {
     DatePicker.showDatePicker(context,
         theme: DatePickerTheme(
           containerHeight: 210.0,
-          itemStyle: FunctionHelper.FontTheme(
+          itemStyle: FunctionHelper.fontTheme(
               fontSize: SizeUtil.titleFontSize().sp, color: Colors.black),
         ),
         onChanged: (DateTime dateTime) {
@@ -311,8 +310,8 @@ class FunctionHelper {
   }
 
   static Future<void> selectDateAndroid(BuildContext context, DateTime dateTime,
-      {Function(DateTime) OnDateTime}) async {
-    OnDateTime(await showDatePicker(
+      {Function(DateTime) onDateTime}) async {
+    onDateTime(await showDatePicker(
       context: context,
       initialDate: dateTime,
       firstDate: DateTime(1900, 1, 1),
@@ -320,7 +319,7 @@ class FunctionHelper {
     ));
   }
 
-  static NaiFarmDialog(
+  static naiFarmDialog(
       {BuildContext context, Function() onClick, String message}) {
     showDialog<bool>(
       context: context,
@@ -336,7 +335,7 @@ class FunctionHelper {
                     child: Center(
                         child: Text(
                       message,
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp),
                       textAlign: TextAlign.center,
                     ))),
@@ -352,7 +351,7 @@ class FunctionHelper {
                       child: GestureDetector(
                           child: Text(LocaleKeys.btn_ok.tr(),
                               textAlign: TextAlign.center,
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   color: ThemeColor.primaryColor())),
                           onTap: () => onClick()),
@@ -367,7 +366,7 @@ class FunctionHelper {
     );
   }
 
-  static ConfirmDialog(BuildContext context,
+  static confirmDialog(BuildContext context,
       {Function() onCancel, Function() onClick, String message}) {
     showDialog<bool>(
       context: context,
@@ -383,7 +382,7 @@ class FunctionHelper {
                     child: Center(
                         child: Text(
                       message,
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp),
                       textAlign: TextAlign.center,
                     ))),
@@ -400,9 +399,9 @@ class FunctionHelper {
                               child: Text(
                                 LocaleKeys.btn_cancel.tr(),
                                 textAlign: TextAlign.center,
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
-                                    color: ThemeColor.ColorSale()),
+                                    color: ThemeColor.colorSale()),
                               ),
                             ),
                             onTap: () => onCancel())),
@@ -415,7 +414,7 @@ class FunctionHelper {
                         child: GestureDetector(
                             child: Text(LocaleKeys.btn_ok.tr(),
                                 textAlign: TextAlign.center,
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     color: ThemeColor.primaryColor())),
                             onTap: () => onClick()))
@@ -429,7 +428,7 @@ class FunctionHelper {
     );
   }
 
-  static SuccessDialog(BuildContext context,
+  static successDialog(BuildContext context,
       {Function() onClick, String message}) {
     showDialog<bool>(
       context: context,
@@ -454,7 +453,7 @@ class FunctionHelper {
                   ),
                   Text(
                     message,
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -471,7 +470,7 @@ class FunctionHelper {
     });
   }
 
-  static FailDialog(BuildContext context,
+  static failDialog(BuildContext context,
       {Function() onClick, String message}) {
     showDialog(
       context: context,
@@ -487,7 +486,7 @@ class FunctionHelper {
                 children: [
                   SvgPicture.asset(
                     'assets/images/svg/fail-circle.svg',
-                    color: ThemeColor.ColorSale(),
+                    color: ThemeColor.colorSale(),
                     width: 50,
                     height: 50,
                   ),
@@ -496,7 +495,7 @@ class FunctionHelper {
                   ),
                   Text(
                     message,
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -513,9 +512,12 @@ class FunctionHelper {
     });
   }
 
-
-
-  static AlertDialogShop(BuildContext context, {String title,String message,bool showbtn=true,bool barrierDismissible=true,Function() callCancle}){
+  static alertDialogShop(BuildContext context,
+      {String title,
+      String message,
+      bool showbtn = true,
+      bool barrierDismissible = true,
+      Function() callCancle}) {
     showDialog(
         barrierDismissible: barrierDismissible,
         context: context,
@@ -555,7 +557,7 @@ class FunctionHelper {
         ));
   }
 
-  static AlertDialogRetry(BuildContext context,
+  static alertDialogRetry(BuildContext context,
       {String title,
       String cancalMessage,
       String message,
@@ -633,8 +635,10 @@ class FunctionHelper {
     DateTime currentTime = DateTime.now();
     int difTimeSc = timeData.difference(currentTime).inSeconds;
 
-    if(difTimeSc>86400){
-      difTimeSc = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day+1, 03, 06,41).millisecondsSinceEpoch;
+    if (difTimeSc > 86400) {
+      difTimeSc = DateTime(DateTime.now().year, DateTime.now().month,
+              DateTime.now().day + 1, 03, 06, 41)
+          .millisecondsSinceEpoch;
     }
     // DateTime.now().millisecondsSinceEpoch + 1000 * 30
     return difTimeSc;
@@ -673,12 +677,13 @@ class FunctionHelper {
       } else {
         return "-";
       }
+      // ignore: unused_catch_clause
     } on Exception catch (e) {
       return "";
     }
   }
 
-  static TextStyle FontTheme(
+  static TextStyle fontTheme(
       {FontWeight fontWeight,
       double fontSize,
       Color color,

@@ -1,16 +1,10 @@
-import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -39,12 +33,12 @@ class ProductItemCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(tagHero != "flash" ? 0 : 1.0.w),
       child: Column(
-        children: [_ProductImage(context), _intoProduct(context)],
+        children: [productImage(context), _intoProduct(context)],
       ),
     );
   }
 
-  Widget _ProductImage(BuildContext context) {
+  Widget productImage(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: Colors.grey.shade400),
@@ -53,7 +47,7 @@ class ProductItemCard extends StatelessWidget {
       child: Stack(
         children: [
           Hero(
-            tag: "${tagHero}_${item.id}${subFixId}",
+            tag: "${tagHero}_${item.id}$subFixId",
             child: ClipRRect(
               borderRadius: BorderRadius.circular(1.3.h),
               child: CachedNetworkImage(
@@ -69,7 +63,7 @@ class ProductItemCard extends StatelessWidget {
                     height: 30.0.w,
                   ),
                 ),
-                imageUrl: CovertUrlImage(item.image),
+                imageUrl: covertUrlImage(item.image),
                 errorWidget: (context, url, error) => Container(
                     width: 30.0.w,
                     height: 30.0.w,
@@ -86,10 +80,10 @@ class ProductItemCard extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.only(
                       right: 1.5.w, left: 1.5.w, top: 1.0.w, bottom: 1.0.w),
-                  color: ThemeColor.ColorSale(),
+                  color: ThemeColor.colorSale(),
                   child: Text(
                     "${item.discountPercent}%",
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleSmallFontSize().sp),
                   ),
@@ -103,10 +97,10 @@ class ProductItemCard extends StatelessWidget {
     );
   }
 
-  static String CovertUrlImage(List<ProductImage> image) {
+  static String covertUrlImage(List<ProductImage> image) {
     if (image.length != 0) {
-      Random random = new Random();
-      int randomNumber = random.nextInt(image.length); // from
+      // Random random = new Random();
+      // int randomNumber = random.nextInt(image.length); // from
       return "${Env.value.baseUrl}/storage/images/${image[0].path}";
     } else {
       return "";
@@ -122,14 +116,13 @@ class ProductItemCard extends StatelessWidget {
         children: [
           SizedBox(height: 1.0.h),
           Container(
-            height:
-                SizeUtil.productNameHeight(SizeUtil.titleFontSize().sp),
+            height: SizeUtil.productNameHeight(SizeUtil.titleFontSize().sp),
             child: Text(
               " " + item.name + " ",
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
                   fontSize: SizeUtil.titleFontSize().sp),
@@ -138,7 +131,7 @@ class ProductItemCard extends StatelessWidget {
           SizedBox(
             height: 0.8.h,
           ),
-          SalePrice(item: item),
+          salePrice(item: item),
           SizedBox(height: 1.0.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -158,7 +151,7 @@ class ProductItemCard extends StatelessWidget {
               SizedBox(
                 width: 1.0.w,
               ),
-              //  Text("${item.rating.toDouble()}",style: FunctionHelper.FontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
+              //  Text("${item.rating.toDouble()}",style: FunctionHelper.fontTheme(color: Colors.grey.shade400,fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold),),
             ],
           ),
           showSoldFlash
@@ -174,10 +167,10 @@ class ProductItemCard extends StatelessWidget {
                               right: 2.0.w,
                               bottom: 1.0.w,
                               top: 1.0.w),
-                          color: ThemeColor.ColorSale(),
+                          color: ThemeColor.colorSale(),
                           child: Text(
                             "${item.saleCount != null ? item.saleCount.toString() : '0'} ${LocaleKeys.my_product_sold_end.tr()}",
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
                                 fontSize: SizeUtil.detailFontSize().sp),
@@ -203,7 +196,7 @@ class ProductItemCard extends StatelessWidget {
                           item.saleCount.toString().replaceAll("null", "0") +
                           " " +
                           LocaleKeys.cart_piece.tr(),
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: SizeUtil.detailFontSize().sp),
@@ -215,15 +208,16 @@ class ProductItemCard extends StatelessWidget {
     );
   }
 
-  Row SalePrice({ProductData item}) {
+  Row salePrice({ProductData item}) {
     if (item.salePrice != null) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           item.offerPrice != null
-              ? Text("฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
-                  style: FunctionHelper.FontTheme(
+              ? Text(
+                  "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                  style: FunctionHelper.fontTheme(
                       color: Colors.grey,
                       fontSize: SizeUtil.priceFontSize().sp - 1,
                       decoration: TextDecoration.lineThrough))
@@ -235,8 +229,8 @@ class ProductItemCard extends StatelessWidget {
                 : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: FunctionHelper.FontTheme(
-                color: ThemeColor.ColorSale(),
+            style: FunctionHelper.fontTheme(
+                color: ThemeColor.colorSale(),
                 fontWeight: FontWeight.w500,
                 fontSize: SizeUtil.priceFontSize().sp),
           ),
@@ -248,11 +242,13 @@ class ProductItemCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            item.minPrice != null ? "฿${NumberFormat("#,##0", "en_US").format(item.minPrice)}" : "฿0",
+            item.minPrice != null
+                ? "฿${NumberFormat("#,##0", "en_US").format(item.minPrice)}"
+                : "฿0",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: FunctionHelper.FontTheme(
-                color: ThemeColor.ColorSale(),
+            style: FunctionHelper.fontTheme(
+                color: ThemeColor.colorSale(),
                 fontWeight: FontWeight.w500,
                 fontSize: SizeUtil.priceFontSize().sp),
           ),
@@ -260,17 +256,19 @@ class ProductItemCard extends StatelessWidget {
             " - ",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: FunctionHelper.FontTheme(
-                color: ThemeColor.ColorSale(),
+            style: FunctionHelper.fontTheme(
+                color: ThemeColor.colorSale(),
                 fontWeight: FontWeight.w500,
                 fontSize: SizeUtil.priceFontSize().sp),
           ),
           Text(
-            item.maxPrice != null ?"฿${NumberFormat("#,##0", "en_US").format(item.maxPrice)}" : "฿0",
+            item.maxPrice != null
+                ? "฿${NumberFormat("#,##0", "en_US").format(item.maxPrice)}"
+                : "฿0",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: FunctionHelper.FontTheme(
-                color: ThemeColor.ColorSale(),
+            style: FunctionHelper.fontTheme(
+                color: ThemeColor.colorSale(),
                 fontWeight: FontWeight.w500,
                 fontSize: SizeUtil.priceFontSize().sp),
           ),

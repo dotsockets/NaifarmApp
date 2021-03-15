@@ -17,7 +17,6 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
-import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/config/Env.dart';
@@ -44,13 +43,13 @@ class _SoldOutState extends State<SoldOut> {
   ProductBloc bloc;
   int page = 1;
   int count = 0;
-  bool step_page = false;
+  bool stepPage = false;
   final _searchText = BehaviorSubject<String>();
   int total = 0;
 
   init() {
     count = 0;
-    if(widget.searchTxt.isNotEmpty){
+    if (widget.searchTxt.isNotEmpty) {
       _searchText.add(widget.searchTxt);
     }
 
@@ -70,8 +69,7 @@ class _SoldOutState extends State<SoldOut> {
       bloc = ProductBloc(AppProvider.getApplication(context));
 
       bloc.onSuccess.stream.listen((event) {
-
-        if (event is ProductMyShopRespone||event is bool) {
+        if (event is ProductMyShopRespone || event is bool) {
           widget.searchTxt.length != 0
               ? _reloadFirstSearch()
               : _reloadFirstPage();
@@ -79,18 +77,18 @@ class _SoldOutState extends State<SoldOut> {
         }
       });
 
-
       bloc.onError.stream.listen((event) {
         /*   Future.delayed(const Duration(milliseconds: 1000), () {
           page=1;
           _reloadData();
         });*/
-        FunctionHelper.AlertDialogRetry(context,
-            title: LocaleKeys.btn_error.tr(), message: event.message,callBack: (){
-              widget.searchTxt.length != 0
-                  ? _reloadFirstSearch()
-                  : _reloadFirstPage();
-            });
+        FunctionHelper.alertDialogRetry(context,
+            title: LocaleKeys.btn_error.tr(),
+            message: event.message, callBack: () {
+          widget.searchTxt.length != 0
+              ? _reloadFirstSearch()
+              : _reloadFirstPage();
+        });
         //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event.error);
         widget.searchTxt.length != 0
             ? _reloadFirstSearch()
@@ -103,15 +101,15 @@ class _SoldOutState extends State<SoldOut> {
           Navigator.of(context).pop();
         }
       });
-        widget.searchTxt.length != 0 ? _reloadFirstSearch() : _reloadFirstPage();
+      widget.searchTxt.length != 0 ? _reloadFirstSearch() : _reloadFirstPage();
     }
 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
-          _scrollController.position.pixels <=
+              _scrollController.position.pixels <=
           200) {
-        if (step_page && bloc.productList.length < total) {
-          step_page = false;
+        if (stepPage && bloc.productList.length < total) {
+          stepPage = false;
           page++;
           widget.searchTxt.length != 0 ? _searchData() : _reloadData();
         }
@@ -123,11 +121,11 @@ class _SoldOutState extends State<SoldOut> {
   Widget build(BuildContext context) {
     init();
     return StreamBuilder(
-      stream: bloc.ProductMyShopRes.stream,
+      stream: bloc.productMyShopRes.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData &&
             (snapshot.data as ProductMyShopListRespone).data.length > 0) {
-          step_page = true;
+          stepPage = true;
 
           var item = (snapshot.data as ProductMyShopListRespone);
           total = item.total;
@@ -144,7 +142,7 @@ class _SoldOutState extends State<SoldOut> {
                     children: List.generate(
                       item.data.length,
                       (index) =>
-                          _BuildProduct(item: item.data[index], index: index),
+                          buildProduct(item: item.data[index], index: index),
                     ),
                   ),
                   if (item.data.length != item.total)
@@ -163,7 +161,7 @@ class _SoldOutState extends State<SoldOut> {
                             width: 10,
                           ),
                           Text(LocaleKeys.dialog_message_loading.tr(),
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   color: Colors.grey,
                                   fontSize: SizeUtil.priceFontSize().sp))
                         ],
@@ -178,7 +176,7 @@ class _SoldOutState extends State<SoldOut> {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [Skeleton.LoaderListTite(context)],
+                children: [Skeleton.loaderListTite(context)],
               ),
             ),
           );
@@ -194,7 +192,7 @@ class _SoldOutState extends State<SoldOut> {
                         height: 70.0.w, width: 70.0.w, repeat: false),
                     Text(
                       LocaleKeys.search_product_not_found.tr(),
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.bold),
                     )
@@ -208,10 +206,10 @@ class _SoldOutState extends State<SoldOut> {
     );
   }
 
-  Widget _BuildProduct({ProductMyShop item, int index}) {
+  Widget buildProduct({ProductMyShop item, int index}) {
     return InkWell(
       onTap: () {
-        AppRoute.ProductDetailShop(context,
+        AppRoute.productDetailShop(context,
             productImage: "myproduct_${index}_1", productItem: item);
       },
       child: Container(
@@ -274,10 +272,10 @@ class _SoldOutState extends State<SoldOut> {
                                   left: 1.5.w,
                                   top: 1.0.w,
                                   bottom: 1.0.w),
-                              color: ThemeColor.ColorSale(),
+                              color: ThemeColor.colorSale(),
                               child: Text(
                                 "${item.discountPercent}%",
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     color: Colors.white,
                                     fontSize: SizeUtil.titleSmallFontSize().sp),
                               ),
@@ -298,7 +296,7 @@ class _SoldOutState extends State<SoldOut> {
                             item.name,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -309,21 +307,25 @@ class _SoldOutState extends State<SoldOut> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               item.offerPrice != null
-                                  ? Text("฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
-                                  style: FunctionHelper.FontTheme(
-                                      color: Colors.grey,
-                                      fontSize: SizeUtil.priceFontSize().sp - 1,
-                                      decoration: TextDecoration.lineThrough))
+                                  ? Text(
+                                      "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                                      style: FunctionHelper.fontTheme(
+                                          color: Colors.grey,
+                                          fontSize:
+                                              SizeUtil.priceFontSize().sp - 1,
+                                          decoration:
+                                              TextDecoration.lineThrough))
                                   : SizedBox(),
-                              SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
+                              SizedBox(
+                                  width: item.offerPrice != null ? 1.0.w : 0),
                               Text(
                                 item.offerPrice != null
                                     ? "฿${NumberFormat("#,##0", "en_US").format(item.offerPrice)}"
                                     : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: FunctionHelper.FontTheme(
-                                    color: ThemeColor.ColorSale(),
+                                style: FunctionHelper.fontTheme(
+                                    color: ThemeColor.colorSale(),
                                     fontWeight: FontWeight.w500,
                                     fontSize: SizeUtil.priceFontSize().sp),
                               ),
@@ -342,7 +344,7 @@ class _SoldOutState extends State<SoldOut> {
                                               " ${item.stockQuantity}"
                                           : LocaleKeys.my_product_amount.tr() +
                                               " 0",
-                                      style: FunctionHelper.FontTheme(
+                                      style: FunctionHelper.fontTheme(
                                           fontSize:
                                               SizeUtil.detailFontSize().sp)),
                                 ),
@@ -354,7 +356,7 @@ class _SoldOutState extends State<SoldOut> {
                                     alignment: Alignment.topLeft,
                                     child: Text(
                                       "${LocaleKeys.my_product_sold.tr()} ${item.saleCount != null ? item.saleCount.toString() : "0"} ${LocaleKeys.cart_piece.tr()}",
-                                      style: FunctionHelper.FontTheme(
+                                      style: FunctionHelper.fontTheme(
                                           fontSize:
                                               SizeUtil.detailFontSize().sp),
                                     ),
@@ -375,7 +377,7 @@ class _SoldOutState extends State<SoldOut> {
                                     child: Text(
                                         LocaleKeys.my_product_like.tr() +
                                             " ${item.likeCount != null ? item.likeCount.toString() : "0"}",
-                                        style: FunctionHelper.FontTheme(
+                                        style: FunctionHelper.fontTheme(
                                             fontSize:
                                                 SizeUtil.detailFontSize().sp)),
                                   ),
@@ -386,8 +388,9 @@ class _SoldOutState extends State<SoldOut> {
                                       child: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            LocaleKeys.my_product_option.tr() + " ${LocaleKeys.my_product_empty.tr()}",
-                                            style: FunctionHelper.FontTheme(
+                                            LocaleKeys.my_product_option.tr() +
+                                                " ${LocaleKeys.my_product_empty.tr()}",
+                                            style: FunctionHelper.fontTheme(
                                                 fontSize:
                                                     SizeUtil.detailFontSize()
                                                         .sp),
@@ -416,7 +419,7 @@ class _SoldOutState extends State<SoldOut> {
                           item.active == 1 || item.active == null
                               ? LocaleKeys.my_product_sell.tr()
                               : LocaleKeys.my_product_break.tr(),
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.w600),
                         ),
@@ -440,14 +443,13 @@ class _SoldOutState extends State<SoldOut> {
                               : false,
                           onToggle: (val) {
                             FocusScope.of(context).unfocus();
-                            bloc.ProductMyShopRes.value.data[index].active =
+                            bloc.productMyShopRes.value.data[index].active =
                                 val ? 1 : 0;
-                            bloc.ProductMyShopRes.add(
-                                bloc.ProductMyShopRes.value);
+                            bloc.productMyShopRes
+                                .add(bloc.productMyShopRes.value);
 
                             Usermanager().getUser().then((value) =>
-                                bloc.AtiveProduct(
-                                    context,
+                                bloc.activeProduct(context,
                                     isActive: IsActive.ReplacemenView,
                                     shopRequest: ProductMyShopRequest(
                                         name: item.name, active: 0),
@@ -471,7 +473,7 @@ class _SoldOutState extends State<SoldOut> {
                               'assets/images/svg/Edit.svg',
                               width: SizeUtil.mediumIconSize().w,
                               height: SizeUtil.mediumIconSize().w,
-                              color: ThemeColor.ColorSale(),
+                              color: ThemeColor.colorSale(),
                             ),
                           ),
                           onTap: () async {
@@ -481,12 +483,12 @@ class _SoldOutState extends State<SoldOut> {
                                 stockQuantity: item.stockQuantity,
                                 offerPrice: item.offerPrice,
                                 active: item.active);
-                            var onSelectItem = List<OnSelectItem>();
+                            var onSelectItem = [];
                             for (var value in item.image) {
                               onSelectItem.add(
                                   OnSelectItem(onEdit: false, url: value.path));
                             }
-                            var result = await AppRoute.EditProduct(
+                            var result = await AppRoute.editProduct(
                                 context, item.id, widget.shopId,
                                 uploadProductStorage: UploadProductStorage(
                                     productMyShopRequest: product,
@@ -509,20 +511,19 @@ class _SoldOutState extends State<SoldOut> {
                             'assets/images/svg/trash.svg',
                             width: SizeUtil.mediumIconSize().w,
                             height: SizeUtil.mediumIconSize().w,
-                            color: ThemeColor.ColorSale(),
+                            color: ThemeColor.colorSale(),
                           ),
                           onTap: () {
-                            FunctionHelper.ConfirmDialog(context,
+                            FunctionHelper.confirmDialog(context,
                                 message: LocaleKeys.dialog_message_del_product
                                     .tr(), onClick: () {
-                              bloc.ProductMyShopRes.value.data.removeAt(index);
-                              bloc.ProductMyShopRes.add(
-                                  bloc.ProductMyShopRes.value);
+                              bloc.productMyShopRes.value.data.removeAt(index);
+                              bloc.productMyShopRes
+                                  .add(bloc.productMyShopRes.value);
                               //count++;
                               Usermanager().getUser().then((value) =>
-
-                                  bloc.DELETEProductMyShop(context,
-                                      ProductId: item.id, token: value.token));
+                                  bloc.deleteProductMyShop(context,
+                                      productId: item.id, token: value.token));
                               Navigator.of(context).pop();
                             }, onCancel: () {
                               Navigator.of(context).pop();
@@ -541,7 +542,7 @@ class _SoldOutState extends State<SoldOut> {
     );
   }
 
-  Widget ButtonDialog(BuildContext context,
+  buttonDialog(BuildContext context,
       {Function() onClick, List<String> message}) {
     showDialog<bool>(
       context: context,
@@ -562,7 +563,7 @@ class _SoldOutState extends State<SoldOut> {
                               width: MediaQuery.of(context).size.width,
                               child: Text(
                                 message[index],
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     fontWeight: FontWeight.w500),
                                 textAlign: TextAlign.center,
@@ -575,7 +576,7 @@ class _SoldOutState extends State<SoldOut> {
   }
 
   _reloadData() {
-    Usermanager().getUser().then((value) => bloc.GetProductMyShop(context,
+    Usermanager().getUser().then((value) => bloc.getProductMyShop(context,
         page: page.toString(),
         limit: 5,
         token: value.token,

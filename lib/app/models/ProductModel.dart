@@ -1,11 +1,10 @@
-
-class ProductModel{
-  final String product_name;
-  final String product_image;
-  final int product_price;
-  final String product_status;
-  final String ProfiletImage;
-  final int ProductDicount;
+class ProductModel {
+  final String productName;
+  final String productImage;
+  final int productPrice;
+  final String productStatus;
+  final String profiletImage;
+  final int productDicount;
   final String shopName;
   final String acticeTime;
   final String provice;
@@ -14,8 +13,24 @@ class ProductModel{
   final String amoutProduct;
   final String sipmentPlace;
   final String siomentFrom;
-  final String ProductInto;
+  final String productInto;
   bool isSelect;
 
-  ProductModel ( {this.shopName, this.acticeTime, this.provice, this.ownProduct, this.rateShow, this.amoutProduct, this.sipmentPlace, this.siomentFrom, this.ProductInto,this.product_name, this.product_image, this.product_price, this.product_status,this.ProfiletImage, this.ProductDicount,this.isSelect=false});
+  ProductModel(
+      {this.shopName,
+      this.acticeTime,
+      this.provice,
+      this.ownProduct,
+      this.rateShow,
+      this.amoutProduct,
+      this.sipmentPlace,
+      this.siomentFrom,
+      this.productInto,
+      this.productName,
+      this.productImage,
+      this.productPrice,
+      this.productStatus,
+      this.profiletImage,
+      this.productDicount,
+      this.isSelect = false});
 }

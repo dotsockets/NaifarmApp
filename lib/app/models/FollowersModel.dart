@@ -1,8 +1,7 @@
+class FollowersModel {
+  final String image;
+  final String name;
+  final bool isFollow;
 
-class FollowersModel{
-  final String Image;
-  final String Name;
-  final bool IsFollow;
-
-  FollowersModel({this.Image, this.Name, this.IsFollow});
+  FollowersModel({this.image, this.name, this.isFollow});
 }

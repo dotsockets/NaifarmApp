@@ -21,7 +21,7 @@ class _EditDetailViewState extends State<EditDetailView> {
   TextEditingController _input1 = new TextEditingController();
   String onError1 = "";
 
-  bool FormCheck() {
+  bool formCheck() {
     if (_input1.text.isEmpty) {
       return false;
     } else {
@@ -31,9 +31,8 @@ class _EditDetailViewState extends State<EditDetailView> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     _input1.text = widget.itemInfo.description;
+    super.initState();
   }
 
   @override
@@ -44,16 +43,16 @@ class _EditDetailViewState extends State<EditDetailView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
-            isEnable_Search: false,
-            title:  LocaleKeys.edit.tr()+LocaleKeys.shop_detail_title.tr(),
-            header_type: Header_Type.barNormal,
+            isEnableSearch: false,
+            title: LocaleKeys.edit.tr() + LocaleKeys.shop_detail_title.tr(),
+            headerType: Header_Type.barNormal,
           ),
           body: Container(
             padding: SizeUtil.detailProfilePadding(),
             child: Container(
               child: Column(
                 children: [
-                  _Form(),
+                  form(),
                   SizedBox(
                     height: 3.0.h,
                   ),
@@ -76,12 +75,12 @@ class _EditDetailViewState extends State<EditDetailView> {
                         Colors.white.withOpacity(0.3),
                       ),
                     ),
-                    onPressed: () => FormCheck()
+                    onPressed: () => formCheck()
                         ? Navigator.pop(context, widget.itemInfo)
                         : SizedBox(),
                     child: Text(
                       LocaleKeys.btn_save.tr(),
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w500),
@@ -96,7 +95,7 @@ class _EditDetailViewState extends State<EditDetailView> {
     );
   }
 
-  Widget _Form() {
+  Widget form() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
@@ -104,9 +103,10 @@ class _EditDetailViewState extends State<EditDetailView> {
         children: [
           BuildEditText(
             head: LocaleKeys.shop_detail_title.tr(),
-            hint: LocaleKeys.set_default.tr()+LocaleKeys.shop_detail_title.tr(),
+            hint:
+                LocaleKeys.set_default.tr() + LocaleKeys.shop_detail_title.tr(),
             inputType: TextInputType.text,
-            BorderOpacity: 0.2,
+            borderOpacity: 0.2,
             maxLine: 8,
             maxLength: 2000,
             borderRadius: 5,

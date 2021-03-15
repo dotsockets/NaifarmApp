@@ -24,7 +24,7 @@ class _SearchMapViewState extends State<SearchMapView> {
     "A Space Asoke-Ratchada",
     "เซนทัล พระราม9"
   ];
-  List <String> listClone = List<String>();
+  List<String> listClone = [];
 
   @override
   void initState() {
@@ -40,19 +40,19 @@ class _SearchMapViewState extends State<SearchMapView> {
         backgroundColor: Colors.grey.shade200,
         appBar: AppToobar(
           icon: "",
-          isEnable_Search: true,
+          isEnableSearch: true,
           locationTxt: widget.locationTxt,
-          header_type: Header_Type.barMap,
-          onSearch: (String text){
+          headerType: Header_Type.barMap,
+          onSearch: (String text) {
             setState(() {
-              SearchText(text);
+              searchText(text);
             });
           },
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              _BuildLocation(),
+              buildLocation(),
               Container(
                 color: Colors.white,
                 child: ListView.builder(
@@ -64,11 +64,12 @@ class _SearchMapViewState extends State<SearchMapView> {
                       children: [
                         Container(
                           child: Text(listClone[index],
-                              style: FunctionHelper.FontTheme(
-                                  color: Colors.black, fontSize: SizeUtil.titleFontSize().sp)),
+                              style: FunctionHelper.fontTheme(
+                                  color: Colors.black,
+                                  fontSize: SizeUtil.titleFontSize().sp)),
                           padding: EdgeInsets.all(15),
                         ),
-                        _BuildLine()
+                        buildLine()
                       ],
                     );
                   },
@@ -81,34 +82,42 @@ class _SearchMapViewState extends State<SearchMapView> {
     );
   }
 
-  Widget _BuildLine() {
+  Widget buildLine() {
     return Container(
       height: 2,
       color: Colors.grey.shade100,
     );
   }
 
-  Widget _BuildLocation() {
+  Widget buildLocation() {
     return Container(
       padding: EdgeInsets.all(10),
       child: Row(
         children: [
-          _BuildBlockLocation(description: "คอนโด เอสเปส...", title: LocaleKeys.map_home.tr(),iconTxt: 'assets/images/svg/home_active.svg'),
-          SizedBox(width: 10,),
-          _BuildBlockLocation(description: "คอนโด เอสเปส...", title: LocaleKeys.map_office.tr(),iconTxt: 'assets/images/svg/work.svg'),
+          buildBlockLocation(
+              description: "คอนโด เอสเปส...",
+              title: LocaleKeys.map_home.tr(),
+              iconTxt: 'assets/images/svg/home_active.svg'),
+          SizedBox(
+            width: 10,
+          ),
+          buildBlockLocation(
+              description: "คอนโด เอสเปส...",
+              title: LocaleKeys.map_office.tr(),
+              iconTxt: 'assets/images/svg/work.svg'),
         ],
       ),
     );
   }
 
-  Widget _BuildBlockLocation({String title, String description,String iconTxt}) {
+  Widget buildBlockLocation(
+      {String title, String description, String iconTxt}) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
       ),
       padding: EdgeInsets.all(10),
-
       child: Row(
         children: [
           SvgPicture.asset(
@@ -117,30 +126,33 @@ class _SearchMapViewState extends State<SearchMapView> {
             width: 30,
             height: 30,
           ),
-          SizedBox(width: 5,),
+          SizedBox(
+            width: 5,
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title,
-                  style: FunctionHelper.FontTheme(
-                      color: Colors.black, fontSize: SizeUtil.titleFontSize().sp)),
+                  style: FunctionHelper.fontTheme(
+                      color: Colors.black,
+                      fontSize: SizeUtil.titleFontSize().sp)),
               Text(description,
-                  style: FunctionHelper.FontTheme(
-                      color: Colors.grey, fontSize: SizeUtil.titleSmallFontSize().sp
-                  )),
+                  style: FunctionHelper.fontTheme(
+                      color: Colors.grey,
+                      fontSize: SizeUtil.titleSmallFontSize().sp)),
             ],
           )
         ],
       ),
     );
   }
-  void SearchText(String text){
-      listClone.clear();
-      for(int i=0;i<searchList.length;i++){
-        if(searchList[i].contains(text)){
-          listClone.add(searchList[i]);
-        }
-      }
 
+  void searchText(String text) {
+    listClone.clear();
+    for (int i = 0; i < searchList.length; i++) {
+      if (searchList[i].contains(text)) {
+        listClone.add(searchList[i]);
+      }
     }
+  }
 }

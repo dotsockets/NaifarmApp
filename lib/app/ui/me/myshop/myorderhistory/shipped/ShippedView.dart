@@ -17,8 +17,6 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -37,7 +35,7 @@ class _ShippedViewState extends State<ShippedView> {
   ScrollController _scrollController = ScrollController();
   int page = 1;
   int limit = 10;
-  bool step_page = false;
+  bool stepPage = false;
 
   init() {
     if (bloc == null) {
@@ -77,8 +75,8 @@ class _ShippedViewState extends State<ShippedView> {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=
           200) {
-        if (step_page) {
-          step_page = false;
+        if (stepPage) {
+          stepPage = false;
           page++;
           _reloadData();
         }
@@ -110,7 +108,7 @@ class _ShippedViewState extends State<ShippedView> {
                                   children: [
                                     Stack(
                                       children: [
-                                        _BuildCard(
+                                        buildCard(
                                             item: value,
                                             index: key,
                                             context: context),
@@ -125,11 +123,12 @@ class _ShippedViewState extends State<ShippedView> {
                                                       child: Container(
                                                         width: 30.0.w,
                                                         height: 5.0.h,
-                                                        padding:
-                                                            EdgeInsets.all(2.0.w),
+                                                        padding: EdgeInsets.all(
+                                                            2.0.w),
                                                         decoration: new BoxDecoration(
                                                             color: Colors.black
-                                                                .withOpacity(0.5),
+                                                                .withOpacity(
+                                                                    0.5),
                                                             borderRadius:
                                                                 new BorderRadius
                                                                         .all(
@@ -140,21 +139,22 @@ class _ShippedViewState extends State<ShippedView> {
                                                               LocaleKeys
                                                                   .search_product_not_found
                                                                   .tr(),
-                                                              style: FunctionHelper
-                                                                  .FontTheme(
-                                                                      fontSize:
-                                                                          SizeUtil.titleSmallFontSize()
-                                                                              .sp,
-                                                                      color: Colors
-                                                                          .white)),
+                                                              style: FunctionHelper.fontTheme(
+                                                                  fontSize:
+                                                                      SizeUtil.titleSmallFontSize()
+                                                                          .sp,
+                                                                  color: Colors
+                                                                      .white)),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                  onTap: (){
-
-                                                    AppRoute.OrderDetail(context,
-                                                        orderData: value, typeView: widget.typeView);
+                                                  onTap: () {
+                                                    AppRoute.orderDetail(
+                                                        context,
+                                                        orderData: value,
+                                                        typeView:
+                                                            widget.typeView);
                                                   },
                                                 ),
                                               )
@@ -186,7 +186,7 @@ class _ShippedViewState extends State<ShippedView> {
                               width: 10,
                             ),
                             Text(LocaleKeys.dialog_message_loading.tr(),
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     color: Colors.grey,
                                     fontSize: SizeUtil.priceFontSize().sp))
                           ],
@@ -210,7 +210,7 @@ class _ShippedViewState extends State<ShippedView> {
                           height: 70.0.w, width: 70.0.w, repeat: false),
                       Text(
                         LocaleKeys.search_product_not_found.tr(),
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.bold),
                       )
@@ -223,27 +223,28 @@ class _ShippedViewState extends State<ShippedView> {
     );
   }
 
-  Widget _BuildCard({OrderData item, BuildContext context, int index}) {
+  Widget buildCard({OrderData item, BuildContext context, int index}) {
     return InkWell(
       child: Container(
         child: Column(
           children: [
-            _OwnShop(item: item),
-            _ProductDetail(item: item, index: index),
+            ownShop(item: item),
+            productDetail(item: item, index: index),
           ],
         ),
       ),
       onTap: () async {
         // AppRoute.ProductDetail(context, productImage: "history_${index}");
         if (item.items[0].inventory != null) {
-          final result = await AppRoute.OrderDetail(context,
+          final result = await AppRoute.orderDetail(context,
               orderData: item, typeView: widget.typeView);
-          if(result){
-            bloc.orderList.clear();
+          if (result) {
+            bloc.orderDataList.clear();
             Usermanager().getUser().then((value) => bloc.loadOrder(context,
                 load: true,
-                orderType:
-                widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+                orderType: widget.typeView == OrderViewType.Shop
+                    ? "myshop/orders"
+                    : "order",
                 statusId: "3",
                 sort: "orders.updatedAt:desc",
                 limit: limit,
@@ -255,13 +256,19 @@ class _ShippedViewState extends State<ShippedView> {
     );
   }
 
-  Widget _ProductItem({OrderData orderData,OrderItems item, int shopId, int index,int idOrder}) {
+  Widget productItem(
+      {OrderData orderData,
+      OrderItems item,
+      int shopId,
+      int index,
+      int idOrder}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
           child: Hero(
-            tag: "history_ship_${idOrder}${item.orderId}${item.inventoryId}${index}2",
+            tag:
+                "history_ship_$idOrder${item.orderId}${item.inventoryId}${index}2",
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -274,7 +281,7 @@ class _ShippedViewState extends State<ShippedView> {
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
-                "${Env.value.baseUrl}/storage/images/${item.inventory != null ? item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : Env.value.noItemUrl : Env.value.noItemUrl}",
+                    "${Env.value.baseUrl}/storage/images/${item.inventory != null ? item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : Env.value.noItemUrl : Env.value.noItemUrl}",
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
@@ -286,10 +293,10 @@ class _ShippedViewState extends State<ShippedView> {
             ProductData product = ProductData();
             product = item.inventory.product;
             product.shop = ProductShop(id: shopId);
-            AppRoute.ProductDetail(context,
+            AppRoute.productDetail(context,
                 productImage:
-                    "history_ship_${idOrder}${item.orderId}${item.inventoryId}${index}2",
-                productItem: ProductBloc.ConvertDataToProduct(data: product));
+                    "history_ship_$idOrder${item.orderId}${item.inventoryId}${index}2",
+                productItem: ProductBloc.convertDataToProduct(data: product));
           },
         ),
         SizedBox(width: 2.0.w),
@@ -305,7 +312,7 @@ class _ShippedViewState extends State<ShippedView> {
                         : item.itemTitle.isNotEmpty?item.itemTitle:'${LocaleKeys.search_product_not_found.tr()}',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w600)),
               ),
@@ -314,19 +321,25 @@ class _ShippedViewState extends State<ShippedView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("x ${item.quantity}",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           color: Colors.black)),
                   Row(
                     children: [
-                      item.inventory!=null && item.inventory.offerPrice!=null?Text("฿${item.inventory.salePrice}",
-                          style: FunctionHelper.FontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              decoration: TextDecoration.lineThrough,color: Colors.black.withOpacity(0.5))):SizedBox(),
+                      item.inventory != null &&
+                              item.inventory.offerPrice != null
+                          ? Text("฿${item.inventory.salePrice}",
+                              style: FunctionHelper.fontTheme(
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  decoration: TextDecoration.lineThrough,
+                                  color: Colors.black.withOpacity(0.5)))
+                          : SizedBox(),
                       SizedBox(width: 8),
-                      Text("฿${NumberFormat("#,##0", "en_US").format(item.inventory!=null?item.inventory.offerPrice!=null?item.inventory.offerPrice:item.inventory.salePrice*item.quantity:orderData.total)}",style: FunctionHelper.FontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          color: ThemeColor.ColorSale())),
+                      Text(
+                          "฿${NumberFormat("#,##0", "en_US").format(item.inventory != null ? item.inventory.offerPrice != null ? item.inventory.offerPrice : item.inventory.salePrice * item.quantity : orderData.total)}",
+                          style: FunctionHelper.fontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              color: ThemeColor.colorSale())),
                       // Text(
                       //     "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
                       //     style: FunctionHelper.FontTheme(
@@ -346,7 +359,7 @@ class _ShippedViewState extends State<ShippedView> {
     );
   }
 
-  Widget _ProductDetail({OrderData item, int index}) {
+  Widget productDetail({OrderData item, int index}) {
     return Container(
       padding: EdgeInsets.all(3.0.w),
       color: Colors.white,
@@ -357,8 +370,8 @@ class _ShippedViewState extends State<ShippedView> {
                 .asMap()
                 .map((key, value) => MapEntry(
                     key,
-                    _ProductItem(
-                      orderData: item,
+                    productItem(
+                        orderData: item,
                         item: item.items[key],
                         shopId: item.shop.id,
                         idOrder: item.id,
@@ -376,13 +389,16 @@ class _ShippedViewState extends State<ShippedView> {
                     children: <TextSpan>[
                       new TextSpan(
                           text: LocaleKeys.history_order_price.tr() + " : ",
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.normal,
                               color: Colors.black)),
                       new TextSpan(
                           text:
-                          "฿${NumberFormat("#,##0", "en_US").format(bloc.SumTotal(item.items, item.shipping!=null?item.shipping:0))}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.ColorSale())),
+                              "฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(item.items, item.shipping != null ? item.shipping : 0))}",
+                          style: FunctionHelper.fontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              color: ThemeColor.colorSale())),
                     ],
                   ),
                 ),
@@ -391,7 +407,7 @@ class _ShippedViewState extends State<ShippedView> {
                 color: Colors.grey.shade400,
               ),
               widget.typeView == OrderViewType.Shop
-                  ? _IntroShipment(address: item.shippingAddress)
+                  ? introShipment(address: item.shippingAddress)
                   : SizedBox(),
               widget.typeView == OrderViewType.Shop
                   ? Divider(
@@ -411,13 +427,13 @@ class _ShippedViewState extends State<ShippedView> {
                                 " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
                             : LocaleKeys.history_order_time.tr() +
                                 "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black.withOpacity(0.6)),
                       )),
                   Container(
                       constraints: BoxConstraints(maxWidth: (50.0.w - 12.0)),
-                      child: _BuildButtonBayItem(
+                      child: buildButtonBayItem(
                           btnTxt: widget.typeView == OrderViewType.Purchase
                               ? LocaleKeys.order_detail_contact.tr()
                               : LocaleKeys.order_detail_ship.tr(),
@@ -431,7 +447,7 @@ class _ShippedViewState extends State<ShippedView> {
     );
   }
 
-  Widget _OwnShop({OrderData item}) {
+  Widget ownShop({OrderData item}) {
     return Container(
       padding: EdgeInsets.only(left: 15, top: 15, bottom: 5, right: 20),
       color: Colors.white,
@@ -445,7 +461,7 @@ class _ShippedViewState extends State<ShippedView> {
                         LocaleKeys.order_detail_id.tr() +
                             " " +
                             item.orderNumber,
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.w500)),
                   )
@@ -482,14 +498,14 @@ class _ShippedViewState extends State<ShippedView> {
                         width: 10,
                       ),
                       Text(item.shop.name,
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleSmallFontSize().sp,
                               fontWeight: FontWeight.bold))
                     ],
                   ),
             Text(
               item.orderStatusName,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: ThemeColor.primaryColor(),
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.w500),
@@ -497,14 +513,14 @@ class _ShippedViewState extends State<ShippedView> {
           ],
         ),
         onTap: () {
-          AppRoute.ShopMain(
+          AppRoute.shopMain(
               context: context, myShopRespone: MyShopRespone(id: item.shop.id));
         },
       ),
     );
   }
 
-  Widget _BuildButtonBayItem({String btnTxt, OrderData item}) {
+  Widget buildButtonBayItem({String btnTxt, OrderData item}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -513,10 +529,9 @@ class _ShippedViewState extends State<ShippedView> {
           ),
         ),
         padding: MaterialStateProperty.all(
-            EdgeInsets.only(right: 10.0.w,left: 10.0.w)
-        ),
+            EdgeInsets.only(right: 10.0.w, left: 10.0.w)),
         backgroundColor: MaterialStateProperty.all(
-          ThemeColor.ColorSale(),
+          ThemeColor.colorSale(),
         ),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),
@@ -525,10 +540,10 @@ class _ShippedViewState extends State<ShippedView> {
       onPressed: () async {
         if (widget.typeView == OrderViewType.Shop) {
           // AppRoute.ShippingOrder(context: context,orderData: item);
-          final result = await AppRoute.AddtTrackingNumber(
+          final result = await AppRoute.addtTrackingNumber(
               context: context, orderData: item);
           if (result) {
-            bloc.orderList.clear();
+            bloc.orderDataList.clear();
             Usermanager().getUser().then((value) => bloc.loadOrder(context,
                 load: true,
                 orderType: widget.typeView == OrderViewType.Shop
@@ -546,7 +561,7 @@ class _ShippedViewState extends State<ShippedView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,
             fontWeight: FontWeight.w500),
@@ -554,7 +569,7 @@ class _ShippedViewState extends State<ShippedView> {
     );
   }
 
-  Widget _IntroShipment({String address}) {
+  Widget introShipment({String address}) {
     return Container(
       color: Colors.white,
       child: Row(
@@ -569,7 +584,7 @@ class _ShippedViewState extends State<ShippedView> {
             child: Text(address,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     color: ThemeColor.secondaryColor())),
           ),
@@ -585,7 +600,6 @@ class _ShippedViewState extends State<ShippedView> {
     );
   }
 
-
   _reloadData() {
     Usermanager().getUser().then((value) => bloc.loadOrder(context,
         orderType:
@@ -597,6 +611,5 @@ class _ShippedViewState extends State<ShippedView> {
         token: value.token));
   }
 
-  @override
   bool get wantKeepAlive => true;
 }

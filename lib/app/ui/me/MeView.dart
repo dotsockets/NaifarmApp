@@ -5,7 +5,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
@@ -15,19 +14,13 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
-import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
-import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildIconShop.dart';
-import 'package:naifarm/utility/widgets/MD2Indicator.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:rxdart/subjects.dart';
 import 'myshop/MyshopView.dart';
 import 'purchase/PurchaseView.dart';
@@ -47,13 +40,12 @@ class _MeViewState extends State<MeView> with RouteAware {
   bool onDialog = true;
   StreamController<bool> controller = new StreamController<bool>();
   ScrollController _scrollController = ScrollController();
-  final ExpandedBar = BehaviorSubject<bool>();
-  bool IsLogin = true;
-
+  final expandedBar = BehaviorSubject<bool>();
+  bool isLogin = true;
 
   void _init() {
     if (null == bloc) {
-      ExpandedBar.add(false);
+      expandedBar.add(false);
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -96,9 +88,9 @@ class _MeViewState extends State<MeView> with RouteAware {
 
     _scrollController.addListener(() {
       if (_isAppBarExpanded) {
-        ExpandedBar.add(true);
+        expandedBar.add(true);
       } else {
-        ExpandedBar.add(false);
+        expandedBar.add(false);
       }
     });
   }
@@ -109,42 +101,46 @@ class _MeViewState extends State<MeView> with RouteAware {
   }
 
   @override
+  void dispose() {
+    controller.close();
+    super.dispose();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     routeObserver.subscribe(this, ModalRoute.of(context));
   }
 
-  void ISLogin() async => IsLogin = await Usermanager().isLogin();
-
+  void iSLogin() async => isLogin = await Usermanager().isLogin();
 
   @override
   Widget build(BuildContext context) {
     _init();
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        ISLogin();
-        if(IsLogin){
+        iSLogin();
+        if (isLogin) {
           if (count is InfoCustomerLoaded || count is InfoCustomerLoading) {
             return Scaffold(
                 key: _scaffoldKey,
                 backgroundColor: Colors.grey.shade300,
-                body: _ContentMe());
-          }else if(count is InfoCustomerError) {
-
+                body: _contentMe());
+          } else if (count is InfoCustomerError) {
             return Scaffold(
                 key: _scaffoldKey,
                 backgroundColor: Colors.grey.shade300,
-                body: _ContentMe());
+                body: _contentMe());
           } else {
             return Center(
-              child:  Platform.isAndroid
+              child: Platform.isAndroid
                   ? CircularProgressIndicator()
                   : CupertinoActivityIndicator(),
             );
           }
-        }else{
+        } else {
           return LoginView(
-            IsHeader: false,
+            isHeader: false,
             homeCallBack: (bool fix) {
               Navigator.of(context).pop();
 
@@ -156,28 +152,22 @@ class _MeViewState extends State<MeView> with RouteAware {
             },
           );
         }
-
       },
     );
   }
 
-  Widget _ContentMe() {
+  Widget _contentMe() {
     return CustomScrollView(
       controller: _scrollController,
       slivers: [
         SliverAppBar(
           leading: Container(
             margin: EdgeInsets.only(left: 1.0.w),
-            child: GestureDetector(
-              child: IconButton(
-                icon: Icon(Icons.settings, color: Colors.white, size: 6.0.w),
-              ),
-              onTap: () async {
-                final result = await AppRoute.SettingProfile(context);
-                // if (result != null && result) {
-                //   _reload.add(true);
-                //   IsLogin = false;
-                // }
+            child: IconButton(
+              icon: Icon(Icons.settings, color: Colors.white, size: 6.0.w),
+              onPressed: () async {
+                // ignore: unused_local_variable
+                final result = await AppRoute.settingProfile(context);
               },
             ),
           ),
@@ -185,7 +175,7 @@ class _MeViewState extends State<MeView> with RouteAware {
             Container(
                 margin: EdgeInsets.only(right: 2.0.w, left: 1.0.w, top: 1.0.w),
                 child: StreamBuilder(
-                  stream: ExpandedBar.stream,
+                  stream: expandedBar.stream,
                   builder: (_, snapshot) {
                     if (snapshot.hasData) {
                       return !snapshot.data ? BuildIconShop() : SizedBox();
@@ -202,13 +192,15 @@ class _MeViewState extends State<MeView> with RouteAware {
               child: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
                 builder: (_, item) {
                   if (item is InfoCustomerLoaded) {
-                    return ImageHeader(
+                    return _imageHeader(
                         info: item.profileObjectCombine.customerInfoRespone);
                   } else if (item is InfoCustomerLoading) {
-                    return ImageHeader(
-                        info: item.profileObjectCombine!=null?item.profileObjectCombine.customerInfoRespone:[]);
-                  }else if(item is InfoCustomerError) {
-                    return ImageHeader(
+                    return _imageHeader(
+                        info: item.profileObjectCombine != null
+                            ? item.profileObjectCombine.customerInfoRespone
+                            : []);
+                  } else if (item is InfoCustomerError) {
+                    return _imageHeader(
                         info: item.profileObjectCombine.customerInfoRespone);
                   } else {
                     return SizedBox();
@@ -225,7 +217,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                 if (item is InfoCustomerLoaded) {
                   if (item.profileObjectCombine.shppingMyShopRespone.data
                       .isNotEmpty) {
-                    return BodyContent(
+                    return bodyContent(
                         wigitHight: item
                                     .profileObjectCombine
                                     .shppingMyShopRespone
@@ -236,25 +228,25 @@ class _MeViewState extends State<MeView> with RouteAware {
                             ? 100.0.h
                             : 90.0.h);
                   } else {
-                    return BodyContent(wigitHight: 80.0.h);
+                    return bodyContent(wigitHight: 80.0.h);
                   }
                 } else if (item is InfoCustomerLoading) {
-                  return BodyContent(wigitHight: 80.0.h);
-                }else if(item is InfoCustomerError) {
+                  return bodyContent(wigitHight: 80.0.h);
+                } else if (item is InfoCustomerError) {
                   if (item.profileObjectCombine.shppingMyShopRespone.data
                       .isNotEmpty) {
-                    return BodyContent(
+                    return bodyContent(
                         wigitHight: item
-                            .profileObjectCombine
-                            .shppingMyShopRespone
-                            .data[0]
-                            .rates
-                            .length ==
-                            0
+                                    .profileObjectCombine
+                                    .shppingMyShopRespone
+                                    .data[0]
+                                    .rates
+                                    .length ==
+                                0
                             ? 100.0.h
                             : 90.0.h);
                   } else {
-                    return BodyContent(wigitHight: 80.0.h);
+                    return bodyContent(wigitHight: 80.0.h);
                   }
                 } else {
                   return SizedBox();
@@ -267,7 +259,7 @@ class _MeViewState extends State<MeView> with RouteAware {
     );
   }
 
-  Widget BodyContent({double wigitHight}) {
+  Widget bodyContent({double wigitHight}) {
     return Container(
       height: SizeUtil.meBodyHeight(wigitHight),
       color: Colors.white,
@@ -288,11 +280,11 @@ class _MeViewState extends State<MeView> with RouteAware {
                 child: Container(
                   // color: ThemeColor.psrimaryColor(context),
                   child: TabBar(
-                    indicatorColor: ThemeColor.ColorSale(),
+                    indicatorColor: ThemeColor.colorSale(),
                     /* indicator: MD2Indicator(
                                   indicatorSize: MD2IndicatorSize.tiny,
                                   indicatorHeight: 5.0,
-                                  indicatorColor: ThemeColor.ColorSale(),
+                                  indicatorColor: ThemeColor.colorSale(),
                                 ),*/
                     isScrollable: false,
                     tabs: [
@@ -326,10 +318,11 @@ class _MeViewState extends State<MeView> with RouteAware {
                           Future.delayed(const Duration(milliseconds: 300), () {
                             Usermanager().getUser().then((value) => context
                                 .read<CustomerCountBloc>()
-                                .loadCustomerCount(context,token: value.token));
+                                .loadCustomerCount(context,
+                                    token: value.token));
                             Usermanager().getUser().then((value) => context
                                 .read<InfoCustomerBloc>()
-                                .loadCustomInfo(context,token: value.token));
+                                .loadCustomInfo(context, token: value.token));
                           });
                           // Usermanager()
                           //     .getUser()
@@ -349,7 +342,7 @@ class _MeViewState extends State<MeView> with RouteAware {
     );
   }
 
-  Widget ImageHeader({CustomerInfoRespone info}) {
+  Widget _imageHeader({CustomerInfoRespone info}) {
     return info != null
         ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -391,8 +384,8 @@ class _MeViewState extends State<MeView> with RouteAware {
                     ),
                   ),
                   onTap: () {
-                    AppRoute.ImageFullScreenView(
-                        hero_tag: "image_profile_me",
+                    AppRoute.imageFullScreenView(
+                        heroTag: "image_profile_me",
                         context: context,
                         image: info != null
                             ? info.image.length > 0
@@ -402,7 +395,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                   }),
               SizedBox(height: 4.0.h),
               Text(info != null ? info.name : "ฟาร์มมาร์เก็ต",
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.bold))
@@ -424,8 +417,11 @@ class _MeViewState extends State<MeView> with RouteAware {
                 ),
               ),
               SizedBox(height: 2.0.h),
-              Text(info != null ? info.name : LocaleKeys.dialog_message_loading.tr(),
-                  style: FunctionHelper.FontTheme(
+              Text(
+                  info != null
+                      ? info.name
+                      : LocaleKeys.dialog_message_loading.tr(),
+                  style: FunctionHelper.fontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.bold))
@@ -446,7 +442,7 @@ class _MeViewState extends State<MeView> with RouteAware {
   //           children: [
   //             FlatButton(
   //               minWidth: 40.0.w,
-  //               color: ThemeColor.ColorSale(),
+  //               color: ThemeColor.colorSale(),
   //               textColor: Colors.white,
   //               splashColor: Colors.white.withOpacity(0.3),
   //               shape: RoundedRectangleBorder(
@@ -467,7 +463,7 @@ class _MeViewState extends State<MeView> with RouteAware {
   //               },
   //               child: Text(
   //                 LocaleKeys.login_btn.tr(),
-  //                 style: FunctionHelper.FontTheme(
+  //                 style: FunctionHelper.fontTheme(
   //                     fontSize: SizeUtil.titleFontSize().sp,
   //                     fontWeight: FontWeight.w500),
   //               ),
@@ -488,7 +484,7 @@ class _MeViewState extends State<MeView> with RouteAware {
   //               },
   //               child: Text(
   //                 LocaleKeys.register_btn.tr(),
-  //                 style: FunctionHelper.FontTheme(
+  //                 style: FunctionHelper.fontTheme(
   //                     fontSize: SizeUtil.titleFontSize().sp,
   //                     fontWeight: FontWeight.w500),
   //               ),
@@ -506,7 +502,7 @@ class _MeViewState extends State<MeView> with RouteAware {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(title,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontWeight: FontWeight.w500,
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   color: Colors.black)),
@@ -520,7 +516,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                     alignment: Alignment.center,
                     width: 10,
                     height: 20,
-                    color: ThemeColor.ColorSale(),
+                    color: ThemeColor.colorSale(),
                   ),
                 )
               : SizedBox()

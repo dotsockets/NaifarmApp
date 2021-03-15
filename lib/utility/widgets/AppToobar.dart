@@ -1,31 +1,23 @@
 import 'dart:io';
 
-import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
-import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 import 'BuildIconShop.dart';
-import 'CategoryMenu.dart';
 
 enum Header_Type { barHome, barNoBackground, barNormal, barcartShop, barMap }
 
 class AppToobar extends PreferredSize {
-  final Header_Type header_type;
+  final Header_Type headerType;
   final String title;
   final Function onClick;
   final String icon;
-  final bool isEnable_Search;
+  final bool isEnableSearch;
   final String locationTxt;
   final String hint;
   final Function(String) onSearch;
@@ -34,17 +26,19 @@ class AppToobar extends PreferredSize {
   final Function onTab;
 
   const AppToobar(
-      {this.onClick = null,
+      {this.onClick,
       this.icon = "",
       Key key,
-      this.header_type,
+      this.headerType,
       this.title = "",
-      this.isEnable_Search = true,
+      this.isEnableSearch = true,
       this.showCartBtn = true,
       this.showBackBtn = true,
       this.locationTxt = "",
       this.hint = "",
-      this.onSearch,this.onTab = null})
+      this.onSearch,
+      this.onTab})
+      // ignore: missing_required_param
       : super(key: key);
 
   @override
@@ -52,20 +46,20 @@ class AppToobar extends PreferredSize {
 
   @override
   Widget build(BuildContext context) {
-    if (header_type == Header_Type.barHome) {
-      return BarHome(context);
-    } else if (header_type == Header_Type.barcartShop) {
-      return BarCartShop(context);
-    } else if (header_type == Header_Type.barNoBackground) {
+    if (headerType == Header_Type.barHome) {
+      return barHome(context);
+    } else if (headerType == Header_Type.barcartShop) {
+      return barCartShop(context);
+    } else if (headerType == Header_Type.barNoBackground) {
       return barNoSearchNoTitle(context);
-    } else if (header_type == Header_Type.barNormal) {
-      return BarNormal(context);
-    } else if (header_type == Header_Type.barMap) {
-      return BarMap(context);
+    } else if (headerType == Header_Type.barNormal) {
+      return barNormal(context);
+    } else /*if (headerType == Header_Type.barMap)*/ {
+      return barMap(context);
     }
   }
 
-  Widget BarNormal(BuildContext context) {
+  Widget barNormal(BuildContext context) {
     return Wrap(
       children: [
         Container(
@@ -106,7 +100,7 @@ class AppToobar extends PreferredSize {
                       child: Center(
                         child: Text(
                           title,
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: SizeUtil.titleFontSize().sp),
@@ -114,14 +108,14 @@ class AppToobar extends PreferredSize {
                       ),
                     ),
                   ),
-                  isEnable_Search
+                  isEnableSearch
                       ? IconButton(
                           icon: Icon(
                             Icons.search_rounded,
                             color: Colors.white,
                           ),
                           onPressed: () {
-                            AppRoute.SearchHome(context);
+                            AppRoute.searchHome(context);
                           },
                         )
                       : SizedBox(
@@ -137,7 +131,7 @@ class AppToobar extends PreferredSize {
     );
   }
 
-  Widget BarCartShop(BuildContext context) {
+  Widget barCartShop(BuildContext context) {
     return Wrap(
       children: [
         Container(
@@ -172,7 +166,7 @@ class AppToobar extends PreferredSize {
                         child: Center(
                           child: Text(
                             title,
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: SizeUtil.titleFontSize().sp),
@@ -180,10 +174,12 @@ class AppToobar extends PreferredSize {
                         ),
                       ),
                     ),
-                   showCartBtn? BuildIconShop():SizedBox(
-                     width: 12.0.w,
-                     height: 10.0.w,
-                   ),
+                    showCartBtn
+                        ? BuildIconShop()
+                        : SizedBox(
+                            width: 12.0.w,
+                            height: 10.0.w,
+                          ),
                   ],
                 ),
 
@@ -229,12 +225,12 @@ class AppToobar extends PreferredSize {
         ),
       ),
       onTap: () {
-        AppRoute.MyCart(context, true);
+        AppRoute.myCart(context, true);
       },
     );
   }
 
-  Widget BarMap(BuildContext context) {
+  Widget barMap(BuildContext context) {
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -265,7 +261,7 @@ class AppToobar extends PreferredSize {
                     height: 30,
                   ),
                 ),
-                visible: isEnable_Search,
+                visible: isEnableSearch,
               )
             ],
           ),
@@ -274,7 +270,7 @@ class AppToobar extends PreferredSize {
     );
   }
 
-  Widget BarHome(BuildContext context) {
+  Widget barHome(BuildContext context) {
     return Wrap(
       children: [
         Container(
@@ -300,17 +296,18 @@ class AppToobar extends PreferredSize {
                       },
                     ),
                     _buildSearch(context),
-                    showCartBtn?BuildIconShop():
-                    IconButton(
-                      icon: Icon(
-                        FontAwesome.ellipsis_v,
-                        size: SizeUtil.mediumIconSize().w,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        onTab();
-                      },
-                    )
+                    showCartBtn
+                        ? BuildIconShop()
+                        : IconButton(
+                            icon: Icon(
+                              FontAwesome.ellipsis_v,
+                              size: SizeUtil.mediumIconSize().w,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              onTab();
+                            },
+                          )
                   ],
                 ),
 
@@ -360,16 +357,16 @@ class AppToobar extends PreferredSize {
                     width: 4.0.w,
                     height: 4.0.w,
                   ),
-                  visible: isEnable_Search,
+                  visible: isEnableSearch,
                 ),
                 Expanded(
                     child: InkWell(
-                  child: isEnable_Search
+                  child: isEnableSearch
                       ? SizedBox()
                       : Container(
                           padding: EdgeInsets.only(left: 4.0.w, bottom: 0.3.h),
                           child: TextField(
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 color: Colors.black,
                                 fontSize: SizeUtil.titleSmallFontSize().sp),
                             decoration: InputDecoration(
@@ -438,13 +435,13 @@ class AppToobar extends PreferredSize {
                   height: 15,
                 ),
                 Expanded(
-                    child: !isEnable_Search
+                    child: !isEnableSearch
                         ? Container(
                             padding: EdgeInsets.only(left: 5),
                             child: Text(txtController.text,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     color: Colors.black,
                                     fontSize:
                                         SizeUtil.titleSmallFontSize().sp)),
@@ -452,7 +449,7 @@ class AppToobar extends PreferredSize {
                         : Container(
                             padding: EdgeInsets.only(left: 5, top: 10),
                             child: TextFormField(
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   color: Colors.black,
                                   fontSize: SizeUtil.titleSmallFontSize().sp),
                               enabled: true,
@@ -468,7 +465,7 @@ class AppToobar extends PreferredSize {
                                 focusedBorder: InputBorder.none,
                                 enabledBorder: InputBorder.none,
                                 hintText: hint,
-                                hintStyle: FunctionHelper.FontTheme(
+                                hintStyle: FunctionHelper.fontTheme(
                                     color: Colors.grey,
                                     fontSize: SizeUtil.titleSmallFontSize().sp),
                               ),
@@ -478,7 +475,7 @@ class AppToobar extends PreferredSize {
                           )),
                 SvgPicture.asset(
                   'assets/images/svg/search.svg',
-                  color: ThemeColor.ColorSale(),
+                  color: ThemeColor.colorSale(),
                   width: 25,
                   height: 25,
                 )
@@ -486,7 +483,7 @@ class AppToobar extends PreferredSize {
             ),
           ),
           onTap: () {
-            AppRoute.SearchMap(context, txtController.text);
+            AppRoute.searchMap(context, txtController.text);
           },
         ),
       ),

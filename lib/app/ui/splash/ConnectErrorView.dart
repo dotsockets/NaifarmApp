@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -12,11 +11,12 @@ import 'package:sizer/sizer.dart';
 
 class ConnectErrorView extends StatefulWidget {
   final ThrowIfNoSuccess result;
-  final bool show_full;
+  final bool showFull;
   final Function callback;
 
-  const ConnectErrorView({Key key, this.result, this.show_full, this.callback})
+  const ConnectErrorView({Key key, this.result, this.showFull, this.callback})
       : super(key: key);
+
   @override
   _ConnectErrorViewState createState() => _ConnectErrorViewState();
 }
@@ -37,17 +37,17 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                   SizedBox(
                     height: 30,
                   ),
-                  widget.show_full
+                  widget.showFull
                       ? Column(
                           children: [
                             Text(
                               "NaiFarm",
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             Text(
                               "Application",
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -59,20 +59,20 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  widget.show_full
+                  widget.showFull
                       ? Container(
                           margin: EdgeInsets.only(bottom: 1.0.h),
                           child: Column(
                             children: [
                               Text(
                                 "NaiFarm",
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.detailFontSize().sp,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 "Version 0.0.1",
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.detailFontSize().sp,
                                     fontWeight: FontWeight.bold),
                               )
@@ -92,12 +92,12 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                   ),
                   Text(
                     widget.result.message,
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     'Sorry, it is not currently available."',
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -121,15 +121,15 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                       ),
                     ),
                     onPressed: () {
-                      if (widget.show_full) {
-                        AppRoute.Splash(context: context);
+                      if (widget.showFull) {
+                        AppRoute.splash(context: context);
                       } else {
                         widget.callback();
                       }
                     },
                     child: Text(
                       LocaleKeys.btn_connect.tr(),
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleSmallFontSize().sp,
                           fontWeight: FontWeight.bold),

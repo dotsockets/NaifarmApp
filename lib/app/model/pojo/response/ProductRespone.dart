@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
@@ -13,14 +12,14 @@ class ProductRespone {
 
   ProductRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<ProductData>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new ProductData.fromJson(v));
       });
     }
     total = json['total'];
-    page = json['page'] is String?int.parse(json['page']):json['page'];
-    limit = json['limit'] is int?json['limit'].toString():json['limit'];
+    page = json['page'] is String ? int.parse(json['page']) : json['page'];
+    limit = json['limit'] is int ? json['limit'].toString() : json['limit'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,21 +54,21 @@ class ProductData {
 
   ProductData(
       {this.id,
-        this.brand,
-        this.name,
-        this.minPrice,
-        this.maxPrice,
-        this.salePrice,
-        this.offerPrice,
-        this.hasVariant,
-        this.slug,
-        this.saleCount,
-        this.shop,
-        this.image,
-        this.discountPercent,
-        this.rating,
-        this.reviewCount,
-        this.stockQuantity});
+      this.brand,
+      this.name,
+      this.minPrice,
+      this.maxPrice,
+      this.salePrice,
+      this.offerPrice,
+      this.hasVariant,
+      this.slug,
+      this.saleCount,
+      this.shop,
+      this.image,
+      this.discountPercent,
+      this.rating,
+      this.reviewCount,
+      this.stockQuantity});
 
   ProductData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -84,7 +83,7 @@ class ProductData {
     saleCount = json['saleCount'];
     shop = json['shop'] != null ? new ProductShop.fromJson(json['shop']) : null;
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -149,29 +148,29 @@ class ProductShop {
 
   ProductShop(
       {this.id,
-        this.ownerId,
-        this.name,
-        this.legalName,
-        this.slug,
-        this.email,
-        this.description,
-        this.externalUrl,
-        this.timezoneId,
-        this.currentBillingPlan,
-        this.stripeId,
-        this.cardHolderName,
-        this.cardBrand,
-        this.cardLastFour,
-        this.paymentVerified,
-        this.idVerified,
-        this.phoneVerified,
-        this.addressVerified,
-        this.createdAt,
-        this.updatedAt,
-        this.image,
-        this.state,
-        this.countProduct,
-        this.rating});
+      this.ownerId,
+      this.name,
+      this.legalName,
+      this.slug,
+      this.email,
+      this.description,
+      this.externalUrl,
+      this.timezoneId,
+      this.currentBillingPlan,
+      this.stripeId,
+      this.cardHolderName,
+      this.cardBrand,
+      this.cardLastFour,
+      this.paymentVerified,
+      this.idVerified,
+      this.phoneVerified,
+      this.addressVerified,
+      this.createdAt,
+      this.updatedAt,
+      this.image,
+      this.state,
+      this.countProduct,
+      this.rating});
 
   ProductShop.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -195,13 +194,14 @@ class ProductShop {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
     }
 
-    state = json['state'] != null ? new DataStates.fromJson(json['state']) : null;
+    state =
+        json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     countProduct = json['countProduct'];
     rating = json['rating'];
   }
@@ -240,13 +240,12 @@ class ProductShop {
   }
 }
 
-
 class ProductImage {
   String name;
   String path;
   File file;
 
-  ProductImage({this.name="", this.path="",this.file});
+  ProductImage({this.name = "", this.path = "", this.file});
 
   ProductImage.fromJson(Map<String, dynamic> json) {
     name = json['name'];

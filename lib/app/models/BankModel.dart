@@ -1,10 +1,8 @@
+class BankModel {
+  final int typeBank;
+  final String nameBank;
+  final String numberCard;
+  final String backIcon;
 
-class BankModel{
-  final int TypeBank;
-  final String NameBank;
-  final String NumberCard;
-  final String BackIcon;
-
-  BankModel({this.TypeBank, this.NameBank, this.NumberCard, this.BackIcon});
-
+  BankModel({this.typeBank, this.nameBank, this.numberCard, this.backIcon});
 }

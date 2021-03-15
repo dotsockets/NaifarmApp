@@ -1,19 +1,15 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
-import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sizer/sizer.dart';
 
+// ignore: must_be_immutable
 class DeliveryDropoffView extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -31,7 +27,7 @@ class DeliveryDropoffView extends StatelessWidget {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         Navigator.pop(context, true);
@@ -53,8 +49,8 @@ class DeliveryDropoffView extends StatelessWidget {
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
               title: "Drop Off Information ",
-              header_type: Header_Type.barcartShop,
-              isEnable_Search: false,
+              headerType: Header_Type.barcartShop,
+              isEnableSearch: false,
               icon: '',
               onClick: () {
                 Navigator.pop(context, false);
@@ -72,14 +68,14 @@ class DeliveryDropoffView extends StatelessWidget {
                     SizedBox(
                       height: 1.0.h,
                     ),
-                    ItemInfoNearby(context),
+                    itemInfoNearby(context),
                     SizedBox(
                       height: 1.0.h,
                     ),
-                    ItemInfoDelivery()
+                    itemInfoDelivery()
                   ],
                 )),
-                _ButtonActive(context: context)
+                buttonActive(context: context)
               ],
             ),
           ),
@@ -98,7 +94,7 @@ class DeliveryDropoffView extends StatelessWidget {
           Text(
             "คุณสามารถนำ QR Code ด้านล่างไปสแกนที่สาขา ที่เคาน์เตอร์",
             textAlign: TextAlign.center,
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 color: Colors.black, fontSize: SizeUtil.titleFontSize().sp),
           ),
           SizedBox(
@@ -114,7 +110,7 @@ class DeliveryDropoffView extends StatelessWidget {
           ),
           Text(
             "642345790",
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 color: Colors.black, fontSize: SizeUtil.titleFontSize().sp),
           ),
         ],
@@ -122,7 +118,7 @@ class DeliveryDropoffView extends StatelessWidget {
     );
   }
 
-  Widget ItemInfoNearby(BuildContext context) {
+  Widget itemInfoNearby(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -133,7 +129,7 @@ class DeliveryDropoffView extends StatelessWidget {
         fontWeight: FontWeight.normal,
         icon: "",
         title: "See a branch near you",
-        Message: "Branch 1, Mueang Chiang Mai District ",
+        message: "Branch 1, Mueang Chiang Mai District ",
         onClick: () {
           _showMyDialog(context);
         },
@@ -141,7 +137,7 @@ class DeliveryDropoffView extends StatelessWidget {
     );
   }
 
-  Widget ItemInfoDelivery() {
+  Widget itemInfoDelivery() {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -151,19 +147,19 @@ class DeliveryDropoffView extends StatelessWidget {
       child: ListTile(
           title: Text(
             "Delivery address ",
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 color: Colors.black, fontSize: SizeUtil.titleFontSize().sp),
           ),
           subtitle: Text(
             "39 Srichandorn Road, Chang Khlan Subdistrict, Mueang District, Chiang Mai 50100 ",
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 color: Colors.grey.shade500,
                 fontSize: SizeUtil.titleFontSize().sp),
           )),
     );
   }
 
-  Widget _ButtonActive({BuildContext context}) {
+  Widget buttonActive({BuildContext context}) {
     return Center(
       child: Container(
         color: Colors.white,
@@ -180,14 +176,14 @@ class DeliveryDropoffView extends StatelessWidget {
                 Size(50.0.w, 5.0.h),
               ),
               backgroundColor: MaterialStateProperty.all(
-                ThemeColor.ColorSale(),
+                ThemeColor.colorSale(),
               ),
               overlayColor: MaterialStateProperty.all(
                 Colors.white.withOpacity(0.3),
               ),
             ),
             onPressed: () {
-              FunctionHelper.ConfirmDialog(context,
+              FunctionHelper.confirmDialog(context,
                   message:
                       "สำคัญ! คุณสามารถทำการ Drop Off พัสดุของคุณได้ที่ สาขาใกล้บ้านคุณ",
                   onCancel: () {
@@ -196,7 +192,7 @@ class DeliveryDropoffView extends StatelessWidget {
             },
             child: Text(
               "Confirm ",
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.white,
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),
@@ -223,7 +219,7 @@ class DeliveryDropoffView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(22.0),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  color: ThemeColor.DialogprimaryColor(context),
+                  color: ThemeColor.dialogprimaryColor(context),
                   child: Column(
                     children: [
                       Container(
@@ -237,7 +233,7 @@ class DeliveryDropoffView extends StatelessWidget {
                           child: Center(
                               child: Text(
                             "เลือกสาขาในการจัดส่ง",
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.bold),
                           )),
@@ -259,7 +255,7 @@ class DeliveryDropoffView extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width,
                                   child: Text(
                                     "สาขา 1 อำเภอเมือง เชัยงใหม่",
-                                    style: FunctionHelper.FontTheme(
+                                    style: FunctionHelper.fontTheme(
                                         color: Colors.grey.shade700,
                                         fontSize: SizeUtil.titleFontSize().sp,
                                         fontWeight: FontWeight.normal),
@@ -280,7 +276,7 @@ class DeliveryDropoffView extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width,
                                   child: Text(
                                     "สาขา 1 อำเภอเมือง เชัยงใหม่",
-                                    style: FunctionHelper.FontTheme(
+                                    style: FunctionHelper.fontTheme(
                                         color: Colors.grey.shade700,
                                         fontSize: SizeUtil.titleFontSize().sp,
                                         fontWeight: FontWeight.normal),
@@ -301,7 +297,7 @@ class DeliveryDropoffView extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width,
                                   child: Text(
                                     "สาขา 1 อำเภอเมือง เชัยงใหม่",
-                                    style: FunctionHelper.FontTheme(
+                                    style: FunctionHelper.fontTheme(
                                         color: Colors.grey.shade700,
                                         fontSize: SizeUtil.titleFontSize().sp,
                                         fontWeight: FontWeight.normal),

@@ -1,25 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_switch/flutter_switch.dart';
-import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
-import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
-import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
-import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
-import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
-import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
-import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
 import 'package:naifarm/app/ui/me/myproduct/filter/InActive.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -42,7 +28,7 @@ class SearchMyProduct extends StatefulWidget {
 }
 
 class _SearchMyProductState extends State<SearchMyProduct> {
-  List<String> listClone = List<String>();
+  List<String> listClone = [];
   bool checkSeemore = false;
   TextEditingController txtController = TextEditingController();
 
@@ -91,8 +77,8 @@ class _SearchMyProductState extends State<SearchMyProduct> {
           key: _scaffoldKey,
           appBar: AppToobar(
             icon: "",
-            isEnable_Search: false,
-            header_type: Header_Type.barHome,
+            isEnableSearch: false,
+            headerType: Header_Type.barHome,
             showCartBtn: false,
             onClick: () {
               Navigator.pop(context, true);
@@ -102,10 +88,10 @@ class _SearchMyProductState extends State<SearchMyProduct> {
               _searchText.add(text);
             },
             onTab: () {
-              ButtonDialog(context, message: [LocaleKeys.attributes_set.tr()],
+              buttonDialog(context, message: [LocaleKeys.attributes_set.tr()],
                   onClick: () {
                 Navigator.of(context).pop();
-                AppRoute.Attribute(context: context);
+                AppRoute.attribute(context: context);
               });
             },
           ),
@@ -127,7 +113,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                     height: 7.0.h,
                     child: Container(
                       child: TabBar(
-                        indicatorColor: ThemeColor.ColorSale(),
+                        indicatorColor: ThemeColor.colorSale(),
                         isScrollable: false,
                         tabs: [
                           _tab(
@@ -206,7 +192,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                               height: 70.0.w, width: 70.0.w, repeat: false),
                           Text(
                             LocaleKeys.cart_empty.tr(),
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
                           )
                         ],
@@ -216,7 +202,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                       Center(
                           child: Text(
                     LocaleKeys.search_product_not_found.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500,
                         color: Colors.grey),
@@ -229,7 +215,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                       if (snapshot.hasData) {
                         return Center(
                           child: Text(LocaleKeys.search_product_not_found.tr(),
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   color: Colors.grey,
                                   fontWeight: FontWeight.w500)),
@@ -343,10 +329,10 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                   left: 1.5.w,
                                   top: 1.0.w,
                                   bottom: 1.0.w),
-                              color: ThemeColor.ColorSale(),
+                              color: ThemeColor.colorSale(),
                               child: Text(
                                 "${item.discountPercent}%",
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     color: Colors.white,
                                     fontSize: SizeUtil.titleSmallFontSize().sp),
                               ),
@@ -367,7 +353,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             item.name,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -378,9 +364,9 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             item.offerPrice != null
                                 ? "฿${item.offerPrice}"
                                 : "฿${item.salePrice}",
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.priceFontSize().sp,
-                                color: ThemeColor.ColorSale(),
+                                color: ThemeColor.colorSale(),
                                 fontWeight: FontWeight.w500),
                           ),
                           SizedBox(
@@ -393,7 +379,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                   child: Text(
                                       LocaleKeys.my_product_amount.tr() +
                                           " ${item.stockQuantity != null ? item.stockQuantity : 0}",
-                                      style: FunctionHelper.FontTheme(
+                                      style: FunctionHelper.fontTheme(
                                           fontSize:
                                               SizeUtil.detailFontSize().sp)),
                                 ),
@@ -405,7 +391,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                     alignment: Alignment.topLeft,
                                     child: Text(
                                       "${LocaleKeys.my_product_sold.tr() + " " + item.hasVariant.toString() + " " + LocaleKeys.cart_item.tr()}",
-                                      style: FunctionHelper.FontTheme(
+                                      style: FunctionHelper.fontTheme(
                                           fontSize:
                                               SizeUtil.detailFontSize().sp),
                                     ),
@@ -425,7 +411,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                   Expanded(
                                     child: Text(
                                         LocaleKeys.my_product_like.tr() + " 10",
-                                        style: FunctionHelper.FontTheme(
+                                        style: FunctionHelper.fontTheme(
                                             fontSize:
                                                 SizeUtil.detailFontSize().sp)),
                                   ),
@@ -438,7 +424,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                                           child: Text(
                                             LocaleKeys.my_product_visit.tr() +
                                                 " 10",
-                                            style: FunctionHelper.FontTheme(
+                                            style: FunctionHelper.fontTheme(
                                                 fontSize:
                                                     SizeUtil.detailFontSize()
                                                         .sp),
@@ -467,7 +453,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                           item.active == 1
                               ? LocaleKeys.my_product_sell.tr()
                               : LocaleKeys.my_product_break.tr(),
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.w600),
                         ),
@@ -505,7 +491,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                               'assets/images/svg/Edit.svg',
                               width: 6.0.w,
                               height: 6.0.w,
-                              color: ThemeColor.ColorSale(),
+                              color: ThemeColor.colorSale(),
                             ),
                           ),
                           onTap: () async {
@@ -547,7 +533,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                             'assets/images/svg/trash.svg',
                             width: 6.0.w,
                             height: 6.0.w,
-                            color: ThemeColor.ColorSale(),
+                            color: ThemeColor.colorSale(),
                           ),
                           onTap: () {
                             FunctionHelper.ConfirmDialog(context,
@@ -582,7 +568,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(title,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontWeight: FontWeight.w500,
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   color: Colors.black)),
@@ -593,7 +579,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
                     alignment: Alignment.center,
                     width: 10,
                     height: 20,
-                    color: ThemeColor.ColorSale(),
+                    color: ThemeColor.colorSale(),
                   ),
                 )
               : SizedBox()

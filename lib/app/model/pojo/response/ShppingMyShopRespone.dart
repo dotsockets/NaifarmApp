@@ -6,7 +6,7 @@ class ShppingMyShopRespone {
 
   ShppingMyShopRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<ShppingMyShop>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new ShppingMyShop.fromJson(v));
       });
@@ -39,16 +39,16 @@ class ShppingMyShop {
 
   ShppingMyShop(
       {this.id,
-        this.shopId,
-        this.name,
-        this.taxId,
-        this.countryIds,
-        this.stateIds,
-        this.restOfTheWorld,
-        this.active,
-        this.createdAt,
-        this.updatedAt,
-        this.rates});
+      this.shopId,
+      this.name,
+      this.taxId,
+      this.countryIds,
+      this.stateIds,
+      this.restOfTheWorld,
+      this.active,
+      this.createdAt,
+      this.updatedAt,
+      this.rates});
 
   ShppingMyShop.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -62,7 +62,7 @@ class ShppingMyShop {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['rates'] != null) {
-      rates = new List<Rates>();
+      rates = [];
       json['rates'].forEach((v) {
         rates.add(new Rates.fromJson(v));
       });
@@ -102,15 +102,15 @@ class Rates {
 
   Rates(
       {this.id,
-        this.name,
-        this.shippingZoneId,
-        this.carrierId,
-        this.carrier,
-        this.basedOn,
-        this.minimum,
-        this.maximum,
-        this.rate,
-        this.deliveryTakes});
+      this.name,
+      this.shippingZoneId,
+      this.carrierId,
+      this.carrier,
+      this.basedOn,
+      this.minimum,
+      this.maximum,
+      this.rate,
+      this.deliveryTakes});
 
   Rates.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -118,7 +118,7 @@ class Rates {
     shippingZoneId = json['shippingZoneId'];
     carrierId = json['carrierId'];
     carrier =
-    json['carrier'] != null ? new Carrier.fromJson(json['carrier']) : null;
+        json['carrier'] != null ? new Carrier.fromJson(json['carrier']) : null;
     basedOn = json['basedOn'];
     minimum = json['minimum'];
     maximum = json['maximum'];
@@ -159,4 +159,3 @@ class Carrier {
     return data;
   }
 }
-

@@ -6,18 +6,18 @@ class ProductViewModel {
   List<ProductModel> getFlashSaleProduct() {
     return [
       ProductModel(
-          product_name: 'อโวกาโก้ ภาคเหนือ',
-          product_price: 100,
-          product_status: '4,901',
-          product_image:
+          productName: 'อโวกาโก้ ภาคเหนือ',
+          productPrice: 100,
+          productStatus: '4,901',
+          productImage:
               'https://www.img.in.th/images/7fc6ff825238293be21ea341e2f54755.png',
-          ProductDicount: 140,
-          ProfiletImage:
+          productDicount: 140,
+          profiletImage:
               "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Dwayne_Johnson_at_the_2009_Tribeca_Film_Festival.jpg/220px-Dwayne_Johnson_at_the_2009_Tribeca_Film_Festival.jpg",
-          acticeTime: "Active เมื่อ 1 "+LocaleKeys.shop_active_hour.tr(),
+          acticeTime: "Active เมื่อ 1 " + LocaleKeys.shop_active_hour.tr(),
           amoutProduct: "409 กิโลกรัม",
           ownProduct: 6,
-          ProductInto:
+          productInto:
               "ศูนย์พัฒนาโครงการหลวงทุ่งเริง ตำบลบ้างปง อำเภอหางดงจังหวัดเชียงใหม่ ก่อตั้งขึ้นเมื่อ ปี 2521 อยู่ท่ามกลางหุบเขาไม่ไกลจากแหล่งท่องเที่ยวสำคัญในเขตพื้นที่อำเภอหางดง เมื่อก่อนพื้นที่ศูนย์ฯ ถือเป็นแหล่งทดลองไม้เมืองหนาวที่สำคัญ โดยเฉพาะกุหลาบที่มีกลิ่นหอม แต่ในปัจจุบันได้ปรับเปลี่ยนงานส่งเสริม โดยเน้นการปลูกพืชผักอินทรีย์ และไม้ผล ที่สำคัญ คือ อะโวคาโด แต่ในปัจจุบันได้ปรับเปลี่ยนงานส่งเสริม โดยเน้นการปลูกพืชผักอินทรีย์ และไม้ผล ที่สำคัญ คือ อะโวคาโด",
           provice: "จังหวัดเชียงราย",
           rateShow: 4.8,
@@ -25,16 +25,16 @@ class ProductViewModel {
           siomentFrom: "อำเภอฝาง, จังหวัดเชียงราย",
           sipmentPlace: "ทั่วประเทศ"),
       ProductModel(
-          product_name: 'แตงกวาราชบุรี',
-          product_price: 10,
-          product_status: '998',
-          product_image:
+          productName: 'แตงกวาราชบุรี',
+          productPrice: 10,
+          productStatus: '998',
+          productImage:
               'https://img.freepik.com/free-photo/cucumber-vegetable-isolated-white-background_42033-135.jpg?size=626&ext=jpg'),
       ProductModel(
-          product_name: 'ข้าวโพดฝัก',
-          product_price: 80,
-          product_status: '972',
-          product_image:
+          productName: 'ข้าวโพดฝัก',
+          productPrice: 80,
+          productStatus: '972',
+          productImage:
               'https://images-eu.ssl-images-amazon.com/images/I/41F62-VbHSL._SR600%2C315_PIWhiteStrip%2CBottomLeft%2C0%2C35_SCLZZZZZZZ_.jpg')
     ];
   }
@@ -42,50 +42,50 @@ class ProductViewModel {
   List<ProductModel> getBestSaller() {
     return [
       ProductModel(
-          product_name: 'อโวกาโก้ ภาคเหนือ',
-          product_price: 100,
-          product_status: '4,589',
-          product_image:
+          productName: 'อโวกาโก้ ภาคเหนือ',
+          productPrice: 100,
+          productStatus: '4,589',
+          productImage:
               'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU'),
       ProductModel(
-          product_name: 'แตงกวาราชบุรี',
-          product_price: 10,
-          product_status: '1,589',
-          product_image:
+          productName: 'แตงกวาราชบุรี',
+          productPrice: 10,
+          productStatus: '1,589',
+          productImage:
               'https://media.24catalog.com/pdmain/610599_original3.jpg'),
       ProductModel(
-          product_name: 'ข้าวโพดฝัก',
-          product_price: 80,
-          product_status: '1,009',
-          product_image: 'https://dx.lnwfile.com/osgx0z.png')
+          productName: 'ข้าวโพดฝัก',
+          productPrice: 80,
+          productStatus: '1,009',
+          productImage: 'https://dx.lnwfile.com/osgx0z.png')
     ];
   }
 
   List<ProductModel> getProductFarm() {
     return [
       ProductModel(
-          product_name: 'ชุดอุปกรณ์ดูแลฟาร์ม ปลูกผัก',
-          product_price: 400,
-          product_status: '89',
-          product_image:
+          productName: 'ชุดอุปกรณ์ดูแลฟาร์ม ปลูกผัก',
+          productPrice: 400,
+          productStatus: '89',
+          productImage:
               'https://www.img.in.th/images/b08a290c5a424d1d335f902315af1d20.jpg'),
       ProductModel(
-          product_name: 'หอมหัวใหญ่ ออเกนิก',
-          product_price: 15,
-          product_status: '89',
-          product_image:
+          productName: 'หอมหัวใหญ่ ออเกนิก',
+          productPrice: 15,
+          productStatus: '89',
+          productImage:
               'https://www.img.in.th/images/a632419b5cb8e9f384b2d6ce2559c70c.jpg'),
       ProductModel(
-          product_name: 'แผงวงจรควบคุม กระจายน้ำ',
-          product_price: 250,
-          product_status: '569',
-          product_image:
+          productName: 'แผงวงจรควบคุม กระจายน้ำ',
+          productPrice: 250,
+          productStatus: '569',
+          productImage:
               'https://www.img.in.th/images/bc87a0cbd5fc1398a9b6188b386611e4.png'),
       ProductModel(
-          product_name: 'ชุดพรวนดิน',
-          product_price: 250,
-          product_status: '569',
-          product_image:
+          productName: 'ชุดพรวนดิน',
+          productPrice: 250,
+          productStatus: '569',
+          productImage:
               'https://www.img.in.th/images/3094b7880e5d7a998412e8318c75e340.png')
     ];
   }
@@ -93,28 +93,28 @@ class ProductViewModel {
   List<ProductModel> getProductCategory() {
     return [
       ProductModel(
-          product_name: 'อุปกรณ์ควบคุม',
-          product_price: 250,
-          product_status: '569',
-          product_image:
+          productName: 'อุปกรณ์ควบคุม',
+          productPrice: 250,
+          productStatus: '569',
+          productImage:
               'https://www.img.in.th/images/3094b7880e5d7a998412e8318c75e340.png'),
       ProductModel(
-          product_name: 'ผัก',
-          product_price: 400,
-          product_status: '89',
-          product_image:
+          productName: 'ผัก',
+          productPrice: 400,
+          productStatus: '89',
+          productImage:
               'https://www.img.in.th/images/85d700330955c8dd3f55638223d3fea3.png'),
       ProductModel(
-          product_name: 'ผลไม้',
-          product_price: 15,
-          product_status: '89',
-          product_image:
+          productName: 'ผลไม้',
+          productPrice: 15,
+          productStatus: '89',
+          productImage:
               'https://www.img.in.th/images/dc8285e246bb0be45cf691c88f09fc7e.jpg'),
       ProductModel(
-          product_name: 'อาหารทะเล',
-          product_price: 250,
-          product_status: '569',
-          product_image:
+          productName: 'อาหารทะเล',
+          productPrice: 250,
+          productStatus: '569',
+          productImage:
               'https://www.img.in.th/images/9b16f219f55403ade55a0844ff1f261a.png'),
     ];
   }
@@ -122,64 +122,63 @@ class ProductViewModel {
   List<ProductModel> getProductSearchHot() {
     return [
       ProductModel(
-          product_name: 'อินทผาลัม',
-          product_price: 400,
-          product_status: '129',
-          product_image:
+          productName: 'อินทผาลัม',
+          productPrice: 400,
+          productStatus: '129',
+          productImage:
               'https://www.img.in.th/images/b08a290c5a424d1d335f902315af1d20.jpg'),
       ProductModel(
-          product_name: 'อบเชย',
-          product_price: 15,
-          product_status: '500',
-          product_image:
+          productName: 'อบเชย',
+          productPrice: 15,
+          productStatus: '500',
+          productImage:
               'https://www.img.in.th/images/a632419b5cb8e9f384b2d6ce2559c70c.jpg'),
       ProductModel(
-          product_name: 'ปุ๋ยถ้ำค้างคาว',
-          product_price: 250,
-          product_status: '490',
-          product_image:
+          productName: 'ปุ๋ยถ้ำค้างคาว',
+          productPrice: 250,
+          productStatus: '490',
+          productImage:
               'https://www.img.in.th/images/bc87a0cbd5fc1398a9b6188b386611e4.png'),
       ProductModel(
-          product_name: 'ถั่วลันเตา',
-          product_price: 250,
-          product_status: '13',
-          product_image:
+          productName: 'ถั่วลันเตา',
+          productPrice: 250,
+          productStatus: '13',
+          productImage:
               'https://www.img.in.th/images/3094b7880e5d7a998412e8318c75e340.png'),
       ProductModel(
-          product_name: 'อบเชย',
-          product_price: 15,
-          product_status: '500',
-          product_image:
-          'https://www.img.in.th/images/a632419b5cb8e9f384b2d6ce2559c70c.jpg'),
-
+          productName: 'อบเชย',
+          productPrice: 15,
+          productStatus: '500',
+          productImage:
+              'https://www.img.in.th/images/a632419b5cb8e9f384b2d6ce2559c70c.jpg'),
     ];
   }
 
   List<ProductModel> getProductForYou() {
     return [
       ProductModel(
-          product_name: 'บล็อคโคลี่',
-          product_price: 40,
-          product_status: '89',
-          product_image:
+          productName: 'บล็อคโคลี่',
+          productPrice: 40,
+          productStatus: '89',
+          productImage:
               'https://www.img.in.th/images/07134e19fb3680fcb3a291abeceff177.jpg'),
       ProductModel(
-          product_name: 'ผักกาดหอม',
-          product_price: 15,
-          product_status: '89',
-          product_image:
+          productName: 'ผักกาดหอม',
+          productPrice: 15,
+          productStatus: '89',
+          productImage:
               'https://www.img.in.th/images/a632419b5cb8e9f384b2d6ce2559c70c.jpg'),
       ProductModel(
-          product_name: 'ปุ๋ยถ้ำค้างคาว',
-          product_price: 250,
-          product_status: '569',
-          product_image:
+          productName: 'ปุ๋ยถ้ำค้างคาว',
+          productPrice: 250,
+          productStatus: '569',
+          productImage:
               'https://media.24catalog.com/pdmain/610599_original3.jpg'),
       ProductModel(
-          product_name: 'ชุดพรวนดิน',
-          product_price: 199,
-          product_status: '609',
-          product_image:
+          productName: 'ชุดพรวนดิน',
+          productPrice: 199,
+          productStatus: '609',
+          productImage:
               'https://www.img.in.th/images/3094b7880e5d7a998412e8318c75e340.png')
     ];
   }
@@ -187,46 +186,46 @@ class ProductViewModel {
   List<ProductModel> getMarketRecommend() {
     return [
       ProductModel(
-          product_name: 'อโวกาโก้ ภาคเหนือ',
-          product_price: 100,
-          product_status: '4589',
-          product_image:
+          productName: 'อโวกาโก้ ภาคเหนือ',
+          productPrice: 100,
+          productStatus: '4589',
+          productImage:
               'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU'),
       ProductModel(
-          product_name: 'อโวกาโก้ ภาคเหนือ',
-          product_price: 120,
-          product_status: '4589',
-          product_image:
+          productName: 'อโวกาโก้ ภาคเหนือ',
+          productPrice: 120,
+          productStatus: '4589',
+          productImage:
               'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg'),
       ProductModel(
-          product_name: 'อโวกาโก้ ภาคเหนือ',
-          product_price: 100,
-          product_status: '4589',
-          product_image:
+          productName: 'อโวกาโก้ ภาคเหนือ',
+          productPrice: 100,
+          productStatus: '4589',
+          productImage:
               'https://glassgardenshop.com/wp-content/uploads/2019/11/%D8%A8%D8%B0%D8%B1-%DA%A9%D8%A7%D9%87%D9%88-%D9%81%D8%B1-%D8%B3%D8%A8%D8%B2-%D9%BE%D8%A7%DA%A9%D8%AA-%D8%A7%D9%88%D8%B1%D8%AC%DB%8C%D9%86%D8%A7%D9%84-%DA%A9%D8%A7%D9%87%D9%88-%D9%81%D8%B1%D8%A7%D9%86%D8%B3%D9%88%DB%8C-%DA%AF%D9%84%D8%B3-%DA%AF%D8%A7%D8%B1%D8%AF%D9%86-1.jpg'),
       ProductModel(
-          product_name: 'อโวกาโก้ ภาคเหนือ',
-          product_price: 100,
-          product_status: '4589',
-          product_image:
+          productName: 'อโวกาโก้ ภาคเหนือ',
+          productPrice: 100,
+          productStatus: '4589',
+          productImage:
               'https://www.img.in.th/images/a632419b5cb8e9f384b2d6ce2559c70c.jpg'),
       ProductModel(
-          product_name: 'อโวกาโก้ ภาคเหนือ',
-          product_price: 100,
-          product_status: '4589',
-          product_image:
+          productName: 'อโวกาโก้ ภาคเหนือ',
+          productPrice: 100,
+          productStatus: '4589',
+          productImage:
               'https://img.freepik.com/free-photo/fresh-cauliflower-isolated-white-background_33736-2684.jpg?size=338&ext=jpg'),
       ProductModel(
-          product_name: 'อโวกาโก้ ภาคเหนือ',
-          product_price: 100,
-          product_status: '4589',
-          product_image:
+          productName: 'อโวกาโก้ ภาคเหนือ',
+          productPrice: 100,
+          productStatus: '4589',
+          productImage:
               'https://alanmiveh.ir/wp-content/uploads/2020/06/avokado.jpg'),
       ProductModel(
-          product_name: 'อโวกาโก้ ภาคเหนือ',
-          product_price: 100,
-          product_status: '4589',
-          product_image:
+          productName: 'อโวกาโก้ ภาคเหนือ',
+          productPrice: 100,
+          productStatus: '4589',
+          productImage:
               'https://co.lnwfile.com/_resize_images/600/600/v1/ip/s6.png')
     ];
   }
@@ -234,28 +233,28 @@ class ProductViewModel {
   List<ProductModel> getMyProducts() {
     return [
       ProductModel(
-        product_name: 'ชุดอุปกรณ์ดูแลฟาร์ม ปลูกผัก',
-        product_price: 400,
-        product_status: '40',
-        product_image:
+        productName: 'ชุดอุปกรณ์ดูแลฟาร์ม ปลูกผัก',
+        productPrice: 400,
+        productStatus: '40',
+        productImage:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU',
         amoutProduct: "300",
         provice: "เชียงใหม่",
       ),
       ProductModel(
-        product_name: 'ผักสดๆจากไร่',
-        product_price: 60,
-        product_status:'40',
-        product_image:
+        productName: 'ผักสดๆจากไร่',
+        productPrice: 60,
+        productStatus: '40',
+        productImage:
             'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg',
         amoutProduct: "300",
         provice: "ลำพูน",
       ),
       ProductModel(
-        product_name: 'ผักสดๆจากไร่',
-        product_price: 60,
-        product_status: '40',
-        product_image:
+        productName: 'ผักสดๆจากไร่',
+        productPrice: 60,
+        productStatus: '40',
+        productImage:
             'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg',
         amoutProduct: "300",
         provice: "ลำพูน",
@@ -267,35 +266,35 @@ class ProductViewModel {
     return [
       ProductModel(
           shopName: "ไร่มอนหลวงสาย",
-          product_name: 'ชุดอุปกรณ์ดูแลฟาร์ม ปลูกผัก',
-          product_price: 100,
-          product_status: 'รอชำระเงิน',
-          ProductDicount: 140,
-          ProfiletImage:
+          productName: 'ชุดอุปกรณ์ดูแลฟาร์ม ปลูกผัก',
+          productPrice: 100,
+          productStatus: 'รอชำระเงิน',
+          productDicount: 140,
+          profiletImage:
               "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
-          product_image:
+          productImage:
               'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU',
           amoutProduct: "2"),
       ProductModel(
           shopName: "ไร่มอนหลวงสาย",
-          product_name: 'ผักสดๆจากไร่',
-          product_price: 100,
-          product_status: 'รอชำระเงิน',
-          ProductDicount: 140,
-          ProfiletImage:
+          productName: 'ผักสดๆจากไร่',
+          productPrice: 100,
+          productStatus: 'รอชำระเงิน',
+          productDicount: 140,
+          profiletImage:
               "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
-          product_image:
+          productImage:
               'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg',
           amoutProduct: "3"),
       ProductModel(
           shopName: "ไร่มอนหลวงสาย",
-          product_name: 'ผักสดๆจากไร่',
-          product_price: 100,
-          product_status: 'รอชำระเงิน',
-          ProfiletImage:
+          productName: 'ผักสดๆจากไร่',
+          productPrice: 100,
+          productStatus: 'รอชำระเงิน',
+          profiletImage:
               "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
-          ProductDicount: 140,
-          product_image:
+          productDicount: 140,
+          productImage:
               'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg',
           amoutProduct: "2"),
     ];
@@ -305,35 +304,35 @@ class ProductViewModel {
     return [
       ProductModel(
           shopName: "ไร่มอนหลวงสาย",
-          product_name: 'ชุดอุปกรณ์ดูแลฟาร์ม ปลูกผัก',
-          product_price: 100,
-          product_status: 'จัดส่งสำเร็จ',
-          ProductDicount: 140,
-          ProfiletImage:
+          productName: 'ชุดอุปกรณ์ดูแลฟาร์ม ปลูกผัก',
+          productPrice: 100,
+          productStatus: 'จัดส่งสำเร็จ',
+          productDicount: 140,
+          profiletImage:
               "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
-          product_image:
+          productImage:
               'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU',
           amoutProduct: "2"),
       ProductModel(
           shopName: "ไร่มอนหลวงสาย",
-          product_name: 'ผักสดๆจากไร่',
-          product_price: 100,
-          product_status: 'ให้คะแนนแล้ว',
-          ProductDicount: 140,
-          ProfiletImage:
+          productName: 'ผักสดๆจากไร่',
+          productPrice: 100,
+          productStatus: 'ให้คะแนนแล้ว',
+          productDicount: 140,
+          profiletImage:
               "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
-          product_image:
+          productImage:
               'https://abanagri.com/wp-content/uploads/2020/05/lollo-rosso-green.jpg',
           amoutProduct: "3"),
       ProductModel(
           shopName: "ไร่มอนหลวงสาย",
-          product_name: 'ผักสดๆจากไร่',
-          product_price: 100,
-          product_status: 'ให้คะแนนแล้ว',
-          ProfiletImage:
+          productName: 'ผักสดๆจากไร่',
+          productPrice: 100,
+          productStatus: 'ให้คะแนนแล้ว',
+          profiletImage:
               "https://upload.wikimedia.org/wikipedia/commons/4/48/Outdoors-man-portrait_%28cropped%29.jpg",
-          ProductDicount: 140,
-          product_image:
+          productDicount: 140,
+          productImage:
               'https://st.depositphotos.com/1642482/2529/i/600/depositphotos_25296471-stock-photo-corn.jpg',
           amoutProduct: "2"),
     ];
@@ -342,44 +341,46 @@ class ProductViewModel {
   List<ProductModel> getVegetableChilli() {
     return [
       ProductModel(
-          product_name: 'พริกจินดา',
-          product_price: 10,
-          product_status:'4,589',
-          product_image:
+          productName: 'พริกจินดา',
+          productPrice: 10,
+          productStatus: '4,589',
+          productImage:
               'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU'),
       ProductModel(
-          product_name: 'พริกชีฟ้า',
-          product_price: 10,
-          product_status: '1,589',
-          product_image:
+          productName: 'พริกชีฟ้า',
+          productPrice: 10,
+          productStatus: '1,589',
+          productImage:
               'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU'),
       ProductModel(
-          product_name: 'พริกแห้ง',
-          product_price: 30,
-          product_status: '1,009',
-          product_image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU')
+          productName: 'พริกแห้ง',
+          productPrice: 30,
+          productStatus: '1,009',
+          productImage:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSD7xim4t9Hgk17cCV9bz4YpP8jzD8aTE0IsQ&usqp=CAU')
     ];
   }
 
   List<ProductModel> getVegetable1() {
     return [
       ProductModel(
-          product_name: 'ผักบุ้ง',
-          product_price: 10,
-          product_status: '4,589',
-          product_image:
+          productName: 'ผักบุ้ง',
+          productPrice: 10,
+          productStatus: '4,589',
+          productImage:
               'https://www.trueplookpanya.com/data/product/uploads/other5/shutterstock_166543490.jpg'),
       ProductModel(
-          product_name: 'ผักบุ้งจีน',
-          product_price: 10,
-          product_status: '1,589',
-          product_image:
+          productName: 'ผักบุ้งจีน',
+          productPrice: 10,
+          productStatus: '1,589',
+          productImage:
               'https://www.trueplookpanya.com/data/product/uploads/other5/shutterstock_166543490.jpg'),
       ProductModel(
-          product_name: 'ผักบุ้งไทย',
-          product_price: 30,
-          product_status: '1,009',
-          product_image: 'https://www.trueplookpanya.com/data/product/uploads/other5/shutterstock_166543490.jpg'),
+          productName: 'ผักบุ้งไทย',
+          productPrice: 30,
+          productStatus: '1,009',
+          productImage:
+              'https://www.trueplookpanya.com/data/product/uploads/other5/shutterstock_166543490.jpg'),
     ];
   }
 }

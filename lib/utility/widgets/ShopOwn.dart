@@ -1,24 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:full_screen_image/full_screen_image.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
-import 'package:naifarm/utility/widgets/ImageFullScreen.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
 import '../SizeUtil.dart';
 import 'ProductLandscape.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+// ignore: must_be_immutable
 class ShopOwn extends StatelessWidget {
   final ShopItem shopItem;
   final MyShopRespone shopRespone;
@@ -32,6 +28,7 @@ class ShopOwn extends StatelessWidget {
       this.showBtn = true,
       this.rateStyle})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -60,7 +57,7 @@ class ShopOwn extends StatelessWidget {
                         ),
                         fit: BoxFit.cover,
                         imageUrl: shopItem.image != null
-                            ? ProductLandscape.CovertUrlImage(shopItem.image)
+                            ? ProductLandscape.covertUrlImage(shopItem.image)
                             : "",
                         errorWidget: (context, url, error) => Container(
                             width: 60,
@@ -77,10 +74,10 @@ class ShopOwn extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    AppRoute.ImageFullScreenView(
-                        hero_tag: "image_profile_me${shopItem.id}",
+                    AppRoute.imageFullScreenView(
+                        heroTag: "image_profile_me${shopItem.id}",
                         context: context,
-                        image: ProductLandscape.CovertUrlImage(shopItem.image));
+                        image: ProductLandscape.covertUrlImage(shopItem.image));
                   },
                 ),
                 SizedBox(width: 20),
@@ -88,7 +85,7 @@ class ShopOwn extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(shopItem.name != null ? shopItem.name : "Nifarm Shop",
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black,
                             height: 1,
@@ -98,13 +95,13 @@ class ShopOwn extends StatelessWidget {
                         shopItem.updatedAt != null
                             ? "Active ${timeago.format(DateTime.parse(DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(shopItem.updatedAt))), locale: 'th')} "
                             : "เวลาไม่ถูกต้อง",
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black.withOpacity(0.8))),
                     SizedBox(height: 2),
                     Text(
                         "${shopItem.state != null ? "จังหวัด${shopItem.state.name}" : 'จังหวัดไม่ถูกต้อง'}",
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black.withOpacity(0.8),
                             height: 1.5)),
@@ -131,13 +128,13 @@ class ShopOwn extends StatelessWidget {
                     children: [
                       Text(
                           "${shopItem.countProduct != null ? shopItem.countProduct : '0'}",
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.priceFontSize().sp,
-                              color: ThemeColor.ColorSale(),
+                              color: ThemeColor.colorSale(),
                               fontWeight: FontWeight.w500)),
                       SizedBox(height: 5),
                       Text(LocaleKeys.shop_product_list.tr(),
-                          style: FunctionHelper.FontTheme(
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleSmallFontSize().sp))
                     ],
                   ),
@@ -159,9 +156,9 @@ class ShopOwn extends StatelessWidget {
                         rateStyle
                             ? Text(
                                 "${shopItem.rating != null && shopItem.rating != 0 ? shopItem.rating : '0'}",
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.priceFontSize().sp,
-                                    color: ThemeColor.ColorSale(),
+                                    color: ThemeColor.colorSale(),
                                     fontWeight: FontWeight.w500))
                             : SizedBox(),
                         Row(
@@ -170,9 +167,9 @@ class ShopOwn extends StatelessWidget {
                             rateStyle == false
                                 ? Text(
                                     "${shopItem.rating != null && shopItem.rating != 0 ? shopItem.rating : '0 '}",
-                                    style: FunctionHelper.FontTheme(
+                                    style: FunctionHelper.fontTheme(
                                         fontSize: SizeUtil.priceFontSize().sp,
-                                        color: ThemeColor.ColorSale(),
+                                        color: ThemeColor.colorSale(),
                                         fontWeight: FontWeight.w500))
                                 : SizedBox(),
                             SmoothStarRating(
@@ -195,7 +192,7 @@ class ShopOwn extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(LocaleKeys.shop_rate.tr(),
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleSmallFontSize().sp)),
                       ],
                     ),
@@ -229,13 +226,13 @@ class ShopOwn extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                AppRoute.ShopMain(
+                                AppRoute.shopMain(
                                     context: context,
                                     myShopRespone: shopRespone);
                               },
                               child: Text(
                                 LocaleKeys.shop_title.tr(),
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                     color: Colors.white,
                                     fontSize: SizeUtil.titleSmallFontSize().sp,
                                     fontWeight: FontWeight.w500),
@@ -252,10 +249,10 @@ class ShopOwn extends StatelessWidget {
                 //   child: Column(
                 //     children: [
                 //       Text("3",
-                //           style: FunctionHelper.FontTheme(fontSize: SizeUtil.priceFontSize().sp,color: ThemeColor.ColorSale(),fontWeight: FontWeight.bold)),
+                //           style: FunctionHelper.fontTheme(fontSize: SizeUtil.priceFontSize().sp,color: ThemeColor.colorSale(),fontWeight: FontWeight.bold)),
                 //       SizedBox(height: 5,),
                 //       Text(LocaleKeys.shop_follower.tr(),
-                //           style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
+                //           style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp)),
                 //     ],
                 //   ),
                 // )

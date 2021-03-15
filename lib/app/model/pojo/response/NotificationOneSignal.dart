@@ -1,11 +1,11 @@
 class NotificationOneSignal {
-  data item;
+  Data item;
   String i;
 
   NotificationOneSignal({this.item, this.i});
 
   NotificationOneSignal.fromJson(Map<String, dynamic> json) {
-    item = json['a'] != null ? new data.fromJson(json['a']) : null;
+    item = json['a'] != null ? new Data.fromJson(json['a']) : null;
     i = json['i'];
   }
 
@@ -19,7 +19,7 @@ class NotificationOneSignal {
   }
 }
 
-class data {
+class Data {
   String name;
   String image;
   String requirePaymentAt;
@@ -27,9 +27,15 @@ class data {
   String order;
   String status;
 
-  data({this.name,this.image, this.requirePaymentAt, this.id, this.order, this.status});
+  Data(
+      {this.name,
+      this.image,
+      this.requirePaymentAt,
+      this.id,
+      this.order,
+      this.status});
 
-  data.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     image = json['image'];
     requirePaymentAt = json['requirePaymentAt'];
@@ -49,4 +55,3 @@ class data {
     return data;
   }
 }
-

@@ -1,18 +1,7 @@
-
-
-import 'dart:convert';
-
 import 'package:sqflite/sqflite.dart';
 
+class DBBookingRepository {
+  Database database;
 
-
-class DBBookingRepository{
-
-  Database _database;
-
-  DBBookingRepository(this._database);
-
-
-
-
+  DBBookingRepository(this.database);
 }

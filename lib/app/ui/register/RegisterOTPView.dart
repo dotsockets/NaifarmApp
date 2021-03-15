@@ -13,15 +13,14 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
-import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:retrofit/http.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
+// ignore: must_be_immutable
 class RegisterOTPView extends StatefulWidget {
   final RequestOtp requestOtp;
   final String phoneNumber;
@@ -42,33 +41,32 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
   TextEditingController _input6 = new TextEditingController();
   int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 1;
   TextButton verify;
-  bool SuccessForm = false;
+  bool successForm = false;
   bool endTimes = true;
   CustomerInfoRespone itemInfo = CustomerInfoRespone();
   MemberBloc bloc;
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     verify = _verifyBtn();
+    super.initState();
   }
 
-  void _validate() {
-    RegExp nameRegExp = RegExp('[a-zA-Z]');
+  void validate() {
+    // RegExp nameRegExp = RegExp('[a-zA-Z]');
     // var stats_form = _form.currentState.validate();
     if (_input1.text.isEmpty &&
         _input2.text.isEmpty &&
         _input3.text.isEmpty &&
         _input4.text.isEmpty) {
-      FunctionHelper.SnackBarShow(
+      FunctionHelper.snackBarShow(
           scaffoldKey: _scaffoldKey, message: "ทำรายการไม่ถูกต้อง");
     } else {
       // Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CreateAccountView()));
     }
   }
 
-  void _CheckForm() {
+  void checkForm() {
     if (_input1.text.isEmpty ||
         _input2.text.isEmpty ||
         _input3.text.isEmpty ||
@@ -76,11 +74,11 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         _input5.text.isEmpty ||
         _input6.text.isEmpty) {
       setState(() {
-        SuccessForm = false;
+        successForm = false;
       });
     } else {
       setState(() {
-        SuccessForm = true;
+        successForm = true;
       });
     }
   }
@@ -88,7 +86,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
   void _init() {
     if (null == bloc) {
       bloc = MemberBloc(AppProvider.getApplication(context));
-      NaiFarmLocalStorage.getCustomer_Info().then((value) {
+      NaiFarmLocalStorage.getCustomerInfo().then((value) {
         if (value.customerInfoRespone != null) {
           itemInfo = value.customerInfoRespone;
         }
@@ -104,19 +102,20 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         if (widget.requestOtp == RequestOtp.Register) {
-          AppRoute.Register_set_Password(context, widget.phoneNumber);
+          AppRoute.registerSetPassword(context, widget.phoneNumber);
         } else if (widget.requestOtp == RequestOtp.Forgotpassword) {
-          AppRoute.Forgot_set_NewPassword(context,
+          AppRoute.forgotSetNewPassword(context,
               phone: widget.phoneNumber,
               ref: widget.refCode,
               code:
                   "${_input1.text}${_input2.text}${_input3.text}${_input4.text}${_input5.text}${_input6.text}");
         } else if (widget.requestOtp == RequestOtp.ChangPassword) {
-          Usermanager().getUser().then((value) => bloc.ModifyProfile(
+          Usermanager().getUser().then((value) => bloc.modifyProfile(
               context: context,
               data: itemInfo,
               token: value.token,
@@ -127,10 +126,10 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
 
     Future.delayed(const Duration(milliseconds: 500), () {
       if (widget.refCode == null) {
-        FunctionHelper.AlertDialogRetry(context,
+        FunctionHelper.alertDialogRetry(context,
             title: "Error Otp",
             message: "The transaction was incorrect. ", callBack: () {
-          RequestOTPNEW();
+          requestOTPNEW();
         });
       }
     });
@@ -149,8 +148,8 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
               preferredSize: Size.fromHeight(6.5.h),
               child: AppToobar(
                 title: LocaleKeys.regis_otp_title.tr(),
-                header_type: Header_Type.barNormal,
-                isEnable_Search: false,
+                headerType: Header_Type.barNormal,
+                isEnableSearch: false,
               )),
           body: Column(
             children: [
@@ -162,7 +161,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                     ),
                     Text(
                       LocaleKeys.regis_otp_message.tr(),
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           color: Colors.black),
                     ),
@@ -170,7 +169,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                       height: 2.0.h,
                     ),
                     Text(widget.phoneNumber,
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.priceFontSize().sp,
                             color: Colors.black)),
                     SizedBox(
@@ -179,7 +178,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                     Text(
                         LocaleKeys.edit_phone_confirm_otp.tr() +
                             " [Ref : ${widget.refCode != null ? widget.refCode : ""}]",
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             color: Colors.black,
                             fontWeight: FontWeight.w500)),
@@ -246,7 +245,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                             style: GoogleFonts.kanit(
                                 fontSize: SizeUtil.appNameFontSize().sp),
                             onChanged: (text) {
-                              _CheckForm();
+                              checkForm();
                               if (text.isNotEmpty) {
                                 FocusScope.of(context).nextFocus();
                               } else {
@@ -316,7 +315,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                             style: GoogleFonts.kanit(
                                 fontSize: SizeUtil.appNameFontSize().sp),
                             onChanged: (text) {
-                              _CheckForm();
+                              checkForm();
                               if (text.isNotEmpty) {
                                 FocusScope.of(context).nextFocus();
                               } else {
@@ -386,7 +385,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                             style: GoogleFonts.kanit(
                                 fontSize: SizeUtil.appNameFontSize().sp),
                             onChanged: (text) {
-                              _CheckForm();
+                              checkForm();
                               if (text.isNotEmpty) {
                                 FocusScope.of(context).nextFocus();
                               } else {
@@ -456,7 +455,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                             style: GoogleFonts.kanit(
                                 fontSize: SizeUtil.appNameFontSize().sp),
                             onChanged: (text) {
-                              _CheckForm();
+                              checkForm();
                               if (text.isNotEmpty) {
                                 FocusScope.of(context).nextFocus();
                               } else {
@@ -526,7 +525,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                             style: GoogleFonts.kanit(
                                 fontSize: SizeUtil.appNameFontSize().sp),
                             onChanged: (text) {
-                              _CheckForm();
+                              checkForm();
                               if (text.isNotEmpty) {
                                 FocusScope.of(context).nextFocus();
                               } else {
@@ -596,7 +595,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                             style: GoogleFonts.kanit(
                                 fontSize: SizeUtil.appNameFontSize().sp),
                             onChanged: (text) {
-                              _CheckForm();
+                              checkForm();
                               if (text.isNotEmpty) {
                                 // verify.onPressed();
                                 FocusScope.of(context).nextFocus();
@@ -619,7 +618,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            //  endTimes?Text(LocaleKeys.regis_otp_please_wait.tr()+" ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox(),
+                            //  endTimes?Text(LocaleKeys.regis_otp_please_wait.tr()+" ",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.w400)):SizedBox(),
                             CountdownTimer(
                               endTime: endTime,
                               widgetBuilder: (_, CurrentRemainingTime time) {
@@ -632,20 +631,20 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                                     .regis_otp_please_wait
                                                     .tr() +
                                                 "  ",
-                                            style: FunctionHelper.FontTheme(
+                                            style: FunctionHelper.fontTheme(
                                                 fontSize:
                                                     SizeUtil.titleFontSize().sp,
                                                 fontWeight: FontWeight.normal,
                                                 color: Colors.black)),
                                         new TextSpan(
                                             text:
-                                                '${FunctionHelper.ConverTime(time: time.sec != null ? time.sec.toString() : "0")}',
-                                            style: FunctionHelper.FontTheme(
+                                                '${FunctionHelper.converTime(time: time.sec != null ? time.sec.toString() : "0")}',
+                                            style: FunctionHelper.fontTheme(
                                                 fontSize: SizeUtil
                                                         .titleSmallFontSize()
                                                     .sp,
                                                 fontWeight: FontWeight.bold,
-                                                color: ThemeColor.ColorSale())),
+                                                color: ThemeColor.colorSale())),
                                       ],
                                     ),
                                   );
@@ -656,7 +655,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                   //       children: [
                                   //         SvgPicture.asset('assets/images/svg/change.svg'),
                                   //         SizedBox(width: 10,),
-                                  //         Text(LocaleKeys.edit_phone_otp_again.tr(),style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),)
+                                  //         Text(LocaleKeys.edit_phone_otp_again.tr(),style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),)
                                   //       ],
                                   //     ),
                                   //     onTap: (){
@@ -677,7 +676,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                             endTimes
                                 ? Text(
                                     "  " + LocaleKeys.regis_otp_before_tab.tr(),
-                                    style: FunctionHelper.FontTheme(
+                                    style: FunctionHelper.fontTheme(
                                         fontSize:
                                             SizeUtil.titleSmallFontSize().sp,
                                         color: Colors.black,
@@ -698,7 +697,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                       ),
                                       Text(
                                         LocaleKeys.edit_phone_otp_again.tr(),
-                                        style: FunctionHelper.FontTheme(
+                                        style: FunctionHelper.fontTheme(
                                             fontSize:
                                                 SizeUtil.titleSmallFontSize()
                                                     .sp),
@@ -706,7 +705,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                     ],
                                   ),
                                   onTap: () {
-                                    RequestOTPNEW();
+                                    requestOTPNEW();
                                   },
                                 ),
                               )
@@ -735,30 +734,30 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
     );
   }
 
-  void RequestOTPNEW() {
+  void requestOTPNEW() {
     FunctionHelper.showDialogProcess(context);
     AppProvider.getApplication(context)
         .appStoreAPIRepository
-        .OTPRequest(context, numberphone: widget.phoneNumber)
+        .otpRequest(context, numberphone: widget.phoneNumber)
         .then((value) {
-      if (value.http_call_back.status == 200) {
+      if (value.httpCallBack.status == 200) {
         Navigator.of(context).pop();
         setState(() {
           widget.refCode = (value.respone as OTPRespone).refCode;
           endTimes = true;
-          SuccessForm = false;
+          successForm = false;
           endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 1;
-          CleanForm();
+          cleanForm();
         });
       } else {
         Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(
-            scaffoldKey: _scaffoldKey, message: value.http_call_back.message);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: value.httpCallBack.message);
       }
     });
   }
 
-  void CleanForm() {
+  void cleanForm() {
     _input1.text = "";
     _input2.text = "";
     _input3.text = "";
@@ -779,7 +778,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
           Size(50.0.w, 5.0.h),
         ),
         backgroundColor: MaterialStateProperty.all(
-          SuccessForm ? ThemeColor.secondaryColor() : Colors.grey.shade400,
+          successForm ? ThemeColor.secondaryColor() : Colors.grey.shade400,
         ),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),
@@ -788,8 +787,8 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       onPressed: () {
         //  AppRoute.ImageProduct(context);
         // Navigator.pop(context, false);
-        if (SuccessForm) {
-          bloc.OTPVerify(context,
+        if (successForm) {
+          bloc.otpVerify(context,
               phone: widget.phoneNumber,
               code:
                   "${_input1.text}${_input2.text}${_input3.text}${_input4.text}${_input5.text}${_input6.text}",
@@ -800,7 +799,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       },
       child: Text(
         LocaleKeys.btn_continue.tr(),
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleFontSize().sp,
             fontWeight: FontWeight.w500),

@@ -2,10 +2,8 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:lottie/lottie.dart';
@@ -18,11 +16,8 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
-import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/config/Env.dart';
@@ -30,35 +25,33 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
-import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
-
 class WishlistsView extends StatefulWidget {
-
-
   @override
   _WishlistsViewState createState() => _WishlistsViewState();
 }
 
-class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
+class _WishlistsViewState extends State<WishlistsView> with RouteAware {
   ProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool islike = true;
-  bool IsLogin = true;
+  bool isLogin = true;
 
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
         Future.delayed(const Duration(milliseconds: 500), () {
-          FunctionHelper.AlertDialogRetry(context,
-              title: LocaleKeys.btn_error.tr(), message: event.message,callBack: ()=> Usermanager().getUser().then((value) =>
-                  bloc.GetMyWishlists(context,token: value.token)));
+          FunctionHelper.alertDialogRetry(context,
+              title: LocaleKeys.btn_error.tr(),
+              message: event.message,
+              callBack: () => Usermanager().getUser().then(
+                  (value) => bloc.getMyWishlists(context, token: value.token)));
         });
-       // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error);
+        // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error);
       });
       // bloc.onLoad.stream.listen((event) {
       //   if (event) {
@@ -68,16 +61,16 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
       //   }
       // });
       bloc.onSuccess.stream.listen((event) {
-        if(event is bool){
-          Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
+        if (event is bool) {
+          Usermanager().getUser().then((value) => context
+              .read<CustomerCountBloc>()
+              .loadCustomerCount(context, token: value.token));
           // Usermanager().getUser().then((value) =>
           //     bloc.GetMyWishlists(token: value.token));
         }
       });
-
     }
   }
-
 
   @override
   void didChangeDependencies() {
@@ -87,32 +80,33 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
 
   @override
   void didPopNext() {
-    Usermanager().getUser().then((value) =>
-        bloc.GetMyWishlists(context,token: value.token));
+    Usermanager()
+        .getUser()
+        .then((value) => bloc.getMyWishlists(context, token: value.token));
   }
 
-  void ISLogin() async => IsLogin = await Usermanager().isLogin();
-
+  void iSLogin() async => isLogin = await Usermanager().isLogin();
 
   @override
   Widget build(BuildContext context) {
     _init();
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        ISLogin();
-        if(IsLogin){
-          if(count is InfoCustomerLoaded){
-            Usermanager().getUser().then((value) => bloc.GetMyWishlists(context,token: value.token));
-            return  _content();
-          }else{
+        iSLogin();
+        if (isLogin) {
+          if (count is InfoCustomerLoaded) {
+            Usermanager().getUser().then(
+                (value) => bloc.getMyWishlists(context, token: value.token));
+            return _content();
+          } else {
             return Center(
-                child:  Platform.isAndroid
-                ? CircularProgressIndicator()
-            : CupertinoActivityIndicator());
+                child: Platform.isAndroid
+                    ? CircularProgressIndicator()
+                    : CupertinoActivityIndicator());
           }
-        }else{
+        } else {
           return LoginView(
-            IsHeader: true,
+            isHeader: true,
             homeCallBack: (bool fix) {
               Navigator.of(context).pop();
 
@@ -124,21 +118,18 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
             },
           );
         }
-
-
       },
     );
-
   }
 
-  Widget _content(){
+  Widget _content() {
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
           body: StreamBuilder(
-            stream: bloc.Wishlists.stream,
+            stream: bloc.wishlists.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               var item = (snapshot.data as WishlistsRespone);
               if (snapshot.hasData) {
@@ -146,21 +137,21 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                 if (item.data.length > 0) {
                   return SingleChildScrollView(
                     child: StickyHeader(
-                      header: AppToobar(title: LocaleKeys.me_title_likes.tr(),
-                        header_type: Header_Type.barNormal,
-                        icon: 'assets/images/svg/search.svg',),
+                      header: AppToobar(
+                        title: LocaleKeys.me_title_likes.tr(),
+                        headerType: Header_Type.barNormal,
+                        icon: 'assets/images/svg/search.svg',
+                      ),
                       content: Column(
                         children: [
                           ClipRRect(
                             child: Container(
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width,
+                                width: MediaQuery.of(context).size.width,
                                 color: Colors.white,
                                 child: Column(
                                   children: [
-                                    _buildCardProduct(context: context,item: item)
+                                    _buildCardProduct(
+                                        context: context, item: item)
                                   ],
                                 )),
                           )
@@ -175,19 +166,22 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        AppToobar(title: LocaleKeys.me_title_likes.tr(),
-                          header_type: Header_Type.barNormal,
-                          icon: 'assets/images/svg/search.svg',),
+                        AppToobar(
+                          title: LocaleKeys.me_title_likes.tr(),
+                          headerType: Header_Type.barNormal,
+                          icon: 'assets/images/svg/search.svg',
+                        ),
                         Expanded(
-                          child:  Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Lottie.asset('assets/json/boxorder.json',
                                   height: 70.0.w, width: 70.0.w, repeat: false),
                               Text(
                                 LocaleKeys.search_product_not_found.tr(),
-                                style: FunctionHelper.FontTheme(
-                                    fontSize: SizeUtil.titleFontSize().sp, fontWeight: FontWeight.bold),
+                                style: FunctionHelper.fontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    fontWeight: FontWeight.bold),
                               )
                             ],
                           ),
@@ -199,12 +193,17 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
               } else {
                 return Column(
                   children: [
-                    AppToobar(title: LocaleKeys.me_title_likes.tr(),
-                      header_type: Header_Type.barNormal,
-                      icon: 'assets/images/svg/search.svg',),
-                    Expanded(child: Center(child: Platform.isAndroid
-                        ? CircularProgressIndicator()
-                        : CupertinoActivityIndicator()),)
+                    AppToobar(
+                      title: LocaleKeys.me_title_likes.tr(),
+                      headerType: Header_Type.barNormal,
+                      icon: 'assets/images/svg/search.svg',
+                    ),
+                    Expanded(
+                      child: Center(
+                          child: Platform.isAndroid
+                              ? CircularProgressIndicator()
+                              : CupertinoActivityIndicator()),
+                    )
                   ],
                 );
               }
@@ -215,16 +214,14 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
     );
   }
 
-
-  Widget _buildCardProduct({BuildContext context,WishlistsRespone item}) {
+  Widget _buildCardProduct({BuildContext context, WishlistsRespone item}) {
     return Container(
       margin: EdgeInsets.only(top: 10),
-      child: ItemRow(context,item),
+      child: itemRow(context, item),
     );
   }
 
-  Container ItemRow(BuildContext context,WishlistsRespone item) =>
-      Container(
+  Container itemRow(BuildContext context, WishlistsRespone item) => Container(
         child: Column(
           children: [
             for (int i = 0; i < item.data.length; i += 2)
@@ -234,34 +231,29 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: List.generate(
-                      Check(i),
-                          (index) =>
-                          _buildProduct(
-                              index: i + index,
-                              item: item.data[i+index],
-                              context: context)),
+                      check(i),
+                      (index) => _buildProduct(
+                          index: i + index,
+                          item: item.data[i + index],
+                          context: context)),
                 ),
               )
           ],
         ),
       );
 
-
   Widget _intoProduct({DataWishlists item, int index}) {
     return Column(
       children: [
         Container(
-          height: SizeUtil
-              .titleSmallFontSize()
-              .sp*3.0,
-          child: Text(item.product!=null?item.product.name:'ไม่พบสินค้า', maxLines: 2,
+          height: SizeUtil.titleSmallFontSize().sp * 3.0,
+          child: Text(item.product != null ? item.product.name : 'ไม่พบสินค้า',
+              maxLines: 2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.black,
-                  fontSize: SizeUtil
-                      .titleSmallFontSize()
-                      .sp,
+                  fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.w500)),
         ),
         SizedBox(
@@ -271,22 +263,28 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            item.product!=null && item.product.offerPrice != null
-                ? Text("฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}",
-                style: FunctionHelper.FontTheme(
-                    color: Colors.grey,
-                    fontSize: SizeUtil.priceFontSize().sp - 1,
-                    decoration: TextDecoration.lineThrough))
+            item.product != null && item.product.offerPrice != null
+                ? Text(
+                    "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}",
+                    style: FunctionHelper.fontTheme(
+                        color: Colors.grey,
+                        fontSize: SizeUtil.priceFontSize().sp - 1,
+                        decoration: TextDecoration.lineThrough))
                 : SizedBox(),
-            SizedBox(width: item.product!=null && item.product.offerPrice != null ? 1.0.w : 0),
+            SizedBox(
+                width: item.product != null && item.product.offerPrice != null
+                    ? 1.0.w
+                    : 0),
             Text(
-              item.product!=null?item.product.offerPrice != null
-                  ? "฿${NumberFormat("#,##0", "en_US").format(item.product.offerPrice)}"
-                  : "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}":"000",
+              item.product != null
+                  ? item.product.offerPrice != null
+                      ? "฿${NumberFormat("#,##0", "en_US").format(item.product.offerPrice)}"
+                      : "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}"
+                  : "000",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: FunctionHelper.FontTheme(
-                  color: ThemeColor.ColorSale(),
+              style: FunctionHelper.fontTheme(
+                  color: ThemeColor.colorSale(),
                   fontWeight: FontWeight.w500,
                   fontSize: SizeUtil.priceFontSize().sp),
             ),
@@ -304,7 +302,11 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                   allowHalfRating: false,
                   onRated: (v) {},
                   starCount: 5,
-                  rating:  item.product!=null && item.product.rating!=null&&item.product.rating!=0?item.product.rating.toDouble():0.0,
+                  rating: item.product != null &&
+                          item.product.rating != null &&
+                          item.product.rating != 0
+                      ? item.product.rating.toDouble()
+                      : 0.0,
                   size: 3.5.w,
                   isReadOnly: true,
                   filledIconData: Icons.star,
@@ -313,8 +315,9 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                   borderColor: Colors.grey.shade300,
                   spacing: 0.0),
             ),
-            Text("${LocaleKeys.my_product_sold.tr()} ${item.product!=null && item.product.saleCount!=null?item.product.saleCount.toString():'0'} ${LocaleKeys.cart_piece.tr()}",
-                style: FunctionHelper.FontTheme(
+            Text(
+                "${LocaleKeys.my_product_sold.tr()} ${item.product != null && item.product.saleCount != null ? item.product.saleCount.toString() : '0'} ${LocaleKeys.cart_piece.tr()}",
+                style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.detailFontSize().sp,
                     color: Colors.black,
                     fontWeight: FontWeight.w500))
@@ -327,20 +330,14 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
   Widget _buildProduct({DataWishlists item, int index, BuildContext context}) {
     return GestureDetector(
       child: Container(
-        width: (MediaQuery
-            .of(context)
-            .size
-            .width / 2) - 15,
+        width: (MediaQuery.of(context).size.width / 2) - 15,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Stack(
               children: [
                 Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       border: Border.all(
                           color: Colors.black.withOpacity(0.3), width: 1),
@@ -350,23 +347,24 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                     child: CachedNetworkImage(
                       width: 30.0.w,
                       height: 40.0.w,
-                      placeholder: (context, url) =>
-                          Container(
-                            width: 30.0.w,
-                            height: 40.0.w,
-                            color: Colors.white,
-                            child:
-                            Lottie.asset('assets/json/loading.json',
-                              width: 30.0.w,
-                              height: 40.0.w,),
-                          ),
-                      imageUrl: item.product!=null?ProductLandscape.CovertUrlImage(
-                          item.product.image):'',
-                      errorWidget: (context, url, error) =>
-                          Container(
-                              width: 30.0.w,
-                              height: 40.0.w,
-                              child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
+                      placeholder: (context, url) => Container(
+                        width: 30.0.w,
+                        height: 40.0.w,
+                        color: Colors.white,
+                        child: Lottie.asset(
+                          'assets/json/loading.json',
+                          width: 30.0.w,
+                          height: 40.0.w,
+                        ),
+                      ),
+                      imageUrl: item.product != null
+                          ? ProductLandscape.covertUrlImage(item.product.image)
+                          : '',
+                      errorWidget: (context, url, error) => Container(
+                          width: 30.0.w,
+                          height: 40.0.w,
+                          child: Image.network(Env.value.noItemUrl,
+                              fit: BoxFit.cover)),
                     ),
                   ),
                 ),
@@ -377,21 +375,24 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                       child: Container(
                         margin: EdgeInsets.only(top: 7, left: 8),
                         decoration: BoxDecoration(
-                            color: ThemeColor.ColorSale(),
+                            color: ThemeColor.colorSale(),
                             borderRadius: BorderRadius.all(Radius.circular(7))),
                         padding: EdgeInsets.only(
                             left: 10, right: 10, top: 5, bottom: 5),
                         child: Text(
-                          item.product!=null?"${item.product.discountPercent}%":'',
+                          item.product != null
+                              ? "${item.product.discountPercent}%"
+                              : '',
                           style: GoogleFonts.sarabun(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: SizeUtil
-                                  .titleSmallFontSize()
-                                  .sp),
+                              fontSize: SizeUtil.titleSmallFontSize().sp),
                         ),
                       ),
-                      visible: item.product!=null && item.product.discountPercent>0?true:false,
+                      visible: item.product != null &&
+                              item.product.discountPercent > 0
+                          ? true
+                          : false,
                     ),
                     LikeButton(
                       size: 10.0.w,
@@ -404,14 +405,17 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
                       ),
                       likeBuilder: (bool isLiked) {
                         return Icon(
-                          isLiked?Icons.favorite:Icons.favorite_border,
-                          color: isLiked ? ThemeColor.ColorSale() : Colors.grey.withOpacity(0.5),
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                          color: isLiked
+                              ? ThemeColor.colorSale()
+                              : Colors.grey.withOpacity(0.5),
                           size: 8.0.w,
                         );
                       },
                       likeCountAnimationType: LikeCountAnimationType.part,
-                      likeCountPadding:  EdgeInsets.all(1.0.w),
-                      onTap: (bool like)=>onLikeButtonTapped(like,item.id,index),
+                      likeCountPadding: EdgeInsets.all(1.0.w),
+                      onTap: (bool like) =>
+                          onLikeButtonTapped(like, item.id, index),
                     )
                   ],
                 )
@@ -425,35 +429,44 @@ class _WishlistsViewState extends State<WishlistsView>  with RouteAware{
         ),
       ),
       onTap: () {
-        if(item.product!=null){
-          var data =  ProducItemRespone(name: item.product.name,salePrice: item.product.salePrice,hasVariant: item.product.hasVariant,brand: item.product.brand,minPrice: item.product.minPrice,maxPrice: item.product.maxPrice,
-              slug: item.product.slug,offerPrice: item.product.offerPrice,id: item.product.id,saleCount: item.product.saleCount,discountPercent: item.product.discountPercent,rating: item.product.rating,reviewCount: item.product.reviewCount,
-              shop: ShopItem(id: item.product.shopId),image: item.product.image);
-          AppRoute.ProductDetail(context,
-              productImage: "wishlist_${item.id}",productItem: data);
-        }else{
-
-          AppRoute.ProductDetail(context,
-              productImage: "wishlist_${item.id}",productItem: ProducItemRespone(id: item.id));
+        if (item.product != null) {
+          var data = ProducItemRespone(
+              name: item.product.name,
+              salePrice: item.product.salePrice,
+              hasVariant: item.product.hasVariant,
+              brand: item.product.brand,
+              minPrice: item.product.minPrice,
+              maxPrice: item.product.maxPrice,
+              slug: item.product.slug,
+              offerPrice: item.product.offerPrice,
+              id: item.product.id,
+              saleCount: item.product.saleCount,
+              discountPercent: item.product.discountPercent,
+              rating: item.product.rating,
+              reviewCount: item.product.reviewCount,
+              shop: ShopItem(id: item.product.shopId),
+              image: item.product.image);
+          AppRoute.productDetail(context,
+              productImage: "wishlist_${item.id}", productItem: data);
+        } else {
+          AppRoute.productDetail(context,
+              productImage: "wishlist_${item.id}",
+              productItem: ProducItemRespone(id: item.id));
         }
-
       },
     );
   }
-  Future<bool> onLikeButtonTapped(bool isLiked,int id,int index) async {
-    bloc.Wishlists.value.data.removeAt(index);
-    bloc.Wishlists.add(bloc.Wishlists.value);
 
-    Usermanager().getUser().then((value){
-      bloc.DELETEWishlists(context,WishId: id, token: value.token);
+  Future<bool> onLikeButtonTapped(bool isLiked, int id, int index) async {
+    bloc.wishlists.value.data.removeAt(index);
+    bloc.wishlists.add(bloc.wishlists.value);
+
+    Usermanager().getUser().then((value) {
+      bloc.deleteWishlists(context, wishId: id, token: value.token);
     });
-
-
 
     return !isLiked;
   }
 
-  int Check(int i) => i != bloc.Wishlists.value.data.length - 1 ? 2 : 1;
+  int check(int i) => i != bloc.wishlists.value.data.length - 1 ? 2 : 1;
 }
-
-

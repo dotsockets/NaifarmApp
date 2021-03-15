@@ -1,30 +1,17 @@
-import 'dart:async';
 import 'dart:io';
 
-import 'package:basic_utils/basic_utils.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:logger/logger.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
-import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
-import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
-import 'package:naifarm/app/model/pojo/response/RegisterRespone.dart';
-import 'package:naifarm/app/model/pojo/response/User.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:regexed_validator/regexed_validator.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
@@ -43,10 +30,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     _phone.text = "";
     phoneError.add("");
+    super.initState();
   }
 
   void _init() {
@@ -61,10 +47,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.RegisterOTP(context,
+        AppRoute.registerOTP(context,
             phoneNumber: _phone.text,
             refCode: (event as OTPRespone).refCode,
             requestOtp: RequestOtp.Forgotpassword);
@@ -92,14 +79,14 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           backgroundColor: Colors.white,
           body: ListView(
             children: [
-              _BuildBar(context),
+              buildBar(context),
               StreamBuilder(
                   stream: phoneError.stream,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
-                      return _BuildContent(context, snapshot.data);
+                      return buildContent(context, snapshot.data);
                     } else {
-                      return _BuildContent(context, "");
+                      return buildContent(context, "");
                     }
                   }),
             ],
@@ -109,7 +96,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     );
   }
 
-  Widget _BuildContent(BuildContext context, String error) {
+  Widget buildContent(BuildContext context, String error) {
     return Container(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -119,7 +106,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             ),
             Text(
               LocaleKeys.login_forgot_password.tr(),
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),
             ),
@@ -131,7 +118,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               hint: LocaleKeys.my_profile_phone.tr(),
               inputType: TextInputType.number,
               controller: _phone,
-              BorderOpacity: 0.3,
+              borderOpacity: 0.3,
               borderRadius: 7,
               onError: error,
               onChanged: (String char) {
@@ -169,7 +156,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 onPressed: () => _validate(),
                 child: Text(
                   LocaleKeys.btn_continue.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.w500),
@@ -183,7 +170,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         ));
   }
 
-  Widget _BuildHeader(BuildContext context) {
+  Widget buildHeader(BuildContext context) {
     return Container(
         padding: EdgeInsets.only(bottom: 4.0.h),
         width: MediaQuery.of(context).size.width,
@@ -197,7 +184,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           children: [
             Text(
               "NaiFarm",
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.white,
                   fontSize: SizeUtil.appNameFontSize().sp,
                   fontWeight: FontWeight.w500),
@@ -206,7 +193,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         ));
   }
 
-  Widget _BuildBar(BuildContext context) {
+  Widget buildBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: ThemeColor.primaryColor(),
@@ -232,16 +219,15 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               },
             ),
           ),
-          _BuildHeader(context),
+          buildHeader(context),
         ],
       ),
     );
   }
 
   void _validate() {
-    if(_phone.text.isNotEmpty){
-      bloc.OTPRequest(context, numberphone: _phone.text);
+    if (_phone.text.isNotEmpty) {
+      bloc.otpRequest(context, numberphone: _phone.text);
     }
-
   }
 }

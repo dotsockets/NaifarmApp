@@ -1,9 +1,8 @@
-
-class WithDrawModel{
-  final String Title;
-  final String Subtitle;
-  final String Text_date;
+class WithDrawModel {
+  final String title;
+  final String subTitle;
+  final String textDate;
   final int price;
 
-  WithDrawModel({this.Title, this.Subtitle, this.Text_date, this.price});
+  WithDrawModel({this.title, this.subTitle, this.textDate, this.price});
 }

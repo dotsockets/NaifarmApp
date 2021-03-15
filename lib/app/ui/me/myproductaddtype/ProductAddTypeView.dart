@@ -38,7 +38,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
           appBar: AppToobar(
             title: LocaleKeys.my_product_options_add_product.tr(),
             icon: "",
-            header_type: Header_Type.barNormal,
+            headerType: Header_Type.barNormal,
           ),
           body: Container(
             child: SingleChildScrollView(
@@ -46,7 +46,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Visibility(
-                      child: _BuildProductType(
+                      child: buildProductType(
                         item: listColorsType,
                         index: 0,
                         typeTxt: listType[0],
@@ -58,7 +58,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                     ),
                     _buildSpace(),
                     Visibility(
-                      child: _BuildProductType(
+                      child: buildProductType(
                         item: listSizeType,
                         index: 1,
                         typeTxt: listType[1],
@@ -69,7 +69,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                       visible: showCard1,
                     ),
                     _buildAddTypeBtn(),
-                    _BuildButton(context)
+                    buildButton(context)
                   ]),
             ),
           ),
@@ -78,7 +78,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
     );
   }
 
-  Widget _BuildProductType(
+  Widget buildProductType(
       {List<String> item, int index, Function() onClick, String typeTxt}) {
     return Container(
       padding: EdgeInsets.all(10),
@@ -91,7 +91,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
             children: [
               Text(
                 LocaleKeys.my_product_options_name.tr(),
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500),
               ),
@@ -110,7 +110,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                           'assets/images/svg/Edit.svg',
                           width: 20,
                           height: 20,
-                          color: ThemeColor.ColorSale(),
+                          color: ThemeColor.colorSale(),
                         ),
                       ),
                       onTap: () {
@@ -130,7 +130,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                           'assets/images/svg/trash.svg',
                           width: 20,
                           height: 20,
-                          color: ThemeColor.ColorSale(),
+                          color: ThemeColor.colorSale(),
                         ),
                       ),
                       onTap: () {
@@ -142,7 +142,6 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                               : showCard1
                                   ? showCard1 = false
                                   : showCard1 = true;
-                          ;
                         });
                       },
                     )
@@ -164,7 +163,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
               padding: EdgeInsets.all(10),
               child: Text(
                 typeTxt,
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleFontSize().sp,
                     fontWeight: FontWeight.w500),
               ),
@@ -173,13 +172,13 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
           SizedBox(
             height: 10,
           ),
-          _BuildItem(item: item, indexBlock: index)
+          buildItem(item: item, indexBlock: index)
         ],
       ),
     );
   }
 
-  Widget _BuildItem({List<String> item, int indexBlock}) {
+  Widget buildItem({List<String> item, int indexBlock}) {
     return Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -201,7 +200,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                                 Border.all(color: Colors.grey.withOpacity(0.4)),
                           ),
                           child: Text(item[index],
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   fontWeight: FontWeight.w500))),
                       SizedBox(
@@ -218,12 +217,12 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: ThemeColor.ColorSale()),
+                              border: Border.all(color: ThemeColor.colorSale()),
                             ),
                             child: Center(
                               child: Text("x",
-                                  style: FunctionHelper.FontTheme(
-                                      color: ThemeColor.ColorSale(),
+                                  style: FunctionHelper.fontTheme(
+                                      color: ThemeColor.colorSale(),
                                       fontSize:
                                           SizeUtil.titleSmallFontSize().sp,
                                       fontWeight: FontWeight.bold)),
@@ -255,13 +254,13 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
               children: [
                 Text(
                   "+",
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
                   " " + LocaleKeys.add.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.w500),
@@ -274,7 +273,7 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
     );
   }
 
-  Widget _BuildButton(BuildContext context) {
+  Widget buildButton(BuildContext context) {
     return Center(
       child: Container(
         margin: EdgeInsets.only(top: 100),
@@ -294,11 +293,11 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
               padding: MaterialStateProperty.all(
                   EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20))),
           onPressed: () {
-            AppRoute.ProductSetPrice(context);
+            AppRoute.productSetPrice(context);
           },
           child: Text(
             LocaleKeys.btn_set_price.tr(),
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 color: Colors.white,
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
@@ -323,13 +322,13 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
             children: [
               Text(
                 "+",
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500),
               ),
               Text(
                 " " + LocaleKeys.my_product_options_add.tr(),
-                style: FunctionHelper.FontTheme(
+                style: FunctionHelper.fontTheme(
                     color: Colors.white,
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     fontWeight: FontWeight.w500),

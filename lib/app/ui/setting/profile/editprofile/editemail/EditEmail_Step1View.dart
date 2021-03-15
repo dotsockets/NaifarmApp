@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -8,7 +6,6 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
-import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -16,24 +13,24 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
-class EditEmail_Step1View extends StatefulWidget {
+class EditEmailStep1View extends StatefulWidget {
   final CustomerInfoRespone customerInfoRespone;
 
-  const EditEmail_Step1View({Key key, this.customerInfoRespone})
+  const EditEmailStep1View({Key key, this.customerInfoRespone})
       : super(key: key);
 
   @override
-  _EditEmail_Step1ViewState createState() => _EditEmail_Step1ViewState();
+  EditEmailStep1ViewState createState() => EditEmailStep1ViewState();
 }
 
-class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
-  TextEditingController PassController = TextEditingController();
+class EditEmailStep1ViewState extends State<EditEmailStep1View> {
+  TextEditingController passController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   MemberBloc bloc;
   String onError = "";
 
-  bool FormCheck() {
-    if (PassController.text.isEmpty||PassController.text.length<8) {
+  bool formCheck() {
+    if (passController.text.isEmpty || passController.text.length < 8) {
       return false;
     } else {
       return true;
@@ -42,9 +39,8 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    passController.text = "";
     super.initState();
-    PassController.text = "";
   }
 
   void _init() {
@@ -59,11 +55,12 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         if (event) {
-          AppRoute.EditEmail_Step2(context, widget.customerInfoRespone);
+          AppRoute.editEmailStep2(context, widget.customerInfoRespone);
         }
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
@@ -83,8 +80,8 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
               title: LocaleKeys.my_profile_email.tr(),
-              header_type: Header_Type.barNormal,
-              isEnable_Search: false,
+              headerType: Header_Type.barNormal,
+              isEnableSearch: false,
             ),
           ),
           body: SingleChildScrollView(
@@ -94,7 +91,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                   padding: EdgeInsets.all(2.0.w),
                   child: Text(
                     LocaleKeys.message_mail_edit.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp),
                   ),
                 ),
@@ -110,11 +107,11 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                             head: LocaleKeys.my_profile_password.tr(),
                             hint: LocaleKeys.my_profile_password.tr(),
                             maxLength: 40,
-                            controller: PassController,
+                            controller: passController,
                             onError: onError,
                             inputType: TextInputType.text,
-                            IsPassword: true,
-                            BorderOpacity: 0.2,
+                            isPassword: true,
+                            borderOpacity: 0.2,
                             onChanged: (String char) {
                               setState(() {});
                             }),
@@ -127,11 +124,12 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                             SizedBox(
                               height: 3,
                             ),
-                            Text(LocaleKeys.btn_forgot_pass.tr(),
-                                style: FunctionHelper.FontTheme(
-                                    color: Colors.grey.shade500,
-                                    fontSize:
-                                        SizeUtil.titleSmallFontSize().sp),),
+                            Text(
+                              LocaleKeys.btn_forgot_pass.tr(),
+                              style: FunctionHelper.fontTheme(
+                                  color: Colors.grey.shade500,
+                                  fontSize: SizeUtil.titleSmallFontSize().sp),
+                            ),
                             SizedBox(
                               height: 2,
                             ),
@@ -146,7 +144,7 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                           height: 3,
                         ),
                         Text(LocaleKeys.message_forgot_mail.tr(),
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 color: Colors.grey.shade500,
                                 fontSize: SizeUtil.titleSmallFontSize().sp))
                       ],
@@ -167,18 +165,18 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
                       Size(50.0.w, 5.0.h),
                     ),
                     backgroundColor: MaterialStateProperty.all(
-                      FormCheck()
-                          ? ThemeColor.ColorSale()
+                      formCheck()
+                          ? ThemeColor.colorSale()
                           : Colors.grey.shade400,
                     ),
                     overlayColor: MaterialStateProperty.all(
                       Colors.white.withOpacity(0.3),
                     ),
                   ),
-                  onPressed: () => FormCheck() ? verify() : SizedBox(),
+                  onPressed: () => formCheck() ? verify() : SizedBox(),
                   child: Text(
                     LocaleKeys.btn_continue.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500),
@@ -202,10 +200,10 @@ class _EditEmail_Step1ViewState extends State<EditEmail_Step1View> {
 
     //});
 
-    if (PassController.text.length > 6) {
+    if (passController.text.length > 6) {
       FocusScope.of(context).unfocus();
-      Usermanager().getUser().then((value) => bloc.VerifyPassword(context,
-          password: PassController.text, token: value.token));
+      Usermanager().getUser().then((value) => bloc.verifyPassword(context,
+          password: passController.text, token: value.token));
     } else {
       setState(() {
         onError = LocaleKeys.message_error_password_incorrect.tr();

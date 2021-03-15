@@ -35,17 +35,17 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
           appBar: AppToobar(
             title: LocaleKeys.my_product_stock_set.tr(),
             icon: "",
-            header_type: Header_Type.barNormal,
+            headerType: Header_Type.barNormal,
           ),
           body: Container(
             child: SingleChildScrollView(
               child: Column(children: [
-                _BuildTitle(),
+                buildTitle(),
                 Column(
                   children: List.generate(listColorsType.length,
-                      (index) => _BuildCard(titleType: listColorsType[index])),
+                      (index) => buildCard(titleType: listColorsType[index])),
                 ),
-                _BuildButton(context)
+                buildButton(context)
               ]),
             ),
           ),
@@ -54,7 +54,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
     );
   }
 
-  Widget _BuildCard({String titleType}) {
+  Widget buildCard({String titleType}) {
     return Container(
         margin: EdgeInsets.only(bottom: 10),
         color: Colors.white,
@@ -65,7 +65,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                 padding: EdgeInsets.all(10),
                 child: Text(
                   titleType,
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.w500),
                 )),
@@ -89,7 +89,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(listSizeType[index],
-                                        style: FunctionHelper.FontTheme(
+                                        style: FunctionHelper.fontTheme(
                                             fontSize:
                                                 SizeUtil.titleFontSize().sp,
                                             fontWeight: FontWeight.w500)),
@@ -114,7 +114,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                                   BorderRadius.circular(10),
                                             ),
                                             child: TextFormField(
-                                              style: FunctionHelper.FontTheme(
+                                              style: FunctionHelper.fontTheme(
                                                   color: Colors.black,
                                                   fontSize:
                                                       SizeUtil.detailFontSize()
@@ -129,7 +129,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                                 enabledBorder: InputBorder.none,
                                                 hintText: "฿0",
                                                 hintStyle:
-                                                    FunctionHelper.FontTheme(
+                                                    FunctionHelper.fontTheme(
                                                         color: Colors.grey,
                                                         fontSize: SizeUtil
                                                                 .detailFontSize()
@@ -151,7 +151,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                               ),
                                               child: Center(
                                                 child: TextFormField(
-                                                  style: FunctionHelper.FontTheme(
+                                                  style: FunctionHelper.fontTheme(
                                                       color: Colors.black,
                                                       fontSize: SizeUtil
                                                               .detailFontSize()
@@ -167,7 +167,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
                                                     enabledBorder:
                                                         InputBorder.none,
                                                     hintStyle: FunctionHelper
-                                                        .FontTheme(
+                                                        .fontTheme(
                                                             color: Colors.grey,
                                                             fontSize: SizeUtil
                                                                     .detailFontSize()
@@ -190,7 +190,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
         ));
   }
 
-  Widget _BuildTitle() {
+  Widget buildTitle() {
     return Container(
       padding: EdgeInsets.all(10),
       child: Row(
@@ -198,19 +198,19 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
         children: [
           Text(
             LocaleKeys.my_product_option.tr(),
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
           ),
           Text(
             LocaleKeys.my_product_price_no_product.tr(),
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
           ),
           Text(
             LocaleKeys.my_product_amount.tr(),
-            style: FunctionHelper.FontTheme(
+            style: FunctionHelper.fontTheme(
                 fontSize: SizeUtil.titleFontSize().sp,
                 fontWeight: FontWeight.w500),
           )
@@ -219,7 +219,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
     );
   }
 
-  Widget _BuildButton(BuildContext context) {
+  Widget buildButton(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 100),
       child: TextButton(
@@ -240,7 +240,7 @@ class _ProductSetPriceViewState extends State<ProductSetPriceView> {
         onPressed: () {},
         child: Text(
           LocaleKeys.btn_save.tr(),
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               color: Colors.white,
               fontSize: SizeUtil.titleFontSize().sp,
               fontWeight: FontWeight.w500),

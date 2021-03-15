@@ -181,7 +181,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[2DR4C19401012639]" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -218,9 +218,14 @@
       <recent name="$PROJECT_DIR$/lib/app" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter.naifarm-staging">
+  <component name="RunManager" selected="Flutter.naifarm-development">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="naifarm-development" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="buildFlavor" value="development" />
+      <option name="filePath" value="$PROJECT_DIR$/lib/config/Main_development.dart" />
       <method v="2" />
     </configuration>
     <configuration name="naifarm-production" type="FlutterRunConfigurationType" factoryName="Flutter">
@@ -229,13 +234,13 @@
       <method v="2" />
     </configuration>
     <configuration name="naifarm-staging" type="FlutterRunConfigurationType" factoryName="Flutter">
-      <option name="additionalArgs" value="--flavor=staging" />
       <option name="buildFlavor" value="staging" />
       <option name="filePath" value="$PROJECT_DIR$/lib/config/Main_staging.dart" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Flutter.main.dart" />
+      <item itemvalue="Flutter.naifarm-development" />
       <item itemvalue="Flutter.naifarm-staging" />
       <item itemvalue="Flutter.naifarm-production" />
     </list>
@@ -254,16 +259,16 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="304" y="169" width="1078" height="682" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1615260504282">
-      <screen x="0" y="25" width="1680" height="971" />
+    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603957027228">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="304" y="169" width="1078" height="682" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615260504282" />
-    <state x="200" y="153" width="1480" height="771" key="AVDManager" timestamp="1615521742450">
-      <screen x="0" y="25" width="1680" height="971" />
+    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603957027228" />
+    <state x="537" y="334" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603943764087">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="200" y="153" width="1480" height="771" key="AVDManager/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615521742450" />
-    <state x="172" y="25" key="CommitChangelistDialog2" timestamp="1615517244511">
-      <screen x="0" y="25" width="1680" height="971" />
+    <state x="537" y="334" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1680.1050/1680.0.1920.1080@0.0.1680.1050" timestamp="1603943764087" />
+    <state x="577" y="322" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1603953540910">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="172" y="25" key="CommitChangelistDialog2/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1615517244511" />
     <state width="1640" height="340" key="GridCell.Tab.0.bottom" timestamp="1615798003498">

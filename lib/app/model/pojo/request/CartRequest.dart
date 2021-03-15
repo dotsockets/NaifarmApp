@@ -13,16 +13,16 @@ class CartRequest {
 
   CartRequest(
       {this.shopId,
-        this.ipAddress,
-        this.paymentMethodId,
-        this.shippingZoneId,
-        this.shippingRateId,
-        this.couponId,
-        this.coupon,
-        this.packagingId,
-        this.taxId,
-        this.shipTo,
-        this.items});
+      this.ipAddress,
+      this.paymentMethodId,
+      this.shippingZoneId,
+      this.shippingRateId,
+      this.couponId,
+      this.coupon,
+      this.packagingId,
+      this.taxId,
+      this.shipTo,
+      this.items});
 
   CartRequest.fromJson(Map<String, dynamic> json) {
     shopId = json['shopId'];
@@ -36,7 +36,7 @@ class CartRequest {
     taxId = json['taxId'];
     shipTo = json['shipTo'];
     if (json['items'] != null) {
-      items = new List<Items>();
+      items = [];
       json['items'].forEach((v) {
         items.add(new Items.fromJson(v));
       });

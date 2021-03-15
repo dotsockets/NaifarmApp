@@ -5,7 +5,6 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -19,13 +18,13 @@ class EditpasswordStep1View extends StatefulWidget {
 }
 
 class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
-  TextEditingController PassController = TextEditingController();
+  TextEditingController passController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   MemberBloc bloc;
   String onError = "";
 
-  bool FormCheck() {
-    if (PassController.text.isEmpty||PassController.text.length<8) {
+  bool formCheck() {
+    if (passController.text.isEmpty || passController.text.length < 8) {
       return false;
     } else {
       return true;
@@ -44,10 +43,11 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.EditpasswordStep2(context, PassController.text);
+        AppRoute.editpasswordStep2(context, passController.text);
         // if((event as VerifyRespone).success){
         // AppRoute.EditpasswordStep2(context,PassController.text);
 
@@ -60,9 +60,8 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    passController.text = "";
     super.initState();
-    PassController.text = "";
   }
 
   @override
@@ -78,8 +77,8 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
               title: LocaleKeys.my_profile_change_password.tr(),
-              header_type: Header_Type.barNormal,
-              isEnable_Search: false,
+              headerType: Header_Type.barNormal,
+              isEnableSearch: false,
             ),
           ),
           body: SingleChildScrollView(
@@ -89,7 +88,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                   padding: EdgeInsets.all(2.0.w),
                   child: Text(
                     LocaleKeys.message_mail_edit.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.w500),
                   ),
@@ -105,12 +104,12 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                         BuildEditText(
                             head: LocaleKeys.edit_password_old.tr(),
                             hint: LocaleKeys.my_profile_password.tr(),
-                            controller: PassController,
+                            controller: passController,
                             maxLength: 40,
                             onError: onError,
-                            IsPassword: true,
+                            isPassword: true,
                             inputType: TextInputType.text,
-                            BorderOpacity: 0.2,
+                            borderOpacity: 0.2,
                             onChanged: (String char) {
                               setState(() {});
                             }),
@@ -124,7 +123,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                               height: 3,
                             ),
                             Text(LocaleKeys.btn_forgot_pass.tr(),
-                                style: FunctionHelper.FontTheme(
+                                style: FunctionHelper.fontTheme(
                                   color: Colors.grey.shade500,
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                 )),
@@ -142,7 +141,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                           height: 3,
                         ),
                         Text(LocaleKeys.message_forgot_mail.tr(),
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 color: Colors.grey.shade500,
                                 fontSize: SizeUtil.titleSmallFontSize().sp))
                       ],
@@ -163,18 +162,18 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                       Size(50.0.w, 5.0.h),
                     ),
                     backgroundColor: MaterialStateProperty.all(
-                      FormCheck()
-                          ? ThemeColor.ColorSale()
+                      formCheck()
+                          ? ThemeColor.colorSale()
                           : Colors.grey.shade400,
                     ),
                     overlayColor: MaterialStateProperty.all(
                       Colors.white.withOpacity(0.3),
                     ),
                   ),
-                  onPressed: () => FormCheck() ? verify() : SizedBox(),
+                  onPressed: () => formCheck() ? verify() : SizedBox(),
                   child: Text(
                     LocaleKeys.btn_continue.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500),
@@ -198,9 +197,9 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
 
     //});
 
-    if (PassController.text.length > 6) {
-      Usermanager().getUser().then((value) => bloc.VerifyPassword(context,
-          password: PassController.text, token: value.token));
+    if (passController.text.length > 6) {
+      Usermanager().getUser().then((value) => bloc.verifyPassword(context,
+          password: passController.text, token: value.token));
     } else {
       setState(() {
         onError = LocaleKeys.message_error_password_incorrect.tr();

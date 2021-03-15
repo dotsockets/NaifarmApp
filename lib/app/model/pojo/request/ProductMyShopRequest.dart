@@ -1,4 +1,3 @@
-
 class ProductMyShopRequest {
   int inventoriesid;
   String name;
@@ -17,19 +16,21 @@ class ProductMyShopRequest {
   int active;
 
   ProductMyShopRequest(
-      {this.inventoriesid,this.name,
-        this.category=0,
-        this.stockQuantity=0,
-        this.salePrice=0,
-        this.sendArea,
-        this.weight=0,
-        this.packaging,
-        this.description,
-        this.slug,
-        this.offerPrice=0,
-        this.offerStart,
-        this.offerEnd,
-        this.attributes,this.active=0});
+      {this.inventoriesid,
+      this.name,
+      this.category = 0,
+      this.stockQuantity = 0,
+      this.salePrice = 0,
+      this.sendArea,
+      this.weight = 0,
+      this.packaging,
+      this.description,
+      this.slug,
+      this.offerPrice = 0,
+      this.offerStart,
+      this.offerEnd,
+      this.attributes,
+      this.active = 0});
 
   ProductMyShopRequest.fromJson(Map<String, dynamic> json) {
     inventoriesid = json['inventoriesid'];
@@ -42,11 +43,11 @@ class ProductMyShopRequest {
     packaging = json['packaging'];
     description = json['description'];
     slug = json['slug'];
-    offerPrice = json['offerPrice']!=null?json['offerPrice']:0;
+    offerPrice = json['offerPrice'] != null ? json['offerPrice'] : 0;
     offerStart = json['offerStart'];
     offerEnd = json['offerEnd'];
     if (json['attributes'] != null) {
-      attributes = new List<Attributes>();
+      attributes = [];
       json['attributes'].forEach((v) {
         attributes.add(new Attributes.fromJson(v));
       });
@@ -95,4 +96,3 @@ class Attributes {
     return data;
   }
 }
-

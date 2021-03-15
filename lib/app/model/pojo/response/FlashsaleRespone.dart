@@ -1,4 +1,3 @@
-
 import 'ProductRespone.dart';
 import 'StatesRespone.dart';
 
@@ -9,11 +8,12 @@ class FlashsaleRespone {
   String limit;
   bool loadmore = true;
 
-  FlashsaleRespone({this.data, this.total, this.page, this.limit,this.loadmore});
+  FlashsaleRespone(
+      {this.data, this.total, this.page, this.limit, this.loadmore});
 
   FlashsaleRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<FlashsaleData>();
+      data = [];
       json['data'].forEach((v) {
         data.add(new FlashsaleData.fromJson(v));
       });
@@ -48,7 +48,7 @@ class FlashsaleData {
     start = json['start'];
     end = json['end'];
     if (json['items'] != null) {
-      items = new List<FlashsaleItems>();
+      items = [];
       json['items'].forEach((v) {
         items.add(new FlashsaleItems.fromJson(v));
       });
@@ -73,7 +73,9 @@ class FlashsaleItems {
   FlashsaleItems({this.product});
 
   FlashsaleItems.fromJson(Map<String, dynamic> json) {
-    product = json['product'] != null ? new ProductData.fromJson(json['product']) : null;
+    product = json['product'] != null
+        ? new ProductData.fromJson(json['product'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -84,8 +86,6 @@ class FlashsaleItems {
     return data;
   }
 }
-
-
 
 class Shop {
   int id;
@@ -101,10 +101,11 @@ class Shop {
     id = json['id'];
     name = json['name'];
     slug = json['slug'];
-    state = json['state'] != null ? new DataStates.fromJson(json['state']) : null;
+    state =
+        json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -126,6 +127,3 @@ class Shop {
     return data;
   }
 }
-
-
-

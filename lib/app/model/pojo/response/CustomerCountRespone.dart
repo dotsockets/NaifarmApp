@@ -6,15 +6,17 @@ class CustomerCountRespone {
   Notification notification;
   BuyOrder buyOrder;
   SellOrder sellOrder;
-  int CartCount;
-  ThrowIfNoSuccess http_call_back;
+  int cartCount;
+  ThrowIfNoSuccess httpCallBack;
 
   CustomerCountRespone(
-      {this.like=0,
-        this.watingReview=0,
-        this.notification,
-        this.buyOrder,
-        this.sellOrder,this.CartCount,this.http_call_back});
+      {this.like = 0,
+      this.watingReview = 0,
+      this.notification,
+      this.buyOrder,
+      this.sellOrder,
+      this.cartCount,
+      this.httpCallBack});
 
   CustomerCountRespone.fromJson(Map<String, dynamic> json) {
     like = json['like'];
@@ -28,7 +30,7 @@ class CustomerCountRespone {
     sellOrder = json['sellOrder'] != null
         ? new SellOrder.fromJson(json['sellOrder'])
         : null;
-    CartCount = json['CartCount'];
+    cartCount = json['CartCount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -44,7 +46,7 @@ class CustomerCountRespone {
     if (this.sellOrder != null) {
       data['sellOrder'] = this.sellOrder.toJson();
     }
-    data['CartCount'] = this.CartCount;
+    data['CartCount'] = this.cartCount;
     return data;
   }
 }
@@ -79,12 +81,12 @@ class BuyOrder {
 
   BuyOrder(
       {this.unpaid,
-        this.failed,
-        this.confirm,
-        this.toBeRecieve,
-        this.delivered,
-        this.refund,
-        this.cancel});
+      this.failed,
+      this.confirm,
+      this.toBeRecieve,
+      this.delivered,
+      this.refund,
+      this.cancel});
 
   BuyOrder.fromJson(Map<String, dynamic> json) {
     unpaid = json['unpaid'];
@@ -120,12 +122,12 @@ class SellOrder {
 
   SellOrder(
       {this.unpaid,
-        this.failed,
-        this.confirm,
-        this.shipping,
-        this.delivered,
-        this.refund,
-        this.cancel});
+      this.failed,
+      this.confirm,
+      this.shipping,
+      this.delivered,
+      this.refund,
+      this.cancel});
 
   SellOrder.fromJson(Map<String, dynamic> json) {
     unpaid = json['unpaid'];
@@ -149,4 +151,3 @@ class SellOrder {
     return data;
   }
 }
-

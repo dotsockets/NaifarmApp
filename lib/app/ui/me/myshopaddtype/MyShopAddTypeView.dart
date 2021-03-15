@@ -22,14 +22,12 @@ class _MyShopAddTypeViewState extends State<MyShopAddTypeView> {
           appBar: AppToobar(
             title: "เพิ่มตัวเลือกสินค้า",
             icon: "",
-            header_type: Header_Type.barNormal,
+            headerType: Header_Type.barNormal,
           ),
           body: Container(
             color: Colors.grey.shade300,
             child: Column(
-              children: [
-
-              ],
+              children: [],
             ),
           ),
         ),

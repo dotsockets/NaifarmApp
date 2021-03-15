@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +10,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
-import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
-import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -31,8 +27,8 @@ class ImageProductView extends StatefulWidget {
 }
 
 class _ImageProductViewState extends State<ImageProductView> {
-  List<Asset> images = List<Asset>();
-  String _error = 'No Error Dectected';
+  List<Asset> images = [];
+  // String _error = 'No Error Dectected';
 
   //File _imageFile;
   // List<String> imageUrlList = [];
@@ -46,15 +42,15 @@ class _ImageProductViewState extends State<ImageProductView> {
       bloc.onChang.stream.listen((event) {
         if (widget.isActive == IsActive.NewProduct ||
             widget.isActive == IsActive.ReplacemenView) {
-          NaiFarmLocalStorage.SaveProductStorage(UploadProductStorage(
-              onSelectItem: bloc.ItemImage,
-              productMyShopRequest: bloc.ProductDetail));
+          NaiFarmLocalStorage.saveProductStorage(UploadProductStorage(
+              onSelectItem: bloc.itemImage,
+              productMyShopRequest: bloc.productDetail));
         }
       });
       NaiFarmLocalStorage.getProductStorageCache().then((value) {
         if (value != null) {
-          bloc.ProductDetail = value.productMyShopRequest;
-          bloc.LoadImage(item: value.onSelectItem);
+          bloc.productDetail = value.productMyShopRequest;
+          bloc.loadImage(item: value.onSelectItem);
         }
       });
     }
@@ -74,8 +70,8 @@ class _ImageProductViewState extends State<ImageProductView> {
             child: AppToobar(
               title: LocaleKeys.my_product_image.tr(),
               icon: "",
-              isEnable_Search: false,
-              header_type: Header_Type.barNormal,
+              isEnableSearch: false,
+              headerType: Header_Type.barNormal,
               onClick: () => Navigator.pop(context, false),
             ),
           ),
@@ -92,7 +88,7 @@ class _ImageProductViewState extends State<ImageProductView> {
                           height: 20,
                         ),
                         Text(LocaleKeys.my_product_image_guide.tr(),
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w500)),
                         SizedBox(
@@ -162,7 +158,7 @@ class _ImageProductViewState extends State<ImageProductView> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-              AddButton(index: 0, flag: 1, maxImages: 10),
+              addButton(index: 0, flag: 1, maxImages: 10),
             ],
           );
         }
@@ -170,7 +166,7 @@ class _ImageProductViewState extends State<ImageProductView> {
     );
   }
 
-  InkWell AddButton({int index, int flag, int maxImages}) => InkWell(
+  InkWell addButton({int index, int flag, int maxImages}) => InkWell(
         child: Container(
           margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
           decoration: BoxDecoration(
@@ -190,13 +186,13 @@ class _ImageProductViewState extends State<ImageProductView> {
                   children: [
                     Text(
                       "+",
-                      style: FunctionHelper.FontTheme(fontSize: 30),
+                      style: FunctionHelper.fontTheme(fontSize: 30),
                     ),
                     Container(
                       margin: EdgeInsets.only(bottom: 10),
                       child: Text(
                         LocaleKeys.add.tr() + LocaleKeys.my_product_image.tr(),
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp),
                       ),
                     )
@@ -220,7 +216,8 @@ class _ImageProductViewState extends State<ImageProductView> {
       );
 
   Future<void> loadAssets({int index, int flag, int maxImages}) async {
-    List<Asset> resultList = List<Asset>();
+    List<Asset> resultList = [];
+    // ignore: unused_local_variable
     String error = 'No Error Dectected';
 
     try {
@@ -238,9 +235,9 @@ class _ImageProductViewState extends State<ImageProductView> {
         ),
       );
       if (flag == 1) {
-        bloc.ConvertArrayFile(imageList: resultList, index: index);
+        bloc.convertArrayFile(imageList: resultList, index: index);
       } else if (flag == 2) {
-        bloc.EditImage(imageList: resultList, index: index);
+        bloc.editImage(imageList: resultList, index: index);
       }
     } on Exception catch (e) {
       error = e.toString();
@@ -326,7 +323,7 @@ class _ImageProductViewState extends State<ImageProductView> {
                                         ),
                                       ),
                                       onTap: () {
-                                        bloc.DeleteImage(index: index);
+                                        bloc.deleteImage(index: index);
                                       },
                                     ),
                                   ],
@@ -338,11 +335,11 @@ class _ImageProductViewState extends State<ImageProductView> {
                   ))),
             ),
             onTap: () {
-              bloc.ConvertOnEdit(index: index);
+              bloc.convertOnEdit(index: index);
             },
           )
-        : AddButton(
-            index: index, flag: 1, maxImages: 10 - (bloc.ItemImage.length - 1));
+        : addButton(
+            index: index, flag: 1, maxImages: 10 - (bloc.itemImage.length - 1));
   }
 
   Widget _buildButton({List<OnSelectItem> item}) {
@@ -377,19 +374,19 @@ class _ImageProductViewState extends State<ImageProductView> {
         if (widget.isActive == IsActive.NewProduct ||
             widget.isActive == IsActive.ReplacemenView) {
           isEnable
-              ? AppRoute.MyNewProduct(context, widget.shopId,
+              ? AppRoute.myNewProduct(context, widget.shopId,
                   isActive: widget.isActive)
               : print("");
         } else {
-          NaiFarmLocalStorage.SaveProductStorage(UploadProductStorage(
-              onSelectItem: bloc.GetSelectItem(),
-              productMyShopRequest: bloc.ProductDetail));
+          NaiFarmLocalStorage.saveProductStorage(UploadProductStorage(
+              onSelectItem: bloc.getSelectItem(),
+              productMyShopRequest: bloc.productDetail));
           Navigator.pop(context, true);
         }
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
           color: Colors.white,
           fontSize: SizeUtil.titleFontSize().sp,
           fontWeight: FontWeight.w500,

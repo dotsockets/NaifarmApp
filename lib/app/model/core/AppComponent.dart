@@ -1,9 +1,7 @@
-
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/ui/home/HomeView.dart';
-import 'package:naifarm/app/ui/mycart/cart/MyCartView.dart';
 import 'package:naifarm/app/ui/splash/SplashView.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/log/Log.dart';
@@ -14,14 +12,8 @@ import 'package:sizer/sizer.dart';
 
 final RouteObserver<PageRoute> routeObserver = new RouteObserver<PageRoute>();
 
-
 class AppComponent extends StatefulWidget {
-
-
-
   final AppNaiFarmApplication _application;
-
-
 
   AppComponent(this._application);
 
@@ -32,28 +24,25 @@ class AppComponent extends StatefulWidget {
 }
 
 class AppComponentState extends State<AppComponent> {
-
   final AppNaiFarmApplication _application;
-
 
   AppComponentState(this._application);
 
-
   @override
-  void dispose()async{
+  void dispose() async {
     Log.info('dispose');
     super.dispose();
     await _application.onTerminate();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: ThemeColor.primaryColor()
-    ));
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: ThemeColor.primaryColor()));
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 //flutter pub run easy_localization:generate
 // flutter pub run easy_localization:generate -f keys -o locale_keys.g.dart
     final app = new LayoutBuilder(
@@ -67,11 +56,14 @@ class AppComponentState extends State<AppComponent> {
               locale: context.locale,
               title: Env.value.appName,
               debugShowCheckedModeBanner: false,
-              theme: new ThemeData(primarySwatch: ThemeColor.primarySwatch(context),snackBarTheme: ThemeColor.SnackBarThemeColor(context),primaryColor: Colors.white,
+              theme: new ThemeData(
+                primarySwatch: ThemeColor.primarySwatch(context),
+                snackBarTheme: ThemeColor.snackBarThemeColor(context),
+                primaryColor: Colors.white,
               ),
               home: SplashView(),
               navigatorObservers: [routeObserver],
-              routes: <String, WidgetBuilder> {
+              routes: <String, WidgetBuilder>{
                 '/home': (BuildContext context) => HomeView()
               },
             );
@@ -80,10 +72,7 @@ class AppComponentState extends State<AppComponent> {
       },
     );
 
-
     final appProvider = AppProvider(child: app, application: _application);
     return appProvider;
   }
-
-
 }

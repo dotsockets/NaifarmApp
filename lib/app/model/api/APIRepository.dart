@@ -1,13 +1,9 @@
-
-
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:naifarm/app/model/api/APIProvider.dart';
 import 'package:naifarm/app/model/db/DBNaiFarmRepository.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
-import 'package:naifarm/app/model/pojo/request/AssetImages.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
@@ -16,418 +12,571 @@ import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/OrderRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
-import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
-import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
-import 'package:naifarm/app/model/pojo/response/ForgotRespone.dart';
-import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
-import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRequest.dart';
-import 'package:naifarm/app/model/pojo/response/VerifyRespone.dart';
-import 'package:naifarm/app/model/pojo/response/RegisterRespone.dart';
-import 'package:naifarm/app/model/pojo/response/Task.dart';
-import 'package:naifarm/config/Env.dart';
-import 'package:naifarm/utility/http/HttpException.dart';
-import 'package:naifarm/utility/log/DioLogger.dart';
-import 'package:rxdart/rxdart.dart';
 
-
-class APIRepository{
+class APIRepository {
   static const String TAG = 'AppAPIRepository';
 
   APIProvider _apiProvider;
-  DBBookingRepository _dbAppStoreRepository;
+  DBBookingRepository dbAppStoreRepository;
 
-  APIRepository(this._apiProvider, this._dbAppStoreRepository);
+  APIRepository(this._apiProvider, this.dbAppStoreRepository);
 
-
-  Future<ApiResult> getFBProfile(BuildContext context,{String access_token}){
-    return _apiProvider.getProFileFacebook(context,access_token);
+  Future<ApiResult> getFBProfile(BuildContext context, {String accessToken}) {
+    return _apiProvider.getProFileFacebook(context, accessToken);
   }
 
-  Future<ApiResult> CustomersLogin(BuildContext context,{LoginRequest loginRequest}){
-    return _apiProvider.CustomersLogin(context,loginRequest);
+  Future<ApiResult> customersLogin(BuildContext context,
+      {LoginRequest loginRequest}) {
+    return _apiProvider.customersLogin(context, loginRequest);
   }
 
-  Future<ApiResult> CheckEmail(BuildContext context,{String email}) {
-    return _apiProvider.CheckEmail(context,email: email);
+  Future<ApiResult> checkEmail(BuildContext context, {String email}) {
+    return _apiProvider.checkEmail(context, email: email);
   }
 
-
-  Future<ApiResult> CustomersLoginSocial(BuildContext context,{LoginRequest loginRequest,String provider}){
-    return _apiProvider.CustomersLoginSocial(context,loginRequest,provider);
+  Future<ApiResult> customersLoginSocial(BuildContext context,
+      {LoginRequest loginRequest, String provider}) {
+    return _apiProvider.customersLoginSocial(context, loginRequest, provider);
   }
 
-  Future<ApiResult> CustomersRegister(BuildContext context,{RegisterRequest registerRequest}){
-    return _apiProvider.CustomersRegister(context,registerRequest);
+  Future<ApiResult> customersRegister(BuildContext context,
+      {RegisterRequest registerRequest}) {
+    return _apiProvider.customersRegister(context, registerRequest);
   }
 
-  Future<ApiResult> OTPRequest(BuildContext context,{String numberphone}){
-    return _apiProvider.OtpRequest(context,numberphone);
+  Future<ApiResult> otpRequest(BuildContext context, {String numberphone}) {
+    return _apiProvider.otpRequest(context, numberphone);
   }
 
-  Future<ApiResult> OtpVerify(BuildContext context,{ String phone,String code,String ref}){
-    return _apiProvider.OtpVerify(context,phone,code,ref);
+  Future<ApiResult> otpVerify(BuildContext context,
+      {String phone, String code, String ref}) {
+    return _apiProvider.otpVerify(context, phone, code, ref);
   }
 
-  Future<ApiResult> ForgotPassword(BuildContext context,{ String phone,String code,String ref,String password}){
-    return _apiProvider.ForgotPasswordRequest(context,code: code,ref: ref,phone: phone,password: password);
+  Future<ApiResult> forgotPassword(BuildContext context,
+      {String phone, String code, String ref, String password}) {
+    return _apiProvider.forgotPasswordRequest(context,
+        code: code, ref: ref, phone: phone, password: password);
   }
 
-
-  Future<ApiResult> ResetPasswordRequest(BuildContext context,{String email, String password,String token}){
-    return _apiProvider.ResetPasswordRequest(context,email,password,token);
+  Future<ApiResult> resetPasswordRequest(BuildContext context,
+      {String email, String password, String token}) {
+    return _apiProvider.resetPasswordRequest(context, email, password, token);
   }
 
-  Future<ApiResult> getCustomerInfo(BuildContext context,{String token}){
-    return _apiProvider.getCustomerInfo(context,token);
+  Future<ApiResult> getCustomerInfo(BuildContext context, {String token}) {
+    return _apiProvider.getCustomerInfo(context, token);
   }
 
-  Future<ApiResult> ModifyProfile(BuildContext context,{CustomerInfoRespone data ,String token}){
-    return _apiProvider.ModifyProfile(context,data,token);
+  Future<ApiResult> modifyProfile(BuildContext context,
+      {CustomerInfoRespone data, String token}) {
+    return _apiProvider.modifyProfile(context, data, token);
   }
 
-  Future<ApiResult> ModifyPassword(BuildContext context,{ModifyPasswordrequest data ,String token}){
-    return _apiProvider.ModifyPassword(context,data,token);
+  Future<ApiResult> modifyPassword(BuildContext context,
+      {ModifyPasswordrequest data, String token}) {
+    return _apiProvider.modifyPassword(context, data, token);
   }
 
-  Future<ApiResult> VerifyPassword(BuildContext context,{String password ,String token}){
-    return _apiProvider.VerifyPassword(context,password,token);
+  Future<ApiResult> verifyPassword(BuildContext context,
+      {String password, String token}) {
+    return _apiProvider.verifyPassword(context, password, token);
   }
 
-  Future<ApiResult> AddressesList(BuildContext context,{String token}){
-    return _apiProvider.AddressesList(context,token);
+  Future<ApiResult> addressesList(BuildContext context, {String token}) {
+    return _apiProvider.addressesList(context, token);
   }
 
-  Future<ApiResult> StatesProvice(BuildContext context,{String countries}){
-    return _apiProvider.StatesProvice(context,countries);
+  Future<ApiResult> statesProvice(BuildContext context, {String countries}) {
+    return _apiProvider.statesProvice(context, countries);
   }
 
-  Future<ApiResult> StatesCity(BuildContext context,{String countriesid, String statesId}){
-    return _apiProvider.StatesCity(context,countriesid,statesId);
+  Future<ApiResult> statesCity(BuildContext context,
+      {String countriesid, String statesId}) {
+    return _apiProvider.statesCity(context, countriesid, statesId);
   }
 
-  Future<ApiResult> StatesZipCode(BuildContext context,{String countries,String statesId,String cityId}){
-    return _apiProvider.zipCode(context,countries,statesId,cityId);
+  Future<ApiResult> statesZipCode(BuildContext context,
+      {String countries, String statesId, String cityId}) {
+    return _apiProvider.zipCode(context, countries, statesId, cityId);
   }
 
-  Future<ApiResult> CreateAddress(BuildContext context,{AddressCreaterequest addressCreaterequest,String token}){
-    return _apiProvider.CreateAddress(context,addressCreaterequest,token);
+  Future<ApiResult> createAddress(BuildContext context,
+      {AddressCreaterequest addressCreaterequest, String token}) {
+    return _apiProvider.createAddress(context, addressCreaterequest, token);
   }
 
-  Future<ApiResult> DeleteAddress(BuildContext context,{String id,String token}){
-    return _apiProvider.DeleteAddress(context,id,token);
+  Future<ApiResult> deleteAddress(BuildContext context,
+      {String id, String token}) {
+    return _apiProvider.deleteAddress(context, id, token);
   }
 
-  Future<ApiResult> UpdateAddress(BuildContext context,{AddressCreaterequest data, String token}){
-    return _apiProvider.UpdateAddress(context,data,token);
+  Future<ApiResult> updateAddress(BuildContext context,
+      {AddressCreaterequest data, String token}) {
+    return _apiProvider.updateAddress(context, data, token);
   }
 
-  Future<ApiResult> getSliderImage(BuildContext context,){
-    return _apiProvider.getSliderImage(context,);
-  }
-
-  Future<ApiResult> getProductPopular(BuildContext context,String page,int limit){
-    return _apiProvider.getProductPopular(context,page,limit
-
+  Future<ApiResult> getSliderImage(
+    BuildContext context,
+  ) {
+    return _apiProvider.getSliderImage(
+      context,
     );
   }
 
-  Future<ApiResult> getCategoryGroup(BuildContext context,){
-    return _apiProvider.getCategoryGroup(context,);
+  Future<ApiResult> getProductPopular(
+      BuildContext context, String page, int limit) {
+    return _apiProvider.getProductPopular(context, page, limit);
   }
 
-  Future<ApiResult> getCategoriesFeatured(BuildContext context,){
-    return _apiProvider.getCategoriesFeatured(context,);
+  Future<ApiResult> getCategoryGroup(
+    BuildContext context,
+  ) {
+    return _apiProvider.getCategoryGroup(
+      context,
+    );
   }
 
-  Future<ApiResult> getProductTrending(BuildContext context,String page,int limit){
-    return _apiProvider.getProductTrending(context,page,limit);
+  Future<ApiResult> getCategoriesFeatured(
+    BuildContext context,
+  ) {
+    return _apiProvider.getCategoriesFeatured(
+      context,
+    );
   }
 
-  Future<ApiResult> getShopProduct(BuildContext context,{int ShopId,String page,int limit}){
-    return _apiProvider.getShopProduct(context,ShopId: ShopId,page: page,limit: limit);
+  Future<ApiResult> getProductTrending(
+      BuildContext context, String page, int limit) {
+    return _apiProvider.getProductTrending(context, page, limit);
   }
 
-  Future<ApiResult> getSearch(BuildContext context,{String page, String query,int limit}){
-    return _apiProvider.getSearch(context,page: page,query: query,limit: limit);
+  Future<ApiResult> getShopProduct(BuildContext context,
+      {int shopId, String page, int limit}) {
+    return _apiProvider.getShopProduct(context,
+        shopId: shopId, page: page, limit: limit);
   }
 
-  Future<ApiResult> CreateMyShop(BuildContext context,{String name, String slug, String description, String token}){
-    return _apiProvider.CreateMyShop(context,name: name,slug: slug,description: description,token: token);
+  Future<ApiResult> getSearch(BuildContext context,
+      {String page, String query, int limit}) {
+    return _apiProvider.getSearch(context,
+        page: page, query: query, limit: limit);
   }
 
-  Future<ApiResult> getMyShopInfo(BuildContext context,{String access_token}){
-    return _apiProvider.getMyShopInfo(context,access_token);
+  Future<ApiResult> createMyShop(BuildContext context,
+      {String name, String slug, String description, String token}) {
+    return _apiProvider.createMyShop(context,
+        name: name, slug: slug, description: description, token: token);
   }
 
-  Future<ApiResult> MyShopUpdate({BuildContext context,MyShopRequest data, String access_token}){
-    return _apiProvider.MyShopUpdate(context,data: data,access_token: access_token);
+  Future<ApiResult> getMyShopInfo(BuildContext context, {String accessToken}) {
+    return _apiProvider.getMyShopInfo(context, accessToken);
   }
 
-  Future<ApiResult> MyShopActive({BuildContext context,int data, String access_token}){
-    return _apiProvider.MyShopActive(context,data: data,access_token: access_token);
+  Future<ApiResult> myShopUpdate(
+      {BuildContext context, MyShopRequest data, String accessToken}) {
+    return _apiProvider.myShopUpdate(context,
+        data: data, accessToken: accessToken);
   }
 
-  Future<ApiResult> FarmMarket(BuildContext context,){
-    return _apiProvider.FarmMarket(context,);
+  Future<ApiResult> farmMarket(
+    BuildContext context,
+  ) {
+    return _apiProvider.farmMarket(
+      context,
+    );
   }
 
-  Future<ApiResult> MoreProduct(BuildContext context,{String page, int limit, String link}){
-    return _apiProvider.MoreProduct(context,page: page,limit: limit,link: link);
+  Future<ApiResult> moreProduct(BuildContext context,
+      {String page, int limit, String link}) {
+    return _apiProvider.moreProduct(context,
+        page: page, limit: limit, link: link);
   }
 
-  Future<ApiResult> Flashsale(BuildContext context,{String page, int limit}){
-    return _apiProvider.Flashsale(context,page: page,limit: limit);
+  Future<ApiResult> myShopActive(
+      {BuildContext context, int data, String accessToken}) {
+    return _apiProvider.myShopActive(context,
+        data: data, accessToken: accessToken);
   }
 
-  Future<ApiResult> UploadImage(BuildContext context,{File imageFile,String imageableType, int imageableId, String token}){
-    return _apiProvider.UploadImage(context,imageFile: imageFile,imageableType: imageableType,imageableId: imageableId,token: token);
+  Future<ApiResult> flashsale(BuildContext context, {String page, int limit}) {
+    return _apiProvider.flashsale(context, page: page, limit: limit);
   }
 
-
-  Future<ApiResult> ProductsById(BuildContext context,{int id}){
-    return _apiProvider.ProductsById(context,id: id);
+  Future<ApiResult> uploadImage(BuildContext context,
+      {File imageFile, String imageableType, int imageableId, String token}) {
+    return _apiProvider.uploadImage(context,
+        imageFile: imageFile,
+        imageableType: imageableType,
+        imageableId: imageableId,
+        token: token);
   }
 
-  Future<ApiResult> ShopById(BuildContext context,{int id}){
-    return _apiProvider.ShopById(context,id: id);
+  Future<ApiResult> productsById(BuildContext context, {int id}) {
+    return _apiProvider.productsById(context, id: id);
   }
-
 
-  Future<ApiResult> categoryGroupId(BuildContext context,{String page,int limit,int GroupId}){
-    return _apiProvider.categoryGroupId(context,page: page,limit: limit,GroupId: GroupId);
+  Future<ApiResult> shopById(BuildContext context, {int id}) {
+    return _apiProvider.shopById(context, id: id);
   }
 
-  Future<ApiResult> CategorySubgroup(BuildContext context,{int GroupId}){
-    return _apiProvider.CategorySubgroup(context,GroupId: GroupId);
+  Future<ApiResult> categoryGroupId(BuildContext context,
+      {String page, int limit, int groupId}) {
+    return _apiProvider.categoryGroupId(context,
+        page: page, limit: limit, groupId: groupId);
   }
 
-  Future<ApiResult> GetBanners(BuildContext context,{String group}){
-    return _apiProvider.GetBanners(context,group: group);
+  Future<ApiResult> categorySubgroup(BuildContext context, {int groupId}) {
+    return _apiProvider.categorySubgroup(context, groupId: groupId);
   }
 
-  Future<ApiResult> GetPaymentList(BuildContext context,){
-    return _apiProvider.GetPaymentList(context,);
+  Future<ApiResult> getBanners(BuildContext context, {String group}) {
+    return _apiProvider.getBanners(context, group: group);
   }
 
-  Future<ApiResult> GetPaymentMyShop(BuildContext context,{String token}){
-    return _apiProvider.GetPaymentMyShop(context,token: token);
+  Future<ApiResult> getPaymentList(
+    BuildContext context,
+  ) {
+    return _apiProvider.getPaymentList(
+      context,
+    );
   }
 
-
-  Future<ApiResult> AddPaymentMyShop(BuildContext context,{int paymentMethodId, String token}){
-    return _apiProvider.AddPaymentMyShop(context,paymentMethodId: paymentMethodId,token: token);
+  Future<ApiResult> getPaymentMyShop(BuildContext context, {String token}) {
+    return _apiProvider.getPaymentMyShop(context, token: token);
   }
 
-  Future<ApiResult> DELETEPaymentMyShop(BuildContext context,{int paymentMethodId, String token}){
-    return _apiProvider.DELETEPaymentMyShop(context,paymentMethodId: paymentMethodId,token: token);
+  Future<ApiResult> addPaymentMyShop(BuildContext context,
+      {int paymentMethodId, String token}) {
+    return _apiProvider.addPaymentMyShop(context,
+        paymentMethodId: paymentMethodId, token: token);
   }
 
-  Future<ApiResult> GetCarriersList(BuildContext context,){
-    return _apiProvider.GetCarriersList(context,);
+  Future<ApiResult> deletePaymentMyShop(BuildContext context,
+      {int paymentMethodId, String token}) {
+    return _apiProvider.deletePaymentMyShop(context,
+        paymentMethodId: paymentMethodId, token: token);
   }
 
-  Future<ApiResult> GetShippingMyShop(BuildContext context,{String token}){
-    return _apiProvider.GetShippingMyShop(context,token: token);
+  Future<ApiResult> getCarriersList(
+    BuildContext context,
+  ) {
+    return _apiProvider.getCarriersList(
+      context,
+    );
   }
 
-  Future<ApiResult> DELETEShoppingMyShop(BuildContext context,{int ratesId,String token}){
-    return _apiProvider.DELETEShoppingMyShop(context,ratesId: ratesId,token: token);
+  Future<ApiResult> getShippingMyShop(BuildContext context, {String token}) {
+    return _apiProvider.getShippingMyShop(context, token: token);
   }
 
-  Future<ApiResult> AddShoppingMyShop(BuildContext context,{ShppingMyShopRequest shopRequest, String token}){
-    return _apiProvider.AddShoppingMyShop(context,shopRequest: shopRequest,token: token);
+  Future<ApiResult> deleteShoppingMyShop(BuildContext context,
+      {int ratesId, String token}) {
+    return _apiProvider.deleteShoppingMyShop(context,
+        ratesId: ratesId, token: token);
   }
 
-  Future<ApiResult> EditShoppingMyShop(BuildContext context,{ShppingMyShopRequest shopRequest,int rateID, String token}){
-    return _apiProvider.EditShoppingMyShop(context,shopRequest: shopRequest,token: token,rateID: rateID);
+  Future<ApiResult> addShoppingMyShop(BuildContext context,
+      {ShppingMyShopRequest shopRequest, String token}) {
+    return _apiProvider.addShoppingMyShop(context,
+        shopRequest: shopRequest, token: token);
   }
 
-  Future<ApiResult> GetProductMyShop(BuildContext context,{String page, int limit,String token,String filter}){
-    return _apiProvider.GetProductMyShop(context,page: page,limit: limit,token: token,filter: filter);
+  Future<ApiResult> editShoppingMyShop(BuildContext context,
+      {ShppingMyShopRequest shopRequest, int rateID, String token}) {
+    return _apiProvider.editShoppingMyShop(context,
+        shopRequest: shopRequest, token: token, rateID: rateID);
   }
 
-  Future<ApiResult> GetWishlistsByProduct(BuildContext context,{int productID,String token}){
-    return _apiProvider.GetWishlistsByProduct(context,productID: productID,token: token);
+  Future<ApiResult> getProductMyShop(BuildContext context,
+      {String page, int limit, String token, String filter}) {
+    return _apiProvider.getProductMyShop(context,
+        page: page, limit: limit, token: token, filter: filter);
   }
 
-  Future<ApiResult> DELETEWishlists(BuildContext context,{int WishId,String token}){
-    return _apiProvider.DELETEWishlists(context,WishId: WishId,token: token);
+  Future<ApiResult> getWishlistsByProduct(BuildContext context,
+      {int productID, String token}) {
+    return _apiProvider.getWishlistsByProduct(context,
+        productID: productID, token: token);
   }
 
-  Future<ApiResult> AddWishlists(BuildContext context,{int inventoryId,int productId,String token}){
-    return _apiProvider.AddWishlists(context,inventoryId: inventoryId,productId: productId,token: token);
+  Future<ApiResult> deleteWishlists(BuildContext context,
+      {int wishId, String token}) {
+    return _apiProvider.deleteWishlists(context, wishId: wishId, token: token);
   }
-
 
-  Future<ApiResult> GetMyWishlists(BuildContext context,{String token}){
-    return _apiProvider.GetMyWishlists(context,token: token);
+  Future<ApiResult> addWishlists(BuildContext context,
+      {int inventoryId, int productId, String token}) {
+    return _apiProvider.addWishlists(context,
+        inventoryId: inventoryId, productId: productId, token: token);
   }
 
-  Future<ApiResult> GetCustomerCount(BuildContext context,{String token}){
-    return _apiProvider.GetCustomerCount(context,token: token);
+  Future<ApiResult> getMyWishlists(BuildContext context, {String token}) {
+    return _apiProvider.getMyWishlists(context, token: token);
   }
 
-  Future<ApiResult> GetCategoriesAll(BuildContext context,){
-    return _apiProvider.GetCategoriesAll(context,);
+  Future<ApiResult> getCustomerCount(BuildContext context, {String token}) {
+    return _apiProvider.getCustomerCount(context, token: token);
   }
 
-  Future<ApiResult> GetCategories(BuildContext context,){
-    return _apiProvider.GetCategories(context,);
+  Future<ApiResult> getCategoriesAll(
+    BuildContext context,
+  ) {
+    return _apiProvider.getCategoriesAll(
+      context,
+    );
   }
-  Future<ApiResult> AddCartlists(BuildContext context,{CartRequest cartRequest,String token}){
-    return _apiProvider.AddCartlists(context,cartRequest: cartRequest,token: token);
-  }
 
-  Future<ApiResult> AddProductMyShop(BuildContext context,{ProductMyShopRequest shopRequest,String token}){
-    return _apiProvider.AddProductMyShop(context,shopRequest: shopRequest,token: token);
-  }
-  Future<ApiResult> GetCartlists(BuildContext context,{String token}){
-    return _apiProvider.GetCartlists(context,token: token);
+  Future<ApiResult> getCategories(
+    BuildContext context,
+  ) {
+    return _apiProvider.getCategories(
+      context,
+    );
   }
 
-  Future<ApiResult> DeleteCart(BuildContext context,{int cartid,int inventoryid,String token}){
-    return _apiProvider.DELETECart(context,cartid: cartid,inventoryid: inventoryid,token: token);
+  Future<ApiResult> addCartlists(BuildContext context,
+      {CartRequest cartRequest, String token}) {
+    return _apiProvider.addCartlists(context,
+        cartRequest: cartRequest, token: token);
   }
-  Future<ApiResult> UpdateCart(BuildContext context,{CartRequest data,int cartid, String token}){
-    return _apiProvider.UpdateCart(context,data,cartid,token);
-  }
 
-  Future<ApiResult> UpdateProductMyShop(BuildContext context,{ProductMyShopRequest shopRequest,int productId,String token}){
-    return _apiProvider.UpdateProductMyShop(context,shopRequest: shopRequest,productId: productId,token: token);
+  Future<ApiResult> addProductMyShop(BuildContext context,
+      {ProductMyShopRequest shopRequest, String token}) {
+    return _apiProvider.addProductMyShop(context,
+        shopRequest: shopRequest, token: token);
   }
 
-  Future<ApiResult> AtiveProduct(BuildContext context,{int active,int productId,String token}){
-    return _apiProvider.AtiveProduct(context,ative: active,productId: productId,token: token);
+  Future<ApiResult> getCartlists(BuildContext context, {String token}) {
+    return _apiProvider.getCartlists(context, token: token);
   }
-
 
-  Future<ApiResult> DELETEProductMyShop(BuildContext context,{int ProductId, String token}){
-    return _apiProvider.DELETEProductMyShop(context,ProductId: ProductId,token: token);
+  Future<ApiResult> deleteCart(BuildContext context,
+      {int cartid, int inventoryid, String token}) {
+    return _apiProvider.deleteCart(context,
+        cartid: cartid, inventoryid: inventoryid, token: token);
   }
 
-  Future<ApiResult> GetProductIDMyShop(BuildContext context,{int ProductId, String token}){
-    return _apiProvider.GetProductIDMyShop(context,productId: ProductId,token: token);
+  Future<ApiResult> updateCart(BuildContext context,
+      {CartRequest data, int cartid, String token}) {
+    return _apiProvider.updateCart(context, data, cartid, token);
   }
 
-  Future<ApiResult> UpdateProductInventories(BuildContext context,{InventoriesRequest inventoriesRequest, int productId, int inventoriesId, String token}){
-    return _apiProvider.UpdateProductInventories(context,productId: productId,token: token,inventoriesId: inventoriesId,inventoriesRequest: inventoriesRequest);
+  Future<ApiResult> updateProductMyShop(BuildContext context,
+      {ProductMyShopRequest shopRequest, int productId, String token}) {
+    return _apiProvider.updateProductMyShop(context,
+        shopRequest: shopRequest, productId: productId, token: token);
   }
 
-
-  Future<ApiResult> DeleteImageProduct(BuildContext context,{String imageableId, String imageableType, String path, String token}){
-    return _apiProvider.DeleteImageProduct(context,imageableType: imageableType,imageableId: imageableId,path: path,token: token);
+  Future<ApiResult> activeProduct(BuildContext context,
+      {int active, int productId, String token}) {
+    return _apiProvider.activeProduct(context,
+        ative: active, productId: productId, token: token);
   }
 
-  Future<ApiResult> GetOrder(BuildContext context,{String orderType,int page=1,int limit=20,String statusId,String token,String sort}){
-    return _apiProvider.GetOrder(context,orderType: orderType,page: page,limit: limit,statusId: statusId,token: token,sort: sort);
+  Future<ApiResult> deleteProductMyShop(BuildContext context,
+      {int productId, String token}) {
+    return _apiProvider.deleteProductMyShop(context,
+        productId: productId, token: token);
   }
 
-  Future<ApiResult> GetOrderById(BuildContext context,{int id,String orderType,String token}){
-    return _apiProvider.GetOrderById(context,id: id,orderType: orderType,token: token);
+  Future<ApiResult> getProductIDMyShop(BuildContext context,
+      {int productId, String token}) {
+    return _apiProvider.getProductIDMyShop(context,
+        productId: productId, token: token);
   }
-
 
-  Future<ApiResult> getProductTypeShop(BuildContext context,{String type,int shopId,String page,int limit,String token}){
-    return _apiProvider.getProductTypeShop(context,page: page,limit: limit,shopId: shopId,type: type,token: token);
+  Future<ApiResult> updateProductInventories(BuildContext context,
+      {InventoriesRequest inventoriesRequest,
+      int productId,
+      int inventoriesId,
+      String token}) {
+    return _apiProvider.updateProductInventories(context,
+        productId: productId,
+        token: token,
+        inventoriesId: inventoriesId,
+        inventoriesRequest: inventoriesRequest);
   }
 
-  Future<ApiResult> GetNotificationByGroup(BuildContext context,{String group, int page,String sort, int limit, String token}){
-    return _apiProvider.GetNotificationByGroup(context,group: group,limit: limit,page: page,sort: sort ,token: token);
+  Future<ApiResult> deleteImageProduct(BuildContext context,
+      {String imageableId, String imageableType, String path, String token}) {
+    return _apiProvider.deleteImageProduct(context,
+        imageableType: imageableType,
+        imageableId: imageableId,
+        path: path,
+        token: token);
   }
 
-  Future<ApiResult> CreateOrder(BuildContext context,{OrderRequest orderRequest, String token}){
-    return _apiProvider.CreateOrder(context,orderRequest: orderRequest,token: token);
+  Future<ApiResult> getOrder(BuildContext context,
+      {String orderType,
+      int page = 1,
+      int limit = 20,
+      String statusId,
+      String token,
+      String sort}) {
+    return _apiProvider.getOrder(context,
+        orderType: orderType,
+        page: page,
+        limit: limit,
+        statusId: statusId,
+        token: token,
+        sort: sort);
   }
 
-  Future<ApiResult> GetShippings(BuildContext context,{int shopId}){
-    return _apiProvider.GetShippings(context,shopId: shopId);
+  Future<ApiResult> getOrderById(BuildContext context,
+      {int id, String orderType, String token}) {
+    return _apiProvider.getOrderById(context,
+        id: id, orderType: orderType, token: token);
   }
 
-  Future<ApiResult> MarkAsReadNotifications(BuildContext context,{String token}){
-    return _apiProvider.MarkAsReadNotifications(context,token: token);
+  Future<ApiResult> getProductTypeShop(BuildContext context,
+      {String type, int shopId, String page, int limit, String token}) {
+    return _apiProvider.getProductTypeShop(context,
+        page: page, limit: limit, shopId: shopId, type: type, token: token);
   }
 
-  Future<ApiResult> getSearchProduct(BuildContext context,{String page, String query, int shopId, int limit}){
-    return _apiProvider.getSearchProduct(context,page: page,query: query,shopId: shopId,limit: limit);
+  Future<ApiResult> getNotificationByGroup(BuildContext context,
+      {String group, int page, String sort, int limit, String token}) {
+    return _apiProvider.getNotificationByGroup(context,
+        group: group, limit: limit, page: page, sort: sort, token: token);
   }
 
-  Future<ApiResult> getMyShopAttribute(BuildContext context,{String token}){
-    return _apiProvider.getMyShopAttribute(context,token);
+  Future<ApiResult> createOrder(BuildContext context,
+      {OrderRequest orderRequest, String token}) {
+    return _apiProvider.createOrder(context,
+        orderRequest: orderRequest, token: token);
   }
-  Future<ApiResult> addMyShopAttribute(BuildContext context,{String name, String token}){
-    return _apiProvider.addMyShopAttribute(context,name:name,token: token);
-  }
 
-  Future<ApiResult> deleteMyShopAttribute(BuildContext context,{int id, String token}){
-    return _apiProvider.deleteMyShopAttribute(context,id:id,token: token);
+  Future<ApiResult> getShippings(BuildContext context, {int shopId}) {
+    return _apiProvider.getShippings(context, shopId: shopId);
   }
 
-  Future<ApiResult> getAttributeDetail(BuildContext context,{String token,int id}){
-    return _apiProvider.getAttributeDetail(context,id,token);
+  Future<ApiResult> markAsReadNotifications(BuildContext context,
+      {String token}) {
+    return _apiProvider.markAsReadNotifications(context, token: token);
   }
 
-  Future<ApiResult> updateAttribute(BuildContext context,{String name,String token,int id}){
-    return _apiProvider.updateAttribute(context,name,id,token);
+  Future<ApiResult> getSearchProduct(BuildContext context,
+      {String page, String query, int shopId, int limit}) {
+    return _apiProvider.getSearchProduct(context,
+        page: page, query: query, shopId: shopId, limit: limit);
   }
 
-  Future<ApiResult> addAttributeDetail(BuildContext context,{String value,String color,int id,String token}){
-    return _apiProvider.addAttributeDetail(context,token: token,id: id,color: color,value: value);
+  Future<ApiResult> getMyShopAttribute(BuildContext context, {String token}) {
+    return _apiProvider.getMyShopAttribute(context, token);
   }
 
-  Future<ApiResult> updateAttributeDetail(BuildContext context,{ String value,String color,int id,int vid,String token,}){
-    return _apiProvider.updateAttributeDetail(context,color: color,value: value,id: id,token: token,vid: vid);
+  Future<ApiResult> addMyShopAttribute(BuildContext context,
+      {String name, String token}) {
+    return _apiProvider.addMyShopAttribute(context, name: name, token: token);
   }
 
-  Future<ApiResult> deleteAttributeDetail(BuildContext context,{int id,int vid, String token}){
-    return _apiProvider.deleteAttributeDetail(context,id:id,token: token,vid: vid);
+  Future<ApiResult> deleteMyShopAttribute(BuildContext context,
+      {int id, String token}) {
+    return _apiProvider.deleteMyShopAttribute(context, id: id, token: token);
   }
-  Future<ApiResult> GetCategoryByShop(BuildContext context,{int CategoryId, String token}){
-    return _apiProvider.GetCategoryByShop(context,CategoryId:CategoryId,token: token);
+
+  Future<ApiResult> getAttributeDetail(BuildContext context,
+      {String token, int id}) {
+    return _apiProvider.getAttributeDetail(context, id, token);
   }
 
-  Future<ApiResult> getInformationRules(BuildContext context,String slug){
-    return _apiProvider.getInformationRules(context,slug);
+  Future<ApiResult> updateAttribute(BuildContext context,
+      {String name, String token, int id}) {
+    return _apiProvider.updateAttribute(context, name, id, token);
   }
 
-  Future<ApiResult> requestChangEmail(BuildContext context,{String email, String token}){
-    return _apiProvider.requestChangEmail(context,email: email,token: token);
+  Future<ApiResult> addAttributeDetail(BuildContext context,
+      {String value, String color, int id, String token}) {
+    return _apiProvider.addAttributeDetail(context,
+        token: token, id: id, color: color, value: value);
   }
 
-  Future<ApiResult> updateinventories(BuildContext context,{int productsId, int inventoriesId,int shippingWeight, String token}){
-    return _apiProvider.updateinventories(context,productsId: productsId,inventoriesId: inventoriesId,shippingWeight: shippingWeight,token: token);
+  Future<ApiResult> updateAttributeDetail(
+    BuildContext context, {
+    String value,
+    String color,
+    int id,
+    int vid,
+    String token,
+  }) {
+    return _apiProvider.updateAttributeDetail(context,
+        color: color, value: value, id: id, token: token, vid: vid);
   }
 
-  Future<ApiResult> MarkPaid(BuildContext context,{int OrderId, String token}){
-    return _apiProvider.MarkPaid(context,orderId: OrderId,token: token);
+  Future<ApiResult> deleteAttributeDetail(BuildContext context,
+      {int id, int vid, String token}) {
+    return _apiProvider.deleteAttributeDetail(context,
+        id: id, token: token, vid: vid);
   }
 
-  Future<ApiResult> checkPhone(BuildContext context,{String phone}){
-    return _apiProvider.checkPhone(context,phone: phone);
+  Future<ApiResult> getCategoryByShop(BuildContext context,
+      {int categoryId, String token}) {
+    return _apiProvider.getCategoryByShop(context,
+        categoryId: categoryId, token: token);
   }
 
-  Future<ApiResult> AddTracking(BuildContext context,{String trackingId, String token,int OrderId}){
-    return _apiProvider.AddTracking(context,trackingId: trackingId,token:  token,OrderId: OrderId);
+  Future<ApiResult> getInformationRules(BuildContext context, String slug) {
+    return _apiProvider.getInformationRules(context, slug);
   }
 
-  Future<ApiResult> GoodsReceived(BuildContext context,{ String token,int OrderId}){
-    return _apiProvider.GoodsReceived(context,token:  token,OrderId: OrderId);
+  Future<ApiResult> requestChangEmail(BuildContext context,
+      {String email, String token}) {
+    return _apiProvider.requestChangEmail(context, email: email, token: token);
   }
 
+  Future<ApiResult> updateinventories(BuildContext context,
+      {int productsId, int inventoriesId, int shippingWeight, String token}) {
+    return _apiProvider.updateinventories(context,
+        productsId: productsId,
+        inventoriesId: inventoriesId,
+        shippingWeight: shippingWeight,
+        token: token);
+  }
 
-  Future<ApiResult> OrderCancel(BuildContext context,{ String token,int OrderId}){
-    return _apiProvider.OrderCancel(context,token:  token,OrderId: OrderId);
+  Future<ApiResult> markPaid(BuildContext context,
+      {int orderId, String token}) {
+    return _apiProvider.markPaid(context, orderId: orderId, token: token);
   }
 
-  Future<ApiResult> getSearchShop(BuildContext context,{ String page, String query,int limit,int shopId,String filter,String token}){
-    return _apiProvider.getSearchShop(context: context,filter: filter,shopId: shopId,page: page,limit: limit,query: query,token: token);
+  Future<ApiResult> checkPhone(BuildContext context, {String phone}) {
+    return _apiProvider.checkPhone(context, phone: phone);
   }
 
+  Future<ApiResult> addTracking(BuildContext context,
+      {String trackingId, String token, int orderId}) {
+    return _apiProvider.addTracking(context,
+        trackingId: trackingId, token: token, orderId: orderId);
+  }
 
+  Future<ApiResult> goodsReceived(BuildContext context,
+      {String token, int orderId}) {
+    return _apiProvider.goodsReceived(context, token: token, orderId: orderId);
+  }
 
+  Future<ApiResult> orderCancel(BuildContext context,
+      {String token, int orderId}) {
+    return _apiProvider.orderCancel(context, token: token, orderId: orderId);
+  }
 
+  Future<ApiResult> getSearchShop(BuildContext context,
+      {String page,
+      String query,
+      int limit,
+      int shopId,
+      String filter,
+      String token}) {
+    return _apiProvider.getSearchShop(
+        context: context,
+        filter: filter,
+        shopId: shopId,
+        page: page,
+        limit: limit,
+        query: query,
+        token: token);
+  }
 
 //  Observable<List<AppContent>> getTop100FreeApp(){
 //    return Observable.fromFuture(_apiProvider.getTopFreeApp(TOP_100))
@@ -437,7 +586,4 @@ class APIRepository{
 //    });
 //  }
 //
-
-
-
 }

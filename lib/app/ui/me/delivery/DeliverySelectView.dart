@@ -1,32 +1,22 @@
-import 'package:basic_utils/basic_utils.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
-import 'package:naifarm/app/models/BankModel.dart';
-import 'package:naifarm/app/models/CartModel.dart';
-import 'package:naifarm/app/viewmodels/CartViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
 
+// ignore: must_be_immutable
 class DeliverySelectView extends StatefulWidget {
   final int shopId;
-  int select_id;
+  int selectId;
 
-  DeliverySelectView({Key key, this.shopId, this.select_id}) : super(key: key);
+  DeliverySelectView({Key key, this.shopId, this.selectId}) : super(key: key);
   @override
   _DeliverySelectViewState createState() => _DeliverySelectViewState();
 }
@@ -40,7 +30,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
   void _init() {
     if (null == bloc) {
       bloc = CartBloc(AppProvider.getApplication(context));
-      bloc.GetShippingsList(context, shopId: widget.shopId);
+      bloc.getShippingsList(context, shopId: widget.shopId);
       // bloc.PaymentList.add(widget.paymentRespone);
     }
   }
@@ -55,9 +45,9 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
             key: _scaffoldKey,
             backgroundColor: Colors.grey.shade200,
             appBar: AppToobar(
-                isEnable_Search: false,
+                isEnableSearch: false,
                 title: LocaleKeys.cart_ship.tr(),
-                header_type: Header_Type.barNormal),
+                headerType: Header_Type.barNormal),
             body: SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.all(2.0.h),
@@ -66,7 +56,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
                   children: [
                     SizedBox(height: 8),
                     StreamBuilder(
-                        stream: bloc.Shippings.stream,
+                        stream: bloc.shippings.stream,
                         builder: (context, snapshot) {
                           var item = (snapshot.data as ShippingsRespone);
                           if (snapshot.hasData) {
@@ -115,18 +105,18 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             child: InkWell(
               onTap: () {
-                widget.select_id = 0;
+                widget.selectId = 0;
                 for (var i = 0;
-                    i < bloc.Shippings.value.data[0].rates.length;
+                    i < bloc.shippings.value.data[0].rates.length;
                     i++) {
-                  if (bloc.Shippings.value.data[0].rates[i].id == item.id) {
-                    bloc.Shippings.value.data[0].rates[i].select = true;
+                  if (bloc.shippings.value.data[0].rates[i].id == item.id) {
+                    bloc.shippings.value.data[0].rates[i].select = true;
                   } else {
-                    bloc.Shippings.value.data[0].rates[i].select = false;
+                    bloc.shippings.value.data[0].rates[i].select = false;
                   }
                 }
 
-                bloc.Shippings.add(bloc.Shippings.value);
+                bloc.shippings.add(bloc.shippings.value);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,7 +126,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
                     children: [
                       Container(
                         padding: EdgeInsets.all(10),
-                        child: StatusSelect(select: item.select, id: item.id),
+                        child: statusSelect(select: item.select, id: item.id),
                       ),
                       SizedBox(
                         width: 5,
@@ -145,14 +135,14 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(item.carrier.name,
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp)),
                           SizedBox(
                             height: 5,
                           ),
                           Text(
                               "${LocaleKeys.cart_ship_at.tr()} ${item.deliveryTakes != null ? item.deliveryTakes : ''}",
-                              style: FunctionHelper.FontTheme(
+                              style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp)),
                         ],
                       ),
@@ -161,9 +151,9 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
                   Container(
                     child: Text(
                         "฿${NumberFormat("#,##0", "en_US").format(item.rate)}",
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
-                            color: ThemeColor.ColorSale())),
+                            color: ThemeColor.colorSale())),
                   )
                 ],
               ),
@@ -175,9 +165,9 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
     );
   }
 
-  Widget StatusSelect({bool select, int id}) {
-    if (widget.select_id > 0) {
-      return widget.select_id == id
+  Widget statusSelect({bool select, int id}) {
+    if (widget.selectId > 0) {
+      return widget.selectId == id
           ? SvgPicture.asset(
               'assets/images/svg/checkmark.svg',
               width: 8.0.w,
@@ -233,10 +223,10 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
             onPressed: () async {
               ShippingRates item = ShippingRates();
               for (var i = 0;
-                  i < bloc.Shippings.value.data[0].rates.length;
+                  i < bloc.shippings.value.data[0].rates.length;
                   i++) {
-                if (bloc.Shippings.value.data[0].rates[i].select) {
-                  item = bloc.Shippings.value.data[0].rates[i];
+                if (bloc.shippings.value.data[0].rates[i].select) {
+                  item = bloc.shippings.value.data[0].rates[i];
                 }
               }
 
@@ -244,7 +234,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
             },
             child: Text(
               LocaleKeys.btn_confirm.tr(),
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.white,
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.w500),

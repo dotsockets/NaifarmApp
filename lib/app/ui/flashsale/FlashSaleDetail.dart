@@ -3,11 +3,8 @@ import 'dart:io';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:basic_utils/basic_utils.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -16,20 +13,15 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/FlashSaleBar.dart';
 import 'package:naifarm/utility/widgets/LifecycleWatcherState.dart';
 import 'package:naifarm/utility/widgets/ProductItemCard.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
-import 'package:sticky_headers/sticky_headers.dart';
-import 'package:vibration/vibration.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FlashSaleView extends StatefulWidget {
   final FlashsaleRespone flashsaleRespone;
@@ -45,16 +37,16 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
   int page = 1;
   int limit = 10;
   ScrollController _scrollController = ScrollController();
-  bool step_page = false;
+  bool stepPage = false;
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
 
-  final position_scroll = BehaviorSubject<bool>();
+  final positionScroll = BehaviorSubject<bool>();
 
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.Flashsale.add(widget.flashsaleRespone);
+      bloc.flashsale.add(widget.flashsaleRespone);
       bloc.loadFlashsaleData(context, page: page.toString(), limit: limit);
     }
 
@@ -71,9 +63,9 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
       }
 
       if (_scrollController.position.pixels > 500) {
-        position_scroll.add(true);
+        positionScroll.add(true);
       } else {
-        position_scroll.add(false);
+        positionScroll.add(false);
       }
     });
   }
@@ -87,31 +79,31 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
         child: Scaffold(
           appBar: AppToobar(
             title: "Flash Sale",
-            header_type: Header_Type.barcartShop,
+            headerType: Header_Type.barcartShop,
             icon: 'assets/images/svg/search.svg',
           ),
           backgroundColor: Colors.grey.shade300,
           // appBar: AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
           body: Platform.isAndroid
-              ? AndroidRefreshIndicator()
+              ? androidRefreshIndicator()
               : Container(
                   color: Colors.grey.shade200,
                   child: SafeArea(
-                    child: IOSRefreshIndicator(),
+                    child: iosRefreshIndicator(),
                   )),
         ),
       ),
     );
   }
 
-  Widget AndroidRefreshIndicator() {
+  Widget androidRefreshIndicator() {
     return RefreshIndicator(
       onRefresh: _refreshProducts,
       child: content,
     );
   }
 
-  Widget IOSRefreshIndicator() {
+  Widget iosRefreshIndicator() {
     return CustomRefreshIndicator(
         controller: _indicatorController,
         onRefresh: () => _refreshProducts(),
@@ -170,12 +162,12 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
             margin: EdgeInsets.only(top: 1.0.h),
             width: MediaQuery.of(context).size.width,
             child: StreamBuilder(
-              stream: bloc.Flashsale.stream,
+              stream: bloc.flashsale.stream,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                step_page = true;
+                stepPage = true;
                 if (snapshot.hasData && snapshot.data != null) {
                   var item = (snapshot.data as FlashsaleRespone);
-                  step_page = true;
+                  stepPage = true;
                   if (item.data.isNotEmpty) {
                     return Stack(
                       children: [
@@ -220,12 +212,12 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                                                     tagHero: "flash",
                                                   ),
                                                   onTap: () {
-                                                    AppRoute.ProductDetail(
+                                                    AppRoute.productDetail(
                                                         context,
                                                         productImage:
                                                             "flash_${item.data[0].items[(i * 2)].product.id}1",
                                                         productItem: ProductBloc
-                                                            .ConvertDataToProduct(
+                                                            .convertDataToProduct(
                                                                 data: item
                                                                     .data[0]
                                                                     .items[
@@ -247,12 +239,12 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                                                     tagHero: "flash",
                                                   ),
                                                   onTap: () {
-                                                    AppRoute.ProductDetail(
+                                                    AppRoute.productDetail(
                                                         context,
                                                         productImage:
                                                             "flash_${item.data[0].items[(i * 2) + 1].product.id}1",
                                                         productItem: ProductBloc
-                                                            .ConvertDataToProduct(
+                                                            .convertDataToProduct(
                                                                 data: item
                                                                     .data[0]
                                                                     .items[(i *
@@ -312,7 +304,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                                                             .dialog_message_loading
                                                             .tr(),
                                                         style: FunctionHelper
-                                                            .FontTheme(
+                                                            .fontTheme(
                                                                 color:
                                                                     Colors.grey,
                                                                 fontSize: SizeUtil
@@ -350,7 +342,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                               height: 70.0.w, width: 70.0.w, repeat: false),
                           Text(
                             LocaleKeys.search_product_not_found.tr(),
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.bold),
                           )
@@ -375,7 +367,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
             )),
       );
 
-  Widget _FlashintoProduct({ProductData item, int index}) {
+  Widget flashintoProduct({ProductData item, int index}) {
     return Container(
       child: Column(
         children: [
@@ -387,7 +379,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: SizeUtil.titleSmallFontSize().sp),
@@ -398,8 +390,8 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
           ),
           Text(
             "฿${item.salePrice}",
-            style: FunctionHelper.FontTheme(
-                color: ThemeColor.ColorSale(),
+            style: FunctionHelper.fontTheme(
+                color: ThemeColor.colorSale(),
                 fontWeight: FontWeight.bold,
                 fontSize: SizeUtil.priceFontSize().sp),
           ),
@@ -413,10 +405,10 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                   child: Container(
                     padding:
                         EdgeInsets.only(left: 15, right: 7, bottom: 3, top: 3),
-                    color: ThemeColor.ColorSale(),
+                    color: ThemeColor.colorSale(),
                     child: Text(
                       "${item.saleCount != null ? item.saleCount.toString() : '0'} ${LocaleKeys.my_product_sold_end.tr()}",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.detailSmallFontSize().sp,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
@@ -490,8 +482,8 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                           borderRadius: BorderRadius.circular(1.0.w),
                           child: Container(
                             padding: EdgeInsets.only(right: 1.5.w,left: 1.5.w,top: 1.0.w,bottom: 1.0.w),
-                            color: ThemeColor.ColorSale(),
-                            child: Text("${item.discountPercent}%",style: FunctionHelper.FontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
+                            color: ThemeColor.colorSale(),
+                            child: Text("${item.discountPercent}%",style: FunctionHelper.fontTheme(color: Colors.white,fontSize: SizeUtil.titleSmallFontSize().sp),),
                           ),
                         ),
                       ),
@@ -540,8 +532,8 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
       // Vibration.vibrate(duration: 500);
     }
     page = 1;
-    step_page = true;
-    bloc.product_more.clear();
+    stepPage = true;
+    bloc.productMore.clear();
     bloc.loadFlashsaleData(context, page: page.toString(), limit: limit);
   }
 }

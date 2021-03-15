@@ -12,16 +12,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
-import 'package:naifarm/app/ui/home/HomeView.dart';
-import 'package:naifarm/app/ui/login/SplashLoginView.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashView extends StatefulWidget {
-
   static const String PATH = '/';
 
   @override
@@ -38,16 +34,14 @@ class _SplashViewState extends State<SplashView>
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
-
     animationController = new AnimationController(
         vsync: this, duration: new Duration(seconds: 1));
     animation =
-    new CurvedAnimation(parent: animationController, curve: Curves.easeOut);
+        new CurvedAnimation(parent: animationController, curve: Curves.easeOut);
 
     animation.addListener(() => this.setState(() {}));
     animationController.forward();
+    super.initState();
   }
 
 
@@ -63,48 +57,45 @@ class _SplashViewState extends State<SplashView>
       NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_HiSTORY);
      // NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
       bloc = ProductBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) =>  bloc.loadCustomerCount(context,token: value.token));
+      Usermanager()
+          .getUser()
+          .then((value) => bloc.loadCustomerCount(context, token: value.token));
       bloc.onError.stream.listen((event) {
         Future.delayed(const Duration(milliseconds: 1000), () {
-
-            AppRoute.ConnectError(context: context,result: event,show_full: true);
-
+          AppRoute.connectError(
+              context: context, result: event, showFull: true);
         });
-
       });
       bloc.onSuccess.stream.listen((event) {
-        if(event is CategoryCombin){
+        if (event is CategoryCombin) {
           Future.delayed(const Duration(milliseconds: 300), () {
             startTimer();
           });
-        }else{
-
-          bloc.GetCategoriesAll(context,);
-          Usermanager().getUser().then((value){
-            context.read<HomeDataBloc>().loadHomeData(context,);
-            Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(context,token: value.token));
-            Usermanager().getUser().then((value) =>  context.read<InfoCustomerBloc>().loadCustomInfo(context,token:value.token));
+        } else {
+          bloc.getCategoriesAll(
+            context,
+          );
+          Usermanager().getUser().then((value) {
+            context.read<HomeDataBloc>().loadHomeData(
+                  context,
+                );
+            Usermanager().getUser().then((value) => context
+                .read<CustomerCountBloc>()
+                .loadCustomerCount(context, token: value.token));
+            Usermanager().getUser().then((value) => context
+                .read<InfoCustomerBloc>()
+                .loadCustomInfo(context, token: value.token));
           });
         }
-
-
-
       });
-
       // bloc.ZipHomeObject.stream.listen((event) {
       //   startTimer();
       // });
-
-
-
-
     }
-
-   // startTimer();
-
+    // startTimer();
   }
 
-  void _VersionName() async {
+  void versionName() async {
     try {
       platformVersion = await GetVersion.projectVersion;
     } on Exception {
@@ -113,11 +104,10 @@ class _SplashViewState extends State<SplashView>
   }
 
   @override
-   build(BuildContext context)  {
+  build(BuildContext context) {
     _init(context);
     return SafeArea(
       child: Scaffold(
-
         backgroundColor: Colors.white,
         body: Container(
           child: Stack(
@@ -131,8 +121,18 @@ class _SplashViewState extends State<SplashView>
                       padding: EdgeInsets.only(bottom: 20.0),
                       child: Column(
                         children: [
-                          Text("NaiFarm",style: GoogleFonts.kanit(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.w500),),
-                          Text("Version ${platformVersion}",style: GoogleFonts.kanit(fontSize: SizeUtil.detailFontSize().sp,fontWeight: FontWeight.w500),)
+                          Text(
+                            "NaiFarm",
+                            style: GoogleFonts.kanit(
+                                fontSize: SizeUtil.detailFontSize().sp,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "Version $platformVersion",
+                            style: GoogleFonts.kanit(
+                                fontSize: SizeUtil.detailFontSize().sp,
+                                fontWeight: FontWeight.w500),
+                          )
                         ],
                       ))
                 ],
@@ -140,7 +140,11 @@ class _SplashViewState extends State<SplashView>
               new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset('assets/images/png/img_login.png',width: animation.value *70.0.w,height: animation.value *100.0.w,),
+                  Image.asset(
+                    'assets/images/png/img_login.png',
+                    width: animation.value * 70.0.w,
+                    height: animation.value * 100.0.w,
+                  ),
                 ],
               ),
             ],
@@ -155,14 +159,12 @@ class _SplashViewState extends State<SplashView>
     return new Timer(duration, navigatorPage);
   }
 
-
-
-   navigatorPage() async {
-     //Clean();
-    if(await Usermanager().isLogin())
-      AppRoute.Home(context);
+  navigatorPage() async {
+    //Clean();
+    if (await Usermanager().isLogin())
+      AppRoute.home(context);
     else
-      AppRoute.SplashLogin(context);
+      AppRoute.splashLogin(context);
     //  Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  SplashLoginView(item: bloc.ZipHomeObject.value,)), (Route<dynamic> route) => false);
   }
 }

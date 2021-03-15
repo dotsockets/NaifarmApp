@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/InformationResponce.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
-import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
@@ -31,16 +28,15 @@ class _AboutViewState extends State<AboutView> {
     if (null == bloc) {
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        if(event){
+        if (event) {
           FunctionHelper.showDialogProcess(context);
-        }else{
+        } else {
           Navigator.of(context).pop();
         }
       });
-      bloc.getInfoRules(context,slug: "about-us");
+      bloc.getInfoRules(context, slug: "about-us");
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +50,15 @@ class _AboutViewState extends State<AboutView> {
             child: AppToobar(
               title: LocaleKeys.setting_account_title_policy.tr(),
               icon: "",
-              isEnable_Search: false,
-              header_type: Header_Type.barNormal,
+              isEnableSearch: false,
+              headerType: Header_Type.barNormal,
             ),
           ),
           body: StreamBuilder(
               stream: bloc.onSuccess.stream,
               builder: (context, snapshot) {
                 var data = (snapshot.data as InformationRespone);
-                if(snapshot.hasData){
+                if (snapshot.hasData) {
                   return SingleChildScrollView(
                     child: Container(
                       padding: EdgeInsets.all(20),
@@ -73,19 +69,19 @@ class _AboutViewState extends State<AboutView> {
                         ],
                       ),
                     ),
-                  );}
-                else{
+                  );
+                } else {
                   return SizedBox();
                 }
-              }
-          ),
+              }),
         ),
       ),
     );
   }
+
   Widget _buildTxt({String txt}) {
-    return Html(data:
-      txt,
+    return Html(
+      data: txt,
       /*  style: {
       "tr": Style(
         border: Border(bottom: BorderSide(color: Colors.grey)),
@@ -104,12 +100,11 @@ class _AboutViewState extends State<AboutView> {
     );
     /*
     HtmlWidget(
-      txt,textStyle: FunctionHelper.FontTheme(
+      txt,textStyle: FunctionHelper.fontTheme(
         fontSize: SizeUtil.titleFontSize().sp,
         color: Colors.black),
       webView: true,
     );
     * */
-
   }
 }

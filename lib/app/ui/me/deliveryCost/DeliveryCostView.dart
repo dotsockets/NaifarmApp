@@ -48,10 +48,10 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                 .format(widget.uploadProductStorage.productMyShopRequest.weight)
             : "";
     if (bloc == null) {
-      CheckForm();
+      checkForm();
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
-        FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         //  Navigator.of(context).pop();
@@ -75,8 +75,8 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                     child: AppToobar(
                   title: LocaleKeys.my_product_delivery_price.tr(),
                   icon: "",
-                  isEnable_Search: false,
-                  header_type: Header_Type.barNormal,
+                  isEnableSearch: false,
+                  headerType: Header_Type.barNormal,
                 )),
                 SingleChildScrollView(
                   child: Column(
@@ -91,8 +91,8 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                               hint: LocaleKeys.set_default.tr() +
                                   LocaleKeys.my_product_weight.tr(),
                               controller: weightProductController,
-                              onChanged: (ch) => CheckForm())),
-                      _BuildSpace(),
+                              onChanged: (ch) => checkForm())),
+                      _buildSpace(),
                       //
                       // _BuildHeadText(head: LocaleKeys.my_product_size_product.tr()),
                       // _BuildEditText(head: LocaleKeys.my_product_width.tr()+" (cm)", hint: LocaleKeys.set_default.tr()+LocaleKeys.my_product_width.tr(),controller: widthProductController),
@@ -108,7 +108,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                       ),
                       Visibility(
                         visible: checkKeyBoard ? false : true,
-                        child: _BuildButton(),
+                        child: _buildButton(),
                       )
                     ],
                   ),
@@ -121,24 +121,24 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
     );
   }
 
-  Widget _BuildSpace() {
+  Widget _buildSpace() {
     return Container(
       height: 20,
       color: Colors.white,
     );
   }
 
-  Widget _BuildHeadText({String head}) {
+  Widget buildHeadText({String head}) {
     return Container(
       margin: EdgeInsets.only(top: 10, left: 20, bottom: 10),
       child: Text(
         head,
-        style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
+        style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp),
       ),
     );
   }
 
-  Widget _BuildSwitchDelivery({String head, int index, Function() onClick}) {
+  Widget buildSwitchDelivery({String head, int index, Function() onClick}) {
     return Container(
       color: Colors.white,
       child: Container(
@@ -148,7 +148,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
           children: [
             Text(
               head,
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp),
             ),
             Row(
@@ -157,9 +157,9 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                     child: Text(
                         LocaleKeys.set_default.tr() +
                             LocaleKeys.my_product_weight.tr(),
-                        style: FunctionHelper.FontTheme(
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
-                            color: ThemeColor.ColorSale()))),
+                            color: ThemeColor.colorSale()))),
                 FlutterSwitch(
                   height: SizeUtil.switchHeight(),
                   width: SizeUtil.switchWidth(),
@@ -184,7 +184,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
     );
   }
 
-  Widget _BuildButton() {
+  Widget _buildButton() {
     return StreamBuilder(
         stream: reload.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -196,7 +196,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                 child: Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(15),
-                    child: _BuildButtonItem(
+                    child: _buildButtonItem(
                         btnTxt: LocaleKeys.btn_save.tr(), fix: snapshot.data)));
           } else {
             return SizedBox();
@@ -204,7 +204,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
         });
   }
 
-  Widget _BuildButtonItem({String btnTxt, bool fix}) {
+  Widget _buildButtonItem({String btnTxt, bool fix}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -238,7 +238,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
       },
       child: Text(
         btnTxt,
-        style: FunctionHelper.FontTheme(
+        style: FunctionHelper.fontTheme(
           color: Colors.white,
           fontSize: SizeUtil.titleFontSize().sp,
           fontWeight: FontWeight.w500,
@@ -247,7 +247,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
     );
   }
 
-  void CheckForm() {
+  void checkForm() {
     bool check = false;
     RegExp checkWeight = RegExp('[0-9]');
 

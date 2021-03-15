@@ -5,7 +5,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -19,7 +18,7 @@ class MoneyOutView extends StatefulWidget {
 
 class _MoneyOutViewState extends State<MoneyOutView> {
   TextEditingController inputController = TextEditingController();
-  bool CheckBox = false;
+  bool checkBox = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
       backgroundColor: Colors.grey.shade200,
       appBar: AppToobar(
         title: LocaleKeys.wallet_balance_withdraw.tr(),
-        header_type: Header_Type.barNormal,
+        headerType: Header_Type.barNormal,
         icon: "",
       ),
       body: Container(
@@ -36,9 +35,9 @@ class _MoneyOutViewState extends State<MoneyOutView> {
           child: Column(
             children: [
               Expanded(
-                child: _BuildContent(),
+                child: buildContent(),
               ),
-              _BuildButton(context)
+              buildButton(context)
             ],
           ),
         ),
@@ -46,24 +45,24 @@ class _MoneyOutViewState extends State<MoneyOutView> {
     );
   }
 
-  Widget _BuildContent() {
+  Widget buildContent() {
     return Container(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _BuildCardBank(),
+            buildCardBank(),
             SizedBox(
               height: 10,
             ),
-            _BuildForm()
+            buildForm()
           ],
         ),
       ),
     );
   }
 
-  Widget _BuildCardBank() {
+  Widget buildCardBank() {
     return Container(
       padding: EdgeInsets.all(20),
       color: Colors.white,
@@ -73,7 +72,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
           Text(
             LocaleKeys.wallet_balance_withdraw_to.tr(),
             style:
-                FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp),
+                FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
           SizedBox(
             height: 15,
@@ -104,14 +103,14 @@ class _MoneyOutViewState extends State<MoneyOutView> {
                     width: 10,
                   ),
                   Text("ธนาคารไทยพาณิช",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp)),
                 ],
               ),
               Row(
                 children: [
                   Text("* 9803",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp)),
                   SizedBox(
                     width: 5,
@@ -129,7 +128,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
     );
   }
 
-  Widget _BuildForm() {
+  Widget buildForm() {
     return Container(
       padding: EdgeInsets.all(20),
       color: Colors.white,
@@ -140,7 +139,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
             children: [
               InkWell(
                 child: SvgPicture.asset(
-                  CheckBox
+                  checkBox
                       ? 'assets/images/svg/Check_CheckBox.svg'
                       : 'assets/images/svg/Uncheck_CheckBox.svg',
                   width: 20,
@@ -148,7 +147,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
                 ),
                 onTap: () {
                   setState(() {
-                    CheckBox = CheckBox ? false : true;
+                    checkBox = checkBox ? false : true;
                   });
                 },
               ),
@@ -156,7 +155,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
                 width: 10,
               ),
               Text(LocaleKeys.wallet_balance_withdraw_all.tr() + " (฿300.00)",
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp))
             ],
           ),
@@ -164,7 +163,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
             height: 10,
           ),
           Text(LocaleKeys.wallet_balance_withdraw_amount.tr(),
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp)),
           BuildEditText(
               head: "",
@@ -180,10 +179,10 @@ class _MoneyOutViewState extends State<MoneyOutView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(LocaleKeys.wallet_balance_withdraw_fee.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp)),
               Text(LocaleKeys.cart_free.tr(),
-                  style: FunctionHelper.FontTheme(
+                  style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp))
             ],
           )
@@ -192,7 +191,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
     );
   }
 
-  Widget _BuildButton(BuildContext context) {
+  Widget buildButton(BuildContext context) {
     return Container(
       child: TextButton(
         style: ButtonStyle(
@@ -218,7 +217,7 @@ class _MoneyOutViewState extends State<MoneyOutView> {
         },
         child: Text(
           LocaleKeys.btn_confirm.tr(),
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               color: Colors.white,
               fontSize: SizeUtil.titleFontSize().sp,
               fontWeight: FontWeight.w500),

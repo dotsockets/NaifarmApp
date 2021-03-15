@@ -14,24 +14,24 @@ import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
-class EditPhone_Step1View extends StatefulWidget {
+class EditPhoneStep1View extends StatefulWidget {
   final CustomerInfoRespone customerInfoRespone;
 
-  const EditPhone_Step1View({Key key, this.customerInfoRespone})
+  const EditPhoneStep1View({Key key, this.customerInfoRespone})
       : super(key: key);
 
   @override
-  _EditPhone_Step1ViewState createState() => _EditPhone_Step1ViewState();
+  EditPhoneStep1ViewState createState() => EditPhoneStep1ViewState();
 }
 
-class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
-  TextEditingController PhoneController = TextEditingController();
+class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
+  TextEditingController phoneController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String onError = "";
 
   MemberBloc bloc;
-  bool FormCheck() {
-    if (PhoneController.text.isEmpty || PhoneController.text.length != 10) {
+  bool formCheck() {
+    if (phoneController.text.isEmpty || phoneController.text.length != 10) {
       return false;
     } else {
       return true;
@@ -40,9 +40,8 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    phoneController.text = "";
     super.initState();
-    PhoneController.text = "";
   }
 
   void _init() {
@@ -57,13 +56,13 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.AlertDialogShop(context,
+        FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event.message);
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.RegisterOTP(context,
-            phoneNumber: PhoneController.text,
+        AppRoute.registerOTP(context,
+            phoneNumber: phoneController.text,
             refCode: (event as OTPRespone).refCode,
             requestOtp: RequestOtp.ChangPassword);
         // if(event is ForgotRespone){
@@ -78,7 +77,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
 
       bloc.checkPhone.stream.listen((event) {
         if (event) {
-          bloc.OTPRequest(context, numberphone: PhoneController.text);
+          bloc.otpRequest(context, numberphone: phoneController.text);
         }
       });
     }
@@ -97,8 +96,8 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
               title: LocaleKeys.my_profile_phone.tr(),
-              header_type: Header_Type.barNormal,
-              isEnable_Search: false,
+              headerType: Header_Type.barNormal,
+              isEnableSearch: false,
             ),
           ),
           body: SingleChildScrollView(
@@ -108,7 +107,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
                   padding: EdgeInsets.all(15),
                   child: Text(
                     LocaleKeys.message_phone_edit.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.w500),
                   ),
@@ -124,7 +123,7 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
                         Text(
                             LocaleKeys.edit_phone_old_phone.tr() +
                                 " xxxxxx${widget.customerInfoRespone.phone.substring(6, widget.customerInfoRespone.phone.length)}",
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp)),
                         SizedBox(
                           height: 15,
@@ -133,10 +132,10 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
                             head: LocaleKeys.edit_phone_title.tr(),
                             hint: LocaleKeys.edit_phone_hint.tr(),
                             maxLength: 10,
-                            controller: PhoneController,
+                            controller: phoneController,
                             onError: onError,
                             inputType: TextInputType.number,
-                            BorderOpacity: 0.2,
+                            borderOpacity: 0.2,
                             onChanged: (String char) {
                               setState(() {});
                             }),
@@ -161,18 +160,18 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
                       Size(50.0.w, 5.0.h),
                     ),
                     backgroundColor: MaterialStateProperty.all(
-                      FormCheck()
-                          ? ThemeColor.ColorSale()
+                      formCheck()
+                          ? ThemeColor.colorSale()
                           : Colors.grey.shade400,
                     ),
                     overlayColor: MaterialStateProperty.all(
                       Colors.white.withOpacity(0.3),
                     ),
                   ),
-                  onPressed: () => FormCheck() ? verify() : SizedBox(),
+                  onPressed: () => formCheck() ? verify() : SizedBox(),
                   child: Text(
                     LocaleKeys.btn_continue.tr(),
-                    style: FunctionHelper.FontTheme(
+                    style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500),
@@ -195,11 +194,11 @@ class _EditPhone_Step1ViewState extends State<EditPhone_Step1View> {
     // AppRoute.Home(context);
 
     //});
-    if (PhoneController.text.isNotEmpty && PhoneController.text.length == 10) {}
+    if (phoneController.text.isNotEmpty && phoneController.text.length == 10) {}
 
-    if (validator.phone(PhoneController.text) &&
-        PhoneController.text.length == 10) {
-      bloc.checkPhoneNumber(context, phone: PhoneController.text);
+    if (validator.phone(phoneController.text) &&
+        phoneController.text.length == 10) {
+      bloc.checkPhoneNumber(context, phone: phoneController.text);
       //bloc.OTPRequest(numberphone: PhoneController.text);
       // final result = await AppRoute.EditPhoneStep2(context,widget.customerInfoRespone,PhoneController.text);
       // if(result!=null){

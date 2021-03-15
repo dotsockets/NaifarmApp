@@ -1,4 +1,3 @@
-
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 
 import 'ProductRespone.dart';
@@ -30,28 +29,28 @@ class ProducItemRespone {
 
   ProducItemRespone(
       {this.id,
-        this.shopId,
-        this.manufacturerId,
-        this.brand,
-        this.name,
-        this.description="",
-        this.minPrice,
-        this.maxPrice,
-        this.salePrice,
-        this.offerPrice,
-        this.originCountry,
-        this.hasVariant,
-        this.requiresShipping,
-        this.downloadable,
-        this.slug,
-        this.saleCount,
-        this.inventories,
-        this.shop,
-        this.categories,
-        this.image,
-        this.discountPercent,
-        this.rating,
-        this.reviewCount});
+      this.shopId,
+      this.manufacturerId,
+      this.brand,
+      this.name,
+      this.description = "",
+      this.minPrice,
+      this.maxPrice,
+      this.salePrice,
+      this.offerPrice,
+      this.originCountry,
+      this.hasVariant,
+      this.requiresShipping,
+      this.downloadable,
+      this.slug,
+      this.saleCount,
+      this.inventories,
+      this.shop,
+      this.categories,
+      this.image,
+      this.discountPercent,
+      this.rating,
+      this.reviewCount});
 
   ProducItemRespone.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -71,20 +70,20 @@ class ProducItemRespone {
     slug = json['slug'];
     saleCount = json['saleCount'];
     if (json['inventories'] != null) {
-      inventories = new List<InventoriesProduct>();
+      inventories = [];
       json['inventories'].forEach((v) {
         inventories.add(new InventoriesProduct.fromJson(v));
       });
     }
     shop = json['shop'] != null ? new ShopItem.fromJson(json['shop']) : null;
     if (json['categories'] != null) {
-      categories = new List<Categories>();
+      categories = [];
       json['categories'].forEach((v) {
         categories.add(new Categories.fromJson(v));
       });
     }
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -163,33 +162,33 @@ class InventoriesProduct {
 
   InventoriesProduct(
       {this.id,
-        this.title,
-        this.warehouseId,
-        this.brand,
-        this.sku,
-        this.condition,
-        this.description,
-        this.keyFeatures,
-        this.stockQuantity,
-        this.damagedQuantity,
-        this.minPrice,
-        this.salePrice,
-        this.offerPrice,
-        this.offerStart,
-        this.offerEnd,
-        this.preorder,
-        this.preorderMsg,
-        this.preorderStart,
-        this.preorderEnd,
-        this.freeShipping,
-        this.minOrderQuantity,
-        this.linkedItems,
-        this.image,
-        this.feedbacks,
-        this.attributes,
-        this.discountPercent,
-        this.rating,
-        this.reviewCount});
+      this.title,
+      this.warehouseId,
+      this.brand,
+      this.sku,
+      this.condition,
+      this.description,
+      this.keyFeatures,
+      this.stockQuantity,
+      this.damagedQuantity,
+      this.minPrice,
+      this.salePrice,
+      this.offerPrice,
+      this.offerStart,
+      this.offerEnd,
+      this.preorder,
+      this.preorderMsg,
+      this.preorderStart,
+      this.preorderEnd,
+      this.freeShipping,
+      this.minOrderQuantity,
+      this.linkedItems,
+      this.image,
+      this.feedbacks,
+      this.attributes,
+      this.discountPercent,
+      this.rating,
+      this.reviewCount});
 
   InventoriesProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -215,19 +214,19 @@ class InventoriesProduct {
     minOrderQuantity = json['minOrderQuantity'];
     linkedItems = json['linkedItems'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
     }
     if (json['feedbacks'] != null) {
-      feedbacks = new List<Feedbacks>();
+      feedbacks = [];
       json['feedbacks'].forEach((v) {
         feedbacks.add(new Feedbacks.fromJson(v));
       });
     }
     if (json['attributes'] != null) {
-      attributes = new List<AttributesItem>();
+      attributes = [];
       json['attributes'].forEach((v) {
         attributes.add(new AttributesItem.fromJson(v));
       });
@@ -277,7 +276,6 @@ class InventoriesProduct {
   }
 }
 
-
 class Feedbacks {
   int id;
   int customerId;
@@ -288,11 +286,11 @@ class Feedbacks {
 
   Feedbacks(
       {this.id,
-        this.customerId,
-        this.rating,
-        this.comment,
-        this.feedbackableId,
-        this.feedbackableType});
+      this.customerId,
+      this.rating,
+      this.comment,
+      this.feedbackableId,
+      this.feedbackableType});
 
   Feedbacks.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -326,7 +324,7 @@ class Attributes {
         ? new Attributes.fromJson(json['attributes'])
         : null;
     values =
-    json['values'] != null ? new Values.fromJson(json['values']) : null;
+        json['values'] != null ? new Values.fromJson(json['values']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -410,29 +408,29 @@ class ShopItem {
 
   ShopItem(
       {this.id,
-        this.ownerId,
-        this.name,
-        this.legalName,
-        this.slug,
-        this.email,
-        this.description,
-        this.externalUrl,
-        this.timezoneId,
-        this.currentBillingPlan,
-        this.stripeId,
-        this.cardHolderName,
-        this.cardBrand,
-        this.cardLastFour,
-        this.paymentVerified,
-        this.idVerified,
-        this.phoneVerified,
-        this.addressVerified,
-        this.createdAt,
-        this.updatedAt,
-        this.image,
-        this.state,
-        this.countProduct,
-        this.rating});
+      this.ownerId,
+      this.name,
+      this.legalName,
+      this.slug,
+      this.email,
+      this.description,
+      this.externalUrl,
+      this.timezoneId,
+      this.currentBillingPlan,
+      this.stripeId,
+      this.cardHolderName,
+      this.cardBrand,
+      this.cardLastFour,
+      this.paymentVerified,
+      this.idVerified,
+      this.phoneVerified,
+      this.addressVerified,
+      this.createdAt,
+      this.updatedAt,
+      this.image,
+      this.state,
+      this.countProduct,
+      this.rating});
 
   ShopItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -456,12 +454,13 @@ class ShopItem {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = new List<ProductImage>();
+      image = [];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
     }
-    state = json['state'] != null ? new DataStates.fromJson(json['state']) : null;
+    state =
+        json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     countProduct = json['countProduct'];
     rating = json['rating'];
   }
@@ -499,7 +498,6 @@ class ShopItem {
     return data;
   }
 }
-
 
 class Categories {
   Category category;
@@ -600,4 +598,3 @@ class CategoryGroup {
     return data;
   }
 }
-

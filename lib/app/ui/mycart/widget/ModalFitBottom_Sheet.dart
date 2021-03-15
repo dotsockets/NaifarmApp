@@ -7,15 +7,14 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/DiscountModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
-class ModalFitBottom_Sheet extends StatelessWidget {
+class ModalFitBottomSheet extends StatelessWidget {
   final DiscountModel discountModel;
 
-  const ModalFitBottom_Sheet({Key key, this.discountModel}) : super(key: key);
+  const ModalFitBottomSheet({Key key, this.discountModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
           children: <Widget>[
             Text(
               LocaleKeys.cart_discount_from.tr() + " ไร่มอนหลวงสาย",
-              style: FunctionHelper.FontTheme(
+              style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold),
             ),
@@ -37,8 +36,8 @@ class ModalFitBottom_Sheet extends StatelessWidget {
             Column(
               children: discountModel.detail
                   .asMap()
-                  .map((key, value) => MapEntry(
-                      key, _BuildCard(item: discountModel.detail[key])))
+                  .map((key, value) =>
+                      MapEntry(key, buildCard(item: discountModel.detail[key])))
                   .values
                   .toList(),
             ),
@@ -49,7 +48,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
     );
   }
 
-  Widget _BuildCard({DetailModel item, BuildContext context}) {
+  Widget buildCard({DetailModel item, BuildContext context}) {
     return Container(
       decoration:
           BoxDecoration(border: Border.all(color: Colors.grey.shade300)),
@@ -71,7 +70,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
                                 height: 30),
                           ),
                           fit: BoxFit.cover,
-                          imageUrl: item.ShopImage,
+                          imageUrl: item.shopImage,
                           errorWidget: (context, url, error) => Container(
                               width: 10.0.w,
                               height: 10.0.w,
@@ -92,16 +91,16 @@ class ModalFitBottom_Sheet extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        item.Title,
-                        style: FunctionHelper.FontTheme(
+                        item.title,
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         height: 5,
                       ),
-                      Text(item.SubTitle,
-                          style: FunctionHelper.FontTheme(
+                      Text(item.subTitle,
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleSmallFontSize().sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.black.withOpacity(0.5))),
@@ -117,7 +116,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          item.LabelText != ""
+          item.labelText != ""
               ? Container(
                   decoration: BoxDecoration(
                       color: Colors.amberAccent.withOpacity(0.2),
@@ -128,8 +127,8 @@ class ModalFitBottom_Sheet extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        item.LabelText,
-                        style: FunctionHelper.FontTheme(
+                        item.labelText,
+                        style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.bold),
                       ),
@@ -137,10 +136,10 @@ class ModalFitBottom_Sheet extends StatelessWidget {
                         children: [
                           Text(
                             LocaleKeys.cart_add_more.tr(),
-                            style: FunctionHelper.FontTheme(
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleSmallFontSize().sp,
                                 fontWeight: FontWeight.w500,
-                                color: ThemeColor.ColorSale()),
+                                color: ThemeColor.colorSale()),
                           ),
                           SizedBox(
                             width: 5,
@@ -188,7 +187,7 @@ class ModalFitBottom_Sheet extends StatelessWidget {
         },
         child: Text(
           isUse ? LocaleKeys.cart_used.tr() : LocaleKeys.cart_use.tr(),
-          style: FunctionHelper.FontTheme(
+          style: FunctionHelper.fontTheme(
               color: isUse ? Colors.black.withOpacity(0.5) : Colors.white,
               fontSize: SizeUtil.titleSmallFontSize().sp,
               fontWeight: FontWeight.w500),

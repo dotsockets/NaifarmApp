@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -8,31 +6,29 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:sizer/sizer.dart';
 
-class Register_FBView extends StatefulWidget {
+class RegisterFBView extends StatefulWidget {
   final String email;
 
-  const Register_FBView({Key key, this.email}) : super(key: key);
+  const RegisterFBView({Key key, this.email}) : super(key: key);
   @override
-  _Register_FBViewState createState() => _Register_FBViewState();
+  RegisterFBViewState createState() => RegisterFBViewState();
 }
 
-class _Register_FBViewState extends State<Register_FBView> {
+class RegisterFBViewState extends State<RegisterFBView> {
   TextEditingController _input1 = new TextEditingController();
   TextEditingController _input2 = new TextEditingController();
 
-  bool SuccessForm = false;
+  bool successForm = false;
   String onError1 = "";
   String onError2 = "";
 
   @override
   void initState() {
-    // TODO: implement initState
-
-    super.initState();
     _input2.text = widget.email;
+    super.initState();
   }
 
-  bool FormCheck() {
+  bool formCheck() {
     if (_input1.text.isEmpty || _input2.text.isEmpty) {
       return false;
     } else {
@@ -89,14 +85,14 @@ class _Register_FBViewState extends State<Register_FBView> {
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
             title: "กำหนดรหัสผ่าน",
-            header_type: Header_Type.barNormal,
-            isEnable_Search: false,
+            headerType: Header_Type.barNormal,
+            isEnableSearch: false,
           ),
           body: Container(
             child: Container(
               child: Column(
                 children: [
-                  _Form(),
+                  form(),
                   SizedBox(
                     height: 4.0.h,
                   ),
@@ -111,7 +107,7 @@ class _Register_FBViewState extends State<Register_FBView> {
                         Size(250.0, 7.0.h),
                       ),
                       backgroundColor: MaterialStateProperty.all(
-                        FormCheck()
+                        formCheck()
                             ? ThemeColor.secondaryColor()
                             : Colors.grey.shade400,
                       ),
@@ -119,10 +115,10 @@ class _Register_FBViewState extends State<Register_FBView> {
                         Colors.white.withOpacity(0.3),
                       ),
                     ),
-                    onPressed: () => FormCheck() ? verify() : SizedBox(),
+                    onPressed: () => formCheck() ? verify() : SizedBox(),
                     child: Text(
                       "ถัดไป",
-                      style: FunctionHelper.FontTheme(
+                      style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w500),
@@ -137,7 +133,7 @@ class _Register_FBViewState extends State<Register_FBView> {
     );
   }
 
-  Widget _Form() {
+  Widget form() {
     return Container(
       color: Colors.white,
       padding:
@@ -149,7 +145,7 @@ class _Register_FBViewState extends State<Register_FBView> {
             hint: "ระบุรหัสผ่านใหม่",
             inputType: TextInputType.text,
             maxLength: 20,
-            IsPassword: true,
+            isPassword: true,
             borderRadius: 5,
             controller: _input1,
             onError: onError1,
@@ -165,7 +161,7 @@ class _Register_FBViewState extends State<Register_FBView> {
             hint: "puwee@gmail.com",
             inputType: TextInputType.text,
             maxLength: 50,
-            IsPassword: false,
+            isPassword: false,
             borderRadius: 5,
             controller: _input2,
             onError: onError2,

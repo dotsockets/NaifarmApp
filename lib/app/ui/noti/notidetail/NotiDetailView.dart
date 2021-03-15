@@ -1,13 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/models/NotiModel.dart';
 import 'package:naifarm/app/viewmodels/NotiViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -19,7 +17,8 @@ class NotiDetailView extends StatelessWidget {
   final String notiImage;
   final String notiTitle;
 
-  const NotiDetailView({Key key, this.notiImage, this.notiTitle}) : super(key: key);
+  const NotiDetailView({Key key, this.notiImage, this.notiTitle})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,12 +30,13 @@ class NotiDetailView extends StatelessWidget {
             child: StickyHeader(
               header: AppToobar(
                 title: LocaleKeys.recommend_notification.tr(),
-                header_type: Header_Type.barNormal,
+                headerType: Header_Type.barNormal,
                 icon: 'assets/images/svg/cart_top.svg',
               ),
               content: Column(
                 children: [
-                  _BuildCardNoti(item: NotiViewModel().getNoti()[0],context: context)
+                  buildCardNoti(
+                      item: NotiViewModel().getNoti()[0], context: context)
                 ],
               ),
             ),
@@ -46,8 +46,8 @@ class NotiDetailView extends StatelessWidget {
     );
   }
 
-  Container _BuildCardNoti({NotiModel item,BuildContext context}) => Container(
-      child: Column(
+  Container buildCardNoti({NotiModel item, BuildContext context}) => Container(
+          child: Column(
         children: [
           Container(
             padding: EdgeInsets.only(top: 15, right: 12, left: 10),
@@ -67,10 +67,11 @@ class NotiDetailView extends StatelessWidget {
                       height: 35,
                       placeholder: (context, url) => Container(
                         color: Colors.white,
-                        child: Lottie.asset('assets/json/loading.json', height: 30),
+                        child: Lottie.asset('assets/json/loading.json',
+                            height: 30),
                       ),
                       fit: BoxFit.cover,
-                      imageUrl: item.ImageShop,
+                      imageUrl: item.imageShop,
                       errorWidget: (context, url, error) => Container(
                           height: 30,
                           child: Icon(
@@ -86,17 +87,18 @@ class NotiDetailView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Hero( tag: notiTitle,
-                        child: Text(item.Title,
-                            style: FunctionHelper.FontTheme(
+                      Hero(
+                        tag: notiTitle,
+                        child: Text(item.title,
+                            style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.bold,
-                                color: item.Status_Sell != 2
+                                color: item.statusSell != 2
                                     ? Colors.black
                                     : Colors.red)),
                       ),
                       SizedBox(height: 5),
-                      NotiViewModel().GetStatusMessage(status: item),
+                      NotiViewModel().getStatusMessage(status: item),
                       SizedBox(height: 5),
                     ],
                   ),
@@ -106,14 +108,20 @@ class NotiDetailView extends StatelessWidget {
           ),
           Container(
             color: ThemeColor.primaryColor().withOpacity(0.1),
-            padding: EdgeInsets.only(top: 10,bottom: 10),
-            margin: EdgeInsets.only(top: 20,left: 20),
+            padding: EdgeInsets.only(top: 10, bottom: 10),
+            margin: EdgeInsets.only(top: 20, left: 20),
             child: Column(
-              children: item.step_order
+              children: item.stepOrder
                   .asMap()
                   .map((key, value) {
-                    return MapEntry(key,
-                        _BuildCardTimeline(title: item.Title,item: item.step_order[key], index: key,isLast: item.step_order.length-1,context: context));
+                    return MapEntry(
+                        key,
+                        buildCardTimeline(
+                            title: item.title,
+                            item: item.stepOrder[key],
+                            index: key,
+                            isLast: item.stepOrder.length - 1,
+                            context: context));
                   })
                   .values
                   .toList(),
@@ -122,33 +130,41 @@ class NotiDetailView extends StatelessWidget {
         ],
       ));
 
-  Column _BuildCardTimeline({String title,Status_order item, int index,int isLast,BuildContext context}) => Column(
+  Column buildCardTimeline(
+          {String title,
+          StatusOrder item,
+          int index,
+          int isLast,
+          BuildContext context}) =>
+      Column(
         children: [
           TimelineTile(
             alignment: TimelineAlign.start,
             lineXY: 0.3,
             axis: TimelineAxis.vertical,
             isFirst: index == 0 ? true : false,
-            isLast: index == isLast? true : false,
+            isLast: index == isLast ? true : false,
             indicatorStyle: IndicatorStyle(
-              width: 20,
-              height: 40,
-              drawGap: true,
-              color: ThemeColor.secondaryColor()
-            ),
-            beforeLineStyle: LineStyle(
-              color: ThemeColor.primaryColor(),
-              thickness: 1
-            ),
+                width: 20,
+                height: 40,
+                drawGap: true,
+                color: ThemeColor.secondaryColor()),
+            beforeLineStyle:
+                LineStyle(color: ThemeColor.primaryColor(), thickness: 1),
             endChild: Container(
               margin: EdgeInsets.only(left: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,style: FunctionHelper.FontTheme(fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),),
+                  Text(
+                    title,
+                    style: FunctionHelper.fontTheme(
+                        fontWeight: FontWeight.bold,
+                        fontSize: SizeUtil.titleFontSize().sp),
+                  ),
                   SizedBox(height: 5),
-                  NotiViewModel().GetStatusStep(status: item),
+                  NotiViewModel().getStatusStep(status: item),
                   SizedBox(height: 20),
                 ],
               ),
@@ -156,5 +172,4 @@ class NotiDetailView extends StatelessWidget {
           ),
         ],
       );
-
 }
