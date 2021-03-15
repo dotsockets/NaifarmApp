@@ -468,7 +468,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                 //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
                //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
-                    text: " ${LocaleKeys.noti_shipped2.tr()}${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.readAt!=null?item.readAt:DateTime.now().toString()))} กรุณาตรวจสอบและยืนยันการรับสินค้าภายใน 3 วันจากนั้น Naifarm จะโอนเงินให้ร้านค้า",
+                    text: " ${LocaleKeys.noti_shipped2.tr()}${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.readAt!=null?item.readAt:DateTime.now().toString()))} ${LocaleKeys.noti_cus_complete_confirm.tr()}",
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
 
               ],

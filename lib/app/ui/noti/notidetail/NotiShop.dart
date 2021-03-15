@@ -443,16 +443,16 @@ class _NotiShopState extends State<NotiShop> with AutomaticKeepAliveClientMixin<
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("คำสั่งซื้อ ${item.meta.order}  ${item.meta.image!=null?"อัพโหลดเอกสารการชำระเงิน!":"รอการชำระเงิน"}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text("${LocaleKeys.noti_rate1.tr()}${item.meta.order}  ${item.meta.image!=null?"${LocaleKeys.noti_shop_pay_upload.tr()}!":"${LocaleKeys.noti_shop_pay.tr()}"}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
           SizedBox(height: 0.5.h),
           RichText(
             text: new TextSpan(
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text:"${item.meta.image!=null?"${item.meta.customer} อัพโหลดเอกสารการชำระเงิน":"รอการชำระเงิน"} ",
+                    text:"${item.meta.image!=null?"${item.meta.customer} ${LocaleKeys.noti_shop_pay_upload.tr()}":"${LocaleKeys.noti_shop_pay.tr()}"} ",
                     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                new TextSpan(text: "[หมายเลขคำสั่งซื้อ ${item.meta.order} ]",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+                new TextSpan(text: "[${LocaleKeys.order_detail_order_num.tr()} ${item.meta.order} ]",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
 
               ],
             ),

@@ -295,7 +295,7 @@ class _SuccessViewState extends State<SuccessView> {
                 child: Text(
                     item.inventory != null
                         ? item.inventory.title
-                        : item.itemTitle.isNotEmpty?item.itemTitle:'ไม่พบข้อมูล',
+                        : item.itemTitle.isNotEmpty?item.itemTitle:LocaleKeys.search_product_not_found.tr(),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.FontTheme(

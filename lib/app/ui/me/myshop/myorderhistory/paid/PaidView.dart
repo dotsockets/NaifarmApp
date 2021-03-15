@@ -291,7 +291,7 @@ class _PaidViewState extends State<PaidView> {
             children: [
               SizedBox(height: 3.0.w),
               Container(
-                child: Text(item.inventory != null ? item.inventory.title : item.itemTitle.isNotEmpty?item.itemTitle:'ไม่พบข้อมูล',
+                child: Text(item.inventory != null ? item.inventory.title : item.itemTitle.isNotEmpty?item.itemTitle:LocaleKeys.search_product_not_found.tr(),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.FontTheme(
@@ -397,7 +397,7 @@ class _PaidViewState extends State<PaidView> {
                 children: [
                   Text( //order_detail_pay_date
                     widget.typeView == OrderViewType.Purchase
-                        ? item.image.isNotEmpty?"${"แจ้งชำระเงินเมื่อ"} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.paymentAt!=null?item.paymentAt:DateTime.now().toString()))}":"${LocaleKeys.history_order_time.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}"
+                        ? item.image.isNotEmpty?"${LocaleKeys.order_detail_upload_slip.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.paymentAt!=null?item.paymentAt:DateTime.now().toString()))}":"${LocaleKeys.history_order_time.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}"
                         : LocaleKeys.history_order_time.tr() +
                             " " +
                             " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
@@ -408,7 +408,7 @@ class _PaidViewState extends State<PaidView> {
                   _BuildButtonBayItem(
                       btnTxt: widget.typeView == OrderViewType.Shop
                           ? LocaleKeys.order_detail_confirm_pay.tr()
-                          : item.image.isNotEmpty?"รอตรวจสอบการชำระเงิน":LocaleKeys.order_detail_pay.tr(),
+                          : item.image.isNotEmpty?"${LocaleKeys.order_detail_wait_pay_verify.tr()}":LocaleKeys.order_detail_wait_pay.tr(),
                       item: item)
                 ],
               )
@@ -476,7 +476,7 @@ class _PaidViewState extends State<PaidView> {
                     ],
                   ),
             Text(
-              item.orderStatusName,
+              item.image.isNotEmpty?"${LocaleKeys.order_detail_wait_pay_verify.tr()}":LocaleKeys.order_detail_wait_pay.tr(),
               style: FunctionHelper.FontTheme(
                   color: ThemeColor.primaryColor(),
                   fontSize: SizeUtil.titleSmallFontSize().sp,
