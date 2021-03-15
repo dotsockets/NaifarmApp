@@ -163,18 +163,11 @@ class _MeViewState extends State<MeView> with RouteAware {
         SliverAppBar(
           leading: Container(
             margin: EdgeInsets.only(left: 1.0.w),
-            child: GestureDetector(
-              child: IconButton(
-                icon: Icon(Icons.settings, color: Colors.white, size: 6.0.w),
-                onPressed: () {},
-              ),
-              onTap: () async {
+            child: IconButton(
+              icon: Icon(Icons.settings, color: Colors.white, size: 6.0.w),
+              onPressed: () async {
                 // ignore: unused_local_variable
                 final result = await AppRoute.settingProfile(context);
-                // if (result != null && result) {
-                //   _reload.add(true);
-                //   IsLogin = false;
-                // }
               },
             ),
           ),
