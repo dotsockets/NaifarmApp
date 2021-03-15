@@ -202,8 +202,8 @@
     "success": "Successfully confirmed information",
     "success_track":"Successfully confirmed tracking number",
     "success_pay":"Successfully confirmed payment",
-    "success_slip":"Upload Pay-in Slip Successfully"
-
+    "success_slip":"Upload Pay-in Slip Successfully",
+      "contact": "The transaction cannot be performed, please contact the seller. "
   },
 
   "message":{
