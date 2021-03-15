@@ -101,39 +101,48 @@ class _PaidViewState extends State<PaidView> {
                                             context: context),
                                         value.items[0].inventory == null
                                             ? Center(
-                                                child: Container(
-                                                  color: Colors.white
-                                                      .withOpacity(0.7),
-                                                  height: 27.0.h,
-                                                  child: Center(
-                                                    child: Container(
-                                                      width: 30.0.w,
-                                                      height: 5.0.h,
-                                                      padding:
-                                                          EdgeInsets.all(2.0.w),
-                                                      decoration: new BoxDecoration(
-                                                          color: Colors.black
-                                                              .withOpacity(0.5),
-                                                          borderRadius:
-                                                              new BorderRadius
-                                                                      .all(
-                                                                  Radius.circular(
-                                                                      10.0.w))),
-                                                      child: Center(
-                                                        child: Text(
-                                                            LocaleKeys
-                                                                .search_product_not_found
-                                                                .tr(),
-                                                            style: FunctionHelper
-                                                                .fontTheme(
-                                                                    fontSize:
-                                                                        SizeUtil.titleSmallFontSize()
-                                                                            .sp,
-                                                                    color: Colors
-                                                                        .white)),
+                                                child: InkWell(
+                                                  child: Container(
+                                                    color: Colors.white
+                                                        .withOpacity(0.7),
+                                                    height: 30.0.h,
+                                                    child: Center(
+                                                      child: Container(
+                                                        width: 30.0.w,
+                                                        height: 5.0.h,
+                                                        padding: EdgeInsets.all(
+                                                            2.0.w),
+                                                        decoration: new BoxDecoration(
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                                    0.5),
+                                                            borderRadius:
+                                                                new BorderRadius
+                                                                        .all(
+                                                                    Radius.circular(
+                                                                        10.0.w))),
+                                                        child: Center(
+                                                          child: Text(
+                                                              LocaleKeys
+                                                                  .search_product_not_found
+                                                                  .tr(),
+                                                              style: FunctionHelper.fontTheme(
+                                                                  fontSize:
+                                                                      SizeUtil.titleSmallFontSize()
+                                                                          .sp,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
+                                                  onTap: () {
+                                                    AppRoute.orderDetail(
+                                                        context,
+                                                        orderData: value,
+                                                        typeView:
+                                                            widget.typeView);
+                                                  },
                                                 ),
                                               )
                                             : SizedBox()
@@ -163,7 +172,7 @@ class _PaidViewState extends State<PaidView> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text("Loading",
+                            Text(LocaleKeys.dialog_message_loading.tr(),
                                 style: FunctionHelper.fontTheme(
                                     color: Colors.grey,
                                     fontSize: SizeUtil.priceFontSize().sp))
@@ -237,13 +246,18 @@ class _PaidViewState extends State<PaidView> {
     );
   }
 
-  Widget productItem({OrderItems item, int shopId, int index}) {
+  Widget productItem(
+      {OrderData orderData,
+      OrderItems item,
+      int shopId,
+      int index,
+      int idOrder}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
           child: Hero(
-            tag: "history_paid_${item.orderId}${item.inventoryId}${index}1",
+            tag: "history_paid_$idOrder${item.inventoryId}${index}1",
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -256,14 +270,11 @@ class _PaidViewState extends State<PaidView> {
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
-                    "${Env.value.baseUrl}/storage/images/${item.inventory != null ? item.inventory.product.image[0].path : ''}",
+                    "${Env.value.baseUrl}/storage/images/${item.inventory != null ? item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : Env.value.noItemUrl : Env.value.noItemUrl}",
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
-                    child: Icon(
-                      Icons.error,
-                      size: 7.0.w,
-                    )),
+                    child: Image.network(Env.value.noItemUrl)),
               ),
             ),
           ),
@@ -273,7 +284,7 @@ class _PaidViewState extends State<PaidView> {
             product.shop = ProductShop(id: shopId);
             AppRoute.productDetail(context,
                 productImage:
-                    "history_paid_${item.orderId}${item.inventoryId}${index}1",
+                    "history_paid_$idOrder${item.inventoryId}${index}1",
                 productItem: ProductBloc.convertDataToProduct(data: product));
           },
         ),
@@ -284,7 +295,12 @@ class _PaidViewState extends State<PaidView> {
             children: [
               SizedBox(height: 3.0.w),
               Container(
-                child: Text(item.inventory != null ? item.inventory.title : "",
+                child: Text(
+                    item.inventory != null
+                        ? item.inventory.title
+                        : item.itemTitle.isNotEmpty
+                            ? item.itemTitle
+                            : 'ไม่พบข้อมูล',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.fontTheme(
@@ -302,24 +318,24 @@ class _PaidViewState extends State<PaidView> {
                   Row(
                     children: [
                       item.inventory != null &&
-                              item.inventory.product.discountPercent != 0
-                          ? Text(
-                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.product.discountPercent)}",
-                              "฿${item.inventory.product.discountPercent}",
+                              item.inventory.offerPrice != null
+                          ? Text("฿${item.inventory.salePrice}",
                               style: FunctionHelper.fontTheme(
-                                  color: Colors.black.withOpacity(0.5),
                                   fontSize: SizeUtil.titleFontSize().sp,
-                                  decoration: TextDecoration.lineThrough))
+                                  decoration: TextDecoration.lineThrough,
+                                  color: Colors.black.withOpacity(0.5)))
                           : SizedBox(),
-                      SizedBox(width: 3.0.w),
+                      SizedBox(width: 8),
                       Text(
-                          //item.inventory!=null?"฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}":"-",
-                          item.inventory != null
-                              ? "฿${item.inventory.salePrice}"
-                              : "-",
+                          "฿${NumberFormat("#,##0", "en_US").format(item.inventory != null ? item.inventory.offerPrice != null ? item.inventory.offerPrice : item.inventory.salePrice * item.quantity : orderData.total)}",
                           style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.colorSale()))
+                              color: ThemeColor.colorSale())),
+                      // Text(
+                      //     "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
+                      //     style: FunctionHelper.FontTheme(
+                      //         fontSize: SizeUtil.titleFontSize().sp,
+                      //         color: Colors.black))
                     ],
                   )
                 ],
@@ -346,8 +362,10 @@ class _PaidViewState extends State<PaidView> {
                 .map((key, value) => MapEntry(
                     key,
                     productItem(
-                        item: item.items[key],
+                        orderData: item,
+                        item: value,
                         shopId: item.shop.id,
+                        idOrder: item.id,
                         index: key)))
                 .values
                 .toList(),
@@ -368,11 +386,15 @@ class _PaidViewState extends State<PaidView> {
                               color: Colors.black)),
                       new TextSpan(
                           text:
-                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.colorSale())),
-                              "฿${item.grandTotal}",
+                              "฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(item.items, item.shipping != null ? item.shipping : 0))}",
                           style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: ThemeColor.colorSale())),
+
+                      //     "฿${item.grandTotal}",
+                      // style: FunctionHelper.FontTheme(
+                      //     fontSize: SizeUtil.titleFontSize().sp,
+                      //     color: ThemeColor.ColorSale())),
                     ],
                   ),
                 ),
@@ -392,12 +414,14 @@ class _PaidViewState extends State<PaidView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
+                    //order_detail_pay_date
                     widget.typeView == OrderViewType.Purchase
-                        ? LocaleKeys.order_detail_pay_date.tr() +
-                            " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
+                        ? item.image.isNotEmpty
+                            ? "${"แจ้งชำระเงินเมื่อ"} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.paymentAt != null ? item.paymentAt : DateTime.now().toString()))}"
+                            : "${LocaleKeys.history_order_time.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}"
                         : LocaleKeys.history_order_time.tr() +
                             " " +
-                            " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
+                            " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
@@ -405,7 +429,9 @@ class _PaidViewState extends State<PaidView> {
                   buildButtonBayItem(
                       btnTxt: widget.typeView == OrderViewType.Shop
                           ? LocaleKeys.order_detail_confirm_pay.tr()
-                          : LocaleKeys.order_detail_pay.tr(),
+                          : item.image.isNotEmpty
+                              ? "รอตรวจสอบการชำระเงิน"
+                              : LocaleKeys.order_detail_pay.tr(),
                       item: item)
                 ],
               )
@@ -492,6 +518,8 @@ class _PaidViewState extends State<PaidView> {
   Widget buildButtonBayItem({String btnTxt, OrderData item}) {
     return TextButton(
       style: ButtonStyle(
+        padding: MaterialStateProperty.all(
+            EdgeInsets.only(left: 6.0.w, right: 6.0.w)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40.0),
@@ -524,7 +552,21 @@ class _PaidViewState extends State<PaidView> {
                 token: value.token));
           }
         } else {
-          AppRoute.transferPayMentView(context: context, orderData: item);
+          final result = await AppRoute.transferPayMentView(
+              context: context, orderData: item);
+          if (result) {
+            bloc.orderDataList.clear();
+            Usermanager().getUser().then((value) => bloc.loadOrder(context,
+                load: true,
+                orderType: widget.typeView == OrderViewType.Shop
+                    ? "myshop/orders"
+                    : "order",
+                sort: "orders.createdAt:desc",
+                statusId: "1",
+                limit: 20,
+                page: 1,
+                token: value.token));
+          }
         }
       },
       child: Text(
@@ -566,14 +608,6 @@ class _PaidViewState extends State<PaidView> {
         ],
       ),
     );
-  }
-
-  int sumTotal(List<OrderItems> items) {
-    var sum = 0;
-    for (var item in items) {
-      sum += item.inventory.salePrice;
-    }
-    return sum;
   }
 
   _reloadData() {

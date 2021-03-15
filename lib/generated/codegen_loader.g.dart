@@ -64,7 +64,8 @@ class CodegenLoader extends AssetLoader{
     "title_wallet": "Wallet",
     "title_my_product": "My Products",
     "title_shipping": "Shipping",
-    "title_payment": "Payment Method"
+    "title_payment": "Payment Method",
+    "title_pay": "Payment Method"
   },
   "shipping": {
     "edit": "Edit Shipping",
@@ -149,6 +150,7 @@ class CodegenLoader extends AssetLoader{
   "or": "OR",
   "withh": "with",
   "and": "and",
+  "edit": "Edit ",
   "setting_language_toobar": "Select Language",
   "setting_rule_toobar": "Rules of Use",
   "setting_about_toobar": "About Us",
@@ -160,9 +162,9 @@ class CodegenLoader extends AssetLoader{
     "add_address": "Add New Address",
     "add_product": "Add Product",
     "login": "LOGIN",
-    "facebook_login": "Login with Facebook",
-    "facebook_regis": "Sign up with Facebook",
+    "facebook": "Continue with Facebook",
     "edit_img": "Edit Image",
+    "img": "Image",
     "save": "SAVE",
     "register": "SIGN UP",
     "ok": "OK",
@@ -176,6 +178,8 @@ class CodegenLoader extends AssetLoader{
     "buy_now": "Buy Now",
     "buy_product": "Buy Now",
     "del_product": "Delete Product",
+    "update_product": "Update Product",
+    "error": "Error",
     "save_edit": "Save Edit",
     "review": "Review",
     "buy_product_again": "Buy Again",
@@ -184,7 +188,11 @@ class CodegenLoader extends AssetLoader{
     "close": "Close",
     "connect": "Connect again",
     "add_image": "Add image",
-    "add_vdo": "Add video"
+    "add_vdo": "Add video",
+    "back": "Back",
+    "again": "Try again",
+    "reject_order": "Reject request",
+    "accept_order": "Accept request"
   },
   "dialog_message": {
     "del_account": "We are sad that you want to leave us, but please note that account deletion is irreversible",
@@ -192,13 +200,25 @@ class CodegenLoader extends AssetLoader{
     "del_product": "Do you want to delete product",
     "mail_change_cancel": "Do you want to leave email change",
     "password_success": "Change Password Success",
-    "loading": "Loading...",
-    "exit": "Do you want to exit an App"
+    "confirm_pay": "Confirm payment for this order",
+    "confirm_track": "Confirm that tracking number is correct",
+    "confirm_order": "Confirm Order Received",
+    "confirm_cancel_buyer": "If you cancel the order. Your cancellation request must be accepted by the buyer because the order is already in progress",
+    "confirm_cancel_seller": "Confirm cancel this order?",
+    "loading": "Loading",
+    "exit": "Do you want to exit an App",
+    "success": "Successfully confirmed information",
+    "success_track": "Successfully confirmed tracking number",
+    "success_pay": "Successfully confirmed payment",
+    "success_slip": "Upload Pay-in Slip Successfully"
   },
   "message": {
     "phone_edit": "If you edit phone number. All account numbers associated with this account will be modified",
     "mail_edit": "Keep your account safe, please enter a password to continue",
     "forgot_mail": "Please logout of your account and tap \"Forgot Password\" at the login page. To logout, Me page > Account Setting > Logout and tap on \"Forgot Password\"",
+    "open_shop": "You can open a shop by filling in form to open your own shop.",
+    "complete_shop": "Please complete the shop information before manage products ",
+    "protect": "Protect yourself by completing your transactions within Naifarm.",
     "error": {
       "password_incorrect": "Password is incorrect",
       "password_length": "Should set a password of 8-12 characters or more",
@@ -238,18 +258,29 @@ class CodegenLoader extends AssetLoader{
     "use_before": "valid till",
     "outstock": "Out of stock",
     "note": "note",
-    "add_cart": "Add to Cart"
+    "add_cart": "Add to Cart",
+    "promotion": "Promotion Price",
+    "order": "Order Total",
+    "message": "Leave a message",
+    "ship": "Choose a shipping method",
+    "ship_at": "Receive at"
   },
   "history": {
     "order_time": "Payment Time",
-    "order_price": "Order Total"
+    "receipt_time": "Receipt Time",
+    "order_price": "Order Total",
+    "track": "Add a tracking number",
+    "track_fill": "Please fill tracking number to continue.",
+    "track_msg": "User can check shipping status with Naifarm.",
+    "track_no": "Please fill correct tracking number."
   },
   "payment_method": {
     "cash_delivery": "Cash on Delivery",
     "bank": "Bank account",
-    "slip": "Upload Pay-in Slip Now",
+    "upload_slip": "Upload Pay-in Slip Now",
     "no_slip": "Upload Pay-in Slip Later",
-    "update_slip": "Update Pay-in Slip"
+    "update_slip": "Update Pay-in Slip",
+    "slip": "Pay-in Slip"
   },
   "wallet_balance": {
     "title": "Wallet Balance",
@@ -270,7 +301,8 @@ class CodegenLoader extends AssetLoader{
     "list": "Attributes List"
   },
   "my_product": {
-    "sell": "Sell Product",
+    "sell": "Open sales",
+    "sell_open": "Open Sell",
     "break": "Stop Sell",
     "amount": "Amount",
     "sold": "sold",
@@ -310,11 +342,19 @@ class CodegenLoader extends AssetLoader{
     "category": "Category",
     "detail": "Shop Detail",
     "rate": "Shop Rating",
+    "edit": "Edit Shop",
     "follow": "Follow",
     "following": "Following",
     "follower": "Follower",
     "product_list": "Product",
-    "name": "Shop Name",
+    "name": "Shop name",
+    "name_title": "Shop name",
+    "name_official": "Official name",
+    "slug": "Shop Slug",
+    "detail_title": "Detail",
+    "external_link": "External Link",
+    "edit_link": "Edit Link",
+    "status": "Shop Status",
     "active": {
       "hour": "hour ago",
       "minute": "minutes ago"
@@ -363,10 +403,25 @@ class CodegenLoader extends AssetLoader{
     "order_cancel": "Order Canceled",
     "order2": " has been canceled because we unable to verify your payment.",
     "buyer": "Buyer notification",
-    "seller": "Seller notification"
+    "seller": "Seller notification",
+    "shop_update": "Update shop information",
+    "shop_status": "Status,",
+    "shop_new_order": "New order",
+    "shop_orderid": "ordered the item, order number",
+    "shop_open": "Open a new shop",
+    "shop_open_detail": "has been opened the shop",
+    "shop_outstock": "out of stock",
+    "cus_cancel_status": "cancel order because no payment or the buyer canceled the product. Please contact buyer if you need more information.",
+    "cus_order": "You have order in order number",
+    "cus_pay_at": "and must be paid before",
+    "cus_complete": "The order has been shipped",
+    "cus_orderid": "All items in order numbers",
+    "cus_cancel": "Order has been canceled",
+    "cus_cancel_reason": "has been canceled because we can't verify your payment."
   },
   "order_detail": {
     "title": "Order Detail",
+    "txt": "Order Detail",
     "wait_rate": "Waiting For Rating",
     "wait_pay": "Waiting For Payment",
     "complete_rate": "Rating Success",
@@ -387,6 +442,8 @@ class CodegenLoader extends AssetLoader{
     "complete": "Order Successful",
     "summary": "Total",
     "pay_date": "Pay by",
+    "please": "Please ",
+    "cancel": "",
     "ship_date": "Product will be shipped out",
     "by_date": "by",
     "contact": "Contact Seller",
@@ -401,7 +458,24 @@ class CodegenLoader extends AssetLoader{
     "cancel_order": "Cancel Order",
     "cancel_reason": "Reason for Cancel",
     "id": "Order ID",
-    "payment_info": "Payment Information"
+    "payment_info": "Payment Information",
+    "total_pay": "Total Payment",
+    "refund": "Refund Amount",
+    "cancelled_by": "Cancelled by",
+    "cancelled_time": "Cancelled by",
+    "cancelled_reason": "Cancel reason",
+    "cancelled_buyer": "Buyer Cancelled Order",
+    "seller_cancelled": "Seller Cancelled Order",
+    "seller_cancelled_refund": "Refund Amount (With Shipping Fee)",
+    "seller_cancelled_by": "Refund by",
+    "seller_cancelled_time": "Refund at",
+    "seller_cancelled_reason": "Refund Reason",
+    "seller_cancelled_choose": "Choose Reason",
+    "seller_cancelled_detail": "Refund Detail",
+    "seller_cancelled_notpay": "Payment not Received",
+    "seller": "Seller",
+    "buyer": "Buyer",
+    "sell": "Sale Product Detail"
   },
   "login": {
     "forgot_password": "Forgot Password",
@@ -427,10 +501,20 @@ class CodegenLoader extends AssetLoader{
     "skip_message": "tap \"SKIP\" go to home page"
   },
   "search_product": {
-    "title": "Search Product",
+    "title": "Search product and shop",
+    "me": "Search my product",
     "show": "Show more",
     "hide": "Hide",
     "not_found": "Data not found"
+  },
+  "server_error": {
+    "cancel": "Request was cancelled",
+    "timeout_connect": "Connection timeout",
+    "timeout_receive": "Receive timeout in connection",
+    "timeout_send": "Receive timeout in send request",
+    "default": "Unable to connect with the server, please try again.",
+    "status": "Received invalid status code",
+    "again": "Please check your internet connection and connect again"
   }
 };
 static const Map<String,dynamic> th_TH = {
@@ -454,7 +538,7 @@ static const Map<String,dynamic> th_TH = {
   },
   "setting_noti": {
     "title_notification": "การแจ้งเตือน",
-    "title_update": "อัพเดตคำสั่งซื้อ",
+    "title_update": "อัพเดทคำสั่งซื้อ",
     "title_privacy": "ตั้งค่าความเป็นส่วนตัว",
     "title_sound": "เสียงการแจ้งเตือน"
   },
@@ -483,7 +567,8 @@ static const Map<String,dynamic> th_TH = {
     "title_wallet": "กระเป๋าเงิน",
     "title_my_product": "สินค้าของฉัน",
     "title_shipping": "การจัดส่ง",
-    "title_payment": "วิธีการชำระเงิน"
+    "title_payment": "วิธีการชำระเงิน",
+    "title_pay": "วิธีการชำระ"
   },
   "shipping": {
     "edit": "แก้ไขการขนส่งสินค้า",
@@ -568,6 +653,7 @@ static const Map<String,dynamic> th_TH = {
   "or": "หรือ",
   "withh": "กับ",
   "and": "และ",
+  "edit": "แก้ไข",
   "setting_language_toobar": "เลือกภาษา",
   "setting_rule_toobar": "กฎระเบียบการใช้งาน",
   "setting_about_toobar": "เกี่ยวกับเรา",
@@ -576,9 +662,7 @@ static const Map<String,dynamic> th_TH = {
   "btn": {
     "logout": "ออกจากระบบ",
     "login": "เข้าสู่ระบบ",
-    "facebook_login": "เข้าสู่ระบบด้วย Facebook",
-    "facebook_regis": "สมัครด้วย Facebook",
-    "edit": "แก้ไขรูป",
+    "facebook": "ดำเนินการต่อด้วย Facebook",
     "register": "สมัครสมาชิก",
     "add_address": "เพิ่มที่อยู่ใหม่",
     "add_product": "เพิ่มสินค้า",
@@ -586,6 +670,7 @@ static const Map<String,dynamic> th_TH = {
     "ok": "ตกลง",
     "continue": "ดำเนินการต่อ",
     "edit_img": "แก้ไขรูป",
+    "img": "รูปภาพ",
     "next": "ถัดไป",
     "cancel": "ยกเลิก",
     "forgot_pass": "หากลืมรหัสผ่าน",
@@ -595,29 +680,47 @@ static const Map<String,dynamic> th_TH = {
     "buy_now": "ซื้อเลย",
     "buy_product": "ซื้อสินค้า",
     "del_product": "ลบรายการ",
+    "update_product": "อัพเดทสินค้า",
+    "error": "ข้อผิดพลาด",
     "save_edit": "บันทึกการแก้ไข",
     "review": "รีวิว",
     "buy_product_again": "ซื้อสินค้าอีกครั้ง",
-    "main": "กลับสู่หน้าหลัก",
+    "main": "กลับสู่หน้าแรก",
     "copy": "คัดลอก",
     "close": "ปิด",
     "connect": "เชื่อมต่ออีกครั้ง",
     "add_image": "เพิ่มรูปภาพ",
-    "add_vdo": "เพิ่มวิดีโอ"
+    "add_vdo": "เพิ่มวิดีโอ",
+    "back": "กลับ",
+    "again": "ลองอีกครั้ง",
+    "reject_order": "ปฏิเสธคำขอยกเลิก",
+    "accept_order": "ตอบรับคำขอยกเลิก"
   },
   "dialog_message": {
     "del_account": "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หากคุณต้องการลบจะไม่สามารถกู้คืนได้",
     "del_product": "คุณต้องการที่จะลบสินค้าที่คุณเลือก ใช่หรือไม่",
     "phone_edit_cancel": "คุณต้องการออกจากการเปลี่ยนแปลงเบอร์โทรศัพท์ใช่หรือไม่",
-    "change_mail": "คุณต้องการออกจากการเปลี่ยนแปลงอีเมลใช่หรือไม่",
+    "mail_change_cancel": "คุณต้องการออกจากการเปลี่ยนแปลงอีเมลใช่หรือไม่",
     "password_success": "เปลี่ยนรหัสผ่านสำเร็จ",
-    "loading": "กำลังโหลด...",
-    "exit": "คุณต้องการออก"
+    "confirm_pay": "คุณต้องการยืนยันการชำระเงินคำสั่งซื้อสินค้านี้",
+    "confirm_track": "ยืนยันการกรอกเลขพัสดุถูกต้อง",
+    "confirm_order": "คุณได้ยอมรับและตรวจสอบสินค้าเรียบร้อยแล้ว ?",
+    "confirm_cancel_buyer": "คุณต้องการยกเลิกคำสั่งซื้อ โปรดทราบคำขอยกเลิกของคุณต้องได้รับการยอมรับจากผู้ขาย เนื่องจากคำสั่งซื้ออยู่ระหว่างดำเนินการแล้ว",
+    "confirm_cancel_seller": "คุณต้องการยกเลิกคำสั่งซื้อนี้?",
+    "loading": "กำลังโหลด",
+    "exit": "ออกจากแอป",
+    "success": "สำเร็จ",
+    "success_track": "คุณได้ทำการกรอกเลขพัสดุเรียบร้อยแล้ว",
+    "success_pay": "คุณได้ยืนยันการชำระเงินแล้ว",
+    "success_slip": "คุณได้อัพโหลดหลักฐานการชำระเงินแล้ว"
   },
   "message": {
     "phone_edit": "หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่ หมายเลขบัญชีทั้งหมดที่ผูกกับบัญชีนี้จะถูกแก้ไขด้วย",
     "mail_edit": "เพื่อความปลอดภัยบัญชีของคุณกรุณาระบุรหัสผ่าน เพื่อการดำเนินต่อ",
     "forgot_mail": "กรุณาออกจากระบบโดยไปที่หน้า ฉัน > ตั้งค่าบัญชี > ออกจากระบบ และกดปุ่ม \"ลืมรหัสผ่าน\" ที่หน้าเข้าสู่ระบบ",
+    "open_shop": "คุณสามารถเปิดร้านค้า โดยกรอกข้อมูลด้านล่างเพื่อทำการเปิดร้านเป็นของคุณเอง",
+    "complete_shop": "กรุณากรอกข้อมูลร้านค้าก่อนจัดการสินค้า",
+    "protect": "ปกป้องตัวเองด้วยการทำธุรกรรมภายใน Naifarm ให้เสร็จ",
     "error": {
       "password_incorrect": "รหัสผ่านไม่ถูกต้อง",
       "password_length": "ควรตั้งรหัสผ่าน 8-12 ตัวอักษรขึ้นไป",
@@ -657,18 +760,29 @@ static const Map<String,dynamic> th_TH = {
     "use_before": "ใช้ได้ก่อน",
     "outstock": "สินค้าหมด",
     "note": "หมายเหตุ",
-    "add_cart": "เพิ่มไปยังรถเข็น"
+    "add_cart": "เพิ่มไปยังรถเข็น",
+    "promotion": "ราคาโปรโมชั่น",
+    "order": "คำสั่งซื้อทั้งหมด",
+    "message": "ฝากข้อความ",
+    "ship": "เลือกวิธีการจัดส่ง",
+    "ship_at": "จะได้รับภายใน"
   },
   "history": {
     "order_time": "วันที่ซื้อ",
-    "order_price": "รวมการสั่งซื้อ"
+    "receipt_time": "วันที่รับ",
+    "order_price": "รวมการสั่งซื้อ",
+    "track": "เพิ่มหมายเลขติดตามพัสดุ",
+    "track_fill": "กรุณากรอกหมายเลขติดตามพัสดุเพื่อให้สามารถดำเนินการต่อไปนี้ได้โดยตรง",
+    "track_msg": "ผู้ใช้สามารถตรวจสอบสถานะการขนส่งของพัสดุผ่าน Naifarm ได้โดยตรง",
+    "track_no": "กรุณากรอกหมายเลขพัสดุให้ถูกต้อง"
   },
   "payment_method": {
     "cash_delivery": "เก็บเงินปลายทาง",
     "bank": "โอนเงินผ่านบัญชี",
-    "slip": "มีหลักฐานการชำระเงิน อัพโหลดเลย",
+    "upload_slip": "มีหลักฐานการชำระเงิน อัพโหลดเลย",
     "no_slip": "ไม่มีหลักฐานการชำระเงิน และจะอัพโหลดทีหลัง",
-    "update_slip": "อัพเดตหลักฐานการชำระ"
+    "update_slip": "อัพเดทหลักฐานการชำระเงิน",
+    "slip": "หลักฐานการชำระเงิน"
   },
   "wallet_balance": {
     "title": "ยอดเงินในกระเป๋า",
@@ -682,6 +796,7 @@ static const Map<String,dynamic> th_TH = {
   },
   "my_product": {
     "sell": "ขายสินค้า",
+    "sell_open": "เปิดการขาย",
     "break": "พักการขาย",
     "amount": "จำนวนสินค้า",
     "sold": "ขายได้",
@@ -721,11 +836,19 @@ static const Map<String,dynamic> th_TH = {
     "category": "หมวดหมู่",
     "detail": "รายละเอียดร้าน",
     "rate": "คะแนนที่ได้",
+    "edit": "แก้ไขร้านค้า",
     "follow": "ติดตาม",
     "following": "กำลังติดตาม",
     "follower": "ผู้ติดตาม",
     "product_list": "รายการสินค้า",
     "name": "ชื่อร้าน",
+    "name_title": "ชื่อร้านค้า",
+    "name_official": "ชื่อเป็นทางการ",
+    "slug": "Slug ร้านค้า",
+    "detail_title": "รายละเอียด",
+    "external_link": "ลิงค์ภายนอก",
+    "edit_link": "แก้ไขลิงค์",
+    "status": "สถานะร้านค้า",
     "active": {
       "hour": "ชั่วโมง ที่ผ่านมา",
       "minute": "นาที ที่ผ่านมา"
@@ -781,10 +904,25 @@ static const Map<String,dynamic> th_TH = {
     "order_cancel": "คำสั่งซื้อถูกยกเลิก",
     "order2": " ถูกยกเลิกแล้ว เพราะไม่สามารถตรวจสอบการชำระเงินของคุณได้",
     "buyer": "แจ้งเตือนผู้ซื้อ",
-    "seller": "แจ้งเตือนผู้ขาย"
+    "seller": "แจ้งเตือนผู้ขาย",
+    "shop_update": "อัพเดทข้อมูลร้านค้า",
+    "shop_status": "สถานะ",
+    "shop_new_order": "คำสั่งซื้อใหม่",
+    "shop_orderid": "ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์",
+    "shop_open": "เปิดร้านใหม่",
+    "shop_open_detail": "ได้ทำการเปิดร้านใหม่",
+    "shop_outstock": "จำนวนสินค้าหมด",
+    "cus_cancel_status": "ยกเลิกคำสั่งซื้อ เนื่องจากไม่มีการชำระเงินหรือผู้ซื้อยกเลิกสินค้า กรุณาติดต่อผู้ซื้อหากต้องการข้อมูลเพิ่มเติม",
+    "cus_order": "คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ",
+    "cus_pay_at": "และต้องชำระเงินก่อนวันที่",
+    "cus_complete": "คำสั่งซื้อถูกจัดส่งแล้ว",
+    "cus_orderid": "สินค้าทุกชิ้นในคำสั้งซื้อหมายเลข ",
+    "cus_cancel": "คำสั่งซื้อถูกยกเลิก",
+    "cus_cancel_reason": "ถูกยกเลิกแล้ว เพราะไม่สามารถตรวจสอบการชำระเงินของคุณได้ "
   },
   "order_detail": {
-    "title": "รายละเอียดคำสั่งซื้อ",
+    "title": "รายการสั่งซื้อสินค้า",
+    "txt": "รายละเอียดคำสั่งซื้อ",
     "wait_rate": "รอให้คะแนน",
     "wait_pay": "รอชำระเงิน",
     "complete_rate": "ให้คะแนนแล้ว",
@@ -805,6 +943,8 @@ static const Map<String,dynamic> th_TH = {
     "complete": "คำสั่งซื้อเสร็จสมบูรณ์",
     "summary": "ยอดชำระเงิน",
     "pay_date": "ชำระเงินภายใน",
+    "please": "กรุณา",
+    "cancel": "มิฉะนั้นระบบจะยกเลิกคำสั่งซื้อโดยอัตโนมัติ",
     "ship_date": "ผู้ขายจะส่งสินค้าไปยังผู้ให้บริการขนส่ง",
     "by_date": "ภายในวันที่",
     "contact": "ติดต่อผู้ขาย",
@@ -819,7 +959,24 @@ static const Map<String,dynamic> th_TH = {
     "cancel_reason": "เหตุผลการยกเลิก",
     "cancel_order": "ยกเลิกคำสั่งซื้อ",
     "id": "เลขคำสั่งซื้อ",
-    "payment_info": "ข้อมูลการชำระเงิน"
+    "payment_info": "ข้อมูลการชำระเงิน",
+    "total_pay": "การชำระเงินทั้งหมดของผู้ซื้อ",
+    "refund": "จำนวนเงินคืน",
+    "cancelled_by": "ยื่นโดย",
+    "cancelled_time": "วันเวลาที่ยื่นคำขอ",
+    "cancelled_reason": "เหตุผลที่ให้ไว้โดย ผู้ซื้อ",
+    "cancelled_buyer": "ผู้ซื้อยกเลิกคำสั่งซื้อ",
+    "seller_cancelled": "ผู้ขายยกเลิกคำสั่งซื้อ",
+    "seller_cancelled_refund": "จำนวนเงินที่ต้องคืน (รวมค่าจัดส่ง)",
+    "seller_cancelled_by": "คืนโดย",
+    "seller_cancelled_time": "วันเวลาที่ยกเลิก",
+    "seller_cancelled_reason": "เหตุผลในการยกเลิก",
+    "seller_cancelled_choose": "เลือกเหตุผล",
+    "seller_cancelled_detail": "ระบุรายละเอียด",
+    "seller_cancelled_notpay": "ไม่ได้รับการชำระเงิน",
+    "seller": "ผู้ขาย",
+    "buyer": "ผู้ซื้อ",
+    "sell": "รายการขายสินค้า"
   },
   "login": {
     "forgot_password": "ลืมรหัสผ่าน",
@@ -845,10 +1002,20 @@ static const Map<String,dynamic> th_TH = {
     "skip_message": "กดข้ามเพื่อเข้าสู่หน้าหลัก"
   },
   "search_product": {
-    "title": "ค้นหาสินค้า",
+    "title": "ค้นหาสินค้าและร้านค้า",
+    "me": "ค้นหาสินค้าของฉัน",
     "show": "แสดงเพิ่ม",
     "hide": "ย่อ",
     "not_found": "ไม่พบข้อมูล"
+  },
+  "server_error": {
+    "cancel": "คำขอถูกยกเลิก",
+    "timeout_connect": "หมดเวลาการเชื่อมต่อ",
+    "timeout_receive": "หมดเวลาในการเชื่อมต่อ",
+    "timeout_send": "หมดเวลาในการส่งคำร้องขอ",
+    "default": "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ กรุณาลองอีกครั้ง",
+    "status": "พบข้อผิดพลาดสถานะ (Status Code)",
+    "again": "กรุณาตรวจสอบอินเทอร์เน็ตของคุณและทำรายการอีกครั้ง"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en_US": en_US, "th_TH": th_TH};

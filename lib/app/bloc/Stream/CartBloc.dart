@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/pojo/request/OrderRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:rxdart/rxdart.dart';
@@ -48,7 +49,11 @@ class CartBloc {
     totalPayment.close();
   }
 
-  getCartlists({BuildContext context, String token, CartActive cartActive}) {
+  getCartlists(
+      {BuildContext context,
+      String token,
+      CartActive cartActive,
+      List<ProductData> cartNowId}) {
     if (cartActive == CartActive.CartList) onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
@@ -61,6 +66,19 @@ class CartBloc {
         if (cartActive == CartActive.CartList ||
             cartActive == CartActive.CartDelete) onLoad.add(false);
         var item = (respone.respone as CartResponse);
+
+        if (cartNowId != null && cartNowId.isNotEmpty) {
+          for (var value in item.data[0].items) {
+            for (var cart_select in cartNowId) {
+              //  print("wefcwecde ${value.inventory.id}  ${cart_select.id}  ${value.select}");
+              if (value.inventory.id == cart_select.id) {
+                value.select = true;
+                // break;
+              }
+            }
+          }
+        }
+
         cartList.add(
             CartResponse(data: item.data, total: item.total, selectAll: false));
       } else {
@@ -79,7 +97,8 @@ class CartBloc {
                 inventoryid: inventoryId, cartid: cartid, token: token))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
-        getCartlists(token: token, cartActive: CartActive.CartDelete);
+        getCartlists(
+            context: context, token: token, cartActive: CartActive.CartDelete);
         onSuccess.add(true);
         // CartList.add(CartResponse(data: CartList.value.data));
       } else {
@@ -104,7 +123,8 @@ class CartBloc {
         // CartResponse(data: CartList.value.data);
         cartList.add(cartList.value);
       } else {
-        getCartlists(token: token, cartActive: CartActive.CartDelete);
+        getCartlists(
+            context: context, token: token, cartActive: CartActive.CartDelete);
         onError.add(respone.httpCallBack);
       }
     });
@@ -400,16 +420,30 @@ class CartBloc {
 
   void sumTotalPayment(BuildContext context,
       {ShippingRates snapshot, int index}) {
-    shippingCost.add(0);
+    // shipping_cost.add(0);
     orderTotalCost.add(0);
-    orderTotalCost.add(0);
-    shippingCost.add(shippingCost.value + snapshot.rate);
-    for (var value in cartList.value.data) {
-      orderTotalCost.add(orderTotalCost.value += value.total);
+    totalPayment.add(0);
+
+    //shipping_cost.add(shipping_cost.value+snapshot.rate);
+
+    for (var item in cartList.value.data) {
+      if (item.id == cartList.value.data[index].id) {
+        if (item.shippingRates != null) {
+          // print("serwfer  ${(shipping_cost.value-item.shippingRates.rate)} ${snapshot.rate}");
+          shippingCost.add(
+              (shippingCost.value - item.shippingRates.rate) + snapshot.rate);
+        } else {
+          shippingCost.add(shippingCost.value + snapshot.rate);
+        }
+
+        print("serwfer  ${item.total}");
+      }
+      orderTotalCost.add(orderTotalCost.value += item.total);
     }
 
     totalPayment.add(orderTotalCost.value + shippingCost.value);
 
+    // order_total_cost.add(order_total_cost.value += item.total);
     cartList.value.data[index].shippingRates = snapshot;
     cartList.value.data[index].shippingRateId = snapshot.id;
     cartList.value.data[index].carrierId = snapshot.carrierId;

@@ -85,7 +85,7 @@ class _EditProviceViewState extends State<EditProviceView> {
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
             isEnableSearch: false,
-            title: "แก้ไขรายละเอียดร้านค้า",
+            title: LocaleKeys.edit.tr() + LocaleKeys.address_province.tr(),
             headerType: Header_Type.barNormal,
           ),
           body: Container(
@@ -171,8 +171,8 @@ class _EditProviceViewState extends State<EditProviceView> {
   }
 
   String loopString(List<DataStates> data, int id) {
-    String item = "กรุณาเลือก";
-    // int i = 0;
+    String item = LocaleKeys.select.tr();
+    // var i = 0;
     for (var index in data) {
       if (index.id == id) {
         item = index.name;

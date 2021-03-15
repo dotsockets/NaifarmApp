@@ -46,7 +46,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
             backgroundColor: Colors.grey.shade200,
             appBar: AppToobar(
                 isEnableSearch: false,
-                title: "Choose a shipping method",
+                title: LocaleKeys.cart_ship.tr(),
                 headerType: Header_Type.barNormal),
             body: SingleChildScrollView(
               child: Container(
@@ -141,7 +141,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
                             height: 5,
                           ),
                           Text(
-                              "จะได้รับภายใน ${item.deliveryTakes != null ? item.deliveryTakes : ''}",
+                              "${LocaleKeys.cart_ship_at.tr()} ${item.deliveryTakes != null ? item.deliveryTakes : ''}",
                               style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp)),
                         ],
@@ -150,7 +150,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
                   ),
                   Container(
                     child: Text(
-                        "฿${NumberFormat("#,##0.00", "en_US").format(item.rate)}",
+                        "฿${NumberFormat("#,##0", "en_US").format(item.rate)}",
                         style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             color: ThemeColor.colorSale())),
@@ -233,7 +233,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
               Navigator.pop(context, item);
             },
             child: Text(
-              "Confirm",
+              LocaleKeys.btn_confirm.tr(),
               style: FunctionHelper.fontTheme(
                   color: Colors.white,
                   fontSize: SizeUtil.titleFontSize().sp,

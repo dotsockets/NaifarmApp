@@ -1,3 +1,5 @@
+import 'ThrowIfNoSuccess.dart';
+
 class CustomerCountRespone {
   int like;
   int watingReview;
@@ -5,6 +7,7 @@ class CustomerCountRespone {
   BuyOrder buyOrder;
   SellOrder sellOrder;
   int cartCount;
+  ThrowIfNoSuccess httpCallBack;
 
   CustomerCountRespone(
       {this.like = 0,
@@ -12,7 +15,8 @@ class CustomerCountRespone {
       this.notification,
       this.buyOrder,
       this.sellOrder,
-      this.cartCount});
+      this.cartCount,
+      this.httpCallBack});
 
   CustomerCountRespone.fromJson(Map<String, dynamic> json) {
     like = json['like'];

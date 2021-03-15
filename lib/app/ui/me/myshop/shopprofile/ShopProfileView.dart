@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -64,7 +65,8 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
       bloc.onError.stream.listen((event) {
         // Navigator.of(context).pop();
         onUpdate = false;
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         // Future.delayed(const Duration(milliseconds: 1000), () {
@@ -76,10 +78,13 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
             onImageUpdate = true;
             itemInfo.image[0].path = event.path;
           });
-        }
-
-        if (onUpdate || onImageUpdate) {
-          //  Navigator.pop(context,true);
+        } else if (event is MyShopRespone) {
+          Usermanager().getUser().then((value) => context
+              .read<CustomerCountBloc>()
+              .loadCustomerCount(context, token: value.token));
+          Usermanager().getUser().then((value) => context
+              .read<InfoCustomerBloc>()
+              .loadCustomInfo(context, token: value.token));
         }
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
@@ -89,7 +94,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
     }
   }
 
-  void onSave({MyShopRespone itemInfo}) {
+  void onSave({MyShopRespone itemInfo, bool onLoad = true}) {
     if (onUpdate || onImageUpdate) {
       Usermanager().getUser().then((value) => bloc.myShopUpdate(
           context: context,
@@ -102,7 +107,9 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
               stateId: itemInfo.state != null ? itemInfo.state.id : 0,
               active: isSelect ? 1 : 0),
           accessToken: value.token));
-      Navigator.pop(context, true);
+      if (onLoad) {
+        Navigator.pop(context, true);
+      }
     } else {
       Navigator.pop(context, onImageUpdate);
     }
@@ -113,7 +120,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
     _init(context);
     return WillPopScope(
       onWillPop: () async {
-        onSave();
+        onSave(itemInfo: itemInfo, onLoad: true);
         return true;
       },
       child: Container(
@@ -126,11 +133,11 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
               body: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
                 builder: (_, item) {
                   if (item is InfoCustomerLoaded) {
-                    return contentMe(
-                        itemInfo: item.profileObjectCombine.myShopRespone);
+                    itemInfo = item.profileObjectCombine.myShopRespone;
+                    return contentMe(itemInfo: itemInfo);
                   } else if (item is InfoCustomerLoading) {
-                    return contentMe(
-                        itemInfo: item.profileObjectCombine.myShopRespone);
+                    itemInfo = item.profileObjectCombine.myShopRespone;
+                    return contentMe(itemInfo: itemInfo);
                   } else {
                     return SizedBox();
                   }
@@ -155,7 +162,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  onSave(itemInfo: itemInfo);
+                  onSave(itemInfo: itemInfo, onLoad: true);
                 },
               )),
           expandedHeight: SizeUtil.meBodyHeight(220),
@@ -169,7 +176,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     height: 20,
                   ),
                   Text(
-                    "แก้ไขร้านค้า",
+                    LocaleKeys.edit.tr() + LocaleKeys.shop_title.tr(),
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.bold),
@@ -239,7 +246,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                       child: Text(LocaleKeys.btn_edit_img.tr(),
                           style: FunctionHelper.fontTheme(
                               color: Colors.white,
-                              fontSize: SizeUtil.detailSmallFontSize(),
+                              fontSize: SizeUtil.detailFontSize().sp,
                               fontWeight: FontWeight.bold)),
                     ),
                     onTap: () {
@@ -260,7 +267,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     opacityMessage: 0.5,
                     icon: '',
                     message: itemInfo.name != null ? itemInfo.name : '',
-                    title: "ชื่อร้านค้า",
+                    title: LocaleKeys.shop_name_title.tr(),
                     onClick: () async {
                       final result = await AppRoute.editNameShop(context,
                           itemInfo: itemInfo);
@@ -279,7 +286,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                             ? '${itemInfo.legalName.substring(0, 20)}...'
                             : itemInfo.legalName
                         : '',
-                    title: "ชื่อเป็นทางการ",
+                    title: LocaleKeys.shop_name_official.tr(),
                     onClick: () async {
                       final result = await AppRoute.officialName(context,
                           itemInfo: itemInfo);
@@ -293,8 +300,10 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                   ListMenuItem(
                     opacityMessage: 0.5,
                     icon: '',
-                    message: itemInfo.slug != null ? itemInfo.slug : '',
-                    title: "Slug ร้านค้า",
+                    message: itemInfo.slug != null
+                        ? "naifarm.com/${itemInfo.slug}"
+                        : "",
+                    title: LocaleKeys.shop_slug.tr(),
                     onClick: () async {
                       final result =
                           await AppRoute.editSlug(context, itemInfo: itemInfo);
@@ -311,7 +320,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     message: itemInfo.description != null
                         ? itemInfo.description
                         : '',
-                    title: "รายละเอียด",
+                    title: LocaleKeys.shop_detail_title.tr(),
                     onClick: () async {
                       final result = await AppRoute.editDetail(context,
                           itemInfo: itemInfo);
@@ -328,7 +337,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     message: itemInfo.externalUrl != null
                         ? itemInfo.externalUrl
                         : '',
-                    title: "ลิงค์ภายนอก",
+                    title: LocaleKeys.shop_external_link.tr(),
                     onClick: () async {
                       final result = await AppRoute.editExtrlUrl(context,
                           itemInfo: itemInfo);
@@ -347,7 +356,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                             ? itemInfo.state.name
                             : ''
                         : '',
-                    title: "จังหวัด",
+                    title: LocaleKeys.address_province.tr(),
                     onClick: () async {
                       final result = await AppRoute.editProvice(context,
                           itemInfo: itemInfo);
@@ -364,11 +373,18 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                     icon: '',
                     selectSwitch: isSelect,
                     isSwitch: (bool select) {
-                      onUpdate = true;
+                      onUpdate = false;
                       itemInfo.active = select ? 1 : 0;
                       setState(() => isSelect = select);
+                      // OnSave(onLoad: false,itemInfo: itemInfo);
+                      Usermanager().getUser().then((value) {
+                        bloc.myShopActive(
+                            context: context,
+                            data: itemInfo.active,
+                            accessToken: value.token);
+                      });
                     },
-                    title: "สถานะร้านค้า",
+                    title: LocaleKeys.shop_status.tr(),
                     onClick: () {
                       // AppRoute.EditpasswordStep1(context);
                     },

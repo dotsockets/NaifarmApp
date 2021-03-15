@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -50,7 +51,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
         //   Usermanager().getUser().then((value) => bloc.GetOrderById(orderType: "myshop/order",id: orderData.id, token: value.token));
         // });
         FunctionHelper.alertDialogShop(context,
-            title: "Error", message: event, showbtn: true);
+            title: LocaleKeys.btn_error.tr(), message: event, showbtn: true);
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
@@ -67,7 +68,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     init(context);
     return Container(
       color: ThemeColor.primaryColor(),
@@ -77,7 +78,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: "The seller canceled the order",
+              title: LocaleKeys.order_detail_seller_cancelled.tr(),
               headerType: Header_Type.barcartShop,
               isEnableSearch: false,
               icon: '',
@@ -101,27 +102,38 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
                             children: <Widget>[
                               itemInfo(
                                   pricecolorText: ThemeColor.colorSale(),
-                                  leading:
-                                      "The amount to be refunded (Including shipping) ",
+                                  leading: LocaleKeys
+                                      .order_detail_seller_cancelled_refund
+                                      .tr(),
                                   trailing:
-                                      "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"),
+                                      //"฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"),
+                                      "฿${item.grandTotal}"),
                               SizedBox(height: 1.0.h),
                               itemInfo(
                                   pricecolorText: Colors.grey.shade500,
-                                  leading: "Stand by ",
-                                  trailing: "Seller "),
+                                  leading: LocaleKeys
+                                      .order_detail_seller_cancelled_by
+                                      .tr(),
+                                  trailing:
+                                      LocaleKeys.order_detail_seller.tr()),
                               itemInfo(
                                   pricecolorText: Colors.grey.shade500,
-                                  leading: "Cancellation date ",
+                                  leading: LocaleKeys
+                                      .order_detail_seller_cancelled_time
+                                      .tr(),
                                   trailing:
                                       "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(DateTime.now().toString()))} "),
                               ListMenuItem(
                                 icon: "",
                                 fontWeight: FontWeight.normal,
-                                title: "Reason for cancellation ",
-                                message: "Choose a reason ",
+                                title: LocaleKeys
+                                    .order_detail_seller_cancelled_reason
+                                    .tr(),
+                                message: LocaleKeys
+                                    .order_detail_seller_cancelled_choose
+                                    .tr(),
                                 onClick: () {
-                                  _showMyDialog(context);
+                                  showMyDialog(context);
                                 },
                               ),
                               itemFormDetail()
@@ -194,7 +206,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Specify details ",
+            LocaleKeys.order_detail_seller_cancelled_detail.tr(),
             style: FunctionHelper.fontTheme(
                 color: Colors.black,
                 fontWeight: FontWeight.normal,
@@ -207,7 +219,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
             enableMaxLength: false,
             maxLength: 5000,
             borderOpacity: 0.3,
-            hint: "Specify details",
+            hint: LocaleKeys.order_detail_seller_cancelled_detail.tr(),
             maxLine: 5,
             controller: detailtController,
             inputType: TextInputType.text,
@@ -245,8 +257,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
             ),
             onPressed: () {
               FunctionHelper.confirmDialog(context,
-                  message:
-                      "Would you like to cancel your order for this product ?",
+                  message: LocaleKeys.dialog_message_confirm_cancel_seller.tr(),
                   onCancel: () {
                 Navigator.of(context).pop();
               }, onClick: () {
@@ -256,7 +267,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
               });
             },
             child: Text(
-              "Confirm ",
+              LocaleKeys.btn_confirm.tr(),
               style: FunctionHelper.fontTheme(
                   color: Colors.white,
                   fontSize: SizeUtil.titleFontSize().sp,
@@ -268,7 +279,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
     );
   }
 
-  Future<void> _showMyDialog(BuildContext context) async {
+  Future<void> showMyDialog(BuildContext context) async {
     showDialog<bool>(
       context: context,
       barrierDismissible: true,
@@ -298,7 +309,9 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
                           padding: const EdgeInsets.all(12.0),
                           child: Center(
                               child: Text(
-                            "Select a reason for cancellation",
+                            LocaleKeys.select.tr() +
+                                LocaleKeys.order_detail_seller_cancelled_reason
+                                    .tr(),
                             style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.bold),
@@ -321,7 +334,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
                                   padding: const EdgeInsets.all(15.0),
                                   width: MediaQuery.of(context).size.width,
                                   child: Text(
-                                    "Out of stock ",
+                                    LocaleKeys.cart_outstock.tr(),
                                     style: FunctionHelper.fontTheme(
                                         color: Colors.grey.shade700,
                                         fontSize: SizeUtil.titleFontSize().sp,
@@ -343,7 +356,9 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
                                   padding: const EdgeInsets.all(15.0),
                                   width: MediaQuery.of(context).size.width,
                                   child: Text(
-                                    "Payment not received ",
+                                    LocaleKeys
+                                        .order_detail_seller_cancelled_notpay
+                                        .tr(),
                                     style: FunctionHelper.fontTheme(
                                         color: Colors.grey.shade700,
                                         fontSize: SizeUtil.titleFontSize().sp,

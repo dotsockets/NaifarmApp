@@ -44,7 +44,8 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
@@ -143,8 +144,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                                 // ),
                                 // SizedBox(height: 15,),
                                 BuildEditText(
-                                  head: "New " +
-                                      LocaleKeys.my_profile_password.tr(),
+                                  head: LocaleKeys.edit_password_new.tr(),
                                   hint: LocaleKeys.set_default.tr() +
                                       LocaleKeys.my_profile_password.tr(),
                                   inputType: TextInputType.text,
@@ -163,8 +163,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
 
                                 BuildEditText(
                                   head: LocaleKeys.btn_confirm.tr() +
-                                      " New " +
-                                      LocaleKeys.my_profile_password.tr(),
+                                      LocaleKeys.edit_password_new.tr(),
                                   hint: LocaleKeys.set_default.tr() +
                                       LocaleKeys.my_profile_password.tr(),
                                   inputType: TextInputType.text,

@@ -44,7 +44,8 @@ class ForgotSetNewPasswordState extends State<ForgotSetNewPasswordView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;

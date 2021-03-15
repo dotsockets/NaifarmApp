@@ -69,14 +69,15 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
         });
       });
       bloc.onError.stream.listen((event) {
+        onDialog = false;
         if (event.status == 0 || event.status >= 500) {
-          Future.delayed(const Duration(milliseconds: 500), () {
+          Future.delayed(const Duration(milliseconds: 300), () {
             FunctionHelper.alertDialogRetry(context,
                 cancalMessage: "Exit",
                 callCancle: () {
                   exit(0);
                 },
-                title: "Error",
+                title: LocaleKeys.btn_error.tr(),
                 message: event.message,
                 callBack: () {
                   onDialog = true;
@@ -196,31 +197,57 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                           ),
                         ),
                       );
-                    } else {
+                    } else if (item is HomeDataError) {
                       if (onDialog) {
                         onDialog = false;
                         bloc.onError.add(ThrowIfNoSuccess(
-                            code: 500,
+                            status: 500,
                             message:
-                                "Please check your internet. And do the list again"));
+                                item.homeObjectCombine.httpCallBack.message));
                       }
 
-                      return Column(
-                        children: [
-                          HomeHeader(
-                            snapshot: HomeObjectCombine(),
-                          ),
-                          SizedBox(
-                            height: 35.0.h,
-                          ),
-                          Platform.isAndroid
-                              ? SizedBox(
-                                  width: 5.0.w,
-                                  height: 5.0.w,
-                                  child: CircularProgressIndicator())
-                              : CupertinoActivityIndicator()
-                        ],
-                      );
+                      return item.homeObjectCombine.productRespone != null
+                          ? SingleChildScrollView(
+                              child: Container(
+                                color: Colors.grey.shade300,
+                                child: StickyHeader(
+                                  header: Column(
+                                    children: [
+                                      HomeHeader(
+                                          snapshot: item.homeObjectCombine,
+                                          onTap: (CategoryGroupData val) {
+                                            AppRoute.categoryDetail(
+                                                context, val.id,
+                                                title: val.name);
+                                          }),
+                                    ],
+                                  ),
+                                  content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        content(item: item.homeObjectCombine),
+                                      ]),
+                                ),
+                              ),
+                            )
+                          : Column(
+                              children: [
+                                HomeHeader(
+                                  snapshot: HomeObjectCombine(),
+                                ),
+                                SizedBox(
+                                  height: 35.0.h,
+                                ),
+                                Platform.isAndroid
+                                    ? SizedBox(
+                                        width: 5.0.w,
+                                        height: 5.0.w,
+                                        child: CircularProgressIndicator())
+                                    : CupertinoActivityIndicator()
+                              ],
+                            );
+                    } else {
+                      return SizedBox();
                     }
                   },
                 )

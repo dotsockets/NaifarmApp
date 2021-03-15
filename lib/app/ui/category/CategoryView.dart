@@ -156,8 +156,8 @@ class _CategoryViewState extends State<CategoryView> {
             ),
             SizedBox(height: 1.0.h),
             Container(
-                height: SizeUtil.titleSmallFontSize().sp * 2.5,
-                width: 15.0.w,
+                height: SizeUtil.titleSmallFontSize().sp * 2.7,
+                width: 16.0.w,
                 child: Text(
                   item.name,
                   maxLines: 2,

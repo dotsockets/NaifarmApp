@@ -171,7 +171,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                           productRespone:
                               (snapshot.data as CategoryObjectCombin)
                                   .hotProduct,
-                          iconInto: 'assets/images/svg/product_hot.svg',
+                          imageIcon: 'assets/images/png/product_hot.png',
                           onSelectMore: () {
                             AppRoute.productMore(
                                 apiLink:
@@ -189,7 +189,6 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                                     data: item));
                           },
                           borderRadius: false,
-                          iconSize: 25,
                           tagHero: "sell",
                         );
                       } else {

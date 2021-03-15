@@ -261,7 +261,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
                                         height: 20,
                                       ),
                                       BuildEditText(
-                                        head: "ราคาโปรโมชั่น" +
+                                        head: LocaleKeys.cart_promotion.tr() +
                                             " * (" +
                                             LocaleKeys.my_product_baht.tr() +
                                             ")",
@@ -423,7 +423,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Edit picture",
+                  Text(LocaleKeys.btn_edit_img.tr(),
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp)),
                   Icon(
@@ -457,7 +457,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Open sales",
+                Text(LocaleKeys.my_product_sell_open.tr(),
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp)),
                 FlutterSwitch(
@@ -499,15 +499,22 @@ class _MyNewProductViewState extends State<MyNewProductView> {
               children: [
                 Expanded(
                   child: buildButtonCancleItem(
-                      btnTxt: "Delete", index: 0, enable: enable),
+                      btnTxt: LocaleKeys.cart_del.tr(),
+                      index: 0,
+                      enable: enable),
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 Expanded(
-                  child:
-                      buildButtonItem(btnTxt: "Save", index: 1, enable: enable),
-                )
+                  child: buildButtonItem(
+                      btnTxt: LocaleKeys.btn_save.tr(),
+                      index: 1,
+                      enable: enable),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
               ],
             )));
   }

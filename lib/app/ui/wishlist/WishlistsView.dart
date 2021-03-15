@@ -46,7 +46,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
       bloc.onError.stream.listen((event) {
         Future.delayed(const Duration(milliseconds: 500), () {
           FunctionHelper.alertDialogRetry(context,
-              title: "Error",
+              title: LocaleKeys.btn_error.tr(),
               message: event.message,
               callBack: () => Usermanager().getUser().then(
                   (value) => bloc.getMyWishlists(context, token: value.token)));
@@ -247,7 +247,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
       children: [
         Container(
           height: SizeUtil.titleSmallFontSize().sp * 3.0,
-          child: Text(item.product.name,
+          child: Text(item.product != null ? item.product.name : 'ไม่พบสินค้า',
               maxLines: 2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
@@ -263,18 +263,24 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            item.product.offerPrice != null
-                ? Text("${item.product.salePrice}",
+            item.product != null && item.product.offerPrice != null
+                ? Text(
+                    "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}",
                     style: FunctionHelper.fontTheme(
                         color: Colors.grey,
-                        fontSize: SizeUtil.priceFontSize().sp - 2,
+                        fontSize: SizeUtil.priceFontSize().sp - 1,
                         decoration: TextDecoration.lineThrough))
                 : SizedBox(),
-            SizedBox(width: item.product.offerPrice != null ? 1.0.w : 0),
+            SizedBox(
+                width: item.product != null && item.product.offerPrice != null
+                    ? 1.0.w
+                    : 0),
             Text(
-              item.product.offerPrice != null
-                  ? "฿${item.product.offerPrice}"
-                  : "฿${item.product.salePrice}",
+              item.product != null
+                  ? item.product.offerPrice != null
+                      ? "฿${NumberFormat("#,##0", "en_US").format(item.product.offerPrice)}"
+                      : "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}"
+                  : "000",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: FunctionHelper.fontTheme(
@@ -296,11 +302,12 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                   allowHalfRating: false,
                   onRated: (v) {},
                   starCount: 5,
-                  rating:
-                      item.product.rating != null && item.product.rating != 0
-                          ? item.product.rating.toDouble()
-                          : 0.0,
-                  size: 3.0.w,
+                  rating: item.product != null &&
+                          item.product.rating != null &&
+                          item.product.rating != 0
+                      ? item.product.rating.toDouble()
+                      : 0.0,
+                  size: 3.5.w,
                   isReadOnly: true,
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half,
@@ -309,9 +316,9 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                   spacing: 0.0),
             ),
             Text(
-                "${LocaleKeys.my_product_sold.tr()} ${item.product.saleCount != null ? item.product.saleCount.toString() : '0'} ${LocaleKeys.cart_piece.tr()}",
+                "${LocaleKeys.my_product_sold.tr()} ${item.product != null && item.product.saleCount != null ? item.product.saleCount.toString() : '0'} ${LocaleKeys.cart_piece.tr()}",
                 style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.detailSmallFontSize().sp,
+                    fontSize: SizeUtil.detailFontSize().sp,
                     color: Colors.black,
                     fontWeight: FontWeight.w500))
           ],
@@ -350,8 +357,9 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                           height: 40.0.w,
                         ),
                       ),
-                      imageUrl:
-                          ProductLandscape.covertUrlImage(item.product.image),
+                      imageUrl: item.product != null
+                          ? ProductLandscape.covertUrlImage(item.product.image)
+                          : '',
                       errorWidget: (context, url, error) => Container(
                           width: 30.0.w,
                           height: 40.0.w,
@@ -372,14 +380,19 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                         padding: EdgeInsets.only(
                             left: 10, right: 10, top: 5, bottom: 5),
                         child: Text(
-                          "${item.product.discountPercent}%",
+                          item.product != null
+                              ? "${item.product.discountPercent}%"
+                              : '',
                           style: GoogleFonts.sarabun(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: SizeUtil.titleSmallFontSize().sp),
                         ),
                       ),
-                      visible: item.product.discountPercent > 0 ? true : false,
+                      visible: item.product != null &&
+                              item.product.discountPercent > 0
+                          ? true
+                          : false,
                     ),
                     LikeButton(
                       size: 10.0.w,
@@ -416,24 +429,30 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
         ),
       ),
       onTap: () {
-        var data = ProducItemRespone(
-            name: item.product.name,
-            salePrice: item.product.salePrice,
-            hasVariant: item.product.hasVariant,
-            brand: item.product.brand,
-            minPrice: item.product.minPrice,
-            maxPrice: item.product.maxPrice,
-            slug: item.product.slug,
-            offerPrice: item.product.offerPrice,
-            id: item.product.id,
-            saleCount: item.product.saleCount,
-            discountPercent: item.product.discountPercent,
-            rating: item.product.rating,
-            reviewCount: item.product.reviewCount,
-            shop: ShopItem(id: item.product.shopId),
-            image: item.product.image);
-        AppRoute.productDetail(context,
-            productImage: "wishlist_${item.id}", productItem: data);
+        if (item.product != null) {
+          var data = ProducItemRespone(
+              name: item.product.name,
+              salePrice: item.product.salePrice,
+              hasVariant: item.product.hasVariant,
+              brand: item.product.brand,
+              minPrice: item.product.minPrice,
+              maxPrice: item.product.maxPrice,
+              slug: item.product.slug,
+              offerPrice: item.product.offerPrice,
+              id: item.product.id,
+              saleCount: item.product.saleCount,
+              discountPercent: item.product.discountPercent,
+              rating: item.product.rating,
+              reviewCount: item.product.reviewCount,
+              shop: ShopItem(id: item.product.shopId),
+              image: item.product.image);
+          AppRoute.productDetail(context,
+              productImage: "wishlist_${item.id}", productItem: data);
+        } else {
+          AppRoute.productDetail(context,
+              productImage: "wishlist_${item.id}",
+              productItem: ProducItemRespone(id: item.id));
+        }
       },
     );
   }

@@ -59,7 +59,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       bloc.onError.stream.listen((event) {
         if (event.status > 400) {
           FunctionHelper.alertDialogRetry(context,
-              title: "Error",
+              title: LocaleKeys.btn_error.tr(),
               message:
                   "The transaction cannot be performed, please contact the seller. ",
               callBack: () {
@@ -415,54 +415,52 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           color: Color(ColorUtils.hexToInt("#84643b"))),
                     ),
                   );
-                else
+                else {
                   bloc.sumTotalPayment(context,
                       snapshot: snapshot.data, index: index); //
-                return InkWell(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("${snapshot.data.carrier.name}",
-                          // "${snapshot.data.carrier.name} [${snapshot.data.name}]",
-                          style: FunctionHelper.fontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              color: Colors.black)),
-                      Row(
-                        children: [
-                          SizedBox(width: 1.0.w),
-                          Text(
-                              "฿${snapshot.data.rate != null ? snapshot.data.rate : 0}",
-                              // "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data.rate != null ? snapshot.data.rate : 0)}",
-                              style: FunctionHelper.fontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  color: Colors.black)),
-                          SizedBox(width: 1.0.w),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.grey.withOpacity(0.7),
-                            size: 4.0.w,
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  onTap: () async {
-                    bloc.checkNoteUpdate = true;
-                    final result = await AppRoute.deliverySelect(
-                        context: context,
-                        shopId: item.shopId,
-                        selectId: snapshot.data.id);
-                    if (result != null) {
-                      bloc.cartList.value.data[index].shippingRateId =
-                          result.id;
-                      bloc.cartList.value.data[index].carrierId =
-                          result.carrierId;
-                      bloc.cartList.value.data[index].shippingZoneId =
-                          result.shippingZoneId;
-                      bloc.cartList.add(bloc.cartList.value);
-                    }
-                  },
-                );
+
+                  return InkWell(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("${snapshot.data.carrier.name}",
+                            // "${snapshot.data.carrier.name} [${snapshot.data.name}]",
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                color: Colors.black)),
+                        Row(
+                          children: [
+                            SizedBox(width: 1.0.w),
+                            Text(
+                                "฿${snapshot.data.rate != null ? snapshot.data.rate : 0}",
+                                // "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data.rate != null ? snapshot.data.rate : 0)}",
+                                style: FunctionHelper.fontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    color: Colors.black)),
+                            SizedBox(width: 1.0.w),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.grey.withOpacity(0.7),
+                              size: 4.0.w,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    onTap: () async {
+                      bloc.checkNoteUpdate = true;
+                      final result = await AppRoute.deliverySelect(
+                          context: context,
+                          shopId: item.shopId,
+                          selectId: snapshot.data.id);
+                      if (result != null) {
+                        bloc.sumTotalPayment(context,
+                            snapshot: result, index: index); //
+                        bloc.cartList.add(bloc.cartList.value);
+                      }
+                    },
+                  );
+                }
             }
           },
         ),
@@ -536,30 +534,40 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         SizedBox(
           height: 1.0.h,
         ),
-        Container(
-          color: Colors.white,
-          child: Padding(
-            padding:
-                const EdgeInsets.only(left: 0, right: 0, bottom: 10, top: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                    "คำสั่งซื้อทั้งหมด ${item.itemCount} " +
-                        LocaleKeys.cart_piece.tr(),
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
-                        color: Colors.black)),
-                Text("฿${item.total}",
-                    //   Text("฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
-                        fontWeight: FontWeight.w500,
-                        color: ThemeColor.colorSale())),
-              ],
-            ),
-          ),
-        )
+        StreamBuilder(
+            stream: bloc.shippingCost.stream,
+            initialData: 0,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 0, right: 0, bottom: 10, top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                            "${LocaleKeys.cart_order.tr()} ${item.itemCount} " +
+                                LocaleKeys.cart_piece.tr(),
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                color: Colors.black)),
+                        Text(
+                            "฿${item.total + (item.shippingRates != null ? item.shippingRates.rate : 0)}",
+                            //   Text("฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.w500,
+                                color: ThemeColor.colorSale())),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return SizedBox();
+              }
+            })
       ],
     );
   }
@@ -588,7 +596,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         child: ListMenuItem(
                           icon: 'assets/images/svg/payment.svg',
                           title: LocaleKeys.select.tr() +
-                              LocaleKeys.me_title_payment.tr(),
+                              LocaleKeys.me_title_pay.tr(),
                           message: data.name,
                           iconSize: 7.0.w,
                           fontWeight: FontWeight.w500,
@@ -606,7 +614,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         child: ListMenuItem(
                           icon: 'assets/images/svg/payment.svg',
                           title: LocaleKeys.select.tr() +
-                              LocaleKeys.me_title_payment.tr(),
+                              LocaleKeys.me_title_pay.tr(),
                           message: "Please select",
                           iconSize: 7.0.w,
                           fontWeight: FontWeight.w500,
@@ -916,12 +924,13 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                                "คำสั่งซื้อทั้งหมด ${item.quantity} " +
+                                "${LocaleKeys.cart_order.tr()} ${item.quantity} " +
                                     LocaleKeys.cart_item.tr(),
                                 style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     color: Colors.black)),
-                            Text("฿${item.total}",
+                            Text(
+                                "฿${bloc.cartList.value.data[index].total + (item.shippingRates != null ? item.shippingRates.rate : 0)}",
                                 //  "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
                                 style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
@@ -932,7 +941,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                       ),
                     ),
                     BuildEditText(
-                      hint: "note...",
+                      hint: "${LocaleKeys.cart_note.tr()}...",
                       initialValue: item.note,
                       maxLine: 3,
                       inputType: TextInputType.text,
@@ -972,7 +981,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                             Navigator.pop(context);
                           },
                           child: Text(
-                            "Leave a message",
+                            LocaleKeys.cart_message.tr(),
                             style: FunctionHelper.fontTheme(
                                 color: Colors.white,
                                 fontSize: SizeUtil.titleFontSize().sp,

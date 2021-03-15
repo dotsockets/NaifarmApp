@@ -52,7 +52,8 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
       // });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         if (event is ImageUploadRespone) {
@@ -74,26 +75,39 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
   @override
   Widget build(BuildContext context) {
     _init();
-    return Container(
-      color: ThemeColor.primaryColor(),
-      child: SafeArea(
-        bottom: false,
-        child: Scaffold(
-            key: _scaffoldKey,
-            backgroundColor: Colors.grey.shade200,
-            body: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
-              builder: (_, item) {
-                if (item is InfoCustomerLoaded) {
-                  return contentMe(
-                      itemInfo: item.profileObjectCombine.customerInfoRespone);
-                } else if (item is InfoCustomerLoading) {
-                  return contentMe(
-                      itemInfo: item.profileObjectCombine.customerInfoRespone);
-                } else {
-                  return SizedBox();
-                }
-              },
-            )),
+    return WillPopScope(
+      onWillPop: () async {
+        if (onUpdate) {
+          Usermanager().getUser().then((value) => bloc.modifyProfile(
+              context: context,
+              data: itemInfo,
+              token: value.token,
+              onload: false));
+        }
+        Navigator.pop(context, onImageUpdate);
+        return true;
+      },
+      child: Container(
+        color: ThemeColor.primaryColor(),
+        child: SafeArea(
+          bottom: false,
+          child: Scaffold(
+              key: _scaffoldKey,
+              backgroundColor: Colors.grey.shade200,
+              body: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+                builder: (_, item) {
+                  if (item is InfoCustomerLoaded) {
+                    itemInfo = item.profileObjectCombine.customerInfoRespone;
+                    return contentMe(itemInfo: itemInfo);
+                  } else if (item is InfoCustomerLoading) {
+                    itemInfo = item.profileObjectCombine.customerInfoRespone;
+                    return contentMe(itemInfo: itemInfo);
+                  } else {
+                    return SizedBox();
+                  }
+                },
+              )),
+        ),
       ),
     );
   }
@@ -207,7 +221,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                       child: Text(LocaleKeys.btn_edit_img.tr(),
                           style: FunctionHelper.fontTheme(
                               color: Colors.white,
-                              fontSize: SizeUtil.detailSmallFontSize(),
+                              fontSize: SizeUtil.detailFontSize(),
                               fontWeight: FontWeight.bold)),
                     ),
                     onTap: () {

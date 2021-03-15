@@ -44,7 +44,7 @@ class _EditDetailViewState extends State<EditDetailView> {
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
             isEnableSearch: false,
-            title: "แก้ไขรายละเอียดร้านค้า",
+            title: LocaleKeys.edit.tr() + LocaleKeys.shop_detail_title.tr(),
             headerType: Header_Type.barNormal,
           ),
           body: Container(
@@ -102,8 +102,9 @@ class _EditDetailViewState extends State<EditDetailView> {
       child: Column(
         children: [
           BuildEditText(
-            head: "รายละเอียดร้านค้า",
-            hint: "ระบุรายละเอียร้านค้า",
+            head: LocaleKeys.shop_detail_title.tr(),
+            hint:
+                LocaleKeys.set_default.tr() + LocaleKeys.shop_detail_title.tr(),
             inputType: TextInputType.text,
             borderOpacity: 0.2,
             maxLine: 8,

@@ -195,6 +195,12 @@ class APIRepository {
         page: page, limit: limit, link: link);
   }
 
+  Future<ApiResult> myShopActive(
+      {BuildContext context, int data, String accessToken}) {
+    return _apiProvider.myShopActive(context,
+        data: data, accessToken: accessToken);
+  }
+
   Future<ApiResult> flashsale(BuildContext context, {String page, int limit}) {
     return _apiProvider.flashsale(context, page: page, limit: limit);
   }
@@ -362,6 +368,12 @@ class APIRepository {
       {ProductMyShopRequest shopRequest, int productId, String token}) {
     return _apiProvider.updateProductMyShop(context,
         shopRequest: shopRequest, productId: productId, token: token);
+  }
+
+  Future<ApiResult> activeProduct(BuildContext context,
+      {int active, int productId, String token}) {
+    return _apiProvider.activeProduct(context,
+        ative: active, productId: productId, token: token);
   }
 
   Future<ApiResult> deleteProductMyShop(BuildContext context,

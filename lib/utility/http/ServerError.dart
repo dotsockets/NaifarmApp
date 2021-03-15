@@ -1,23 +1,25 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ServerError {
   static ApiResult dioErrorExpction(DioError error) {
-    String message = "";
+    String message = LocaleKeys.server_error_again.tr();
 
     switch (error.type) {
       case DioErrorType.CANCEL:
-        message = "Request was cancelled";
+        message = LocaleKeys.server_error_cancel.tr();
         break;
       case DioErrorType.CONNECT_TIMEOUT:
-        message = "Connection timeout";
+        message = LocaleKeys.server_error_timeout_connect.tr();
         break;
       case DioErrorType.DEFAULT:
-        message = "Connection failed due to internet connection";
+        message = LocaleKeys.server_error_default.tr();
         break;
       case DioErrorType.RECEIVE_TIMEOUT:
-        message = "Receive timeout in connection";
+        message = LocaleKeys.server_error_timeout_receive.tr();
         break;
       case DioErrorType.RESPONSE:
         if (error.response.statusCode == 406 ||
@@ -26,20 +28,20 @@ class ServerError {
               httpCallBack: ThrowIfNoSuccess.fromJson(error.response.data));
         } else {
           message =
-              "Received invalid status code: ${error.response.statusCode}";
+              "${LocaleKeys.server_error_status.tr()}: ${error.response.statusCode}";
         }
         break;
       case DioErrorType.SEND_TIMEOUT:
-        message = "Receive timeout in send request";
+        message = LocaleKeys.server_error_timeout_send.tr();
         break;
     }
     if (error.response != null) {
       return ApiResult(
           httpCallBack: ThrowIfNoSuccess(
-              code: error.response.statusCode, message: message));
+              status: error.response.statusCode, message: message));
     } else {
       return ApiResult(
-          httpCallBack: ThrowIfNoSuccess(code: 000, message: message));
+          httpCallBack: ThrowIfNoSuccess(status: 000, message: message));
     }
   }
 }

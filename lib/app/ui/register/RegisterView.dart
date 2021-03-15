@@ -48,7 +48,8 @@ class _RegisterViewState extends State<RegisterView> {
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         //if (event.error.status == 406) {
-        FunctionHelper.alertDialogShop(context, title: "Error", message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event.message);
         //}
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
@@ -219,7 +220,7 @@ class _RegisterViewState extends State<RegisterView> {
                 onPressed: () =>
                     bloc.loginFacebook(context: context, isLoad: true),
                 child: //Text(LocaleKeys.facebook_regis_btn.tr(),
-                    //style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
+                    //style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                     Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -232,7 +233,7 @@ class _RegisterViewState extends State<RegisterView> {
                       width: 2.0.w,
                     ),
                     Text(
-                      "Continue with Facebook",
+                      LocaleKeys.btn_facebook.tr(),
                       style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,

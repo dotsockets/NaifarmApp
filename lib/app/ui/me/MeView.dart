@@ -37,7 +37,7 @@ class _MeViewState extends State<MeView> with RouteAware {
   MemberBloc bloc;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  bool onDialog = true;
   StreamController<bool> controller = new StreamController<bool>();
   ScrollController _scrollController = ScrollController();
   final expandedBar = BehaviorSubject<bool>();
@@ -126,6 +126,11 @@ class _MeViewState extends State<MeView> with RouteAware {
                 key: _scaffoldKey,
                 backgroundColor: Colors.grey.shade300,
                 body: _contentMe());
+          } else if (count is InfoCustomerError) {
+            return Scaffold(
+                key: _scaffoldKey,
+                backgroundColor: Colors.grey.shade300,
+                body: _contentMe());
           } else {
             return Center(
               child: Platform.isAndroid
@@ -197,7 +202,13 @@ class _MeViewState extends State<MeView> with RouteAware {
                     return _imageHeader(
                         info: item.profileObjectCombine.customerInfoRespone);
                   } else if (item is InfoCustomerLoading) {
-                    return _imageHeader();
+                    return _imageHeader(
+                        info: item.profileObjectCombine != null
+                            ? item.profileObjectCombine.customerInfoRespone
+                            : []);
+                  } else if (item is InfoCustomerError) {
+                    return _imageHeader(
+                        info: item.profileObjectCombine.customerInfoRespone);
                   } else {
                     return SizedBox();
                   }
@@ -213,7 +224,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                 if (item is InfoCustomerLoaded) {
                   if (item.profileObjectCombine.shppingMyShopRespone.data
                       .isNotEmpty) {
-                    return _bodyContent(
+                    return bodyContent(
                         wigitHight: item
                                     .profileObjectCombine
                                     .shppingMyShopRespone
@@ -224,10 +235,26 @@ class _MeViewState extends State<MeView> with RouteAware {
                             ? 100.0.h
                             : 90.0.h);
                   } else {
-                    return _bodyContent(wigitHight: 80.0.h);
+                    return bodyContent(wigitHight: 80.0.h);
                   }
                 } else if (item is InfoCustomerLoading) {
-                  return _bodyContent(wigitHight: 80.0.h);
+                  return bodyContent(wigitHight: 80.0.h);
+                } else if (item is InfoCustomerError) {
+                  if (item.profileObjectCombine.shppingMyShopRespone.data
+                      .isNotEmpty) {
+                    return bodyContent(
+                        wigitHight: item
+                                    .profileObjectCombine
+                                    .shppingMyShopRespone
+                                    .data[0]
+                                    .rates
+                                    .length ==
+                                0
+                            ? 100.0.h
+                            : 90.0.h);
+                  } else {
+                    return bodyContent(wigitHight: 80.0.h);
+                  }
                 } else {
                   return SizedBox();
                 }
@@ -239,7 +266,7 @@ class _MeViewState extends State<MeView> with RouteAware {
     );
   }
 
-  Widget _bodyContent({double wigitHight}) {
+  Widget bodyContent({double wigitHight}) {
     return Container(
       height: SizeUtil.meBodyHeight(wigitHight),
       color: Colors.white,
@@ -295,7 +322,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                       scaffoldKey: _scaffoldKey,
                       onStatus: (bool status) {
                         if (status) {
-                          Future.delayed(const Duration(milliseconds: 500), () {
+                          Future.delayed(const Duration(milliseconds: 300), () {
                             Usermanager().getUser().then((value) => context
                                 .read<CustomerCountBloc>()
                                 .loadCustomerCount(context,
@@ -397,7 +424,10 @@ class _MeViewState extends State<MeView> with RouteAware {
                 ),
               ),
               SizedBox(height: 2.0.h),
-              Text(info != null ? info.name : "กำลังโหลด",
+              Text(
+                  info != null
+                      ? info.name
+                      : LocaleKeys.dialog_message_loading.tr(),
                   style: FunctionHelper.fontTheme(
                       color: Colors.white,
                       fontSize: SizeUtil.titleFontSize().sp,

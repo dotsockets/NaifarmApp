@@ -2,6 +2,7 @@ import 'CategoryGroupRespone.dart';
 import 'FlashsaleRespone.dart';
 import 'ProductRespone.dart';
 import 'SliderRespone.dart';
+import 'ThrowIfNoSuccess.dart';
 
 class HomeObjectCombine {
   SliderRespone sliderRespone;
@@ -12,6 +13,7 @@ class HomeObjectCombine {
   ProductRespone martket;
   FlashsaleRespone flashsaleRespone;
   ProductRespone productForyou;
+  ThrowIfNoSuccess httpCallBack;
 
   HomeObjectCombine(
       {this.sliderRespone,
@@ -21,7 +23,8 @@ class HomeObjectCombine {
       this.trendingRespone,
       this.martket,
       this.flashsaleRespone,
-      this.productForyou});
+      this.productForyou,
+      this.httpCallBack});
 
   HomeObjectCombine.fromJson(Map<String, dynamic> json) {
     sliderRespone = json['sliderRespone'] != null

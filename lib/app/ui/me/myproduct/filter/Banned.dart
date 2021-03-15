@@ -18,6 +18,7 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -45,10 +46,13 @@ class _BannedState extends State<Banned> {
   bool stepPage = false;
   final _searchText = BehaviorSubject<String>();
   int total = 0;
+  int countDel = 0;
 
   init() {
     count = 0;
-    _searchText.add(widget.searchTxt);
+    if (widget.searchTxt.isNotEmpty) {
+      _searchText.add(widget.searchTxt);
+    }
 
     _searchText.stream.listen((event) {
       NaiFarmLocalStorage.getNowPage().then((value) {
@@ -66,11 +70,10 @@ class _BannedState extends State<Banned> {
       bloc = ProductBloc(AppProvider.getApplication(context));
 
       bloc.onSuccess.stream.listen((event) {
-        widget.searchTxt.length != 0
-            ? _reloadFirstSearch()
-            : _reloadFirstPage();
-
-        if (event is bool) {
+        if (event is ProductMyShopRespone || event is bool) {
+          widget.searchTxt.length != 0
+              ? _reloadFirstSearch()
+              : _reloadFirstPage();
           // bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
         }
       });
@@ -80,9 +83,14 @@ class _BannedState extends State<Banned> {
           page=1;
           _reloadData();
         });*/
-        FunctionHelper.alertDialogShop(context,
-            title: "Error", message: event.message);
-        //  FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event.error);
+        FunctionHelper.alertDialogRetry(context,
+            title: LocaleKeys.btn_error.tr(),
+            message: event.message, callBack: () {
+          widget.searchTxt.length != 0
+              ? _reloadFirstSearch()
+              : _reloadFirstPage();
+        });
+        //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event.error);
         widget.searchTxt.length != 0
             ? _reloadFirstSearch()
             : _reloadFirstPage();
@@ -137,7 +145,7 @@ class _BannedState extends State<Banned> {
                           buildProduct(item: item.data[index], index: index),
                     ),
                   ),
-                  if (item.data.length != item.total)
+                  if (item.data.length != item.total - countDel)
                     Container(
                       padding: EdgeInsets.all(20),
                       child: Row(
@@ -152,7 +160,7 @@ class _BannedState extends State<Banned> {
                           SizedBox(
                             width: 10,
                           ),
-                          Text("Loading",
+                          Text(LocaleKeys.dialog_message_loading.tr(),
                               style: FunctionHelper.fontTheme(
                                   color: Colors.grey,
                                   fontSize: SizeUtil.priceFontSize().sp))
@@ -299,11 +307,12 @@ class _BannedState extends State<Banned> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               item.offerPrice != null
-                                  ? Text("${item.salePrice}",
+                                  ? Text(
+                                      "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
                                       style: FunctionHelper.fontTheme(
                                           color: Colors.grey,
                                           fontSize:
-                                              SizeUtil.priceFontSize().sp - 2,
+                                              SizeUtil.priceFontSize().sp - 1,
                                           decoration:
                                               TextDecoration.lineThrough))
                                   : SizedBox(),
@@ -311,8 +320,8 @@ class _BannedState extends State<Banned> {
                                   width: item.offerPrice != null ? 1.0.w : 0),
                               Text(
                                 item.offerPrice != null
-                                    ? "฿${item.offerPrice}"
-                                    : "฿${item.salePrice}",
+                                    ? "฿${NumberFormat("#,##0", "en_US").format(item.offerPrice)}"
+                                    : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: FunctionHelper.fontTheme(
@@ -379,7 +388,8 @@ class _BannedState extends State<Banned> {
                                       child: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            "ตัวเลือกสินค้า" + " ไม่มี",
+                                            LocaleKeys.my_product_option.tr() +
+                                                " ${LocaleKeys.my_product_empty.tr()}",
                                             style: FunctionHelper.fontTheme(
                                                 fontSize:
                                                     SizeUtil.detailFontSize()
@@ -437,7 +447,7 @@ class _BannedState extends State<Banned> {
                                 .add(bloc.productMyShopRes.value);
 
                             Usermanager().getUser().then((value) =>
-                                bloc.updateProductMyShop(context,
+                                bloc.activeProduct(context,
                                     isActive: IsActive.ReplacemenView,
                                     shopRequest: ProductMyShopRequest(
                                         name: item.name, active: val ? 1 : 0),
@@ -513,6 +523,7 @@ class _BannedState extends State<Banned> {
                                   bloc.deleteProductMyShop(context,
                                       productId: item.id, token: value.token));
                               Navigator.of(context).pop();
+                              countDel++;
                             }, onCancel: () {
                               Navigator.of(context).pop();
                             });

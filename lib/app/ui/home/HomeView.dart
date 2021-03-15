@@ -80,7 +80,7 @@ class _HomeViewState extends State<HomeView>
   }
 
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     init();
 
     return WillPopScope(

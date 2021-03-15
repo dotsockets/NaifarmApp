@@ -48,8 +48,8 @@ class _NotiCusState extends State<NotiCus>
       bloc.onError.stream.listen((event) {
         //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
 
-        FunctionHelper.alertDialogShop(context, title: "Error", message: event,
-            callCancle: () {
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event, callCancle: () {
           // if(widget.btnBack){
           //   AppRoute.PoppageCount(context: context,countpage: 2);
           // }else{
@@ -220,6 +220,27 @@ class _NotiCusState extends State<NotiCus>
               ),
               if (item.data.length != item.total)
                 Container(
+                    padding: EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Platform.isAndroid
+                            ? SizedBox(
+                                width: 5.0.w,
+                                height: 5.0.w,
+                                child: CircularProgressIndicator())
+                            : CupertinoActivityIndicator(),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("Loading",
+                            style: FunctionHelper.fontTheme(
+                                color: Colors.grey,
+                                fontSize: SizeUtil.priceFontSize().sp))
+                      ],
+                    )),
+              if (item.data.length != item.total && item.data.length > limit)
+                Container(
                   padding: EdgeInsets.all(20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -233,7 +254,7 @@ class _NotiCusState extends State<NotiCus>
                       SizedBox(
                         width: 10,
                       ),
-                      Text("Loading",
+                      Text(LocaleKeys.dialog_message_loading.tr(),
                           style: FunctionHelper.fontTheme(
                               color: Colors.grey,
                               fontSize: SizeUtil.priceFontSize().sp))
@@ -371,7 +392,7 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "คำสั่งซื้อ ",
+                    text: LocaleKeys.noti_rate1.tr(),
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -384,7 +405,7 @@ class _NotiCusState extends State<NotiCus>
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(
                     text:
-                        " สถานะยก เลิกคำสั่งซื้อ เนื่องจากไม่มีการชำระเงิน หรือผู้ซื้อยกเลิกสินค้า กรุณาติดต่อผู้ซื้อหากต้องการรับข้อมูลเพิ่มเติม",
+                        " ${LocaleKeys.noti_shop_status.tr()} ${LocaleKeys.noti_cus_cancel_status.tr()}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -398,7 +419,7 @@ class _NotiCusState extends State<NotiCus>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("อัพเดทข้อมูลร้านค้า",
+          Text(LocaleKeys.noti_shop_update.tr(),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -409,14 +430,14 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "อัพเดทข้อมูลร้านค้า ",
+                    text: "${LocaleKeys.noti_shop_update.tr()} ",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black)),
                 new TextSpan(
                     text:
-                        "${item.meta.name} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",
+                        "${item.meta.name} ${LocaleKeys.noti_shop_orderid.tr()} ",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -436,7 +457,7 @@ class _NotiCusState extends State<NotiCus>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("คำสั่งซื้อใหม่ ${item.meta.status}",
+          Text("${LocaleKeys.noti_shop_new_order.tr()} ${item.meta.status}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -447,7 +468,7 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",
+                    text: "${LocaleKeys.noti_cus_order.tr()} ",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -460,7 +481,7 @@ class _NotiCusState extends State<NotiCus>
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(
                     text:
-                        " และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt != null ? item.meta.requirePaymentAt : DateTime.now().toString()))}",
+                        " ${LocaleKeys.noti_cus_pay_at.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt != null ? item.meta.requirePaymentAt : DateTime.now().toString()))}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         color: Colors.black.withOpacity(0.8)))
@@ -476,7 +497,7 @@ class _NotiCusState extends State<NotiCus>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("คำสั่งซื้อใหม่ ${item.meta.status}",
+          Text("${LocaleKeys.noti_shop_new_order.tr()} ${item.meta.status}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -487,7 +508,7 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "คุณได้ทำการสั่งซื้อสินค้าหมายเลขสั่งซื้อ ",
+                    text: "${LocaleKeys.noti_cus_order.tr()} ",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -500,7 +521,7 @@ class _NotiCusState extends State<NotiCus>
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(
                     text:
-                        " และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt != null ? item.meta.requirePaymentAt : DateTime.now().toString()))}",
+                        " ${LocaleKeys.noti_cus_pay_at.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt != null ? item.meta.requirePaymentAt : DateTime.now().toString()))}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         color: Colors.black.withOpacity(0.8)))
@@ -516,7 +537,7 @@ class _NotiCusState extends State<NotiCus>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("คำสั่งซื้อถูกจัดส่งแล้ว ",
+          Text("${LocaleKeys.noti_cus_complete.tr()} ",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -527,7 +548,7 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "สินค้าทุกชิ้นในคำสั้งซื้อหมายเลข ",
+                    text: "${LocaleKeys.noti_cus_orderid.tr()} ",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -542,7 +563,7 @@ class _NotiCusState extends State<NotiCus>
                 //     style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
                     text:
-                        " จัดส่งแล้วเมื่อ 19-06-2563 กรุณารอให้ผู้ซื้อตรวจสอบและยืนยันการรับสินค้าภายใน 3 วัน จากนั้น NaiFarm จะดำเนินการโอนเงินให้คุณ",
+                        " ${LocaleKeys.noti_shipped2.tr()}${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.readAt != null ? item.readAt : DateTime.now().toString()))} กรุณาตรวจสอบและยืนยันการรับสินค้าภายใน 3 วันจากนั้น Naifarm จะโอนเงินให้ร้านค้า",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -559,7 +580,7 @@ class _NotiCusState extends State<NotiCus>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("คำสั่งซื้อถูกยกเลิก ",
+          Text("${LocaleKeys.noti_cus_cancel.tr()} ",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -570,7 +591,7 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "คำสั่งซื้อ  ",
+                    text: "${LocaleKeys.noti_rate1.tr()}  ",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -584,8 +605,7 @@ class _NotiCusState extends State<NotiCus>
                 //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
                 //     style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
-                    text:
-                        " ถูกยกเลิกแล้ว เพราะไม่สามารถตรวจสอบการชำระเงินของคุณได้",
+                    text: " ${LocaleKeys.noti_cus_cancel_reason.tr()}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.normal,

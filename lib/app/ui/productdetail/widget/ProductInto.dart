@@ -41,7 +41,7 @@ class ProductInto extends StatelessWidget {
         if (event != null) {
           if (event.status == 406) {
             FunctionHelper.alertDialogShop(context,
-                title: "Error", message: event.message);
+                title: LocaleKeys.btn_error.tr(), message: event.message);
           } else if (event.status == 0 || event.status >= 500) {
           } else {
             FunctionHelper.snackBarShow(
@@ -79,26 +79,31 @@ class ProductInto extends StatelessWidget {
               data.name.toString(),
               textAlign: TextAlign.left,
               style: FunctionHelper.fontTheme(
-                  fontSize: SizeUtil.priceFontSize().sp,
+                  fontSize: (SizeUtil.titleFontSize() + 2).sp,
                   fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 10),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                data.offerPrice != null
-                    ? Text("฿${data.salePrice}",
+                data.salePrice != null && data.offerPrice != null
+                    ? Text(
+                        "฿${NumberFormat("#,##0", "en_US").format(data.salePrice)}",
                         style: FunctionHelper.fontTheme(
                             color: Colors.grey,
                             fontSize: SizeUtil.priceFontSize().sp,
                             decoration: TextDecoration.lineThrough))
                     : SizedBox(),
-                SizedBox(width: data.offerPrice != null ? 1.0.w : 0),
+                SizedBox(
+                    width: data.salePrice != null && data.offerPrice != null
+                        ? 1.0.w
+                        : 0),
                 Text(
                   data.offerPrice != null
-                      ? "฿${data.offerPrice}"
-                      : "฿${data.salePrice}",
+                      ? "฿${NumberFormat("#,##0", "en_US").format(data.offerPrice)}"
+                      : "฿${NumberFormat("#,##0", "en_US").format(data.salePrice)}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: FunctionHelper.fontTheme(

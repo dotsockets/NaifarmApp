@@ -57,7 +57,8 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
@@ -123,7 +124,7 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
                             head: LocaleKeys.edit_email_new.tr(),
                             hint: LocaleKeys.set_default.tr() +
                                 LocaleKeys.edit_email_new.tr(),
-                            maxLength: 10,
+                            maxLength: 40,
                             controller: emailController,
                             onError: onError,
                             inputType: TextInputType.emailAddress,

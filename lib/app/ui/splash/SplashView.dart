@@ -71,6 +71,9 @@ class _SplashViewState extends State<SplashView>
       });
       bloc.onSuccess.stream.listen((event) {
         if (event is CategoryCombin) {
+          Future.delayed(const Duration(milliseconds: 300), () {
+            startTimer();
+          });
         } else {
           bloc.getCategoriesAll(
             context,
@@ -87,10 +90,6 @@ class _SplashViewState extends State<SplashView>
                 .loadCustomInfo(context, token: value.token));
           });
         }
-
-        Future.delayed(const Duration(milliseconds: 300), () {
-          startTimer();
-        });
       });
       // bloc.ZipHomeObject.stream.listen((event) {
       //   startTimer();

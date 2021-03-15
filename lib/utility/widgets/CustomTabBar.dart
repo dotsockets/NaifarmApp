@@ -51,7 +51,7 @@ class _CustomTabBarState extends State<CustomTabBar>
       labelPadding: EdgeInsets.zero,
       labelColor: ThemeColor.secondaryColor(),
       labelStyle: TextStyle(
-        fontSize: SizeUtil.detailSmallFontSize().sp,
+        fontSize: SizeUtil.detailFontSize().sp,
         fontWeight: FontWeight.bold,
       ),
       unselectedLabelColor: Colors.white,

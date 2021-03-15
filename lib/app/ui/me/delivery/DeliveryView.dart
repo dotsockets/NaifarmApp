@@ -34,8 +34,7 @@ class _DeliveryViewState extends State<DeliveryView> {
             .read<InfoCustomerBloc>()
             .loadCustomInfo(context, token: value.token));
       });
-      Usermanager().getUser().then((value) =>
-          bloc.loadShppingPage(context: context, token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadShppingPage(context: context,token: value.token));
     }
   }
 
@@ -87,7 +86,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                                       item.carriersRespone.data[index]);
                               if (result) {
                                 Usermanager().getUser().then((value) =>
-                                    bloc.loadShppingPage(token: value.token));
+                                    bloc.loadShppingPage(context: context,token: value.token));
                               }
                             },
                           );

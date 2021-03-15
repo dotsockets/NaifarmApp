@@ -63,7 +63,8 @@ class _LoginViewState extends State<LoginView> {
       bloc.onError.stream.listen((event) async {
         //Navigator.of(context).pop();
         await FacebookLogin().logOut();
-        FunctionHelper.alertDialogShop(context, title: "Error", message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event.message);
         //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
@@ -313,12 +314,12 @@ class _LoginViewState extends State<LoginView> {
                       width: 2.0.w,
                     ),
                     Text(
-                      "Continue with Facebook",
+                      LocaleKeys.btn_facebook.tr(),
                       style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w500),
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -462,12 +463,14 @@ class _LoginViewState extends State<LoginView> {
         !nameRegExp.hasMatch(_username.text) && _username.text.length > 10) {
       // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_phone_invalid.tr(),context: context);
       FunctionHelper.alertDialogShop(context,
-          title: "Error", message: LocaleKeys.message_error_phone_invalid.tr());
+          title: LocaleKeys.btn_error.tr(),
+          message: LocaleKeys.message_error_phone_invalid.tr());
     } else if (!validator.email(_username.text) &&
         nameRegExp.hasMatch(_username.text)) {
       //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: LocaleKeys.message_error_mail_invalid.tr());
       FunctionHelper.alertDialogShop(context,
-          title: "Error", message: LocaleKeys.message_error_mail_invalid.tr());
+          title: LocaleKeys.btn_error.tr(),
+          message: LocaleKeys.message_error_mail_invalid.tr());
     } else {
       if (checkError) {
         // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();

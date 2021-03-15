@@ -116,8 +116,7 @@ class ProductItemCard extends StatelessWidget {
         children: [
           SizedBox(height: 1.0.h),
           Container(
-            height:
-                SizeUtil.productNameHeight(SizeUtil.titleSmallFontSize().sp),
+            height: SizeUtil.productNameHeight(SizeUtil.titleFontSize().sp),
             child: Text(
               " " + item.name + " ",
               textAlign: TextAlign.center,
@@ -126,7 +125,7 @@ class ProductItemCard extends StatelessWidget {
               style: FunctionHelper.fontTheme(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
-                  fontSize: SizeUtil.titleSmallFontSize().sp),
+                  fontSize: SizeUtil.titleFontSize().sp),
             ),
           ),
           SizedBox(
@@ -147,7 +146,7 @@ class ProductItemCard extends StatelessWidget {
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half_outlined,
                   color: Colors.amber,
-                  borderColor: Colors.amber,
+                  borderColor: Colors.grey.shade300,
                   spacing: 0.0),
               SizedBox(
                 width: 1.0.w,
@@ -174,7 +173,7 @@ class ProductItemCard extends StatelessWidget {
                             style: FunctionHelper.fontTheme(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
-                                fontSize: SizeUtil.detailSmallFontSize().sp),
+                                fontSize: SizeUtil.detailFontSize().sp),
                           ),
                         ),
                       ),
@@ -200,7 +199,7 @@ class ProductItemCard extends StatelessWidget {
                       style: FunctionHelper.fontTheme(
                           color: Colors.black,
                           fontWeight: FontWeight.w500,
-                          fontSize: SizeUtil.detailSmallFontSize().sp),
+                          fontSize: SizeUtil.detailFontSize().sp),
                     ),
                   ),
                 )
@@ -216,17 +215,18 @@ class ProductItemCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           item.offerPrice != null
-              ? Text("${item.salePrice}",
+              ? Text(
+                  "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
                   style: FunctionHelper.fontTheme(
                       color: Colors.grey,
-                      fontSize: SizeUtil.priceFontSize().sp - 2,
+                      fontSize: SizeUtil.priceFontSize().sp - 1,
                       decoration: TextDecoration.lineThrough))
               : SizedBox(),
           SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
           Text(
             item.offerPrice != null
-                ? "฿${item.offerPrice}"
-                : "฿${item.salePrice}",
+                ? "฿${NumberFormat("#,##0", "en_US").format(item.offerPrice)}"
+                : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: FunctionHelper.fontTheme(
@@ -242,7 +242,9 @@ class ProductItemCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            item.minPrice != null ? "฿${item.minPrice}" : "฿0",
+            item.minPrice != null
+                ? "฿${NumberFormat("#,##0", "en_US").format(item.minPrice)}"
+                : "฿0",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: FunctionHelper.fontTheme(
@@ -260,7 +262,9 @@ class ProductItemCard extends StatelessWidget {
                 fontSize: SizeUtil.priceFontSize().sp),
           ),
           Text(
-            item.maxPrice != null ? "฿${item.maxPrice}" : "฿0",
+            item.maxPrice != null
+                ? "฿${NumberFormat("#,##0", "en_US").format(item.maxPrice)}"
+                : "฿0",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: FunctionHelper.fontTheme(

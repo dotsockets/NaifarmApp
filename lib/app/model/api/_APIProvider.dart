@@ -830,6 +830,33 @@ class _APIProvider implements APIProvider {
   }
 
   @override
+  Future<ApiResult> myShopActive(BuildContext context,
+      {int data, String accessToken}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{"active": data};
+    try {
+      final _result = await _dio.request<dynamic>('/v1/myshop/shop',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token": accessToken,
+                'Accept-Language':
+                    EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(
+          respone: MyShopRespone.fromJson(_result.data),
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
+
+  @override
   Future<ApiResult> farmMarket(
     BuildContext context,
   ) async {
@@ -2595,6 +2622,34 @@ class _APIProvider implements APIProvider {
           data: _data);
       return ApiResult(
           respone: SearchRespone.fromJson(_result.data),
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> activeProduct(BuildContext context,
+      {int ative, int productId, String token}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{"active": ative};
+    try {
+      final _result =
+          await _dio.request<dynamic>('/v1/myshop/products/$productId',
+              queryParameters: queryParameters,
+              options: RequestOptions(
+                  method: 'PATCH',
+                  headers: <String, dynamic>{
+                    "token": token,
+                    'Accept-Language':
+                        EasyLocalization.of(context).locale.languageCode
+                  },
+                  extra: _extra,
+                  baseUrl: baseUrl),
+              data: _data);
+      return ApiResult(
+          respone: ProductMyShopRespone.fromJson(_result.data),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.dioErrorExpction(e);

@@ -86,7 +86,7 @@ class FunctionHelper {
                       width: 20,
                     ),
                     Text(
-                      LocaleKeys.dialog_message_loading.tr(),
+                      LocaleKeys.dialog_message_loading.tr() + "...",
                       style: FunctionHelper.fontTheme(
                           color: Colors.black,
                           fontSize: SizeUtil.titleFontSize().sp,
@@ -124,7 +124,7 @@ class FunctionHelper {
                       height: 10,
                     ),
                     Text(
-                      LocaleKeys.dialog_message_loading.tr(),
+                      LocaleKeys.dialog_message_loading.tr() + "...",
                       style: FunctionHelper.fontTheme(
                           color: Colors.white,
                           fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -523,11 +523,14 @@ class FunctionHelper {
         context: context,
         builder: (BuildContext context) => Platform.isIOS
             ? CupertinoAlertDialog(
-                title: Text(
-                  title,
-                  style: FunctionHelper.fontTheme(
-                      fontWeight: FontWeight.bold,
-                      fontSize: SizeUtil.titleFontSize().sp),
+                title: Container(
+                  padding: EdgeInsets.only(bottom: 0.5.h),
+                  child: Text(
+                    title,
+                    style: FunctionHelper.fontTheme(
+                        fontWeight: FontWeight.bold,
+                        fontSize: SizeUtil.titleFontSize().sp),
+                  ),
                 ),
                 content: Text(
                   message,
@@ -588,11 +591,14 @@ class FunctionHelper {
         context: context,
         builder: (BuildContext context) => Platform.isIOS
             ? CupertinoAlertDialog(
-                title: Text(
-                  title,
-                  style: FunctionHelper.fontTheme(
-                      fontWeight: FontWeight.bold,
-                      fontSize: SizeUtil.titleFontSize().sp),
+                title: Container(
+                  padding: EdgeInsets.only(bottom: 0.5.h),
+                  child: Text(
+                    title,
+                    style: FunctionHelper.fontTheme(
+                        fontWeight: FontWeight.bold,
+                        fontSize: SizeUtil.titleFontSize().sp),
+                  ),
                 ),
                 content: Text(
                   message,
@@ -638,7 +644,7 @@ class FunctionHelper {
                 actions: [
                   // okButton,
                   TextButton(
-                    child: Text("Back"),
+                    child: Text(LocaleKeys.btn_back.tr()),
                     onPressed: () {
                       if (callCancle != null) {
                         callCancle();
@@ -648,7 +654,7 @@ class FunctionHelper {
                     },
                   ),
                   TextButton(
-                    child: Text("Try again "),
+                    child: Text(LocaleKeys.btn_again.tr()),
                     onPressed: () {
                       callBack();
                       Navigator.of(context).pop();
@@ -673,7 +679,7 @@ class FunctionHelper {
 
     if (difTimeSc > 86400) {
       difTimeSc = DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day + 1, 03, 06, 40)
+              DateTime.now().day + 1, 03, 06, 41)
           .millisecondsSinceEpoch;
     }
     // DateTime.now().millisecondsSinceEpoch + 1000 * 30

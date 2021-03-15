@@ -48,7 +48,8 @@
     "title_wallet": "Wallet",
     "title_my_product": "My Products",
     "title_shipping": "Shipping",
-    "title_payment": "Payment Method"
+    "title_payment": "Payment Method",
+    "title_pay": "Payment Method"
   },
   "shipping": {
     "edit": "Edit Shipping",
@@ -137,6 +138,7 @@
   "or": "OR",
   "withh": "with",
   "and": "and",
+  "edit": "Edit ",
 
   "setting_language_toobar": "Select Language",
   "setting_rule_toobar": "Rules of Use",
@@ -150,9 +152,9 @@
     "add_address": "Add New Address",
     "add_product": "Add Product",
     "login": "LOGIN",
-    "facebook_login": "Login with Facebook",
-    "facebook_regis": "Sign up with Facebook",
+    "facebook": "Continue with Facebook",
     "edit_img": "Edit Image",
+    "img": "Image",
     "save": "SAVE",
     "register": "SIGN UP",
     "ok": "OK",
@@ -166,6 +168,8 @@
     "buy_now": "Buy Now",
     "buy_product": "Buy Now",
     "del_product": "Delete Product",
+    "update_product": "Update Product",
+    "error": "Error",
     "save_edit": "Save Edit",
     "review": "Review",
     "buy_product_again": "Buy Again",
@@ -174,7 +178,11 @@
     "close": "Close",
     "connect": "Connect again",
     "add_image": "Add image",
-    "add_vdo": "Add video"
+    "add_vdo": "Add video",
+    "back":"Back",
+    "again": "Try again",
+    "reject_order": "Reject request",
+    "accept_order": "Accept request"
   },
 
 
@@ -184,15 +192,28 @@
     "del_product": "Do you want to delete product",
     "mail_change_cancel": "Do you want to leave email change",
     "password_success": "Change Password Success",
-    "loading": "Loading...",
-    "exit": "Do you want to exit an App"
+    "confirm_pay": "Confirm payment for this order",
+    "confirm_track":  "Confirm that tracking number is correct",
+    "confirm_order": "Confirm Order Received",
+    "confirm_cancel_buyer": "If you cancel the order. Your cancellation request must be accepted by the buyer because the order is already in progress",
+    "confirm_cancel_seller": "Confirm cancel this order?",
+    "loading": "Loading",
+    "exit": "Do you want to exit an App",
+    "success": "Successfully confirmed information",
+    "success_track":"Successfully confirmed tracking number",
+    "success_pay":"Successfully confirmed payment",
+    "success_slip":"Upload Pay-in Slip Successfully"
+
   },
 
   "message":{
     "phone_edit":"If you edit phone number. All account numbers associated with this account will be modified",
     "mail_edit": "Keep your account safe, please enter a password to continue",
     "forgot_mail": "Please logout of your account and tap \"Forgot Password\" at the login page. To logout, Me page > Account Setting > Logout and tap on \"Forgot Password\"",
-    "error": {
+    "open_shop": "You can open a shop by filling in form to open your own shop.",
+    "complete_shop": "Please complete the shop information before manage products ",
+    "protect": "Protect yourself by completing your transactions within Naifarm.",
+    "error":{
       "password_incorrect":"Password is incorrect",
       "password_length": "Should set a password of 8-12 characters or more",
       "password_not_match": "Password do not match",
@@ -232,18 +253,29 @@
     "use_before": "valid till",
     "outstock": "Out of stock",
     "note": "note",
-    "add_cart": "Add to Cart"
+    "add_cart": "Add to Cart",
+    "promotion": "Promotion Price",
+    "order": "Order Total",
+    "message":"Leave a message",
+   "ship": "Choose a shipping method",
+    "ship_at": "Receive at"
   },
   "history":{
     "order_time": "Payment Time",
-    "order_price": "Order Total"
+    "receipt_time": "Receipt Time",
+    "order_price": "Order Total",
+    "track": "Add a tracking number",
+    "track_fill": "Please fill tracking number to continue.",
+    "track_msg": "User can check shipping status with Naifarm.",
+    "track_no":  "Please fill correct tracking number."
   },
   "payment_method": {
     "cash_delivery": "Cash on Delivery",
     "bank": "Bank account",
-    "slip": "Upload Pay-in Slip Now",
+    "upload_slip": "Upload Pay-in Slip Now",
     "no_slip": "Upload Pay-in Slip Later",
-    "update_slip": "Update Pay-in Slip"
+    "update_slip": "Update Pay-in Slip",
+    "slip": "Pay-in Slip"
   },
 
   "wallet_balance": {
@@ -268,7 +300,8 @@
 
 
   "my_product": {
-    "sell": "Sell Product",
+    "sell": "Open sales",
+    "sell_open":"Open Sell",
     "break": "Stop Sell",
     "amount": "Amount",
     "sold": "sold",
@@ -308,11 +341,19 @@
     "category": "Category",
     "detail": "Shop Detail",
     "rate": "Shop Rating",
+    "edit": "Edit Shop",
     "follow": "Follow",
     "following": "Following",
     "follower": "Follower",
     "product_list": "Product",
-    "name": "Shop Name",
+    "name": "Shop name",
+    "name_title": "Shop name",
+    "name_official": "Official name",
+    "slug": "Shop Slug",
+    "detail_title": "Detail",
+    "external_link": "External Link",
+    "edit_link": "Edit Link",
+    "status": "Shop Status",
     "active": {
       "hour": "hour ago",
       "minute" : "minutes ago"
@@ -363,10 +404,29 @@
     "order_cancel": "Order Canceled",
     "order2": " has been canceled because we unable to verify your payment.",
     "buyer":"Buyer notification",
-    "seller":"Seller notification"
+    "seller":"Seller notification",
+
+    "shop_update": "Update shop information",
+    "shop_status": "Status,",
+    "shop_new_order": "New order",
+    "shop_orderid": "ordered the item, order number",
+    "shop_open": "Open a new shop",
+    "shop_open_detail": "has been opened the shop",
+    "shop_outstock":"out of stock",
+
+    "cus_cancel_status": "cancel order because no payment or the buyer canceled the product. Please contact buyer if you need more information.",
+    "cus_order": "You have order in order number",
+    "cus_pay_at": "and must be paid within",
+    "cus_complete": "The order has been shipped",
+    "cus_orderid": "All items in order numbers",
+    "cus_cancel": "Order has been canceled",
+    "cus_cancel_reason": "has been canceled because we can't verify your payment."
+
+
   },
   "order_detail":{
     "title": "Order Detail",
+    "txt": "Order Detail",
     "wait_rate": "Waiting For Rating",
     "wait_pay": "Waiting For Payment",
     "complete_rate": "Rating Success",
@@ -387,6 +447,8 @@
     "complete": "Order Successful",
     "summary" : "Total",
     "pay_date": "Pay by",
+    "please": "Please ",
+    "cancel":"",
     "ship_date": "Product will be shipped out",
     "by_date": "by",
     "contact": "Contact Seller",
@@ -401,7 +463,24 @@
     "cancel_order": "Cancel Order",
     "cancel_reason": "Reason for Cancel",
     "id": "Order ID",
-    "payment_info": "Payment Information"
+    "payment_info": "Payment Information",
+    "total_pay": "Total Payment",
+    "refund": "Refund Amount",
+    "cancelled_by": "Cancelled by",
+    "cancelled_time": "Cancelled by",
+    "cancelled_reason": "Cancel reason",
+    "cancelled_buyer": "Buyer Cancelled Order",
+    "seller_cancelled": "Seller Cancelled Order",
+    "seller_cancelled_refund": "Refund Amount (With Shipping Fee)",
+    "seller_cancelled_by": "Refund by",
+    "seller_cancelled_time": "Refund at",
+    "seller_cancelled_reason": "Refund Reason",
+    "seller_cancelled_choose": "Choose Reason",
+    "seller_cancelled_detail": "Refund Detail",
+    "seller_cancelled_notpay": "Payment not Received",
+    "seller": "Seller",
+    "buyer": "Buyer",
+    "sell": "Sale Product Detail"
   },
   "login": {
     "forgot_password": "Forgot Password",
@@ -427,10 +506,22 @@
     "skip_message": "tap \"SKIP\" go to home page"
   },
   "search_product": {
-    "title": "Search Product",
+    "title": "Search product and shop",
+    "me": "Search my product",
     "show": "Show more",
     "hide": "Hide",
     "not_found": "Data not found"
+  },
+
+  "server_error": {
+    "cancel": "Request was cancelled",
+    "timeout_connect": "Connection timeout",
+    "timeout_receive": "Receive timeout in connection",
+    "timeout_send": "Receive timeout in send request",
+    "default": "Unable to connect with the server, please try again.",
+    "status":"Received invalid status code",
+    "again":"Please check your internet connection and connect again"
   }
+
 
 }

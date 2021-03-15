@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
-import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
 import 'package:naifarm/app/ui/me/myproduct/filter/InActive.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -31,13 +31,16 @@ class _SearchMyProductState extends State<SearchMyProduct> {
   List<String> listClone = [];
   bool checkSeemore = false;
   TextEditingController txtController = TextEditingController();
-  int limit = 10;
+
+  // int limit = 10;
   String searchText = "";
-  String filter = "available";
-  ProductBloc blocProduct;
-  UploadProductBloc bloc;
+
+  //String filter = "available";
+  //ProductBloc blocProduct;
+  //UploadProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool checkPop = false;
+
+  //bool checkPop = false;
   final _searchText = BehaviorSubject<String>();
 
   void _init() {
@@ -76,12 +79,20 @@ class _SearchMyProductState extends State<SearchMyProduct> {
             icon: "",
             isEnableSearch: false,
             headerType: Header_Type.barHome,
+            showCartBtn: false,
             onClick: () {
               Navigator.pop(context, true);
             },
-            hint: LocaleKeys.search_product_title.tr(),
+            hint: LocaleKeys.search_product_me.tr(),
             onSearch: (String text) {
               _searchText.add(text);
+            },
+            onTab: () {
+              buttonDialog(context, message: [LocaleKeys.attributes_set.tr()],
+                  onClick: () {
+                Navigator.of(context).pop();
+                AppRoute.attribute(context: context);
+              });
             },
           ),
           body:
@@ -577,7 +588,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
     );
   }
 
-  /*_searchData() {
+/*_searchData() {
     Usermanager().getUser().then((value) => blocProduct.loadSearchMyshop(
         shopId: widget.shopID,
         page: "1",

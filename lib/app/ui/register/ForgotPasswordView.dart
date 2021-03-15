@@ -47,7 +47,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         AppRoute.registerOTP(context,
@@ -225,6 +226,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   }
 
   void _validate() {
-    bloc.otpRequest(context, numberphone: _phone.text);
+    if (_phone.text.isNotEmpty) {
+      bloc.otpRequest(context, numberphone: _phone.text);
+    }
   }
 }

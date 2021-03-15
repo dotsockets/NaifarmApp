@@ -118,39 +118,48 @@ class _SuccessViewState extends State<SuccessView> {
                                             context: context),
                                         value.items[0].inventory == null
                                             ? Center(
-                                                child: Container(
-                                                  color: Colors.white
-                                                      .withOpacity(0.7),
-                                                  height: 27.0.h,
-                                                  child: Center(
-                                                    child: Container(
-                                                      width: 30.0.w,
-                                                      height: 5.0.h,
-                                                      padding:
-                                                          EdgeInsets.all(2.0.w),
-                                                      decoration: new BoxDecoration(
-                                                          color: Colors.black
-                                                              .withOpacity(0.5),
-                                                          borderRadius:
-                                                              new BorderRadius
-                                                                      .all(
-                                                                  Radius.circular(
-                                                                      10.0.w))),
-                                                      child: Center(
-                                                        child: Text(
-                                                            LocaleKeys
-                                                                .search_product_not_found
-                                                                .tr(),
-                                                            style: FunctionHelper
-                                                                .fontTheme(
-                                                                    fontSize:
-                                                                        SizeUtil.titleSmallFontSize()
-                                                                            .sp,
-                                                                    color: Colors
-                                                                        .white)),
+                                                child: InkWell(
+                                                  child: Container(
+                                                    color: Colors.white
+                                                        .withOpacity(0.7),
+                                                    height: 27.0.h,
+                                                    child: Center(
+                                                      child: Container(
+                                                        width: 30.0.w,
+                                                        height: 5.0.h,
+                                                        padding: EdgeInsets.all(
+                                                            2.0.w),
+                                                        decoration: new BoxDecoration(
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                                    0.5),
+                                                            borderRadius:
+                                                                new BorderRadius
+                                                                        .all(
+                                                                    Radius.circular(
+                                                                        10.0.w))),
+                                                        child: Center(
+                                                          child: Text(
+                                                              LocaleKeys
+                                                                  .search_product_not_found
+                                                                  .tr(),
+                                                              style: FunctionHelper.fontTheme(
+                                                                  fontSize:
+                                                                      SizeUtil.titleSmallFontSize()
+                                                                          .sp,
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
+                                                  onTap: () {
+                                                    AppRoute.orderDetail(
+                                                        context,
+                                                        orderData: value,
+                                                        typeView:
+                                                            widget.typeView);
+                                                  },
                                                 ),
                                               )
                                             : SizedBox()
@@ -180,7 +189,7 @@ class _SuccessViewState extends State<SuccessView> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text("Loading",
+                            Text(LocaleKeys.dialog_message_loading.tr(),
                                 style: FunctionHelper.fontTheme(
                                     color: Colors.grey,
                                     fontSize: SizeUtil.priceFontSize().sp))
@@ -238,13 +247,19 @@ class _SuccessViewState extends State<SuccessView> {
     );
   }
 
-  Widget productItem({OrderItems item, int shopId, int index}) {
+  Widget productItem(
+      {OrderData orderData,
+      OrderItems item,
+      int shopId,
+      int index,
+      int idOrder}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
           child: Hero(
-            tag: "history_paid_${item.orderId}${item.inventoryId}$index",
+            tag:
+                "history_success_$idOrder${item.orderId}${item.inventoryId}$index",
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -257,14 +272,11 @@ class _SuccessViewState extends State<SuccessView> {
                 ),
                 fit: BoxFit.cover,
                 imageUrl:
-                    "${Env.value.baseUrl}/storage/images/${item.inventory != null ? item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : '' : ''}",
+                    "${Env.value.baseUrl}/storage/images/${item.inventory != null ? item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : Env.value.noItemUrl : Env.value.noItemUrl}",
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
-                    child: Icon(
-                      Icons.error,
-                      size: 7.0.w,
-                    )),
+                    child: Image.network(Env.value.noItemUrl)),
               ),
             ),
           ),
@@ -274,7 +286,7 @@ class _SuccessViewState extends State<SuccessView> {
             product.shop = ProductShop(id: shopId);
             AppRoute.productDetail(context,
                 productImage:
-                    "history_paid_${item.orderId}${item.inventoryId}$index",
+                    "history_success_$idOrder${item.orderId}${item.inventoryId}$index",
                 productItem: ProductBloc.convertDataToProduct(data: product));
           },
         ),
@@ -288,7 +300,9 @@ class _SuccessViewState extends State<SuccessView> {
                 child: Text(
                     item.inventory != null
                         ? item.inventory.title
-                        : 'ไม่พบข้อมูล',
+                        : item.itemTitle.isNotEmpty
+                            ? item.itemTitle
+                            : 'ไม่พบข้อมูล',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.fontTheme(
@@ -306,20 +320,24 @@ class _SuccessViewState extends State<SuccessView> {
                   Row(
                     children: [
                       item.inventory != null &&
-                              item.inventory.product.discountPercent != 0
-                          ? Text(
-                              "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory != null ? item.inventory.product.discountPercent : 0)}",
+                              item.inventory.offerPrice != null
+                          ? Text("฿${item.inventory.salePrice}",
                               style: FunctionHelper.fontTheme(
-                                  color: Colors.black.withOpacity(0.5),
                                   fontSize: SizeUtil.titleFontSize().sp,
-                                  decoration: TextDecoration.lineThrough))
+                                  decoration: TextDecoration.lineThrough,
+                                  color: Colors.black.withOpacity(0.5)))
                           : SizedBox(),
-                      SizedBox(width: 3.0.w),
+                      SizedBox(width: 8),
                       Text(
-                          "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory != null ? item.inventory.salePrice : 999)}",
+                          "฿${NumberFormat("#,##0", "en_US").format(item.inventory != null ? item.inventory.offerPrice != null ? item.inventory.offerPrice : item.inventory.salePrice * item.quantity : orderData.total)}",
                           style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.colorSale()))
+                              color: ThemeColor.colorSale())),
+                      // Text(
+                      //     "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
+                      //     style: FunctionHelper.FontTheme(
+                      //         fontSize: SizeUtil.titleFontSize().sp,
+                      //         color: Colors.black))
                     ],
                   )
                 ],
@@ -346,8 +364,10 @@ class _SuccessViewState extends State<SuccessView> {
                 .map((key, value) => MapEntry(
                     key,
                     productItem(
+                        orderData: item,
                         item: item.items[key],
                         shopId: item.shop.id,
+                        idOrder: item.id,
                         index: key)))
                 .values
                 .toList(),
@@ -368,11 +388,14 @@ class _SuccessViewState extends State<SuccessView> {
                               color: Colors.black)),
                       new TextSpan(
                           text:
-                              // "฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,color: ThemeColor.colorSale())),
-                              "฿${item.grandTotal}",
+                              "฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(item.items, item.shipping != null ? item.shipping : 0))}",
                           style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: ThemeColor.colorSale())),
+                      //"฿${item.grandTotal}",
+                      // style: FunctionHelper.FontTheme(
+                      //     fontSize: SizeUtil.titleFontSize().sp,
+                      //     color: ThemeColor.ColorSale())),
                     ],
                   ),
                 ),
@@ -495,6 +518,8 @@ class _SuccessViewState extends State<SuccessView> {
             borderRadius: BorderRadius.circular(40.0),
           ),
         ),
+        padding: MaterialStateProperty.all(
+            EdgeInsets.only(right: 10.0.w, left: 10.0.w)),
         backgroundColor: MaterialStateProperty.all(
           ThemeColor.colorSale(),
         ),
@@ -561,14 +586,6 @@ class _SuccessViewState extends State<SuccessView> {
         ],
       ),
     );
-  }
-
-  int sumTotal(List<OrderItems> items) {
-    var sum = 0;
-    for (var item in items) {
-      sum += item.inventory.salePrice;
-    }
-    return sum;
   }
 
   _reloadData() {

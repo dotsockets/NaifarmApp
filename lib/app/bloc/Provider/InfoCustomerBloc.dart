@@ -15,7 +15,9 @@ class InfoCustomerBloc extends Cubit<InfoCustomerState> {
   loadCustomInfo(BuildContext context,
       {String token, bool oneSignal = false}) async {
     NaiFarmLocalStorage.getCustomerInfo().then((value) {
-      emit(InfoCustomerLoading(value));
+      if (value != null) {
+        emit(InfoCustomerLoading(value));
+      }
     });
 
     Observable.combineLatest3(
@@ -53,7 +55,13 @@ class InfoCustomerBloc extends Cubit<InfoCustomerState> {
           emit(InfoCustomerLoaded((respone.respone as ProfileObjectCombine)));
         });
       } else {
-        emit(InfoCustomerError(respone.httpCallBack.message));
+        NaiFarmLocalStorage.getCustomerInfo().then((value) {
+          emit(InfoCustomerError(ProfileObjectCombine(
+              shppingMyShopRespone: value.shppingMyShopRespone,
+              customerInfoRespone: value.customerInfoRespone,
+              myShopRespone: value.myShopRespone,
+              httpCallBack: respone.httpCallBack)));
+        });
       }
     });
   }
@@ -99,16 +107,17 @@ class InfoCustomerLoaded extends InfoCustomerState {
 }
 
 class InfoCustomerError extends InfoCustomerState {
-  final String message;
-  const InfoCustomerError(this.message);
+  final ProfileObjectCombine profileObjectCombine;
+  const InfoCustomerError(this.profileObjectCombine);
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is InfoCustomerError && o.message == message;
+    return o is InfoCustomerError &&
+        o.profileObjectCombine == profileObjectCombine;
   }
 
   @override
-  int get hashCode => message.hashCode;
+  int get hashCode => profileObjectCombine.hashCode;
 }

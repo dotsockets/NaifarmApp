@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
-import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
@@ -43,13 +42,14 @@ class _TransferPayMentState extends State<TransferPayMent> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.alertDialogShop(context, title: "Error", message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event);
         //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
-        FunctionHelper.successDialog(context, message: "Successfully uploaded",
-            onClick: () {
+        FunctionHelper.successDialog(context,
+            message: LocaleKeys.dialog_message_success_slip.tr(), onClick: () {
           if (onDialog) {
             Navigator.pop(context, true);
           }
@@ -69,12 +69,13 @@ class _TransferPayMentState extends State<TransferPayMent> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade200,
           appBar: AppToobar(
-            title: "Payment information",
+            title: LocaleKeys.order_detail_payment_info.tr(),
             headerType: Header_Type.barNormal,
             isEnableSearch: false,
             icon: '',
             onClick: () {
-              AppRoute.poppageCount(context: context, countpage: 1);
+              Navigator.pop(context, false);
+              //AppRoute.PoppageCount(context: context,countpage: 1);
             },
           ),
           body: Container(
@@ -284,7 +285,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
               },
               child: Text(
                 widget.orderData.image.length == 0
-                    ? "${LocaleKeys.payment_method_slip.tr()}"
+                    ? "${LocaleKeys.payment_method_upload_slip.tr()}"
                     : "${LocaleKeys.payment_method_update_slip.tr()}",
                 style: FunctionHelper.fontTheme(
                     color: Colors.white,

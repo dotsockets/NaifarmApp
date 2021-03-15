@@ -101,7 +101,7 @@ class _ShopMainViewState extends State<ShopMainView>
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(6.5.h),
               child: AppToobar(
-                title: "ร้านค้า",
+                title: LocaleKeys.shop_title.tr(),
                 headerType: Header_Type.barcartShop,
                 icon: 'assets/images/svg/search.svg',
               ),

@@ -70,9 +70,26 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
         }
 
         emit(CustomerCountLoaded((event.respone as CustomerCountRespone)));
-      } else {
+      } else if (event.httpCallBack.status == 401) {
         NaiFarmLocalStorage.saveCustomerCuse(null);
-        emit(CustomerCountError(event.httpCallBack.result.error));
+        emit(CustomerCountError(CustomerCountRespone()));
+      } else {
+        NaiFarmLocalStorage.getCustomerCuse().then((value) {
+          if (value != null) {
+            emit(CustomerCountError(CustomerCountRespone(
+                buyOrder: value.buyOrder,
+                cartCount: value.cartCount,
+                like: value.like,
+                notification: value.notification,
+                sellOrder: value.sellOrder,
+                watingReview: value.watingReview,
+                httpCallBack: event.httpCallBack)));
+          } else {
+            emit(CustomerCountError(null));
+          }
+        });
+
+        //  emit(CustomerCountError(event.http_call_back.message));
       }
     });
   }
@@ -124,16 +141,16 @@ class CustomerCountLoaded extends CustomerCountState {
 }
 
 class CustomerCountError extends CustomerCountState {
-  final String message;
-  const CustomerCountError(this.message);
+  final CustomerCountRespone countRespone;
+  const CustomerCountError(this.countRespone);
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is CustomerCountError && o.message == message;
+    return o is CustomerCountError && o.countRespone == countRespone;
   }
 
   @override
-  int get hashCode => message.hashCode;
+  int get hashCode => countRespone.hashCode;
 }

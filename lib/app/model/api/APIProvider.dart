@@ -183,6 +183,10 @@ abstract class APIProvider {
   Future<ApiResult> myShopUpdate(BuildContext context,
       {@Body() MyShopRequest data, String accessToken});
 
+  @PATCH("/v1/myshop/shop")
+  Future<ApiResult> myShopActive(BuildContext context,
+      {@Body() int data, String accessToken});
+
   @GET("/v1/myshop/shop")
   Future<ApiResult> farmMarket(BuildContext context);
 
@@ -285,6 +289,10 @@ abstract class APIProvider {
   @PATCH("/v1/myshop/products")
   Future<ApiResult> updateProductMyShop(BuildContext context,
       {ProductMyShopRequest shopRequest, int productId, String token});
+
+  @PATCH("/v1/myshop/products")
+  Future<ApiResult> activeProduct(BuildContext context,
+      {int ative, int productId, String token});
 
   @GET("/v1/cart")
   Future<ApiResult> getCartlists(BuildContext context, {String token});

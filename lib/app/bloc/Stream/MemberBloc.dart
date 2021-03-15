@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
@@ -27,7 +28,7 @@ class MemberBloc {
 
   final onLoad = BehaviorSubject<bool>();
 
-  final onError = BehaviorSubject<String>();
+  final onError = BehaviorSubject<ThrowIfNoSuccess>();
 
   final customerInfoRespone = BehaviorSubject<ProfileObjectCombine>();
 
@@ -67,7 +68,7 @@ class MemberBloc {
         onSuccess.add(item);
       } else {
         onLoad.add(false);
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -107,7 +108,7 @@ class MemberBloc {
         });
       } else {
         Usermanager().logout();
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -123,7 +124,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         onSuccess.add(fbProfile);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -150,7 +151,7 @@ class MemberBloc {
       } else {
         Usermanager().logout();
         onLoad.add(false);
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -171,11 +172,12 @@ class MemberBloc {
         break;
       case FacebookLoginStatus.cancelledByUser:
         //  onLoad.add(false);
-        onError.add("Login cancelled by the user.");
+        onError.add(ThrowIfNoSuccess(message: "Login cancelled by the user."));
         break;
       case FacebookLoginStatus.error:
         //  onLoad.add(false);
-        onError.add("Something went wrong with the login process.");
+        onError.add(ThrowIfNoSuccess(
+            message: "Something went wrong with the login process."));
         break;
     }
   }
@@ -190,7 +192,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -207,7 +209,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         onSuccess.add(true);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -232,7 +234,7 @@ class MemberBloc {
         });
       } else {
         onLoad.add(false);
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -249,7 +251,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -266,7 +268,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -300,7 +302,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -323,7 +325,7 @@ class MemberBloc {
         context.read<InfoCustomerBloc>().loadCustomInfo(context, token: token);
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -340,7 +342,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -356,7 +358,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -373,7 +375,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -389,7 +391,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -398,16 +400,33 @@ class MemberBloc {
   myShopUpdate(
       {BuildContext context, MyShopRequest data, String accessToken}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
-            .appStoreAPIRepository
-            .myShopUpdate(data: data, accessToken: accessToken))
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.myShopUpdate(
+                context: context, data: data, accessToken: accessToken))
         .listen((respone) {
       onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
         //  context.read<InfoCustomerBloc>().loadCustomInfo(token:access_token);
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  myShopActive({BuildContext context, int data, String accessToken}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.myShopActive(
+                context: context, data: data, accessToken: accessToken))
+        .listen((respone) {
+      onLoad.add(false);
+      if (respone.httpCallBack.status == 200) {
+        //  context.read<InfoCustomerBloc>().loadCustomInfo(token:access_token);
+        onSuccess.add(respone.respone);
+      } else {
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -432,7 +451,7 @@ class MemberBloc {
           respone.httpCallBack.status == 201) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -448,7 +467,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -464,7 +483,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         onSuccess.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -480,7 +499,7 @@ class MemberBloc {
       if (respone.httpCallBack.status == 200) {
         checkPhone.add(respone.respone);
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);

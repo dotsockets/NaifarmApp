@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -21,6 +22,8 @@ class AppToobar extends PreferredSize {
   final String hint;
   final Function(String) onSearch;
   final bool showBackBtn;
+  final bool showCartBtn;
+  final Function onTab;
 
   const AppToobar(
       {this.onClick,
@@ -29,10 +32,12 @@ class AppToobar extends PreferredSize {
       this.headerType,
       this.title = "",
       this.isEnableSearch = true,
+      this.showCartBtn = true,
       this.showBackBtn = true,
       this.locationTxt = "",
       this.hint = "",
-      this.onSearch})
+      this.onSearch,
+      this.onTab})
       // ignore: missing_required_param
       : super(key: key);
 
@@ -169,7 +174,12 @@ class AppToobar extends PreferredSize {
                         ),
                       ),
                     ),
-                    BuildIconShop()
+                    showCartBtn
+                        ? BuildIconShop()
+                        : SizedBox(
+                            width: 12.0.w,
+                            height: 10.0.w,
+                          ),
                   ],
                 ),
 
@@ -286,7 +296,18 @@ class AppToobar extends PreferredSize {
                       },
                     ),
                     _buildSearch(context),
-                    BuildIconShop()
+                    showCartBtn
+                        ? BuildIconShop()
+                        : IconButton(
+                            icon: Icon(
+                              FontAwesome.ellipsis_v,
+                              size: SizeUtil.mediumIconSize().w,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              onTab();
+                            },
+                          )
                   ],
                 ),
 

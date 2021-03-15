@@ -251,9 +251,10 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
     bool check = false;
     RegExp checkWeight = RegExp('[0-9]');
 
-    if (weightProductController.text.isNotEmpty &&
-        checkWeight.hasMatch(weightProductController.text)) {
+    if (weightProductController.text.isNotEmpty && checkWeight.hasMatch(weightProductController.text)) {
       check = true;
+    }else{
+      check = false;
     }
     if (weightProductController.text.startsWith("0")) {
       weightProductController.text = "";

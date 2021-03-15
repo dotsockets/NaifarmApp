@@ -30,7 +30,7 @@ class EditEmailStep1ViewState extends State<EditEmailStep1View> {
   String onError = "";
 
   bool formCheck() {
-    if (passController.text.isEmpty) {
+    if (passController.text.isEmpty || passController.text.length < 8) {
       return false;
     } else {
       return true;
@@ -55,7 +55,8 @@ class EditEmailStep1ViewState extends State<EditEmailStep1View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         if (event) {
@@ -118,21 +119,24 @@ class EditEmailStep1ViewState extends State<EditEmailStep1View> {
                           height: 1.0.h,
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
                               height: 3,
                             ),
-                            Text(LocaleKeys.btn_forgot_pass.tr(),
-                                style: FunctionHelper.fontTheme(
-                                    color: Colors.grey.shade500,
-                                    fontSize:
-                                        SizeUtil.titleSmallFontSize().sp)),
+                            Text(
+                              LocaleKeys.btn_forgot_pass.tr(),
+                              style: FunctionHelper.fontTheme(
+                                  color: Colors.grey.shade500,
+                                  fontSize: SizeUtil.titleSmallFontSize().sp),
+                            ),
                             SizedBox(
                               height: 2,
                             ),
                             Container(
                               color: Colors.grey.shade500,
                               height: 1,
+                              width: 19.0.w,
                             )
                           ],
                         ),

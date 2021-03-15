@@ -71,6 +71,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
   @override
   void initState() {
+    super.initState();
     trackingScrollController = TrackingScrollController();
     _controller = AnimationController(
         duration: const Duration(milliseconds: 2500),
@@ -109,7 +110,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
           });
 
     _controller.forward();
-    super.initState();
   }
 
   void _init() {
@@ -129,18 +129,18 @@ class _ProductDetailViewState extends State<ProductDetailView>
         if (event != null) {
           if (event.status == 406) {
             FunctionHelper.alertDialogShop(context,
-                title: "Error", message: event.message);
+                title: LocaleKeys.btn_error.tr(), message: event.message);
           } else if (event.status == 0 || event.status >= 500) {
             Future.delayed(const Duration(milliseconds: 500), () {
               FunctionHelper.alertDialogRetry(context,
-                  title: "Error",
+                  title: LocaleKeys.btn_error.tr(),
                   message: event.message,
                   callBack: () => _refreshProducts());
             });
           } else if (event.status == 404) {
             Future.delayed(const Duration(milliseconds: 500), () {
               FunctionHelper.alertDialogRetry(context,
-                  title: "Error",
+                  title: LocaleKeys.btn_error.tr(),
                   message:
                       "No information found for this restaurant. Or the shop has closed ",
                   callBack: () => _refreshProducts());
@@ -209,7 +209,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
   void dispose() {
     _controller.dispose();
     trackingScrollController.dispose();
-    checkMyShop.close();
     super.dispose();
   }
 
@@ -424,7 +423,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                       //         setState(() => IndexTypes1 = index),
                       //     onclick2: (int index) =>
                       //         setState(() => IndexTypes2 = index)),
-                      // _Divider(),
+                      // divider(),
                       InkWell(
                         child: ShopOwn(
                             rateStyle: true,
@@ -496,15 +495,21 @@ class _ProductDetailViewState extends State<ProductDetailView>
                     ],
                   );
                 } else {
-                  return Column(
-                    children: [
-                      SizedBox(
-                        height: 10.0.h,
-                      ),
-                      Platform.isAndroid
-                          ? CircularProgressIndicator()
-                          : CupertinoActivityIndicator(),
-                    ],
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height:
+                              widget.productItem.shop != null ? 10.0.h : 30.0.h,
+                        ),
+                        Platform.isAndroid
+                            ? CircularProgressIndicator()
+                            : CupertinoActivityIndicator(),
+                      ],
+                    ),
                   );
                 }
               })
@@ -512,120 +517,96 @@ class _ProductDetailViewState extends State<ProductDetailView>
       );
 
   Widget buildFooterTotal({WishlistsRespone item}) {
-    return StreamBuilder(
-        stream: checkMyShop.stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData && snapshot.data != widget.productItem.shop.id) {
-            return FadeTransition(
-              opacity: _animation,
-              child: Container(
-                height: 8.0.h,
-                decoration: BoxDecoration(
-                  border: Border(
-                      top: BorderSide(
-                          color: Colors.grey.withOpacity(0.4), width: 0),
-                      bottom: BorderSide(
-                          color: Colors.grey.withOpacity(0.4), width: 0)),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: InkWell(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/svg/message.svg',
-                            color: Colors.grey.shade300,
-                            width: 6.0.w,
-                            height: 6.0.w,
+    return widget.productItem.shop != null
+        ? StreamBuilder(
+            stream: checkMyShop.stream,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData &&
+                  snapshot.data != widget.productItem.shop.id) {
+                return FadeTransition(
+                  opacity: _animation,
+                  child: Container(
+                    height: 8.0.h,
+                    decoration: BoxDecoration(
+                      border: Border(
+                          top: BorderSide(
+                              color: Colors.grey.withOpacity(0.4), width: 0),
+                          bottom: BorderSide(
+                              color: Colors.grey.withOpacity(0.4), width: 0)),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: InkWell(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/svg/message.svg',
+                                color: Colors.grey.shade300,
+                                width: 6.0.w,
+                                height: 6.0.w,
+                              ),
+                              SizedBox(height: 1.0),
+                              Text(
+                                "Chat",
+                                style: FunctionHelper.fontTheme(
+                                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey.shade300),
+                              )
+                            ],
                           ),
-                          SizedBox(height: 1.0),
-                          Text(
-                            "Chat",
-                            style: FunctionHelper.fontTheme(
-                                fontSize: SizeUtil.titleSmallFontSize().sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey.shade300),
-                          )
-                        ],
-                      ),
-                      /* onTap: () {
+                          /* onTap: () {
                     FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                    // Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
                     // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                   },*/
-                    )),
-                    Container(
-                      color: Colors.grey.withOpacity(0.4),
-                      height: 8.0.h,
-                      width: 1,
-                    ),
-                    Expanded(
-                        child: Center(
-                      child: InkWell(
-                        child: Stack(
-                          children: [
-                            Transform.translate(
-                              offset: animation.value,
-                              child: Container(
-                                child: Image.network(
-                                    "${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty ? widget.productItem.image[0].path : ''}"),
-                                width: 10.0.w,
-                                height: 10.0.w,
-                              ),
-                            ),
-                            Container(
-                              color: Colors.white,
-                              width: MediaQuery.of(context).size.width,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.shopping_cart_outlined,
-                                    color: ThemeColor.primaryColor(),
-                                    size: 7.0.w,
-                                  ),
-                                  SizedBox(height: 1.0),
-                                  Text(
-                                    LocaleKeys.cart_add_cart.tr(),
-                                    style: FunctionHelper.fontTheme(
-                                        fontSize:
-                                            SizeUtil.titleSmallFontSize().sp,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
+                        )),
+                        Container(
+                          color: Colors.grey.withOpacity(0.4),
+                          height: 8.0.h,
+                          width: 1,
                         ),
-                        onTap: () {
-                          if (isLogin) {
-                            List<Items> items = [];
-                            items.add(Items(
-                                inventoryId: bloc.zipProductDetail.value
-                                    .producItemRespone.inventories[0].id,
-                                quantity: 1));
-                            Usermanager()
-                                .getUser()
-                                .then((value) => bloc.addCartlists(context,
-                                    cartRequest: CartRequest(
-                                      shopId: widget.productItem.shop != null
-                                          ? widget.productItem.shop.id
-                                          : 0,
-                                      items: items,
-                                    ),
-                                    token: value.token));
-                          } else {
-                            AppRoute.login(context,
-                                isHeader: true, homeCallBack: (bool fix) {});
-                          }
-                        },
-                      ),
-                    )),
-                    Expanded(
-                        flex: 2,
-                        child: InkWell(
+                        Expanded(
+                            child: Center(
+                          child: InkWell(
+                            child: Stack(
+                              children: [
+                                Transform.translate(
+                                  offset: animation.value,
+                                  child: Container(
+                                    child: Image.network(
+                                        "${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty ? widget.productItem.image[0].path : ''}"),
+                                    width: 10.0.w,
+                                    height: 10.0.w,
+                                  ),
+                                ),
+                                Container(
+                                  color: Colors.white,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.shopping_cart_outlined,
+                                        color: ThemeColor.primaryColor(),
+                                        size: 7.0.w,
+                                      ),
+                                      SizedBox(height: 1.0),
+                                      Text(
+                                        LocaleKeys.cart_add_cart.tr(),
+                                        style: FunctionHelper.fontTheme(
+                                            fontSize:
+                                                SizeUtil.titleSmallFontSize()
+                                                    .sp,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                             onTap: () {
                               if (isLogin) {
                                 List<Items> items = [];
@@ -636,7 +617,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 Usermanager()
                                     .getUser()
                                     .then((value) => bloc.addCartlists(context,
-                                        addNow: true,
+                                        onload: true,
                                         cartRequest: CartRequest(
                                           shopId:
                                               widget.productItem.shop != null
@@ -651,23 +632,59 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                     homeCallBack: (bool fix) {});
                               }
                             },
-                            child: Container(
-                                alignment: Alignment.center,
-                                height: 8.0.h,
-                                color: ThemeColor.colorSale(),
-                                child: Text(LocaleKeys.btn_buy_product.tr(),
-                                    style: FunctionHelper.fontTheme(
-                                        fontSize: SizeUtil.titleFontSize().sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white)))))
-                  ],
-                ),
-              ),
-            );
-          } else {
-            return SizedBox();
-          }
-        });
+                          ),
+                        )),
+                        Expanded(
+                            flex: 2,
+                            child: InkWell(
+                                onTap: () {
+                                  if (isLogin) {
+                                    List<Items> items = [];
+                                    items.add(Items(
+                                        inventoryId: bloc
+                                            .zipProductDetail
+                                            .value
+                                            .producItemRespone
+                                            .inventories[0]
+                                            .id,
+                                        quantity: 1));
+                                    Usermanager().getUser().then(
+                                        (value) => bloc.addCartlists(context,
+                                            addNow: true,
+                                            onload: true,
+                                            cartRequest: CartRequest(
+                                              shopId: widget.productItem.shop !=
+                                                      null
+                                                  ? widget.productItem.shop.id
+                                                  : 0,
+                                              items: items,
+                                            ),
+                                            token: value.token));
+                                  } else {
+                                    AppRoute.login(context,
+                                        isHeader: true,
+                                        homeCallBack: (bool fix) {});
+                                  }
+                                },
+                                child: Container(
+                                    alignment: Alignment.center,
+                                    height: 8.0.h,
+                                    color: ThemeColor.colorSale(),
+                                    child: Text(LocaleKeys.btn_buy_product.tr(),
+                                        style: FunctionHelper.fontTheme(
+                                            fontSize:
+                                                SizeUtil.titleFontSize().sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white)))))
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return SizedBox();
+              }
+            })
+        : SizedBox();
   }
 
   Widget divider() {

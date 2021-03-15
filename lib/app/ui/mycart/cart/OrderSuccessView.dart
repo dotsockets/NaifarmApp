@@ -6,6 +6,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -27,6 +28,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   init() {
+    NaiFarmLocalStorage.saveNowPage(0);
     Usermanager().getUser().then((value) {
       Usermanager().getUser().then((value) => context
           .read<CustomerCountBloc>()
@@ -187,7 +189,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                 AppRoute.orderDetail(context, orderData: widget.orderData);
               },
               child: Text(
-                LocaleKeys.order_detail_title.tr(),
+                LocaleKeys.order_detail_txt.tr(),
                 style: FunctionHelper.fontTheme(
                     color: Colors.white,
                     fontSize: SizeUtil.titleFontSize().sp,

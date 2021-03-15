@@ -17,6 +17,8 @@ import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -106,7 +108,9 @@ class _OrderViewState extends State<OrderView> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: LocaleKeys.order_detail_title.tr(),
+              title: widget.typeView == OrderViewType.Shop
+                  ? LocaleKeys.order_detail_sell.tr()
+                  : LocaleKeys.order_detail_title.tr(),
               headerType: Header_Type.barcartShop,
               icon: '',
               onClick: () {
@@ -132,8 +136,11 @@ class _OrderViewState extends State<OrderView> {
                               children: [
                                 //widget.typeView==OrderViewType.Purchase &&  item.orderStatusId!=5 &&  item.orderStatusId!=6 &&  item.orderStatusId!=8?_HeaderStatus(context: context,orderData: item):SizedBox(),
                                 item.orderStatusId == 1 &&
-                                        widget.typeView ==
-                                            OrderViewType.Purchase
+                                            widget.typeView ==
+                                                OrderViewType.Purchase ||
+                                        item.orderStatusId == 3 &&
+                                            widget.typeView ==
+                                                OrderViewType.Purchase
                                     ? headerStatus(
                                         context: context, orderData: item)
                                     : SizedBox(),
@@ -157,7 +164,6 @@ class _OrderViewState extends State<OrderView> {
                                 orderNumberInformation(
                                     context: context,
                                     orderData: item,
-                                    sumTotal: sumTotal(item.items),
                                     rateDelivery: item.shipping),
                                 _labelText(
                                     title:
@@ -268,14 +274,15 @@ class _OrderViewState extends State<OrderView> {
             SizedBox(
               height: 30,
             ),
-            // Text("Order ${orderData.orderNumber}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
+            // Text("Order ${orderData.orderNumber}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
             //SizedBox(height: 3),
             RichText(
               text: new TextSpan(
                 style: DefaultTextStyle.of(context).style,
                 children: <TextSpan>[
                   new TextSpan(
-                      text: "กรุณาชำระเงินภายใน ",
+                      text:
+                          "${LocaleKeys.order_detail_please.tr()}${LocaleKeys.order_detail_pay_date.tr()} ",
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleSmallFontSize().sp,
                           fontWeight: FontWeight.normal,
@@ -287,9 +294,9 @@ class _OrderViewState extends State<OrderView> {
                           fontSize: SizeUtil.titleSmallFontSize().sp,
                           color: Colors.black.withOpacity(0.5))),
                   //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                  //     style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                  //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
                   new TextSpan(
-                      text: " มิฉะนั้นระบบจะยกเลิกคำสั่งซื้อโดยอัตโนมัติ",
+                      text: " ${LocaleKeys.order_detail_cancel.tr()}",
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleSmallFontSize().sp,
                           fontWeight: FontWeight.normal,
@@ -391,7 +398,7 @@ class _OrderViewState extends State<OrderView> {
           orderData.deliveryDate != null ? SizedBox(height: 1.0.w) : SizedBox(),
           orderData.deliveryDate != null
               ? Text(
-                  "วันที่รับ ${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.deliveryDate.toString()))} ",
+                  "${LocaleKeys.history_receipt_time.tr()} ${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.deliveryDate.toString()))} ",
                   style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       color: Colors.black.withOpacity(0.6),
@@ -407,10 +414,7 @@ class _OrderViewState extends State<OrderView> {
   }
 
   Widget orderNumberInformation(
-      {BuildContext context,
-      OrderData orderData,
-      int sumTotal,
-      int rateDelivery}) {
+      {BuildContext context, OrderData orderData, int rateDelivery}) {
     return Container(
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
@@ -481,7 +485,7 @@ class _OrderViewState extends State<OrderView> {
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleSmallFontSize().sp,
                           color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                           height: 1.5),
                     )
                   ],
@@ -495,11 +499,11 @@ class _OrderViewState extends State<OrderView> {
                           style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleSmallFontSize().sp,
                               color: Colors.black,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w500,
                               height: 1.5),
                         )),
                     SizedBox(
-                      width: 10,
+                      width: 1.0.w,
                     ),
                     Icon(
                       Icons.arrow_forward_ios,
@@ -540,9 +544,6 @@ class _OrderViewState extends State<OrderView> {
                 .values
                 .toList(),
           ),
-          SizedBox(
-            height: 13,
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -557,11 +558,15 @@ class _OrderViewState extends State<OrderView> {
               SizedBox(
                 width: 10,
               ),
-              //Text("฿${NumberFormat("#,##0.00", "en_US").format(sumTotal)}", style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
-              Text("฿$sumTotal",
+              Text(
+                  "฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(orderData.items, 0))}",
                   style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp,
                       color: Colors.black))
+              // Text("฿${sumTotal}",
+              //     style: FunctionHelper.FontTheme(
+              //         fontSize: SizeUtil.titleFontSize().sp,
+              //         color: Colors.black))
             ],
           ),
           SizedBox(
@@ -581,11 +586,15 @@ class _OrderViewState extends State<OrderView> {
               SizedBox(
                 width: 10,
               ),
-              // Text("฿${NumberFormat("#,##0.00", "en_US").format(rate_delivery!=null?rate_delivery:0)}", style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp, color: Colors.black))
-              Text("฿${rateDelivery != null ? rateDelivery : 0}",
+              Text(
+                  "฿${NumberFormat("#,##0", "en_US").format(rateDelivery != null ? rateDelivery : 0)}",
                   style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp,
                       color: Colors.black))
+              // Text("฿${rate_delivery != null ? rate_delivery : 0}",
+              //     style: FunctionHelper.FontTheme(
+              //         fontSize: SizeUtil.titleFontSize().sp,
+              //         color: Colors.black))
             ],
           ),
           SizedBox(
@@ -605,11 +614,15 @@ class _OrderViewState extends State<OrderView> {
               SizedBox(
                 width: 10,
               ),
-              //Text("฿${NumberFormat("#,##0.00", "en_US").format(sumTotal+(rate_delivery!=null?rate_delivery:0))}", style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp, color: ThemeColor.colorSale()))
-              Text("฿${sumTotal + (rateDelivery != null ? rateDelivery : 0)}",
+              Text(
+                  "฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(orderData.items, rateDelivery != null ? rateDelivery : 0))}",
                   style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp,
                       color: ThemeColor.colorSale()))
+              // Text("฿${sumTotal + (rate_delivery != null ? rate_delivery : 0)}",
+              //     style: FunctionHelper.FontTheme(
+              //         fontSize: SizeUtil.titleFontSize().sp,
+              //         color: ThemeColor.ColorSale()))
             ],
           ),
         ],
@@ -621,36 +634,52 @@ class _OrderViewState extends State<OrderView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.black.withOpacity(0.1))),
-          child: CachedNetworkImage(
-            width: 22.0.w,
-            height: 22.0.w,
-            placeholder: (context, url) => Container(
+        InkWell(
+          child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black.withOpacity(0.1))),
+            child: CachedNetworkImage(
               width: 22.0.w,
               height: 22.0.w,
-              color: Colors.white,
-              child: Lottie.asset('assets/json/loading.json', height: 30),
-            ),
-            fit: BoxFit.cover,
-            imageUrl:
-                "${Env.value.baseUrl}/storage/images/${orderItems.inventory.product.image.isNotEmpty ? orderItems.inventory.product.image[0].path : ''}",
-            errorWidget: (context, url, error) => Container(
+              placeholder: (context, url) => Container(
                 width: 22.0.w,
                 height: 22.0.w,
-                child: Icon(
-                  Icons.error,
-                  size: 30,
-                )),
+                color: Colors.white,
+                child: Lottie.asset('assets/json/loading.json', height: 30),
+              ),
+              fit: BoxFit.cover,
+              imageUrl: orderItems.inventory != null
+                  ? "${Env.value.baseUrl}/storage/images/${orderItems.inventory != null ? orderItems.inventory.product.image.isNotEmpty ? orderItems.inventory.product.image[0].path : '' : ''}"
+                  : Env.value.noItemUrl,
+              errorWidget: (context, url, error) => Container(
+                  width: 22.0.w,
+                  height: 22.0.w,
+                  child: Icon(
+                    Icons.error,
+                    size: 30,
+                  )),
+            ),
           ),
+          onTap: () {
+            if (orderItems.inventory != null) {
+              // ignore: unused_local_variable
+              ProductData product = ProductData();
+              product = orderItems.inventory.product;
+              AppRoute.productDetail(context,
+                  productImage: "orderview_${orderItems.inventoryId}1",
+                  productItem: ProducItemRespone(
+                      id: orderItems.inventory.product.id,
+                      image: orderItems.inventory.image));
+            }
+          },
         ),
         SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("${orderItems.inventory.title}",
+              Text(
+                  "${orderItems.inventory != null ? orderItems.inventory.title : orderItems.itemTitle}",
                   style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.bold)),
@@ -665,17 +694,22 @@ class _OrderViewState extends State<OrderView> {
                           fontWeight: FontWeight.bold)),
                   Row(
                     children: [
-                      // Text("฿${orderItems.inventory.offerPrice}",
-                      //     style: FunctionHelper.fontTheme(
-                      //         fontSize: SizeUtil.titleFontSize().sp,
-                      //         decoration: TextDecoration.lineThrough,color: Colors.black.withOpacity(0.5))),
-                      // SizedBox(width: 8),
-                      //Text("฿${NumberFormat("#,##0.00", "en_US").format(orderItems.inventory.salePrice*orderItems.quantity)}",
+                      orderItems.inventory != null &&
+                              orderItems.inventory.offerPrice != null
+                          ? Text("฿${orderItems.inventory.salePrice}",
+                              style: FunctionHelper.fontTheme(
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  decoration: TextDecoration.lineThrough,
+                                  color: Colors.black.withOpacity(0.5)))
+                          : SizedBox(),
+                      SizedBox(width: 8),
                       Text(
-                          "฿${orderItems.inventory.salePrice * orderItems.quantity}",
-                          style: FunctionHelper.fontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              color: Colors.black))
+                          "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory != null ? orderItems.inventory.offerPrice != null ? orderItems.inventory.offerPrice : orderItems.inventory.salePrice * orderItems.quantity : double.parse(orderItems.unitPrice) * orderItems.quantity)}"),
+                      // Text(
+                      //     "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
+                      //     style: FunctionHelper.FontTheme(
+                      //         fontSize: SizeUtil.titleFontSize().sp,
+                      //         color: Colors.black))
                     ],
                   )
                 ],
@@ -887,18 +921,22 @@ class _OrderViewState extends State<OrderView> {
                   ),
                 ),
                 onPressed: () {
-                  FunctionHelper.confirmDialog(context,
-                      message:
-                          "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",
-                      onCancel: () {
-                    Navigator.of(context).pop();
-                  }, onClick: () {
-                    Navigator.of(context).pop();
-                    AppRoute.sellerCanceled(
-                        context: context,
-                        orderData: widget.orderData,
-                        typeView: orderViewType);
-                  });
+                  // FunctionHelper.ConfirmDialog(context,
+                  //     message:
+                  //         "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",
+                  //     onCancel: () {
+                  //   Navigator.of(context).pop();
+                  // }, onClick: () {
+                  //   Navigator.of(context).pop();
+                  //   AppRoute.SellerCanceled(
+                  //       context: context,
+                  //       orderData: widget.orderData,
+                  //       typeView: orderViewType);
+                  // });
+                  AppRoute.sellerCanceled(
+                      context: context,
+                      orderData: widget.orderData,
+                      typeView: orderViewType);
                 },
                 child: Text(
                   LocaleKeys.order_detail_cancel_order.tr(),
@@ -929,9 +967,25 @@ class _OrderViewState extends State<OrderView> {
                       Colors.white.withOpacity(0.3),
                     ),
                   ),
-                  onPressed: () {
-                    AppRoute.confirmPayment(
+                  onPressed: () async {
+                    final result = await AppRoute.confirmPayment(
                         context: context, orderData: orderData);
+
+                    if (result) {
+                      //bloc.onLoad.add(true);
+                      bloc.orderDataList.clear();
+                      Usermanager().getUser().then((value) => bloc.loadOrder(
+                          context,
+                          load: true,
+                          orderType: widget.typeView == OrderViewType.Shop
+                              ? "myshop/orders"
+                              : "order",
+                          sort: "orders.createdAt:desc",
+                          statusId: "1",
+                          limit: 20,
+                          page: 1,
+                          token: value.token));
+                    }
                   },
                   child: Text(
                     LocaleKeys.order_detail_confirm_pay.tr(),
@@ -980,9 +1034,8 @@ class _OrderViewState extends State<OrderView> {
                 ),
                 onPressed: () {
                   FunctionHelper.confirmDialog(context,
-                      message:
-                          "You want to cancel the order. Please note your cancellation request must be accepted by the buyer. Because the order is already in progress ",
-                      onCancel: () {
+                      message: LocaleKeys.dialog_message_confirm_cancel_buyer
+                          .tr(), onCancel: () {
                     Navigator.of(context).pop();
                   }, onClick: () {
                     Navigator.of(context).pop();
@@ -1036,8 +1089,7 @@ class _OrderViewState extends State<OrderView> {
                 ),
                 onPressed: () {
                   FunctionHelper.confirmDialog(context,
-                      message:
-                          "Have you accepted and inspected the product successfully?  ",
+                      message: LocaleKeys.dialog_message_confirm_order.tr(),
                       onCancel: () {
                     Navigator.of(context).pop();
                   }, onClick: () {
@@ -1163,8 +1215,13 @@ class _OrderViewState extends State<OrderView> {
                 Colors.white.withOpacity(0.3),
               ),
             ),
-            onPressed: () {
-              AppRoute.shippingOrder(context: context, orderData: orderData);
+            onPressed: () async {
+              //AppRoute.ShippingOrder(context: context,orderData: orderData);
+              final result = await AppRoute.addtTrackingNumber(
+                  context: context, orderData: orderData);
+              if (result) {
+                Navigator.pop(context, true);
+              }
             },
             child: Text(
               LocaleKeys.order_detail_ship.tr(),
@@ -1182,7 +1239,10 @@ class _OrderViewState extends State<OrderView> {
   int sumTotal(List<OrderItems> items) {
     var sum = 0;
     for (var item in items) {
-      sum += item.inventory.salePrice;
+      sum += (item.inventory.offerPrice != null
+              ? item.inventory.offerPrice
+              : item.inventory.salePrice) *
+          item.quantity;
     }
     return sum;
   }

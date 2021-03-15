@@ -162,6 +162,19 @@ class OrdersBloc {
     });
     _compositeSubscription.add(subscription);
   }
+
+  int sumTotal(List<OrderItems> items, int rate) {
+    var sum = 0;
+    for (var item in items) {
+      sum += item.inventory != null
+          ? (item.inventory.offerPrice != null
+                  ? item.inventory.offerPrice
+                  : item.inventory.salePrice) *
+              item.quantity
+          : double.parse(item.unitPrice.toString()).toInt() * item.quantity;
+    }
+    return sum + rate;
+  }
 }
 
 enum OrderViewType { Shop, Purchase }

@@ -19,6 +19,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -68,27 +69,16 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       });
       bloc.onError.stream.listen((event) {
         FunctionHelper.alertDialogRetry(context,
-            title: "Error",
+            title: LocaleKeys.btn_error.tr(),
             message: event.message,
+            callCancle: () {
+              AppRoute.poppageCount(context: context, countpage: 1);
+            },
             callBack: () => _refreshProducts());
       });
       bloc.cartList.stream.listen((event) {
         if (event is CartResponse) {
-          print("wefcwecde ${widget.cartNowId}");
-          if (widget.cartNowId != null && widget.cartNowId.isNotEmpty) {
-            for (var value in event.data[0].items) {
-              for (var cart_select in widget.cartNowId) {
-                print(
-                    "wefcwecde ${value.inventory.id}  ${cart_select.id}  ${value.select}");
-                if (value.inventory.id == cart_select.id) {
-                  value.select = true;
-                  // break;
-                }
-              }
-            }
-            widget.cartNowId = [];
-            bloc.cartList.add(bloc.cartList.value);
-          }
+          widget.cartNowId = [];
         }
       });
       bloc.onSuccess.stream.listen((event) {
@@ -100,22 +90,20 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
         }
       });
 
-      // NaiFarmLocalStorage.getCartCache().then((value){
-      //    if(value!=null){
-      //
-      //      bloc.CartList.add(CartResponse(data: value.data,total: value.total,selectAll: false));
-      //    }
-      // });
+      NaiFarmLocalStorage.getCartCache().then((value) {
+        if (value != null) {
+          bloc.cartList.add(CartResponse(
+              data: value.data, total: value.total, selectAll: false));
+        }
+      });
 
       Usermanager().getUser().then((value) {
-        if (cartNowIdTemp != null && cartNowIdTemp.isNotEmpty) {
-          widget.cartNowId.addAll(cartNowIdTemp);
-          cartNowIdTemp = [];
-        }
+        //  widget.cart_nowId= [];
         bloc.getCartlists(
             context: context,
             token: value.token,
-            cartActive: CartActive.CartList);
+            cartActive: CartActive.CartList,
+            cartNowId: widget.cartNowId);
       });
     }
   }
@@ -375,6 +363,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                   onTap: () {
                                     Usermanager().getUser().then((value) =>
                                         bloc.deleteCart(
+                                            context: context,
                                             cartid: item.id,
                                             inventoryId: item
                                                 .items[indexItem].inventory.id,
@@ -517,8 +506,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                             .offerPrice !=
                                         null
                                     ? Text(
-                                        // "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
-                                        "฿${item.items[indexShopItem].inventory.salePrice}",
+                                        "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
+                                        // "฿${item.items[indexShopItem].inventory.salePrice}",
                                         style: FunctionHelper.fontTheme(
                                             fontSize:
                                                 SizeUtil.priceFontSize().sp - 2,
@@ -537,15 +526,15 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                             .offerPrice !=
                                         null
                                     ? Text(
-                                        // "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}",
-                                        "฿${item.items[indexShopItem].inventory.offerPrice}",
+                                        "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}",
+                                        //"฿${item.items[indexShopItem].inventory.offerPrice}",
                                         style: FunctionHelper.fontTheme(
                                             fontSize:
                                                 SizeUtil.priceFontSize().sp,
                                             color: ThemeColor.colorSale()))
                                     : Text(
-                                        // "฿${NumberFormat("#,##0.00", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
-                                        "฿${item.items[indexShopItem].inventory.salePrice}",
+                                        "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
+                                        //"฿${item.items[indexShopItem].inventory.salePrice}",
                                         style: FunctionHelper.fontTheme(
                                             fontSize:
                                                 SizeUtil.priceFontSize().sp,
@@ -765,7 +754,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                             " ${sumQuantity(cartResponse: cartResponse)} " +
                             LocaleKeys.cart_item.tr(),
                         style: FunctionHelper.fontTheme(
-                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.w500,
                             color: Colors.black)),
                   )
@@ -796,10 +785,10 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                         alignment: Alignment.topRight,
                         margin: EdgeInsets.only(right: 2.0.w),
                         child: Text(
-                            //"฿${NumberFormat("#,##0.00", "en_US").format(SumTotalPrice(cartResponse: cartResponse))}",
-                            "฿${sumTotalPrice(cartResponse: cartResponse)}",
+                            "฿${NumberFormat("#,##0", "en_US").format(sumTotalPrice(cartResponse: cartResponse))}",
+                            //"฿${SumTotalPrice(cartResponse: cartResponse)}",
                             style: FunctionHelper.fontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontSize: SizeUtil.priceFontSize().sp,
                                 fontWeight: FontWeight.bold,
                                 color: ThemeColor.colorSale())))),
                 Expanded(

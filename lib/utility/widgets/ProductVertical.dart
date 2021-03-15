@@ -27,6 +27,7 @@ class ProductVertical extends StatelessWidget {
   final Function(ProductData, int) onTapItem;
   final Function(ProductData, int) onTapBay;
   final String iconInto;
+  final String imageIcon;
   final bool borderRadius;
   final String tagHero;
   final double iconSize;
@@ -38,6 +39,7 @@ class ProductVertical extends StatelessWidget {
       this.onSelectMore,
       this.onTapItem,
       this.iconInto,
+      this.imageIcon = "",
       this.borderRadius,
       this.tagHero,
       this.iconSize = 35,
@@ -60,7 +62,7 @@ class ProductVertical extends StatelessWidget {
       productBloc.onError.stream.listen((event) {
         if (event != null) {
           FunctionHelper.alertDialogShop(context,
-              title: "Error", message: event.message);
+              title: LocaleKeys.btn_error.tr(), message: event.message);
         }
       });
 
@@ -72,6 +74,7 @@ class ProductVertical extends StatelessWidget {
             .getUser()
             .then((value) => productBloc.addCartlists(context,
                 addNow: false,
+                onload: false,
                 cartRequest: CartRequest(
                   shopId: event.shopId,
                   items: items,
@@ -117,10 +120,14 @@ class ProductVertical extends StatelessWidget {
             _headerBar(),
             productRespone != null
                 ? Column(
-                    children: List.generate(
-                        productRespone.data.length,
-                        (index) => _buildCardProduct(context,
-                            item: productRespone.data[index], index: index)),
+                    children: productRespone.data
+                        .asMap()
+                        .map((key, value) => MapEntry(
+                            key,
+                            _buildCardProduct(context,
+                                item: value, index: key)))
+                        .values
+                        .toList(),
                   )
                 : SizedBox()
           ],
@@ -134,47 +141,29 @@ class ProductVertical extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                // Image.asset(IconI=nto,width: 50,height: 50,),
-                SvgPicture.asset(
-                  iconInto,
-                  width: iconSize,
-                  height: iconSize,
-                ),
-                SizedBox(width: 2.0.w),
-                Text(titleInto,
-                    style: FunctionHelper.fontTheme(
-                        color: Colors.black,
-                        fontSize: SizeUtil.titleFontSize().sp,
-                        fontWeight: FontWeight.bold)),
-              ],
-            ),
-            InkWell(
-              child: Row(
-                children: [
-                  Text(LocaleKeys.recommend_see_more.tr(),
-                      style: FunctionHelper.fontTheme(
-                          color: Colors.black,
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          fontWeight: FontWeight.w500)),
-                  SizedBox(width: 2.0.w),
-                  SvgPicture.asset(
-                    'assets/images/svg/next.svg',
-                    width: 3.0.w,
-                    height: 3.0.h,
+            imageIcon != ""
+                ? Image.asset(
+                    imageIcon,
+                    width: iconSize,
+                    height: iconSize,
+                  )
+                : SvgPicture.asset(
+                    iconInto,
+                    width: iconSize,
+                    height: iconSize,
                   ),
-                ],
-              ),
-              onTap: () {
-                onSelectMore();
-              },
-            )
+            SizedBox(width: 2.0.w),
+            Text(titleInto,
+                style: FunctionHelper.fontTheme(
+                    color: Colors.black,
+                    fontSize: SizeUtil.titleFontSize().sp,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
       );
 
-  _buildCardProduct(BuildContext context, {ProductData item, int index}) {
+  Widget _buildCardProduct(BuildContext context,
+      {ProductData item, int index}) {
     return InkWell(
       onTap: () {
         onTapItem(item, index);
@@ -297,17 +286,18 @@ class ProductVertical extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               item.offerPrice != null
-                  ? Text("${item.salePrice}",
+                  ? Text(
+                      "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
                       style: FunctionHelper.fontTheme(
                           color: Colors.grey,
-                          fontSize: SizeUtil.priceFontSize().sp - 2,
+                          fontSize: SizeUtil.priceFontSize().sp - 1,
                           decoration: TextDecoration.lineThrough))
                   : SizedBox(),
               SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
               Text(
                 item.offerPrice != null
-                    ? "฿${item.offerPrice}"
-                    : "฿${item.salePrice}",
+                    ? "฿${NumberFormat("#,##0", "en_US").format(item.offerPrice)}"
+                    : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: FunctionHelper.fontTheme(
@@ -339,7 +329,7 @@ class ProductVertical extends StatelessWidget {
                           filledIconData: Icons.star,
                           halfFilledIconData: Icons.star_half_outlined,
                           color: Colors.amber,
-                          borderColor: Colors.amber,
+                          borderColor: Colors.grey.shade300,
                           spacing: 0.0),
                       SizedBox(
                         width: 1.0.w,
@@ -357,7 +347,7 @@ class ProductVertical extends StatelessWidget {
                     style: FunctionHelper.fontTheme(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
-                        fontSize: SizeUtil.detailSmallFontSize().sp),
+                        fontSize: SizeUtil.detailFontSize().sp),
                   ),
                 ],
               ),

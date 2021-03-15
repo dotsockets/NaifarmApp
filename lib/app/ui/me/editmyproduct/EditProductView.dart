@@ -255,7 +255,7 @@ class _EditProductViewState extends State<EditProductView> {
                                         height: 20,
                                       ),
                                       BuildEditText(
-                                        head: "ราคาโปรโมชั่น" +
+                                        head: LocaleKeys.cart_promotion.tr() +
                                             " * (" +
                                             LocaleKeys.my_product_baht.tr() +
                                             ")",
@@ -408,7 +408,7 @@ class _EditProductViewState extends State<EditProductView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Open sales",
+                Text(LocaleKeys.my_product_sell_open.tr(),
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp)),
                 FlutterSwitch(
@@ -450,14 +450,18 @@ class _EditProductViewState extends State<EditProductView> {
               children: [
                 Expanded(
                   child: _buildButtonCancleItem(
-                      btnTxt: "Delete", index: 0, enable: enable),
+                      btnTxt: LocaleKeys.btn_del_product.tr(),
+                      index: 0,
+                      enable: enable),
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 Expanded(
                   child: _buildButtonItem(
-                      btnTxt: "Save", index: 1, enable: enable),
+                      btnTxt: LocaleKeys.btn_update_product.tr(),
+                      index: 1,
+                      enable: enable),
                 )
               ],
             )));
@@ -473,7 +477,7 @@ class _EditProductViewState extends State<EditProductView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Edit picture",
+                  Text(LocaleKeys.btn_edit_img.tr(),
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp)),
                   Icon(

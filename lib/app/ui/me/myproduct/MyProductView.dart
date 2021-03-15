@@ -269,37 +269,36 @@ class _MyProductViewState extends State<MyProductView> {
       ),
     );
   }
+}
 
-  buttonDialog(BuildContext context,
-      {Function() onClick, List<String> message}) {
-    showDialog<bool>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: InkWell(
-            onTap: () {
-              onClick();
-            },
-            child: Container(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: List.generate(
-                        message.length,
-                        (index) => Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: Text(
-                                message[index],
-                                style: FunctionHelper.fontTheme(
-                                    fontSize: SizeUtil.titleFontSize().sp,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
-                              ),
-                            )))),
-          ),
-        );
-      },
-    );
-  }
+buttonDialog(BuildContext context, {Function() onClick, List<String> message}) {
+  showDialog<bool>(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext context) {
+      return Dialog(
+        child: InkWell(
+          onTap: () {
+            onClick();
+          },
+          child: Container(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(
+                      message.length,
+                      (index) => Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Text(
+                              message[index],
+                              style: FunctionHelper.fontTheme(
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.center,
+                            ),
+                          )))),
+        ),
+      );
+    },
+  );
 }

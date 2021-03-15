@@ -24,7 +24,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
   String onError = "";
 
   bool formCheck() {
-    if (passController.text.isEmpty) {
+    if (passController.text.isEmpty || passController.text.length < 8) {
       return false;
     } else {
       return true;
@@ -43,7 +43,8 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(
+            scaffoldKey: _scaffoldKey, message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         AppRoute.editpasswordStep2(context, passController.text);
@@ -103,8 +104,8 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                         BuildEditText(
                             head: LocaleKeys.edit_password_old.tr(),
                             hint: LocaleKeys.my_profile_password.tr(),
-                            maxLength: 10,
                             controller: passController,
+                            maxLength: 40,
                             onError: onError,
                             isPassword: true,
                             inputType: TextInputType.text,
@@ -116,6 +117,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                           height: 20,
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
                               height: 3,
@@ -131,6 +133,7 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
                             Container(
                               color: Colors.grey.shade500,
                               height: 1,
+                              width: 19.0.w,
                             )
                           ],
                         ),

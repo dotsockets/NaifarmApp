@@ -65,7 +65,18 @@ class HomeDataBloc extends Cubit<HomeDataState> {
           emit(HomeDataLoaded(respone.respone));
         });
       } else {
-        emit(HomeDataError(respone.httpCallBack.message));
+        NaiFarmLocalStorage.getHomeDataCache().then((value) {
+          emit(HomeDataError(HomeObjectCombine(
+              categoryGroupRespone: value.categoryGroupRespone,
+              featuredRespone: value.featuredRespone,
+              flashsaleRespone: value.flashsaleRespone,
+              martket: value.martket,
+              productForyou: value.productForyou,
+              productRespone: value.productRespone,
+              sliderRespone: value.sliderRespone,
+              trendingRespone: value.trendingRespone,
+              httpCallBack: respone.httpCallBack)));
+        });
       }
     });
   }
@@ -109,16 +120,16 @@ class HomeDataLoaded extends HomeDataState {
 }
 
 class HomeDataError extends HomeDataState {
-  final String message;
-  const HomeDataError(this.message);
+  final HomeObjectCombine homeObjectCombine;
+  const HomeDataError(this.homeObjectCombine);
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is HomeDataError && o.message == message;
+    return o is HomeDataError && o.homeObjectCombine == homeObjectCombine;
   }
 
   @override
-  int get hashCode => message.hashCode;
+  int get hashCode => homeObjectCombine.hashCode;
 }

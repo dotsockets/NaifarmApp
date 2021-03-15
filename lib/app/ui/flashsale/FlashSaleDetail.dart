@@ -299,7 +299,10 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                                                     SizedBox(
                                                       width: 10,
                                                     ),
-                                                    Text("Loading",
+                                                    Text(
+                                                        LocaleKeys
+                                                            .dialog_message_loading
+                                                            .tr(),
                                                         style: FunctionHelper
                                                             .fontTheme(
                                                                 color:

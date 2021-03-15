@@ -45,8 +45,8 @@ class _NotiShopState extends State<NotiShop>
     if (bloc == null) {
       bloc = NotiBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
-        FunctionHelper.alertDialogShop(context, title: "Error", message: event,
-            callCancle: () {
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event, callCancle: () {
           if (widget.btnBack) {
             AppRoute.poppageCount(context: context, countpage: 2);
           } else {
@@ -57,7 +57,9 @@ class _NotiShopState extends State<NotiShop>
       bloc.onSuccess.stream.listen((event) {
         // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
       });
+
       //  bloc.onSuccess.add(widget.notiRespone);
+
     }
     page = 1;
     bloc.refreshProducts(context, group: "shop", limit: limit, page: page);
@@ -198,6 +200,7 @@ class _NotiShopState extends State<NotiShop>
                           index,
                           Column(
                             children: [
+                              // if(CheckShowOrder(text: value.type))
                               buildCardNoti(
                                   item: value, context: context, index: index),
                             ],
@@ -206,7 +209,7 @@ class _NotiShopState extends State<NotiShop>
                     .values
                     .toList(),
               ),
-              if (item.data.length != item.total)
+              if (item.data.length != item.total && item.data.length > limit)
                 Container(
                   padding: EdgeInsets.all(20),
                   child: Row(
@@ -221,7 +224,7 @@ class _NotiShopState extends State<NotiShop>
                       SizedBox(
                         width: 10,
                       ),
-                      Text("Loading",
+                      Text(LocaleKeys.dialog_message_loading.tr(),
                           style: FunctionHelper.fontTheme(
                               color: Colors.grey,
                               fontSize: SizeUtil.priceFontSize().sp))
@@ -229,7 +232,7 @@ class _NotiShopState extends State<NotiShop>
                   ),
                 ),
               SizedBox(
-                height: 10.0.h,
+                height: 12.0.h,
               )
             ],
           ),
@@ -332,7 +335,8 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("แจ้งเตือน อัพเดทข้อมูลร้านค้า",
+          Text(
+              "${LocaleKeys.recommend_notification.tr()}: ${LocaleKeys.noti_shop_update.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -343,7 +347,7 @@ class _NotiShopState extends State<NotiShop>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "อัพเดทข้อมูลร้านค้า ",
+                    text: "${LocaleKeys.noti_shop_update.tr()} ",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -355,7 +359,7 @@ class _NotiShopState extends State<NotiShop>
                         fontWeight: FontWeight.bold,
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(
-                    text: " สำเร็จ ",
+                    text: " ${LocaleKeys.dialog_message_success.tr()} ",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -365,9 +369,9 @@ class _NotiShopState extends State<NotiShop>
           ),
           /*  Wrap(
             children: [
-              Text("อัพเดทข้อมูลร้านค้า ",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-             Text("${item.meta.name}",style: FunctionHelper.fontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-              Text(" สำเร็จ ",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+              Text("อัพเดทข้อมูลร้านค้า ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+             Text("${item.meta.name}",style: FunctionHelper.FontTheme(fontSize: (SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
+              Text(" สำเร็จ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
             ],
           )*/
         ],
@@ -377,7 +381,7 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("แจ้งเตือน ${item.meta.status}",
+          Text("${LocaleKeys.recommend_notification.tr()}: ${item.meta.status}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -388,7 +392,7 @@ class _NotiShopState extends State<NotiShop>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "สถานะ ",
+                    text: "${LocaleKeys.noti_shop_status.tr()} ",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -404,8 +408,8 @@ class _NotiShopState extends State<NotiShop>
           ),
           /* Wrap(
             children: [
-             Text("สถานะ ",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-              Text("${item.meta.status} ",style: FunctionHelper.fontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.normal,color: Colors.black)),
+             Text("สถานะ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+              Text("${item.meta.status} ",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.normal,color: Colors.black)),
             // Html(data: "สถานะ <span>${item.meta.status} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ <b style='color:#006100'>${item.meta.order}</b></span> ",
              // ),
             ],
@@ -417,7 +421,8 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("แจ้งเตือน คำสั่งซื้อใหม่",
+          Text(
+              "${LocaleKeys.recommend_notification.tr()}: ${LocaleKeys.noti_shop_new_order.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -431,7 +436,7 @@ class _NotiShopState extends State<NotiShop>
               children: <TextSpan>[
                 new TextSpan(
                     text:
-                        "${item.meta.customer} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์",
+                        "${item.meta.customer} ${LocaleKeys.noti_shop_orderid.tr()}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -446,21 +451,22 @@ class _NotiShopState extends State<NotiShop>
             ),
           ),
 
-          //  Text("${item.meta.customer} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-          //  Text("${item.meta.order}",style: FunctionHelper.fontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor()))
+          //  Text("${item.meta.customer} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+          //  Text("${item.meta.order}",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor()))
         ],
       );
     } else if (item.type == "App\\Notifications\\Inventory\\StockOut") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("แจ้งเตือน: สินค้าหมด",
+          Text(
+              "${LocaleKeys.recommend_notification.tr()}: ${LocaleKeys.cart_outstock.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.black)),
           SizedBox(height: 0.5.h),
-          Text("จำนวนสินค้าหมด",
+          Text("${LocaleKeys.noti_shop_outstock.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.normal,
@@ -471,17 +477,53 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("แจ้งเตือน: เปิดร้านใหม่",
+          Text(
+              "${LocaleKeys.recommend_notification.tr()}: ${LocaleKeys.noti_shop_open.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.black)),
           SizedBox(height: 0.5.h),
-          Text("${item.meta.name} ได้ทำการเปิดร้านใหม่",
+          Text("${item.meta.name} ${LocaleKeys.noti_shop_open_detail.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.normal,
                   color: Colors.black)),
+        ],
+      );
+    } else if (item.type ==
+        "App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification") {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+              "คำสั่งซื้อ ${item.meta.order}  ${item.meta.image != null ? "อัพโหลดเอกสารการชำระเงิน!" : "รอการชำระเงิน"}",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text:
+                        "${item.meta.image != null ? "${item.meta.customer} อัพโหลดเอกสารการชำระเงิน" : "รอการชำระเงิน"} ",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black)),
+                new TextSpan(
+                    text: "[หมายเลขคำสั่งซื้อ ${item.meta.order} ]",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: (SizeUtil.titleSmallFontSize() - 1).sp,
+                        fontWeight: FontWeight.bold,
+                        color: ThemeColor.secondaryColor())),
+              ],
+            ),
+          ),
+          // Text("${item.meta.customer} อัพโหลดเอกสารการชำระเงิน [หมายเลขคำสั่งซื้อ ${item.meta.order} ] กรุณาตรวจสอบรายละเอียด", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
         ],
       );
     } else {
@@ -506,8 +548,23 @@ class _NotiShopState extends State<NotiShop>
   bool checkIsOrder({String text}) {
     if (text == "App\\Notifications\\Order\\MerchantOrderCreatedNotification") {
       return true;
+    } else if (text ==
+        "App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification") {
+      return true;
+    } else if (text ==
+        "App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification") {
+      return false;
     } else {
       return false;
     }
   }
+
+  // bool CheckShowOrder({String text}){
+  //   if(text=="App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification"){
+  //     return false;
+  //   }else {
+  //     return true;
+  //   }
+  // }
+
 }
