@@ -140,7 +140,7 @@ class _EditProductViewState extends State<EditProductView> {
                     child: PreferredSize(
                   preferredSize: Size.fromHeight(6.5.h),
                   child: AppToobar(
-                    title: LocaleKeys.my_product_data.tr(),
+                    title: LocaleKeys.my_product_data_manage.tr(),
                     icon: "",
                     isEnableSearch: false,
                     headerType: Header_Type.barNormal,
@@ -310,8 +310,8 @@ class _EditProductViewState extends State<EditProductView> {
         item.category != 0 &&
         item.description != "" &&
         item.stockQuantity != 0 &&
-        item.salePrice != 0 &&
-        item.name.length != 0) {
+        item.salePrice != 0 &&detailController.text.length != 0&&
+        item.name.length != 0&& item.offerPrice<item.salePrice) {
       return true;
     } else {
       return false;

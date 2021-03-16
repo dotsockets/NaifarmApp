@@ -68,7 +68,7 @@ class _ImageProductViewState extends State<ImageProductView> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: LocaleKeys.my_product_image.tr(),
+              title: LocaleKeys.my_product_data.tr(),
               icon: "",
               isEnableSearch: false,
               headerType: Header_Type.barNormal,
