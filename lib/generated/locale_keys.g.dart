@@ -197,9 +197,11 @@ abstract class  LocaleKeys {
   static const message_error_userpass_empty = 'message.error.userpass_empty';
   static const message_error_phone_empty = 'message.error.phone_empty';
   static const message_error_phone_invalid = 'message.error.phone_invalid';
+  static const message_error_phoneNum_invalid = 'message.error.phoneNum_invalid';
   static const message_error_mail_invalid = 'message.error.mail_invalid';
   static const message_error_mail_empty = 'message.error.mail_empty';
   static const message_error = 'message.error';
+  static const message_select = 'message.select';
   static const message = 'message';
   static const cart_toobar = 'cart.toobar';
   static const cart_select_discount = 'cart.select_discount';
@@ -301,6 +303,8 @@ abstract class  LocaleKeys {
   static const my_product_read_more = 'my_product.read_more';
   static const my_product_empty = 'my_product.empty';
   static const my_product_delivery_use = 'my_product.delivery_use';
+  static const my_product_data_manage = 'my_product.data_manage';
+  static const my_product_see = 'my_product.see';
   static const my_product = 'my_product';
   static const shop_title = 'shop.title';
   static const shop_category = 'shop.category';
