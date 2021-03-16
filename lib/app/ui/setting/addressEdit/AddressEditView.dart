@@ -255,7 +255,7 @@ class _AddressEditViewState extends State<AddressEditView> {
 
   String loopString(List<DataStates> data, int id) {
     String item = LocaleKeys.message_select.tr();
-    // var i = 0;
+     var i = 0;
     for (var index in data) {
       if (index.id == id) {
         item = index.name;

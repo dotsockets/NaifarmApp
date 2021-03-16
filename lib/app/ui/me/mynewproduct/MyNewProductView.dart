@@ -327,7 +327,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         item.description != "" &&
         item.stockQuantity != 0 &&
         item.salePrice != 0 &&
-        detailController.text.length != 0&& item.offerPrice<item.salePrice) {
+        detailController.text.length != 0 && item.offerPrice<item.salePrice) {
       return true;
     } else {
       return false;
