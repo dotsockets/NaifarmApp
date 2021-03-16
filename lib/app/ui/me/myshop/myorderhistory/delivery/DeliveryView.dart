@@ -42,29 +42,33 @@ class _DeliveryViewState extends State<DeliveryView> {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
 
-      NaiFarmLocalStorage.getHistoryCache().then((value){
+      NaiFarmLocalStorage.getHistoryCache().then((value) {
         //   print("ewfcwef ${value}");
-        String orderType = widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
-        if(value!=null){
-          for(var data in value.historyCache){
-            if(data.orderViewType==orderType && data.TypeView=="4,5"){
-
+        String orderType =
+            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
+        if (value != null) {
+          for (var data in value.historyCache) {
+            if (data.orderViewType == orderType && data.typeView == "4,5") {
               bloc.orderDataList.addAll(data.orderRespone.data);
-              bloc.onSuccess.add(OrderRespone(data: bloc.orderDataList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
+              bloc.onSuccess.add(OrderRespone(
+                  data: bloc.orderDataList,
+                  total: data.orderRespone.total,
+                  limit: data.orderRespone.limit,
+                  page: data.orderRespone.limit));
               break;
             }
           }
         }
         Usermanager().getUser().then((value) => bloc.loadOrder(context,
-            orderType:
-            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+            orderType: widget.typeView == OrderViewType.Shop
+                ? "myshop/orders"
+                : "order",
             statusId: "4,5",
             sort: "orders.updatedAt:desc",
             limit: limit,
             page: 1,
             token: value.token));
       });
-
     }
     bloc.onLoad.stream.listen((event) {
       if (event) {
@@ -173,7 +177,8 @@ class _DeliveryViewState extends State<DeliveryView> {
                             .values
                             .toList()),
                     if ((snapshot.data as OrderRespone).data.length !=
-                        (snapshot.data as OrderRespone).total && (snapshot.data as OrderRespone).data.length>=limit)
+                            (snapshot.data as OrderRespone).total &&
+                        (snapshot.data as OrderRespone).data.length >= limit)
                       Container(
                         padding: EdgeInsets.all(20),
                         child: Row(
@@ -312,7 +317,9 @@ class _DeliveryViewState extends State<DeliveryView> {
                 child: Text(
                     item.inventory != null
                         ? item.inventory.title
-                        : item.itemTitle.isNotEmpty?item.itemTitle:LocaleKeys.search_product_not_found.tr(),
+                        : item.itemTitle.isNotEmpty
+                            ? item.itemTitle
+                            : LocaleKeys.search_product_not_found.tr(),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.fontTheme(
@@ -436,7 +443,8 @@ class _DeliveryViewState extends State<DeliveryView> {
                             color: Colors.black.withOpacity(0.6)),
                       )),
                   SizedBox(
-                    width:  widget.typeView == OrderViewType.Shop ?3.0.w:12.0.w,
+                    width:
+                        widget.typeView == OrderViewType.Shop ? 3.0.w : 12.0.w,
                   ),
                   Expanded(
                       flex: widget.typeView == OrderViewType.Shop ? 1 : 3,

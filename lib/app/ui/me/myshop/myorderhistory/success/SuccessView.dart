@@ -46,29 +46,33 @@ class _SuccessViewState extends State<SuccessView> {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       productBloc = ProductBloc(AppProvider.getApplication(context));
 
-      NaiFarmLocalStorage.getHistoryCache().then((value){
+      NaiFarmLocalStorage.getHistoryCache().then((value) {
         //   print("ewfcwef ${value}");
-        String orderType = widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
-        if(value!=null){
-          for(var data in value.historyCache){
-            if(data.orderViewType==orderType && data.TypeView=="6"){
-
+        String orderType =
+            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
+        if (value != null) {
+          for (var data in value.historyCache) {
+            if (data.orderViewType == orderType && data.typeView == "6") {
               bloc.orderDataList.addAll(data.orderRespone.data);
-              bloc.onSuccess.add(OrderRespone(data: bloc.orderDataList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
+              bloc.onSuccess.add(OrderRespone(
+                  data: bloc.orderDataList,
+                  total: data.orderRespone.total,
+                  limit: data.orderRespone.limit,
+                  page: data.orderRespone.limit));
               break;
             }
           }
         }
         Usermanager().getUser().then((value) => bloc.loadOrder(context,
-            orderType:
-            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+            orderType: widget.typeView == OrderViewType.Shop
+                ? "myshop/orders"
+                : "order",
             statusId: "6",
             sort: "orders.updatedAt:desc",
             limit: limit,
             page: 1,
             token: value.token));
       });
-
     }
     productBloc.onError.stream.listen((event) {
       //Navigator.of(context).pop();
@@ -317,7 +321,9 @@ class _SuccessViewState extends State<SuccessView> {
                 child: Text(
                     item.inventory != null
                         ? item.inventory.title
-                        : item.itemTitle.isNotEmpty?item.itemTitle:LocaleKeys.search_product_not_found.tr(),
+                        : item.itemTitle.isNotEmpty
+                            ? item.itemTitle
+                            : LocaleKeys.search_product_not_found.tr(),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.fontTheme(
@@ -544,7 +550,7 @@ class _SuccessViewState extends State<SuccessView> {
       ),
       onPressed: () async {
         if (widget.typeView == OrderViewType.Purchase) {
-          List<Items> items = [];
+          List<Items> items = <Items>[];
           for (var value in item.items) {
             items.add(Items(
                 inventoryId: value.inventoryId, quantity: value.quantity));

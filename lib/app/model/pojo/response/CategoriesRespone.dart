@@ -8,7 +8,7 @@ class CategoriesRespone {
 
   CategoriesRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <CategoriesData>[];
       json['data'].forEach((v) {
         data.add(new CategoriesData.fromJson(v));
       });
@@ -52,7 +52,7 @@ class CategoriesData {
     description = json['description'];
     order = json['order'];
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });

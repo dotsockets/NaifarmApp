@@ -388,7 +388,7 @@ class _AddressViewState extends State<AddressView> {
 
   void checkCallBack() {
     if (bloc.addressList.value.data != null) {
-      List<AddressesData> returnData = [];
+      List<AddressesData> returnData = <AddressesData>[];
 
       for (var item in bloc.addressList.value.data) {
         if (item.addressType == "Primary") {

@@ -6,7 +6,7 @@ class ShippingsRespone {
 
   ShippingsRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <ShippingsData>[];
       json['data'].forEach((v) {
         data.add(new ShippingsData.fromJson(v));
       });
@@ -62,7 +62,7 @@ class ShippingsData {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['rates'] != null) {
-      rates = [];
+      rates = <ShippingRates>[];
       json['rates'].forEach((v) {
         rates.add(new ShippingRates.fromJson(v));
       });

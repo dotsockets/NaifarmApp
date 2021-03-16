@@ -8,7 +8,7 @@ class WishlistsRespone {
 
   WishlistsRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <DataWishlists>[];
       json['data'].forEach((v) {
         data.add(new DataWishlists.fromJson(v));
       });
@@ -118,13 +118,13 @@ class Product {
     slug = json['slug'];
     saleCount = json['saleCount'];
     if (json['inventories'] != null) {
-      inventories = [];
+      inventories = <Inventories>[];
       json['inventories'].forEach((v) {
         inventories.add(new Inventories.fromJson(v));
       });
     }
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -236,7 +236,7 @@ class Inventories {
     minOrderQuantity = json['minOrderQuantity'];
     linkedItems = json['linkedItems'];
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });

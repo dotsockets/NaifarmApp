@@ -6,7 +6,7 @@ class ShppingMyShopRespone {
 
   ShppingMyShopRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <ShppingMyShop>[];
       json['data'].forEach((v) {
         data.add(new ShppingMyShop.fromJson(v));
       });
@@ -62,7 +62,7 @@ class ShppingMyShop {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['rates'] != null) {
-      rates = [];
+      rates = <Rates>[];
       json['rates'].forEach((v) {
         rates.add(new Rates.fromJson(v));
       });

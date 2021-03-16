@@ -47,7 +47,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CartBloc bloc;
   NotiBloc blocNoti;
-  List<ProductData> cartNowIdTemp = [];
+  List<ProductData> cartNowIdTemp = <ProductData>[];
 //    CartRequest cartReq = CartRequest();
 
   final _indicatorController = IndicatorController();
@@ -78,7 +78,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       });
       bloc.cartList.stream.listen((event) {
         if (event is CartResponse) {
-          widget.cartNowId = [];
+          widget.cartNowId = <ProductData>[];
         }
       });
       bloc.onSuccess.stream.listen((event) {
@@ -804,9 +804,9 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                         ),
                         onPressed: () {
                           if (checkSelect()) {
-                            List<CartData> data = [];
+                            List<CartData> data = <CartData>[];
                             for (var i = 0; i < cartResponse.data.length; i++) {
-                              List<CartItems> item = [];
+                              List<CartItems> item = <CartItems>[];
                               int totalPayment = 0;
                               int countItem = 0;
                               for (var j = 0;

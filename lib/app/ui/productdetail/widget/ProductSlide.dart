@@ -15,7 +15,7 @@ class ProductSlide extends StatefulWidget {
 }
 
 class _ProductSlideState extends State<ProductSlide> {
-  final List<String> _imgList = [];
+  final List<String> _imgList = <String>[];
 
   int _current;
 

@@ -27,7 +27,7 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
-  List<String> listClone = [];
+  List<String> listClone = <String>[];
   bool checkSeemore = false;
   TextEditingController txtController = TextEditingController();
   String searchText = "";
@@ -257,18 +257,19 @@ class _SearchViewState extends State<SearchView> {
                     stream: bloc.moreProduct.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
-                        if((snapshot.data as ProductRespone).data.isNotEmpty){
+                        if ((snapshot.data as ProductRespone).data.isNotEmpty) {
                           return SearchHot(
                               productRespone: snapshot.data,
                               onSelectChang: () {});
-                        }else{
+                        } else {
                           return SizedBox();
                         }
-
                       } else {
-                        return  Column(
+                        return Column(
                           children: [
-                            SizedBox(height: 40,),
+                            SizedBox(
+                              height: 40,
+                            ),
                             Platform.isAndroid
                                 ? CircularProgressIndicator()
                                 : CupertinoActivityIndicator()

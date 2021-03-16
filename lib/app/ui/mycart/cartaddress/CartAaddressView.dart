@@ -351,7 +351,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
               token: value.token));
         }
 
-        List<AddressesData> returnData = [];
+        List<AddressesData> returnData = <AddressesData>[];
         returnData.add(AddressesData(
             id: item.id,
             addressLine1: item.addressLine1,
@@ -410,7 +410,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
 
   void checkCallBack() {
     if (bloc.addressList.value.data != null) {
-      List<AddressesData> returnData = [];
+      List<AddressesData> returnData = <AddressesData>[];
 
       for (var item in bloc.addressList.value.data) {
         if (item.addressType == "Primary") {

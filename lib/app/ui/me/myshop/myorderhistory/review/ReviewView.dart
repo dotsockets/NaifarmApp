@@ -27,7 +27,7 @@ class ReviewView extends StatefulWidget {
 class _ReviewViewState extends State<ReviewView> {
   TextEditingController reviewController = TextEditingController();
   bool selectSwitch = false;
-  List<Asset> images = [];
+  List<Asset> images = <Asset>[];
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +115,7 @@ class _ReviewViewState extends State<ReviewView> {
 
   Future<void> loadAssets({int maxImages}) async {
     // ignore: unused_local_variable
-    List<Asset> resultList = [];
+    List<Asset> resultList = <Asset>[];
     // ignore: unused_local_variable
     String error = 'No Error Dectected';
 

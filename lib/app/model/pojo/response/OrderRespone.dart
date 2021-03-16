@@ -10,7 +10,7 @@ class OrderRespone {
 
   OrderRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <OrderData>[];
       json['data'].forEach((v) {
         data.add(new OrderData.fromJson(v));
       });
@@ -160,7 +160,7 @@ class OrderData {
     requirePaymentAt = json['requirePaymentAt'];
     shop = json['shop'] != null ? new ProductShop.fromJson(json['shop']) : null;
     if (json['items'] != null) {
-      items = [];
+      items = <OrderItems>[];
       json['items'].forEach((v) {
         items.add(new OrderItems.fromJson(v));
       });
@@ -169,7 +169,7 @@ class OrderData {
         ? new PaymentMethod.fromJson(json['paymentMethod'])
         : null;
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -333,7 +333,7 @@ class Inventory {
     offerPrice = json['offerPrice'];
     stockQuantity = json['stockQuantity'];
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });

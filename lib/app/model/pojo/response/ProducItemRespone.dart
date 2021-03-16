@@ -70,20 +70,20 @@ class ProducItemRespone {
     slug = json['slug'];
     saleCount = json['saleCount'];
     if (json['inventories'] != null) {
-      inventories = [];
+      inventories = <InventoriesProduct>[];
       json['inventories'].forEach((v) {
         inventories.add(new InventoriesProduct.fromJson(v));
       });
     }
     shop = json['shop'] != null ? new ShopItem.fromJson(json['shop']) : null;
     if (json['categories'] != null) {
-      categories = [];
+      categories = <Categories>[];
       json['categories'].forEach((v) {
         categories.add(new Categories.fromJson(v));
       });
     }
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -214,19 +214,19 @@ class InventoriesProduct {
     minOrderQuantity = json['minOrderQuantity'];
     linkedItems = json['linkedItems'];
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
     }
     if (json['feedbacks'] != null) {
-      feedbacks = [];
+      feedbacks = <Feedbacks>[];
       json['feedbacks'].forEach((v) {
         feedbacks.add(new Feedbacks.fromJson(v));
       });
     }
     if (json['attributes'] != null) {
-      attributes = [];
+      attributes = <AttributesItem>[];
       json['attributes'].forEach((v) {
         attributes.add(new AttributesItem.fromJson(v));
       });
@@ -454,7 +454,7 @@ class ShopItem {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });

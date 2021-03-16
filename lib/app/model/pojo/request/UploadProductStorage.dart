@@ -12,7 +12,7 @@ class UploadProductStorage {
         ? new ProductMyShopRequest.fromJson(json['productMyShopRequest'])
         : null;
     if (json['onSelectItem'] != null) {
-      onSelectItem = [];
+      onSelectItem = <OnSelectItem>[];
       json['onSelectItem'].forEach((v) {
         onSelectItem.add(new OnSelectItem.fromJson(v));
       });

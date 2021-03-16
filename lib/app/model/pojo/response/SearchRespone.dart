@@ -20,7 +20,7 @@ class SearchRespone {
 
   SearchRespone.fromJson(Map<String, dynamic> json) {
     if (json['hits'] != null) {
-      hits = [];
+      hits = <Hits>[];
       json['hits'].forEach((v) {
         hits.add(new Hits.fromJson(v));
       });
@@ -98,20 +98,20 @@ class Hits {
     name = json['name'];
     saleCount = json['saleCount'];
     if (json['inventories'] != null) {
-      inventories = [];
+      inventories = <Inventories>[];
       json['inventories'].forEach((v) {
         inventories.add(new Inventories.fromJson(v));
       });
     }
     shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
     if (json['categories'] != null) {
-      categories = [];
+      categories = <Categories>[];
       json['categories'].forEach((v) {
         categories.add(new Categories.fromJson(v));
       });
     }
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });

@@ -8,7 +8,7 @@ class CategoryGroupRespone {
 
   CategoryGroupRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <CategoryGroupData>[];
       json['data'].forEach((v) {
         data.add(new CategoryGroupData.fromJson(v));
       });
@@ -55,7 +55,7 @@ class CategoryGroupData {
     order = json['order'];
     countProduct = json['countProduct'];
     if (json['image'] != null) {
-      image = [];
+      image = <SliderImage>[];
       json['image'].forEach((v) {
         image.add(new SliderImage.fromJson(v));
       });

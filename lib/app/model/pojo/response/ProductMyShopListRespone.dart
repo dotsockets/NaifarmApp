@@ -11,7 +11,7 @@ class ProductMyShopListRespone {
 
   ProductMyShopListRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <ProductMyShop>[];
       json['data'].forEach((v) {
         data.add(new ProductMyShop.fromJson(v));
       });
@@ -86,7 +86,7 @@ class ProductMyShop {
     saleCount = json['saleCount'];
     shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -145,7 +145,7 @@ class Shop {
         json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });

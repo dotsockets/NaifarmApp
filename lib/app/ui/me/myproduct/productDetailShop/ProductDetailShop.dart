@@ -259,7 +259,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   }
 
   List imgProductList({List<ImageProductShop> imgRes}) {
-    List<ProductImage> img = [];
+    List<ProductImage> img = <ProductImage>[];
 
     if (imgRes != null) {
       for (int i = 0; i < imgRes.length; i++)
@@ -271,7 +271,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   }
 
   List inventoryList({ProductMyShopRespone item}) {
-    List<InventoriesProduct> inventory = [];
+    List<InventoriesProduct> inventory = <InventoriesProduct>[];
     for (int i = 0; i < item.inventories.length; i++)
       inventory.add(
           InventoriesProduct(stockQuantity: item.inventories[i].stockQuantity));
@@ -279,7 +279,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   }
 
   List imgShopList({ProductMyShopRespone item}) {
-    List<ProductImage> img = [];
+    List<ProductImage> img = <ProductImage>[];
 
     if (item.shop.image != null || item.shop.image.length != 0) {
       for (int i = 0; i < item.shop.image.length; i++)

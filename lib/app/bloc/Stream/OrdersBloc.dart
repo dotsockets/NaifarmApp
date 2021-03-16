@@ -17,7 +17,7 @@ class OrdersBloc {
   final onSuccess = BehaviorSubject<Object>();
   final orderList = BehaviorSubject<OrderData>();
   Stream<Object> get feedList => onSuccess.stream;
-  List<OrderData> orderDataList = [];
+  List<OrderData> orderDataList = <OrderData>[];
 
   OrdersBloc(this._application);
 
@@ -46,74 +46,101 @@ class OrdersBloc {
       }
       if (respone.httpCallBack.status == 200) {
         var item = (respone.respone as OrderRespone);
-        if(page==1){
-          NaiFarmLocalStorage.getHistoryCache().then((value){
-            if(value!=null ){
-
-              for(var data in value.historyCache){
-                if(data.orderViewType==orderType && data.TypeView==statusId){
+        if (page == 1) {
+          NaiFarmLocalStorage.getHistoryCache().then((value) {
+            if (value != null) {
+              for (var data in value.historyCache) {
+                if (data.orderViewType == orderType &&
+                    data.typeView == statusId) {
                   value.historyCache.remove(data);
                   orderDataList.clear();
                   break;
                 }
               }
-              value.historyCache.add(HistoryCache(orderViewType: orderType,orderRespone: item,TypeView: statusId));
-              NaiFarmLocalStorage.saveHistoryCache(value).then((value){
+              value.historyCache.add(HistoryCache(
+                  orderViewType: orderType,
+                  orderRespone: item,
+                  typeView: statusId));
+              NaiFarmLocalStorage.saveHistoryCache(value).then((value) {
                 orderDataList.addAll(item.data);
-                onSuccess.add(OrderRespone(data: orderDataList,total: item.total,limit: item.limit,page: item.limit));
+                onSuccess.add(OrderRespone(
+                    data: orderDataList,
+                    total: item.total,
+                    limit: item.limit,
+                    page: item.limit));
               });
-
-            }else{
-
-              List<HistoryCache> data = List<HistoryCache>();
-              data.add(HistoryCache(TypeView: statusId,orderViewType: orderType,orderRespone: item));
-              NaiFarmLocalStorage.saveHistoryCache(ProductHistoryCache(historyCache: data)).then((value){
+            } else {
+              List<HistoryCache> data = <HistoryCache>[];
+              data.add(HistoryCache(
+                  typeView: statusId,
+                  orderViewType: orderType,
+                  orderRespone: item));
+              NaiFarmLocalStorage.saveHistoryCache(
+                      ProductHistoryCache(historyCache: data))
+                  .then((value) {
                 orderDataList.addAll(item.data);
-                onSuccess.add(OrderRespone(data: orderDataList,total: item.total,limit: item.limit,page: item.page,));
+                onSuccess.add(OrderRespone(
+                  data: orderDataList,
+                  total: item.total,
+                  limit: item.limit,
+                  page: item.page,
+                ));
               });
-
             }
           });
-        }else{
+        } else {
           orderDataList.addAll(item.data);
-          onSuccess.add(OrderRespone(data: orderDataList,total: item.total,limit: item.limit,page: item.page,));
+          onSuccess.add(OrderRespone(
+            data: orderDataList,
+            total: item.total,
+            limit: item.limit,
+            page: item.page,
+          ));
         }
-      }else{
+      } else {
         onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-
-  getOrderById(BuildContext context,{int id,String orderType, String token}){
-    StreamSubscription subscription =
-    Observable.fromFuture(_application.appStoreAPIRepository.getOrderById(context,id: id,orderType:orderType ,token: token)).listen((respone) {
-      if(respone.httpCallBack.status==200){
-
-        NaiFarmLocalStorage.getOrderCache().then((value){
-          if(value!=null){
-            for(var data in value.orderCahe){
-              if(data.TypeView==id.toString() && data.orderViewType==orderType){
+  getOrderById(BuildContext context, {int id, String orderType, String token}) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .getOrderById(context, id: id, orderType: orderType, token: token))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
+        NaiFarmLocalStorage.getOrderCache().then((value) {
+          if (value != null) {
+            for (var data in value.orderCahe) {
+              if (data.typeView == id.toString() &&
+                  data.orderViewType == orderType) {
                 value.orderCahe.remove(data);
                 break;
               }
             }
-            value.orderCahe.add(OrderCache(orderData: respone.respone,orderViewType: orderType,TypeView: id.toString()));
+            value.orderCahe.add(OrderCache(
+                orderData: respone.respone,
+                orderViewType: orderType,
+                typeView: id.toString()));
             NaiFarmLocalStorage.saveOrderCache(value).then((value) {
               orderList.add((respone.respone as OrderData));
             });
-          }else{
-            List<OrderCache> data = List<OrderCache>();
-            data.add(OrderCache(TypeView: id.toString(),orderViewType: orderType,orderData: respone.respone));
-            NaiFarmLocalStorage.saveOrderCache(ProductOrderCache(orderCahe: data)).then((value){
+          } else {
+            List<OrderCache> data = <OrderCache>[];
+            data.add(OrderCache(
+                typeView: id.toString(),
+                orderViewType: orderType,
+                orderData: respone.respone));
+            NaiFarmLocalStorage.saveOrderCache(
+                    ProductOrderCache(orderCahe: data))
+                .then((value) {
               //  orderList.addAll(respone.respone);
               orderList.add(respone.respone);
             });
           }
         });
-
-      }else{
+      } else {
         onError.add(respone.httpCallBack.message);
       }
     });

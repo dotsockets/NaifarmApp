@@ -43,18 +43,18 @@ class _OrderViewState extends State<OrderView> {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       productBloc = ProductBloc(AppProvider.getApplication(context));
 
-
-
-      NaiFarmLocalStorage.getOrderCache().then((value){
-        if(value!=null){
-          var orderType = widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
-          for(var data in value.orderCahe){
-            if(data.TypeView==widget.orderData.id.toString() && data.orderViewType==orderType){
+      NaiFarmLocalStorage.getOrderCache().then((value) {
+        if (value != null) {
+          var orderType =
+              widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
+          for (var data in value.orderCahe) {
+            if (data.typeView == widget.orderData.id.toString() &&
+                data.orderViewType == orderType) {
               bloc.orderList.add(data.orderData);
               break;
             }
           }
-        }else{
+        } else {
           if (widget.orderData.orderStatusName != null) {
             bloc.orderList.add(widget.orderData);
           }
@@ -666,8 +666,9 @@ class _OrderViewState extends State<OrderView> {
                   child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
                 fit: BoxFit.cover,
-                imageUrl:
-                orderItems.inventory!=null?"${Env.value.baseUrl}/storage/images/${orderItems.inventory!=null?orderItems.inventory.product.image.isNotEmpty ? orderItems.inventory.product.image[0].path : '':''}":Env.value.noItemUrl,
+                imageUrl: orderItems.inventory != null
+                    ? "${Env.value.baseUrl}/storage/images/${orderItems.inventory != null ? orderItems.inventory.product.image.isNotEmpty ? orderItems.inventory.product.image[0].path : '' : ''}"
+                    : Env.value.noItemUrl,
                 errorWidget: (context, url, error) => Container(
                     width: 22.0.w,
                     height: 22.0.w,
@@ -684,9 +685,10 @@ class _OrderViewState extends State<OrderView> {
               ProductData product = ProductData();
               product = orderItems.inventory.product;
               AppRoute.productDetail(context,
-                  productImage:
-                  "orderview_${orderItems.orderId}1",
-                  productItem: ProducItemRespone(id: orderItems.inventory.product.id,image: orderItems.inventory.image));
+                  productImage: "orderview_${orderItems.orderId}1",
+                  productItem: ProducItemRespone(
+                      id: orderItems.inventory.product.id,
+                      image: orderItems.inventory.image));
             }
           },
         ),
@@ -1179,7 +1181,7 @@ class _OrderViewState extends State<OrderView> {
               flex: 2,
               child: InkWell(
                   onTap: () {
-                    List<Items> items = [];
+                    List<Items> items = <Items>[];
                     for (var value in bloc.orderList.value.items) {
                       items.add(Items(
                           inventoryId: value.inventoryId,

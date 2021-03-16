@@ -6,7 +6,7 @@ class StatesRespone {
 
   StatesRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <DataStates>[];
       json['data'].forEach((v) {
         data.add(new DataStates.fromJson(v));
       });

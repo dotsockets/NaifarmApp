@@ -256,7 +256,7 @@ class ProductInto extends StatelessWidget {
       bool isLiked, WishlistsRespone item, BuildContext context) async {
     if (item.total > 0) {
       int id = item.data[0].id;
-      item.data = [];
+      item.data = <DataWishlists>[];
       item.total = 0;
       bloc.wishlists.add(item);
       Usermanager().getUser().then((value) =>
@@ -266,7 +266,7 @@ class ProductInto extends StatelessWidget {
           productId: data.id,
           inventoryId: data.inventories[0].id,
           token: value.token));
-      item.data = [];
+      item.data = <DataWishlists>[];
       item.total = 1;
       bloc.wishlists.add(item);
     }

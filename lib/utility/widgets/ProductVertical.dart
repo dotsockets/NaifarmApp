@@ -67,7 +67,7 @@ class ProductVertical extends StatelessWidget {
       });
 
       productBloc.productItem.stream.listen((event) {
-        List<Items> items = [];
+        List<Items> items = <Items>[];
         items.add(Items(inventoryId: event.inventories[0].id, quantity: 1));
 
         Usermanager()

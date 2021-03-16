@@ -609,7 +609,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                             ),
                             onTap: () {
                               if (isLogin) {
-                                List<Items> items = [];
+                                List<Items> items = <Items>[];
                                 items.add(Items(
                                     inventoryId: bloc.zipProductDetail.value
                                         .producItemRespone.inventories[0].id,
@@ -639,7 +639,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                             child: InkWell(
                                 onTap: () {
                                   if (isLogin) {
-                                    List<Items> items = [];
+                                    List<Items> items = <Items>[];
                                     items.add(Items(
                                         inventoryId: bloc
                                             .zipProductDetail
@@ -711,7 +711,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
     if (bloc.wishlists.value.data != null) {
       if (item.total > 0) {
         int id = item.data[0].id;
-        item.data = [];
+        item.data = <DataWishlists>[];
         item.total = 0;
         bloc.wishlists.add(item);
         Usermanager().getUser().then((value) =>
@@ -722,7 +722,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
             inventoryId:
                 bloc.zipProductDetail.value.producItemRespone.inventories[0].id,
             token: value.token));
-        item.data = [];
+        item.data = <DataWishlists>[];
         item.total = 1;
         bloc.wishlists.add(item);
       }

@@ -24,7 +24,7 @@ class _SearchMapViewState extends State<SearchMapView> {
     "A Space Asoke-Ratchada",
     "เซนทัล พระราม9"
   ];
-  List<String> listClone = [];
+  List<String> listClone = <String>[];
 
   @override
   void initState() {

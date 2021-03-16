@@ -28,7 +28,7 @@ class SearchMyProduct extends StatefulWidget {
 }
 
 class _SearchMyProductState extends State<SearchMyProduct> {
-  List<String> listClone = [];
+  List<String> listClone = <String>[];
   bool checkSeemore = false;
   TextEditingController txtController = TextEditingController();
 
