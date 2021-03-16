@@ -218,27 +218,7 @@ class _NotiCusState extends State<NotiCus>
                     .values
                     .toList(),
               ),
-              if (item.data.length != item.total)
-                Container(
-                    padding: EdgeInsets.all(20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Platform.isAndroid
-                            ? SizedBox(
-                                width: 5.0.w,
-                                height: 5.0.w,
-                                child: CircularProgressIndicator())
-                            : CupertinoActivityIndicator(),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text("Loading",
-                            style: FunctionHelper.fontTheme(
-                                color: Colors.grey,
-                                fontSize: SizeUtil.priceFontSize().sp))
-                      ],
-                    )),
+
               if (item.data.length != item.total && item.data.length > limit)
                 Container(
                   padding: EdgeInsets.all(20),
@@ -262,7 +242,7 @@ class _NotiCusState extends State<NotiCus>
                   ),
                 ),
               SizedBox(
-                height: 10.0.h,
+                height: widget.btnBack?0.0.h:13.0.h,
               )
             ],
           ),

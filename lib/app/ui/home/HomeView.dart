@@ -119,7 +119,7 @@ class _HomeViewState extends State<HomeView>
                           }),
                       CategoryView(),
                       //MyCartView(BtnBack: false,),
-                      NotiView(),
+                      NotiView(btnBack: false,),
                       SizedBox(),
                       MeView()
                     ],

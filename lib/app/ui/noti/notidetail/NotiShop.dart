@@ -232,7 +232,7 @@ class _NotiShopState extends State<NotiShop>
                   ),
                 ),
               SizedBox(
-                height: 12.0.h,
+                height: widget.btnBack?0.0.h:13.0.h,
               )
             ],
           ),

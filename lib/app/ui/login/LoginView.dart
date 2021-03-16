@@ -327,58 +327,60 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(
               height: 3.0.h,
             ),
-            Wrap(
-              children: [
-                Text(
-                  LocaleKeys.regis_agree.tr() + " ",
-                  style: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
-                      height: 1.7,
-                      fontWeight: FontWeight.w500),
-                ),
-                InkWell(
-                  child: Text(
-                    LocaleKeys.regis_rule.tr(),
+            Center(
+              child: Wrap(
+                children: [
+                  Text(
+                    LocaleKeys.regis_agree.tr() + " ",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
-                        color: ThemeColor.secondaryColor(),
-                        decoration: TextDecoration.underline,
                         height: 1.7,
                         fontWeight: FontWeight.w500),
                   ),
-                  onTap: () {
-                    AppRoute.settingRules(context);
-                  },
-                ),
-                Text(
-                  " " + LocaleKeys.and.tr() + " ",
-                  style: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
-                      height: 1.7,
-                      fontWeight: FontWeight.w500),
-                ),
-                InkWell(
-                  child: Text(
-                    LocaleKeys.regis_policy.tr(),
+                  InkWell(
+                    child: Text(
+                      LocaleKeys.regis_rule.tr(),
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          color: ThemeColor.secondaryColor(),
+                          decoration: TextDecoration.underline,
+                          height: 1.7,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    onTap: () {
+                      AppRoute.settingRules(context);
+                    },
+                  ),
+                  Text(
+                    " " + LocaleKeys.and.tr() + " ",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
-                        color: ThemeColor.secondaryColor(),
-                        decoration: TextDecoration.underline,
                         height: 1.7,
                         fontWeight: FontWeight.w500),
                   ),
-                  onTap: () {
-                    AppRoute.settingPolicy(context);
-                  },
-                ),
-                Text(
-                  " " + LocaleKeys.withh.tr() + " NaiFarm",
-                  style: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
-                      height: 1.7,
-                      fontWeight: FontWeight.w500),
-                ),
-              ],
+                  InkWell(
+                    child: Text(
+                      LocaleKeys.regis_policy.tr(),
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          color: ThemeColor.secondaryColor(),
+                          decoration: TextDecoration.underline,
+                          height: 1.7,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    onTap: () {
+                      AppRoute.settingPolicy(context);
+                    },
+                  ),
+                  Text(
+                    " " + LocaleKeys.withh.tr() + " NaiFarm",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        height: 1.7,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
             )
           ],
         ));

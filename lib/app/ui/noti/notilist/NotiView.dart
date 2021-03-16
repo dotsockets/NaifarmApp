@@ -209,15 +209,18 @@ class _NotiViewState extends State<NotiView>
                         ? [
                             // first tab bar view widget
                             NotiCus(
+                              btnBack: widget.btnBack,
                               scaffoldKey: _scaffoldKey,
                             ),
 
                             NotiShop(
+                              btnBack: widget.btnBack,
                               scaffoldKey: _scaffoldKey,
                             )
                           ]
                         : [
                             NotiCus(
+                              btnBack: widget.btnBack,
                               scaffoldKey: _scaffoldKey,
                             )
                           ],

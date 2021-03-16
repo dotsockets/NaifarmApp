@@ -274,50 +274,37 @@ class AppToobar extends PreferredSize {
     return Wrap(
       children: [
         Container(
-          padding: EdgeInsets.only(left: 0, right: 0.3.w, bottom: 1.5.h),
+          padding: EdgeInsets.only(left: 0, right: 0.3.w, bottom: 1.5.h,top: 1.0.h),
           color: ThemeColor.primaryColor(),
-          child: SafeArea(
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IconButton(
+          child: Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Platform.isAndroid
+                      ? Icons.arrow_back
+                      : Icons.arrow_back_ios_rounded,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  onClick == null
+                      ? Navigator.of(context).pop()
+                      : onClick();
+                },
+              ),
+              _buildSearch(context),
+              showCartBtn
+                  ? BuildIconShop()
+                  : IconButton(
                       icon: Icon(
-                        Platform.isAndroid
-                            ? Icons.arrow_back
-                            : Icons.arrow_back_ios_rounded,
+                        FontAwesome.ellipsis_v,
+                        size: SizeUtil.mediumIconSize().w,
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        onClick == null
-                            ? Navigator.of(context).pop()
-                            : onClick();
+                        onTab();
                       },
-                    ),
-                    _buildSearch(context),
-                    showCartBtn
-                        ? BuildIconShop()
-                        : IconButton(
-                            icon: Icon(
-                              FontAwesome.ellipsis_v,
-                              size: SizeUtil.mediumIconSize().w,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              onTab();
-                            },
-                          )
-                  ],
-                ),
-
-                // setState(() {
-                //   _categoryselectedIndex = val;
-                //   _categoryselectedIndex!=0?AppRoute.CategoryDetail(context,_categoryselectedIndex-1):print(_categoryselectedIndex);
-                // });
-                //  Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-              ],
-            ),
+                    )
+            ],
           ),
         )
       ],
