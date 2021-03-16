@@ -299,33 +299,29 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                       Row(
                         children: [
                           //   item.ProductDicount != 0 ?
-                          item.inventory.offerPrice != null
+                          item.inventory.salePrice != null && item.inventory.offerPrice != null && item.inventory.offerPrice>0
                               ? Text(
-                                  //   "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
-                                  "฿${item.inventory.salePrice}",
-                                  style: FunctionHelper.fontTheme(
-                                      fontSize: SizeUtil.priceFontSize().sp - 2,
-                                      color: Colors.grey,
-                                      decoration: TextDecoration.lineThrough))
+                              "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
+                              style: FunctionHelper.fontTheme(
+                                  color: Colors.grey,
+                                  fontSize: SizeUtil.priceFontSize().sp,
+                                  decoration: TextDecoration.lineThrough))
                               : SizedBox(),
-                          //: SizedBox(),
                           SizedBox(
-                              width: item.inventory.offerPrice != null
-                                  ? 2.0.w
+                              width: item.inventory.salePrice != null &&item.inventory.offerPrice != null
+                                  ? 1.0.w
                                   : 0),
-                          item.inventory.offerPrice != null
-                              ? Text(
-                                  //  "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.offerPrice)}",
-                                  "฿${item.inventory.offerPrice}",
-                                  style: FunctionHelper.fontTheme(
-                                      fontSize: SizeUtil.priceFontSize().sp,
-                                      color: ThemeColor.colorSale()))
-                              : Text(
-                                  //  "฿${NumberFormat("#,##0.00", "en_US").format(item.inventory.salePrice)}",
-                                  "฿${item.inventory.salePrice}",
-                                  style: FunctionHelper.fontTheme(
-                                      fontSize: SizeUtil.priceFontSize().sp,
-                                      color: ThemeColor.colorSale()))
+                          Text(
+                            item.inventory.offerPrice != null  && item.inventory.offerPrice !=0
+                                ? "฿${NumberFormat("#,##0", "en_US").format(item.inventory.offerPrice)}"
+                                : "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: FunctionHelper.fontTheme(
+                                color: ThemeColor.colorSale(),
+                                fontWeight: FontWeight.w500,
+                                fontSize: SizeUtil.priceFontSize().sp),
+                          ),
                         ],
                       )
                     ],

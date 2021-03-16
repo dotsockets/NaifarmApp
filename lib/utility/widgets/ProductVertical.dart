@@ -141,23 +141,40 @@ class ProductVertical extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            imageIcon != ""
-                ? Image.asset(
-                    imageIcon,
-                    width: iconSize,
-                    height: iconSize,
-                  )
-                : SvgPicture.asset(
-                    iconInto,
-                    width: iconSize,
-                    height: iconSize,
-                  ),
-            SizedBox(width: 2.0.w),
-            Text(titleInto,
-                style: FunctionHelper.fontTheme(
-                    color: Colors.black,
-                    fontSize: SizeUtil.titleFontSize().sp,
-                    fontWeight: FontWeight.bold)),
+            Row(
+              children: [
+                imageIcon != ""
+                    ? Image.asset(
+                  imageIcon,
+                  width: iconSize,
+                  height: iconSize,
+                )
+                    : SvgPicture.asset(
+                  iconInto,
+                  width: iconSize,
+                  height: iconSize,
+                ),
+                SizedBox(width: 2.0.w),
+                Text(titleInto,
+                    style: FunctionHelper.fontTheme(
+                        color: Colors.black,
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.bold)),
+              ],
+            ),
+            InkWell(
+              child: Row(
+                children: [
+                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.fontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
+                  SizedBox(width: 2.0.w),
+                  SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
+
+                ],
+              ),
+              onTap: (){
+                onSelectMore();
+              },
+            )
           ],
         ),
       );

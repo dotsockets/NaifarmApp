@@ -201,7 +201,6 @@ class UploadProductBloc {
     if (isActive != IsActive.NewProduct) {
       onLoad.add(true);
     }
-
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.updateProductMyShop(context,
                 shopRequest: shopRequest, productId: productId, token: token))

@@ -144,8 +144,6 @@ class _EditProviceViewState extends State<EditProviceView> {
       stream: bloc.provice.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          print(
-              "secfsefc ${loopIndex((snapshot.data as StatesRespone).data, proviceSelect)}");
           return Container(
             color: Colors.white,
             padding: EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
@@ -202,7 +200,7 @@ class _EditProviceViewState extends State<EditProviceView> {
       List<DataStates> item,
       Function(int) onSelect,
       int initialItem}) {
-    var datalist = [];
+    var datalist = <String>[];
     if (item.isNotEmpty) {
       for (int i = 0; i < item.length; i++) {
         datalist.add(item[i].name);
