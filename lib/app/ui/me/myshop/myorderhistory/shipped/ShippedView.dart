@@ -95,6 +95,7 @@ class _ShippedViewState extends State<ShippedView> {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData &&
                 (snapshot.data as OrderRespone).data.length > 0) {
+              stepPage = true;
               return SingleChildScrollView(
                   controller: _scrollController,
                   child: Column(children: [

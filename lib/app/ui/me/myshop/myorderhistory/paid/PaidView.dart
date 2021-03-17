@@ -442,7 +442,7 @@ class _PaidViewState extends State<PaidView> {
                   buildButtonBayItem(
                       btnTxt: widget.typeView == OrderViewType.Shop
                           ? LocaleKeys.order_detail_confirm_pay.tr()
-                          : item.image.isNotEmpty?"${LocaleKeys.order_detail_wait_pay_verify.tr()}":LocaleKeys.order_detail_wait_pay.tr(),
+                          : item.image.isNotEmpty?"${item.orderStatusName}":item.orderStatusName,
                       item: item)
                 ],
               )
@@ -510,7 +510,7 @@ class _PaidViewState extends State<PaidView> {
                     ],
                   ),
             Text(
-              item.image!=null && item.image.isNotEmpty?"รอตรวจสอบการชำระเงิน":item.orderStatusName,
+              item.image!=null && item.image.isNotEmpty?item.orderStatusName:item.orderStatusName,
               style: FunctionHelper.fontTheme(
                   color: ThemeColor.primaryColor(),
                   fontSize: SizeUtil.titleSmallFontSize().sp,
