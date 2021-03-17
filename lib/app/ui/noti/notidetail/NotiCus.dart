@@ -385,7 +385,7 @@ class _NotiCusState extends State<NotiCus>
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(
                     text:
-                        " ${LocaleKeys.noti_shop_status.tr()} ${LocaleKeys.noti_cus_cancel_status.tr()}",
+                        " ${LocaleKeys.noti_shop_status.tr()} ${item.meta.status} ${LocaleKeys.noti_cus_cancel_status.tr()}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,

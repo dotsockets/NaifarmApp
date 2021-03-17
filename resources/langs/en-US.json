@@ -421,7 +421,7 @@
     "shop_pay_upload": "Upload Pay-in Slip",
     "shop_pay": "Waiting For Payment",
 
-    "cus_cancel_status": "cancel order because no payment or the buyer canceled the product. Please contact buyer if you need more information.",
+    "cus_cancel_status": "because no payment or buyer canceled the product. Please contact seller if you need more information.",
     "cus_order": "You have order in order number",
     "cus_pay_at": "and must be paid within",
     "cus_complete": "The order has been shipped",
