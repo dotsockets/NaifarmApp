@@ -429,7 +429,7 @@ class _MyshopViewState extends State<MyshopView> {
           ),
         ),
         backgroundColor: MaterialStateProperty.all(
-          ThemeColor.secondaryColor(),
+          check?ThemeColor.secondaryColor():Colors.grey.withOpacity(0.5),
         ),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),

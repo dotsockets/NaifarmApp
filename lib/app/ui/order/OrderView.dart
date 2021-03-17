@@ -22,6 +22,7 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
+import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
@@ -40,6 +41,7 @@ class _OrderViewState extends State<OrderView> {
   bool onUpload = false;
   init() {
     if (bloc == null && productBloc == null) {
+      OneSignalCall.cancelNotification("orderView", widget.orderData.id);
       bloc = OrdersBloc(AppProvider.getApplication(context));
       productBloc = ProductBloc(AppProvider.getApplication(context));
 

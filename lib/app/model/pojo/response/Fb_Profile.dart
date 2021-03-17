@@ -33,3 +33,46 @@ class FbProfile {
     return data;
   }
 }
+
+class FbError {
+  ErrorData error;
+
+  FbError({this.error});
+
+  FbError.fromJson(Map<String, dynamic> json) {
+    error = json['error'] != null ? new ErrorData.fromJson(json['error']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.error != null) {
+      data['error'] = this.error.toJson();
+    }
+    return data;
+  }
+}
+
+class ErrorData {
+  String message;
+  String type;
+  int code;
+  String fbtraceId;
+
+  ErrorData({this.message, this.type, this.code, this.fbtraceId});
+
+  ErrorData.fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+    type = json['type'];
+    code = json['code'];
+    fbtraceId = json['fbtrace_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['message'] = this.message;
+    data['type'] = this.type;
+    data['code'] = this.code;
+    data['fbtrace_id'] = this.fbtraceId;
+    return data;
+  }
+}

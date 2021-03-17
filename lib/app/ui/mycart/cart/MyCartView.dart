@@ -803,7 +803,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                   item.add(cartResponse.data[i].items[j]);
                                   int unitPrice = cartResponse.data[i].items[j]
                                               .inventory.offerPrice ==
-                                          null
+                                          null || cartResponse.data[i].items[j]
+                                      .inventory.offerPrice==0
                                       ? cartResponse
                                           .data[i].items[j].inventory.salePrice
                                       : cartResponse.data[i].items[j].inventory
@@ -879,10 +880,9 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       for (int j = 0; j < cartResponse.data[i].items.length; j++)
         if (cartResponse.data[i].items[j].select) {
           int unitPrice =
-              cartResponse.data[i].items[j].inventory.offerPrice == null
+              cartResponse.data[i].items[j].inventory.offerPrice == null || cartResponse.data[i].items[j].inventory.offerPrice==0
                   ? cartResponse.data[i].items[j].inventory.salePrice
                   : cartResponse.data[i].items[j].inventory.offerPrice;
-
           sum += cartResponse.data[i].items[j].quantity * unitPrice;
           //  cartResponse.data[i].items[j].unitPrice;
         } else

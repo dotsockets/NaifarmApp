@@ -325,7 +325,7 @@ class _PaidViewState extends State<PaidView> {
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           color: Colors.black)),
-                  Row(
+                  item.inventory!=null?Row(
                     children: [
                       //   item.ProductDicount != 0 ?
                       item.inventory.salePrice != null && item.inventory.offerPrice != null && item.inventory.offerPrice>0
@@ -352,7 +352,7 @@ class _PaidViewState extends State<PaidView> {
                             fontSize: SizeUtil.titleFontSize().sp),
                       ),
                     ],
-                  )
+                  ):SizedBox()
                 ],
               ),
               Divider(

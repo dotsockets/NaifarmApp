@@ -14,7 +14,7 @@ class _APIProvider implements APIProvider {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       "fields": "name,first_name,last_name,email,photos",
-      "accessToken": accessToken
+      "access_token": accessToken
     };
     final _data = <String, dynamic>{};
     try {
@@ -31,7 +31,10 @@ class _APIProvider implements APIProvider {
           respone: FbProfile.fromJson(jsonDecode(_result.data)),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
-      return ServerError.dioErrorExpction(e);
+      FbError item = FbError.fromJson(jsonDecode(e.response.data));
+
+      return ApiResult(
+          httpCallBack: ThrowIfNoSuccess(status: e.response.statusCode, message: FbError.fromJson(jsonDecode(e.response.data)).error.message));
     }
   }
 
