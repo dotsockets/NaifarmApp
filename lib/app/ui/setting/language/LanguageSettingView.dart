@@ -73,13 +73,13 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
                   ? SvgPicture.asset(
                       'assets/images/svg/checkmark.svg',
                       color: ThemeColor.primaryColor(),
-                      width: 8.0.w,
-                      height: 8.0.w,
+                      width: SizeUtil.checkMarkSize().w,
+                      height: SizeUtil.checkMarkSize().w,
                     )
                   : SvgPicture.asset(
                       'assets/images/svg/uncheckmark.svg',
-                      width: 8.0.w,
-                      height: 8.0.w,
+                      width: SizeUtil.checkMarkSize().w,
+                      height: SizeUtil.checkMarkSize().w,
                       color: Colors.black.withOpacity(0.3),
                     ),
             ],

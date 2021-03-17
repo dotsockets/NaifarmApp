@@ -140,7 +140,7 @@ class _EditProductViewState extends State<EditProductView> {
                     child: PreferredSize(
                   preferredSize: Size.fromHeight(6.5.h),
                   child: AppToobar(
-                    title: LocaleKeys.my_product_data.tr(),
+                    title: LocaleKeys.my_product_data_manage.tr(),
                     icon: "",
                     isEnableSearch: false,
                     headerType: Header_Type.barNormal,
@@ -262,7 +262,21 @@ class _EditProductViewState extends State<EditProductView> {
                                         hint: "0",
                                         inputType: TextInputType.number,
                                         controller: offerPriceController,
-                                        onChanged: (String char) {},
+                                        onChanged: (String char) {
+                                          bloc
+                                                  .uploadProductStorage
+                                                  .value
+                                                  .productMyShopRequest
+                                                  .offerPrice =
+                                              char.length > 0
+                                                  ? int.parse(char)
+                                                  : 0;
+                                          // if(char.length>5000){
+                                          //   bloc.uploadProductStorage.value.productMyShopRequest.description= detailController.text.replaceRange(5000, char.length, "");
+                                          //  }
+                                          bloc.uploadProductStorage.add(
+                                              bloc.uploadProductStorage.value);
+                                        },
                                       ),
                                     ],
                                   ),
@@ -306,12 +320,14 @@ class _EditProductViewState extends State<EditProductView> {
 
   bool checkEnable() {
     var item = bloc.uploadProductStorage.value.productMyShopRequest;
-    if (item.name.trim() != "" &&
+
+    if (item.name != "" &&
         item.category != 0 &&
         item.description != "" &&
         item.stockQuantity != 0 &&
         item.salePrice != 0 &&
-        item.name.length != 0) {
+        detailController.text.length != 0 &&
+        item.offerPrice < item.salePrice) {
       return true;
     } else {
       return false;

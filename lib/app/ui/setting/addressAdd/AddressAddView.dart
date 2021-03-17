@@ -236,7 +236,7 @@ class _AddressAddViewState extends State<AddressAddView> {
   }
 
   String loopString(List<DataStates> data, int id) {
-    String item = "กรุณาเลือก";
+    String item = LocaleKeys.message_select.tr();
     // var i = 0;
     for (var index in data) {
       if (index.id == id) {
@@ -355,7 +355,7 @@ class _AddressAddViewState extends State<AddressAddView> {
     if (!validator.phone(phoneController.text) ||
         phoneController.text.length != 10) {
       check = false;
-      errorPhoneTxt = "หมายเลขโทรศัพท์ไม่ถูกต้อง";
+      errorPhoneTxt = LocaleKeys.message_error_phoneNum_invalid.tr();
     } else {
       errorPhoneTxt = "";
     }
@@ -378,7 +378,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       String hint,
       List<DataStates> item,
       Function(int) onSelect}) {
-    var datalist = [];
+    var datalist = <String>[];
     if (item.isNotEmpty) {
       for (int i = 0; i < item.length; i++) {
         datalist.add(item[i].name);

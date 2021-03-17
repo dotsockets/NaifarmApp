@@ -221,9 +221,11 @@
       "userpass_empty": "Username or password must not be empty",
       "phone_empty": "Phone number must not be empty",
       "phone_invalid": "Invalid phone number",
+      "phoneNum_invalid": "Invalid phone number",
       "mail_invalid": "Invalid Email",
       "mail_empty": "Email must not be empty"
-    }
+    },
+    "select": "Please Select"
   },
 
   "cart": {
@@ -335,7 +337,9 @@
     "review_score": "Product Ratings",
     "read_more": "Read More",
     "empty":"-",
-    "delivery_use": "using"
+    "delivery_use": "using",
+    "data_manage": "Product Information",
+    "see": "My Product"
   },
   "shop":{
     "title": "Shop",
@@ -528,6 +532,4 @@
     "status":"Received invalid status code",
     "again":"Please check your internet connection and connect again"
   }
-
-
 }

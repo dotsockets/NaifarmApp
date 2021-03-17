@@ -78,7 +78,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
             child: AppToobar(
-              title: LocaleKeys.me_title_my_product.tr(),
+              title: LocaleKeys.my_product_see.tr(),
               icon: "",
               isEnableSearch: false,
               headerType: Header_Type.barNormal,
