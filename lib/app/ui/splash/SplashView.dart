@@ -51,15 +51,15 @@ class _SplashViewState extends State<SplashView>
       NaiFarmLocalStorage.deleteCacheByItem(
           key: NaiFarmLocalStorage.naiFarmNowPage);
       NaiFarmLocalStorage.deleteCacheByItem(
-          key: NaiFarmLocalStorage.naiFarmCart);
+          key: NaiFarmLocalStorage.NaiFarm_Cart);
       NaiFarmLocalStorage.deleteCacheByItem(
           key: NaiFarmLocalStorage.naiFarmProductDetail);
       NaiFarmLocalStorage.deleteCacheByItem(
-          key: NaiFarmLocalStorage.naiFarmProductMore);
+          key: NaiFarmLocalStorage.NaiFarm_ProductMore);
       NaiFarmLocalStorage.deleteCacheByItem(
-          key: NaiFarmLocalStorage.naiFarmShop);
+          key: NaiFarmLocalStorage.NaiFarm_Shop);
       NaiFarmLocalStorage.deleteCacheByItem(
-          key: NaiFarmLocalStorage.naiFarmHiSTORY);
+          key: NaiFarmLocalStorage.NaiFarm_HiSTORY);
       // NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
       bloc = ProductBloc(AppProvider.getApplication(context));
       Usermanager()
