@@ -385,7 +385,15 @@ class ProductVertical extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  productBloc.getProductsById(context, id: item.id);
+                  Usermanager().isLogin().then((value) async {
+                    if(!value){
+                      final result = await  AppRoute.login(context,isCallBack: true,isHeader: true);
+                     
+                    }else{
+                      productBloc.getProductsById(context, id: item.id);
+                    }
+                  });
+
                 },
               )
             ],

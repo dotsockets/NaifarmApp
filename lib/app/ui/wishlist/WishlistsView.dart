@@ -92,31 +92,16 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
     _init();
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        iSLogin();
-        if (isLogin) {
-          if (count is InfoCustomerLoaded) {
-            Usermanager().getUser().then(
-                (value) => bloc.getMyWishlists(context, token: value.token));
-            return _content();
-          } else {
-            return Center(
-                child: Platform.isAndroid
-                    ? CircularProgressIndicator()
-                    : CupertinoActivityIndicator());
-          }
-        } else {
-          return LoginView(
-            isHeader: true,
-            homeCallBack: (bool fix) {
-              Navigator.of(context).pop();
 
-              // Usermanager().getUser().then((value){
-              //
-              //   bloc.MarkAsReadNotifications(token: value.token);
-              //   //_reload.add(true);
-              // });
-            },
-          );
+        if (count is InfoCustomerLoaded) {
+          Usermanager().getUser().then(
+                  (value) => bloc.getMyWishlists(context, token: value.token));
+          return _content();
+        } else {
+          return Center(
+              child: Platform.isAndroid
+                  ? CircularProgressIndicator()
+                  : CupertinoActivityIndicator());
         }
       },
     );
@@ -187,11 +172,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
               } else {
                 return Column(
                   children: [
-                    AppToobar(
-                      title: LocaleKeys.me_title_likes.tr(),
-                      headerType: Header_Type.barNormal,
-                      icon: 'assets/images/svg/search.svg',
-                    ),
+
                     Expanded(
                       child: Center(
                           child: Platform.isAndroid
