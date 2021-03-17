@@ -24,6 +24,7 @@ class Data {
   String image;
   String requirePaymentAt;
   String id;
+  String customer;
   String order;
   String status;
 
@@ -32,6 +33,7 @@ class Data {
       this.image,
       this.requirePaymentAt,
       this.id,
+        this.customer,
       this.order,
       this.status});
 
@@ -40,6 +42,7 @@ class Data {
     image = json['image'];
     requirePaymentAt = json['requirePaymentAt'];
     id = json['id'];
+    customer = json['customer'];
     order = json['order'];
     status = json['status'];
   }
@@ -50,6 +53,7 @@ class Data {
     data['image'] = this.image;
     data['requirePaymentAt'] = this.requirePaymentAt;
     data['id'] = this.id;
+    data['customer'] = this.customer;
     data['order'] = this.order;
     data['status'] = this.status;
     return data;

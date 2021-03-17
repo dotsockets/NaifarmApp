@@ -378,6 +378,7 @@ class _AddressAddViewState extends State<AddressAddView> {
       String hint,
       List<DataStates> item,
       Function(int) onSelect}) {
+
     var datalist = <String>[];
     if (item.isNotEmpty) {
       for (int i = 0; i < item.length; i++) {
@@ -386,6 +387,7 @@ class _AddressAddViewState extends State<AddressAddView> {
     }
 
     return Container(
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

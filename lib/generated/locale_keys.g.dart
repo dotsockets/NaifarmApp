@@ -209,8 +209,7 @@ abstract class LocaleKeys {
   static const message_error_userpass_empty = 'message.error.userpass_empty';
   static const message_error_phone_empty = 'message.error.phone_empty';
   static const message_error_phone_invalid = 'message.error.phone_invalid';
-  static const message_error_phoneNum_invalid =
-      'message.error.phoneNum_invalid';
+  static const message_error_phoneNum_invalid = 'message.error.phoneNum_invalid';
   static const message_error_mail_invalid = 'message.error.mail_invalid';
   static const message_error_mail_empty = 'message.error.mail_empty';
   static const message_error = 'message.error';

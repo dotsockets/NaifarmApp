@@ -57,23 +57,23 @@ class SearchHot extends StatelessWidget {
                         fontWeight: FontWeight.bold)),
               ],
             ),
-            GestureDetector(
-              child: Row(
-                children: [
-                  Text(LocaleKeys.recommend_change.tr(),
-                      style: FunctionHelper.fontTheme(
-                          color: Colors.black,
-                          fontSize: SizeUtil.titleFontSize().sp)),
-                  SizedBox(width: 2.0.w),
-                  SvgPicture.asset(
-                    'assets/images/svg/change.svg',
-                    width: 3.0.w,
-                    height: 3.0.h,
-                  ),
-                ],
-              ),
-              onTap: () => onSelectChang(),
-            )
+            // GestureDetector(
+            //   child: Row(
+            //     children: [
+            //       Text(LocaleKeys.recommend_change.tr(),
+            //           style: FunctionHelper.fontTheme(
+            //               color: Colors.black,
+            //               fontSize: SizeUtil.titleFontSize().sp)),
+            //       SizedBox(width: 2.0.w),
+            //       SvgPicture.asset(
+            //         'assets/images/svg/change.svg',
+            //         width: 3.0.w,
+            //         height: 3.0.h,
+            //       ),
+            //     ],
+            //   ),
+            //   onTap: () => onSelectChang(),
+            // )
           ],
         ),
       ));

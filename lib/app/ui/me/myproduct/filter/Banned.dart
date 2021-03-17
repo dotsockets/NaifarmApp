@@ -481,7 +481,7 @@ class _BannedState extends State<Banned> {
                                 stockQuantity: item.stockQuantity,
                                 offerPrice: item.offerPrice,
                                 active: item.active);
-                            var onSelectItem = [];
+                            var onSelectItem = <OnSelectItem>[];
                             for (var value in item.image) {
                               onSelectItem.add(
                                   OnSelectItem(onEdit: false, url: value.path));

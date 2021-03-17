@@ -154,6 +154,9 @@ class _HomeViewState extends State<HomeView>
                               .read<CustomerCountBloc>()
                               .loadCustomerCount(context, token: value.token));
                           NaiFarmLocalStorage.saveNowPage(index);
+                          if(index==4){
+                            OneSignalCall.cancelNotification("meView", 0);
+                          }
                           if (index == 3) {
                             Usermanager().getUser().then((value) {
                               if (value.token != null) {

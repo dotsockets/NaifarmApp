@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/NotificationOneSignal.dart';
+import 'package:naifarm/app/model/pojo/response/OneSignalNoificationId.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -56,6 +59,7 @@ class OneSignalCall {
   static oneSignalReceivedHandler(BuildContext context) async {
     OneSignal.shared
         .setNotificationReceivedHandler((OSNotification notification) async {
+
       var item = NotificationOneSignal.fromJson(
           jsonDecode(notification.payload.rawPayload['custom']));
       Usermanager().getUser().then((value) => context
@@ -64,18 +68,29 @@ class OneSignalCall {
       Usermanager().getUser().then((value) => context
           .read<InfoCustomerBloc>()
           .loadCustomInfo(context, token: value.token));
-      print("notification : ${item.item.status}");
+      print("notification : ${notification.payload.rawPayload['androidNotificationId']}");
+      List<OneSignalData> onesignalData = <OneSignalData>[];
+      if (item.item.name == null) {
+        onesignalData.add(OneSignalData(androidNotificationId: int.parse(notification.payload.rawPayload['androidNotificationId'].toString()),refID: int.parse(item.item.id),slagView: "orderView"));
+      }else{
+        onesignalData.add(OneSignalData(androidNotificationId: int.parse(notification.payload.rawPayload['androidNotificationId'].toString()),refID: 0,slagView: "meView"));
+      }
+      NaiFarmLocalStorage.saveOneSiganlCache(OneSignalNoificationId(onesignal: onesignalData));
     });
 
     OneSignal.shared
         .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
       var item = NotificationOneSignal.fromJson(
           jsonDecode(result.notification.payload.rawPayload['custom']));
-      print("notification : ${item.item.id}");
-      if (item.item.name == null) {
+
+      if (item.item.name == null && item.item.customer==null) {
         AppRoute.orderDetail(context,
             orderData: OrderData(id: int.parse(item.item.id)),
             typeView: OrderViewType.Purchase);
+      }else if(item.item.customer!=null){
+        AppRoute.orderDetail(context,
+            orderData: OrderData(id: int.parse(item.item.id)),
+            typeView: OrderViewType.Shop);
       }
     });
   }
@@ -85,4 +100,21 @@ class OneSignalCall {
       //debugPrint('notification payload: $payload');
     }
   }
+
+  static Future cancelNotification(String slag,int ref) async {
+    final FlutterLocalNotificationsPlugin notificationsPlugin = FlutterLocalNotificationsPlugin();
+    NaiFarmLocalStorage.getOneSiganlCache().then((value){
+      if(value!=null){
+
+         for(var data in value.onesignal){
+           print("esafcewfr ${data.androidNotificationId}");
+            if(data.slagView==slag && data.refID==ref){
+              notificationsPlugin.cancel(data.androidNotificationId.toInt());
+            }
+         }
+      }
+    });
+  }
 }
+
+

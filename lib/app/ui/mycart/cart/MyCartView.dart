@@ -501,44 +501,31 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                             SizedBox(height: 5),
                             Row(
                               children: [
-                                //   item.ProductDicount != 0 ?
-                                item.items[indexShopItem].inventory
-                                            .offerPrice !=
-                                        null
+
+
+                                item.items[indexShopItem].inventory.salePrice != null && item.items[indexShopItem].inventory.offerPrice != null && item.items[indexShopItem].inventory.offerPrice>0
                                     ? Text(
-                                        "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
-                                        // "฿${item.items[indexShopItem].inventory.salePrice}",
-                                        style: FunctionHelper.fontTheme(
-                                            fontSize:
-                                                SizeUtil.priceFontSize().sp - 2,
-                                            color: Colors.grey,
-                                            decoration:
-                                                TextDecoration.lineThrough))
+                                    "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
+                                    style: FunctionHelper.fontTheme(
+                                        color: Colors.grey,
+                                        fontSize: SizeUtil.priceFontSize().sp,
+                                        decoration: TextDecoration.lineThrough))
                                     : SizedBox(),
-                                //: SizedBox(),
                                 SizedBox(
-                                    width: item.items[indexShopItem].inventory
-                                                .offerPrice !=
-                                            null
-                                        ? 2.0.w
+                                    width: item.items[indexShopItem].inventory.salePrice != null &&item.items[indexShopItem].inventory.offerPrice != null
+                                        ? 1.0.w
                                         : 0),
-                                item.items[indexShopItem].inventory
-                                            .offerPrice !=
-                                        null
-                                    ? Text(
-                                        "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}",
-                                        //"฿${item.items[indexShopItem].inventory.offerPrice}",
-                                        style: FunctionHelper.fontTheme(
-                                            fontSize:
-                                                SizeUtil.priceFontSize().sp,
-                                            color: ThemeColor.colorSale()))
-                                    : Text(
-                                        "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
-                                        //"฿${item.items[indexShopItem].inventory.salePrice}",
-                                        style: FunctionHelper.fontTheme(
-                                            fontSize:
-                                                SizeUtil.priceFontSize().sp,
-                                            color: ThemeColor.colorSale()))
+                                Text(
+                                  item.items[indexShopItem].inventory.offerPrice != null  && item.items[indexShopItem].inventory.offerPrice !=0
+                                      ? "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}"
+                                      : "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: FunctionHelper.fontTheme(
+                                      color: ThemeColor.colorSale(),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: SizeUtil.priceFontSize().sp),
+                                ),
                               ],
                             )
                           ],
@@ -816,7 +803,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                   item.add(cartResponse.data[i].items[j]);
                                   int unitPrice = cartResponse.data[i].items[j]
                                               .inventory.offerPrice ==
-                                          null
+                                          null || cartResponse.data[i].items[j]
+                                      .inventory.offerPrice==0
                                       ? cartResponse
                                           .data[i].items[j].inventory.salePrice
                                       : cartResponse.data[i].items[j].inventory
@@ -892,10 +880,9 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       for (int j = 0; j < cartResponse.data[i].items.length; j++)
         if (cartResponse.data[i].items[j].select) {
           int unitPrice =
-              cartResponse.data[i].items[j].inventory.offerPrice == null
+              cartResponse.data[i].items[j].inventory.offerPrice == null || cartResponse.data[i].items[j].inventory.offerPrice==0
                   ? cartResponse.data[i].items[j].inventory.salePrice
                   : cartResponse.data[i].items[j].inventory.offerPrice;
-
           sum += cartResponse.data[i].items[j].quantity * unitPrice;
           //  cartResponse.data[i].items[j].unitPrice;
         } else

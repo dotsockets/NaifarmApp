@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:naifarm/app/bloc/Stream/AddressBloc.dart';
+import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
@@ -79,7 +80,7 @@ class _AddressEditViewState extends State<AddressEditView> {
       bloc.zipCcde.stream.listen((event) {
         _checkError();
         setState(() => postController.text =
-            event.zipCode != null ? event.zipCode.toString() : "");
+        event.zipCode != null ? event.zipCode.toString() : "");
       });
       bloc.city.stream.listen((event) {
         _checkError();
@@ -168,7 +169,7 @@ class _AddressEditViewState extends State<AddressEditView> {
             stream: bloc.provice.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
-                return buildDropdown(
+                return _BuildDropdown(
                     initialItem: loopIndex(
                         (snapshot.data as StatesRespone).data, proviceSelect),
                     head: LocaleKeys.select.tr() +
@@ -200,7 +201,7 @@ class _AddressEditViewState extends State<AddressEditView> {
             stream: bloc.city.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
-                return buildDropdown(
+                return _BuildDropdown(
                     initialItem: loopIndex(
                         (snapshot.data as StatesRespone).data, citySelect),
                     head: LocaleKeys.select.tr() +
@@ -243,7 +244,7 @@ class _AddressEditViewState extends State<AddressEditView> {
               head: LocaleKeys.address_detail.tr(),
               enableMaxLength: false,
               hint:
-                  LocaleKeys.set_default.tr() + LocaleKeys.address_detail.tr(),
+              LocaleKeys.set_default.tr() + LocaleKeys.address_detail.tr(),
               onChanged: (String x) => _checkError(),
               controller: detailAddrController,
               inputType: TextInputType.text),
@@ -260,7 +261,7 @@ class _AddressEditViewState extends State<AddressEditView> {
         item = index.name;
         break;
       }
-      // i++;
+      i++;
     }
     return item;
   }
@@ -294,7 +295,7 @@ class _AddressEditViewState extends State<AddressEditView> {
   Widget _buildSwitch({String head}) {
     return Container(
       padding:
-          EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 3.0.w, bottom: 3.0.w),
+      EdgeInsets.only(left: 3.0.w, right: 3.0.w, top: 3.0.w, bottom: 3.0.w),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -302,7 +303,7 @@ class _AddressEditViewState extends State<AddressEditView> {
           Text(
             head,
             style:
-                FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp),
+            FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
           FlutterSwitch(
             height: SizeUtil.switchHeight(),
@@ -311,7 +312,7 @@ class _AddressEditViewState extends State<AddressEditView> {
             activeColor: Colors.grey.shade200,
             inactiveColor: Colors.grey.shade200,
             toggleColor:
-                isSelect ? ThemeColor.primaryColor() : Colors.grey.shade400,
+            isSelect ? ThemeColor.primaryColor() : Colors.grey.shade400,
             value: isSelect ? true : false,
             onToggle: (val) {
               setState(() {
@@ -404,7 +405,7 @@ class _AddressEditViewState extends State<AddressEditView> {
     setState(() {});
   }
 
-  Widget buildDropdown(
+  Widget _BuildDropdown(
       {String head,
       String hint,
       List<DataStates> item,

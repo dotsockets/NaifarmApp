@@ -243,7 +243,7 @@ class OrdersBloc {
     var sum = 0;
     for (var item in items) {
       sum += item.inventory != null
-          ? (item.inventory.offerPrice != null
+          ? (item.inventory.offerPrice != null && item.inventory.offerPrice>0
                   ? item.inventory.offerPrice
                   : item.inventory.salePrice) *
               item.quantity

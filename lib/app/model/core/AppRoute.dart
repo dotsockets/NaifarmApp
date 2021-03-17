@@ -1070,8 +1070,8 @@ class AppRoute {
             )));
   }
 
-  static transferPayMentView({BuildContext context, OrderData orderData}) {
-    Navigator.push(
+  static Future<bool> transferPayMentView({BuildContext context, OrderData orderData}) async {
+    return await  Navigator.push(
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),

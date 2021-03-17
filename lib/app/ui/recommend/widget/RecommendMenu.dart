@@ -192,17 +192,17 @@ class RecommendMenu extends StatelessWidget {
             break;
           case "MyLikeView":
             {
-              // Usermanager().isLogin().then((value) async {
-              //   if(!value){
-              //     final result = await  AppRoute.Login(context,IsCallBack: true,IsHeader: true);
-              //     if(result){
-              //       AppRoute.Wishlists(context: context);
-              //     }
-              //   }else{
-              //     AppRoute.Wishlists(context: context);
-              //   }
-              // });
-              AppRoute.wishlists(context: context);
+              Usermanager().isLogin().then((value) async {
+                if(!value){
+                  final result = await  AppRoute.login(context,isCallBack: true,isHeader: true);
+                  if(result){
+                    AppRoute.wishlists(context: context);
+                  }
+                }else{
+                  AppRoute.wishlists(context: context);
+                }
+              });
+
             }
             break;
         }

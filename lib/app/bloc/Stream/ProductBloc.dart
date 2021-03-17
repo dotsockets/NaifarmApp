@@ -56,7 +56,7 @@ class ProductBloc {
   final productItem = BehaviorSubject<ProducItemRespone>();
   final myShop = BehaviorSubject<MyShopRespone>();
   final wishlists = BehaviorSubject<WishlistsRespone>();
-  final bayNow = [];
+  final bayNow = <ProductData>[];
 
   final zipProductDetail = BehaviorSubject<ProductObjectCombine>();
 
@@ -922,7 +922,7 @@ class ProductBloc {
       String token,
       bool addNow = false,
       bool onload = true}) {
-    bayNow.clear();
+   // bayNow.clear();
     if (onload) {
       onLoad.add(true);
     }

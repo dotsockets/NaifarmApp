@@ -228,9 +228,11 @@ class CodegenLoader extends AssetLoader{
       "userpass_empty": "Username or password must not be empty",
       "phone_empty": "Phone number must not be empty",
       "phone_invalid": "Invalid phone number",
+      "phoneNum_invalid": "Invalid phone number",
       "mail_invalid": "Invalid Email",
       "mail_empty": "Email must not be empty"
-    }
+    },
+    "select": "Please Select"
   },
   "cart": {
     "toobar": "Cart",
@@ -337,7 +339,9 @@ class CodegenLoader extends AssetLoader{
     "review_score": "Product Ratings",
     "read_more": "Read More",
     "empty": "-",
-    "delivery_use": "using"
+    "delivery_use": "using",
+    "data_manage": "Product Information",
+    "see": "My Product"
   },
   "shop": {
     "title": "Shop",
@@ -737,9 +741,11 @@ static const Map<String,dynamic> th_TH = {
       "username_length": "ชื่อผู้ใช้งานต้องต้องมีตัวหนังสือ 6 ขึ้นไป",
       "phone_empty": "เบอร์โทรต้องไม่ว่าง",
       "phone_invalid": "เบอร์โทรไม่ถูกต้อง",
+      "phoneNum_invalid": "หมายเลขโทรศัพท์ไม่ถูกต้อง",
       "mail_invalid": "อีเมลไม่ถูกต้อง",
       "mail_empty": "อีเมล์ ห้ามว่าง"
-    }
+    },
+    "select": "กรุณาเลือก"
   },
   "cart": {
     "toobar": "รถเข็น",
@@ -838,7 +844,9 @@ static const Map<String,dynamic> th_TH = {
     "review_score": "คะแนนรีวิว",
     "read_more": "อ่านเพิ่มเติม",
     "empty": "ไม่มี",
-    "delivery_use": "เลือกใช้"
+    "delivery_use": "เลือกใช้",
+    "data_manage": "จัดการข้อมูลสินค้า",
+    "see": "ดูสินค้าของฉัน"
   },
   "shop": {
     "title": "ร้านค้า",

@@ -22,8 +22,8 @@ class AddtTrackingNumberView extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController trackController = new TextEditingController();
   final trackOnError = BehaviorSubject<String>();
-
-  init(BuildContext context, OrdersBloc bloc) {
+  OrdersBloc bloc;
+  init(BuildContext context) {
     bool onDialog = false;
 
     if (bloc == null) {
@@ -60,9 +60,7 @@ class AddtTrackingNumberView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController trackController = TextEditingController();
-    OrdersBloc bloc;
-    init(context, bloc);
+    init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -174,8 +172,7 @@ class AddtTrackingNumberView extends StatelessWidget {
   Widget buttonActive(
       {TextEditingController controller,
       BuildContext context,
-      OrderData orderData,
-      OrdersBloc bloc}) {
+      OrderData orderData}) {
     return Center(
       child: Container(
         color: Colors.white,
@@ -199,7 +196,7 @@ class AddtTrackingNumberView extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              if (trackController.text.isNotEmpty) {
+              if (trackController.text.length>0) {
                 FunctionHelper.confirmDialog(context,
                     message: LocaleKeys.dialog_message_confirm_track.tr(),
                     onCancel: () {

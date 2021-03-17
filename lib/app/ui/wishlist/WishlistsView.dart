@@ -92,31 +92,16 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
     _init();
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        iSLogin();
-        if (isLogin) {
-          if (count is InfoCustomerLoaded) {
-            Usermanager().getUser().then(
-                (value) => bloc.getMyWishlists(context, token: value.token));
-            return _content();
-          } else {
-            return Center(
-                child: Platform.isAndroid
-                    ? CircularProgressIndicator()
-                    : CupertinoActivityIndicator());
-          }
-        } else {
-          return LoginView(
-            isHeader: true,
-            homeCallBack: (bool fix) {
-              Navigator.of(context).pop();
 
-              // Usermanager().getUser().then((value){
-              //
-              //   bloc.MarkAsReadNotifications(token: value.token);
-              //   //_reload.add(true);
-              // });
-            },
-          );
+        if (count is InfoCustomerLoaded) {
+          Usermanager().getUser().then(
+                  (value) => bloc.getMyWishlists(context, token: value.token));
+          return _content();
+        } else {
+          return Center(
+              child: Platform.isAndroid
+                  ? CircularProgressIndicator()
+                  : CupertinoActivityIndicator());
         }
       },
     );
@@ -128,6 +113,11 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
       child: SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
+          appBar: AppToobar(
+            title: LocaleKeys.me_title_likes.tr(),
+            headerType: Header_Type.barNormal,
+            icon: 'assets/images/svg/search.svg',
+          ),
           body: StreamBuilder(
             stream: bloc.wishlists.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -136,27 +126,20 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                 //  print(bloc.Wishlists.value.data.length.toString()+"***");
                 if (item.data.length > 0) {
                   return SingleChildScrollView(
-                    child: StickyHeader(
-                      header: AppToobar(
-                        title: LocaleKeys.me_title_likes.tr(),
-                        headerType: Header_Type.barNormal,
-                        icon: 'assets/images/svg/search.svg',
-                      ),
-                      content: Column(
-                        children: [
-                          ClipRRect(
-                            child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                color: Colors.white,
-                                child: Column(
-                                  children: [
-                                    _buildCardProduct(
-                                        context: context, item: item)
-                                  ],
-                                )),
-                          )
-                        ],
-                      ),
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  _buildCardProduct(
+                                      context: context, item: item)
+                                ],
+                              )),
+                        )
+                      ],
                     ),
                   );
                 } else {
@@ -166,11 +149,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        AppToobar(
-                          title: LocaleKeys.me_title_likes.tr(),
-                          headerType: Header_Type.barNormal,
-                          icon: 'assets/images/svg/search.svg',
-                        ),
+
                         Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -193,11 +172,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
               } else {
                 return Column(
                   children: [
-                    AppToobar(
-                      title: LocaleKeys.me_title_likes.tr(),
-                      headerType: Header_Type.barNormal,
-                      icon: 'assets/images/svg/search.svg',
-                    ),
+
                     Expanded(
                       child: Center(
                           child: Platform.isAndroid

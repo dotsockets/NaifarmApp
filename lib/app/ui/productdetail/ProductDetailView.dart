@@ -628,6 +628,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                         token: value.token));
                               } else {
                                 AppRoute.login(context,
+                                    isCallBack: true,
                                     isHeader: true,
                                     homeCallBack: (bool fix) {});
                               }
@@ -662,6 +663,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                             token: value.token));
                                   } else {
                                     AppRoute.login(context,
+                                        isCallBack: true,
                                         isHeader: true,
                                         homeCallBack: (bool fix) {});
                                   }

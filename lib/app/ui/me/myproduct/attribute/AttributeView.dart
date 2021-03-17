@@ -42,7 +42,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(context: context,scaffoldKey: _scaffoldKey, message: event);
       });
       /*bloc.onSuccessDel.stream.listen((event) {
         Usermanager().getUser().then((value) => bloc.GetAttributeMyShop(token: value.token));

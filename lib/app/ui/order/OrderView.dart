@@ -22,6 +22,7 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
+import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
@@ -40,6 +41,7 @@ class _OrderViewState extends State<OrderView> {
   bool onUpload = false;
   init() {
     if (bloc == null && productBloc == null) {
+      OneSignalCall.cancelNotification("orderView", widget.orderData.id);
       bloc = OrdersBloc(AppProvider.getApplication(context));
       productBloc = ProductBloc(AppProvider.getApplication(context));
 
@@ -215,8 +217,8 @@ class _OrderViewState extends State<OrderView> {
                             : SizedBox(),
 
                         widget.typeView == OrderViewType.Purchase &&
-                                    item.orderStatusId == 5 ||
-                                item.orderStatusId == 4
+                            (item.orderStatusId == 5 ||
+                                item.orderStatusId == 4)
                             ? buttonAcceptProducts(
                                 context: context, orderData: item)
                             : SizedBox(),
@@ -652,7 +654,7 @@ class _OrderViewState extends State<OrderView> {
       children: [
         InkWell(
           child: Hero(
-            tag: "orderview_${orderItems.orderId}1",
+            tag: "orderview_${orderItems.inventoryId}1",
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.1))),
@@ -685,10 +687,9 @@ class _OrderViewState extends State<OrderView> {
               ProductData product = ProductData();
               product = orderItems.inventory.product;
               AppRoute.productDetail(context,
-                  productImage: "orderview_${orderItems.orderId}1",
-                  productItem: ProducItemRespone(
-                      id: orderItems.inventory.product.id,
-                      image: orderItems.inventory.image));
+                  productImage:
+                  "orderview_${orderItems.inventoryId}1",
+                  productItem: ProducItemRespone(id: orderItems.inventory.product.id,image: orderItems.inventory.image));
             }
           },
         ),
@@ -713,22 +714,30 @@ class _OrderViewState extends State<OrderView> {
                           fontWeight: FontWeight.bold)),
                   Row(
                     children: [
-                      orderItems.inventory != null &&
-                              orderItems.inventory.offerPrice != null
-                          ? Text("฿${orderItems.inventory.salePrice}",
-                              style: FunctionHelper.fontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  decoration: TextDecoration.lineThrough,
-                                  color: Colors.black.withOpacity(0.5)))
+                      //   item.ProductDicount != 0 ?
+                      orderItems.inventory.salePrice != null && orderItems.inventory.offerPrice != null && orderItems.inventory.offerPrice>0
+                          ? Text(
+                          "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
+                          style: FunctionHelper.fontTheme(
+                              color: Colors.grey,
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              decoration: TextDecoration.lineThrough))
                           : SizedBox(),
-                      SizedBox(width: 8),
+                      SizedBox(
+                          width: orderItems.inventory.salePrice != null && orderItems.inventory.offerPrice != null
+                              ? 1.0.w
+                              : 0),
                       Text(
-                          "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory != null ? orderItems.inventory.offerPrice != null ? orderItems.inventory.offerPrice : orderItems.inventory.salePrice * orderItems.quantity : double.parse(orderItems.unitPrice) * orderItems.quantity)}"),
-                      // Text(
-                      //     "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
-                      //     style: FunctionHelper.FontTheme(
-                      //         fontSize: SizeUtil.titleFontSize().sp,
-                      //         color: Colors.black))
+                        orderItems.inventory.offerPrice != null  && orderItems.inventory.offerPrice !=0
+                            ? "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.offerPrice)}"
+                            : "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: FunctionHelper.fontTheme(
+                            color: ThemeColor.colorSale(),
+                            fontWeight: FontWeight.w500,
+                            fontSize: SizeUtil.titleFontSize().sp),
+                      ),
                     ],
                   )
                 ],

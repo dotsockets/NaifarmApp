@@ -167,6 +167,7 @@ class MemberBloc {
         //  onLoad.add(false);
         //  {"name":"Apisit Kaewsasan","first_name":"Apisit","last_name":"Kaewsasan","email":"apisitkaewsasan\u0040hotmail.com","id":"3899261036761384"}
         final FacebookAccessToken accessToken = result.accessToken;
+
         getFBProfile(
             context: context, accessToken: accessToken.token, isLoad: isLoad);
         break;

@@ -316,25 +316,30 @@ class _CanceledViewState extends State<CanceledView> {
                           color: Colors.black)),
                   Row(
                     children: [
-                      item.inventory != null &&
-                              item.inventory.offerPrice != null
-                          ? Text("฿${item.inventory.salePrice}",
-                              style: FunctionHelper.fontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  decoration: TextDecoration.lineThrough,
-                                  color: Colors.black.withOpacity(0.5)))
-                          : SizedBox(),
-                      SizedBox(width: 8),
-                      Text(
-                          "฿${NumberFormat("#,##0", "en_US").format(item.inventory != null ? item.inventory.offerPrice != null ? item.inventory.offerPrice : item.inventory.salePrice * item.quantity : orderData.total)}",
+                      //   item.ProductDicount != 0 ?
+                      item.inventory.salePrice != null && item.inventory.offerPrice != null && item.inventory.offerPrice>0
+                          ? Text(
+                          "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
                           style: FunctionHelper.fontTheme(
+                              color: Colors.grey,
                               fontSize: SizeUtil.titleFontSize().sp,
-                              color: ThemeColor.colorSale())),
-                      // Text(
-                      //     "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
-                      //     style: FunctionHelper.FontTheme(
-                      //         fontSize: SizeUtil.titleFontSize().sp,
-                      //         color: Colors.black))
+                              decoration: TextDecoration.lineThrough))
+                          : SizedBox(),
+                      SizedBox(
+                          width: item.inventory.salePrice != null && item.inventory.offerPrice != null
+                              ? 1.0.w
+                              : 0),
+                      Text(
+                        item.inventory.offerPrice != null  && item.inventory.offerPrice !=0
+                            ? "฿${NumberFormat("#,##0", "en_US").format(item.inventory.offerPrice)}"
+                            : "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: FunctionHelper.fontTheme(
+                            color: ThemeColor.colorSale(),
+                            fontWeight: FontWeight.w500,
+                            fontSize: SizeUtil.titleFontSize().sp),
+                      ),
                     ],
                   )
                 ],

@@ -263,19 +263,18 @@ class _EditProductViewState extends State<EditProductView> {
                                         inputType: TextInputType.number,
                                         controller: offerPriceController,
                                         onChanged: (String char) {
+
                                           bloc
-                                                  .uploadProductStorage
-                                                  .value
-                                                  .productMyShopRequest
-                                                  .offerPrice =
-                                              char.length > 0
-                                                  ? int.parse(char)
-                                                  : 0;
+                                              .uploadProductStorage
+                                              .value
+                                              .productMyShopRequest
+                                              .offerPrice = char.length>0?int.parse(char):0;
                                           // if(char.length>5000){
                                           //   bloc.uploadProductStorage.value.productMyShopRequest.description= detailController.text.replaceRange(5000, char.length, "");
                                           //  }
                                           bloc.uploadProductStorage.add(
                                               bloc.uploadProductStorage.value);
+
                                         },
                                       ),
                                     ],
@@ -320,14 +319,14 @@ class _EditProductViewState extends State<EditProductView> {
 
   bool checkEnable() {
     var item = bloc.uploadProductStorage.value.productMyShopRequest;
+    int offerPrice  =  item.offerPrice!=null?item.offerPrice:0;
 
     if (item.name != "" &&
         item.category != 0 &&
         item.description != "" &&
         item.stockQuantity != 0 &&
         item.salePrice != 0 &&
-        detailController.text.length != 0 &&
-        item.offerPrice < item.salePrice) {
+        detailController.text.length != 0 && offerPrice<item.salePrice) {
       return true;
     } else {
       return false;

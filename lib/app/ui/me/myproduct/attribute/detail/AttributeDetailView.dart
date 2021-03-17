@@ -45,7 +45,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.snackBarShow(context: context,scaffoldKey: _scaffoldKey, message: event);
       });
       /* bloc.onSuccessDel.stream.listen((event) {
         Usermanager().getUser().then((value) => bloc.GetAttributeDetail(token: value.token,id: widget.idAttr));
