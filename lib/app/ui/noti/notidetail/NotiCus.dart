@@ -550,7 +550,45 @@ class _NotiCusState extends State<NotiCus>
           // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
         ],
       );
-    } else {
+    }else if (item.type == "App\\Notifications\\Order\\OrderCanceled") {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("${item.meta.status}",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text: LocaleKeys.noti_rate1.tr(),
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black)),
+                new TextSpan(
+                    text: "${item.meta.order}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.bold,
+                        color: ThemeColor.secondaryColor())),
+                new TextSpan(
+                    text:
+                    " ${LocaleKeys.noti_shop_status.tr()} ${item.meta.status} ${LocaleKeys.noti_cus_cancel_status.tr()}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black)),
+              ],
+            ),
+          ),
+        ],
+      );
+    }else {
       return SizedBox();
     }
   }
