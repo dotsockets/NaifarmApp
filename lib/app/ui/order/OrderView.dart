@@ -668,8 +668,8 @@ class _OrderViewState extends State<OrderView> {
                   child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
                 fit: BoxFit.cover,
-                imageUrl: orderItems.inventory != null
-                    ? "${Env.value.baseUrl}/storage/images/${orderItems.inventory != null ? orderItems.inventory.product.image.isNotEmpty ? orderItems.inventory.product.image[0].path : '' : ''}"
+                imageUrl: orderItems.itemImagePath != null
+                    ? "${Env.value.baseUrl}/storage/images/${orderItems.itemImagePath}"
                     : Env.value.noItemUrl,
                 errorWidget: (context, url, error) => Container(
                     width: 22.0.w,
@@ -716,26 +716,28 @@ class _OrderViewState extends State<OrderView> {
                   Row(
                     children: [
                       //   item.ProductDicount != 0 ?
-                      orderItems.inventory.salePrice != null &&
-                              orderItems.inventory.offerPrice != null &&
-                              orderItems.inventory.offerPrice > 0
+                      orderItems.unitPrice != null &&
+                              orderItems.offerPrice != null &&
+                              double.parse(orderItems.offerPrice.toString()) > 0
                           ? Text(
-                              "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
+                              "฿${NumberFormat("#,##0", "en_US").format(double.parse(orderItems.unitPrice))}",
                               style: FunctionHelper.fontTheme(
                                   color: Colors.grey,
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   decoration: TextDecoration.lineThrough))
                           : SizedBox(),
                       SizedBox(
-                          width: orderItems.inventory.salePrice != null &&
-                                  orderItems.inventory.offerPrice != null
+                          width: orderItems.unitPrice != null &&
+                                  orderItems.offerPrice != null
                               ? 1.0.w
                               : 0),
                       Text(
-                        orderItems.inventory.offerPrice != null &&
-                                orderItems.inventory.offerPrice != 0
-                            ? "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.offerPrice)}"
-                            : "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
+                        orderItems.offerPrice != null &&
+                                double.parse(
+                                        orderItems.offerPrice.toString()) !=
+                                    0
+                            ? "฿${NumberFormat("#,##0", "en_US").format(double.parse(orderItems.offerPrice.toString()))}"
+                            : "฿${NumberFormat("#,##0", "en_US").format(double.parse(orderItems.unitPrice).toInt())}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: FunctionHelper.fontTheme(
@@ -1195,7 +1197,7 @@ class _OrderViewState extends State<OrderView> {
               flex: 2,
               child: InkWell(
                   onTap: () {
-                    List<Items> items = [];
+                    List<Items> items = <Items>[];
                     for (var value in bloc.orderList.value.items) {
                       items.add(Items(
                           inventoryId: value.inventoryId,

@@ -9,7 +9,7 @@ class NaiFarmShopCombin {
 
   NaiFarmShopCombin.fromJson(Map<String, dynamic> json) {
     if (json['item'] != null) {
-      item = [];
+      item = <ZipShopObjectCombin>[];
       json['item'].forEach((v) {
         item.add(new ZipShopObjectCombin.fromJson(v));
       });

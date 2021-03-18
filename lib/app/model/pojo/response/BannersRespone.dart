@@ -6,7 +6,7 @@ class BannersRespone {
 
   BannersRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <BannersData>[];
       json['data'].forEach((v) {
         data.add(new BannersData.fromJson(v));
       });
@@ -56,7 +56,7 @@ class BannersData {
     columns = json['columns'];
     order = json['order'];
     if (json['image'] != null) {
-      image = [];
+      image = <BannersImage>[];
       json['image'].forEach((v) {
         image.add(new BannersImage.fromJson(v));
       });

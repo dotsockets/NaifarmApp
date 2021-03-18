@@ -379,7 +379,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   }
 
   List<String> convertSliderImage({SliderRespone sliderRespone}) {
-    List<String> image = [];
+    List<String> image = <String>[];
     if (sliderRespone.data.isNotEmpty) {
       for (var item in sliderRespone.data[0].image) {
         image.add(item.path);

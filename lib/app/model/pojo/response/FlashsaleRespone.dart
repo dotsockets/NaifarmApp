@@ -13,7 +13,7 @@ class FlashsaleRespone {
 
   FlashsaleRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <FlashsaleData>[];
       json['data'].forEach((v) {
         data.add(new FlashsaleData.fromJson(v));
       });
@@ -48,7 +48,7 @@ class FlashsaleData {
     start = json['start'];
     end = json['end'];
     if (json['items'] != null) {
-      items = [];
+      items = <FlashsaleItems>[];
       json['items'].forEach((v) {
         items.add(new FlashsaleItems.fromJson(v));
       });
@@ -105,7 +105,7 @@ class Shop {
         json['state'] != null ? new DataStates.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });

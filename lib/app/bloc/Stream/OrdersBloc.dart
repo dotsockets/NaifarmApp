@@ -17,7 +17,7 @@ class OrdersBloc {
   final onSuccess = BehaviorSubject<Object>();
   final orderList = BehaviorSubject<OrderData>();
   Stream<Object> get feedList => onSuccess.stream;
-  List<OrderData> orderDataList = [];
+  List<OrderData> orderDataList = <OrderData>[];
 
   OrdersBloc(this._application);
 
@@ -242,12 +242,11 @@ class OrdersBloc {
   int sumTotal(List<OrderItems> items, int rate) {
     var sum = 0;
     for (var item in items) {
-      sum += item.inventory != null
-          ? (item.inventory.offerPrice != null && item.inventory.offerPrice > 0
-                  ? item.inventory.offerPrice
-                  : item.inventory.salePrice) *
-              item.quantity
-          : double.parse(item.unitPrice.toString()).toInt() * item.quantity;
+      sum += ((item.offerPrice != null &&
+                  double.parse(item.offerPrice.toString()) > 0
+              ? double.parse(item.offerPrice.toString()).toInt()
+              : double.parse(item.unitPrice.toString()).toInt()) *
+          item.quantity);
     }
     return sum + rate;
   }

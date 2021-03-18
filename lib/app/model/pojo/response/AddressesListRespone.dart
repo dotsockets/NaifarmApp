@@ -9,7 +9,7 @@ class AddressesListRespone {
 
   AddressesListRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <AddressesData>[];
       json['data'].forEach((v) {
         data.add(new AddressesData.fromJson(v));
       });

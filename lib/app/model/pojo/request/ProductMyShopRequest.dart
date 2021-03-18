@@ -47,7 +47,7 @@ class ProductMyShopRequest {
     offerStart = json['offerStart'];
     offerEnd = json['offerEnd'];
     if (json['attributes'] != null) {
-      attributes = [];
+      attributes = <Attributes>[];
       json['attributes'].forEach((v) {
         attributes.add(new Attributes.fromJson(v));
       });

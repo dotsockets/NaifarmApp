@@ -6,7 +6,7 @@ class MyShopAttributeRespone {
 
   MyShopAttributeRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <AttributeData>[];
       json['data'].forEach((v) {
         data.add(new AttributeData.fromJson(v));
       });

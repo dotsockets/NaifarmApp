@@ -56,7 +56,7 @@ class ProductGrid extends StatefulWidget {
 
 class _ProductGridState extends State<ProductGrid> {
   ProductBloc bloc;
-  List<ProductData> productData = [];
+  List<ProductData> productData = <ProductData>[];
   int page = 1;
   int limit = 10;
   ScrollController _scrollController = ScrollController();

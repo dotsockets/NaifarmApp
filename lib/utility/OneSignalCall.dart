@@ -67,8 +67,6 @@ class OneSignalCall {
       Usermanager().getUser().then((value) => context
           .read<InfoCustomerBloc>()
           .loadCustomInfo(context, token: value.token));
-      print(
-          "notification : ${notification.payload.rawPayload['androidNotificationId']}");
       List<OneSignalData> onesignalData = <OneSignalData>[];
       if (item.item.name == null) {
         onesignalData.add(OneSignalData(
@@ -115,12 +113,11 @@ class OneSignalCall {
   static Future cancelNotification(String slag, int ref) async {
     final FlutterLocalNotificationsPlugin notificationsPlugin =
         FlutterLocalNotificationsPlugin();
-    NaiFarmLocalStorage.getOneSiganlCache().then((value) {
-      if (value != null) {
-        for (var data in value.onesignal) {
-          print("esafcewfr ${data.androidNotificationId}");
-          if (data.slagView == slag && data.refID == ref) {
-            notificationsPlugin.cancel(data.androidNotificationId.toInt());
+    NaiFarmLocalStorage.getOneSiganlCache().then((data) {
+      if (data != null && data['onesignal'] != null) {
+        for (var value in data['onesignal']) {
+          if (value['slagView'] == slag && value['refID'] == ref) {
+            notificationsPlugin.cancel(value['androidNotificationId'].toInt());
           }
         }
       }

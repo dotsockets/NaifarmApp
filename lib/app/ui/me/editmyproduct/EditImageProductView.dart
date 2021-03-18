@@ -31,7 +31,7 @@ class EditImageProductView extends StatefulWidget {
 }
 
 class _EditImageProductViewState extends State<EditImageProductView> {
-  List<Asset> images = [];
+  List<Asset> images = <Asset>[];
   // String _error = 'No Error Dectected';
 
   //File _imageFile;
@@ -221,7 +221,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
       );
 
   Future<void> loadAssets({int index, int flag, int maxImages}) async {
-    List<Asset> resultList = [];
+    List<Asset> resultList = <Asset>[];
     // ignore: unused_local_variable
     String error = 'No Error Dectected';
 

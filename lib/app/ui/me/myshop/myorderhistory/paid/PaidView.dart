@@ -288,8 +288,9 @@ class _PaidViewState extends State<PaidView> {
                   child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
                 fit: BoxFit.cover,
-                imageUrl:
-                    "${Env.value.baseUrl}/storage/images/${item.inventory != null ? item.inventory.product.image.isNotEmpty ? item.inventory.product.image[0].path : Env.value.noItemUrl : Env.value.noItemUrl}",
+                imageUrl: item.itemImagePath != null
+                    ? "${Env.value.baseUrl}/storage/images/${item.itemImagePath}"
+                    : Env.value.noItemUrl,
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
@@ -334,40 +335,38 @@ class _PaidViewState extends State<PaidView> {
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           color: Colors.black)),
-                  item.inventory != null
-                      ? Row(
-                          children: [
-                            //   item.ProductDicount != 0 ?
-                            item.inventory.salePrice != null &&
-                                    item.inventory.offerPrice != null &&
-                                    item.inventory.offerPrice > 0
-                                ? Text(
-                                    "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
-                                    style: FunctionHelper.fontTheme(
-                                        color: Colors.grey,
-                                        fontSize: SizeUtil.titleFontSize().sp,
-                                        decoration: TextDecoration.lineThrough))
-                                : SizedBox(),
-                            SizedBox(
-                                width: item.inventory.salePrice != null &&
-                                        item.inventory.offerPrice != null
-                                    ? 1.0.w
-                                    : 0),
-                            Text(
-                              item.inventory.offerPrice != null &&
-                                      item.inventory.offerPrice != 0
-                                  ? "฿${NumberFormat("#,##0", "en_US").format(item.inventory.offerPrice)}"
-                                  : "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                  Row(
+                    children: [
+                      //   item.ProductDicount != 0 ?
+                      item.unitPrice != null &&
+                              item.offerPrice != null &&
+                              double.parse(item.offerPrice.toString()) > 0
+                          ? Text(
+                              "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.unitPrice))}",
                               style: FunctionHelper.fontTheme(
-                                  color: ThemeColor.colorSale(),
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: SizeUtil.titleFontSize().sp),
-                            ),
-                          ],
-                        )
-                      : SizedBox()
+                                  color: Colors.grey,
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  decoration: TextDecoration.lineThrough))
+                          : SizedBox(),
+                      SizedBox(
+                          width:
+                              item.unitPrice != null && item.offerPrice != null
+                                  ? 1.0.w
+                                  : 0),
+                      Text(
+                        item.offerPrice != null &&
+                                double.parse(item.offerPrice.toString()) != 0
+                            ? "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.offerPrice.toString()))}"
+                            : "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.unitPrice).toInt())}",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: FunctionHelper.fontTheme(
+                            color: ThemeColor.colorSale(),
+                            fontWeight: FontWeight.w500,
+                            fontSize: SizeUtil.titleFontSize().sp),
+                      ),
+                    ],
+                  )
                 ],
               ),
               Divider(

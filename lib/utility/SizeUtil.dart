@@ -95,4 +95,8 @@ class SizeUtil {
   static double productNameHeight(double h) {
     return Device.get().isPhone ? h * 2.7 : h * 3.5;
   }
+
+  static double checkMarkSize() {
+    return Device.get().isPhone ? 8.0 : 5.0;
+  }
 }

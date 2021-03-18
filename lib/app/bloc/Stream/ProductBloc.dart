@@ -68,9 +68,9 @@ class ProductBloc {
 
   final zipShopObject = BehaviorSubject<ZipShopObjectCombin>();
 
-  List<ProductData> productMore = [];
-  List<Hits> searchList = [];
-  List<ProductMyShop> productList = [];
+  List<ProductData> productMore = <ProductData>[];
+  List<Hits> searchList = <Hits>[];
+  List<ProductMyShop> productList = <ProductMyShop>[];
 
   ProductBloc(this._application);
 
@@ -280,7 +280,7 @@ class ProductBloc {
                   moreProduct.add(convertSearchData(item: item));
                 });
               } else {
-                List<ProductMoreCombin> data = [];
+                List<ProductMoreCombin> data = <ProductMoreCombin>[];
                 data.add(ProductMoreCombin(
                     searchRespone: convertSearchData(item: item), slag: link));
                 NaiFarmLocalStorage.saveProductMoreCache(ProducMoreCache(data))
@@ -327,7 +327,7 @@ class ProductBloc {
                       total: item.total));
                 });
               } else {
-                List<ProductMoreCombin> data = [];
+                List<ProductMoreCombin> data = <ProductMoreCombin>[];
                 data.add(ProductMoreCombin(searchRespone: item, slag: link));
                 NaiFarmLocalStorage.saveProductMoreCache(ProducMoreCache(data))
                     .then((value) {
@@ -364,11 +364,11 @@ class ProductBloc {
         for (var value in item.data[0].items) {
           productMore.add(value.product);
         }
-        List<FlashsaleItems> itemTemp = [];
+        List<FlashsaleItems> itemTemp = <FlashsaleItems>[];
         for (var value in productMore) {
           itemTemp.add(FlashsaleItems(product: value));
         }
-        List<FlashsaleData> data = [];
+        List<FlashsaleData> data = <FlashsaleData>[];
         data.add(FlashsaleData(
             items: itemTemp,
             id: item.data[0].id,
@@ -423,11 +423,11 @@ class ProductBloc {
         // GetMyWishlists(token: token); GetWishlistsByProduct
         var item = (respone.respone as DataWishlists);
         if (item != null) {
-          List<DataWishlists> data = [];
+          List<DataWishlists> data = <DataWishlists>[];
           data.add(item);
           wishlists.add(WishlistsRespone(data: data, total: 1));
         } else {
-          List<DataWishlists> data = [];
+          List<DataWishlists> data = <DataWishlists>[];
           wishlists.add(WishlistsRespone(data: data, total: 0));
         }
 
@@ -472,7 +472,7 @@ class ProductBloc {
                   .add(ProductObjectCombine(producItemRespone: item));
             });
           } else {
-            List<ProductDetailData> data = [];
+            List<ProductDetailData> data = <ProductDetailData>[];
             data.add(ProductDetailData(
                 productObjectCombine:
                     ProductObjectCombine(producItemRespone: item)));
@@ -622,7 +622,7 @@ class ProductBloc {
             zipShopObject.add(event);
           });
         } else {
-          List<ZipShopObjectCombin> data = [];
+          List<ZipShopObjectCombin> data = <ZipShopObjectCombin>[];
           data.add(event);
           NaiFarmLocalStorage.saveNaiFarmShopCache(NaiFarmShopCombin(data))
               .then((value) {
@@ -993,7 +993,7 @@ class ProductBloc {
   }
 
   ProductRespone convertSearchData({SearchRespone item}) {
-    List<ProductData> data = [];
+    List<ProductData> data = <ProductData>[];
     for (var value in item.hits) {
       data.add(ProductData(
           id: value.productId,

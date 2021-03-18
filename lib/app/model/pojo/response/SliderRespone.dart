@@ -6,7 +6,7 @@ class SliderRespone {
 
   SliderRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <SliderData>[];
       json['data'].forEach((v) {
         data.add(new SliderData.fromJson(v));
       });
@@ -53,7 +53,7 @@ class SliderData {
     link = json['link'];
     order = json['order'];
     if (json['image'] != null) {
-      image = [];
+      image = <SliderImage>[];
       json['image'].forEach((v) {
         image.add(new SliderImage.fromJson(v));
       });

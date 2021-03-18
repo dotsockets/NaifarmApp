@@ -48,14 +48,7 @@ class _NotiCusState extends State<NotiCus>
       bloc.onError.stream.listen((event) {
         //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
 
-        FunctionHelper.alertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message: event, callCancle: () {
-          // if(widget.btnBack){
-          //   AppRoute.PoppageCount(context: context,countpage: 2);
-          // }else{
-          //   AppRoute.PoppageCount(context: context,countpage: 1);
-          // }
-        });
+        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
       });
 
       bloc.onSuccess.stream.listen((event) {

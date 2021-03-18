@@ -15,7 +15,7 @@ class NotiBloc {
   final onError = BehaviorSubject<Object>();
   final onSuccess = BehaviorSubject<Object>();
   Stream<Object> get feedList => onSuccess.stream;
-  List<NotiData> productMore = [];
+  List<NotiData> productMore = <NotiData>[];
 
   NotiBloc(this._application);
 

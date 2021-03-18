@@ -7,7 +7,7 @@ class ProducMoreCache {
 
   ProducMoreCache.fromJson(Map<String, dynamic> json) {
     if (json['productRespone'] != null) {
-      productRespone = [];
+      productRespone = <ProductMoreCombin>[];
       json['productRespone'].forEach((v) {
         productRespone.add(new ProductMoreCombin.fromJson(v));
       });

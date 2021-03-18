@@ -48,7 +48,7 @@ class OrderRequest {
     email = json['email'];
     buyerNote = json['buyerNote'];
     if (json['items'] != null) {
-      items = [];
+      items = <OrderRequestItems>[];
       json['items'].forEach((v) {
         items.add(new OrderRequestItems.fromJson(v));
       });

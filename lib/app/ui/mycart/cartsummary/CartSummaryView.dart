@@ -36,7 +36,7 @@ class CartSummaryView extends StatefulWidget {
 }
 
 class _CartSummaryViewState extends State<CartSummaryView> {
-  List<CartModel> dataArr = [];
+  List<CartModel> dataArr = <CartModel>[];
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CartBloc bloc;
@@ -59,15 +59,20 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       bloc.onError.stream.listen((event) {
         if (event.status > 400) {
           FunctionHelper.alertDialogRetry(context,
-              title: LocaleKeys.btn_error.tr(), message: LocaleKeys.dialog_message_contact.tr(),callBack: (){
-                Usermanager().getUser().then((value){
-                  for(var item in bloc.cartList.value.data){
-                    bloc.createOrder(context,orderRequest: bloc.convertOrderData(context,cartData: item,email: value.email),token: value.token);
-                  }
-                });
-              });
-        }else{
-          FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+              title: LocaleKeys.btn_error.tr(),
+              message: LocaleKeys.dialog_message_contact.tr(), callBack: () {
+            Usermanager().getUser().then((value) {
+              for (var item in bloc.cartList.value.data) {
+                bloc.createOrder(context,
+                    orderRequest: bloc.convertOrderData(context,
+                        cartData: item, email: value.email),
+                    token: value.token);
+              }
+            });
+          });
+        } else {
+          FunctionHelper.snackBarShow(
+              scaffoldKey: _scaffoldKey, message: event.message);
         }
         // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });

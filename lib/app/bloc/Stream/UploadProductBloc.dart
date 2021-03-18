@@ -32,9 +32,9 @@ class UploadProductBloc {
 
   CategoryCombin categoriesAllRespone = CategoryCombin();
   ProductMyShopRequest productDetail = ProductMyShopRequest();
-  List<OnSelectItem> itemImage = [];
-  List<ProductMyShop> productList = [];
-  List<ImageProductShop> productImageList = [];
+  List<OnSelectItem> itemImage = <OnSelectItem>[];
+  List<ProductMyShop> productList = <ProductMyShop>[];
+  List<ImageProductShop> productImageList = <ImageProductShop>[];
 
   int inventoriesId = 0;
   var checkloop = 0;
@@ -42,7 +42,7 @@ class UploadProductBloc {
   UploadProductBloc(this._application);
 
   void convertArrayFile({List<Asset> imageList, int index}) {
-    List<AssetImages> itemConvert = [];
+    List<AssetImages> itemConvert = <AssetImages>[];
     itemImage.remove(null);
     for (var temp in imageList) {
       itemConvert.add(AssetImages(
@@ -405,7 +405,7 @@ class UploadProductBloc {
   }
 
   List<OnSelectItem> getSelectItemUpdate() {
-    List<OnSelectItem> data = [];
+    List<OnSelectItem> data = <OnSelectItem>[];
     for (var item in itemImage) {
       if (item != null && item.image != null) {
         data.add(item);
@@ -416,7 +416,7 @@ class UploadProductBloc {
   }
 
   List<OnSelectItem> getSelectItem() {
-    List<OnSelectItem> data = [];
+    List<OnSelectItem> data = <OnSelectItem>[];
     for (var i = 0; i < itemImage.length; i++) {
       if (itemImage[i] != null) {
         data.add(itemImage[i]);

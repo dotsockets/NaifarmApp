@@ -195,7 +195,7 @@ class CartBloc {
         .listen((respone) {
       onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
-        List<AddressesData> data = [];
+        List<AddressesData> data = <AddressesData>[];
         if (type) {
           if ((respone.respone as AddressesListRespone).data.isNotEmpty) {
             for (var i = 0;
@@ -252,7 +252,7 @@ class CartBloc {
 
   void cartPositiveQuantity(BuildContext context,
       {CartData item, int indexShop, int indexShopItem, String token}) {
-    List<Items> items = [];
+    List<Items> items = <Items>[];
     items.clear();
     for (var i = 0; i < cartList.value.data[indexShop].items.length; i++) {
       if (cartList.value.data[indexShop].items[i].inventory.id ==
@@ -286,7 +286,7 @@ class CartBloc {
 
   void cartDeleteQuantity(BuildContext context,
       {CartData item, int indexShop, int indexShopItem, String token}) {
-    List<Items> items = [];
+    List<Items> items = <Items>[];
 
     for (var i = 0; i < cartList.value.data[indexShop].items.length; i++) {
       if (cartList.value.data[indexShop].items[i].inventory.id ==
@@ -377,7 +377,7 @@ class CartBloc {
       }
     }
 
-    List<OrderRequestItems> items = [];
+    List<OrderRequestItems> items = <OrderRequestItems>[];
     for (var value in cartData.items) {
       items.add(OrderRequestItems(
           quantity: value.quantity,

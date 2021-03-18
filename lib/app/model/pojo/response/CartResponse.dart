@@ -11,7 +11,7 @@ class CartResponse {
 
   CartResponse.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <CartData>[];
       json['data'].forEach((v) {
         data.add(new CartData.fromJson(v));
       });
@@ -129,7 +129,7 @@ class CartData {
     messageToCustomer = json['messageToCustomer'];
     shop = json['shop'] != null ? new CartShop.fromJson(json['shop']) : null;
     if (json['items'] != null) {
-      items = [];
+      items = <CartItems>[];
       json['items'].forEach((v) {
         items.add(new CartItems.fromJson(v));
       });
@@ -203,7 +203,7 @@ class CartShop {
         json['state'] != null ? new CartState.fromJson(json['state']) : null;
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -442,7 +442,7 @@ class CartInventory {
         ? new CartProduct.fromJson(json['product'])
         : null;
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -573,7 +573,7 @@ class CartProduct {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });

@@ -8,7 +8,7 @@ class ProductDetailCombin {
 
   ProductDetailCombin.fromJson(Map<String, dynamic> json) {
     if (json['item'] != null) {
-      item = [];
+      item = <ProductDetailData>[];
       json['item'].forEach((v) {
         item.add(new ProductDetailData.fromJson(v));
       });

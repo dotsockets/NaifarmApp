@@ -6,7 +6,7 @@ class CarriersRespone {
 
   CarriersRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <CarriersData>[];
       json['data'].forEach((v) {
         data.add(new CarriersData.fromJson(v));
       });

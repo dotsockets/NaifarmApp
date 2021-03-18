@@ -6,7 +6,7 @@ class PaymentRespone {
 
   PaymentRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <PaymentData>[];
       json['data'].forEach((v) {
         data.add(new PaymentData.fromJson(v));
       });

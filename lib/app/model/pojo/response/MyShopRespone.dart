@@ -82,7 +82,7 @@ class MyShopRespone {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['config'] != null) {
-      config = [];
+      config = <Config>[];
       json['config'].forEach((v) {
         config.add(new Config.fromJson(v));
       });
@@ -91,7 +91,7 @@ class MyShopRespone {
         ? new ShopPaymentMethod.fromJson(json['shopPaymentMethod'])
         : null;
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });

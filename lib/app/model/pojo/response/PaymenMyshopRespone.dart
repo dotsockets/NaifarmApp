@@ -6,7 +6,7 @@ class PaymenMyshopRespone {
 
   PaymenMyshopRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <PaymenMyshopData>[];
       json['data'].forEach((v) {
         data.add(new PaymenMyshopData.fromJson(v));
       });

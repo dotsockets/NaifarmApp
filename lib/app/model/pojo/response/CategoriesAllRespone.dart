@@ -8,7 +8,7 @@ class CategoriesAllRespone {
 
   CategoriesAllRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <CategoriesAllData>[];
       json['data'].forEach((v) {
         data.add(new CategoriesAllData.fromJson(v));
       });
@@ -54,13 +54,13 @@ class CategoriesAllData {
     icon = json['icon'];
     order = json['order'];
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
     }
     if (json['categorySubGroups'] != null) {
-      categorySubGroups = [];
+      categorySubGroups = <CategorySubGroups>[];
       json['categorySubGroups'].forEach((v) {
         categorySubGroups.add(new CategorySubGroups.fromJson(v));
       });
@@ -103,13 +103,13 @@ class CategorySubGroups {
     slug = json['slug'];
     order = json['order'];
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
     }
     if (json['category'] != null) {
-      category = [];
+      category = <Category>[];
       json['category'].forEach((v) {
         category.add(new Category.fromJson(v));
       });

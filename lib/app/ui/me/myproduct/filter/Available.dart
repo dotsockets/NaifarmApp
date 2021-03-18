@@ -145,7 +145,7 @@ class _AvailableState extends State<Available> {
                           buildProduct(item: item.data[index], index: index),
                     ),
                   ),
-                  if (item.data.length != item.total)
+                  if (item.data.length != item.total && item.data.length>=5)
                     Container(
                       padding: EdgeInsets.all(20),
                       child: Row(

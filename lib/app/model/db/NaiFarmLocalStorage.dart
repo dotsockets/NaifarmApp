@@ -36,15 +36,11 @@ class NaiFarmLocalStorage {
     storage.setItem(naiFarmOneSiganl, oneSignalNoificationId);
   }
 
-  static Future<OneSignalNoificationId> getOneSiganlCache() async {
+  static Future<Map<String, dynamic>> getOneSiganlCache() async {
     LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
     Map<String, dynamic> data = storage.getItem(naiFarmOneSiganl);
-    if (data == null) {
-      return null;
-    }
-    OneSignalNoificationId value = OneSignalNoificationId.fromJson(data);
-    return value;
+    return data;
   }
 
   static Future<void> saveOrderCache(

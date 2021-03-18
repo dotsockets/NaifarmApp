@@ -10,7 +10,7 @@ class OrderRespone {
 
   OrderRespone.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = [];
+      data = <OrderData>[];
       json['data'].forEach((v) {
         data.add(new OrderData.fromJson(v));
       });
@@ -160,7 +160,7 @@ class OrderData {
     requirePaymentAt = json['requirePaymentAt'];
     shop = json['shop'] != null ? new ProductShop.fromJson(json['shop']) : null;
     if (json['items'] != null) {
-      items = [];
+      items = <OrderItems>[];
       json['items'].forEach((v) {
         items.add(new OrderItems.fromJson(v));
       });
@@ -169,7 +169,7 @@ class OrderData {
         ? new PaymentMethod.fromJson(json['paymentMethod'])
         : null;
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });
@@ -253,6 +253,7 @@ class OrderItems {
   int orderId;
   int inventoryId;
   String itemTitle;
+  String itemImagePath;
   String itemDescription;
   String itemVariant;
   int quantity;
@@ -275,6 +276,7 @@ class OrderItems {
     orderId = json['orderId'];
     inventoryId = json['inventoryId'];
     itemTitle = json['itemTitle'];
+    itemImagePath = json['itemImagePath'];
     itemDescription = json['itemDescription'];
     itemVariant = json['itemVariant'];
     quantity = json['quantity'];
@@ -290,6 +292,7 @@ class OrderItems {
     data['orderId'] = this.orderId;
     data['inventoryId'] = this.inventoryId;
     data['itemTitle'] = this.itemTitle;
+    data['itemImagePath'] = this.itemImagePath;
     data['itemDescription'] = this.itemDescription;
     data['itemVariant'] = this.itemVariant;
     data['quantity'] = this.quantity;
@@ -333,7 +336,7 @@ class Inventory {
     offerPrice = json['offerPrice'];
     stockQuantity = json['stockQuantity'];
     if (json['image'] != null) {
-      image = [];
+      image = <ProductImage>[];
       json['image'].forEach((v) {
         image.add(new ProductImage.fromJson(v));
       });

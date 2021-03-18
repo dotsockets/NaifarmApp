@@ -36,7 +36,7 @@ class CartRequest {
     taxId = json['taxId'];
     shipTo = json['shipTo'];
     if (json['items'] != null) {
-      items = [];
+      items = <Items>[];
       json['items'].forEach((v) {
         items.add(new Items.fromJson(v));
       });
