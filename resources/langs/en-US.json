@@ -49,7 +49,8 @@
     "title_my_product": "My Products",
     "title_shipping": "Shipping",
     "title_payment": "Payment Method",
-    "title_pay": "Payment Method"
+    "title_pay": "Payment Method",
+    "account": "Account Settings"
   },
   "shipping": {
     "edit": "Edit Shipping",
@@ -415,6 +416,7 @@
     "shop_status": "Status",
     "shop_new_order": "New order",
     "shop_orderid": "ordered the item, order number",
+    "shop_cancel":"cancelled the item, order number",
     "shop_open": "Open a new shop",
     "shop_open_detail": "has been opened the shop",
     "shop_outstock":"out of stock",

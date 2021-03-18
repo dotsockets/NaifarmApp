@@ -53,6 +53,7 @@ abstract class LocaleKeys {
   static const me_title_shipping = 'me.title_shipping';
   static const me_title_payment = 'me.title_payment';
   static const me_title_pay = 'me.title_pay';
+  static const me_account = 'me.account';
   static const me = 'me';
   static const shipping_edit = 'shipping.edit';
   static const shipping_cancel = 'shipping.cancel';
@@ -388,6 +389,7 @@ abstract class LocaleKeys {
   static const noti_shop_status = 'noti.shop_status';
   static const noti_shop_new_order = 'noti.shop_new_order';
   static const noti_shop_orderid = 'noti.shop_orderid';
+  static const noti_shop_cancel = 'noti.shop_cancel';
   static const noti_shop_open = 'noti.shop_open';
   static const noti_shop_open_detail = 'noti.shop_open_detail';
   static const noti_shop_outstock = 'noti.shop_outstock';
