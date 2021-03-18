@@ -23,25 +23,25 @@ class NaiFarmLocalStorage {
   static String naiFarmCus = "Customer_cus";
   static String naiFarmProductDetail = "ProductDetail";
   static String naiFarmInfo = "Customer_Info";
-  static String NaiFarm_Shop = "NaiFarm_Shop";
-  static String NaiFarm_Cart = "NaiFarm_Cart";
-  static String NaiFarm_ProductMore = "NaiFarm_ProductMore";
-  static String NaiFarm_HiSTORY = "NaiFarm_history";
-  static String NaiFarm_Order = "NaiFarm_order";
-  static String NaiFarm_OneSiganl = "NaiFarm_onesignal";
-  static String NaiFarm_Noti = "NaiFarm_noti";
+  static String naiFarmShop = "NaiFarm_Shop";
+  static String naiFarmCart = "NaiFarm_Cart";
+  static String naiFarmProductMore = "NaiFarm_ProductMore";
+  static String naiFarmHiSTORY = "NaiFarm_history";
+  static String naiFarmOrder = "NaiFarm_order";
+  static String naiFarmOneSiganl = "NaiFarm_onesignal";
+  static String naiFarmNoti = "NaiFarm_noti";
 
 
   static Future<void> saveNotiCache(NotiCache notiCache) async {
     storage =  LocalStorage(naiFarmStorage);
     await storage.ready;
-    storage.setItem(NaiFarm_Noti, notiCache);
+    storage.setItem(naiFarmNoti, notiCache);
   }
 
   static Future<NotiCache> getNotiCache() async {
     LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
-    Map<String, dynamic> data = storage.getItem(NaiFarm_Noti);
+    Map<String, dynamic> data = storage.getItem(naiFarmNoti);
     if (data == null) {
       return null;
     }
@@ -55,11 +55,15 @@ class NaiFarmLocalStorage {
     storage.setItem(naiFarmOneSiganl, oneSignalNoificationId);
   }
 
-  static Future<Map<String, dynamic>> getOneSiganlCache() async {
+  static Future<OneSignalNoificationId> getOneSiganlCache() async {
     LocalStorage storage = new LocalStorage(naiFarmStorage);
     await storage.ready;
     Map<String, dynamic> data = storage.getItem(naiFarmOneSiganl);
-    return data;
+    if (data == null) {
+      return null;
+    }
+    OneSignalNoificationId value = OneSignalNoificationId.fromJson(data);
+    return value;
   }
 
   static Future<void> saveOrderCache(

@@ -3,9 +3,9 @@ class OneSignalNoificationId {
   OneSignalNoificationId({this.onesignal});
 
   OneSignalNoificationId.fromJson(Map<String, dynamic> json) {
-    if (json['orderCahe'] != null) {
+    if (json['onesignal'] != null) {
       onesignal = <OneSignalData>[];
-      json['orderCahe'].forEach((v) {
+      json['onesignal'].forEach((v) {
         onesignal.add(new OneSignalData.fromJson(v));
       });
     }

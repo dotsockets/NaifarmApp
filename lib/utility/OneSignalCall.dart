@@ -114,10 +114,10 @@ class OneSignalCall {
     final FlutterLocalNotificationsPlugin notificationsPlugin =
         FlutterLocalNotificationsPlugin();
     NaiFarmLocalStorage.getOneSiganlCache().then((data) {
-      if (data != null && data['onesignal'] != null) {
-        for (var value in data['onesignal']) {
-          if (value['slagView'] == slag && value['refID'] == ref) {
-            notificationsPlugin.cancel(value['androidNotificationId'].toInt());
+      if (data != null) {
+        for (var value in data.onesignal) {
+          if (value.slagView == slag && value.refID == ref) {
+            notificationsPlugin.cancel(value.androidNotificationId.toInt());
           }
         }
       }
