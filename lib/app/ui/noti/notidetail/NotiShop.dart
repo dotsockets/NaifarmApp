@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -45,14 +46,7 @@ class _NotiShopState extends State<NotiShop>
     if (bloc == null) {
       bloc = NotiBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
-        FunctionHelper.alertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message: event, callCancle: () {
-          if (widget.btnBack) {
-            AppRoute.poppageCount(context: context, countpage: 2);
-          } else {
-            AppRoute.poppageCount(context: context, countpage: 1);
-          }
-        });
+        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
@@ -61,6 +55,22 @@ class _NotiShopState extends State<NotiShop>
       //  bloc.onSuccess.add(widget.notiRespone);
 
     }
+
+    NaiFarmLocalStorage.getNotiCache().then((value){
+      if(value!=null){
+        for(var data in value.notidata){
+          if(data.typeView=="shop"){
+            bloc.productMore.addAll(data.notiRespone.data);
+            bloc.onSuccess.add(NotiRespone(
+                data: bloc.productMore,
+                limit: data.notiRespone.limit,
+                page: data.notiRespone.page,
+                total: data.notiRespone.total));
+            break;
+          }
+        }
+      }
+    });
     page = 1;
     bloc.refreshProducts(context, group: "shop", limit: limit, page: page);
 

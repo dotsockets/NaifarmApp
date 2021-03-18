@@ -4,6 +4,7 @@ import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
+import 'package:naifarm/app/model/pojo/response/NotiCache.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/NotificationCombine.dart';
 import 'package:rxdart/rxdart.dart';
@@ -27,9 +28,7 @@ class NotiBloc {
       String sort,
       int limit,
       String token}) async {
-    if (page == 1) {
-      productMore.clear();
-    }
+
 
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.getNotificationByGroup(context,
@@ -40,16 +39,35 @@ class NotiBloc {
                 token: token))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
+        if (page == 1) {
+          productMore.clear();
+        }
         // onSuccess.add((respone.respone as NotiRespone));
         var item = (respone.respone as NotiRespone);
-        if (item.data != null) {
-          productMore.addAll(item.data);
-          onSuccess.add(NotiRespone(
-              data: productMore,
-              limit: item.limit,
-              page: item.page,
-              total: item.total));
+        if (item.data != null && page==1) {
+          NaiFarmLocalStorage.getNotiCache().then((value){
+             if(value!=null){
+               for(var data in value.notidata){
+                  if(data.typeView==group){
+                    value.notidata.remove(data);
+                    break;
+                  }
+               }
+               value.notidata.add(NotiDataCache(notiRespone: item,typeView: group));
+               NaiFarmLocalStorage.saveNotiCache(value);
+             }else{
+               List<NotiDataCache> notidata = <NotiDataCache>[];
+               notidata.add(NotiDataCache(notiRespone: item,typeView: group));
+               NaiFarmLocalStorage.saveNotiCache(NotiCache(notidata: notidata));
+             }
+          });
         }
+        productMore.addAll(item.data);
+        onSuccess.add(NotiRespone(
+            data: productMore,
+            limit: item.limit,
+            page: item.page,
+            total: item.total));
       } else {
         onError.add(respone.httpCallBack.message);
       }
