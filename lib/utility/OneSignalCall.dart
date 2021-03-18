@@ -57,8 +57,8 @@ class OneSignalCall {
   }
 
   static oneSignalReceivedHandler(BuildContext context) async {
-    OneSignal.shared.setNotificationReceivedHandler((OSNotification notification) async {
-
+    OneSignal.shared
+        .setNotificationReceivedHandler((OSNotification notification) async {
       var item = NotificationOneSignal.fromJson(
           jsonDecode(notification.payload.rawPayload['custom']));
       Usermanager().getUser().then((value) => context
@@ -67,14 +67,24 @@ class OneSignalCall {
       Usermanager().getUser().then((value) => context
           .read<InfoCustomerBloc>()
           .loadCustomInfo(context, token: value.token));
-
       List<OneSignalData> onesignalData = <OneSignalData>[];
       if (item.item.name == null) {
-        onesignalData.add(OneSignalData(androidNotificationId: int.parse(notification.payload.rawPayload['androidNotificationId'].toString()),refID: int.parse(item.item.id),slagView: "orderView"));
-      }else{
-        onesignalData.add(OneSignalData(androidNotificationId: int.parse(notification.payload.rawPayload['androidNotificationId'].toString()),refID: 0,slagView: "meView"));
+        onesignalData.add(OneSignalData(
+            androidNotificationId: int.parse(notification
+                .payload.rawPayload['androidNotificationId']
+                .toString()),
+            refID: int.parse(item.item.id),
+            slagView: "orderView"));
+      } else {
+        onesignalData.add(OneSignalData(
+            androidNotificationId: int.parse(notification
+                .payload.rawPayload['androidNotificationId']
+                .toString()),
+            refID: 0,
+            slagView: "meView"));
       }
-      NaiFarmLocalStorage.saveOneSiganlCache(OneSignalNoificationId(onesignal: onesignalData));
+      NaiFarmLocalStorage.saveOneSiganlCache(
+          OneSignalNoificationId(onesignal: onesignalData));
     });
 
     OneSignal.shared
@@ -82,11 +92,11 @@ class OneSignalCall {
       var item = NotificationOneSignal.fromJson(
           jsonDecode(result.notification.payload.rawPayload['custom']));
 
-      if (item.item.name == null && item.item.customer==null) {
+      if (item.item.name == null && item.item.customer == null) {
         AppRoute.orderDetail(context,
             orderData: OrderData(id: int.parse(item.item.id)),
             typeView: OrderViewType.Purchase);
-      }else if(item.item.customer!=null){
+      } else if (item.item.customer != null) {
         AppRoute.orderDetail(context,
             orderData: OrderData(id: int.parse(item.item.id)),
             typeView: OrderViewType.Shop);
@@ -100,19 +110,17 @@ class OneSignalCall {
     }
   }
 
-  static Future cancelNotification(String slag,int ref) async {
-    final FlutterLocalNotificationsPlugin notificationsPlugin = FlutterLocalNotificationsPlugin();
-    NaiFarmLocalStorage.getOneSiganlCache().then((value){
-      if(value!=null){
-
-         for(var data in value.onesignal){
-            if(data.slagView==slag && data.refID==ref){
-              notificationsPlugin.cancel(data.androidNotificationId.toInt());
-            }
-         }
+  static Future cancelNotification(String slag, int ref) async {
+    final FlutterLocalNotificationsPlugin notificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    NaiFarmLocalStorage.getOneSiganlCache().then((data) {
+      if (data != null && data['onesignal'] != null) {
+        for (var value in data['onesignal']) {
+          if (value['slagView'] == slag && value['refID'] == ref) {
+            notificationsPlugin.cancel(value['androidNotificationId'].toInt());
+          }
+        }
       }
     });
   }
 }
-
-

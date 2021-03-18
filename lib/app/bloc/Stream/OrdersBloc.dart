@@ -242,10 +242,11 @@ class OrdersBloc {
   int sumTotal(List<OrderItems> items, int rate) {
     var sum = 0;
     for (var item in items) {
-      sum +=  ((item.offerPrice != null && double.parse(item.offerPrice.toString())>0
-                  ? double.parse(item.offerPrice.toString()).toInt()
-                  : double.parse(item.unitPrice.toString()).toInt()) *
-              item.quantity);
+      sum += ((item.offerPrice != null &&
+                  double.parse(item.offerPrice.toString()) > 0
+              ? double.parse(item.offerPrice.toString()).toInt()
+              : double.parse(item.unitPrice.toString()).toInt()) *
+          item.quantity);
     }
     return sum + rate;
   }

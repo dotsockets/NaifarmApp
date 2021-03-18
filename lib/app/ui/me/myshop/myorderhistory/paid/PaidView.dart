@@ -288,8 +288,10 @@ class _PaidViewState extends State<PaidView> {
                   child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
                 fit: BoxFit.cover,
-                imageUrl: item.itemImagePath!=null?"${Env.value.baseUrl}/storage/images/${ item.itemImagePath }":Env.value.noItemUrl,
-               errorWidget: (context, url, error) => Container(
+                imageUrl: item.itemImagePath != null
+                    ? "${Env.value.baseUrl}/storage/images/${item.itemImagePath}"
+                    : Env.value.noItemUrl,
+                errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
                     child: Image.network(Env.value.noItemUrl)),
@@ -336,21 +338,25 @@ class _PaidViewState extends State<PaidView> {
                   Row(
                     children: [
                       //   item.ProductDicount != 0 ?
-                      item.unitPrice != null && item.offerPrice != null && double.parse(item.offerPrice.toString())>0
+                      item.unitPrice != null &&
+                              item.offerPrice != null &&
+                              double.parse(item.offerPrice.toString()) > 0
                           ? Text(
-                          "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.unitPrice))}",
-                          style: FunctionHelper.fontTheme(
-                              color: Colors.grey,
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              decoration: TextDecoration.lineThrough))
+                              "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.unitPrice))}",
+                              style: FunctionHelper.fontTheme(
+                                  color: Colors.grey,
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  decoration: TextDecoration.lineThrough))
                           : SizedBox(),
                       SizedBox(
-                          width: item.unitPrice != null && item.offerPrice != null
-                              ? 1.0.w
-                              : 0),
+                          width:
+                              item.unitPrice != null && item.offerPrice != null
+                                  ? 1.0.w
+                                  : 0),
                       Text(
-                        item.offerPrice != null  &&  double.parse(item.offerPrice.toString()) !=0
-                            ? "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.offerPrice.toString()) )}"
+                        item.offerPrice != null &&
+                                double.parse(item.offerPrice.toString()) != 0
+                            ? "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.offerPrice.toString()))}"
                             : "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.unitPrice).toInt())}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -452,7 +458,9 @@ class _PaidViewState extends State<PaidView> {
                   buildButtonBayItem(
                       btnTxt: widget.typeView == OrderViewType.Shop
                           ? LocaleKeys.order_detail_confirm_pay.tr()
-                          : item.image.isNotEmpty?"${item.orderStatusName}":item.orderStatusName,
+                          : item.image.isNotEmpty
+                              ? "${item.orderStatusName}"
+                              : item.orderStatusName,
                       item: item)
                 ],
               )
@@ -520,7 +528,9 @@ class _PaidViewState extends State<PaidView> {
                     ],
                   ),
             Text(
-              item.image!=null && item.image.isNotEmpty?item.orderStatusName:item.orderStatusName,
+              item.image != null && item.image.isNotEmpty
+                  ? item.orderStatusName
+                  : item.orderStatusName,
               style: FunctionHelper.fontTheme(
                   color: ThemeColor.primaryColor(),
                   fontSize: SizeUtil.titleSmallFontSize().sp,

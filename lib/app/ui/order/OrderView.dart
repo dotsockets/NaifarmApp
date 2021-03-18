@@ -217,8 +217,8 @@ class _OrderViewState extends State<OrderView> {
                             : SizedBox(),
 
                         widget.typeView == OrderViewType.Purchase &&
-                            (item.orderStatusId == 5 ||
-                                item.orderStatusId == 4)
+                                (item.orderStatusId == 5 ||
+                                    item.orderStatusId == 4)
                             ? buttonAcceptProducts(
                                 context: context, orderData: item)
                             : SizedBox(),
@@ -668,7 +668,9 @@ class _OrderViewState extends State<OrderView> {
                   child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
                 fit: BoxFit.cover,
-                imageUrl: orderItems.itemImagePath!=null?"${Env.value.baseUrl}/storage/images/${ orderItems.itemImagePath }":Env.value.noItemUrl,
+                imageUrl: orderItems.itemImagePath != null
+                    ? "${Env.value.baseUrl}/storage/images/${orderItems.itemImagePath}"
+                    : Env.value.noItemUrl,
                 errorWidget: (context, url, error) => Container(
                     width: 22.0.w,
                     height: 22.0.w,
@@ -685,9 +687,10 @@ class _OrderViewState extends State<OrderView> {
               ProductData product = ProductData();
               product = orderItems.inventory.product;
               AppRoute.productDetail(context,
-                  productImage:
-                  "orderview_${orderItems.inventoryId}1",
-                  productItem: ProducItemRespone(id: orderItems.inventory.product.id,image: orderItems.inventory.image));
+                  productImage: "orderview_${orderItems.inventoryId}1",
+                  productItem: ProducItemRespone(
+                      id: orderItems.inventory.product.id,
+                      image: orderItems.inventory.image));
             }
           },
         ),
@@ -713,21 +716,27 @@ class _OrderViewState extends State<OrderView> {
                   Row(
                     children: [
                       //   item.ProductDicount != 0 ?
-                      orderItems.unitPrice != null && orderItems.offerPrice != null && double.parse(orderItems.offerPrice.toString())>0
+                      orderItems.unitPrice != null &&
+                              orderItems.offerPrice != null &&
+                              double.parse(orderItems.offerPrice.toString()) > 0
                           ? Text(
-                          "฿${NumberFormat("#,##0", "en_US").format(double.parse(orderItems.unitPrice))}",
-                          style: FunctionHelper.fontTheme(
-                              color: Colors.grey,
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              decoration: TextDecoration.lineThrough))
+                              "฿${NumberFormat("#,##0", "en_US").format(double.parse(orderItems.unitPrice))}",
+                              style: FunctionHelper.fontTheme(
+                                  color: Colors.grey,
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  decoration: TextDecoration.lineThrough))
                           : SizedBox(),
                       SizedBox(
-                          width: orderItems.unitPrice != null && orderItems.offerPrice != null
+                          width: orderItems.unitPrice != null &&
+                                  orderItems.offerPrice != null
                               ? 1.0.w
                               : 0),
                       Text(
-                        orderItems.offerPrice != null  &&  double.parse(orderItems.offerPrice.toString()) !=0
-                            ? "฿${NumberFormat("#,##0", "en_US").format(double.parse(orderItems.offerPrice.toString()) )}"
+                        orderItems.offerPrice != null &&
+                                double.parse(
+                                        orderItems.offerPrice.toString()) !=
+                                    0
+                            ? "฿${NumberFormat("#,##0", "en_US").format(double.parse(orderItems.offerPrice.toString()))}"
                             : "฿${NumberFormat("#,##0", "en_US").format(double.parse(orderItems.unitPrice).toInt())}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
