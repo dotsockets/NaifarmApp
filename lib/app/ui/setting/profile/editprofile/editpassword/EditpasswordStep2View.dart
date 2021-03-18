@@ -50,7 +50,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
         FunctionHelper.successDialog(context,
-            message: "Please confirm Email in your mailbox ", onClick: () {
+            message: LocaleKeys.dialog_message_password_success.tr(), onClick: () {
           if (onDialog) {
             Navigator.of(context).pop();
           }

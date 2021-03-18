@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -186,7 +187,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
               ),
               onPressed: () async {
                 AppRoute.poppageCount(context: context, countpage: 2);
-                AppRoute.orderDetail(context, orderData: widget.orderData);
+                AppRoute.orderDetail(context, orderData: widget.orderData,typeView: OrderViewType.Purchase);
               },
               child: Text(
                 LocaleKeys.order_detail_txt.tr(),
