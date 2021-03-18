@@ -49,44 +49,46 @@ class _EditDetailViewState extends State<EditDetailView> {
           ),
           body: Container(
             padding: SizeUtil.detailProfilePadding(),
-            child: Container(
-              child: Column(
-                children: [
-                  form(),
-                  SizedBox(
-                    height: 3.0.h,
-                  ),
-                  TextButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0),
+            child: SingleChildScrollView(
+              child: Container(
+                child: Column(
+                  children: [
+                    form(),
+                    SizedBox(
+                      height: 3.0.h,
+                    ),
+                    TextButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                        ),
+                        minimumSize: MaterialStateProperty.all(
+                          Size(50.0.w, 5.0.h),
+                        ),
+                        backgroundColor: MaterialStateProperty.all(
+                          _input1.text != ""
+                              ? ThemeColor.secondaryColor()
+                              : Colors.grey.shade400,
+                        ),
+                        overlayColor: MaterialStateProperty.all(
+                          Colors.white.withOpacity(0.3),
                         ),
                       ),
-                      minimumSize: MaterialStateProperty.all(
-                        Size(50.0.w, 5.0.h),
+                      onPressed: () => formCheck()
+                          ? Navigator.pop(context, widget.itemInfo)
+                          : SizedBox(),
+                      child: Text(
+                        LocaleKeys.btn_save.tr(),
+                        style: FunctionHelper.fontTheme(
+                            color: Colors.white,
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.w500),
                       ),
-                      backgroundColor: MaterialStateProperty.all(
-                        _input1.text != ""
-                            ? ThemeColor.secondaryColor()
-                            : Colors.grey.shade400,
-                      ),
-                      overlayColor: MaterialStateProperty.all(
-                        Colors.white.withOpacity(0.3),
-                      ),
-                    ),
-                    onPressed: () => formCheck()
-                        ? Navigator.pop(context, widget.itemInfo)
-                        : SizedBox(),
-                    child: Text(
-                      LocaleKeys.btn_save.tr(),
-                      style: FunctionHelper.fontTheme(
-                          color: Colors.white,
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

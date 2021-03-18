@@ -57,8 +57,7 @@ class OneSignalCall {
   }
 
   static oneSignalReceivedHandler(BuildContext context) async {
-    OneSignal.shared
-        .setNotificationReceivedHandler((OSNotification notification) async {
+    OneSignal.shared.setNotificationReceivedHandler((OSNotification notification) async {
 
       var item = NotificationOneSignal.fromJson(
           jsonDecode(notification.payload.rawPayload['custom']));
@@ -68,7 +67,7 @@ class OneSignalCall {
       Usermanager().getUser().then((value) => context
           .read<InfoCustomerBloc>()
           .loadCustomInfo(context, token: value.token));
-      print("notification : ${notification.payload.rawPayload['androidNotificationId']}");
+
       List<OneSignalData> onesignalData = <OneSignalData>[];
       if (item.item.name == null) {
         onesignalData.add(OneSignalData(androidNotificationId: int.parse(notification.payload.rawPayload['androidNotificationId'].toString()),refID: int.parse(item.item.id),slagView: "orderView"));
@@ -107,7 +106,6 @@ class OneSignalCall {
       if(value!=null){
 
          for(var data in value.onesignal){
-           print("esafcewfr ${data.androidNotificationId}");
             if(data.slagView==slag && data.refID==ref){
               notificationsPlugin.cancel(data.androidNotificationId.toInt());
             }

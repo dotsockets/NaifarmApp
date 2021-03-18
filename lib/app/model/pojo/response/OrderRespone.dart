@@ -253,6 +253,7 @@ class OrderItems {
   int orderId;
   int inventoryId;
   String itemTitle;
+  String itemImagePath;
   String itemDescription;
   String itemVariant;
   int quantity;
@@ -275,6 +276,7 @@ class OrderItems {
     orderId = json['orderId'];
     inventoryId = json['inventoryId'];
     itemTitle = json['itemTitle'];
+    itemImagePath = json['itemImagePath'];
     itemDescription = json['itemDescription'];
     itemVariant = json['itemVariant'];
     quantity = json['quantity'];
@@ -290,6 +292,7 @@ class OrderItems {
     data['orderId'] = this.orderId;
     data['inventoryId'] = this.inventoryId;
     data['itemTitle'] = this.itemTitle;
+    data['itemImagePath'] = this.itemImagePath;
     data['itemDescription'] = this.itemDescription;
     data['itemVariant'] = this.itemVariant;
     data['quantity'] = this.quantity;
