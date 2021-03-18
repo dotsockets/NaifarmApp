@@ -42,6 +42,7 @@ class _MeViewState extends State<MeView> with RouteAware {
   StreamController<bool> controller = new StreamController<bool>();
   ScrollController _scrollController = ScrollController();
   final expandedBar = BehaviorSubject<bool>();
+  final titleBar = BehaviorSubject<bool>();
   bool isLogin = true;
 
   void _init() {
@@ -94,6 +95,13 @@ class _MeViewState extends State<MeView> with RouteAware {
       } else {
         expandedBar.add(false);
       }
+
+      if (_scrollController.hasClients &&
+          _scrollController.offset > (100 - kToolbarHeight)) {
+        titleBar.add(true);
+      } else {
+        titleBar.add(false);
+      }
     });
   }
 
@@ -101,6 +109,9 @@ class _MeViewState extends State<MeView> with RouteAware {
     return _scrollController.hasClients &&
         _scrollController.offset > (200 - kToolbarHeight);
   }
+
+
+
 
   @override
   void dispose() {
@@ -173,7 +184,20 @@ class _MeViewState extends State<MeView> with RouteAware {
               },
             ),
           ),
-         
+         title: StreamBuilder(
+           stream: titleBar.stream,
+           builder: (_, snapshot) {
+             if (snapshot.hasData) {
+               return !snapshot.data ?
+               Text("${LocaleKeys.me_account.tr()}",
+                   style: FunctionHelper.fontTheme(
+                       fontSize: SizeUtil.titleFontSize().sp,
+                       color: Colors.black)) : SizedBox();
+             } else {
+               return SizedBox();
+             }
+           },
+         ),centerTitle: true,
           actions: [
             Container(
                 margin: EdgeInsets.only(right: 2.0.w, left: 1.0.w, top: 1.0.w),
@@ -351,7 +375,7 @@ class _MeViewState extends State<MeView> with RouteAware {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 3.0.h,
+                height: 7.0.h,
               ),
               InkWell(
                   child: Hero(
@@ -396,7 +420,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                                 : ''
                             : '');
                   }),
-              SizedBox(height: 4.0.h),
+              SizedBox(height: 3.0.h),
               Text(info != null ? info.name : "ฟาร์มมาร์เก็ต",
                   style: FunctionHelper.fontTheme(
                       color: Colors.white,
