@@ -57,8 +57,7 @@ class OneSignalCall {
   }
 
   static oneSignalReceivedHandler(BuildContext context) async {
-    OneSignal.shared
-        .setNotificationReceivedHandler((OSNotification notification) async {
+    OneSignal.shared.setNotificationReceivedHandler((OSNotification notification) async {
 
       var item = NotificationOneSignal.fromJson(
           jsonDecode(notification.payload.rawPayload['custom']));
@@ -107,7 +106,6 @@ class OneSignalCall {
       if(value!=null){
 
          for(var data in value.onesignal){
-
             if(data.slagView==slag && data.refID==ref){
               notificationsPlugin.cancel(data.androidNotificationId.toInt());
             }
