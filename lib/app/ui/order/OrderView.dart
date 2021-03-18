@@ -45,18 +45,18 @@ class _OrderViewState extends State<OrderView> {
       bloc = OrdersBloc(AppProvider.getApplication(context));
       productBloc = ProductBloc(AppProvider.getApplication(context));
 
-
-
-      NaiFarmLocalStorage.getOrderCache().then((value){
-        if(value!=null){
-          var orderType = widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
-          for(var data in value.orderCahe){
-            if(data.TypeView==widget.orderData.id.toString() && data.orderViewType==orderType){
+      NaiFarmLocalStorage.getOrderCache().then((value) {
+        if (value != null) {
+          var orderType =
+              widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
+          for (var data in value.orderCahe) {
+            if (data.typeView == widget.orderData.id.toString() &&
+                data.orderViewType == orderType) {
               bloc.orderList.add(data.orderData);
               break;
             }
           }
-        }else{
+        } else {
           if (widget.orderData.orderStatusName != null) {
             bloc.orderList.add(widget.orderData);
           }
@@ -217,8 +217,8 @@ class _OrderViewState extends State<OrderView> {
                             : SizedBox(),
 
                         widget.typeView == OrderViewType.Purchase &&
-                            (item.orderStatusId == 5 ||
-                                item.orderStatusId == 4)
+                                (item.orderStatusId == 5 ||
+                                    item.orderStatusId == 4)
                             ? buttonAcceptProducts(
                                 context: context, orderData: item)
                             : SizedBox(),
@@ -668,8 +668,9 @@ class _OrderViewState extends State<OrderView> {
                   child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
                 fit: BoxFit.cover,
-                imageUrl:
-                orderItems.inventory!=null?"${Env.value.baseUrl}/storage/images/${orderItems.inventory!=null?orderItems.inventory.product.image.isNotEmpty ? orderItems.inventory.product.image[0].path : '':''}":Env.value.noItemUrl,
+                imageUrl: orderItems.inventory != null
+                    ? "${Env.value.baseUrl}/storage/images/${orderItems.inventory != null ? orderItems.inventory.product.image.isNotEmpty ? orderItems.inventory.product.image[0].path : '' : ''}"
+                    : Env.value.noItemUrl,
                 errorWidget: (context, url, error) => Container(
                     width: 22.0.w,
                     height: 22.0.w,
@@ -686,9 +687,10 @@ class _OrderViewState extends State<OrderView> {
               ProductData product = ProductData();
               product = orderItems.inventory.product;
               AppRoute.productDetail(context,
-                  productImage:
-                  "orderview_${orderItems.inventoryId}1",
-                  productItem: ProducItemRespone(id: orderItems.inventory.product.id,image: orderItems.inventory.image));
+                  productImage: "orderview_${orderItems.inventoryId}1",
+                  productItem: ProducItemRespone(
+                      id: orderItems.inventory.product.id,
+                      image: orderItems.inventory.image));
             }
           },
         ),
@@ -714,20 +716,24 @@ class _OrderViewState extends State<OrderView> {
                   Row(
                     children: [
                       //   item.ProductDicount != 0 ?
-                      orderItems.inventory.salePrice != null && orderItems.inventory.offerPrice != null && orderItems.inventory.offerPrice>0
+                      orderItems.inventory.salePrice != null &&
+                              orderItems.inventory.offerPrice != null &&
+                              orderItems.inventory.offerPrice > 0
                           ? Text(
-                          "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
-                          style: FunctionHelper.fontTheme(
-                              color: Colors.grey,
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              decoration: TextDecoration.lineThrough))
+                              "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
+                              style: FunctionHelper.fontTheme(
+                                  color: Colors.grey,
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  decoration: TextDecoration.lineThrough))
                           : SizedBox(),
                       SizedBox(
-                          width: orderItems.inventory.salePrice != null && orderItems.inventory.offerPrice != null
+                          width: orderItems.inventory.salePrice != null &&
+                                  orderItems.inventory.offerPrice != null
                               ? 1.0.w
                               : 0),
                       Text(
-                        orderItems.inventory.offerPrice != null  && orderItems.inventory.offerPrice !=0
+                        orderItems.inventory.offerPrice != null &&
+                                orderItems.inventory.offerPrice != 0
                             ? "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.offerPrice)}"
                             : "฿${NumberFormat("#,##0", "en_US").format(orderItems.inventory.salePrice)}",
                         maxLines: 1,

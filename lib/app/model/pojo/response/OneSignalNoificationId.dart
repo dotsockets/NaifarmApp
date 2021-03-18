@@ -1,16 +1,14 @@
-
-class OneSignalNoificationId{
+class OneSignalNoificationId {
   List<OneSignalData> onesignal;
   OneSignalNoificationId({this.onesignal});
 
   OneSignalNoificationId.fromJson(Map<String, dynamic> json) {
     if (json['orderCahe'] != null) {
-      onesignal =  List<OneSignalData>();
+      onesignal = <OneSignalData>[];
       json['orderCahe'].forEach((v) {
         onesignal.add(new OneSignalData.fromJson(v));
       });
     }
-
   }
 
   Map<String, dynamic> toJson() {
@@ -23,7 +21,7 @@ class OneSignalNoificationId{
   }
 }
 
-class OneSignalData{
+class OneSignalData {
   int androidNotificationId;
   String slagView;
   int refID;

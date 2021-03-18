@@ -40,28 +40,33 @@ class _CanceledViewState extends State<CanceledView> {
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      NaiFarmLocalStorage.getHistoryCache().then((value){
+      NaiFarmLocalStorage.getHistoryCache().then((value) {
         //   print("ewfcwef ${value}");
-        String orderType = widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
-        if(value!=null){
-          for(var data in value.historyCache){
-            if(data.orderViewType==orderType && data.TypeView=="8"){
+        String orderType =
+            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
+        if (value != null) {
+          for (var data in value.historyCache) {
+            if (data.orderViewType == orderType && data.typeView == "8") {
               bloc.orderDataList.addAll(data.orderRespone.data);
-              bloc.onSuccess.add(OrderRespone(data: bloc.orderDataList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
+              bloc.onSuccess.add(OrderRespone(
+                  data: bloc.orderDataList,
+                  total: data.orderRespone.total,
+                  limit: data.orderRespone.limit,
+                  page: data.orderRespone.limit));
               break;
             }
           }
         }
         Usermanager().getUser().then((value) => bloc.loadOrder(context,
-            orderType:
-            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+            orderType: widget.typeView == OrderViewType.Shop
+                ? "myshop/orders"
+                : "order",
             statusId: "8",
             sort: "orders.updatedAt:desc",
             limit: limit,
             page: 1,
             token: value.token));
       });
-
     }
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
@@ -292,7 +297,9 @@ class _CanceledViewState extends State<CanceledView> {
                 child: Text(
                     item.inventory != null
                         ? item.inventory.title
-                        : item.itemTitle.isNotEmpty?item.itemTitle:LocaleKeys.search_product_not_found.tr(),
+                        : item.itemTitle.isNotEmpty
+                            ? item.itemTitle
+                            : LocaleKeys.search_product_not_found.tr(),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.fontTheme(
@@ -310,20 +317,24 @@ class _CanceledViewState extends State<CanceledView> {
                   Row(
                     children: [
                       //   item.ProductDicount != 0 ?
-                      item.inventory.salePrice != null && item.inventory.offerPrice != null && item.inventory.offerPrice>0
+                      item.inventory.salePrice != null &&
+                              item.inventory.offerPrice != null &&
+                              item.inventory.offerPrice > 0
                           ? Text(
-                          "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
-                          style: FunctionHelper.fontTheme(
-                              color: Colors.grey,
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              decoration: TextDecoration.lineThrough))
+                              "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
+                              style: FunctionHelper.fontTheme(
+                                  color: Colors.grey,
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  decoration: TextDecoration.lineThrough))
                           : SizedBox(),
                       SizedBox(
-                          width: item.inventory.salePrice != null && item.inventory.offerPrice != null
+                          width: item.inventory.salePrice != null &&
+                                  item.inventory.offerPrice != null
                               ? 1.0.w
                               : 0),
                       Text(
-                        item.inventory.offerPrice != null  && item.inventory.offerPrice !=0
+                        item.inventory.offerPrice != null &&
+                                item.inventory.offerPrice != 0
                             ? "฿${NumberFormat("#,##0", "en_US").format(item.inventory.offerPrice)}"
                             : "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
                         maxLines: 1,

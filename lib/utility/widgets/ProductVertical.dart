@@ -145,15 +145,15 @@ class ProductVertical extends StatelessWidget {
               children: [
                 imageIcon != ""
                     ? Image.asset(
-                  imageIcon,
-                  width: iconSize,
-                  height: iconSize,
-                )
+                        imageIcon,
+                        width: iconSize,
+                        height: iconSize,
+                      )
                     : SvgPicture.asset(
-                  iconInto,
-                  width: iconSize,
-                  height: iconSize,
-                ),
+                        iconInto,
+                        width: iconSize,
+                        height: iconSize,
+                      ),
                 SizedBox(width: 2.0.w),
                 Text(titleInto,
                     style: FunctionHelper.fontTheme(
@@ -165,13 +165,20 @@ class ProductVertical extends StatelessWidget {
             InkWell(
               child: Row(
                 children: [
-                  Text(LocaleKeys.recommend_see_more.tr(),style: FunctionHelper.fontTheme(color: Colors.black,fontSize:SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500)),
+                  Text(LocaleKeys.recommend_see_more.tr(),
+                      style: FunctionHelper.fontTheme(
+                          color: Colors.black,
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.w500)),
                   SizedBox(width: 2.0.w),
-                  SvgPicture.asset('assets/images/svg/next.svg',width: 3.0.w,height: 3.0.h,),
-
+                  SvgPicture.asset(
+                    'assets/images/svg/next.svg',
+                    width: 3.0.w,
+                    height: 3.0.h,
+                  ),
                 ],
               ),
-              onTap: (){
+              onTap: () {
                 onSelectMore();
               },
             )
@@ -386,14 +393,14 @@ class ProductVertical extends StatelessWidget {
                 ),
                 onTap: () {
                   Usermanager().isLogin().then((value) async {
-                    if(!value){
-                      final result = await  AppRoute.login(context,isCallBack: true,isHeader: true);
-                     
-                    }else{
+                    if (!value) {
+                      // ignore: unused_local_variable
+                      final result = await AppRoute.login(context,
+                          isCallBack: true, isHeader: true);
+                    } else {
                       productBloc.getProductsById(context, id: item.id);
                     }
                   });
-
                 },
               )
             ],

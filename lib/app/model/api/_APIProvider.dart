@@ -31,10 +31,12 @@ class _APIProvider implements APIProvider {
           respone: FbProfile.fromJson(jsonDecode(_result.data)),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
-      FbError item = FbError.fromJson(jsonDecode(e.response.data));
-
+      // FbError item = FbError.fromJson(jsonDecode(e.response.data));
       return ApiResult(
-          httpCallBack: ThrowIfNoSuccess(status: e.response.statusCode, message: FbError.fromJson(jsonDecode(e.response.data)).error.message));
+          httpCallBack: ThrowIfNoSuccess(
+              status: e.response.statusCode,
+              message:
+                  FbError.fromJson(jsonDecode(e.response.data)).error.message));
     }
   }
 

@@ -39,29 +39,33 @@ class _PaidViewState extends State<PaidView> {
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      NaiFarmLocalStorage.getHistoryCache().then((value){
-     //   print("ewfcwef ${value}");
-        String orderType = widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
-        if(value!=null){
-          for(var data in value.historyCache){
-            if(data.orderViewType==orderType && data.TypeView=="1"){
-
+      NaiFarmLocalStorage.getHistoryCache().then((value) {
+        //   print("ewfcwef ${value}");
+        String orderType =
+            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
+        if (value != null) {
+          for (var data in value.historyCache) {
+            if (data.orderViewType == orderType && data.typeView == "1") {
               bloc.orderDataList.addAll(data.orderRespone.data);
-              bloc.onSuccess.add(OrderRespone(data: bloc.orderDataList,total: data.orderRespone.total,limit: data.orderRespone.limit,page: data.orderRespone.limit));
+              bloc.onSuccess.add(OrderRespone(
+                  data: bloc.orderDataList,
+                  total: data.orderRespone.total,
+                  limit: data.orderRespone.limit,
+                  page: data.orderRespone.limit));
               break;
             }
           }
         }
         Usermanager().getUser().then((value) => bloc.loadOrder(context,
-            orderType:
-            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+            orderType: widget.typeView == OrderViewType.Shop
+                ? "myshop/orders"
+                : "order",
             statusId: "1",
             sort: "orders.createdAt:desc",
             limit: limit,
             page: 1,
             token: value.token));
       });
-
     }
     bloc.onLoad.stream.listen((event) {
       if (event) {
@@ -310,7 +314,12 @@ class _PaidViewState extends State<PaidView> {
             children: [
               SizedBox(height: 3.0.w),
               Container(
-                child: Text(item.inventory != null ? item.inventory.title : item.itemTitle.isNotEmpty?item.itemTitle:LocaleKeys.search_product_not_found.tr(),
+                child: Text(
+                    item.inventory != null
+                        ? item.inventory.title
+                        : item.itemTitle.isNotEmpty
+                            ? item.itemTitle
+                            : LocaleKeys.search_product_not_found.tr(),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.fontTheme(
@@ -325,34 +334,40 @@ class _PaidViewState extends State<PaidView> {
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           color: Colors.black)),
-                  item.inventory!=null?Row(
-                    children: [
-                      //   item.ProductDicount != 0 ?
-                      item.inventory.salePrice != null && item.inventory.offerPrice != null && item.inventory.offerPrice>0
-                          ? Text(
-                          "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
-                          style: FunctionHelper.fontTheme(
-                              color: Colors.grey,
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              decoration: TextDecoration.lineThrough))
-                          : SizedBox(),
-                      SizedBox(
-                          width: item.inventory.salePrice != null && item.inventory.offerPrice != null
-                              ? 1.0.w
-                              : 0),
-                      Text(
-                        item.inventory.offerPrice != null  && item.inventory.offerPrice !=0
-                            ? "฿${NumberFormat("#,##0", "en_US").format(item.inventory.offerPrice)}"
-                            : "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: FunctionHelper.fontTheme(
-                            color: ThemeColor.colorSale(),
-                            fontWeight: FontWeight.w500,
-                            fontSize: SizeUtil.titleFontSize().sp),
-                      ),
-                    ],
-                  ):SizedBox()
+                  item.inventory != null
+                      ? Row(
+                          children: [
+                            //   item.ProductDicount != 0 ?
+                            item.inventory.salePrice != null &&
+                                    item.inventory.offerPrice != null &&
+                                    item.inventory.offerPrice > 0
+                                ? Text(
+                                    "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
+                                    style: FunctionHelper.fontTheme(
+                                        color: Colors.grey,
+                                        fontSize: SizeUtil.titleFontSize().sp,
+                                        decoration: TextDecoration.lineThrough))
+                                : SizedBox(),
+                            SizedBox(
+                                width: item.inventory.salePrice != null &&
+                                        item.inventory.offerPrice != null
+                                    ? 1.0.w
+                                    : 0),
+                            Text(
+                              item.inventory.offerPrice != null &&
+                                      item.inventory.offerPrice != 0
+                                  ? "฿${NumberFormat("#,##0", "en_US").format(item.inventory.offerPrice)}"
+                                  : "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: FunctionHelper.fontTheme(
+                                  color: ThemeColor.colorSale(),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: SizeUtil.titleFontSize().sp),
+                            ),
+                          ],
+                        )
+                      : SizedBox()
                 ],
               ),
               Divider(
@@ -431,7 +446,9 @@ class _PaidViewState extends State<PaidView> {
                   Text(
                     //order_detail_pay_date
                     widget.typeView == OrderViewType.Purchase
-                        ? item.image.isNotEmpty?"${LocaleKeys.order_detail_upload_slip.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.paymentAt!=null?item.paymentAt:DateTime.now().toString()))}":"${LocaleKeys.history_order_time.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}"
+                        ? item.image.isNotEmpty
+                            ? "${LocaleKeys.order_detail_upload_slip.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.paymentAt != null ? item.paymentAt : DateTime.now().toString()))}"
+                            : "${LocaleKeys.history_order_time.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}"
                         : LocaleKeys.history_order_time.tr() +
                             " " +
                             " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
@@ -442,7 +459,9 @@ class _PaidViewState extends State<PaidView> {
                   buildButtonBayItem(
                       btnTxt: widget.typeView == OrderViewType.Shop
                           ? LocaleKeys.order_detail_confirm_pay.tr()
-                          : item.image.isNotEmpty?"${item.orderStatusName}":item.orderStatusName,
+                          : item.image.isNotEmpty
+                              ? "${item.orderStatusName}"
+                              : item.orderStatusName,
                       item: item)
                 ],
               )
@@ -510,7 +529,9 @@ class _PaidViewState extends State<PaidView> {
                     ],
                   ),
             Text(
-              item.image!=null && item.image.isNotEmpty?item.orderStatusName:item.orderStatusName,
+              item.image != null && item.image.isNotEmpty
+                  ? item.orderStatusName
+                  : item.orderStatusName,
               style: FunctionHelper.fontTheme(
                   color: ThemeColor.primaryColor(),
                   fontSize: SizeUtil.titleSmallFontSize().sp,

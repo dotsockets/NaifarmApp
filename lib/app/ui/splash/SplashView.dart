@@ -44,18 +44,23 @@ class _SplashViewState extends State<SplashView>
     super.initState();
   }
 
-
-  void _init(BuildContext context){
+  void _init(BuildContext context) {
     versionName();
-    if(null == bloc) {
-     // NaiFarmLocalStorage.Clean(keyStore: NaiFarmLocalStorage.NaiFarm_Storage);
-      NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.naiFarmNowPage);
-      NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Cart);
-      NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.naiFarmProductDetail);
-      NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
-      NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_Shop);
-      NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_HiSTORY);
-     // NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
+    if (null == bloc) {
+      // NaiFarmLocalStorage.Clean(keyStore: NaiFarmLocalStorage.NaiFarm_Storage);
+      NaiFarmLocalStorage.deleteCacheByItem(
+          key: NaiFarmLocalStorage.naiFarmNowPage);
+      NaiFarmLocalStorage.deleteCacheByItem(
+          key: NaiFarmLocalStorage.naiFarmCart);
+      NaiFarmLocalStorage.deleteCacheByItem(
+          key: NaiFarmLocalStorage.naiFarmProductDetail);
+      NaiFarmLocalStorage.deleteCacheByItem(
+          key: NaiFarmLocalStorage.naiFarmProductMore);
+      NaiFarmLocalStorage.deleteCacheByItem(
+          key: NaiFarmLocalStorage.naiFarmShop);
+      NaiFarmLocalStorage.deleteCacheByItem(
+          key: NaiFarmLocalStorage.naiFarmHiSTORY);
+      // NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
       bloc = ProductBloc(AppProvider.getApplication(context));
       Usermanager()
           .getUser()

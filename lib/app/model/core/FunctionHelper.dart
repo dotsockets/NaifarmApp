@@ -521,40 +521,67 @@ class FunctionHelper {
     showDialog(
         barrierDismissible: barrierDismissible,
         context: context,
-        builder: (BuildContext context) =>  Platform.isIOS?CupertinoAlertDialog(
-            title: Container(
-              padding: EdgeInsets.only(bottom: 0.5.h),
-              child: Text(title,
-                style: FunctionHelper.fontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
-              ),
-            ) ,
-            content: Text(message,
-              style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
-            ) ,
-            actions: [
-
-              showbtn?CupertinoDialogAction(isDefaultAction: true, child: new Text(LocaleKeys.btn_close.tr() ,style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),onPressed: (){
-                callCancle!=null?callCancle(): Navigator.of(context).pop();
-
-
-              },):SizedBox(),
-            ]): AlertDialog(
-          title:Text(title,
-            style: FunctionHelper.fontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
-          ),
-          content: Text(message,
-            style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
-          ),
-          actions: [
-            // okButton,
-            showbtn?TextButton(
-              child: Text(LocaleKeys.btn_close.tr()),
-              onPressed:  () {
-                callCancle!=null?callCancle(): Navigator.of(context).pop();
-              },
-            ):SizedBox()
-          ],
-        ));
+        builder: (BuildContext context) => Platform.isIOS
+            ? CupertinoAlertDialog(
+                title: Container(
+                  padding: EdgeInsets.only(bottom: 0.5.h),
+                  child: Text(
+                    title,
+                    style: FunctionHelper.fontTheme(
+                        fontWeight: FontWeight.bold,
+                        fontSize: SizeUtil.titleFontSize().sp),
+                  ),
+                ),
+                content: Text(
+                  message,
+                  style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.w400,
+                      fontSize: SizeUtil.titleSmallFontSize().sp),
+                ),
+                actions: [
+                    showbtn
+                        ? CupertinoDialogAction(
+                            isDefaultAction: true,
+                            child: new Text(LocaleKeys.btn_close.tr(),
+                                style: FunctionHelper.fontTheme(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize:
+                                        SizeUtil.titleSmallFontSize().sp)),
+                            onPressed: () {
+                              callCancle != null
+                                  ? callCancle()
+                                  : Navigator.of(context).pop();
+                            },
+                          )
+                        : SizedBox(),
+                  ])
+            : AlertDialog(
+                title: Text(
+                  title,
+                  style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.bold,
+                      fontSize: SizeUtil.titleFontSize().sp),
+                ),
+                content: Text(
+                  message,
+                  style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.w400,
+                      fontSize: SizeUtil.titleSmallFontSize().sp),
+                ),
+                actions: [
+                  // okButton,
+                  showbtn
+                      ? TextButton(
+                          child: Text(LocaleKeys.btn_close.tr()),
+                          onPressed: () {
+                            callCancle != null
+                                ? callCancle()
+                                : Navigator.of(context).pop();
+                          },
+                        )
+                      : SizedBox()
+                ],
+              ));
   }
 
   static alertDialogRetry(BuildContext context,
@@ -566,60 +593,93 @@ class FunctionHelper {
     showDialog(
         barrierDismissible: false,
         context: context,
-        builder: (BuildContext context) =>  Platform.isIOS?CupertinoAlertDialog(
-            title: Container(
-              padding: EdgeInsets.only(bottom: 0.5.h),
-              child: Text(title,
-                style: FunctionHelper.fontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
-              ),
-            ) ,
-            content: Text(message,
-              style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
-            ) ,
-            actions: [
-
-              CupertinoDialogAction(isDefaultAction: true, child: new Text(cancalMessage!=null?cancalMessage:LocaleKeys.btn_back.tr(), style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),onPressed: (){
-                if(callCancle!=null){
-                  callCancle();
-                }else{
-                  AppRoute.poppageCount(context: context,countpage: 2);
-                }
-
-              },),
-
-              CupertinoDialogAction(isDefaultAction: true, child: new Text(LocaleKeys.btn_again.tr(), style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),onPressed: (){
-                callBack();
-                Navigator.of(context).pop();
-              },),
-            ]): AlertDialog(
-          title:Text(title,
-            style: FunctionHelper.fontTheme( fontWeight: FontWeight.bold,fontSize: SizeUtil.titleFontSize().sp),
-          ),
-          content: Text(message,
-            style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp),
-          ),
-          actions: [
-            // okButton,
-            FlatButton(
-              child: Text(LocaleKeys.btn_back.tr() ,style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),
-              onPressed:  () {
-                if(callCancle!=null){
-                  callCancle();
-                }else{
-                  AppRoute.poppageCount(context: context,countpage: 2);
-                }
-
-              },
-            ),
-            FlatButton(
-              child: Text(LocaleKeys.btn_again.tr(), style: FunctionHelper.fontTheme( fontWeight: FontWeight.w400,fontSize: SizeUtil.titleSmallFontSize().sp)),
-              onPressed:  () {
-                callBack();
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        ));
+        builder: (BuildContext context) => Platform.isIOS
+            ? CupertinoAlertDialog(
+                title: Container(
+                  padding: EdgeInsets.only(bottom: 0.5.h),
+                  child: Text(
+                    title,
+                    style: FunctionHelper.fontTheme(
+                        fontWeight: FontWeight.bold,
+                        fontSize: SizeUtil.titleFontSize().sp),
+                  ),
+                ),
+                content: Text(
+                  message,
+                  style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.w400,
+                      fontSize: SizeUtil.titleSmallFontSize().sp),
+                ),
+                actions: [
+                    CupertinoDialogAction(
+                      isDefaultAction: true,
+                      child: new Text(
+                          cancalMessage != null
+                              ? cancalMessage
+                              : LocaleKeys.btn_back.tr(),
+                          style: FunctionHelper.fontTheme(
+                              fontWeight: FontWeight.w400,
+                              fontSize: SizeUtil.titleSmallFontSize().sp)),
+                      onPressed: () {
+                        if (callCancle != null) {
+                          callCancle();
+                        } else {
+                          AppRoute.poppageCount(context: context, countpage: 2);
+                        }
+                      },
+                    ),
+                    CupertinoDialogAction(
+                      isDefaultAction: true,
+                      child: new Text(LocaleKeys.btn_again.tr(),
+                          style: FunctionHelper.fontTheme(
+                              fontWeight: FontWeight.w400,
+                              fontSize: SizeUtil.titleSmallFontSize().sp)),
+                      onPressed: () {
+                        callBack();
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ])
+            : AlertDialog(
+                title: Text(
+                  title,
+                  style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.bold,
+                      fontSize: SizeUtil.titleFontSize().sp),
+                ),
+                content: Text(
+                  message,
+                  style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.w400,
+                      fontSize: SizeUtil.titleSmallFontSize().sp),
+                ),
+                actions: [
+                  // okButton,
+                  TextButton(
+                    child: Text(LocaleKeys.btn_back.tr(),
+                        style: FunctionHelper.fontTheme(
+                            fontWeight: FontWeight.w400,
+                            fontSize: SizeUtil.titleSmallFontSize().sp)),
+                    onPressed: () {
+                      if (callCancle != null) {
+                        callCancle();
+                      } else {
+                        AppRoute.poppageCount(context: context, countpage: 2);
+                      }
+                    },
+                  ),
+                  TextButton(
+                    child: Text(LocaleKeys.btn_again.tr(),
+                        style: FunctionHelper.fontTheme(
+                            fontWeight: FontWeight.w400,
+                            fontSize: SizeUtil.titleSmallFontSize().sp)),
+                    onPressed: () {
+                      callBack();
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              ));
   }
 
   static int flashSaleTime({String flashTime}) {
