@@ -72,7 +72,7 @@ class BuildIconShop extends StatelessWidget {
               if (value.token != null) {
                 AppRoute.myCart(context, btnBack);
               } else {
-                AppRoute.login(context, isCallBack: true, isHeader: true);
+                AppRoute.login(context, isCallBack: true, isHeader: true,homeCallBack: (bool call){});
               }
             });
           },

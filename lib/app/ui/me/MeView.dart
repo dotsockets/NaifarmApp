@@ -15,10 +15,12 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
+import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildIconShop.dart';
 import 'package:rxdart/subjects.dart';
@@ -44,10 +46,11 @@ class _MeViewState extends State<MeView> with RouteAware {
   final titleBar = BehaviorSubject<bool>();
   bool isLogin = true;
 
+
   void _init() {
     if (null == bloc) {
       expandedBar.add(false);
-
+      titleBar.add(false);
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -78,15 +81,11 @@ class _MeViewState extends State<MeView> with RouteAware {
 
     }
 
-    //
-    // Usermanager().getUser().then((value) {
-    //   if (value.token != null) {
-    //     NaiFarmLocalStorage.getNowPage().then((data) {
-    //       if (data == 3) {
-    //       }
-    //     });
-    //   }
-    // });
+    NaiFarmLocalStorage.getNowPage().then((data) {
+            if (data == 4) {
+              OneSignalCall.cancelNotification("meView", 0);
+            }
+          });
 
     _scrollController.addListener(() {
       if (_isAppBarExpanded) {
@@ -191,6 +190,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                Text("${LocaleKeys.me_account.tr()}",
                    style: FunctionHelper.fontTheme(
                        fontSize: SizeUtil.titleFontSize().sp,
+                       fontWeight: FontWeight.bold,
                        color: Colors.black)) : SizedBox();
              } else {
                return SizedBox();
