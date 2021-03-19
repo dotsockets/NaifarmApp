@@ -492,7 +492,8 @@
     "seller_cancelled_notpay": "Payment not Received",
     "seller": "Seller",
     "buyer": "Buyer",
-    "sell": "Sale Product Detail"
+    "sell": "Sale Product Detail",
+    "pay_qr": "QR Payment"
   },
   "login": {
     "forgot_password": "Forgot Password",

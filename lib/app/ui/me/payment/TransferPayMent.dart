@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -78,25 +79,28 @@ class _TransferPayMentState extends State<TransferPayMent> {
               //AppRoute.PoppageCount(context: context,countpage: 1);
             },
           ),
-          body: Container(
-            child: Column(
-              children: <Widget>[
-                infoMessage(
-                    title: "1",
-                    message:
-                        "หากท่านต้องการชำระเงินผ่านตู้ ATM หรือหน้าเคาท์เตอร์ธนาคาร ท่านสามารถเลือก ATM Bill Payment ใน Naifarm ได้เช่นกัน ซึ่งวิธีนี้ท่านไม่จำเป็นต้องอัพโหลดเอกสารการชำระเงิน และสามารถรอการยืนยันการชำระเงินได้รวดเร็วกว่า หากท่านยืนยันที่จะเลือกช่องทางนี้ ท่านสามารถชำระเงินผ่าน intenet/mobile banking มายังบัญชีธนาคารของ Naifarm"),
-                cardBank(index: 0),
-                cardBank1(index: 1),
-                infoMessage(
-                    title: "2",
-                    message: "เก็บหลักฐานการโอนเงินและอัพโหลดภายใน 14-01-2021",
-                    paddingBottom: false),
-                infoMessage(
-                    title: "3",
-                    message:
-                        "เพื่อความรวดเร็วในการยืนยันการชำระเงินของท่าน ขอแนะนำให้ท่านอัพโหลดหลักฐานการชำระเงินที่ท่านได้รับจาก mobile banking application หรือ internet banking แทนการอัพโหลดหลักฐานประเภทอื่น ซึ่งอาจทำให้ตรวจสอบการชำระเงินล่าช้า"),
-                buttonItem()
-              ],
+          body: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  infoMessage(
+                      title: "1",
+                      message:
+                          "หากท่านต้องการชำระเงินผ่านตู้ ATM หรือหน้าเคาท์เตอร์ธนาคาร ท่านสามารถเลือก ATM Bill Payment ใน Naifarm ได้เช่นกัน ซึ่งวิธีนี้ท่านไม่จำเป็นต้องอัพโหลดเอกสารการชำระเงิน และสามารถรอการยืนยันการชำระเงินได้รวดเร็วกว่า หากท่านยืนยันที่จะเลือกช่องทางนี้ ท่านสามารถชำระเงินผ่าน intenet/mobile banking มายังบัญชีธนาคารของ Naifarm"),
+                  cardBank(index: 0),
+                  cardBank1(index: 1),
+                  cardQr(),
+                  infoMessage(
+                      title: "2",
+                      message: "เก็บหลักฐานการโอนเงินและอัพโหลดภายใน 14-01-2021",
+                      paddingBottom: false),
+                  infoMessage(
+                      title: "3",
+                      message:
+                          "เพื่อความรวดเร็วในการยืนยันการชำระเงินของท่าน ขอแนะนำให้ท่านอัพโหลดหลักฐานการชำระเงินที่ท่านได้รับจาก mobile banking application หรือ internet banking แทนการอัพโหลดหลักฐานประเภทอื่น ซึ่งอาจทำให้ตรวจสอบการชำระเงินล่าช้า"),
+                  buttonItem()
+                ],
+              ),
             ),
           ),
         ),
@@ -248,6 +252,55 @@ class _TransferPayMentState extends State<TransferPayMent> {
           )
         ],
       ),
+
+    );
+  }
+
+  Widget cardQr() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          
+            bottom: BorderSide(
+                color: Colors.grey.withOpacity(0.6),
+                width:  1 )),
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 5.0.w,
+            height: 5.0.w,
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h, left: 3.0.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    LocaleKeys.order_detail_pay_qr.tr(),
+                    style: FunctionHelper.fontTheme(
+                        color: Colors.black,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 0.5.h,
+                  ),
+                  QrImage(
+                    data: "468 0601 709",
+                    version: QrVersions.auto,
+                    size: 150.0,
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+
     );
   }
 

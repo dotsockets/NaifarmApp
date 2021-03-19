@@ -249,7 +249,19 @@ class _EditProductViewState extends State<EditProductView> {
                                         hint: "0",
                                         inputType: TextInputType.number,
                                         controller: priceController,
-                                        onChanged: (String char) {},
+                                        onChanged: (String char) {
+                                          bloc
+                                              .uploadProductStorage
+                                              .value
+                                              .productMyShopRequest
+                                              .salePrice = char.length>0?int.parse(char):0;
+                                          // if(char.length>5000){
+                                          //   bloc.uploadProductStorage.value.productMyShopRequest.description= detailController.text.replaceRange(5000, char.length, "");
+                                          //  }
+                                          bloc.uploadProductStorage.add(
+                                              bloc.uploadProductStorage.value);
+
+                                        },
                                       ),
                                       SizedBox(
                                         height: 20,
@@ -326,7 +338,8 @@ class _EditProductViewState extends State<EditProductView> {
         item.description != "" &&
         item.stockQuantity != 0 &&
         item.salePrice != 0 &&
-        detailController.text.length != 0 && offerPrice<item.salePrice) {
+        item.offerPrice != 0 &&
+        detailController.text.length != 0 &&priceController.text.length != 0&&amountController.text.length != 0&& offerPrice<item.salePrice) {
       return true;
     } else {
       return false;

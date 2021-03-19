@@ -1,28 +1,24 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const setting_account_title_profile = 'setting_account.title_profile';
   static const setting_account_title_address = 'setting_account.title_address';
-  static const setting_account_address_toobar =
-      'setting_account.address_toobar';
+  static const setting_account_address_toobar = 'setting_account.address_toobar';
   static const setting_account_title_bank = 'setting_account.title_bank';
   static const setting_account_title_noti = 'setting_account.title_noti';
-  static const setting_account_title_language =
-      'setting_account.title_language';
+  static const setting_account_title_language = 'setting_account.title_language';
   static const setting_account_title_help = 'setting_account.title_help';
   static const setting_account_title_rule = 'setting_account.title_rule';
   static const setting_account_title_shop = 'setting_account.title_shop';
   static const setting_account_title_policy = 'setting_account.title_policy';
   static const setting_account_title_about = 'setting_account.title_about';
-  static const setting_account_title_delete_account =
-      'setting_account.title_delete_account';
+  static const setting_account_title_delete_account = 'setting_account.title_delete_account';
   static const setting_account_head_profile = 'setting_account.head_profile';
   static const setting_account_head_setting = 'setting_account.head_setting';
   static const setting_account_head_help = 'setting_account.head_help';
   static const setting_account_toobar = 'setting_account.toobar';
   static const setting_account = 'setting_account';
-  static const setting_noti_title_notification =
-      'setting_noti.title_notification';
+  static const setting_noti_title_notification = 'setting_noti.title_notification';
   static const setting_noti_title_update = 'setting_noti.title_update';
   static const setting_noti_title_privacy = 'setting_noti.title_privacy';
   static const setting_noti_title_sound = 'setting_noti.title_sound';
@@ -91,8 +87,7 @@ abstract class LocaleKeys {
   static const my_profile_email = 'my_profile.email';
   static const my_profile_username = 'my_profile.username';
   static const my_profile_change_password = 'my_profile.change_password';
-  static const my_profile_request_change_password =
-      'my_profile.request_change_password';
+  static const my_profile_request_change_password = 'my_profile.request_change_password';
   static const my_profile_fullname = 'my_profile.fullname';
   static const my_profile_phoneNum = 'my_profile.phoneNum';
   static const my_profile_password = 'my_profile.password';
@@ -173,20 +168,15 @@ abstract class LocaleKeys {
   static const btn_accept_order = 'btn.accept_order';
   static const btn = 'btn';
   static const dialog_message_del_account = 'dialog_message.del_account';
-  static const dialog_message_phone_edit_cancel =
-      'dialog_message.phone_edit_cancel';
+  static const dialog_message_phone_edit_cancel = 'dialog_message.phone_edit_cancel';
   static const dialog_message_del_product = 'dialog_message.del_product';
-  static const dialog_message_mail_change_cancel =
-      'dialog_message.mail_change_cancel';
-  static const dialog_message_password_success =
-      'dialog_message.password_success';
+  static const dialog_message_mail_change_cancel = 'dialog_message.mail_change_cancel';
+  static const dialog_message_password_success = 'dialog_message.password_success';
   static const dialog_message_confirm_pay = 'dialog_message.confirm_pay';
   static const dialog_message_confirm_track = 'dialog_message.confirm_track';
   static const dialog_message_confirm_order = 'dialog_message.confirm_order';
-  static const dialog_message_confirm_cancel_buyer =
-      'dialog_message.confirm_cancel_buyer';
-  static const dialog_message_confirm_cancel_seller =
-      'dialog_message.confirm_cancel_seller';
+  static const dialog_message_confirm_cancel_buyer = 'dialog_message.confirm_cancel_buyer';
+  static const dialog_message_confirm_cancel_seller = 'dialog_message.confirm_cancel_seller';
   static const dialog_message_loading = 'dialog_message.loading';
   static const dialog_message_exit = 'dialog_message.exit';
   static const dialog_message_success = 'dialog_message.success';
@@ -201,11 +191,9 @@ abstract class LocaleKeys {
   static const message_open_shop = 'message.open_shop';
   static const message_complete_shop = 'message.complete_shop';
   static const message_protect = 'message.protect';
-  static const message_error_password_incorrect =
-      'message.error.password_incorrect';
+  static const message_error_password_incorrect = 'message.error.password_incorrect';
   static const message_error_password_length = 'message.error.password_length';
-  static const message_error_password_not_match =
-      'message.error.password_not_match';
+  static const message_error_password_not_match = 'message.error.password_not_match';
   static const message_error_username_length = 'message.error.username_length';
   static const message_error_userpass_empty = 'message.error.userpass_empty';
   static const message_error_phone_empty = 'message.error.phone_empty';
@@ -270,8 +258,7 @@ abstract class LocaleKeys {
   static const wallet_balance_withdraw = 'wallet_balance.withdraw';
   static const wallet_balance_withdraw_to = 'wallet_balance.withdraw_to';
   static const wallet_balance_withdraw_all = 'wallet_balance.withdraw_all';
-  static const wallet_balance_withdraw_amount =
-      'wallet_balance.withdraw_amount';
+  static const wallet_balance_withdraw_amount = 'wallet_balance.withdraw_amount';
   static const wallet_balance_withdraw_fee = 'wallet_balance.withdraw_fee';
   static const wallet_balance = 'wallet_balance';
   static const attributes_set = 'attributes.set';
@@ -307,11 +294,9 @@ abstract class LocaleKeys {
   static const my_product_image_guide = 'my_product.image_guide';
   static const my_product_delivery_addr = 'my_product.delivery_addr';
   static const my_product_delivery_price = 'my_product.delivery_price';
-  static const my_product_delivery_price_each =
-      'my_product.delivery_price_each';
+  static const my_product_delivery_price_each = 'my_product.delivery_price_each';
   static const my_product_options_add = 'my_product.options_add';
-  static const my_product_options_add_product =
-      'my_product.options_add_product';
+  static const my_product_options_add_product = 'my_product.options_add_product';
   static const my_product_options_name = 'my_product.options_name';
   static const my_product_option = 'my_product.option';
   static const my_product_stock_set = 'my_product.stock_set';
@@ -360,8 +345,7 @@ abstract class LocaleKeys {
   static const recommend_you_like = 'recommend.you_like';
   static const recommend_near_me = 'recommend.near_me';
   static const recommend_special_price = 'recommend.special_price';
-  static const recommend_special_price_product =
-      'recommend.special_price_product';
+  static const recommend_special_price_product = 'recommend.special_price_product';
   static const recommend_notification = 'recommend.notification';
   static const recommend = 'recommend';
   static const tab_bar_recommend = 'tab_bar.recommend';
@@ -452,23 +436,17 @@ abstract class LocaleKeys {
   static const order_detail_cancelled_reason = 'order_detail.cancelled_reason';
   static const order_detail_cancelled_buyer = 'order_detail.cancelled_buyer';
   static const order_detail_seller_cancelled = 'order_detail.seller_cancelled';
-  static const order_detail_seller_cancelled_refund =
-      'order_detail.seller_cancelled_refund';
-  static const order_detail_seller_cancelled_by =
-      'order_detail.seller_cancelled_by';
-  static const order_detail_seller_cancelled_time =
-      'order_detail.seller_cancelled_time';
-  static const order_detail_seller_cancelled_reason =
-      'order_detail.seller_cancelled_reason';
-  static const order_detail_seller_cancelled_choose =
-      'order_detail.seller_cancelled_choose';
-  static const order_detail_seller_cancelled_detail =
-      'order_detail.seller_cancelled_detail';
-  static const order_detail_seller_cancelled_notpay =
-      'order_detail.seller_cancelled_notpay';
+  static const order_detail_seller_cancelled_refund = 'order_detail.seller_cancelled_refund';
+  static const order_detail_seller_cancelled_by = 'order_detail.seller_cancelled_by';
+  static const order_detail_seller_cancelled_time = 'order_detail.seller_cancelled_time';
+  static const order_detail_seller_cancelled_reason = 'order_detail.seller_cancelled_reason';
+  static const order_detail_seller_cancelled_choose = 'order_detail.seller_cancelled_choose';
+  static const order_detail_seller_cancelled_detail = 'order_detail.seller_cancelled_detail';
+  static const order_detail_seller_cancelled_notpay = 'order_detail.seller_cancelled_notpay';
   static const order_detail_seller = 'order_detail.seller';
   static const order_detail_buyer = 'order_detail.buyer';
   static const order_detail_sell = 'order_detail.sell';
+  static const order_detail_pay_qr = 'order_detail.pay_qr';
   static const order_detail = 'order_detail';
   static const login_forgot_password = 'login.forgot_password';
   static const login_not_member = 'login.not_member';
@@ -502,4 +480,5 @@ abstract class LocaleKeys {
   static const server_error_status = 'server_error.status';
   static const server_error_again = 'server_error.again';
   static const server_error = 'server_error';
+
 }

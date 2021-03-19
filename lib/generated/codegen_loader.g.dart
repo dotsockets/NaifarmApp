@@ -488,7 +488,8 @@ class CodegenLoader extends AssetLoader{
     "seller_cancelled_notpay": "Payment not Received",
     "seller": "Seller",
     "buyer": "Buyer",
-    "sell": "Sale Product Detail"
+    "sell": "Sale Product Detail",
+    "pay_qr": "QR Payment"
   },
   "login": {
     "forgot_password": "Forgot Password",
@@ -1002,7 +1003,8 @@ static const Map<String,dynamic> th_TH = {
     "seller_cancelled_notpay": "ไม่ได้รับการชำระเงิน",
     "seller": "ผู้ขาย",
     "buyer": "ผู้ซื้อ",
-    "sell": "รายการขายสินค้า"
+    "sell": "รายการขายสินค้า",
+    "pay_qr": "ชำระผ่าน QR Code"
   },
   "login": {
     "forgot_password": "ลืมรหัสผ่าน",
