@@ -42,9 +42,9 @@ class BuildIconShop extends StatelessWidget {
   Widget itemIcon({BuildContext context, int notification}) {
     return Badge(
         shape: BadgeShape.circle,
-        position: BadgePosition.topEnd(
-          top: SizeUtil.shopBadgeTop().w,
-          end: SizeUtil.shopBadgeEnd(),
+        position: BadgePosition.topStart(
+          top: SizeUtil.shopBadgeTop().w,start: SizeUtil.shopBadgeStart().w,
+
         ),
         animationDuration: Duration(milliseconds: 300),
         animationType: BadgeAnimationType.slide,

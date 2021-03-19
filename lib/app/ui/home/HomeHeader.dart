@@ -10,6 +10,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildIconShop.dart';
 import 'package:sizer/sizer.dart';
 
+
 class HomeHeader extends StatefulWidget {
   final HomeObjectCombine snapshot;
   final Function(CategoryGroupData) onTap;
@@ -25,20 +26,20 @@ class _HomeHeaderState extends State<HomeHeader> {
   Widget build(BuildContext context) {
     return Container(
       padding:
-          EdgeInsets.only(left: 0, right: 0.3.w, bottom: 1.0.h, top: 0.5.h),
+          EdgeInsets.only(left: 0, right: 0.3.w, bottom: 1.0.h, top: SizeUtil.paddingHeaderHome().h),
       decoration: new BoxDecoration(
           color: ThemeColor.primaryColor(),
           borderRadius: new BorderRadius.only(
             bottomRight: Radius.circular(widget.snapshot.sliderRespone != null
                 ? widget.snapshot.sliderRespone.data.isNotEmpty
                     ? 0.0
-                    : 35.0
-                : 35.0),
+                    : SizeUtil.borderRadiusHeader()
+                : SizeUtil.borderRadiusHeader()),
             bottomLeft: Radius.circular(widget.snapshot.sliderRespone != null
                 ? widget.snapshot.sliderRespone.data.isNotEmpty
                     ? 0.0
-                    : 35.0
-                : 35.0),
+                    : SizeUtil.borderRadiusHeader()
+                : SizeUtil.borderRadiusHeader()),
           )),
       child: SafeArea(
         bottom: false,
@@ -138,7 +139,9 @@ class _HomeHeaderState extends State<HomeHeader> {
                     AppRoute.searchHome(context);
                   },
                 )),
-                BuildIconShop()
+                Container(
+                    padding: EdgeInsets.only(right:SizeUtil.paddingCart().w,left: SizeUtil.paddingItem().w),
+                    child: BuildIconShop())
               ],
             ),
             SizedBox(

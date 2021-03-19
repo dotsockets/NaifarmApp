@@ -52,102 +52,117 @@ class _CustomTabBarState extends State<CustomTabBar>
       labelColor: ThemeColor.secondaryColor(),
       labelStyle: TextStyle(
         fontSize: SizeUtil.detailFontSize().sp,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.bold
       ),
       unselectedLabelColor: Colors.white,
       indicatorPadding: SizeUtil.custombarIndicationPadding(),
       tabs: [
-        Tab(
-          icon: _buildIcon(
-              sizeIcon: SizeUtil.custombarIconSize().w,
-              pathIcon: 'assets/images/svg/home_active.svg',
-              index: 0,
-              notification: 0),
-          text: _tabController.index == 0
-              ? LocaleKeys.tab_bar_recommend.tr()
-              : LocaleKeys.tab_bar_home.tr(),
-        ),
-        Tab(
-          icon: _buildIcon(
-              sizeIcon: SizeUtil.custombarIconSize().w,
-              pathIcon: 'assets/images/svg/type.svg',
-              index: 1,
-              notification: 0),
-          text: LocaleKeys.tab_bar_category.tr(),
-        ),
-        Tab(
-          icon: BlocBuilder<CustomerCountBloc, CustomerCountState>(
-            builder: (_, count) {
-              if (count is CustomerCountLoaded) {
-                return _buildIcon(
-                    sizeIcon: SizeUtil.custombarIconSize().w,
-                    pathIcon: 'assets/images/svg/notification.svg',
-                    index: 2,
-                    notification:
-                        count.countLoaded.notification.unreadCustomer +
-                            count.countLoaded.notification.unreadShop);
-              } else if (count is CustomerCountLoading) {
-                return _buildIcon(
-                  sizeIcon: SizeUtil.custombarIconSize().w,
-                  pathIcon: 'assets/images/svg/notification.svg',
-                  index: 2,
-                  notification: count.countLoaded != null
-                      ? count.countLoaded.notification.unreadCustomer +
-                          count.countLoaded.notification.unreadShop
-                      : count.countLoaded != null
-                          ? count.countLoaded.cartCount
-                          : 0,
-                );
-              } else {
-                return _buildIcon(
-                    sizeIcon: SizeUtil.custombarIconSize().w,
-                    pathIcon: 'assets/images/svg/notification.svg',
-                    index: 2,
-                    notification: 0);
-              }
-            },
+        SizedBox(
+          height: SizeUtil.tabHeightFix().h,
+          child: Tab(
+            icon: _buildIcon(
+                sizeIcon: SizeUtil.custombarIconSize().w,
+                pathIcon: 'assets/images/svg/home_active.svg',
+                index: 0,
+                notification: 0),
+            text: _tabController.index == 0
+                ? LocaleKeys.tab_bar_recommend.tr()
+                : LocaleKeys.tab_bar_home.tr(),
           ),
-          text: LocaleKeys.recommend_notification.tr(),
         ),
-        Tab(
-          icon: BlocBuilder<CustomerCountBloc, CustomerCountState>(
-            builder: (_, count) {
-              if (count is CustomerCountLoaded) {
-                return _buildIcon(
-                  sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
-                  pathIcon: 'assets/images/svg/cart.svg',
-                  index: 3,
-                  notification: count.countLoaded != null
-                      ? count.countLoaded.cartCount
-                      : 0,
-                );
-              } else if (count is CustomerCountLoading) {
-                return _buildIcon(
-                  sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
-                  pathIcon: 'assets/images/svg/cart.svg',
-                  index: 3,
-                  notification: count.countLoaded != null
-                      ? count.countLoaded.cartCount
-                      : 0,
-                );
-              } else {
-                return _buildIcon(
+        SizedBox(
+          height: SizeUtil.tabHeightFix().h,
+          child: Tab(
+            icon: _buildIcon(
+                sizeIcon: SizeUtil.custombarIconSize().w,
+                pathIcon: 'assets/images/svg/type.svg',
+                index: 1,
+                notification: 0),
+            text: LocaleKeys.tab_bar_category.tr(),
+          ),
+        ),
+        SizedBox(
+          height: SizeUtil.tabHeightFix().h,
+          child: Tab(
+            icon: BlocBuilder<CustomerCountBloc, CustomerCountState>(
+              builder: (_, count) {
+                if (count is CustomerCountLoaded) {
+                  return _buildIcon(
+                      sizeIcon: SizeUtil.custombarIconSize().w,
+                      pathIcon: 'assets/images/svg/notification.svg',
+                      index: 2,
+                      notification:
+                          count.countLoaded.notification.unreadCustomer +
+                              count.countLoaded.notification.unreadShop);
+                } else if (count is CustomerCountLoading) {
+                  return _buildIcon(
+                    sizeIcon: SizeUtil.custombarIconSize().w,
+                    pathIcon: 'assets/images/svg/notification.svg',
+                    index: 2,
+                    notification: count.countLoaded != null
+                        ? count.countLoaded.notification.unreadCustomer +
+                            count.countLoaded.notification.unreadShop
+                        : count.countLoaded != null
+                            ? count.countLoaded.cartCount
+                            : 0,
+                  );
+                } else {
+                  return _buildIcon(
+                      sizeIcon: SizeUtil.custombarIconSize().w,
+                      pathIcon: 'assets/images/svg/notification.svg',
+                      index: 2,
+                      notification: 0);
+                }
+              },
+            ),
+            text: LocaleKeys.recommend_notification.tr(),
+          ),
+        ),
+        SizedBox(
+          height: SizeUtil.tabHeightFix().h,
+          child: Tab(
+            icon: BlocBuilder<CustomerCountBloc, CustomerCountState>(
+              builder: (_, count) {
+                if (count is CustomerCountLoaded) {
+                  return _buildIcon(
                     sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
                     pathIcon: 'assets/images/svg/cart.svg',
                     index: 3,
-                    notification: 0);
-              }
-            },
+                    notification: count.countLoaded != null
+                        ? count.countLoaded.cartCount
+                        : 0,
+                  );
+                } else if (count is CustomerCountLoading) {
+                  return _buildIcon(
+                    sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
+                    pathIcon: 'assets/images/svg/cart.svg',
+                    index: 3,
+                    notification: count.countLoaded != null
+                        ? count.countLoaded.cartCount
+                        : 0,
+                  );
+                } else {
+                  return _buildIcon(
+                      sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
+                      pathIcon: 'assets/images/svg/cart.svg',
+                      index: 3,
+                      notification: 0);
+                }
+              },
+            ),
+            text: LocaleKeys.cart_toobar.tr(),
           ),
-          text: LocaleKeys.cart_toobar.tr(),
         ),
-        Tab(
-          icon: _buildIcon(
-              sizeIcon: SizeUtil.custombarIconSize().w,
-              pathIcon: 'assets/images/svg/me.svg',
-              index: 4,
-              notification: 0),
-          text: LocaleKeys.tab_bar_me.tr(),
+        SizedBox(
+          height: SizeUtil.tabHeightFix().h,
+          child: Tab(
+            icon: _buildIcon(
+                sizeIcon: SizeUtil.custombarIconSize().w,
+                pathIcon: 'assets/images/svg/me.svg',
+                index: 4,
+                notification: 0),
+            text: LocaleKeys.tab_bar_me.tr(),
+          ),
         ),
       ],
       onTap: (index) => {

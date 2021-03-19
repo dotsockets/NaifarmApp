@@ -28,7 +28,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
     return Container(
       margin: EdgeInsets.only(top: 2.0.h),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(SizeUtil.borderRadiusFlash()),
         child: Container(
           padding: EdgeInsets.all(2.5.w),
           color: ThemeColor.colorSale(),

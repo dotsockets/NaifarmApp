@@ -42,7 +42,7 @@ class ProductVertical extends StatelessWidget {
       this.imageIcon = "",
       this.borderRadius,
       this.tagHero,
-      this.iconSize = 35,
+      this.iconSize,
       this.productRespone,
       this.onTapBay})
       : super(key: key);
@@ -146,13 +146,13 @@ class ProductVertical extends StatelessWidget {
                 imageIcon != ""
                     ? Image.asset(
                         imageIcon,
-                        width: iconSize,
-                        height: iconSize,
+                        width: iconSize!=null?iconSize:9.0.w,
+                        height: iconSize!=null?iconSize:9.0.w,
                       )
                     : SvgPicture.asset(
                         iconInto,
-                        width: iconSize,
-                        height: iconSize,
+                        width: iconSize!=null?iconSize:9.0.w,
+                        height: iconSize!=null?iconSize:9.0.w,
                       ),
                 SizedBox(width: 2.0.w),
                 Text(titleInto,
@@ -382,7 +382,7 @@ class ProductVertical extends StatelessWidget {
                       right: 3.0.w, left: 3.0.w, top: 1.5.w, bottom: 1.5.w),
                   decoration: BoxDecoration(
                       color: Colors.red,
-                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                      borderRadius: BorderRadius.all(Radius.circular(SizeUtil.borderRadiusItem()))),
                   child: Text(
                     LocaleKeys.btn_buy_now.tr(),
                     style: FunctionHelper.fontTheme(

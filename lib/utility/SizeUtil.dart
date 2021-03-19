@@ -12,19 +12,19 @@ class SizeUtil {
   }
 
   static double priceFontSize() {
-    return Device.get().isPhone ? 13 : 9;
+    return Device.get().isPhone ? 13 : 10;
   }
 
   static double titleFontSize() {
-    return Device.get().isPhone ? 9.5 : 7;
+    return Device.get().isPhone ? 9.5 : 8;
   }
 
   static double titleSmallFontSize() {
-    return Device.get().isPhone ? 9.0 : 6;
+    return Device.get().isPhone ? 9.0 : 7.5;
   }
 
   static double detailFontSize() {
-    return Device.get().isPhone ? 8 : 5;
+    return Device.get().isPhone ? 8 : 6.5;
   }
 
   static double detailSmallFontSize() {
@@ -64,15 +64,15 @@ class SizeUtil {
   }
 
   static double shopBadgePadding() {
-    return Device.get().isPhone ? 0.6 : 0.3;
+    return Device.get().isPhone ? 0.4 : 0.3;
   }
 
   static double shopBadgeTop() {
-    return Device.get().isPhone ? -0.5 : -0.5;
+    return Device.get().isPhone ? 0.3 : -1.0;
   }
 
-  static double shopBadgeEnd() {
-    return Device.get().isPhone ? 5 : 0;
+  static double shopBadgeStart() {
+    return Device.get().isPhone ? 7.0 : 3.5;
   }
 
   static double custombarIconSize() {
@@ -98,5 +98,55 @@ class SizeUtil {
 
   static double checkMarkSize() {
     return Device.get().isPhone ? 8.0 : 5.0;
+  }
+
+
+  static double buttonWidth() {
+    return Device.get().isPhone ? 80.0 : 75.0;
+  }
+
+  static double paddingEdittext() {
+    return  Device.get().isPhone ?0:5.0;
+  }
+  static double imgSmallWidth() {
+    return  Device.get().isPhone ?3.0:2.0;
+  }
+
+  static double imgMedWidth() {
+    return  Device.get().isPhone ?5.0:3.0;
+  }
+
+  static double paddingCart() {
+    return  Device.get().isPhone ?0:3.0;
+  }
+  static double paddingItem() {
+    return  Device.get().isPhone ?0:1.0;
+  }
+  static double paddingHeaderHome() {
+    return  Device.get().isPhone ?0.5:1.7;
+  }
+
+  static double borderRadiusHeader(){
+    return  Device.get().isPhone ?35:70;
+  }
+
+  static double borderRadiusFooter(){
+    return  Device.get().isPhone ?40:70;
+  }
+
+  static double borderRadiusItem(){
+    return  Device.get().isPhone ?15:30;
+  }
+  static double borderRadiusFlash(){
+    return  Device.get().isPhone ?8:20;
+  }
+  static double iconSmallFix(){
+    return  Device.get().isPhone ?35:8.5;
+  }
+  static double tabHeightFix(){
+    return  Device.get().isPhone ?9.0:5.0;
+  }
+  static double marginAppBar(){
+    return Device.get().isPhone?0:1.8;
   }
 }
