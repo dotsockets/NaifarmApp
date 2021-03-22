@@ -94,7 +94,7 @@ class _RegisterViewState extends State<RegisterView> {
     return Container(
         padding: EdgeInsets.all(20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               height: 4.0.h,
@@ -109,13 +109,16 @@ class _RegisterViewState extends State<RegisterView> {
             SizedBox(
               height: 4.0.h,
             ),
-            BuildEditText(
-              head: LocaleKeys.my_profile_phone.tr() + " *",
-              hint: LocaleKeys.my_profile_phone.tr(),
-              inputType: TextInputType.number,
-              controller: phoneController,
-              borderOpacity: 0.3,
-              onChanged: (String x) => _checkError(),
+            Container(
+              padding: EdgeInsets.only(left: SizeUtil.paddingEdittext().w,right: SizeUtil.paddingEdittext().w),
+              child: BuildEditText(
+                head: LocaleKeys.my_profile_phone.tr() + " *",
+                hint: LocaleKeys.my_profile_phone.tr(),
+                inputType: TextInputType.number,
+                controller: phoneController,
+                borderOpacity: 0.3,
+                onChanged: (String x) => _checkError(),
+              ),
             ),
             SizedBox(
               height: 1.0.h,
@@ -140,7 +143,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                   ),
                   minimumSize: MaterialStateProperty.all(
-                    Size(80.0.w, 6.5.h),
+                    Size(SizeUtil.buttonWidth().w, 6.5.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
                     checkError
@@ -208,7 +211,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                   ),
                   minimumSize: MaterialStateProperty.all(
-                    Size(80.0.w, 6.5.h),
+                    Size(SizeUtil.buttonWidth().w, 6.5.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
                     Color(ColorUtils.hexToInt("#1f4dbf")),
@@ -222,6 +225,7 @@ class _RegisterViewState extends State<RegisterView> {
                 child: //Text(LocaleKeys.facebook_regis_btn.tr(),
                     //style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                     Row(
+                      mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset(

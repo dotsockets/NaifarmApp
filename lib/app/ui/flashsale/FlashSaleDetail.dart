@@ -77,11 +77,15 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
-          appBar: AppToobar(
-            title: "Flash Sale",
-            headerType: Header_Type.barcartShop,
-            icon: 'assets/images/svg/search.svg',
-          ),
+          appBar:
+          PreferredSize(
+              preferredSize: Size.fromHeight(6.5.h),
+              child: AppToobar(
+
+                  headerType: Header_Type.barcartShop,
+                  icon: 'assets/images/svg/cart_top.svg',
+                  title: "Flash Sale")),
+
           backgroundColor: Colors.grey.shade300,
           // appBar: AppToobar(title: "Flash Sale",header_type:  Header_Type.barNormal,icon: 'assets/images/svg/search.svg',),
           body: Platform.isAndroid

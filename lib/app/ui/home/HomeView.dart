@@ -20,6 +20,7 @@ import 'package:naifarm/app/ui/recommend/RecommendView.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/OneSignalCall.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/subjects.dart';
@@ -131,11 +132,11 @@ class _HomeViewState extends State<HomeView>
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   return Container(
                     padding: EdgeInsets.symmetric(
-                        vertical: Device.get().isPhone ? 0 : 1.5.h),
+                        vertical: Device.get().isPhone?0:1.5.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(40),
-                          topLeft: Radius.circular(40)),
+                          topRight: Radius.circular(SizeUtil.borderRadiusFooter()),
+                          topLeft: Radius.circular(SizeUtil.borderRadiusFooter())),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
                           color: Colors.black26,

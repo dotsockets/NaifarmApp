@@ -158,14 +158,14 @@ class BuildEditText extends StatelessWidget {
                                     child: snapshot.data
                                         ? SvgPicture.asset(
                                             'assets/images/svg/hind_pass.svg',
-                                            width: 3.0.w,
-                                            height: 3.0.w,
+                                            width: SizeUtil.imgSmallWidth().w,
+                                            height: SizeUtil.imgSmallWidth().w,
                                             color: Colors.grey,
                                           )
                                         : SvgPicture.asset(
                                             'assets/images/svg/show_pass.svg',
-                                            height: 5.0.w,
-                                            width: 5.0.w,
+                                            height: SizeUtil.imgMedWidth().w,
+                                            width: SizeUtil.imgMedWidth().w,
                                             color: Colors.grey,
                                           )))
                             : SizedBox()

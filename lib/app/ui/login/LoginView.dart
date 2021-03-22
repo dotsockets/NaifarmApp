@@ -128,47 +128,56 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(
               height: 3.0.h,
             ),
-            BuildEditText(
-              head: LocaleKeys.my_profile_phone.tr() +
-                  "/" +
-                  LocaleKeys.my_profile_email.tr(),
-              hint: LocaleKeys.my_profile_phone.tr() +
-                  "/" +
-                  LocaleKeys.my_profile_email.tr(),
-              inputType: TextInputType.text,
-              controller: _username,
-              borderOpacity: 0.3,
-              borderRadius: 7,
-              onChanged: (String x) => _checkError(),
+            Container(
+              padding: EdgeInsets.only(left: SizeUtil.paddingEdittext().w,right: SizeUtil.paddingEdittext().w),
+              child: BuildEditText(
+                head: LocaleKeys.my_profile_phone.tr() +
+                    "/" +
+                    LocaleKeys.my_profile_email.tr(),
+                hint: LocaleKeys.my_profile_phone.tr() +
+                    "/" +
+                    LocaleKeys.my_profile_email.tr(),
+                inputType: TextInputType.text,
+                controller: _username,
+                borderOpacity: 0.3,
+                borderRadius: 7,
+                onChanged: (String x) => _checkError(),
+              ),
             ),
             SizedBox(
               height: 2.0.h,
             ),
-            BuildEditText(
-                head: LocaleKeys.my_profile_password.tr(),
-                hint: LocaleKeys.my_profile_password.tr(),
-                inputType: TextInputType.text,
-                controller: _password,
-                borderOpacity: 0.3,
-                isPassword: true,
-                borderRadius: 7,
-                onChanged: (String x) => _checkError()),
+            Container(
+              padding: EdgeInsets.only(left: SizeUtil.paddingEdittext().w,right: SizeUtil.paddingEdittext().w),
+              child: BuildEditText(
+                  head: LocaleKeys.my_profile_password.tr(),
+                  hint: LocaleKeys.my_profile_password.tr(),
+                  inputType: TextInputType.text,
+                  controller: _password,
+                  borderOpacity: 0.3,
+                  isPassword: true,
+                  borderRadius: 7,
+                  onChanged: (String x) => _checkError()),
+            ),
             SizedBox(
               height: 1.0.h,
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: InkWell(
-                child: Text(LocaleKeys.login_forgot_password.tr(),
-                    style: FunctionHelper.fontTheme(
-                        color: ThemeColor.secondaryColor(),
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        decoration: TextDecoration.underline,
-                        height: 1.7,
-                        fontWeight: FontWeight.w500)),
-                onTap: () {
-                  AppRoute.forgotPassword(context);
-                },
+            Container(
+              padding: EdgeInsets.only(left: SizeUtil.paddingEdittext().w,right: SizeUtil.paddingEdittext().w),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: InkWell(
+                  child: Text(LocaleKeys.login_forgot_password.tr(),
+                      style: FunctionHelper.fontTheme(
+                          color: ThemeColor.secondaryColor(),
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          decoration: TextDecoration.underline,
+                          height: 1.7,
+                          fontWeight: FontWeight.w500)),
+                  onTap: () {
+                    AppRoute.forgotPassword(context);
+                  },
+                ),
               ),
             ),
             SizedBox(
@@ -184,7 +193,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   minimumSize: MaterialStateProperty.all(
-                    Size(80.0.w, 6.5.h),
+                    Size(SizeUtil.buttonWidth().w, 6.5.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
                     checkError ? ThemeColor.colorSale() : Colors.grey.shade300,
@@ -216,7 +225,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   minimumSize: MaterialStateProperty.all(
-                    Size(80.0.w, 6.5.h),
+                    Size(SizeUtil.buttonWidth().w, 6.5.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
                     ThemeColor.secondaryColor(),
@@ -284,7 +293,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   minimumSize: MaterialStateProperty.all(
-                    Size(80.0.w, 6.5.h),
+                    Size(SizeUtil.buttonWidth().w, 6.5.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
                     Color(ColorUtils.hexToInt("#1f4dbf")),
@@ -304,6 +313,7 @@ class _LoginViewState extends State<LoginView> {
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     SvgPicture.asset(
                       'assets/images/svg/facebook.svg',

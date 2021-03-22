@@ -144,19 +144,25 @@ class AppToobar extends PreferredSize {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     showBackBtn
-                        ? IconButton(
-                            icon: Icon(
-                              Platform.isAndroid
-                                  ? Icons.arrow_back
-                                  : Icons.arrow_back_ios_rounded,
-                              color: Colors.white,
+                        ? Container(
+                      width: 12.0.w,
+                      height: 10.0.w,
+                          child: IconButton(
+                              icon:
+                                  Icon(
+                                    Platform.isAndroid
+                                        ? Icons.arrow_back
+                                        : Icons.arrow_back_ios_rounded,
+                                    color: Colors.white,
+                                  size: 5.0.w,
+                                  ),
+                              onPressed: () {
+                                onClick == null
+                                    ? Navigator.of(context).pop()
+                                    : onClick();
+                              },
                             ),
-                            onPressed: () {
-                              onClick == null
-                                  ? Navigator.of(context).pop()
-                                  : onClick();
-                            },
-                          )
+                        )
                         : SizedBox(
                             width: 12.0.w,
                             height: 10.0.w,
@@ -175,7 +181,9 @@ class AppToobar extends PreferredSize {
                       ),
                     ),
                     showCartBtn
-                        ? BuildIconShop()
+                        ? Container(
+                        padding: EdgeInsets.only(right:SizeUtil.paddingCart().w,left: SizeUtil.paddingItem().w),
+                        child: BuildIconShop())
                         : SizedBox(
                             width: 12.0.w,
                             height: 10.0.w,
