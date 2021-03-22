@@ -59,6 +59,7 @@ class OneSignalCall {
   static oneSignalReceivedHandler(BuildContext context) async {
     OneSignal.shared
         .setNotificationReceivedHandler((OSNotification notification) async {
+
       var item = NotificationOneSignal.fromJson(
           jsonDecode(notification.payload.rawPayload['custom']));
       Usermanager().getUser().then((value) => context
@@ -92,14 +93,14 @@ class OneSignalCall {
       var item = NotificationOneSignal.fromJson(
           jsonDecode(result.notification.payload.rawPayload['custom']));
 
-      if (item.item.name == null && item.item.customer == null) {
-        AppRoute.orderDetail(context,
-            orderData: OrderData(id: int.parse(item.item.id)),
-            typeView: OrderViewType.Purchase);
-      } else if (item.item.customer != null) {
+      if (item.item.type=="Shop") {
         AppRoute.orderDetail(context,
             orderData: OrderData(id: int.parse(item.item.id)),
             typeView: OrderViewType.Shop);
+      }else if(item.item.type=="Customer") {
+        AppRoute.orderDetail(context,
+            orderData: OrderData(id: int.parse(item.item.id)),
+            typeView: OrderViewType.Purchase);
       }
     });
   }

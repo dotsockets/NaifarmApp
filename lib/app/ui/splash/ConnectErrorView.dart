@@ -92,6 +92,7 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                   ),
                   Text(
                     widget.result.message,
+                    textAlign: TextAlign.center,
                     style: FunctionHelper.fontTheme(
                         fontSize: 18, fontWeight: FontWeight.bold),
                   ),

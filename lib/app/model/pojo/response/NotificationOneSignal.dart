@@ -25,8 +25,10 @@ class Data {
   String requirePaymentAt;
   String id;
   String customer;
+  String customerName;
   String order;
   String status;
+  String type;
 
   Data(
       {this.name,
@@ -34,8 +36,9 @@ class Data {
       this.requirePaymentAt,
       this.id,
         this.customer,
+        this.customerName,
       this.order,
-      this.status});
+      this.status,this.type});
 
   Data.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -43,8 +46,10 @@ class Data {
     requirePaymentAt = json['requirePaymentAt'];
     id = json['id'];
     customer = json['customer'];
+    customerName = json['customerName'];
     order = json['order'];
     status = json['status'];
+    type = json['type'];
   }
 
   Map<String, dynamic> toJson() {
@@ -54,8 +59,10 @@ class Data {
     data['requirePaymentAt'] = this.requirePaymentAt;
     data['id'] = this.id;
     data['customer'] = this.customer;
+    data['customerName'] = this.customerName;
     data['order'] = this.order;
     data['status'] = this.status;
+    data['type'] = this.type;
     return data;
   }
 }

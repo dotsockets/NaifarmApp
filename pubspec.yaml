@@ -94,6 +94,7 @@ dependencies:
   flutter_html: ^1.2.0
   device_info_plus: ^0.7.2
   flutter_local_notifications: ^4.0.1+2
+  flutter_automation: ^1.4.0
 
 
 dev_dependencies:
