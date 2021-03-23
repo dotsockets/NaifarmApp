@@ -151,12 +151,13 @@ class _HomeViewState extends State<HomeView>
                         menuViewModel: _menuViewModel,
                         selectedIndex: snapshot.data,
                         onTap: (index) {
+
                           Usermanager().getUser().then((value) => context
                               .read<CustomerCountBloc>()
                               .loadCustomerCount(context, token: value.token));
                           NaiFarmLocalStorage.saveNowPage(index);
-                          if(index==4){
-                            OneSignalCall.cancelNotification("meView", 0);
+                          if(index==4 || index==2){
+                            OneSignalCall.cancelNotification("", 0);
                           }
                           if (index == 3) {
                             Usermanager().getUser().then((value) {

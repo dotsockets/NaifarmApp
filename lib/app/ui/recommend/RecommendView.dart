@@ -28,6 +28,7 @@ import 'package:naifarm/app/ui/home/HomeHeader.dart';
 import 'package:naifarm/app/ui/recommend/widget/CategoryTab.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BannerSlide.dart';
 import 'package:naifarm/utility/widgets/LifecycleWatcherState.dart';
@@ -409,6 +410,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   void onResumed() {
     NaiFarmLocalStorage.getNowPage().then((value) {
       if (value == 0) {
+        OneSignalCall.cancelNotification("", 0);
         _refreshProducts();
       }
     });

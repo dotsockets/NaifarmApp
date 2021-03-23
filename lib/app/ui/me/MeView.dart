@@ -81,11 +81,11 @@ class _MeViewState extends State<MeView> with RouteAware {
 
     }
 
-    NaiFarmLocalStorage.getNowPage().then((data) {
-            if (data == 4) {
-              OneSignalCall.cancelNotification("meView", 0);
-            }
-          });
+    // NaiFarmLocalStorage.getNowPage().then((data) {
+    //         if (data == 4) {
+    //           // OneSignalCall.cancelNotification("meView", 0);
+    //         }
+    //       });
 
     _scrollController.addListener(() {
       if (_isAppBarExpanded) {

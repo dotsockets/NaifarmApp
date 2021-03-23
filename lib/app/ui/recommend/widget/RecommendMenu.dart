@@ -15,6 +15,7 @@ import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/app/viewmodels/MenuViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
+import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
@@ -184,6 +185,7 @@ class RecommendMenu extends StatelessWidget {
                       isCallBack: true, isHeader: true);
                 } else {
                   NaiFarmLocalStorage.saveNowPage(2).then((value) {
+                    OneSignalCall.cancelNotification("", 0);
                     AppRoute.myNoti(context, true);
                   });
                 }
