@@ -166,6 +166,7 @@ abstract class  LocaleKeys {
   static const btn_again = 'btn.again';
   static const btn_reject_order = 'btn.reject_order';
   static const btn_accept_order = 'btn.accept_order';
+  static const btn_chat = 'btn.chat';
   static const btn = 'btn';
   static const dialog_message_del_account = 'dialog_message.del_account';
   static const dialog_message_phone_edit_cancel = 'dialog_message.phone_edit_cancel';
@@ -239,7 +240,6 @@ abstract class  LocaleKeys {
   static const cart = 'cart';
   static const history_order_time = 'history.order_time';
   static const history_receipt_time = 'history.receipt_time';
-  static const history_order_price = 'history.order_price';
   static const history_track = 'history.track';
   static const history_track_fill = 'history.track_fill';
   static const history_track_msg = 'history.track_msg';

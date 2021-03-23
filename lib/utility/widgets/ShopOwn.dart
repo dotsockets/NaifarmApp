@@ -40,28 +40,29 @@ class ShopOwn extends StatelessWidget {
             padding: EdgeInsets.only(left: 20, right: 20, bottom: 0, top: 20),
             width: MediaQuery.of(context).size.width,
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+
               children: [
                 GestureDetector(
                   child: Hero(
                     tag: "image_profile_me${shopItem.id}",
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(40),
+                      borderRadius: BorderRadius.circular(SizeUtil.borderRadiusFooter()),
                       child: CachedNetworkImage(
-                        width: 15.0.w,
-                        height: 15.0.w,
+                        width: SizeUtil.imgItemSize().w,
+                        height: SizeUtil.imgItemSize().w,
                         placeholder: (context, url) => Container(
                           color: Colors.white,
                           child: Lottie.asset('assets/json/loading.json',
-                              width: 30, height: 30),
+                              width: SizeUtil.imgItemSize().w, height: SizeUtil.imgItemSize().w),
                         ),
                         fit: BoxFit.cover,
                         imageUrl: shopItem.image != null
                             ? ProductLandscape.covertUrlImage(shopItem.image)
                             : "",
                         errorWidget: (context, url, error) => Container(
-                            width: 60,
-                            height: 60,
+                            width: SizeUtil.imgItemSize().w,
+                            height: SizeUtil.imgItemSize().w,
                             child: CircleAvatar(
                               backgroundColor: Color(0xffE6E6E6),
                               radius: 30,
@@ -82,9 +83,10 @@ class ShopOwn extends StatelessWidget {
                 ),
                 SizedBox(width: 20),
                 Column(
+
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(shopItem.name != null ? shopItem.name : "Nifarm Shop",
+                    Text(shopItem.name != null ? shopItem.name : "Naifarm Shop",
                         style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black,
@@ -181,7 +183,7 @@ class ShopOwn extends StatelessWidget {
                                     ? shopItem.rating
                                     : 0,
                                 //  rating: shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():0.0,
-                                size: 18.0,
+                                size: (SizeUtil.ratingSize()+0.5).w,
                                 isReadOnly: true,
                                 filledIconData: Icons.star,
                                 halfFilledIconData: Icons.star_half_outlined,

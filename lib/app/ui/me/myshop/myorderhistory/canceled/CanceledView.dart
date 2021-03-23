@@ -187,7 +187,7 @@ class _CanceledViewState extends State<CanceledView> {
                             Text(LocaleKeys.dialog_message_loading.tr(),
                                 style: FunctionHelper.fontTheme(
                                     color: Colors.grey,
-                                    fontSize: SizeUtil.priceFontSize().sp))
+                                    fontSize: SizeUtil.titleFontSize().sp))
                           ],
                         ),
                       )
@@ -388,7 +388,7 @@ class _CanceledViewState extends State<CanceledView> {
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       new TextSpan(
-                          text: LocaleKeys.history_order_price.tr() + " : ",
+                          text: LocaleKeys.cart_sub_total.tr() + " : ",
                           style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.normal,
@@ -459,7 +459,7 @@ class _CanceledViewState extends State<CanceledView> {
                 : Row(
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(SizeUtil.borderRadiusShop())),
                         child: CachedNetworkImage(
                           width: 7.0.w,
                           height: 7.0.w,
@@ -520,7 +520,7 @@ class _CanceledViewState extends State<CanceledView> {
           ),
         ),
         padding: MaterialStateProperty.all(
-            EdgeInsets.only(right: 10.0.w, left: 10.0.w)),
+            EdgeInsets.only(right:  SizeUtil.iconSize().w, left:  SizeUtil.iconSize().w,bottom: SizeUtil.paddingItem().h,top: SizeUtil.paddingItem().h)),
         backgroundColor: MaterialStateProperty.all(
           ThemeColor.colorSale(),
         ),

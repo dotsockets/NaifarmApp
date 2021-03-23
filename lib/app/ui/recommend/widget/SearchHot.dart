@@ -155,14 +155,17 @@ class SearchHot extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    item.name,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: FunctionHelper.fontTheme(
-                        color: Colors.black,
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        fontWeight: FontWeight.bold),
+                  SizedBox(
+                    height:SizeUtil.titleSmallFontSize().sp+1.0.h,
+                    child: Text(
+                      item.name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: FunctionHelper.fontTheme(
+                          color: Colors.black,
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(height: 0.5.h),
                   Text(

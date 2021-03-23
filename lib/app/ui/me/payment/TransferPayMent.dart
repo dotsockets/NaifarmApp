@@ -83,6 +83,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
             child: Container(
               child: Column(
                 children: <Widget>[
+                  SizedBox(height: SizeUtil.paddingMenu().w,),
                   infoMessage(
                       title: "1",
                       message:

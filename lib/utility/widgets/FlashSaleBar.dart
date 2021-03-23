@@ -30,7 +30,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(SizeUtil.borderRadiusFlash()),
         child: Container(
-          padding: EdgeInsets.all(2.5.w),
+          padding: EdgeInsets.all(SizeUtil.paddingBox().w),
           color: ThemeColor.colorSale(),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -42,15 +42,15 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
               ),
               Text("Fla",
                   style: GoogleFonts.kanit(
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontSize: SizeUtil.titleFontSize().sp+3.0,
                       color: Colors.white)),
-              SizedBox(width: 1.0.h),
+              SizedBox(width: 1.0.w),
               SvgPicture.asset('assets/images/svg/flash.svg',
                   width: 4.0.w, height: 4.0.h),
-              SizedBox(width: 1.0.h),
+              SizedBox(width: 1.0.w),
               Text("h Sale",
                   style: GoogleFonts.kanit(
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontSize: SizeUtil.titleFontSize().sp+3.0,
                       color: Colors.white)),
               SizedBox(width: 1.0.h),
               _buildCountDown()

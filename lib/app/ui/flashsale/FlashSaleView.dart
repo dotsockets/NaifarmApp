@@ -39,18 +39,18 @@ class _FlashSaleState extends State<FlashSale> {
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(15.0.w),
-                  topLeft: Radius.circular(15.0.w)),
+                  topRight: Radius.circular(SizeUtil.paddingBorderHome().w),
+                  topLeft: Radius.circular(SizeUtil.paddingBorderHome().w)),
               border: Border.all(
                   width: 3, color: Colors.white, style: BorderStyle.solid)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 6.5.h),
+              SizedBox(height: SizeUtil.sizedBoxHeight().h),
               Center(child: _textSale(context: context)),
-              SizedBox(height: 2.5.h),
+              SizedBox(height: SizeUtil.paddingBox().h),
               onFlashSale ? _flashProduct(context) : SizedBox(),
-              SizedBox(height: 2.5.h),
+              SizedBox(height: SizeUtil.paddingBox().h),
             ],
           ),
         ),
@@ -73,8 +73,8 @@ class _FlashSaleState extends State<FlashSale> {
             Text(
               LocaleKeys.recommend_select_all.tr(),
               style: FunctionHelper.fontTheme(
-                  fontWeight: FontWeight.bold,
-                  fontSize: SizeUtil.titleFontSize().sp),
+                  fontWeight: FontWeight.w500,
+                  fontSize: SizeUtil.titleFontSize().sp+3.0),
             ),
             SvgPicture.asset(
               'assets/images/svg/next.svg',

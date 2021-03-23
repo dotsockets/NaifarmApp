@@ -38,6 +38,7 @@ class _CustomTabBarState extends State<CustomTabBar>
     super.initState();
     _tabController = TabController(vsync: this, length: 5);
   }
+
   // if (!isSelect && index == 0) {
   // text = LocaleKeys.tab_bar_home.tr();
   // }
@@ -51,9 +52,7 @@ class _CustomTabBarState extends State<CustomTabBar>
       labelPadding: EdgeInsets.zero,
       labelColor: ThemeColor.secondaryColor(),
       labelStyle: TextStyle(
-        fontSize: SizeUtil.detailFontSize().sp,
-        fontWeight: FontWeight.bold
-      ),
+          fontSize: SizeUtil.detailFontSize().sp, fontWeight: FontWeight.bold),
       unselectedLabelColor: Colors.white,
       indicatorPadding: SizeUtil.custombarIndicationPadding(),
       tabs: [

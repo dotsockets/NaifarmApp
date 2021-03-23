@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
@@ -1114,7 +1115,7 @@ class _OrderViewState extends State<OrderView> {
                     ),
                   ),
                   minimumSize: MaterialStateProperty.all(
-                    Size(60.0.w, 6.0.h),
+                    Size(Device.get().isPhone ?60.0.w:40.0.w, 6.0.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
                     ThemeColor.secondaryColor(),

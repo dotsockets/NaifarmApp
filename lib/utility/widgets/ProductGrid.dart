@@ -235,7 +235,7 @@ class _ProductGridState extends State<ProductGrid> {
                   onRated: (v) {},
                   starCount: 5,
                   rating: item.rating != null ? item.rating.toDouble() : 0,
-                  size: 4.0.w,
+                  size:  SizeUtil.ratingSize().w,
                   isReadOnly: true,
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half,

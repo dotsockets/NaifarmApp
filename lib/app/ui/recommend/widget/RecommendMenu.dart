@@ -139,8 +139,8 @@ class RecommendMenu extends StatelessWidget {
                 padding: EdgeInsets.all(1.0.w),
                 child: SvgPicture.asset(
                   item.icon,
-                  width: 11.0.w,
-                  height: 11.0.w,
+                  width:  SizeUtil.tabIconSize().w,
+                  height: SizeUtil.tabIconSize().w,
                 ),
               ),
               //getMessageRead(notification: notification,index: index)

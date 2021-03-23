@@ -46,7 +46,6 @@ class _MeViewState extends State<MeView> with RouteAware {
   final titleBar = BehaviorSubject<bool>();
   bool isLogin = true;
 
-
   void _init() {
     if (null == bloc) {
       expandedBar.add(false);
@@ -107,9 +106,6 @@ class _MeViewState extends State<MeView> with RouteAware {
     return _scrollController.hasClients &&
         _scrollController.offset > (200 - kToolbarHeight);
   }
-
-
-
 
   @override
   void dispose() {
@@ -172,46 +168,56 @@ class _MeViewState extends State<MeView> with RouteAware {
       controller: _scrollController,
       slivers: [
         SliverAppBar(
+          toolbarHeight: 5.0.h,
           leading: Container(
-            margin: EdgeInsets.only(left: 1.0.w),
+            margin: EdgeInsets.only(left: 1.0.w,top: SizeUtil.paddingItem().w),
             child: IconButton(
-              icon: Icon(Icons.settings, color: Colors.white, size: 6.0.w),
+              icon: Icon(Icons.settings, color: Colors.white, size: SizeUtil.iconLargeSize().w),
               onPressed: () async {
                 // ignore: unused_local_variable
                 final result = await AppRoute.settingProfile(context);
               },
             ),
           ),
-         title: StreamBuilder(
-           stream: titleBar.stream,
-           builder: (_, snapshot) {
-             if (snapshot.hasData) {
-               return !snapshot.data ?
-               Text("${LocaleKeys.me_account.tr()}",
-                   style: FunctionHelper.fontTheme(
-                       fontSize: SizeUtil.titleFontSize().sp,
-                       fontWeight: FontWeight.bold,
-                       color: Colors.black)) : SizedBox();
-             } else {
-               return SizedBox();
-             }
-           },
-         ),centerTitle: true,
+          title: StreamBuilder(
+            stream: titleBar.stream,
+            builder: (_, snapshot) {
+              if (snapshot.hasData) {
+                return !snapshot.data
+                    ? Container(
+                  margin: EdgeInsets.only(top: SizeUtil.paddingItem().w),
+                      child: Center(
+                        child: Text("${LocaleKeys.me_account.tr()}",
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black)),
+                      ),
+                    )
+                    : SizedBox();
+              } else {
+                return SizedBox();
+              }
+            },
+          ),
+          centerTitle: true,
           actions: [
             Container(
-                margin: EdgeInsets.only(right: 2.0.w, left: 1.0.w, top: 1.0.w),
+                margin: EdgeInsets.only(right: 2.0.w, left: 1.0.w, top: SizeUtil.paddingItem().w),
                 child: StreamBuilder(
                   stream: expandedBar.stream,
                   builder: (_, snapshot) {
                     if (snapshot.hasData) {
-                      return !snapshot.data ? BuildIconShop() : SizedBox();
+                      return !snapshot.data
+                          ? BuildIconShop()
+                          : SizedBox();
                     } else {
                       return SizedBox();
                     }
                   },
                 )),
           ],
-          expandedHeight: Device.get().isPhone ? 200 : 350,
+          expandedHeight: SizeUtil.headerHeight().h,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
               color: ThemeColor.primaryColor(),
@@ -302,7 +308,7 @@ class _MeViewState extends State<MeView> with RouteAware {
               //   },
               // ),
               SizedBox(
-                height: 7.0.h,
+                height: SizeUtil.tabBarHeight().h,
                 child: Container(
                   // color: ThemeColor.psrimaryColor(context),
                   child: TabBar(
@@ -382,11 +388,11 @@ class _MeViewState extends State<MeView> with RouteAware {
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(10.0.w)),
                       child: CachedNetworkImage(
-                        width: 20.0.w,
-                        height: 20.0.w,
+                        width: SizeUtil.imgProfileSize().w,
+                        height: SizeUtil.imgProfileSize().w,
                         placeholder: (context, url) => Container(
-                          width: 20.0.w,
-                          height: 20.0.w,
+                          width: SizeUtil.imgProfileSize().w,
+                          height: SizeUtil.imgProfileSize().w,
                           color: Colors.white,
                           child: Lottie.asset('assets/json/loading.json',
                               height: 30),
@@ -419,7 +425,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                                 : ''
                             : '');
                   }),
-              SizedBox(height: 3.0.h),
+              SizedBox(height: 2.0.h),
               Text(info != null ? info.name : "ฟาร์มมาร์เก็ต",
                   style: FunctionHelper.fontTheme(
                       color: Colors.white,

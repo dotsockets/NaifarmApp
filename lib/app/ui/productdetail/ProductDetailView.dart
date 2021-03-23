@@ -526,7 +526,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                 return FadeTransition(
                   opacity: _animation,
                   child: Container(
-                    height: 8.0.h,
+                    height: SizeUtil.largeIconSize().h,
                     decoration: BoxDecoration(
                       border: Border(
                           top: BorderSide(
@@ -544,12 +544,12 @@ class _ProductDetailViewState extends State<ProductDetailView>
                               SvgPicture.asset(
                                 'assets/images/svg/message.svg',
                                 color: Colors.grey.shade300,
-                                width: 6.0.w,
-                                height: 6.0.w,
+                                width: SizeUtil.iconLargeSize().w,
+                                height: SizeUtil.iconLargeSize().w,
                               ),
                               SizedBox(height: 1.0),
                               Text(
-                                "Chat",
+                                LocaleKeys.btn_chat.tr(),
                                 style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.titleSmallFontSize().sp,
                                     fontWeight: FontWeight.bold,
@@ -565,7 +565,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                         )),
                         Container(
                           color: Colors.grey.withOpacity(0.4),
-                          height: 8.0.h,
+                          height: SizeUtil.largeIconSize().h,
                           width: 1,
                         ),
                         Expanded(
@@ -591,7 +591,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                       Icon(
                                         Icons.shopping_cart_outlined,
                                         color: ThemeColor.primaryColor(),
-                                        size: 7.0.w,
+                                        size: SizeUtil.iconFooterSize().w,
                                       ),
                                       SizedBox(height: 1.0),
                                       Text(

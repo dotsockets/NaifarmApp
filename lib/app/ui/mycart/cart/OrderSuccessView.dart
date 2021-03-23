@@ -138,7 +138,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 45.0.w,
+            width: 40.0.w,
             height: 8.0.h,
             padding: EdgeInsets.all(10),
             child: TextButton(
@@ -167,8 +167,9 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
               ),
             ),
           ),
+          SizedBox(width: 4.0.w,),
           Container(
-            width: 45.0.w,
+            width: 40.0.w,
             height: 8.0.h,
             padding: EdgeInsets.all(10),
             child: TextButton(

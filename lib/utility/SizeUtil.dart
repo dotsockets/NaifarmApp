@@ -12,27 +12,27 @@ class SizeUtil {
   }
 
   static double priceFontSize() {
-    return Device.get().isPhone ? 13 : 10;
+    return Device.get().isPhone ? 13 : 8;
   }
 
   static double titleFontSize() {
-    return Device.get().isPhone ? 9.5 : 8;
+    return Device.get().isPhone ? 9.5 : 5.5;
   }
 
   static double titleSmallFontSize() {
-    return Device.get().isPhone ? 9.0 : 7.5;
+    return Device.get().isPhone ? 9.0 : 5;
   }
 
   static double detailFontSize() {
-    return Device.get().isPhone ? 8 : 6.5;
+    return Device.get().isPhone ? 8 : 4.5;
   }
 
   static double detailSmallFontSize() {
-    return Device.get().isPhone ? 7 : 5;
+    return Device.get().isPhone ? 7 : 4;
   }
 
   static double shopIconSize() {
-    return Device.get().isPhone ? 6.0 : 5.0;
+    return Device.get().isPhone ? 6.0 : 3.5;
   }
 
   static double smallIconSize() {
@@ -60,11 +60,11 @@ class SizeUtil {
   }
 
   static double shopBadgeSize() {
-    return Device.get().isPhone ? 6.0 : 5.0;
+    return Device.get().isPhone ? 6.0 : 4.0;
   }
 
   static double shopBadgePadding() {
-    return Device.get().isPhone ? 0.4 : 0.3;
+    return Device.get().isPhone ? 0.4 : 0.1;
   }
 
   static double shopBadgeTop() {
@@ -137,16 +137,98 @@ class SizeUtil {
   static double borderRadiusItem(){
     return  Device.get().isPhone ?15:30;
   }
+
   static double borderRadiusFlash(){
     return  Device.get().isPhone ?8:20;
   }
+
   static double iconSmallFix(){
     return  Device.get().isPhone ?35:8.5;
   }
+
   static double tabHeightFix(){
-    return  Device.get().isPhone ?9.0:5.0;
+    return  Device.get().isPhone ?9.0:5.8;
   }
+
   static double marginAppBar(){
     return Device.get().isPhone?0:1.8;
+  }
+
+  static double paddingTitle(){
+    return Device.get().isPhone?0:20;
+  }
+
+  static double ratingSize(){
+    return Device.get().isPhone?4.0:3.0;
+  }
+
+  static double imgProfileSize(){
+    return Device.get().isPhone?19.0:12.0;
+  }
+
+  static double headerHeight(){
+    return Device.get().isPhone?27.0:23.0;
+  }
+
+  static double tabMenuSize(){
+    return Device.get().isPhone?13.0:9.0;
+  }
+  static double categoryTabSize(){
+    return Device.get().isPhone?12.0:9.0;
+  }
+
+  static double tabIconSize(){
+    return Device.get().isPhone?11.0:9.0;
+  }
+
+  static double paddingMenu() {
+    return  Device.get().isPhone ?0:4.0;
+  }
+
+  static double paddingBox(){
+    return Device.get().isPhone?2.5:1.5;
+  }
+
+  static double sizedBoxHeight(){
+    return Device.get().isPhone?6.5:4.5;
+  }
+
+  static double tabBarHeight() {
+    return Device.get().isPhone ? 7.0 :5.5;
+  }
+
+  static double imgItemSize(){
+    return  Device.get().isPhone ?15:8.5;
+  }
+
+  static double iconSize() {
+    return Device.get().isPhone ? 10.0 : 6.0;
+  }
+
+  static double iconSmallSize() {
+    return Device.get().isPhone ? 5.0 : 3.5;
+  }
+  static double iconLargeSize() {
+    return Device.get().isPhone ? 6.0 : 4.0;
+  }
+
+  static double paddingBorderHome(){
+    return  Device.get().isPhone ?15:10;
+  }
+
+  static double paddingMenuItem(){
+    return  Device.get().isPhone ?2:1.5;
+  }
+
+  static double borderRadiusShop(){
+    return  Device.get().isPhone ?20:50;
+  }
+
+  static double iconFooterSize() {
+    return Device.get().isPhone ? 7.0 :5.0;
+  }
+
+  static double btnWidth() {
+    return Device.get().isPhone ? 7.0 :5.0;
   }
 }

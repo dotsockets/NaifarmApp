@@ -180,8 +180,8 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(50),
-                                  topLeft: Radius.circular(50),
+                              topRight: Radius.circular(SizeUtil.paddingBorderHome().w),
+                topLeft: Radius.circular(SizeUtil.paddingBorderHome().w),
                                   bottomLeft: Radius.circular(
                                       item.data.length != 0 ? 0 : 40),
                                   bottomRight: Radius.circular(
@@ -207,6 +207,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                                     children: [
                                       item.data[0].items.length - (i) * 2 > 1
                                           ? Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 InkWell(
                                                   child: ProductItemCard(
@@ -312,7 +313,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                                                                 color:
                                                                     Colors.grey,
                                                                 fontSize: SizeUtil
-                                                                        .priceFontSize()
+                                                                        .titleFontSize()
                                                                     .sp))
                                                   ],
                                                 ),

@@ -193,7 +193,8 @@ class CodegenLoader extends AssetLoader{
     "back": "Back",
     "again": "Try again",
     "reject_order": "Reject request",
-    "accept_order": "Accept request"
+    "accept_order": "Accept request",
+    "chat": "Chat Now"
   },
   "dialog_message": {
     "del_account": "We are sad that you want to leave us, but please note that account deletion is irreversible",
@@ -272,7 +273,6 @@ class CodegenLoader extends AssetLoader{
   "history": {
     "order_time": "Payment Time",
     "receipt_time": "Receipt Time",
-    "order_price": "Order Total",
     "track": "Add a tracking number",
     "track_fill": "Please fill tracking number to continue.",
     "track_msg": "User can check shipping status with Naifarm.",
@@ -709,7 +709,8 @@ static const Map<String,dynamic> th_TH = {
     "back": "กลับ",
     "again": "ลองอีกครั้ง",
     "reject_order": "ปฏิเสธคำขอยกเลิก",
-    "accept_order": "ตอบรับคำขอยกเลิก"
+    "accept_order": "ตอบรับคำขอยกเลิก",
+    "chat": "แชทเลย"
   },
   "dialog_message": {
     "del_account": "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หากคุณต้องการลบจะไม่สามารถกู้คืนได้",
@@ -788,7 +789,6 @@ static const Map<String,dynamic> th_TH = {
   "history": {
     "order_time": "วันที่ซื้อ",
     "receipt_time": "วันที่รับ",
-    "order_price": "รวมการสั่งซื้อ",
     "track": "เพิ่มหมายเลขติดตามพัสดุ",
     "track_fill": "กรุณากรอกหมายเลขติดตามพัสดุเพื่อให้สามารถดำเนินการต่อไปนี้ได้โดยตรง",
     "track_msg": "ผู้ใช้สามารถตรวจสอบสถานะการขนส่งของพัสดุผ่าน Naifarm ได้โดยตรง",

@@ -136,7 +136,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                   Navigator.pop(context, onImageUpdate);
                 },
               )),
-          expandedHeight: 220,
+          expandedHeight: SizeUtil.headerHeight().h,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
               color: ThemeColor.primaryColor(),
@@ -162,15 +162,15 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                           borderRadius: BorderRadius.all(Radius.circular(60)),
                           child: fileImage == null
                               ? CachedNetworkImage(
-                                  width: 80,
-                                  height: 80,
+                                  width: SizeUtil.imgProfileSize().w,
+                                  height: SizeUtil.imgProfileSize().w,
                                   placeholder: (context, url) => Container(
-                                        width: 80,
-                                        height: 80,
+                                        width: SizeUtil.imgProfileSize().w,
+                                        height: SizeUtil.imgProfileSize().w,
                                         color: Colors.white,
                                         child: Lottie.asset(
                                             'assets/json/loading.json',
-                                            height: 30),
+                                            height: SizeUtil.imgProfileSize().w,width: SizeUtil.imgProfileSize().w),
                                       ),
                                   fit: BoxFit.cover,
                                   imageUrl: itemInfo != null &&
@@ -221,8 +221,8 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                       child: Text(LocaleKeys.btn_edit_img.tr(),
                           style: FunctionHelper.fontTheme(
                               color: Colors.white,
-                              fontSize: SizeUtil.detailFontSize(),
-                              fontWeight: FontWeight.bold)),
+                              fontSize: SizeUtil.detailFontSize().sp,
+                              fontWeight: FontWeight.w500)),
                     ),
                     onTap: () {
                       captureImage(ImageSource.gallery);

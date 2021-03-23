@@ -122,7 +122,7 @@ class ProductInto extends StatelessWidget {
                     rating: data.rating != null && data.rating != 0
                         ? data.rating.toDouble()
                         : 0.0,
-                    size: 13.0,
+                    size: SizeUtil.ratingSize().w,
                     isReadOnly: true,
                     filledIconData: Icons.star,
                     halfFilledIconData: Icons.star_half_outlined,
@@ -159,8 +159,8 @@ class ProductInto extends StatelessWidget {
                 InkWell(
                   child: SvgPicture.asset(
                     'assets/images/svg/share.svg',
-                    width: 8.0.w,
-                    height: 8.0.w,
+                    width: SizeUtil.checkMarkSize().w,
+                    height: SizeUtil.checkMarkSize().w,
                     color: showBtn
                         ? Colors.black.withOpacity(0.55)
                         : Colors.transparent,
@@ -242,7 +242,7 @@ class ProductInto extends StatelessWidget {
           isLiked ? Icons.favorite : Icons.favorite_outline_sharp,
           color:
               isLiked ? ThemeColor.colorSale() : Colors.black.withOpacity(0.55),
-          size: 8.0.w,
+          size: SizeUtil.checkMarkSize().w,
         );
       },
       likeCountAnimationType: LikeCountAnimationType.part,

@@ -78,19 +78,24 @@ class AppToobar extends PreferredSize {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   showBackBtn
-                      ? IconButton(
-                          icon: Icon(
-                            Platform.isAndroid
-                                ? Icons.arrow_back
-                                : Icons.arrow_back_ios_rounded,
-                            color: Colors.white,
+                      ? Container(
+                    width: 10.0.w,
+                    height: 10.0.w,
+                        child: IconButton(
+                            icon: Icon(
+                              Platform.isAndroid
+                                  ? Icons.arrow_back
+                                  : Icons.arrow_back_ios_rounded,
+                              color: Colors.white,
+                              size: SizeUtil.iconSmallSize().w,
+                            ),
+                            onPressed: () {
+                              onClick == null
+                                  ? Navigator.of(context).pop()
+                                  : onClick();
+                            },
                           ),
-                          onPressed: () {
-                            onClick == null
-                                ? Navigator.of(context).pop()
-                                : onClick();
-                          },
-                        )
+                      )
                       : SizedBox(
                           width: 10.0.w,
                           height: 10.0.w,
@@ -109,15 +114,20 @@ class AppToobar extends PreferredSize {
                     ),
                   ),
                   isEnableSearch
-                      ? IconButton(
-                          icon: Icon(
-                            Icons.search_rounded,
-                            color: Colors.white,
+                      ? Container(
+                    width: 10.0.w,
+                    height: 10.0.w,
+                        child: IconButton(
+                            icon: Icon(
+                              Icons.search_rounded,
+                              color: Colors.white,
+                                size: SizeUtil.iconSmallSize().w
+                            ),
+                            onPressed: () {
+                              AppRoute.searchHome(context);
+                            },
                           ),
-                          onPressed: () {
-                            AppRoute.searchHome(context);
-                          },
-                        )
+                      )
                       : SizedBox(
                           width: 10.0.w,
                           height: 10.0.w,
@@ -154,7 +164,7 @@ class AppToobar extends PreferredSize {
                                         ? Icons.arrow_back
                                         : Icons.arrow_back_ios_rounded,
                                     color: Colors.white,
-                                  size: 5.0.w,
+                                  size: SizeUtil.iconSmallSize().w,
                                   ),
                               onPressed: () {
                                 onClick == null
@@ -286,22 +296,30 @@ class AppToobar extends PreferredSize {
           color: ThemeColor.primaryColor(),
           child: Row(
             children: [
-              IconButton(
-                icon: Icon(
-                  Platform.isAndroid
-                      ? Icons.arrow_back
-                      : Icons.arrow_back_ios_rounded,
-                  color: Colors.white,
+              Container(
+                padding: EdgeInsets.only(right:SizeUtil.paddingItem().w,left: SizeUtil.paddingItem().w),
+                child: Container(
+                  child: IconButton(
+                    icon: Icon(
+                      Platform.isAndroid
+                          ? Icons.arrow_back
+                          : Icons.arrow_back_ios_rounded,
+                      color: Colors.white,
+                        size: SizeUtil.iconSmallSize().w
+                    ),
+                    onPressed: () {
+                      onClick == null
+                          ? Navigator.of(context).pop()
+                          : onClick();
+                    },
+                  ),
                 ),
-                onPressed: () {
-                  onClick == null
-                      ? Navigator.of(context).pop()
-                      : onClick();
-                },
               ),
               _buildSearch(context),
               showCartBtn
-                  ? BuildIconShop()
+                  ?    Container(
+                  padding: EdgeInsets.only(right:SizeUtil.paddingCart().w,left: SizeUtil.paddingItem().w),
+                  child: BuildIconShop())
                   : IconButton(
                       icon: Icon(
                         FontAwesome.ellipsis_v,
