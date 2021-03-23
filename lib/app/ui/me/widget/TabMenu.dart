@@ -32,7 +32,7 @@ class TabMenu extends StatelessWidget {
                       badgeContent: Container(
                         padding: EdgeInsets.all(notification < 10
                             ? 0.7.w
-                            : (Device.get().isPhone ? 0 : 0.3.w)),
+                            : (Device.get().isPhone ? 0 : 0.1.w)),
                         child: Center(
                           child: Text(
                             "$notification",
@@ -47,8 +47,8 @@ class TabMenu extends StatelessWidget {
                           padding: EdgeInsets.all(5),
                           child: SvgPicture.asset(
                             icon,
-                            width: 13.0.w,
-                            height: 13.0.w,
+                            width: SizeUtil.tabMenuSize().w,
+                            height: SizeUtil.tabMenuSize().w,
                           ))),
                 ],
               ),

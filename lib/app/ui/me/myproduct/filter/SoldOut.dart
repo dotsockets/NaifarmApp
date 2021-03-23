@@ -163,7 +163,7 @@ class _SoldOutState extends State<SoldOut> {
                           Text(LocaleKeys.dialog_message_loading.tr(),
                               style: FunctionHelper.fontTheme(
                                   color: Colors.grey,
-                                  fontSize: SizeUtil.priceFontSize().sp))
+                                  fontSize: SizeUtil.titleFontSize().sp))
                         ],
                       ),
                     )

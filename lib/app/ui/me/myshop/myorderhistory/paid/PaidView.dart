@@ -194,7 +194,7 @@ class _PaidViewState extends State<PaidView> {
                             Text(LocaleKeys.dialog_message_loading.tr(),
                                 style: FunctionHelper.fontTheme(
                                     color: Colors.grey,
-                                    fontSize: SizeUtil.priceFontSize().sp))
+                                    fontSize: SizeUtil.titleFontSize().sp))
                           ],
                         ),
                       )
@@ -408,7 +408,7 @@ class _PaidViewState extends State<PaidView> {
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       new TextSpan(
-                          text: LocaleKeys.history_order_price.tr() + " : ",
+                          text: LocaleKeys.cart_sub_total.tr() + " : ",
                           style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.normal,
@@ -492,7 +492,7 @@ class _PaidViewState extends State<PaidView> {
                 : Row(
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(SizeUtil.borderRadiusShop())),
                         child: CachedNetworkImage(
                           width: 7.0.w,
                           height: 7.0.w,
@@ -550,7 +550,7 @@ class _PaidViewState extends State<PaidView> {
     return TextButton(
       style: ButtonStyle(
         padding: MaterialStateProperty.all(
-            EdgeInsets.only(left: 6.0.w, right: 6.0.w)),
+            EdgeInsets.only(left: 6.0.w, right: 6.0.w,top: SizeUtil.paddingItem().h,bottom: SizeUtil.paddingItem().h)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40.0),

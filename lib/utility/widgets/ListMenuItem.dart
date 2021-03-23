@@ -40,7 +40,7 @@ class ListMenuItem extends StatelessWidget {
       child: Container(
           color: Colors.white,
           padding: EdgeInsets.only(
-              right: 2.0.w, left: 3.5.w, top: 2.0.h, bottom: 2.0.h),
+              right: 2.0.w, left: 3.5.w, top:  SizeUtil.paddingMenuItem().h, bottom: SizeUtil.paddingMenuItem().h),
           child: Row(
             children: [
               Expanded(

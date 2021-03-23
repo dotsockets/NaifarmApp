@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
@@ -196,7 +197,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                             Text(LocaleKeys.dialog_message_loading.tr(),
                                 style: FunctionHelper.fontTheme(
                                     color: Colors.grey,
-                                    fontSize: SizeUtil.priceFontSize().sp))
+                                    fontSize: SizeUtil.titleFontSize().sp))
                           ],
                         ),
                       ),
@@ -408,7 +409,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       new TextSpan(
-                          text: LocaleKeys.history_order_price.tr() + " : ",
+                          text: LocaleKeys.cart_sub_total.tr() + " : ",
                           style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.normal,
@@ -457,7 +458,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                         widget.typeView == OrderViewType.Shop ? 3.0.w : 12.0.w,
                   ),
                   Expanded(
-                      flex: widget.typeView == OrderViewType.Shop ? 1 : 3,
+                      flex: widget.typeView == OrderViewType.Shop ? 1 :  Device.get().isPhone ?3:2,
                       child: widget.typeView == OrderViewType.Purchase
                           ? buildButtonBayItem(
                               btnTxt: LocaleKeys.order_detail_accept.tr(),
@@ -493,7 +494,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                 : Row(
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(SizeUtil.borderRadiusShop())),
                         child: CachedNetworkImage(
                           width: 7.0.w,
                           height: 7.0.w,
@@ -560,6 +561,8 @@ class _DeliveryViewState extends State<DeliveryView> {
           overlayColor: MaterialStateProperty.all(
             Colors.white.withOpacity(0.3),
           ),
+          padding: MaterialStateProperty.all(
+              EdgeInsets.only(bottom: SizeUtil.paddingItem().h,top: SizeUtil.paddingItem().h)),
         ),
         onPressed: () async {
           if (widget.typeView == OrderViewType.Shop) {

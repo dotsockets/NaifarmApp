@@ -223,7 +223,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
     return Row(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: BorderRadius.all(Radius.circular(SizeUtil.borderRadiusShop())),
           child: CachedNetworkImage(
             width: 7.0.w,
             height: 7.0.w,

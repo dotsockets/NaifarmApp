@@ -53,13 +53,13 @@ class ShopOrderHistoryView extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: 7.0.h,
+                    height: SizeUtil.tabBarHeight().h,
                     width: 100.0.w,
                     child: Container(
                       color: Colors.white,
                       child: TabBar(
                         indicator: MD2Indicator(
-                          indicatorSize: MD2IndicatorSize.tiny,
+                          indicatorSize: MD2IndicatorSize.normal,
                           indicatorHeight: 0.8.h,
                           indicatorColor: ThemeColor.colorSale(),
                         ),
@@ -112,26 +112,31 @@ class ShopOrderHistoryView extends StatelessWidget {
 
   Widget _tabbar({String title, bool message}) {
     return Tab(
-      child: Row(
-        children: [
-          Text(title,
-              style: FunctionHelper.fontTheme(
-                  fontSize: SizeUtil.titleSmallFontSize().sp)),
-          SizedBox(
-            width: 2.0.w,
-          ),
-          message
-              ? ClipRRect(
-                  borderRadius: BorderRadius.circular(9.0),
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 2.0.w,
-                    height: 2.0.w,
-                    color: ThemeColor.colorSale(),
-                  ),
-                )
-              : SizedBox()
-        ],
+      child: Container(
+        margin: EdgeInsets.only(
+            left: SizeUtil.paddingEdittext().w, right: SizeUtil.paddingEdittext().w),
+        child: Row(
+          children: [
+            Text(title,
+                style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp)),
+            SizedBox(
+              width: message
+                  ?2.0.w:0,
+            ),
+            message
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(9.0),
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 2.0.w,
+                      height: 2.0.w,
+                      color: ThemeColor.colorSale(),
+                    ),
+                  )
+                : SizedBox()
+          ],
+        ),
       ),
     );
   }

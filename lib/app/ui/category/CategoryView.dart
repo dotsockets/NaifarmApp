@@ -122,30 +122,30 @@ class _CategoryViewState extends State<CategoryView> {
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.2)),
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
+                  borderRadius: BorderRadius.all(Radius.circular(SizeUtil.borderRadiusShop()))),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
                   padding: EdgeInsets.all(5),
                   child: CachedNetworkImage(
-                    width: 12.0.w,
-                    height: 12.0.w,
+                    width: SizeUtil.categoryTabSize().w,
+                    height: SizeUtil.categoryTabSize().w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child:
-                          Lottie.asset('assets/json/loading.json', height: 30),
+                          Lottie.asset('assets/json/loading.json', height: SizeUtil.categoryTabSize().w,width: SizeUtil.categoryTabSize().w),
                     ),
                     fit: BoxFit.cover,
                     imageUrl:
                         "https://dev2-test.naifarm.com/category-icon/${item.icon}.png",
                     errorWidget: (context, url, error) => Container(
-                        height: 12.0.w,
-                        width: 12.0.w,
+                        height: SizeUtil.categoryTabSize().w,
+                        width: SizeUtil.categoryTabSize().w,
                         child: Icon(
                           Icons.error,
                           size: 30,

@@ -101,19 +101,22 @@ class _MyProductViewState extends State<MyProductView> {
                           shopID: widget.shopId,
                           tabNum: tabNum);
                     }),
-                IconButton(
-                  icon: Icon(
-                    FontAwesome.ellipsis_v,
-                    size: SizeUtil.mediumIconSize().w,
-                    color: Colors.white,
+                Container(
+                  padding: EdgeInsets.only(right:SizeUtil.paddingCart().w,left: SizeUtil.paddingItem().w),
+                  child: IconButton(
+                    icon: Icon(
+                      FontAwesome.ellipsis_v,
+                      size: SizeUtil.mediumIconSize().w,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      buttonDialog(context,
+                          message: [LocaleKeys.attributes_set.tr()], onClick: () {
+                        Navigator.of(context).pop();
+                        AppRoute.attribute(context: context);
+                      });
+                    },
                   ),
-                  onPressed: () {
-                    buttonDialog(context,
-                        message: [LocaleKeys.attributes_set.tr()], onClick: () {
-                      Navigator.of(context).pop();
-                      AppRoute.attribute(context: context);
-                    });
-                  },
                 )
               ],
             ),
@@ -131,12 +134,12 @@ class _MyProductViewState extends State<MyProductView> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 7.0.h,
+                            height: SizeUtil.tabBarHeight().h,
                             child: Container(
                               child: TabBar(
                                 physics: NeverScrollableScrollPhysics(),
                                 indicator: MD2Indicator(
-                                  indicatorSize: MD2IndicatorSize.tiny,
+                                  indicatorSize: MD2IndicatorSize.normal,
                                   indicatorHeight: 0.5.h,
                                   indicatorColor: ThemeColor.colorSale(),
                                 ),

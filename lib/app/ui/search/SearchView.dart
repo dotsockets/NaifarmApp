@@ -63,222 +63,225 @@ class _SearchViewState extends State<SearchView> {
             },
           ),
           body: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                StreamBuilder(
-                  stream: bloc.searchProduct.stream,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.hasData) {
-                      return Container(
-                          color: Colors.white,
-                          child: Column(
-                            children: (snapshot.data as SearchRespone)
-                                .hits
-                                .asMap()
-                                .map((key, value) => MapEntry(
-                                key,
-                                Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    InkWell(
-                                      child: Container(
-                                        padding: EdgeInsets.only(
-                                            bottom: 1.0.w,
-                                            top: 1.0.w,
-                                            right: 3.0.w,
-                                            left: 3.0.w),
-                                        child: Row(
-                                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .start,
-                                                children: [
-                                                  Text(
-                                                      (snapshot.data
-                                                      as SearchRespone)
-                                                          .hits[key]
-                                                          .name,
-                                                      style: FunctionHelper.fontTheme(
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          color: Colors
-                                                              .black,
-                                                          fontSize: SizeUtil
-                                                              .titleSmallFontSize()
-                                                              .sp)),
-                                                  Text(
-                                                      (snapshot.data
-                                                      as SearchRespone)
-                                                          .hits[key]
-                                                          .categories[0]
-                                                          .name,
-                                                      style: FunctionHelper
-                                                          .fontTheme(
-                                                          color: Colors
-                                                              .black,
-                                                          fontSize:
-                                                          SizeUtil.titleSmallFontSize()
-                                                              .sp))
-                                                ],
+            child: Container(
+              padding: EdgeInsets.only(top: SizeUtil.paddingTitle()),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  StreamBuilder(
+                    stream: bloc.searchProduct.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.hasData) {
+                        return Container(
+                            color: Colors.white,
+                            child: Column(
+                              children: (snapshot.data as SearchRespone)
+                                  .hits
+                                  .asMap()
+                                  .map((key, value) => MapEntry(
+                                  key,
+                                  Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      InkWell(
+                                        child: Container(
+                                          padding: EdgeInsets.only(
+                                              bottom: 1.0.w,
+                                              top: 1.0.w,
+                                              right: 3.0.w,
+                                              left: 3.0.w),
+                                          child: Row(
+                                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                        (snapshot.data
+                                                        as SearchRespone)
+                                                            .hits[key]
+                                                            .name,
+                                                        style: FunctionHelper.fontTheme(
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            color: Colors
+                                                                .black,
+                                                            fontSize: SizeUtil
+                                                                .titleSmallFontSize()
+                                                                .sp)),
+                                                    Text(
+                                                        (snapshot.data
+                                                        as SearchRespone)
+                                                            .hits[key]
+                                                            .categories[0]
+                                                            .name,
+                                                        style: FunctionHelper
+                                                            .fontTheme(
+                                                            color: Colors
+                                                                .black,
+                                                            fontSize:
+                                                            SizeUtil.titleSmallFontSize()
+                                                                .sp))
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            Hero(
-                                              tag:
-                                              "search_${(snapshot.data as SearchRespone).hits[key].productId}",
-                                              child: CachedNetworkImage(
-                                                width: 13.0.w,
-                                                height: 15.0.w,
-                                                placeholder:
-                                                    (context, url) =>
-                                                    Container(
-                                                      width: 13.0.w,
-                                                      height: 15.0.w,
-                                                      color: Colors.white,
-                                                      child: Lottie.asset(
-                                                        'assets/json/loading.json',
-                                                        width: 13.0.w,
-                                                        height: 13.5.w,
-                                                      ),
-                                                    ),
-                                                imageUrl:
-                                                "${Env.value.baseUrl}/storage/images/${(snapshot.data as SearchRespone).hits[key].image.length != 0 ? (snapshot.data as SearchRespone).hits[key].image[0].path : ""}",
-                                                errorWidget: (context,
-                                                    url, error) =>
-                                                    Container(
+                                              Hero(
+                                                tag:
+                                                "search_${(snapshot.data as SearchRespone).hits[key].productId}",
+                                                child: CachedNetworkImage(
+                                                  width: 13.0.w,
+                                                  height: 15.0.w,
+                                                  placeholder:
+                                                      (context, url) =>
+                                                      Container(
                                                         width: 13.0.w,
                                                         height: 15.0.w,
-                                                        child: Image.network(
-                                                            "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com",
-                                                            fit: BoxFit
-                                                                .cover)),
-                                              ),
-                                            )
-                                          ],
+                                                        color: Colors.white,
+                                                        child: Lottie.asset(
+                                                          'assets/json/loading.json',
+                                                          width: 13.0.w,
+                                                          height: 13.5.w,
+                                                        ),
+                                                      ),
+                                                  imageUrl:
+                                                  "${Env.value.baseUrl}/storage/images/${(snapshot.data as SearchRespone).hits[key].image.length != 0 ? (snapshot.data as SearchRespone).hits[key].image[0].path : ""}",
+                                                  errorWidget: (context,
+                                                      url, error) =>
+                                                      Container(
+                                                          width: 13.0.w,
+                                                          height: 15.0.w,
+                                                          child: Image.network(
+                                                              "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com",
+                                                              fit: BoxFit
+                                                                  .cover)),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          width: MediaQuery.of(context)
+                                              .size
+                                              .width,
                                         ),
-                                        width: MediaQuery.of(context)
-                                            .size
-                                            .width,
+                                        onTap: () {
+                                          var item = (snapshot.data
+                                          as SearchRespone)
+                                              .hits[key];
+                                          FocusScope.of(context).unfocus();
+                                          AppRoute.productDetail(context,
+                                              productImage:
+                                              "search_${(snapshot.data as SearchRespone).hits[key].productId}",
+                                              productItem:
+                                              ProducItemRespone(
+                                                id: item.productId,
+                                                shopId: item.shopId,
+                                                shop: ShopItem(
+                                                    id: item.shopId),
+                                                name: item.name,
+                                                salePrice: item.salePrice,
+                                                offerPrice: item.offerPrice,
+                                                saleCount: item.saleCount,
+                                                image: item.image,
+                                              ));
+                                        },
                                       ),
-                                      onTap: () {
-                                        var item = (snapshot.data
-                                        as SearchRespone)
-                                            .hits[key];
-                                        FocusScope.of(context).unfocus();
-                                        AppRoute.productDetail(context,
-                                            productImage:
-                                            "search_${(snapshot.data as SearchRespone).hits[key].productId}",
-                                            productItem:
-                                            ProducItemRespone(
-                                              id: item.productId,
-                                              shopId: item.shopId,
-                                              shop: ShopItem(
-                                                  id: item.shopId),
-                                              name: item.name,
-                                              salePrice: item.salePrice,
-                                              offerPrice: item.offerPrice,
-                                              saleCount: item.saleCount,
-                                              image: item.image,
-                                            ));
-                                      },
-                                    ),
-                                    buildLine()
-                                  ],
-                                )))
-                                .values
-                                .toList(),
-                          ));
-                    } else {
-                      return SizedBox();
-                    }
-                  },
-                ),
-                InkWell(
-                  child: Container(
-                    color: Colors.white,
-                    padding: EdgeInsets.all(20),
-                    width: MediaQuery.of(context).size.width,
-                    child: Center(
-                      child: StreamBuilder(
-                        stream: bloc.searchProduct.stream,
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.hasData) {
-                            var item = (snapshot.data as SearchRespone);
-                            return Visibility(
-                              child: Text(
-                                  item.hits.length == 0
-                                      ? LocaleKeys.search_product_not_found
-                                      .tr()
-                                      : showMore
-                                      ? LocaleKeys.search_product_hide
-                                      .tr()
-                                      : LocaleKeys.search_product_show
-                                      .tr(),
-                                  style: FunctionHelper.fontTheme(
-                                      color: Colors.grey,
-                                      fontSize:
-                                      SizeUtil.titleSmallFontSize().sp)),
-                              visible: item.limit == 0 || item.nbHits <= 4
-                                  ? false
-                                  : true,
-                            );
-                          } else {
-                            return SizedBox();
-                          }
-                        },
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    // setState(() {
-                    //   checkSeemore ? checkSeemore = false : checkSeemore = true;
-                    // });
-                    if (bloc.searchProduct.value.hits.length > 0) {
-                      showMore = !showMore;
-                      bloc.loadProductSearch(context,
-                          page: "1",
-                          query: searchText,
-                          limit: showMore ? 6 : 4);
-                    }
-                  },
-                ),
-                Container(
-                  color: Colors.grey.shade200,
-                  height: 6,
-                ),
-                StreamBuilder(
-                  stream: bloc.moreProduct.stream,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.hasData) {
-                      if ((snapshot.data as ProductRespone).data.isNotEmpty) {
-                        return SearchHot(
-                            productRespone: snapshot.data,
-                            onSelectChang: () {});
+                                      buildLine()
+                                    ],
+                                  )))
+                                  .values
+                                  .toList(),
+                            ));
                       } else {
                         return SizedBox();
                       }
-                    } else {
-                      return Column(
-                        children: [
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Platform.isAndroid
-                              ? CircularProgressIndicator()
-                              : CupertinoActivityIndicator()
-                        ],
-                      );
-                    }
-                  },
-                ),
-                SizedBox(height: 1.0.h,)
-              ],
+                    },
+                  ),
+                  InkWell(
+                    child: Container(
+                      color: Colors.white,
+                      padding: EdgeInsets.all(20),
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                        child: StreamBuilder(
+                          stream: bloc.searchProduct.stream,
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              var item = (snapshot.data as SearchRespone);
+                              return Visibility(
+                                child: Text(
+                                    item.hits.length == 0
+                                        ? LocaleKeys.search_product_not_found
+                                        .tr()
+                                        : showMore
+                                        ? LocaleKeys.search_product_hide
+                                        .tr()
+                                        : LocaleKeys.search_product_show
+                                        .tr(),
+                                    style: FunctionHelper.fontTheme(
+                                        color: Colors.grey,
+                                        fontSize:
+                                        SizeUtil.titleSmallFontSize().sp)),
+                                visible: item.limit == 0 || item.nbHits <= 4
+                                    ? false
+                                    : true,
+                              );
+                            } else {
+                              return SizedBox();
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      // setState(() {
+                      //   checkSeemore ? checkSeemore = false : checkSeemore = true;
+                      // });
+                      if (bloc.searchProduct.value.hits.length > 0) {
+                        showMore = !showMore;
+                        bloc.loadProductSearch(context,
+                            page: "1",
+                            query: searchText,
+                            limit: showMore ? 6 : 4);
+                      }
+                    },
+                  ),
+                  Container(
+                    color: Colors.grey.shade200,
+                    height: 6,
+                  ),
+                  StreamBuilder(
+                    stream: bloc.moreProduct.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.hasData) {
+                        if ((snapshot.data as ProductRespone).data.isNotEmpty) {
+                          return SearchHot(
+                              productRespone: snapshot.data,
+                              onSelectChang: () {});
+                        } else {
+                          return SizedBox();
+                        }
+                      } else {
+                        return Column(
+                          children: [
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Platform.isAndroid
+                                ? CircularProgressIndicator()
+                                : CupertinoActivityIndicator()
+                          ],
+                        );
+                      }
+                    },
+                  ),
+                  SizedBox(height: 1.0.h,)
+                ],
+              ),
             ),
           ),
         ),

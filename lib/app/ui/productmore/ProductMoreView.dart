@@ -193,7 +193,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                                                     style: FunctionHelper.fontTheme(
                                                         color: Colors.grey,
                                                         fontSize: SizeUtil
-                                                                .priceFontSize()
+                                                                .titleFontSize()
                                                             .sp))
                                               ],
                                             ),
@@ -251,15 +251,15 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                               child: Align(
                                   alignment: Alignment.bottomRight,
                                   child: Container(
-                                    width: 13.0.w,
-                                    height: 13.0.w,
+                                    width: SizeUtil.tabMenuSize().w,
+                                    height: SizeUtil.tabMenuSize().w,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.black.withOpacity(0.4)),
                                     child: IconButton(
                                       icon: Icon(
                                         Icons.keyboard_arrow_up_outlined,
-                                        size: 8.0.w,
+                                        size: SizeUtil.largeIconSize().w,
                                         color: Colors.white,
                                       ),
                                       onPressed: () {
@@ -344,7 +344,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                   rating: item.rating != null && item.rating != 0
                       ? item.rating.toDouble()
                       : 0.0,
-                  size: 4.0.w,
+                  size:  SizeUtil.ratingSize().w,
                   isReadOnly: true,
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half,

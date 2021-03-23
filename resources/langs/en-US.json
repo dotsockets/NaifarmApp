@@ -183,7 +183,8 @@
     "back":"Back",
     "again": "Try again",
     "reject_order": "Reject request",
-    "accept_order": "Accept request"
+    "accept_order": "Accept request",
+    "chat": "Chat Now"
   },
 
 
@@ -266,7 +267,6 @@
   "history":{
     "order_time": "Payment Time",
     "receipt_time": "Receipt Time",
-    "order_price": "Order Total",
     "track": "Add a tracking number",
     "track_fill": "Please fill tracking number to continue.",
     "track_msg": "User can check shipping status with Naifarm.",

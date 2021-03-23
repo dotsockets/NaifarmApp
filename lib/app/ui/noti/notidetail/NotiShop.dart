@@ -237,7 +237,7 @@ class _NotiShopState extends State<NotiShop>
                       Text(LocaleKeys.dialog_message_loading.tr(),
                           style: FunctionHelper.fontTheme(
                               color: Colors.grey,
-                              fontSize: SizeUtil.priceFontSize().sp))
+                              fontSize: SizeUtil.titleFontSize().sp))
                     ],
                   ),
                 ),

@@ -247,7 +247,7 @@ class _NotiCusState extends State<NotiCus>
                       Text(LocaleKeys.dialog_message_loading.tr(),
                           style: FunctionHelper.fontTheme(
                               color: Colors.grey,
-                              fontSize: SizeUtil.priceFontSize().sp))
+                              fontSize: SizeUtil.titleFontSize().sp))
                     ],
                   ),
                 ),

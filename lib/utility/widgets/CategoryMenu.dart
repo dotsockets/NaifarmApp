@@ -35,9 +35,11 @@ class CategoryMenu extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: SizeUtil.paddingMenu().w,),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Container(
+                child:
+                Container(
                   padding: EdgeInsets.only(right: 10),
                   child: Row(
                     children:

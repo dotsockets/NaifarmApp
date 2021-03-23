@@ -146,13 +146,13 @@ class ProductVertical extends StatelessWidget {
                 imageIcon != ""
                     ? Image.asset(
                         imageIcon,
-                        width: iconSize!=null?iconSize:9.0.w,
-                        height: iconSize!=null?iconSize:9.0.w,
+                        width: iconSize!=null?iconSize:8.5.w,
+                        height: iconSize!=null?iconSize:8.5.w,
                       )
                     : SvgPicture.asset(
                         iconInto,
-                        width: iconSize!=null?iconSize:9.0.w,
-                        height: iconSize!=null?iconSize:9.0.w,
+                        width: iconSize!=null?iconSize:8.5.w,
+                        height: iconSize!=null?iconSize:8.5.w,
                       ),
                 SizedBox(width: 2.0.w),
                 Text(titleInto,
@@ -348,7 +348,7 @@ class ProductVertical extends StatelessWidget {
                           onRated: (v) {},
                           starCount: 5,
                           rating: item.rating.toDouble(),
-                          size: 4.0.w,
+                          size:  SizeUtil.ratingSize().w,
                           isReadOnly: true,
                           filledIconData: Icons.star,
                           halfFilledIconData: Icons.star_half_outlined,

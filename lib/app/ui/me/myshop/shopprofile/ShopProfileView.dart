@@ -189,14 +189,14 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                       borderRadius: BorderRadius.all(Radius.circular(60)),
                       child: fileImage == null
                           ? CachedNetworkImage(
-                              width: 20.0.w,
-                              height: 20.0.w,
+                              width: (SizeUtil.iconSize()*2).w,
+                              height: (SizeUtil.iconSize()*2).w,
                               placeholder: (context, url) => Container(
-                                width: 20.0.w,
-                                height: 20.0.w,
+                                width: (SizeUtil.iconSize()*2).w,
+                                height: (SizeUtil.iconSize()*2).w,
                                 color: Colors.white,
                                 child: Lottie.asset('assets/json/loading.json',
-                                    height: 30),
+                                    height: (SizeUtil.iconSize()*2).w,width: (SizeUtil.iconSize()*2).w,),
                               ),
                               fit: BoxFit.cover,
                               imageUrl: itemInfo != null

@@ -127,7 +127,7 @@ class FunctionHelper {
                       LocaleKeys.dialog_message_loading.tr() + "...",
                       style: FunctionHelper.fontTheme(
                           color: Colors.white,
-                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          fontSize: SizeUtil.titleFontSize().sp,
                           decoration: TextDecoration.none),
                     )
                   ],

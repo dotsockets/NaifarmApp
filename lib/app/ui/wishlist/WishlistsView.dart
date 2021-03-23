@@ -114,6 +114,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
             title: LocaleKeys.me_title_likes.tr(),
             headerType: Header_Type.barNormal,
             icon: 'assets/images/svg/search.svg',
+
           ),
           body: StreamBuilder(
             stream: bloc.wishlists.stream,
@@ -125,6 +126,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                   return SingleChildScrollView(
                     child: Column(
                       children: [
+                        SizedBox(height: SizeUtil.paddingMenu().w,),
                         ClipRRect(
                           child: Container(
                               width: MediaQuery.of(context).size.width,
@@ -379,7 +381,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                           color: isLiked
                               ? ThemeColor.colorSale()
                               : Colors.grey.withOpacity(0.5),
-                          size: 8.0.w,
+                          size: SizeUtil.largeIconSize().w,
                         );
                       },
                       likeCountAnimationType: LikeCountAnimationType.part,
