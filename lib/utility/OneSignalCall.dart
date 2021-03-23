@@ -125,30 +125,6 @@ class OneSignalCall {
         }
       }
     });
-    if (Device.get().isAndroid) {
-      final List<ActiveNotification> activeNotifications =
-          await FlutterLocalNotificationsPlugin()
-              .resolvePlatformSpecificImplementation<
-                  AndroidFlutterLocalNotificationsPlugin>()
-              ?.getActiveNotifications();
-      if (activeNotifications.length > 0) {
-        activeNotifications.forEach((noti) {
-          if (slag == 'meView' &&
-              (noti.body.contains('shop is down') ||
-                  noti.body.contains('back to LIVE'))) {
-            notificationsPlugin.cancel(noti.id);
-          } else {
-            if (noti.body.contains('#') && orderNumber != null) {
-              final startIndex = noti.body.indexOf('#');
-              final endIndex = noti.body.indexOf(']', startIndex + 1);
-              final notiId = noti.body.substring(startIndex + 1, endIndex);
-              if (orderNumber.replaceAll('#', '') == notiId) {
-                notificationsPlugin.cancel(noti.id);
-              }
-            }
-          }
-        });
-      }
-    }
+
   }
 }

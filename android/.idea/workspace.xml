@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="304fd93a-f221-46cb-bee6-1ea1233c0867" name="Default Changelist" comment="">
+    <list default="true" id="8d8cd548-8788-4cc9-b26c-6f53666fc493" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../.dart_tool/flutter_build/1cbdd8bd36d39c23f668fd06fff56c66/.filecache" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.dart_tool/flutter_build/1cbdd8bd36d39c23f668fd06fff56c66/_composite.stamp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.dart_tool/flutter_build/1cbdd8bd36d39c23f668fd06fff56c66/android_aot_bundle_release_android-arm.stamp" beforeDir="false" />
@@ -60,120 +60,138 @@
       <change beforePath="$PROJECT_DIR$/../.packages" beforeDir="false" afterPath="$PROJECT_DIR$/../.packages" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_2_0_beta01.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_5_0_beta01_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_ktx_1_5_0_beta01_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_exifinterface_exifinterface_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_core_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__backport_util_concurrent_backport_util_concurrent_3_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__classworlds_classworlds_1_1_alpha_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_almworks_sqlite4java_sqlite4java_0_282.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_9_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_9_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_apps_common_testing_accessibility_framework_accessibility_test_framework_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_core_2_9_6_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_dash_2_9_6_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_hls_2_9_6_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_smoothstreaming_2_9_6_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_auto_auto_common_0_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_auto_service_auto_service_1_0_rc4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_errorprone_error_prone_annotations_2_2_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_guava_27_0_1_jre.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_j2objc_j2objc_annotations_1_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_protobuf_protobuf_java_2_6_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ibm_icu_icu4j_53_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_onesignal_OneSignal_3_15_6_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_flutter_arm64_v8a_debug_1_0_0_2f0af3715217a0c2ada72c717d4ed9178d68f6ed.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_flutter_armeabi_v7a_debug_1_0_0_2f0af3715217a0c2ada72c717d4ed9178d68f6ed.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_flutter_flutter_embedding_debug_1_0_0_2f0af3715217a0c2ada72c717d4ed9178d68f6ed.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_flutter_x86_64_debug_1_0_0_2f0af3715217a0c2ada72c717d4ed9178d68f6ed.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_flutter_x86_debug_1_0_0_2f0af3715217a0c2ada72c717d4ed9178d68f6ed.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_annotation_javax_annotation_api_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__nekohtml_nekohtml_1_9_6_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__nekohtml_xercesMinimal_1_9_6_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_ant_ant_1_8_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_ant_ant_launcher_1_8_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_maven_ant_tasks_2_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_maven_artifact_2_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_maven_artifact_manager_2_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_maven_error_diagnostics_2_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_maven_model_2_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_maven_plugin_registry_2_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_maven_profile_2_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_maven_project_2_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_maven_repository_metadata_2_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_maven_settings_2_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_wagon_wagon_file_1_0_beta_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_wagon_wagon_http_lightweight_1_0_beta_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_wagon_wagon_http_shared_1_0_beta_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_maven_wagon_wagon_provider_api_1_0_beta_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_bouncycastle_bcprov_jdk15on_1_52.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_checkerframework_checker_qual_2_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_codehaus_mojo_animal_sniffer_annotations_1_17.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_codehaus_plexus_plexus_container_default_1_0_alpha_9_stable_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_codehaus_plexus_plexus_interpolation_1_11.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_codehaus_plexus_plexus_utils_1_5_15.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_4_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_4_21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ow2_asm_asm_7_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ow2_asm_asm_analysis_7_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ow2_asm_asm_commons_7_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ow2_asm_asm_tree_7_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ow2_asm_asm_util_7_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_robolectric_annotations_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_robolectric_junit_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_robolectric_pluginapi_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_robolectric_plugins_maven_dependency_resolver_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_robolectric_resources_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_robolectric_robolectric_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_robolectric_sandbox_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_robolectric_shadowapi_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_robolectric_shadows_framework_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_robolectric_utils_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_robolectric_utils_reflector_4_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_browser_browser_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_ktx_1_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_1_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_exifinterface_exifinterface_1_3_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_exifinterface_exifinterface_1_3_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_2_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_2_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_rules_1_2_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_2_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_webkit_webkit_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_common_5_5_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_core_5_5_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_login_5_5_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_11_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_11_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_11_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_11_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_datatransport_transport_api_2_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_datatransport_transport_backend_cct_2_3_3_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_datatransport_transport_runtime_2_2_5_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_common_2_12_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_core_2_12_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_dash_2_12_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_extractor_2_12_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_hls_2_12_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_smoothstreaming_2_12_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_ads_identifier_16_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_16_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_17_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_16_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_cloud_messaging_16_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_location_15_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_location_16_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_maps_17_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_places_placereport_15_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_places_placereport_16_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_stats_16_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_16_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_3_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_errorprone_error_prone_annotations_2_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_16_0_3_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_datatransport_17_0_10_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_encoders_16_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_encoders_json_17_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_17_0_4_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_21_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_interop_16_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_interop_17_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_measurement_connector_17_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_17_3_4_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_21_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_failureaccess_1_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_guava_27_1_android.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_guava_28_1_android.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_listenablefuture_9999_0_empty_to_avoid_conflict_with_guava.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_j2objc_j2objc_annotations_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_zxing_core_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_threetenabp_threetenabp_1_2_3_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_onesignal_OneSignal_3_15_7_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_parse_bolts_bolts_android_1_4_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_parse_bolts_bolts_applinks_1_4_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_parse_bolts_bolts_tasks_1_4_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sangcomz_FishBun_0_11_2_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_13_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_bytebuddy_byte_buddy_1_10_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_bytebuddy_byte_buddy_agent_1_10_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_kxml_kxml2_2_3_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_checkerframework_checker_compat_qual_2_5_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_codehaus_mojo_animal_sniffer_annotations_1_18.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_android_extensions_runtime_1_3_50.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_2_20.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mockito_mockito_core_1_10_19.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mockito_mockito_core_3_2_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_objenesis_objenesis_2_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_threeten_threetenbp_1_4_2_no_tzdb.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-1047740732/android.connectivity.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-1056053953/android.flutter_facebook_login.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-1056053953/android.flutter_facebook_login.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-1080191991/android.image_picker.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-1080781376/android.package_info.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-1080781376/android.package_info.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-1134651462/android.onesignal_flutter.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-1365956502/android.sqflite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-1365956502/android.sqflite.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-1519112376/android.multi_image_picker.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-1519112376/android.multi_image_picker.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-1839930269/android.webview_flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-1839930269/android.webview_flutter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-1912597992/android.audioplayers.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-2047168574/android.google_maps_flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-2047168574/android.google_maps_flutter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-2125162764/android.device_info_plus.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-2125162764/android.device_info_plus.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-238560409/android.sqflite.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-246614271/android.wakelock.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-246614271/android.wakelock.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-329360848/android.video_player.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-329360848/android.video_player.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-489902550/android.url_launcher.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-708058042/android.google_maps_flutter.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/-829367773/android.image_picker.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-829367773/android.image_picker.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/1142977208/android.get_version.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/1142977208/android.get_version.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/1154186447/android.permission_handler.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/1266253945/android.path_provider.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/1352861371/android.onesignal_flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/1352861371/android.onesignal_flutter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/1438414788/android.wakelock.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/1641874648/android.share.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/1641874648/android.share.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/1824967138/android.vibration.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/1824967138/android.vibration.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/192875126/android.video_player.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/1995290254/android.shared_preferences.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/1995290254/android.shared_preferences.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/2051518997/android.flutter_plugin_android_lifecycle.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/2051518997/android.flutter_plugin_android_lifecycle.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/288342087/android.multi_image_picker.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/604413908/android.webview_flutter.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/777566010/android.keyboard_visibility.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/777566010/android.keyboard_visibility.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/818916222/android.path_provider.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/818916222/android.path_provider.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/850280336/android.permission_handler.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/850280336/android.permission_handler.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/931857890/android.flutter_local_notifications.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/931857890/android.flutter_local_notifications.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/-1056053953/android.flutter_facebook_login.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/-1080781376/android.package_info.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/-1365956502/android.sqflite.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/-1519112376/android.multi_image_picker.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/-1839930269/android.webview_flutter.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/-2047168574/android.google_maps_flutter.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/-2125162764/android.device_info_plus.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/-246614271/android.wakelock.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/-329360848/android.video_player.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/-829367773/android.image_picker.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/1142977208/android.get_version.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/1352861371/android.onesignal_flutter.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/1641874648/android.share.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/1824967138/android.vibration.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/1995290254/android.shared_preferences.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/2051518997/android.flutter_plugin_android_lifecycle.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/777566010/android.keyboard_visibility.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/818916222/android.path_provider.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/850280336/android.permission_handler.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/931857890/android.flutter_local_notifications.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fastlane/report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/fastlane/report.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/key.properties" beforeDir="false" afterPath="$PROJECT_DIR$/key.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/naifarm_key.jks" beforeDir="false" afterPath="$PROJECT_DIR$/naifarm_key.jks" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/811e8b679299e3bdee759186054ff640/gen_localizations.stamp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/app/generated/not_namespaced_r_class_sources/developmentDebug/r/androidx/activity/R.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/app/generated/not_namespaced_r_class_sources/developmentDebug/r/androidx/appcompat/R.java" beforeDir="false" />
@@ -4054,25 +4072,48 @@
       <change beforePath="$PROJECT_DIR$/../build/app/tmp/kotlin-classes/developmentRelease/com/dotsocket/naifarm/MainActivity.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/app/tmp/packLibsflutterBuildDevelopmentDebug/MANIFEST.MF" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/app/tmp/packLibsflutterBuildDevelopmentRelease/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/../build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/.transforms/1b93a8565346e962ea088eb59d46537d.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/.transforms/1b93a8565346e962ea088eb59d46537d/full/classes.dex" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/.transforms/6c32e234887bc84705eb2973843386e7.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/generated/source/buildConfig/debug/com/roughike/facebooklogin/facebooklogin/BuildConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/aapt_friendly_merged_manifests/debug/aapt/output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/annotation_processor_list/debug/annotationProcessors.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/compile_library_classes/debug/classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/full_jar/debug/createFullJarDebug/full.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/debug-mergeNativeLibs/merge-state" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/mergeReleaseShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/mergeReleaseShaders/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageDebugAssets/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageReleaseAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageReleaseAssets/merger.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageReleaseResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageReleaseResources/compile-file-map.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageReleaseResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/incremental/packageReleaseResources/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/javac/debug/classes/com/roughike/facebooklogin/facebooklogin/BuildConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/javac/debug/classes/com/roughike/facebooklogin/facebooklogin/FacebookLoginPlugin$FacebookSignInDelegate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/javac/debug/classes/com/roughike/facebooklogin/facebooklogin/FacebookLoginPlugin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/javac/debug/classes/com/roughike/facebooklogin/facebooklogin/FacebookLoginResultDelegate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/javac/debug/classes/com/roughike/facebooklogin/facebooklogin/FacebookLoginResults$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/javac/debug/classes/com/roughike/facebooklogin/facebooklogin/FacebookLoginResults$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/javac/debug/classes/com/roughike/facebooklogin/facebooklogin/FacebookLoginResults$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/javac/debug/classes/com/roughike/facebooklogin/facebooklogin/FacebookLoginResults$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/javac/debug/classes/com/roughike/facebooklogin/facebooklogin/FacebookLoginResults.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/library_java_res/debug/res.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/local_only_symbol_list/debug/parseDebugLibraryResources/R-def.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/merged_manifests/debug/output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/runtime_library_classes/debug/classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/intermediates/symbols/debug/R.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/flutter_facebook_login/outputs/logs/manifest-merger-release-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/flutter_facebook_login/outputs/logs/manifest-merger-release-report.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-development-iphonesimulator/FBSDKCoreKit/FBSDKCoreKit.framework.dSYM/Contents/Info.plist" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-development-iphonesimulator/FBSDKCoreKit/FBSDKCoreKit.framework.dSYM/Contents/Resources/DWARF/FBSDKCoreKit" beforeDir="false" />
@@ -5118,69 +5159,147 @@
       <change beforePath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Runner" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/_CodeSignature/CodeResources" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/pod_inputs.fingerprint" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/last_build_run.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/path_provider/.transforms/41d5b4827df367dc29027341ba322eff.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/path_provider/.transforms/41d5b4827df367dc29027341ba322eff/full/classes.dex" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/path_provider/.transforms/b03c5fe1c4e940656cffe452f2f4461c.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/generated/source/buildConfig/debug/io/flutter/plugins/pathprovider/BuildConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/aapt_friendly_merged_manifests/debug/aapt/output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/annotation_processor_list/debug/annotationProcessors.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/compile_library_classes/debug/classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/full_jar/debug/createFullJarDebug/full.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/debug-mergeNativeLibs/merge-state" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/mergeReleaseShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/mergeReleaseShaders/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageDebugAssets/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageReleaseAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageReleaseAssets/merger.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageReleaseResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageReleaseResources/compile-file-map.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageReleaseResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/incremental/packageReleaseResources/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/javac/debug/classes/io/flutter/plugins/pathprovider/BuildConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/javac/debug/classes/io/flutter/plugins/pathprovider/PathProviderPlugin$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/javac/debug/classes/io/flutter/plugins/pathprovider/PathProviderPlugin$UiThreadExecutor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/javac/debug/classes/io/flutter/plugins/pathprovider/PathProviderPlugin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/javac/debug/classes/io/flutter/plugins/pathprovider/StorageDirectoryMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/library_java_res/debug/res.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/local_only_symbol_list/debug/parseDebugLibraryResources/R-def.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/path_provider/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/merged_manifests/debug/output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/runtime_library_classes/debug/classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/intermediates/symbols/debug/R.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/path_provider/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/path_provider/outputs/logs/manifest-merger-release-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/path_provider/outputs/logs/manifest-merger-release-report.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/shared_preferences/.transforms/b629f1ff34a1e8db7279954971153ef0.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/shared_preferences/.transforms/f65ef8615bf7e53ff684f475aaa10dc1.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/shared_preferences/.transforms/f65ef8615bf7e53ff684f475aaa10dc1/full/classes.dex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/generated/source/buildConfig/debug/io/flutter/plugins/sharedpreferences/BuildConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/aapt_friendly_merged_manifests/debug/aapt/output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/annotation_processor_list/debug/annotationProcessors.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/compile_library_classes/debug/classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/full_jar/debug/createFullJarDebug/full.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/debug-mergeNativeLibs/merge-state" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/mergeReleaseShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/mergeReleaseShaders/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageDebugAssets/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageReleaseAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageReleaseAssets/merger.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageReleaseResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageReleaseResources/compile-file-map.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageReleaseResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/incremental/packageReleaseResources/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/javac/debug/classes/io/flutter/plugins/sharedpreferences/BuildConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/javac/debug/classes/io/flutter/plugins/sharedpreferences/MethodCallHandlerImpl$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/javac/debug/classes/io/flutter/plugins/sharedpreferences/MethodCallHandlerImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/javac/debug/classes/io/flutter/plugins/sharedpreferences/SharedPreferencesPlugin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/library_java_res/debug/res.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/local_only_symbol_list/debug/parseDebugLibraryResources/R-def.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/merged_manifests/debug/output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/runtime_library_classes/debug/classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/intermediates/symbols/debug/R.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/shared_preferences/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/shared_preferences/outputs/logs/manifest-merger-release-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/shared_preferences/outputs/logs/manifest-merger-release-report.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/sqflite/.transforms/ac7d69c7e0430b4678a403baedbbd693.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/sqflite/.transforms/ac7d69c7e0430b4678a403baedbbd693/full/classes.dex" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/sqflite/.transforms/d05736cdda988a9d5e29e64e02664052.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/generated/source/buildConfig/debug/com/tekartik/sqflite/BuildConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/aapt_friendly_merged_manifests/debug/aapt/output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/annotation_processor_list/debug/annotationProcessors.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/compile_library_classes/debug/classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/compile_only_not_namespaced_r_class_jar/debug/R.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/full_jar/debug/createFullJarDebug/full.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/debug-mergeNativeLibs/merge-state" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/mergeReleaseShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/mergeReleaseShaders/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageDebugAssets/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageReleaseAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageReleaseAssets/merger.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageReleaseResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageReleaseResources/compile-file-map.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageReleaseResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/incremental/packageReleaseResources/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/BuildConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/Constant.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/Database$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/Database.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/LogLevel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin$BgResult$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin$BgResult$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin$BgResult$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin$BgResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqflitePlugin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/SqlCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/dev/Debug.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/operation/BaseOperation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/operation/BaseReadOperation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/operation/BatchOperation$BatchOperationResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/operation/BatchOperation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/operation/ExecuteOperation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/operation/MethodCallOperation$Result.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/operation/MethodCallOperation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/operation/Operation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/operation/OperationResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/javac/debug/classes/com/tekartik/sqflite/operation/SqlErrorInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/library_java_res/debug/res.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/local_only_symbol_list/debug/parseDebugLibraryResources/R-def.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/sqflite/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/merged_manifests/debug/output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/runtime_library_classes/debug/classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/intermediates/symbols/debug/R.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/sqflite/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/sqflite/outputs/logs/manifest-merger-release-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/sqflite/outputs/logs/manifest-merger-release-report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/model/pojo/response/NotificationOneSignal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/model/pojo/response/NotificationOneSignal.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/ui/splash/ConnectErrorView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/ui/splash/ConnectErrorView.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/utility/OneSignalCall.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/utility/OneSignalCall.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../naifarm.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../naifarm.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -5193,62 +5312,23 @@
       <ProjectState />
     </projectState>
   </component>
-  <component name="ExternalProjectsManager">
-    <system id="GRADLE">
-      <state>
-        <task path="$PROJECT_DIR$/app">
-          <activation />
-        </task>
-        <projects_view>
-          <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="android" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="android" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="android" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="android" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="android" type="c8890929:TasksNode$1" />
-              </path>
-            </expand>
-            <select />
-          </tree_state>
-        </projects_view>
-      </state>
-    </system>
-  </component>
-  <component name="GenerateSignedApkSettings">
-    <option name="EXPORT_PRIVATE_KEY" value="false" />
-    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/naifarm_key.jks" />
-    <option name="KEY_ALIAS" value="naifarm_key" />
-    <option name="REMEMBER_PASSWORDS" value="true" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1q5w1TwrWQ9dA50Q5odcqJeMyl1" />
+  <component name="ProjectId" id="1q8zGz5T9od218KPWcvNtBJYt9s" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="BundleExportedModule" value="android.app" />
-    <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/app" />
-    <property name="ExportApk.BuildVariants" value="stagingRelease" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="project.structure.last.edited" value="SDK Location" />
@@ -5257,7 +5337,7 @@
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunManager" selected="Android App.app">
+  <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -5322,60 +5402,28 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="android:app [signingReport]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="signingReport" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Gradle.android:app [signingReport]" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="304fd93a-f221-46cb-bee6-1ea1233c0867" name="Default Changelist" comment="" />
-      <created>1616382543538</created>
+      <changelist id="8d8cd548-8788-4cc9-b26c-6f53666fc493" name="Default Changelist" comment="" />
+      <created>1616475913015</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1616382543538</updated>
+      <updated>1616475913015</updated>
     </task>
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1640" height="255" key="GridCell.Tab.0.bottom" timestamp="1616383546003">
+    <state x="304" y="169" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1616477228283">
       <screen x="0" y="25" width="1680" height="971" />
     </state>
-    <state width="1640" height="255" key="GridCell.Tab.0.bottom/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1616383546003" />
-    <state width="1640" height="255" key="GridCell.Tab.0.center" timestamp="1616383546002">
+    <state x="304" y="169" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1616477228283" />
+    <state x="612" y="230" key="#com.intellij.ide.util.MemberChooser" timestamp="1616476983678">
       <screen x="0" y="25" width="1680" height="971" />
     </state>
-    <state width="1640" height="255" key="GridCell.Tab.0.center/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1616383546002" />
-    <state width="1640" height="255" key="GridCell.Tab.0.left" timestamp="1616383546001">
-      <screen x="0" y="25" width="1680" height="971" />
-    </state>
-    <state width="1640" height="255" key="GridCell.Tab.0.left/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1616383546001" />
-    <state width="1640" height="255" key="GridCell.Tab.0.right" timestamp="1616383546002">
-      <screen x="0" y="25" width="1680" height="971" />
-    </state>
-    <state width="1640" height="255" key="GridCell.Tab.0.right/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1616383546002" />
+    <state x="612" y="230" key="#com.intellij.ide.util.MemberChooser/0.25.1680.971/1680.25.1920.1055@0.25.1680.971" timestamp="1616476983678" />
   </component>
 </project>
