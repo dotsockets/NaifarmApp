@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
@@ -59,7 +60,6 @@ class OneSignalCall {
   static oneSignalReceivedHandler(BuildContext context) async {
     OneSignal.shared
         .setNotificationReceivedHandler((OSNotification notification) async {
-
       var item = NotificationOneSignal.fromJson(
           jsonDecode(notification.payload.rawPayload['custom']));
       Usermanager().getUser().then((value) => context
@@ -93,11 +93,11 @@ class OneSignalCall {
       var item = NotificationOneSignal.fromJson(
           jsonDecode(result.notification.payload.rawPayload['custom']));
 
-      if (item.item.type=="Shop") {
+      if (item.item.type == "Shop") {
         AppRoute.orderDetail(context,
             orderData: OrderData(id: int.parse(item.item.id)),
             typeView: OrderViewType.Shop);
-      }else if(item.item.type=="Customer") {
+      } else if (item.item.type == "Customer") {
         AppRoute.orderDetail(context,
             orderData: OrderData(id: int.parse(item.item.id)),
             typeView: OrderViewType.Purchase);
@@ -112,7 +112,8 @@ class OneSignalCall {
     }
   }
 
-  static Future cancelNotification(String slag, int ref) async {
+  static Future cancelNotification(String slag, int ref,
+      {String orderNumber}) async {
     final FlutterLocalNotificationsPlugin notificationsPlugin =
         FlutterLocalNotificationsPlugin();
     NaiFarmLocalStorage.getOneSiganlCache().then((data) {
@@ -124,5 +125,30 @@ class OneSignalCall {
         }
       }
     });
+    if (Device.get().isAndroid) {
+      final List<ActiveNotification> activeNotifications =
+          await FlutterLocalNotificationsPlugin()
+              .resolvePlatformSpecificImplementation<
+                  AndroidFlutterLocalNotificationsPlugin>()
+              ?.getActiveNotifications();
+      if (activeNotifications.length > 0) {
+        activeNotifications.forEach((noti) {
+          if (slag == 'meView' &&
+              (noti.body.contains('shop is down') ||
+                  noti.body.contains('back to LIVE'))) {
+            notificationsPlugin.cancel(noti.id);
+          } else {
+            if (noti.body.contains('#') && orderNumber != null) {
+              final startIndex = noti.body.indexOf('#');
+              final endIndex = noti.body.indexOf(']', startIndex + 1);
+              final notiId = noti.body.substring(startIndex + 1, endIndex);
+              if (orderNumber.replaceAll('#', '') == notiId) {
+                notificationsPlugin.cancel(noti.id);
+              }
+            }
+          }
+        });
+      }
+    }
   }
 }

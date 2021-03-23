@@ -41,7 +41,8 @@ class _OrderViewState extends State<OrderView> {
   bool onUpload = false;
   init() {
     if (bloc == null && productBloc == null) {
-      OneSignalCall.cancelNotification("orderView", widget.orderData.id);
+      OneSignalCall.cancelNotification("orderView", widget.orderData.id,
+          orderNumber: widget.orderData.orderNumber);
       bloc = OrdersBloc(AppProvider.getApplication(context));
       productBloc = ProductBloc(AppProvider.getApplication(context));
 
