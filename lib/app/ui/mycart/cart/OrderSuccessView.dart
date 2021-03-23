@@ -84,8 +84,8 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                               SvgPicture.asset(
                                 'assets/images/svg/checkmark.svg',
                                 color: Colors.white,
-                                width: 6.0.w,
-                                height: 6.0.w,
+                                width: SizeUtil.iconLargeSize().w,
+                                height: SizeUtil.iconLargeSize().w,
                               ),
                               SizedBox(
                                 width: 2.0.w,

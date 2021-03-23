@@ -72,53 +72,56 @@ class _MyProductViewState extends State<MyProductView> {
           key: _scaffoldKey,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
-            child: AppBar(
-              iconTheme: IconThemeData(
-                color: Colors.white, //change your color here
-              ),
-              backgroundColor: ThemeColor.primaryColor(),
-              title: Text(
-                LocaleKeys.me_title_my_product.tr(),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleFontSize().sp,
-                    fontWeight: FontWeight.w600),
-              ),
-              centerTitle: true,
-              actions: [
-                IconButton(
-                    padding: EdgeInsets.only(
-                        right: Device.get().isPhone ? 0 : 5.0.w),
-                    icon: Icon(
-                      Icons.search,
-                      size: SizeUtil.mediumIconSize().w,
-                      color: Colors.white,
+            child: Container(
+              child: AppBar(
+                toolbarHeight:6.5.h,
+                iconTheme: IconThemeData(
+                  color: Colors.white, //change your color here
+                ),
+                backgroundColor: ThemeColor.primaryColor(),
+                title: Text(
+                  LocaleKeys.me_title_my_product.tr(),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: FunctionHelper.fontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp,
+                      fontWeight: FontWeight.w600),
+                ),
+                centerTitle: true,
+                actions: [
+                  IconButton(
+                      padding: EdgeInsets.only(
+                          right: Device.get().isPhone ? 0 : 3.0.w),
+                      icon: Icon(
+                        Icons.search,
+                        size: SizeUtil.mediumIconSize().w,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        AppRoute.searchMyProductView(
+                            context: context,
+                            shopID: widget.shopId,
+                            tabNum: tabNum);
+                      }),
+                  Container(
+                    padding: EdgeInsets.only(right:SizeUtil.paddingCart().w,left: SizeUtil.paddingItem().w),
+                    child: IconButton(
+                      icon: Icon(
+                        FontAwesome.ellipsis_v,
+                        size: SizeUtil.mediumIconSize().w,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        buttonDialog(context,
+                            message: [LocaleKeys.attributes_set.tr()], onClick: () {
+                          Navigator.of(context).pop();
+                          AppRoute.attribute(context: context);
+                        });
+                      },
                     ),
-                    onPressed: () {
-                      AppRoute.searchMyProductView(
-                          context: context,
-                          shopID: widget.shopId,
-                          tabNum: tabNum);
-                    }),
-                Container(
-                  padding: EdgeInsets.only(right:SizeUtil.paddingCart().w,left: SizeUtil.paddingItem().w),
-                  child: IconButton(
-                    icon: Icon(
-                      FontAwesome.ellipsis_v,
-                      size: SizeUtil.mediumIconSize().w,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      buttonDialog(context,
-                          message: [LocaleKeys.attributes_set.tr()], onClick: () {
-                        Navigator.of(context).pop();
-                        AppRoute.attribute(context: context);
-                      });
-                    },
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
           body: Column(

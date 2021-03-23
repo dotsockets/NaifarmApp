@@ -138,21 +138,23 @@ class _CartAaddressViewState extends State<CartAaddressView> {
             children: [
               Expanded(
                 flex: 1,
-                child: Container(
-                  padding: EdgeInsets.all(2.0.w),
-                  child: item.select
-                      ? SvgPicture.asset(
-                          'assets/images/svg/checkmark.svg',
-                          width: 6.0.w,
-                          height: 6.0.w,
-                          color: ThemeColor.primaryColor(),
-                        )
-                      : SvgPicture.asset(
-                          'assets/images/svg/uncheckmark.svg',
-                          width: 6.0.w,
-                          height: 6.0.w,
-                          color: Colors.black.withOpacity(0.5),
-                        ),
+                child: Center(
+                  child: Container(
+                    padding: EdgeInsets.all(2.0.w),
+                    child: item.select
+                        ? SvgPicture.asset(
+                            'assets/images/svg/checkmark.svg',
+                            width: SizeUtil.iconLargeSize().w,
+                            height: SizeUtil.iconLargeSize().w,
+                            color: ThemeColor.primaryColor(),
+                          )
+                        : SvgPicture.asset(
+                            'assets/images/svg/uncheckmark.svg',
+                            width: SizeUtil.iconLargeSize().w,
+                            height: SizeUtil.iconLargeSize().w,
+                            color: Colors.black.withOpacity(0.5),
+                          ),
+                  ),
                 ),
               ),
               Expanded(
