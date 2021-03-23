@@ -44,7 +44,7 @@ class Env {
       EasyLocalization(
           supportedLocales: [Locale('en', 'US'), Locale('th', 'TH')],
           path: 'resources/langs', // <-- change patch to your
-          fallbackLocale: Locale('en', 'US'),
+          fallbackLocale: Locale('th', 'TH'),
           child: MultiBlocProvider(
             providers: [
               BlocProvider(

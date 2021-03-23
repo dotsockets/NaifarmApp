@@ -102,6 +102,7 @@ class OneSignalCall {
             orderData: OrderData(id: int.parse(item.item.id)),
             typeView: OrderViewType.Purchase);
       }
+      
     });
   }
 
