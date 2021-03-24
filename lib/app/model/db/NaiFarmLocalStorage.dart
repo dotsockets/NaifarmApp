@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/pojo/response/ProductHistoryCache.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMoreCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProductOrderCache.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 
 class NaiFarmLocalStorage {
@@ -29,28 +30,11 @@ class NaiFarmLocalStorage {
   static String naiFarmHiSTORY = "NaiFarm_history";
   static String naiFarmOrder = "NaiFarm_order";
   static String naiFarmOneSiganl = "NaiFarm_onesignal";
-  static String naiFarmNoti = "NaiFarm_noti";
+  static String naiFarmWishList = "WishList";
 
-
-  static Future<void> saveNotiCache(NotiCache notiCache) async {
-    storage =  LocalStorage(naiFarmStorage);
-    await storage.ready;
-    storage.setItem(naiFarmNoti, notiCache);
-  }
-
-  static Future<NotiCache> getNotiCache() async {
-    LocalStorage storage = new LocalStorage(naiFarmStorage);
-    await storage.ready;
-    Map<String, dynamic> data = storage.getItem(naiFarmNoti);
-    if (data == null) {
-      return null;
-    }
-    NotiCache value = NotiCache.fromJson(data);
-    return value;
-  }
-
-  static Future<void> saveOneSiganlCache(OneSignalNoificationId oneSignalNoificationId) async {
-    storage =  LocalStorage(naiFarmStorage);
+  static Future<void> saveOneSiganlCache(
+      OneSignalNoificationId oneSignalNoificationId) async {
+    storage = LocalStorage(naiFarmStorage);
     await storage.ready;
     storage.setItem(naiFarmOneSiganl, oneSignalNoificationId);
   }
@@ -170,6 +154,24 @@ class NaiFarmLocalStorage {
       return null;
     }
     ProductDetailCombin value = ProductDetailCombin.fromJson(data);
+    return value;
+  }
+
+  static Future<void> saveWishListCache(
+      WishlistsRespone wishlistsRespone) async {
+    storage = LocalStorage(naiFarmStorage);
+    await storage.ready;
+    storage.setItem(naiFarmWishList, wishlistsRespone);
+  }
+
+  static Future<WishlistsRespone> getWishListCache() async {
+    LocalStorage storage = new LocalStorage(naiFarmStorage);
+    await storage.ready;
+    Map<String, dynamic> data = storage.getItem(naiFarmWishList);
+    if (data == null) {
+      return null;
+    }
+    WishlistsRespone value = WishlistsRespone.fromJson(data);
     return value;
   }
 
