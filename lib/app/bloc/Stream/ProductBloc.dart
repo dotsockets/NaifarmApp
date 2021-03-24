@@ -429,6 +429,16 @@ class ProductBloc {
         // GetMyWishlists(token: token);
         //Wishlists.add(WishlistsRespone(total: 0));
         onSuccess.add(true);
+
+        NaiFarmLocalStorage.getWishListCache().then((value) {
+          for (var data in value.data) {
+            if (data.id == wishId) {
+              value.data.remove(data);
+              break;
+            }
+          }
+          NaiFarmLocalStorage.saveWishListCache(value);
+        });
       } else {
         onError.add(respone.httpCallBack);
       }
@@ -449,6 +459,10 @@ class ProductBloc {
           List<DataWishlists> data = <DataWishlists>[];
           data.add(item);
           wishlists.add(WishlistsRespone(data: data, total: 1));
+          NaiFarmLocalStorage.getWishListCache().then((value) {
+            value.data.add(data.first);
+            NaiFarmLocalStorage.saveWishListCache(value);
+          });
         } else {
           List<DataWishlists> data = <DataWishlists>[];
           wishlists.add(WishlistsRespone(data: data, total: 0));
