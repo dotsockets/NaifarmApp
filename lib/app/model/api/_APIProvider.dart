@@ -1409,10 +1409,10 @@ class _APIProvider implements APIProvider {
   Future<ApiResult> getWishlistsByProduct(BuildContext context,
       {int productID, String token}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{"productId": productID};
+    final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     try {
-      final _result = await _dio.request<dynamic>('/v1/wishlists',
+      final _result = await _dio.request<dynamic>('/v1/wishlists/product/${productID}',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
@@ -1425,7 +1425,7 @@ class _APIProvider implements APIProvider {
               baseUrl: baseUrl),
           data: _data);
       return ApiResult(
-          respone: WishlistsRespone.fromJson(_result.data),
+          respone: DataWishlists.fromJson(_result.data),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.dioErrorExpction(e);

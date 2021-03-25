@@ -24,10 +24,11 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 // ignore: must_be_immutable
 class ProductInto extends StatelessWidget {
   final ProducItemRespone data;
+  final DataWishlists dataWishlist;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool showBtn;
 
-  ProductInto({Key key, this.data, this.scaffoldKey, this.showBtn = true})
+  ProductInto({Key key, this.data,this.dataWishlist, this.scaffoldKey, this.showBtn = true})
       : super(key: key);
   ProductBloc bloc;
   bool isLogin = true;
@@ -51,29 +52,19 @@ class ProductInto extends StatelessWidget {
         }
       });
 
-      bloc.wishlists.stream.listen((event) {
-        Usermanager().getUser().then((value) => context
-            .read<CustomerCountBloc>()
-            .loadCustomerCount(context, token: value.token));
-      });
+  print("sdcwwcf ${dataWishlist}");
+      if(dataWishlist!=null){
+        bloc.wishlists.add(WishlistsRespone(data: [dataWishlist],total: 1));
+      }
 
-      NaiFarmLocalStorage.getWishListCache().then((value) {
-        if (value != null) {
-          for (var cache in value.data) {
-            if (cache.productId == data.id) {
-              var item =
-                  new WishlistsRespone(data: [cache], total: value.total);
-              bloc.wishlists.add(item);
-              break;
-            }
-          }
-        }
 
-        Usermanager().getUser().then((value) => bloc.getWishlistsByProduct(
-            context,
-            token: value.token,
-            productID: data.id));
-      });
+      // bloc.wishlists.stream.listen((event) {
+      //   Usermanager().getUser().then((value) => context
+      //       .read<CustomerCountBloc>()
+      //       .loadCustomerCount(context, token: value.token));
+      // });
+
+
     }
   }
 
@@ -208,7 +199,7 @@ class ProductInto extends StatelessWidget {
                             }
                           } else {
                             return isLogin
-                                ? likeContent(item: WishlistsRespone())
+                                ? likeContent(item: WishlistsRespone(),context:context )
                                 : likeContentNoLogin(context);
                           }
                         },
@@ -275,7 +266,7 @@ class ProductInto extends StatelessWidget {
       item.total = 0;
       bloc.wishlists.add(item);
       Usermanager().getUser().then((value) =>
-          bloc.deleteWishlists(context, wishId: id, token: value.token));
+          bloc.deleteWishlists(context, productId:  data.id,wishId: id, token: value.token));
     } else {
       Usermanager().getUser().then((value) => bloc.addWishlists(context,
           productId: data.id,

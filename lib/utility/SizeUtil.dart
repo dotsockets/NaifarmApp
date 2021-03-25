@@ -117,7 +117,7 @@ class SizeUtil {
   }
 
   static double paddingCart() {
-    return  Device.get().isPhone ?0:3.0;
+    return  Device.get().isPhone ?2.0:3.0;
   }
   static double paddingItem() {
     return  Device.get().isPhone ?0:1.0;
@@ -155,7 +155,7 @@ class SizeUtil {
   }
 
   static double paddingTitle(){
-    return Device.get().isPhone?0:20;
+    return Device.get().isPhone?15:20;
   }
 
   static double ratingSize(){
