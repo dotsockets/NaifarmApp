@@ -30,7 +30,6 @@ class NaiFarmLocalStorage {
   static String naiFarmHiSTORY = "NaiFarm_history";
   static String naiFarmOrder = "NaiFarm_order";
   static String naiFarmOneSiganl = "NaiFarm_onesignal";
-  static String naiFarmWishList = "WishList";
 
   static Future<void> saveOneSiganlCache(
       OneSignalNoificationId oneSignalNoificationId) async {
@@ -158,23 +157,7 @@ class NaiFarmLocalStorage {
     return value;
   }
 
-  static Future<void> saveWishListCache(
-      WishlistsRespone wishlistsRespone) async {
-    storage = LocalStorage(naiFarmStorage);
-    await storage.ready;
-    storage.setItem(naiFarmWishList, wishlistsRespone);
-  }
 
-  static Future<WishlistsRespone> getWishListCache() async {
-    LocalStorage storage = new LocalStorage(naiFarmStorage);
-    await storage.ready;
-    Map<String, dynamic> data = storage.getItem(naiFarmWishList);
-    if (data == null) {
-      return null;
-    }
-    WishlistsRespone value = WishlistsRespone.fromJson(data);
-    return value;
-  }
 
   static Future<void> saveHomeData(HomeObjectCombine data) async {
     storage = LocalStorage(naiFarmStorage);
