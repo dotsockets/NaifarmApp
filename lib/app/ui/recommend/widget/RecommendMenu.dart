@@ -175,7 +175,7 @@ class RecommendMenu extends StatelessWidget {
             {
               // NaiFarmLocalStorage.saveNowPage(2).then((data){
               //
-              //   //onClick(2);
+                onClick(2);
               //         });
 
               Usermanager().isLogin().then((value) async {
