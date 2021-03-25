@@ -439,13 +439,13 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                 child: item.items[indexShopItem].select
                     ? SvgPicture.asset(
                         'assets/images/svg/checkmark.svg',
-                        width: 6.0.w,
-                        height: 6.0.w,
+                        width: SizeUtil.iconLargeSize().w,
+                        height: SizeUtil.iconLargeSize().w,
                       )
                     : SvgPicture.asset(
                         'assets/images/svg/uncheckmark.svg',
-                        width: 6.0.w,
-                        height: 6.0.w,
+                        width: SizeUtil.iconLargeSize().w,
+                        height: SizeUtil.iconLargeSize().w,
                         color: Colors.black.withOpacity(0.5),
                       ),
               ),
@@ -717,13 +717,13 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                             bloc.cartList.value.selectAll
                                 ? SvgPicture.asset(
                                     'assets/images/svg/checkmark.svg',
-                                    width: 6.0.w,
-                                    height: 6.0.w,
+                                    width: SizeUtil.iconLargeSize().w,
+                                    height: SizeUtil.iconLargeSize().w,
                                   )
                                 : SvgPicture.asset(
                                     'assets/images/svg/uncheckmark.svg',
-                                    width: 6.0.w,
-                                    height: 6.0.w,
+                                    width: SizeUtil.iconLargeSize().w,
+                                    height: SizeUtil.iconLargeSize().w,
                                     color: Colors.black.withOpacity(0.5)),
                             SizedBox(width: 3.0.w),
                             Text(LocaleKeys.cart_all.tr(),
@@ -736,14 +736,20 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                       )),
                   Expanded(
                     flex: 2,
-                    child: Text(
-                        LocaleKeys.cart_quantity.tr() +
-                            " ${sumQuantity(cartResponse: cartResponse)} " +
-                            LocaleKeys.cart_item.tr(),
-                        style: FunctionHelper.fontTheme(
-                            fontSize: SizeUtil.titleFontSize().sp,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                            LocaleKeys.cart_quantity.tr() +
+                                " ${sumQuantity(cartResponse: cartResponse)} " +
+                                LocaleKeys.cart_item.tr(),
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black)),
+                        SizedBox(width: 1.0.w,)
+                      ],
+                    ),
                   )
                 ],
               ),

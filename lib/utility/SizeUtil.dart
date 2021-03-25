@@ -40,7 +40,7 @@ class SizeUtil {
   }
 
   static double mediumIconSize() {
-    return Device.get().isPhone ? 6.0 : 5.0;
+    return Device.get().isPhone ? 6.0 : 3.0;
   }
 
   static double largeIconSize() {
@@ -48,7 +48,7 @@ class SizeUtil {
   }
 
   static double switchHeight() {
-    return Device.get().isPhone ? 30.0 : 40.0;
+    return Device.get().isPhone ? 30.0 : 35.0;
   }
 
   static double switchWidth() {
