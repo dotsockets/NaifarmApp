@@ -406,8 +406,8 @@ class ProductBloc {
                 product: item.data.first.product,
                 productId: item.data.first.productId));
             value.total = item.total;
-            NaiFarmLocalStorage.saveWishListCache(value);
           }
+          NaiFarmLocalStorage.saveWishListCache(value);
           wishlists.add(item);
         } else {
           NaiFarmLocalStorage.saveWishListCache(item)

@@ -281,9 +281,6 @@ class ProductInto extends StatelessWidget {
           productId: data.id,
           inventoryId: data.inventories[0].id,
           token: value.token));
-      item.data = <DataWishlists>[];
-      item.total = 1;
-      bloc.wishlists.add(item);
     }
     return !isLiked;
   }
