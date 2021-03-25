@@ -393,7 +393,7 @@ class ProductBloc {
           if(respone.httpCallBack.status==200){
             var item = (respone.respone as DataWishlists);
 
-           print("wrfcd ${item}");
+         // print("wrfcd ${item}");
           }
 
     });
