@@ -10,6 +10,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/config/Env.dart';
@@ -56,10 +57,23 @@ class ProductInto extends StatelessWidget {
             .loadCustomerCount(context, token: value.token));
       });
 
-      Usermanager().getUser().then((value) => bloc.getWishlistsByProduct(
-          context,
-          token: value.token,
-          productID: data.id));
+      NaiFarmLocalStorage.getWishListCache().then((value) {
+        if (value != null) {
+          for (var cache in value.data) {
+            if (cache.productId == data.id) {
+              var item =
+                  new WishlistsRespone(data: [cache], total: value.total);
+              bloc.wishlists.add(item);
+              break;
+            }
+          }
+        }
+
+        Usermanager().getUser().then((value) => bloc.getWishlistsByProduct(
+            context,
+            token: value.token,
+            productID: data.id));
+      });
     }
   }
 
@@ -220,7 +234,8 @@ class ProductInto extends StatelessWidget {
             color: Colors.black.withOpacity(0.55),
           )),
       onTap: () {
-        AppRoute.login(context,isCallBack: true, isHeader: true, homeCallBack: (bool fix) {
+        AppRoute.login(context, isCallBack: true, isHeader: true,
+            homeCallBack: (bool fix) {
           iSLogin();
         });
       },

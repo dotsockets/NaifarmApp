@@ -49,7 +49,8 @@ class _NotiCusState extends State<NotiCus>
       bloc.onError.stream.listen((event) {
         //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
 
-        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event);
       });
 
       bloc.onSuccess.stream.listen((event) {
@@ -58,23 +59,7 @@ class _NotiCusState extends State<NotiCus>
 
       //  bloc.onSuccess.add(widget.notiRespone);
 
-
     }
-    NaiFarmLocalStorage.getNotiCache().then((value){
-       if(value!=null){
-         for(var data in value.notidata){
-           if(data.typeView=="customer"){
-             bloc.productMore.addAll(data.notiRespone.data);
-             bloc.onSuccess.add(NotiRespone(
-                 data: bloc.productMore,
-                 limit: data.notiRespone.limit,
-                 page: data.notiRespone.page,
-                 total: data.notiRespone.total));
-             break;
-           }
-         }
-       }
-    });
     page = 1;
     bloc.refreshProducts(context, group: "customer", limit: limit, page: page);
 
@@ -228,7 +213,6 @@ class _NotiCusState extends State<NotiCus>
                     .values
                     .toList(),
               ),
-
               if (item.data.length != item.total && item.data.length > limit)
                 Container(
                   padding: EdgeInsets.all(20),
@@ -252,7 +236,7 @@ class _NotiCusState extends State<NotiCus>
                   ),
                 ),
               SizedBox(
-                height: widget.btnBack?0.0.h:13.0.h,
+                height: widget.btnBack ? 0.0.h : 13.0.h,
               )
             ],
           ),
@@ -405,7 +389,7 @@ class _NotiCusState extends State<NotiCus>
           ),
         ],
       );
-    }  else if (item.type == "App\\Notifications\\Order\\OrderCreated") {
+    } else if (item.type == "App\\Notifications\\Order\\OrderCreated") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -514,9 +498,12 @@ class _NotiCusState extends State<NotiCus>
                 //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
                 //     style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
-                    text: " ${LocaleKeys.noti_shipped2.tr()}${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.readAt!=null?item.readAt:DateTime.now().toString()))} ${LocaleKeys.noti_cus_complete_confirm.tr()}",
-                    style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black.withOpacity(0.8))),
-
+                    text:
+                        " ${LocaleKeys.noti_shipped2.tr()}${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.readAt != null ? item.readAt : DateTime.now().toString()))} ${LocaleKeys.noti_cus_complete_confirm.tr()}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black.withOpacity(0.8))),
               ],
             ),
           ),
@@ -567,7 +554,7 @@ class _NotiCusState extends State<NotiCus>
           // Text("และต้องชำระเงินก่อนวันที่ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8)),)
         ],
       );
-    }else if (item.type == "App\\Notifications\\Order\\OrderCanceled") {
+    } else if (item.type == "App\\Notifications\\Order\\OrderCanceled") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -595,7 +582,7 @@ class _NotiCusState extends State<NotiCus>
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(
                     text:
-                    " ${LocaleKeys.noti_shop_status.tr()} ${item.meta.status} ${LocaleKeys.noti_cus_cancel_status.tr()}",
+                        " ${LocaleKeys.noti_shop_status.tr()} ${item.meta.status} ${LocaleKeys.noti_cus_cancel_status.tr()}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -605,7 +592,7 @@ class _NotiCusState extends State<NotiCus>
           ),
         ],
       );
-    }else {
+    } else {
       return SizedBox();
     }
   }

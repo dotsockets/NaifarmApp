@@ -390,7 +390,30 @@ class ProductBloc {
             .appStoreAPIRepository
             .getWishlistsByProduct(context, productID: productID, token: token))
         .listen((respone) {
-      wishlists.add((respone.respone as WishlistsRespone));
+      NaiFarmLocalStorage.getWishListCache().then((value) {
+        var item = (respone.respone as WishlistsRespone);
+        if (value != null) {
+          for (var data in value.data) {
+            if (data.productId == productID) {
+              value.data.remove(data);
+              break;
+            }
+          }
+          if (item.data.length > 0) {
+            value.data.add(DataWishlists(
+                id: item.data.first.id,
+                inventoryId: item.data.first.inventoryId,
+                product: item.data.first.product,
+                productId: item.data.first.productId));
+            value.total = item.total;
+            NaiFarmLocalStorage.saveWishListCache(value);
+          }
+          wishlists.add(item);
+        } else {
+          NaiFarmLocalStorage.saveWishListCache(item)
+              .then((result) => wishlists.add(item));
+        }
+      });
     });
     _compositeSubscription.add(subscription);
   }
@@ -406,6 +429,16 @@ class ProductBloc {
         // GetMyWishlists(token: token);
         //Wishlists.add(WishlistsRespone(total: 0));
         onSuccess.add(true);
+
+        NaiFarmLocalStorage.getWishListCache().then((value) {
+          for (var data in value.data) {
+            if (data.id == wishId) {
+              value.data.remove(data);
+              break;
+            }
+          }
+          NaiFarmLocalStorage.saveWishListCache(value);
+        });
       } else {
         onError.add(respone.httpCallBack);
       }
@@ -426,6 +459,10 @@ class ProductBloc {
           List<DataWishlists> data = <DataWishlists>[];
           data.add(item);
           wishlists.add(WishlistsRespone(data: data, total: 1));
+          NaiFarmLocalStorage.getWishListCache().then((value) {
+            value.data.add(data.first);
+            NaiFarmLocalStorage.saveWishListCache(value);
+          });
         } else {
           List<DataWishlists> data = <DataWishlists>[];
           wishlists.add(WishlistsRespone(data: data, total: 0));
@@ -922,7 +959,7 @@ class ProductBloc {
       String token,
       bool addNow = false,
       bool onload = true}) {
-   // bayNow.clear();
+    // bayNow.clear();
     if (onload) {
       onLoad.add(true);
     }
