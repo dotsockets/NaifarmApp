@@ -46,7 +46,8 @@ class _NotiShopState extends State<NotiShop>
     if (bloc == null) {
       bloc = NotiBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
-        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
@@ -55,22 +56,6 @@ class _NotiShopState extends State<NotiShop>
       //  bloc.onSuccess.add(widget.notiRespone);
 
     }
-
-    NaiFarmLocalStorage.getNotiCache().then((value){
-      if(value!=null){
-        for(var data in value.notidata){
-          if(data.typeView=="shop"){
-            bloc.productMore.addAll(data.notiRespone.data);
-            bloc.onSuccess.add(NotiRespone(
-                data: bloc.productMore,
-                limit: data.notiRespone.limit,
-                page: data.notiRespone.page,
-                total: data.notiRespone.total));
-            break;
-          }
-        }
-      }
-    });
     page = 1;
     bloc.refreshProducts(context, group: "shop", limit: limit, page: page);
 
@@ -242,7 +227,7 @@ class _NotiShopState extends State<NotiShop>
                   ),
                 ),
               SizedBox(
-                height: widget.btnBack?0.0.h:13.0.h,
+                height: widget.btnBack ? 0.0.h : 13.0.h,
               )
             ],
           ),
@@ -506,17 +491,31 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${LocaleKeys.noti_rate1.tr()}${item.meta.order}  ${item.meta.image!=null?"${LocaleKeys.noti_shop_pay_upload.tr()}!":"${LocaleKeys.noti_shop_pay.tr()}"}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
+          Text(
+              "${LocaleKeys.noti_rate1.tr()}${item.meta.order}  ${item.meta.image != null ? "${LocaleKeys.noti_shop_pay_upload.tr()}!" : "${LocaleKeys.noti_shop_pay.tr()}"}",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
           SizedBox(height: 0.5.h),
           RichText(
             text: new TextSpan(
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text:"${item.meta.image!=null?"${item.meta.customer} ${LocaleKeys.noti_shop_pay_upload.tr()}":"${LocaleKeys.noti_shop_pay.tr()}"} ",
-                    style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                new TextSpan(text: "[${LocaleKeys.order_detail_order_num.tr()} ${item.meta.order} ]",style: FunctionHelper.fontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-
+                    text:
+                        "${item.meta.image != null ? "${item.meta.customer} ${LocaleKeys.noti_shop_pay_upload.tr()}" : "${LocaleKeys.noti_shop_pay.tr()}"} ",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black)),
+                new TextSpan(
+                    text:
+                        "[${LocaleKeys.order_detail_order_num.tr()} ${item.meta.order} ]",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: (SizeUtil.titleSmallFontSize() - 1).sp,
+                        fontWeight: FontWeight.bold,
+                        color: ThemeColor.secondaryColor())),
               ],
             ),
           ),
@@ -528,29 +527,8 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${LocaleKeys.noti_rate1.tr()}${item.meta.order}  ${item.meta.image!=null?"${LocaleKeys.noti_shop_pay_upload.tr()}!":"${LocaleKeys.noti_shop_pay.tr()}"}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.bold,color: Colors.black)),
-          SizedBox(height: 0.5.h),
-          RichText(
-            text: new TextSpan(
-              style: DefaultTextStyle.of(context).style,
-              children: <TextSpan>[
-                new TextSpan(
-                    text:"${item.meta.image!=null?"${item.meta.customer} ${LocaleKeys.noti_shop_pay_upload.tr()}":"${LocaleKeys.noti_shop_pay.tr()}"} ",
-                    style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                new TextSpan(text: "[${LocaleKeys.order_detail_order_num.tr()} ${item.meta.order} ]",style: FunctionHelper.fontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-
-              ],
-            ),
-          ),
-          // Text("${item.meta.customer} อัพโหลดเอกสารการชำระเงิน [หมายเลขคำสั่งซื้อ ${item.meta.order} ] กรุณาตรวจสอบรายละเอียด", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-        ],
-      );
-    } else if (item.type == "App\\Notifications\\Order\\MerchantOrderCanceledNotification") {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
           Text(
-              "${LocaleKeys.recommend_notification.tr()}: ${item.meta.status}",
+              "${LocaleKeys.noti_rate1.tr()}${item.meta.order}  ${item.meta.image != null ? "${LocaleKeys.noti_shop_pay_upload.tr()}!" : "${LocaleKeys.noti_shop_pay.tr()}"}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -561,16 +539,59 @@ class _NotiShopState extends State<NotiShop>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text:"${item.meta.customerName} ${LocaleKeys.noti_shop_cancel.tr()}",
-                    style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
-                new TextSpan(text: " ${item.meta.order}",style: FunctionHelper.fontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.bold,color: ThemeColor.secondaryColor())),
-
+                    text:
+                        "${item.meta.image != null ? "${item.meta.customer} ${LocaleKeys.noti_shop_pay_upload.tr()}" : "${LocaleKeys.noti_shop_pay.tr()}"} ",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black)),
+                new TextSpan(
+                    text:
+                        "[${LocaleKeys.order_detail_order_num.tr()} ${item.meta.order} ]",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: (SizeUtil.titleSmallFontSize() - 1).sp,
+                        fontWeight: FontWeight.bold,
+                        color: ThemeColor.secondaryColor())),
+              ],
+            ),
+          ),
+          // Text("${item.meta.customer} อัพโหลดเอกสารการชำระเงิน [หมายเลขคำสั่งซื้อ ${item.meta.order} ] กรุณาตรวจสอบรายละเอียด", style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+        ],
+      );
+    } else if (item.type ==
+        "App\\Notifications\\Order\\MerchantOrderCanceledNotification") {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("${LocaleKeys.recommend_notification.tr()}: ${item.meta.status}",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text:
+                        "${item.meta.customerName} ${LocaleKeys.noti_shop_cancel.tr()}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black)),
+                new TextSpan(
+                    text: " ${item.meta.order}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: (SizeUtil.titleSmallFontSize() - 1).sp,
+                        fontWeight: FontWeight.bold,
+                        color: ThemeColor.secondaryColor())),
               ],
             ),
           ),
         ],
       );
-    }else {
+    } else {
       return SizedBox();
     }
   }

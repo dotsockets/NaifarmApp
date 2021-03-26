@@ -232,7 +232,7 @@ class Inventories {
     preorderMsg = json['preorderMsg'];
     preorderStart = json['preorderStart'];
     preorderEnd = json['preorderEnd'];
-    freeShipping = json['freeShipping'];
+    freeShipping = json['freeShipping'].toString();
     minOrderQuantity = json['minOrderQuantity'];
     linkedItems = json['linkedItems'];
     if (json['image'] != null) {

@@ -28,8 +28,6 @@ class NotiBloc {
       String sort,
       int limit,
       String token}) async {
-
-
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.getNotificationByGroup(context,
                 group: group,
@@ -44,24 +42,6 @@ class NotiBloc {
         }
         // onSuccess.add((respone.respone as NotiRespone));
         var item = (respone.respone as NotiRespone);
-        if (item.data != null && page==1) {
-          NaiFarmLocalStorage.getNotiCache().then((value){
-             if(value!=null){
-               for(var data in value.notidata){
-                  if(data.typeView==group){
-                    value.notidata.remove(data);
-                    break;
-                  }
-               }
-               value.notidata.add(NotiDataCache(notiRespone: item,typeView: group));
-               NaiFarmLocalStorage.saveNotiCache(value);
-             }else{
-               List<NotiDataCache> notidata = <NotiDataCache>[];
-               notidata.add(NotiDataCache(notiRespone: item,typeView: group));
-               NaiFarmLocalStorage.saveNotiCache(NotiCache(notidata: notidata));
-             }
-          });
-        }
         productMore.addAll(item.data);
         onSuccess.add(NotiRespone(
             data: productMore,

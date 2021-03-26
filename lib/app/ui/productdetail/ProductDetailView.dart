@@ -179,6 +179,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
           for (var data in value.item) {
             if (data.productObjectCombine.producItemRespone.id ==
                 widget.productItem.id) {
+              if(data.productObjectCombine.dataWishlists!=null){
+                print("ewfcerwfxxx ${data.productObjectCombine.dataWishlists.id}");
+              }
+
               bloc.zipProductDetail.add(data.productObjectCombine);
               bloc.searchProduct.add(data.searchRespone);
               break;
@@ -187,8 +191,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
         }
 
         Usermanager().getUser().then((value) {
-          bloc.loadProductsPage(context,
-              id: widget.productItem.id, token: value.token);
+          bloc.loadProductsPage(context,id: widget.productItem.id, token: value.token);
         });
       });
     }
@@ -413,6 +416,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                       widget.productItem.image != null
                           ? ProductInto(
                               data: item.producItemRespone,
+                              dataWishlist: item.dataWishlists,
                               scaffoldKey: _scaffoldKey)
                           : SizedBox(),
                       widget.productItem.image != null ? divider() : SizedBox(),
@@ -717,7 +721,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
         item.total = 0;
         bloc.wishlists.add(item);
         Usermanager().getUser().then((value) =>
-            bloc.deleteWishlists(context, wishId: id, token: value.token));
+            bloc.deleteWishlists(context,productId: widget.productItem.id, wishId: id, token: value.token));
       } else {
         Usermanager().getUser().then((value) => bloc.addWishlists(context,
             productId: widget.productItem.id,

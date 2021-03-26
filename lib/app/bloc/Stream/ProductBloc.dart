@@ -390,12 +390,17 @@ class ProductBloc {
             .appStoreAPIRepository
             .getWishlistsByProduct(context, productID: productID, token: token))
         .listen((respone) {
-      wishlists.add((respone.respone as WishlistsRespone));
+          if(respone.httpCallBack.status==200){
+            var item = (respone.respone as DataWishlists);
+
+         // print("wrfcd ${item}");
+          }
+
     });
     _compositeSubscription.add(subscription);
   }
 
-  deleteWishlists(BuildContext context, {int wishId, String token}) {
+  deleteWishlists(BuildContext context, {int productId,int wishId, String token}) {
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
             .deleteWishlists(context, wishId: wishId, token: token))
@@ -405,7 +410,34 @@ class ProductBloc {
       if (respone.httpCallBack.status == 200) {
         // GetMyWishlists(token: token);
         //Wishlists.add(WishlistsRespone(total: 0));
-        onSuccess.add(true);
+
+
+        ProducItemRespone temp_productItem = ProducItemRespone();
+        SearchRespone temp_search= SearchRespone();
+        DataWishlists temp_wishlist = DataWishlists();
+        NaiFarmLocalStorage.getProductDetailCache().then((value) {
+          if (value != null) {
+            for (var data in value.item) {
+              if (data.productObjectCombine.producItemRespone.id == productId) {
+                temp_productItem = data.productObjectCombine.producItemRespone;
+                temp_search = data.searchRespone;
+
+                value.item.remove(data);
+                break;
+              }
+            }
+
+            value.item.add(ProductDetailData(
+                searchRespone: temp_search,
+                productObjectCombine:
+                ProductObjectCombine(producItemRespone: temp_productItem)));
+
+            NaiFarmLocalStorage.saveProductDetailCache(value).then((data) {
+
+              onSuccess.add(true);
+            });
+          }
+        });
       } else {
         onError.add(respone.httpCallBack);
       }
@@ -422,14 +454,37 @@ class ProductBloc {
       if (respone.httpCallBack.status == 200) {
         // GetMyWishlists(token: token); GetWishlistsByProduct
         var item = (respone.respone as DataWishlists);
-        if (item != null) {
-          List<DataWishlists> data = <DataWishlists>[];
-          data.add(item);
-          wishlists.add(WishlistsRespone(data: data, total: 1));
-        } else {
-          List<DataWishlists> data = <DataWishlists>[];
-          wishlists.add(WishlistsRespone(data: data, total: 0));
-        }
+        ProducItemRespone temp_productItem = ProducItemRespone();
+        SearchRespone temp_search= SearchRespone();
+        NaiFarmLocalStorage.getProductDetailCache().then((value) {
+          if (value != null) {
+            for (var data in value.item) {
+              if (data.productObjectCombine.producItemRespone.id == productId) {
+                temp_productItem = data.productObjectCombine.producItemRespone;
+                temp_search = data.searchRespone;
+                value.item.remove(data);
+                break;
+              }
+            }
+            value.item.add(ProductDetailData(
+                searchRespone: temp_search,
+                productObjectCombine:
+                ProductObjectCombine(producItemRespone: temp_productItem,dataWishlists: item)));
+
+            NaiFarmLocalStorage.saveProductDetailCache(value).then((value) {
+              if (item != null) {
+                List<DataWishlists> data = <DataWishlists>[];
+                data.add(item);
+                wishlists.add(WishlistsRespone(data: data, total: 1));
+              } else {
+                List<DataWishlists> data = <DataWishlists>[];
+                wishlists.add(WishlistsRespone(data: data, total: 0));
+              }
+            });
+          }
+        });
+
+
 
         //  onSuccess.add(true);
       } else {
@@ -442,16 +497,23 @@ class ProductBloc {
   loadProductsPage(BuildContext context, {int id, String token}) {
     //  onLoad.add(true);
     onError.add(null);
-    Observable.fromFuture(
-            _application.appStoreAPIRepository.productsById(context, id: id))
-        .listen((event) {
+
+    Observable.combineLatest2(
+        Observable.fromFuture(_application.appStoreAPIRepository.productsById(context, id: id)),
+        Observable.fromFuture(_application.appStoreAPIRepository.getWishlistsByProduct(context, productID: id, token: token)),
+            (a, b) {
+          final _product= (a as ApiResult).respone;
+          final _dataWishlists = (b as ApiResult).respone;
+          return ApiResult(respone: ProductObjectCombine(producItemRespone:_product,dataWishlists:  _dataWishlists),httpCallBack: (a as ApiResult).httpCallBack);
+        }).listen((event) {
       if (event.httpCallBack.status == 200) {
-        var item = (event.respone as ProducItemRespone);
+        var item = (event.respone as ProductObjectCombine);
         if (item != null) {
           getSearchCategoryGroupId(context,
-              productItem: item,
+              productItem: item.producItemRespone,
+              dataWishlists: item.dataWishlists,
               groupId:
-                  item.categories[0].category.categorySubGroup.categoryGroup.id,
+              item.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id,
               limit: 10);
         }
 
@@ -463,32 +525,30 @@ class ProductBloc {
                 break;
               }
             }
-            value.item.add(ProductDetailData(
-                productObjectCombine:
-                    ProductObjectCombine(producItemRespone: item)));
 
-            NaiFarmLocalStorage.saveProductDetailCache(value).then((value) {
-              zipProductDetail
-                  .add(ProductObjectCombine(producItemRespone: item));
+            value.item.add(ProductDetailData(productObjectCombine:ProductObjectCombine(producItemRespone: item.producItemRespone,dataWishlists: item.dataWishlists)));
+
+            NaiFarmLocalStorage.saveProductDetailCache(value).then((data) {
+              zipProductDetail.add(item);
             });
           } else {
             List<ProductDetailData> data = <ProductDetailData>[];
-            data.add(ProductDetailData(
-                productObjectCombine:
-                    ProductObjectCombine(producItemRespone: item)));
+            data.add(ProductDetailData(productObjectCombine:item));
 
             NaiFarmLocalStorage.saveProductDetailCache(
-                    ProductDetailCombin(data))
-                .then((value) {
-              zipProductDetail
-                  .add(ProductObjectCombine(producItemRespone: item));
+
+                ProductDetailCombin(data)).then((value) {
+
+              zipProductDetail.add(item);
             });
           }
         });
       } else {
         onError.add(event.httpCallBack);
       }
+
     });
+
   }
 
   getProductsById(BuildContext context, {int id, bool onload}) {
@@ -668,6 +728,7 @@ class ProductBloc {
 
   getSearchCategoryGroupId(BuildContext context,
       {ProducItemRespone productItem,
+        DataWishlists dataWishlists,
       int groupId,
       int limit = 5,
       String page = "1"}) {
@@ -688,9 +749,10 @@ class ProductBloc {
             value.item.add(ProductDetailData(
                 searchRespone: (respone.respone as SearchRespone),
                 productObjectCombine:
-                    ProductObjectCombine(producItemRespone: productItem)));
+                    ProductObjectCombine(producItemRespone: productItem,dataWishlists: dataWishlists)));
 
             NaiFarmLocalStorage.saveProductDetailCache(value).then((value) {
+
               searchProduct.add((respone.respone as SearchRespone));
             });
           }
@@ -922,7 +984,7 @@ class ProductBloc {
       String token,
       bool addNow = false,
       bool onload = true}) {
-   // bayNow.clear();
+    // bayNow.clear();
     if (onload) {
       onLoad.add(true);
     }

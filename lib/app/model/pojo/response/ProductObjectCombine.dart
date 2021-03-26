@@ -3,17 +3,13 @@ import 'WishlistsRespone.dart';
 
 class ProductObjectCombine {
   ProducItemRespone producItemRespone;
-  WishlistsRespone wishlistsRespone;
+  DataWishlists dataWishlists;
 
-  ProductObjectCombine({this.producItemRespone, this.wishlistsRespone});
+  ProductObjectCombine({this.producItemRespone, this.dataWishlists});
 
   ProductObjectCombine.fromJson(Map<String, dynamic> json) {
-    producItemRespone = json['producItemRespone'] != null
-        ? new ProducItemRespone.fromJson(json['producItemRespone'])
-        : null;
-    wishlistsRespone = json['wishlistsRespone'] != null
-        ? new WishlistsRespone.fromJson(json['wishlistsRespone'])
-        : null;
+    producItemRespone = json['producItemRespone'] != null ? new ProducItemRespone.fromJson(json['producItemRespone']) : null;
+    dataWishlists = json['dataWishlists'] != null ? new DataWishlists.fromJson(json['dataWishlists']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -21,8 +17,10 @@ class ProductObjectCombine {
     if (this.producItemRespone != null) {
       data['producItemRespone'] = this.producItemRespone.toJson();
     }
-    if (this.wishlistsRespone != null) {
-      data['wishlistsRespone'] = this.wishlistsRespone.toJson();
+
+
+    if (this.dataWishlists != null) {
+      data['dataWishlists'] = this.dataWishlists.toJson();
     }
     return data;
   }

@@ -18,6 +18,7 @@ class ProductDetailCombin {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.item != null) {
+
       data['item'] = this.item.map((v) => v.toJson()).toList();
     }
     return data;
@@ -34,6 +35,7 @@ class ProductDetailData {
     productObjectCombine = json['productObjectCombine'] != null
         ? new ProductObjectCombine.fromJson(json['productObjectCombine'])
         : null;
+
     searchRespone = json['searchRespone'] != null
         ? new SearchRespone.fromJson(json['searchRespone'])
         : null;
