@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/pojo/response/OneSignalNoificationId.dart';
 import 'package:naifarm/app/model/pojo/response/ProductDetailCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProductHistoryCache.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMoreCombin.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductOrderCache.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
@@ -30,6 +31,7 @@ class NaiFarmLocalStorage {
   static String naiFarmHiSTORY = "NaiFarm_history";
   static String naiFarmOrder = "NaiFarm_order";
   static String naiFarmOneSiganl = "NaiFarm_onesignal";
+  static String naiFarmProductMyShop = "ProductMyShop";
 
   static Future<void> saveOneSiganlCache(
       OneSignalNoificationId oneSignalNoificationId) async {
@@ -157,7 +159,23 @@ class NaiFarmLocalStorage {
     return value;
   }
 
+  static Future<void> saveProductMyShopCache(
+      ProductMyShopCombine productMyShopCombine) async {
+    storage = LocalStorage(naiFarmStorage);
+    await storage.ready;
+    storage.setItem(naiFarmProductMyShop, productMyShopCombine);
+  }
 
+  static Future<ProductMyShopCombine> getProductMyShopCache() async {
+    LocalStorage storage = new LocalStorage(naiFarmStorage);
+    await storage.ready;
+    Map<String, dynamic> data = storage.getItem(naiFarmProductMyShop);
+    if (data == null) {
+      return null;
+    }
+    ProductMyShopCombine value = ProductMyShopCombine.fromJson(data);
+    return value;
+  }
 
   static Future<void> saveHomeData(HomeObjectCombine data) async {
     storage = LocalStorage(naiFarmStorage);

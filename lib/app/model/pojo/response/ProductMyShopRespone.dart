@@ -1,5 +1,28 @@
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 
+class ProductMyShopCombine {
+  List<ProductMyShopRespone> item;
+
+  ProductMyShopCombine(this.item);
+
+  ProductMyShopCombine.fromJson(Map<String, dynamic> json) {
+    if (json['item'] != null) {
+      item = <ProductMyShopRespone>[];
+      json['item'].forEach((v) {
+        item.add(new ProductMyShopRespone.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.item != null) {
+      data['item'] = this.item.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
 class ProductMyShopRespone {
   int id;
   int shopId;

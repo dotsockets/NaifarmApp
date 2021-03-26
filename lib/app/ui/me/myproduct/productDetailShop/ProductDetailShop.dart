@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
@@ -62,8 +63,22 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
       });*/
       bloc.onSuccess.stream.listen((event) {});
 
-      Usermanager().getUser().then((value) => bloc.getProductDetailShop(context,
-          token: value.token, productId: widget.productItem.id));
+      NaiFarmLocalStorage.getProductMyShopCache().then((value) {
+        if (value != null) {
+          for (var data in value.item) {
+            if (data.id == widget.productItem.id) {
+              bloc.productRes.add(data);
+              bloc.onSuccess.add(data);
+              break;
+            }
+          }
+        }
+
+        Usermanager().getUser().then((value) => bloc.getProductDetailShop(
+            context,
+            token: value.token,
+            productId: widget.productItem.id));
+      });
     }
   }
 
