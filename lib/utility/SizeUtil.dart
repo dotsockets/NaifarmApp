@@ -113,7 +113,7 @@ class SizeUtil {
   }
 
   static double imgMedWidth() {
-    return  Device.get().isPhone ?5.0:3.0;
+    return  Device.get().isPhone ?5.0:2.3;
   }
 
   static double paddingCart() {
@@ -146,7 +146,7 @@ class SizeUtil {
     return  Device.get().isPhone ?35:8.5;
   }
 
-  static double tabHeightFix(){
+  static double tabMenuHeight(){
     return  Device.get().isPhone ?9.0:5.8;
   }
 

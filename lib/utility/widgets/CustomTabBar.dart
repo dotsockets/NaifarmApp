@@ -57,7 +57,7 @@ class _CustomTabBarState extends State<CustomTabBar>
       indicatorPadding: SizeUtil.custombarIndicationPadding(),
       tabs: [
         SizedBox(
-          height: SizeUtil.tabHeightFix().h,
+          height: SizeUtil.tabMenuHeight().h,
           child: Tab(
             icon: _buildIcon(
                 sizeIcon: SizeUtil.custombarIconSize().w,
@@ -70,7 +70,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           ),
         ),
         SizedBox(
-          height: SizeUtil.tabHeightFix().h,
+          height: SizeUtil.tabMenuHeight().h,
           child: Tab(
             icon: _buildIcon(
                 sizeIcon: SizeUtil.custombarIconSize().w,
@@ -81,7 +81,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           ),
         ),
         SizedBox(
-          height: SizeUtil.tabHeightFix().h,
+          height: SizeUtil.tabMenuHeight().h,
           child: Tab(
             icon: BlocBuilder<CustomerCountBloc, CustomerCountState>(
               builder: (_, count) {
@@ -118,7 +118,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           ),
         ),
         SizedBox(
-          height: SizeUtil.tabHeightFix().h,
+          height: SizeUtil.tabMenuHeight().h,
           child: Tab(
             icon: BlocBuilder<CustomerCountBloc, CustomerCountState>(
               builder: (_, count) {
@@ -153,7 +153,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           ),
         ),
         SizedBox(
-          height: SizeUtil.tabHeightFix().h,
+          height: SizeUtil.tabMenuHeight().h,
           child: Tab(
             icon: _buildIcon(
                 sizeIcon: SizeUtil.custombarIconSize().w,

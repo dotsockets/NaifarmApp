@@ -42,7 +42,7 @@ class _NotiSettingViewState extends State<NotiSettingView> {
             ),
           ),
           body: Container(
-            margin: EdgeInsets.only(top: 1.0.h),
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -59,6 +59,7 @@ class _NotiSettingViewState extends State<NotiSettingView> {
                     index: 1,
                     onClick: () => setState(
                         () => isSelectUpdate = isSelectUpdate ? false : true)),
+                SizedBox(height: 0.5.h,),
                 /* _BuildSwitch(
                     title: LocaleKeys.setting_noti_title_privacy.tr(),
                     index: 2,
@@ -78,50 +79,53 @@ class _NotiSettingViewState extends State<NotiSettingView> {
   }
 
   Widget buildSwitch({String title, int index, Function() onClick}) {
-    return Container(
-      color: Colors.white,
+    return SizedBox(
+      height: SizeUtil.tabMenuHeight().h,
       child: Container(
-        margin: EdgeInsets.only(
-            top: 1.0.h, left: 3.0.w, bottom: 1.0.h, right: 3.0.w),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: FunctionHelper.fontTheme(
-                  fontSize: SizeUtil.titleFontSize().sp),
-            ),
-            FlutterSwitch(
-              height: SizeUtil.switchHeight(),
-              width: SizeUtil.switchWidth(),
-              toggleSize: SizeUtil.switchToggleSize(),
-              activeColor: Colors.grey.shade200,
-              inactiveColor: Colors.grey.shade200,
-              toggleColor: index == 0
-                  ? isSelectNoti
-                      ? ThemeColor.primaryColor()
-                      : Colors.black.withOpacity(0.3)
-                  : index == 1
-                      ? isSelectUpdate
-                          ? ThemeColor.primaryColor()
-                          : Colors.black.withOpacity(0.3)
-                      : index == 2
-                          ? isSelectPrivate
-                              ? ThemeColor.primaryColor()
-                              : Colors.black.withOpacity(0.3)
-                          : isSelectSound
-                              ? ThemeColor.primaryColor()
-                              : Colors.black.withOpacity(0.3),
-              value: index == 0
-                  ? isSelectNoti
-                  : index == 1
-                      ? isSelectUpdate
-                      : index == 2
-                          ? isSelectPrivate
-                          : isSelectSound,
-              onToggle: (val) => onClick(),
-            )
-          ],
+        color: Colors.white,
+        child: Container(
+          margin: EdgeInsets.only(
+              top: 1.0.h, left: 3.0.w, bottom: 1.0.h, right: 3.0.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleFontSize().sp),
+              ),
+              FlutterSwitch(
+                height: SizeUtil.switchHeight(),
+                width: SizeUtil.switchWidth(),
+                toggleSize: SizeUtil.switchToggleSize(),
+                activeColor: Colors.grey.shade200,
+                inactiveColor: Colors.grey.shade200,
+                toggleColor: index == 0
+                    ? isSelectNoti
+                        ? ThemeColor.primaryColor()
+                        : Colors.black.withOpacity(0.3)
+                    : index == 1
+                        ? isSelectUpdate
+                            ? ThemeColor.primaryColor()
+                            : Colors.black.withOpacity(0.3)
+                        : index == 2
+                            ? isSelectPrivate
+                                ? ThemeColor.primaryColor()
+                                : Colors.black.withOpacity(0.3)
+                            : isSelectSound
+                                ? ThemeColor.primaryColor()
+                                : Colors.black.withOpacity(0.3),
+                value: index == 0
+                    ? isSelectNoti
+                    : index == 1
+                        ? isSelectUpdate
+                        : index == 2
+                            ? isSelectPrivate
+                            : isSelectSound,
+                onToggle: (val) => onClick(),
+              )
+            ],
+          ),
         ),
       ),
     );

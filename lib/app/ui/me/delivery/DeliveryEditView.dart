@@ -84,6 +84,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: SizeUtil.paddingMenu().w,),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(2.0.w),

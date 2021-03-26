@@ -113,21 +113,24 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             SizedBox(
               height: 4.0.h,
             ),
-            BuildEditText(
-              head: LocaleKeys.my_profile_phone.tr(),
-              hint: LocaleKeys.my_profile_phone.tr(),
-              inputType: TextInputType.number,
-              controller: _phone,
-              borderOpacity: 0.3,
-              borderRadius: 7,
-              onError: error,
-              onChanged: (String char) {
-                if (char.isEmpty || char.length > 10) {
-                  phoneError.add(LocaleKeys.message_error_phone_invalid.tr());
-                } else {
-                  phoneError.add("");
-                }
-              },
+            Container(
+              padding: EdgeInsets.only(left: SizeUtil.paddingEdittext().w,right: SizeUtil.paddingEdittext().w),
+              child: BuildEditText(
+                head: LocaleKeys.my_profile_phone.tr(),
+                hint: LocaleKeys.my_profile_phone.tr(),
+                inputType: TextInputType.number,
+                controller: _phone,
+                borderOpacity: 0.3,
+                borderRadius: 7,
+                onError: error,
+                onChanged: (String char) {
+                  if (char.isEmpty || char.length > 10) {
+                    phoneError.add(LocaleKeys.message_error_phone_invalid.tr());
+                  } else {
+                    phoneError.add("");
+                  }
+                },
+              ),
             ),
             SizedBox(
               height: 4.0.h,
@@ -142,7 +145,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     ),
                   ),
                   minimumSize: MaterialStateProperty.all(
-                    Size(MediaQuery.of(context).size.width, 7.0.h),
+                    Size(SizeUtil.buttonWidth().w, 7.0.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
                     _phone.text.isNotEmpty

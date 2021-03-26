@@ -76,87 +76,84 @@ class _AddressViewState extends State<AddressView> {
                     onClick: () => checkCallBack(),
                   ),
                 ),
-                body: Container(
-                  padding: SizeUtil.detailProfilePadding(),
-                  child: StreamBuilder(
-                      stream: bloc.addressList.stream,
-                      builder: (context, snapshot) {
-                        var item = (snapshot.data as AddressesListRespone);
-                        if (snapshot.hasData && item.data != null) {
-                          if (item.data.isNotEmpty) {
-                            return SingleChildScrollView(
-                              child: Container(
-                                child: Column(
-                                  children: [
-                                    Column(
-                                      children: item.data
-                                          .asMap()
-                                          .map((index, value) {
-                                            return MapEntry(
-                                                index,
-                                                Column(
-                                                  children: [
-                                                    buildCard(
-                                                        item: value,
-                                                        index: index),
-                                                    SizedBox(
-                                                      height: 1.0.h,
-                                                    )
-                                                  ],
-                                                ));
-                                          })
-                                          .values
-                                          .toList(),
-                                    ),
-                                    SizedBox(
-                                      height: 2.0.h,
-                                    ),
-                                    _buildBtnAddProduct(),
-                                  ],
-                                ),
-                              ),
-                            );
-                          } else {
-                            return Container(
-                              color: Colors.white,
+                body: StreamBuilder(
+                    stream: bloc.addressList.stream,
+                    builder: (context, snapshot) {
+                      var item = (snapshot.data as AddressesListRespone);
+                      if (snapshot.hasData && item.data != null) {
+                        if (item.data.isNotEmpty) {
+                          return SingleChildScrollView(
+                            child: Container(
                               child: Column(
                                 children: [
-                                  Expanded(
-                                      child: Center(
-                                    child: Container(
-                                      margin: EdgeInsets.only(bottom: 15.0.h),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Lottie.asset(
-                                              'assets/json/boxorder.json',
-                                              height: 70.0.w,
-                                              width: 70.0.w,
-                                              repeat: false),
-                                          Text(
-                                            LocaleKeys.search_product_not_found
-                                                .tr(),
-                                            style: FunctionHelper.fontTheme(
-                                                fontSize:
-                                                    SizeUtil.titleFontSize().sp,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(height: 3.0.h),
-                                          _buildBtnAddProduct(),
-                                        ],
-                                      ),
-                                    ),
-                                  ))
+                                  Column(
+                                    children: item.data
+                                        .asMap()
+                                        .map((index, value) {
+                                          return MapEntry(
+                                              index,
+                                              Column(
+                                                children: [
+                                                  buildCard(
+                                                      item: value,
+                                                      index: index),
+                                                  SizedBox(
+                                                    height: 0.5.h,
+                                                  )
+                                                ],
+                                              ));
+                                        })
+                                        .values
+                                        .toList(),
+                                  ),
+                                  SizedBox(
+                                    height: 2.0.h,
+                                  ),
+                                  _buildBtnAddProduct(),
                                 ],
                               ),
-                            );
-                          }
+                            ),
+                          );
                         } else {
-                          return SizedBox();
+                          return Container(
+                            color: Colors.white,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                    child: Center(
+                                  child: Container(
+                                    margin: EdgeInsets.only(bottom: 15.0.h),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Lottie.asset(
+                                            'assets/json/boxorder.json',
+                                            height: 70.0.w,
+                                            width: 70.0.w,
+                                            repeat: false),
+                                        Text(
+                                          LocaleKeys.search_product_not_found
+                                              .tr(),
+                                          style: FunctionHelper.fontTheme(
+                                              fontSize:
+                                                  SizeUtil.titleFontSize().sp,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(height: 3.0.h),
+                                        _buildBtnAddProduct(),
+                                      ],
+                                    ),
+                                  ),
+                                ))
+                              ],
+                            ),
+                          );
                         }
-                      }),
-                ))),
+                      } else {
+                        return SizedBox();
+                      }
+                    }))),
       ),
     );
   }

@@ -60,7 +60,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         if (event.status > 400) {
           FunctionHelper.alertDialogRetry(context,
               title: LocaleKeys.btn_error.tr(),
-              message: LocaleKeys.dialog_message_contact.tr(), callBack: () {
+              message:event.message, callBack: () {
             Usermanager().getUser().then((value) {
               for (var item in bloc.cartList.value.data) {
                 bloc.createOrder(context,

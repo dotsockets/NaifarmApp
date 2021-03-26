@@ -45,6 +45,9 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
               buildCheckBox(
                   languageTxt: "ภาษาไทย",
                   locale: EasyLocalization.of(context).supportedLocales[1]),
+              Container(
+                height: 0.5.h,
+              ),
               buildCheckBox(
                   languageTxt: "English",
                   locale: EasyLocalization.of(context).supportedLocales[0]),

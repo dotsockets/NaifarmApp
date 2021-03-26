@@ -154,48 +154,51 @@ class _NotiViewState extends State<NotiView>
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: Colors.white,
-              child: TabBar(
-                controller: _tabController,
-                indicator: MD2Indicator(
-                  indicatorSize: MD2IndicatorSize.normal,
-                  indicatorHeight: 0.5.h,
-                  indicatorColor: ThemeColor.colorSale(),
-                ),
-                tabs: profileObjectCombine.myShopRespone != null
-                    ? [
-                        // first tab [you can add an icon using the icon property]
-                        Tab(
-                          child: Text(
-                            LocaleKeys.noti_buyer.tr(),
-                            style: FunctionHelper.fontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
+            SizedBox(
+              height: SizeUtil.tabBarHeight().h,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                color: Colors.white,
+                child: TabBar(
+                  controller: _tabController,
+                  indicator: MD2Indicator(
+                    indicatorSize: MD2IndicatorSize.normal,
+                    indicatorHeight: 0.5.h,
+                    indicatorColor: ThemeColor.colorSale(),
+                  ),
+                  tabs: profileObjectCombine.myShopRespone != null
+                      ? [
+                          // first tab [you can add an icon using the icon property]
+                          Tab(
+                            child: Text(
+                              LocaleKeys.noti_buyer.tr(),
+                              style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                              ),
                             ),
                           ),
-                        ),
 
-                        // second tab [you can add an icon using the icon property]
-                        Tab(
-                          child: Text(
-                            LocaleKeys.noti_seller.tr(),
-                            style: FunctionHelper.fontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
+                          // second tab [you can add an icon using the icon property]
+                          Tab(
+                            child: Text(
+                              LocaleKeys.noti_seller.tr(),
+                              style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                              ),
+                            ),
+                          )
+                        ]
+                      : [
+                          Tab(
+                            child: Text(
+                              LocaleKeys.noti_buyer.tr(),
+                              style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                              ),
                             ),
                           ),
-                        )
-                      ]
-                    : [
-                        Tab(
-                          child: Text(
-                            LocaleKeys.noti_buyer.tr(),
-                            style: FunctionHelper.fontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                ),
               ),
             ),
             // tab bar view here

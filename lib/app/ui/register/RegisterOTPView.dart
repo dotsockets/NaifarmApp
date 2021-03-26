@@ -211,7 +211,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                             cursorColor: ThemeColor.secondaryColor(),
                             keyboardType: TextInputType.number,
                             maxLength: 1,
-                            cursorHeight: 35,
+                            cursorHeight: SizeUtil.appNameFontSize().sp*1.7,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly
                             ],
@@ -289,7 +289,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 .maxLength(30)
                                 .build(),
                             maxLength: 1,
-                            cursorHeight: 35,
+                            cursorHeight: SizeUtil.appNameFontSize().sp*1.7,
                             decoration: InputDecoration(
                                 hintText: '',
                                 hintStyle: TextStyle(
@@ -359,7 +359,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 .maxLength(30)
                                 .build(),
                             maxLength: 1,
-                            cursorHeight: 35,
+                            cursorHeight: SizeUtil.appNameFontSize().sp*1.7,
                             decoration: InputDecoration(
                                 hintText: '',
                                 hintStyle: TextStyle(
@@ -429,7 +429,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 .maxLength(30)
                                 .build(),
                             maxLength: 1,
-                            cursorHeight: 35,
+                            cursorHeight: SizeUtil.appNameFontSize().sp*1.7,
                             decoration: InputDecoration(
                                 hintText: '',
                                 hintStyle: TextStyle(
@@ -499,7 +499,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 .maxLength(30)
                                 .build(),
                             maxLength: 1,
-                            cursorHeight: 35,
+                            cursorHeight: SizeUtil.appNameFontSize().sp*1.7,
                             decoration: InputDecoration(
                                 hintText: '',
                                 hintStyle: TextStyle(
@@ -569,7 +569,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 .maxLength(30)
                                 .build(),
                             maxLength: 1,
-                            cursorHeight: 35,
+                            cursorHeight: SizeUtil.appNameFontSize().sp*1.7,
                             decoration: InputDecoration(
                                 hintText: '',
                                 hintStyle: TextStyle(

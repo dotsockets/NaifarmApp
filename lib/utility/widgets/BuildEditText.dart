@@ -160,8 +160,7 @@ class BuildEditText extends StatelessWidget {
                                             'assets/images/svg/hind_pass.svg',
                                             width: SizeUtil.imgSmallWidth().w,
                                             height: SizeUtil.imgSmallWidth().w,
-                                            color: Colors.grey,
-                                          )
+                                            color: Colors.grey,)
                                         : SvgPicture.asset(
                                             'assets/images/svg/show_pass.svg',
                                             height: SizeUtil.imgMedWidth().w,
