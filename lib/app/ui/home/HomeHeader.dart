@@ -6,10 +6,11 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildIconShop.dart';
 import 'package:sizer/sizer.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 
 class HomeHeader extends StatefulWidget {
   final HomeObjectCombine snapshot;
@@ -81,51 +82,55 @@ class _HomeHeaderState extends State<HomeHeader> {
                               width: 5.0.w,
                               height: 5.0.w,
                             ),
-                            widget.snapshot.trendingRespone != null
-                                ? Expanded(
-                                    child: Container(
-                                    alignment: Alignment.centerLeft,
-                                    height: 10.0.w,
-                                    padding: EdgeInsets.only(left: 6),
-                                    child: CarouselSlider(
-                                      options: CarouselOptions(
-                                        height: 400,
-                                        aspectRatio: 16 / 9,
-                                        viewportFraction: 0.8,
-                                        initialPage: 0,
-                                        scrollPhysics:
-                                            NeverScrollableScrollPhysics(),
-                                        autoPlay: true,
-                                        autoPlayInterval: Duration(seconds: 6),
-                                        autoPlayAnimationDuration:
-                                            Duration(milliseconds: 1200),
-                                        autoPlayCurve: Curves.fastOutSlowIn,
-                                        scrollDirection: Axis.vertical,
-                                      ),
-                                      items: widget
-                                          .snapshot.trendingRespone.data
-                                          .map((e) {
-                                        return Builder(
-                                          builder: (BuildContext context) {
-                                            return Container(
-                                              child: Text(
-                                                "${e.name}",
-                                                style: FunctionHelper.fontTheme(
-                                                    color: Colors.grey.shade400,
-                                                    fontSize: SizeUtil
-                                                            .titleSmallFontSize()
-                                                        .sp,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ))
-                                : SizedBox(),
+                            Expanded(child: Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(LocaleKeys.search_product_title.tr(),style: FunctionHelper.fontTheme(color: Colors.grey.withOpacity(0.6)),),
+                            ))
+                            // widget.snapshot.trendingRespone != null
+                            //     ? Expanded(
+                            //         child: Container(
+                            //         alignment: Alignment.centerLeft,
+                            //         height: 10.0.w,
+                            //         padding: EdgeInsets.only(left: 6),
+                            //         child: CarouselSlider(
+                            //           options: CarouselOptions(
+                            //             height: 400,
+                            //             aspectRatio: 16 / 9,
+                            //             viewportFraction: 0.8,
+                            //             initialPage: 0,
+                            //             scrollPhysics:
+                            //                 NeverScrollableScrollPhysics(),
+                            //             autoPlay: true,
+                            //             autoPlayInterval: Duration(seconds: 6),
+                            //             autoPlayAnimationDuration:
+                            //                 Duration(milliseconds: 1200),
+                            //             autoPlayCurve: Curves.fastOutSlowIn,
+                            //             scrollDirection: Axis.vertical,
+                            //           ),
+                            //           items: widget
+                            //               .snapshot.trendingRespone.data
+                            //               .map((e) {
+                            //             return Builder(
+                            //               builder: (BuildContext context) {
+                            //                 return Container(
+                            //                   child: Text(
+                            //                     "${e.name}",
+                            //                     style: FunctionHelper.fontTheme(
+                            //                         color: Colors.grey.shade400,
+                            //                         fontSize: SizeUtil
+                            //                                 .titleSmallFontSize()
+                            //                             .sp,
+                            //                         fontWeight:
+                            //                             FontWeight.w500),
+                            //                     overflow: TextOverflow.ellipsis,
+                            //                   ),
+                            //                 );
+                            //               },
+                            //             );
+                            //           }).toList(),
+                            //         ),
+                            //       ))
+                            //     : SizedBox(),
                             /* SvgPicture.asset(
                               'assets/images/svg/search_photo.svg',
                               color: Color(ColorUtils.hexToInt('#c7bfbf')),
