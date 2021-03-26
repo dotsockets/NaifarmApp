@@ -3,21 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:like_button/like_button.dart';
-import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:share/share.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -28,7 +25,12 @@ class ProductInto extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool showBtn;
 
-  ProductInto({Key key, this.data,this.dataWishlist, this.scaffoldKey, this.showBtn = true})
+  ProductInto(
+      {Key key,
+      this.data,
+      this.dataWishlist,
+      this.scaffoldKey,
+      this.showBtn = true})
       : super(key: key);
   ProductBloc bloc;
   bool isLogin = true;
@@ -52,18 +54,15 @@ class ProductInto extends StatelessWidget {
         }
       });
 
-  print("sdcwwcf ${dataWishlist}");
-      if(dataWishlist!=null){
-        bloc.wishlists.add(WishlistsRespone(data: [dataWishlist],total: 1));
+      if (dataWishlist != null) {
+        bloc.wishlists.add(WishlistsRespone(data: [dataWishlist], total: 1));
       }
-
 
       // bloc.wishlists.stream.listen((event) {
       //   Usermanager().getUser().then((value) => context
       //       .read<CustomerCountBloc>()
       //       .loadCustomerCount(context, token: value.token));
       // });
-
 
     }
   }
@@ -199,7 +198,8 @@ class ProductInto extends StatelessWidget {
                             }
                           } else {
                             return isLogin
-                                ? likeContent(item: WishlistsRespone(),context:context )
+                                ? likeContent(
+                                    item: WishlistsRespone(), context: context)
                                 : likeContentNoLogin(context);
                           }
                         },
@@ -265,8 +265,8 @@ class ProductInto extends StatelessWidget {
       item.data = <DataWishlists>[];
       item.total = 0;
       bloc.wishlists.add(item);
-      Usermanager().getUser().then((value) =>
-          bloc.deleteWishlists(context, productId:  data.id,wishId: id, token: value.token));
+      Usermanager().getUser().then((value) => bloc.deleteWishlists(context,
+          productId: data.id, wishId: id, token: value.token));
     } else {
       Usermanager().getUser().then((value) => bloc.addWishlists(context,
           productId: data.id,

@@ -381,9 +381,33 @@ class UploadProductBloc {
         .listen((respone) {
       onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
-        productImageList
+        NaiFarmLocalStorage.getProductMyShopCache().then((value) {
+          var res = (respone.respone as ProductMyShopRespone);
+          productImageList.addAll(res.image);
+          res.image = productImageList;
+          if (value != null) {
+            for (var data in value.item) {
+              if (data.id == productId) {
+                value.item.remove(data);
+                break;
+              }
+            }
+            value.item.add(res);
+            NaiFarmLocalStorage.saveProductMyShopCache(value).then((value) {
+              productRes.add(res);
+            });
+          } else {
+            ProductMyShopCombine productMyShop = ProductMyShopCombine([res]);
+            NaiFarmLocalStorage.saveProductMyShopCache(productMyShop)
+                .then((value) {
+              productRes.add(res);
+            });
+          }
+        });
+
+        /*productImageList
             .addAll((respone.respone as ProductMyShopRespone).image);
-        productRes.add(ProductMyShopRespone(image: productImageList));
+        productRes.add(ProductMyShopRespone(image: productImageList));*/
 
         onSuccess.add((respone.respone as ProductMyShopRespone));
       } else {
