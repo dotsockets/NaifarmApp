@@ -84,7 +84,9 @@ class _EditProductViewState extends State<EditProductView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+     //   FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         onUpdate = true;

@@ -57,13 +57,15 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(
-            scaffoldKey: _scaffoldKey, message: event.message);
+        // FunctionHelper.snackBarShow(
+        //     scaffoldKey: _scaffoldKey, message: event.message,context: context);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
         FunctionHelper.successDialog(context,
-            message: "Please confirm Email in your mailbox ", onClick: () {
+            message: LocaleKeys.dialog_message_confirm_mail.tr(), onClick: () {
           if (onDialog) {
             Navigator.of(context).pop();
           }

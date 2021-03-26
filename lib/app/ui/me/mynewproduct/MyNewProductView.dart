@@ -72,7 +72,9 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+       // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         if (event is ProductMyShopRespone) {

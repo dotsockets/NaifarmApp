@@ -167,6 +167,7 @@ abstract class  LocaleKeys {
   static const btn_reject_order = 'btn.reject_order';
   static const btn_accept_order = 'btn.accept_order';
   static const btn_chat = 'btn.chat';
+  static const btn_exit = 'btn.exit';
   static const btn = 'btn';
   static const dialog_message_del_account = 'dialog_message.del_account';
   static const dialog_message_phone_edit_cancel = 'dialog_message.phone_edit_cancel';
@@ -185,6 +186,8 @@ abstract class  LocaleKeys {
   static const dialog_message_success_pay = 'dialog_message.success_pay';
   static const dialog_message_success_slip = 'dialog_message.success_slip';
   static const dialog_message_contact = 'dialog_message.contact';
+  static const dialog_message_shop_close = 'dialog_message.shop_close';
+  static const dialog_message_confirm_mail = 'dialog_message.confirm_mail';
   static const dialog_message = 'dialog_message';
   static const message_phone_edit = 'message.phone_edit';
   static const message_mail_edit = 'message.mail_edit';
@@ -374,11 +377,13 @@ abstract class  LocaleKeys {
   static const noti_shop_new_order = 'noti.shop_new_order';
   static const noti_shop_orderid = 'noti.shop_orderid';
   static const noti_shop_cancel = 'noti.shop_cancel';
+  static const noti_shop_upload = 'noti.shop_upload';
   static const noti_shop_open = 'noti.shop_open';
   static const noti_shop_open_detail = 'noti.shop_open_detail';
   static const noti_shop_outstock = 'noti.shop_outstock';
   static const noti_shop_pay_upload = 'noti.shop_pay_upload';
   static const noti_shop_pay = 'noti.shop_pay';
+  static const noti_shop_payment = 'noti.shop_payment';
   static const noti_cus_cancel_status = 'noti.cus_cancel_status';
   static const noti_cus_order = 'noti.cus_order';
   static const noti_cus_pay_at = 'noti.cus_pay_at';

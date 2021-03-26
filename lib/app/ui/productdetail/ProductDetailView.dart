@@ -142,12 +142,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
               FunctionHelper.alertDialogRetry(context,
                   title: LocaleKeys.btn_error.tr(),
                   message:
-                      "No information found for this restaurant. Or the shop has closed ",
+                      LocaleKeys.dialog_message_shop_close.tr(),
                   callBack: () => _refreshProducts());
             });
           } else {
-            FunctionHelper.snackBarShow(
-                scaffoldKey: _scaffoldKey, message: event.message);
+           // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+            FunctionHelper.alertDialogShop(context,
+                title: LocaleKeys.btn_error.tr(), message: event.message);
           }
         }
       });

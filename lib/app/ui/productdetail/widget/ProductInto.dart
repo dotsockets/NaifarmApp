@@ -46,8 +46,8 @@ class ProductInto extends StatelessWidget {
                 title: LocaleKeys.btn_error.tr(), message: event.message);
           } else if (event.status == 0 || event.status >= 500) {
           } else {
-            FunctionHelper.snackBarShow(
-                scaffoldKey: scaffoldKey, message: event.message);
+            //FunctionHelper.snackBarShow(scaffoldKey: scaffoldKey, message: event.message);
+            FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
           }
         }
       });

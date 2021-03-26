@@ -47,8 +47,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(
-            scaffoldKey: _scaffoldKey, message: event.message);
+       // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         AppRoute.registerOTP(context,
@@ -174,26 +174,29 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   }
 
   Widget buildHeader(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.only(bottom: 4.0.h),
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          color: ThemeColor.primaryColor(),
-          borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(20.0.w),
-              bottomLeft: Radius.circular(20.0.w)),
-        ),
-        child: Column(
-          children: [
-            Text(
-              "NaiFarm",
-              style: FunctionHelper.fontTheme(
-                  color: Colors.white,
-                  fontSize: SizeUtil.appNameFontSize().sp,
-                  fontWeight: FontWeight.w500),
+    return Center(
+      child: Container(
+          padding: EdgeInsets.only(bottom: 3.5.h),
+         // width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            color: ThemeColor.primaryColor(),
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(15.0.w),
+                bottomLeft: Radius.circular(15.0.w)
             ),
-          ],
-        ));
+          ),
+          child: Column(
+            children: [
+              Text(
+                "NaiFarm",
+                style: FunctionHelper.fontTheme(
+                    color: Colors.white,
+                    fontSize: SizeUtil.appNameFontSize().sp,
+                    fontWeight: FontWeight.w500),
+              ),
+            ],
+          )),
+    );
   }
 
   Widget buildBar(BuildContext context) {
@@ -201,8 +204,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       decoration: BoxDecoration(
         color: ThemeColor.primaryColor(),
         borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(20.0.w),
-            bottomLeft: Radius.circular(20.0.w)),
+            bottomRight: Radius.circular(15.0.w),
+            bottomLeft: Radius.circular(15.0.w)),
       ),
       width: MediaQuery.of(context).size.width,
       child: Column(

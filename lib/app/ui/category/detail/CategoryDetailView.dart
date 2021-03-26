@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/pojo/response/CategoryObjectCombin.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/CategoryMenu.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
@@ -169,6 +170,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                       if (snapshot.hasData) {
                         return ProductVertical(
                           titleInto: LocaleKeys.recommend_best_seller.tr(),
+
                           productRespone:
                               (snapshot.data as CategoryObjectCombin)
                                   .hotProduct,
@@ -180,8 +182,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                                 context: context,
                                 barTxt: LocaleKeys.recommend_best_seller.tr(),
                                 installData:
-                                    (snapshot.data as CategoryObjectCombin)
-                                        .hotProduct);
+                                    (snapshot.data as CategoryObjectCombin).hotProduct);
                           },
                           onTapItem: (ProductData item, int index) {
                             AppRoute.productDetail(context,
@@ -191,6 +192,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                           },
                           borderRadius: false,
                           tagHero: "sell",
+                          iconSize: SizeUtil.iconHeight().w,
                         );
                       } else {
                         return Skeleton.loaderListTite(context);

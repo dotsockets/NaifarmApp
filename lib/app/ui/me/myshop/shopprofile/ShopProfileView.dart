@@ -65,8 +65,8 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
       bloc.onError.stream.listen((event) {
         // Navigator.of(context).pop();
         onUpdate = false;
-        FunctionHelper.snackBarShow(
-            scaffoldKey: _scaffoldKey, message: event.message);
+        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         // Future.delayed(const Duration(milliseconds: 1000), () {

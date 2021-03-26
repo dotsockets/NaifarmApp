@@ -59,8 +59,8 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         _input2.text.isEmpty &&
         _input3.text.isEmpty &&
         _input4.text.isEmpty) {
-      FunctionHelper.snackBarShow(
-          scaffoldKey: _scaffoldKey, message: "ทำรายการไม่ถูกต้อง");
+      //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: "ทำรายการไม่ถูกต้อง");
+      FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: "ทำรายการไม่ถูกต้อง");
     } else {
       // Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CreateAccountView()));
     }
@@ -102,8 +102,10 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(
-            scaffoldKey: _scaffoldKey, message: event.message);
+        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         if (widget.requestOtp == RequestOtp.Register) {
@@ -751,8 +753,10 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         });
       } else {
         Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(
-            scaffoldKey: _scaffoldKey, message: value.httpCallBack.message);
+        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: value.httpCallBack.message);
+
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: value.httpCallBack.message);
       }
     });
   }
