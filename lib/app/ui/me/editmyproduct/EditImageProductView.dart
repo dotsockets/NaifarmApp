@@ -53,7 +53,9 @@ class _EditImageProductViewState extends State<EditImageProductView> {
         Navigator.pop(context, true);
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event);
       });
       bloc.uploadProductStorage.add(widget.uploadProductStorage);
       bloc.itemImage = widget.uploadProductStorage.onSelectItem;

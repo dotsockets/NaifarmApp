@@ -194,7 +194,8 @@ class CodegenLoader extends AssetLoader{
     "again": "Try again",
     "reject_order": "Reject request",
     "accept_order": "Accept request",
-    "chat": "Chat Now"
+    "chat": "Chat Now",
+    "exit": "Exit"
   },
   "dialog_message": {
     "del_account": "We are sad that you want to leave us, but please note that account deletion is irreversible",
@@ -213,7 +214,9 @@ class CodegenLoader extends AssetLoader{
     "success_track": "Successfully confirmed tracking number",
     "success_pay": "Successfully confirmed payment",
     "success_slip": "Upload Pay-in Slip Successfully",
-    "contact": "The transaction cannot be performed, please contact the seller. "
+    "contact": "The transaction cannot be performed, please contact the seller. ",
+    "shop_close": "No information found for this restaurant or the shop has closed",
+    "confirm_mail": "Please confirm Email in your mailbox"
   },
   "message": {
     "phone_edit": "If you edit phone number. All account numbers associated with this account will be modified",
@@ -416,11 +419,13 @@ class CodegenLoader extends AssetLoader{
     "shop_new_order": "New order",
     "shop_orderid": "ordered the item, order number",
     "shop_cancel": "cancelled the item, order number",
+    "shop_upload": "paid, order number",
     "shop_open": "Open a new shop",
     "shop_open_detail": "has been opened the shop",
     "shop_outstock": "out of stock",
     "shop_pay_upload": "Upload Pay-in Slip",
     "shop_pay": "Waiting For Payment",
+    "shop_payment": "Payment",
     "cus_cancel_status": "because no payment or buyer canceled the product. Please contact seller if you need more information.",
     "cus_order": "You have order in order number",
     "cus_pay_at": "and must be paid within",
@@ -710,7 +715,8 @@ static const Map<String,dynamic> th_TH = {
     "again": "ลองอีกครั้ง",
     "reject_order": "ปฏิเสธคำขอยกเลิก",
     "accept_order": "ตอบรับคำขอยกเลิก",
-    "chat": "แชทเลย"
+    "chat": "แชทเลย",
+    "exit": "ปิด"
   },
   "dialog_message": {
     "del_account": "เสียใจที่คุณจะไม่ใช้บัญชีเราอีกแต่หากคุณต้องการลบจะไม่สามารถกู้คืนได้",
@@ -729,7 +735,9 @@ static const Map<String,dynamic> th_TH = {
     "success_track": "คุณได้ทำการกรอกเลขพัสดุเรียบร้อยแล้ว",
     "success_pay": "คุณได้ยืนยันการชำระเงินแล้ว",
     "success_slip": "คุณได้อัพโหลดหลักฐานการชำระเงินแล้ว",
-    "contact": "ไม่สามารถสั่งซื้อสินค้าได้, กรุณาติดต่อผู้ขาย"
+    "contact": "ไม่สามารถสั่งซื้อสินค้าได้, กรุณาติดต่อผู้ขาย",
+    "shop_close": "ไม่พบข้อมูลของร้านนี้หรือร้านปิดแล้ว",
+    "confirm_mail": "กรุณายืนยันการเปลี่ยนอีเมล ที่กล่องจดหมายของคุณ"
   },
   "message": {
     "phone_edit": "หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่ หมายเลขบัญชีทั้งหมดที่ผูกกับบัญชีนี้จะถูกแก้ไขด้วย",
@@ -931,11 +939,13 @@ static const Map<String,dynamic> th_TH = {
     "shop_new_order": "คำสั่งซื้อใหม่",
     "shop_orderid": "ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์",
     "shop_cancel": "ได้ทำการยกเลิกสินค้าเลขที่ออเดอร์",
+    "shop_upload": "ได้ทำการชำระเงินเลขที่ออเดอร์",
     "shop_open": "เปิดร้านใหม่",
     "shop_open_detail": "ได้ทำการเปิดร้านใหม่",
     "shop_outstock": "จำนวนสินค้าหมด",
     "shop_pay_upload": "อัพโหลดเอกสารการชำระเงิน",
     "shop_pay": "รอการชำระเงิน",
+    "shop_payment": "การชำระเงิน",
     "cus_cancel_status": "เนื่องจากไม่มีการชำระเงินหรือผู้ซื้อยกเลิกสินค้า กรุณาติดต่อผู้ขายหากต้องการข้อมูลเพิ่มเติม",
     "cus_order": "คุณได้ทำการสั่งซื้อสินค้า หมายเลขสั่งซื้อ",
     "cus_pay_at": "และต้องชำระเงินภายในวันที่",

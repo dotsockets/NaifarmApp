@@ -6,9 +6,11 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // ignore: must_be_immutable
 class ShippingOrderView extends StatelessWidget {
@@ -32,7 +34,10 @@ class ShippingOrderView extends StatelessWidget {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event);
+
       });
       bloc.onSuccess.stream.listen((event) {
         Navigator.pop(context, true);

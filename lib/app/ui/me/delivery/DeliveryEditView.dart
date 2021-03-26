@@ -56,7 +56,9 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
         Navigator.pop(context, event);
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+       // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event);
       });
       // Usermanager().getUser().then((value) => bloc.loadShppingPage(token: value.token));
     }

@@ -8,7 +8,7 @@ class SizeUtil {
   }
 
   static double appNameFontSize() {
-    return Device.get().isPhone ? 20 : 16;
+    return Device.get().isPhone ? 20 : 14;
   }
 
   static double priceFontSize() {
@@ -230,5 +230,9 @@ class SizeUtil {
 
   static double btnWidth() {
     return Device.get().isPhone ? 7.0 :5.0;
+  }
+
+  static double iconHeight() {
+    return Device.get().isPhone ? 8.5 :6.0;
   }
 }

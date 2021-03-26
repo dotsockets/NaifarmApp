@@ -492,7 +492,8 @@ class _NotiShopState extends State<NotiShop>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-              "${LocaleKeys.noti_rate1.tr()}${item.meta.order}  ${item.meta.image != null ? "${LocaleKeys.noti_shop_pay_upload.tr()}!" : "${LocaleKeys.noti_shop_pay.tr()}"}",
+              "${LocaleKeys.recommend_notification.tr()}: ${item.meta.image != null ? "${LocaleKeys.noti_shop_payment
+                  .tr()}" : "${LocaleKeys.noti_shop_pay.tr()}"}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -504,14 +505,14 @@ class _NotiShopState extends State<NotiShop>
               children: <TextSpan>[
                 new TextSpan(
                     text:
-                        "${item.meta.image != null ? "${item.meta.customer} ${LocaleKeys.noti_shop_pay_upload.tr()}" : "${LocaleKeys.noti_shop_pay.tr()}"} ",
+                        "${item.meta.image != null ? "${item.meta.customer} ${LocaleKeys.noti_shop_upload.tr()}" : "${LocaleKeys.noti_shop_pay.tr()}"} ",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black)),
                 new TextSpan(
                     text:
-                        "[${LocaleKeys.order_detail_order_num.tr()} ${item.meta.order} ]",
+                        " ${item.meta.order} ",
                     style: FunctionHelper.fontTheme(
                         fontSize: (SizeUtil.titleSmallFontSize() - 1).sp,
                         fontWeight: FontWeight.bold,
@@ -619,7 +620,12 @@ class _NotiShopState extends State<NotiShop>
     } else if (text ==
         "App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification") {
       return false;
-    } else {
+    }
+    else if (text ==
+        "App\\Notifications\\Order\\MerchantOrderCanceledNotification") {
+      return true;
+    }
+    else {
       return false;
     }
   }

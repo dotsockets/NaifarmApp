@@ -368,13 +368,13 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                     text: LocaleKeys.noti_rate1.tr(),
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black)),
                 new TextSpan(
                     text: "${item.meta.order}",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.bold,
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(
@@ -406,7 +406,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                     text: "${LocaleKeys.noti_cus_order.tr()} ",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
@@ -419,7 +419,7 @@ class _NotiCusState extends State<NotiCus>
                     text:
                         " ${LocaleKeys.noti_cus_pay_at.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt != null ? item.meta.requirePaymentAt : DateTime.now().toString()))}",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.8)))
               ],
             ),
@@ -446,7 +446,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                     text: "${LocaleKeys.noti_cus_order.tr()} ",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
@@ -459,7 +459,7 @@ class _NotiCusState extends State<NotiCus>
                     text:
                         " ${LocaleKeys.noti_cus_pay_at.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt != null ? item.meta.requirePaymentAt : DateTime.now().toString()))}",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.8)))
               ],
             ),
@@ -486,7 +486,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                     text: "${LocaleKeys.noti_cus_orderid.tr()} ",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
@@ -501,7 +501,7 @@ class _NotiCusState extends State<NotiCus>
                     text:
                         " ${LocaleKeys.noti_shipped2.tr()}${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.readAt != null ? item.readAt : DateTime.now().toString()))} ${LocaleKeys.noti_cus_complete_confirm.tr()}",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black.withOpacity(0.8))),
               ],
@@ -529,7 +529,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                     text: "${LocaleKeys.noti_rate1.tr()}  ",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
@@ -543,7 +543,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                     text: " ${LocaleKeys.noti_cus_cancel_reason.tr()}",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black.withOpacity(0.8))),
               ],
@@ -571,13 +571,13 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                     text: LocaleKeys.noti_rate1.tr(),
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black)),
                 new TextSpan(
                     text: "${item.meta.order}",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.bold,
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(

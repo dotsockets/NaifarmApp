@@ -165,23 +165,26 @@ class _ShopMainViewState extends State<ShopMainView>
                   },
                   body: Column(
                     children: <Widget>[
-                      Container(
-                        color: Colors.white,
-                        child: TabBar(
-                          indicator: MD2Indicator(
-                            indicatorSize: MD2IndicatorSize.tiny,
-                            indicatorHeight: 5.0,
-                            indicatorColor: ThemeColor.primaryColor(),
+                      SizedBox(
+                        height: SizeUtil.tabBarHeight().h,
+                        child: Container(
+                          color: Colors.white,
+                          child: TabBar(
+                            indicator: MD2Indicator(
+                              indicatorSize: MD2IndicatorSize.tiny,
+                              indicatorHeight: 5.0,
+                              indicatorColor: ThemeColor.primaryColor(),
+                            ),
+                            controller: tabController,
+                            tabs: [
+                              _tabbar(
+                                  title: LocaleKeys.shop_title.tr(), index: 0),
+                              _tabbar(
+                                  title: LocaleKeys.shop_category.tr(), index: 1),
+                              _tabbar(
+                                  title: LocaleKeys.shop_detail.tr(), index: 2),
+                            ],
                           ),
-                          controller: tabController,
-                          tabs: [
-                            _tabbar(
-                                title: LocaleKeys.shop_title.tr(), index: 0),
-                            _tabbar(
-                                title: LocaleKeys.shop_category.tr(), index: 1),
-                            _tabbar(
-                                title: LocaleKeys.shop_detail.tr(), index: 2),
-                          ],
                         ),
                       ),
                       Expanded(

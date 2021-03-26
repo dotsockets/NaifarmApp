@@ -36,7 +36,9 @@ class _PaymentViewState extends State<PaymentView> {
         Usermanager()
             .getUser()
             .then((value) => bloc.loadPaymentPage(context, token: value.token));
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event);
       });
       Usermanager()
           .getUser()
