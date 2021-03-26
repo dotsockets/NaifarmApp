@@ -2660,4 +2660,32 @@ class _APIProvider implements APIProvider {
       return ServerError.dioErrorExpction(e);
     }
   }
+
+
+  @override
+  Future<ApiResult> requestPayment(BuildContext context,{int orderId,String token}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+      final _result =
+      await _dio.request<dynamic>('/v1/order/${orderId}/request-payment',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token": token,
+                'Accept-Language':
+                EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(
+          respone: true,
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
 }

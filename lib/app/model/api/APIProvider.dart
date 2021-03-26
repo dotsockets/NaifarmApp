@@ -442,6 +442,9 @@ abstract class APIProvider {
       int shopId,
       String filter,
       String token});
+
+  @PATCH("/v1/order/767/request-payment")
+  Future<ApiResult> requestPayment(BuildContext context,{int orderId,String token});
 }
 
 // @JsonSerializable()

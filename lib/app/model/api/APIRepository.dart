@@ -578,6 +578,10 @@ class APIRepository {
         token: token);
   }
 
+  Future<ApiResult> requestPayment(BuildContext context,{int orderId,String token}) {
+    return _apiProvider.requestPayment(context, token: token, orderId: orderId);
+  }
+
 //  Observable<List<AppContent>> getTop100FreeApp(){
 //    return Observable.fromFuture(_apiProvider.getTopFreeApp(TOP_100))
 //        .flatMap(_convertFromEntry)

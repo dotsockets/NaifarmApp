@@ -176,9 +176,28 @@ class OrdersBloc {
                 imageableId: imageableId,
                 token: token))
         .listen((respone) {
-      onLoad.add(false);
+
       if (respone.httpCallBack.status == 200 ||
           respone.httpCallBack.status == 201) {
+        //context.read<InfoCustomerBloc>().loadCustomInfo(token:token);
+        requestPayment(context,orderId: imageableId,token: token);
+      } else {
+        onLoad.add(false);
+        onError.add(respone.httpCallBack.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  requestPayment(BuildContext context,{int orderId,String token}) async {
+
+    StreamSubscription subscription = Observable.fromFuture(
+        _application.appStoreAPIRepository.requestPayment(context,
+            orderId: orderId,
+            token: token))
+        .listen((respone) {
+      onLoad.add(false);
+      if (respone.httpCallBack.status == 200 ) {
         //context.read<InfoCustomerBloc>().loadCustomInfo(token:token);
         onSuccess.add(true);
       } else {
