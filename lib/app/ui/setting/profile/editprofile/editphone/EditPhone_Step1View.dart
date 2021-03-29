@@ -102,6 +102,7 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
           ),
           body: SingleChildScrollView(
             child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   padding: EdgeInsets.all(15),
@@ -149,32 +150,34 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
                 SizedBox(
                   height: 20,
                 ),
-                TextButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.0),
+                Center(
+                  child: TextButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                        ),
+                      ),
+                      minimumSize: MaterialStateProperty.all(
+                        Size(50.0.w, 5.0.h),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(
+                        formCheck()
+                            ? ThemeColor.colorSale()
+                            : Colors.grey.shade400,
+                      ),
+                      overlayColor: MaterialStateProperty.all(
+                        Colors.white.withOpacity(0.3),
                       ),
                     ),
-                    minimumSize: MaterialStateProperty.all(
-                      Size(50.0.w, 5.0.h),
+                    onPressed: () => formCheck() ? verify() : SizedBox(),
+                    child: Text(
+                      LocaleKeys.btn_continue.tr(),
+                      style: FunctionHelper.fontTheme(
+                          color: Colors.white,
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.w500),
                     ),
-                    backgroundColor: MaterialStateProperty.all(
-                      formCheck()
-                          ? ThemeColor.colorSale()
-                          : Colors.grey.shade400,
-                    ),
-                    overlayColor: MaterialStateProperty.all(
-                      Colors.white.withOpacity(0.3),
-                    ),
-                  ),
-                  onPressed: () => formCheck() ? verify() : SizedBox(),
-                  child: Text(
-                    LocaleKeys.btn_continue.tr(),
-                    style: FunctionHelper.fontTheme(
-                        color: Colors.white,
-                        fontSize: SizeUtil.titleFontSize().sp,
-                        fontWeight: FontWeight.w500),
                   ),
                 )
               ],

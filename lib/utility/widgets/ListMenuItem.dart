@@ -143,7 +143,7 @@ class ListMenuItem extends StatelessWidget {
                           Icon(
                             Icons.arrow_forward_ios,
                             color: Colors.grey.withOpacity(0.7),
-                            size: 4.0.w,
+                            size: SizeUtil.ratingSize().w,
                           )
                         ],
                       ),

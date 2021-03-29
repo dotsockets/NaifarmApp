@@ -192,7 +192,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Container(
-                padding: EdgeInsets.only(left: 40, right: 40),
+                padding: EdgeInsets.only(left: 25.0.w, right: 25.0.w),
                 color: Colors.grey.shade300,
                 height: 80,
                 child: Container(
@@ -217,6 +217,8 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
         backgroundColor: MaterialStateProperty.all(
           fix ? ThemeColor.secondaryColor() : Colors.grey.shade400,
         ),
+        padding: MaterialStateProperty.all(EdgeInsets.only(
+          left: 20.0.w, right: 20.0.w,)),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),
         ),

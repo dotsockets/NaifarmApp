@@ -574,7 +574,7 @@ class _CanceledViewState extends State<CanceledView> {
               child: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.grey.shade400,
-                size: 4.0.w,
+                size: SizeUtil.ratingSize().w,
               ))
         ],
       ),

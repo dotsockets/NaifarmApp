@@ -216,7 +216,7 @@ class _AddressViewState extends State<AddressView> {
                                   Icon(
                                     Icons.arrow_forward_ios,
                                     color: Colors.grey.shade500,
-                                    size: 5.0.w,
+                                    size: SizeUtil.imgMedWidth().w,
                                   )
                                 ],
                               ),

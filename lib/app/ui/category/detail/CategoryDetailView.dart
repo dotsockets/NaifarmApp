@@ -182,7 +182,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                                 context: context,
                                 barTxt: LocaleKeys.recommend_best_seller.tr(),
                                 installData:
-                                    (snapshot.data as CategoryObjectCombin).hotProduct);
+                                    (snapshot.                                                                                                                            data as CategoryObjectCombin).hotProduct);
                           },
                           onTapItem: (ProductData item, int index) {
                             AppRoute.productDetail(context,

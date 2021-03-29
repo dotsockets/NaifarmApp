@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/ProductVertical.dart';
@@ -133,7 +134,8 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                       return ProductVertical(
                         titleInto: LocaleKeys.recommend_best_seller.tr(),
                         productRespone: snapshot.data,
-                        iconInto: 'assets/images/svg/product_hot.svg',
+
+                        imageIcon: 'assets/images/png/product_hot.png',
                         onSelectMore: () {
                           AppRoute.productMore(
                               apiLink:
@@ -149,7 +151,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                                   ProductBloc.convertDataToProduct(data: item));
                         },
                         borderRadius: false,
-                        iconSize: 6.5.w,
+                        iconSize: SizeUtil.iconHeight().w,
                         tagHero: "sell_sub",
                       );
                     } else {

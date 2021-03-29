@@ -271,7 +271,8 @@ class CodegenLoader extends AssetLoader{
     "order": "Order Total",
     "message": "Leave a message",
     "ship": "Choose a shipping method",
-    "ship_at": "Receive at"
+    "ship_at": "Receive at",
+    "ship_empty": "This shop doesn't setting a shipping"
   },
   "history": {
     "order_time": "Payment Time",
@@ -792,7 +793,8 @@ static const Map<String,dynamic> th_TH = {
     "order": "คำสั่งซื้อทั้งหมด",
     "message": "ฝากข้อความ",
     "ship": "เลือกวิธีการจัดส่ง",
-    "ship_at": "จะได้รับภายใน"
+    "ship_at": "จะได้รับภายใน",
+    "ship_empty": "ร้านนี้ไม่ได้ตั้งค่าการขนส่ง"
   },
   "history": {
     "order_time": "วันที่ซื้อ",

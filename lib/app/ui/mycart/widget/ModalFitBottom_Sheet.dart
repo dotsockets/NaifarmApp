@@ -147,7 +147,7 @@ class ModalFitBottomSheet extends StatelessWidget {
                           Icon(
                             Icons.arrow_forward_ios,
                             color: Colors.grey.shade400,
-                            size: 5.0.w,
+                            size: SizeUtil.imgMedWidth().w,
                           )
                         ],
                       )

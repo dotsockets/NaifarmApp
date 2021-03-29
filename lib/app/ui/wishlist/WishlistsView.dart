@@ -345,12 +345,12 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                   children: [
                     Visibility(
                       child: Container(
-                        margin: EdgeInsets.only(top: 7, left: 8),
+                        margin: EdgeInsets.only(left: 2.0.w, top: 0),
                         decoration: BoxDecoration(
                             color: ThemeColor.colorSale(),
                             borderRadius: BorderRadius.all(Radius.circular(7))),
                         padding: EdgeInsets.only(
-                            left: 10, right: 10, top: 5, bottom: 5),
+                            left: 1.5.w, right: 1.5.w, top: 1.0.w, bottom: 1.0.w),
                         child: Text(
                           item.product != null
                               ? "${item.product.discountPercent}%"

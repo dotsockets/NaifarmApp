@@ -316,7 +316,7 @@ class _NotiCusState extends State<NotiCus>
                               ? Icon(
                                   Icons.arrow_forward_ios,
                                   color: Colors.black.withOpacity(0.4),
-                                  size: 4.0.w,
+                                  size: SizeUtil.ratingSize().w ,
                                 )
                               : SizedBox()
                         ],
