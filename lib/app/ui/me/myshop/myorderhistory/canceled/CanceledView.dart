@@ -422,7 +422,7 @@ class _CanceledViewState extends State<CanceledView> {
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   color: Colors.black.withOpacity(0.6)),
                             ),
-                            buildButtonBayItem(
+                            buildButton(
                                 btnTxt:
                                     "${LocaleKeys.order_detail_cancel_detail.tr()}",
                                 item: item)
@@ -511,7 +511,7 @@ class _CanceledViewState extends State<CanceledView> {
     );
   }
 
-  Widget buildButtonBayItem({String btnTxt, OrderData item}) {
+  Widget buildButton({String btnTxt, OrderData item}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(

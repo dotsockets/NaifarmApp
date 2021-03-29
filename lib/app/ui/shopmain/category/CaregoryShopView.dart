@@ -42,7 +42,7 @@ class CaregoryShopView extends StatelessWidget {
                   bottom: BorderSide(color: Colors.grey.shade300, width: 1)),
             ),
             padding: EdgeInsets.only(
-                bottom: 4.0.w, top: 4.0.w, left: 4.0.w, right: 2.0.w),
+                bottom: 1.5.h, top: 1.5.h, left: 4.0.w, right: 2.0.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

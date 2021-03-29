@@ -257,7 +257,7 @@ class _OrderViewState extends State<OrderView> {
     return Container(
       width: 70.0.w,
       height: 6.0.h,
-      margin: EdgeInsets.only(top: 20),
+      margin: EdgeInsets.only(top: 2.0.h),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Container(
@@ -292,7 +292,7 @@ class _OrderViewState extends State<OrderView> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(
-              height: 30,
+              height: 4.0.h,
             ),
             // Text("Order ${orderData.orderNumber}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
             //SizedBox(height: 3),
