@@ -218,14 +218,14 @@ class AppRoute {
   }
 
   static Future<PaymentRespone> cartBank(BuildContext context,
-      {PaymentRespone paymentRespone}) async {
+      {PaymentRespone paymentRespone,String AllShopID}) async {
     return await Navigator.push(
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
             type: PageTransitionType.fade,
             child: CartBankView(
-              paymentRespone: paymentRespone,
+              paymentRespone: paymentRespone,AllShopID: AllShopID,
             )));
   }
 

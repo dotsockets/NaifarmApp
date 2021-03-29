@@ -1107,13 +1107,13 @@ class _APIProvider implements APIProvider {
 
   @override
   Future<ApiResult> getPaymentList(
-    BuildContext context,
+    BuildContext context,{String shopIds}
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     try {
-      final _result = await _dio.request<dynamic>('/v1/payments',
+      final _result = await _dio.request<dynamic>('/v1/payments?shopIds=${shopIds}',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',

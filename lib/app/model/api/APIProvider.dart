@@ -217,7 +217,7 @@ abstract class APIProvider {
   Future<ApiResult> getBanners(BuildContext context, {String group});
 
   @GET("/v1/payments")
-  Future<ApiResult> getPaymentList(BuildContext context);
+  Future<ApiResult> getPaymentList(BuildContext context,{String shopIds});
 
   @GET("/v1/payment")
   Future<ApiResult> getPaymentMyShop(BuildContext context, {String token});

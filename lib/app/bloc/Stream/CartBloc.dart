@@ -132,12 +132,12 @@ class CartBloc {
   }
 
   getPaymentList(
-    BuildContext context,
+    BuildContext context,{String shopIds}
   ) async {
     // onLoad.add(true);
     StreamSubscription subscription =
         Observable.fromFuture(_application.appStoreAPIRepository.getPaymentList(
-      context,
+      context,shopIds: shopIds ?? ""
     )).listen((respone) {
       if (respone.httpCallBack.status == 200) {
         if ((respone.respone as PaymentRespone).data.isNotEmpty) {
@@ -153,6 +153,20 @@ class CartBloc {
       }
     });
     _compositeSubscription.add(subscription);
+  }
+
+  String getAllShopID(){
+    String id="";
+    int i=0;
+    for(var item in cartList.value.data){
+      if((i+1)==cartList.value.data.length){
+        id+="${item.shopId}";
+      }else{
+        id+="${item.shopId},";
+      }
+      i++;
+    }
+    return id;
   }
 
   Future<ShippingRates> getShippings(BuildContext context,

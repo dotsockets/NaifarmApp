@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -13,8 +14,8 @@ import 'package:sizer/sizer.dart';
 
 class CartBankView extends StatefulWidget {
   final PaymentRespone paymentRespone;
-
-  const CartBankView({Key key, this.paymentRespone}) : super(key: key);
+  final String AllShopID;
+  const CartBankView({Key key, this.paymentRespone,this.AllShopID}) : super(key: key);
 
   @override
   _CartBankViewState createState() => _CartBankViewState();
@@ -28,12 +29,22 @@ class _CartBankViewState extends State<CartBankView> {
 
   void _init() {
     if (null == bloc) {
+
       bloc = CartBloc(AppProvider.getApplication(context));
+
+      // bloc.paymentList.stream.listen((event) {
+      //   if(widget.paymentRespone.data.length==0){
+      //     FunctionHelper.alertDialogRetry(context,
+      //         title: LocaleKeys.btn_error.tr(),
+      //         message:LocaleKeys.search_product_not_found.tr());
+      //   }
+      // });
+
       if (widget.paymentRespone.data != null) {
         bloc.paymentList.add(widget.paymentRespone);
       } else {
         bloc.getPaymentList(
-          context,
+          context,shopIds: widget.AllShopID
         );
       }
     }
@@ -56,7 +67,7 @@ class _CartBankViewState extends State<CartBankView> {
                   isEnableSearch: false,
                   onClick: () => Navigator.pop(context, null)),
             ),
-            body: SingleChildScrollView(
+            body: widget.paymentRespone.data.length>0?SingleChildScrollView(
               child: Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,6 +103,25 @@ class _CartBankViewState extends State<CartBankView> {
                       height: 1.0.h,
                     ),
                     _buildAddBtn(),
+                  ],
+                ),
+              ),
+            ):Center(
+              child: Container(
+                margin: EdgeInsets.only(bottom: 15.0.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset('assets/json/boxorder.json',
+                        height: 70.0.w,
+                        width: 70.0.w,
+                        repeat: false),
+                    Text(
+                      LocaleKeys.search_product_not_found.tr(),
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.bold),
+                    )
                   ],
                 ),
               ),

@@ -31,7 +31,7 @@ class PaymentBloc {
   loadPaymentPage(BuildContext context, {String token}) {
     StreamSubscription subscription = Observable.combineLatest2(
         Observable.fromFuture(_application.appStoreAPIRepository.getPaymentList(
-          context,
+          context,shopIds: ""
         )),
         Observable.fromFuture(_application.appStoreAPIRepository
             .getPaymentMyShop(context, token: token)), (a, b) {

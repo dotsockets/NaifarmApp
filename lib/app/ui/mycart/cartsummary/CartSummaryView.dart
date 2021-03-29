@@ -94,7 +94,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       Usermanager().getUser().then((value) =>
           bloc.addressesList(context, token: value.token, type: true));
       bloc.getPaymentList(
-        context,
+        context,shopIds: bloc.getAllShopID()
       );
     }
   }
@@ -596,7 +596,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           fontWeight: FontWeight.w500,
                           onClick: () async {
                             final result = await AppRoute.cartBank(context,
-                                paymentRespone: bloc.paymentList.value);
+                                paymentRespone: bloc.paymentList.value,AllShopID: bloc.getAllShopID());
                             if (result != null) {
                               bloc.paymentList.add(result);
                             }
@@ -614,7 +614,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           fontWeight: FontWeight.w500,
                           onClick: () async {
                             final result = await AppRoute.cartBank(context,
-                                paymentRespone: bloc.paymentList.value);
+                                paymentRespone: bloc.paymentList.value,AllShopID: bloc.getAllShopID());
                             if (result != null) {
                               bloc.paymentList.add(result);
                             }
@@ -991,4 +991,6 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       },
     );
   }
+
+
 }

@@ -237,10 +237,10 @@ class APIRepository {
   }
 
   Future<ApiResult> getPaymentList(
-    BuildContext context,
+    BuildContext context,{String shopIds}
   ) {
     return _apiProvider.getPaymentList(
-      context,
+      context,shopIds: shopIds
     );
   }
 
