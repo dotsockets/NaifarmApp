@@ -370,14 +370,14 @@ class _EditProductViewState extends State<EditProductView> {
                 fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           Container(
-            padding: EdgeInsets.all(10),
+
             margin: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: Colors.black.withOpacity(0.3))),
             child: InkWell(
               child: Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(1.8.h),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

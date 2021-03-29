@@ -32,7 +32,7 @@ class _CustomDropdownListState extends State<CustomDropdownList> {
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-          padding: EdgeInsets.all(2.2.h),
+          padding: EdgeInsets.all(2.0.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

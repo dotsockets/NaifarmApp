@@ -398,7 +398,7 @@ class _LoginViewState extends State<LoginView> {
 
   Widget buildHeader(BuildContext context) {
     return Container(
-        padding: EdgeInsets.only(bottom: 4.0.h),
+        padding: EdgeInsets.only(bottom: 3.5.h),
         width: MediaQuery.of(context).size.width,
         // decoration: BoxDecoration(
         //   color: ThemeColor.primaryColor(),

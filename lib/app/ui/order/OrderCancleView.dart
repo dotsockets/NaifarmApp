@@ -401,7 +401,7 @@ class _OrderCancleViewState extends State<OrderCancleView> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(
-              height: 30,
+              height: 4.0.h,
             ),
             // Text("Order ${orderData.orderNumber}",style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
             //SizedBox(height: 3),
