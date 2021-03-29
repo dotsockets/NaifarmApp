@@ -513,7 +513,7 @@ class ProductBloc {
               productItem: item.producItemRespone,
               dataWishlists: item.dataWishlists,
               groupId:
-              item.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id,
+              item.producItemRespone.categories[0].category!=null?item.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id:0,
               limit: 10);
         }
 
