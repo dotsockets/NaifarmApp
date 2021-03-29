@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:lottie/lottie.dart';
@@ -37,6 +39,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool islike = true;
   bool isLogin = true;
+  final _indicatorController = IndicatorController();
 
   void _init() {
     if (null == bloc) {
@@ -85,6 +88,71 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
 
   void iSLogin() async => isLogin = await Usermanager().isLogin();
 
+  Widget androidRefreshIndicator() {
+    return RefreshIndicator(
+      onRefresh: onRefresh,
+      child: mainContent(),
+    );
+  }
+
+  Widget iosRefreshIndicator() {
+    return CustomRefreshIndicator(
+        controller: _indicatorController,
+        onRefresh: () => onRefresh(),
+        armedToLoadingDuration: const Duration(seconds: 1),
+        draggingToIdleDuration: const Duration(seconds: 1),
+        completeStateDuration: const Duration(seconds: 1),
+        offsetToArmed: 50.0,
+        builder: (
+          BuildContext context,
+          Widget child,
+          IndicatorController controller,
+        ) {
+          return Stack(
+            children: <Widget>[
+              AnimatedBuilder(
+                animation: controller,
+                builder: (BuildContext context, Widget _) {
+                  return Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Positioned(
+                        top: 25 * controller.value,
+                        child: SpinKitThreeBounce(
+                          color: ThemeColor.primaryColor(),
+                          size: 30,
+                        ),
+                      )
+                    ],
+                  );
+                },
+              ),
+              AnimatedBuilder(
+                builder: (context, _) {
+                  return Transform.translate(
+                    offset: Offset(
+                        0.0, controller.value * SizeUtil.indicatorSize()),
+                    child: child,
+                  );
+                },
+                animation: controller,
+              ),
+            ],
+          );
+        },
+        child: mainContent());
+  }
+
+  Future<Null> onRefresh() async {
+    if (Platform.isAndroid) {
+      await Future.delayed(Duration(seconds: 2));
+    }
+
+    Usermanager()
+        .getUser()
+        .then((value) => bloc.getMyWishlists(context, token: value.token));
+  }
+
   @override
   Widget build(BuildContext context) {
     _init();
@@ -104,6 +172,75 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
     );
   }
 
+  Widget mainContent() {
+    return StreamBuilder(
+      stream: bloc.wishlists.stream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        var item = (snapshot.data as WishlistsRespone);
+        if (snapshot.hasData) {
+          //  print(bloc.Wishlists.value.data.length.toString()+"***");
+          if (item.data.length > 0) {
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: SizeUtil.paddingMenu().w,
+                  ),
+                  ClipRRect(
+                    child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            _buildCardProduct(context: context, item: item)
+                          ],
+                        )),
+                  )
+                ],
+              ),
+            );
+          } else {
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.only(bottom: 15.0.h),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset('assets/json/boxorder.json',
+                            height: 70.0.w, width: 70.0.w, repeat: false),
+                        Text(
+                          LocaleKeys.search_product_not_found.tr(),
+                          style: FunctionHelper.fontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
+          }
+        } else {
+          return Column(
+            children: [
+              Expanded(
+                child: Center(
+                    child: Platform.isAndroid
+                        ? CircularProgressIndicator()
+                        : CupertinoActivityIndicator()),
+              )
+            ],
+          );
+        }
+      },
+    );
+  }
+
   Widget _content() {
     return Container(
       color: ThemeColor.primaryColor(),
@@ -114,73 +251,10 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
             title: LocaleKeys.me_title_likes.tr(),
             headerType: Header_Type.barNormal,
             icon: 'assets/images/svg/search.svg',
-
           ),
-          body: StreamBuilder(
-            stream: bloc.wishlists.stream,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              var item = (snapshot.data as WishlistsRespone);
-              if (snapshot.hasData) {
-                //  print(bloc.Wishlists.value.data.length.toString()+"***");
-                if (item.data.length > 0) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(height: SizeUtil.paddingMenu().w,),
-                        ClipRRect(
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  _buildCardProduct(
-                                      context: context, item: item)
-                                ],
-                              )),
-                        )
-                      ],
-                    ),
-                  );
-                } else {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.only(bottom: 15.0.h),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Lottie.asset('assets/json/boxorder.json',
-                                  height: 70.0.w, width: 70.0.w, repeat: false),
-                              Text(
-                                LocaleKeys.search_product_not_found.tr(),
-                                style: FunctionHelper.fontTheme(
-                                    fontSize: SizeUtil.titleFontSize().sp,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                }
-              } else {
-                return Column(
-                  children: [
-                    Expanded(
-                      child: Center(
-                          child: Platform.isAndroid
-                              ? CircularProgressIndicator()
-                              : CupertinoActivityIndicator()),
-                    )
-                  ],
-                );
-              }
-            },
-          ),
+          body: Platform.isAndroid
+              ? androidRefreshIndicator()
+              : iosRefreshIndicator(),
         ),
       ),
     );

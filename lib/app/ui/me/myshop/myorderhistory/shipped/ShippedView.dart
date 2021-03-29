@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
@@ -36,6 +38,7 @@ class _ShippedViewState extends State<ShippedView> {
   int page = 1;
   int limit = 10;
   bool stepPage = false;
+  final _indicatorController = IndicatorController();
 
   init() {
     if (bloc == null) {
@@ -88,9 +91,62 @@ class _ShippedViewState extends State<ShippedView> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    init();
+  Widget androidRefreshIndicator() {
+    return RefreshIndicator(
+      onRefresh: onRefresh,
+      child: mainContent(),
+    );
+  }
+
+  Widget iosRefreshIndicator() {
+    return CustomRefreshIndicator(
+        controller: _indicatorController,
+        onRefresh: () => onRefresh(),
+        armedToLoadingDuration: const Duration(seconds: 1),
+        draggingToIdleDuration: const Duration(seconds: 1),
+        completeStateDuration: const Duration(seconds: 1),
+        offsetToArmed: 50.0,
+        builder: (
+          BuildContext context,
+          Widget child,
+          IndicatorController controller,
+        ) {
+          return Stack(
+            children: <Widget>[
+              AnimatedBuilder(
+                animation: controller,
+                builder: (BuildContext context, Widget _) {
+                  return Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Positioned(
+                        top: 25 * controller.value,
+                        child: SpinKitThreeBounce(
+                          color: ThemeColor.primaryColor(),
+                          size: 30,
+                        ),
+                      )
+                    ],
+                  );
+                },
+              ),
+              AnimatedBuilder(
+                builder: (context, _) {
+                  return Transform.translate(
+                    offset: Offset(
+                        0.0, controller.value * SizeUtil.indicatorSize()),
+                    child: child,
+                  );
+                },
+                animation: controller,
+              ),
+            ],
+          );
+        },
+        child: mainContent());
+  }
+
+  Widget mainContent() {
     return Container(
       color: Colors.white,
       margin: EdgeInsets.only(top: 10),
@@ -226,6 +282,43 @@ class _ShippedViewState extends State<ShippedView> {
             }
           }),
     );
+  }
+
+  Future<Null> onRefresh() async {
+    if (Platform.isAndroid) {
+      await Future.delayed(Duration(seconds: 2));
+    }
+
+    page = 1;
+
+    Usermanager().getUser().then((value) => bloc.loadOrder(context,
+        orderType:
+            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+        statusId: "3",
+        sort: "orders.updatedAt:desc",
+        limit: limit,
+        page: 1,
+        token: value.token));
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent -
+              _scrollController.position.pixels <=
+          200) {
+        if (stepPage) {
+          stepPage = false;
+          page++;
+          _reloadData();
+        }
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    init();
+    return Platform.isAndroid
+        ? androidRefreshIndicator()
+        : iosRefreshIndicator();
   }
 
   Widget buildCard({OrderData item, BuildContext context, int index}) {
@@ -485,7 +578,8 @@ class _ShippedViewState extends State<ShippedView> {
                 : Row(
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(SizeUtil.borderRadiusShop())),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(SizeUtil.borderRadiusShop())),
                         child: CachedNetworkImage(
                           width: 7.0.w,
                           height: 7.0.w,
@@ -545,8 +639,11 @@ class _ShippedViewState extends State<ShippedView> {
             borderRadius: BorderRadius.circular(40.0),
           ),
         ),
-        padding: MaterialStateProperty.all(
-            EdgeInsets.only(right: SizeUtil.iconSize().w, left: SizeUtil.iconSize().w,bottom: SizeUtil.paddingItem().h,top: SizeUtil.paddingItem().h)),
+        padding: MaterialStateProperty.all(EdgeInsets.only(
+            right: SizeUtil.iconSize().w,
+            left: SizeUtil.iconSize().w,
+            bottom: SizeUtil.paddingItem().h,
+            top: SizeUtil.paddingItem().h)),
         backgroundColor: MaterialStateProperty.all(
           ThemeColor.colorSale(),
         ),
