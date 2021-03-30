@@ -1243,7 +1243,7 @@ class _OrderViewState extends State<OrderView> {
                 ),
               ),
               minimumSize: MaterialStateProperty.all(
-                Size(60.0.w, 6.0.h),
+                Size(50.0.w, 5.0.h),
               ),
               backgroundColor: MaterialStateProperty.all(
                 ThemeColor.colorSale(),

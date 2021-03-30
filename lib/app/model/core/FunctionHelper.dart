@@ -172,8 +172,8 @@ class FunctionHelper {
                           padding: EdgeInsets.only(
                               right: 20,
                               left: 20,
-                              bottom: 20,
-                              top: index == 0 ? 15 : 10),
+                              bottom: 2.0.h,
+                              top: index == 0 ? 15 : 2.0.h),
                           child: Text(
                             dataList[index],
                             style: FunctionHelper.fontTheme(

@@ -20,7 +20,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
 //'assets/images/svg/cart_top.svg'
-class NotiShop extends StatefulWidget {
+class  NotiShop extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool btnBack;
   final NotiRespone notiRespone;

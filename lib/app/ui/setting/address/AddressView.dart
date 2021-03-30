@@ -350,7 +350,7 @@ class _AddressViewState extends State<AddressView> {
     return Center(
       child: Container(
         width: 50.0.w,
-        height: 6.0.h,
+        height: 5.0.h,
         child: TextButton(
           style: ButtonStyle(
             shape: MaterialStateProperty.all(
