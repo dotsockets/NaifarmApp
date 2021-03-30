@@ -144,8 +144,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                                       bottom: 4.0.w),
                                   child: TextButton(
                                     style: ButtonStyle(
-                                      padding: MaterialStateProperty.all(
-                                          EdgeInsets.all(8.0)),
+
                                       shape: MaterialStateProperty.all(
                                         RoundedRectangleBorder(
                                           borderRadius:
@@ -153,7 +152,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                                         ),
                                       ),
                                       minimumSize: MaterialStateProperty.all(
-                                        Size(50.0.w, 6.0.h),
+                                        Size(50.0.w, 5.0.h),
                                       ),
                                       backgroundColor:
                                           MaterialStateProperty.all(
@@ -189,7 +188,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                       )
                     : SizedBox(),
                 SizedBox(
-                  height: 20,
+                  height: 3.0.w,
                 ),
                 isHave == false ? Center(child: buildItem()) : SizedBox()
               ],
@@ -202,14 +201,14 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
 
   Widget buildItem() => TextButton(
         style: ButtonStyle(
-          padding: MaterialStateProperty.all(EdgeInsets.all(8.0)),
+
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40.0),
             ),
           ),
           minimumSize: MaterialStateProperty.all(
-            Size(50.0.w, 6.0.h),
+            Size(50.0.w, 5.0.h),
           ),
           backgroundColor: MaterialStateProperty.all(
             formCheck() ? ThemeColor.secondaryColor() : Colors.grey.shade400,

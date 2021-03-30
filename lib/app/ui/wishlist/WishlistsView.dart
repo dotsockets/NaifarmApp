@@ -313,7 +313,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                     "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}",
                     style: FunctionHelper.fontTheme(
                         color: Colors.grey,
-                        fontSize: SizeUtil.priceFontSize().sp - 1,
+                        fontSize: SizeUtil.priceFontSize().sp - 2,
                         decoration: TextDecoration.lineThrough))
                 : SizedBox(),
             SizedBox(

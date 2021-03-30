@@ -35,8 +35,8 @@ class MyshopView extends StatefulWidget {
 class _MyshopViewState extends State<MyshopView> {
   MemberBloc bloc;
 
-  TextEditingController nameshopController = TextEditingController();
-  TextEditingController slugshopController = TextEditingController();
+  TextEditingController nameShopController = TextEditingController();
+  TextEditingController slugShopController = TextEditingController();
   bool check = false;
 
   void _init() {
@@ -136,7 +136,7 @@ class _MyshopViewState extends State<MyshopView> {
                         enableMaxLength: false,
                         hint: LocaleKeys.set_default.tr() +
                             LocaleKeys.shop_name.tr(),
-                        controller: nameshopController,
+                        controller: nameShopController,
                         onChanged: (String x) => _checkError(),
                         inputType: TextInputType.text),
                     SizedBox(
@@ -147,7 +147,7 @@ class _MyshopViewState extends State<MyshopView> {
                         enableMaxLength: false,
                         hint: LocaleKeys.set_default.tr() +
                             LocaleKeys.shop_detail.tr(),
-                        controller: slugshopController,
+                        controller: slugShopController,
                         onChanged: (String x) => _checkError(),
                         inputType: TextInputType.text),
                     SizedBox(
@@ -373,8 +373,8 @@ class _MyshopViewState extends State<MyshopView> {
   Widget _buildBtnAddProduct(
       BuildContext context, ShppingMyShopRespone shpping) {
     return Container(
-      width: 60.0.w,
-      height: 5.5.h,
+      width: 50.0.w,
+      height: 5.0.h,
       child: TextButton(
         style: ButtonStyle(
           shape: MaterialStateProperty.all(
@@ -414,8 +414,8 @@ class _MyshopViewState extends State<MyshopView> {
 
   Widget _buildButton() {
     return Container(
-        width: 60.0.w,
-        height: 5.5.h,
+        width: 50.0.w,
+        height: 5.0.h,
         margin: EdgeInsets.all(15),
         child: _buildButtonItem(btnTxt: LocaleKeys.btn_continue.tr()));
   }
@@ -438,9 +438,9 @@ class _MyshopViewState extends State<MyshopView> {
       onPressed: () {
         if (check) {
           Usermanager().getUser().then((value) => bloc.createMyShop(context,
-              name: nameshopController.text,
-              slug: slugshopController.text,
-              description: slugshopController.text,
+              name: nameShopController.text,
+              slug: slugShopController.text,
+              description: slugShopController.text,
               token: value.token));
         }
       },
@@ -465,7 +465,7 @@ class _MyshopViewState extends State<MyshopView> {
     //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "ไม่ถูกต้อง",context: context);
     check = false;
 
-    if (nameshopController.text != "" && slugshopController.text != "") {
+    if (nameShopController.text != "" && slugShopController.text != "") {
       check = true;
     }
     setState(() {});

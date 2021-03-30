@@ -392,7 +392,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                           height: SizeUtil.imgProfileSize().w,
                           color: Colors.white,
                           child: Lottie.asset('assets/json/loading.json',
-                              height: 30),
+                            height: SizeUtil.imgProfileSize().w,width: SizeUtil.imgProfileSize().w,),
                         ),
                         fit: BoxFit.cover,
                         imageUrl: info != null
@@ -402,11 +402,11 @@ class _MeViewState extends State<MeView> with RouteAware {
                             : '',
                         errorWidget: (context, url, error) => Container(
                             color: Colors.grey.shade300,
-                            width: 20.0.w,
-                            height: 20.0.w,
+                            width: SizeUtil.imgProfileSize().w,
+                            height: SizeUtil.imgProfileSize().w,
                             child: Icon(
                               Icons.person,
-                              size: 10.0.w,
+                              size: SizeUtil.iconSize().w,
                               color: Colors.white,
                             )),
                       ),

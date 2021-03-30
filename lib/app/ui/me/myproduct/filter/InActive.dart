@@ -312,7 +312,7 @@ class _InActiveState extends State<InActive> {
                                       style: FunctionHelper.fontTheme(
                                           color: Colors.grey,
                                           fontSize:
-                                              SizeUtil.priceFontSize().sp - 1,
+                                              SizeUtil.priceFontSize().sp - 2,
                                           decoration:
                                               TextDecoration.lineThrough))
                                   : SizedBox(),
@@ -425,7 +425,7 @@ class _InActiveState extends State<InActive> {
                         ),
                       ),
                       Container(
-                        height: 50,
+                        height: 6.0.h,
                         color: Colors.grey.shade300,
                       ),
                       Container(
@@ -461,7 +461,7 @@ class _InActiveState extends State<InActive> {
                       ),
                       Container(
                         width: 1,
-                        height: 50,
+                        height: 6.0.h,
                         color: Colors.grey.shade300,
                       ),
                       Expanded(
@@ -500,7 +500,7 @@ class _InActiveState extends State<InActive> {
                       ),
                       Container(
                         width: 1,
-                        height: 50,
+                        height: 6.0.h,
                         color: Colors.grey.shade300,
                       ),
                       Expanded(

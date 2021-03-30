@@ -407,7 +407,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                     "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
                     style: FunctionHelper.fontTheme(
                         color: Colors.grey,
-                        fontSize: SizeUtil.priceFontSize().sp - 1,
+                        fontSize: SizeUtil.priceFontSize().sp - 2,
                         decoration: TextDecoration.lineThrough))
                 : SizedBox(),
             SizedBox(width: item.offerPrice != null ? 1.0.w : 0),

@@ -106,7 +106,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                       // _BuildSwitchDelivery(head: "Kerry",index: 1,onClick: ()=>setState(()=> isSelect1 = isSelect1?false:true)),
                       // _BuildSwitchDelivery(head: "J&T Express",index: 2,onClick: ()=>setState(()=> isSelect2 = isSelect2?false:true)),
                       SizedBox(
-                        height: 2.0.h,
+                        width: 3.0.w,
                       ),
                       Visibility(
                         visible: checkKeyBoard ? false : true,
@@ -192,12 +192,12 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Container(
-                padding: EdgeInsets.only(left: 25.0.w, right: 25.0.w),
+                padding: EdgeInsets.only(left: 25.0.w,right: 25.0.w,top: 3.0.h,bottom: 3.0.h),
+
                 color: Colors.grey.shade300,
 
                 child: Container(
                     width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.all(15),
                     child: _buildButtonItem(
                         btnTxt: LocaleKeys.btn_save.tr(), fix: snapshot.data)));
           } else {

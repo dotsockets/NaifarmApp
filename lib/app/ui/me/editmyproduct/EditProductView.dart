@@ -338,10 +338,8 @@ class _EditProductViewState extends State<EditProductView> {
     if (item.name != "" &&
         item.category != 0 &&
         item.description != "" &&
-        item.stockQuantity != 0 &&
-        item.salePrice != 0 &&
-        item.offerPrice != 0 &&
-        detailController.text.length != 0 &&priceController.text.length != 0&&amountController.text.length != 0&& offerPrice<item.salePrice) {
+        item.salePrice != 0 &&amountController.text != "0"&&
+        detailController.text.length != 0 && priceController.text.length != 0 &&amountController.text.length != 0 && offerPrice<item.salePrice) {
       return true;
     } else {
       return false;
@@ -562,7 +560,7 @@ class _EditProductViewState extends State<EditProductView> {
             int.parse(
                 priceController.text.length > 0 ? priceController.text : "0");
         bloc.uploadProductStorage.value.productMyShopRequest.offerPrice =
-            int.parse(offerPriceController.text.length > 0
+            int.parse(offerPriceController.text.length > 0&&offerPriceController.text!=null
                 ? offerPriceController.text
                 : "0");
 
@@ -654,7 +652,7 @@ class _EditProductViewState extends State<EditProductView> {
     // detailController.text = productMyShopRequest.description;
     // detailController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.description!=null?productMyShopRequest.description.length:0));
 
-    amountController.text = productMyShopRequest.stockQuantity.toString();
+    amountController.text = productMyShopRequest.stockQuantity!=null?productMyShopRequest.stockQuantity.toString(): "";
     amountController.selection = TextSelection.fromPosition(TextPosition(
         offset: productMyShopRequest.stockQuantity != null
             ? productMyShopRequest.stockQuantity.toString().length
