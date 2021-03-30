@@ -216,7 +216,7 @@ class _AddressViewState extends State<AddressView> {
                                   Icon(
                                     Icons.arrow_forward_ios,
                                     color: Colors.grey.shade500,
-                                    size: 5.0.w,
+                                    size: SizeUtil.imgMedWidth().w,
                                   )
                                 ],
                               ),
@@ -350,7 +350,7 @@ class _AddressViewState extends State<AddressView> {
     return Center(
       child: Container(
         width: 50.0.w,
-        height: 6.0.h,
+        height: 5.0.h,
         child: TextButton(
           style: ButtonStyle(
             shape: MaterialStateProperty.all(

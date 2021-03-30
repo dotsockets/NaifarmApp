@@ -379,15 +379,13 @@ class _EditImageProductViewState extends State<EditImageProductView> {
 
   Widget _buildButton({List<OnSelectItem> item}) {
     return Container(
-        padding: EdgeInsets.only(left: 40, right: 40),
-        color: Colors.grey.shade300,
-        height: 80,
-        child: Container(
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.all(15),
-            child: _buildButtonItem(
-                btnTxt: LocaleKeys.btn_continue.tr(),
-                isEnable: bloc.countSelectImage() > 0 ? true : false)));
+    color: Colors.grey.shade300,
+        width: MediaQuery.of(context).size.width,
+    child: Container(
+        padding: EdgeInsets.only(left: 25.0.w,right: 25.0.w,top: 3.0.h,bottom: 3.0.h),
+        child: _buildButtonItem(
+            btnTxt: LocaleKeys.btn_continue.tr(),
+            isEnable: bloc.countSelectImage() > 0 ? true : false)));
   }
 
   Widget _buildButtonItem({String btnTxt, isEnable = false}) {
@@ -397,6 +395,9 @@ class _EditImageProductViewState extends State<EditImageProductView> {
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40.0),
           ),
+        ),
+        minimumSize: MaterialStateProperty.all(
+          Size(50.0.w, 5.0.h),
         ),
         backgroundColor: MaterialStateProperty.all(
           isEnable ? ThemeColor.secondaryColor() : Colors.grey,

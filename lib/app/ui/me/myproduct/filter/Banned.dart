@@ -262,7 +262,7 @@ class _BannedState extends State<Banned> {
                       ),
                       Visibility(
                         child: Container(
-                          margin: EdgeInsets.only(left: 2.5.w, top: 4.5.w),
+                          margin: EdgeInsets.only(left: (SizeUtil.ratingSize()-2).w, top: SizeUtil.ratingSize().w),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(1.0.w),
                             child: Container(

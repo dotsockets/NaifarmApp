@@ -165,7 +165,7 @@ class _MeViewState extends State<MeView> with RouteAware {
       controller: _scrollController,
       slivers: [
         SliverAppBar(
-          toolbarHeight: 5.0.h,
+          toolbarHeight: 5.5.h,
           leading: Container(
             margin: EdgeInsets.only(left: 1.0.w, top: SizeUtil.paddingItem().w),
             child: IconButton(

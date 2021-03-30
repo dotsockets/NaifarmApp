@@ -298,11 +298,12 @@ class _AddressAddViewState extends State<AddressAddView> {
 
   Widget _buildButton() {
     return Container(
-        padding: EdgeInsets.only(left: 50, right: 50, bottom: 1.0.h),
+        margin: EdgeInsets.only(top: 3.0.h, bottom: 3.0.h),
+        width: 50.0.w,
+        height: 5.0.h,
         color: Colors.grey.shade300,
         child: Container(
             width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.all(2.0.w),
             child: _buildButtonItem(btnTxt: LocaleKeys.btn_continue.tr())));
   }
 

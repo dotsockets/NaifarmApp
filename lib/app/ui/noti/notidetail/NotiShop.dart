@@ -19,7 +19,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
 //'assets/images/svg/cart_top.svg'
-class NotiShop extends StatefulWidget {
+class  NotiShop extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool btnBack;
   final NotiRespone notiRespone;
@@ -290,7 +290,7 @@ class _NotiShopState extends State<NotiShop>
                               ? Icon(
                                   Icons.arrow_forward_ios,
                                   color: Colors.black.withOpacity(0.4),
-                                  size: 4.0.w,
+                                  size: SizeUtil.ratingSize().w ,
                                 )
                               : SizedBox()
                         ],

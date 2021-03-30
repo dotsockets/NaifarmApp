@@ -211,7 +211,7 @@ class _MyProductViewState extends State<MyProductView> {
 
   Widget buildButton() {
     return Container(
-        margin: EdgeInsets.all(2.0.w),
+        margin: EdgeInsets.only(top: 3.0.h, bottom: 3.0.h),
         width: 50.0.w,
         height: 5.0.h,
         child: TextButton(
@@ -233,6 +233,7 @@ class _MyProductViewState extends State<MyProductView> {
             var result = await AppRoute.imageProduct(context,
                 isactive: IsActive.ReplacemenView);
             if (result != null && result) {
+
               Usermanager().getUser().then((value) => bloc.getProductMyShop(
                   context,
                   page: "1",

@@ -527,7 +527,7 @@ class _OrderViewState extends State<OrderView> {
                     Icon(
                       Icons.arrow_forward_ios,
                       color: Colors.grey.shade400,
-                      size: 4.0.w,
+                      size: SizeUtil.ratingSize().w ,
                     )
                   ],
                 ),
@@ -1244,7 +1244,7 @@ class _OrderViewState extends State<OrderView> {
                 ),
               ),
               minimumSize: MaterialStateProperty.all(
-                Size(60.0.w, 6.0.h),
+                Size(50.0.w, 5.0.h),
               ),
               backgroundColor: MaterialStateProperty.all(
                 ThemeColor.colorSale(),

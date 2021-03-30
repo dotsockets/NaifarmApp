@@ -328,12 +328,12 @@ class _AddressEditViewState extends State<AddressEditView> {
 
   Widget _buildButton() {
     return Container(
-        width: 60.0.w,
-        padding: EdgeInsets.all(1.0.h),
+        width: 50.0.w,
+        margin: EdgeInsets.only(top: 3.0.h, bottom: 3.0.h),
         color: Colors.grey.shade300,
         child: Container(
             width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.all(1.5.w),
+            margin: EdgeInsets.only(bottom:2.0.w),
             child: _buildButtonItem(btnTxt: LocaleKeys.btn_continue.tr())));
   }
 

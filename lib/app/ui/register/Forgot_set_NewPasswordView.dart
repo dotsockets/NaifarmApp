@@ -29,7 +29,6 @@ class ForgotSetNewPasswordState extends State<ForgotSetNewPasswordView> {
   String onError1 = "", onError2 = "";
   MemberBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool successForm = false;
   final onCheck = BehaviorSubject<bool>();
   bool onDialog = false;
 
@@ -49,7 +48,7 @@ class ForgotSetNewPasswordState extends State<ForgotSetNewPasswordView> {
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
-        FunctionHelper.successDialog(context, message: "ตั้งรหัสผ่านสำเร็จ",
+        FunctionHelper.successDialog(context, message: LocaleKeys.dialog_message_password_success.tr(),
             onClick: () {
           if (onDialog) {
             Navigator.of(context).pop();
@@ -185,7 +184,7 @@ class ForgotSetNewPasswordState extends State<ForgotSetNewPasswordView> {
       child: Column(
         children: [
           BuildEditText(
-            head: "New " + LocaleKeys.my_profile_password.tr(),
+            head: LocaleKeys.edit_password_new.tr(),
             hint: LocaleKeys.set_default.tr() +
                 LocaleKeys.my_profile_password.tr(),
             inputType: TextInputType.text,
@@ -202,9 +201,7 @@ class ForgotSetNewPasswordState extends State<ForgotSetNewPasswordView> {
             height: 3.0.h,
           ),
           BuildEditText(
-            head: LocaleKeys.btn_confirm.tr() +
-                " New " +
-                LocaleKeys.my_profile_password.tr(),
+            head: LocaleKeys.edit_password_confirm_new.tr(),
             hint: LocaleKeys.set_default.tr() +
                 LocaleKeys.my_profile_password.tr(),
             inputType: TextInputType.text,

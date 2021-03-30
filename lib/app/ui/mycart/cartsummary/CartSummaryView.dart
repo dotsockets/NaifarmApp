@@ -395,7 +395,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               case ConnectionState.none:
                 return new Text('Press button to start');
               case ConnectionState.waiting:
-                return new Text('Awaiting result...');
+                //return new Text('Awaiting result...');
+                return new Text('...');
               default:
                 if (snapshot.hasError)
                   return Container(
@@ -403,7 +404,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                     width: MediaQuery.of(context).size.width,
                     color: ThemeColor.warning(),
                     child: Text(
-                      'ร้านนี้ไม่ได้ตั้งค่าการขนส่ง',
+                      LocaleKeys.cart_ship_empty.tr(),
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleSmallFontSize().sp,
                           color: Color(ColorUtils.hexToInt("#84643b"))),
@@ -435,7 +436,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                             Icon(
                               Icons.arrow_forward_ios,
                               color: Colors.grey.withOpacity(0.7),
-                              size: 4.0.w,
+                              size: SizeUtil.ratingSize().w ,
                             )
                           ],
                         ),
@@ -821,7 +822,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.grey.shade400,
-                  size: 4.0.w,
+                  size: SizeUtil.ratingSize().w ,
                 )
               ],
             ),

@@ -302,7 +302,7 @@ class _EditProductViewState extends State<EditProductView> {
                                 Divider(
                                   height: 10,
                                 ),
-                                _buildAtivceTab(),
+                                _buildActiveTab(),
                               ],
                             ),
                           ),
@@ -429,7 +429,7 @@ class _EditProductViewState extends State<EditProductView> {
     );
   }
 
-  Widget _buildAtivceTab() {
+  Widget _buildActiveTab() {
     return Container(
         color: Colors.white,
         padding: EdgeInsets.only(left: 5, right: 5),
@@ -472,9 +472,9 @@ class _EditProductViewState extends State<EditProductView> {
   Widget _buildButton({bool enable}) {
     return Container(
         color: Colors.grey.shade300,
-        height: 80,
+        height: 10.0.h,
         child: Container(
-            padding: EdgeInsets.only(left: 20, right: 20),
+            padding: EdgeInsets.only(left: 3.0.w, right: 3.0.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -485,7 +485,7 @@ class _EditProductViewState extends State<EditProductView> {
                       enable: enable),
                 ),
                 SizedBox(
-                  width: 10,
+                  width: 3.0.w,
                 ),
                 Expanded(
                   child: _buildButtonItem(
@@ -541,7 +541,7 @@ class _EditProductViewState extends State<EditProductView> {
           ),
         ),
         minimumSize: MaterialStateProperty.all(
-          Size(80.0.w, 50.0),
+          Size(50.0.w, 5.0.h),
         ),
         backgroundColor: MaterialStateProperty.all(
           enable ? ThemeColor.secondaryColor() : Colors.grey.shade400,
@@ -600,7 +600,7 @@ class _EditProductViewState extends State<EditProductView> {
           ),
         ),
         minimumSize: MaterialStateProperty.all(
-          Size(80.0.w, 50.0),
+          Size(50.0.w, 5.0.h),
         ),
         backgroundColor: MaterialStateProperty.all(
           enable ? ThemeColor.colorSale() : Colors.grey.shade400,

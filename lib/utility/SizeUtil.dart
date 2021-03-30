@@ -68,7 +68,7 @@ class SizeUtil {
   }
 
   static double shopBadgeTop() {
-    return Device.get().isPhone ? 0.3 : -1.0;
+    return Device.get().isPhone ? 0.3 : -0.5;
   }
 
   static double shopBadgeStart() {
@@ -241,6 +241,6 @@ class SizeUtil {
   }
 
   static double iconHeight() {
-    return Device.get().isPhone ? 8.5 :6.0;
+    return Device.get().isPhone ? 8.5 : 6.0;
   }
 }
