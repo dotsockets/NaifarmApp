@@ -1172,18 +1172,20 @@ class _OrderViewState extends State<OrderView> {
                   'assets/images/svg/star_entry.svg',
                   width: 8.0.w,
                   height: 8.0.w,
+                  color: Colors.grey.shade300,
                 ),
                 SizedBox(width: 2.0.w),
                 Text(
                   LocaleKeys.btn_review.tr(),
                   style: FunctionHelper.fontTheme(
+                    color: Colors.grey.shade300,
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.bold),
                 )
               ],
             ),
             onTap: () {
-              AppRoute.review(context);
+            //  AppRoute.review(context);
               // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
               // Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
               // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");

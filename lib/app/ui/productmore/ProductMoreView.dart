@@ -132,10 +132,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                     children: [
                       Positioned(
                         top: 25 * controller.value,
-                        child: SpinKitThreeBounce(
-                          color: ThemeColor.primaryColor(),
-                          size: 30,
-                        ),
+                        child: CupertinoActivityIndicator(),
                       )
                     ],
                   );
@@ -219,164 +216,167 @@ class _ProductMoreViewState extends State<ProductMoreView> {
   }
 
   Widget mainContent() {
-    return Stack(
-      children: [
-        SingleChildScrollView(
-          controller: _scrollController,
-          physics: AlwaysScrollableScrollPhysics(),
-          child: StreamBuilder(
-            stream: bloc.moreProduct.stream,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              stepPage = true;
-              if (snapshot.hasData) {
-                var item = (snapshot.data as ProductRespone);
-                if (item.data.length > 0) {
-                  stepPage = true;
-                  return ListView.builder(
-                    padding: EdgeInsets.zero,
-                    primary: false,
-                    shrinkWrap: true,
-                    // physics: AlwaysScrollableScrollPhysics(),
-                    itemBuilder: (context, i) {
-                      // if ( i+1==((item.data.length) / 2).round()) {
-                      //   return CupertinoActivityIndicator();
-                      // }
+    return Container(
+      color: Colors.white,
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            controller: _scrollController,
+            physics: AlwaysScrollableScrollPhysics(),
+            child: StreamBuilder(
+              stream: bloc.moreProduct.stream,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                stepPage = true;
+                if (snapshot.hasData) {
+                  var item = (snapshot.data as ProductRespone);
+                  if (item.data.length > 0) {
+                    stepPage = true;
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      primary: false,
+                      shrinkWrap: true,
+                      // physics: AlwaysScrollableScrollPhysics(),
+                      itemBuilder: (context, i) {
+                        // if ( i+1==((item.data.length) / 2).round()) {
+                        //   return CupertinoActivityIndicator();
+                        // }
 
-                      return Container(
-                        child: Column(
-                          children: [
-                            item.data.length - (i) * 2 > 1
-                                ? Row(
-                                    children: [
-                                      Expanded(
-                                          child: _buildProduct(
-                                              item: item.data[(i * 2)],
-                                              index: (i * 2),
-                                              context: context)),
-                                      Expanded(
-                                          child: _buildProduct(
-                                              item: item.data[(i * 2) + 1],
-                                              index: ((i * 2) + 1),
-                                              context: context))
-                                    ],
-                                  )
-                                : Row(
-                                    children: [
-                                      Expanded(
-                                          child: _buildProduct(
-                                              item: item.data[(i * 2)],
-                                              index: (i * 2),
-                                              context: context)),
-                                      Expanded(child: SizedBox()),
-                                    ],
-                                  ),
-                            if (item.data.length != item.total &&
-                                item.data.length >= limit)
-                              i + 1 == ((item.data.length) / 2).round()
-                                  ? Container(
-                                      padding: EdgeInsets.all(20),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Platform.isAndroid
-                                              ? SizedBox(
-                                                  width: 5.0.w,
-                                                  height: 5.0.w,
-                                                  child:
-                                                      CircularProgressIndicator())
-                                              : CupertinoActivityIndicator(),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                              LocaleKeys.dialog_message_loading
-                                                  .tr(),
-                                              style: FunctionHelper.fontTheme(
-                                                  color: Colors.grey,
-                                                  fontSize:
-                                                      SizeUtil.titleFontSize()
-                                                          .sp))
-                                        ],
-                                      ),
+                        return Container(
+                          child: Column(
+                            children: [
+                              item.data.length - (i) * 2 > 1
+                                  ? Row(
+                                      children: [
+                                        Expanded(
+                                            child: _buildProduct(
+                                                item: item.data[(i * 2)],
+                                                index: (i * 2),
+                                                context: context)),
+                                        Expanded(
+                                            child: _buildProduct(
+                                                item: item.data[(i * 2) + 1],
+                                                index: ((i * 2) + 1),
+                                                context: context))
+                                      ],
                                     )
-                                  : SizedBox(),
+                                  : Row(
+                                      children: [
+                                        Expanded(
+                                            child: _buildProduct(
+                                                item: item.data[(i * 2)],
+                                                index: (i * 2),
+                                                context: context)),
+                                        Expanded(child: SizedBox()),
+                                      ],
+                                    ),
+                              if (item.data.length != item.total &&
+                                  item.data.length >= limit)
+                                i + 1 == ((item.data.length) / 2).round()
+                                    ? Container(
+                                        padding: EdgeInsets.all(20),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Platform.isAndroid
+                                                ? SizedBox(
+                                                    width: 5.0.w,
+                                                    height: 5.0.w,
+                                                    child:
+                                                        CircularProgressIndicator())
+                                                : CupertinoActivityIndicator(),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                                LocaleKeys.dialog_message_loading
+                                                    .tr(),
+                                                style: FunctionHelper.fontTheme(
+                                                    color: Colors.grey,
+                                                    fontSize:
+                                                        SizeUtil.titleFontSize()
+                                                            .sp))
+                                          ],
+                                        ),
+                                      )
+                                    : SizedBox(),
+                            ],
+                          ),
+                        );
+                      },
+                      itemCount: ((item.data.length) / 2).round(),
+                    );
+                  } else {
+                    return Center(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 15.0.h),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Lottie.asset('assets/json/boxorder.json',
+                                height: 70.0.w, width: 70.0.w, repeat: false),
+                            Text(
+                              LocaleKeys.search_product_not_found.tr(),
+                              style: FunctionHelper.fontTheme(
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  fontWeight: FontWeight.bold),
+                            )
                           ],
                         ),
-                      );
-                    },
-                    itemCount: ((item.data.length) / 2).round(),
-                  );
-                } else {
-                  return Center(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 15.0.h),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Lottie.asset('assets/json/boxorder.json',
-                              height: 70.0.w, width: 70.0.w, repeat: false),
-                          Text(
-                            LocaleKeys.search_product_not_found.tr(),
-                            style: FunctionHelper.fontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
                       ),
+                    );
+                  }
+                } else {
+                  return Container(
+                    margin: EdgeInsets.only(top: 40.0.h),
+                    child: Center(
+                      child: Platform.isAndroid
+                          ? CircularProgressIndicator()
+                          : CupertinoActivityIndicator(),
                     ),
                   );
                 }
-              } else {
-                return Container(
-                  margin: EdgeInsets.only(top: 40.0.h),
-                  child: Center(
-                    child: Platform.isAndroid
-                        ? CircularProgressIndicator()
-                        : CupertinoActivityIndicator(),
-                  ),
-                );
-              }
-            },
+              },
+            ),
           ),
-        ),
-        StreamBuilder(
-            stream: positionScroll.stream,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                return snapshot.data
-                    ? Container(
-                        margin: EdgeInsets.only(right: 5.0.w, bottom: 5.0.w),
-                        child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Container(
-                              width: SizeUtil.tabMenuSize().w,
-                              height: SizeUtil.tabMenuSize().w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.black.withOpacity(0.4)),
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.keyboard_arrow_up_outlined,
-                                  size: SizeUtil.largeIconSize().w,
-                                  color: Colors.white,
+          StreamBuilder(
+              stream: positionScroll.stream,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return snapshot.data
+                      ? Container(
+                          margin: EdgeInsets.only(right: 5.0.w, bottom: 5.0.w),
+                          child: Align(
+                              alignment: Alignment.bottomRight,
+                              child: Container(
+                                width: SizeUtil.tabMenuSize().w,
+                                height: SizeUtil.tabMenuSize().w,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.black.withOpacity(0.4)),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_up_outlined,
+                                    size: SizeUtil.largeIconSize().w,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    _scrollController.animateTo(
+                                        _scrollController
+                                            .position.minScrollExtent,
+                                        duration: Duration(milliseconds: 1000),
+                                        curve: Curves.ease);
+                                  },
                                 ),
-                                onPressed: () {
-                                  _scrollController.animateTo(
-                                      _scrollController
-                                          .position.minScrollExtent,
-                                      duration: Duration(milliseconds: 1000),
-                                      curve: Curves.ease);
-                                },
-                              ),
-                            )),
-                      )
-                    : SizedBox();
-              } else {
-                return SizedBox();
-              }
-            }),
-      ],
+                              )),
+                        )
+                      : SizedBox();
+                } else {
+                  return SizedBox();
+                }
+              }),
+        ],
+      ),
     );
   }
 

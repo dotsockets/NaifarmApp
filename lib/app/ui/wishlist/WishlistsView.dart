@@ -116,13 +116,10 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                   return Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      Positioned(
+                      bloc.wishlists.value!=null && bloc.wishlists.value.data.length>0?Positioned(
                         top: 25 * controller.value,
-                        child: SpinKitThreeBounce(
-                          color: ThemeColor.primaryColor(),
-                          size: 30,
-                        ),
-                      )
+                        child: CupertinoActivityIndicator(),
+                      ):SizedBox()
                     ],
                   );
                 },
@@ -173,71 +170,73 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
   }
 
   Widget mainContent() {
-    return StreamBuilder(
-      stream: bloc.wishlists.stream,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        var item = (snapshot.data as WishlistsRespone);
-        if (snapshot.hasData) {
-          //  print(bloc.Wishlists.value.data.length.toString()+"***");
-          if (item.data.length > 0) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: SizeUtil.paddingMenu().w,
-                  ),
-                  ClipRRect(
-                    child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        color: Colors.white,
-                        child: Column(
-                          children: [
-                            _buildCardProduct(context: context, item: item)
-                          ],
-                        )),
-                  )
-                ],
-              ),
-            );
-          } else {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.only(bottom: 15.0.h),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Lottie.asset('assets/json/boxorder.json',
-                            height: 70.0.w, width: 70.0.w, repeat: false),
-                        Text(
-                          LocaleKeys.search_product_not_found.tr(),
-                          style: FunctionHelper.fontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
+    return Container(
+      child: StreamBuilder(
+        stream: bloc.wishlists.stream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          var item = (snapshot.data as WishlistsRespone);
+          if (snapshot.hasData) {
+            //  print(bloc.Wishlists.value.data.length.toString()+"***");
+            if (item.data.length > 0) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: SizeUtil.paddingMenu().w,
                     ),
-                  )
-                ],
-              ),
+                    ClipRRect(
+                      child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              _buildCardProduct(context: context, item: item)
+                            ],
+                          )),
+                    )
+                  ],
+                ),
+              );
+            } else {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.only(bottom: 15.0.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Lottie.asset('assets/json/boxorder.json',
+                              height: 70.0.w, width: 70.0.w, repeat: false),
+                          Text(
+                            LocaleKeys.search_product_not_found.tr(),
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }
+          } else {
+            return Column(
+              children: [
+                Expanded(
+                  child: Center(
+                      child: Platform.isAndroid
+                          ? CircularProgressIndicator()
+                          : CupertinoActivityIndicator()),
+                )
+              ],
             );
           }
-        } else {
-          return Column(
-            children: [
-              Expanded(
-                child: Center(
-                    child: Platform.isAndroid
-                        ? CircularProgressIndicator()
-                        : CupertinoActivityIndicator()),
-              )
-            ],
-          );
-        }
-      },
+        },
+      ),
     );
   }
 

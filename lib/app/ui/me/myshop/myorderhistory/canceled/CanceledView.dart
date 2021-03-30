@@ -112,13 +112,11 @@ class _CanceledViewState extends State<CanceledView> {
                   return Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      Positioned(
+                      bloc.onSuccess.value!=null?Positioned(
                         top: 25 * controller.value,
-                        child: SpinKitThreeBounce(
-                          color: ThemeColor.primaryColor(),
-                          size: 30,
-                        ),
-                      )
+                        child: Container(margin: EdgeInsets.only(top: 1.5.h,bottom: 1.0.h),child: CupertinoActivityIndicator()),
+
+                      ):SizedBox()
                     ],
                   );
                 },
@@ -141,7 +139,7 @@ class _CanceledViewState extends State<CanceledView> {
 
   Widget mainContent() {
     return Container(
-      color: Colors.white,
+      color: Colors.transparent,
       margin: EdgeInsets.only(top: 10),
       child: StreamBuilder(
           stream: bloc.feedList,
@@ -259,7 +257,9 @@ class _CanceledViewState extends State<CanceledView> {
             } else {
               return Center(
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 15.0.h),
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.white,
+                  padding: EdgeInsets.only(bottom: 15.0.h),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
