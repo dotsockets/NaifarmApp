@@ -223,6 +223,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
       children: [
         SingleChildScrollView(
           controller: _scrollController,
+          physics: AlwaysScrollableScrollPhysics(),
           child: StreamBuilder(
             stream: bloc.moreProduct.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -235,6 +236,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                     padding: EdgeInsets.zero,
                     primary: false,
                     shrinkWrap: true,
+                    // physics: AlwaysScrollableScrollPhysics(),
                     itemBuilder: (context, i) {
                       // if ( i+1==((item.data.length) / 2).round()) {
                       //   return CupertinoActivityIndicator();
@@ -298,7 +300,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                                         ],
                                       ),
                                     )
-                                  : SizedBox()
+                                  : SizedBox(),
                           ],
                         ),
                       );
