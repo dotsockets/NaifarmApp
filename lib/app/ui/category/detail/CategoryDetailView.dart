@@ -6,7 +6,6 @@ import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryObjectCombin.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
@@ -170,7 +169,6 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                       if (snapshot.hasData) {
                         return ProductVertical(
                           titleInto: LocaleKeys.recommend_best_seller.tr(),
-
                           productRespone:
                               (snapshot.data as CategoryObjectCombin)
                                   .hotProduct,
@@ -182,7 +180,8 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                                 context: context,
                                 barTxt: LocaleKeys.recommend_best_seller.tr(),
                                 installData:
-                                    (snapshot.data as CategoryObjectCombin).hotProduct);
+                                    (snapshot.data as CategoryObjectCombin)
+                                        .hotProduct);
                           },
                           onTapItem: (ProductData item, int index) {
                             AppRoute.productDetail(context,

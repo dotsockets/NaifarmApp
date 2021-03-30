@@ -23,7 +23,6 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
-import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
@@ -1115,7 +1114,7 @@ class _OrderViewState extends State<OrderView> {
                     ),
                   ),
                   minimumSize: MaterialStateProperty.all(
-                    Size(Device.get().isPhone ?60.0.w:40.0.w, 6.0.h),
+                    Size(Device.get().isPhone ? 60.0.w : 40.0.w, 6.0.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
                     ThemeColor.secondaryColor(),
@@ -1173,18 +1172,20 @@ class _OrderViewState extends State<OrderView> {
                   'assets/images/svg/star_entry.svg',
                   width: 8.0.w,
                   height: 8.0.w,
+                  color: Colors.grey.shade300,
                 ),
                 SizedBox(width: 2.0.w),
                 Text(
                   LocaleKeys.btn_review.tr(),
                   style: FunctionHelper.fontTheme(
+                    color: Colors.grey.shade300,
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.bold),
                 )
               ],
             ),
             onTap: () {
-              AppRoute.review(context);
+            //  AppRoute.review(context);
               // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
               // Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
               // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");

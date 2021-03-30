@@ -12,7 +12,6 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/config/Env.dart';

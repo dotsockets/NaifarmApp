@@ -19,7 +19,6 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
-import 'package:sticky_headers/sticky_headers.dart';
 
 class SearchView extends StatefulWidget {
   @override
@@ -79,66 +78,66 @@ class _SearchViewState extends State<SearchView> {
                                   .hits
                                   .asMap()
                                   .map((key, value) => MapEntry(
-                                  key,
-                                  Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      InkWell(
-                                        child: Container(
-                                          padding: EdgeInsets.only(
-                                              bottom: 1.0.w,
-                                              top: 1.0.w,
-                                              right: 3.0.w,
-                                              left: 3.0.w),
-                                          child: Row(
-                                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .start,
-                                                  children: [
-                                                    Text(
-                                                        (snapshot.data
-                                                        as SearchRespone)
-                                                            .hits[key]
-                                                            .name,
-                                                        style: FunctionHelper.fontTheme(
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold,
-                                                            color: Colors
-                                                                .black,
-                                                            fontSize: SizeUtil
-                                                                .titleSmallFontSize()
-                                                                .sp)),
-                                                    Text(
-                                                        (snapshot.data
-                                                        as SearchRespone)
-                                                            .hits[key]
-                                                            .categories[0]
-                                                            .name,
-                                                        style: FunctionHelper
-                                                            .fontTheme(
-                                                            color: Colors
-                                                                .black,
-                                                            fontSize:
-                                                            SizeUtil.titleSmallFontSize()
-                                                                .sp))
-                                                  ],
-                                                ),
-                                              ),
-                                              Hero(
-                                                tag:
-                                                "search_${(snapshot.data as SearchRespone).hits[key].productId}",
-                                                child: CachedNetworkImage(
-                                                  width: 13.0.w,
-                                                  height: 15.0.w,
-                                                  placeholder:
-                                                      (context, url) =>
-                                                      Container(
+                                      key,
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          InkWell(
+                                            child: Container(
+                                              padding: EdgeInsets.only(
+                                                  bottom: 1.0.w,
+                                                  top: 1.0.w,
+                                                  right: 3.0.w,
+                                                  left: 3.0.w),
+                                              child: Row(
+                                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                            (snapshot.data
+                                                                    as SearchRespone)
+                                                                .hits[key]
+                                                                .name,
+                                                            style: FunctionHelper.fontTheme(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: SizeUtil
+                                                                        .titleSmallFontSize()
+                                                                    .sp)),
+                                                        Text(
+                                                            (snapshot.data
+                                                                    as SearchRespone)
+                                                                .hits[key]
+                                                                .categories[0]
+                                                                .name,
+                                                            style: FunctionHelper
+                                                                .fontTheme(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        SizeUtil.titleSmallFontSize()
+                                                                            .sp))
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Hero(
+                                                    tag:
+                                                        "search_${(snapshot.data as SearchRespone).hits[key].productId}",
+                                                    child: CachedNetworkImage(
+                                                      width: 13.0.w,
+                                                      height: 15.0.w,
+                                                      placeholder:
+                                                          (context, url) =>
+                                                              Container(
                                                         width: 13.0.w,
                                                         height: 15.0.w,
                                                         color: Colors.white,
@@ -148,50 +147,50 @@ class _SearchViewState extends State<SearchView> {
                                                           height: 13.5.w,
                                                         ),
                                                       ),
-                                                  imageUrl:
-                                                  "${Env.value.baseUrl}/storage/images/${(snapshot.data as SearchRespone).hits[key].image.length != 0 ? (snapshot.data as SearchRespone).hits[key].image[0].path : ""}",
-                                                  errorWidget: (context,
-                                                      url, error) =>
-                                                      Container(
-                                                          width: 13.0.w,
-                                                          height: 15.0.w,
-                                                          child: Image.network(
-                                                              "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com",
-                                                              fit: BoxFit
-                                                                  .cover)),
-                                                ),
-                                              )
-                                            ],
+                                                      imageUrl:
+                                                          "${Env.value.baseUrl}/storage/images/${(snapshot.data as SearchRespone).hits[key].image.length != 0 ? (snapshot.data as SearchRespone).hits[key].image[0].path : ""}",
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Container(
+                                                              width: 13.0.w,
+                                                              height: 15.0.w,
+                                                              child: Image.network(
+                                                                  "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com",
+                                                                  fit: BoxFit
+                                                                      .cover)),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                            ),
+                                            onTap: () {
+                                              var item = (snapshot.data
+                                                      as SearchRespone)
+                                                  .hits[key];
+                                              FocusScope.of(context).unfocus();
+                                              AppRoute.productDetail(context,
+                                                  productImage:
+                                                      "search_${(snapshot.data as SearchRespone).hits[key].productId}",
+                                                  productItem:
+                                                      ProducItemRespone(
+                                                    id: item.productId,
+                                                    shopId: item.shopId,
+                                                    shop: ShopItem(
+                                                        id: item.shopId),
+                                                    name: item.name,
+                                                    salePrice: item.salePrice,
+                                                    offerPrice: item.offerPrice,
+                                                    saleCount: item.saleCount,
+                                                    image: item.image,
+                                                  ));
+                                            },
                                           ),
-                                          width: MediaQuery.of(context)
-                                              .size
-                                              .width,
-                                        ),
-                                        onTap: () {
-                                          var item = (snapshot.data
-                                          as SearchRespone)
-                                              .hits[key];
-                                          FocusScope.of(context).unfocus();
-                                          AppRoute.productDetail(context,
-                                              productImage:
-                                              "search_${(snapshot.data as SearchRespone).hits[key].productId}",
-                                              productItem:
-                                              ProducItemRespone(
-                                                id: item.productId,
-                                                shopId: item.shopId,
-                                                shop: ShopItem(
-                                                    id: item.shopId),
-                                                name: item.name,
-                                                salePrice: item.salePrice,
-                                                offerPrice: item.offerPrice,
-                                                saleCount: item.saleCount,
-                                                image: item.image,
-                                              ));
-                                        },
-                                      ),
-                                      buildLine()
-                                    ],
-                                  )))
+                                          buildLine()
+                                        ],
+                                      )))
                                   .values
                                   .toList(),
                             ));
@@ -216,16 +215,16 @@ class _SearchViewState extends State<SearchView> {
                                 child: Text(
                                     item.hits.length == 0
                                         ? LocaleKeys.search_product_not_found
-                                        .tr()
+                                            .tr()
                                         : showMore
-                                        ? LocaleKeys.search_product_hide
-                                        .tr()
-                                        : LocaleKeys.search_product_show
-                                        .tr(),
+                                            ? LocaleKeys.search_product_hide
+                                                .tr()
+                                            : LocaleKeys.search_product_show
+                                                .tr(),
                                     style: FunctionHelper.fontTheme(
                                         color: Colors.grey,
                                         fontSize:
-                                        SizeUtil.titleSmallFontSize().sp)),
+                                            SizeUtil.titleSmallFontSize().sp)),
                                 visible: item.limit == 0 || item.nbHits <= 4
                                     ? false
                                     : true,
@@ -279,7 +278,9 @@ class _SearchViewState extends State<SearchView> {
                       }
                     },
                   ),
-                  SizedBox(height: 1.0.h,)
+                  SizedBox(
+                    height: 1.0.h,
+                  )
                 ],
               ),
             ),

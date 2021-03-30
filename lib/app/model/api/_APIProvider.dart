@@ -1412,18 +1412,19 @@ class _APIProvider implements APIProvider {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     try {
-      final _result = await _dio.request<dynamic>('/v1/wishlists/product/${productID}',
-          queryParameters: queryParameters,
-          options: RequestOptions(
-              method: 'GET',
-              headers: <String, dynamic>{
-                "token": token,
-                'Accept-Language':
-                    EasyLocalization.of(context).locale.languageCode
-              },
-              extra: _extra,
-              baseUrl: baseUrl),
-          data: _data);
+      final _result =
+          await _dio.request<dynamic>('/v1/wishlists/product/$productID',
+              queryParameters: queryParameters,
+              options: RequestOptions(
+                  method: 'GET',
+                  headers: <String, dynamic>{
+                    "token": token,
+                    'Accept-Language':
+                        EasyLocalization.of(context).locale.languageCode
+                  },
+                  extra: _extra,
+                  baseUrl: baseUrl),
+              data: _data);
       return ApiResult(
           respone: DataWishlists.fromJson(_result.data),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
@@ -2661,26 +2662,26 @@ class _APIProvider implements APIProvider {
     }
   }
 
-
   @override
-  Future<ApiResult> requestPayment(BuildContext context,{int orderId,String token}) async {
+  Future<ApiResult> requestPayment(BuildContext context,
+      {int orderId, String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     try {
       final _result =
-      await _dio.request<dynamic>('/v1/order/${orderId}/request-payment',
-          queryParameters: queryParameters,
-          options: RequestOptions(
-              method: 'PATCH',
-              headers: <String, dynamic>{
-                "token": token,
-                'Accept-Language':
-                EasyLocalization.of(context).locale.languageCode
-              },
-              extra: _extra,
-              baseUrl: baseUrl),
-          data: _data);
+          await _dio.request<dynamic>('/v1/order/$orderId/request-payment',
+              queryParameters: queryParameters,
+              options: RequestOptions(
+                  method: 'PATCH',
+                  headers: <String, dynamic>{
+                    "token": token,
+                    'Accept-Language':
+                        EasyLocalization.of(context).locale.languageCode
+                  },
+                  extra: _extra,
+                  baseUrl: baseUrl),
+              data: _data);
       return ApiResult(
           respone: true,
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));

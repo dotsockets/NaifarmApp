@@ -51,7 +51,7 @@ class Shop extends StatelessWidget {
                     apiLink:
                         "products/types/trending?shopId=${productRespone.shopRespone.id}",
                     context: context,
-                    barTxt: LocaleKeys.recommend_best_seller.tr(),
+                    barTxt: LocaleKeys.recommend_title.tr(),
                     installData: productRespone.productrecommend);
               },
               onTapItem: (ProductData item, int index) {
