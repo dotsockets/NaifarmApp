@@ -29,7 +29,6 @@ import 'package:naifarm/app/ui/recommend/widget/CategoryTab.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/utility/OneSignalCall.dart';
-import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BannerSlide.dart';
 import 'package:naifarm/utility/widgets/LifecycleWatcherState.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
@@ -194,7 +193,8 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                             content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  content(item: item.homeObjectCombine),]),
+                                  content(item: item.homeObjectCombine),
+                                ]),
                           ),
                         ),
                       );
@@ -306,7 +306,6 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
             productRespone: item.martket,
             titleInto: LocaleKeys.recommend_market.tr(),
             iconInto: 'assets/images/svg/menu_market.svg',
-
             onSelectMore: () {
               AppRoute.shopMain(
                   context: context, myShopRespone: MyShopRespone(id: 1));

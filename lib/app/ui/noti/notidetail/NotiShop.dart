@@ -11,7 +11,6 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -492,8 +491,7 @@ class _NotiShopState extends State<NotiShop>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-              "${LocaleKeys.recommend_notification.tr()}: ${item.meta.image != null ? "${LocaleKeys.noti_shop_payment
-                  .tr()}" : "${LocaleKeys.noti_shop_pay.tr()}"}",
+              "${LocaleKeys.recommend_notification.tr()}: ${item.meta.image != null ? "${LocaleKeys.noti_shop_payment.tr()}" : "${LocaleKeys.noti_shop_pay.tr()}"}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -511,8 +509,7 @@ class _NotiShopState extends State<NotiShop>
                         fontWeight: FontWeight.normal,
                         color: Colors.black)),
                 new TextSpan(
-                    text:
-                        " ${item.meta.order} ",
+                    text: " ${item.meta.order} ",
                     style: FunctionHelper.fontTheme(
                         fontSize: (SizeUtil.titleSmallFontSize() - 1).sp,
                         fontWeight: FontWeight.bold,
@@ -620,12 +617,10 @@ class _NotiShopState extends State<NotiShop>
     } else if (text ==
         "App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification") {
       return false;
-    }
-    else if (text ==
+    } else if (text ==
         "App\\Notifications\\Order\\MerchantOrderCanceledNotification") {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }

@@ -23,7 +23,6 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
-import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
@@ -1115,7 +1114,7 @@ class _OrderViewState extends State<OrderView> {
                     ),
                   ),
                   minimumSize: MaterialStateProperty.all(
-                    Size(Device.get().isPhone ?60.0.w:40.0.w, 6.0.h),
+                    Size(Device.get().isPhone ? 60.0.w : 40.0.w, 6.0.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
                     ThemeColor.secondaryColor(),
