@@ -184,7 +184,8 @@
     "again": "Try again",
     "reject_order": "Reject request",
     "accept_order": "Accept request",
-    "chat": "Chat Now"
+    "chat": "Chat Now",
+    "exit": "Exit"
   },
 
 
@@ -205,7 +206,9 @@
     "success_track":"Successfully confirmed tracking number",
     "success_pay":"Successfully confirmed payment",
     "success_slip":"Upload Pay-in Slip Successfully",
-      "contact": "The transaction cannot be performed, please contact the seller. "
+      "contact": "The transaction cannot be performed, please contact the seller. ",
+    "shop_close": "No information found for this restaurant or the shop has closed",
+    "confirm_mail": "Please confirm Email in your mailbox"
   },
 
   "message":{
@@ -417,11 +420,13 @@
     "shop_new_order": "New order",
     "shop_orderid": "ordered the item, order number",
     "shop_cancel":"cancelled the item, order number",
+    "shop_upload":"paid, order number",
     "shop_open": "Open a new shop",
     "shop_open_detail": "has been opened the shop",
     "shop_outstock":"out of stock",
     "shop_pay_upload": "Upload Pay-in Slip",
     "shop_pay": "Waiting For Payment",
+    "shop_payment": "Payment",
 
     "cus_cancel_status": "because no payment or buyer canceled the product. Please contact seller if you need more information.",
     "cus_order": "You have order in order number",

@@ -52,8 +52,10 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
       // });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(
-            scaffoldKey: _scaffoldKey, message: event.message);
+        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         if (event is ImageUploadRespone) {

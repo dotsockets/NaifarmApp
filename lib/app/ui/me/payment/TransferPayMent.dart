@@ -187,9 +187,9 @@ class _TransferPayMentState extends State<TransferPayMent> {
                         ),
                         onTap: () {
                           FlutterClipboard.copy('4680601709').then((value) {
-                            FunctionHelper.snackBarShow(
-                                scaffoldKey: _scaffoldKey,
-                                message: "คัดลอกแล้ว");
+                            //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey,message: "คัดลอกแล้ว");
+                            FunctionHelper.alertDialogShop(context,
+                                title: LocaleKeys.btn_error.tr(), message: LocaleKeys.btn_copy.tr());
                           });
                         },
                       ),

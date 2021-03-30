@@ -149,7 +149,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                                   ProductBloc.convertDataToProduct(data: item));
                         },
                         borderRadius: false,
-                        iconSize: 25,
+                        iconSize: 6.5.w,
                         tagHero: "sell_sub",
                       );
                     } else {

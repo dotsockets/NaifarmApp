@@ -71,8 +71,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
             });
           });
         } else {
-          FunctionHelper.snackBarShow(
-              scaffoldKey: _scaffoldKey, message: event.message);
+         // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+          FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
         }
         // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });

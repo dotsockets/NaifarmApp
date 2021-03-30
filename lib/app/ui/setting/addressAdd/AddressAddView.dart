@@ -51,7 +51,9 @@ class _AddressAddViewState extends State<AddressAddView> {
       });
       bloc.onError.stream.listen((event) {
         // Navigator.of(context).pop();
-        FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+       // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
+
+        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         Navigator.pop(context, true);

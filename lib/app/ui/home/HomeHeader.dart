@@ -84,7 +84,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                             ),
                             Expanded(child: Padding(
                               padding: const EdgeInsets.only(left: 10),
-                              child: Text(LocaleKeys.search_product_title.tr(),style: FunctionHelper.fontTheme(color: Colors.grey.withOpacity(0.6)),),
+                              child: Text(LocaleKeys.search_product_title.tr(),style: FunctionHelper.fontTheme(color: Colors.grey.withOpacity(0.6),fontSize: SizeUtil.titleSmallFontSize().sp),),
                             ))
                             // widget.snapshot.trendingRespone != null
                             //     ? Expanded(

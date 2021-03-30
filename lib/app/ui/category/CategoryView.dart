@@ -127,7 +127,7 @@ class _CategoryViewState extends State<CategoryView> {
             Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.2)),
-                  borderRadius: BorderRadius.all(Radius.circular(SizeUtil.borderRadiusShop()))),
+                  borderRadius: BorderRadius.all(Radius.circular(15))),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Container(

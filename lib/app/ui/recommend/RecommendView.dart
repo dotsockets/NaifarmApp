@@ -75,7 +75,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
         if (event.status == 0 || event.status >= 500) {
           Future.delayed(const Duration(milliseconds: 300), () {
             FunctionHelper.alertDialogRetry(context,
-                cancalMessage: "Exit",
+                cancalMessage: LocaleKeys.btn_exit.tr(),
                 callCancle: () {
                   exit(0);
                 },

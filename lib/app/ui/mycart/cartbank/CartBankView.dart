@@ -120,14 +120,14 @@ class _CartBankViewState extends State<CartBankView> {
                         child: item.active
                             ? SvgPicture.asset(
                                 'assets/images/svg/checkmark.svg',
-                                width: 8.0.w,
-                                height: 8.0.w,
+                                width: SizeUtil.checkMarkSize().w,
+                                height: SizeUtil.checkMarkSize().w,
                                 color: ThemeColor.primaryColor(),
                               )
                             : SvgPicture.asset(
                                 'assets/images/svg/uncheckmark.svg',
-                                width: 8.0.w,
-                                height: 8.0.w,
+                                width: SizeUtil.checkMarkSize().w,
+                                height: SizeUtil.checkMarkSize().w,
                                 color: Colors.black.withOpacity(0.5),
                               ),
                       ),
@@ -139,13 +139,13 @@ class _CartBankViewState extends State<CartBankView> {
                           index == 0
                               ? SvgPicture.asset(
                                   'assets/images/svg/delivery.svg',
-                                  width: 8.0.w,
-                                  height: 8.0.w,
+                                  width: SizeUtil.checkMarkSize().w,
+                                  height: SizeUtil.checkMarkSize().w,
                                 )
                               : SvgPicture.asset(
                                   'assets/images/svg/money_pay.svg',
-                                  width: 8.0.w,
-                                  height: 8.0.w,
+                                  width: SizeUtil.checkMarkSize().w,
+                                  height: SizeUtil.checkMarkSize().w,
                                 ),
                           SizedBox(
                             width: 2.0.w,
