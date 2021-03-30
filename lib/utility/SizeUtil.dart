@@ -100,105 +100,108 @@ class SizeUtil {
     return Device.get().isPhone ? 8.0 : 5.0;
   }
 
-
   static double buttonWidth() {
     return Device.get().isPhone ? 80.0 : 75.0;
   }
 
   static double paddingEdittext() {
-    return  Device.get().isPhone ?0:5.0;
+    return Device.get().isPhone ? 0 : 5.0;
   }
+
   static double imgSmallWidth() {
-    return  Device.get().isPhone ?3.0:2.0;
+    return Device.get().isPhone ? 3.0 : 2.0;
   }
 
   static double imgMedWidth() {
-    return  Device.get().isPhone ?5.0:2.3;
+    return Device.get().isPhone ? 5.0 : 2.3;
   }
 
   static double paddingCart() {
-    return  Device.get().isPhone ?2.0:3.0;
+    return Device.get().isPhone ? 2.0 : 3.0;
   }
+
   static double paddingItem() {
-    return  Device.get().isPhone ?0:1.0;
+    return Device.get().isPhone ? 0 : 1.0;
   }
+
   static double paddingHeaderHome() {
-    return  Device.get().isPhone ?0.5:1.7;
+    return Device.get().isPhone ? 0.5 : 1.7;
   }
 
-  static double borderRadiusHeader(){
-    return  Device.get().isPhone ?35:70;
+  static double borderRadiusHeader() {
+    return Device.get().isPhone ? 35 : 70;
   }
 
-  static double borderRadiusFooter(){
-    return  Device.get().isPhone ?40:70;
+  static double borderRadiusFooter() {
+    return Device.get().isPhone ? 40 : 70;
   }
 
-  static double borderRadiusItem(){
-    return  Device.get().isPhone ?15:30;
+  static double borderRadiusItem() {
+    return Device.get().isPhone ? 15 : 30;
   }
 
-  static double borderRadiusFlash(){
-    return  Device.get().isPhone ?8:20;
+  static double borderRadiusFlash() {
+    return Device.get().isPhone ? 8 : 20;
   }
 
-  static double iconSmallFix(){
-    return  Device.get().isPhone ?35:8.5;
+  static double iconSmallFix() {
+    return Device.get().isPhone ? 35 : 8.5;
   }
 
-  static double tabMenuHeight(){
-    return  Device.get().isPhone ?9.0:5.8;
+  static double tabMenuHeight() {
+    return Device.get().isPhone ? 9.0 : 5.8;
   }
 
-  static double marginAppBar(){
-    return Device.get().isPhone?0:1.8;
+  static double marginAppBar() {
+    return Device.get().isPhone ? 0 : 1.8;
   }
 
-  static double paddingTitle(){
-    return Device.get().isPhone?15:20;
+  static double paddingTitle() {
+    return Device.get().isPhone ? 15 : 20;
   }
 
-  static double ratingSize(){
-    return Device.get().isPhone?4.0:3.0;
+  static double ratingSize() {
+    return Device.get().isPhone ? 4.0 : 3.0;
   }
 
-  static double imgProfileSize(){
-    return Device.get().isPhone?19.0:12.0;
+  static double imgProfileSize() {
+    return Device.get().isPhone ? 19.0 : 12.0;
   }
 
-  static double headerHeight(){
-    return Device.get().isPhone?27.0:23.0;
+  static double headerHeight() {
+    return Device.get().isPhone ? 27.0 : 23.0;
   }
 
-  static double tabMenuSize(){
-    return Device.get().isPhone?13.0:9.0;
-  }
-  static double categoryTabSize(){
-    return Device.get().isPhone?12.0:9.0;
+  static double tabMenuSize() {
+    return Device.get().isPhone ? 13.0 : 9.0;
   }
 
-  static double tabIconSize(){
-    return Device.get().isPhone?11.0:9.0;
+  static double categoryTabSize() {
+    return Device.get().isPhone ? 12.0 : 9.0;
+  }
+
+  static double tabIconSize() {
+    return Device.get().isPhone ? 11.0 : 9.0;
   }
 
   static double paddingMenu() {
-    return  Device.get().isPhone ?0:4.0;
+    return Device.get().isPhone ? 0 : 4.0;
   }
 
-  static double paddingBox(){
-    return Device.get().isPhone?2.5:1.5;
+  static double paddingBox() {
+    return Device.get().isPhone ? 2.5 : 1.5;
   }
 
-  static double sizedBoxHeight(){
-    return Device.get().isPhone?6.5:4.5;
+  static double sizedBoxHeight() {
+    return Device.get().isPhone ? 6.5 : 4.5;
   }
 
   static double tabBarHeight() {
-    return Device.get().isPhone ? 7.0 :5.5;
+    return Device.get().isPhone ? 7.0 : 5.5;
   }
 
-  static double imgItemSize(){
-    return  Device.get().isPhone ?15:8.5;
+  static double imgItemSize() {
+    return Device.get().isPhone ? 15 : 8.5;
   }
 
   static double iconSize() {
@@ -208,27 +211,32 @@ class SizeUtil {
   static double iconSmallSize() {
     return Device.get().isPhone ? 5.0 : 3.5;
   }
+
   static double iconLargeSize() {
     return Device.get().isPhone ? 6.0 : 4.0;
   }
 
-  static double paddingBorderHome(){
-    return  Device.get().isPhone ?15:10;
+  static double paddingBorderHome() {
+    return Device.get().isPhone ? 15 : 10;
   }
 
-  static double paddingMenuItem(){
-    return  Device.get().isPhone ?2:1.5;
+  static double paddingMenuItem() {
+    return Device.get().isPhone ? 2 : 1.5;
   }
 
-  static double borderRadiusShop(){
-    return  Device.get().isPhone ?20:50;
+  static double borderRadiusShop() {
+    return Device.get().isPhone ? 20 : 50;
   }
 
   static double iconFooterSize() {
-    return Device.get().isPhone ? 7.0 :5.0;
+    return Device.get().isPhone ? 7.0 : 5.0;
   }
 
   static double btnWidth() {
-    return Device.get().isPhone ? 7.0 :5.0;
+    return Device.get().isPhone ? 7.0 : 5.0;
+  }
+
+  static double indicatorSize() {
+    return 50.0;
   }
 }
