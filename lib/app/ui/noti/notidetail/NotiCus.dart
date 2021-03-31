@@ -12,7 +12,6 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/config/Env.dart';
@@ -351,11 +350,13 @@ class _NotiCusState extends State<NotiCus>
       );
 
   Widget convertStatus({NotiData item, int index}) {
+    String lang = FunctionHelper.localeLanguage(
+        locale: EasyLocalization.of(context).locale);
     if (item.type == "App\\Notifications\\Order\\OrderUpdated") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${item.meta.status}",
+          Text(LocaleKeys.noti_cus_order_updated.tr(),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -366,11 +367,13 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: LocaleKeys.noti_rate1.tr(),
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black)),
+                  text: LocaleKeys.noti_order.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
                 new TextSpan(
                     text: "${item.meta.order}",
                     style: FunctionHelper.fontTheme(
@@ -378,12 +381,13 @@ class _NotiCusState extends State<NotiCus>
                         fontWeight: FontWeight.bold,
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(
-                    text:
-                        " ${LocaleKeys.noti_shop_status.tr()} ${item.meta.status} ${LocaleKeys.noti_cus_cancel_status.tr()}",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black)),
+                  text: LocaleKeys.noti_cus_order_updated_detail2.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
               ],
             ),
           ),
@@ -393,7 +397,7 @@ class _NotiCusState extends State<NotiCus>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${LocaleKeys.noti_shop_new_order.tr()} ${item.meta.status}",
+          Text(LocaleKeys.noti_cus_order_created.tr(),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -404,7 +408,7 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "${LocaleKeys.noti_cus_order.tr()} ",
+                    text: LocaleKeys.noti_cus_order_created_detail1.tr(),
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -416,8 +420,7 @@ class _NotiCusState extends State<NotiCus>
                         fontWeight: FontWeight.bold,
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(
-                    text:
-                        " ${LocaleKeys.noti_cus_pay_at.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt != null ? item.meta.requirePaymentAt : DateTime.now().toString()))}",
+                    text: LocaleKeys.noti_cus_order_created_detail2.tr(),
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.8)))
@@ -433,7 +436,7 @@ class _NotiCusState extends State<NotiCus>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${LocaleKeys.noti_shop_new_order.tr()} ${item.meta.status}",
+          Text(LocaleKeys.noti_cus_order_paid.tr(),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -444,23 +447,28 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "${LocaleKeys.noti_cus_order.tr()} ",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black.withOpacity(0.8))),
+                  text: LocaleKeys.noti_cus_order_paid_detail1.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
                 new TextSpan(
-                    text: "${item.meta.order}",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: (SizeUtil.titleFontSize() - 1).sp,
-                        fontWeight: FontWeight.bold,
-                        color: ThemeColor.secondaryColor())),
+                  text: "${item.meta.order}",
+                  style: FunctionHelper.fontTheme(
+                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontWeight: FontWeight.bold,
+                    color: ThemeColor.secondaryColor(),
+                  ),
+                ),
                 new TextSpan(
-                    text:
-                        " ${LocaleKeys.noti_cus_pay_at.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt != null ? item.meta.requirePaymentAt : DateTime.now().toString()))}",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        color: Colors.black.withOpacity(0.8)))
+                  text: LocaleKeys.noti_cus_order_paid_detail2.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
               ],
             ),
           ),
@@ -473,7 +481,7 @@ class _NotiCusState extends State<NotiCus>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${LocaleKeys.noti_cus_complete.tr()} ",
+          Text(LocaleKeys.noti_cus_order_fulfilled.tr(),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -484,26 +492,81 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "${LocaleKeys.noti_cus_orderid.tr()} ",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black.withOpacity(0.8))),
+                  text: LocaleKeys.noti_cus_order_fulfilled_detail1.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
                 new TextSpan(
-                    text: "${item.meta.order}",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: (SizeUtil.titleFontSize() - 1).sp,
-                        fontWeight: FontWeight.bold,
-                        color: ThemeColor.secondaryColor())),
-                //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                //     style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                  text: "Track Number",
+                  style: FunctionHelper.fontTheme(
+                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontWeight: FontWeight.bold,
+                    color: ThemeColor.secondaryColor(),
+                  ),
+                ),
                 new TextSpan(
-                    text:
-                        " ${LocaleKeys.noti_shipped2.tr()}${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.readAt != null ? item.readAt : DateTime.now().toString()))} ${LocaleKeys.noti_cus_complete_confirm.tr()}",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black.withOpacity(0.8))),
+                  text: LocaleKeys.noti_cus_order_fulfilled_detail2.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
+                new TextSpan(
+                  text: lang == "ภาษาไทย"
+                      ? "Delivery Method"
+                      : "${item.meta.order}",
+                  style: FunctionHelper.fontTheme(
+                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontWeight: FontWeight.bold,
+                    color: ThemeColor.secondaryColor(),
+                  ),
+                ),
+                new TextSpan(
+                  text: LocaleKeys.noti_cus_order_fulfilled_detail3.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
+                new TextSpan(
+                  text: "Shop Name",
+                  style: FunctionHelper.fontTheme(
+                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontWeight: FontWeight.bold,
+                    color: ThemeColor.secondaryColor(),
+                  ),
+                ),
+                new TextSpan(
+                  text: LocaleKeys.noti_cus_order_fulfilled_detail4.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
+                new TextSpan(
+                  text: lang == "ภาษาไทย"
+                      ? "${item.meta.order}"
+                      : "Delivery Method",
+                  style: FunctionHelper.fontTheme(
+                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontWeight: FontWeight.bold,
+                    color: ThemeColor.secondaryColor(),
+                  ),
+                ),
+                new TextSpan(
+                  text: LocaleKeys.noti_cus_order_fulfilled_detail5.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
               ],
             ),
           ),
@@ -516,7 +579,7 @@ class _NotiCusState extends State<NotiCus>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${LocaleKeys.noti_cus_cancel.tr()} ",
+          Text(LocaleKeys.noti_cus_order_failed.tr(),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -527,7 +590,7 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "${LocaleKeys.noti_rate1.tr()}  ",
+                    text: LocaleKeys.noti_order.tr(),
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -541,7 +604,7 @@ class _NotiCusState extends State<NotiCus>
                 //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
                 //     style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
-                    text: " ${LocaleKeys.noti_cus_cancel_reason.tr()}",
+                    text: LocaleKeys.noti_cus_order_failed_detail2.tr(),
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -555,10 +618,11 @@ class _NotiCusState extends State<NotiCus>
         ],
       );
     } else if (item.type == "App\\Notifications\\Order\\OrderCanceled") {
+      print(item.meta);
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${item.meta.status}",
+          Text(LocaleKeys.noti_cus_order_canceled.tr(),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -569,24 +633,92 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: LocaleKeys.noti_rate1.tr(),
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black)),
+                  text: "Customer Name",
+                  style: FunctionHelper.fontTheme(
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontWeight: FontWeight.bold,
+                      color: ThemeColor.secondaryColor()),
+                ),
                 new TextSpan(
-                    text: "${item.meta.order}",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        fontWeight: FontWeight.bold,
-                        color: ThemeColor.secondaryColor())),
+                  text: LocaleKeys.noti_cus_order_canceled_detail1.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
                 new TextSpan(
-                    text:
-                        " ${LocaleKeys.noti_shop_status.tr()} ${item.meta.status} ${LocaleKeys.noti_cus_cancel_status.tr()}",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black)),
+                  text: "${item.meta.order}",
+                  style: FunctionHelper.fontTheme(
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontWeight: FontWeight.bold,
+                      color: ThemeColor.secondaryColor()),
+                ),
+                new TextSpan(
+                  text: LocaleKeys.noti_cus_order_canceled_detail2.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    } else if (item.type == "App\\Notifications\\Order\\OrderDelivered") {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(LocaleKeys.noti_cus_order_delivered.tr(),
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                  text: LocaleKeys.noti_cus_order_delivered_detail1.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
+                new TextSpan(
+                  text: "Track Number",
+                  style: FunctionHelper.fontTheme(
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontWeight: FontWeight.bold,
+                      color: ThemeColor.secondaryColor()),
+                ),
+                new TextSpan(
+                  text: LocaleKeys.noti_cus_order_delivered_detail2.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
+                new TextSpan(
+                  text: "${item.meta.order}",
+                  style: FunctionHelper.fontTheme(
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontWeight: FontWeight.bold,
+                      color: ThemeColor.secondaryColor()),
+                ),
+                new TextSpan(
+                  text: LocaleKeys.noti_cus_order_delivered_detail3.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
               ],
             ),
           ),
