@@ -23,6 +23,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 
 class PaidView extends StatefulWidget {
   final OrderViewType typeView;
@@ -388,7 +389,8 @@ class _PaidViewState extends State<PaidView> {
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
-                    child: Image.network(Env.value.noItemUrl)),
+                    //child: Image.network(Env.value.noItemUrl)),
+                    child: NaifarmErrorWidget()),
               ),
             ),
           ),

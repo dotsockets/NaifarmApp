@@ -111,7 +111,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         return ProductLandscape(
-                            showSeeMore: true,
+                            showSeeMore: false,
                             isborderRadius: true,
                             productRespone:
                                 (snapshot.data as CategoryObjectCombin)

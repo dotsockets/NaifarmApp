@@ -121,11 +121,11 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        widget.customerInfoRespone.phone!=null?Text(
                             LocaleKeys.edit_phone_old_phone.tr() +
                                 " xxxxxx${widget.customerInfoRespone.phone.substring(6, widget.customerInfoRespone.phone.length)}",
                             style: FunctionHelper.fontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp)),
+                                fontSize: SizeUtil.titleFontSize().sp)):SizedBox(),
                         SizedBox(
                           height: 15,
                         ),

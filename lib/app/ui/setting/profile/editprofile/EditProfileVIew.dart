@@ -182,11 +182,11 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                                   errorWidget: (context, url, error) =>
                                       Container(
                                           color: Colors.grey.shade300,
-                                          width: 20.0.w,
-                                          height: 20.0.w,
+                                          width: SizeUtil.imgProfileSize().w,
+                                          height: SizeUtil.imgProfileSize().w,
                                           child: Icon(
                                             Icons.person,
-                                            size: 10.0.w,
+                                            size: SizeUtil.iconSize().w,
                                             color: Colors.white,
                                           )))
                               : Stack(

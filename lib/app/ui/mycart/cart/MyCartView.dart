@@ -500,15 +500,14 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                             ),
                             SizedBox(height: 5),
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-
-
                                 item.items[indexShopItem].inventory.salePrice != null && item.items[indexShopItem].inventory.offerPrice != null && item.items[indexShopItem].inventory.offerPrice>0
                                     ? Text(
                                     "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
                                     style: FunctionHelper.fontTheme(
                                         color: Colors.grey,
-                                        fontSize: SizeUtil.priceFontSize().sp,
+                                        fontSize: SizeUtil.priceFontSize().sp-2,
                                         decoration: TextDecoration.lineThrough))
                                     : SizedBox(),
                                 SizedBox(
@@ -617,7 +616,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
           item.items[indexShopItem].inventory.stockQuantity == 0
               ? Container(
                   color: Colors.white.withOpacity(0.7),
-                  height: 14.0.h,
+                  height: (SizeUtil.boxHeight()).h,
                   child: Center(
                     child: Container(
                       width: 25.0.w,

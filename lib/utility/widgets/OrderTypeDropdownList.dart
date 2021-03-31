@@ -70,7 +70,8 @@ class _OrderTypeDropdownListState extends State<OrderTypeDropdownList>
       borderRadius: BorderRadius.circular(15.0),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        color: ThemeColor.dialogprimaryColor(context),
+        //color: ThemeColor.dialogprimaryColor(context),
+        color: Colors.white,
         child: SingleChildScrollView(
           child: Column(
               mainAxisSize: MainAxisSize.min,

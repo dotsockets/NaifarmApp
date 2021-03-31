@@ -25,6 +25,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 
 class SoldOut extends StatefulWidget {
   final int shopId;
@@ -145,7 +146,7 @@ class _SoldOutState extends State<SoldOut> {
                           buildProduct(item: item.data[index], index: index),
                     ),
                   ),
-                  if (item.data.length != item.total&& item.data.length>=5)
+                  if (item.data.length != item.total && item.data.length >= 5)
                     Container(
                       padding: EdgeInsets.all(20),
                       child: Row(
@@ -255,15 +256,19 @@ class _SoldOutState extends State<SoldOut> {
                               errorWidget: (context, url, error) => Container(
                                   width: 30.0.w,
                                   height: 30.0.w,
-                                  child: Image.network(Env.value.noItemUrl,
-                                      fit: BoxFit.cover)),
+
+                                  //child: Image.network(Env.value.noItemUrl,
+                                  //    fit: BoxFit.cover)),
+                                  child: NaifarmErrorWidget()),
                             ),
                           ),
                         ),
                       ),
                       Visibility(
                         child: Container(
-                          margin: EdgeInsets.only(left: (SizeUtil.ratingSize()-2).w, top: SizeUtil.ratingSize().w),
+                          margin: EdgeInsets.only(
+                              left: (SizeUtil.ratingSize() - 2).w,
+                              top: SizeUtil.ratingSize().w),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(1.0.w),
                             child: Container(

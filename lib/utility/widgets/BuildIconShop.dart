@@ -44,11 +44,11 @@ class BuildIconShop extends StatelessWidget {
         shape: BadgeShape.circle,
         position: BadgePosition.topStart(
           top: SizeUtil.shopBadgeTop().w,start: SizeUtil.shopBadgeStart().w,
-
         ),
         animationDuration: Duration(milliseconds: 300),
         animationType: BadgeAnimationType.slide,
         showBadge: notification > 0 ? true : false,
+        elevation: 0,
         badgeContent: Container(
           padding: EdgeInsets.all(
               notification < 10 ? SizeUtil.shopBadgePadding().w : 0),

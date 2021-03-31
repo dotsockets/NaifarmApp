@@ -19,6 +19,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
@@ -181,9 +182,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: SizeUtil.paddingMenu().w,
-                    ),
+
                     ClipRRect(
                       child: Container(
                           width: MediaQuery.of(context).size.width,
@@ -246,10 +245,13 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
       child: SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
-          appBar: AppToobar(
-            title: LocaleKeys.me_title_likes.tr(),
-            headerType: Header_Type.barNormal,
-            icon: 'assets/images/svg/search.svg',
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.me_title_likes.tr(),
+              headerType: Header_Type.barNormal,
+              icon: 'assets/images/svg/search.svg',
+            ),
           ),
           body: Platform.isAndroid
               ? androidRefreshIndicator()
@@ -408,8 +410,11 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                       errorWidget: (context, url, error) => Container(
                           width: 30.0.w,
                           height: 40.0.w,
-                          child: Image.network(Env.value.noItemUrl,
-                              fit: BoxFit.cover)),
+
+
+//child: Image.network(Env.value.noItemUrl,
+                            //    fit: BoxFit.cover)),
+                            child: NaifarmErrorWidget()),
                     ),
                   ),
                 ),

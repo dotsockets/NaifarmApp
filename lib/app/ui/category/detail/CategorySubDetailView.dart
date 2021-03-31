@@ -73,7 +73,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
             color: Colors.grey.shade300,
             child: Column(
               children: [
-                SizedBox(height: 1.2.h),
+              //  SizedBox(height: 1.2.h),
                 StreamBuilder(
                   stream: bloc.trendingGroup.stream,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -81,7 +81,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                       return Column(
                         children: [
                           ProductLandscape(
-                              showSeeMore: true,
+                              showSeeMore: false,
                               productRespone: snapshot.data,
                               titleInto: LocaleKeys.tab_bar_recommend.tr(),
                               //  showBorder: true,

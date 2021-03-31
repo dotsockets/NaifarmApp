@@ -144,9 +144,6 @@ class SizeUtil {
     return Device.get().isPhone ? 8 : 20;
   }
 
-  static double iconSmallFix() {
-    return Device.get().isPhone ? 35 : 8.5;
-  }
 
   static double tabMenuHeight() {
     return Device.get().isPhone ? 9.0 : 5.8;
@@ -232,8 +229,8 @@ class SizeUtil {
     return Device.get().isPhone ? 7.0 : 5.0;
   }
 
-  static double btnWidth() {
-    return Device.get().isPhone ? 7.0 : 5.0;
+  static double boxHeight() {
+    return Device.get().isPhone ? 14.0 : 17.0;
   }
 
   static double indicatorSize() {

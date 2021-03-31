@@ -261,9 +261,9 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
     }else{
       check = false;
     }
-    if (weightProductController.text.startsWith("0")) {
-      weightProductController.text = "";
-    }
+    // if (weightProductController.text.startsWith("0")) {
+    //   weightProductController.text = "";
+    // }
     reload.add(check);
   }
 }
