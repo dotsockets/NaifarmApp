@@ -25,6 +25,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 
 class Available extends StatefulWidget {
   final int shopId;
@@ -255,8 +256,11 @@ class _AvailableState extends State<Available> {
                               errorWidget: (context, url, error) => Container(
                                   width: 30.0.w,
                                   height: 30.0.w,
-                                  child: Image.network(Env.value.noItemUrl,
-                                      fit: BoxFit.cover)),
+
+
+//child: Image.network(Env.value.noItemUrl,
+                            //    fit: BoxFit.cover)),
+                            child: NaifarmErrorWidget()),
                             ),
                           ),
                         ),

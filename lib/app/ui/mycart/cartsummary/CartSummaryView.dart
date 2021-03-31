@@ -302,6 +302,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: Colors.black)),
                       Row(
+
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           //   item.ProductDicount != 0 ?
                           item.inventory.salePrice != null && item.inventory.offerPrice != null && item.inventory.offerPrice>0
@@ -309,7 +311,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                               "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
                               style: FunctionHelper.fontTheme(
                                   color: Colors.grey,
-                                  fontSize: SizeUtil.priceFontSize().sp,
+                                  fontSize: SizeUtil.priceFontSize().sp-2,
                                   decoration: TextDecoration.lineThrough))
                               : SizedBox(),
                           SizedBox(

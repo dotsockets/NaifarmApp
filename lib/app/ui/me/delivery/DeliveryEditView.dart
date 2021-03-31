@@ -72,21 +72,24 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
       child: SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
-          appBar: AppToobar(
-            title: LocaleKeys.shipping_edit.tr(),
-            icon: "",
-            headerType: Header_Type.barNormal,
-            isEnableSearch: false,
-            onClick: () {
-              Navigator.pop(context, false);
-            },
+          appBar: PreferredSize(
+        preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.shipping_edit.tr(),
+              icon: "",
+              headerType: Header_Type.barNormal,
+              isEnableSearch: false,
+              onClick: () {
+                Navigator.pop(context, false);
+              },
+            ),
           ),
           body: Container(
             color: Colors.grey.shade300,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: SizeUtil.paddingMenu().w,),
+               
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(2.0.w),

@@ -17,7 +17,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'ProductLandscape.dart';
 
 // ignore: must_be_immutable
@@ -225,13 +225,14 @@ class ProductVertical extends StatelessWidget {
                                   height: 35.0.w,
                                 ),
                               ),
-                              imageUrl:
-                                  ProductLandscape.covertUrlImage(item.image),
+                             imageUrl: ProductLandscape.covertUrlImage(item.image),
                               errorWidget: (context, url, error) => Container(
                                   width: 28.0.w,
                                   height: 35.0.w,
-                                  child: Image.network(Env.value.noItemUrl,
-                                      fit: BoxFit.cover)),
+                                  child: NaifarmErrorWidget()),
+                              //  child: Image.network(Env.value.noItemUrl,
+                              //  fit: BoxFit.cover)),
+
                             ),
                           ),
                         ),

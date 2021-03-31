@@ -19,7 +19,7 @@ import 'package:sizer/sizer.dart';
 
 import 'ProductLandscape.dart';
 import 'Skeleton.dart';
-
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 // ignore: must_be_immutable
 class ProductGrid extends StatefulWidget {
   final String titleInto;
@@ -291,8 +291,11 @@ class _ProductGridState extends State<ProductGrid> {
                         errorWidget: (context, url, error) => Container(
                             width: 30.0.w,
                             height: 40.0.w,
-                            child: Image.network(Env.value.noItemUrl,
-                                fit: BoxFit.cover)),
+
+
+                //child: Image.network(Env.value.noItemUrl,
+                            //    fit: BoxFit.cover)),
+                            child: NaifarmErrorWidget()),
                       ),
                     ),
                   ),

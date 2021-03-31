@@ -10,6 +10,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ProductItemCard extends StatelessWidget {
@@ -67,9 +68,10 @@ class ProductItemCard extends StatelessWidget {
                 errorWidget: (context, url, error) => Container(
                     width: 30.0.w,
                     height: 30.0.w,
-                    child:
-                        Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
-              ),
+                    //child:
+                     //   Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
+                    child: NaifarmErrorWidget()),
+                ),
             ),
           ),
           Visibility(

@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 
 class SearchHot extends StatelessWidget {
   final Function() onSelectChang;
@@ -139,13 +140,14 @@ class SearchHot extends StatelessWidget {
                       Lottie.asset('assets/json/loading.json', height: 20.0.w),
                 ),
                 imageUrl:
-                    "${Env.value.baseUrl}/storage/images/${item.image.length != 0 ? item.image[0].path : ""}",
+                    item.image.length != 0 ? "${Env.value.baseUrl}/storage/images/${ item.image[0].path}" : Env.value.noItemUrl,
                 errorWidget: (context, url, error) => Container(
                     width: 20.0.w,
                     height: 20.0.w,
-                    child: Image.network(
-                        "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com",
-                        fit: BoxFit.cover)),
+                    // child: Image.network(
+                    //     "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com",
+                    //     fit: BoxFit.cover)),
+                    child: NaifarmErrorWidget()),
               ),
             ),
             SizedBox(width: 2.0.w),
