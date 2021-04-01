@@ -151,6 +151,9 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                   ),
                                                   scaffoldKey: _scaffoldKey),
                                             ),
+                                            SizedBox(
+                                              height: 0.8.h,
+                                            ),
                                             InkWell(
                                               child: ShopOwn(
                                                 rateStyle: true,

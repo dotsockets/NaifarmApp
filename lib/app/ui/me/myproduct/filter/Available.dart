@@ -19,6 +19,7 @@ import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -83,17 +84,18 @@ class _AvailableState extends State<Available> {
           page=1;
           _reloadData();
         });*/
-        FunctionHelper.alertDialogRetry(context,
-            title: LocaleKeys.btn_error.tr(),
-            message: event.message, callBack: () {
-          widget.searchTxt.length != 0
-              ? _reloadFirstSearch()
-              : _reloadFirstPage();
-        });
-        //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event.error);
-        widget.searchTxt.length != 0
-            ? _reloadFirstSearch()
-            : _reloadFirstPage();
+        if(event.status!=99){
+          FunctionHelper.alertDialogRetry(context,
+              title: LocaleKeys.btn_error.tr(),
+              message: event.message, callBack: () {
+                bloc.onError.add(ThrowIfNoSuccess(status: 99));
+                widget.searchTxt.length != 0
+                    ? _reloadFirstSearch()
+                    : _reloadFirstPage();
+              });
+        }
+
+
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {

@@ -308,7 +308,7 @@ class _MyshopViewState extends State<MyshopView> {
           buildDivider(num: 10),
           ListMenuItem(
             iconSize: 7.0.w,
-            icon: 'assets/images/svg/work.svg',
+         //   icon: 'assets/images/svg/work.svg',
             title: LocaleKeys.setting_account_title_shop.tr(),
             isPhoto:
                 "${item != null ? item.image != null ? item.image.isNotEmpty ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}" : '' : '' : ''}",
