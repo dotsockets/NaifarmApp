@@ -431,7 +431,7 @@ class _NotiShopState extends State<NotiShop>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                  text: "Customer Name",
+                  text: item.meta.customer,
                   style: FunctionHelper.fontTheme(
                     fontSize: (SizeUtil.titleFontSize() - 1).sp,
                     fontWeight: FontWeight.bold,
@@ -533,7 +533,7 @@ class _NotiShopState extends State<NotiShop>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                  text: "Customer Name",
+                  text: item.meta.customer,
                   style: FunctionHelper.fontTheme(
                     fontSize: (SizeUtil.titleFontSize() - 1).sp,
                     fontWeight: FontWeight.bold,
@@ -578,7 +578,7 @@ class _NotiShopState extends State<NotiShop>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                  text: "Customer Name",
+                  text: item.meta.customer,
                   style: FunctionHelper.fontTheme(
                     fontSize: (SizeUtil.titleFontSize() - 1).sp,
                     fontWeight: FontWeight.bold,
@@ -631,7 +631,7 @@ class _NotiShopState extends State<NotiShop>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                  text: "Customer Name",
+                  text: item.meta.customer,
                   style: FunctionHelper.fontTheme(
                     fontSize: (SizeUtil.titleFontSize() - 1).sp,
                     fontWeight: FontWeight.bold,

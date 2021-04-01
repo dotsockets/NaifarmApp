@@ -445,7 +445,7 @@
     "cus_order_delivered_detail2": " ของคำสั่งซื้อ ",
     "cus_order_delivered_detail3": " จัดส่งสำเร็จแล้ว ",
     "shop_order_created": "คำสั่งซื้อใหม่",
-    "shop_order_created_detail1": "ได้ทำการสั่งซื้อสินค้า ",
+    "shop_order_created_detail1": " ได้ทำการสั่งซื้อสินค้า ",
     "shop_order_created_detail2": " และต้องทำการชำระเงินก่อน ",
     "shop_order_request_payment": "แจ้งการชำระเงิน",
     "shop_order_request_payment_detail1": " ได้อัพโหลดหลักฐานการชำระเงินสำหรับการสั่งซื้อ ",

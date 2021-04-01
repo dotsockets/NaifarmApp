@@ -446,7 +446,7 @@
     "cus_order_delivered_detail2": " for you order ",
     "cus_order_delivered_detail3": " has been delivered.",
     "shop_order_created": "New Order",
-    "shop_order_created_detail1": "has placed and order for ",
+    "shop_order_created_detail1": " has placed and order for ",
     "shop_order_created_detail2": " and  will need to pay by ",
     "shop_order_request_payment": "Payment notification",
     "shop_order_request_payment_detail1": " has been uploaded proof of payment fo order ",

@@ -99,16 +99,31 @@ class Meta {
   String customerName;
   String requirePaymentAt;
   String image;
+  String shop;
+  String trackingNumber;
+  String carrierName;
+  String shippingDate;
+  String type;
+  String paymentAt;
+  String updateAt;
 
-  Meta(
-      {this.user,
-      this.name,
-      this.status,
-      this.id,
-      this.order,
-      this.customer,
-        this.customerName,
-      this.image});
+  Meta({
+    this.user,
+    this.name,
+    this.status,
+    this.id,
+    this.order,
+    this.customer,
+    this.customerName,
+    this.image,
+    this.shop,
+    this.trackingNumber,
+    this.carrierName,
+    this.shippingDate,
+    this.type,
+    this.paymentAt,
+    this.updateAt,
+  });
 
   Meta.fromJson(Map<String, dynamic> json) {
     user = json['user'];
@@ -119,7 +134,13 @@ class Meta {
     customer = json['customer'];
     customerName = json['customerName'];
     requirePaymentAt = json['requirePaymentAt'];
-    image = json['image'];
+    shop = json['shop'];
+    trackingNumber = json['trackingNumber'];
+    carrierName = json['carrierName'];
+    shippingDate = json['shippingDate'];
+    type = json['type'];
+    paymentAt = json['paymentAt'];
+    updateAt = json['updateAt'];
   }
 
   Map<String, dynamic> toJson() {
@@ -133,6 +154,13 @@ class Meta {
     data['customerName'] = this.customerName;
     data['requirePaymentAt'] = this.requirePaymentAt;
     data['image'] = this.image;
+    data['shop'] = this.shop;
+    data['trackingNumber'] = this.trackingNumber;
+    data['carrierName'] = this.carrierName;
+    data['shippingDate'] = this.shippingDate;
+    data['type'] = this.type;
+    data['paymentAt'] = this.paymentAt;
+    data['updateAt'] = this.updateAt;
     return data;
   }
 }

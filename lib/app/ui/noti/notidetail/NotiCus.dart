@@ -500,7 +500,7 @@ class _NotiCusState extends State<NotiCus>
                   ),
                 ),
                 new TextSpan(
-                  text: "Track Number",
+                  text: item.meta.trackingNumber,
                   style: FunctionHelper.fontTheme(
                     fontSize: (SizeUtil.titleFontSize() - 1).sp,
                     fontWeight: FontWeight.bold,
@@ -517,7 +517,7 @@ class _NotiCusState extends State<NotiCus>
                 ),
                 new TextSpan(
                   text: lang == "ภาษาไทย"
-                      ? "Delivery Method"
+                      ? item.meta.carrierName
                       : "${item.meta.order}",
                   style: FunctionHelper.fontTheme(
                     fontSize: (SizeUtil.titleFontSize() - 1).sp,
@@ -534,7 +534,7 @@ class _NotiCusState extends State<NotiCus>
                   ),
                 ),
                 new TextSpan(
-                  text: "Shop Name",
+                  text: item.meta.shop,
                   style: FunctionHelper.fontTheme(
                     fontSize: (SizeUtil.titleFontSize() - 1).sp,
                     fontWeight: FontWeight.bold,
@@ -552,7 +552,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: lang == "ภาษาไทย"
                       ? "${item.meta.order}"
-                      : "Delivery Method",
+                      : item.meta.carrierName,
                   style: FunctionHelper.fontTheme(
                     fontSize: (SizeUtil.titleFontSize() - 1).sp,
                     fontWeight: FontWeight.bold,
@@ -618,7 +618,6 @@ class _NotiCusState extends State<NotiCus>
         ],
       );
     } else if (item.type == "App\\Notifications\\Order\\OrderCanceled") {
-      print(item.meta);
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -633,7 +632,7 @@ class _NotiCusState extends State<NotiCus>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                  text: "Customer Name",
+                  text: item.meta.customer,
                   style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.bold,
@@ -690,7 +689,7 @@ class _NotiCusState extends State<NotiCus>
                   ),
                 ),
                 new TextSpan(
-                  text: "Track Number",
+                  text: item.meta.trackingNumber,
                   style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.bold,
@@ -750,7 +749,8 @@ class _NotiCusState extends State<NotiCus>
       return true;
     } else if (text == "App\\Notifications\\Order\\OrderFulfilled" ||
         text == "App\\Notifications\\Order\\OrderPaymentFailed" ||
-        text == "App\\Notifications\\Order\\OrderUpdated") {
+        text == "App\\Notifications\\Order\\OrderUpdated" ||
+        text == "App\\Notifications\\Order\\OrderCanceled") {
       return true;
     } else {
       return false;
