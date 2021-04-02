@@ -134,6 +134,7 @@ class Meta {
     customer = json['customer'];
     customerName = json['customerName'];
     requirePaymentAt = json['requirePaymentAt'];
+    image = json['image'];
     shop = json['shop'];
     trackingNumber = json['trackingNumber'];
     carrierName = json['carrierName'];
