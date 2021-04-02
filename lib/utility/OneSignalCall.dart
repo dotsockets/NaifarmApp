@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
@@ -102,7 +101,6 @@ class OneSignalCall {
             orderData: OrderData(id: int.parse(item.item.id)),
             typeView: OrderViewType.Purchase);
       }
-      
     });
   }
 
@@ -126,6 +124,5 @@ class OneSignalCall {
     //     }
     //   }
     // });
-
   }
 }

@@ -39,7 +39,7 @@ class AddtTrackingNumberView extends StatelessWidget {
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         FunctionHelper.alertDialogShop(context,
-            message: event, showbtn: true, title: "Error Shipping");
+            message: event, showbtn: true, title: LocaleKeys.btn_error.tr());
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {

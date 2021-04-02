@@ -205,13 +205,13 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                                       : ''
                                   : '',
                               errorWidget: (context, url, error) => Container(
-                                  color: Colors.white,
-                                  width: 20.0.w,
-                                  height: 20.0.w,
+                                   color: Colors.grey.shade300,
+                                  width: (SizeUtil.iconSize()*2).w,
+                                  height: (SizeUtil.iconSize()*2).w,
                                   child: Icon(
                                     Icons.person,
-                                    size: 30,
-                                    color: Colors.grey.shade300,
+                                    size: SizeUtil.iconSize().w,
+                                    color: Colors.white,
                                   )),
                             )
                           : Stack(

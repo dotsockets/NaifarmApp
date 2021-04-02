@@ -43,7 +43,7 @@ class _CustomDropdownListState extends State<CustomDropdownList> {
               ),
               Icon(
                 Icons.keyboard_arrow_down,
-                size: 5.0.w,
+                size: 3.0.w,
               )
             ],
           )),

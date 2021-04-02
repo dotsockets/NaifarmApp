@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:lottie/lottie.dart';
@@ -17,6 +19,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
@@ -37,6 +40,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool islike = true;
   bool isLogin = true;
+  final _indicatorController = IndicatorController();
 
   void _init() {
     if (null == bloc) {
@@ -85,6 +89,68 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
 
   void iSLogin() async => isLogin = await Usermanager().isLogin();
 
+  Widget androidRefreshIndicator() {
+    return RefreshIndicator(
+      onRefresh: onRefresh,
+      child: mainContent(),
+    );
+  }
+
+  Widget iosRefreshIndicator() {
+    return CustomRefreshIndicator(
+        controller: _indicatorController,
+        onRefresh: () => onRefresh(),
+        armedToLoadingDuration: const Duration(seconds: 1),
+        draggingToIdleDuration: const Duration(seconds: 1),
+        completeStateDuration: const Duration(seconds: 1),
+        offsetToArmed: 50.0,
+        builder: (
+          BuildContext context,
+          Widget child,
+          IndicatorController controller,
+        ) {
+          return Stack(
+            children: <Widget>[
+              AnimatedBuilder(
+                animation: controller,
+                builder: (BuildContext context, Widget _) {
+                  return Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      bloc.wishlists.value!=null && bloc.wishlists.value.data.length>0?Positioned(
+                        top: 25 * controller.value,
+                        child: CupertinoActivityIndicator(),
+                      ):SizedBox()
+                    ],
+                  );
+                },
+              ),
+              AnimatedBuilder(
+                builder: (context, _) {
+                  return Transform.translate(
+                    offset: Offset(
+                        0.0, controller.value * SizeUtil.indicatorSize()),
+                    child: child,
+                  );
+                },
+                animation: controller,
+              ),
+            ],
+          );
+        },
+        child: mainContent());
+  }
+
+  Future<Null> onRefresh() async {
+    if (Platform.isAndroid) {
+      await Future.delayed(Duration(seconds: 2));
+    }
+
+    Usermanager()
+        .getUser()
+        .then((value) => bloc.getMyWishlists(context, token: value.token));
+  }
+
   @override
   Widget build(BuildContext context) {
     _init();
@@ -104,83 +170,92 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
     );
   }
 
+  Widget mainContent() {
+    return Container(
+      child: StreamBuilder(
+        stream: bloc.wishlists.stream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          var item = (snapshot.data as WishlistsRespone);
+          if (snapshot.hasData) {
+            //  print(bloc.Wishlists.value.data.length.toString()+"***");
+            if (item.data.length > 0) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+
+                    ClipRRect(
+                      child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              _buildCardProduct(context: context, item: item)
+                            ],
+                          )),
+                    )
+                  ],
+                ),
+              );
+            } else {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.only(bottom: 15.0.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Lottie.asset('assets/json/boxorder.json',
+                              height: 70.0.w, width: 70.0.w, repeat: false),
+                          Text(
+                            LocaleKeys.search_product_not_found.tr(),
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }
+          } else {
+            return Column(
+              children: [
+                Expanded(
+                  child: Center(
+                      child: Platform.isAndroid
+                          ? CircularProgressIndicator()
+                          : CupertinoActivityIndicator()),
+                )
+              ],
+            );
+          }
+        },
+      ),
+    );
+  }
+
   Widget _content() {
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
-          appBar: AppToobar(
-            title: LocaleKeys.me_title_likes.tr(),
-            headerType: Header_Type.barNormal,
-            icon: 'assets/images/svg/search.svg',
-
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.me_title_likes.tr(),
+              headerType: Header_Type.barNormal,
+              icon: 'assets/images/svg/search.svg',
+            ),
           ),
-          body: StreamBuilder(
-            stream: bloc.wishlists.stream,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              var item = (snapshot.data as WishlistsRespone);
-              if (snapshot.hasData) {
-                //  print(bloc.Wishlists.value.data.length.toString()+"***");
-                if (item.data.length > 0) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(height: SizeUtil.paddingMenu().w,),
-                        ClipRRect(
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  _buildCardProduct(
-                                      context: context, item: item)
-                                ],
-                              )),
-                        )
-                      ],
-                    ),
-                  );
-                } else {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.only(bottom: 15.0.h),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Lottie.asset('assets/json/boxorder.json',
-                                  height: 70.0.w, width: 70.0.w, repeat: false),
-                              Text(
-                                LocaleKeys.search_product_not_found.tr(),
-                                style: FunctionHelper.fontTheme(
-                                    fontSize: SizeUtil.titleFontSize().sp,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                }
-              } else {
-                return Column(
-                  children: [
-                    Expanded(
-                      child: Center(
-                          child: Platform.isAndroid
-                              ? CircularProgressIndicator()
-                              : CupertinoActivityIndicator()),
-                    )
-                  ],
-                );
-              }
-            },
-          ),
+          body: Platform.isAndroid
+              ? androidRefreshIndicator()
+              : iosRefreshIndicator(),
         ),
       ),
     );
@@ -240,7 +315,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                     "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}",
                     style: FunctionHelper.fontTheme(
                         color: Colors.grey,
-                        fontSize: SizeUtil.priceFontSize().sp - 1,
+                        fontSize: SizeUtil.priceFontSize().sp - 2,
                         decoration: TextDecoration.lineThrough))
                 : SizedBox(),
             SizedBox(
@@ -335,8 +410,11 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                       errorWidget: (context, url, error) => Container(
                           width: 30.0.w,
                           height: 40.0.w,
-                          child: Image.network(Env.value.noItemUrl,
-                              fit: BoxFit.cover)),
+
+
+//child: Image.network(Env.value.noItemUrl,
+                            //    fit: BoxFit.cover)),
+                            child: NaifarmErrorWidget()),
                     ),
                   ),
                 ),
@@ -345,12 +423,12 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                   children: [
                     Visibility(
                       child: Container(
-                        margin: EdgeInsets.only(top: 7, left: 8),
+                        margin: EdgeInsets.only(left: 2.0.w, top: 0),
                         decoration: BoxDecoration(
                             color: ThemeColor.colorSale(),
                             borderRadius: BorderRadius.all(Radius.circular(7))),
                         padding: EdgeInsets.only(
-                            left: 10, right: 10, top: 5, bottom: 5),
+                            left: 1.5.w, right: 1.5.w, top: 1.0.w, bottom: 1.0.w),
                         child: Text(
                           item.product != null
                               ? "${item.product.discountPercent}%"

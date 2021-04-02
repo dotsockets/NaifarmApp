@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>536378613546-rr1ujuagdo9p3rgsv1jctjkql7m6hns2.apps.googleusercontent.com</string>
+	<string>536378613546-orsv9kvirmktidpvlbkt4ti5cfuqstib.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.536378613546-rr1ujuagdo9p3rgsv1jctjkql7m6hns2</string>
+	<string>com.googleusercontent.apps.536378613546-orsv9kvirmktidpvlbkt4ti5cfuqstib</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDKdA_WJ5y7CoHzB8an_U00QgvAY5gQR4s</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.dotsocket.naifarm.staging</string>
+	<string>com.dotsocket.naifarm</string>
 	<key>PROJECT_ID</key>
 	<string>naifarm-staging</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:536378613546:ios:d6a9e4c6261b537b4b0853</string>
+	<string>1:536378613546:ios:f456d4a5be8c33904b0853</string>
 </dict>
 </plist>

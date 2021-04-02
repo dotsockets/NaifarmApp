@@ -103,7 +103,7 @@ class RegisterSetPasswordViewState extends State<RegisterSetPasswordView> {
                         ),
                       ),
                       minimumSize: MaterialStateProperty.all(
-                        Size(250.0, 7.0.h),
+                        Size(50.0.w, 5.0.h),
                       ),
                       backgroundColor: MaterialStateProperty.all(
                         formCheck()

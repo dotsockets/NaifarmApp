@@ -72,21 +72,24 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
       child: SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
-          appBar: AppToobar(
-            title: LocaleKeys.shipping_edit.tr(),
-            icon: "",
-            headerType: Header_Type.barNormal,
-            isEnableSearch: false,
-            onClick: () {
-              Navigator.pop(context, false);
-            },
+          appBar: PreferredSize(
+        preferredSize: Size.fromHeight(6.5.h),
+            child: AppToobar(
+              title: LocaleKeys.shipping_edit.tr(),
+              icon: "",
+              headerType: Header_Type.barNormal,
+              isEnableSearch: false,
+              onClick: () {
+                Navigator.pop(context, false);
+              },
+            ),
           ),
           body: Container(
             color: Colors.grey.shade300,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: SizeUtil.paddingMenu().w,),
+               
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(2.0.w),
@@ -144,8 +147,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                                       bottom: 4.0.w),
                                   child: TextButton(
                                     style: ButtonStyle(
-                                      padding: MaterialStateProperty.all(
-                                          EdgeInsets.all(8.0)),
+
                                       shape: MaterialStateProperty.all(
                                         RoundedRectangleBorder(
                                           borderRadius:
@@ -153,7 +155,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                                         ),
                                       ),
                                       minimumSize: MaterialStateProperty.all(
-                                        Size(50.0.w, 6.0.h),
+                                        Size(50.0.w, 5.0.h),
                                       ),
                                       backgroundColor:
                                           MaterialStateProperty.all(
@@ -189,7 +191,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                       )
                     : SizedBox(),
                 SizedBox(
-                  height: 20,
+                  height: 3.0.w,
                 ),
                 isHave == false ? Center(child: buildItem()) : SizedBox()
               ],
@@ -202,14 +204,14 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
 
   Widget buildItem() => TextButton(
         style: ButtonStyle(
-          padding: MaterialStateProperty.all(EdgeInsets.all(8.0)),
+
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40.0),
             ),
           ),
           minimumSize: MaterialStateProperty.all(
-            Size(50.0.w, 6.0.h),
+            Size(50.0.w, 5.0.h),
           ),
           backgroundColor: MaterialStateProperty.all(
             formCheck() ? ThemeColor.secondaryColor() : Colors.grey.shade400,

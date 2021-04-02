@@ -265,7 +265,8 @@
     "order": "Order Total",
     "message":"Leave a message",
    "ship": "Choose a shipping method",
-    "ship_at": "Receive at"
+    "ship_at": "Receive at",
+    "ship_empty": "This shop doesn't setting a shipping"
   },
   "history":{
     "order_time": "Payment Time",

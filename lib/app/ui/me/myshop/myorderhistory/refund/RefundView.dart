@@ -21,6 +21,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 
 class RefundView extends StatefulWidget {
   final OrderViewType typeView;
@@ -272,7 +273,9 @@ class _RefundViewState extends State<RefundView> {
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
-                    child: Image.network(Env.value.noItemUrl)),
+                    	//child: Image.network(Env.value.noItemUrl)),
+
+                            child: NaifarmErrorWidget()),
               ),
             ),
           ),
@@ -586,7 +589,7 @@ class _RefundViewState extends State<RefundView> {
               child: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.grey.shade400,
-                size: 4.0.w,
+                size: SizeUtil.ratingSize().w ,
               ))
         ],
       ),

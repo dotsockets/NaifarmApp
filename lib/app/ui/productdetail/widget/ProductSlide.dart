@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:sizer/sizer.dart';
 
 class ProductSlide extends StatefulWidget {
@@ -72,8 +73,12 @@ class _ProductSlideState extends State<ProductSlide> {
                   ),
                   imageUrl: item,
                   fit: BoxFit.contain,
-                  errorWidget: (context, url, error) =>
-                      Image.network(Env.value.noItemUrl, fit: BoxFit.cover),
+                  errorWidget: (context, url, error) => Container(
+                      height: 30,
+                      width: MediaQuery.of(context).size.width,
+                      child: NaifarmErrorWidget()),
+                  // errorWidget: (context, url, error) =>
+                  //     Image.network(Env.value.noItemUrl, fit: BoxFit.cover),
                 ),
               ),
             )

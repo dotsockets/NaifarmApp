@@ -495,7 +495,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                           }
                         },
                       ),
-                      divider(),
+                     // divider(),
                       //  Reviewscore()
                     ],
                   );

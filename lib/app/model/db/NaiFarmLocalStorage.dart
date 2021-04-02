@@ -4,7 +4,6 @@ import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
-import 'package:naifarm/app/model/pojo/response/NotiCache.dart';
 import 'package:naifarm/app/model/pojo/response/OneSignalNoificationId.dart';
 import 'package:naifarm/app/model/pojo/response/ProductDetailCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProductHistoryCache.dart';
@@ -12,7 +11,6 @@ import 'package:naifarm/app/model/pojo/response/ProductMoreCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductOrderCache.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
-import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 
 class NaiFarmLocalStorage {

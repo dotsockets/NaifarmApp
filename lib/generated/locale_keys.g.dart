@@ -253,6 +253,7 @@ abstract class LocaleKeys {
   static const cart_message = 'cart.message';
   static const cart_ship = 'cart.ship';
   static const cart_ship_at = 'cart.ship_at';
+  static const cart_ship_empty = 'cart.ship_empty';
   static const cart = 'cart';
   static const history_order_time = 'history.order_time';
   static const history_receipt_time = 'history.receipt_time';

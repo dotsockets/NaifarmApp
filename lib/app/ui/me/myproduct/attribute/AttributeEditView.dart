@@ -108,7 +108,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
               ),
             ),
             minimumSize: MaterialStateProperty.all(
-              Size(50.0.w, 5.5.h),
+              Size(50.0.w, 5.0.h),
             ),
             backgroundColor: MaterialStateProperty.all(
               check ? ThemeColor.secondaryColor() : Colors.grey,

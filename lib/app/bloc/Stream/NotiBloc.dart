@@ -4,7 +4,6 @@ import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
-import 'package:naifarm/app/model/pojo/response/NotiCache.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/NotificationCombine.dart';
 import 'package:rxdart/rxdart.dart';

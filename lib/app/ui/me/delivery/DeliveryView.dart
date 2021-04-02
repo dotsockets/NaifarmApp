@@ -137,7 +137,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                 Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.grey.shade400,
-                  size: 4.3.w,
+                  size: SizeUtil.ratingSize().w,
                 )
               ],
             )

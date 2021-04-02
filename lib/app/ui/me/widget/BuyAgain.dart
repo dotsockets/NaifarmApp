@@ -5,12 +5,12 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 
 class BuyAgain extends StatelessWidget {
   final String titleInto;
@@ -132,9 +132,9 @@ class BuyAgain extends StatelessWidget {
                 errorWidget: (context, url, error) => Container(
                     width: 28.0.w,
                     height: 28.0.w,
-                    child:
-                        Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
-              ),
+                    //child: Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
+                    child: NaifarmErrorWidget()),
+                ),
             ),
             Visibility(
               child: Container(

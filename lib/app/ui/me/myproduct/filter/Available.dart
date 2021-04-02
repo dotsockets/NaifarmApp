@@ -19,12 +19,14 @@ import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 
 class Available extends StatefulWidget {
   final int shopId;
@@ -82,17 +84,18 @@ class _AvailableState extends State<Available> {
           page=1;
           _reloadData();
         });*/
-        FunctionHelper.alertDialogRetry(context,
-            title: LocaleKeys.btn_error.tr(),
-            message: event.message, callBack: () {
-          widget.searchTxt.length != 0
-              ? _reloadFirstSearch()
-              : _reloadFirstPage();
-        });
-        //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey, message: event.error);
-        widget.searchTxt.length != 0
-            ? _reloadFirstSearch()
-            : _reloadFirstPage();
+        if(event.status!=99){
+          FunctionHelper.alertDialogRetry(context,
+              title: LocaleKeys.btn_error.tr(),
+              message: event.message, callBack: () {
+                bloc.onError.add(ThrowIfNoSuccess(status: 99));
+                widget.searchTxt.length != 0
+                    ? _reloadFirstSearch()
+                    : _reloadFirstPage();
+              });
+        }
+
+
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -255,15 +258,18 @@ class _AvailableState extends State<Available> {
                               errorWidget: (context, url, error) => Container(
                                   width: 30.0.w,
                                   height: 30.0.w,
-                                  child: Image.network(Env.value.noItemUrl,
-                                      fit: BoxFit.cover)),
+
+
+//child: Image.network(Env.value.noItemUrl,
+                            //    fit: BoxFit.cover)),
+                            child: NaifarmErrorWidget()),
                             ),
                           ),
                         ),
                       ),
                       Visibility(
                         child: Container(
-                          margin: EdgeInsets.only(left: 2.5.w, top: 4.5.w),
+                          margin: EdgeInsets.only(left: (SizeUtil.ratingSize()-2).w, top: SizeUtil.ratingSize().w),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(1.0.w),
                             child: Container(
@@ -312,7 +318,7 @@ class _AvailableState extends State<Available> {
                                       style: FunctionHelper.fontTheme(
                                           color: Colors.grey,
                                           fontSize:
-                                              SizeUtil.priceFontSize().sp - 1,
+                                              SizeUtil.priceFontSize().sp - 2,
                                           decoration:
                                               TextDecoration.lineThrough))
                                   : SizedBox(),
@@ -425,7 +431,7 @@ class _AvailableState extends State<Available> {
                         ),
                       ),
                       Container(
-                        height: 50,
+                        height: 5.0.h,
                         color: Colors.grey.shade300,
                       ),
                       Container(
@@ -463,7 +469,7 @@ class _AvailableState extends State<Available> {
                       ),
                       Container(
                         width: 1,
-                        height: 50,
+                        height: 6.0.h,
                         color: Colors.grey.shade300,
                       ),
                       Expanded(
@@ -502,7 +508,7 @@ class _AvailableState extends State<Available> {
                       ),
                       Container(
                         width: 1,
-                        height: 50,
+                        height: 6.0.h,
                         color: Colors.grey.shade300,
                       ),
                       Expanded(

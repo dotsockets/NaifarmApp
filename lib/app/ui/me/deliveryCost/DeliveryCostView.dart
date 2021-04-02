@@ -106,7 +106,7 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
                       // _BuildSwitchDelivery(head: "Kerry",index: 1,onClick: ()=>setState(()=> isSelect1 = isSelect1?false:true)),
                       // _BuildSwitchDelivery(head: "J&T Express",index: 2,onClick: ()=>setState(()=> isSelect2 = isSelect2?false:true)),
                       SizedBox(
-                        height: 2.0.h,
+                        width: 3.0.w,
                       ),
                       Visibility(
                         visible: checkKeyBoard ? false : true,
@@ -192,12 +192,12 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Container(
-                padding: EdgeInsets.only(left: 40, right: 40),
+                padding: EdgeInsets.only(left: 25.0.w,right: 25.0.w,top: 3.0.h,bottom: 3.0.h),
+
                 color: Colors.grey.shade300,
-                height: 80,
+
                 child: Container(
                     width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.all(15),
                     child: _buildButtonItem(
                         btnTxt: LocaleKeys.btn_save.tr(), fix: snapshot.data)));
           } else {
@@ -216,6 +216,9 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
         ),
         backgroundColor: MaterialStateProperty.all(
           fix ? ThemeColor.secondaryColor() : Colors.grey.shade400,
+        ),
+        minimumSize: MaterialStateProperty.all(
+          Size(50.0.w, 5.0.h),
         ),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),
@@ -258,9 +261,9 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
     }else{
       check = false;
     }
-    if (weightProductController.text.startsWith("0")) {
-      weightProductController.text = "";
-    }
+    // if (weightProductController.text.startsWith("0")) {
+    //   weightProductController.text = "";
+    // }
     reload.add(check);
   }
 }

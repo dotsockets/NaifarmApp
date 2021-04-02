@@ -97,7 +97,7 @@ class ProductInto extends StatelessWidget {
                         "฿${NumberFormat("#,##0", "en_US").format(data.salePrice)}",
                         style: FunctionHelper.fontTheme(
                             color: Colors.grey,
-                            fontSize: SizeUtil.priceFontSize().sp,
+                            fontSize: SizeUtil.priceFontSize().sp - 2,
                             decoration: TextDecoration.lineThrough))
                     : SizedBox(),
                 SizedBox(

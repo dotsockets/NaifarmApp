@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -26,8 +25,11 @@ class _HomeHeaderState extends State<HomeHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          EdgeInsets.only(left: 0, right: 0.3.w, bottom: 1.0.h, top: SizeUtil.paddingHeaderHome().h),
+      padding: EdgeInsets.only(
+          left: 0,
+          right: 0.3.w,
+          bottom: 1.0.h,
+          top: SizeUtil.paddingHeaderHome().h),
       decoration: new BoxDecoration(
           color: ThemeColor.primaryColor(),
           borderRadius: new BorderRadius.only(
@@ -82,9 +84,15 @@ class _HomeHeaderState extends State<HomeHeader> {
                               width: 5.0.w,
                               height: 5.0.w,
                             ),
-                            Expanded(child: Padding(
+                            Expanded(
+                                child: Padding(
                               padding: const EdgeInsets.only(left: 10),
-                              child: Text(LocaleKeys.search_product_title.tr(),style: FunctionHelper.fontTheme(color: Colors.grey.withOpacity(0.6),fontSize: SizeUtil.titleSmallFontSize().sp),),
+                              child: Text(
+                                LocaleKeys.search_product_title.tr(),
+                                style: FunctionHelper.fontTheme(
+                                    color: Colors.grey.withOpacity(0.6),
+                                    fontSize: SizeUtil.titleSmallFontSize().sp),
+                              ),
                             ))
                             // widget.snapshot.trendingRespone != null
                             //     ? Expanded(
@@ -145,7 +153,9 @@ class _HomeHeaderState extends State<HomeHeader> {
                   },
                 )),
                 Container(
-                    padding: EdgeInsets.only(right:SizeUtil.paddingCart().w,left: SizeUtil.paddingItem().w),
+                    padding: EdgeInsets.only(
+                        right: SizeUtil.paddingCart().w,
+                        left: SizeUtil.paddingItem().w),
                     child: BuildIconShop())
               ],
             ),

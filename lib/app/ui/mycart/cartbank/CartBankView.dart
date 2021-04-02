@@ -217,6 +217,7 @@ class _CartBankViewState extends State<CartBankView> {
   Widget _buildAddBtn() {
     return Center(
       child: Container(
+        height: 5.0.h,
         child: TextButton(
           style: ButtonStyle(
             shape: MaterialStateProperty.all(
@@ -225,7 +226,7 @@ class _CartBankViewState extends State<CartBankView> {
               ),
             ),
             padding: MaterialStateProperty.all(EdgeInsets.only(
-                left: 20.0.w, right: 20.0.w, top: 2.0.h, bottom: 2.0.h)),
+                left: 20.0.w, right: 20.0.w,)),
             backgroundColor: MaterialStateProperty.all(
               ThemeColor.secondaryColor(),
             ),

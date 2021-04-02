@@ -128,8 +128,8 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
                                                 children: [
                                                   Lottie.asset(
                                                       'assets/json/edit.json',
-                                                      height: 4.5.h,
-                                                      width: 4.5.h,
+                                                      height: (SizeUtil.iconSmallSize()-0.5).h,
+                                                      width: (SizeUtil.iconSmallSize()-0.5).h,
                                                       repeat: true),
                                                   Text(
                                                     LocaleKeys.cart_edit.tr(),
@@ -165,8 +165,8 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
                                                         top: 0.5.h),
                                                     child: Lottie.asset(
                                                         'assets/json/delete.json',
-                                                        height: 3.0.h,
-                                                        width: 3.0.h,
+                                                        height: SizeUtil.imgSmallWidth().h,
+                                                        width: SizeUtil.imgSmallWidth().h,
                                                         repeat: true),
                                                   ),
                                                   Container(
@@ -265,7 +265,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
       color: Colors.white,
       width: MediaQuery.of(context).size.width,
       child: Container(
-        padding: EdgeInsets.all(5.0.w),
+        padding: EdgeInsets.all(SizeUtil.iconSmallSize().w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -279,7 +279,7 @@ class _AttributeDetailViewState extends State<AttributeDetailView>
                 Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.grey.shade400,
-                  size: 5.0.w,
+                  size: SizeUtil.imgMedWidth().w,
                 ),
               ],
             ),

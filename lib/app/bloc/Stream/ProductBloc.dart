@@ -390,17 +390,16 @@ class ProductBloc {
             .appStoreAPIRepository
             .getWishlistsByProduct(context, productID: productID, token: token))
         .listen((respone) {
-          if(respone.httpCallBack.status==200){
-            var item = (respone.respone as DataWishlists);
-
-         // print("wrfcd ${item}");
-          }
-
+      if (respone.httpCallBack.status == 200) {
+        // var item = (respone.respone as DataWishlists);
+        // print("wrfcd ${item}");
+      }
     });
     _compositeSubscription.add(subscription);
   }
 
-  deleteWishlists(BuildContext context, {int productId,int wishId, String token}) {
+  deleteWishlists(BuildContext context,
+      {int productId, int wishId, String token}) {
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
             .deleteWishlists(context, wishId: wishId, token: token))
@@ -411,16 +410,15 @@ class ProductBloc {
         // GetMyWishlists(token: token);
         //Wishlists.add(WishlistsRespone(total: 0));
 
-
-        ProducItemRespone temp_productItem = ProducItemRespone();
-        SearchRespone temp_search= SearchRespone();
-        DataWishlists temp_wishlist = DataWishlists();
+        ProducItemRespone tempProductItem = ProducItemRespone();
+        SearchRespone tempSearch = SearchRespone();
+        // DataWishlists tempWishlist = DataWishlists();
         NaiFarmLocalStorage.getProductDetailCache().then((value) {
           if (value != null) {
             for (var data in value.item) {
               if (data.productObjectCombine.producItemRespone.id == productId) {
-                temp_productItem = data.productObjectCombine.producItemRespone;
-                temp_search = data.searchRespone;
+                tempProductItem = data.productObjectCombine.producItemRespone;
+                tempSearch = data.searchRespone;
 
                 value.item.remove(data);
                 break;
@@ -428,12 +426,11 @@ class ProductBloc {
             }
 
             value.item.add(ProductDetailData(
-                searchRespone: temp_search,
+                searchRespone: tempSearch,
                 productObjectCombine:
-                ProductObjectCombine(producItemRespone: temp_productItem)));
+                    ProductObjectCombine(producItemRespone: tempProductItem)));
 
             NaiFarmLocalStorage.saveProductDetailCache(value).then((data) {
-
               onSuccess.add(true);
             });
           }
@@ -454,22 +451,22 @@ class ProductBloc {
       if (respone.httpCallBack.status == 200) {
         // GetMyWishlists(token: token); GetWishlistsByProduct
         var item = (respone.respone as DataWishlists);
-        ProducItemRespone temp_productItem = ProducItemRespone();
-        SearchRespone temp_search= SearchRespone();
+        ProducItemRespone tempProductItem = ProducItemRespone();
+        SearchRespone tempSearch = SearchRespone();
         NaiFarmLocalStorage.getProductDetailCache().then((value) {
           if (value != null) {
             for (var data in value.item) {
               if (data.productObjectCombine.producItemRespone.id == productId) {
-                temp_productItem = data.productObjectCombine.producItemRespone;
-                temp_search = data.searchRespone;
+                tempProductItem = data.productObjectCombine.producItemRespone;
+                tempSearch = data.searchRespone;
                 value.item.remove(data);
                 break;
               }
             }
             value.item.add(ProductDetailData(
-                searchRespone: temp_search,
-                productObjectCombine:
-                ProductObjectCombine(producItemRespone: temp_productItem,dataWishlists: item)));
+                searchRespone: tempSearch,
+                productObjectCombine: ProductObjectCombine(
+                    producItemRespone: tempProductItem, dataWishlists: item)));
 
             NaiFarmLocalStorage.saveProductDetailCache(value).then((value) {
               if (item != null) {
@@ -484,8 +481,6 @@ class ProductBloc {
           }
         });
 
-
-
         //  onSuccess.add(true);
       } else {
         onError.add(respone.httpCallBack);
@@ -499,13 +494,18 @@ class ProductBloc {
     onError.add(null);
 
     Observable.combineLatest2(
-        Observable.fromFuture(_application.appStoreAPIRepository.productsById(context, id: id)),
-        Observable.fromFuture(_application.appStoreAPIRepository.getWishlistsByProduct(context, productID: id, token: token)),
-            (a, b) {
-          final _product= (a as ApiResult).respone;
-          final _dataWishlists = (b as ApiResult).respone;
-          return ApiResult(respone: ProductObjectCombine(producItemRespone:_product,dataWishlists:  _dataWishlists),httpCallBack: (a as ApiResult).httpCallBack);
-        }).listen((event) {
+        Observable.fromFuture(
+            _application.appStoreAPIRepository.productsById(context, id: id)),
+        Observable.fromFuture(_application.appStoreAPIRepository
+            .getWishlistsByProduct(context, productID: id, token: token)),
+        (a, b) {
+      final _product = (a as ApiResult).respone;
+      final _dataWishlists = (b as ApiResult).respone;
+      return ApiResult(
+          respone: ProductObjectCombine(
+              producItemRespone: _product, dataWishlists: _dataWishlists),
+          httpCallBack: (a as ApiResult).httpCallBack);
+    }).listen((event) {
       if (event.httpCallBack.status == 200) {
         var item = (event.respone as ProductObjectCombine);
         if (item != null) {
@@ -526,19 +526,21 @@ class ProductBloc {
               }
             }
 
-            value.item.add(ProductDetailData(productObjectCombine:ProductObjectCombine(producItemRespone: item.producItemRespone,dataWishlists: item.dataWishlists)));
+            value.item.add(ProductDetailData(
+                productObjectCombine: ProductObjectCombine(
+                    producItemRespone: item.producItemRespone,
+                    dataWishlists: item.dataWishlists)));
 
             NaiFarmLocalStorage.saveProductDetailCache(value).then((data) {
               zipProductDetail.add(item);
             });
           } else {
             List<ProductDetailData> data = <ProductDetailData>[];
-            data.add(ProductDetailData(productObjectCombine:item));
+            data.add(ProductDetailData(productObjectCombine: item));
 
             NaiFarmLocalStorage.saveProductDetailCache(
-
-                ProductDetailCombin(data)).then((value) {
-
+                    ProductDetailCombin(data))
+                .then((value) {
               zipProductDetail.add(item);
             });
           }
@@ -546,9 +548,7 @@ class ProductBloc {
       } else {
         onError.add(event.httpCallBack);
       }
-
     });
-
   }
 
   getProductsById(BuildContext context, {int id, bool onload}) {
@@ -728,7 +728,7 @@ class ProductBloc {
 
   getSearchCategoryGroupId(BuildContext context,
       {ProducItemRespone productItem,
-        DataWishlists dataWishlists,
+      DataWishlists dataWishlists,
       int groupId,
       int limit = 5,
       String page = "1"}) {
@@ -748,11 +748,11 @@ class ProductBloc {
             }
             value.item.add(ProductDetailData(
                 searchRespone: (respone.respone as SearchRespone),
-                productObjectCombine:
-                    ProductObjectCombine(producItemRespone: productItem,dataWishlists: dataWishlists)));
+                productObjectCombine: ProductObjectCombine(
+                    producItemRespone: productItem,
+                    dataWishlists: dataWishlists)));
 
             NaiFarmLocalStorage.saveProductDetailCache(value).then((value) {
-
               searchProduct.add((respone.respone as SearchRespone));
             });
           }
@@ -781,7 +781,9 @@ class ProductBloc {
             page: item.page,
             total: item.total));
       } else {
-        onError.add(respone.httpCallBack);
+
+          onError.add(respone.httpCallBack);
+
       }
     });
     _compositeSubscription.add(subscription);

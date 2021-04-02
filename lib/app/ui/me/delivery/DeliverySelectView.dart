@@ -170,28 +170,28 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
       return widget.selectId == id
           ? SvgPicture.asset(
               'assets/images/svg/checkmark.svg',
-              width: 8.0.w,
-              height: 8.0.w,
+              width: SizeUtil.checkMarkSize().w,
+              height: SizeUtil.checkMarkSize().w,
               color: ThemeColor.primaryColor(),
             )
           : SvgPicture.asset(
               'assets/images/svg/uncheckmark.svg',
-              width: 8.0.w,
-              height: 8.0.w,
+              width: SizeUtil.checkMarkSize().w,
+              height: SizeUtil.checkMarkSize().w,
               color: Colors.black.withOpacity(0.5),
             );
     } else {
       return select
           ? SvgPicture.asset(
               'assets/images/svg/checkmark.svg',
-              width: 8.0.w,
-              height: 8.0.w,
+              width: SizeUtil.checkMarkSize().w,
+              height: SizeUtil.checkMarkSize().w,
               color: ThemeColor.primaryColor(),
             )
           : SvgPicture.asset(
               'assets/images/svg/uncheckmark.svg',
-              width: 8.0.w,
-              height: 8.0.w,
+              width: SizeUtil.checkMarkSize().w,
+              height: SizeUtil.checkMarkSize().w,
               color: Colors.black.withOpacity(0.5),
             );
     }
@@ -201,8 +201,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
     return Center(
       child: Container(
           margin: EdgeInsets.all(10),
-          width: 50.0.w,
-          height: 50,
+          height: 5.0.h,
           child: TextButton(
             style: ButtonStyle(
               shape: MaterialStateProperty.all(
@@ -210,9 +209,9 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
                   borderRadius: BorderRadius.circular(40.0),
                 ),
               ),
-              minimumSize: MaterialStateProperty.all(
-                Size(80.0.w, 50.0),
-              ),
+              padding: MaterialStateProperty.all(EdgeInsets.only(
+              left: 20.0.w, right: 20.0.w,)),
+
               backgroundColor: MaterialStateProperty.all(
                 ThemeColor.secondaryColor(),
               ),
