@@ -21,6 +21,11 @@ or alternatively using `brew install fastlane`
 fastlane android distribute_staging
 ```
 Runs to AppTest Distribute
+### android distribute_prod
+```
+fastlane android distribute_prod
+```
+Runs to AppTest Distribute
 ### android beta
 ```
 fastlane android beta

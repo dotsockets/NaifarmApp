@@ -29,6 +29,19 @@ platform :android do
          )
    end
 
+    desc "Runs to AppTest Distribute"
+       lane :distribute_prod do
+           firebase_app_distribution(
+                 app: "1:536378613546:android:fefc3e74f815cf024b0853",
+                 groups: "tester",
+                 #testers: "ApisitKaewsasan@gmail.com",
+                 release_notes: "Lots of amazing new features to test out!",
+                 release_notes_file:"../release_notes.md",
+                 firebase_cli_path: "./firebase-tools-macos",
+                 apk_path: "../build/app/outputs/flutter-apk/app-production-release.apk"
+               )
+         end
+
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
     gradle(task: "clean assembleRelease")
