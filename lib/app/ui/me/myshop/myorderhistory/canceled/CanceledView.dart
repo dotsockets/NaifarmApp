@@ -485,14 +485,15 @@ class _CanceledViewState extends State<CanceledView> {
                       new TextSpan(
                           text: LocaleKeys.cart_sub_total.tr() + " : ",
                           style: FunctionHelper.fontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontSize: SizeUtil.spanTitleFontSize().sp,
                               fontWeight: FontWeight.normal,
                               color: Colors.black)),
                       new TextSpan(
                           text:
-                              "฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(item.items, item.shipping != null ? item.shipping : 0))}",
-                          style: FunctionHelper.fontTheme(
-                              fontSize: SizeUtil.titleFontSize().sp,
+                             //"฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(item.items, item.shipping != null ? item.shipping : 0))}",
+                          "฿${NumberFormat("#,##0", "en_US").format(item.grandTotal != null ? item.grandTotal : 0)}",
+                        style: FunctionHelper.fontTheme(
+                              fontSize: SizeUtil.spanTitleFontSize().sp,
                               color: ThemeColor.colorSale())),
                     ],
                   ),

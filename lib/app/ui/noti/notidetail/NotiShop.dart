@@ -345,19 +345,19 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                     text: "${LocaleKeys.noti_shop_update.tr()} ",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black)),
                 new TextSpan(
                     text: "${item.meta.user}",
                     style: FunctionHelper.fontTheme(
-                        fontSize: (SizeUtil.titleSmallFontSize() - 1).sp,
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.bold,
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(
                     text: " ${LocaleKeys.dialog_message_success.tr()} ",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black)),
               ],
@@ -390,13 +390,13 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                     text: "${LocaleKeys.noti_shop_status.tr()} ",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black)),
                 new TextSpan(
                     text: "${item.meta.status} ",
                     style: FunctionHelper.fontTheme(
-                        fontSize: (SizeUtil.titleSmallFontSize() - 1).sp,
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black)),
               ],
@@ -432,7 +432,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: item.meta.customer,
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -440,7 +440,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: LocaleKeys.noti_shop_order_created_detail1.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -448,7 +448,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: "${item.meta.order}",
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -456,7 +456,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: LocaleKeys.noti_shop_order_created_detail2.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -467,7 +467,7 @@ class _NotiShopState extends State<NotiShop>
                           ? item.meta.requirePaymentAt
                           : DateTime.now().toString())),
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -534,7 +534,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: item.meta.customer,
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -542,7 +542,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: LocaleKeys.noti_shop_order_request_payment_detail1.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -550,7 +550,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: "${item.meta.order}",
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -579,7 +579,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: item.meta.customer,
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -587,7 +587,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: LocaleKeys.noti_shop_order_canceled_detail1.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -595,7 +595,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: "${item.meta.order}",
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -605,7 +605,7 @@ class _NotiShopState extends State<NotiShop>
                       ? ""
                       : ". Please proceed to ship the  order.",
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -632,7 +632,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: item.meta.customer,
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -640,7 +640,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: LocaleKeys.noti_dispute_created_detail1.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -648,7 +648,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: "${item.meta.order}",
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -656,7 +656,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: LocaleKeys.noti_dispute_created_detail2.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -667,7 +667,7 @@ class _NotiShopState extends State<NotiShop>
                           ? item.meta.requirePaymentAt
                           : DateTime.now().toString())),
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -675,7 +675,7 @@ class _NotiShopState extends State<NotiShop>
                 new TextSpan(
                   text: LocaleKeys.noti_dispute_created_detail3.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),

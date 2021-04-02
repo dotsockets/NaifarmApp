@@ -373,7 +373,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: LocaleKeys.noti_order.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -381,13 +381,13 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                     text: "${item.meta.order}",
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.bold,
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_updated_detail2.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -414,19 +414,19 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                     text: LocaleKeys.noti_cus_order_created_detail1.tr(),
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
                     text: "${item.meta.order}",
                     style: FunctionHelper.fontTheme(
-                        fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.bold,
                         color: ThemeColor.secondaryColor())),
                 new TextSpan(
                     text: LocaleKeys.noti_cus_order_created_detail2.tr(),
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.8)))
               ],
             ),
@@ -453,7 +453,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_paid_detail1.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -461,7 +461,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: "${item.meta.order}",
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -469,7 +469,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_paid_detail2.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     color: Colors.black.withOpacity(0.8),
                   ),
                 ),
@@ -498,7 +498,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_fulfilled_detail1.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -506,7 +506,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: item.meta.trackingNumber,
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -514,7 +514,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_fulfilled_detail2.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -524,7 +524,7 @@ class _NotiCusState extends State<NotiCus>
                       ? item.meta.carrierName
                       : "${item.meta.order}",
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -532,7 +532,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_fulfilled_detail3.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -540,7 +540,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: item.meta.shop,
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -548,7 +548,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_fulfilled_detail4.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -558,7 +558,7 @@ class _NotiCusState extends State<NotiCus>
                       ? "${item.meta.order}"
                       : item.meta.carrierName,
                   style: FunctionHelper.fontTheme(
-                    fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
                     color: ThemeColor.secondaryColor(),
                   ),
@@ -566,7 +566,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_fulfilled_detail5.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -596,13 +596,13 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                     text: LocaleKeys.noti_order.tr(),
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black.withOpacity(0.8))),
                 new TextSpan(
                     text: "${item.meta.order}",
                     style: FunctionHelper.fontTheme(
-                        fontSize: (SizeUtil.titleFontSize() - 1).sp,
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.bold,
                         color: ThemeColor.secondaryColor())),
                 //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
@@ -610,7 +610,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                     text: LocaleKeys.noti_cus_order_failed_detail2.tr(),
                     style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black.withOpacity(0.8))),
               ],
@@ -638,14 +638,14 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: item.meta.customer,
                   style: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                       fontWeight: FontWeight.bold,
                       color: ThemeColor.secondaryColor()),
                 ),
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_canceled_detail1.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -653,14 +653,14 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: "${item.meta.order}",
                   style: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                       fontWeight: FontWeight.bold,
                       color: ThemeColor.secondaryColor()),
                 ),
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_canceled_detail2.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -687,7 +687,7 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_delivered_detail1.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -695,14 +695,14 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: item.meta.trackingNumber,
                   style: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontSize:SizeUtil.spanTitleSmallFontSize().sp,
                       fontWeight: FontWeight.bold,
                       color: ThemeColor.secondaryColor()),
                 ),
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_delivered_detail2.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),
@@ -710,14 +710,14 @@ class _NotiCusState extends State<NotiCus>
                 new TextSpan(
                   text: "${item.meta.order}",
                   style: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                       fontWeight: FontWeight.bold,
                       color: ThemeColor.secondaryColor()),
                 ),
                 new TextSpan(
                   text: LocaleKeys.noti_cus_order_delivered_detail3.tr(),
                   style: FunctionHelper.fontTheme(
-                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.black.withOpacity(0.8),
                   ),

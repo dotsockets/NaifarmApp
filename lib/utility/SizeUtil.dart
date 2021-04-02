@@ -23,6 +23,13 @@ class SizeUtil {
     return Device.get().isPhone ? 9.0 : 5.0;
   }
 
+  static double spanTitleFontSize() {
+    return Device.get().isPhone ? 9.5 : 6.5;
+  }
+
+  static double spanTitleSmallFontSize() {
+    return Device.get().isPhone ? 9.0 : 6.0;
+  }
   static double detailFontSize() {
     return Device.get().isPhone ? 8 : 4.5;
   }

@@ -60,16 +60,25 @@ class ShopOwn extends StatelessWidget {
                         imageUrl: shopItem.image != null
                             ? ProductLandscape.covertUrlImage(shopItem.image)
                             : "",
+                        // errorWidget: (context, url, error) => Container(
+                        //     width: SizeUtil.imgItemSize().w,
+                        //     height: SizeUtil.imgItemSize().w,
+                        //     child: CircleAvatar(
+                        //       backgroundColor: Color(0xffE6E6E6),
+                        //       radius: 30,
+                        //       child: Icon(
+                        //         Icons.shopping_bag_rounded,
+                        //         color: Color(0xffCCCCCC),
+                        //       ),
+                        //     )),
                         errorWidget: (context, url, error) => Container(
+                            color: Colors.grey.shade300,
                             width: SizeUtil.imgItemSize().w,
                             height: SizeUtil.imgItemSize().w,
-                            child: CircleAvatar(
-                              backgroundColor: Color(0xffE6E6E6),
-                              radius: 30,
-                              child: Icon(
-                                Icons.shopping_bag_rounded,
-                                color: Color(0xffCCCCCC),
-                              ),
+                            child: Icon(
+                              Icons.person,
+                              size: (SizeUtil.iconSize()-2).w,
+                              color: Colors.white,
                             )),
                       ),
                     ),

@@ -303,21 +303,21 @@ class _OrderViewState extends State<OrderView> {
                       text:
                           "${LocaleKeys.order_detail_please.tr()}${LocaleKeys.order_detail_pay_date.tr()} ",
                       style: FunctionHelper.fontTheme(
-                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                           fontWeight: FontWeight.normal,
                           color: Colors.black.withOpacity(0.8))),
                   new TextSpan(
                       text:
                           "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.requirePaymentAt != null ? orderData.requirePaymentAt : DateTime.now().toString()))} ",
                       style: FunctionHelper.fontTheme(
-                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                           color: Colors.black.withOpacity(0.5))),
                   //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
                   //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
                   new TextSpan(
                       text: " ${LocaleKeys.order_detail_cancel.tr()}",
                       style: FunctionHelper.fontTheme(
-                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                           fontWeight: FontWeight.normal,
                           color: Colors.black.withOpacity(0.8))),
                 ],
@@ -483,16 +483,25 @@ class _OrderViewState extends State<OrderView> {
                         fit: BoxFit.cover,
                         imageUrl:
                             "${Env.value.baseUrl}/storage/images/${orderData.shop.image.isNotEmpty ? orderData.shop.image[0].path : ''}",
+                        // errorWidget: (context, url, error) => Container(
+                        //     width: 30,
+                        //     height: 30,
+                        //     child: CircleAvatar(
+                        //       backgroundColor: Color(0xffE6E6E6),
+                        //       radius: 25,
+                        //       child: Icon(
+                        //         Icons.shopping_bag_rounded,
+                        //         color: Color(0xffCCCCCC),
+                        //       ),
+                        //     )),
                         errorWidget: (context, url, error) => Container(
+                            color: Colors.grey.shade300,
                             width: 30,
-                            height: 30,
-                            child: CircleAvatar(
-                              backgroundColor: Color(0xffE6E6E6),
-                              radius: 25,
-                              child: Icon(
-                                Icons.shopping_bag_rounded,
-                                color: Color(0xffCCCCCC),
-                              ),
+                              height: 30,
+                            child: Icon(
+                              Icons.person,
+
+                              color: Colors.white,
                             )),
                       ),
                     ),
