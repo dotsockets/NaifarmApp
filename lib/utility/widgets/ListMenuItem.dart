@@ -48,7 +48,7 @@ class ListMenuItem extends StatelessWidget {
                 child: Row(
                   children: [
                     Visibility(
-                      child: isPhoto == ""
+                      child: isPhoto== ""&&icon!=null
                           ? SvgPicture.asset(
                               icon,
                               width: iconSize,
@@ -68,15 +68,24 @@ class ListMenuItem extends StatelessWidget {
                                 ),
                                 fit: BoxFit.cover,
                                 imageUrl: isPhoto,
+                                // errorWidget: (context, url, error) => Container(
+                                //     height: iconSize,
+                                //     child: CircleAvatar(
+                                //       backgroundColor: Color(0xffE6E6E6),
+                                //       radius: 30,
+                                //       child: Icon(
+                                //         Icons.shopping_bag_rounded,
+                                //         color: Color(0xffCCCCCC),
+                                //       ),
+                                //     )),
                                 errorWidget: (context, url, error) => Container(
-                                    height: iconSize,
-                                    child: CircleAvatar(
-                                      backgroundColor: Color(0xffE6E6E6),
-                                      radius: 30,
-                                      child: Icon(
-                                        Icons.shopping_bag_rounded,
-                                        color: Color(0xffCCCCCC),
-                                      ),
+                                    color: Colors.grey.shade300,
+                                    width:  iconSize,
+                                    height:  iconSize,
+                                    child: Icon(
+                                      Icons.person,
+                                      size: (SizeUtil.iconSize()-1).w,
+                                      color: Colors.grey,
                                     )),
                               ),
                             ),

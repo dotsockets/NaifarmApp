@@ -23,7 +23,7 @@ class _EditNameShopState extends State<EditNameShopView> {
   String onError1 = "";
 
   bool formCheck() {
-    if (_input1.text.isEmpty) {
+    if (_input1.text.trim().isEmpty) {
       return false;
     } else {
       return true;
@@ -68,7 +68,7 @@ class _EditNameShopState extends State<EditNameShopView> {
                         Size(50.0.w, 5.0.h),
                       ),
                       backgroundColor: MaterialStateProperty.all(
-                        _input1.text != ""
+                        _input1.text.trim() != ""
                             ? ThemeColor.secondaryColor()
                             : Colors.grey.shade400,
                       ),
