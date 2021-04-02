@@ -145,6 +145,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                   data: ProducItemRespone(
                                                     name: item.name,
                                                     salePrice: item.salePrice,
+                                                    saleCount: item.saleCount,
                                                     rating: item.rating,
                                                     offerPrice: item.offerPrice,
                                                     id: item.id,

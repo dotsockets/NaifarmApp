@@ -159,16 +159,16 @@ class _TransferPayMentState extends State<TransferPayMent> {
                           text: TextSpan(
                             children: <TextSpan>[
                               TextSpan(
-                                  text: "เลขที่บัญชี : ",
+                                  text: "เลขที่บัญชี: ",
                                   style: FunctionHelper.fontTheme(
                                       fontSize:
-                                          SizeUtil.titleSmallFontSize().sp,
+                                          SizeUtil.spanTitleSmallFontSize().sp,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black.withOpacity(0.5))),
                               TextSpan(
                                   text: "468 0601 709",
                                   style: FunctionHelper.fontTheme(
-                                      fontSize: (SizeUtil.titleFontSize()).sp,
+                                      fontSize: (SizeUtil.spanTitleFontSize()).sp,
                                       fontWeight: FontWeight.bold,
                                       color: ThemeColor.colorSale())),
                             ],
