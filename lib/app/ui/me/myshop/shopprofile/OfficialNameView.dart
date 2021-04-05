@@ -109,7 +109,7 @@ class _OfficialNameViewState extends State<OfficialNameView> {
                 LocaleKeys.shop_name_official.tr(),
             inputType: TextInputType.text,
             borderOpacity: 0.2,
-            maxLength: 20,
+            maxLength: 100,
             borderRadius: 5,
             onError: onError1,
             controller: _input1,

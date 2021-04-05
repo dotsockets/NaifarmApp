@@ -110,7 +110,7 @@ class SettingEditProfileNameViewState
                 LocaleKeys.my_profile_username.tr(),
             inputType: TextInputType.text,
             borderOpacity: 0.2,
-            maxLength: 20,
+            maxLength: 50,
             borderRadius: 5,
             onError: onError1,
             controller: _input1,

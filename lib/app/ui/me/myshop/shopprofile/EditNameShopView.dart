@@ -107,7 +107,7 @@ class _EditNameShopState extends State<EditNameShopView> {
             hint: LocaleKeys.set_default.tr() + LocaleKeys.shop_name_title.tr(),
             inputType: TextInputType.text,
             borderOpacity: 0.2,
-            maxLength: 20,
+            maxLength: 50,
             borderRadius: 5,
             onError: onError1,
             controller: _input1,

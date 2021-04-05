@@ -144,7 +144,7 @@ class RegisterFBViewState extends State<RegisterFBView> {
             head: "ชื่อผู้เช้าใข้",
             hint: "ระบุรหัสผ่านใหม่",
             inputType: TextInputType.text,
-            maxLength: 20,
+            maxLength: 40,
             isPassword: true,
             borderRadius: 5,
             controller: _input1,

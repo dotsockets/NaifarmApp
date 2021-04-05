@@ -16,7 +16,8 @@ import 'package:sizer/sizer.dart';
 class RegisterNameOtpView extends StatefulWidget {
   final String phone;
   final String password;
-  const RegisterNameOtpView({Key key, this.phone, this.password})
+
+  const RegisterNameOtpView({Key key, this.phone,this.password})
       : super(key: key);
   @override
   RegisterNameOtpViewState createState() => RegisterNameOtpViewState();
@@ -28,7 +29,7 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String onError1 = "";
   String onError2 = "";
-  MemberBloc bloc;
+//  MemberBloc bloc;
 
   bool formCheck() {
     if (_input1.text.isEmpty && _input2.text.isEmpty) {
@@ -38,32 +39,32 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
     }
   }
 
-  void _init() {
-    if (null == bloc) {
-      bloc = MemberBloc(AppProvider.getApplication(context));
-      bloc.onLoad.stream.listen((event) {
-        if (event) {
-          FunctionHelper.showDialogProcess(context);
-        } else {
-          Navigator.of(context).pop();
-        }
-      });
-      bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
-     //   FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
-
-        FunctionHelper.alertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message: event.message);
-      });
-      bloc.onSuccess.stream.listen((event) {
-        AppRoute.home(context);
-      });
-    }
-  }
+  // void _init() {
+  //   if (null == bloc) {
+  //     bloc = MemberBloc(AppProvider.getApplication(context));
+  //     bloc.onLoad.stream.listen((event) {
+  //       if (event) {
+  //         FunctionHelper.showDialogProcess(context);
+  //       } else {
+  //         Navigator.of(context).pop();
+  //       }
+  //     });
+  //     bloc.onError.stream.listen((event) {
+  //       //Navigator.of(context).pop();
+  //    //   FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+  //
+  //       FunctionHelper.alertDialogShop(context,
+  //           title: LocaleKeys.btn_error.tr(), message: event.message);
+  //     });
+  //     bloc.onSuccess.stream.listen((event) {
+  //       AppRoute.home(context);
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    //_init();
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -104,7 +105,7 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
                         Colors.white.withOpacity(0.3),
                       ),
                     ),
-                    onPressed: () => verify(),
+                    onPressed: () => verify(context),
                     child: Text(
                       LocaleKeys.btn_next.tr(),
                       style: FunctionHelper.fontTheme(
@@ -134,7 +135,7 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
             hint: LocaleKeys.set_default.tr() +
                 LocaleKeys.my_profile_username.tr(),
             inputType: TextInputType.text,
-            maxLength: 20,
+            maxLength: 50,
             borderRadius: 5,
             onError: onError1,
             controller: _input1,
@@ -150,7 +151,7 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
             hint:
                 LocaleKeys.set_default.tr() + LocaleKeys.my_profile_email.tr(),
             inputType: TextInputType.emailAddress,
-            maxLength: 20,
+            maxLength: 50,
             borderRadius: 5,
             onError: onError2,
             controller: _input2,
@@ -163,7 +164,7 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
     );
   }
 
-  void verify() {
+  void verify(BuildContext context) {
     //  FunctionHelper.showDialogProcess(context);
 
     if (_input1.text.isEmpty || _input1.text.length < 6) {
@@ -178,14 +179,15 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
     }
 
     if (onError1 == "" && onError2 == "") {
-      bloc.customersRegister(
-          context: context,
-          registerRequest: RegisterRequest(
-              name: _input1.text,
-              email: _input2.text,
-              password: widget.password,
-              phone: widget.phone,
-              agree: 0));
+      AppRoute.registerSetPassword(context, widget.phone,_input1.text,_input2.text);
+      // bloc.customersRegister(
+      //     context: context,
+      //     registerRequest: RegisterRequest(
+      //         name: _input1.text,
+      //         email: _input2.text,
+      //         password: widget.password,
+      //         phone: widget.phone,
+      //         agree: 0));
     }
 
     // Usermanager().Savelogin(user: User(id: "1",fullname: "John Mayer",username: "ApisitKaewsasan@gmail.com",email: "ApisitKaewsasan@gmail.com",phone: "0932971160",

@@ -537,13 +537,13 @@ class AppRoute {
                 refCode: refCode)));
   }
 
-  static registerSetPassword(BuildContext context, String phone) {
+  static registerSetPassword(BuildContext context, String phone, String name,String email) {
     Navigator.pushReplacement(
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
             type: PageTransitionType.fade,
-            child: RegisterSetPasswordView(phone: phone)));
+            child: RegisterSetPasswordView(phone: phone,name: name,email: email,)));
   }
 
   static forgotSetNewPassword(BuildContext context,
