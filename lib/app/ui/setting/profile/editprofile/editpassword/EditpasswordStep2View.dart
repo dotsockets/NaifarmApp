@@ -149,7 +149,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                                   hint: LocaleKeys.set_default.tr() +
                                       LocaleKeys.my_profile_password.tr(),
                                   inputType: TextInputType.text,
-                                  maxLength: 20,
+                                  maxLength: 50,
                                   isPassword: true,
                                   borderRadius: 5,
                                   controller: _input1,
@@ -168,7 +168,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                                   hint: LocaleKeys.set_default.tr() +
                                       LocaleKeys.my_profile_password.tr(),
                                   inputType: TextInputType.text,
-                                  maxLength: 20,
+                                  maxLength: 50,
                                   isPassword: true,
                                   borderRadius: 5,
                                   controller: _input2,

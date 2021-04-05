@@ -224,7 +224,7 @@ class _AddressAddViewState extends State<AddressAddView> {
             height: 15,
           ),
           BuildEditText(
-              maxLength: 100,
+              maxLength: 300,
               head: LocaleKeys.address_detail.tr(),
               enableMaxLength: false,
               hint:

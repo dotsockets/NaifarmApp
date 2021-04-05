@@ -109,7 +109,9 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       });
       bloc.onSuccess.stream.listen((event) {
         if (widget.requestOtp == RequestOtp.Register) {
-          AppRoute.registerSetPassword(context, widget.phoneNumber);
+         // AppRoute.registerSetPassword(context, widget.phoneNumber);
+          AppRoute.registerNameOtp(context, widget.phoneNumber, _input1.text);
+
         } else if (widget.requestOtp == RequestOtp.Forgotpassword) {
           AppRoute.forgotSetNewPassword(context,
               phone: widget.phoneNumber,

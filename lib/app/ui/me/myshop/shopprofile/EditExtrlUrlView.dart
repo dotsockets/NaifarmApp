@@ -109,7 +109,7 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
                 LocaleKeys.shop_external_link.tr(),
             inputType: TextInputType.text,
             borderOpacity: 0.2,
-            maxLength: 20,
+            maxLength: 60,
             borderRadius: 5,
             onError: onError1,
             controller: _input1,

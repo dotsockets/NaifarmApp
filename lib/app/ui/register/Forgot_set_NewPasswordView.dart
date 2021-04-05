@@ -188,7 +188,7 @@ class ForgotSetNewPasswordState extends State<ForgotSetNewPasswordView> {
             hint: LocaleKeys.set_default.tr() +
                 LocaleKeys.my_profile_password.tr(),
             inputType: TextInputType.text,
-            maxLength: 20,
+            maxLength: 40,
             isPassword: true,
             borderRadius: 5,
             controller: _input1,
@@ -205,7 +205,7 @@ class ForgotSetNewPasswordState extends State<ForgotSetNewPasswordView> {
             hint: LocaleKeys.set_default.tr() +
                 LocaleKeys.my_profile_password.tr(),
             inputType: TextInputType.text,
-            maxLength: 20,
+            maxLength: 40,
             isPassword: true,
             borderRadius: 5,
             controller: _input2,

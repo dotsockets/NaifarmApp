@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -11,8 +14,9 @@ import 'package:sizer/sizer.dart';
 
 class RegisterSetPasswordView extends StatefulWidget {
   final String phone;
-
-  const RegisterSetPasswordView({Key key, this.phone}) : super(key: key);
+  final String name;
+  final String email;
+  const RegisterSetPasswordView({Key key, this.phone, this.name,this.email}) : super(key: key);
   @override
   RegisterSetPasswordViewState createState() => RegisterSetPasswordViewState();
 }
@@ -24,12 +28,35 @@ class RegisterSetPasswordViewState extends State<RegisterSetPasswordView> {
   bool successForm = false;
   String onError1 = "";
   String onError2 = "";
+  MemberBloc bloc;
 
   bool formCheck() {
     if (_input1.text.isEmpty || _input2.text.isEmpty) {
       return false;
     } else {
       return true;
+    }
+  }
+  void _init() {
+    if (null == bloc) {
+      bloc = MemberBloc(AppProvider.getApplication(context));
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      bloc.onError.stream.listen((event) {
+        //Navigator.of(context).pop();
+        //   FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event.message);
+      });
+      bloc.onSuccess.stream.listen((event) {
+        AppRoute.home(context);
+      });
     }
   }
 
@@ -69,12 +96,21 @@ class RegisterSetPasswordViewState extends State<RegisterSetPasswordView> {
     }
 
     if (t1 && t2) {
-      AppRoute.registerNameOtp(context, widget.phone, _input1.text);
+      bloc.customersRegister(
+          context: context,
+          registerRequest: RegisterRequest(
+              name: widget.name,
+              email: widget.email,
+              password: _input1.text,
+              phone: widget.phone,
+              agree: 0));
+      //AppRoute.registerNameOtp(context, widget.phone, _input1.text);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    _init();
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -144,7 +180,7 @@ class RegisterSetPasswordViewState extends State<RegisterSetPasswordView> {
             hint: LocaleKeys.set_default.tr() +
                 LocaleKeys.my_profile_password.tr(),
             inputType: TextInputType.text,
-            maxLength: 20,
+            maxLength: 40,
             isPassword: true,
             borderRadius: 5,
             controller: _input1,
@@ -158,12 +194,11 @@ class RegisterSetPasswordViewState extends State<RegisterSetPasswordView> {
           ),
           BuildEditText(
             head: LocaleKeys.btn_confirm.tr() +
-                " " +
                 LocaleKeys.my_profile_password.tr(),
             hint: LocaleKeys.set_default.tr() +
                 LocaleKeys.my_profile_password.tr(),
             inputType: TextInputType.text,
-            maxLength: 20,
+            maxLength: 40,
             isPassword: true,
             borderRadius: 5,
             controller: _input2,
