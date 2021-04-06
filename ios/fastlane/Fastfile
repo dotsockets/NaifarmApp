@@ -20,7 +20,7 @@ platform :ios do
   desc "Distribute app via Firebase"
   lane :distribute_staging do
       firebase_app_distribution(
-	app: "1:536378613546:ios:d6a9e4c6261b537b4b0853",
+	app: "1:536378613546:ios:24fdb3fee18b35f44b0853",
 	ipa_path:"./artifact/Naifarm-stag.ipa",
 	#testers: "ApisitKaewsasan@gmail.com",
 	release_notes_file:"../release_notes.md",
@@ -31,7 +31,7 @@ platform :ios do
   desc "Distribute app via Firebase"
   lane :distribute_prod do
       firebase_app_distribution(
-	app: "1:891950861123:ios:2d59b14b7ea549023f3df6",
+	app: "1:891950861123:ios:7f56699585848cf23f3df6",
 	ipa_path:"./artifact/Naifarm.ipa",
 	testers: "ApisitKaewsasan@gmail.com",
 	release_notes_file:"../release_notes.md",
@@ -43,7 +43,7 @@ platform :ios do
   lane :build_prod do
     gym(scheme: "",
 	export_options: {
-	  method: "ad-hoc",
+	  method: "Ad Hoc Distribution Naifarm",
 	  provisioningProfiles: {
    	    "com.dotsocket.naifarm" => "Ad Hoc Distribution"
            }

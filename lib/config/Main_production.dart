@@ -8,6 +8,6 @@ class Production extends Env {
   final String baseUrl = 'https://api.naifarm.com';
   final String baseUrlWeb = 'https://api.naifarm.com';
   final String dbName = 'Naifarm.db';
-  final String onesignal = "34a5731c-9377-48d1-9c58-35190b7fb19e";
+  final String onesignal = "b0c5debc-ac22-4472-8358-6eb6cd3374e2";
   final String noItemUrl = "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com";
 }

@@ -19,7 +19,7 @@ platform :android do
   desc "Runs to AppTest Distribute"
  lane :distribute_staging do
      firebase_app_distribution(
-           app: "1:536378613546:android:62f9cb318b8c0cf04b0853",
+           app: "1:536378613546:android:306919f3867a91974b0853",
            groups: "tester",
            #testers: "ApisitKaewsasan@gmail.com",
            #release_notes: "Lots of amazing new features to test out!",
@@ -32,7 +32,7 @@ platform :android do
     desc "Runs to AppTest Distribute"
        lane :distribute_prod do
            firebase_app_distribution(
-                 app: "1:891950861123:android:cfceb33326dc62b83f3df6",
+                 app: "1:891950861123:android:eaba12fb5384f6373f3df6",
                  #groups: "tester",
                  testers: "ApisitKaewsasan@gmail.com",
                  release_notes: "Lots of amazing new features to test out!",

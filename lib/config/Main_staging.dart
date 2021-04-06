@@ -8,7 +8,7 @@ class Staging extends Env {
   final String baseUrl = 'https://stg-api-test.naifarm.com';
   final String baseUrlWeb = 'https://dev2-test.naifarm.com';
   final String dbName = 'Naifarm-Stg.db';
-  final String onesignal = "a9de415f-fb9f-48ae-a0e2-429ef73974ea";
+  final String onesignal = "813993b2-fede-4806-9582-aca49d9d1149";
   final String noItemUrl =
       "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com";
 }

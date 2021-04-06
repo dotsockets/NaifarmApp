@@ -1,4 +1,4 @@
-package com.dotsocket.naifarm
+package com.naifarm.app
 
 import com.facebook.FacebookSdk
 import io.flutter.embedding.android.FlutterActivity
