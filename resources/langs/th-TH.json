@@ -435,7 +435,7 @@
     "cus_order_updated_detail2": " ของคุณได้รับการอัพเดทสถานะแล้ว",
     "cus_order_canceled": "คำสั่งซื้อถูกยกเลิก",
     "cus_order_canceled_detail1": " ได้ยกเลิกคำสั่งซื้อ ",
-    "cus_order_canceled_detail2": " ติดต่อผู้ขายสำหรับข้อมูลเพิ่มเติม",
+    "cus_order_canceled_detail2": "",
     "cus_order_fulfilled": "อยู่ระหว่างการจัดส่ง",
     "cus_order_fulfilled_detail1": "เลขพัสดุของคุณคือ ",
     "cus_order_fulfilled_detail2": " ส่งผ่าน ",
