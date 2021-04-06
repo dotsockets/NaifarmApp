@@ -28,6 +28,30 @@ platform :ios do
      )
   end
 
+  desc "Distribute app via Firebase"
+  lane :distribute_prod do
+      firebase_app_distribution(
+	app: "1:891950861123:ios:2d59b14b7ea549023f3df6",
+	ipa_path:"./artifact/Naifarm.ipa",
+	testers: "ApisitKaewsasan@gmail.com",
+	release_notes_file:"../release_notes.md",
+	#groups:"tester"
+     )
+  end
+
+  desc "Build Application and Export spa"
+  lane :build_prod do
+    gym(scheme: "",
+	export_options: {
+	  method: "ad-hoc",
+	  provisioningProfiles: {
+   	    "com.dotsocket.naifarm" => "Ad Hoc Distribution"
+           }
+	},
+	output_directory: "./artifact",
+	output_name: "Naifarm.ipa")
+  end
+
   desc "Build Application and Export spa"
   lane :build do
     gym(scheme: "",

@@ -1,73 +1,37 @@
 {
   "project_info": {
-    "project_number": "536378613546",
-    "project_id": "naifarm-staging",
-    "storage_bucket": "naifarm-staging.appspot.com"
+    "project_number": "891950861123",
+    "project_id": "naifarm-production",
+    "storage_bucket": "naifarm-production.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:536378613546:android:fefc3e74f815cf024b0853",
+        "mobilesdk_app_id": "1:891950861123:android:cfceb33326dc62b83f3df6",
         "android_client_info": {
           "package_name": "com.dotsocket.naifarm"
         }
       },
       "oauth_client": [
         {
-          "client_id": "536378613546-4mgit3seo10djrb2u40l9m9kqs14toem.apps.googleusercontent.com",
+          "client_id": "891950861123-okrorp93dj515t6tkf0fpnf582d4ef67.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCGbGl0lSs7SBkhDULz3czaugDuNA37obg"
+          "current_key": "AIzaSyBGWGGAZRaF0JHH4-xTnmEahXJdXMj6Djo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "536378613546-4mgit3seo10djrb2u40l9m9kqs14toem.apps.googleusercontent.com",
+              "client_id": "891950861123-okrorp93dj515t6tkf0fpnf582d4ef67.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "536378613546-orsv9kvirmktidpvlbkt4ti5cfuqstib.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.dotsocket.naifarm"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:536378613546:android:62f9cb318b8c0cf04b0853",
-        "android_client_info": {
-          "package_name": "com.dotsocket.naifarm.staging"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "536378613546-4mgit3seo10djrb2u40l9m9kqs14toem.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCGbGl0lSs7SBkhDULz3czaugDuNA37obg"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "536378613546-4mgit3seo10djrb2u40l9m9kqs14toem.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "536378613546-orsv9kvirmktidpvlbkt4ti5cfuqstib.apps.googleusercontent.com",
+              "client_id": "891950861123-9pukp19mhl5lfv42p2qj4an5osi5hkjh.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.dotsocket.naifarm"

@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>OneSignal_app_groups_key</key>
-	<string>group.com.dotsocket.naifarm.onesignal</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -51,6 +49,8 @@
 	<string>This is called Privacy - Microphone Usage Description</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This is called Privacy - Photo Library Usage Description</string>
+	<key>OneSignal_app_groups_key</key>
+	<string>group.com.dotsocket.naifarm.onesignal</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

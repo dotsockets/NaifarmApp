@@ -21,6 +21,16 @@ or alternatively using `brew install fastlane`
 fastlane ios distribute_staging
 ```
 Distribute app via Firebase
+### ios distribute_prod
+```
+fastlane ios distribute_prod
+```
+Distribute app via Firebase
+### ios build_prod
+```
+fastlane ios build_prod
+```
+Build Application and Export spa
 ### ios build
 ```
 fastlane ios build

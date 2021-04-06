@@ -32,9 +32,9 @@ platform :android do
     desc "Runs to AppTest Distribute"
        lane :distribute_prod do
            firebase_app_distribution(
-                 app: "1:536378613546:android:fefc3e74f815cf024b0853",
-                 groups: "tester",
-                 #testers: "ApisitKaewsasan@gmail.com",
+                 app: "1:891950861123:android:cfceb33326dc62b83f3df6",
+                 #groups: "tester",
+                 testers: "ApisitKaewsasan@gmail.com",
                  release_notes: "Lots of amazing new features to test out!",
                  release_notes_file:"../release_notes.md",
                  firebase_cli_path: "./firebase-tools-macos",
