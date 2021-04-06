@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:536378613546:android:62f9cb318b8c0cf04b0853",
+        "mobilesdk_app_id": "1:536378613546:android:306919f3867a91974b0853",
         "android_client_info": {
-          "package_name": "com.dotsocket.naifarm.staging"
+          "package_name": "com.naifarm.app.stg"
         }
       },
       "oauth_client": [
@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "536378613546-orsv9kvirmktidpvlbkt4ti5cfuqstib.apps.googleusercontent.com",
+              "client_id": "536378613546-mpqunte4q9h1nt25l2qsgi07ftehsc9r.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.dotsocket.naifarm"
+                "bundle_id": "com.naifarm.app.stg"
               }
             }
           ]

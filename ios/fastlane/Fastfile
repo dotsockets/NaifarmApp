@@ -22,9 +22,9 @@ platform :ios do
       firebase_app_distribution(
 	app: "1:536378613546:ios:24fdb3fee18b35f44b0853",
 	ipa_path:"./artifact/Naifarm-stag.ipa",
-	#testers: "ApisitKaewsasan@gmail.com",
+	testers: "ApisitKaewsasan@gmail.com",
 	release_notes_file:"../release_notes.md",
-	groups:"tester"
+	#groups:"tester"
      )
   end
 
@@ -43,9 +43,9 @@ platform :ios do
   lane :build_prod do
     gym(scheme: "",
 	export_options: {
-	  method: "Ad Hoc Distribution Naifarm",
+	  method: "ad-hoc",
 	  provisioningProfiles: {
-   	    "com.dotsocket.naifarm" => "Ad Hoc Distribution"
+   	    "com.dotsocket.naifarm" => "Ad Hoc Distribution Naifarm"
            }
 	},
 	output_directory: "./artifact",

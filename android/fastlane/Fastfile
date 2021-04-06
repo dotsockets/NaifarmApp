@@ -20,8 +20,8 @@ platform :android do
  lane :distribute_staging do
      firebase_app_distribution(
            app: "1:536378613546:android:306919f3867a91974b0853",
-           groups: "tester",
-           #testers: "ApisitKaewsasan@gmail.com",
+           #groups: "tester",
+           testers: "ApisitKaewsasan@gmail.com",
            #release_notes: "Lots of amazing new features to test out!",
            release_notes_file:"../release_notes.md",
            firebase_cli_path: "./firebase-tools-macos",

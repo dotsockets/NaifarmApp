@@ -76,7 +76,7 @@ android {
             resValue "string", "app_name", "Naifarm-Stg"
             resValue "string", "facebook_app_id", "750052912471264"
             resValue "string", "fb_login_protocol_scheme", "fb750052912471264"
-            applicationIdSuffix ".staging"
+            applicationIdSuffix ".stg"
         }
         production{
             dimension "environment"
