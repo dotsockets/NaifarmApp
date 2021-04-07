@@ -126,7 +126,8 @@ class _ProductGridState extends State<ProductGrid> {
                   ],
                 )),
           )
-        : Skeleton.loaderGridV(context);
+        //: Skeleton.loaderGridV(context);
+     : SizedBox();
   }
 
   Container _headerBar() => Container(

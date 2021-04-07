@@ -486,6 +486,7 @@
     "please": "Please ",
     "cancel":"",
     "ship_date": "Product will be shipped out",
+    "ship_date_header": "Product will be shipped out",
     "by_date": "by",
     "contact": "Contact Seller",
     "confirm": "Confirm receipt of products",

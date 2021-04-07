@@ -22,7 +22,7 @@ class _OfficialNameViewState extends State<OfficialNameView> {
   String onError1 = "";
 
   bool formCheck() {
-    if (_input1.text.isEmpty) {
+    if (_input1.text.trim().isEmpty) {
       return false;
     } else {
       return true;

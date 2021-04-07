@@ -80,7 +80,7 @@ class _SuccessViewState extends State<SuccessView> {
     productBloc.onError.stream.listen((event) {
       //Navigator.of(context).pop();
       FunctionHelper.alertDialogShop(context,
-          message: event.message, showbtn: true, title: "Error Shipping");
+          message: event.message, showbtn: true, title: LocaleKeys.btn_error.tr());
       //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
     });
 
@@ -606,7 +606,7 @@ class _SuccessViewState extends State<SuccessView> {
                               height: 7.0.w,
                               child: Icon(
                                 Icons.person,
-                                size: 30,
+                                size: 5.0.w,
                                 color: Colors.white,
                               )),
                         ),

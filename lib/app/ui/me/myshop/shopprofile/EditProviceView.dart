@@ -29,7 +29,7 @@ class _EditProviceViewState extends State<EditProviceView> {
   int proviceSelect = 0;
 
   bool formCheck() {
-    if (_input1.text.isEmpty) {
+    if (_input1.text.trim().isEmpty) {
       return false;
     } else {
       return true;
