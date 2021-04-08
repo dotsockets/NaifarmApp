@@ -253,7 +253,7 @@ class _NotiCusState extends State<NotiCus>
 
               if (checkIsOrder(text: item.type)) {
                 AppRoute.orderDetail(context,
-                    orderData: OrderData(id: int.parse(item.meta.id)),
+                    orderData: OrderData(id: int.parse(item.meta.id.toString())),
                     typeView: OrderViewType.Purchase);
               }
             },

@@ -26,7 +26,7 @@ class SettingEditProdileBioViewState extends State<SettingEditProdileBioView> {
   String onError1 = "";
 
   bool formCheck() {
-    if (_input1.text.isEmpty) {
+    if (_input1.text.trim().isEmpty) {
       return false;
     } else {
       return true;
@@ -108,9 +108,9 @@ class SettingEditProdileBioViewState extends State<SettingEditProdileBioView> {
             head: LocaleKeys.my_profile_about_me.tr(),
             hint: LocaleKeys.set_message.tr(),
             inputType: TextInputType.text,
-            maxLine: 5,
+            maxLine: 6,
             borderOpacity: 0.2,
-            maxLength: 60,
+            maxLength: 400,
             borderRadius: 5,
             onError: onError1,
             controller: _input1,

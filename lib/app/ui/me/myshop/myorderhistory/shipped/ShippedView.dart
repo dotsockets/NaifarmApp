@@ -604,7 +604,7 @@ class _ShippedViewState extends State<ShippedView> {
                               height: 7.0.w,
                               child: Icon(
                                 Icons.person,
-                                size: 30,
+                                size: 5.0.w,
                                 color: Colors.white,
                               )),
                         ),

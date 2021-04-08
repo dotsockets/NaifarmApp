@@ -32,7 +32,7 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
   bool onDialog = false;
 
   bool formCheck() {
-    if (emailController.text.isEmpty) {
+    if (emailController.text.trim().isEmpty) {
       return false;
     } else {
       return true;

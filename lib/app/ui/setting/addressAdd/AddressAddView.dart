@@ -356,20 +356,20 @@ class _AddressAddViewState extends State<AddressAddView> {
     check = true;
 
     if (!validator.phone(phoneController.text) ||
-        phoneController.text.length != 10) {
+        phoneController.text.trim().length != 10) {
       check = false;
       errorPhoneTxt = LocaleKeys.message_error_phoneNum_invalid.tr();
     } else {
       errorPhoneTxt = "";
     }
 
-    if (detailAddrController.text.length == 0 ||
-        nameController.text.length == 0 ||
-        postController.text.length == 0 ||
-        detailAddrController.text.length == 0 ||
+    if (detailAddrController.text.trim().length == 0 ||
+        nameController.text.trim().length == 0 ||
+        postController.text.trim().length == 0 ||
+        detailAddrController.text.trim().length == 0 ||
         proviceSelect == 0 ||
         citySelect == 0 ||
-        postController.text.length != 5) {
+        postController.text.trim().length != 5) {
       check = false;
     }
 

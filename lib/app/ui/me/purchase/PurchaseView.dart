@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -160,6 +161,9 @@ class _PurchaseViewState extends State<PurchaseView> {
             icon: 'assets/images/svg/editprofile.svg',
             title: LocaleKeys.me_title_setting.tr(),
             onClick: () async {
+              Usermanager().getUser().then((value) => context
+                  .read<InfoCustomerBloc>()
+                  .loadCustomInfo(context, token: value.token));
               final result = await AppRoute.settingProfile(context);
               if (result != null && result) {
                 widget.onStatus(result);

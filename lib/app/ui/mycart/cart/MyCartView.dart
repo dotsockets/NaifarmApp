@@ -29,6 +29,7 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
 import '../widget/ModalFitBottom_Sheet.dart';
@@ -474,13 +475,15 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                     .product.image.isNotEmpty
                                 ? "${Env.value.baseUrl}/storage/images/${item.items[indexShopItem].inventory.product.image[0].path}"
                                 : '',
+                            // errorWidget: (context, url, error) => Container(
+                            //     width: 20.0.w,
+                            //     height: 20.0.w,
+                            //     child: Icon(
+                            //       Icons.error,
+                            //       size: 30,
+                            //     )),
                             errorWidget: (context, url, error) => Container(
-                                width: 20.0.w,
-                                height: 20.0.w,
-                                child: Icon(
-                                  Icons.error,
-                                  size: 30,
-                                )),
+                              width: 20.0.w, height: 20.0.w, child: NaifarmErrorWidget()),
                           ),
                         ),
                         SizedBox(width: 3.0.w),

@@ -39,6 +39,10 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
     if (null == bloc) {
       bloc = MemberBloc(AppProvider.getApplication(context));
 
+      Usermanager().getUser().then((value) => context
+          .read<InfoCustomerBloc>()
+          .loadCustomInfo(context, token: value.token));
+
       NaiFarmLocalStorage.getCustomerInfo().then((value) {
         itemInfo = value.customerInfoRespone;
       });
@@ -259,8 +263,8 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                     opacityMessage: 0.5,
                     icon: '',
                     message: itemInfo.description != null
-                        ? itemInfo.description.length > 20
-                            ? '${itemInfo.description.substring(0, 20)}...'
+                        ? itemInfo.description.length > 25
+                            ? '${itemInfo.description.substring(0, 25)}...'
                             : itemInfo.description
                         : '',
                     title: LocaleKeys.my_profile_about_me.tr(),

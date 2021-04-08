@@ -31,7 +31,7 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
 
   MemberBloc bloc;
   bool formCheck() {
-    if (phoneController.text.isEmpty || phoneController.text.length != 10) {
+    if (phoneController.text.trim().isEmpty || phoneController.text.trim().length != 10) {
       return false;
     } else {
       return true;

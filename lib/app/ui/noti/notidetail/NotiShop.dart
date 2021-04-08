@@ -244,7 +244,7 @@ class _NotiShopState extends State<NotiShop>
               // AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)));
               if (checkIsOrder(text: item.type)) {
                 AppRoute.orderDetail(context,
-                    orderData: OrderData(id: int.parse(item.meta.id)),
+                    orderData: OrderData(id: int.parse(item.meta.id.toString())),
                     typeView: OrderViewType.Shop);
               }
             },
@@ -332,7 +332,7 @@ class _NotiShopState extends State<NotiShop>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-              "${LocaleKeys.recommend_notification.tr()}: ${LocaleKeys.noti_shop_update.tr()}",
+              "${LocaleKeys.noti_shop_update.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -372,12 +372,11 @@ class _NotiShopState extends State<NotiShop>
           )*/
         ],
       );
-    } else if (item.type == "App\\Notifications\\Shop\\ShopIsLive" ||
-        item.type == "App\\Notifications\\Shop\\DownForMaintainace") {
+    } else if (item.type == "App\\Notifications\\Shop\\ShopIsLive") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${LocaleKeys.recommend_notification.tr()}: ${item.meta.status}",
+          Text( lang == "ภาษาไทย"?"${LocaleKeys.noti_shop_live.tr()}":"${LocaleKeys.noti_shop_live.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -388,13 +387,7 @@ class _NotiShopState extends State<NotiShop>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: "${LocaleKeys.noti_shop_status.tr()} ",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black)),
-                new TextSpan(
-                    text: "${item.meta.status} ",
+                    text: lang == "ภาษาไทย"?"${LocaleKeys.noti_shop_live_sub.tr()}":"${LocaleKeys.noti_shop_live.tr()}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -412,7 +405,40 @@ class _NotiShopState extends State<NotiShop>
           )*/
         ],
       );
-    } else if (item.type ==
+    } else if (item.type == "App\\Notifications\\Shop\\DownForMaintainace") {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text( lang == "ภาษาไทย"?"${LocaleKeys.noti_downformaintainace.tr()}":"${LocaleKeys.noti_downformaintainace.tr()}",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
+          SizedBox(height: 0.5.h),
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                new TextSpan(
+                    text: lang == "ภาษาไทย"?"${LocaleKeys.noti_downformaintainace_sub.tr()}":"${LocaleKeys.noti_downformaintainace.tr()}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.spanTitleSmallFontSize().sp,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black)),
+              ],
+            ),
+          ),
+          /* Wrap(
+            children: [
+             Text("สถานะ ",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,fontWeight: FontWeight.normal,color: Colors.black)),
+              Text("${item.meta.status} ",style: FunctionHelper.FontTheme(fontSize:(SizeUtil.titleSmallFontSize()-1).sp,fontWeight: FontWeight.normal,color: Colors.black)),
+            // Html(data: "สถานะ <span>${item.meta.status} ได้ทำการสั่งซื้อสินค้าเลขที่ออเดอร์ <b style='color:#006100'>${item.meta.order}</b></span> ",
+             // ),
+            ],
+          )*/
+        ],
+      );
+    }else if (item.type ==
         "App\\Notifications\\Order\\MerchantOrderCreatedNotification") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -521,7 +547,7 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LocaleKeys.noti_shop_request_payment.tr(),
+          Text(LocaleKeys.noti_shop_order_request_payment.tr(),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -566,7 +592,7 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LocaleKeys.noti_shop_canceled.tr(),
+          Text(LocaleKeys.noti_shop_order_canceled.tr(),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -619,7 +645,7 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LocaleKeys.noti_dispute_created.tr(),
+          Text(LocaleKeys.noti_shop_dispute_created.tr(),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -638,7 +664,7 @@ class _NotiShopState extends State<NotiShop>
                   ),
                 ),
                 new TextSpan(
-                  text: LocaleKeys.noti_dispute_created_detail1.tr(),
+                  text: LocaleKeys.noti_shop_dispute_created_detail1.tr(),
                   style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
@@ -654,7 +680,7 @@ class _NotiShopState extends State<NotiShop>
                   ),
                 ),
                 new TextSpan(
-                  text: LocaleKeys.noti_dispute_created_detail2.tr(),
+                  text: LocaleKeys.noti_shop_dispute_created_detail3.tr(),
                   style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,
@@ -673,7 +699,7 @@ class _NotiShopState extends State<NotiShop>
                   ),
                 ),
                 new TextSpan(
-                  text: LocaleKeys.noti_dispute_created_detail3.tr(),
+                  text: LocaleKeys.noti_shop_dispute_created_detail3.tr(),
                   style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.normal,

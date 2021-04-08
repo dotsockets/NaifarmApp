@@ -30,7 +30,7 @@ class EditEmailStep1ViewState extends State<EditEmailStep1View> {
   String onError = "";
 
   bool formCheck() {
-    if (passController.text.isEmpty || passController.text.length < 8) {
+    if (passController.text.trim().isEmpty || passController.text.trim().length < 8) {
       return false;
     } else {
       return true;

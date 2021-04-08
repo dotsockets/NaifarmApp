@@ -46,6 +46,9 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
 
   void _init(BuildContext context) {
     if (null == bloc) {
+      Usermanager().getUser().then((value) => context
+          .read<InfoCustomerBloc>()
+          .loadCustomInfo(context, token: value.token));
       bloc = MemberBloc(AppProvider.getApplication(context));
 
       NaiFarmLocalStorage.getCustomerInfo().then((value) {
