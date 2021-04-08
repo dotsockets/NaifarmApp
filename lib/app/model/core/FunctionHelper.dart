@@ -695,11 +695,11 @@ class FunctionHelper {
     DateTime currentTime = DateTime.now();
     int difTimeSc = timeData.difference(currentTime).inSeconds;
 
-    if (difTimeSc > 86400) {
+    /*if (difTimeSc > 86400) {
       difTimeSc = DateTime(DateTime.now().year, DateTime.now().month,
               DateTime.now().day + 1, 03, 06, 41)
           .millisecondsSinceEpoch;
-    }
+    }*/
     // DateTime.now().millisecondsSinceEpoch + 1000 * 30
     return difTimeSc;
   }
