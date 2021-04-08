@@ -1,6 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/current_remaining_time.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -18,9 +18,50 @@ class FlashSaleBar extends StatefulWidget {
 }
 
 class _FlashSaleBarState extends State<FlashSaleBar> {
+  Timer timer;
+  int flashTime = 0;
+  DateTime date = new DateTime.now();
+  int hours = 0;
+
   @override
   void initState() {
     super.initState();
+    flashTime = FunctionHelper.flashSaleTime(flashTime: widget.flashTime);
+    date = new DateTime(
+        date.year,
+        date.month,
+        flashTime ~/ 86400,
+        (flashTime % 86400) ~/ 3600,
+        ((flashTime % 86400) % 3600) ~/ 60,
+        (((flashTime % 86400) % 3600) % 60) ~/ 60);
+    setState(() {
+      hours = flashTime > 86400
+          ? ((flashTime ~/ 86400) * 24) + date.hour
+          : date.hour;
+    });
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer.cancel();
+  }
+
+  void _getTime() {
+    setState(() {
+      date = date.add(new Duration(seconds: -1));
+      if (hours > 0 && date.minute == 0 && date.second < 1) {
+        new Timer(const Duration(seconds: 1), () {
+          hours = hours - 1;
+        });
+      } else if (hours == 0 && date.minute == 0 && date.second < 1) {
+        new Timer(const Duration(seconds: 1), () {
+          timer.cancel();
+          flashTime = 0;
+        });
+      }
+    });
   }
 
   @override
@@ -42,7 +83,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
               ),
               Text("Fla",
                   style: GoogleFonts.kanit(
-                      fontSize: SizeUtil.titleFontSize().sp+3.0,
+                      fontSize: SizeUtil.titleFontSize().sp + 3.0,
                       color: Colors.white)),
               SizedBox(width: 1.0.w),
               SvgPicture.asset('assets/images/svg/flash.svg',
@@ -50,7 +91,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
               SizedBox(width: 1.0.w),
               Text("h Sale",
                   style: GoogleFonts.kanit(
-                      fontSize: SizeUtil.titleFontSize().sp+3.0,
+                      fontSize: SizeUtil.titleFontSize().sp + 3.0,
                       color: Colors.white)),
               SizedBox(width: 1.0.h),
               _buildCountDown()
@@ -87,7 +128,49 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
   //
 
   Widget _buildCountDown() {
-    return CountdownTimer(
+    final showTime = (String text) => Container(
+          decoration: new BoxDecoration(
+              color: Colors.black,
+              borderRadius: new BorderRadius.all(Radius.circular(1.5.w))),
+          padding: EdgeInsets.only(
+              left: 1.5.h, right: 1.5.h, top: 1.0.h, bottom: 1.0.h),
+          alignment: Alignment.center,
+          margin: EdgeInsets.symmetric(horizontal: 3),
+          child: Text(
+            text,
+            style: FunctionHelper.fontTheme(
+              fontSize: SizeUtil.titleSmallFontSize().sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        );
+    if (flashTime > 0) {
+      return Row(
+        children: [
+          showTime(hours.toString().length == 1
+              ? "0" + hours.toString()
+              : hours.toString()),
+          showTime(date.minute != null
+              ? date.minute.toString().length == 1
+                  ? "0" + date.minute.toString()
+                  : date.minute.toString()
+              : "00"),
+          showTime(date.second.toString().length == 1
+              ? "0" + date.second.toString()
+              : date.second.toString()),
+        ],
+      );
+    } else {
+      return Row(
+        children: [
+          showTime("0"),
+          showTime("0"),
+          showTime("0"),
+        ],
+      );
+    }
+    /*return CountdownTimer(
       endTime: FunctionHelper.flashSaleTime(flashTime: widget.flashTime),
       widgetBuilder: (_, CurrentRemainingTime remaining) {
         final showTime = (String text) => Container(
@@ -136,7 +219,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
           );
         }
       },
-    );
+    );*/
   }
 
 // CountdownFormatted _buildCountDown() => CountdownFormatted(

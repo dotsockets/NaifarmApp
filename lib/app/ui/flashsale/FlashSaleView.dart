@@ -57,7 +57,9 @@ class _FlashSaleState extends State<FlashSale> {
         Align(
           alignment: Alignment.bottomCenter,
           child: FlashSaleBar(
-            flashTime: widget.flashsaleRespone.data[0].end,
+            flashTime: widget.flashsaleRespone.data.length > 0
+                ? widget.flashsaleRespone.data[0].end
+                : new DateTime.now().add(new Duration(days: -1)).toString(),
           ),
         )
       ],
@@ -74,7 +76,7 @@ class _FlashSaleState extends State<FlashSale> {
               LocaleKeys.recommend_select_all.tr(),
               style: FunctionHelper.fontTheme(
                   fontWeight: FontWeight.w500,
-                  fontSize: SizeUtil.titleFontSize().sp+3.0),
+                  fontSize: SizeUtil.titleFontSize().sp + 3.0),
             ),
             SvgPicture.asset(
               'assets/images/svg/next.svg',
