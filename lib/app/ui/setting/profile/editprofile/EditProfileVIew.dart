@@ -39,6 +39,10 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
     if (null == bloc) {
       bloc = MemberBloc(AppProvider.getApplication(context));
 
+      Usermanager().getUser().then((value) => context
+          .read<InfoCustomerBloc>()
+          .loadCustomInfo(context, token: value.token));
+
       NaiFarmLocalStorage.getCustomerInfo().then((value) {
         itemInfo = value.customerInfoRespone;
       });

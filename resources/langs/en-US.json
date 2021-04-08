@@ -421,6 +421,8 @@
     "shop_open": "Open a new shop",
     "shop_open_detail": "has been opened the shop",
     "shop_outstock":"out of stock",
+    "shop_live":"Shop is Live",
+    "downformaintainace":"Shop Maintainace",
   
     "order": "Order ",
     "cus_order_created": "Your Order has been placed successfully",

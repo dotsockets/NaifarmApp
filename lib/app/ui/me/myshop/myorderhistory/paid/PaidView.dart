@@ -547,7 +547,7 @@ class _PaidViewState extends State<PaidView> {
                             : "${LocaleKeys.history_order_time.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}"
                         : LocaleKeys.history_order_time.tr() +
                             " " +
-                            " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
+                            " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),

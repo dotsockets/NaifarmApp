@@ -110,7 +110,7 @@ class SettingEditProdileBioViewState extends State<SettingEditProdileBioView> {
             inputType: TextInputType.text,
             maxLine: 5,
             borderOpacity: 0.2,
-            maxLength: 60,
+            maxLength: 400,
             borderRadius: 5,
             onError: onError1,
             controller: _input1,

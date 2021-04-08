@@ -59,32 +59,8 @@ class OneSignalCall {
   static oneSignalReceivedHandler(BuildContext context) async {
     OneSignal.shared
         .setNotificationReceivedHandler((OSNotification notification) async {
-      var item = NotificationOneSignal.fromJson(
-          jsonDecode(notification.payload.rawPayload['custom']));
-      Usermanager().getUser().then((value) => context
-          .read<CustomerCountBloc>()
-          .loadCustomerCount(context, token: value.token));
-      Usermanager().getUser().then((value) => context
-          .read<InfoCustomerBloc>()
-          .loadCustomInfo(context, token: value.token));
-      List<OneSignalData> onesignalData = <OneSignalData>[];
-      if (item.item.name == null) {
-        onesignalData.add(OneSignalData(
-            androidNotificationId: int.parse(notification
-                .payload.rawPayload['androidNotificationId']
-                .toString()),
-            refID: int.parse(item.item.id),
-            slagView: "orderView"));
-      } else {
-        onesignalData.add(OneSignalData(
-            androidNotificationId: int.parse(notification
-                .payload.rawPayload['androidNotificationId']
-                .toString()),
-            refID: 0,
-            slagView: "meView"));
-      }
-      NaiFarmLocalStorage.saveOneSiganlCache(
-          OneSignalNoificationId(onesignal: onesignalData));
+          print("wefcerf ${notification.payload.rawPayload['custom']['a']}");
+
     });
 
     OneSignal.shared

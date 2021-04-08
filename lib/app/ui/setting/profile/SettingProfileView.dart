@@ -26,6 +26,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
 
   @override
   void initState() {
+
     super.initState();
   }
 
@@ -72,6 +73,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
                           icon: '',
                           title: LocaleKeys.setting_account_title_profile.tr(),
                           onClick: () async {
+
                             final result = await AppRoute.editProfile(context);
                             if (result != null && result) {
                               onImageUpdate = true;
