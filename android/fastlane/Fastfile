@@ -35,7 +35,7 @@ platform :android do
                  app: "1:891950861123:android:eaba12fb5384f6373f3df6",
                  #groups: "tester",
                  testers: "ApisitKaewsasan@gmail.com",
-                 release_notes: "Lots of amazing new features to test out!",
+                 #release_notes: "Lots of amazing new features to test out!",
                  release_notes_file:"../release_notes.md",
                  firebase_cli_path: "./firebase-tools-macos",
                  apk_path: "../build/app/outputs/flutter-apk/app-production-release.apk"
