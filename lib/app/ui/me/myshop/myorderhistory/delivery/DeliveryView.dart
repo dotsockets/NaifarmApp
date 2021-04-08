@@ -617,7 +617,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                               height: 7.0.w,
                               child: Icon(
                                 Icons.person,
-                                size: 30,
+                                size: 5.0.w,
                                 color: Colors.white,
                               )),
                         ),

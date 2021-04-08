@@ -262,7 +262,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
       );
 
   bool formCheck() {
-    if (rateController.text.isEmpty) {
+    if (rateController.text.trim().isEmpty) {
       return false;
     } else {
       return true;

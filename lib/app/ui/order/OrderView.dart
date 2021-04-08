@@ -69,7 +69,7 @@ class _OrderViewState extends State<OrderView> {
         FunctionHelper.alertDialogShop(context,
             message: event,
             showbtn: true,
-            title: "Error Shipping", callCancle: () {
+            title: LocaleKeys.btn_error.tr(), callCancle: () {
           AppRoute.poppageCount(context: context, countpage: 2);
         });
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
@@ -77,7 +77,7 @@ class _OrderViewState extends State<OrderView> {
       productBloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         FunctionHelper.alertDialogShop(context,
-            message: event.message, showbtn: true, title: "Error Shipping");
+            message: event.message, showbtn: true, title: LocaleKeys.btn_error.tr());
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onLoad.stream.listen((event) {
@@ -291,11 +291,11 @@ class _OrderViewState extends State<OrderView> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(
-              height: 4.0.h,
+              height: 2.0.h,
             ),
             // Text("Order ${orderData.orderNumber}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
             //SizedBox(height: 3),
-            RichText(
+            orderData.orderStatusId ==1?RichText(
               text: new TextSpan(
                 style: DefaultTextStyle.of(context).style,
                 children: <TextSpan>[
@@ -320,6 +320,27 @@ class _OrderViewState extends State<OrderView> {
                           fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                           fontWeight: FontWeight.normal,
                           color: Colors.black.withOpacity(0.8))),
+                ],
+              ),
+            ):RichText(
+              text: new TextSpan(
+                style: DefaultTextStyle.of(context).style,
+                children: <TextSpan>[
+                  new TextSpan(
+                      text:
+                      "${LocaleKeys.order_detail_ship_date_header.tr()} ",
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.spanTitleSmallFontSize().sp,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black.withOpacity(0.8))),
+                  new TextSpan(
+                      text:
+                      "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.paymentAt != null ? orderData.paymentAt : DateTime.now().toString()))} ",
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.spanTitleSmallFontSize().sp,
+                          color: Colors.black.withOpacity(0.5))),
+                  //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+                  //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
                 ],
               ),
             )
@@ -500,7 +521,7 @@ class _OrderViewState extends State<OrderView> {
                               height: 30,
                             child: Icon(
                               Icons.person,
-
+                              size: 5.0.w,
                               color: Colors.white,
                             )),
                       ),

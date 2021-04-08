@@ -129,7 +129,9 @@ class _LoginViewState extends State<LoginView> {
               height: 3.0.h,
             ),
             Container(
-              padding: EdgeInsets.only(left: SizeUtil.paddingEdittext().w,right: SizeUtil.paddingEdittext().w),
+              padding: EdgeInsets.only(
+                  left: SizeUtil.paddingEdittext().w,
+                  right: SizeUtil.paddingEdittext().w),
               child: BuildEditText(
                 head: LocaleKeys.my_profile_phone.tr() +
                     "/" +
@@ -140,6 +142,7 @@ class _LoginViewState extends State<LoginView> {
                 inputType: TextInputType.text,
                 controller: _username,
                 borderOpacity: 0.3,
+                maxLength: 100,
                 borderRadius: 7,
                 onChanged: (String x) => _checkError(),
               ),
@@ -148,7 +151,9 @@ class _LoginViewState extends State<LoginView> {
               height: 2.0.h,
             ),
             Container(
-              padding: EdgeInsets.only(left: SizeUtil.paddingEdittext().w,right: SizeUtil.paddingEdittext().w),
+              padding: EdgeInsets.only(
+                  left: SizeUtil.paddingEdittext().w,
+                  right: SizeUtil.paddingEdittext().w),
               child: BuildEditText(
                   head: LocaleKeys.my_profile_password.tr(),
                   hint: LocaleKeys.my_profile_password.tr(),
@@ -156,6 +161,7 @@ class _LoginViewState extends State<LoginView> {
                   controller: _password,
                   borderOpacity: 0.3,
                   isPassword: true,
+                  maxLength: 100,
                   borderRadius: 7,
                   onChanged: (String x) => _checkError()),
             ),
@@ -163,7 +169,9 @@ class _LoginViewState extends State<LoginView> {
               height: 1.0.h,
             ),
             Container(
-              padding: EdgeInsets.only(left: SizeUtil.paddingEdittext().w,right: SizeUtil.paddingEdittext().w),
+              padding: EdgeInsets.only(
+                  left: SizeUtil.paddingEdittext().w,
+                  right: SizeUtil.paddingEdittext().w),
               child: Align(
                 alignment: Alignment.topRight,
                 child: InkWell(
@@ -454,9 +462,9 @@ class _LoginViewState extends State<LoginView> {
   }
 
   void _checkError() {
-    if (_username.text.isEmpty || _password.text.isEmpty) {
+    if (_username.text.trim().isEmpty || _password.text.trim().isEmpty) {
       checkError = false;
-    } else if (_password.text.length < 8) {
+    } else if (_password.text.trim().length < 8) {
       checkError = false;
     } else {
       checkError = true;

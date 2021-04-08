@@ -23,6 +23,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
 
@@ -276,12 +277,15 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 fit: BoxFit.cover,
                 imageUrl: ProductLandscape.covertUrlImage(
                     item.inventory.product.image),
+                // errorWidget: (context, url, error) => Container(
+                //     height: 30,
+                //     child: Icon(
+                //       Icons.error,
+                //       size: 30,
+                //     )),
                 errorWidget: (context, url, error) => Container(
-                    height: 30,
-                    child: Icon(
-                      Icons.error,
-                      size: 30,
-                    )),
+                  width: 22.0.w,
+                  height: 22.0.w, child: NaifarmErrorWidget()),
               ),
             ),
             SizedBox(width: 10),

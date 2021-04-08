@@ -544,7 +544,7 @@ class _PaidViewState extends State<PaidView> {
                     widget.typeView == OrderViewType.Purchase
                         ? item.image.isNotEmpty
                             ? "${LocaleKeys.order_detail_upload_slip.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.paymentAt != null ? item.paymentAt : DateTime.now().toString()))}"
-                            : "${LocaleKeys.history_order_time.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}"
+                            : "${LocaleKeys.order_detail_pay_date.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
                         : LocaleKeys.history_order_time.tr() +
                             " " +
                             " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}",
@@ -611,7 +611,7 @@ class _PaidViewState extends State<PaidView> {
                               height: 7.0.w,
                               child: Icon(
                                 Icons.person,
-                                size: 30,
+                                size: 5.0.w,
                                 color: Colors.white,
                               )),
                         ),

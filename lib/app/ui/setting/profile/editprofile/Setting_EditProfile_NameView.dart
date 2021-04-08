@@ -26,7 +26,7 @@ class SettingEditProfileNameViewState
   String onError1 = "";
 
   bool formCheck() {
-    if (_input1.text.isEmpty) {
+    if (_input1.text.trim().isEmpty) {
       return false;
     } else {
       return true;
@@ -110,7 +110,7 @@ class SettingEditProfileNameViewState
                 LocaleKeys.my_profile_username.tr(),
             inputType: TextInputType.text,
             borderOpacity: 0.2,
-            maxLength: 50,
+            maxLength: 100,
             borderRadius: 5,
             onError: onError1,
             controller: _input1,

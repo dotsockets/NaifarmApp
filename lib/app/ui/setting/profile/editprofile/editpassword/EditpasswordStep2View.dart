@@ -64,7 +64,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
   }
 
   bool formCheck() {
-    if (_input1.text.isEmpty || _input2.text.isEmpty) {
+    if (_input1.text.trim().isEmpty || _input2.text.trim().isEmpty) {
       return false;
     } else {
       return true;

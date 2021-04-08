@@ -444,6 +444,7 @@ abstract class  LocaleKeys {
   static const order_detail_please = 'order_detail.please';
   static const order_detail_cancel = 'order_detail.cancel';
   static const order_detail_ship_date = 'order_detail.ship_date';
+  static const order_detail_ship_date_header = 'order_detail.ship_date_header';
   static const order_detail_by_date = 'order_detail.by_date';
   static const order_detail_contact = 'order_detail.contact';
   static const order_detail_confirm = 'order_detail.confirm';
