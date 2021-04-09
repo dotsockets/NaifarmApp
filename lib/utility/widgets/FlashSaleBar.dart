@@ -21,25 +21,14 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
   Timer timer;
   int flashTime = 0;
   DateTime date = new DateTime.now();
-  int hours = 0;
 
   @override
   void initState() {
     super.initState();
     flashTime = FunctionHelper.flashSaleTime(flashTime: widget.flashTime);
     if (flashTime > 0) {
-      date = new DateTime(
-          date.year,
-          date.month,
-          flashTime ~/ 86400,
-          (flashTime % 86400) ~/ 3600,
-          ((flashTime % 86400) % 3600) ~/ 60,
-          (((flashTime % 86400) % 3600) % 60) ~/ 60);
-      setState(() {
-        hours = flashTime > 86400
-            ? ((flashTime ~/ 86400) * 24) + date.hour
-            : date.hour;
-      });
+      date = new DateTime(date.year, date.month, date.day, flashTime ~/ 3600,
+          (flashTime % 3600) ~/ 60, ((flashTime % 3600) % 60) ~/ 60);
       timer = Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     }
   }
@@ -53,11 +42,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
   void _getTime() {
     setState(() {
       date = date.add(new Duration(seconds: -1));
-      if (hours > 0 && date.minute == 0 && date.second < 1) {
-        new Timer(const Duration(seconds: 1), () {
-          hours = hours - 1;
-        });
-      } else if (hours == 0 && date.minute == 0 && date.second < 1) {
+      if (date.hour == 0 && date.minute == 0 && date.second < 1) {
         new Timer(const Duration(seconds: 1), () {
           timer.cancel();
           flashTime = 0;
@@ -150,9 +135,9 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
     if (flashTime > 0) {
       return Row(
         children: [
-          showTime(hours.toString().length == 1
-              ? "0" + hours.toString()
-              : hours.toString()),
+          showTime(date.hour.toString().length == 1
+              ? "0" + date.hour.toString()
+              : date.hour.toString()),
           showTime(date.minute != null
               ? date.minute.toString().length == 1
                   ? "0" + date.minute.toString()
