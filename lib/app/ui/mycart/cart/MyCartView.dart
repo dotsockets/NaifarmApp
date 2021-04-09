@@ -38,6 +38,7 @@ import '../widget/ModalFitBottom_Sheet.dart';
 class MyCartView extends StatefulWidget {
   final bool btnBack;
   List<ProductData> cartNowId;
+
   MyCartView({Key key, this.btnBack = false, this.cartNowId}) : super(key: key);
 
   @override
@@ -49,6 +50,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
   CartBloc bloc;
   NotiBloc blocNoti;
   List<ProductData> cartNowIdTemp = <ProductData>[];
+
 //    CartRequest cartReq = CartRequest();
 
   final _indicatorController = IndicatorController();
@@ -394,7 +396,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(SizeUtil.borderRadiusShop())),
+            borderRadius:
+                BorderRadius.all(Radius.circular(SizeUtil.borderRadiusShop())),
             child: CachedNetworkImage(
               width: 7.0.w,
               height: 7.0.w,
@@ -483,7 +486,9 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                             //       size: 30,
                             //     )),
                             errorWidget: (context, url, error) => Container(
-                              width: 20.0.w, height: 20.0.w, child: NaifarmErrorWidget()),
+                                width: 20.0.w,
+                                height: 20.0.w,
+                                child: NaifarmErrorWidget()),
                           ),
                         ),
                         SizedBox(width: 3.0.w),
@@ -505,20 +510,40 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                item.items[indexShopItem].inventory.salePrice != null && item.items[indexShopItem].inventory.offerPrice != null && item.items[indexShopItem].inventory.offerPrice>0
+                                item.items[indexShopItem].inventory
+                                                .salePrice !=
+                                            null &&
+                                        item.items[indexShopItem].inventory
+                                                .offerPrice !=
+                                            null &&
+                                        item.items[indexShopItem].inventory
+                                                .offerPrice >
+                                            0
                                     ? Text(
-                                    "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
-                                    style: FunctionHelper.fontTheme(
-                                        color: Colors.grey,
-                                        fontSize: SizeUtil.priceFontSize().sp-2,
-                                        decoration: TextDecoration.lineThrough))
+                                        "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
+                                        style: FunctionHelper.fontTheme(
+                                            color: Colors.grey,
+                                            fontSize:
+                                                SizeUtil.priceFontSize().sp - 2,
+                                            decoration:
+                                                TextDecoration.lineThrough))
                                     : SizedBox(),
                                 SizedBox(
-                                    width: item.items[indexShopItem].inventory.salePrice != null &&item.items[indexShopItem].inventory.offerPrice != null
+                                    width: item.items[indexShopItem].inventory
+                                                    .salePrice !=
+                                                null &&
+                                            item.items[indexShopItem].inventory
+                                                    .offerPrice !=
+                                                null
                                         ? 1.0.w
                                         : 0),
                                 Text(
-                                  item.items[indexShopItem].inventory.offerPrice != null  && item.items[indexShopItem].inventory.offerPrice !=0
+                                  item.items[indexShopItem].inventory
+                                                  .offerPrice !=
+                                              null &&
+                                          item.items[indexShopItem].inventory
+                                                  .offerPrice !=
+                                              0
                                       ? "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}"
                                       : "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
                                   maxLines: 1,
@@ -594,13 +619,14 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                               child: Center(
                                   child: Text("+",
                                       style: TextStyle(
-                                          fontSize:
-                                              SizeUtil.titleFontSize().sp))),
+                                          fontSize: SizeUtil.titleFontSize().sp,
+                                          color: item.items[indexShopItem].quantity != item.items[indexShopItem].inventory.stockQuantity
+                                              ? Colors.black
+                                              : Colors.grey))),
                             ),
                             onTap: () {
-                              if (item.items[indexShopItem].inventory
-                                      .stockQuantity >
-                                  0) {
+
+                              if (item.items[indexShopItem].quantity != item.items[indexShopItem].inventory.stockQuantity) {
                                 Usermanager().getUser().then((value) =>
                                     bloc.cartPositiveQuantity(context,
                                         item: item,
@@ -749,7 +775,9 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black)),
-                        SizedBox(width: 1.0.w,)
+                        SizedBox(
+                          width: 1.0.w,
+                        )
                       ],
                     ),
                   )
@@ -810,9 +838,11 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                 if (cartResponse.data[i].items[j].select) {
                                   item.add(cartResponse.data[i].items[j]);
                                   int unitPrice = cartResponse.data[i].items[j]
-                                              .inventory.offerPrice ==
-                                          null || cartResponse.data[i].items[j]
-                                      .inventory.offerPrice==0
+                                                  .inventory.offerPrice ==
+                                              null ||
+                                          cartResponse.data[i].items[j]
+                                                  .inventory.offerPrice ==
+                                              0
                                       ? cartResponse
                                           .data[i].items[j].inventory.salePrice
                                       : cartResponse.data[i].items[j].inventory
@@ -888,7 +918,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       for (int j = 0; j < cartResponse.data[i].items.length; j++)
         if (cartResponse.data[i].items[j].select) {
           int unitPrice =
-              cartResponse.data[i].items[j].inventory.offerPrice == null || cartResponse.data[i].items[j].inventory.offerPrice==0
+              cartResponse.data[i].items[j].inventory.offerPrice == null ||
+                      cartResponse.data[i].items[j].inventory.offerPrice == 0
                   ? cartResponse.data[i].items[j].inventory.salePrice
                   : cartResponse.data[i].items[j].inventory.offerPrice;
           sum += cartResponse.data[i].items[j].quantity * unitPrice;

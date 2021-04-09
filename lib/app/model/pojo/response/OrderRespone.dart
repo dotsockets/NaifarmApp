@@ -70,6 +70,8 @@ class OrderData {
   String createdAt;
   String paymentAt;
   String requirePaymentAt;
+  String requireDeliveryAt;
+  String requestPaymentAt;
   ProductShop shop;
   List<OrderItems> items;
   PaymentMethod paymentMethod;
@@ -113,6 +115,8 @@ class OrderData {
       this.createdAt,
       this.paymentAt,
       this.requirePaymentAt,
+        this.requireDeliveryAt,
+        this.requestPaymentAt,
       this.shop,
       this.items,
       this.paymentMethod,
@@ -158,6 +162,8 @@ class OrderData {
     createdAt = json['createdAt'];
     paymentAt = json['paymentAt'];
     requirePaymentAt = json['requirePaymentAt'];
+    requireDeliveryAt = json['requireDeliveryAt'];
+    requestPaymentAt = json['requestPaymentAt'];
     shop = json['shop'] != null ? new ProductShop.fromJson(json['shop']) : null;
     if (json['items'] != null) {
       items = <OrderItems>[];
@@ -217,6 +223,8 @@ class OrderData {
     data['createdAt'] = this.createdAt;
     data['paymentAt'] = this.paymentAt;
     data['requirePaymentAt'] = this.requirePaymentAt;
+    data['requireDeliveryAt'] = this.requireDeliveryAt;
+    data['requestPaymentAt'] = this.requestPaymentAt;
     if (this.shop != null) {
       data['shop'] = this.shop.toJson();
     }

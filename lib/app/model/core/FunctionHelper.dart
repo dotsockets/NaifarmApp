@@ -234,7 +234,9 @@ class FunctionHelper {
                           fontWeight: FontWeight.bold,
                           fontSize: SizeUtil.titleSmallFontSize().sp),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16.0,
                       vertical: 5.0,

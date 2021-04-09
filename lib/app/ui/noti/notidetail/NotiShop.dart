@@ -581,6 +581,14 @@ class _NotiShopState extends State<NotiShop>
                     color: ThemeColor.secondaryColor(),
                   ),
                 ),
+                new TextSpan(
+                  text: " ${LocaleKeys.noti_playment_success.tr()}",
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
               ],
             ),
           ),
