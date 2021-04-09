@@ -277,27 +277,28 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
         SizedBox(
           height: 1.0.h,
         ),
-        item.flashsaleRespone != null
+        item.flashsaleRespone.data.length > 0
             ? FlashSale(flashsaleRespone: item.flashsaleRespone)
             : SizedBox(),
         SizedBox(height: 1.5.h),
         ProductLandscape(
-            productRespone: item.productRespone,
-            titleInto: LocaleKeys.recommend_best_seller.tr(),
-            producViewModel: ProductViewModel().getBestSaller(),
-            iconInto: 'assets/images/svg/product_hot.svg',
-            onSelectMore: () {
-              AppRoute.productMore(
-                  apiLink: "products/types/popular",
-                  context: context,
-                  barTxt: LocaleKeys.recommend_best_seller.tr());
-            },
-            onTapItem: (ProductData item, int index) {
-              AppRoute.productDetail(context,
-                  productImage: "product_hot_${item.id}1",
-                  productItem: ProductBloc.convertDataToProduct(data: item));
-            },
-            tagHero: "product_hot"),
+          productRespone: item.productRespone,
+          titleInto: LocaleKeys.recommend_best_seller.tr(),
+          producViewModel: ProductViewModel().getBestSaller(),
+          iconInto: 'assets/images/svg/product_hot.svg',
+          onSelectMore: () {
+            AppRoute.productMore(
+                apiLink: "products/types/popular",
+                context: context,
+                barTxt: LocaleKeys.recommend_best_seller.tr());
+          },
+          onTapItem: (ProductData item, int index) {
+            AppRoute.productDetail(context,
+                productImage: "product_hot_${item.id}1",
+                productItem: ProductBloc.convertDataToProduct(data: item));
+          },
+          tagHero: "product_hot",
+        ),
         // SizedBox(height: 1.5.h),
         // _BannerAds(),
 

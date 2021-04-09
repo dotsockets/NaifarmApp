@@ -27,19 +27,21 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
   void initState() {
     super.initState();
     flashTime = FunctionHelper.flashSaleTime(flashTime: widget.flashTime);
-    date = new DateTime(
-        date.year,
-        date.month,
-        flashTime ~/ 86400,
-        (flashTime % 86400) ~/ 3600,
-        ((flashTime % 86400) % 3600) ~/ 60,
-        (((flashTime % 86400) % 3600) % 60) ~/ 60);
-    setState(() {
-      hours = flashTime > 86400
-          ? ((flashTime ~/ 86400) * 24) + date.hour
-          : date.hour;
-    });
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+    if (flashTime > 0) {
+      date = new DateTime(
+          date.year,
+          date.month,
+          flashTime ~/ 86400,
+          (flashTime % 86400) ~/ 3600,
+          ((flashTime % 86400) % 3600) ~/ 60,
+          (((flashTime % 86400) % 3600) % 60) ~/ 60);
+      setState(() {
+        hours = flashTime > 86400
+            ? ((flashTime ~/ 86400) * 24) + date.hour
+            : date.hour;
+      });
+      timer = Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+    }
   }
 
   @override
