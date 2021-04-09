@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductHistoryCache.dart';
 import 'package:naifarm/app/model/pojo/response/ProductOrderCache.dart';
+import 'package:naifarm/app/model/pojo/response/SystemRespone.dart';
 import 'package:rxdart/rxdart.dart';
 
 class OrdersBloc {
@@ -16,6 +17,7 @@ class OrdersBloc {
   final onError = BehaviorSubject<Object>();
   final onSuccess = BehaviorSubject<Object>();
   final orderList = BehaviorSubject<OrderData>();
+  final systemRespone = BehaviorSubject<SystemRespone>();
   Stream<Object> get feedList => onSuccess.stream;
   List<OrderData> orderDataList = <OrderData>[];
 
@@ -177,11 +179,10 @@ class OrdersBloc {
                 imageableId: imageableId,
                 token: token))
         .listen((respone) {
-
       if (respone.httpCallBack.status == 200 ||
           respone.httpCallBack.status == 201) {
         //context.read<InfoCustomerBloc>().loadCustomInfo(token:token);
-        requestPayment(context,orderId: imageableId,token: token);
+        requestPayment(context, orderId: imageableId, token: token);
       } else {
         onLoad.add(false);
         onError.add(respone.httpCallBack.message);
@@ -190,15 +191,13 @@ class OrdersBloc {
     _compositeSubscription.add(subscription);
   }
 
-  requestPayment(BuildContext context,{int orderId,String token}) async {
-
-    StreamSubscription subscription = Observable.fromFuture(
-        _application.appStoreAPIRepository.requestPayment(context,
-            orderId: orderId,
-            token: token))
+  requestPayment(BuildContext context, {int orderId, String token}) async {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .requestPayment(context, orderId: orderId, token: token))
         .listen((respone) {
       onLoad.add(false);
-      if (respone.httpCallBack.status == 200 ) {
+      if (respone.httpCallBack.status == 200) {
         //context.read<InfoCustomerBloc>().loadCustomInfo(token:token);
         onSuccess.add(true);
       } else {
@@ -269,6 +268,24 @@ class OrdersBloc {
           item.quantity);
     }
     return sum + rate;
+  }
+
+  getSystem(BuildContext context) async {
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.getSystem(context))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
+        NaiFarmLocalStorage.getSystemCache().then((value) {
+          NaiFarmLocalStorage.saveSystemCache(respone.respone as SystemRespone)
+              .then((value) {
+            systemRespone.add(respone.respone as SystemRespone);
+          });
+        });
+      } else {
+        onError.add(respone.httpCallBack);
+      }
+    });
+    _compositeSubscription.add(subscription);
   }
 }
 

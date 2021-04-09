@@ -236,12 +236,8 @@ class APIRepository {
     return _apiProvider.getBanners(context, group: group);
   }
 
-  Future<ApiResult> getPaymentList(
-    BuildContext context,{String shopIds}
-  ) {
-    return _apiProvider.getPaymentList(
-      context,shopIds: shopIds
-    );
+  Future<ApiResult> getPaymentList(BuildContext context, {String shopIds}) {
+    return _apiProvider.getPaymentList(context, shopIds: shopIds);
   }
 
   Future<ApiResult> getPaymentMyShop(BuildContext context, {String token}) {
@@ -578,8 +574,13 @@ class APIRepository {
         token: token);
   }
 
-  Future<ApiResult> requestPayment(BuildContext context,{int orderId,String token}) {
+  Future<ApiResult> requestPayment(BuildContext context,
+      {int orderId, String token}) {
     return _apiProvider.requestPayment(context, token: token, orderId: orderId);
+  }
+
+  Future<ApiResult> getSystem(BuildContext context) {
+    return _apiProvider.getSystem(context);
   }
 
 //  Observable<List<AppContent>> getTop100FreeApp(){
