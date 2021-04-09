@@ -1106,14 +1106,14 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getPaymentList(
-    BuildContext context,{String shopIds}
-  ) async {
+  Future<ApiResult> getPaymentList(BuildContext context,
+      {String shopIds}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     try {
-      final _result = await _dio.request<dynamic>('/v1/payments?shopIds=${shopIds}',
+      final _result = await _dio.request<dynamic>(
+          '/v1/payments?shopIds=${shopIds}',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',
@@ -2684,6 +2684,31 @@ class _APIProvider implements APIProvider {
               data: _data);
       return ApiResult(
           respone: true,
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> getSystem(BuildContext context) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+      final _result = await _dio.request<dynamic>('/v1/system',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                'Accept-Language':
+                    EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(
+          respone: SystemRespone.fromJson(_result.data),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.dioErrorExpction(e);

@@ -46,6 +46,7 @@ import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 import 'package:naifarm/app/model/pojo/response/RegisterRespone.dart';
+import 'package:naifarm/app/model/pojo/response/SystemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/zipCodeRespone.dart';
@@ -217,7 +218,7 @@ abstract class APIProvider {
   Future<ApiResult> getBanners(BuildContext context, {String group});
 
   @GET("/v1/payments")
-  Future<ApiResult> getPaymentList(BuildContext context,{String shopIds});
+  Future<ApiResult> getPaymentList(BuildContext context, {String shopIds});
 
   @GET("/v1/payment")
   Future<ApiResult> getPaymentMyShop(BuildContext context, {String token});
@@ -444,7 +445,11 @@ abstract class APIProvider {
       String token});
 
   @PATCH("/v1/order/767/request-payment")
-  Future<ApiResult> requestPayment(BuildContext context,{int orderId,String token});
+  Future<ApiResult> requestPayment(BuildContext context,
+      {int orderId, String token});
+
+  @GET("/v1/system")
+  Future<ApiResult> getSystem(BuildContext context);
 }
 
 // @JsonSerializable()

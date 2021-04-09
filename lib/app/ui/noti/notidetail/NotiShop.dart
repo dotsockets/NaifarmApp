@@ -19,7 +19,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
 //'assets/images/svg/cart_top.svg'
-class  NotiShop extends StatefulWidget {
+class NotiShop extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool btnBack;
   final NotiRespone notiRespone;
@@ -244,7 +244,8 @@ class _NotiShopState extends State<NotiShop>
               // AppRoute.OrderDetail(context,orderData: OrderData(id: int.parse(item.meta.id)));
               if (checkIsOrder(text: item.type)) {
                 AppRoute.orderDetail(context,
-                    orderData: OrderData(id: int.parse(item.meta.id.toString())),
+                    orderData:
+                        OrderData(id: int.parse(item.meta.id.toString())),
                     typeView: OrderViewType.Shop);
               }
             },
@@ -290,7 +291,7 @@ class _NotiShopState extends State<NotiShop>
                               ? Icon(
                                   Icons.arrow_forward_ios,
                                   color: Colors.black.withOpacity(0.4),
-                                  size: SizeUtil.ratingSize().w ,
+                                  size: SizeUtil.ratingSize().w,
                                 )
                               : SizedBox()
                         ],
@@ -331,8 +332,7 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-              "${LocaleKeys.noti_shop_update.tr()}",
+          Text("${LocaleKeys.noti_shop_update.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -376,7 +376,10 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text( lang == "ภาษาไทย"?"${LocaleKeys.noti_shop_live.tr()}":"${LocaleKeys.noti_shop_live.tr()}",
+          Text(
+              lang == "ภาษาไทย"
+                  ? "${LocaleKeys.noti_shop_live.tr()}"
+                  : "${LocaleKeys.noti_shop_live.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -387,7 +390,9 @@ class _NotiShopState extends State<NotiShop>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: lang == "ภาษาไทย"?"${LocaleKeys.noti_shop_live_sub.tr()}":"${LocaleKeys.noti_shop_live.tr()}",
+                    text: lang == "ภาษาไทย"
+                        ? "${LocaleKeys.noti_shop_live_sub.tr()}"
+                        : "${LocaleKeys.noti_shop_live.tr()}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -409,7 +414,10 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text( lang == "ภาษาไทย"?"${LocaleKeys.noti_downformaintainace.tr()}":"${LocaleKeys.noti_downformaintainace.tr()}",
+          Text(
+              lang == "ภาษาไทย"
+                  ? "${LocaleKeys.noti_downformaintainace.tr()}"
+                  : "${LocaleKeys.noti_downformaintainace.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -420,7 +428,9 @@ class _NotiShopState extends State<NotiShop>
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 new TextSpan(
-                    text: lang == "ภาษาไทย"?"${LocaleKeys.noti_downformaintainace_sub.tr()}":"${LocaleKeys.noti_downformaintainace.tr()}",
+                    text: lang == "ภาษาไทย"
+                        ? "${LocaleKeys.noti_downformaintainace_sub.tr()}"
+                        : "${LocaleKeys.noti_downformaintainace.tr()}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.normal,
@@ -438,7 +448,7 @@ class _NotiShopState extends State<NotiShop>
           )*/
         ],
       );
-    }else if (item.type ==
+    } else if (item.type ==
         "App\\Notifications\\Order\\MerchantOrderCreatedNotification") {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,

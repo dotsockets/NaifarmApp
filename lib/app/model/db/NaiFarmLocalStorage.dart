@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/pojo/response/ProductMoreCombin.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductOrderCache.dart';
 import 'package:naifarm/app/model/pojo/response/ProfileObjectCombine.dart';
+import 'package:naifarm/app/model/pojo/response/SystemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 
 class NaiFarmLocalStorage {
@@ -30,6 +31,7 @@ class NaiFarmLocalStorage {
   static String naiFarmOrder = "NaiFarm_order";
   static String naiFarmOneSiganl = "NaiFarm_onesignal";
   static String naiFarmProductMyShop = "ProductMyShop";
+  static String naiFarmSystem = "System";
 
   static Future<void> saveOneSiganlCache(
       OneSignalNoificationId oneSignalNoificationId) async {
@@ -286,5 +288,22 @@ class NaiFarmLocalStorage {
     storage = LocalStorage(naiFarmStorage);
     await storage.ready;
     storage.deleteItem(key);
+  }
+
+  static Future<void> saveSystemCache(SystemRespone systemCache) async {
+    storage = LocalStorage(naiFarmStorage);
+    await storage.ready;
+    storage.setItem(naiFarmSystem, systemCache);
+  }
+
+  static Future<SystemRespone> getSystemCache() async {
+    LocalStorage storage = new LocalStorage(naiFarmStorage);
+    await storage.ready;
+    Map<String, dynamic> data = storage.getItem(naiFarmSystem);
+    if (data == null) {
+      return null;
+    }
+    SystemRespone value = SystemRespone.fromJson(data);
+    return value;
   }
 }

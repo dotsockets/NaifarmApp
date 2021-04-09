@@ -115,7 +115,9 @@
     "name_account": "Full name in your bank account",
     "id_card": "ID card Number",
     "name": "Bank Name",
-    "select": "Select Bank"
+    "select": "Select Bank",
+    "accountName": "Account Name",
+    "accountNumber": "Account Number"
 
   },
   "card": {
@@ -208,7 +210,8 @@
     "success_slip":"Upload Pay-in Slip Successfully",
       "contact": "The transaction cannot be performed, please contact the seller. ",
     "shop_close": "No information found for this restaurant or the shop has closed",
-    "confirm_mail": "Please confirm Email in your mailbox"
+    "confirm_mail": "Please confirm Email in your mailbox",
+    "copied": "copied"
   },
 
   "message":{

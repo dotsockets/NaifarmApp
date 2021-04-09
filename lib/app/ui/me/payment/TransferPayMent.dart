@@ -8,11 +8,12 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/app/model/pojo/response/SystemRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -56,6 +57,13 @@ class _TransferPayMentState extends State<TransferPayMent> {
           }
         });
       });
+
+      NaiFarmLocalStorage.getSystemCache().then((value) {
+        if (value != null) {
+          bloc.systemRespone.add(value);
+        }
+        bloc.getSystem(context);
+      });
     }
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
@@ -79,37 +87,47 @@ class _TransferPayMentState extends State<TransferPayMent> {
               //AppRoute.PoppageCount(context: context,countpage: 1);
             },
           ),
-          body: SingleChildScrollView(
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: SizeUtil.paddingMenu().w,),
-                  infoMessage(
-                      title: "1",
-                      message:
-                          "หากท่านต้องการชำระเงินผ่านตู้ ATM หรือหน้าเคาท์เตอร์ธนาคาร ท่านสามารถเลือก ATM Bill Payment ใน Naifarm ได้เช่นกัน ซึ่งวิธีนี้ท่านไม่จำเป็นต้องอัพโหลดเอกสารการชำระเงิน และสามารถรอการยืนยันการชำระเงินได้รวดเร็วกว่า หากท่านยืนยันที่จะเลือกช่องทางนี้ ท่านสามารถชำระเงินผ่าน intenet/mobile banking มายังบัญชีธนาคารของ Naifarm"),
-                  cardBank(index: 0),
-                  cardBank1(index: 1),
-                  cardQr(),
-                  infoMessage(
-                      title: "2",
-                      message: "เก็บหลักฐานการโอนเงินและอัพโหลดภายใน 14-01-2021",
-                      paddingBottom: false),
-                  infoMessage(
-                      title: "3",
-                      message:
-                          "เพื่อความรวดเร็วในการยืนยันการชำระเงินของท่าน ขอแนะนำให้ท่านอัพโหลดหลักฐานการชำระเงินที่ท่านได้รับจาก mobile banking application หรือ internet banking แทนการอัพโหลดหลักฐานประเภทอื่น ซึ่งอาจทำให้ตรวจสอบการชำระเงินล่าช้า"),
-                  buttonItem()
-                ],
-              ),
-            ),
-          ),
+          body: StreamBuilder(
+              stream: bloc.systemRespone.stream,
+              builder: (context, snapshot) {
+                var systemRes = snapshot.data as SystemRespone;
+                return SingleChildScrollView(
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: SizeUtil.paddingMenu().w,
+                        ),
+                        infoMessage(
+                            title: "1",
+                            message:
+                                "หากท่านต้องการชำระเงินผ่านตู้ ATM หรือหน้าเคาท์เตอร์ธนาคาร ท่านสามารถเลือก ATM Bill Payment ใน Naifarm ได้เช่นกัน ซึ่งวิธีนี้ท่านไม่จำเป็นต้องอัพโหลดเอกสารการชำระเงิน และสามารถรอการยืนยันการชำระเงินได้รวดเร็วกว่า หากท่านยืนยันที่จะเลือกช่องทางนี้ ท่านสามารถชำระเงินผ่าน intenet/mobile banking มายังบัญชีธนาคารของ Naifarm"),
+                        cardBank(index: 0, systemRespone: systemRes),
+                        // cardBank1(index: 1),
+                        cardQr(systemRes != null
+                            ? systemRes.bankAccountMobile
+                            : ""),
+                        infoMessage(
+                            title: "2",
+                            message:
+                                "เก็บหลักฐานการโอนเงินและอัพโหลดภายใน 14-01-2021",
+                            paddingBottom: false),
+                        infoMessage(
+                            title: "3",
+                            message:
+                                "เพื่อความรวดเร็วในการยืนยันการชำระเงินของท่าน ขอแนะนำให้ท่านอัพโหลดหลักฐานการชำระเงินที่ท่านได้รับจาก mobile banking application หรือ internet banking แทนการอัพโหลดหลักฐานประเภทอื่น ซึ่งอาจทำให้ตรวจสอบการชำระเงินล่าช้า"),
+                        buttonItem()
+                      ],
+                    ),
+                  ),
+                );
+              }),
         ),
       ),
     );
   }
 
-  Widget cardBank({int index}) {
+  Widget cardBank({int index, SystemRespone systemRespone}) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -133,7 +151,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "ไทยพานิชย์ (SCB)",
+                    systemRespone != null ? systemRespone.bankAccount : "",
                     style: FunctionHelper.fontTheme(
                         color: Colors.black,
                         fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -143,7 +161,11 @@ class _TransferPayMentState extends State<TransferPayMent> {
                     height: 0.5.h,
                   ),
                   Text(
-                    "ชื่อบัญชี: บริษัท แอร์เพย์ ประเทศไทย จำกัด",
+                    LocaleKeys.bank_accountName.tr() +
+                        ": " +
+                        (systemRespone != null
+                            ? systemRespone.bankAccountName
+                            : ""),
                     style: FunctionHelper.fontTheme(
                         color: Colors.black.withOpacity(0.5),
                         fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -159,16 +181,20 @@ class _TransferPayMentState extends State<TransferPayMent> {
                           text: TextSpan(
                             children: <TextSpan>[
                               TextSpan(
-                                  text: "เลขที่บัญชี: ",
+                                  text:
+                                      LocaleKeys.bank_accountNumber.tr() + ": ",
                                   style: FunctionHelper.fontTheme(
                                       fontSize:
                                           SizeUtil.spanTitleSmallFontSize().sp,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black.withOpacity(0.5))),
                               TextSpan(
-                                  text: "468 0601 709",
+                                  text: systemRespone != null
+                                      ? systemRespone.bankAccountNumber
+                                      : "",
                                   style: FunctionHelper.fontTheme(
-                                      fontSize: (SizeUtil.spanTitleFontSize()).sp,
+                                      fontSize:
+                                          (SizeUtil.spanTitleFontSize()).sp,
                                       fontWeight: FontWeight.bold,
                                       color: ThemeColor.colorSale())),
                             ],
@@ -186,10 +212,16 @@ class _TransferPayMentState extends State<TransferPayMent> {
                           ),
                         ),
                         onTap: () {
-                          FlutterClipboard.copy('4680601709').then((value) {
-                            //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey,message: "คัดลอกแล้ว");
-                            FunctionHelper.alertDialogShop(context,
-                                title: LocaleKeys.btn_error.tr(), message: LocaleKeys.btn_copy.tr());
+                          FlutterClipboard.copy(systemRespone.bankAccountNumber)
+                              .then((value) {
+                            FunctionHelper.snackBarShow(
+                              scaffoldKey: _scaffoldKey,
+                              context: context,
+                              message: LocaleKeys.dialog_message_copied.tr(),
+                            );
+                            /*FunctionHelper.alertDialogShop(context,
+                                title: LocaleKeys.btn_error.tr(),
+                                message: LocaleKeys.btn_copy.tr());*/
                           });
                         },
                       ),
@@ -253,20 +285,16 @@ class _TransferPayMentState extends State<TransferPayMent> {
           )
         ],
       ),
-
     );
   }
 
-  Widget cardQr() {
+  Widget cardQr(String payNumber) {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
-          
-            bottom: BorderSide(
-                color: Colors.grey.withOpacity(0.6),
-                width:  1 )),
+            bottom: BorderSide(color: Colors.grey.withOpacity(0.6), width: 1)),
       ),
       child: Row(
         children: [
@@ -290,18 +318,21 @@ class _TransferPayMentState extends State<TransferPayMent> {
                   SizedBox(
                     height: 0.5.h,
                   ),
-                  QrImage(
+                  /*QrImage(
                     data: "468 0601 709",
                     version: QrVersions.auto,
                     size: 150.0,
-                  ),
+                  ),*/
+                  payNumber != ""
+                      ? Image.network("https://promptpay.io/$payNumber/" +
+                          widget.orderData.grandTotal.toString())
+                      : Container(),
                 ],
               ),
             ),
           )
         ],
       ),
-
     );
   }
 
