@@ -703,7 +703,7 @@ class FunctionHelper {
           .millisecondsSinceEpoch;
     }*/
     // DateTime.now().millisecondsSinceEpoch + 1000 * 30
-    return difTimeSc;
+    return difTimeSc - 4;
   }
 
   // static Duration flashSaleTime({String flashTime}){

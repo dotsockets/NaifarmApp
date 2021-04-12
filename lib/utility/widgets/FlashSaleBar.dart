@@ -28,7 +28,7 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
     flashTime = FunctionHelper.flashSaleTime(flashTime: widget.flashTime);
     if (flashTime > 0) {
       date = new DateTime(date.year, date.month, date.day, flashTime ~/ 3600,
-          (flashTime % 3600) ~/ 60, ((flashTime % 3600) % 60) ~/ 60);
+          (flashTime % 3600) ~/ 60, (flashTime % 3600) % 60);
       timer = Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     }
   }
