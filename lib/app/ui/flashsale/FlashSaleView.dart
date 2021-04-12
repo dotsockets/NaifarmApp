@@ -56,11 +56,7 @@ class _FlashSaleState extends State<FlashSale> {
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: FlashSaleBar(
-            flashTime: widget.flashsaleRespone.data.length > 0
-                ? widget.flashsaleRespone.data[0].end
-                : new DateTime.now().add(new Duration(days: -1)).toString(),
-          ),
+          child: FlashSaleBar(),
         )
       ],
     );

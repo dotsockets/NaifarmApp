@@ -1,17 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
 class FlashSaleBar extends StatefulWidget {
-  final String flashTime;
-
-  FlashSaleBar({Key key, this.flashTime}) : super(key: key);
+  FlashSaleBar({Key key}) : super(key: key);
 
   @override
   _FlashSaleBarState createState() => _FlashSaleBarState();
@@ -25,7 +26,11 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
   @override
   void initState() {
     super.initState();
-    flashTime = FunctionHelper.flashSaleTime(flashTime: widget.flashTime);
+  }
+
+  setTimer(HomeObjectCombine res) {
+    flashTime = FunctionHelper.flashSaleTime(
+        flashTime: res.flashsaleRespone.data[0].end);
     if (flashTime > 0) {
       date = new DateTime(date.year, date.month, date.day, flashTime ~/ 3600,
           (flashTime % 3600) ~/ 60, (flashTime % 3600) % 60);
@@ -53,40 +58,45 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 2.0.h),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(SizeUtil.borderRadiusFlash()),
-        child: Container(
-          padding: EdgeInsets.all(SizeUtil.paddingBox().w),
-          color: ThemeColor.colorSale(),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SvgPicture.asset(
-                'assets/images/svg/flash_sale.svg',
-                width: 4.0.w,
-                height: 4.0.h,
-              ),
-              Text("Fla",
-                  style: GoogleFonts.kanit(
-                      fontSize: SizeUtil.titleFontSize().sp + 3.0,
-                      color: Colors.white)),
-              SizedBox(width: 1.0.w),
-              SvgPicture.asset('assets/images/svg/flash.svg',
-                  width: 4.0.w, height: 4.0.h),
-              SizedBox(width: 1.0.w),
-              Text("h Sale",
-                  style: GoogleFonts.kanit(
-                      fontSize: SizeUtil.titleFontSize().sp + 3.0,
-                      color: Colors.white)),
-              SizedBox(width: 1.0.h),
-              _buildCountDown()
-            ],
+    return BlocBuilder<HomeDataBloc, HomeDataState>(builder: (_, item) {
+      if (item is HomeDataLoaded) {
+        setTimer(item.homeObjectCombine);
+      }
+      return Container(
+        margin: EdgeInsets.only(top: 2.0.h),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(SizeUtil.borderRadiusFlash()),
+          child: Container(
+            padding: EdgeInsets.all(SizeUtil.paddingBox().w),
+            color: ThemeColor.colorSale(),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  'assets/images/svg/flash_sale.svg',
+                  width: 4.0.w,
+                  height: 4.0.h,
+                ),
+                Text("Fla",
+                    style: GoogleFonts.kanit(
+                        fontSize: SizeUtil.titleFontSize().sp + 3.0,
+                        color: Colors.white)),
+                SizedBox(width: 1.0.w),
+                SvgPicture.asset('assets/images/svg/flash.svg',
+                    width: 4.0.w, height: 4.0.h),
+                SizedBox(width: 1.0.w),
+                Text("h Sale",
+                    style: GoogleFonts.kanit(
+                        fontSize: SizeUtil.titleFontSize().sp + 3.0,
+                        color: Colors.white)),
+                SizedBox(width: 1.0.h),
+                _buildCountDown()
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   // SlideCountdownClock _buildCountDown(){

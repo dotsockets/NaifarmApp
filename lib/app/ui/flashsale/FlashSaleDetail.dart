@@ -77,11 +77,9 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
       color: ThemeColor.primaryColor(),
       child: SafeArea(
         child: Scaffold(
-          appBar:
-          PreferredSize(
+          appBar: PreferredSize(
               preferredSize: Size.fromHeight(6.5.h),
               child: AppToobar(
-
                   headerType: Header_Type.barcartShop,
                   icon: 'assets/images/svg/cart_top.svg',
                   title: "Flash Sale")),
@@ -180,8 +178,10 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(SizeUtil.paddingBorderHome().w),
-                topLeft: Radius.circular(SizeUtil.paddingBorderHome().w),
+                                  topRight: Radius.circular(
+                                      SizeUtil.paddingBorderHome().w),
+                                  topLeft: Radius.circular(
+                                      SizeUtil.paddingBorderHome().w),
                                   bottomLeft: Radius.circular(
                                       item.data.length != 0 ? 0 : 40),
                                   bottomRight: Radius.circular(
@@ -207,7 +207,8 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                                     children: [
                                       item.data[0].items.length - (i) * 2 > 1
                                           ? Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 InkWell(
                                                   child: ProductItemCard(
@@ -330,9 +331,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
-                          child: FlashSaleBar(
-                            flashTime: item.data[0].end,
-                          ),
+                          child: FlashSaleBar(),
                         ),
                       ],
                     );
