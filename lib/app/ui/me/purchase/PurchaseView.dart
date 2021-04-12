@@ -170,15 +170,15 @@ class _PurchaseViewState extends State<PurchaseView> {
               }
             },
           ),
-          buildDivider(),
-          ListMenuItem(
-            iconSize: 6.5.w,
-            icon: 'assets/images/svg/help.svg',
-            title: LocaleKeys.me_title_help.tr(),
-            onClick: () {
-              AppRoute.settingHelp(context);
-            },
-          )
+          //buildDivider(),
+          // ListMenuItem(
+          //   iconSize: 6.5.w,
+          //   icon: 'assets/images/svg/help.svg',
+          //   title: LocaleKeys.me_title_help.tr(),
+          //   onClick: () {
+          //     AppRoute.settingHelp(context);
+          //   },
+          // )
         ],
       ),
     );

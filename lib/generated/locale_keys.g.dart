@@ -505,6 +505,7 @@ abstract class  LocaleKeys {
   static const search_product_show = 'search_product.show';
   static const search_product_hide = 'search_product.hide';
   static const search_product_not_found = 'search_product.not_found';
+  static const search_product_product_not_found = 'search_product.product_not_found';
   static const search_product = 'search_product';
   static const server_error_cancel = 'server_error.cancel';
   static const server_error_timeout_connect = 'server_error.timeout_connect';

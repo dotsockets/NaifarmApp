@@ -349,6 +349,23 @@ class MemberBloc {
     _compositeSubscription.add(subscription);
   }
 
+  firstPassword(BuildContext context,
+      {ModifyPasswordrequest data, String token}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application
+        .appStoreAPIRepository
+        .firstPassword(context, data: data, token: token))
+        .listen((respone) {
+      onLoad.add(false);
+      if (respone.httpCallBack.status == 200) {
+        onSuccess.add(respone.respone);
+      } else {
+        onError.add(respone.httpCallBack);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
   verifyPassword(BuildContext context, {String password, String token}) async {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application

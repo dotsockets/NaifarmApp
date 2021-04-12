@@ -359,14 +359,17 @@ class _TransferPayMentState extends State<TransferPayMent> {
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all(
-                  ThemeColor.secondaryColor(),
+                  widget.orderData.orderStatusId == 2 && widget.orderData.itemCount == widget.orderData.items.length?ThemeColor.secondaryColor():Colors.grey,
                 ),
                 overlayColor: MaterialStateProperty.all(
                   Colors.white.withOpacity(0.3),
                 ),
               ),
               onPressed: () {
-                captureImage(ImageSource.gallery);
+                if(widget.orderData.orderStatusId == 1 && widget.orderData.itemCount == widget.orderData.items.length){
+                  captureImage(ImageSource.gallery);
+                }
+
               },
               child: Text(
                 widget.orderData.image.length == 0

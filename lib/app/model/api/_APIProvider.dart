@@ -338,6 +338,34 @@ class _APIProvider implements APIProvider {
   }
 
   @override
+  Future<ApiResult> firstPassword(BuildContext context,
+      ModifyPasswordrequest data, String accessToken) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+
+    try {
+      final _result =
+      await _dio.request<dynamic>('/v1/customers/first-password',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'PATCH',
+              headers: <String, dynamic>{
+                "token": accessToken,
+                'Accept-Language':
+                EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: data);
+      return ApiResult(
+          respone: CustomerInfoRespone.fromJson(_result.data),
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
+
+  @override
   Future<ApiResult> verifyPassword(
       BuildContext context, String password, String token) async {
     const _extra = <String, dynamic>{};

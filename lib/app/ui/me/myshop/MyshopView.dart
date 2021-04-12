@@ -296,15 +296,15 @@ class _MyshopViewState extends State<MyshopView> {
               onClick: () {
                 AppRoute.paymentMe(context);
               }),
-          buildDivider(),
-          ListMenuItem(
-            iconSize: 6.5.w,
-            icon: 'assets/images/svg/help.svg',
-            title: LocaleKeys.me_title_help.tr(),
-            onClick: () {
-              AppRoute.settingHelp(context);
-            },
-          ),
+          // buildDivider(),
+          // ListMenuItem(
+          //   iconSize: 6.5.w,
+          //   icon: 'assets/images/svg/help.svg',
+          //   title: LocaleKeys.me_title_help.tr(),
+          //   onClick: () {
+          //     AppRoute.settingHelp(context);
+          //   },
+          // ),
           buildDivider(num: 10),
           ListMenuItem(
             iconSize: 7.0.w,

@@ -369,7 +369,12 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                     message: "********",
                     title: LocaleKeys.my_profile_change_password.tr(),
                     onClick: () {
-                      AppRoute.editpasswordStep1(context);
+                     // print("ewfvref ${itemInfo.socialSignup}");
+                      if(itemInfo.socialSignup!=null && itemInfo.socialSignup==1){
+                        AppRoute.editpasswordStep2(context,"");
+                      }else{
+                        AppRoute.editpasswordStep1(context);
+                      }
                     },
                   ),
                 ],

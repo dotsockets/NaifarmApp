@@ -197,7 +197,7 @@ class _ShippedViewState extends State<ShippedView> {
                                                         child: Center(
                                                           child: Text(
                                                               LocaleKeys
-                                                                  .search_product_not_found
+                                                                  .search_product_product_not_found
                                                                   .tr(),
                                                               style: FunctionHelper.fontTheme(
                                                                   fontSize:

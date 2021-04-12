@@ -118,13 +118,13 @@ class _SettingProfileViewState extends State<SettingProfileView>
                         ),
                         _buildTitle(
                             txt: LocaleKeys.setting_account_head_help.tr()),
-                        ListMenuItem(
-                          icon: '',
-                          title: LocaleKeys.setting_account_title_help.tr(),
-                          onClick: () {
-                            AppRoute.settingHelp(context);
-                          },
-                        ),
+                        // ListMenuItem(
+                        //   icon: '',
+                        //   title: LocaleKeys.setting_account_title_help.tr(),
+                        //   onClick: () {
+                        //     AppRoute.settingHelp(context);
+                        //   },
+                        // ),
                         _buildLine(),
                         ListMenuItem(
                           icon: '',

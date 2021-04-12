@@ -81,6 +81,11 @@ class APIRepository {
     return _apiProvider.modifyPassword(context, data, token);
   }
 
+  Future<ApiResult> firstPassword(BuildContext context,
+      {ModifyPasswordrequest data, String token}) {
+    return _apiProvider.firstPassword(context, data, token);
+  }
+
   Future<ApiResult> verifyPassword(BuildContext context,
       {String password, String token}) {
     return _apiProvider.verifyPassword(context, password, token);

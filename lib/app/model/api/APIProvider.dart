@@ -110,6 +110,10 @@ abstract class APIProvider {
   Future<ApiResult> modifyPassword(BuildContext context,
       @Body() ModifyPasswordrequest data, String accessToken);
 
+  @PATCH("/v1/customers/first-password")
+  Future<ApiResult> firstPassword(BuildContext context,
+      @Body() ModifyPasswordrequest data, String accessToken);
+
   @POST("/v1/customers/verify-password")
   @FormUrlEncoded()
   Future<ApiResult> verifyPassword(

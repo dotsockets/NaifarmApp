@@ -555,7 +555,8 @@
     "me": "Search my product",
     "show": "Show more",
     "hide": "Hide",
-    "not_found": "Data not found"
+    "not_found": "Data not found",
+    "product_not_found": "Product not found"
   },
 
   "server_error": {

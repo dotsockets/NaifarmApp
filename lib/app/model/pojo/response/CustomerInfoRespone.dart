@@ -11,6 +11,7 @@ class CustomerInfoRespone {
   String sex;
   String dob;
   String description;
+  int socialSignup;
   Shop shop;
   List<ImageShop> image;
   ThrowIfNoSuccess httpCallBack;
@@ -24,6 +25,7 @@ class CustomerInfoRespone {
       this.sex,
       this.dob,
       this.description,
+        this.socialSignup,
       this.shop,
       this.image,
       this.httpCallBack});
@@ -37,6 +39,7 @@ class CustomerInfoRespone {
     sex = json['sex'];
     dob = json['dob'];
     description = json['description'];
+    socialSignup = json['socialSignup'];
     shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
     if (json['image'] != null) {
       image = <ImageShop>[];
@@ -56,6 +59,7 @@ class CustomerInfoRespone {
     data['sex'] = this.sex;
     data['dob'] = this.dob;
     data['description'] = this.description;
+    data['socialSignup'] = this.socialSignup;
     if (this.shop != null) {
       data['shop'] = this.shop.toJson();
     }
