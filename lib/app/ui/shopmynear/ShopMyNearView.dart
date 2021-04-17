@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'package:geocoder/geocoder.dart';
 //import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class ShopMyNearView extends StatefulWidget {
@@ -10,52 +9,53 @@ class ShopMyNearView extends StatefulWidget {
 }
 
 class _ShopMyNearViewState extends State<ShopMyNearView> {
-  LatLng latlong;
-  CameraPosition _cameraPosition;
-  GoogleMapController _controller;
-  Set<Marker> _markers = {};
-  var address;
-  Set<Circle> circles = {};
+  // LatLng latlong;
+  // CameraPosition _cameraPosition;
+  // GoogleMapController _controller;
+  // Set<Marker> _markers = {};
+  // var address;
+  // Set<Circle> circles = {};
 
   @override
   void initState() {
     super.initState();
-    _cameraPosition = CameraPosition(target: LatLng(0, 0), zoom: 16.0);
+    //_cameraPosition = CameraPosition(target: LatLng(0, 0), zoom: 16.0);
     //getCurrentLocation();
   }
 
   @override
   Widget build(BuildContext context) {
     // getCurrentAddress();
-    return SafeArea(
-        top: false,
-        child: Scaffold(
-            appBar: AppToobar(
-              title: "",
-              icon: "",
-              locationTxt: address,
-              headerType: Header_Type.barMap,
-            ),
-            body: Stack(
-              children: [
-                GoogleMap(
-                  myLocationEnabled: true,
-                  myLocationButtonEnabled: false,
-
-                  //  circles: circles,
-                  initialCameraPosition: _cameraPosition,
-                  onMapCreated: (GoogleMapController controller) {
-                    _controller = (controller);
-                    _controller.animateCamera(
-                        CameraUpdate.newCameraPosition(_cameraPosition));
-                  },
-                  markers: _markers,
-                  onCameraIdle: () {
-                    setState(() {});
-                  },
-                )
-              ],
-            )));
+    return SizedBox();
+    // return SafeArea(
+    //     top: false,
+    //     child: Scaffold(
+    //         appBar: AppToobar(
+    //           title: "",
+    //           icon: "",
+    //           locationTxt: address,
+    //           headerType: Header_Type.barMap,
+    //         ),
+    //         body: Stack(
+    //           children: [
+    //             GoogleMap(
+    //               myLocationEnabled: true,
+    //               myLocationButtonEnabled: false,
+    //
+    //               //  circles: circles,
+    //               initialCameraPosition: _cameraPosition,
+    //               onMapCreated: (GoogleMapController controller) {
+    //                 _controller = (controller);
+    //                 _controller.animateCamera(
+    //                     CameraUpdate.newCameraPosition(_cameraPosition));
+    //               },
+    //               markers: _markers,
+    //               onCameraIdle: () {
+    //                 setState(() {});
+    //               },
+    //             )
+    //           ],
+    //         )));
   }
   // Future getCurrentLocation() async {
   //   LocationPermission permission = await Geolocator.checkPermission();

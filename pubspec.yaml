@@ -67,7 +67,7 @@ dependencies:
   flutter_countdown_timer: ^3.0.0
   image_picker: ^0.6.7+17
   permission_handler: ^5.0.1+1
-  google_maps_flutter: ^1.0.6
+  #google_maps_flutter: ^1.0.6
   #  location: ^3.2.4
   #  geolocator: ^6.2.0
   #  geocoder: ^0.2.1
@@ -87,7 +87,6 @@ dependencies:
   timeago: ^2.0.29
   share: ^0.6.5+4
   like_button: ^1.0.4
-  qr_flutter: ^3.2.0
   onesignal_flutter: ^2.6.3
   slide_countdown_clock: ^1.0.3
   get_version: ^0.2.2

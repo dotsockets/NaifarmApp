@@ -7,7 +7,6 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
@@ -104,11 +103,11 @@ class DeliveryDropoffView extends StatelessWidget {
           SizedBox(
             height: 2.0.h,
           ),
-          QrImage(
-            data: "642345790",
-            version: QrVersions.auto,
-            size: 200.0,
-          ),
+          // QrImage(
+          //   data: "642345790",
+          //   version: QrVersions.auto,
+          //   size: 200.0,
+          // ),
           SizedBox(
             height: 2.0.h,
           ),

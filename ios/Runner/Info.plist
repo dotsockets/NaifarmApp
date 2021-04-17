@@ -50,12 +50,28 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSAppleMusicUsageDescription </key>
+	<string>This permission is not needed by the app, but it is required by an underlying API. If you see this dialog, contact us.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>would like to access your calender</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This is called Privacy - Camera Usage Description </string>
+	<key>NSContactsUsageDescription</key>
+	<string>Allow Contact Access</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app does not access your location.</string>
+	<key>NSLocationAlwaysUsageDescription </key>
+	<string>This app needs access to location when in the background</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>You will get zero benefit allowing this app accessing your location. You should never see this alert</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This is called Privacy - Microphone Usage Description</string>
+	<key>NSMotionUsageDescription</key>
+	<string>This app needs to be able to access your motion use</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This is called Privacy - Photo Library Usage Description</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>recognize speech</string>
 	<key>OneSignal_app_groups_key</key>
 	<string>group.com.naifarm.app.onesignal</string>
 	<key>OneSignal_disable_badge_clearing</key>

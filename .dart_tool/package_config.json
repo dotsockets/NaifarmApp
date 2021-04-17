@@ -320,6 +320,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_automation",
+      "rootUri": "file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_automation-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "flutter_bloc",
       "rootUri": "file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_bloc-6.1.3",
       "packageUri": "lib/",
@@ -472,18 +478,6 @@
     {
       "name": "google_fonts",
       "rootUri": "file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/google_fonts-1.1.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.3"
-    },
-    {
-      "name": "google_maps_flutter",
-      "rootUri": "file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.2.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.1"
-    },
-    {
-      "name": "google_maps_flutter_platform_interface",
-      "rootUri": "file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.3"
     },
@@ -800,18 +794,6 @@
       "languageVersion": "2.7"
     },
     {
-      "name": "qr",
-      "rootUri": "file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/qr-1.3.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.6"
-    },
-    {
-      "name": "qr_flutter",
-      "rootUri": "file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/qr_flutter-3.2.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.6"
-    },
-    {
       "name": "quiver",
       "rootUri": "file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-2.1.5",
       "packageUri": "lib/",
@@ -834,6 +816,12 @@
       "rootUri": "file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.22.6",
       "packageUri": "lib/",
       "languageVersion": "2.0"
+    },
+    {
+      "name": "screenshot",
+      "rootUri": "file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/screenshot-0.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.8"
     },
     {
       "name": "share",
@@ -1130,7 +1118,7 @@
       "languageVersion": "2.10"
     }
   ],
-  "generated": "2021-03-16T03:00:17.259040Z",
+  "generated": "2021-04-13T00:35:45.627614Z",
   "generator": "pub",
   "generatorVersion": "2.12.0"
 }

@@ -116,7 +116,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                             title: "3",
                             message:
                                 "เพื่อความรวดเร็วในการยืนยันการชำระเงินของท่าน ขอแนะนำให้ท่านอัพโหลดหลักฐานการชำระเงินที่ท่านได้รับจาก mobile banking application หรือ internet banking แทนการอัพโหลดหลักฐานประเภทอื่น ซึ่งอาจทำให้ตรวจสอบการชำระเงินล่าช้า"),
-                        buttonItem()
+                        buttonItem(systemRespone: systemRes)
                       ],
                     ),
                   ),
@@ -151,7 +151,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    systemRespone != null ? systemRespone.bankAccount : "",
+                     systemRespone.bankAccount ?? LocaleKeys.search_product_not_found.tr(),
                     style: FunctionHelper.fontTheme(
                         color: Colors.black,
                         fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -163,9 +163,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                   Text(
                     LocaleKeys.bank_accountName.tr() +
                         ": " +
-                        (systemRespone != null
-                            ? systemRespone.bankAccountName
-                            : ""),
+                        ( systemRespone.bankAccountName ?? LocaleKeys.search_product_not_found.tr()),
                     style: FunctionHelper.fontTheme(
                         color: Colors.black.withOpacity(0.5),
                         fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -189,9 +187,8 @@ class _TransferPayMentState extends State<TransferPayMent> {
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black.withOpacity(0.5))),
                               TextSpan(
-                                  text: systemRespone != null
-                                      ? systemRespone.bankAccountNumber
-                                      : "",
+                                  text:  systemRespone.bankAccountNumber
+                                      ?? LocaleKeys.search_product_not_found.tr(),
                                   style: FunctionHelper.fontTheme(
                                       fontSize:
                                           (SizeUtil.spanTitleFontSize()).sp,
@@ -336,7 +333,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
     );
   }
 
-  Widget buttonItem() {
+  Widget buttonItem({SystemRespone systemRespone}) {
     return Container(
       padding: EdgeInsets.all(3.0.h),
       width: MediaQuery.of(context).size.width,
@@ -359,14 +356,14 @@ class _TransferPayMentState extends State<TransferPayMent> {
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all(
-                  widget.orderData.orderStatusId == 2 && widget.orderData.itemCount == widget.orderData.items.length?ThemeColor.secondaryColor():Colors.grey,
+                  widget.orderData.orderStatusId == 1 && widget.orderData.itemCount == widget.orderData.items.length && systemRespone.bankAccountNumber!=null ?ThemeColor.secondaryColor():Colors.grey,
                 ),
                 overlayColor: MaterialStateProperty.all(
                   Colors.white.withOpacity(0.3),
                 ),
               ),
               onPressed: () {
-                if(widget.orderData.orderStatusId == 1 && widget.orderData.itemCount == widget.orderData.items.length){
+                if(widget.orderData.orderStatusId == 1 && widget.orderData.itemCount == widget.orderData.items.length && systemRespone.bankAccountNumber!=null){
                   captureImage(ImageSource.gallery);
                 }
 

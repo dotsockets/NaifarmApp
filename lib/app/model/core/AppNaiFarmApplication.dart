@@ -62,7 +62,7 @@ class AppNaiFarmApplication implements Application {
         }
       case EnvType.PRODUCTION:
         {
-          Log.setLevel(Level.INFO);
+          Log.setLevel(Level.ALL);
           break;
         }
     }
