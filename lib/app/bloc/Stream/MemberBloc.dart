@@ -177,8 +177,7 @@ class MemberBloc {
         break;
       case FacebookLoginStatus.error:
         //  onLoad.add(false);
-        onError.add(ThrowIfNoSuccess(
-            message: "Something went wrong with the login process."));
+        onError.add(ThrowIfNoSuccess(message: result.errorMessage));
         break;
     }
   }
@@ -353,8 +352,8 @@ class MemberBloc {
       {ModifyPasswordrequest data, String token}) async {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
-        .appStoreAPIRepository
-        .firstPassword(context, data: data, token: token))
+            .appStoreAPIRepository
+            .firstPassword(context, data: data, token: token))
         .listen((respone) {
       onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
