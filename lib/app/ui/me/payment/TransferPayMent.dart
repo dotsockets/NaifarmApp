@@ -151,7 +151,8 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                     systemRespone.bankAccount ?? LocaleKeys.search_product_not_found.tr(),
+                    (systemRespone == null ? "" : systemRespone.bankAccount) ??
+                        LocaleKeys.search_product_not_found.tr(),
                     style: FunctionHelper.fontTheme(
                         color: Colors.black,
                         fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -163,7 +164,10 @@ class _TransferPayMentState extends State<TransferPayMent> {
                   Text(
                     LocaleKeys.bank_accountName.tr() +
                         ": " +
-                        ( systemRespone.bankAccountName ?? LocaleKeys.search_product_not_found.tr()),
+                        ((systemRespone == null
+                                ? ""
+                                : systemRespone.bankAccountName) ??
+                            LocaleKeys.search_product_not_found.tr()),
                     style: FunctionHelper.fontTheme(
                         color: Colors.black.withOpacity(0.5),
                         fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -187,8 +191,10 @@ class _TransferPayMentState extends State<TransferPayMent> {
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black.withOpacity(0.5))),
                               TextSpan(
-                                  text:  systemRespone.bankAccountNumber
-                                      ?? LocaleKeys.search_product_not_found.tr(),
+                                  text: (systemRespone == null
+                                          ? ""
+                                          : systemRespone.bankAccountName) ??
+                                      LocaleKeys.search_product_not_found.tr(),
                                   style: FunctionHelper.fontTheme(
                                       fontSize:
                                           (SizeUtil.spanTitleFontSize()).sp,
@@ -209,7 +215,9 @@ class _TransferPayMentState extends State<TransferPayMent> {
                           ),
                         ),
                         onTap: () {
-                          FlutterClipboard.copy(systemRespone.bankAccountNumber)
+                          FlutterClipboard.copy((systemRespone == null
+                                  ? ""
+                                  : systemRespone.bankAccountName))
                               .then((value) {
                             FunctionHelper.snackBarShow(
                               scaffoldKey: _scaffoldKey,
@@ -356,17 +364,26 @@ class _TransferPayMentState extends State<TransferPayMent> {
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all(
-                  widget.orderData.orderStatusId == 1 && widget.orderData.itemCount == widget.orderData.items.length && systemRespone.bankAccountNumber!=null ?ThemeColor.secondaryColor():Colors.grey,
+                  widget.orderData.orderStatusId == 1 &&
+                          widget.orderData.itemCount ==
+                              widget.orderData.items.length &&
+                          systemRespone != null &&
+                          systemRespone.bankAccountNumber != null
+                      ? ThemeColor.secondaryColor()
+                      : Colors.grey,
                 ),
                 overlayColor: MaterialStateProperty.all(
                   Colors.white.withOpacity(0.3),
                 ),
               ),
               onPressed: () {
-                if(widget.orderData.orderStatusId == 1 && widget.orderData.itemCount == widget.orderData.items.length && systemRespone.bankAccountNumber!=null){
+                if (widget.orderData.orderStatusId == 1 &&
+                    widget.orderData.itemCount ==
+                        widget.orderData.items.length &&
+                    systemRespone != null &&
+                    systemRespone.bankAccountNumber != null) {
                   captureImage(ImageSource.gallery);
                 }
-
               },
               child: Text(
                 widget.orderData.image.length == 0
