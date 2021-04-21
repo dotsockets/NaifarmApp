@@ -520,14 +520,15 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-              "${LocaleKeys.recommend_notification.tr()}: ${LocaleKeys.cart_outstock.tr()}",
+          Text(LocaleKeys.noti_shop_outstock.tr(),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.black)),
           SizedBox(height: 0.5.h),
-          Text("${LocaleKeys.noti_shop_outstock.tr()}",
+          Text(
+              "${item.meta.inventoryTitle} " +
+                  LocaleKeys.noti_shop_outstock_detail.tr(),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.normal,
