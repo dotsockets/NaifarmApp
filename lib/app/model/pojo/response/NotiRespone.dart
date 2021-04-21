@@ -106,6 +106,10 @@ class Meta {
   String type;
   String paymentAt;
   String updateAt;
+  String inventoryId;
+  String inventoryTitle;
+  int stockQuantity;
+  int shopId;
 
   Meta({
     this.user,
@@ -123,6 +127,10 @@ class Meta {
     this.type,
     this.paymentAt,
     this.updateAt,
+    this.inventoryId,
+    this.inventoryTitle,
+    this.stockQuantity,
+    this.shopId,
   });
 
   Meta.fromJson(Map<String, dynamic> json) {
@@ -142,6 +150,10 @@ class Meta {
     type = json['type'];
     paymentAt = json['paymentAt'];
     updateAt = json['updateAt'];
+    inventoryId = json['inventory_id'];
+    inventoryTitle = json['inventory_title'];
+    stockQuantity = json['stock_quantity'];
+    shopId = json['shop_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -162,6 +174,10 @@ class Meta {
     data['type'] = this.type;
     data['paymentAt'] = this.paymentAt;
     data['updateAt'] = this.updateAt;
+    data['inventory_id'] = this.inventoryId;
+    data['inventory_title'] = this.inventoryTitle;
+    data['stock_quantity'] = this.stockQuantity;
+    data['shop_id'] = this.shopId;
     return data;
   }
 }
