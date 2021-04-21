@@ -193,7 +193,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                               TextSpan(
                                   text: (systemRespone == null
                                           ? ""
-                                          : systemRespone.bankAccountName) ??
+                                          : systemRespone.bankAccountNumber) ??
                                       LocaleKeys.search_product_not_found.tr(),
                                   style: FunctionHelper.fontTheme(
                                       fontSize:
