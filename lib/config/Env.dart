@@ -45,6 +45,7 @@ class Env {
           supportedLocales: [Locale('en', 'US'), Locale('th', 'TH')],
           path: 'resources/langs', // <-- change patch to your
           fallbackLocale: Locale('th', 'TH'),
+          startLocale: Locale('th', 'TH'),
           child: MultiBlocProvider(
             providers: [
               BlocProvider(
