@@ -113,7 +113,7 @@ import 'package:page_transition/page_transition.dart';
 
 class AppRoute {
   // static  home(BuildContext context){
-  //   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: HomeView()));
+  //   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeft, child: HomeView()));
   // }
 
   static Future<bool> productDetail(BuildContext context,
@@ -121,7 +121,7 @@ class AppRoute {
     return await Navigator.push(
         context,
         PageTransition(
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ProductDetailView(
               productImage: productImage,
               productItem: productItem,
@@ -133,7 +133,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: MarketView()));
   }
 
@@ -143,7 +143,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: FlashSaleView(
               flashsaleRespone: flashsaleRespone,
             )));
@@ -155,7 +155,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: MyCartView(
               btnBack: btnBack,
               cartNowId: cartNowId,
@@ -167,7 +167,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: NotiView(btnBack: btnBack)));
   }
 
@@ -176,7 +176,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: NotiDetailView(
               notiImage: notiImage,
               notiTitle: notiTitle,
@@ -189,7 +189,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: OrderView(
               orderData: orderData,
               typeView: typeView,
@@ -201,7 +201,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: CartSummaryView(item: item)));
   }
 
@@ -211,7 +211,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: CartAaddressView(
               installSelect: installSelect,
             )));
@@ -223,7 +223,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: CartBankView(
               paymentRespone: paymentRespone,AllShopID: AllShopID,
             )));
@@ -234,7 +234,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: DeliveryView()));
   }
 
@@ -243,32 +243,32 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: PaymentView()));
   }
 
   static myProduct(BuildContext context, int shopId,
       {bool pushEvent = false, int countPage = 1, int indexTab = 0}) {
     if (pushEvent) {
-      //  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView()));
+      //  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeft, child: MyProductView()));
       // Navigator.pop(context);
       poppageCount(context: context, countpage: countPage);
       Navigator.push(
           context,
           PageTransition(
               duration: Duration(milliseconds: 300),
-              type: PageTransitionType.fade,
+              type: PageTransitionType.rightToLeft,
               child: MyProductView(
                 shopId: shopId,
                 indexTab: indexTab,
               )));
-      // Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: MyProductView(shopId:shopId)));
+      // Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeft, child: MyProductView(shopId:shopId)));
     } else {
       Navigator.push(
           context,
           PageTransition(
               duration: Duration(milliseconds: 300),
-              type: PageTransitionType.fade,
+              type: PageTransitionType.rightToLeft,
               child: MyProductView(
                 shopId: shopId,
                 indexTab: indexTab,
@@ -282,7 +282,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ProductDetailShopView(
               productImage: productImage,
               productItem: productItem,
@@ -294,7 +294,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: MyNewProductView(
               shopId: shopId,
             )));
@@ -305,7 +305,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ShopMainView(
               myShopRespone: myShopRespone,
             )));
@@ -316,7 +316,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: FollowersView()));
   }
 
@@ -326,7 +326,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: DeliveryCostView(
               uploadProductStorage: uploadProductStorage,
               productsId: productsId,
@@ -339,7 +339,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: EditProductView(
               indexTab: indexTab,
               productId: index,
@@ -355,7 +355,7 @@ class AppRoute {
           context,
           PageTransition(
               duration: Duration(milliseconds: 300),
-              type: PageTransitionType.fade,
+              type: PageTransitionType.rightToLeft,
               child: ImageProductView(
                 isActive: isactive,
               )));
@@ -364,7 +364,7 @@ class AppRoute {
           context,
           PageTransition(
               duration: Duration(milliseconds: 300),
-              type: PageTransitionType.fade,
+              type: PageTransitionType.rightToLeft,
               child: ImageProductView(
                 isActive: isactive,
               )));
@@ -376,7 +376,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: WithdrawMoneyView()));
   }
 
@@ -386,7 +386,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: MyOrderHistoryView(
               index: index,
               callback: callback,
@@ -399,7 +399,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ShopOrderHistoryView(
               index: index,
               callback: callback,
@@ -411,7 +411,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ReviewView()));
   }
 
@@ -420,7 +420,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: MoneyOutView()));
   }
 
@@ -429,7 +429,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: RegisterView()));
   }
 
@@ -453,7 +453,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: LoginView(
               isCallBack: isCallBack,
               homeCallBack: homeCallBack,
@@ -466,7 +466,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: HelpView()));
   }
 
@@ -475,7 +475,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: RulesOfUseView()));
   }
 
@@ -484,7 +484,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: PolicyView()));
   }
 
@@ -493,7 +493,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: SettingProfileView()));
   }
 
@@ -502,7 +502,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: AboutView()));
   }
 
@@ -511,7 +511,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: AddressView()));
   }
 
@@ -520,7 +520,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: AddressAddView()));
   }
 
@@ -530,7 +530,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: RegisterOTPView(
                 requestOtp: requestOtp,
                 phoneNumber: phoneNumber,
@@ -542,7 +542,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: RegisterSetPasswordView(phone: phone,name: name,email: email,)));
   }
 
@@ -552,7 +552,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ForgotSetNewPasswordView(
               phone: phone,
               code: code,
@@ -565,7 +565,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: RegisterNameOtpView(phone: phone, password: password)));
   }
 
@@ -574,7 +574,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: RegisterFBView(
               email: email,
             )));
@@ -585,7 +585,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: LanguageSettingView()));
   }
 
@@ -600,7 +600,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: BankSettingView()));
   }
 
@@ -609,7 +609,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: NotiSettingView()));
   }
 
@@ -618,7 +618,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: EditProfileVIew()));
   }
 
@@ -628,7 +628,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: SettingEditProfileNameView(
               customerInfoRespone: customerInfoRespone,
             )));
@@ -640,7 +640,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: SettingEditProdileBioView(
               customerInfoRespone: customerInfoRespone,
             )));
@@ -652,7 +652,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child:
                 EditPhoneStep1View(customerInfoRespone: customerInfoRespone)));
   }
@@ -662,7 +662,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: BankAddView()));
   }
 
@@ -671,7 +671,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: CreditAddView()));
   }
 
@@ -681,7 +681,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: EditEmailStep1View(
               customerInfoRespone: customerInfoRespone,
             )));
@@ -693,7 +693,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: EditEmailStep2View(
               customerInfoRespone: customerInfoRespone,
             )));
@@ -704,7 +704,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: EditpasswordStep1View()));
   }
 
@@ -713,7 +713,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: EditpasswordStep2View(
               passwordOld: passwordOld,
             )));
@@ -724,7 +724,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: CategoryDetailView(
               index: index,
               title: title,
@@ -736,7 +736,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: CategorySubDetailView(
               index: index,
               title: title,
@@ -748,7 +748,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ShopMyNearView()));
   }
 
@@ -757,7 +757,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: SearchView()));
   }
 
@@ -766,7 +766,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: SearchMapView(
               locationTxt: locationTxt,
             )));
@@ -777,7 +777,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ProductAddTypeView()));
   }
 
@@ -786,7 +786,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ProductSetPriceView()));
   }
 
@@ -795,7 +795,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ForgotPasswordView()));
   }
 
@@ -809,7 +809,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ProductMoreView(
                 typeMore: typeMore,
                 barTxt: barTxt,
@@ -823,7 +823,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: AddressEditView(
               item: item,
             )));
@@ -834,7 +834,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ShopProfileView()));
   }
 
@@ -844,7 +844,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: EditNameShopView(
               itemInfo: itemInfo,
             )));
@@ -856,7 +856,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: OfficialNameView(
               itemInfo: itemInfo,
             )));
@@ -868,7 +868,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: EditSlugView(
               itemInfo: itemInfo,
             )));
@@ -880,7 +880,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: EditDetailView(
               itemInfo: itemInfo,
             )));
@@ -892,7 +892,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: EditExtrlUrlView(
               itemInfo: itemInfo,
             )));
@@ -904,7 +904,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: EditProviceView(
               itemInfo: itemInfo,
             )));
@@ -917,7 +917,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: DeliveryEditView(
               shppingMyShopRespone: shppingMyShopRespone,
               carriersData: carriersDat,
@@ -929,7 +929,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: WishlistsView()));
   }
 
@@ -942,7 +942,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ConnectErrorView(
               result: result,
               showFull: showFull,
@@ -955,7 +955,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: SplashView()));
   }
 
@@ -967,7 +967,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: EditImageProductView(
               productId: productId,
               uploadProductStorage: uploadProductStorage,
@@ -980,7 +980,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: DeliverySelectView(
               shopId: shopId,
               selectId: selectId,
@@ -993,7 +993,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: OrderSuccessView(
               paymentTotal: paymentTotal,
               orderData: orderData,
@@ -1012,7 +1012,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: SearchMyProduct(
               shopID: shopID,
               tabNum: tabNum,
@@ -1024,7 +1024,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: AttributeView()));
   }
 
@@ -1033,7 +1033,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: AttributeDetailView(idAttr: idAttr)));
   }
 
@@ -1042,7 +1042,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: AttributeEditView(nameAttr: nameAttr, idAttr: idAttr)));
   }
 
@@ -1052,7 +1052,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: AttributeDetailEditView(
                 idAttr: idAttr, value: value, color: color, vid: vid)));
   }
@@ -1063,7 +1063,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ImageFullScreen(
               image: image,
               heroTag: heroTag,
@@ -1075,7 +1075,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: TransferPayMent(
               orderData: orderData,
             )));
@@ -1087,7 +1087,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ConfirmPaymentView(
               orderData: orderData,
               contextMain: context,
@@ -1100,7 +1100,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: ShippingOrderView(
               orderData: orderData,
             )));
@@ -1111,7 +1111,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: DeliveryDropoffView()));
   }
 
@@ -1123,7 +1123,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: SellerCanceledView(
               orderData: orderData,
               typeView: typeView,
@@ -1136,7 +1136,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: AddtTrackingNumberView(orderData: orderData)));
   }
 
@@ -1146,7 +1146,7 @@ class AppRoute {
         context,
         PageTransition(
             duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
+            type: PageTransitionType.rightToLeft,
             child: OrderCancleView(orderData: orderData)));
   }
 }

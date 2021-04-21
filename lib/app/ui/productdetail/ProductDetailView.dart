@@ -391,19 +391,12 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   return FullScreenWidget(
                     backgroundIsTransparent: true,
                     child: Center(
-                      child: Hero(
-                        tag: widget.productImage,
-                        child:
-                            ProductSlide(imgList: item.producItemRespone.image),
-                      ),
+                      child: ProductSlide(imgList: item.producItemRespone.image),
                     ),
                   );
                 } else {
                   return widget.productItem.image != null
-                      ? Hero(
-                          tag: widget.productImage,
-                          child:
-                              ProductSlide(imgList: widget.productItem.image))
+                      ? ProductSlide(imgList: widget.productItem.image)
                       : SizedBox();
                 }
               }),
