@@ -121,7 +121,8 @@ class AppRoute {
     return await Navigator.push(
         context,
         PageTransition(
-            type: PageTransitionType.rightToLeft,
+            type: PageTransitionType.rightToLeftWithFade,
+            duration: Duration(milliseconds: 500),
             child: ProductDetailView(
               productImage: productImage,
               productItem: productItem,

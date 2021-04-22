@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/bash appbundle
 flutter clean
 flutter pub get
-flutter build apk --no-sound-null-safety  --build-name=0.0.6 --build-number=1 --flavor production  -t lib/config/Main_production.dart
+flutter build appbundle --no-sound-null-safety  --build-name=0.0.5 --build-number=5 --flavor production  -t lib/config/Main_production.dart
 cd android
 fastlane distribute_prod
 
