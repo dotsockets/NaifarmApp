@@ -141,12 +141,11 @@ class _ProductDetailViewState extends State<ProductDetailView>
             Future.delayed(const Duration(milliseconds: 500), () {
               FunctionHelper.alertDialogRetry(context,
                   title: LocaleKeys.btn_error.tr(),
-                  message:
-                      LocaleKeys.dialog_message_shop_close.tr(),
+                  message: LocaleKeys.dialog_message_shop_close.tr(),
                   callBack: () => _refreshProducts());
             });
           } else {
-           // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+            // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
             FunctionHelper.alertDialogShop(context,
                 title: LocaleKeys.btn_error.tr(), message: event.message);
           }
@@ -180,10 +179,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
           for (var data in value.item) {
             if (data.productObjectCombine.producItemRespone.id ==
                 widget.productItem.id) {
-              if(data.productObjectCombine.dataWishlists!=null){
-                print("ewfcerwfxxx ${data.productObjectCombine.dataWishlists.id}");
+              if (data.productObjectCombine.dataWishlists != null) {
+                print(
+                    "ewfcerwfxxx ${data.productObjectCombine.dataWishlists.id}");
               }
-
               bloc.zipProductDetail.add(data.productObjectCombine);
               bloc.searchProduct.add(data.searchRespone);
               break;
@@ -192,14 +191,15 @@ class _ProductDetailViewState extends State<ProductDetailView>
         }
 
         Usermanager().getUser().then((value) {
-          bloc.loadProductsPage(context,id: widget.productItem.id, token: value.token);
+          bloc.loadProductsPage(context,
+              id: widget.productItem.id, token: value.token);
         });
       });
     }
 
     NaiFarmLocalStorage.getCustomerInfo().then((value) {
       //  print("efcsdcx ${widget.productItem.shop.id}  ${value.myShopRespone.id}");
-      if (value.myShopRespone != null) {
+      if (value != null) {
         checkMyShop.add(value.myShopRespone.id);
       } else {
         checkMyShop.add(0);
@@ -391,12 +391,20 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   return FullScreenWidget(
                     backgroundIsTransparent: true,
                     child: Center(
-                      child: ProductSlide(imgList: item.producItemRespone.image),
+                      child: Hero(
+                        tag: widget.productImage,
+                        child:
+                            ProductSlide(imgList: item.producItemRespone.image),
+                      ),
                     ),
                   );
                 } else {
-                  return widget.productItem.image != null
-                      ? ProductSlide(imgList: widget.productItem.image)
+                  return widget.productItem.image != null && item != null
+                      ? Hero(
+                          tag: widget.productImage,
+                          child: ProductSlide(
+                              imgList: item.producItemRespone.image),
+                        )
                       : SizedBox();
                 }
               }),
@@ -488,13 +496,14 @@ class _ProductDetailViewState extends State<ProductDetailView>
                           }
                         },
                       ),
-                     // divider(),
+                      // divider(),
                       //  Reviewscore()
                     ],
                   );
                 } else {
                   return Container(
                     width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height - 30.0.h,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -714,8 +723,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
         item.data = <DataWishlists>[];
         item.total = 0;
         bloc.wishlists.add(item);
-        Usermanager().getUser().then((value) =>
-            bloc.deleteWishlists(context,productId: widget.productItem.id, wishId: id, token: value.token));
+        Usermanager().getUser().then((value) => bloc.deleteWishlists(context,
+            productId: widget.productItem.id, wishId: id, token: value.token));
       } else {
         Usermanager().getUser().then((value) => bloc.addWishlists(context,
             productId: widget.productItem.id,
