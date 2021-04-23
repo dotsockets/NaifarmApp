@@ -38,6 +38,8 @@ class AddressesData {
   String zipCode;
   String phone;
   bool select;
+  City city;
+  StateAddress state;
 
   AddressesData(
       {this.id,
@@ -49,7 +51,7 @@ class AddressesData {
       this.stateId,
       this.zipCode,
       this.phone,
-      this.select});
+      this.select, this.city,this.state});
 
   AddressesData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -61,6 +63,8 @@ class AddressesData {
     stateId = json['stateId'];
     zipCode = json['zipCode'];
     phone = json['phone'];
+    city = json['city'] != null ? new City.fromJson(json['city']) : null;
+    state = json['state'] != null ? new StateAddress.fromJson(json['state']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -74,6 +78,43 @@ class AddressesData {
     data['stateId'] = this.stateId;
     data['zipCode'] = this.zipCode;
     data['phone'] = this.phone;
+    return data;
+  }
+}
+class City {
+  int id;
+  String name;
+
+  City({this.id, this.name});
+
+  City.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    return data;
+  }
+}
+
+class StateAddress {
+  int id;
+  String name;
+
+  StateAddress({this.id, this.name});
+
+  StateAddress.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
     return data;
   }
 }

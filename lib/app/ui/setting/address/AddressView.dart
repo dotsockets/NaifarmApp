@@ -234,8 +234,7 @@ class _AddressViewState extends State<AddressView> {
                             color: Colors.grey,
                             height: 1.5),
                       ),
-                      Text(
-                        item.addressLine1,
+                    Text("${item.addressLine1} ${item.city.name} ${item.state.name} ${item.zipCode} ",
                         style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.grey,
