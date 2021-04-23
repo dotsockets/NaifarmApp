@@ -864,7 +864,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                           fontSize: SizeUtil.titleFontSize().sp,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black)),
-                                  Text("${value.addressLine1} ${value.zipCode}",
+                                  Text("${value.addressLine1} ${value.city.name} ${value.state.name} ${value.zipCode}  ",
                                       style: FunctionHelper.fontTheme(
                                           fontSize: SizeUtil.titleFontSize().sp,
                                           fontWeight: FontWeight.w500,
@@ -882,7 +882,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         ),
       ),
       onTap: () async {
-        final result = await AppRoute.cartAaddres(context,
+        final result = await AppRoute.cartAddres(context,
             installSelect: bloc.addressList.value.data.isNotEmpty
                 ? bloc.addressList.value.data[0]
                 : null);

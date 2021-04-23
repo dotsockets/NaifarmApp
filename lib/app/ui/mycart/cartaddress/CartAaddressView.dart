@@ -425,6 +425,8 @@ class _CartAaddressViewState extends State<CartAaddressView> {
               cityId: 1,
               phone: item.phone,
               select: true,
+              state: item.state,
+              city: item.city,
               stateId: item.stateId,
               zipCode: item.zipCode));
           break;

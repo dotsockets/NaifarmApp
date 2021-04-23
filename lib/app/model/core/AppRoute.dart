@@ -205,7 +205,7 @@ class AppRoute {
             child: CartSummaryView(item: item)));
   }
 
-  static Future<AddressesListRespone> cartAaddres(BuildContext context,
+  static Future<AddressesListRespone> cartAddres(BuildContext context,
       {AddressesData installSelect}) async {
     return await Navigator.push(
         context,
