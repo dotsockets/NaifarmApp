@@ -43,6 +43,8 @@ class ProductBloc {
   final onError = BehaviorSubject<ThrowIfNoSuccess>();
   final onSuccess = BehaviorSubject<Object>();
 
+  final isStatus = BehaviorSubject<Object>();
+
   final productPopular = BehaviorSubject<ProductRespone>();
   final categoryGroup = BehaviorSubject<CategoryGroupRespone>();
   final featuredGroup = BehaviorSubject<CategoryGroupRespone>();
@@ -57,6 +59,7 @@ class ProductBloc {
   final myShop = BehaviorSubject<MyShopRespone>();
   final wishlists = BehaviorSubject<WishlistsRespone>();
   final bayNow = <ProductData>[];
+
 
   final zipProductDetail = BehaviorSubject<ProductObjectCombine>();
 
@@ -435,6 +438,7 @@ class ProductBloc {
             });
           }
         });
+        isStatus.add(false);
       } else {
         onError.add(respone.httpCallBack);
       }
@@ -449,6 +453,7 @@ class ProductBloc {
                 inventoryId: inventoryId, productId: productId, token: token))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
+
         // GetMyWishlists(token: token); GetWishlistsByProduct
         var item = (respone.respone as DataWishlists);
         ProducItemRespone tempProductItem = ProducItemRespone();
@@ -480,7 +485,7 @@ class ProductBloc {
             });
           }
         });
-
+        isStatus.add(true);
         //  onSuccess.add(true);
       } else {
         onError.add(respone.httpCallBack);
@@ -970,8 +975,7 @@ class ProductBloc {
             .getCustomerCount(context, token: token))
         .listen((respone) {
       // print("esfwcersfc ${respone.http_call_back.status}");
-      if (respone.httpCallBack.status == 200 ||
-          respone.httpCallBack.status == 401) {
+      if (respone.httpCallBack.status == 200 || respone.httpCallBack.status == 401 || respone.httpCallBack.status == 406) {
         onSuccess.add(true);
       } else {
         onError.add(respone.httpCallBack);

@@ -122,6 +122,7 @@ class AppRoute {
         context,
         PageTransition(
             type: PageTransitionType.fade,
+            duration: Duration(milliseconds: 300),
             child: ProductDetailView(
               productImage: productImage,
               productItem: productItem,

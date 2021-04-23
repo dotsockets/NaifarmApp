@@ -33,11 +33,12 @@ class ProductInto extends StatelessWidget {
       this.showBtn = true})
       : super(key: key);
   ProductBloc bloc;
-  bool isLogin = true;
+  bool isLogin = false;
 
   void _init(BuildContext context) {
+    iSLogin();
     if (null == bloc) {
-      iSLogin();
+
       bloc = ProductBloc(AppProvider.getApplication(context));
       //bloc.ProductItem.add(widget.productItem);
       bloc.onError.stream.listen((event) {
@@ -58,11 +59,13 @@ class ProductInto extends StatelessWidget {
         bloc.wishlists.add(WishlistsRespone(data: [dataWishlist], total: 1));
       }
 
-      // bloc.wishlists.stream.listen((event) {
-      //   Usermanager().getUser().then((value) => context
-      //       .read<CustomerCountBloc>()
-      //       .loadCustomerCount(context, token: value.token));
-      // });
+      bloc.isStatus.stream.listen((event) {
+        if(event){
+          FunctionHelper.snackBarShow(context: context,scaffoldKey: scaffoldKey,message: LocaleKeys.my_product_islike.tr());
+        }else{
+          FunctionHelper.snackBarShow(context: context,scaffoldKey: scaffoldKey,message: LocaleKeys.my_product_unlike.tr());
+        }
+      });
 
     }
   }
@@ -185,23 +188,24 @@ class ProductInto extends StatelessWidget {
                         stream: bloc.wishlists.stream,
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.hasData &&
-                              (snapshot.data as WishlistsRespone) != null) {
-                            if ((snapshot.data as WishlistsRespone).total > 0) {
-                              return likeContent(
-                                  item: snapshot.data, context: context);
-                            } else {
-                              return isLogin
-                                  ? likeContent(
-                                      item: snapshot.data, context: context)
-                                  : likeContentNoLogin(context);
-                            }
-                          } else {
-                            return isLogin
-                                ? likeContent(
-                                    item: WishlistsRespone(), context: context)
-                                : likeContentNoLogin(context);
-                          }
+                           if(isLogin){
+                             if (snapshot.hasData &&
+                                 (snapshot.data as WishlistsRespone) != null) {
+                               if ((snapshot.data as WishlistsRespone).total > 0) {
+                                 return likeContent(
+                                     item: snapshot.data, context: context);
+                               } else {
+                                 return likeContent(
+                                     item: snapshot.data, context: context);
+                               }
+                             } else {
+                               return likeContent(
+                                   item: WishlistsRespone(), context: context);
+                             }
+                           }else{
+                             return likeContentNoLogin(context);
+                           }
+
                         },
                       )
                     : SizedBox(),
@@ -260,6 +264,7 @@ class ProductInto extends StatelessWidget {
 
   Future<bool> onLikeButtonTapped(
       bool isLiked, WishlistsRespone item, BuildContext context) async {
+
     if (item.total > 0) {
       int id = item.data[0].id;
       item.data = <DataWishlists>[];

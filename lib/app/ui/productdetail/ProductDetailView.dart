@@ -637,7 +637,9 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 AppRoute.login(context,
                                     isCallBack: true,
                                     isHeader: true,
-                                    homeCallBack: (bool fix) {});
+                                    homeCallBack: (bool fix) {
+                                       //print("wefcrewfcrefc $fix");
+                                    });
                               }
                             },
                           ),

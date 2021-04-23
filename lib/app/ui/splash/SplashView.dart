@@ -66,6 +66,7 @@ class _SplashViewState extends State<SplashView>
           .getUser()
           .then((value) => bloc.loadCustomerCount(context, token: value.token));
       bloc.onError.stream.listen((event) {
+
         Future.delayed(const Duration(milliseconds: 1000), () {
           AppRoute.connectError(
               context: context, result: event, showFull: true);
