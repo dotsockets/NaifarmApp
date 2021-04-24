@@ -70,7 +70,7 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
         }
 
         emit(CustomerCountLoaded((event.respone as CustomerCountRespone)));
-      } else if (event.httpCallBack.status == 401) {
+      } else if (event.httpCallBack.status == 401 || event.httpCallBack.status == 406) {
         NaiFarmLocalStorage.saveCustomerCuse(null);
         emit(CustomerCountError(CustomerCountRespone()));
       } else {

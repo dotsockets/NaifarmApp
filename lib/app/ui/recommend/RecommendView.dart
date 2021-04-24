@@ -39,6 +39,8 @@ import 'widget/RecommendMenu.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
+
+
 class RecommendView extends StatefulWidget {
   final Size size;
   final double paddingBottom;
@@ -285,6 +287,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           productRespone: item.productRespone,
           titleInto: LocaleKeys.recommend_best_seller.tr(),
           producViewModel: ProductViewModel().getBestSaller(),
+
           iconInto: 'assets/images/svg/product_hot.svg',
           onSelectMore: () {
             AppRoute.productMore(

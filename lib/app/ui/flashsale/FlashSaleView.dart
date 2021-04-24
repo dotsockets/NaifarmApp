@@ -47,7 +47,7 @@ class _FlashSaleState extends State<FlashSale> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: SizeUtil.sizedBoxHeight().h),
-              Center(child: _textSale(context: context)),
+             // Center(child: _textSale(context: context)),
               SizedBox(height: SizeUtil.paddingBox().h),
               onFlashSale ? _flashProduct(context) : SizedBox(),
               SizedBox(height: SizeUtil.paddingBox().h),

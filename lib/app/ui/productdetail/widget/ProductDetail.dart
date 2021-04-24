@@ -105,7 +105,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     Text(
                       widget.productItem.shop.state != null
                           ? "${widget.productItem.shop.state.name}"
-                          : "จังหวัดไม่ถูกต้อง",
+                          : "-",
                       style: FunctionHelper.fontTheme(
                           fontWeight: FontWeight.w500,
                           color: Colors.black,

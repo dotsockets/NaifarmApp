@@ -168,6 +168,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
         if (event is CartResponse) {
           // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
           //animationController.forward();
+          FunctionHelper.snackBarShow(context: context,scaffoldKey: _scaffoldKey,message: LocaleKeys.my_product_addcart.tr());
         } else if (event is bool) {
           AppRoute.myCart(context, true, cartNowId: bloc.bayNow);
           // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
@@ -179,10 +180,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
           for (var data in value.item) {
             if (data.productObjectCombine.producItemRespone.id ==
                 widget.productItem.id) {
-              if (data.productObjectCombine.dataWishlists != null) {
-                print(
-                    "ewfcerwfxxx ${data.productObjectCombine.dataWishlists.id}");
-              }
+              // if (data.productObjectCombine.dataWishlists != null) {
+              //   print(
+              //       "ewfcerwfxxx ${data.productObjectCombine.dataWishlists.id}");
+              // }
               bloc.zipProductDetail.add(data.productObjectCombine);
               bloc.searchProduct.add(data.searchRespone);
               break;
@@ -298,6 +299,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                 child: Stack(
                   children: [
                     SingleChildScrollView(
+                      physics : ClampingScrollPhysics(),
                       controller: trackingScrollController,
                       child: Column(
                         children: [
@@ -391,20 +393,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   return FullScreenWidget(
                     backgroundIsTransparent: true,
                     child: Center(
-                      child: Hero(
-                        tag: widget.productImage,
-                        child:
-                            ProductSlide(imgList: item.producItemRespone.image),
-                      ),
+                      child: ProductSlide(imgList: item.producItemRespone.image),
                     ),
                   );
                 } else {
                   return widget.productItem.image != null && item != null
-                      ? Hero(
-                          tag: widget.productImage,
-                          child: ProductSlide(
-                              imgList: item.producItemRespone.image),
-                        )
+                      ? ProductSlide(
+                          imgList: item.producItemRespone.image)
                       : SizedBox();
                 }
               }),
@@ -419,7 +414,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
                           ? ProductInto(
                               data: item.producItemRespone,
                               dataWishlist: item.dataWishlists,
-                              scaffoldKey: _scaffoldKey)
+                              scaffoldKey: _scaffoldKey,isLogin: isLogin,callback_login: (){
+                        iSLogin();
+                        Usermanager().getUser().then((value) {
+                          bloc.loadProductsPage(context,
+                              id: widget.productItem.id, token: value.token);
+                        });
+                      })
                           : SizedBox(),
                       widget.productItem.image != null ? divider() : SizedBox(),
                       // BuildChoosesize(

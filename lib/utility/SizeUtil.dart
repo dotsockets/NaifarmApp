@@ -197,7 +197,7 @@ class SizeUtil {
   }
 
   static double sizedBoxHeight() {
-    return Device.get().isPhone ? 6.5 : 4.5;
+    return Device.get().isPhone ? 5.0 : 4.5;
   }
 
   static double tabBarHeight() {

@@ -54,7 +54,7 @@ class FunctionHelper {
         content: Text(message,
             style: FunctionHelper.fontTheme(
                 fontWeight: FontWeight.w500, color: Colors.white)),
-        duration: Duration(seconds: 3),
+        duration: Duration(seconds: 1),
         action: SnackBarAction(
           textColor: Colors.white,
           label: "Ok",

@@ -24,19 +24,20 @@ class ProductInto extends StatelessWidget {
   final DataWishlists dataWishlist;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool showBtn;
+  final bool isLogin;
+  final Function() callback_login;
 
   ProductInto(
       {Key key,
       this.data,
       this.dataWishlist,
       this.scaffoldKey,
-      this.showBtn = true})
+      this.showBtn = true,this.callback_login,this.isLogin})
       : super(key: key);
   ProductBloc bloc;
-  bool isLogin = false;
 
   void _init(BuildContext context) {
-    iSLogin();
+
     if (null == bloc) {
 
       bloc = ProductBloc(AppProvider.getApplication(context));
@@ -70,7 +71,6 @@ class ProductInto extends StatelessWidget {
     }
   }
 
-  void iSLogin() async => isLogin = await Usermanager().isLogin();
 
   @override
   Widget build(BuildContext context) {
@@ -231,7 +231,11 @@ class ProductInto extends StatelessWidget {
       onTap: () {
         AppRoute.login(context, isCallBack: true, isHeader: true,
             homeCallBack: (bool fix) {
-          iSLogin();
+          if(fix){
+            callback_login();
+          }
+
+         // iSLogin();
         });
       },
     );

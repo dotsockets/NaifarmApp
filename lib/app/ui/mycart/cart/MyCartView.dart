@@ -49,7 +49,6 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CartBloc bloc;
   NotiBloc blocNoti;
-  List<ProductData> cartNowIdTemp = <ProductData>[];
 
 //    CartRequest cartReq = CartRequest();
 
@@ -58,9 +57,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
 
   void _init() {
     if (null == bloc && blocNoti == null) {
-      if (widget.cartNowId != null && widget.cartNowId.isNotEmpty) {
-        cartNowIdTemp.addAll(widget.cartNowId);
-      }
+
       bloc = CartBloc(AppProvider.getApplication(context));
       blocNoti = NotiBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
@@ -81,11 +78,17 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       });
       bloc.cartList.stream.listen((event) {
         if (event is CartResponse) {
-          widget.cartNowId = <ProductData>[];
+          if(widget.cartNowId.isNotEmpty){
+            widget.cartNowId = <ProductData>[];
+            FunctionHelper.snackBarShow(context: context,scaffoldKey: _scaffoldKey,message: LocaleKeys.my_product_addcart.tr());
+          }
+
         }
       });
       bloc.onSuccess.stream.listen((event) {
         //  cartReq = event;
+
+
         if (event is bool) {
           Usermanager().getUser().then((value) => context
               .read<CustomerCountBloc>()
