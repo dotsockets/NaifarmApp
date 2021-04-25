@@ -360,13 +360,15 @@ class _CartAaddressViewState extends State<CartAaddressView> {
             addressLine2: item.addressLine2,
             addressTitle: item.addressTitle,
             addressType: "Primary",
+            state: item.state,
+            city: item.city,
             cityId: 1,
             phone: item.phone,
             select: true,
             stateId: item.stateId,
             zipCode: item.zipCode));
-        Navigator.pop(context,
-            AddressesListRespone(data: returnData, total: returnData.length));
+        Navigator.pop(context, AddressesListRespone(data: returnData, total: returnData.length));
+       // print("wefcew ");
       },
     );
   }
@@ -432,8 +434,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
           break;
         }
       }
-      Navigator.pop(context,
-          AddressesListRespone(data: returnData, total: returnData.length));
+      Navigator.pop(context, AddressesListRespone(data: returnData, total: returnData.length));
     } else {
       Navigator.pop(context, AddressesListRespone());
     }

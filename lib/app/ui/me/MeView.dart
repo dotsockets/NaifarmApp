@@ -146,6 +146,7 @@ class _MeViewState extends State<MeView> with RouteAware {
           return LoginView(
             isHeader: false,
             homeCallBack: (bool fix) {
+              isLogin = fix;
               Navigator.of(context).pop();
 
               // Usermanager().getUser().then((value){
@@ -174,6 +175,8 @@ class _MeViewState extends State<MeView> with RouteAware {
               onPressed: () async {
                 // ignore: unused_local_variable
                 final result = await AppRoute.settingProfile(context);
+                isLogin = false;
+
               },
             ),
           ),
@@ -335,7 +338,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                         if (status) {
                           if (status) {
                             // _reload.add(true);
-                            // IsLogin = false;
+                            isLogin = false;
                           }
                         }
                       },

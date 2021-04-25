@@ -78,7 +78,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       });
       bloc.cartList.stream.listen((event) {
         if (event is CartResponse) {
-          if(widget.cartNowId.isNotEmpty){
+          if(widget.cartNowId !=null && widget.cartNowId.isNotEmpty){
             widget.cartNowId = <ProductData>[];
             FunctionHelper.snackBarShow(context: context,scaffoldKey: _scaffoldKey,message: LocaleKeys.my_product_addcart.tr());
           }

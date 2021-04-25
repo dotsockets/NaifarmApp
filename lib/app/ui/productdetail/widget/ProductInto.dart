@@ -175,6 +175,7 @@ class ProductInto extends StatelessWidget {
                   onTap: () {
                     Share.share(
                         '${Env.value.baseUrlWeb}/${data.name}-i.${data.id}');
+                  //  print("rwefv ${Env.value.baseUrlWeb}/${data.name}-i.${data.id}");
                     // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                   },
                 ),
