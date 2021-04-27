@@ -405,40 +405,13 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget buildHeader(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.only(bottom: 3.5.h),
-        width: MediaQuery.of(context).size.width,
-        // decoration: BoxDecoration(
-        //   color: ThemeColor.primaryColor(),
-        //   borderRadius: BorderRadius.only(bottomRight:  Radius.circular(20.0.w),bottomLeft: Radius.circular(20.0.w)),
-        // ),
-        child: Column(
-          children: [
-            Text(
-              "NaiFarm",
-              style: FunctionHelper.fontTheme(
-                  color: Colors.white,
-                  fontSize: SizeUtil.appNameFontSize().sp,
-                  fontWeight: FontWeight.w500),
-            ),
-          ],
-        ));
-  }
-
-  Widget buildBar(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: ThemeColor.primaryColor(),
-        borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(15.0.w),
-            bottomLeft: Radius.circular(15.0.w)),
-      ),
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          widget.isHeader
-              ? Container(
+    return Stack(
+      children: [
+        widget.isHeader
+            ? Positioned(
+                left: 2.0.w,
+                bottom: 2.0.h,
+                child: Container(
                   margin: EdgeInsets.only(left: 2.0.w, top: 2.0.w),
                   child: IconButton(
                     icon: Icon(
@@ -451,13 +424,56 @@ class _LoginViewState extends State<LoginView> {
                       Navigator.pop(context, false);
                     },
                   ),
-                )
-              : SizedBox(
-                  height: 1.5.h,
                 ),
-          buildHeader(context),
-        ],
+              )
+            : SizedBox(
+                height: 1.5.h,
+              ),
+        Container(
+          padding: EdgeInsets.only(bottom: 3.5.h),
+          width: MediaQuery.of(context).size.width,
+          // decoration: BoxDecoration(
+          //   color: ThemeColor.primaryColor(),
+          //   borderRadius: BorderRadius.only(bottomRight:  Radius.circular(20.0.w),bottomLeft: Radius.circular(20.0.w)),
+          // ),
+          child: Column(
+            children: [
+              Text(
+                "NaiFarm",
+                style: FunctionHelper.fontTheme(
+                    color: Colors.white,
+                    fontSize: SizeUtil.appNameFontSize().sp,
+                    fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          right: 2.0.w,
+          bottom: 3.0.h,
+          child: IconButton(
+            icon: Icon(Icons.settings,
+                color: Colors.white, size: SizeUtil.iconLargeSize().w),
+            onPressed: () async {
+              // ignore: unused_local_variable
+              final result = await AppRoute.settingGuest(context);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildBar(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: ThemeColor.primaryColor(),
+        borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(15.0.w),
+            bottomLeft: Radius.circular(15.0.w)),
       ),
+      width: MediaQuery.of(context).size.width,
+      child: buildHeader(context),
     );
   }
 

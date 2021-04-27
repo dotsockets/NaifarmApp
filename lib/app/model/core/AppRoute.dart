@@ -88,6 +88,7 @@ import 'package:naifarm/app/ui/setting/addressEdit/AddressEditView.dart';
 import 'package:naifarm/app/ui/setting/bank/BankSettingView.dart';
 import 'package:naifarm/app/ui/setting/bankadd/BankAddView.dart';
 import 'package:naifarm/app/ui/setting/creditcardadd/CreditAddView.dart';
+import 'package:naifarm/app/ui/setting/guestSetting/SettingGuestView.dart';
 import 'package:naifarm/app/ui/setting/help/HelpView.dart';
 import 'package:naifarm/app/ui/setting/language/LanguageSettingView.dart';
 import 'package:naifarm/app/ui/setting/noti/NotiSettingView.dart';
@@ -1156,5 +1157,14 @@ class AppRoute {
             duration: Duration(milliseconds: 300),
             type: PageTransitionType.rightToLeftWithFade,
             child: OrderCancleView(orderData: orderData)));
+  }
+
+  static Future<bool> settingGuest(BuildContext context) async {
+    return await Navigator.push(
+        context,
+        PageTransition(
+            duration: Duration(milliseconds: 300),
+            type: PageTransitionType.fade,
+            child: SettingGuestView()));
   }
 }
