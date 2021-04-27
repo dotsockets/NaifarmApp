@@ -19,6 +19,10 @@ class SizeUtil {
     return Device.get().isPhone ? 9.5 : 5.5;
   }
 
+  static double titleMeduimFontSize() {
+    return Device.get().isPhone ? 10.5 : 6.5;
+  }
+
   static double titleSmallFontSize() {
     return Device.get().isPhone ? 9.0 : 5.0;
   }
@@ -30,6 +34,7 @@ class SizeUtil {
   static double spanTitleSmallFontSize() {
     return Device.get().isPhone ? 9.0 : 6.0;
   }
+
   static double detailFontSize() {
     return Device.get().isPhone ? 8 : 4.5;
   }
@@ -151,7 +156,6 @@ class SizeUtil {
     return Device.get().isPhone ? 8 : 20;
   }
 
-
   static double tabMenuHeight() {
     return Device.get().isPhone ? 9.0 : 5.8;
   }
@@ -170,6 +174,10 @@ class SizeUtil {
 
   static double imgProfileSize() {
     return Device.get().isPhone ? 19.0 : 12.0;
+  }
+
+  static double mediumImgProfileSize() {
+    return Device.get().isPhone ? 14.0 : 7.0;
   }
 
   static double headerHeight() {

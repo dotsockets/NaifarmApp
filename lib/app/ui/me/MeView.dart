@@ -147,12 +147,6 @@ class _MeViewState extends State<MeView> with RouteAware {
             isHeader: false,
             homeCallBack: (bool fix) {
               Navigator.of(context).pop();
-
-              // Usermanager().getUser().then((value){
-              //
-              //   bloc.MarkAsReadNotifications(token: value.token);
-              //   //_reload.add(true);
-              // });
             },
           );
         }
@@ -391,8 +385,11 @@ class _MeViewState extends State<MeView> with RouteAware {
                           width: SizeUtil.imgProfileSize().w,
                           height: SizeUtil.imgProfileSize().w,
                           color: Colors.white,
-                          child: Lottie.asset('assets/json/loading.json',
-                            height: SizeUtil.imgProfileSize().w,width: SizeUtil.imgProfileSize().w,),
+                          child: Lottie.asset(
+                            'assets/json/loading.json',
+                            height: SizeUtil.imgProfileSize().w,
+                            width: SizeUtil.imgProfileSize().w,
+                          ),
                         ),
                         fit: BoxFit.cover,
                         imageUrl: info != null
