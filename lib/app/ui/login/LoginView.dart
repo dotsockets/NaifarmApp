@@ -418,24 +418,20 @@ class _LoginViewState extends State<LoginView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               widget.isHeader
-                  ? Positioned(
-                      left: 2.0.w,
-                      bottom: 2.0.h,
-                      child: Container(
-                        margin: EdgeInsets.only(left: 2.0.w, top: 2.0.w),
-                        child: IconButton(
-                          icon: Icon(
-                            Platform.isAndroid
-                                ? Icons.arrow_back
-                                : Icons.arrow_back_ios_rounded,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context, false);
-                          },
-                        ),
+                  ? Container(
+                    margin: EdgeInsets.only(left: 2.0.w, top: 2.0.w),
+                    child: IconButton(
+                      icon: Icon(
+                        Platform.isAndroid
+                            ? Icons.arrow_back
+                            : Icons.arrow_back_ios_rounded,
+                        color: Colors.white,
                       ),
-                    )
+                      onPressed: () {
+                        Navigator.pop(context, false);
+                      },
+                    ),
+                  )
                   : SizedBox(
                       height: 1.5.h,
                     ),
