@@ -528,7 +528,9 @@ class _NotiShopState extends State<NotiShop>
           SizedBox(height: 0.5.h),
           Text(
               "${item.meta.inventoryTitle} " +
-                  LocaleKeys.noti_shop_outstock_detail.tr(),
+                  (lang == "ภาษาไทย"
+                      ? LocaleKeys.noti_shop_outstock_detail.tr()
+                      : LocaleKeys.noti_shop_outstock.tr()),
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   fontWeight: FontWeight.normal,

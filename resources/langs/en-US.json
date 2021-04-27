@@ -426,7 +426,7 @@
     "shop_status": "Status",
     "shop_open": "Open a new shop",
     "shop_open_detail": "has been opened the shop",
-    "shop_outstock":"out of stock",
+    "shop_outstock":"Inventory Stock Out",
     "shop_outstock_detail":"is sold out. Replenish stock or list another?",
     "shop_live":"Shop is Live",
     "downformaintainace":"Shop Maintainace",
