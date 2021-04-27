@@ -405,62 +405,64 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget buildHeader(BuildContext context) {
-    return Stack(
-      children: [
-        widget.isHeader
-            ? Positioned(
-                left: 2.0.w,
-                bottom: 2.0.h,
-                child: Container(
-                  margin: EdgeInsets.only(left: 2.0.w, top: 2.0.w),
-                  child: IconButton(
-                    icon: Icon(
-                      Platform.isAndroid
-                          ? Icons.arrow_back
-                          : Icons.arrow_back_ios_rounded,
-                      color: Colors.white,
+    return Container(
+      padding: EdgeInsets.only(bottom: 3.5.h),
+      width: MediaQuery.of(context).size.width,
+      // decoration: BoxDecoration(
+      //   color: ThemeColor.primaryColor(),
+      //   borderRadius: BorderRadius.only(bottomRight:  Radius.circular(20.0.w),bottomLeft: Radius.circular(20.0.w)),
+      // ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              widget.isHeader
+                  ? Positioned(
+                      left: 2.0.w,
+                      bottom: 2.0.h,
+                      child: Container(
+                        margin: EdgeInsets.only(left: 2.0.w, top: 2.0.w),
+                        child: IconButton(
+                          icon: Icon(
+                            Platform.isAndroid
+                                ? Icons.arrow_back
+                                : Icons.arrow_back_ios_rounded,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context, false);
+                          },
+                        ),
+                      ),
+                    )
+                  : SizedBox(
+                      height: 1.5.h,
                     ),
-                    onPressed: () {
-                      Navigator.pop(context, false);
-                    },
-                  ),
+              Positioned(
+                right: 2.0.w,
+                bottom: 2.0.h,
+                child: IconButton(
+                  padding: EdgeInsets.only(right: 2.0.w, top: 2.0.w),
+                  icon: Icon(Icons.settings,
+                      color: Colors.white, size: SizeUtil.iconLargeSize().w),
+                  onPressed: () async {
+                    // ignore: unused_local_variable
+                    final result = await AppRoute.settingGuest(context);
+                  },
                 ),
               )
-            : SizedBox(
-                height: 1.5.h,
-              ),
-        Container(
-          padding: EdgeInsets.only(bottom: 3.5.h),
-          width: MediaQuery.of(context).size.width,
-          // decoration: BoxDecoration(
-          //   color: ThemeColor.primaryColor(),
-          //   borderRadius: BorderRadius.only(bottomRight:  Radius.circular(20.0.w),bottomLeft: Radius.circular(20.0.w)),
-          // ),
-          child: Column(
-            children: [
-              Text(
-                "NaiFarm",
-                style: FunctionHelper.fontTheme(
-                    color: Colors.white,
-                    fontSize: SizeUtil.appNameFontSize().sp,
-                    fontWeight: FontWeight.w500),
-              ),
             ],
           ),
-        ),
-        Positioned(
-          right: 2.0.w,
-          bottom: 3.0.h,
-          child: IconButton(
-            icon: Icon(Icons.settings,
-                color: Colors.white, size: SizeUtil.iconLargeSize().w),
-            onPressed: () async {
-              // ignore: unused_local_variable
-              final result = await AppRoute.settingGuest(context);
-            },
+          Text(
+            "NaiFarm",
+            style: FunctionHelper.fontTheme(
+                color: Colors.white,
+                fontSize: SizeUtil.appNameFontSize().sp,
+                fontWeight: FontWeight.w500),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -32,11 +34,31 @@ class SettingGuestView extends StatelessWidget {
       color: Colors.grey.shade300,
       child: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            appBar(context),
             header(context),
             content(context),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget appBar(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      color: ThemeColor.primaryColor(),
+      child: IconButton(
+        padding: EdgeInsets.only(left: 5.0.w),
+        alignment: Alignment.centerLeft,
+        icon: Icon(
+          Platform.isAndroid ? Icons.arrow_back : Icons.arrow_back_ios_rounded,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          Navigator.pop(context, false);
+        },
       ),
     );
   }
@@ -47,7 +69,7 @@ class SettingGuestView extends StatelessWidget {
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.fromLTRB(3.0.w, 3.0.h, 2.0.w, 3.5.h),
+          padding: EdgeInsets.fromLTRB(3.0.w, 2.0.w, 2.0.w, 3.5.h),
           color: ThemeColor.primaryColor(),
           child: Row(
             children: [
@@ -68,7 +90,7 @@ class SettingGuestView extends StatelessWidget {
           ),
         ),
         Container(
-          padding: EdgeInsets.fromLTRB(2.0.w, 3.0.h, 2.0.w, 3.5.h),
+          padding: EdgeInsets.fromLTRB(2.0.w, 2.0.w, 2.0.w, 3.5.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
