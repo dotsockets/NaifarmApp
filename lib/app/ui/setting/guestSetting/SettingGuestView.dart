@@ -17,20 +17,26 @@ class SettingGuestView extends StatelessWidget {
         new GlobalKey<ScaffoldState>();
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.grey.shade300,
-      body: SafeArea(
-        child: body(context),
+      body: Container(
+        color: ThemeColor.primaryColor(),
+        child: SafeArea(
+          bottom: false,
+          child: body(context),
+        ),
       ),
     );
   }
 
   Widget body(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          header(context),
-          content(context),
-        ],
+    return Container(
+      color: Colors.grey.shade300,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            header(context),
+            content(context),
+          ],
+        ),
       ),
     );
   }
@@ -41,7 +47,7 @@ class SettingGuestView extends StatelessWidget {
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.fromLTRB(2.0.w, 3.0.h, 2.0.w, 3.5.h),
+          padding: EdgeInsets.fromLTRB(3.0.w, 3.0.h, 2.0.w, 3.5.h),
           color: ThemeColor.primaryColor(),
           child: Row(
             children: [
