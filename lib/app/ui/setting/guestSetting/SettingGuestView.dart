@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
@@ -15,6 +16,7 @@ class SettingGuestView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   // NaiFarmLocalStorage.saveNowPage(4);
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
     return Scaffold(
@@ -115,9 +117,7 @@ class SettingGuestView extends StatelessWidget {
                   ),
                   onPressed: () => AppRoute.login(context,
                       isHeader: true,
-                      isCallBack: true, homeCallBack: (bool fix) {
-                    Navigator.of(context).pop();
-                  }),
+                      isCallBack: false,isSetting: false),
                   child: Text(
                     LocaleKeys.btn_login.tr(),
                     style: FunctionHelper.fontTheme(
@@ -178,9 +178,7 @@ class SettingGuestView extends StatelessWidget {
           title: LocaleKeys.me_title_history.tr(),
           iconSize: 7.0.w,
           onClick: () => AppRoute.login(context,
-              isHeader: true, isCallBack: true, homeCallBack: (bool fix) {
-            Navigator.of(context).pop();
-          }),
+              isHeader: true, isCallBack: false,isSetting: false),
         ),
         divider(),
         ListMenuItem(
@@ -188,10 +186,9 @@ class SettingGuestView extends StatelessWidget {
             title: LocaleKeys.me_title_likes.tr(),
             message: "",
             iconSize: 7.0.w,
-            onClick: () => AppRoute.login(context,
-                    isHeader: true, isCallBack: true, homeCallBack: (bool fix) {
-                  Navigator.of(context).pop();
-                })),
+          onClick: () => AppRoute.login(context,
+              isHeader: true, isCallBack: false,isSetting: false),
+        ),
         divider(),
         menuTitle(LocaleKeys.setting_account_head_setting.tr()),
         ListMenuItem(
@@ -208,9 +205,7 @@ class SettingGuestView extends StatelessWidget {
           icon: 'assets/images/svg/editprofile.svg',
           title: LocaleKeys.me_title_setting.tr(),
           onClick: () => AppRoute.login(context,
-              isHeader: true, isCallBack: true, homeCallBack: (bool fix) {
-            Navigator.of(context).pop();
-          }),
+              isHeader: true, isCallBack: false,isSetting: false),
         ),
         menuTitle(LocaleKeys.setting_account_head_help.tr()),
         ListMenuItem(

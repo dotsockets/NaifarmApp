@@ -364,9 +364,9 @@ class _TransferPayMentState extends State<TransferPayMent> {
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all(
-                  widget.orderData.orderStatusId == 1 &&
-                          widget.orderData.itemCount ==
-                              widget.orderData.items.length &&
+
+                  widget.orderData.orderStatusId == 1 && widget.orderData.itemCount == widget.orderData.items.length &&
+                      widget.orderData.items.where((element) => element.inventory!=null).toList().length>0 &&
                           systemRespone != null &&
                           systemRespone.bankAccountNumber != null
                       ? ThemeColor.secondaryColor()

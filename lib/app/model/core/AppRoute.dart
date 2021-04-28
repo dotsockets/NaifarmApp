@@ -451,7 +451,7 @@ class AppRoute {
   }
 
   static Future<bool> login(BuildContext context,
-      {bool isCallBack, Function(bool) homeCallBack, bool isHeader}) async {
+      {bool isCallBack, Function(bool) homeCallBack, bool isHeader,bool isSetting}) async {
     return await Navigator.push(
         context,
         PageTransition(
@@ -461,6 +461,7 @@ class AppRoute {
               isCallBack: isCallBack,
               homeCallBack: homeCallBack,
               isHeader: isHeader,
+              isSetting: isSetting,
             )));
   }
 

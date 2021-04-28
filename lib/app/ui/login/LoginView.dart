@@ -9,6 +9,7 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -22,12 +23,13 @@ class LoginView extends StatefulWidget {
   final bool isCallBack;
   final bool isHeader;
   final Function(bool) homeCallBack;
+  final bool isSetting;
 
   const LoginView(
       {Key key,
       this.isCallBack = false,
       this.isHeader = true,
-      this.homeCallBack})
+      this.homeCallBack,this.isSetting=false})
       : super(key: key);
 
   @override
@@ -435,19 +437,20 @@ class _LoginViewState extends State<LoginView> {
                   : SizedBox(
                       height: 1.5.h,
                     ),
-              Positioned(
-                right: 2.0.w,
-                bottom: 2.0.h,
-                child: IconButton(
-                  padding: EdgeInsets.only(right: 2.0.w, top: 2.0.w),
-                  icon: Icon(Icons.settings,
-                      color: Colors.white, size: SizeUtil.iconLargeSize().w),
-                  onPressed: () async {
-                    // ignore: unused_local_variable
-                    final result = await AppRoute.settingGuest(context);
-                  },
-                ),
-              )
+              widget.isSetting?IconButton(
+                padding: EdgeInsets.only(right: 2.0.w, top: 2.0.w),
+                icon: Icon(Icons.settings,
+                    color: Colors.white, size: SizeUtil.iconLargeSize().w),
+                onPressed: () async {
+                  // ignore: unused_local_variable
+
+                  final result = await AppRoute.settingGuest(context);
+                  if(result==false){
+                    NaiFarmLocalStorage.saveNowPage(0);
+                  }
+
+                },
+              ):SizedBox()
             ],
           ),
           Text(

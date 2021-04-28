@@ -200,7 +200,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
     NaiFarmLocalStorage.getCustomerInfo().then((value) {
       //  print("efcsdcx ${widget.productItem.shop.id}  ${value.myShopRespone.id}");
-      if (value != null) {
+      if (value != null && value.myShopRespone!=null) {
         checkMyShop.add(value.myShopRespone.id);
       } else {
         checkMyShop.add(0);

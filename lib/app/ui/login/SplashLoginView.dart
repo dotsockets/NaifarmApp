@@ -97,7 +97,7 @@ class SplashLoginView extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    AppRoute.login(context, isCallBack: false, isHeader: true);
+                    AppRoute.login(context, isCallBack: false, isHeader: true,isSetting: true);
                   },
                   child: Text(
                     LocaleKeys.btn_login.tr(),

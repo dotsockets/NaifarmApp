@@ -70,7 +70,7 @@ class AppNaiFarmApplication implements Application {
 
   void _initDioLog() {
     _dio = Dio();
-    if (EnvType.DEVELOPMENT == Env.value.environmentType ||
+    if (EnvType.PRODUCTION == Env.value.environmentType ||
         EnvType.STAGING == Env.value.environmentType) {
       _dio.interceptors
           .add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
