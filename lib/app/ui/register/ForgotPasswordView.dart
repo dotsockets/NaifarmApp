@@ -148,7 +148,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     Size(SizeUtil.buttonWidth().w, 7.0.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
-                    _phone.text.isNotEmpty
+                    _phone.text.isNotEmpty&&_phone.text.length==10
                         ? ThemeColor.secondaryColor()
                         : Colors.grey.shade300,
                   ),
@@ -232,7 +232,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   }
 
   void _validate() {
-    if (_phone.text.isNotEmpty) {
+    if (_phone.text.isNotEmpty&&_phone.text.length==10) {
       bloc.otpRequest(context, numberphone: _phone.text);
     }
   }

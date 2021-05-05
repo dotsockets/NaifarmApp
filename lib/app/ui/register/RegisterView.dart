@@ -123,12 +123,15 @@ class _RegisterViewState extends State<RegisterView> {
             SizedBox(
               height: 1.0.h,
             ),
-            Text(
-              errorTxt,
-              style: FunctionHelper.fontTheme(
-                  fontSize: SizeUtil.titleSmallFontSize().sp,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                errorTxt,
+                style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey),
+              ),
             ),
             SizedBox(
               height: 3.0.h,

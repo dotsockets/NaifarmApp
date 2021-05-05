@@ -424,7 +424,7 @@ class _SoldOutState extends State<SoldOut> {
                         flex: 2,
                         child: Text(
                           item.active == 1 || item.active == null
-                              ? LocaleKeys.my_product_sell.tr()
+                              ? LocaleKeys.my_product_sell_open.tr()
                               : LocaleKeys.my_product_break.tr(),
                           style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,

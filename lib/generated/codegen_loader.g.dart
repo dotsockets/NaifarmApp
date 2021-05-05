@@ -75,12 +75,17 @@ class CodegenLoader extends AssetLoader{
   "review": {
     "write": "write review",
     "rate": "Rate",
-    "deli_ex": "Excellent Delivery Speed",
-    "product_ex": "Excellent Product",
-    "quality_ex": "Excellent Quality of Product",
+    "deli": "Delivery Speed ",
+    "value": "Value ",
+    "quality": "Quality of Product ",
     "tell": "Tell others why the product is good",
     "anonymous": "Leave your review anonymous",
-    "username": "Your username will be show"
+    "username": "Your username will be show",
+    "ex": "Excellent",
+    "good": "Good",
+    "ok": "OK",
+    "bad": "Bad",
+    "terrible": "Terrible"
   },
   "edit_phone": {
     "title": "Please enter a new phone number to receive a OTP",
@@ -129,7 +134,9 @@ class CodegenLoader extends AssetLoader{
     "name_account": "Full name in your bank account",
     "id_card": "ID card Number",
     "name": "Bank Name",
-    "select": "Select Bank"
+    "select": "Select Bank",
+    "accountName": "Account Name",
+    "accountNumber": "Account Number"
   },
   "card": {
     "add_toobar": "Add credit/debit card",
@@ -216,7 +223,8 @@ class CodegenLoader extends AssetLoader{
     "success_slip": "Upload Pay-in Slip Successfully",
     "contact": "The transaction cannot be performed, please contact the seller. ",
     "shop_close": "No information found for this restaurant or the shop has closed",
-    "confirm_mail": "Please confirm Email in your mailbox"
+    "confirm_mail": "Please confirm Email in your mailbox",
+    "copied": "copied"
   },
   "message": {
     "phone_edit": "If you edit phone number. All account numbers associated with this account will be modified",
@@ -316,6 +324,9 @@ class CodegenLoader extends AssetLoader{
     "sold": "sold",
     "sold_end": "Sold",
     "like": "Likes",
+    "islike": "Successfully added to your favorite product list!",
+    "unlike": "Successfully deleted your favorite product!",
+    "addcart": "You have already added the item to your cart",
     "visit": "visit",
     "baht": "Baht",
     "data": "Product Information",
@@ -418,8 +429,15 @@ class CodegenLoader extends AssetLoader{
     "shop_update": "Update shop information",
     "shop_status": "Status",
     "shop_open": "Open a new shop",
-    "shop_open_detail": "has been opened the shop",
-    "shop_outstock": "out of stock",
+    "shop_open_detail1": "Welcome",
+    "shop_open_detail2": "Become a part of NaiFarm",
+    "shop_outstock": "Inventory Stock Out",
+    "shop_outstock_detail": "is sold out. Replenish stock or list another?",
+    "shop_live": "Shop is Live",
+    "shop_live_sub": "",
+    "downformaintainace": "Shop Maintainace",
+    "downformaintainace_sub": "Shop Maintainace",
+    "playment_success": "Successfully",
     "order": "Order ",
     "cus_order_created": "Your Order has been placed successfully",
     "cus_order_created_detail1": "Your order ",
@@ -546,7 +564,8 @@ class CodegenLoader extends AssetLoader{
     "me": "Search my product",
     "show": "Show more",
     "hide": "Hide",
-    "not_found": "Data not found"
+    "not_found": "Data not found",
+    "product_not_found": "Product not found"
   },
   "server_error": {
     "cancel": "Request was cancelled",
@@ -619,12 +638,17 @@ static const Map<String,dynamic> th_TH = {
   "review": {
     "write": "เขียนรีวืว",
     "rate": "ให้คะแนน",
-    "deli_ex": "ส่งไวมาก",
-    "product_ex": "สินค้าดีมาก",
-    "quality_ex": "คุณภาพดี",
+    "deli": "ความรวดเร็วในการจัดส่ง",
+    "value": "ความคุ้มค่า",
+    "quality": "คุณภาพสินค้า",
     "tell": "บอกคนอื่นๆ ว่า ทำไมสินค้านี้ถึง ดี",
     "anonymous": "รีวิวโดยไม่เปิดชื่อ",
-    "username": "ชื่อที่จะแสดง"
+    "username": "ชื่อที่จะแสดง",
+    "ex": "ดีมาก",
+    "good": "ดี",
+    "ok": "พอใช้",
+    "bad": "แย่",
+    "terrible": "แย่มาก"
   },
   "edit_phone": {
     "title": "กรุณาใส่หมายเลขใหม่เพื่อรับ OTP",
@@ -673,7 +697,9 @@ static const Map<String,dynamic> th_TH = {
     "name_account": "ชื่อ-นามสกุล ตามที่ปรากฎในบัญชีธนาคาร",
     "id_card": "เลขบัตรประชาชน",
     "name": "ชื่อธนาคาร",
-    "select": "เลือกธนาคาร"
+    "select": "เลือกธนาคาร",
+    "accountName": "ชื่อบัญชี",
+    "accountNumber": "เลขที่บัญชี"
   },
   "card": {
     "add_toobar": "เพิ่มบัตรเครดิต/บัตรเดบิต",
@@ -759,7 +785,8 @@ static const Map<String,dynamic> th_TH = {
     "success_slip": "คุณได้อัพโหลดหลักฐานการชำระเงินแล้ว",
     "contact": "ไม่สามารถสั่งซื้อสินค้าได้, กรุณาติดต่อผู้ขาย",
     "shop_close": "ไม่พบข้อมูลของร้านนี้หรือร้านปิดแล้ว",
-    "confirm_mail": "กรุณายืนยันการเปลี่ยนอีเมล ที่กล่องจดหมายของคุณ"
+    "confirm_mail": "กรุณายืนยันการเปลี่ยนอีเมล ที่กล่องจดหมายของคุณ",
+    "copied": "คัดลอกแล้ว"
   },
   "message": {
     "phone_edit": "หากคุณแก้ไขหมายเลขโทรศัพท์ที่นี่ หมายเลขบัญชีทั้งหมดที่ผูกกับบัญชีนี้จะถูกแก้ไขด้วย",
@@ -846,11 +873,14 @@ static const Map<String,dynamic> th_TH = {
   "my_product": {
     "sell": "ขายสินค้า",
     "sell_open": "เปิดการขาย",
-    "break": "พักการขาย",
+    "break": "ปิดการขาย",
     "amount": "จำนวนสินค้า",
     "sold": "ขายได้",
     "sold_end": "ขายแล้ว",
     "like": "ถูกใจ",
+    "islike": "เพิ่มรายการสินค้าที่คุณชื่นชอบ สำเร็จ!",
+    "unlike": "ลบรายการสินค้าที่คุณชื่นชอบ สำเร็จ!",
+    "addcart": "คุณได้ทำการเพิ่มสินค้าลงในรถเข็นแล้ว",
     "visit": "เข้าชม",
     "baht": "บาท",
     "data": "ข้อมูลสินค้า",
@@ -919,6 +949,7 @@ static const Map<String,dynamic> th_TH = {
     "list": "รายการแอททริบิวต์"
   },
   "recommend": {
+    "title": "แนะนำ",
     "market": "ฟาร์มมาร์เก็ต",
     "search_hot": "ค้นหายอดฮิต",
     "category_product": "ประเภทสินค้า",
@@ -959,9 +990,16 @@ static const Map<String,dynamic> th_TH = {
     "seller": "แจ้งเตือนผู้ขาย",
     "shop_update": "อัพเดทข้อมูลร้านค้า",
     "shop_status": "สถานะ",
-    "shop_open": "เปิดร้านใหม่",
-    "shop_open_detail": "ได้ทำการเปิดร้านใหม่",
-    "shop_outstock": "จำนวนสินค้าหมด",
+    "shop_open": "สร้างร้านค้าสำเร็จ",
+    "shop_open_detail1": "ยินดีต้อนรับ",
+    "shop_open_detail2": "เข้ามาเป็นส่วนร่วมกับ NaiFarm",
+    "shop_outstock": "สินค้าหมด",
+    "shop_outstock_detail": "ขายหมดแล้ว เติมสินค้าหรือลงขายสินค้าอื่นเพิ่มมั้ย?",
+    "shop_live": "ร้านค้ากลับมาออนไลน์อีกครั้ง",
+    "shop_live_sub": "ขณะนี้ร้านค้าได้กลับมาใช้งานแล้ว",
+    "downformaintainace": "ร้านค้ากำลังปิดปรับปรุง",
+    "downformaintainace_sub": "ขณะนี้ร้านค้ากำลังปิดปรับปรุง",
+    "playment_success": "สำเร็จแล้ว",
     "order": "คำสั่งซื้อเลขที่ ",
     "cus_order_created": "ยืนยันคำสั่งซื้อ",
     "cus_order_created_detail1": "คำสั่งซื้อของคุณเลขที่ ",
@@ -975,7 +1013,7 @@ static const Map<String,dynamic> th_TH = {
     "cus_order_updated_detail2": " ของคุณได้รับการอัพเดทสถานะแล้ว",
     "cus_order_canceled": "คำสั่งซื้อถูกยกเลิก",
     "cus_order_canceled_detail1": " ได้ยกเลิกคำสั่งซื้อ ",
-    "cus_order_canceled_detail2": " ติดต่อผู้ขายสำหรับข้อมูลเพิ่มเติม",
+    "cus_order_canceled_detail2": "",
     "cus_order_fulfilled": "อยู่ระหว่างการจัดส่ง",
     "cus_order_fulfilled_detail1": "เลขพัสดุของคุณคือ ",
     "cus_order_fulfilled_detail2": " ส่งผ่าน ",
@@ -989,7 +1027,7 @@ static const Map<String,dynamic> th_TH = {
     "shop_order_created": "คำสั่งซื้อใหม่",
     "shop_order_created_detail1": " ได้ทำการสั่งซื้อสินค้า ",
     "shop_order_created_detail2": " และต้องทำการชำระเงินก่อน ",
-    "shop_order_request_payment": "แจ้งการชำระเงิน",
+    "shop_order_request_payment": "การชำระเงิน",
     "shop_order_request_payment_detail1": " ได้อัพโหลดหลักฐานการชำระเงินสำหรับการสั่งซื้อ ",
     "shop_order_canceled": "คำขอยกเลิกคำสั่งซื้อถูกยกเลิก",
     "shop_order_canceled_detail1": " ได้ยกเลิกคำขอยกเลิกสำหรับการสั่งซื้อ ",
@@ -1088,7 +1126,8 @@ static const Map<String,dynamic> th_TH = {
     "me": "ค้นหาสินค้าของฉัน",
     "show": "แสดงเพิ่ม",
     "hide": "ย่อ",
-    "not_found": "ไม่พบข้อมูล"
+    "not_found": "ไม่พบข้อมูล",
+    "product_not_found": "ไม่พบรายการสินค้า"
   },
   "server_error": {
     "cancel": "คำขอถูกยกเลิก",

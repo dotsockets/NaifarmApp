@@ -59,12 +59,17 @@
   "review": {
     "write": "write review",
     "rate": "Rate",
-    "deli_ex": "Excellent Delivery Speed",
-    "product_ex": "Excellent Product",
-    "quality_ex": "Excellent Quality of Product",
+    "deli": "Delivery Speed ",
+    "value": "Value ",
+    "quality": "Quality of Product ",
     "tell": "Tell others why the product is good",
     "anonymous": "Leave your review anonymous",
-    "username": "Your username will be show"
+    "username": "Your username will be show",
+    "ex": "Excellent",
+    "good":"Good",
+    "ok": "OK",
+    "bad": "Bad",
+    "terrible": "Terrible"
   },
   "edit_phone": {
     "title": "Please enter a new phone number to receive a OTP",
@@ -430,6 +435,7 @@
     "shop_outstock":"Inventory Stock Out",
     "shop_outstock_detail":"is sold out. Replenish stock or list another?",
     "shop_live":"Shop is Live",
+    "shop_live_sub":"",
     "downformaintainace":"Shop Maintainace",
     "downformaintainace_sub":"Shop Maintainace",
     "playment_success": "Successfully",

@@ -1215,10 +1215,10 @@ class _OrderViewState extends State<OrderView> {
               ],
             ),
             onTap: () {
-            //  AppRoute.review(context);
-              // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
-              // Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
-              // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+            // AppRoute.review(context);
+              //FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+              //Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
+              //FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
             },
           )),
           Container(

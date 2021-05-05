@@ -614,9 +614,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         color: Colors.white,
                         child: ListMenuItem(
                           icon: 'assets/images/svg/payment.svg',
-                          title: LocaleKeys.select.tr() +
-                              LocaleKeys.me_title_pay.tr(),
-                          message: "Please select",
+                          title: LocaleKeys.select.tr() + LocaleKeys.me_title_pay.tr(),
+                          message: LocaleKeys.message_select.tr(),
                           iconSize: 7.0.w,
                           fontWeight: FontWeight.w500,
                           onClick: () async {
