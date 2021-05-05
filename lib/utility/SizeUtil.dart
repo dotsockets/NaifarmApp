@@ -181,7 +181,7 @@ class SizeUtil {
   }
 
   static double headerHeight() {
-    return Device.get().isPhone ? 27.0 : 23.0;
+    return Device.get().isPhone ? 30.0 : 23.0;
   }
 
   static double tabMenuSize() {

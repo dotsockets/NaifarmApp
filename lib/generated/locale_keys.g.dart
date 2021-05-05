@@ -381,7 +381,8 @@ abstract class  LocaleKeys {
   static const noti_shop_update = 'noti.shop_update';
   static const noti_shop_status = 'noti.shop_status';
   static const noti_shop_open = 'noti.shop_open';
-  static const noti_shop_open_detail = 'noti.shop_open_detail';
+  static const noti_shop_open_detail1 = 'noti.shop_open_detail1';
+  static const noti_shop_open_detail2 = 'noti.shop_open_detail2';
   static const noti_shop_outstock = 'noti.shop_outstock';
   static const noti_shop_outstock_detail = 'noti.shop_outstock_detail';
   static const noti_shop_live = 'noti.shop_live';

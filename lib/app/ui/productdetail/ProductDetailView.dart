@@ -638,6 +638,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 AppRoute.login(context,
                                     isCallBack: true,
                                     isHeader: true,
+                                    isSetting: false,
                                     homeCallBack: (bool fix) {
                                        //print("wefcrewfcrefc $fix");
                                     });
@@ -675,6 +676,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                     AppRoute.login(context,
                                         isCallBack: true,
                                         isHeader: true,
+                                        isSetting: false,
                                         homeCallBack: (bool fix) {});
                                   }
                                 },

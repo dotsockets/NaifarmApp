@@ -12,7 +12,10 @@ import 'package:sizer/sizer.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class SettingGuestView extends StatelessWidget {
-  const SettingGuestView({Key key}) : super(key: key);
+  final bool IsHeader;
+  final Function(bool) logincall;
+  final bool IsCallBack;
+  const SettingGuestView({Key key,this.IsHeader=false,this.IsCallBack=true,this.logincall}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +36,18 @@ class SettingGuestView extends StatelessWidget {
 
   Widget body(BuildContext context) {
     return Container(
-      color: Colors.grey.shade300,
+      padding: EdgeInsets.only(top: IsHeader?0.0:1.5.h),
       child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            appBar(context),
-            header(context),
-            content(context),
-          ],
+        child: Container(
+          color: Colors.grey.shade300,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IsHeader?appBar(context):SizedBox(),
+              header(context),
+              content(context),
+            ],
+          ),
         ),
       ),
     );
@@ -65,13 +71,14 @@ class SettingGuestView extends StatelessWidget {
     );
   }
 
+
   Widget header(BuildContext context) {
     return Stack(
       alignment: AlignmentDirectional.center,
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.fromLTRB(3.0.w, 2.0.w, 2.0.w, 3.5.h),
+          padding: EdgeInsets.fromLTRB(5.0.w, 2.0.w, 2.0.w, 3.5.h),
           color: ThemeColor.primaryColor(),
           child: Row(
             children: [
@@ -98,6 +105,38 @@ class SettingGuestView extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(right: 2.0.w),
+                child: SizedBox(
+                  width: 30.0.w,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                        ),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(
+                        ThemeColor.colorSale(),
+                      ),
+                      overlayColor: MaterialStateProperty.all(
+                        Colors.white.withOpacity(0.3),
+                      ),
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(horizontal: 3.0.w),
+                      ),
+                    ),
+                    onPressed: () =>login(context),
+                    child: Text(
+                      LocaleKeys.btn_login.tr(),
+                      style: FunctionHelper.fontTheme(
+                          color: Colors.white,
+                          fontSize: SizeUtil.titleMeduimFontSize().sp,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 30.0.w,
                 child: TextButton(
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all(
@@ -106,7 +145,7 @@ class SettingGuestView extends StatelessWidget {
                       ),
                     ),
                     backgroundColor: MaterialStateProperty.all(
-                      ThemeColor.colorSale(),
+                      ThemeColor.secondaryColor(),
                     ),
                     overlayColor: MaterialStateProperty.all(
                       Colors.white.withOpacity(0.3),
@@ -115,44 +154,16 @@ class SettingGuestView extends StatelessWidget {
                       EdgeInsets.symmetric(horizontal: 3.0.w),
                     ),
                   ),
-                  onPressed: () => AppRoute.login(context,
-                      isHeader: true,
-                      isCallBack: false,isSetting: false),
+                  onPressed: () {
+                    AppRoute.register(context);
+                  },
                   child: Text(
-                    LocaleKeys.btn_login.tr(),
+                    LocaleKeys.btn_register.tr(),
                     style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleMeduimFontSize().sp,
                         fontWeight: FontWeight.w500),
                   ),
-                ),
-              ),
-              TextButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40.0),
-                    ),
-                  ),
-                  backgroundColor: MaterialStateProperty.all(
-                    ThemeColor.secondaryColor(),
-                  ),
-                  overlayColor: MaterialStateProperty.all(
-                    Colors.white.withOpacity(0.3),
-                  ),
-                  padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 3.0.w),
-                  ),
-                ),
-                onPressed: () {
-                  AppRoute.register(context);
-                },
-                child: Text(
-                  LocaleKeys.btn_register.tr(),
-                  style: FunctionHelper.fontTheme(
-                      color: Colors.white,
-                      fontSize: SizeUtil.titleMeduimFontSize().sp,
-                      fontWeight: FontWeight.w500),
                 ),
               ),
             ],
@@ -177,8 +188,8 @@ class SettingGuestView extends StatelessWidget {
           icon: 'assets/images/svg/latest.svg',
           title: LocaleKeys.me_title_history.tr(),
           iconSize: 7.0.w,
-          onClick: () => AppRoute.login(context,
-              isHeader: true, isCallBack: false,isSetting: false),
+          onClick: () => login(context),
+
         ),
         divider(),
         ListMenuItem(
@@ -186,8 +197,7 @@ class SettingGuestView extends StatelessWidget {
             title: LocaleKeys.me_title_likes.tr(),
             message: "",
             iconSize: 7.0.w,
-          onClick: () => AppRoute.login(context,
-              isHeader: true, isCallBack: false,isSetting: false),
+          onClick: () => login(context),
         ),
         divider(),
         menuTitle(LocaleKeys.setting_account_head_setting.tr()),
@@ -204,8 +214,7 @@ class SettingGuestView extends StatelessWidget {
           iconSize: 7.0.w,
           icon: 'assets/images/svg/editprofile.svg',
           title: LocaleKeys.me_title_setting.tr(),
-          onClick: () => AppRoute.login(context,
-              isHeader: true, isCallBack: false,isSetting: false),
+          onClick: () => login(context),
         ),
         menuTitle(LocaleKeys.setting_account_head_help.tr()),
         ListMenuItem(
@@ -248,5 +257,20 @@ class SettingGuestView extends StatelessWidget {
             fontSize: SizeUtil.titleSmallFontSize().sp),
       ),
     );
+  }
+
+  void login(BuildContext context){
+    if(IsCallBack){
+      AppRoute.login(context,
+          isHeader: true,
+          isCallBack: false,isSetting: false,homeCallBack: (index){
+            logincall(index);
+
+          });
+    }else{
+      AppRoute.login(context,
+          isHeader: true,
+          isCallBack: false,isSetting: false);
+    }
   }
 }

@@ -37,6 +37,9 @@ class _CustomTabBarState extends State<CustomTabBar>
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 5);
+
+
+
   }
 
   // if (!isSelect && index == 0) {

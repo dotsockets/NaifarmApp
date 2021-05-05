@@ -111,6 +111,7 @@ import 'package:naifarm/app/ui/splash/SplashView.dart';
 import 'package:naifarm/app/ui/wishlist/WishlistsView.dart';
 import 'package:naifarm/utility/widgets/ImageFullScreen.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class AppRoute {
   // static  home(BuildContext context){
@@ -119,135 +120,141 @@ class AppRoute {
 
   static Future<bool> productDetail(BuildContext context,
       {String productImage, ProducItemRespone productItem}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            type: PageTransitionType.rightToLeftWithFade,
-            duration: Duration(milliseconds: 300),
-            child: ProductDetailView(
-              productImage: productImage,
-              productItem: productItem,
-            )));
+
+    return Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return ProductDetailView(
+        productImage: productImage,
+        productItem: productItem,
+      );
+    }));
   }
 
   static market(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: MarketView()));
+
+     Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return MarketView();
+    }));
   }
 
   static flashSaleAll(BuildContext context,
       {FlashsaleRespone flashsaleRespone}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: FlashSaleView(
-              flashsaleRespone: flashsaleRespone,
-            )));
+
+     Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return FlashSaleView(
+        flashsaleRespone: flashsaleRespone,
+      );
+    }));
+
   }
 
   static myCart(BuildContext context, bool btnBack,
       {List<ProductData> cartNowId}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: MyCartView(
-              btnBack: btnBack,
-              cartNowId: cartNowId,
-            )));
+
+
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  MyCartView(
+        btnBack: btnBack,
+        cartNowId: cartNowId,
+      );
+    }));
+
   }
 
   static myNoti(BuildContext context, bool btnBack) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: NotiView(btnBack: btnBack)));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  NotiView(btnBack: btnBack);
+    }));
+
+
   }
 
   static notiDetail(BuildContext context, String notiImage, String notiTitle) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: NotiDetailView(
-              notiImage: notiImage,
-              notiTitle: notiTitle,
-            )));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  NotiDetailView(
+        notiImage: notiImage,
+        notiTitle: notiTitle,
+      );
+    }));
+
+
+
   }
 
   static Future<bool> orderDetail(BuildContext context,
       {OrderData orderData, OrderViewType typeView}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: OrderView(
-              orderData: orderData,
-              typeView: typeView,
-            )));
+
+    return await  Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  OrderView(
+        orderData: orderData,
+        typeView: typeView,
+      );
+    }));
+
+
   }
 
   static cartSummary(BuildContext context, CartResponse item) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: CartSummaryView(item: item)));
+
+      Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  CartSummaryView(item: item);
+    }));
+
   }
 
   static Future<AddressesListRespone> cartAddres(BuildContext context,
       {AddressesData installSelect}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: CartAaddressView(
-              installSelect: installSelect,
-            )));
+
+
+    return await  Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  CartAaddressView(
+        installSelect: installSelect,
+      );
+    }));
+
   }
 
   static Future<PaymentRespone> cartBank(BuildContext context,
       {PaymentRespone paymentRespone, String AllShopID}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: CartBankView(
-              paymentRespone: paymentRespone,
-              AllShopID: AllShopID,
-            )));
+
+
+    return await  Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  CartBankView(
+        paymentRespone: paymentRespone,
+        AllShopID: AllShopID,
+      );
+    }));
+
+
   }
 
   static deliveryMe(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: DeliveryView()));
+
+       Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  DeliveryView();
+    }));
+
   }
 
   static paymentMe(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: PaymentView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  PaymentView();
+    }));
   }
 
   static myProduct(BuildContext context, int shopId,
@@ -256,51 +263,47 @@ class AppRoute {
       //  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeftWithFade, child: MyProductView()));
       // Navigator.pop(context);
       poppageCount(context: context, countpage: countPage);
-      Navigator.push(
-          context,
-          PageTransition(
-              duration: Duration(milliseconds: 300),
-              type: PageTransitionType.rightToLeftWithFade,
-              child: MyProductView(
-                shopId: shopId,
-                indexTab: indexTab,
-              )));
+
+      Navigator.of(context)
+          .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+        return MyProductView(
+          shopId: shopId,
+          indexTab: indexTab,
+        );
+      }));
+
       // Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeftWithFade, child: MyProductView(shopId:shopId)));
     } else {
-      Navigator.push(
-          context,
-          PageTransition(
-              duration: Duration(milliseconds: 300),
-              type: PageTransitionType.rightToLeftWithFade,
-              child: MyProductView(
-                shopId: shopId,
-                indexTab: indexTab,
-              )));
+      Navigator.of(context)
+          .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+        return  MyProductView(
+          shopId: shopId,
+          indexTab: indexTab,
+        );
+      }));
     }
   }
 
   static productDetailShop(BuildContext context,
       {String productImage, ProductMyShop productItem}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ProductDetailShopView(
-              productImage: productImage,
-              productItem: productItem,
-            )));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return ProductDetailShopView(
+        productImage: productImage,
+        productItem: productItem,
+      );
+    }));
+
   }
 
   static myNewProduct(BuildContext context, int shopId, {IsActive isActive}) {
-    Navigator.pushReplacement(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: MyNewProductView(
-              shopId: shopId,
-            )));
+
+
+    Navigator.pushReplacement(context, SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) => MyNewProductView(
+      shopId: shopId,
+    )));
+
   }
 
   static shopMain({BuildContext context, MyShopRespone myShopRespone}) {
@@ -315,130 +318,133 @@ class AppRoute {
   }
 
   static followers(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: FollowersView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return FollowersView();
+    }));
+
+
   }
 
   static Future<double> deliveryCost(BuildContext context,
       {UploadProductStorage uploadProductStorage, int productsId}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: DeliveryCostView(
-              uploadProductStorage: uploadProductStorage,
-              productsId: productsId,
-            )));
+
+    return await  Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return DeliveryCostView(
+        uploadProductStorage: uploadProductStorage,
+        productsId: productsId,
+      );
+    }));
+
+
   }
 
   static Future<bool> editProduct(BuildContext context, int index, int shopId,
       {UploadProductStorage uploadProductStorage, int indexTab = 0}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: EditProductView(
-              indexTab: indexTab,
-              productId: index,
-              uploadProductStorage: uploadProductStorage,
-              shopId: shopId,
-            )));
+
+    return await  Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return EditProductView(
+        indexTab: indexTab,
+        productId: index,
+        uploadProductStorage: uploadProductStorage,
+        shopId: shopId,
+      );
+    }));
+
+
   }
 
   static Future<bool> imageProduct(BuildContext context,
       {IsActive isactive}) async {
     if (isactive == IsActive.ReplacemenView) {
-      return await Navigator.pushReplacement(
-          context,
-          PageTransition(
-              duration: Duration(milliseconds: 300),
-              type: PageTransitionType.rightToLeftWithFade,
-              child: ImageProductView(
-                isActive: isactive,
-              )));
+
+      return await Navigator.pushReplacement(context, SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) => ImageProductView(
+        isActive: isactive,
+      )));
+
     } else {
-      return await Navigator.push(
-          context,
-          PageTransition(
-              duration: Duration(milliseconds: 300),
-              type: PageTransitionType.rightToLeftWithFade,
-              child: ImageProductView(
-                isActive: isactive,
-              )));
+
+      return await  Navigator.of(context)
+          .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+        return  ImageProductView(
+          isActive: isactive,
+        );
+      }));
+
     }
   }
 
   static withdrawMoney(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: WithdrawMoneyView()));
+
+      Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  WithdrawMoneyView();
+    }));
+
   }
 
   static myShophistory(BuildContext context, int index,
       {bool callback = false}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: MyOrderHistoryView(
-              index: index,
-              callback: callback,
-            )));
+
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  MyOrderHistoryView(
+        index: index,
+        callback: callback,
+      );
+    }));
+
   }
 
   static shopOrderHistory(BuildContext context, int index,
       {bool callback = false}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ShopOrderHistoryView(
-              index: index,
-              callback: callback,
-            )));
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  ShopOrderHistoryView(
+        index: index,
+        callback: callback,
+      );
+    }));
+
   }
 
   static review(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ReviewView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  ReviewView(
+      );
+    }));
   }
 
   static moneyOut(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: MoneyOutView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  MoneyOutView(
+      );
+    }));
+
+
   }
 
   static register(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: RegisterView()));
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  RegisterView(
+      );
+    }));
+
+
   }
 
   static splashLogin(BuildContext context) {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => SplashLoginView()),
+        SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) => SplashLoginView()),
         (Route<dynamic> route) => false);
   }
 
@@ -446,366 +452,337 @@ class AppRoute {
     BuildContext context,
   ) {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => HomeView()),
+        SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) => HomeView()),
         (Route<dynamic> route) => route.isFirst);
   }
 
   static Future<bool> login(BuildContext context,
       {bool isCallBack, Function(bool) homeCallBack, bool isHeader,bool isSetting}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: LoginView(
-              isCallBack: isCallBack,
-              homeCallBack: homeCallBack,
-              isHeader: isHeader,
-              isSetting: isSetting,
-            )));
+
+    return await  Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  LoginView(
+        isCallBack: isCallBack,
+        homeCallBack: homeCallBack,
+        isHeader: isHeader,
+        isSetting: isSetting,
+      );
+    }));
+
   }
 
   static settingHelp(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: HelpView()));
+ Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  HelpView();
+    }));
   }
 
   static settingRules(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: RulesOfUseView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  RulesOfUseView();
+    }));
   }
 
   static settingPolicy(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: PolicyView()));
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  PolicyView();
+    }));
   }
 
   static Future<bool> settingProfile(BuildContext context) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: SettingProfileView()));
+
+    return await  Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  SettingProfileView();
+    }));
   }
 
   static settingAbout(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: AboutView()));
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  AboutView();
+    }));
   }
 
   static settingAddress(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: AddressView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  AddressView();
+    }));
   }
 
   static Future<bool> settingAddAddress(BuildContext context) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: AddressAddView()));
+    return await
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  AddressAddView();
+    }));
   }
 
   static registerOTP(BuildContext context,
       {String phoneNumber, String refCode, RequestOtp requestOtp}) {
-    Navigator.pushReplacement(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: RegisterOTPView(
-                requestOtp: requestOtp,
-                phoneNumber: phoneNumber,
-                refCode: refCode)));
+    Navigator.pushReplacement(context, SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) => RegisterOTPView(
+        requestOtp: requestOtp,
+        phoneNumber: phoneNumber,
+        refCode: refCode)));
+
+
   }
 
   static registerSetPassword(
       BuildContext context, String phone, String name, String email) {
-    Navigator.pushReplacement(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: RegisterSetPasswordView(
-              phone: phone,
-              name: name,
-              email: email,
-            )));
+
+
+    Navigator.pushReplacement(context, SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) => RegisterSetPasswordView(
+      phone: phone,
+      name: name,
+      email: email,
+    )));
+
   }
 
   static forgotSetNewPassword(BuildContext context,
       {String phone, String code, String ref}) {
-    Navigator.pushReplacement(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ForgotSetNewPasswordView(
-              phone: phone,
-              code: code,
-              ref: ref,
-            )));
+
+
+    Navigator.pushReplacement(context, SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) => ForgotSetNewPasswordView(
+      phone: phone,
+      code: code,
+      ref: ref,
+    )));
   }
 
   static registerNameOtp(BuildContext context, String phone, String password) {
-    Navigator.pushReplacement(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: RegisterNameOtpView(phone: phone, password: password)));
+
+
+    Navigator.pushReplacement(context, SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) => RegisterNameOtpView(phone: phone, password: password)));
   }
 
   static registerFB(BuildContext context, String email) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: RegisterFBView(
-              email: email,
-            )));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  RegisterFBView(
+        email: email,
+      );
+    }));
+
   }
 
   static settingLanguage(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: LanguageSettingView()));
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  LanguageSettingView();
+    }));
+
   }
 
   static settingLanguageToHome(BuildContext context) {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => HomeView()),
+        SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) => HomeView()),
         (Route<dynamic> route) => false);
   }
 
   static settingBank(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: BankSettingView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  BankSettingView();
+    }));
+
   }
 
   static settingNoti(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: NotiSettingView()));
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  NotiSettingView();
+    }));
+
+
   }
 
   static Future<bool> editProfile(BuildContext context) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: EditProfileVIew()));
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  EditProfileVIew();
+    }));
+
+
   }
 
   static Future<CustomerInfoRespone> settingEditProfileName(
       BuildContext context, CustomerInfoRespone customerInfoRespone) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: SettingEditProfileNameView(
-              customerInfoRespone: customerInfoRespone,
-            )));
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  SettingEditProfileNameView(
+        customerInfoRespone: customerInfoRespone,
+      );
+    }));
+  ;
   }
 
   static Future<CustomerInfoRespone> settingEditProdileBio(
       BuildContext context, CustomerInfoRespone customerInfoRespone) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: SettingEditProdileBioView(
-              customerInfoRespone: customerInfoRespone,
-            )));
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  SettingEditProdileBioView(
+        customerInfoRespone: customerInfoRespone,
+      );
+    }));
+
+
   }
 
   static Future<CustomerInfoRespone> editPhoneStep1(
       BuildContext context, CustomerInfoRespone customerInfoRespone) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child:
-                EditPhoneStep1View(customerInfoRespone: customerInfoRespone)));
+
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  EditPhoneStep1View(customerInfoRespone: customerInfoRespone);
+    }));
   }
 
   static settingBankAdd(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: BankAddView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  BankAddView();
+    }));
+
   }
 
   static settingCreditAdd(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: CreditAddView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  CreditAddView();
+    }));
+
   }
 
   static Future<CustomerInfoRespone> editEmailStep1(
       BuildContext context, CustomerInfoRespone customerInfoRespone) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: EditEmailStep1View(
-              customerInfoRespone: customerInfoRespone,
-            )));
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  EditEmailStep1View(
+        customerInfoRespone: customerInfoRespone,
+      );
+    }));
+
+
   }
 
   static Future<CustomerInfoRespone> editEmailStep2(
       BuildContext context, CustomerInfoRespone customerInfoRespone) async {
-    return await Navigator.pushReplacement(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: EditEmailStep2View(
-              customerInfoRespone: customerInfoRespone,
-            )));
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  EditEmailStep2View(
+        customerInfoRespone: customerInfoRespone,
+      );
+    }));
   }
 
   static editpasswordStep1(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: EditpasswordStep1View()));
+
+     Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  EditpasswordStep1View(
+      );
+    }));
+
   }
 
   static editpasswordStep2(BuildContext context, String passwordOld) {
-    Navigator.pushReplacement(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: EditpasswordStep2View(
-              passwordOld: passwordOld,
-            )));
+
+    Navigator.pushReplacement(context, SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) => EditpasswordStep2View(
+      passwordOld: passwordOld,
+    )));
+
   }
 
   static categoryDetail(BuildContext context, int index, {String title}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: CategoryDetailView(
-              index: index,
-              title: title,
-            )));
+
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  CategoryDetailView(
+        index: index,
+        title: title,
+      );
+    }));
   }
 
   static categorySubDetail(BuildContext context, int index, {String title}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: CategorySubDetailView(
-              index: index,
-              title: title,
-            )));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  CategorySubDetailView(
+        index: index,
+        title: title,
+      );
+    }));
   }
 
   static shopMyNear(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ShopMyNearView()));
+
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  ShopMyNearView();
+    }));
   }
 
   static searchHome(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: SearchView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  SearchView();
+    }));
   }
 
   static searchMap(BuildContext context, String locationTxt) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: SearchMapView(
-              locationTxt: locationTxt,
-            )));
+
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  SearchMapView( locationTxt: locationTxt,);
+    }));
   }
 
   static productAddType(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ProductAddTypeView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  ProductAddTypeView();
+    }));
+
   }
 
   static productSetPrice(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ProductSetPriceView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  ProductSetPriceView();
+    }));
   }
 
   static forgotPassword(BuildContext context) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ForgotPasswordView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  ForgotPasswordView();
+    }));
   }
 
   static productMore(
@@ -814,132 +791,132 @@ class AppRoute {
       ProductRespone installData,
       String apiLink,
       int typeMore}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ProductMoreView(
-                typeMore: typeMore,
-                barTxt: barTxt,
-                installData: installData,
-                apiLink: apiLink)));
+
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  ProductMoreView(
+          typeMore: typeMore,
+          barTxt: barTxt,
+          installData: installData,
+          apiLink: apiLink);
+    }));
   }
 
   static Future<bool> addressEdit(
       BuildContext context, AddressesData item) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: AddressEditView(
-              item: item,
-            )));
+
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  AddressEditView(
+        item: item,
+      );
+    }));
   }
 
   static Future<bool> shopProfile(BuildContext context) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ShopProfileView()));
+
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  ShopProfileView(
+
+      );
+    }));
   }
 
   static Future<MyShopRespone> editNameShop(BuildContext context,
       {MyShopRespone itemInfo}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: EditNameShopView(
-              itemInfo: itemInfo,
-            )));
+
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  EditNameShopView(
+        itemInfo: itemInfo,
+      );
+    }));
   }
 
   static Future<MyShopRespone> officialName(BuildContext context,
       {MyShopRespone itemInfo}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: OfficialNameView(
-              itemInfo: itemInfo,
-            )));
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  OfficialNameView(
+        itemInfo: itemInfo,
+      );
+    }));
   }
 
   static Future<MyShopRespone> editSlug(BuildContext context,
       {MyShopRespone itemInfo}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: EditSlugView(
-              itemInfo: itemInfo,
-            )));
+
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  EditSlugView(
+        itemInfo: itemInfo,
+      );
+    }));
   }
 
   static Future<MyShopRespone> editDetail(BuildContext context,
       {MyShopRespone itemInfo}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: EditDetailView(
-              itemInfo: itemInfo,
-            )));
+
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  EditDetailView(
+        itemInfo: itemInfo,
+      );
+    }));
   }
 
   static Future<MyShopRespone> editExtrlUrl(BuildContext context,
       {MyShopRespone itemInfo}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: EditExtrlUrlView(
-              itemInfo: itemInfo,
-            )));
+
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  EditExtrlUrlView(
+        itemInfo: itemInfo,
+      );
+    }));
   }
 
   static Future<MyShopRespone> editProvice(BuildContext context,
       {MyShopRespone itemInfo}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: EditProviceView(
-              itemInfo: itemInfo,
-            )));
+
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  EditProviceView(
+        itemInfo: itemInfo,
+      );
+    }));
   }
 
   static Future<bool> deliveryEdit(BuildContext context,
       {ShppingMyShopRespone shppingMyShopRespone,
       CarriersData carriersDat}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: DeliveryEditView(
-              shppingMyShopRespone: shppingMyShopRespone,
-              carriersData: carriersDat,
-            )));
+
+
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  DeliveryEditView(
+        shppingMyShopRespone: shppingMyShopRespone,
+        carriersData: carriersDat,
+      );
+    }));
   }
 
   static wishlists({BuildContext context}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: WishlistsView()));
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  WishlistsView();
+    }));
   }
 
   static connectError(
@@ -947,66 +924,57 @@ class AppRoute {
       ThrowIfNoSuccess result,
       bool showFull,
       Function callback}) {
-    Navigator.pushReplacement(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ConnectErrorView(
-              result: result,
-              showFull: showFull,
-              callback: callback,
-            )));
+
+    Navigator.pushReplacement(context, SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) => ConnectErrorView(
+      result: result,
+      showFull: showFull,
+      callback: callback,
+    )));
+
+
   }
 
   static splash({BuildContext context}) {
-    Navigator.pushReplacement(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: SplashView()));
+
+
+    Navigator.pushReplacement(context, SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) => SplashView()));
   }
 
   static Future<bool> editImageProduct(
       {BuildContext context,
       UploadProductStorage uploadProductStorage,
       int productId}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: EditImageProductView(
-              productId: productId,
-              uploadProductStorage: uploadProductStorage,
-            )));
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  EditImageProductView(
+        productId: productId,
+        uploadProductStorage: uploadProductStorage,
+      );
+    }));
   }
 
   static Future<ShippingRates> deliverySelect(
       {BuildContext context, int shopId, int selectId}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: DeliverySelectView(
-              shopId: shopId,
-              selectId: selectId,
-            )));
+
+    return await Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  DeliverySelectView(
+        shopId: shopId,
+        selectId: selectId,
+      );
+    }));
   }
 
   static orderSuccess(
       {BuildContext context, String paymentTotal, OrderData orderData}) {
-    Navigator.pushReplacement(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: OrderSuccessView(
-              paymentTotal: paymentTotal,
-              orderData: orderData,
-            )));
+   Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  OrderSuccessView(
+        paymentTotal: paymentTotal,
+        orderData: orderData,
+      );
+    }));
   }
 
   static poppageCount({BuildContext context, int countpage, bool callback}) {
@@ -1014,158 +982,155 @@ class AppRoute {
     Navigator.popUntil(context, (route) {
       return count++ == countpage;
     });
+
+
   }
 
   static searchMyProductView({BuildContext context, int shopID, int tabNum}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: SearchMyProduct(
-              shopID: shopID,
-              tabNum: tabNum,
-            )));
+
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  SearchMyProduct(
+        shopID: shopID,
+        tabNum: tabNum,
+      );
+    }));
   }
 
   static attribute({BuildContext context}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: AttributeView()));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  AttributeView();
+    }));
   }
 
   static attributeDetail({BuildContext context, int idAttr}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: AttributeDetailView(idAttr: idAttr)));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  AttributeDetailView(idAttr: idAttr);
+    }));
   }
 
   static attributeEdit({BuildContext context, String nameAttr, int idAttr}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: AttributeEditView(nameAttr: nameAttr, idAttr: idAttr)));
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  AttributeEditView(nameAttr: nameAttr, idAttr: idAttr);
+    }));
+
   }
 
   static attributeDetailEdit(
       {BuildContext context, String value, int idAttr, String color, int vid}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: AttributeDetailEditView(
-                idAttr: idAttr, value: value, color: color, vid: vid)));
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  AttributeDetailEditView(
+          idAttr: idAttr, value: value, color: color, vid: vid);
+    }));
   }
 
   static imageFullScreenView(
       {BuildContext context, String image, String heroTag}) {
-    Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ImageFullScreen(
-              image: image,
-              heroTag: heroTag,
-            )));
+
+
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  ImageFullScreen(
+        image: image,
+        heroTag: heroTag,
+      );
+    }));
   }
 
   static Future<bool> transferPayMentView(
       {BuildContext context, OrderData orderData}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: TransferPayMent(
-              orderData: orderData,
-            )));
+    return await
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  TransferPayMent(
+        orderData: orderData,
+      );
+    }));
   }
 
   static Future<bool> confirmPayment(
       {BuildContext context, OrderData orderData}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ConfirmPaymentView(
-              orderData: orderData,
-              contextMain: context,
-            )));
+    return await
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return  ConfirmPaymentView(
+        orderData: orderData,
+        contextMain: context,
+      );
+    }));
   }
 
   static Future<bool> shippingOrder(
       {BuildContext context, OrderData orderData}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: ShippingOrderView(
-              orderData: orderData,
-            )));
+
+    return await
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return   ShippingOrderView(
+        orderData: orderData,
+      );
+    }));
   }
 
   static Future<bool> deliveryDropoff({BuildContext context}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: DeliveryDropoffView()));
+
+    return await
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return   DeliveryDropoffView(
+      );
+    }));
   }
 
   static Future<bool> sellerCanceled(
       {BuildContext context,
       OrderData orderData,
       OrderViewType typeView}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: SellerCanceledView(
-              orderData: orderData,
-              typeView: typeView,
-            )));
+
+    return await
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return   SellerCanceledView(
+        orderData: orderData,
+        typeView: typeView,
+      );
+    }));
   }
 
   static Future<bool> addtTrackingNumber(
       {BuildContext context, OrderData orderData}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: AddtTrackingNumberView(orderData: orderData)));
+
+    return await
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return   AddtTrackingNumberView(orderData: orderData);
+    }));
   }
 
   static Future<bool> orderCancle(
       {BuildContext context, OrderData orderData}) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.rightToLeftWithFade,
-            child: OrderCancleView(orderData: orderData)));
+
+    return await
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return   OrderCancleView(orderData: orderData);
+    }));
   }
 
-  static Future<bool> settingGuest(BuildContext context) async {
-    return await Navigator.push(
-        context,
-        PageTransition(
-            duration: Duration(milliseconds: 300),
-            type: PageTransitionType.fade,
-            child: SettingGuestView()));
+  static Future<bool> settingGuest(BuildContext context,{bool IsHeader,Function(bool) logincall, bool IsCallBack}) async {
+
+    return await
+    Navigator.of(context)
+        .push(SwipeablePageRoute(canOnlySwipeFromEdge: true,builder: (context) {
+      return   SettingGuestView(IsHeader: IsHeader,logincall: logincall,IsCallBack: IsCallBack,);
+    }));
   }
 }

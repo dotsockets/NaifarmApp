@@ -44,43 +44,40 @@ class ShopOwn extends StatelessWidget {
 
               children: [
                 GestureDetector(
-                  child: Hero(
-                    tag: "image_profile_me${shopItem.id}",
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(SizeUtil.borderRadiusFooter()),
-                      child: CachedNetworkImage(
-                        width: SizeUtil.imgItemSize().w,
-                        height: SizeUtil.imgItemSize().w,
-                        placeholder: (context, url) => Container(
-                          color: Colors.white,
-                          child: Lottie.asset('assets/json/loading.json',
-                              width: SizeUtil.imgItemSize().w, height: SizeUtil.imgItemSize().w),
-                        ),
-                        fit: BoxFit.cover,
-                        imageUrl: shopItem.image != null
-                            ? ProductLandscape.covertUrlImage(shopItem.image)
-                            : "",
-                        // errorWidget: (context, url, error) => Container(
-                        //     width: SizeUtil.imgItemSize().w,
-                        //     height: SizeUtil.imgItemSize().w,
-                        //     child: CircleAvatar(
-                        //       backgroundColor: Color(0xffE6E6E6),
-                        //       radius: 30,
-                        //       child: Icon(
-                        //         Icons.shopping_bag_rounded,
-                        //         color: Color(0xffCCCCCC),
-                        //       ),
-                        //     )),
-                        errorWidget: (context, url, error) => Container(
-                            color: Colors.grey.shade300,
-                            width: SizeUtil.imgItemSize().w,
-                            height: SizeUtil.imgItemSize().w,
-                            child: Icon(
-                              Icons.person,
-                              size: (SizeUtil.iconSize()-2).w,
-                              color: Colors.white,
-                            )),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(SizeUtil.borderRadiusFooter()),
+                    child: CachedNetworkImage(
+                      width: SizeUtil.imgItemSize().w,
+                      height: SizeUtil.imgItemSize().w,
+                      placeholder: (context, url) => Container(
+                        color: Colors.white,
+                        child: Lottie.asset('assets/json/loading.json',
+                            width: SizeUtil.imgItemSize().w, height: SizeUtil.imgItemSize().w),
                       ),
+                      fit: BoxFit.cover,
+                      imageUrl: shopItem.image != null
+                          ? ProductLandscape.covertUrlImage(shopItem.image)
+                          : "",
+                      // errorWidget: (context, url, error) => Container(
+                      //     width: SizeUtil.imgItemSize().w,
+                      //     height: SizeUtil.imgItemSize().w,
+                      //     child: CircleAvatar(
+                      //       backgroundColor: Color(0xffE6E6E6),
+                      //       radius: 30,
+                      //       child: Icon(
+                      //         Icons.shopping_bag_rounded,
+                      //         color: Color(0xffCCCCCC),
+                      //       ),
+                      //     )),
+                      errorWidget: (context, url, error) => Container(
+                          color: Colors.grey.shade300,
+                          width: SizeUtil.imgItemSize().w,
+                          height: SizeUtil.imgItemSize().w,
+                          child: Icon(
+                            Icons.person,
+                            size: (SizeUtil.iconSize()-2).w,
+                            color: Colors.white,
+                          )),
                     ),
                   ),
                   onTap: () {

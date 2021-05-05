@@ -17,6 +17,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
+import 'package:naifarm/app/ui/setting/guestSetting/SettingGuestView.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -143,13 +144,16 @@ class _MeViewState extends State<MeView> with RouteAware {
             );
           }
         } else {
-          return LoginView(
-            isHeader: false,
-            homeCallBack: (bool fix) {
-              isLogin = fix;
-              Navigator.of(context).pop();
-            },
-          );
+          // return LoginView(
+          //   isHeader: false,
+          //   homeCallBack: (bool fix) {
+          //     isLogin = fix;
+          //     Navigator.of(context).pop();
+          //   },
+          // );
+          return SettingGuestView(IsHeader: false,logincall: (index){
+            isLogin = index;
+          });
         }
       },
     );

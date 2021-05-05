@@ -1141,7 +1141,7 @@ class _APIProvider implements APIProvider {
     final _data = <String, dynamic>{};
     try {
       final _result = await _dio.request<dynamic>(
-          '/v1/payments?shopIds=${shopIds}',
+          '/v1/payments?shopIds=$shopIds',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'GET',

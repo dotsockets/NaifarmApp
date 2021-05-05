@@ -542,17 +542,44 @@ class _NotiShopState extends State<NotiShop>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-              "${LocaleKeys.recommend_notification.tr()}: ${LocaleKeys.noti_shop_open.tr()}",
+              "${LocaleKeys.noti_shop_open.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.black)),
           SizedBox(height: 0.5.h),
-          Text("${item.meta.name} ${LocaleKeys.noti_shop_open_detail.tr()}",
-              style: FunctionHelper.fontTheme(
-                  fontSize: SizeUtil.titleSmallFontSize().sp,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.black)),
+          RichText(
+            text: new TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+
+                new TextSpan(
+                  text: LocaleKeys.noti_shop_open_detail1.tr(),
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
+                new TextSpan(
+                  text: " ${item.meta.name} ",
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
+                    fontWeight: FontWeight.bold,
+                    color: ThemeColor.secondaryColor(),
+                  ),
+                ),
+                new TextSpan(
+                  text: " ${LocaleKeys.noti_shop_open_detail2.tr()}",
+                  style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.spanTitleSmallFontSize().sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       );
     } else if (item.type ==

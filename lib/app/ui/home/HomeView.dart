@@ -165,7 +165,7 @@ class _HomeViewState extends State<HomeView>
                                 AppRoute.myCart(context, true);
                               } else {
                                 AppRoute.login(context,
-                                    isCallBack: true, isHeader: true);
+                                    isCallBack: true, isHeader: true,isSetting: false);
                               }
                             });
                           } else {

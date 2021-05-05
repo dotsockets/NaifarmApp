@@ -68,13 +68,15 @@ class BuildIconShop extends StatelessWidget {
               color: iconColor != null ? iconColor : Colors.white,
               size: SizeUtil.shopIconSize().w),
           onPressed: () {
-            Usermanager().getUser().then((value) {
-              if (value.token != null) {
+            Usermanager().isLogin().then((value) async {
+              if(!value){
+                AppRoute.login(context,isCallBack: false,isHeader: true,isSetting: false);
+
+              }else{
                 AppRoute.myCart(context, btnBack);
-              } else {
-                AppRoute.login(context, isCallBack: true, isHeader: true,homeCallBack: (bool call){});
               }
             });
+
           },
         ));
   }

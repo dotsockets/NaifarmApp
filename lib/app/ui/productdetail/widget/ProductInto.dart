@@ -230,7 +230,7 @@ class ProductInto extends StatelessWidget {
             color: Colors.black.withOpacity(0.55),
           )),
       onTap: () {
-        AppRoute.login(context, isCallBack: true, isHeader: true,
+        AppRoute.login(context, isCallBack: true, isHeader: true,isSetting: false,
             homeCallBack: (bool fix) {
           if(fix){
             callback_login();

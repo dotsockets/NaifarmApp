@@ -444,7 +444,7 @@ class _LoginViewState extends State<LoginView> {
                 onPressed: () async {
                   // ignore: unused_local_variable
 
-                  final result = await AppRoute.settingGuest(context);
+                  final result = await AppRoute.settingGuest(context,IsHeader: true,IsCallBack: false);
                   if(result==false){
                     NaiFarmLocalStorage.saveNowPage(0);
                   }

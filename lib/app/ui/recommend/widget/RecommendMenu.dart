@@ -182,7 +182,7 @@ class RecommendMenu extends StatelessWidget {
                 if (!value) {
                   // ignore: unused_local_variable
                   final result = await AppRoute.login(context,
-                      isCallBack: true, isHeader: true);
+                      isCallBack: true, isHeader: true,isSetting: false);
                 } else {
                   NaiFarmLocalStorage.saveNowPage(2).then((value) {
                     OneSignalCall.cancelNotification("", 0);
@@ -196,7 +196,7 @@ class RecommendMenu extends StatelessWidget {
             {
               Usermanager().isLogin().then((value) async {
                 if(!value){
-                  final result = await  AppRoute.login(context,isCallBack: true,isHeader: true);
+                  final result = await  AppRoute.login(context,isCallBack: true,isHeader: true,isSetting: false);
                   if(result){
                     AppRoute.wishlists(context: context);
                   }

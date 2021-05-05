@@ -216,7 +216,13 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                       onTap: () {
                         captureImage(ImageSource.gallery);
                       }),
-                  SizedBox(height: 15),
+                  SizedBox(height: 1.0.h),
+                  Text(itemInfo.name != null ? itemInfo.name : '',
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
+                  SizedBox(height: 1.2.h),
                   InkWell(
                     child: Container(
                       padding: EdgeInsets.only(

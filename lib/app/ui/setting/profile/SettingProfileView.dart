@@ -99,13 +99,13 @@ class _SettingProfileViewState extends State<SettingProfileView>
                         _buildLine(),
                         _buildTitle(
                             txt: LocaleKeys.setting_account_head_setting.tr()),
-                        ListMenuItem(
-                          icon: '',
-                          title: LocaleKeys.setting_account_title_noti.tr(),
-                          onClick: () {
-                            AppRoute.settingNoti(context);
-                          },
-                        ),
+                        // ListMenuItem(
+                        //   icon: '',
+                        //   title: LocaleKeys.setting_account_title_noti.tr(),
+                        //   onClick: () {
+                        //     AppRoute.settingNoti(context);
+                        //   },
+                        // ),
                         _buildLine(),
                         ListMenuItem(
                           icon: '',
