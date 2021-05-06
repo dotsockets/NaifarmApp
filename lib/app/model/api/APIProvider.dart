@@ -205,6 +205,10 @@ abstract class APIProvider {
   Future<ApiResult> uploadImage(BuildContext context,
       {File imageFile, String imageableType, int imageableId, String token});
 
+  @POST("/v1/image")
+  Future<ApiResult> uploadImages(BuildContext context,
+      {List<File> imageFile, String imageableType, int imageableId, String token});
+
   @GET("/v1/products")
   Future<ApiResult> productsById(BuildContext context, {int id});
 

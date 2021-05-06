@@ -13,6 +13,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
 import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
+import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -22,6 +23,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -466,99 +468,114 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                           decoration: BoxDecoration(
                               border: Border.all(
                                   color: Colors.black.withOpacity(0.1))),
-                          child: CachedNetworkImage(
-                            width: 20.0.w,
-                            height: 20.0.w,
-                            placeholder: (context, url) => Container(
+                          child: GestureDetector(
+                            onTap: (){
+
+                              AppRoute.productDetail(context,
+                                  productImage: "product_hot_${item.items[indexShopItem].inventory.id}1",
+                                  productItem: ProducItemRespone( id: item.items[indexShopItem].inventory.id));
+                            },
+                            child: CachedNetworkImage(
                               width: 20.0.w,
                               height: 20.0.w,
-                              color: Colors.white,
-                              child: Lottie.asset('assets/json/loading.json',
-                                  height: 30),
-                            ),
-                            fit: BoxFit.cover,
-                            imageUrl: item.items[indexShopItem].inventory
-                                    .product.image.isNotEmpty
-                                ? "${Env.value.baseUrl}/storage/images/${item.items[indexShopItem].inventory.product.image[0].path}"
-                                : '',
-                            // errorWidget: (context, url, error) => Container(
-                            //     width: 20.0.w,
-                            //     height: 20.0.w,
-                            //     child: Icon(
-                            //       Icons.error,
-                            //       size: 30,
-                            //     )),
-                            errorWidget: (context, url, error) => Container(
+                              placeholder: (context, url) => Container(
                                 width: 20.0.w,
                                 height: 20.0.w,
-                                child: NaifarmErrorWidget()),
+                                color: Colors.white,
+                                child: Lottie.asset('assets/json/loading.json',
+                                    height: 30),
+                              ),
+                              fit: BoxFit.cover,
+                              imageUrl: item.items[indexShopItem].inventory
+                                      .product.image.isNotEmpty
+                                  ? "${Env.value.baseUrl}/storage/images/${item.items[indexShopItem].inventory.product.image[0].path}"
+                                  : '',
+                              // errorWidget: (context, url, error) => Container(
+                              //     width: 20.0.w,
+                              //     height: 20.0.w,
+                              //     child: Icon(
+                              //       Icons.error,
+                              //       size: 30,
+                              //     )),
+                              errorWidget: (context, url, error) => Container(
+                                  width: 20.0.w,
+                                  height: 20.0.w,
+                                  child: NaifarmErrorWidget()),
+                            ),
                           ),
                         ),
                         SizedBox(width: 3.0.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width / 1.6,
-                              child: Text(
-                                  item.items[indexShopItem].inventory.product
-                                      .name,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: FunctionHelper.fontTheme(
-                                      fontSize: SizeUtil.titleFontSize().sp,
-                                      fontWeight: FontWeight.w500)),
-                            ),
-                            SizedBox(height: 5),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                item.items[indexShopItem].inventory
-                                                .salePrice !=
-                                            null &&
-                                        item.items[indexShopItem].inventory
-                                                .offerPrice !=
-                                            null &&
-                                        item.items[indexShopItem].inventory
-                                                .offerPrice >
-                                            0
-                                    ? Text(
-                                        "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
-                                        style: FunctionHelper.fontTheme(
-                                            color: Colors.grey,
-                                            fontSize:
-                                                SizeUtil.priceFontSize().sp - 2,
-                                            decoration:
-                                                TextDecoration.lineThrough))
-                                    : SizedBox(),
-                                SizedBox(
-                                    width: item.items[indexShopItem].inventory
-                                                    .salePrice !=
-                                                null &&
-                                            item.items[indexShopItem].inventory
-                                                    .offerPrice !=
-                                                null
-                                        ? 1.0.w
-                                        : 0),
-                                Text(
+                        InkWell(
+                          onTap: (){
+                            AppRoute.productDetail(context,
+                                productImage: "product_hot_${item.items[indexShopItem].inventory.id}1",
+                                productItem: ProducItemRespone( id: item.items[indexShopItem].inventory.id));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width / 1.6,
+                                child: Text(
+                                    item.items[indexShopItem].inventory.product
+                                        .name,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: FunctionHelper.fontTheme(
+                                        fontSize: SizeUtil.titleFontSize().sp,
+                                        fontWeight: FontWeight.w500)),
+                              ),
+                              SizedBox(height: 5),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
                                   item.items[indexShopItem].inventory
-                                                  .offerPrice !=
+                                                  .salePrice !=
                                               null &&
                                           item.items[indexShopItem].inventory
                                                   .offerPrice !=
+                                              null &&
+                                          item.items[indexShopItem].inventory
+                                                  .offerPrice >
                                               0
-                                      ? "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}"
-                                      : "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: FunctionHelper.fontTheme(
-                                      color: ThemeColor.colorSale(),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: SizeUtil.priceFontSize().sp),
-                                ),
-                              ],
-                            )
-                          ],
+                                      ? Text(
+                                          "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
+                                          style: FunctionHelper.fontTheme(
+                                              color: Colors.grey,
+                                              fontSize:
+                                                  SizeUtil.priceFontSize().sp - 2,
+                                              decoration:
+                                                  TextDecoration.lineThrough))
+                                      : SizedBox(),
+                                  SizedBox(
+                                      width: item.items[indexShopItem].inventory
+                                                      .salePrice !=
+                                                  null &&
+                                              item.items[indexShopItem].inventory
+                                                      .offerPrice !=
+                                                  null
+                                          ? 1.0.w
+                                          : 0),
+                                  Text(
+                                    item.items[indexShopItem].inventory
+                                                    .offerPrice !=
+                                                null &&
+                                            item.items[indexShopItem].inventory
+                                                    .offerPrice !=
+                                                0
+                                        ? "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.offerPrice)}"
+                                        : "฿${NumberFormat("#,##0", "en_US").format(item.items[indexShopItem].inventory.salePrice)}",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: FunctionHelper.fontTheme(
+                                        color: ThemeColor.colorSale(),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: SizeUtil.priceFontSize().sp),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),

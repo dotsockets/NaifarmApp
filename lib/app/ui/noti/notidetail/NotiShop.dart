@@ -250,6 +250,7 @@ class _NotiShopState extends State<NotiShop>
               }
             },
             child: Slidable(
+              enabled: false,
               actionPane: SlidableDrawerActionPane(),
               actionExtentRatio: 0.25,
               child: Container(
