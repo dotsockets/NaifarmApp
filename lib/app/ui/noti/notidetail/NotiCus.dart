@@ -258,6 +258,7 @@ class _NotiCusState extends State<NotiCus>
               }
             },
             child: Slidable(
+              enabled: false,
               actionPane: SlidableDrawerActionPane(),
               actionExtentRatio: 0.25,
               child: Container(

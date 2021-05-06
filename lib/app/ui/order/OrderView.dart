@@ -276,81 +276,96 @@ class _OrderViewState extends State<OrderView> {
   }
 
   Widget headerStatus({BuildContext context, OrderData orderData}) {
-    return Stack(
-      children: [
-        Container(
-          padding: EdgeInsets.all(15),
-          width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(top: 50),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(40), topLeft: Radius.circular(40)),
-              border: Border.all(
-                  width: 3, color: Colors.white, style: BorderStyle.solid)),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(
-              height: 2.0.h,
-            ),
-            // Text("Order ${orderData.orderNumber}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
-            //SizedBox(height: 3),
-            orderData.orderStatusId ==1?RichText(
-              text: new TextSpan(
-                style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
-                  new TextSpan(
-                      text:
-                          "${LocaleKeys.order_detail_please.tr()}${LocaleKeys.order_detail_pay_date.tr()} ",
-                      style: FunctionHelper.fontTheme(
-                          fontSize: SizeUtil.spanTitleSmallFontSize().sp,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black.withOpacity(0.8))),
-                  new TextSpan(
-                      text:
-                          "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.requirePaymentAt != null ? orderData.requirePaymentAt : DateTime.now().toString()))} ",
-                      style: FunctionHelper.fontTheme(
-                          fontSize: SizeUtil.spanTitleSmallFontSize().sp,
-                          color: Colors.black.withOpacity(0.5))),
-                  //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                  //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
-                  new TextSpan(
-                      text: " ${LocaleKeys.order_detail_cancel.tr()}",
-                      style: FunctionHelper.fontTheme(
-                          fontSize: SizeUtil.spanTitleSmallFontSize().sp,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black.withOpacity(0.8))),
-                ],
+    return InkWell(
+      onTap: () async {
+        final result = await AppRoute.transferPayMentView(
+            context: context, orderData: orderData);
+
+        if (result) {
+          //bloc.orderDataList.clear();
+          Usermanager().getUser().then((value) => bloc.getOrderById(context,
+              orderType:
+              widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+              id: widget.orderData.id,
+              token: value.token));
+        }
+      },
+      child: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.all(15),
+            width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.only(top: 5.0.h),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(40), topLeft: Radius.circular(40)),
+                border: Border.all(
+                    width: 3, color: Colors.white, style: BorderStyle.solid)),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SizedBox(
+                height: 2.0.h,
               ),
-            ):RichText(
-              text: new TextSpan(
-                style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
-                  new TextSpan(
-                      text:
-                      "${LocaleKeys.order_detail_ship_date_header.tr()} ",
-                      style: FunctionHelper.fontTheme(
-                          fontSize: SizeUtil.spanTitleSmallFontSize().sp,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black.withOpacity(0.8))),
-                  new TextSpan(
-                      text:
-                      "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.paymentAt != null ? orderData.paymentAt : DateTime.now().toString()))} ",
-                      style: FunctionHelper.fontTheme(
-                          fontSize: SizeUtil.spanTitleSmallFontSize().sp,
-                          color: Colors.black.withOpacity(0.5))),
-                  //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                  //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
-                ],
-              ),
-            )
-          ]),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: headerStatusText(orderData: orderData),
-        )
-      ],
+              // Text("Order ${orderData.orderNumber}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
+              //SizedBox(height: 3),
+              orderData.orderStatusId ==1?RichText(
+                text: new TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    new TextSpan(
+                        text:
+                            "${LocaleKeys.order_detail_please.tr()}${LocaleKeys.order_detail_pay_date.tr()} ",
+                        style: FunctionHelper.fontTheme(
+                            fontSize: SizeUtil.spanTitleSmallFontSize().sp,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black.withOpacity(0.8))),
+                    new TextSpan(
+                        text:
+                            "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.requirePaymentAt != null ? orderData.requirePaymentAt : DateTime.now().toString()))} ",
+                        style: FunctionHelper.fontTheme(
+                            fontSize: SizeUtil.spanTitleSmallFontSize().sp,
+                            color: Colors.black.withOpacity(0.5))),
+                    //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+                    //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                    new TextSpan(
+                        text: " ${LocaleKeys.order_detail_cancel.tr()}",
+                        style: FunctionHelper.fontTheme(
+                            fontSize: SizeUtil.spanTitleSmallFontSize().sp,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black.withOpacity(0.8))),
+                  ],
+                ),
+              ):RichText(
+                text: new TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    new TextSpan(
+                        text:
+                        "${LocaleKeys.order_detail_ship_date_header.tr()} ",
+                        style: FunctionHelper.fontTheme(
+                            fontSize: SizeUtil.spanTitleSmallFontSize().sp,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black.withOpacity(0.8))),
+                    new TextSpan(
+                        text:
+                        "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.paymentAt != null ? orderData.paymentAt : DateTime.now().toString()))} ",
+                        style: FunctionHelper.fontTheme(
+                            fontSize: SizeUtil.spanTitleSmallFontSize().sp,
+                            color: Colors.black.withOpacity(0.5))),
+                    //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+                    //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                  ],
+                ),
+              )
+            ]),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: headerStatusText(orderData: orderData),
+          )
+        ],
+      ),
     );
   }
 

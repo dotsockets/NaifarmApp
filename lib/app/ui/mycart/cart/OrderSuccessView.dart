@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
@@ -187,7 +189,12 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                 ),
               ),
               onPressed: () async {
-                AppRoute.poppageCount(context: context, countpage: 2);
+                if (Platform.isAndroid) {
+                  AppRoute.poppageCount(context: context, countpage: 2);
+                } else if (Platform.isIOS) {
+                  AppRoute.poppageCount(context: context, countpage: 3);
+                }
+
                 AppRoute.orderDetail(context, orderData: widget.orderData,typeView: OrderViewType.Purchase);
               },
               child: Text(

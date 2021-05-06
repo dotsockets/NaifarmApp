@@ -25,6 +25,12 @@ class Usermanager {
     return _prefs.getBool(_isLogin) ?? false;
   }
 
+  Future<String> isToken() async {
+    _prefs = await SharedPreferences.getInstance();
+
+    return _prefs.getString(token) ?? false;
+  }
+
   Future<User> getUser() async {
     _prefs = await SharedPreferences.getInstance();
     return User(
@@ -33,6 +39,7 @@ class Usermanager {
         email: _prefs.getString(email),
         imageurl: _prefs.getString(imageURL));
   }
+
 
   Future<void> savelogin({LoginRespone user}) async {
     if (user.token != "") {

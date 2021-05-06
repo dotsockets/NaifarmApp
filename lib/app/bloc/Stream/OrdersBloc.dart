@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductHistoryCache.dart';
@@ -105,6 +106,18 @@ class OrdersBloc {
       }
     });
     _compositeSubscription.add(subscription);
+  }
+
+  Future<OrderData> getOrderByIdFuture(BuildContext context, {int id, String orderType,String token}) async {
+
+    final respons = await _application.appStoreAPIRepository.getOrderById(context, id: id, orderType: orderType, token: token);
+    if (respons.httpCallBack.status == 200) {
+      return (respons.respone as OrderData);
+    } else {
+
+      return  OrderData();
+    }
+
   }
 
   getOrderById(BuildContext context, {int id, String orderType, String token}) {
