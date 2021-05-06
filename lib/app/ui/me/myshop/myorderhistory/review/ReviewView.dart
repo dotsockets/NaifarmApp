@@ -9,8 +9,10 @@ import 'package:lottie/lottie.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -21,6 +23,9 @@ import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 
 class ReviewView extends StatefulWidget {
+  final OrderData orderData;
+
+  const ReviewView({Key key, this.orderData}) : super(key: key);
   @override
   _ReviewViewState createState() => _ReviewViewState();
 }
@@ -238,7 +243,9 @@ class _ReviewViewState extends State<ReviewView> {
                     ),
                     fit: BoxFit.contain,
                     imageUrl:
-                        "https://dev2-test.naifarm.com/img/thumb.e4f48571.png",
+                    widget.orderData.items[0].itemImagePath != null
+                        ? "${Env.value.baseUrl}/storage/images/${widget.orderData.items[0].itemImagePath}"
+                        : Env.value.noItemUrl,
                     errorWidget: (context, url, error) => Container(
                         height: 30,
                         child: Icon(
@@ -254,7 +261,7 @@ class _ReviewViewState extends State<ReviewView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 3.0.w),
-                    Text("อโวกาโก้ ภาคเหนือ",
+                    Text(widget.orderData.items[0].itemTitle,
                         style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.w500)),
@@ -391,13 +398,18 @@ class _ReviewViewState extends State<ReviewView> {
           ),
           Container(
             padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: BuildEditText(
-                head: "",
-                maxLength: 5000,
-                hint: LocaleKeys.review_tell.tr(),
-                maxLine: 5,
-                controller: reviewController,
-                inputType: TextInputType.text),
+            child: StreamBuilder(
+              stream: rateValue.stream,
+              builder: (context, snapshot) {
+                return BuildEditText(
+                    head: "",
+                    maxLength: 5000,
+                    hint: LocaleKeys.review_tell.tr()+snapshot.data.toString(),
+                    maxLine: 5,
+                    controller: reviewController,
+                    inputType: TextInputType.text);
+              }
+            ),
           ),
           SizedBox(
             height: 15,
