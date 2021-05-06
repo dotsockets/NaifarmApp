@@ -1005,6 +1005,46 @@ class _APIProvider implements APIProvider {
   }
 
   @override
+  Future<ApiResult> uploadImages(BuildContext context,
+      {List<File> imageFile,
+        String imageableType,
+        int imageableId,
+        String token}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+
+    List uploadList = [];
+    for (var file in imageFile) {
+      var multipartFile = await MultipartFile.fromFile(
+          file.path, filename: file.path.split('/').last
+      );
+      uploadList.add(multipartFile);
+    }
+
+    FormData formData = FormData.fromMap({"file": uploadList});
+    try {
+      final _result = await _dio.request<dynamic>(
+          '/v1/image?imageableType=$imageableType&imageableId=$imageableId',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token": token,
+                'Accept-Language':
+                EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: formData);
+      return ApiResult(
+          respone: ImageUploadRespone.fromJson(_result.data),
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
+
+  @override
   Future<ApiResult> productsById(BuildContext context, {int id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

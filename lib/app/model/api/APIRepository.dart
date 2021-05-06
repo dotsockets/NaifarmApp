@@ -219,6 +219,15 @@ class APIRepository {
         token: token);
   }
 
+  Future<ApiResult> uploadImages(BuildContext context,
+      {List<File> imageFile, String imageableType, int imageableId, String token}) {
+    return _apiProvider.uploadImages(context,
+        imageFile: imageFile,
+        imageableType: imageableType,
+        imageableId: imageableId,
+        token: token);
+  }
+
   Future<ApiResult> productsById(BuildContext context, {int id}) {
     return _apiProvider.productsById(context, id: id);
   }
