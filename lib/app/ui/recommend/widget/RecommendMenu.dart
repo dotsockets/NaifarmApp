@@ -37,70 +37,73 @@ class RecommendMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     init(context);
-    return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.only(top: 2.0.h),
-        child: BlocBuilder<CustomerCountBloc, CustomerCountState>(
-          builder: (_, count) {
-            if (count is CustomerCountLoaded) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: _menuViewModel
-                    .asMap()
-                    .map((key, value) {
-                      return MapEntry(
-                          key,
-                          _menuBox(
-                              item: value,
-                              index: key,
-                              notification: count
-                                      .countLoaded.notification.unreadShop +
-                                  count.countLoaded.notification.unreadCustomer,
-                              context: context));
-                    })
-                    .values
-                    .toList(),
-              );
-            } else if (count is CustomerCountLoading) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: _menuViewModel
-                    .asMap()
-                    .map((key, value) {
-                      return MapEntry(
-                          key,
-                          _menuBox(
-                              item: value,
-                              index: key,
-                              notification: count.countLoaded != null
-                                  ? count.countLoaded.notification
-                                          .unreadCustomer +
-                                      count.countLoaded.notification.unreadShop
-                                  : 0,
-                              context: context));
-                    })
-                    .values
-                    .toList(),
-              );
-            } else {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: _menuViewModel
-                    .asMap()
-                    .map((key, value) {
-                      return MapEntry(
-                          key,
-                          _menuBox(
-                              item: value,
-                              index: key,
-                              notification: 0,
-                              context: context));
-                    })
-                    .values
-                    .toList(),
-              );
-            }
-          },
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.only(top: 1.5.h,bottom: 1.5.h),
+      child: SingleChildScrollView(
+        child: Container(
+          child: BlocBuilder<CustomerCountBloc, CustomerCountState>(
+            builder: (_, count) {
+              if (count is CustomerCountLoaded) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _menuViewModel
+                      .asMap()
+                      .map((key, value) {
+                        return MapEntry(
+                            key,
+                            _menuBox(
+                                item: value,
+                                index: key,
+                                notification: count
+                                        .countLoaded.notification.unreadShop +
+                                    count.countLoaded.notification.unreadCustomer,
+                                context: context));
+                      })
+                      .values
+                      .toList(),
+                );
+              } else if (count is CustomerCountLoading) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _menuViewModel
+                      .asMap()
+                      .map((key, value) {
+                        return MapEntry(
+                            key,
+                            _menuBox(
+                                item: value,
+                                index: key,
+                                notification: count.countLoaded != null
+                                    ? count.countLoaded.notification
+                                            .unreadCustomer +
+                                        count.countLoaded.notification.unreadShop
+                                    : 0,
+                                context: context));
+                      })
+                      .values
+                      .toList(),
+                );
+              } else {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _menuViewModel
+                      .asMap()
+                      .map((key, value) {
+                        return MapEntry(
+                            key,
+                            _menuBox(
+                                item: value,
+                                index: key,
+                                notification: 0,
+                                context: context));
+                      })
+                      .values
+                      .toList(),
+                );
+              }
+            },
+          ),
         ),
       ),
     );
@@ -135,8 +138,12 @@ class RecommendMenu extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Container(
-                padding: EdgeInsets.all(1.0.w),
+              Card(
+                elevation: 2,
+                shape:  RoundedRectangleBorder(
+                  side:  BorderSide(color: Colors.grey, width: 0.3),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                ),
                 child: SvgPicture.asset(
                   item.icon,
                   width:  SizeUtil.tabIconSize().w,

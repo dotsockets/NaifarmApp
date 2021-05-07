@@ -26,6 +26,7 @@ import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/home/HomeHeader.dart';
 import 'package:naifarm/app/ui/recommend/widget/CategoryTab.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/utility/OneSignalCall.dart';
@@ -263,12 +264,9 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   Widget content({HomeObjectCombine item}) {
     return Column(
       children: [
-        item.sliderRespone != null
-            ? item.sliderRespone.data.isNotEmpty
-                ? BannerSlide(
-                    image:
-                        convertSliderImage(sliderRespone: item.sliderRespone))
-                : SizedBox()
+        item.sliderRespone != null && item.sliderRespone.data.isNotEmpty
+            ? BannerSlide(
+            image: item.sliderRespone.data.map((e) => "${Env.value.baseUrl}/storage/images/${e.image[0].path}").toList())
             : SizedBox(),
         RecommendMenu(
           homeObjectCombine: item,
@@ -276,13 +274,11 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
             widget.onClick(index);
           },
         ),
-        SizedBox(
-          height: 1.0.h,
-        ),
+
         item.flashsaleRespone.data.length > 0
             ? FlashSale(flashsaleRespone: item.flashsaleRespone)
             : SizedBox(),
-        SizedBox(height: 1.5.h),
+        SizedBox(height: 1.0.h),
         ProductLandscape(
           productRespone: item.productRespone,
           titleInto: LocaleKeys.recommend_best_seller.tr(),

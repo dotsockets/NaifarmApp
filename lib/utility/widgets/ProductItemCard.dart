@@ -40,10 +40,11 @@ class ProductItemCard extends StatelessWidget {
   }
 
   Widget productImage(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(width: 1, color: Colors.grey.shade400),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+    return Card(
+      elevation: 1,
+      shape:  RoundedRectangleBorder(
+        side:  BorderSide(color: Colors.grey, width: 0.3),
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
       ),
       child: Stack(
         children: [

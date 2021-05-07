@@ -20,7 +20,7 @@ class HomeDataBloc extends Cubit<HomeDataState> {
 
     Observable.combineLatest8(
         Observable.fromFuture(_application.appStoreAPIRepository
-            .getSliderImage(context)) // สไลด์ภาพ
+            .getBanners(context,group: "home_top")) // สไลด์ภาพ
         ,
         Observable.fromFuture(_application.appStoreAPIRepository
             .getProductPopular(context, "1", 10)), // สินค้าขายดี

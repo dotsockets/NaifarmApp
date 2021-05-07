@@ -28,7 +28,6 @@ class _HomeHeaderState extends State<HomeHeader> {
       padding: EdgeInsets.only(
           left: 0,
           right: 0.3.w,
-          bottom: 1.0.h,
           top: SizeUtil.paddingHeaderHome().h),
       decoration: new BoxDecoration(
           color: ThemeColor.primaryColor(),
@@ -62,8 +61,8 @@ class _HomeHeaderState extends State<HomeHeader> {
                 // },
                 //         ),
                 SizedBox(
-                  width: 6.0.w,
-                  height: 6.0.w,
+                  width: 3.0.w,
+                  height: 3.0.w,
                 ),
                 Expanded(
                     child: InkWell(
@@ -160,7 +159,7 @@ class _HomeHeaderState extends State<HomeHeader> {
               ],
             ),
             SizedBox(
-              height: 1.0.h,
+              height: 0.5.h,
             ),
             /*    widget.snapshot.featuredRespone != null
                 ? CategoryMenu(

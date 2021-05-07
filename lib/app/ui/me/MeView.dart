@@ -117,7 +117,7 @@ class _MeViewState extends State<MeView> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context));
   }
 
-  void iSLogin() async => isLogin = await Usermanager().isLogin();
+ x
 
   @override
   Widget build(BuildContext context) {

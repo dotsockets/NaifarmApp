@@ -137,7 +137,7 @@ class SizeUtil {
   }
 
   static double paddingHeaderHome() {
-    return Device.get().isPhone ? 0.5 : 1.7;
+    return Device.get().isPhone ? 0.2 : 1.7;
   }
 
   static double borderRadiusHeader() {
