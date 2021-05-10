@@ -15,6 +15,7 @@ class ProductLandscape extends StatelessWidget {
   final Function() onSelectMore;
   final Function(ProductData, int) onTapItem;
   final String iconInto;
+  final String imageIcon;
   final List<ProductModel> producViewModel;
   final String tagHero;
   final bool showIcon;
@@ -23,6 +24,7 @@ class ProductLandscape extends StatelessWidget {
   final bool showSeeMore;
   final bool isborderRadius;
   final int subFixId;
+  final double iconSize;
 
   ProductLandscape(
       {Key key,
@@ -31,13 +33,15 @@ class ProductLandscape extends StatelessWidget {
       this.onTapItem,
       this.producViewModel,
       this.iconInto,
+      this.imageIcon = "",
       this.tagHero,
       this.showIcon = true,
       this.showPriceSale = true,
       this.productRespone,
       this.showSeeMore = true,
       this.subFixId = 1,
-      this.isborderRadius = false})
+      this.isborderRadius = false,
+      this.iconSize})
       : super(key: key);
 
   @override
@@ -87,11 +91,17 @@ class ProductLandscape extends StatelessWidget {
             Row(
               children: [
                 Visibility(
-                  child: SvgPicture.asset(
-                    iconInto,
-                    width: 3.0.w,
-                    height: 3.0.h,
-                  ),
+                  child: imageIcon != ""
+                      ? Image.asset(
+                          imageIcon,
+                          width: iconSize != null ? iconSize : 8.5.w,
+                          height: iconSize != null ? iconSize : 8.5.w,
+                        )
+                      : SvgPicture.asset(
+                          iconInto,
+                          width: iconSize != null ? iconSize : 3.0.w,
+                          height: iconSize != null ? iconSize : 3.0.w,
+                        ),
                   visible: showIcon,
                 ),
                 SizedBox(width: 2.0.w),
@@ -113,10 +123,10 @@ class ProductLandscape extends StatelessWidget {
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.w500)),
                       SizedBox(width: 2.0.w),
-                      SvgPicture.asset(
-                        'assets/images/svg/next.svg',
-                        width: 3.0.w,
-                        height: 3.0.h,
+                      Image.asset(
+                        'assets/images/png/next.png',
+                        width: 5.0.w,
+                        height: 5.0.w,
                       ),
                     ],
                   ),

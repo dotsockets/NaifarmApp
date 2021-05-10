@@ -40,8 +40,6 @@ import 'widget/RecommendMenu.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
-
-
 class RecommendView extends StatefulWidget {
   final Size size;
   final double paddingBottom;
@@ -266,7 +264,10 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
       children: [
         item.sliderRespone != null && item.sliderRespone.data.isNotEmpty
             ? BannerSlide(
-            image: item.sliderRespone.data.map((e) => "${Env.value.baseUrl}/storage/images/${e.image[0].path}").toList())
+                image: item.sliderRespone.data
+                    .map((e) =>
+                        "${Env.value.baseUrl}/storage/images/${e.image[0].path}")
+                    .toList())
             : SizedBox(),
         RecommendMenu(
           homeObjectCombine: item,
@@ -283,8 +284,8 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           productRespone: item.productRespone,
           titleInto: LocaleKeys.recommend_best_seller.tr(),
           producViewModel: ProductViewModel().getBestSaller(),
-
-          iconInto: 'assets/images/svg/product_hot.svg',
+          imageIcon: 'assets/images/png/product_hot.png',
+          iconSize: 7.0.w,
           onSelectMore: () {
             AppRoute.productMore(
                 apiLink: "products/types/popular",
@@ -305,7 +306,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
         ProductVertical(
             productRespone: item.martket,
             titleInto: LocaleKeys.recommend_market.tr(),
-            iconInto: 'assets/images/svg/menu_market.svg',
+            imageIcon: 'assets/images/png/menu_market.png',
             onSelectMore: () {
               AppRoute.shopMain(
                   context: context, myShopRespone: MyShopRespone(id: 1));
@@ -323,7 +324,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
         ProductVertical(
             productRespone: item.productForyou,
             titleInto: LocaleKeys.tab_bar_recommend.tr(),
-            iconInto: 'assets/images/svg/like.svg',
+            imageIcon: 'assets/images/png/like.png',
             iconSize: 6.0.w,
             onSelectMore: () {
               AppRoute.productMore(
