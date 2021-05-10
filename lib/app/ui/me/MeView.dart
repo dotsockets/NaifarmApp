@@ -117,14 +117,14 @@ class _MeViewState extends State<MeView> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context));
   }
 
- x
+
 
   @override
   Widget build(BuildContext context) {
     _init();
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        iSLogin();
+        //iSLogin();
         if (isLogin) {
           if (count is InfoCustomerLoaded || count is InfoCustomerLoading) {
             return Scaffold(
