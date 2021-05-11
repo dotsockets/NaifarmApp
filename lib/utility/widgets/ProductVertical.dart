@@ -204,10 +204,10 @@ class ProductVertical extends StatelessWidget {
                   child: Stack(
                     children: [
                       Card(
-                        elevation:1,
+                        elevation:0,
                         shape:  RoundedRectangleBorder(
-                          side:  BorderSide(color: Colors.grey, width: 0.3),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          side:  BorderSide(color: Colors.grey, width: 0.1.w),
+                          borderRadius: BorderRadius.all(Radius.circular(2.0.w)),
                         ),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
@@ -380,18 +380,21 @@ class ProductVertical extends StatelessWidget {
               ),
               InkWell(
                 child: Container(
+                  width: 15.0.w,
                   margin: EdgeInsets.only(right: 2.0.w),
                   padding: EdgeInsets.only(
                       right: 3.0.w, left: 3.0.w, top: 1.5.w, bottom: 1.5.w),
                   decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.all(Radius.circular(SizeUtil.borderRadiusItem()))),
-                  child: Text(
-                    LocaleKeys.btn_buy_now.tr(),
-                    style: FunctionHelper.fontTheme(
-                        color: Colors.white,
-                        fontSize: SizeUtil.titleFontSize().sp,
-                        fontWeight: FontWeight.bold),
+                  child: Center(
+                    child: Text(
+                      LocaleKeys.btn_buy_now.tr(),
+                      style: FunctionHelper.fontTheme(
+                          color: Colors.white,
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 onTap: () {

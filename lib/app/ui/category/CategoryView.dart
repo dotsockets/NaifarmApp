@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -20,15 +22,8 @@ class CategoryView extends StatefulWidget {
 
 class _CategoryViewState extends State<CategoryView> {
   ProductBloc bloc;
-
   Future<void> _init() async {
-    if (null == bloc) {
-      bloc = ProductBloc(AppProvider.getApplication(context));
-      NaiFarmLocalStorage.getHomeDataCache().then((value) {
-        bloc.categoryGroup.add(value.categoryGroupRespone);
-      });
-      // bloc.loadCategoryGroup();
-    }
+
   }
 
   @override
@@ -53,28 +48,27 @@ class _CategoryViewState extends State<CategoryView> {
   Widget _content({BuildContext context}) {
     return Container(
       padding: EdgeInsets.all(2.0.h),
-      child: StreamBuilder(
-        stream: bloc.categoryGroup.stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
+      child:   BlocBuilder<HomeDataBloc, HomeDataState>(
+        builder: (_, snapshot) {
+          if (snapshot is HomeDataLoaded && snapshot.homeObjectCombine!=null) {
             return Column(
               children: [
                 Column(
                   children: item(
-                      ((snapshot.data as CategoryGroupRespone).data.length / 4)
+                      (snapshot.homeObjectCombine.categoryGroupRespone.data.length / 4)
                           .floor(),
                       4,
                       context,
-                      snapshot.data),
+                      snapshot.homeObjectCombine.categoryGroupRespone),
                 ),
                 Column(
                   children: item(
                       1,
-                      ((snapshot.data as CategoryGroupRespone).data.length / 4)
-                              .floor() *
+                      (snapshot.homeObjectCombine.categoryGroupRespone.data.length / 4)
+                          .floor() *
                           4,
                       context,
-                      snapshot.data),
+                      snapshot.homeObjectCombine.categoryGroupRespone),
                 )
               ],
             );
@@ -127,11 +121,11 @@ class _CategoryViewState extends State<CategoryView> {
             Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.2)),
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
+                  borderRadius: BorderRadius.all(Radius.circular(3.0.w))),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(0.7.w),
                   child: CachedNetworkImage(
                     width: SizeUtil.categoryTabSize().w,
                     height: SizeUtil.categoryTabSize().w,

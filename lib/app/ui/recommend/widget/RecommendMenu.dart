@@ -139,10 +139,10 @@ class RecommendMenu extends StatelessWidget {
           Stack(
             children: [
               Card(
-                elevation: 2,
+                elevation: 0,
                 shape:  RoundedRectangleBorder(
-                  side:  BorderSide(color: Colors.grey, width: 0.3),
-                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  side:  BorderSide(color: Colors.grey, width: 0.1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(2.0.w)),
                 ),
                 child: SvgPicture.asset(
                   item.icon,

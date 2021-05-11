@@ -361,8 +361,8 @@ class _TransferPayMentState extends State<TransferPayMent> {
                   ),*/
 
                   CachedNetworkImage(
-                    width: 50.0.w,
-                    height: 50.0.w,
+                    width: 40.0.w,
+                    height: 40.0.w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
                       child: Lottie.asset(

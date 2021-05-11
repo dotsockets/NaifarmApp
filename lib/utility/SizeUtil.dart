@@ -177,7 +177,7 @@ class SizeUtil {
   }
 
   static double mediumImgProfileSize() {
-    return Device.get().isPhone ? 14.0 : 7.0;
+    return Device.get().isPhone ? 14.0 : 10.0;
   }
 
   static double headerHeight() {

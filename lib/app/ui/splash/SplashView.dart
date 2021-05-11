@@ -150,7 +150,7 @@ class _SplashViewState extends State<SplashView>
                   Image.asset(
                     'assets/images/png/img_login.png',
                     width: animation.value * 70.0.w,
-                    height: animation.value * 100.0.w,
+                    height: animation.value * 70.0.w,
                   ),
                 ],
               ),

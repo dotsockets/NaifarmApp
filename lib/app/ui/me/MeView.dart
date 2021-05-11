@@ -118,13 +118,13 @@ class _MeViewState extends State<MeView> with RouteAware {
   }
 
 
-
+  void iSLogin() async => isLogin = await Usermanager().isLogin();
   @override
   Widget build(BuildContext context) {
     _init();
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-        //iSLogin();
+         iSLogin();
         if (isLogin) {
           if (count is InfoCustomerLoaded || count is InfoCustomerLoading) {
             return Scaffold(

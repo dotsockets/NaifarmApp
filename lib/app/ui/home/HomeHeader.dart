@@ -31,18 +31,19 @@ class _HomeHeaderState extends State<HomeHeader> {
           top: SizeUtil.paddingHeaderHome().h),
       decoration: new BoxDecoration(
           color: ThemeColor.primaryColor(),
-          borderRadius: new BorderRadius.only(
-            bottomRight: Radius.circular(widget.snapshot.sliderRespone != null
-                ? widget.snapshot.sliderRespone.data.isNotEmpty
-                    ? 0.0
-                    : SizeUtil.borderRadiusHeader()
-                : SizeUtil.borderRadiusHeader()),
-            bottomLeft: Radius.circular(widget.snapshot.sliderRespone != null
-                ? widget.snapshot.sliderRespone.data.isNotEmpty
-                    ? 0.0
-                    : SizeUtil.borderRadiusHeader()
-                : SizeUtil.borderRadiusHeader()),
-          )),
+          // borderRadius: new BorderRadius.only(
+          //   bottomRight: Radius.circular(widget.snapshot.sliderRespone != null
+          //       ? widget.snapshot.sliderRespone.data.isNotEmpty
+          //           ? 0.0
+          //           : SizeUtil.borderRadiusHeader()
+          //       : SizeUtil.borderRadiusHeader()),
+          //   bottomLeft: Radius.circular(widget.snapshot.sliderRespone != null
+          //       ? widget.snapshot.sliderRespone.data.isNotEmpty
+          //           ? 0.0
+          //           : SizeUtil.borderRadiusHeader()
+          //       : SizeUtil.borderRadiusHeader()),
+          // )
+      ),
       child: SafeArea(
         bottom: false,
         child: Column(

@@ -129,7 +129,9 @@ class _ProductDetailViewState extends State<ProductDetailView>
         if (event != null) {
           if (event.status == 406) {
             FunctionHelper.alertDialogShop(context,
-                title: LocaleKeys.btn_error.tr(), message: event.message);
+                title: LocaleKeys.btn_error.tr(), message: event.message,callCancle: (){
+                  AppRoute.poppageCount(context: context,countpage: Platform.isAndroid?2:2);
+                });
           } else if (event.status == 0 || event.status >= 500) {
             Future.delayed(const Duration(milliseconds: 500), () {
               FunctionHelper.alertDialogRetry(context,
@@ -581,15 +583,15 @@ class _ProductDetailViewState extends State<ProductDetailView>
                           child: InkWell(
                             child: Stack(
                               children: [
-                                Transform.translate(
-                                  offset: animation.value,
-                                  child: Container(
-                                    child: Image.network(
-                                        "${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty ? widget.productItem.image[0].path : ''}"),
-                                    width: 10.0.w,
-                                    height: 10.0.w,
-                                  ),
-                                ),
+                                // Transform.translate(
+                                //   offset: animation.value,
+                                //   child: Container(
+                                //     child: Image.network(
+                                //         "${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty ? widget.productItem.image[0].path : ''}"),
+                                //     width: 10.0.w,
+                                //     height: 10.0.w,
+                                //   ),
+                                // ),
                                 Container(
                                   color: Colors.white,
                                   width: MediaQuery.of(context).size.width,

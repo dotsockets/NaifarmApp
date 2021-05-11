@@ -168,6 +168,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   }
 
   Widget get contentMain => Scaffold(
+    backgroundColor: Colors.grey.shade300,
         body: StreamBuilder(
           stream: _selectedIndex.stream,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -179,7 +180,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                     if (item is HomeDataLoaded) {
                       return SingleChildScrollView(
                         child: Container(
-                          color: Colors.grey.shade300,
+
                           child: StickyHeader(
                             header: Column(
                               children: [
@@ -211,7 +212,6 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                       return item.homeObjectCombine.productRespone != null
                           ? SingleChildScrollView(
                               child: Container(
-                                color: Colors.grey.shade300,
                                 child: StickyHeader(
                                   header: Column(
                                     children: [
@@ -262,7 +262,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   Widget content({HomeObjectCombine item}) {
     return Column(
       children: [
-        item.sliderRespone != null && item.sliderRespone.data.isNotEmpty
+        item!=null && item.sliderRespone != null && item.sliderRespone.data.isNotEmpty
             ? BannerSlide(
                 image: item.sliderRespone.data
                     .map((e) =>
@@ -276,12 +276,12 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           },
         ),
 
-        item.flashsaleRespone.data.length > 0
+        item!=null && item.flashsaleRespone.data.length > 0
             ? FlashSale(flashsaleRespone: item.flashsaleRespone)
             : SizedBox(),
         SizedBox(height: 1.0.h),
         ProductLandscape(
-          productRespone: item.productRespone,
+          productRespone: item!=null?item.productRespone:null,
           titleInto: LocaleKeys.recommend_best_seller.tr(),
           producViewModel: ProductViewModel().getBestSaller(),
           imageIcon: 'assets/images/png/product_hot.png',
@@ -304,7 +304,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
 
         SizedBox(height: 1.5.h),
         ProductVertical(
-            productRespone: item.martket,
+            productRespone: item!=null?item.martket:null,
             titleInto: LocaleKeys.recommend_market.tr(),
             imageIcon: 'assets/images/png/menu_market.png',
             onSelectMore: () {
@@ -319,10 +319,10 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
             borderRadius: false,
             tagHero: "market"),
         SizedBox(height: 2.0.h),
-        CategoryTab(categoryGroupRespone: item.categoryGroupRespone),
+        CategoryTab(categoryGroupRespone: item!=null?item.categoryGroupRespone:null),
         SizedBox(height: 2.0.h),
         ProductVertical(
-            productRespone: item.productForyou,
+            productRespone: item!=null?item.productForyou:null,
             titleInto: LocaleKeys.tab_bar_recommend.tr(),
             imageIcon: 'assets/images/png/like.png',
             iconSize: 6.0.w,

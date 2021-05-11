@@ -106,7 +106,8 @@ class SettingGuestView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(right: 2.0.w),
                 child: SizedBox(
-                  width: 30.0.w,
+                  width: 25.0.w,
+                  height: 4.0.h,
                   child: TextButton(
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
@@ -136,7 +137,8 @@ class SettingGuestView extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 30.0.w,
+                width: 25.0.w,
+                height: 4.0.h,
                 child: TextButton(
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all(
@@ -187,7 +189,7 @@ class SettingGuestView extends StatelessWidget {
         ListMenuItem(
           icon: 'assets/images/svg/latest.svg',
           title: LocaleKeys.me_title_history.tr(),
-          iconSize: 7.0.w,
+          iconSize: 6.0.w,
           onClick: () => login(context),
 
         ),
@@ -196,14 +198,14 @@ class SettingGuestView extends StatelessWidget {
             icon: 'assets/images/svg/like_2.svg',
             title: LocaleKeys.me_title_likes.tr(),
             message: "",
-            iconSize: 7.0.w,
+          iconSize: 6.0.w,
           onClick: () => login(context),
         ),
         divider(),
         menuTitle(LocaleKeys.setting_account_head_setting.tr()),
         ListMenuItem(
           icon: 'assets/images/svg/translate.svg',
-          iconSize: 7.0.w,
+          iconSize: 5.0.w,
           message: FunctionHelper.localeLanguage(
               locale: EasyLocalization.of(context).locale),
           title: LocaleKeys.setting_account_title_language.tr(),
@@ -211,7 +213,7 @@ class SettingGuestView extends StatelessWidget {
         ),
         divider(),
         ListMenuItem(
-          iconSize: 7.0.w,
+          iconSize: 6.0.w,
           icon: 'assets/images/svg/editprofile.svg',
           title: LocaleKeys.me_title_setting.tr(),
           onClick: () => login(context),
@@ -220,7 +222,7 @@ class SettingGuestView extends StatelessWidget {
         ListMenuItem(
           icon: 'assets/images/svg/ruleofuse.svg',
           title: LocaleKeys.setting_account_title_rule.tr(),
-          iconSize: 7.0.w,
+          iconSize: 6.0.w,
           onClick: () {
             AppRoute.settingRules(context);
           },
@@ -229,7 +231,7 @@ class SettingGuestView extends StatelessWidget {
         ListMenuItem(
           icon: 'assets/images/svg/policy.svg',
           title: LocaleKeys.setting_account_title_policy.tr(),
-          iconSize: 7.0.w,
+          iconSize: 5.5.w,
           onClick: () {
             AppRoute.settingPolicy(context);
           },
@@ -238,7 +240,7 @@ class SettingGuestView extends StatelessWidget {
         ListMenuItem(
           icon: 'assets/images/svg/about.svg',
           title: LocaleKeys.setting_account_title_about.tr(),
-          iconSize: 7.0.w,
+          iconSize: 5.5.w,
           onClick: () {
             AppRoute.settingAbout(context);
           },

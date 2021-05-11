@@ -472,8 +472,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                             onTap: (){
 
                               AppRoute.productDetail(context,
-                                  productImage: "product_hot_${item.items[indexShopItem].inventory.id}1",
-                                  productItem: ProducItemRespone( id: item.items[indexShopItem].inventory.id));
+                                  productImage: "product_hot_${item.items[indexShopItem].inventory.product.id}1",
+                                  productItem: ProducItemRespone( id: item.items[indexShopItem].inventory.product.id,shop: ShopItem(id: item.shop.id,name: item.shop.name,image: item.shop.image,slug: item.shop.slug)));
                             },
                             child: CachedNetworkImage(
                               width: 20.0.w,
@@ -508,8 +508,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                         InkWell(
                           onTap: (){
                             AppRoute.productDetail(context,
-                                productImage: "product_hot_${item.items[indexShopItem].inventory.id}1",
-                                productItem: ProducItemRespone( id: item.items[indexShopItem].inventory.id));
+                                productImage: "product_hot_${item.items[indexShopItem].inventory.product.id}1",
+                                productItem: ProducItemRespone( id: item.items[indexShopItem].inventory.product.id));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
