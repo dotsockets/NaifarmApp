@@ -509,7 +509,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                           onTap: (){
                             AppRoute.productDetail(context,
                                 productImage: "product_hot_${item.items[indexShopItem].inventory.product.id}1",
-                                productItem: ProducItemRespone( id: item.items[indexShopItem].inventory.product.id));
+                                productItem: ProducItemRespone( id: item.items[indexShopItem].inventory.product.id,shop: ShopItem(id: item.shop.id,name: item.shop.name,image: item.shop.image,slug: item.shop.slug)));
+
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

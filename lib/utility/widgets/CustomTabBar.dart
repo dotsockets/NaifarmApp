@@ -5,24 +5,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Provider/HomeMenuIndex.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/models/MenuModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
+import '../OneSignalCall.dart';
+
 class CustomTabBar extends StatefulWidget {
   final List<MenuModel> menuViewModel;
   final int selectedIndex;
-  final Function(int) onTap;
 
   const CustomTabBar({
     Key key,
     this.menuViewModel,
     this.selectedIndex,
-    this.onTap,
   }) : super(key: key);
 
   @override
@@ -39,7 +43,11 @@ class _CustomTabBarState extends State<CustomTabBar>
     _tabController = TabController(vsync: this, length: 5);
 
 
+    context.read<HomeMenuIndex>().listen((index) {
 
+       _tabController.index = index;
+
+    });
   }
 
   // if (!isSelect && index == 0) {
@@ -167,12 +175,33 @@ class _CustomTabBarState extends State<CustomTabBar>
           ),
         ),
       ],
-      onTap: (index) => {
-        widget.onTap(index),
-        if (index == 3)
-          {
-            _tabController.index = widget.selectedIndex,
-          }
+      onTap: (index)  {
+        if(index!=3){
+          context.read<HomeMenuIndex>().onSelect(index);
+        }else{
+          _tabController.index = widget.selectedIndex;
+        }
+
+        // widget.onTap(index),
+        Usermanager().getUser().then((value) => context
+            .read<CustomerCountBloc>()
+            .loadCustomerCount(context, token: value.token));
+        NaiFarmLocalStorage.saveNowPage(index);
+        if(index==4 || index==2){
+          OneSignalCall.cancelNotification("", 0);
+        }
+
+        if (index == 3) {
+          Usermanager().getUser().then((value) {
+            if (value.token != null) {
+              AppRoute.myCart(context, true);
+            } else {
+              AppRoute.login(context,
+                  isCallBack: true, isHeader: true,isSetting: false);
+            }
+          });
+        }
+
       },
     );
   }

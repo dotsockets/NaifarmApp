@@ -380,7 +380,7 @@ class ProductVertical extends StatelessWidget {
               ),
               InkWell(
                 child: Container(
-                  width: 15.0.w,
+                  width: 20.0.w,
                   margin: EdgeInsets.only(right: 2.0.w),
                   padding: EdgeInsets.only(
                       right: 3.0.w, left: 3.0.w, top: 1.5.w, bottom: 1.5.w),

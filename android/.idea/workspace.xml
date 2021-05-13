@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="703c12c1-04d9-419f-88b8-ef2064bce2b0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_browser_browser_1_2_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_listenablefuture_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/-1296063181/android.uni_links.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/1018782597/android.sign_in_with_apple.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.dart_tool/flutter_build/060f9ad0108e0080dae929954f82cef9/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/../.dart_tool/flutter_build/060f9ad0108e0080dae929954f82cef9/.filecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.dart_tool/flutter_build/060f9ad0108e0080dae929954f82cef9/App.framework/App" beforeDir="false" afterPath="$PROJECT_DIR$/../.dart_tool/flutter_build/060f9ad0108e0080dae929954f82cef9/App.framework/App" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.dart_tool/flutter_build/060f9ad0108e0080dae929954f82cef9/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/../.dart_tool/flutter_build/060f9ad0108e0080dae929954f82cef9/app.dill" afterDir="false" />
@@ -31,12 +35,19 @@
       <change beforePath="$PROJECT_DIR$/../.dart_tool/flutter_build/ac493194f0a2bc2e8674317a2128c0cb/kernel_snapshot.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/../.dart_tool/flutter_build/ac493194f0a2bc2e8674317a2128c0cb/kernel_snapshot.stamp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.dart_tool/flutter_build/ac493194f0a2bc2e8674317a2128c0cb/outputs.json" beforeDir="false" afterPath="$PROJECT_DIR$/../.dart_tool/flutter_build/ac493194f0a2bc2e8674317a2128c0cb/outputs.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../.dart_tool/package_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/../.dart_tool/package_config_subset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/../.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/../.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/NaifarmApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/NaifarmApp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.packages" beforeDir="false" afterPath="$PROJECT_DIR$/../.packages" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/-1056053953/android.flutter_facebook_login.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-1056053953/android.flutter_facebook_login.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/-1080781376/android.package_info.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-1080781376/android.package_info.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/-1365956502/android.sqflite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/-1365956502/android.sqflite.iml" afterDir="false" />
@@ -58,6 +69,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/modules/931857890/android.flutter_local_notifications.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/931857890/android.flutter_local_notifications.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/../build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/AssetManifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/AssetManifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/NOTICES" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/NOTICES" afterDir="false" />
@@ -65,6 +78,7 @@
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/assets/images/svg/checkmark.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/assets/images/svg/checkmark.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/assets/images/svg/like_line.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/assets/images/svg/like_line.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/assets/images/svg/like_line_null.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/assets/images/svg/like_line_null.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/assets/images/svg/product_hot.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/assets/images/svg/product_hot.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/assets/images/svg/uncheckmark.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/assets/images/svg/uncheckmark.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/kernel_blob.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/resources/langs/en-US.json" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/App.framework/flutter_assets/resources/langs/en-US.json" afterDir="false" />
@@ -80,11 +94,13 @@
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework.dSYM/Contents/Resources/DWARF/FBSDKLoginKit" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework.dSYM/Contents/Resources/DWARF/FBSDKLoginKit" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework/FBSDKLoginKit" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework/FBSDKLoginKit" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FMDB/FMDB.framework/FMDB" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FMDB/FMDB.framework/FMDB" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FirebaseCore-framework/FirebaseCore.framework.dSYM/Contents/Resources/DWARF/FirebaseCore" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FirebaseCore-framework/FirebaseCore.framework.dSYM/Contents/Resources/DWARF/FirebaseCore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FirebaseCore-framework/FirebaseCore.framework/FirebaseCore" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FirebaseCore-framework/FirebaseCore.framework/FirebaseCore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FirebaseCoreDiagnostics-framework/FirebaseCoreDiagnostics.framework.dSYM/Contents/Resources/DWARF/FirebaseCoreDiagnostics" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FirebaseCoreDiagnostics-framework/FirebaseCoreDiagnostics.framework.dSYM/Contents/Resources/DWARF/FirebaseCoreDiagnostics" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FirebaseCoreDiagnostics-framework/FirebaseCoreDiagnostics.framework/FirebaseCoreDiagnostics" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FirebaseCoreDiagnostics-framework/FirebaseCoreDiagnostics.framework/FirebaseCoreDiagnostics" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FirebaseInstallations-framework/FirebaseInstallations.framework.dSYM/Contents/Resources/DWARF/FirebaseInstallations" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FirebaseInstallations-framework/FirebaseInstallations.framework.dSYM/Contents/Resources/DWARF/FirebaseInstallations" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FirebaseInstallations-framework/FirebaseInstallations.framework/FirebaseInstallations" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/FirebaseInstallations-framework/FirebaseInstallations.framework/FirebaseInstallations" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/GoogleDataTransport-framework/GoogleDataTransport.framework.dSYM/Contents/Resources/DWARF/GoogleDataTransport" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/GoogleDataTransport-framework/GoogleDataTransport.framework.dSYM/Contents/Resources/DWARF/GoogleDataTransport" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/GoogleDataTransport-framework/GoogleDataTransport.framework/GoogleDataTransport" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/GoogleDataTransport-framework/GoogleDataTransport.framework/GoogleDataTransport" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/GoogleUtilities-framework/GoogleUtilities.framework.dSYM/Contents/Resources/DWARF/GoogleUtilities" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/GoogleUtilities-framework/GoogleUtilities.framework.dSYM/Contents/Resources/DWARF/GoogleUtilities" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/GoogleUtilities-framework/GoogleUtilities.framework/GoogleUtilities" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/GoogleUtilities-framework/GoogleUtilities.framework/GoogleUtilities" afterDir="false" />
@@ -107,6 +123,7 @@
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/checkmark.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/checkmark.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/like_line.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/like_line.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/like_line_null.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/like_line_null.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/product_hot.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/product_hot.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/uncheckmark.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/uncheckmark.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/kernel_blob.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/resources/langs/en-US.json" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/resources/langs/en-US.json" afterDir="false" />
@@ -143,6 +160,8 @@
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Runner" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/Runner" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/_CodeSignature/CodeResources" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.app/_CodeSignature/CodeResources" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.swiftmodule/x86_64-apple-ios-simulator.swiftmodule" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.swiftmodule/x86_64-apple-ios-simulator.swiftmodule" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.swiftmodule/x86_64.swiftmodule" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/Runner.swiftmodule/x86_64.swiftmodule" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/device_info_plus/device_info_plus.framework.dSYM/Contents/Resources/DWARF/device_info_plus" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/device_info_plus/device_info_plus.framework.dSYM/Contents/Resources/DWARF/device_info_plus" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/device_info_plus/device_info_plus.framework/device_info_plus" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/device_info_plus/device_info_plus.framework/device_info_plus" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/flutter_facebook_login/flutter_facebook_login.framework/_CodeSignature/CodeDirectory" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-production-iphonesimulator/flutter_facebook_login/flutter_facebook_login.framework/_CodeSignature/CodeDirectory" afterDir="false" />
@@ -191,6 +210,7 @@
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/assets/images/svg/checkmark.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/assets/images/svg/checkmark.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/assets/images/svg/like_line.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/assets/images/svg/like_line.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/assets/images/svg/like_line_null.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/assets/images/svg/like_line_null.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/assets/images/svg/product_hot.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/assets/images/svg/product_hot.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/assets/images/svg/uncheckmark.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/assets/images/svg/uncheckmark.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/kernel_blob.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/resources/langs/en-US.json" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/App.framework/flutter_assets/resources/langs/en-US.json" afterDir="false" />
@@ -220,7 +240,6 @@
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Pods_Runner.framework/Pods_Runner" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Pods_Runner.framework/Pods_Runner" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Pods_Runner.framework/_CodeSignature/CodeDirectory" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Pods_Runner.framework/_CodeSignature/CodeDirectory" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Pods_Runner.framework/_CodeSignature/CodeRequirements-1" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Pods_Runner.framework/_CodeSignature/CodeRequirements-1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/PromisesObjC-framework/FBLPromises.framework.dSYM/Contents/Resources/DWARF/FBLPromises" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/PromisesObjC-framework/FBLPromises.framework.dSYM/Contents/Resources/DWARF/FBLPromises" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/PromisesObjC-framework/FBLPromises.framework/FBLPromises" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/PromisesObjC-framework/FBLPromises.framework/FBLPromises" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Reachability/Reachability.framework.dSYM/Contents/Resources/DWARF/Reachability" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Reachability/Reachability.framework.dSYM/Contents/Resources/DWARF/Reachability" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Reachability/Reachability.framework/Reachability" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Reachability/Reachability.framework/Reachability" afterDir="false" />
@@ -236,6 +255,7 @@
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/checkmark.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/checkmark.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/like_line.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/like_line.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/like_line_null.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/like_line_null.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/product_hot.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/product_hot.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/uncheckmark.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/uncheckmark.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/kernel_blob.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/resources/langs/en-US.json" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/resources/langs/en-US.json" afterDir="false" />
@@ -288,6 +308,7 @@
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/keyboard_visibility/keyboard_visibility.framework/keyboard_visibility" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/keyboard_visibility/keyboard_visibility.framework/keyboard_visibility" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/multi_image_picker/multi_image_picker.framework.dSYM/Contents/Resources/DWARF/multi_image_picker" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/multi_image_picker/multi_image_picker.framework.dSYM/Contents/Resources/DWARF/multi_image_picker" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/multi_image_picker/multi_image_picker.framework/multi_image_picker" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/multi_image_picker/multi_image_picker.framework/multi_image_picker" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/nanopb-framework/nanopb.framework.dSYM/Contents/Resources/DWARF/nanopb" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/nanopb-framework/nanopb.framework.dSYM/Contents/Resources/DWARF/nanopb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/nanopb-framework/nanopb.framework/nanopb" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/nanopb-framework/nanopb.framework/nanopb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/onesignal_flutter/onesignal_flutter.framework/_CodeSignature/CodeDirectory" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/onesignal_flutter/onesignal_flutter.framework/_CodeSignature/CodeDirectory" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/onesignal_flutter/onesignal_flutter.framework/_CodeSignature/CodeRequirements-1" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/Debug-staging-iphonesimulator/onesignal_flutter/onesignal_flutter.framework/_CodeSignature/CodeRequirements-1" afterDir="false" />
@@ -325,6 +346,7 @@
       <change beforePath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/checkmark.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/checkmark.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/like_line.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/like_line.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/like_line_null.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/like_line_null.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/product_hot.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/product_hot.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/uncheckmark.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/assets/images/svg/uncheckmark.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/kernel_blob.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/resources/langs/en-US.json" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/resources/langs/en-US.json" afterDir="false" />
@@ -363,27 +385,18 @@
       <change beforePath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Runner" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/Runner" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/_CodeSignature/CodeResources" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/iphonesimulator/Runner.app/_CodeSignature/CodeResources" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/ios/pod_inputs.fingerprint" beforeDir="false" afterPath="$PROJECT_DIR$/../build/ios/pod_inputs.fingerprint" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/bloc/Provider/SettingReloadCubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/bloc/Provider/SettingReloadCubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/bloc/Stream/CartBloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/bloc/Stream/CartBloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/model/api/_APIProvider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/model/api/_APIProvider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/model/core/AppRoute.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/model/core/AppRoute.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/Runner/Runner.entitlements" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Runner.entitlements" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/app/model/core/AppComponent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/model/core/AppComponent.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/app/ui/home/HomeView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/ui/home/HomeView.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/app/ui/login/LoginView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/ui/login/LoginView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/ui/me/MeView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/ui/me/MeView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/ui/noti/notidetail/NotiShop.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/ui/noti/notidetail/NotiShop.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/ui/productdetail/ProductDetailView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/ui/productdetail/ProductDetailView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/ui/productdetail/widget/ProductInto.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/ui/productdetail/widget/ProductInto.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/app/ui/recommend/widget/RecommendMenu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/ui/recommend/widget/RecommendMenu.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/ui/setting/guestSetting/SettingGuestView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/ui/setting/guestSetting/SettingGuestView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/ui/setting/profile/SettingProfileView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/ui/setting/profile/SettingProfileView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/ui/setting/profile/editprofile/EditProfileVIew.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/ui/setting/profile/editprofile/EditProfileVIew.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/ui/splash/SplashView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/ui/splash/SplashView.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/config/Env.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/config/Env.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/generated/locale_keys.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/generated/locale_keys.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/utility/widgets/BuildIconShop.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/utility/widgets/BuildIconShop.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/utility/widgets/CustomTabBar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/utility/widgets/CustomTabBar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/utility/widgets/LifecycleWatcherState.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../naifarm_android.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../naifarm_android.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/utility/widgets/ProductVertical.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/utility/widgets/ProductVertical.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../resources/langs/en-US.json" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/langs/en-US.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../resources/langs/th-TH.json" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/langs/th-TH.json" afterDir="false" />
     </list>
@@ -392,11 +405,49 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_4_XL_API_30]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Nexus_5X_API_29]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="android" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="android" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="android" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="android" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="android" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -407,18 +458,77 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.android:app [signingReport]">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="URL https://www.naifarm.com" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="android.app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="launch_deep_link" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="https://www.naifarm.com" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
@@ -480,6 +590,34 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/device_info_plus-0.7.2/example/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="android:app [signingReport]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="signingReport" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.android:app [signingReport]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -495,9 +633,26 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="100" y="125" width="1480" height="770" key="AVDManager" timestamp="1620018801617">
+    <state x="100" y="125" width="1480" height="770" key="AVDManager" timestamp="1620876143349">
       <screen x="0" y="25" width="1680" height="970" />
     </state>
+    <state x="100" y="125" width="1480" height="770" key="AVDManager/0.25.1680.970/1680.25.1920.1055@0.25.1680.970" timestamp="1620876143349" />
     <state x="100" y="125" width="1480" height="770" key="AVDManager/0.25.1680.970@0.25.1680.970" timestamp="1620018801617" />
+    <state width="1637" height="255" key="GridCell.Tab.0.bottom" timestamp="1620876173973">
+      <screen x="0" y="25" width="1680" height="970" />
+    </state>
+    <state width="1637" height="255" key="GridCell.Tab.0.bottom/0.25.1680.970/1680.25.1920.1055@0.25.1680.970" timestamp="1620876173973" />
+    <state width="1637" height="255" key="GridCell.Tab.0.center" timestamp="1620876173972">
+      <screen x="0" y="25" width="1680" height="970" />
+    </state>
+    <state width="1637" height="255" key="GridCell.Tab.0.center/0.25.1680.970/1680.25.1920.1055@0.25.1680.970" timestamp="1620876173972" />
+    <state width="1637" height="255" key="GridCell.Tab.0.left" timestamp="1620876173972">
+      <screen x="0" y="25" width="1680" height="970" />
+    </state>
+    <state width="1637" height="255" key="GridCell.Tab.0.left/0.25.1680.970/1680.25.1920.1055@0.25.1680.970" timestamp="1620876173972" />
+    <state width="1637" height="255" key="GridCell.Tab.0.right" timestamp="1620876173972">
+      <screen x="0" y="25" width="1680" height="970" />
+    </state>
+    <state width="1637" height="255" key="GridCell.Tab.0.right/0.25.1680.970/1680.25.1920.1055@0.25.1680.970" timestamp="1620876173972" />
   </component>
 </project>

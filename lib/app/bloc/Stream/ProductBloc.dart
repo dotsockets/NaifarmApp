@@ -571,6 +571,21 @@ class ProductBloc {
     });
   }
 
+  getProductsByIdApplink(BuildContext context, {int id, bool onload}) {
+    onLoad.add(true);
+    Observable.fromFuture(
+        _application.appStoreAPIRepository.productsById(context, id: id))
+        .listen((event) {
+        onLoad.add(false);
+      if (event.httpCallBack.status == 200) {
+        var item = (event.respone as ProducItemRespone);
+        productItem.add(item);
+      } else {
+        onError.add(event.httpCallBack);
+      }
+    });
+  }
+
   // loadProductsPage({int id,String token}){
   // //  onLoad.add(true);
   //   onError.add(null);

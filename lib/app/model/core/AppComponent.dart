@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -9,6 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import 'package:uni_links/uni_links.dart';
+
+import 'FunctionHelper.dart';
 
 final RouteObserver<PageRoute> routeObserver = new RouteObserver<PageRoute>();
 
@@ -16,6 +21,7 @@ class AppComponent extends StatefulWidget {
   final AppNaiFarmApplication _application;
 
   AppComponent(this._application);
+
 
   @override
   State createState() {
@@ -27,6 +33,8 @@ class AppComponentState extends State<AppComponent> {
   final AppNaiFarmApplication _application;
 
   AppComponentState(this._application);
+
+
 
   @override
   void dispose() async {
@@ -75,4 +83,7 @@ class AppComponentState extends State<AppComponent> {
     final appProvider = AppProvider(child: app, application: _application);
     return appProvider;
   }
+
+
+
 }
