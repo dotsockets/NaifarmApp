@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
@@ -27,6 +26,7 @@ import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
+
 class InActive extends StatefulWidget {
   final int shopId;
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -83,18 +83,16 @@ class _InActiveState extends State<InActive> {
           page=1;
           _reloadData();
         });*/
-        if(event.status!=99){
+        if (event.status != 99) {
           FunctionHelper.alertDialogRetry(context,
               title: LocaleKeys.btn_error.tr(),
               message: event.message, callBack: () {
-                bloc.onError.add(ThrowIfNoSuccess(status: 99));
-                widget.searchTxt.length != 0
-                    ? _reloadFirstSearch()
-                    : _reloadFirstPage();
-              });
+            bloc.onError.add(ThrowIfNoSuccess(status: 99));
+            widget.searchTxt.length != 0
+                ? _reloadFirstSearch()
+                : _reloadFirstPage();
+          });
         }
-
-
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -147,7 +145,7 @@ class _InActiveState extends State<InActive> {
                           buildProduct(item: item.data[index], index: index),
                     ),
                   ),
-                  if (item.data.length != item.total && item.data.length>=5)
+                  if (item.data.length != item.total && item.data.length >= 5)
                     Container(
                       padding: EdgeInsets.all(20),
                       child: Row(
@@ -258,17 +256,18 @@ class _InActiveState extends State<InActive> {
                                   width: 30.0.w,
                                   height: 30.0.w,
 
-
 //child: Image.network(Env.value.noItemUrl,
-                            //    fit: BoxFit.cover)),
-                            child: NaifarmErrorWidget()),
+                                  //    fit: BoxFit.cover)),
+                                  child: NaifarmErrorWidget()),
                             ),
                           ),
                         ),
                       ),
                       Visibility(
                         child: Container(
-                          margin: EdgeInsets.only(left: (SizeUtil.ratingSize()-2).w, top: SizeUtil.ratingSize().w),
+                          margin: EdgeInsets.only(
+                              left: (SizeUtil.ratingSize() - 2).w,
+                              top: SizeUtil.ratingSize().w),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(1.0.w),
                             child: Container(
@@ -472,8 +471,8 @@ class _InActiveState extends State<InActive> {
                       Expanded(
                         child: InkWell(
                           child: Container(
-                            child: SvgPicture.asset(
-                              'assets/images/svg/Edit.svg',
+                            child: Image.asset(
+                              'assets/images/png/Edit.png',
                               width: SizeUtil.mediumIconSize().w,
                               height: SizeUtil.mediumIconSize().w,
                               color: ThemeColor.colorSale(),
@@ -510,8 +509,8 @@ class _InActiveState extends State<InActive> {
                       ),
                       Expanded(
                         child: InkWell(
-                          child: SvgPicture.asset(
-                            'assets/images/svg/trash.svg',
+                          child: Image.asset(
+                            'assets/images/png/trash.png',
                             width: SizeUtil.mediumIconSize().w,
                             height: SizeUtil.mediumIconSize().w,
                             color: ThemeColor.colorSale(),

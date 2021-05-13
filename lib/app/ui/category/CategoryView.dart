@@ -41,7 +41,7 @@ class _CategoryViewState extends State<CategoryView> {
           child: AppToobar(
               showBackBtn: false,
               headerType: Header_Type.barcartShop,
-              icon: 'assets/images/svg/cart_top.svg',
+              icon: 'assets/images/png/cart_top.png',
               title: LocaleKeys.recommend_category_product.tr())),
       body: SingleChildScrollView(
         child:
@@ -137,8 +137,9 @@ class _CategoryViewState extends State<CategoryView> {
                     height: SizeUtil.categoryTabSize().w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
-                      child:
-                          Lottie.asset('assets/json/loading.json', height: SizeUtil.categoryTabSize().w,width: SizeUtil.categoryTabSize().w),
+                      child: Lottie.asset('assets/json/loading.json',
+                          height: SizeUtil.categoryTabSize().w,
+                          width: SizeUtil.categoryTabSize().w),
                     ),
                     fit: BoxFit.cover,
                     imageUrl:

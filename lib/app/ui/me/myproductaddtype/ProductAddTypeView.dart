@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -106,8 +105,8 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                       child: Container(
                         padding: EdgeInsets.only(
                             top: 8, bottom: 8, right: 13, left: 13),
-                        child: SvgPicture.asset(
-                          'assets/images/svg/Edit.svg',
+                        child: Image.asset(
+                          'assets/images/png/Edit.png',
                           width: 20,
                           height: 20,
                           color: ThemeColor.colorSale(),
@@ -126,8 +125,8 @@ class _ProductAddTypeViewState extends State<ProductAddTypeView> {
                       child: Container(
                         padding: EdgeInsets.only(
                             top: 8, bottom: 8, right: 13, left: 13),
-                        child: SvgPicture.asset(
-                          'assets/images/svg/trash.svg',
+                        child: Image.asset(
+                          'assets/images/png/trash.png',
                           width: 20,
                           height: 20,
                           color: ThemeColor.colorSale(),

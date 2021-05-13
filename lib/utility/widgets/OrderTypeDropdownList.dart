@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
-import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
 import 'package:sizer/sizer.dart';
 import '../SizeUtil.dart';

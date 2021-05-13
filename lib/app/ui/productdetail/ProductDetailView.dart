@@ -4,7 +4,6 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -168,7 +167,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
         if (event is CartResponse) {
           // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
           //animationController.forward();
-          FunctionHelper.snackBarShow(context: context,scaffoldKey: _scaffoldKey,message: LocaleKeys.my_product_addcart.tr());
+          FunctionHelper.snackBarShow(
+              context: context,
+              scaffoldKey: _scaffoldKey,
+              message: LocaleKeys.my_product_addcart.tr());
         } else if (event is bool) {
           AppRoute.myCart(context, true, cartNowId: bloc.bayNow);
           // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
@@ -200,7 +202,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
     NaiFarmLocalStorage.getCustomerInfo().then((value) {
       //  print("efcsdcx ${widget.productItem.shop.id}  ${value.myShopRespone.id}");
-      if (value != null && value.myShopRespone!=null) {
+      if (value != null && value.myShopRespone != null) {
         checkMyShop.add(value.myShopRespone.id);
       } else {
         checkMyShop.add(0);
@@ -299,7 +301,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                 child: Stack(
                   children: [
                     SingleChildScrollView(
-                      physics : ClampingScrollPhysics(),
+                      physics: ClampingScrollPhysics(),
                       controller: trackingScrollController,
                       child: Column(
                         children: [
@@ -393,13 +395,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   return FullScreenWidget(
                     backgroundIsTransparent: true,
                     child: Center(
-                      child: ProductSlide(imgList: item.producItemRespone.image),
+                      child:
+                          ProductSlide(imgList: item.producItemRespone.image),
                     ),
                   );
                 } else {
                   return widget.productItem.image != null && item != null
-                      ? ProductSlide(
-                          imgList: item.producItemRespone.image)
+                      ? ProductSlide(imgList: item.producItemRespone.image)
                       : SizedBox();
                 }
               }),
@@ -414,13 +416,16 @@ class _ProductDetailViewState extends State<ProductDetailView>
                           ? ProductInto(
                               data: item.producItemRespone,
                               dataWishlist: item.dataWishlists,
-                              scaffoldKey: _scaffoldKey,isLogin: isLogin,callback_login: (){
-                        iSLogin();
-                        Usermanager().getUser().then((value) {
-                          bloc.loadProductsPage(context,
-                              id: widget.productItem.id, token: value.token);
-                        });
-                      })
+                              scaffoldKey: _scaffoldKey,
+                              isLogin: isLogin,
+                              callbackLogin: () {
+                                iSLogin();
+                                Usermanager().getUser().then((value) {
+                                  bloc.loadProductsPage(context,
+                                      id: widget.productItem.id,
+                                      token: value.token);
+                                });
+                              })
                           : SizedBox(),
                       widget.productItem.image != null ? divider() : SizedBox(),
                       // BuildChoosesize(
@@ -470,7 +475,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 titleInto: LocaleKeys.recommend_you_like.tr(),
                                 producViewModel:
                                     ProductViewModel().getBestSaller(),
-                                iconInto: 'assets/images/svg/like.svg',
+                                imageIcon: 'assets/images/png/like.png',
+                                iconSize: 5.0.w,
                                 onSelectMore: () {
                                   AppRoute.productMore(
                                       context: context,
@@ -549,13 +555,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SvgPicture.asset(
-                                'assets/images/svg/message.svg',
+                              Image.asset(
+                                'assets/images/png/message.png',
                                 color: Colors.grey.shade300,
-                                width: SizeUtil.iconLargeSize().w,
-                                height: SizeUtil.iconLargeSize().w,
+                                width: (SizeUtil.iconLargeSize() + 3).w,
+                                height: (SizeUtil.iconLargeSize() + 1).w,
                               ),
-                              SizedBox(height: 1.0),
+                              // SizedBox(height: 1.0),
                               Text(
                                 LocaleKeys.btn_chat.tr(),
                                 style: FunctionHelper.fontTheme(
@@ -638,10 +644,9 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 AppRoute.login(context,
                                     isCallBack: true,
                                     isHeader: true,
-                                    isSetting: false,
-                                    homeCallBack: (bool fix) {
-                                       //print("wefcrewfcrefc $fix");
-                                    });
+                                    isSetting: false, homeCallBack: (bool fix) {
+                                  //print("wefcrewfcrefc $fix");
+                                });
                               }
                             },
                           ),

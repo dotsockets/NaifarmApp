@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/bloc/Provider/SettingReloadCubit.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -73,14 +72,14 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
                       fontSize: SizeUtil.titleFontSize().sp,
                       fontWeight: FontWeight.w500)),
               locale == EasyLocalization.of(context).locale
-                  ? SvgPicture.asset(
-                      'assets/images/svg/checkmark.svg',
+                  ? Image.asset(
+                      'assets/images/png/checkmark.png',
                       color: ThemeColor.primaryColor(),
                       width: SizeUtil.checkMarkSize().w,
                       height: SizeUtil.checkMarkSize().w,
                     )
-                  : SvgPicture.asset(
-                      'assets/images/svg/uncheckmark.svg',
+                  : Image.asset(
+                      'assets/images/png/uncheckmark.png',
                       width: SizeUtil.checkMarkSize().w,
                       height: SizeUtil.checkMarkSize().w,
                       color: Colors.black.withOpacity(0.3),

@@ -3,7 +3,6 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -29,7 +28,8 @@ class LoginView extends StatefulWidget {
       {Key key,
       this.isCallBack = false,
       this.isHeader = true,
-      this.homeCallBack,this.isSetting=false})
+      this.homeCallBack,
+      this.isSetting = false})
       : super(key: key);
 
   @override
@@ -325,10 +325,10 @@ class _LoginViewState extends State<LoginView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SvgPicture.asset(
-                      'assets/images/svg/facebook.svg',
-                      width: 2.0.w,
-                      height: 2.0.h,
+                    Image.asset(
+                      'assets/images/png/facebook.png',
+                      width: 3.0.w,
+                      height: 3.0.w,
                     ),
                     SizedBox(
                       width: 2.0.w,
@@ -421,36 +421,39 @@ class _LoginViewState extends State<LoginView> {
             children: [
               widget.isHeader
                   ? Container(
-                    margin: EdgeInsets.only(left: 2.0.w, top: 2.0.w),
-                    child: IconButton(
-                      icon: Icon(
-                        Platform.isAndroid
-                            ? Icons.arrow_back
-                            : Icons.arrow_back_ios_rounded,
-                        color: Colors.white,
+                      margin: EdgeInsets.only(left: 2.0.w, top: 2.0.w),
+                      child: IconButton(
+                        icon: Icon(
+                          Platform.isAndroid
+                              ? Icons.arrow_back
+                              : Icons.arrow_back_ios_rounded,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context, false);
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.pop(context, false);
-                      },
-                    ),
-                  )
+                    )
                   : SizedBox(
                       height: 1.5.h,
                     ),
-              widget.isSetting?IconButton(
-                padding: EdgeInsets.only(right: 2.0.w, top: 2.0.w),
-                icon: Icon(Icons.settings,
-                    color: Colors.white, size: SizeUtil.iconLargeSize().w),
-                onPressed: () async {
-                  // ignore: unused_local_variable
+              widget.isSetting
+                  ? IconButton(
+                      padding: EdgeInsets.only(right: 2.0.w, top: 2.0.w),
+                      icon: Icon(Icons.settings,
+                          color: Colors.white,
+                          size: SizeUtil.iconLargeSize().w),
+                      onPressed: () async {
+                        // ignore: unused_local_variable
 
-                  final result = await AppRoute.settingGuest(context,IsHeader: true,IsCallBack: false);
-                  if(result==false){
-                    NaiFarmLocalStorage.saveNowPage(0);
-                  }
-
-                },
-              ):SizedBox()
+                        final result = await AppRoute.settingGuest(context,
+                            isHeader: true, isCallBack: false);
+                        if (result == false) {
+                          NaiFarmLocalStorage.saveNowPage(0);
+                        }
+                      },
+                    )
+                  : SizedBox()
             ],
           ),
           Text(

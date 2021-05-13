@@ -18,7 +18,6 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
-//'assets/images/svg/cart_top.svg'
 class NotiShop extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool btnBack;
@@ -542,8 +541,7 @@ class _NotiShopState extends State<NotiShop>
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-              "${LocaleKeys.noti_shop_open.tr()}",
+          Text("${LocaleKeys.noti_shop_open.tr()}",
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp,
                   fontWeight: FontWeight.bold,
@@ -553,7 +551,6 @@ class _NotiShopState extends State<NotiShop>
             text: new TextSpan(
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
-
                 new TextSpan(
                   text: LocaleKeys.noti_shop_open_detail1.tr(),
                   style: FunctionHelper.fontTheme(

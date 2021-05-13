@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -83,8 +82,8 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SvgPicture.asset(
-                                'assets/images/svg/checkmark.svg',
+                              Image.asset(
+                                'assets/images/png/checkmark.png',
                                 color: Colors.white,
                                 width: SizeUtil.iconLargeSize().w,
                                 height: SizeUtil.iconLargeSize().w,
@@ -169,7 +168,9 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
               ),
             ),
           ),
-          SizedBox(width: 4.0.w,),
+          SizedBox(
+            width: 4.0.w,
+          ),
           Container(
             width: 40.0.w,
             height: 8.0.h,
@@ -195,7 +196,9 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                   AppRoute.poppageCount(context: context, countpage: 3);
                 }
 
-                AppRoute.orderDetail(context, orderData: widget.orderData,typeView: OrderViewType.Purchase);
+                AppRoute.orderDetail(context,
+                    orderData: widget.orderData,
+                    typeView: OrderViewType.Purchase);
               },
               child: Text(
                 LocaleKeys.order_detail_txt.tr(),

@@ -4,8 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
@@ -121,11 +119,15 @@ class _PaidViewState extends State<PaidView> {
                   return Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      bloc.onSuccess.value!=null?Positioned(
-                  top: 25 * controller.value,
-                    child: Container(margin: EdgeInsets.only(top: 1.5.h,bottom: 1.0.h),child: CupertinoActivityIndicator()),
-
-                      ):SizedBox()
+                      bloc.onSuccess.value != null
+                          ? Positioned(
+                              top: 25 * controller.value,
+                              child: Container(
+                                  margin: EdgeInsets.only(
+                                      top: 1.5.h, bottom: 1.0.h),
+                                  child: CupertinoActivityIndicator()),
+                            )
+                          : SizedBox()
                     ],
                   );
                 },
@@ -542,7 +544,7 @@ class _PaidViewState extends State<PaidView> {
                   Text(
                     //order_detail_pay_date
                     widget.typeView == OrderViewType.Purchase
-                        ? item.paymentStatus==1
+                        ? item.paymentStatus == 1
                             ? "${LocaleKeys.order_detail_pay_date.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}"
                             : "${LocaleKeys.order_detail_upload_slip.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requestPaymentAt ?? DateTime.now().toString()))}"
                         : LocaleKeys.history_order_time.tr() +
@@ -717,8 +719,8 @@ class _PaidViewState extends State<PaidView> {
       color: Colors.white,
       child: Row(
         children: [
-          SvgPicture.asset(
-            'assets/images/svg/delivery.svg',
+          Image.asset(
+            'assets/images/png/delivery.png',
             width: 4.0.h,
             height: 4.0.h,
           ),
@@ -736,7 +738,7 @@ class _PaidViewState extends State<PaidView> {
               child: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.grey.shade400,
-                size: SizeUtil.ratingSize().w ,
+                size: SizeUtil.ratingSize().w,
               ))
         ],
       ),

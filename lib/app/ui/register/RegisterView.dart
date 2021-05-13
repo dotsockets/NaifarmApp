@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -110,7 +109,9 @@ class _RegisterViewState extends State<RegisterView> {
               height: 4.0.h,
             ),
             Container(
-              padding: EdgeInsets.only(left: SizeUtil.paddingEdittext().w,right: SizeUtil.paddingEdittext().w),
+              padding: EdgeInsets.only(
+                  left: SizeUtil.paddingEdittext().w,
+                  right: SizeUtil.paddingEdittext().w),
               child: BuildEditText(
                 head: LocaleKeys.my_profile_phone.tr() + " *",
                 hint: LocaleKeys.my_profile_phone.tr(),
@@ -228,13 +229,13 @@ class _RegisterViewState extends State<RegisterView> {
                 child: //Text(LocaleKeys.facebook_regis_btn.tr(),
                     //style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                     Row(
-                      mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(
-                      'assets/images/svg/facebook.svg',
-                      width: 2.0.w,
-                      height: 2.0.h,
+                    Image.asset(
+                      'assets/images/png/facebook.png',
+                      width: 3.0.w,
+                      height: 3.0.h,
                     ),
                     SizedBox(
                       width: 2.0.w,

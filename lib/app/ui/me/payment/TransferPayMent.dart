@@ -37,7 +37,6 @@ class _TransferPayMentState extends State<TransferPayMent> {
 
   init(BuildContext context) {
     if (bloc == null) {
-
       bloc = OrdersBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -66,7 +65,6 @@ class _TransferPayMentState extends State<TransferPayMent> {
         if (value != null) {
           bloc.systemRespone.add(value);
         }
-
       });
 
       bloc.getSystem(context);
@@ -76,7 +74,6 @@ class _TransferPayMentState extends State<TransferPayMent> {
   }
 
   void getToken() async => isToken = await Usermanager().isToken();
-
 
   @override
   Widget build(BuildContext context) {
@@ -126,28 +123,35 @@ class _TransferPayMentState extends State<TransferPayMent> {
                             title: "3",
                             message:
                                 "เพื่อความรวดเร็วในการยืนยันการชำระเงินของท่าน ขอแนะนำให้ท่านอัพโหลดหลักฐานการชำระเงินที่ท่านได้รับจาก mobile banking application หรือ internet banking แทนการอัพโหลดหลักฐานประเภทอื่น ซึ่งอาจทำให้ตรวจสอบการชำระเงินล่าช้า"),
-                      FutureBuilder<OrderData>(
-                      future: bloc.getOrderByIdFuture(context,
-                          orderType:"order" ,
-                          id: widget.orderData.id,token: isToken),
-                      // a Future<String> or null
-                      builder:
-                          (BuildContext context, AsyncSnapshot<OrderData> snapshot) {
-
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.none:
-                                return  buttonItem(systemRespone: systemRes,orderData_item: OrderData());
-                              case ConnectionState.waiting:
-                              //return new Text('Awaiting result...');
-                                return  buttonItem(systemRespone: systemRes,orderData_item: OrderData());
-                              default:
-                                if (snapshot.hasError)
-                                   return  buttonItem(systemRespone: systemRes,orderData_item: OrderData());
-                                else
-                                   return  buttonItem(systemRespone: systemRes,orderData_item: snapshot.data);
-                            }
-                          }),
-
+                        FutureBuilder<OrderData>(
+                            future: bloc.getOrderByIdFuture(context,
+                                orderType: "order",
+                                id: widget.orderData.id,
+                                token: isToken),
+                            // a Future<String> or null
+                            builder: (BuildContext context,
+                                AsyncSnapshot<OrderData> snapshot) {
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.none:
+                                  return buttonItem(
+                                      systemRespone: systemRes,
+                                      orderDataItem: OrderData());
+                                case ConnectionState.waiting:
+                                  //return new Text('Awaiting result...');
+                                  return buttonItem(
+                                      systemRespone: systemRes,
+                                      orderDataItem: OrderData());
+                                default:
+                                  if (snapshot.hasError)
+                                    return buttonItem(
+                                        systemRespone: systemRes,
+                                        orderDataItem: OrderData());
+                                  else
+                                    return buttonItem(
+                                        systemRespone: systemRes,
+                                        orderDataItem: snapshot.data);
+                              }
+                            }),
                       ],
                     ),
                   ),
@@ -373,7 +377,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
                     ),
                     fit: BoxFit.cover,
                     imageUrl:
-                    "${"https://promptpay.io/0953948882/" + widget.orderData.grandTotal.toString()}",
+                        "${"https://promptpay.io/0953948882/" + widget.orderData.grandTotal.toString()}",
                     errorWidget: (context, url, error) => Container(
                         color: Colors.grey.shade400,
                         width: 50.0.w,
@@ -393,9 +397,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
     );
   }
 
-  Widget buttonItem({SystemRespone systemRespone,OrderData orderData_item}) {
-
-
+  Widget buttonItem({SystemRespone systemRespone, OrderData orderDataItem}) {
     return Container(
       padding: EdgeInsets.all(3.0.h),
       width: MediaQuery.of(context).size.width,
@@ -418,9 +420,16 @@ class _TransferPayMentState extends State<TransferPayMent> {
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all(
-
-                  orderData_item != null &&  orderData_item.orderStatusId == 1 && orderData_item.itemCount == orderData_item.items.length &&
-                      orderData_item.items.where((element) => element.inventory!=null).toList().length>0 && systemRespone.bankAccountNumber != null
+                  orderDataItem != null &&
+                          orderDataItem.orderStatusId == 1 &&
+                          orderDataItem.itemCount ==
+                              orderDataItem.items.length &&
+                          orderDataItem.items
+                                  .where((element) => element.inventory != null)
+                                  .toList()
+                                  .length >
+                              0 &&
+                          systemRespone.bankAccountNumber != null
                       ? ThemeColor.secondaryColor()
                       : Colors.grey,
                 ),
@@ -429,8 +438,15 @@ class _TransferPayMentState extends State<TransferPayMent> {
                 ),
               ),
               onPressed: () {
-                if (orderData_item != null &&  orderData_item.orderStatusId == 1 && orderData_item.itemCount == orderData_item.items.length &&
-                    orderData_item.items.where((element) => element.inventory!=null).toList().length>0 && systemRespone.bankAccountNumber != null) {
+                if (orderDataItem != null &&
+                    orderDataItem.orderStatusId == 1 &&
+                    orderDataItem.itemCount == orderDataItem.items.length &&
+                    orderDataItem.items
+                            .where((element) => element.inventory != null)
+                            .toList()
+                            .length >
+                        0 &&
+                    systemRespone.bankAccountNumber != null) {
                   captureImage(ImageSource.gallery);
                 }
               },

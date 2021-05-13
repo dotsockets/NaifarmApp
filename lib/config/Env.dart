@@ -10,7 +10,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:flutter/material.dart';
 
 enum EnvType { DEVELOPMENT, STAGING, PRODUCTION }
 enum DeviceType { PHONE, TABLET }
@@ -36,7 +35,6 @@ class Env {
   }
 
   void _init() async {
-
     WidgetsFlutterBinding.ensureInitialized();
     var application = AppNaiFarmApplication();
     await application.onCreate();

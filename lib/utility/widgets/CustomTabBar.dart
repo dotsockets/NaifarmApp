@@ -3,7 +3,6 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -37,9 +36,6 @@ class _CustomTabBarState extends State<CustomTabBar>
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 5);
-
-
-
   }
 
   // if (!isSelect && index == 0) {
@@ -64,7 +60,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           child: Tab(
             icon: _buildIcon(
                 sizeIcon: SizeUtil.custombarIconSize().w,
-                pathIcon: 'assets/images/svg/home_active.svg',
+                pathIcon: 'assets/images/png/home_active.png',
                 index: 0,
                 notification: 0),
             text: _tabController.index == 0
@@ -77,7 +73,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           child: Tab(
             icon: _buildIcon(
                 sizeIcon: SizeUtil.custombarIconSize().w,
-                pathIcon: 'assets/images/svg/type.svg',
+                pathIcon: 'assets/images/png/type.png',
                 index: 1,
                 notification: 0),
             text: LocaleKeys.tab_bar_category.tr(),
@@ -91,7 +87,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                 if (count is CustomerCountLoaded) {
                   return _buildIcon(
                       sizeIcon: SizeUtil.custombarIconSize().w,
-                      pathIcon: 'assets/images/svg/notification.svg',
+                      pathIcon: 'assets/images/png/notification.png',
                       index: 2,
                       notification:
                           count.countLoaded.notification.unreadCustomer +
@@ -99,7 +95,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                 } else if (count is CustomerCountLoading) {
                   return _buildIcon(
                     sizeIcon: SizeUtil.custombarIconSize().w,
-                    pathIcon: 'assets/images/svg/notification.svg',
+                    pathIcon: 'assets/images/png/notification.png',
                     index: 2,
                     notification: count.countLoaded != null
                         ? count.countLoaded.notification.unreadCustomer +
@@ -111,7 +107,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                 } else {
                   return _buildIcon(
                       sizeIcon: SizeUtil.custombarIconSize().w,
-                      pathIcon: 'assets/images/svg/notification.svg',
+                      pathIcon: 'assets/images/png/notification.png',
                       index: 2,
                       notification: 0);
                 }
@@ -128,7 +124,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                 if (count is CustomerCountLoaded) {
                   return _buildIcon(
                     sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
-                    pathIcon: 'assets/images/svg/cart.svg',
+                    pathIcon: 'assets/images/png/cart.png',
                     index: 3,
                     notification: count.countLoaded != null
                         ? count.countLoaded.cartCount
@@ -137,7 +133,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                 } else if (count is CustomerCountLoading) {
                   return _buildIcon(
                     sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
-                    pathIcon: 'assets/images/svg/cart.svg',
+                    pathIcon: 'assets/images/png/cart.png',
                     index: 3,
                     notification: count.countLoaded != null
                         ? count.countLoaded.cartCount
@@ -146,7 +142,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                 } else {
                   return _buildIcon(
                       sizeIcon: (SizeUtil.custombarIconSize() + 0.5).w,
-                      pathIcon: 'assets/images/svg/cart.svg',
+                      pathIcon: 'assets/images/png/cart.png',
                       index: 3,
                       notification: 0);
                 }
@@ -160,7 +156,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           child: Tab(
             icon: _buildIcon(
                 sizeIcon: SizeUtil.custombarIconSize().w,
-                pathIcon: 'assets/images/svg/me.svg',
+                pathIcon: 'assets/images/png/me.png',
                 index: 4,
                 notification: 0),
             text: LocaleKeys.tab_bar_me.tr(),
@@ -208,7 +204,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                 ),
               ),
               child: Container(
-                child: SvgPicture.asset(
+                child: Image.asset(
                   pathIcon,
                   color: _tabController.index == index
                       ? ThemeColor.secondaryColor()

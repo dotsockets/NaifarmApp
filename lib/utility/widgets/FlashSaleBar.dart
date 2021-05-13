@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -72,23 +71,34 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SvgPicture.asset(
-                  'assets/images/svg/flash_sale.svg',
-                  width: 4.0.w,
-                  height: 4.0.h,
+                Image.asset(
+                  'assets/images/png/flash_sale.png',
+                  width: 8.0.w,
+                  height: 8.0.w,
                 ),
-                Text("Fla",
-                    style: GoogleFonts.kanit(
-                        fontSize: SizeUtil.titleFontSize().sp + 3.0,
-                        color: Colors.white)),
+                Text(
+                  "Fla",
+                  style: GoogleFonts.kanit(
+                    fontSize: SizeUtil.titleFontSize().sp + 3.0,
+                    color: Colors.white,
+                  ),
+                ),
                 SizedBox(width: 1.0.w),
-                SvgPicture.asset('assets/images/svg/flash.svg',
-                    width: 4.0.w, height: 4.0.h),
-                SizedBox(width: 1.0.w),
-                Text("h Sale",
-                    style: GoogleFonts.kanit(
-                        fontSize: SizeUtil.titleFontSize().sp + 3.0,
-                        color: Colors.white)),
+                Image.asset(
+                  'assets/images/png/flash.png',
+                  width: 3.0.w,
+                  height: 8.0.w,
+                ),
+                SizedBox(
+                  width: 1.0.w,
+                ),
+                Text(
+                  "h Sale",
+                  style: GoogleFonts.kanit(
+                    fontSize: SizeUtil.titleFontSize().sp + 3.0,
+                    color: Colors.white,
+                  ),
+                ),
                 SizedBox(width: 1.0.h),
                 _buildCountDown()
               ],

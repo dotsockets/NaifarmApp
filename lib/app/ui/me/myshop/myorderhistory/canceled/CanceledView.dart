@@ -5,8 +5,6 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
@@ -113,11 +111,15 @@ class _CanceledViewState extends State<CanceledView> {
                   return Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      bloc.onSuccess.value!=null?Positioned(
-                        top: 25 * controller.value,
-                        child: Container(margin: EdgeInsets.only(top: 1.5.h,bottom: 1.0.h),child: CupertinoActivityIndicator()),
-
-                      ):SizedBox()
+                      bloc.onSuccess.value != null
+                          ? Positioned(
+                              top: 25 * controller.value,
+                              child: Container(
+                                  margin: EdgeInsets.only(
+                                      top: 1.5.h, bottom: 1.0.h),
+                                  child: CupertinoActivityIndicator()),
+                            )
+                          : SizedBox()
                     ],
                   );
                 },
@@ -368,7 +370,7 @@ class _CanceledViewState extends State<CanceledView> {
                 errorWidget: (context, url, error) => Container(
                     height: 22.0.w,
                     width: 22.0.w,
-                   // child: Image.network(Env.value.noItemUrl)),
+                    // child: Image.network(Env.value.noItemUrl)),
                     child: NaifarmErrorWidget()),
               ),
             ),
@@ -490,9 +492,9 @@ class _CanceledViewState extends State<CanceledView> {
                               color: Colors.black)),
                       new TextSpan(
                           text:
-                             //"฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(item.items, item.shipping != null ? item.shipping : 0))}",
-                          "฿${NumberFormat("#,##0", "en_US").format(item.grandTotal != null ? item.grandTotal : 0)}",
-                        style: FunctionHelper.fontTheme(
+                              //"฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(item.items, item.shipping != null ? item.shipping : 0))}",
+                              "฿${NumberFormat("#,##0", "en_US").format(item.grandTotal != null ? item.grandTotal : 0)}",
+                          style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.spanTitleFontSize().sp,
                               color: ThemeColor.colorSale())),
                     ],
@@ -655,8 +657,8 @@ class _CanceledViewState extends State<CanceledView> {
       color: Colors.white,
       child: Row(
         children: [
-          SvgPicture.asset(
-            'assets/images/svg/delivery.svg',
+          Image.asset(
+            'assets/images/png/delivery.png',
             width: 4.0.h,
             height: 4.0.h,
           ),

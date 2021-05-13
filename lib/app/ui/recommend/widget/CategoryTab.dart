@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -38,8 +37,8 @@ class CategoryTab extends StatelessWidget {
           children: [
             Row(
               children: [
-                SvgPicture.asset(
-                  'assets/images/svg/boxes.svg',
+                Image.asset(
+                  'assets/images/png/boxes.png',
                   width: 5.0.w,
                   height: 5.0.w,
                 ),

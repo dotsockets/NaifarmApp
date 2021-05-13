@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -44,8 +43,8 @@ class Reviewscore extends StatelessWidget {
         margin: EdgeInsets.all(10),
         child: Row(
           children: [
-            SvgPicture.asset(
-              'assets/images/svg/star.svg',
+            Image.asset(
+              'assets/images/png/star.png',
               width: 6.0.w,
               height: 6.0.w,
             ),

@@ -7,6 +7,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/ProductGrid.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sizer/sizer.dart';
 
 class Shop extends StatelessWidget {
   final ZipShopObjectCombin productRespone;
@@ -22,7 +23,8 @@ class Shop extends StatelessWidget {
           ProductLandscape(
               productRespone: productRespone.productmyshop,
               titleInto: LocaleKeys.recommend_best_seller.tr(),
-              iconInto: 'assets/images/svg/product_hot.svg',
+              imageIcon: 'assets/images/png/product_hot.png',
+              iconSize: 5.0.w,
               subFixId: 1,
               onSelectMore: () {
                 AppRoute.productMore(
@@ -44,7 +46,7 @@ class Shop extends StatelessWidget {
               enableHeader: true,
               showSeeMore: true,
               productRespone: productRespone.productrecommend,
-              iconInto: 'assets/images/svg/like.svg',
+              imageIcon: 'assets/images/png/like.png',
               apiLink: "products",
               onSelectMore: () {
                 AppRoute.productMore(

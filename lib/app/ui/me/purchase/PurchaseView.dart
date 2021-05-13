@@ -76,7 +76,7 @@ class _PurchaseViewState extends State<PurchaseView> {
             },
           ),
           ListMenuItem(
-            icon: 'assets/images/svg/latest.svg',
+            icon: 'assets/images/png/latest.png',
             title: LocaleKeys.me_title_history.tr(),
             iconSize: 7.0.w,
             onClick: () => AppRoute.myShophistory(context, 0),
@@ -86,7 +86,7 @@ class _PurchaseViewState extends State<PurchaseView> {
             builder: (_, count) {
               if (count is CustomerCountLoaded) {
                 return ListMenuItem(
-                    icon: 'assets/images/svg/like_2.svg',
+                    icon: 'assets/images/png/like_2.png',
                     title: LocaleKeys.me_title_likes.tr(),
                     message:
                         "${count.countLoaded.like} ${LocaleKeys.cart_item.tr()}",
@@ -100,7 +100,7 @@ class _PurchaseViewState extends State<PurchaseView> {
                     });
               } else if (count is CustomerCountLoading) {
                 return ListMenuItem(
-                    icon: 'assets/images/svg/like_2.svg',
+                    icon: 'assets/images/png/like_2.png',
                     title: LocaleKeys.me_title_likes.tr(),
                     message:
                         "${count.countLoaded != null ? count.countLoaded.like : 0} ${LocaleKeys.cart_item.tr()}",
@@ -114,7 +114,7 @@ class _PurchaseViewState extends State<PurchaseView> {
                     });
               } else {
                 return ListMenuItem(
-                    icon: 'assets/images/svg/like_2.svg',
+                    icon: 'assets/images/png/like_2.png',
                     title: LocaleKeys.me_title_likes.tr(),
                     message: "${0} รายการ",
                     iconSize: 7.0.w,
@@ -158,7 +158,7 @@ class _PurchaseViewState extends State<PurchaseView> {
           buildDivider(),
           ListMenuItem(
             iconSize: 7.0.w,
-            icon: 'assets/images/svg/editprofile.svg',
+            icon: 'assets/images/png/editprofile.png',
             title: LocaleKeys.me_title_setting.tr(),
             onClick: () async {
               Usermanager().getUser().then((value) => context
@@ -192,14 +192,14 @@ class _PurchaseViewState extends State<PurchaseView> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           TabMenu(
-              icon: 'assets/images/svg/status_pay.svg',
+              icon: 'assets/images/png/status_pay.png',
               title: LocaleKeys.me_menu_pay.tr(),
               onClick: () {
                 AppRoute.myShophistory(context, 0);
               },
               notification: count.buyOrder.unpaid),
           TabMenu(
-            icon: 'assets/images/svg/status_delivery.svg',
+            icon: 'assets/images/png/status_delivery.png',
             title: LocaleKeys.me_menu_ship.tr(),
             onClick: () {
               AppRoute.myShophistory(context, 1);
@@ -207,14 +207,14 @@ class _PurchaseViewState extends State<PurchaseView> {
             notification: count.buyOrder.confirm,
           ),
           TabMenu(
-              icon: 'assets/images/svg/status_pickup.svg',
+              icon: 'assets/images/png/status_pickup.png',
               title: LocaleKeys.me_menu_receive_shop.tr(),
               onClick: () {
                 AppRoute.myShophistory(context, 2);
               },
               notification: count.buyOrder.toBeRecieve),
           TabMenu(
-              icon: 'assets/images/svg/status_star.svg',
+              icon: 'assets/images/png/status_star.png',
               title: LocaleKeys.me_menu_rate.tr(),
               onClick: () {
                 AppRoute.myShophistory(context, 3);

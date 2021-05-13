@@ -6,28 +6,28 @@ class MenuViewModel {
   List<MenuModel> getTabBarMenus() {
     return [
       MenuModel(
-        icon: 'assets/images/svg/home_active.svg',
-        iconSelected: 'assets/images/svg/home_active.svg',
+        icon: 'assets/images/png/home_active.png',
+        iconSelected: 'assets/images/png/home_active.png',
         label: LocaleKeys.tab_bar_recommend.tr(),
       ),
       MenuModel(
-        icon: 'assets/images/svg/type.svg',
-        iconSelected: 'assets/images/svg/type.svg',
+        icon: 'assets/images/png/type.png',
+        iconSelected: 'assets/images/png/type.png',
         label: LocaleKeys.tab_bar_category.tr(),
       ),
       MenuModel(
-        icon: 'assets/images/svg/notification.svg',
-        iconSelected: 'assets/images/svg/notification.svg',
+        icon: 'assets/images/png/notification.png',
+        iconSelected: 'assets/images/png/notification.png',
         label: LocaleKeys.recommend_notification.tr(),
       ),
       MenuModel(
-        icon: 'assets/images/svg/cart.svg',
-        iconSelected: 'assets/images/svg/cart.svg',
+        icon: 'assets/images/png/cart.png',
+        iconSelected: 'assets/images/png/cart.png',
         label: LocaleKeys.cart_toobar.tr(),
       ),
       MenuModel(
-        icon: 'assets/images/svg/me.svg',
-        iconSelected: 'assets/images/svg/me.svg',
+        icon: 'assets/images/png/me.png',
+        iconSelected: 'assets/images/png/me.png',
         label: LocaleKeys.tab_bar_me.tr(),
       )
     ];
@@ -151,23 +151,23 @@ class MenuViewModel {
           label: LocaleKeys.recommend_near_me.tr(),
           page: "ShopMyNear"),*/
       MenuModel(
-          icon: 'assets/images/svg/menu_market.svg',
-          iconSelected: 'assets/images/svg/menu_market.svg',
+          icon: 'assets/images/png/menu_market.png',
+          iconSelected: 'assets/images/png/menu_market.png',
           label: LocaleKeys.recommend_market.tr(),
           page: "MarketView"),
       MenuModel(
-          icon: 'assets/images/svg/menu_spacial_price.svg',
-          iconSelected: 'assets/images/svg/menu_spacial_price.svg',
+          icon: 'assets/images/png/menu_spacial_price.png',
+          iconSelected: 'assets/images/png/menu_spacial_price.png',
           label: LocaleKeys.recommend_special_price.tr(),
           page: "SpecialproductsView"),
       MenuModel(
-          icon: 'assets/images/svg/menu_noti.svg',
-          iconSelected: 'assets/images/svg/menu_noti.svg',
+          icon: 'assets/images/png/menu_noti.png',
+          iconSelected: 'assets/images/png/menu_noti.png',
           label: LocaleKeys.recommend_notification.tr(),
           page: "NotiView"),
       MenuModel(
-          icon: 'assets/images/svg/menu_like.svg',
-          iconSelected: 'assets/images/svg/menu_like.svg',
+          icon: 'assets/images/png/menu_like.png',
+          iconSelected: 'assets/images/png/menu_like.png',
           label: LocaleKeys.my_product_like.tr(),
           page: "MyLikeView")
     ];

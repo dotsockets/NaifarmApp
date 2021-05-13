@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -14,8 +13,9 @@ import 'package:sizer/sizer.dart';
 
 class CartBankView extends StatefulWidget {
   final PaymentRespone paymentRespone;
-  final String AllShopID;
-  const CartBankView({Key key, this.paymentRespone,this.AllShopID}) : super(key: key);
+  final String allShopID;
+  const CartBankView({Key key, this.paymentRespone, this.allShopID})
+      : super(key: key);
 
   @override
   _CartBankViewState createState() => _CartBankViewState();
@@ -29,7 +29,6 @@ class _CartBankViewState extends State<CartBankView> {
 
   void _init() {
     if (null == bloc) {
-
       bloc = CartBloc(AppProvider.getApplication(context));
 
       // bloc.paymentList.stream.listen((event) {
@@ -43,9 +42,7 @@ class _CartBankViewState extends State<CartBankView> {
       if (widget.paymentRespone.data != null) {
         bloc.paymentList.add(widget.paymentRespone);
       } else {
-        bloc.getPaymentList(
-          context,shopIds: widget.AllShopID
-        );
+        bloc.getPaymentList(context, shopIds: widget.allShopID);
       }
     }
   }
@@ -67,65 +64,65 @@ class _CartBankViewState extends State<CartBankView> {
                   isEnableSearch: false,
                   onClick: () => Navigator.pop(context, null)),
             ),
-            body: widget.paymentRespone.data.length>0?SingleChildScrollView(
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /*Text("Payment",
+            body: widget.paymentRespone.data.length > 0
+                ? SingleChildScrollView(
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          /*Text("Payment",
                         style: FunctionHelper.fontTheme(
                             color: Colors.black,
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             fontWeight: FontWeight.bold)),*/
-                    //SizedBox(height: 8),
-                    StreamBuilder(
-                        stream: bloc.paymentList.stream,
-                        builder: (context, snapshot) {
-                          var item = (snapshot.data as PaymentRespone);
-                          if (snapshot.hasData && item.data != null) {
-                            return Column(
-                              children: item.data
-                                  .asMap()
-                                  .map((index, value) {
-                                    return MapEntry(
-                                        index,
-                                        _buildCardBank(
-                                            item: value, index: index));
-                                  })
-                                  .values
-                                  .toList(),
-                            );
-                          } else {
-                            return SizedBox();
-                          }
-                        }),
-                    SizedBox(
-                      height: 1.0.h,
+                          //SizedBox(height: 8),
+                          StreamBuilder(
+                              stream: bloc.paymentList.stream,
+                              builder: (context, snapshot) {
+                                var item = (snapshot.data as PaymentRespone);
+                                if (snapshot.hasData && item.data != null) {
+                                  return Column(
+                                    children: item.data
+                                        .asMap()
+                                        .map((index, value) {
+                                          return MapEntry(
+                                              index,
+                                              _buildCardBank(
+                                                  item: value, index: index));
+                                        })
+                                        .values
+                                        .toList(),
+                                  );
+                                } else {
+                                  return SizedBox();
+                                }
+                              }),
+                          SizedBox(
+                            height: 1.0.h,
+                          ),
+                          _buildAddBtn(),
+                        ],
+                      ),
                     ),
-                    _buildAddBtn(),
-                  ],
-                ),
-              ),
-            ):Center(
-              child: Container(
-                margin: EdgeInsets.only(bottom: 15.0.h),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Lottie.asset('assets/json/boxorder.json',
-                        height: 70.0.w,
-                        width: 70.0.w,
-                        repeat: false),
-                    Text(
-                      LocaleKeys.search_product_not_found.tr(),
-                      style: FunctionHelper.fontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              ),
-            )),
+                  )
+                : Center(
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 15.0.h),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Lottie.asset('assets/json/boxorder.json',
+                              height: 70.0.w, width: 70.0.w, repeat: false),
+                          Text(
+                            LocaleKeys.search_product_not_found.tr(),
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  )),
       ),
     );
   }
@@ -148,14 +145,14 @@ class _CartBankViewState extends State<CartBankView> {
                       Container(
                         padding: EdgeInsets.all(1.0.h),
                         child: item.active
-                            ? SvgPicture.asset(
-                                'assets/images/svg/checkmark.svg',
+                            ? Image.asset(
+                                'assets/images/png/checkmark.png',
                                 width: SizeUtil.checkMarkSize().w,
                                 height: SizeUtil.checkMarkSize().w,
                                 color: ThemeColor.primaryColor(),
                               )
-                            : SvgPicture.asset(
-                                'assets/images/svg/uncheckmark.svg',
+                            : Image.asset(
+                                'assets/images/png/uncheckmark.png',
                                 width: SizeUtil.checkMarkSize().w,
                                 height: SizeUtil.checkMarkSize().w,
                                 color: Colors.black.withOpacity(0.5),
@@ -167,13 +164,13 @@ class _CartBankViewState extends State<CartBankView> {
                       Row(
                         children: [
                           index == 0
-                              ? SvgPicture.asset(
-                                  'assets/images/svg/delivery.svg',
+                              ? Image.asset(
+                                  'assets/images/png/delivery.png',
                                   width: SizeUtil.checkMarkSize().w,
                                   height: SizeUtil.checkMarkSize().w,
                                 )
-                              : SvgPicture.asset(
-                                  'assets/images/svg/money_pay.svg',
+                              : Image.asset(
+                                  'assets/images/png/money_pay.png',
                                   width: SizeUtil.checkMarkSize().w,
                                   height: SizeUtil.checkMarkSize().w,
                                 ),
@@ -226,7 +223,9 @@ class _CartBankViewState extends State<CartBankView> {
               ),
             ),
             padding: MaterialStateProperty.all(EdgeInsets.only(
-                left: 20.0.w, right: 20.0.w,)),
+              left: 20.0.w,
+              right: 20.0.w,
+            )),
             backgroundColor: MaterialStateProperty.all(
               ThemeColor.secondaryColor(),
             ),

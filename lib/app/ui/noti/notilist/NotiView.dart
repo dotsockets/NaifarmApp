@@ -22,7 +22,6 @@ import 'package:naifarm/utility/widgets/MD2Indicator.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-//'assets/images/svg/cart_top.svg'
 
 class NotiView extends StatefulWidget {
   final bool btnBack;
@@ -143,7 +142,7 @@ class _NotiViewState extends State<NotiView>
           child: AppToobar(
             showBackBtn: widget.btnBack,
             headerType: Header_Type.barcartShop,
-            icon: 'assets/images/svg/cart_top.svg',
+            icon: 'assets/images/png/cart_top.png',
             title: LocaleKeys.recommend_notification.tr(),
             onClick: () {
               NaiFarmLocalStorage.saveNowPage(0);

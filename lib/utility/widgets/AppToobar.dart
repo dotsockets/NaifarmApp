@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -79,9 +78,9 @@ class AppToobar extends PreferredSize {
                 children: [
                   showBackBtn
                       ? Container(
-                    width: 10.0.w,
-                    height: 10.0.w,
-                        child: IconButton(
+                          width: 10.0.w,
+                          height: 10.0.w,
+                          child: IconButton(
                             icon: Icon(
                               Platform.isAndroid
                                   ? Icons.arrow_back
@@ -95,7 +94,7 @@ class AppToobar extends PreferredSize {
                                   : onClick();
                             },
                           ),
-                      )
+                        )
                       : SizedBox(
                           width: 10.0.w,
                           height: 10.0.w,
@@ -115,19 +114,17 @@ class AppToobar extends PreferredSize {
                   ),
                   isEnableSearch
                       ? Container(
-                    width: 10.0.w,
-                    height: 10.0.w,
-                        child: IconButton(
-                            icon: Icon(
-                              Icons.search_rounded,
-                              color: Colors.white,
-                                size: SizeUtil.iconSmallSize().w
-                            ),
+                          width: 10.0.w,
+                          height: 10.0.w,
+                          child: IconButton(
+                            icon: Icon(Icons.search_rounded,
+                                color: Colors.white,
+                                size: SizeUtil.iconSmallSize().w),
                             onPressed: () {
                               AppRoute.searchHome(context);
                             },
                           ),
-                      )
+                        )
                       : SizedBox(
                           width: 10.0.w,
                           height: 10.0.w,
@@ -155,24 +152,23 @@ class AppToobar extends PreferredSize {
                   children: [
                     showBackBtn
                         ? Container(
-                      width: 12.0.w,
-                      height: 10.0.w,
-                          child: IconButton(
-                              icon:
-                                  Icon(
-                                    Platform.isAndroid
-                                        ? Icons.arrow_back
-                                        : Icons.arrow_back_ios_rounded,
-                                    color: Colors.white,
-                                  size: SizeUtil.iconSmallSize().w,
-                                  ),
+                            width: 12.0.w,
+                            height: 10.0.w,
+                            child: IconButton(
+                              icon: Icon(
+                                Platform.isAndroid
+                                    ? Icons.arrow_back
+                                    : Icons.arrow_back_ios_rounded,
+                                color: Colors.white,
+                                size: SizeUtil.iconSmallSize().w,
+                              ),
                               onPressed: () {
                                 onClick == null
                                     ? Navigator.of(context).pop()
                                     : onClick();
                               },
                             ),
-                        )
+                          )
                         : SizedBox(
                             width: 12.0.w,
                             height: 10.0.w,
@@ -192,8 +188,10 @@ class AppToobar extends PreferredSize {
                     ),
                     showCartBtn
                         ? Container(
-                        padding: EdgeInsets.only(right:SizeUtil.paddingCart().w,left: SizeUtil.paddingItem().w),
-                        child: BuildIconShop())
+                            padding: EdgeInsets.only(
+                                right: SizeUtil.paddingCart().w,
+                                left: SizeUtil.paddingItem().w),
+                            child: BuildIconShop())
                         : SizedBox(
                             width: 12.0.w,
                             height: 10.0.w,
@@ -222,8 +220,8 @@ class AppToobar extends PreferredSize {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
-              child: SvgPicture.asset(
-                'assets/images/svg/back_black.svg',
+              child: Image.asset(
+                'assets/images/png/back_black.png',
                 width: 7.0.w,
                 height: 7.0.w,
               ),
@@ -259,8 +257,8 @@ class AppToobar extends PreferredSize {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
-                child: SvgPicture.asset(
-                  'assets/images/svg/back_black.svg',
+                child: Image.asset(
+                  'assets/images/png/back_black.png',
                   color: Colors.white,
                 ),
                 onTap: () {
@@ -273,8 +271,8 @@ class AppToobar extends PreferredSize {
                   margin: EdgeInsets.only(
                     left: 8,
                   ),
-                  child: SvgPicture.asset(
-                    'assets/images/svg/map.svg',
+                  child: Image.asset(
+                    'assets/images/png/map.png',
                     width: 30,
                     height: 30,
                   ),
@@ -292,34 +290,36 @@ class AppToobar extends PreferredSize {
     return Wrap(
       children: [
         Container(
-          padding: EdgeInsets.only(left: 0, right: 0.3.w, bottom: 1.5.h,top: 1.0.h),
+          padding:
+              EdgeInsets.only(left: 0, right: 0.3.w, bottom: 1.5.h, top: 1.0.h),
           color: ThemeColor.primaryColor(),
           child: Row(
             children: [
               Container(
-                padding: EdgeInsets.only(right:SizeUtil.paddingItem().w,left: SizeUtil.paddingItem().w),
+                padding: EdgeInsets.only(
+                    right: SizeUtil.paddingItem().w,
+                    left: SizeUtil.paddingItem().w),
                 child: Container(
                   child: IconButton(
                     icon: Icon(
-                      Platform.isAndroid
-                          ? Icons.arrow_back
-                          : Icons.arrow_back_ios_rounded,
-                      color: Colors.white,
-                        size: SizeUtil.iconSmallSize().w
-                    ),
+                        Platform.isAndroid
+                            ? Icons.arrow_back
+                            : Icons.arrow_back_ios_rounded,
+                        color: Colors.white,
+                        size: SizeUtil.iconSmallSize().w),
                     onPressed: () {
-                      onClick == null
-                          ? Navigator.of(context).pop()
-                          : onClick();
+                      onClick == null ? Navigator.of(context).pop() : onClick();
                     },
                   ),
                 ),
               ),
               _buildSearch(context),
               showCartBtn
-                  ?    Container(
-                  padding: EdgeInsets.only(right:SizeUtil.paddingCart().w,left: SizeUtil.paddingItem().w),
-                  child: BuildIconShop())
+                  ? Container(
+                      padding: EdgeInsets.only(
+                          right: SizeUtil.paddingCart().w,
+                          left: SizeUtil.paddingItem().w),
+                      child: BuildIconShop())
                   : IconButton(
                       icon: Icon(
                         FontAwesome.ellipsis_v,
@@ -364,8 +364,8 @@ class AppToobar extends PreferredSize {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Visibility(
-                  child: SvgPicture.asset(
-                    'assets/images/svg/search.svg',
+                  child: Image.asset(
+                    'assets/images/png/search.png',
                     color: Colors.black,
                     width: 4.0.w,
                     height: 4.0.w,
@@ -387,7 +387,8 @@ class AppToobar extends PreferredSize {
                               enabledBorder: InputBorder.none,
                               hintText: hint,
                               isCollapsed: true,
-                              contentPadding: EdgeInsets.only(top: 1.5.h,bottom: 1.5.h),
+                              contentPadding:
+                                  EdgeInsets.only(top: 1.5.h, bottom: 1.5.h),
                               hintStyle: FunctionHelper.fontTheme(
                                   color: Colors.grey,
                                   fontSize: SizeUtil.titleSmallFontSize().sp),
@@ -441,8 +442,8 @@ class AppToobar extends PreferredSize {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SvgPicture.asset(
-                  'assets/images/svg/fontSize: SizeUtil.titleSmallFontSize().spsvg',
+                Image.asset(
+                  'assets/images/png/map.png',
                   color: Colors.black.withOpacity(0.5),
                   width: 15,
                   height: 15,
@@ -486,8 +487,8 @@ class AppToobar extends PreferredSize {
                                   onSearch != null ? onSearch(s) : null,
                             ),
                           )),
-                SvgPicture.asset(
-                  'assets/images/svg/search.svg',
+                Image.asset(
+                  'assets/images/png/search.png',
                   color: ThemeColor.colorSale(),
                   width: 25,
                   height: 25,

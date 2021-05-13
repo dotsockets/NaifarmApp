@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
@@ -43,22 +41,21 @@ class BannerSlide extends StatelessWidget {
               items: convertSliderImage()
                   .map(
                     (item) => CachedNetworkImage(
-                  placeholder: (context, url) => Container(
-                    width: MediaQuery.of(context).size.width,
-                    color: Colors.white,
-                    child: Lottie.asset('assets/json/loading.json'),
-                  ),
-                  imageUrl: item,
-
-                  fit: BoxFit.cover,
-                  errorWidget: (context, url, error) => Container(
-                      color: Colors.white,
-                      child: Icon(
-                        Icons.error,
-                        size: 5.0.h,
-                      )),
-                ),
-              )
+                      placeholder: (context, url) => Container(
+                        width: MediaQuery.of(context).size.width,
+                        color: Colors.white,
+                        child: Lottie.asset('assets/json/loading.json'),
+                      ),
+                      imageUrl: item,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => Container(
+                          color: Colors.white,
+                          child: Icon(
+                            Icons.error,
+                            size: 5.0.h,
+                          )),
+                    ),
+                  )
                   .toList(),
             )
           ],
@@ -72,8 +69,8 @@ class BannerSlide extends StatelessWidget {
               children: [
                 StreamBuilder(
                     stream: _current.stream,
-                    builder: (_,snapshot){
-                      if(snapshot.hasData){
+                    builder: (_, snapshot) {
+                      if (snapshot.hasData) {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: convertSliderImage().map((url) {
@@ -81,7 +78,8 @@ class BannerSlide extends StatelessWidget {
                             return Container(
                               width: 3.0.h,
                               height: 0.5.h,
-                              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 2.0),
                               decoration: BoxDecoration(
                                 shape: BoxShape.rectangle,
                                 color: snapshot.data == index
@@ -91,11 +89,10 @@ class BannerSlide extends StatelessWidget {
                             );
                           }).toList(),
                         );
-                      }else{
+                      } else {
                         return SizedBox();
                       }
-                    }
-                )
+                    })
               ],
             ),
           ),
