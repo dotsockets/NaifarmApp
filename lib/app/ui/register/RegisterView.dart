@@ -281,6 +281,7 @@ class _RegisterViewState extends State<RegisterView> {
                       AppleIDAuthorizationScopes.fullName,
                     ],
                   );
+                  bloc.customerLoginApple(context: context, accessToken: credential.identityToken);
                   print("########### SignInWithApple ##################");
                   print("credential =>  ${credential}");
                   print("email =>  ${credential.email}");

@@ -140,7 +140,7 @@ class ProductInto extends StatelessWidget {
                   width: 1.0.w,
                 ),
                 Text(
-                    "${data.rating != null && data.rating != 0 ? data.rating : 0}",
+                    "${data.rating != null && data.rating != 0 ? data.rating.toStringAsFixed(2) : 0}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp)),
                 SizedBox(

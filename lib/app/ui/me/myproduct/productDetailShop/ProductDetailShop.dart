@@ -146,7 +146,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                     name: item.name,
                                                     salePrice: item.salePrice,
                                                     saleCount: item.saleCount,
-                                                    rating: item.rating,
+                                                    rating: double.parse(item.rating.toString()),
                                                     offerPrice: item.offerPrice,
                                                     id: item.id,
                                                   ),

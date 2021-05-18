@@ -1065,7 +1065,7 @@ class ProductBloc {
         id: data.id,
         saleCount: data.saleCount,
         discountPercent: data.discountPercent,
-        rating: data.rating,
+        rating: data.rating!=null?double.parse(data.rating.toString()):0.0,
         reviewCount: data.reviewCount,
         shop: ShopItem(
             id: data.shop.id,

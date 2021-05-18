@@ -190,7 +190,7 @@ class SearchHot extends StatelessWidget {
                           allowHalfRating: false,
                           onRated: (v) {},
                           starCount: 5,
-                          rating: item.rating.toDouble(),
+                          rating: item.rating!=null?item.rating.toDouble():0,
                           size: 3.0.w,
                           isReadOnly: true,
                           filledIconData: Icons.star,
@@ -202,7 +202,7 @@ class SearchHot extends StatelessWidget {
                         width: 1.0.w,
                       ),
                       Text(
-                        "${item.rating.toDouble()}",
+                        "${item.rating!=null?item.rating.toDouble():0.0}",
                         style: FunctionHelper.fontTheme(
                             color: Colors.grey.shade400,
                             fontSize: SizeUtil.titleFontSize().sp,

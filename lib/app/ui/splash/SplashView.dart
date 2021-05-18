@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:package_info/package_info.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,6 +42,7 @@ class _SplashViewState extends State<SplashView>
 
     animation.addListener(() => this.setState(() {}));
     animationController.forward();
+    _initPackageInfo();
     super.initState();
   }
 
@@ -160,6 +162,12 @@ class _SplashViewState extends State<SplashView>
       ),
     );
   }
+
+  Future<Null> _initPackageInfo() async {
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    print("efverf ${info.packageName}");
+  }
+
 
   startTimer() async {
     var duration = new Duration(seconds: 1);

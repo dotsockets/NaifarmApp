@@ -492,7 +492,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
               id: item.product.id,
               saleCount: item.product.saleCount,
               discountPercent: item.product.discountPercent,
-              rating: item.product.rating,
+              rating: double.parse(item.product.rating.toString()),
               reviewCount: item.product.reviewCount,
               shop: ShopItem(id: item.product.shopId),
               image: item.product.image);

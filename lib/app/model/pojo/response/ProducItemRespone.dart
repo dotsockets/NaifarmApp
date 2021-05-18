@@ -24,8 +24,8 @@ class ProducItemRespone {
   List<Categories> categories;
   List<ProductImage> image;
   int discountPercent;
-  int rating;
-  double reviewCount;
+  double rating;
+  int reviewCount;
 
   ProducItemRespone(
       {this.id,
@@ -89,7 +89,12 @@ class ProducItemRespone {
       });
     }
     discountPercent = json['discountPercent'];
-    rating = json['rating'];
+    if(json['rating'] is double){
+      rating = json['rating'];
+    }else{
+      rating = double.parse(json['rating'].toString());
+    }
+   
     reviewCount = json['reviewCount'];
   }
 

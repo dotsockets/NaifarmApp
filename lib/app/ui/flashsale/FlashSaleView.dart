@@ -35,12 +35,12 @@ class _FlashSaleState extends State<FlashSale> {
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(top: 5.0.h),
+          margin: EdgeInsets.only(top: 3.0.h),
           decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(SizeUtil.paddingBorderHome().w),
-                  topLeft: Radius.circular(SizeUtil.paddingBorderHome().w)),
+              // borderRadius: BorderRadius.only(
+              //     topRight: Radius.circular(SizeUtil.paddingBorderHome().w),
+              //     topLeft: Radius.circular(SizeUtil.paddingBorderHome().w)),
               border: Border.all(
                   width: 3, color: Colors.white, style: BorderStyle.solid)),
           child: Column(

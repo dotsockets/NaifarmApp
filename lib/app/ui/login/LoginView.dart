@@ -379,6 +379,8 @@ class _LoginViewState extends State<LoginView> {
                       AppleIDAuthorizationScopes.fullName,
                     ],
                   );
+
+                  bloc.customerLoginApple(context: context, accessToken: credential.identityToken);
                   print("########### SignInWithApple ##################");
                   print("credential =>  ${credential}");
                   print("email =>  ${credential.email}");

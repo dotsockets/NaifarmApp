@@ -168,7 +168,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   }
 
   Widget get contentMain => Scaffold(
-    backgroundColor: Colors.grey.shade300,
+    backgroundColor: Colors.white,
         body: StreamBuilder(
           stream: _selectedIndex.stream,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -269,6 +269,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                         "${Env.value.baseUrl}/storage/images/${e.image[0].path}")
                     .toList())
             : SizedBox(),
+        SizedBox(height: 1.0.h),
         RecommendMenu(
           homeObjectCombine: item,
           onClick: (int index) {
@@ -279,7 +280,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
         item!=null && item.flashsaleRespone.data.length > 0
             ? FlashSale(flashsaleRespone: item.flashsaleRespone)
             : SizedBox(),
-        SizedBox(height: 1.0.h),
+        Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),
         ProductLandscape(
           productRespone: item!=null?item.productRespone:null,
           titleInto: LocaleKeys.recommend_best_seller.tr(),
@@ -299,10 +300,10 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           },
           tagHero: "product_hot",
         ),
+        Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),
         // SizedBox(height: 1.5.h),
         // _BannerAds(),
 
-        SizedBox(height: 1.5.h),
         ProductVertical(
             productRespone: item!=null?item.martket:null,
             titleInto: LocaleKeys.recommend_market.tr(),
@@ -318,9 +319,9 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
             },
             borderRadius: false,
             tagHero: "market"),
-        SizedBox(height: 2.0.h),
+        Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),
         CategoryTab(categoryGroupRespone: item!=null?item.categoryGroupRespone:null),
-        SizedBox(height: 2.0.h),
+        Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),
         ProductVertical(
             productRespone: item!=null?item.productForyou:null,
             titleInto: LocaleKeys.tab_bar_recommend.tr(),

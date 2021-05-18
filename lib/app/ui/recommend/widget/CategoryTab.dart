@@ -20,7 +20,10 @@ class CategoryTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      color: Colors.white,
+      decoration: new BoxDecoration(
+        color: Colors.white,
+
+      ),
       child: Column(
         children: [
           _headerBar(),

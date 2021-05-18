@@ -597,6 +597,11 @@ class APIRepository {
     return _apiProvider.getSystem(context);
   }
 
+  Future<ApiResult> loginApple(BuildContext context,
+      {String accessToken}) {
+    return _apiProvider.loginApple(context, accessToken);
+  }
+
 //  Observable<List<AppContent>> getTop100FreeApp(){
 //    return Observable.fromFuture(_apiProvider.getTopFreeApp(TOP_100))
 //        .flatMap(_convertFromEntry)

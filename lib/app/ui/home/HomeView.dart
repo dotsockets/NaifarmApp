@@ -69,9 +69,9 @@ class _HomeViewState extends State<HomeView>
           Navigator.of(context).pop();
         }
       });
-      bloc.productItem.stream.listen((event) {
+      bloc.productItem.stream.listen((item) {
        // bloc.onLoad.add(false);
-        var item = (event as ProducItemRespone);
+
         AppRoute.productDetail(context,
             productImage: "product_hot_${item.id}1",
             productItem: item);

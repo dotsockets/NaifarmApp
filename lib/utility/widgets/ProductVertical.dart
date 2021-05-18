@@ -106,14 +106,7 @@ class ProductVertical extends StatelessWidget {
           //   topRight: const Radius.circular(30.0),
           //   topLeft: const Radius.circular(30.0),
           // ):BorderRadius.all(Radius.circular(0.0)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 3,
-              blurRadius: 4,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
+
         ),
         child: Column(
           children: [
@@ -350,7 +343,7 @@ class ProductVertical extends StatelessWidget {
                           allowHalfRating: false,
                           onRated: (v) {},
                           starCount: 5,
-                          rating: item.rating.toDouble(),
+                          rating: item.rating!=null?item.rating.toDouble():0.0,
                           size:  SizeUtil.ratingSize().w,
                           isReadOnly: true,
                           filledIconData: Icons.star,
