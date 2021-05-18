@@ -64,7 +64,7 @@ class Hits {
   int salePrice;
   int offerPrice;
   int discountPercent;
-  int rating;
+  double rating;
   double reviewCount;
   int hasVariant;
   int active;
@@ -121,7 +121,13 @@ class Hits {
     salePrice = json['salePrice'];
     offerPrice = json['offerPrice'];
     discountPercent = json['discountPercent'];
-    rating = json['rating'];
+    if (json['rating'] == null) {
+      rating = 0.0;
+    } else if (json['rating'] is double) {
+      rating = json['rating'];
+    } else {
+      rating = double.parse(json['rating'].toString());
+    }
     reviewCount = json['reviewCount'] is int
         ? json['reviewCount'].toDouble()
         : json['reviewCount'];

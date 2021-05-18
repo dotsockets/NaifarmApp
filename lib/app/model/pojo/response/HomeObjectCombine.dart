@@ -2,7 +2,6 @@ import 'BannersRespone.dart';
 import 'CategoryGroupRespone.dart';
 import 'FlashsaleRespone.dart';
 import 'ProductRespone.dart';
-import 'SliderRespone.dart';
 import 'ThrowIfNoSuccess.dart';
 
 class HomeObjectCombine {

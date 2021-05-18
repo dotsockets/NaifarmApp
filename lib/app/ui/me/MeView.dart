@@ -16,7 +16,6 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
-import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/app/ui/setting/guestSetting/SettingGuestView.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -117,14 +116,14 @@ class _MeViewState extends State<MeView> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context));
   }
 
-
   void iSLogin() async => isLogin = await Usermanager().isLogin();
+
   @override
   Widget build(BuildContext context) {
     _init();
     return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
       builder: (_, count) {
-         iSLogin();
+        iSLogin();
         if (isLogin) {
           if (count is InfoCustomerLoaded || count is InfoCustomerLoading) {
             return Scaffold(
@@ -151,9 +150,11 @@ class _MeViewState extends State<MeView> with RouteAware {
           //     Navigator.of(context).pop();
           //   },
           // );
-          return SettingGuestView(IsHeader: false,logincall: (index){
-            isLogin = index;
-          });
+          return SettingGuestView(
+              isHeader: false,
+              logincall: (index) {
+                isLogin = index;
+              });
         }
       },
     );
@@ -174,7 +175,6 @@ class _MeViewState extends State<MeView> with RouteAware {
                 // ignore: unused_local_variable
                 final result = await AppRoute.settingProfile(context);
                 isLogin = false;
-
               },
             ),
           ),

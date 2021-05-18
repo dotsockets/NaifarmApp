@@ -48,7 +48,7 @@ class ProductData {
   ProductShop shop;
   List<ProductImage> image;
   int discountPercent;
-  int rating;
+  double rating;
   int reviewCount;
   int stockQuantity;
 
@@ -89,7 +89,13 @@ class ProductData {
       });
     }
     discountPercent = json['discountPercent'];
-    rating = json['rating'];
+    if (json['rating'] == null) {
+      rating = 0.0;
+    } else if (json['rating'] is double) {
+      rating = json['rating'];
+    } else {
+      rating = double.parse(json['rating'].toString());
+    }
     reviewCount = json['reviewCount'];
     stockQuantity = json['stockQuantity'];
   }

@@ -6,8 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
@@ -123,11 +121,15 @@ class _DeliveryViewState extends State<DeliveryView> {
                   return Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      bloc.onSuccess.value!=null?Positioned(
-                        top: 25 * controller.value,
-                        child: Container(margin: EdgeInsets.only(top: 1.5.h,bottom: 1.0.h),child: CupertinoActivityIndicator()),
-
-                      ):SizedBox()
+                      bloc.onSuccess.value != null
+                          ? Positioned(
+                              top: 25 * controller.value,
+                              child: Container(
+                                  margin: EdgeInsets.only(
+                                      top: 1.5.h, bottom: 1.0.h),
+                                  child: CupertinoActivityIndicator()),
+                            )
+                          : SizedBox()
                     ],
                   );
                 },
@@ -181,7 +183,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                                                   child: Container(
                                                     color: Colors.white
                                                         .withOpacity(0.7),
-                                                    height: 27.0.h,
+                                                    height: 30.0.h,
                                                     child: Center(
                                                       child: Container(
                                                         width: 30.0.w,
@@ -513,7 +515,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                           text:
                               //"฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(item.items, item.shipping != null ? item.shipping : 0))}",
 
-                          "฿${NumberFormat("#,##0", "en_US").format(item.grandTotal != null ? item.grandTotal : 0)}",
+                              "฿${NumberFormat("#,##0", "en_US").format(item.grandTotal != null ? item.grandTotal : 0)}",
                           style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.spanTitleFontSize().sp,
                               color: ThemeColor.colorSale())),
@@ -716,8 +718,8 @@ class _DeliveryViewState extends State<DeliveryView> {
       color: Colors.white,
       child: Row(
         children: [
-          SvgPicture.asset(
-            'assets/images/svg/delivery.svg',
+          Image.asset(
+            'assets/images/png/delivery.png',
             width: 4.0.h,
             height: 4.0.h,
           ),
@@ -735,7 +737,7 @@ class _DeliveryViewState extends State<DeliveryView> {
               child: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.grey.shade400,
-                size: SizeUtil.ratingSize().w ,
+                size: SizeUtil.ratingSize().w,
               ))
         ],
       ),

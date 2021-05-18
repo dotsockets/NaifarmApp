@@ -4,10 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
-import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -22,9 +20,7 @@ class CategoryView extends StatefulWidget {
 
 class _CategoryViewState extends State<CategoryView> {
   ProductBloc bloc;
-  Future<void> _init() async {
-
-  }
+  Future<void> _init() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +32,7 @@ class _CategoryViewState extends State<CategoryView> {
           child: AppToobar(
               showBackBtn: false,
               headerType: Header_Type.barcartShop,
-              icon: 'assets/images/svg/cart_top.svg',
+              icon: 'assets/images/png/cart_top.png',
               title: LocaleKeys.recommend_category_product.tr())),
       body: SingleChildScrollView(
         child:
@@ -48,14 +44,17 @@ class _CategoryViewState extends State<CategoryView> {
   Widget _content({BuildContext context}) {
     return Container(
       padding: EdgeInsets.all(2.0.h),
-      child:   BlocBuilder<HomeDataBloc, HomeDataState>(
+      child: BlocBuilder<HomeDataBloc, HomeDataState>(
         builder: (_, snapshot) {
-          if (snapshot is HomeDataLoaded && snapshot.homeObjectCombine!=null) {
+          if (snapshot is HomeDataLoaded &&
+              snapshot.homeObjectCombine != null) {
             return Column(
               children: [
                 Column(
                   children: item(
-                      (snapshot.homeObjectCombine.categoryGroupRespone.data.length / 4)
+                      (snapshot.homeObjectCombine.categoryGroupRespone.data
+                                  .length /
+                              4)
                           .floor(),
                       4,
                       context,
@@ -64,8 +63,10 @@ class _CategoryViewState extends State<CategoryView> {
                 Column(
                   children: item(
                       1,
-                      (snapshot.homeObjectCombine.categoryGroupRespone.data.length / 4)
-                          .floor() *
+                      (snapshot.homeObjectCombine.categoryGroupRespone.data
+                                      .length /
+                                  4)
+                              .floor() *
                           4,
                       context,
                       snapshot.homeObjectCombine.categoryGroupRespone),
@@ -131,8 +132,9 @@ class _CategoryViewState extends State<CategoryView> {
                     height: SizeUtil.categoryTabSize().w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
-                      child:
-                          Lottie.asset('assets/json/loading.json', height: SizeUtil.categoryTabSize().w,width: SizeUtil.categoryTabSize().w),
+                      child: Lottie.asset('assets/json/loading.json',
+                          height: SizeUtil.categoryTabSize().w,
+                          width: SizeUtil.categoryTabSize().w),
                     ),
                     fit: BoxFit.cover,
                     imageUrl:

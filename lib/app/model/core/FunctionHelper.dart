@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -444,8 +443,8 @@ class FunctionHelper {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    'assets/images/svg/checkmark.svg',
+                  Image.asset(
+                    'assets/images/png/checkmark.png',
                     color: ThemeColor.primaryColor(),
                     width: 50,
                     height: 50,
@@ -486,8 +485,8 @@ class FunctionHelper {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    'assets/images/svg/fail-circle.svg',
+                  Image.asset(
+                    'assets/images/png/fail-circle.png',
                     color: ThemeColor.colorSale(),
                     width: 50,
                     height: 50,

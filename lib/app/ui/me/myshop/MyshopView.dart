@@ -245,7 +245,7 @@ class _MyshopViewState extends State<MyshopView> {
             },
           ),
           ListMenuItem(
-            icon: 'assets/images/svg/latest.svg',
+            icon: 'assets/images/png/latest.png',
             title: LocaleKeys.me_title_history_shop.tr(),
             iconSize: 7.0.w,
             onClick: () => AppRoute.shopOrderHistory(context, 0),
@@ -264,7 +264,7 @@ class _MyshopViewState extends State<MyshopView> {
 
           ListMenuItem(
             iconSize: 7.0.w,
-            icon: 'assets/images/svg/editprofile.svg',
+            icon: 'assets/images/png/editprofile.png',
             title: LocaleKeys.me_title_my_product.tr(),
             onClick: () {
               if (shpping.data[0].rates.length == 0) {
@@ -282,7 +282,7 @@ class _MyshopViewState extends State<MyshopView> {
           buildDivider(),
           ListMenuItem(
             iconSize: 7.0.w,
-            icon: 'assets/images/svg/delivery.svg',
+            icon: 'assets/images/png/delivery.png',
             title: LocaleKeys.me_title_shipping.tr(),
             onClick: () {
               AppRoute.deliveryMe(context);
@@ -291,7 +291,7 @@ class _MyshopViewState extends State<MyshopView> {
           buildDivider(),
           ListMenuItem(
               iconSize: 7.0.w,
-              icon: 'assets/images/svg/money.svg',
+              icon: 'assets/images/png/money.png',
               title: LocaleKeys.me_title_payment.tr(),
               onClick: () {
                 AppRoute.paymentMe(context);
@@ -308,7 +308,7 @@ class _MyshopViewState extends State<MyshopView> {
           buildDivider(num: 10),
           ListMenuItem(
             iconSize: 7.0.w,
-         //   icon: 'assets/images/svg/work.svg',
+            //   icon: 'assets/images/svg/work.svg',
             title: LocaleKeys.setting_account_title_shop.tr(),
             isPhoto:
                 "${item != null ? item.image != null ? item.image.isNotEmpty ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}" : '' : '' : ''}",
@@ -337,14 +337,14 @@ class _MyshopViewState extends State<MyshopView> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           TabMenu(
-              icon: 'assets/images/svg/status_delivery.svg',
+              icon: 'assets/images/png/status_delivery.png',
               title: LocaleKeys.me_menu_ship.tr(),
               onClick: () {
                 AppRoute.shopOrderHistory(context, 1);
               },
               notification: count.sellOrder.confirm),
           TabMenu(
-            icon: 'assets/images/svg/status_delivery.svg',
+            icon: 'assets/images/png/status_delivery.png',
             title: LocaleKeys.me_menu_shipping.tr(),
             onClick: () {
               AppRoute.shopOrderHistory(context, 2);
@@ -352,7 +352,7 @@ class _MyshopViewState extends State<MyshopView> {
             notification: count.sellOrder.shipping,
           ),
           TabMenu(
-            icon: 'assets/images/svg/status_cancel.svg',
+            icon: 'assets/images/png/status_cancel.png',
             title: LocaleKeys.me_menu_cancel_product.tr(),
             onClick: () {
               AppRoute.shopOrderHistory(context, 4);
@@ -429,7 +429,7 @@ class _MyshopViewState extends State<MyshopView> {
           ),
         ),
         backgroundColor: MaterialStateProperty.all(
-          check?ThemeColor.secondaryColor():Colors.grey.withOpacity(0.5),
+          check ? ThemeColor.secondaryColor() : Colors.grey.withOpacity(0.5),
         ),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),

@@ -10,7 +10,6 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:rxdart/rxdart.dart';
@@ -18,14 +17,15 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
 
 import 'ProductLandscape.dart';
-import 'Skeleton.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
+
 // ignore: must_be_immutable
 class ProductGrid extends StatefulWidget {
   final String titleInto;
   final Function() onSelectMore;
   final Function(ProductData, int) onTapItem;
   final String iconInto;
+  final String imageIcon;
   final bool enableHeader;
   final String tagHero;
   final bool flashSallLabel;
@@ -34,6 +34,7 @@ class ProductGrid extends StatefulWidget {
   ProductRespone productRespone;
   final String apiLink;
   final bool showSeeMore;
+  final iconSize;
 
   ProductGrid(
       {Key key,
@@ -41,6 +42,7 @@ class ProductGrid extends StatefulWidget {
       this.onSelectMore,
       this.onTapItem,
       this.iconInto,
+      this.imageIcon = "",
       this.enableHeader = true,
       this.tagHero,
       this.flashSallLabel = false,
@@ -48,7 +50,8 @@ class ProductGrid extends StatefulWidget {
       this.showBorder = false,
       this.productRespone,
       this.apiLink,
-      this.showSeeMore})
+      this.showSeeMore,
+      this.iconSize})
       : super(key: key);
   @override
   _ProductGridState createState() => _ProductGridState();
@@ -127,7 +130,7 @@ class _ProductGridState extends State<ProductGrid> {
                 )),
           )
         //: Skeleton.loaderGridV(context);
-     : SizedBox();
+        : SizedBox();
   }
 
   Container _headerBar() => Container(
@@ -137,11 +140,19 @@ class _ProductGridState extends State<ProductGrid> {
           children: [
             Row(
               children: [
-                SvgPicture.asset(
-                  widget.iconInto,
-                  width: 30,
-                  height: 30,
-                ),
+                widget.imageIcon != ""
+                    ? Image.asset(
+                        widget.imageIcon,
+                        width:
+                            widget.iconSize != null ? widget.iconSize : 5.0.w,
+                        height:
+                            widget.iconSize != null ? widget.iconSize : 5.0.w,
+                      )
+                    : SvgPicture.asset(
+                        widget.iconInto,
+                        width: widget.iconSize != null ? widget.iconSize : 30,
+                        height: widget.iconSize != null ? widget.iconSize : 30,
+                      ),
                 SizedBox(width: 8),
                 Text(widget.titleInto,
                     style: FunctionHelper.fontTheme(
@@ -161,10 +172,10 @@ class _ProductGridState extends State<ProductGrid> {
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.w500)),
                       SizedBox(width: 2.0.w),
-                      SvgPicture.asset(
-                        'assets/images/svg/next.svg',
-                        width: 3.0.w,
-                        height: 3.0.h,
+                      Image.asset(
+                        'assets/images/png/next.png',
+                        width: 5.0.w,
+                        height: 5.0.w,
                       ),
                     ],
                   ),
@@ -236,7 +247,7 @@ class _ProductGridState extends State<ProductGrid> {
                   onRated: (v) {},
                   starCount: 5,
                   rating: item.rating != null ? item.rating.toDouble() : 0,
-                  size:  SizeUtil.ratingSize().w,
+                  size: SizeUtil.ratingSize().w,
                   isReadOnly: true,
                   filledIconData: Icons.star,
                   halfFilledIconData: Icons.star_half,
@@ -293,8 +304,7 @@ class _ProductGridState extends State<ProductGrid> {
                             width: 30.0.w,
                             height: 40.0.w,
 
-
-                //child: Image.network(Env.value.noItemUrl,
+                            //child: Image.network(Env.value.noItemUrl,
                             //    fit: BoxFit.cover)),
                             child: NaifarmErrorWidget()),
                       ),
@@ -328,8 +338,8 @@ class _ProductGridState extends State<ProductGrid> {
                     widget.isLike
                         ? Container(
                             margin: EdgeInsets.only(right: 8, top: 7),
-                            child: SvgPicture.asset(
-                              'assets/images/svg/like_line.svg',
+                            child: Image.asset(
+                              'assets/images/png/like_line.png',
                               width: 35,
                               height: 35,
                               color: ThemeColor.colorSale(),

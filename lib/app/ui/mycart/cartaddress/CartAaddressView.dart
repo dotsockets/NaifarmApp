@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -43,7 +42,8 @@ class _CartAaddressViewState extends State<CartAaddressView> {
       });
       bloc.onError.stream.listen((event) {
         //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
-        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event.message);
       });
 
       bloc.onSuccess.stream.listen((event) {
@@ -142,14 +142,14 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                   child: Container(
                     padding: EdgeInsets.all(2.0.w),
                     child: item.select
-                        ? SvgPicture.asset(
-                            'assets/images/svg/checkmark.svg',
+                        ? Image.asset(
+                            'assets/images/png/checkmark.png',
                             width: SizeUtil.iconLargeSize().w,
                             height: SizeUtil.iconLargeSize().w,
                             color: ThemeColor.primaryColor(),
                           )
-                        : SvgPicture.asset(
-                            'assets/images/svg/uncheckmark.svg',
+                        : Image.asset(
+                            'assets/images/png/uncheckmark.png',
                             width: SizeUtil.iconLargeSize().w,
                             height: SizeUtil.iconLargeSize().w,
                             color: Colors.black.withOpacity(0.5),
@@ -367,8 +367,9 @@ class _CartAaddressViewState extends State<CartAaddressView> {
             select: true,
             stateId: item.stateId,
             zipCode: item.zipCode));
-        Navigator.pop(context, AddressesListRespone(data: returnData, total: returnData.length));
-       // print("wefcew ");
+        Navigator.pop(context,
+            AddressesListRespone(data: returnData, total: returnData.length));
+        // print("wefcew ");
       },
     );
   }
@@ -434,7 +435,8 @@ class _CartAaddressViewState extends State<CartAaddressView> {
           break;
         }
       }
-      Navigator.pop(context, AddressesListRespone(data: returnData, total: returnData.length));
+      Navigator.pop(context,
+          AddressesListRespone(data: returnData, total: returnData.length));
     } else {
       Navigator.pop(context, AddressesListRespone());
     }

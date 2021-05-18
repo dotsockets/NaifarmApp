@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:rxdart/subjects.dart';
@@ -156,13 +155,14 @@ class BuildEditText extends StatelessWidget {
                                 child: Container(
                                     padding: EdgeInsets.all(3.5.w),
                                     child: snapshot.data
-                                        ? SvgPicture.asset(
-                                            'assets/images/svg/hind_pass.svg',
-                                            width: SizeUtil.imgSmallWidth().w,
-                                            height: SizeUtil.imgSmallWidth().w,
-                                            color: Colors.grey,)
-                                        : SvgPicture.asset(
-                                            'assets/images/svg/show_pass.svg',
+                                        ? Image.asset(
+                                            'assets/images/png/hind_pass.png',
+                                            width: SizeUtil.imgMedWidth().w,
+                                            height: SizeUtil.imgMedWidth().w,
+                                            color: Colors.grey,
+                                          )
+                                        : Image.asset(
+                                            'assets/images/png/show_pass.png',
                                             height: SizeUtil.imgMedWidth().w,
                                             width: SizeUtil.imgMedWidth().w,
                                             color: Colors.grey,

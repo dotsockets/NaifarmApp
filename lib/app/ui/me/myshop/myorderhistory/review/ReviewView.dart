@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
@@ -418,15 +417,15 @@ class _ReviewViewState extends State<ReviewView> {
                   ),
                   buildButtonreview(
                       title: LocaleKeys.review_value.tr(),
-                      onClick: () => reviewController.text =
-                          LocaleKeys.review_value.tr()),
+                      onClick: () =>
+                          reviewController.text = LocaleKeys.review_value.tr()),
                   SizedBox(
                     width: 10,
                   ),
                   buildButtonreview(
                       title: LocaleKeys.review_deli.tr(),
-                      onClick: () => reviewController.text =
-                          LocaleKeys.review_deli.tr()),
+                      onClick: () =>
+                          reviewController.text = LocaleKeys.review_deli.tr()),
                 ],
               ),
             ),

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
@@ -84,18 +83,16 @@ class _SoldOutState extends State<SoldOut> {
           page=1;
           _reloadData();
         });*/
-        if(event.status!=99){
+        if (event.status != 99) {
           FunctionHelper.alertDialogRetry(context,
               title: LocaleKeys.btn_error.tr(),
               message: event.message, callBack: () {
-                bloc.onError.add(ThrowIfNoSuccess(status: 99));
-                widget.searchTxt.length != 0
-                    ? _reloadFirstSearch()
-                    : _reloadFirstPage();
-              });
+            bloc.onError.add(ThrowIfNoSuccess(status: 99));
+            widget.searchTxt.length != 0
+                ? _reloadFirstSearch()
+                : _reloadFirstPage();
+          });
         }
-
-
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -476,8 +473,8 @@ class _SoldOutState extends State<SoldOut> {
                       Expanded(
                         child: InkWell(
                           child: Container(
-                            child: SvgPicture.asset(
-                              'assets/images/svg/Edit.svg',
+                            child: Image.asset(
+                              'assets/images/png/Edit.png',
                               width: SizeUtil.mediumIconSize().w,
                               height: SizeUtil.mediumIconSize().w,
                               color: ThemeColor.colorSale(),
@@ -514,8 +511,8 @@ class _SoldOutState extends State<SoldOut> {
                       ),
                       Expanded(
                         child: InkWell(
-                          child: SvgPicture.asset(
-                            'assets/images/svg/trash.svg',
+                          child: Image.asset(
+                            'assets/images/png/trash.png',
                             width: SizeUtil.mediumIconSize().w,
                             height: SizeUtil.mediumIconSize().w,
                             color: ThemeColor.colorSale(),

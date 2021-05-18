@@ -137,7 +137,7 @@ class _MarketViewState extends State<MarketView> {
                     SizedBox(height: 15),
                     ProductGrid(
                         titleInto: LocaleKeys.recommend_title.tr(),
-                        iconInto: 'assets/images/svg/like.svg',
+                        imageIcon: 'assets/images/png/like.png',
                         onSelectMore: () {},
                         onTapItem: (ProductData item, int index) {
                           AppRoute.productDetail(context,

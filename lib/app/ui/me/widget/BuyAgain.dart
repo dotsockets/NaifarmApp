@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -53,7 +52,7 @@ class BuyAgain extends StatelessWidget {
           children: [
             Row(
               children: [
-                SvgPicture.asset(
+                Image.asset(
                   iconInto,
                   width: 6.5.w,
                   height: 6.5.w,
@@ -75,10 +74,10 @@ class BuyAgain extends StatelessWidget {
                             fontSize: SizeUtil.titleFontSize().sp,
                             fontWeight: FontWeight.bold)),
                     SizedBox(width: 2.0.w),
-                    SvgPicture.asset(
-                      'assets/images/svg/next.svg',
-                      width: 3.0.w,
-                      height: 3.0.h,
+                    Image.asset(
+                      'assets/images/png/next.png',
+                      width: 5.0.w,
+                      height: 5.0.w,
                     ),
                   ],
                 ),
@@ -134,7 +133,7 @@ class BuyAgain extends StatelessWidget {
                     height: 28.0.w,
                     //child: Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
                     child: NaifarmErrorWidget()),
-                ),
+              ),
             ),
             Visibility(
               child: Container(

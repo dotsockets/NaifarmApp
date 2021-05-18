@@ -31,7 +31,7 @@ class NotiDetailView extends StatelessWidget {
               header: AppToobar(
                 title: LocaleKeys.recommend_notification.tr(),
                 headerType: Header_Type.barNormal,
-                icon: 'assets/images/svg/cart_top.svg',
+                icon: 'assets/images/png/cart_top.png',
               ),
               content: Column(
                 children: [

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
@@ -39,7 +38,7 @@ class RecommendMenu extends StatelessWidget {
     init(context);
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.only(top: 1.5.h,bottom: 1.5.h),
+      padding: EdgeInsets.only(top: 1.5.h, bottom: 1.5.h),
       child: SingleChildScrollView(
         child: Container(
           child: BlocBuilder<CustomerCountBloc, CustomerCountState>(
@@ -55,9 +54,10 @@ class RecommendMenu extends StatelessWidget {
                             _menuBox(
                                 item: value,
                                 index: key,
-                                notification: count
-                                        .countLoaded.notification.unreadShop +
-                                    count.countLoaded.notification.unreadCustomer,
+                                notification:
+                                    count.countLoaded.notification.unreadShop +
+                                        count.countLoaded.notification
+                                            .unreadCustomer,
                                 context: context));
                       })
                       .values
@@ -77,7 +77,8 @@ class RecommendMenu extends StatelessWidget {
                                 notification: count.countLoaded != null
                                     ? count.countLoaded.notification
                                             .unreadCustomer +
-                                        count.countLoaded.notification.unreadShop
+                                        count
+                                            .countLoaded.notification.unreadShop
                                     : 0,
                                 context: context));
                       })
@@ -140,13 +141,13 @@ class RecommendMenu extends StatelessWidget {
             children: [
               Card(
                 elevation: 0,
-                shape:  RoundedRectangleBorder(
-                  side:  BorderSide(color: Colors.grey, width: 0.1.w),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.grey, width: 0.1.w),
                   borderRadius: BorderRadius.all(Radius.circular(3.0.w)),
                 ),
-                child: SvgPicture.asset(
+                child: Image.asset(
                   item.icon,
-                  width:  SizeUtil.tabIconSize().w,
+                  width: SizeUtil.tabIconSize().w,
                   height: SizeUtil.tabIconSize().w,
                 ),
               ),
@@ -182,14 +183,14 @@ class RecommendMenu extends StatelessWidget {
             {
               // NaiFarmLocalStorage.saveNowPage(2).then((data){
               //
-                //onClick(2);
+              //onClick(2);
               //         });
 
               Usermanager().isLogin().then((value) async {
                 if (!value) {
                   // ignore: unused_local_variable
                   final result = await AppRoute.login(context,
-                      isCallBack: true, isHeader: true,isSetting: false);
+                      isCallBack: true, isHeader: true, isSetting: false);
                 } else {
                   NaiFarmLocalStorage.saveNowPage(2).then((value) {
                     OneSignalCall.cancelNotification("", 0);
@@ -202,16 +203,16 @@ class RecommendMenu extends StatelessWidget {
           case "MyLikeView":
             {
               Usermanager().isLogin().then((value) async {
-                if(!value){
-                  final result = await  AppRoute.login(context,isCallBack: true,isHeader: true,isSetting: false);
-                  if(result){
+                if (!value) {
+                  final result = await AppRoute.login(context,
+                      isCallBack: true, isHeader: true, isSetting: false);
+                  if (result) {
                     AppRoute.wishlists(context: context);
                   }
-                }else{
+                } else {
                   AppRoute.wishlists(context: context);
                 }
               });
-
             }
             break;
         }

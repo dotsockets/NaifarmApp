@@ -89,12 +89,14 @@ class ProducItemRespone {
       });
     }
     discountPercent = json['discountPercent'];
-    if(json['rating'] is double){
+    if (json['rating'] == null) {
+      rating = 0.0;
+    } else if (json['rating'] is double) {
       rating = json['rating'];
-    }else{
+    } else {
       rating = double.parse(json['rating'].toString());
     }
-   
+
     reviewCount = json['reviewCount'];
   }
 

@@ -55,7 +55,6 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
         //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
-
       });
       /* bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -146,7 +145,11 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                     name: item.name,
                                                     salePrice: item.salePrice,
                                                     saleCount: item.saleCount,
-                                                    rating: double.parse(item.rating.toString()),
+                                                    rating: item.rating == null
+                                                        ? 0.0
+                                                        : double.parse(item
+                                                            .rating
+                                                            .toString()),
                                                     offerPrice: item.offerPrice,
                                                     id: item.id,
                                                   ),

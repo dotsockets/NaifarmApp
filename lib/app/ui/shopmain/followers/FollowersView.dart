@@ -20,7 +20,7 @@ class FollowersView extends StatelessWidget {
         appBar: AppToobar(
           title: LocaleKeys.shop_follower.tr(),
           headerType: Header_Type.barNormal,
-          icon: 'assets/images/svg/search.svg',
+          icon: 'assets/images/png/search.png',
         ),
         body: SingleChildScrollView(
           child: Container(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -26,9 +25,7 @@ class _HomeHeaderState extends State<HomeHeader> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-          left: 0,
-          right: 0.3.w,
-          top: SizeUtil.paddingHeaderHome().h),
+          left: 0, right: 0.3.w, top: SizeUtil.paddingHeaderHome().h),
       decoration: new BoxDecoration(
           color: ThemeColor.primaryColor(),
           // borderRadius: new BorderRadius.only(
@@ -78,8 +75,8 @@ class _HomeHeaderState extends State<HomeHeader> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SvgPicture.asset(
-                              'assets/images/svg/search.svg',
+                            Image.asset(
+                              'assets/images/png/search.png',
                               color: Colors.grey.shade400,
                               width: 5.0.w,
                               height: 5.0.w,

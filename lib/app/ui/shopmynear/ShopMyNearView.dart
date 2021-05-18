@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'package:geocoder/geocoder.dart';
 //import 'package:geolocator/geolocator.dart';
-import 'package:naifarm/utility/widgets/AppToobar.dart';
 
 class ShopMyNearView extends StatefulWidget {
   @override

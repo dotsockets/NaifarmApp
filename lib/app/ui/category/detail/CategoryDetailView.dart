@@ -11,7 +11,6 @@ import 'package:naifarm/app/model/pojo/response/CategoryObjectCombin.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
-import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/CategoryMenu.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
@@ -118,7 +117,8 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                                     .goupProduct,
                             titleInto: LocaleKeys.tab_bar_recommend.tr(),
                             //  showBorder: true,
-                            iconInto: 'assets/images/svg/like.svg',
+                            imageIcon: 'assets/images/png/like.png',
+                            iconSize: 5.0.w,
                             // api_link: 'products',
                             onSelectMore: () {
                               AppRoute.productMore(
@@ -191,7 +191,7 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
                           },
                           borderRadius: false,
                           tagHero: "sell",
-                          iconSize: SizeUtil.iconHeight().w,
+                          iconSize: 5.0.w,
                         );
                       } else {
                         return Skeleton.loaderListTite(context);

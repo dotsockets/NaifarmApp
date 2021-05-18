@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -42,8 +41,8 @@ class ProductItemCard extends StatelessWidget {
   Widget productImage(BuildContext context) {
     return Card(
       elevation: 0,
-      shape:  RoundedRectangleBorder(
-        side:  BorderSide(color: Colors.grey, width: 0.1.w),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: Colors.grey, width: 0.1.w),
         borderRadius: BorderRadius.all(Radius.circular(2.0.w)),
       ),
       child: Stack(
@@ -68,9 +67,9 @@ class ProductItemCard extends StatelessWidget {
                   width: 30.0.w,
                   height: 30.0.w,
                   //child:
-                   //   Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
+                  //   Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
                   child: NaifarmErrorWidget()),
-              ),
+            ),
           ),
           Visibility(
             child: Container(
@@ -140,7 +139,7 @@ class ProductItemCard extends StatelessWidget {
                   allowHalfRating: false,
                   onRated: (v) {},
                   starCount: 5,
-                  rating: item.rating!=null?item.rating.toDouble():0.0,
+                  rating: item.rating != null ? item.rating.toDouble() : 0.0,
                   size: SizeUtil.ratingSize().w,
                   isReadOnly: true,
                   filledIconData: Icons.star,
@@ -178,11 +177,10 @@ class ProductItemCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SvgPicture.asset(
-                      'assets/images/svg/flash.svg',
-                      width: 8.0.w,
+                    Image.asset(
+                      'assets/images/png/flash.png',
                       height: 8.0.w,
-                    )
+                    ),
                   ],
                 )
               : Container(

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/NaiFarmBlocObserver.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
@@ -11,11 +9,8 @@ import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:flutter/material.dart';
-import 'package:uni_links/uni_links.dart';
 
 enum EnvType { DEVELOPMENT, STAGING, PRODUCTION }
 enum DeviceType { PHONE, TABLET }
@@ -72,12 +67,10 @@ class Env {
                 create: (_) => HomeMenuIndex(),
               ),
             ],
-
             child: BlocBuilder<SettingReloadCubit, bool>(builder: (_, status) {
               return AppComponent(application);
             }),
           )),
     );
   }
-
 }

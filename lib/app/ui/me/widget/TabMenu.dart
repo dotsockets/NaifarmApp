@@ -1,7 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
@@ -45,7 +44,7 @@ class TabMenu extends StatelessWidget {
                       ),
                       child: Container(
                           padding: EdgeInsets.all(5),
-                          child: SvgPicture.asset(
+                          child: Image.asset(
                             icon,
                             width: SizeUtil.tabMenuSize().w,
                             height: SizeUtil.tabMenuSize().w,
