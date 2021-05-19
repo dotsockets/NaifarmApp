@@ -189,25 +189,7 @@ class HistoryProductCard extends StatelessWidget {
                                   color: Colors.grey.shade400,
                                 )
                               : SizedBox(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                this.type == OrderViewType.Purchase
-                                    ? this.order.paymentStatus == 1
-                                        ? "${LocaleKeys.order_detail_pay_date.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(this.order.requirePaymentAt))}"
-                                        : "${LocaleKeys.order_detail_upload_slip.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(this.order.requestPaymentAt ?? DateTime.now().toString()))}"
-                                    : LocaleKeys.history_order_time.tr() +
-                                        " " +
-                                        " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(this.order.createdAt))}",
-                                style: FunctionHelper.fontTheme(
-                                  fontSize: SizeUtil.titleSmallFontSize().sp,
-                                  color: Colors.black.withOpacity(0.6),
-                                ),
-                              ),
-                              this.buttomAction,
-                            ],
-                          )
+                          this.buttomAction,
                         ],
                       ),
                     ],

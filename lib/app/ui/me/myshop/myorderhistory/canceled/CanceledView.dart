@@ -163,11 +163,27 @@ class _CanceledViewState extends State<CanceledView> {
                                       order: value,
                                       buttomAction: widget.typeView ==
                                               OrderViewType.Shop
-                                          ? buildButton(
-                                              btnTxt:
-                                                  "${LocaleKeys.order_detail_cancel_detail.tr()}",
-                                              item: value)
-                                          : Container(),
+                                          ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "${LocaleKeys.order_detail_cancel_by.tr()}: ผู้ซื้อ\n${LocaleKeys.order_detail_cancel_reason.tr()}: สินค้าเสียหาย",
+                                                  style: FunctionHelper.fontTheme(
+                                                      fontSize: SizeUtil
+                                                              .titleSmallFontSize()
+                                                          .sp,
+                                                      color: Colors.black
+                                                          .withOpacity(0.6)),
+                                                ),
+                                                buildButton(
+                                                    btnTxt:
+                                                        "${LocaleKeys.order_detail_cancel_detail.tr()}",
+                                                    item: value)
+                                              ],
+                                            )
+                                          : SizedBox(),
                                     ),
                                     Container(
                                       height: 10,

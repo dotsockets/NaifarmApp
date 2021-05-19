@@ -4,6 +4,7 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -169,14 +170,59 @@ class _DeliveryViewState extends State<DeliveryView> {
                                       pageVeiw: "delivery",
                                       type: widget.typeView,
                                       order: value,
-                                      buttomAction: widget.typeView ==
-                                              OrderViewType.Purchase
-                                          ? buildButtonBayItem(
-                                              btnTxt: LocaleKeys
-                                                  .order_detail_accept
-                                                  .tr(),
-                                              item: value)
-                                          : Container(),
+                                      buttomAction: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            flex: 3,
+                                            child: Text(
+                                              widget.typeView ==
+                                                      OrderViewType.Purchase
+                                                  ? LocaleKeys
+                                                          .order_detail_confirm
+                                                          .tr() +
+                                                      "\n" +
+                                                      LocaleKeys
+                                                          .order_detail_by_date
+                                                          .tr() +
+                                                      " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.createdAt))}"
+                                                  : LocaleKeys.order_detail_wait
+                                                          .tr() +
+                                                      " " +
+                                                      " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.createdAt))}",
+                                              style: FunctionHelper.fontTheme(
+                                                  fontSize: SizeUtil
+                                                          .titleSmallFontSize()
+                                                      .sp,
+                                                  color: Colors.black
+                                                      .withOpacity(0.6)),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: widget.typeView ==
+                                                    OrderViewType.Shop
+                                                ? 2.0.w
+                                                : 12.0.w,
+                                          ),
+                                          Expanded(
+                                            flex: widget.typeView ==
+                                                    OrderViewType.Shop
+                                                ? 1
+                                                : Device.get().isPhone
+                                                    ? 4
+                                                    : 2,
+                                            child: widget.typeView ==
+                                                    OrderViewType.Purchase
+                                                ? buildButtonBayItem(
+                                                    btnTxt: LocaleKeys
+                                                        .order_detail_accept
+                                                        .tr(),
+                                                    item: value)
+                                                : SizedBox(),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Container(
                                       height: 10,
