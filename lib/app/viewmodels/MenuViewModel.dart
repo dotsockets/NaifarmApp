@@ -151,22 +151,22 @@ class MenuViewModel {
           label: LocaleKeys.recommend_near_me.tr(),
           page: "ShopMyNear"),*/
       MenuModel(
-          icon: 'assets/images/png/menu_market.png',
+          icon: 'assets/images/png/market-icon.png',
           iconSelected: 'assets/images/png/menu_market.png',
           label: LocaleKeys.recommend_market.tr(),
           page: "MarketView"),
       MenuModel(
-          icon: 'assets/images/png/menu_spacial_price.png',
+          icon: 'assets/images/png/special-icon.png',
           iconSelected: 'assets/images/png/menu_spacial_price.png',
           label: LocaleKeys.recommend_special_price.tr(),
           page: "SpecialproductsView"),
       MenuModel(
-          icon: 'assets/images/png/menu_noti.png',
+          icon: 'assets/images/png/noti-icon.png',
           iconSelected: 'assets/images/png/menu_noti.png',
           label: LocaleKeys.recommend_notification.tr(),
           page: "NotiView"),
       MenuModel(
-          icon: 'assets/images/png/menu_like.png',
+          icon: 'assets/images/png/like-icon.png',
           iconSelected: 'assets/images/png/menu_like.png',
           label: LocaleKeys.my_product_like.tr(),
           page: "MyLikeView")

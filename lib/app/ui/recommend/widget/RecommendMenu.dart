@@ -141,10 +141,6 @@ class RecommendMenu extends StatelessWidget {
             children: [
               Card(
                 elevation: 0,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.grey, width: 0.1.w),
-                  borderRadius: BorderRadius.all(Radius.circular(3.0.w)),
-                ),
                 child: Image.asset(
                   item.icon,
                   width: SizeUtil.tabIconSize().w,
