@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -20,11 +25,18 @@ class CategoryView extends StatefulWidget {
 
 class _CategoryViewState extends State<CategoryView> {
   ProductBloc bloc;
-  Future<void> _init() async {}
+  Future<void> _init(BuildContext context) async {
+
+    if(bloc==null){
+      bloc = ProductBloc(AppProvider.of(context).application);
+      bloc.loadCategoryGroup(context);
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -44,38 +56,66 @@ class _CategoryViewState extends State<CategoryView> {
   Widget _content({BuildContext context}) {
     return Container(
       padding: EdgeInsets.all(2.0.h),
-      child: BlocBuilder<HomeDataBloc, HomeDataState>(
-        builder: (_, snapshot) {
-          if (snapshot is HomeDataLoaded &&
-              snapshot.homeObjectCombine != null) {
+      child: StreamBuilder(
+        stream: bloc.categoryGroup.stream,
+        builder: (BuildContext context, AsyncSnapshot<CategoryGroupRespone> snapshot) {
+
+          if(snapshot.connectionState==ConnectionState.none ||snapshot.connectionState==ConnectionState.waiting){
+            return Container(
+              height: MediaQuery.of(context).size.height,
+              padding: EdgeInsets.only(bottom: 30.0.h),
+              child: Center(
+                child: Platform.isAndroid
+                    ? SizedBox(
+                    width: 5.0.w,
+                    height: 5.0.w,
+                    child:
+                    CircularProgressIndicator())
+                    : CupertinoActivityIndicator(),
+              ),
+            );
+          }else if(snapshot.hasError){
+            return Container(
+              height: MediaQuery.of(context).size.height,
+              padding: EdgeInsets.only(bottom: 30.0.h),
+              child: Center(
+                child: Platform.isAndroid
+                    ? SizedBox(
+                    width: 5.0.w,
+                    height: 5.0.w,
+                    child:
+                    CircularProgressIndicator())
+                    : CupertinoActivityIndicator(),
+              ),
+            );
+          }else{
             return Column(
               children: [
                 Column(
                   children: item(
-                      (snapshot.homeObjectCombine.categoryGroupRespone.data
-                                  .length /
-                              4)
+                      (snapshot.data.data
+                          .length /
+                          4)
                           .floor(),
                       4,
                       context,
-                      snapshot.homeObjectCombine.categoryGroupRespone),
+                      snapshot.data),
                 ),
                 Column(
                   children: item(
                       1,
-                      (snapshot.homeObjectCombine.categoryGroupRespone.data
-                                      .length /
-                                  4)
-                              .floor() *
+                      (snapshot.data.data
+                          .length /
+                          4)
+                          .floor() *
                           4,
                       context,
-                      snapshot.homeObjectCombine.categoryGroupRespone),
+                      snapshot.data),
                 )
               ],
             );
-          } else {
-            return SizedBox();
           }
+
         },
       ),
     );

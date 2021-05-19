@@ -74,6 +74,7 @@ class _MyProductViewState extends State<MyProductView> {
             preferredSize: Size.fromHeight(6.5.h),
             child: Container(
               child: AppBar(
+                elevation: 0,
                 toolbarHeight:6.5.h,
                 iconTheme: IconThemeData(
                   color: Colors.white, //change your color here

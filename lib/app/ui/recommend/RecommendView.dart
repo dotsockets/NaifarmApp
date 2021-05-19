@@ -18,6 +18,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
+import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -200,56 +201,37 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                           ),
                         ),
                       );
-                    } else if (item is HomeDataError) {
-                      if (onDialog) {
-                        onDialog = false;
-                        bloc.onError.add(ThrowIfNoSuccess(
-                            status: 500,
-                            message:
-                                item.homeObjectCombine.httpCallBack.message));
-                      }
+                    } else  {
+                      // if (onDialog) {
+                      //   onDialog = false;
+                      //   bloc.onError.add(ThrowIfNoSuccess(
+                      //       status: 500,
+                      //       message:
+                      //           item.homeObjectCombine.httpCallBack.message));
+                      // }
 
-                      return item.homeObjectCombine.productRespone != null
-                          ? SingleChildScrollView(
-                              child: Container(
-                                child: StickyHeader(
-                                  header: Column(
-                                    children: [
-                                      HomeHeader(
-                                          snapshot: item.homeObjectCombine,
-                                          onTap: (CategoryGroupData val) {
-                                            AppRoute.categoryDetail(
-                                                context, val.id,
-                                                title: val.name);
-                                          }),
-                                    ],
-                                  ),
-                                  content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        content(item: item.homeObjectCombine),
-                                      ]),
-                                ),
-                              ),
-                            )
-                          : Column(
+                      return SingleChildScrollView(
+                        child: Container(
+
+                          child: StickyHeader(
+                            header: Column(
                               children: [
                                 HomeHeader(
-                                  snapshot: HomeObjectCombine(),
-                                ),
-                                SizedBox(
-                                  height: 35.0.h,
-                                ),
-                                Platform.isAndroid
-                                    ? SizedBox(
-                                        width: 5.0.w,
-                                        height: 5.0.w,
-                                        child: CircularProgressIndicator())
-                                    : CupertinoActivityIndicator()
+                                    snapshot: HomeObjectCombine(),
+                                    onTap: (CategoryGroupData val) {
+                                      AppRoute.categoryDetail(context, val.id,
+                                          title: val.name);
+                                    }),
                               ],
-                            );
-                    } else {
-                      return SizedBox();
+                            ),
+                            content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  content(item: HomeObjectCombine()),
+                                ]),
+                          ),
+                        ),
+                      );
                     }
                   },
                 )
@@ -277,7 +259,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           },
         ),
 
-        item!=null && item.flashsaleRespone.data.length > 0
+        item!=null && item.flashsaleRespone!=null
             ? FlashSale(flashsaleRespone: item.flashsaleRespone)
             : SizedBox(),
         Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),

@@ -637,6 +637,8 @@ class _APIProvider implements APIProvider {
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.dioErrorExpction(e);
+    }catch (err) {
+      return ApiResult(httpCallBack: ThrowIfNoSuccess(status: 400,message: "Error"));
     }
   }
 
