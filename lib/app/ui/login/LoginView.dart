@@ -514,8 +514,16 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     )
                   : SizedBox(
-                      height: 1.5.h,
+                width: 5.5.h,
+                height: 1.0.h,
                     ),
+              Text(
+                "NaiFarm",
+                style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.appNameFontSize().sp,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
               widget.isSetting
                   ? IconButton(
                       padding: EdgeInsets.only(right: 2.0.w, top: 2.0.w),
@@ -532,7 +540,10 @@ class _LoginViewState extends State<LoginView> {
                         }
                       },
                     )
-                  : SizedBox()
+                  : SizedBox(
+                width: 5.5.h,
+                height: 1.0.h,
+              )
             ],
           ),
         ],

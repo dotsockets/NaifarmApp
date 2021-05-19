@@ -447,7 +447,8 @@ class _TransferPayMentState extends State<TransferPayMent> {
                             .length >
                         0 &&
                     systemRespone.bankAccountNumber != null) {
-                  captureImage(ImageSource.gallery);
+
+                  captureImage(ImageSource.gallery,orderDataItem.image.isNotEmpty?false:true);
                 }
               },
               child: Text(
@@ -544,7 +545,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
     );
   }
 
-  Future captureImage(ImageSource imageSource) async {
+  Future captureImage(ImageSource imageSource, bool requestPayment) async {
     final picker = ImagePicker();
     final pickedFile = await picker.getImage(source: imageSource);
 
@@ -554,7 +555,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
           imageFile: fileImage,
           imageableType: "order",
           imageableId: widget.orderData.id,
-          token: value.token));
+          token: value.token,requestPayments: requestPayment));
     } else {
       print('No image selected.');
     }

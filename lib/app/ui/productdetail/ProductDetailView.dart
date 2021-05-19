@@ -415,8 +415,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                 if (snapshot.hasData && item.producItemRespone != null) {
                   return Column(
                     children: [
-                      widget.productItem.image != null
-                          ? ProductInto(
+                      ProductInto(
                               data: item.producItemRespone,
                               dataWishlist: item.dataWishlists,
                               scaffoldKey: _scaffoldKey,
@@ -428,8 +427,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                       id: widget.productItem.id,
                                       token: value.token);
                                 });
-                              })
-                          : SizedBox(),
+                              }),
                       widget.productItem.image != null ? divider() : SizedBox(),
                       // BuildChoosesize(
                       //     IndexType1: IndexTypes1,

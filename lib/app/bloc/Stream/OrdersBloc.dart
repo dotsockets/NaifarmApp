@@ -181,7 +181,7 @@ class OrdersBloc {
       {File imageFile,
       String imageableType,
       int imageableId,
-      String token}) async {
+      String token,bool requestPayments}) async {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.uploadImage(context,
@@ -193,7 +193,12 @@ class OrdersBloc {
       if (respone.httpCallBack.status == 200 ||
           respone.httpCallBack.status == 201) {
         //context.read<InfoCustomerBloc>().loadCustomInfo(token:token);
-        requestPayment(context, orderId: imageableId, token: token);
+        if(requestPayments){
+          requestPayment(context, orderId: imageableId, token: token);
+        }else{
+          onLoad.add(false);
+        }
+
       } else {
         onLoad.add(false);
         onError.add(respone.httpCallBack.message);
