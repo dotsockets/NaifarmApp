@@ -67,6 +67,8 @@ abstract class  LocaleKeys {
   static const review_ok = 'review.ok';
   static const review_bad = 'review.bad';
   static const review_terrible = 'review.terrible';
+  static const review_no = 'review.no';
+  static const review_all = 'review.all';
   static const review = 'review';
   static const edit_phone_title = 'edit_phone.title';
   static const edit_phone_hint = 'edit_phone.hint';

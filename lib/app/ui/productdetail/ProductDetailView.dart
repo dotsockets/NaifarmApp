@@ -15,6 +15,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
+import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductObjectCombine.dart';
@@ -22,6 +23,7 @@ import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/ui/productdetail/widget/HeaderDetail.dart';
+import 'package:naifarm/app/ui/productdetail/widget/RatingProduct.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -63,7 +65,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
   bool checkOwnShop = true;
   Animation<Offset> animation;
   AnimationController animationController;
-
+  String token = "";
   final checkMyShop = BehaviorSubject<int>();
 
   final _indicatorController = IndicatorController();
@@ -168,7 +170,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
         if (event is CartResponse) {
           // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
           //animationController.forward();
-          FunctionHelper.snackBarShow(context: context,scaffoldKey: _scaffoldKey,message: LocaleKeys.my_product_addcart.tr());
+          FunctionHelper.snackBarShow(
+              context: context,
+              scaffoldKey: _scaffoldKey,
+              message: LocaleKeys.my_product_addcart.tr());
         } else if (event is bool) {
           AppRoute.myCart(context, true, cartNowId: bloc.bayNow);
           // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
@@ -192,6 +197,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
         }
 
         Usermanager().getUser().then((value) {
+          token = value.token;
           bloc.loadProductsPage(context,
               id: widget.productItem.id, token: value.token);
         });
@@ -200,7 +206,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
     NaiFarmLocalStorage.getCustomerInfo().then((value) {
       //  print("efcsdcx ${widget.productItem.shop.id}  ${value.myShopRespone.id}");
-      if (value != null && value.myShopRespone!=null) {
+      if (value != null && value.myShopRespone != null) {
         checkMyShop.add(value.myShopRespone.id);
       } else {
         checkMyShop.add(0);
@@ -299,7 +305,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                 child: Stack(
                   children: [
                     SingleChildScrollView(
-                      physics : ClampingScrollPhysics(),
+                      physics: ClampingScrollPhysics(),
                       controller: trackingScrollController,
                       child: Column(
                         children: [
@@ -393,13 +399,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   return FullScreenWidget(
                     backgroundIsTransparent: true,
                     child: Center(
-                      child: ProductSlide(imgList: item.producItemRespone.image),
+                      child:
+                          ProductSlide(imgList: item.producItemRespone.image),
                     ),
                   );
                 } else {
                   return widget.productItem.image != null && item != null
-                      ? ProductSlide(
-                          imgList: item.producItemRespone.image)
+                      ? ProductSlide(imgList: item.producItemRespone.image)
                       : SizedBox();
                 }
               }),
@@ -414,13 +420,16 @@ class _ProductDetailViewState extends State<ProductDetailView>
                           ? ProductInto(
                               data: item.producItemRespone,
                               dataWishlist: item.dataWishlists,
-                              scaffoldKey: _scaffoldKey,isLogin: isLogin,callback_login: (){
-                        iSLogin();
-                        Usermanager().getUser().then((value) {
-                          bloc.loadProductsPage(context,
-                              id: widget.productItem.id, token: value.token);
-                        });
-                      })
+                              scaffoldKey: _scaffoldKey,
+                              isLogin: isLogin,
+                              callback_login: () {
+                                iSLogin();
+                                Usermanager().getUser().then((value) {
+                                  bloc.loadProductsPage(context,
+                                      id: widget.productItem.id,
+                                      token: value.token);
+                                });
+                              })
                           : SizedBox(),
                       widget.productItem.image != null ? divider() : SizedBox(),
                       // BuildChoosesize(
@@ -497,8 +506,30 @@ class _ProductDetailViewState extends State<ProductDetailView>
                           }
                         },
                       ),
-                      // divider(),
-                      //  Reviewscore()
+                      divider(),
+
+                      FutureBuilder<FeedbackRespone>(
+                          future: bloc.getFeedbackFuture(context,
+                              limit: 10,
+                              id: item.producItemRespone.id,
+                              page: 1),
+                          // a Future<String> or null
+                          builder: (BuildContext context,
+                              AsyncSnapshot<FeedbackRespone> snapshot) {
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.none:
+                                return SizedBox();
+                              case ConnectionState.waiting:
+                                return SizedBox();
+                              default:
+                                if (snapshot.hasError)
+                                  return SizedBox();
+                                else
+                                  return RatingProduct(productId: item.producItemRespone.id,
+                                    feedbackRespone: snapshot.data,
+                                  );
+                            }
+                          }),
                     ],
                   );
                 } else {
@@ -638,10 +669,9 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 AppRoute.login(context,
                                     isCallBack: true,
                                     isHeader: true,
-                                    isSetting: false,
-                                    homeCallBack: (bool fix) {
-                                       //print("wefcrewfcrefc $fix");
-                                    });
+                                    isSetting: false, homeCallBack: (bool fix) {
+                                  //print("wefcrewfcrefc $fix");
+                                });
                               }
                             },
                           ),

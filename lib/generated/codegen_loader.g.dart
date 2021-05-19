@@ -78,14 +78,16 @@ class CodegenLoader extends AssetLoader{
     "deli": "Delivery Speed ",
     "value": "Value ",
     "quality": "Quality of Product ",
-    "tell": "Tell others why the product is good",
+    "tell": "Tell others why the product is ",
     "anonymous": "Leave your review anonymous",
     "username": "Your username will be show",
     "ex": "Excellent",
     "good": "Good",
     "ok": "OK",
     "bad": "Bad",
-    "terrible": "Terrible"
+    "terrible": "Terrible",
+    "no": "No rating yet",
+    "all": "See All Reviews"
   },
   "edit_phone": {
     "title": "Please enter a new phone number to receive a OTP",
@@ -641,14 +643,16 @@ static const Map<String,dynamic> th_TH = {
     "deli": "ความรวดเร็วในการจัดส่ง",
     "value": "ความคุ้มค่า",
     "quality": "คุณภาพสินค้า",
-    "tell": "บอกคนอื่นๆ ว่า ทำไมสินค้านี้ถึง ดี",
+    "tell": "บอกคนอื่นๆ ว่า ทำไมสินค้านี้ถึง ",
     "anonymous": "รีวิวโดยไม่เปิดชื่อ",
     "username": "ชื่อที่จะแสดง",
     "ex": "ดีมาก",
     "good": "ดี",
     "ok": "พอใช้",
     "bad": "แย่",
-    "terrible": "แย่มาก"
+    "terrible": "แย่มาก",
+    "no": "สินค้านี้ไม่มีรีวิว",
+    "all": "ดูรีวิวทั้งหมด"
   },
   "edit_phone": {
     "title": "กรุณาใส่หมายเลขใหม่เพื่อรับ OTP",

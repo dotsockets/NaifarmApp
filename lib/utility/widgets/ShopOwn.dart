@@ -68,7 +68,7 @@ class ShopOwn extends StatelessWidget {
                       //         Icons.shopping_bag_rounded,
                       //         color: Color(0xffCCCCCC),
                       //       ),
-                      //     )),
+                      //  )),
                       errorWidget: (context, url, error) => Container(
                           color: Colors.grey.shade300,
                           width: SizeUtil.imgItemSize().w,

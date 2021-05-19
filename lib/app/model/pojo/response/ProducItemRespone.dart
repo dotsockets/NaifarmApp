@@ -1,3 +1,4 @@
+import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 
 import 'ProductRespone.dart';
@@ -24,8 +25,9 @@ class ProducItemRespone {
   List<Categories> categories;
   List<ProductImage> image;
   int discountPercent;
-  int rating;
-  double reviewCount;
+  double rating;
+  int reviewCount;
+  List<FeedbackData> feedbacks;
 
   ProducItemRespone(
       {this.id,
@@ -50,7 +52,7 @@ class ProducItemRespone {
       this.image,
       this.discountPercent,
       this.rating,
-      this.reviewCount});
+      this.reviewCount,this.feedbacks});
 
   ProducItemRespone.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -91,6 +93,12 @@ class ProducItemRespone {
     discountPercent = json['discountPercent'];
     rating = json['rating'];
     reviewCount = json['reviewCount'];
+    if (json['feedbacks'] != null) {
+      feedbacks = new List<FeedbackData>();
+      json['feedbacks'].forEach((v) {
+        feedbacks.add(new FeedbackData.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -122,6 +130,9 @@ class ProducItemRespone {
     }
     if (this.image != null) {
       data['image'] = this.image.map((v) => v.toJson()).toList();
+    }
+    if (this.feedbacks != null) {
+      data['feedbacks'] = this.feedbacks.map((v) => v.toJson()).toList();
     }
     data['discountPercent'] = this.discountPercent;
     data['rating'] = this.rating;

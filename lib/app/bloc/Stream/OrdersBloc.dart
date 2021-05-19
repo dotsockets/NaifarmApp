@@ -1,14 +1,20 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/request/AssetImages.dart';
+import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductHistoryCache.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductOrderCache.dart';
 import 'package:naifarm/app/model/pojo/response/SystemRespone.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class OrdersBloc {
@@ -19,8 +25,10 @@ class OrdersBloc {
   final onSuccess = BehaviorSubject<Object>();
   final orderList = BehaviorSubject<OrderData>();
   final systemRespone = BehaviorSubject<SystemRespone>();
+  final isUpdateFeedback = BehaviorSubject<bool>();
   Stream<Object> get feedList => onSuccess.stream;
   List<OrderData> orderDataList = <OrderData>[];
+  HashMap feedbackMap = new HashMap<int, int>();
 
   OrdersBloc(this._application);
 
@@ -108,16 +116,15 @@ class OrdersBloc {
     _compositeSubscription.add(subscription);
   }
 
-  Future<OrderData> getOrderByIdFuture(BuildContext context, {int id, String orderType,String token}) async {
-
-    final respons = await _application.appStoreAPIRepository.getOrderById(context, id: id, orderType: orderType, token: token);
+  Future<OrderData> getOrderByIdFuture(BuildContext context,
+      {int id, String orderType, String token}) async {
+    final respons = await _application.appStoreAPIRepository
+        .getOrderById(context, id: id, orderType: orderType, token: token);
     if (respons.httpCallBack.status == 200) {
       return (respons.respone as OrderData);
     } else {
-
-      return  OrderData();
+      return OrderData();
     }
-
   }
 
   getOrderById(BuildContext context, {int id, String orderType, String token}) {
@@ -183,8 +190,8 @@ class OrdersBloc {
       {File imageFile,
       String imageableType,
       int imageableId,
-      String token}) async {
-    onLoad.add(true);
+      String token,int index}) async {
+    //onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.uploadImage(context,
                 imageFile: imageFile,
@@ -195,7 +202,36 @@ class OrdersBloc {
       if (respone.httpCallBack.status == 200 ||
           respone.httpCallBack.status == 201) {
         //context.read<InfoCustomerBloc>().loadCustomInfo(token:token);
-        requestPayment(context, orderId: imageableId, token: token);
+        if (imageableType == "order") {
+          requestPayment(context, orderId: imageableId, token: token);
+        } else {
+          onLoad.add(false);
+          isUpdateFeedback.add(true);
+        }
+      } else {
+        onLoad.add(false);
+        onError.add(respone.httpCallBack.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  uploadImages(BuildContext context,
+      {String imageableType,
+      int imageableId,
+      String token,
+      List<File> imageList}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.uploadImages(context,
+                imageFile: imageList,
+                imageableType: imageableType,
+                imageableId: imageableId,
+                token: token))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200 ||
+          respone.httpCallBack.status == 201) {
+        onLoad.add(false);
       } else {
         onLoad.add(false);
         onError.add(respone.httpCallBack.message);
@@ -299,6 +335,72 @@ class OrdersBloc {
       }
     });
     _compositeSubscription.add(subscription);
+  }
+
+  addFeedback(BuildContext context,
+      {int rating,
+      String comment,
+      int inventoryId,
+      int orderId,
+      String token,
+      List<AssetImages> imageList,
+      int index}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(
+            _application.appStoreAPIRepository.createFeedback(context,
+                token: token,
+                inventoryId: inventoryId,
+                rating: rating,
+                orderId: orderId,
+                comment: comment))
+        .listen((respone) async {
+      if (respone.httpCallBack.status == 200) {
+
+        feedbackMap[index] = (respone.respone as FeedbackData).rating;
+        //  onSuccess.add(true);
+        // indexRate.add(index);
+        // List<File> fileList = <File>[];
+        if (imageList.length == 0) {
+          isUpdateFeedback.add(true);
+          onLoad.add(false);
+        } else
+          for (var item in imageList) {
+            writeToFile(await item.getByteData(quality: 100)).then((file) {
+              //fileList.add(file);
+              uploadImage(
+                context,
+                token: token,
+                imageableId: int.parse((respone.respone as FeedbackData).id),
+                imageFile: file,
+                imageableType: "feedback",index: index
+              );
+            });
+          }
+        //feedbackData.add(respone.respone as FeedbackData);
+        // uploadImages(
+        //   context,
+        //   token: token,
+        //   imageableId:
+        //       int.parse((respone.respone as FeedbackRespone).feedbackableId),
+        //   imageList: fileList,
+        //   imageableType: "feedback",
+        // );
+      } else {
+        onLoad.add(false);
+        onError.add(respone.httpCallBack.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  Future<File> writeToFile(ByteData data) async {
+    final buffer = data.buffer;
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    var filePath = tempPath +
+        '/${DateTime.now().millisecondsSinceEpoch}.jpg'; // file_01.tmp is dump file, can be anything
+    return new File(filePath).writeAsBytes(
+        buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
   }
 }
 

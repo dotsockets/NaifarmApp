@@ -69,7 +69,9 @@
     "good":"Good",
     "ok": "OK",
     "bad": "Bad",
-    "terrible": "Terrible"
+    "terrible": "Terrible",
+    "no": "No rating yet",
+    "all": "See All Reviews"
   },
   "edit_phone": {
     "title": "Please enter a new phone number to receive a OTP",

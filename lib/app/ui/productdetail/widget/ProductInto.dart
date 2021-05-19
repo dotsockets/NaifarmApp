@@ -32,14 +32,14 @@ class ProductInto extends StatelessWidget {
       this.data,
       this.dataWishlist,
       this.scaffoldKey,
-      this.showBtn = true,this.callback_login,this.isLogin})
+      this.showBtn = true,
+      this.callback_login,
+      this.isLogin})
       : super(key: key);
   ProductBloc bloc;
 
   void _init(BuildContext context) {
-
     if (null == bloc) {
-
       bloc = ProductBloc(AppProvider.getApplication(context));
       //bloc.ProductItem.add(widget.productItem);
       bloc.onError.stream.listen((event) {
@@ -51,7 +51,8 @@ class ProductInto extends StatelessWidget {
           } else if (event.status == 0 || event.status >= 500) {
           } else {
             //FunctionHelper.snackBarShow(scaffoldKey: scaffoldKey, message: event.message);
-            FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
+            FunctionHelper.alertDialogShop(context,
+                title: LocaleKeys.btn_error.tr(), message: event.message);
           }
         }
       });
@@ -61,16 +62,20 @@ class ProductInto extends StatelessWidget {
       }
 
       bloc.isStatus.stream.listen((event) {
-        if(event){
-          FunctionHelper.snackBarShow(context: context,scaffoldKey: scaffoldKey,message: LocaleKeys.my_product_islike.tr());
-        }else{
-          FunctionHelper.snackBarShow(context: context,scaffoldKey: scaffoldKey,message: LocaleKeys.my_product_unlike.tr());
+        if (event) {
+          FunctionHelper.snackBarShow(
+              context: context,
+              scaffoldKey: scaffoldKey,
+              message: LocaleKeys.my_product_islike.tr());
+        } else {
+          FunctionHelper.snackBarShow(
+              context: context,
+              scaffoldKey: scaffoldKey,
+              message: LocaleKeys.my_product_unlike.tr());
         }
       });
-
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -122,20 +127,27 @@ class ProductInto extends StatelessWidget {
             ),
             Row(
               children: [
-                SmoothStarRating(
-                    allowHalfRating: false,
-                    onRated: (v) {},
-                    starCount: 5,
-                    rating: data.rating != null && data.rating != 0
-                        ? data.rating.toDouble()
-                        : 0.0,
-                    size: SizeUtil.ratingSize().w,
-                    isReadOnly: true,
-                    filledIconData: Icons.star,
-                    halfFilledIconData: Icons.star_half_outlined,
-                    color: Colors.amber,
-                    borderColor: Colors.grey.shade300,
-                    spacing: 0.0),
+                InkWell(
+                  onTap: () {
+                    if (data.rating != null && data.rating != 0) {
+                      AppRoute.reviewMore(context: context, productId: data.id);
+                    }
+                  },
+                  child: SmoothStarRating(
+                      allowHalfRating: false,
+                      onRated: (v) {},
+                      starCount: 5,
+                      rating: data.rating != null && data.rating != 0
+                          ? data.rating.toDouble()
+                          : 0.0,
+                      size: SizeUtil.ratingSize().w,
+                      isReadOnly: true,
+                      filledIconData: Icons.star,
+                      halfFilledIconData: Icons.star_half_outlined,
+                      color: Colors.amber,
+                      borderColor: Colors.grey.shade300,
+                      spacing: 0.0),
+                ),
                 SizedBox(
                   width: 1.0.w,
                 ),
@@ -175,7 +187,7 @@ class ProductInto extends StatelessWidget {
                   onTap: () {
                     Share.share(
                         '${Env.value.baseUrlWeb}/${data.name}-i.${data.id}');
-                  //  print("rwefv ${Env.value.baseUrlWeb}/${data.name}-i.${data.id}");
+                    //  print("rwefv ${Env.value.baseUrlWeb}/${data.name}-i.${data.id}");
                     // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                   },
                 ),
@@ -189,24 +201,24 @@ class ProductInto extends StatelessWidget {
                         stream: bloc.wishlists.stream,
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
-                           if(isLogin){
-                             if (snapshot.hasData &&
-                                 (snapshot.data as WishlistsRespone) != null) {
-                               if ((snapshot.data as WishlistsRespone).total > 0) {
-                                 return likeContent(
-                                     item: snapshot.data, context: context);
-                               } else {
-                                 return likeContent(
-                                     item: snapshot.data, context: context);
-                               }
-                             } else {
-                               return likeContent(
-                                   item: WishlistsRespone(), context: context);
-                             }
-                           }else{
-                             return likeContentNoLogin(context);
-                           }
-
+                          if (isLogin) {
+                            if (snapshot.hasData &&
+                                (snapshot.data as WishlistsRespone) != null) {
+                              if ((snapshot.data as WishlistsRespone).total >
+                                  0) {
+                                return likeContent(
+                                    item: snapshot.data, context: context);
+                              } else {
+                                return likeContent(
+                                    item: snapshot.data, context: context);
+                              }
+                            } else {
+                              return likeContent(
+                                  item: WishlistsRespone(), context: context);
+                            }
+                          } else {
+                            return likeContentNoLogin(context);
+                          }
                         },
                       )
                     : SizedBox(),
@@ -230,13 +242,15 @@ class ProductInto extends StatelessWidget {
             color: Colors.black.withOpacity(0.55),
           )),
       onTap: () {
-        AppRoute.login(context, isCallBack: true, isHeader: true,isSetting: false,
-            homeCallBack: (bool fix) {
-          if(fix){
+        AppRoute.login(context,
+            isCallBack: true,
+            isHeader: true,
+            isSetting: false, homeCallBack: (bool fix) {
+          if (fix) {
             callback_login();
           }
 
-         // iSLogin();
+          // iSLogin();
         });
       },
     );
@@ -269,7 +283,6 @@ class ProductInto extends StatelessWidget {
 
   Future<bool> onLikeButtonTapped(
       bool isLiked, WishlistsRespone item, BuildContext context) async {
-
     if (item.total > 0) {
       int id = item.data[0].id;
       item.data = <DataWishlists>[];

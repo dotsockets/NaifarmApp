@@ -139,7 +139,7 @@ class ProductItemCard extends StatelessWidget {
                   allowHalfRating: false,
                   onRated: (v) {},
                   starCount: 5,
-                  rating: item.rating.toDouble(),
+                  rating: item.rating!=null?item.rating.toDouble():0,
                   size: SizeUtil.ratingSize().w,
                   isReadOnly: true,
                   filledIconData: Icons.star,

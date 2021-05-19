@@ -30,7 +30,9 @@ import 'package:sizer/sizer.dart';
 class OrderView extends StatefulWidget {
   final OrderData orderData;
   final OrderViewType typeView;
+
   OrderView({Key key, this.orderData, this.typeView}) : super(key: key);
+
   @override
   _OrderViewState createState() => _OrderViewState();
 }
@@ -39,6 +41,7 @@ class _OrderViewState extends State<OrderView> {
   OrdersBloc bloc;
   ProductBloc productBloc;
   bool onUpload = false;
+
   init() {
     if (bloc == null && productBloc == null) {
       // OneSignalCall.cancelNotification("orderView", widget.orderData.id,
@@ -77,7 +80,9 @@ class _OrderViewState extends State<OrderView> {
       productBloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
         FunctionHelper.alertDialogShop(context,
-            message: event.message, showbtn: true, title: LocaleKeys.btn_error.tr());
+            message: event.message,
+            showbtn: true,
+            title: LocaleKeys.btn_error.tr());
         //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onLoad.stream.listen((event) {
@@ -284,8 +289,9 @@ class _OrderViewState extends State<OrderView> {
         if (result) {
           //bloc.orderDataList.clear();
           Usermanager().getUser().then((value) => bloc.getOrderById(context,
-              orderType:
-              widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+              orderType: widget.typeView == OrderViewType.Shop
+                  ? "myshop/orders"
+                  : "order",
               id: widget.orderData.id,
               token: value.token));
         }
@@ -299,7 +305,8 @@ class _OrderViewState extends State<OrderView> {
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(40), topLeft: Radius.circular(40)),
+                    topRight: Radius.circular(40),
+                    topLeft: Radius.circular(40)),
                 border: Border.all(
                     width: 3, color: Colors.white, style: BorderStyle.solid)),
             child:
@@ -309,55 +316,62 @@ class _OrderViewState extends State<OrderView> {
               ),
               // Text("Order ${orderData.orderNumber}",style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black,fontWeight: FontWeight.bold),),
               //SizedBox(height: 3),
-              orderData.orderStatusId ==1?RichText(
-                text: new TextSpan(
-                  style: DefaultTextStyle.of(context).style,
-                  children: <TextSpan>[
-                    new TextSpan(
-                        text:
-                            "${LocaleKeys.order_detail_please.tr()}${LocaleKeys.order_detail_pay_date.tr()} ",
-                        style: FunctionHelper.fontTheme(
-                            fontSize: SizeUtil.spanTitleSmallFontSize().sp,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black.withOpacity(0.8))),
-                    new TextSpan(
-                        text:
-                            "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.requirePaymentAt != null ? orderData.requirePaymentAt : DateTime.now().toString()))} ",
-                        style: FunctionHelper.fontTheme(
-                            fontSize: SizeUtil.spanTitleSmallFontSize().sp,
-                            color: Colors.black.withOpacity(0.5))),
-                    //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                    //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
-                    new TextSpan(
-                        text: " ${LocaleKeys.order_detail_cancel.tr()}",
-                        style: FunctionHelper.fontTheme(
-                            fontSize: SizeUtil.spanTitleSmallFontSize().sp,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black.withOpacity(0.8))),
-                  ],
-                ),
-              ):RichText(
-                text: new TextSpan(
-                  style: DefaultTextStyle.of(context).style,
-                  children: <TextSpan>[
-                    new TextSpan(
-                        text:
-                        "${LocaleKeys.order_detail_ship_date_header.tr()} ",
-                        style: FunctionHelper.fontTheme(
-                            fontSize: SizeUtil.spanTitleSmallFontSize().sp,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black.withOpacity(0.8))),
-                    new TextSpan(
-                        text:
-                        "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.paymentAt != null ? orderData.paymentAt : DateTime.now().toString()))} ",
-                        style: FunctionHelper.fontTheme(
-                            fontSize: SizeUtil.spanTitleSmallFontSize().sp,
-                            color: Colors.black.withOpacity(0.5))),
-                    //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                    //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
-                  ],
-                ),
-              )
+              orderData.orderStatusId == 1
+                  ? RichText(
+                      text: new TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: <TextSpan>[
+                          new TextSpan(
+                              text:
+                                  "${LocaleKeys.order_detail_please.tr()}${LocaleKeys.order_detail_pay_date.tr()} ",
+                              style: FunctionHelper.fontTheme(
+                                  fontSize:
+                                      SizeUtil.spanTitleSmallFontSize().sp,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black.withOpacity(0.8))),
+                          new TextSpan(
+                              text:
+                                  "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.requirePaymentAt != null ? orderData.requirePaymentAt : DateTime.now().toString()))} ",
+                              style: FunctionHelper.fontTheme(
+                                  fontSize:
+                                      SizeUtil.spanTitleSmallFontSize().sp,
+                                  color: Colors.black.withOpacity(0.5))),
+                          //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+                          //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                          new TextSpan(
+                              text: " ${LocaleKeys.order_detail_cancel.tr()}",
+                              style: FunctionHelper.fontTheme(
+                                  fontSize:
+                                      SizeUtil.spanTitleSmallFontSize().sp,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black.withOpacity(0.8))),
+                        ],
+                      ),
+                    )
+                  : RichText(
+                      text: new TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: <TextSpan>[
+                          new TextSpan(
+                              text:
+                                  "${LocaleKeys.order_detail_ship_date_header.tr()} ",
+                              style: FunctionHelper.fontTheme(
+                                  fontSize:
+                                      SizeUtil.spanTitleSmallFontSize().sp,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black.withOpacity(0.8))),
+                          new TextSpan(
+                              text:
+                                  "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.paymentAt != null ? orderData.paymentAt : DateTime.now().toString()))} ",
+                              style: FunctionHelper.fontTheme(
+                                  fontSize:
+                                      SizeUtil.spanTitleSmallFontSize().sp,
+                                  color: Colors.black.withOpacity(0.5))),
+                          //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
+                          //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
+                        ],
+                      ),
+                    )
             ]),
           ),
           Align(
@@ -533,7 +547,7 @@ class _OrderViewState extends State<OrderView> {
                         errorWidget: (context, url, error) => Container(
                             color: Colors.grey.shade300,
                             width: 30,
-                              height: 30,
+                            height: 30,
                             child: Icon(
                               Icons.person,
                               size: 5.0.w,
@@ -572,7 +586,7 @@ class _OrderViewState extends State<OrderView> {
                     Icon(
                       Icons.arrow_forward_ios,
                       color: Colors.grey.shade400,
-                      size: SizeUtil.ratingSize().w ,
+                      size: SizeUtil.ratingSize().w,
                     )
                   ],
                 ),
@@ -703,27 +717,32 @@ class _OrderViewState extends State<OrderView> {
             tag: "orderview_${orderItems.inventoryId}1",
             child: Container(
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black.withOpacity(0.1))),
-              child: CachedNetworkImage(
-                width: 22.0.w,
-                height: 22.0.w,
-                placeholder: (context, url) => Container(
+                border: Border.all(color: Colors.black.withOpacity(0.1)),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: CachedNetworkImage(
                   width: 22.0.w,
                   height: 22.0.w,
-                  color: Colors.white,
-                  child: Lottie.asset('assets/json/loading.json', height: 30),
-                ),
-                fit: BoxFit.cover,
-                imageUrl: orderItems.itemImagePath != null
-                    ? "${Env.value.baseUrl}/storage/images/${orderItems.itemImagePath}"
-                    : Env.value.noItemUrl,
-                errorWidget: (context, url, error) => Container(
+                  placeholder: (context, url) => Container(
                     width: 22.0.w,
                     height: 22.0.w,
-                    child: Icon(
-                      Icons.error,
-                      size: 30,
-                    )),
+                    color: Colors.white,
+                    child: Lottie.asset('assets/json/loading.json', height: 30),
+                  ),
+                  fit: BoxFit.cover,
+                  imageUrl: orderItems.itemImagePath != null
+                      ? "${Env.value.baseUrl}/storage/images/${orderItems.itemImagePath}"
+                      : Env.value.noItemUrl,
+                  errorWidget: (context, url, error) => Container(
+                      width: 22.0.w,
+                      height: 22.0.w,
+                      child: Icon(
+                        Icons.error,
+                        size: 30,
+                      )),
+                ),
               ),
             ),
           ),
@@ -1223,15 +1242,19 @@ class _OrderViewState extends State<OrderView> {
                 Text(
                   LocaleKeys.btn_review.tr(),
                   style: FunctionHelper.fontTheme(
-                    //color: Colors.grey.shade300,
+                      //color: Colors.grey.shade300,
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.bold),
                 )
               ],
             ),
             onTap: () {
-              print(item.items.length);
-            AppRoute.review(context,item);
+              // List<int> invenIdList = <int>[];
+              // for (var value in bloc.orderList.value.items) {
+              //   invenIdList.add(value.inventoryId,);
+              // }
+
+              AppRoute.review(context, item);
               //FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
               //Share.share('${Env.value.baseUrlWeb}/${bloc.ProductItem.value.name}-i.${bloc.ProductItem.value.id}');
               //FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");

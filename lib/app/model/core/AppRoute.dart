@@ -8,6 +8,7 @@ import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
+import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
@@ -73,6 +74,7 @@ import 'package:naifarm/app/ui/order/OrderCancleView.dart';
 import 'package:naifarm/app/ui/order/OrderView.dart';
 import 'package:naifarm/app/ui/productdetail/ProductDetailView.dart';
 import 'package:naifarm/app/ui/productmore/ProductMoreView.dart';
+import 'package:naifarm/app/ui/reviewmore/ReviewMoreView.dart';
 import 'package:naifarm/app/ui/register/ForgotPasswordView.dart';
 import 'package:naifarm/app/ui/register/Forgot_set_NewPasswordView.dart';
 import 'package:naifarm/app/ui/register/RegisterOTPView.dart';
@@ -1090,6 +1092,16 @@ class AppRoute {
             logincall: logincall,
             IsCallBack: IsCallBack,
           );
+        }));
+  }
+
+  static reviewMore(
+      {BuildContext context,
+        FeedbackRespone feedbackRespone,int productId}) {
+    Navigator.of(context).push(SwipeablePageRoute(
+        canOnlySwipeFromEdge: true,
+        builder: (context) {
+          return ReviewMoreView(feedbackRespone: feedbackRespone,productId: productId,);
         }));
   }
 }

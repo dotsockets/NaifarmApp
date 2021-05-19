@@ -268,6 +268,7 @@ class OrderItems {
   String unitPrice;
   String offerPrice;
   Inventory inventory;
+  String feedbackId;
 
   OrderItems(
       {this.orderId,
@@ -278,7 +279,7 @@ class OrderItems {
       this.quantity,
       this.unitPrice,
       this.offerPrice,
-      this.inventory});
+      this.inventory,this.feedbackId});
 
   OrderItems.fromJson(Map<String, dynamic> json) {
     orderId = json['orderId'];
@@ -290,6 +291,7 @@ class OrderItems {
     quantity = json['quantity'];
     unitPrice = json['unitPrice'];
     offerPrice = json['offerPrice'];
+    feedbackId = json['feedbackId'];
     inventory = json['inventory'] != null
         ? new Inventory.fromJson(json['inventory'])
         : null;
@@ -306,6 +308,7 @@ class OrderItems {
     data['quantity'] = this.quantity;
     data['unitPrice'] = this.unitPrice;
     data['offerPrice'] = this.offerPrice;
+    data['feedbackId']= this.feedbackId;
     if (this.inventory != null) {
       data['inventory'] = this.inventory.toJson();
     }

@@ -220,7 +220,10 @@ class APIRepository {
   }
 
   Future<ApiResult> uploadImages(BuildContext context,
-      {List<File> imageFile, String imageableType, int imageableId, String token}) {
+      {List<File> imageFile,
+      String imageableType,
+      int imageableId,
+      String token}) {
     return _apiProvider.uploadImages(context,
         imageFile: imageFile,
         imageableType: imageableType,
@@ -595,6 +598,29 @@ class APIRepository {
 
   Future<ApiResult> getSystem(BuildContext context) {
     return _apiProvider.getSystem(context);
+  }
+
+  Future<ApiResult> createFeedback(BuildContext context,
+      {int rating,
+      String comment,
+      int inventoryId,
+      String token,
+      int orderId}) {
+    return _apiProvider.createFeedback(context,
+        rating: rating,
+        comment: comment,
+        inventoryId: inventoryId,
+        token: token,
+        orderId: orderId);
+  }
+
+  Future<ApiResult> getFeedback(
+    BuildContext context, {
+    int id,
+    int limit,
+    int page,
+  }) {
+    return _apiProvider.getFeedback(context, id: id, limit: limit, page: page);
   }
 
 //  Observable<List<AppContent>> getTop100FreeApp(){

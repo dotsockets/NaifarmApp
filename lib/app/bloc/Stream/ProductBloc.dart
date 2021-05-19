@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryObjectCombin.dart';
+import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MarketObjectCombine.dart';
@@ -53,6 +54,7 @@ class ProductBloc {
   final productMartket = BehaviorSubject<ProductRespone>();
   final recommendProduct = BehaviorSubject<ProductRespone>();
   final moreProduct = BehaviorSubject<ProductRespone>();
+  final moreFeedback = BehaviorSubject<FeedbackRespone>();
   final flashsale = BehaviorSubject<FlashsaleRespone>();
   final productMyShopRes = BehaviorSubject<ProductMyShopListRespone>();
   final productItem = BehaviorSubject<ProducItemRespone>();
@@ -72,6 +74,7 @@ class ProductBloc {
   final zipShopObject = BehaviorSubject<ZipShopObjectCombin>();
 
   List<ProductData> productMore = <ProductData>[];
+  List<FeedbackData> feedbackList = <FeedbackData>[];
   List<Hits> searchList = <Hits>[];
   List<ProductMyShop> productList = <ProductMyShop>[];
 
@@ -1037,6 +1040,32 @@ class ProductBloc {
     _compositeSubscription.add(subscription);
   }
 
+  Future<FeedbackRespone> getFeedbackFuture(BuildContext context,
+      { int id, int limit, int page}) async {
+    final respone = await _application.appStoreAPIRepository.
+    getFeedback(context,page: page,limit: limit,id: id);
+    if (respone.httpCallBack.status == 200) {
+      return (respone.respone as FeedbackRespone);
+    } else {
+      return FeedbackRespone();
+    }
+  }
+
+  loadFeedback(BuildContext context, { int id, int limit, int page}) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+        .appStoreAPIRepository
+        .getFeedback(context,page: page,limit: limit,id: id))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
+        feedbackList.addAll((respone.respone as FeedbackRespone).data);
+        moreFeedback.add(FeedbackRespone(data: feedbackList,total:(respone.respone as FeedbackRespone).total));
+      } else {
+        onError.add(respone.httpCallBack);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
   static ProducItemRespone convertDataToProduct({ProductData data}) {
     return ProducItemRespone(
         name: data.name,
@@ -1050,8 +1079,8 @@ class ProductBloc {
         id: data.id,
         saleCount: data.saleCount,
         discountPercent: data.discountPercent,
-        rating: data.rating,
-        reviewCount: data.reviewCount,
+        rating: data.rating!=null?data.rating.toDouble():0,
+        reviewCount: data.reviewCount!=null?data.reviewCount.toInt():0,
         shop: ShopItem(
             id: data.shop.id,
             name: data.shop.name,

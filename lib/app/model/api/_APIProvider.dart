@@ -2782,4 +2782,57 @@ class _APIProvider implements APIProvider {
       return ServerError.dioErrorExpction(e);
     }
   }
+
+  @override
+  Future<ApiResult> createFeedback(BuildContext context, {int rating, String comment, int inventoryId,String token,int orderId}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{"rating": rating, "comment": comment,"inventoryId":inventoryId,"orderId":orderId};
+    try {
+      final _result =
+      await _dio.request<dynamic>('/v1/feedback',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token": token,
+                'Accept-Language':
+                EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(
+          respone: FeedbackData.fromJson(_result.data),
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> getFeedback(BuildContext context, {int id, int limit, int page}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+      final _result = await _dio.request<dynamic>(
+          '/v1/products/$id/feedbacks?limit=$limit&page=$page',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'GET',
+              headers: <String, dynamic>{
+                'Accept-Language':
+                EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(
+          respone: FeedbackRespone.fromJson(_result.data),
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
 }

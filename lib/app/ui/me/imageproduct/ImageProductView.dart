@@ -28,10 +28,7 @@ class ImageProductView extends StatefulWidget {
 
 class _ImageProductViewState extends State<ImageProductView> {
   List<Asset> images = <Asset>[];
-  // String _error = 'No Error Dectected';
 
-  //File _imageFile;
-  // List<String> imageUrlList = [];
   UploadProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 

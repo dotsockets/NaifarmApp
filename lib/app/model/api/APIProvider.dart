@@ -23,6 +23,7 @@ import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
+import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ImageUploadRespone.dart';
 import 'package:naifarm/app/model/pojo/response/InformationResponce.dart';
@@ -458,6 +459,13 @@ abstract class APIProvider {
 
   @GET("/v1/system")
   Future<ApiResult> getSystem(BuildContext context);
+
+ @POST("/v1/feedback")
+ Future<ApiResult> createFeedback(BuildContext context, {int rating,String comment,int inventoryId,String token,int orderId});
+
+  @GET("/v1/products/85/feedbacks")
+  Future<ApiResult> getFeedback(BuildContext context, {int id,int limit,int page,});
+
 }
 
 // @JsonSerializable()
