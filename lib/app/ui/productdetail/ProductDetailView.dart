@@ -506,8 +506,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                           }
                         },
                       ),
-                      divider(),
-
+                      
                       FutureBuilder<FeedbackRespone>(
                           future: bloc.getFeedbackFuture(context,
                               limit: 10,
