@@ -39,20 +39,22 @@ class _FlashSaleBarState extends State<FlashSaleBar> {
 
   @override
   void dispose() {
-    super.dispose();
     timer.cancel();
+    super.dispose();
   }
 
   void _getTime() {
-    setState(() {
-      date = date.add(new Duration(seconds: -1));
-      if (date.hour == 0 && date.minute == 0 && date.second < 1) {
-        new Timer(const Duration(seconds: 1), () {
-          timer.cancel();
-          flashTime = 0;
-        });
-      }
-    });
+    if (mounted) {
+      setState(() {
+        date = date.add(new Duration(seconds: -1));
+        if (date.hour == 0 && date.minute == 0 && date.second < 1) {
+          new Timer(const Duration(seconds: 1), () {
+            timer.cancel();
+            flashTime = 0;
+          });
+        }
+      });
+    }
   }
 
   @override
